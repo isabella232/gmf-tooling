@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: GMF Models Bridging Plug-in
+Bundle-SymbolicName: org.eclipse.gmf.bridge
+Bundle-Version: 1.0.0
+Bundle-Vendor: Eclipse.org
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.jdt.core,
+ org.eclipse.gmf.diadef;visibility:=reexport,
+ org.eclipse.gmf.map;visibility:=reexport,
+ org.eclipse.gmf.codegen;visibility:=reexport,
+ org.eclipse.gmf.runtime
+Export-Package: org.eclipse.gmf.bridge.genmodel

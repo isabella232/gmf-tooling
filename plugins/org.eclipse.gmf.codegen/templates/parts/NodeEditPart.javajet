@@ -1,0 +1,474 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.diacanvas" class="NodeEditPartGen" imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.ImportUtil"%>
+<%
+GenNode genNode = (GenNode) argument;
+GenDiagram genDiagram = genNode.getDiagram();
+%>
+package <%=genDiagram.getEditPartsPackageName()%>;
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
+
+import java.util.*;
+import org.eclipse.draw2d.*;
+import org.eclipse.emf.edit.domain.*;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.gef.*;
+import org.eclipse.gef.commands.*;
+import org.eclipse.gef.editparts.*;
+import org.eclipse.gef.editpolicies.*;
+import org.eclipse.gef.requests.*;
+import org.eclipse.gef.tools.*;
+<%importManager.addImport("org.eclipse.gmf.diagramrt.*");%>
+import org.eclipse.gmf.runtime.gef.DefaultDirectEditManager;
+import org.eclipse.gmf.runtime.gef.CompartmentsContentPane;
+import org.eclipse.gmf.runtime.gef.commands.ChangeDiagramElementNameCommand;
+import org.eclipse.gmf.runtime.gef.commands.CreateChildNodeCommand;
+import org.eclipse.gmf.runtime.gef.commands.CreateDiagramLinkCommand;
+import org.eclipse.gmf.runtime.gef.commands.DeleteDiagramNodeCommand;
+import org.eclipse.gmf.runtime.update.UpdatablePart;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Font;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genNode.getEditPartClassName()%> extends AbstractGraphicalEditPart implements org.eclipse.gef.NodeEditPart, UpdatablePart {
+	/**
+	 * @generated
+	 */
+	public static final int VISUAL_ID = <%=genNode.getVisualID()%>;
+<%if (genNode.hasNameToEdit()) {%>
+
+	/**
+	 * @generated
+	 */
+	protected DirectEditManager myManager;
+
+	/**
+	 * @generated
+	 */
+	private IFigure myDirectEditFigure;
+<%}%>
+<%if (!genNode.getChildContainers().isEmpty()) {%>
+	/**
+	 * @generated
+	 */
+	private CompartmentsContentPane myContentPane;
+<%}%>
+	/**
+	 * @generated
+	 */
+	private ConnectionAnchor myAnchor;
+
+	/**
+	 * @generated
+	 */
+	public <%=genNode.getEditPartClassName()%>(DiagramNode model) {
+		setModel(model);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void createEditPolicies() {
+		// super.createEditPolicies();
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, createLayoutPolicy());
+		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, createGraphicalNodePolicy());
+		installEditPolicy(EditPolicy.COMPONENT_ROLE, createComponentPolicy());
+<%if (genNode.hasNameToEdit()) {%>
+		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, createDirectEditPolicy());
+<%}%>
+		installEditPolicy(EditPolicy.SELECTION_FEEDBACK_ROLE, createSelectionFeedbackPolicy());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EditPolicy createSelectionFeedbackPolicy() {
+		return new ResizableEditPolicy() {
+			protected IFigure createDragSourceFeedbackFigure() {
+				IFigure feedback = super.createDragSourceFeedbackFigure();
+				feedback.setForegroundColor(ColorConstants.darkGray);
+				return feedback;
+			}
+		};
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EditPolicy createComponentPolicy() {
+		return new ComponentEditPolicy() {
+			protected Command createDeleteCommand(GroupRequest deleteRequest) {
+				// FIXME deleteRequest is GroupRequest. Should I respect editPart(s!) from request
+				// rather then taking model of this editPart?
+				if (deleteRequest.getEditParts().size() != 1 && deleteRequest.getEditParts().get(0) != getDiagramNode()) {
+					System.err.println("WARNING: needs fix!");
+				}
+				return new DeleteDiagramNodeCommand(getDiagramNode());
+			}
+		};
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EditPolicy createLayoutPolicy() {
+		return new LayoutEditPolicy() {
+			protected EditPolicy createChildEditPolicy(EditPart child) {
+				return null;
+			}
+			protected Command getCreateCommand(CreateRequest request) {
+				if (request.getNewObjectType() != ChildNode.class) {
+					return null;
+				}
+				ChildNode childNode = (ChildNode) request.getNewObject();
+				// FIXME get feature from compartment definition, GenChildContainer.childFeatures
+				// foreach (cn : genNode.childNode)
+				// if cn.getDomainMetaClass == childNode.getDomainElement().eClass()) feature = cn.childFeature
+				return new CreateChildNodeCommand(childNode, getDiagramNode());
+			}
+			protected Command getDeleteDependantCommand(Request request) {
+				return null;
+			}
+			protected Command getMoveChildrenCommand(Request request) {
+				return UnexecutableCommand.INSTANCE;
+			}
+			protected void showLayoutTargetFeedback(Request request) {
+				if (myLayoutFeedback != null) {
+					return;
+				}
+				myLayoutFeedback = createLayoutFeedback();
+				addFeedback(myLayoutFeedback);
+			}
+			protected void eraseLayoutTargetFeedback(Request request) {
+				removeFeedback(myLayoutFeedback);
+				myLayoutFeedback = null;
+			}
+			private IFigure createLayoutFeedback() {
+				RectangleFigure result = new RectangleFigure();
+				result.setFill(false);
+				result.setBounds(getHostFigure().getBounds().getExpanded(5, 5));
+				return result;
+			}
+			private IFigure myLayoutFeedback;
+		};
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EditPolicy createGraphicalNodePolicy() {
+		return new GraphicalNodeEditPolicy() {
+			protected Command getConnectionCompleteCommand(CreateConnectionRequest request) {
+				CreateDiagramLinkCommand cmd = (CreateDiagramLinkCommand) request.getStartCommand();
+				cmd.setTargetNode(getDiagramNode());
+				return cmd;
+			}
+			protected Command getConnectionCreateCommand(CreateConnectionRequest request) {
+				if (request.getNewObjectType() != DiagramLink.class) {
+					return null;
+				}
+				DiagramLink diagramLink = (DiagramLink) request.getNewObject();
+				Command cmd = new CreateDiagramLinkCommand(diagramLink, getDiagramNode());
+				request.setStartCommand(cmd);
+				return cmd;
+				// The disallow cursor will be shown IFF you return null
+			}
+			protected Command getReconnectSourceCommand(ReconnectRequest request) {
+				return null; // TODO
+			}
+			protected Command getReconnectTargetCommand(ReconnectRequest request) {
+				return null; // TODO
+			}
+		};
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure createFigure() {
+<%if (genNode.getViewmapURI() != null) {%>
+		IFigure r = <%=importManager.getImportedName("org.eclipse.gmf.diagramrt.gefsvg.SVGShapeFactory")%>.create("<%=genDiagram.getPluginID()%>", "<%=genNode.getViewmapURI()%>");
+<%} else {%>
+<%if (genNode.getNodeVisualizationKind() == 1) {%>
+		RoundedRectangle r = new RoundedRectangle() {
+<%}%>
+<%if (genNode.getNodeVisualizationKind() == 2) {%>
+		RectangleFigure r = new RectangleFigure() {
+<%}%>
+<%if (genNode.getNodeVisualizationKind() == 3) {%>
+		Ellipse r = new Ellipse() {
+<%}%>
+<%if (genNode.getNodeVisualizationKind() == 4) {%>
+		Triangle r = new Triangle() {
+<%}%>
+<%if (genNode.getNodeVisualizationKind() > 0 && genNode.getNodeVisualizationKind() < 5) {%>
+			protected void fillShape(Graphics graphics) {
+				graphics.pushState();
+				graphics.setForegroundColor(getColorSupport().get("130,245,255")); //88, 210, 245
+				graphics.fillGradient(getBounds(), true);
+				graphics.popState();
+			}
+		};
+		r.setLineWidth(2);
+<%}%>
+<%if (genNode.getNodeVisualizationKind() == 5) {%>
+		Label r = new Label();
+<%}%>
+<%}%>
+		r.setLocation(getDiagramNode().getLocation());
+		if (getDiagramNode().getSize().isEmpty()) {
+			r.setSize(100, 50);
+		} else {
+			r.setSize(getDiagramNode().getSize());
+		}
+		r.setBorder(new MarginBorder(0, 5, 0, 5));
+<%if (genNode.getForegroundColor() != null) {%>
+		if (getDiagramNode().getForegroundColor() == null) {
+			// set default color, defined in genmodel
+			r.setForegroundColor(getColorSupport().get("<%=genNode.getForegroundColor()%>"));
+		}
+<%}%>
+<%if (genNode.getBackgroundColor() != null) {%>
+		if (getDiagramNode().getBackgroundColor() == null) {
+			r.setBackgroundColor(getColorSupport().get("<%=genNode.getBackgroundColor()%>"));
+		}
+<%}%>
+		refreshColors(r);
+<%if (genNode.hasNameToEdit() || !genNode.getAffixedStereotypes().isEmpty()) {%>
+		r.setLayoutManager(new ToolbarLayout());
+<%}%>
+<%if (!genNode.getAffixedStereotypes().isEmpty()) {%>
+		Label stereotypes = new Label();
+<%
+StringBuffer sb = new StringBuffer();
+sb.append('<');
+for (Iterator it = genNode.getAffixedStereotypes().iterator(); it.hasNext();) { 
+	sb.append(it.next());
+	sb.append(',');
+}
+sb.deleteCharAt(sb.length() - 1);
+sb.append('>');
+%>
+		stereotypes.setText("<%=sb.toString()%>");
+		stereotypes.setFont(<%=importManager.getImportedName("org.eclipse.jface.resource.JFaceResources")%>.getFontRegistry().getItalic(JFaceResources.TEXT_FONT));
+		r.add(stereotypes);
+<%}%>
+<%if (genNode.hasNameToEdit()) {%>
+		r.add(getDirectEditFigure());
+<%}%>
+<%if (!genNode.getChildContainers().isEmpty()) {%>
+		// XXX actually, content pane should be added with some constraint, 
+		// not necessarily as the last figure. 
+		myContentPane = createContentPane();
+		r.add(myContentPane);
+<%}%>
+		return r;
+	}
+
+	/**
+	 * @generated
+	 */
+	public DiagramNode getDiagramNode() {
+		return (DiagramNode) getModel();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshVisuals() {
+		visualPropertiesChanged();
+		boundsChanged();
+		super.refreshVisuals();
+	}
+
+	// XXX TODO? introduce ChangeColorRequest() with appropriate command to handle? With EditPolicy/handleRequest?
+	// (+) undo, unified, (-) nothing, really.
+	// ??? Request/policy? Enough to have command?
+
+	/**
+	 * @generated
+	 */
+	protected void refreshColors(IFigure fig) {
+		if (getDiagramNode().getForegroundColor() != null) {
+			fig.setForegroundColor(getColorSupport().get(getDiagramNode().getForegroundColor()));
+		}
+		if (getDiagramNode().getBackgroundColor() != null) {
+			fig.setBackgroundColor(getColorSupport().get(getDiagramNode().getBackgroundColor()));
+		}
+	}
+<%if (!genNode.getChildNodes().isEmpty()) {%>
+	/**
+	 * @generated
+	 */
+	protected List getModelChildren() {
+		return getDiagramNode().getChildNodes();
+	}
+<%}%>
+<%if (!genNode.getChildContainers().isEmpty() /* production: && !genNode.getChildNodes().isEmpty()*/) {%>
+
+	/**
+	 * @generated
+	 */
+	protected CompartmentsContentPane createContentPane() {
+		CompartmentsContentPane contentPane = new CompartmentsContentPane();
+		// if (genNode.childContainersPlacement == TOOLBAR) {
+		contentPane.setLayoutManager(new ToolbarLayout());
+		// } else {
+		//contentPane.setLayoutManager(new FlowLayout());
+		//}
+		IFigure compartment;
+<%for (Iterator it = genNode.getChildContainers().iterator(); it.hasNext();) {
+		GenChildContainer childContainer = (GenChildContainer) it.next();
+%>
+		compartment = createCompartment("<%=childContainer.getTitleKey()%>");
+		
+		// if childContainer.needsLabel() {
+		// compartment.setLabel(childContainer.titleKey);
+		//}
+		// compartment.setCollapse(childContainer.canCollapse);
+		// compartment.setHideEmpty(childContainer.hideIfEmpty);
+		// switch (compartment.layoutKind)
+		compartment.setLayoutManager(new ToolbarLayout());
+		contentPane.register("<%=childContainer.getGroupID()%>", compartment);
+<%}%>
+		return contentPane;
+	}
+
+
+	/**
+	 * @generated
+	 */
+	protected IFigure createCompartment(String title) {
+		LabeledContainer r = new LabeledContainer();
+		r.setLabel(title);
+		r.setOpaque(false);
+		return r;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		ChildNode model = (ChildNode) childEditPart.getModel();
+		IFigure child = ((GraphicalEditPart)childEditPart).getFigure();
+		myContentPane.addChildVisual(model.getGroupID(), child, index);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(EditPart childEditPart) {
+		ChildNode model = (ChildNode) childEditPart.getModel();
+		IFigure child = ((GraphicalEditPart)childEditPart).getFigure();
+		myContentPane.removeChildVisual(model.getGroupID(), child);
+	}
+
+	/**
+	 * @generated
+	 */
+	public IFigure getContentPane() {
+		return myContentPane;
+	}
+<%}%>
+	/**
+	 * @generated
+	 */
+	protected List getModelSourceConnections() {
+		return getDiagramNode().getOutgoingLinks();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected List getModelTargetConnections() {
+		return getDiagramNode().getIncomingLinks();
+	}
+
+	/**
+	 * @generated
+	 */
+	public void boundsChanged() {
+		getFigure().setLocation(getDiagramNode().getLocation());
+		getFigure().setSize(getDiagramNode().getSize());
+		getFigure().revalidate();
+	}
+
+	/**
+	 * @generated
+	 */
+	public void visualPropertiesChanged() {
+		refreshColors(getFigure());
+	}
+
+	/**
+	 * @generated
+	 */
+	public void structuralPropertiesChanged() {
+		refreshChildren();
+	}
+
+	/**
+	 * @generated
+	 */
+	public void incomingLinksChanged() {
+		refreshTargetConnections();
+	}
+
+	/**
+	 * @generated
+	 */
+	public void outgoingLinksChanged() {
+		refreshSourceConnections();
+	}
+
+<%if (genNode.hasNameToEdit()) {%>
+<%@ include file="directedit.jetinc"%>
+<%}%>
+	/**
+	 * @generated
+	 */
+	public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart arg0) {
+		return getAnchor();
+	}
+
+	/**
+	 * @generated
+	 */
+	public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart arg0) {
+		return getAnchor();
+	}
+
+	/**
+	 * @generated
+	 */
+	public ConnectionAnchor getSourceConnectionAnchor(Request arg0) {
+		return getAnchor();
+	}
+
+	/**
+	 * @generated
+	 */
+	public ConnectionAnchor getTargetConnectionAnchor(Request arg0) {
+		return getAnchor();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.gef.ColorSupport")%> getColorSupport() {
+		return ((<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>) getRoot().getContents()).getColorSupport();
+	}
+
+	/**
+	 * @generated
+	 */
+	private ConnectionAnchor getAnchor() {
+		if (myAnchor == null) {
+			myAnchor = new ChopboxAnchor(getFigure());
+		}
+		return myAnchor;
+	}
+}
+<%importManager.emitSortedImports();%>

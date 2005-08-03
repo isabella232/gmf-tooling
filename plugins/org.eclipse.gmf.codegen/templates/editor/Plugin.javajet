@@ -1,0 +1,49 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.diacanvas" class="PluginGen" imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.ImportUtil"%>
+<%GenDiagram genDiagram = (GenDiagram) argument;%>
+package <%=genDiagram.getEditorPackageName()%>;
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
+
+import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osgi.framework.BundleContext;
+
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genDiagram.getPluginClassName()%> extends AbstractUIPlugin {
+	/**
+	 * @generated
+	 */
+	private static <%=genDiagram.getPluginClassName()%> ourInstance;
+
+	/**
+	 * @generated
+	 */
+	public <%=genDiagram.getPluginClassName()%>() {
+	}
+
+	/**
+	 * @generated
+	 */
+	public void start(BundleContext context) throws Exception {
+		super.start(context);
+		ourInstance = this;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void stop(BundleContext context) throws Exception {
+		ourInstance = null;
+		super.stop(context);
+	}
+
+	/**
+	 * @generated
+	 */
+	public static <%=genDiagram.getPluginClassName()%> getInstance() {
+		return ourInstance;
+	}
+}
+<%importManager.emitSortedImports();%>

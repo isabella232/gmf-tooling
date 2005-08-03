@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.codegen/src"
+    editorDirectory="/org.eclipse.gmf.codegen.edit/src" modelPluginID="org.eclipse.gmf.codegen"
+    modelName="GMFGen" editPluginClass="org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin"
+    editorPluginClass="org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin" importerID="org.eclipse.emf.importer.ecore"
+    usedGenPackages="../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel#//genmodel ../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore">
+  <foreignModel>gmfgen.ecore</foreignModel>
+  <genPackages prefix="GMFGen" basePackage="org.eclipse.gmf.codegen" disposableProviderFactory="true"
+      ecorePackage="gmfgen.ecore#/">
+    <genEnums ecoreEnum="gmfgen.ecore#//CompartmentPlacementKind">
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//CompartmentPlacementKind/FLOW"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//CompartmentPlacementKind/TOOLBAR"/>
+    </genEnums>
+    <genEnums ecoreEnum="gmfgen.ecore#//CompartmentLayoutKind">
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//CompartmentLayoutKind/BORDER"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//CompartmentLayoutKind/FLOW"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//CompartmentLayoutKind/SCROLL"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//CompartmentLayoutKind/TOOLBAR"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//CompartmentLayoutKind/XY"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="gmfgen.ecore#//StringArray"/>
+    <genClasses ecoreClass="gmfgen.ecore#//GenDiagram">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/domainMetaModel"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/emfGenModel"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/domainDiagramElement"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/nodes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/links"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/palette"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/editPartsPackageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/commandsPackageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/editProvidersPackageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/pluginName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/providerName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/pluginID"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/pluginClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/editorPackageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/editorClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/editPartFactoryClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/metaInfoFactoryClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/hasDomainModel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/diagramFileExtension"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/sameFileForDiagramAndModel"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getPluginQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getEditorQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getEditPartFactoryQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getMetaInfoFactoryQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/findGenClass">
+        <genParameters ecoreParameter="gmfgen.ecore#//GenDiagram/findGenClass/domainMetaClass"/>
+      </genOperations>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/findGenFeature">
+        <genParameters ecoreParameter="gmfgen.ecore#//GenDiagram/findGenFeature/domainMetaFeature"/>
+      </genOperations>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getRequiredPluginIDs"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//GenCommonBase">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCommonBase/diagramRunTimeClass"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommonBase/visualID"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommonBase/editPartClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommonBase/metaInfoProviderClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getEditPartQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getMetaInfoProviderQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getDiagram"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getClassNamePrefix"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getClassNameSuffux"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//GenBaseElement">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenBaseElement/domainNameFeature"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenBaseElement/foregroundColor"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenBaseElement/containmentMetaFeature"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenBaseElement/hasNameToEdit"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenNode">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/diagram"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/domainMetaClass"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNode/viewmapURI"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNode/nodeVisualizationKind"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNode/viewmapClass"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNode/affixedStereotypes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNode/backgroundColor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/childContainers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/childNodes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNode/childContainersPlacement"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenNode/initialize">
+        <genParameters ecoreParameter="gmfgen.ecore#//GenNode/initialize/eClass"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenChildNode">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildNode/groupID"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildNode/parentNode"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildNode/childMetaFeature"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenChildContainer">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/groupID"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/titleKey"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/canCollapse"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/hideIfEmpty"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/needsTitle"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/layoutKind"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//GenLink">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/diagram"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/domainLinkTargetFeature"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/lineStyle"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/figureQualifiedClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/sourceDecorationFigureQualifiedClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/targetDecorationFigureQualifiedClassName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenLinkWithClass">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkWithClass/domainMetaClass"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkWithClass/linkContainerFeature"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenLinkWithClass/initialize">
+        <genParameters ecoreParameter="gmfgen.ecore#//GenLinkWithClass/initialize/eClass"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenLinkReferenceOnly">
+      <genOperations ecoreOperation="gmfgen.ecore#//GenLinkReferenceOnly/initialize">
+        <genParameters ecoreParameter="gmfgen.ecore#//GenLinkReferenceOnly/initialize/eFeature"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//Palette">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//Palette/diagram"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//Palette/groups"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Palette/flyout"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Palette/needZoomTools"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Palette/packageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Palette/factoryClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//Palette/getFactoryQualifiedClassName"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//EntryBase">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/order"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/titleKey"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/descriptionKey"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/largeIconPath"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/smallIconPath"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//ToolEntry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ToolEntry/default"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//NodeEntry">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//NodeEntry/genNode"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//NodeEntry/group"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//LinkEntry">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//LinkEntry/genLink"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//LinkEntry/group"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//ToolGroup">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//ToolGroup/nodeTools"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//ToolGroup/linkTools"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//ToolGroup/palette"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

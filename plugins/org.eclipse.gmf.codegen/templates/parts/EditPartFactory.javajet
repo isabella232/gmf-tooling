@@ -1,0 +1,97 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.diacanvas" class="EditPartFactoryGen" 
+  imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.ecore.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.ImportUtil"%>
+<%GenDiagram genDiagram = (GenDiagram) argument;%>
+package <%=genDiagram.getEditPartsPackageName()%>;
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
+
+import org.eclipse.emf.ecore.*;
+import org.eclipse.gef.*;
+import org.eclipse.gmf.diagramrt.*;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genDiagram.getEditPartFactoryClassName()%> implements EditPartFactory {
+
+	/**
+	 * @generated
+	 */
+	public EditPart createEditPart(EditPart context, Object model) {
+		if (model instanceof ChildNode) {
+			return createChildEditPart(context, (ChildNode) model);
+		}
+		if (model instanceof DiagramNode) {
+			return createNodeEditPart(context, (DiagramNode) model);
+		}
+		if (model instanceof DiagramLink) {
+			return createLinkEditPart(context, (DiagramLink) model);
+		}
+		if (model instanceof DiagramCanvas) {
+			return createCanvasEditPart(context, (DiagramCanvas) model);
+		}
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public EditPart createNodeEditPart(EditPart context, DiagramNode diagramElement) {
+		final int visualID = diagramElement.getVisualID();
+<%
+	//HashMap domainToGenNode = new HashMap();
+	for (Iterator it = genDiagram.getNodes().iterator(); it.hasNext();) {
+		GenNode genNode = (GenNode) it.next();
+%>
+		<%@ include file="nodeepfactory.jetinc"%>
+<%
+	}
+%>
+		System.err.println("No NodeEditPart for " + diagramElement + " with visualID=" + visualID);
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public EditPart createLinkEditPart(EditPart context, DiagramLink diagramElement) {
+		final int visualID = diagramElement.getVisualID();
+<%
+	for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
+		GenLink genLink = (GenLink) it.next();
+%>
+		<%@ include file="linkepfactory.jetinc"%>
+<%
+	}
+%>
+		System.err.println("No LinkEditPart for " + diagramElement + " with visualID=" + visualID);
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public EditPart createChildEditPart(EditPart context, ChildNode diagramElement) {
+		DiagramNode parentNode = (DiagramNode) context.getModel();
+		final EClass parentMetaClass = parentNode.getDomainModelElement().eClass();
+		final EClass childMetaClass = diagramElement.getDomainModelElement().eClass();
+<%
+	for (Iterator it = genDiagram.getNodes().iterator(); it.hasNext();) {
+		GenNode genNode = (GenNode) it.next();
+		if (!genNode.getChildNodes().isEmpty()) {
+%>
+		<%@ include file="childnodeepfactory.jetinc"%>
+<%		}
+	}
+%>
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public EditPart createCanvasEditPart(EditPart context, DiagramCanvas model) {
+		return new <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>(model);
+	}
+}
+<%importManager.emitSortedImports();%>

@@ -1,0 +1,83 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.diacanvas" class="PluginXML" imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.*"%>
+<%GenDiagram genDiagram = (GenDiagram) argument;%>
+<%GenModel genModel = genDiagram.getEmfGenModel();%>
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+    name="<%=genDiagram.getPluginName()%>"
+    id="<%=genDiagram.getPluginID()%>"
+    version="1.0.0"
+    class="<%=genDiagram.getPluginQualifiedClassName()%>"
+    provider-name = "<%=genDiagram.getProviderName()%>">
+
+  <requires>
+    <import plugin="org.eclipse.core.runtime"/>
+    <import plugin="org.eclipse.core.resources"/>
+    <import plugin="org.eclipse.jface"/>
+    <import plugin="org.eclipse.ui.ide"/>
+    <import plugin="org.eclipse.ui.views"/>
+    <import plugin="org.eclipse.ui.workbench"/>
+    <import plugin="org.eclipse.emf.ecore"/>
+<%
+	// XXX org.eclipse.emf.edit.ui is for ExtendedImageRegistry. 
+	// FIXME move image registry to plugin class code
+%>
+    <import plugin="org.eclipse.emf.edit.ui"/>
+    <import plugin="org.eclipse.gef" export="true"/>
+    <import plugin="<%=genDiagram.getDiagramRunTimeClass().getGenModel().getModelPluginID()%>" export="true"/>
+    <import plugin="org.eclipse.gmf.runtime.gef"/>
+    <import plugin="org.eclipse.gmf.edit"/>
+    <import plugin="<%=genModel.getModelPluginID()%>" export="true"/>
+<%if (!genModel.sameModelEditProject()) {%>
+    <import plugin="<%=genModel.getEditPluginID()%>" export="true"/>
+<%}%>
+<%
+String[] requiredPlugins = genDiagram.getRequiredPluginIDs();
+if (requiredPlugins == null) {
+	requiredPlugins = new String[0];
+}
+for (Iterator it = Arrays.asList(requiredPlugins).iterator(); it.hasNext();) {%>
+    <import plugin="<%=it.next()%>" export="true"/>
+<%}%>
+  </requires>
+
+  <runtime>
+    <library name="plugin.jar">
+      <export name="*"/>
+    </library>
+  </runtime>
+
+   <extension point="org.eclipse.ui.editors">
+     <editor 
+        id="<%=genDiagram.getEditorQualifiedClassName()%>_EditorID"
+        name="Diagram Editor for <%=genModel.getModelName()%>"
+        icon="none"
+        extensions="<%=genDiagram.getDiagramFileExtension()%>"
+        class="<%=genDiagram.getEditorQualifiedClassName()%>"
+        contributorClass="org.eclipse.ui.part.EditorActionBarContributor"/>
+    
+   </extension>
+   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="<%=genDiagram.getPluginID()%>.ui.contribution1"
+            objectClass="org.eclipse.core.resources.IContainer">
+         <action
+               label="Create empty <%=genDiagram.getDiagramFileExtension()%> diagram file"
+               class="org.eclipse.gmf.runtime.actions.NewDiagramAction"
+               menubarPath="additions"
+               defaultName="example1"
+               fileExtension="<%=genDiagram.getDiagramFileExtension()%>"
+               rtModelNsURI="<%=genDiagram.getDiagramRunTimeClass().getGenPackage().getEcorePackage().getNsURI()%>"
+               enablesFor="1"
+               id="<%=genDiagram.getPluginID()%>.ui.newDiagramAction">
+         </action>
+      </objectContribution>
+  </extension>
+  <extension point="org.eclipse.team.core.fileTypes">
+      <fileTypes
+            type="text"
+            extension="<%=genDiagram.getDiagramFileExtension()%>">
+      </fileTypes>
+  </extension>
+</plugin>

@@ -1,0 +1,321 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.diacanvas" class="EditorGen" imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.ecore.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.ImportUtil"%>
+<%GenDiagram genDiagram = (GenDiagram) argument;%>
+<%GenModel genModel = genDiagram.getEmfGenModel();%>
+package <%=genDiagram.getEditorPackageName()%>;
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());%>
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.EventObject;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.emf.common.command.BasicCommandStack;
+import org.eclipse.emf.common.command.CommandStackListener;
+import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
+import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
+import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
+import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.actions.ActionFactory;
+import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
+import org.eclipse.ui.views.properties.IPropertySheetPage;
+import org.eclipse.gef.*;
+import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
+import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.ui.actions.*;
+import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
+import org.eclipse.gef.ui.parts.*;
+import org.eclipse.gmf.diagramrt.DiagramCanvas;
+import org.eclipse.gmf.edit.provider.metainfo.AdapterFactoryMetaInfoSource;
+import org.eclipse.gmf.util.SelectionUnwrapProvider;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genDiagram.getEditorClassName()%> extends GraphicalEditorWithFlyoutPalette {
+	// XXX subclass or add adapter to myResourceSet to manage IEditingDomainProvider
+
+	/**
+	 * @generated
+	 */
+	private final ResourceSet myResourceSet = new ResourceSetImpl();
+
+	/**
+	 * @generated
+	 */
+	private DiagramCanvas myDiagram;
+
+	/**
+	 * @generated
+	 */
+	private PaletteRoot myPaletteRoot;
+
+	/**
+	 * @generated
+	 */
+	private AdapterFactory myDomainModelAdapterFactory;
+
+	/**
+	 * @generated
+	 */
+	public <%=genDiagram.getEditorClassName()%>() {
+		// FIXME move to #init() - setEditDomain calls other methods of this class, so it's better to have construction complete
+		setEditDomain(new DefaultEditDomain(this));
+		setupDomainsEMFEdititngDomain();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void configureGraphicalViewer() {
+		super.configureGraphicalViewer();
+
+		GraphicalViewer viewer = getGraphicalViewer();
+		viewer.setRootEditPart(new ScalableFreeformRootEditPart());
+		viewer.setProperty(SnapToGrid.PROPERTY_GRID_SPACING, new Dimension(25, 25));
+		viewer.setProperty(SnapToGrid.PROPERTY_GRID_VISIBLE, Boolean.TRUE);
+		viewer.setEditPartFactory(new <%=importManager.getImportedName(genDiagram.getEditPartFactoryQualifiedClassName())%>());
+		ContextMenuProvider contextMenu = new ContextMenuProvider(viewer) {
+			public void buildContextMenu(IMenuManager menu) {
+				GEFActionConstants.addStandardActionGroups(menu);
+			}
+		};
+		viewer.setContextMenu(contextMenu);
+		getSite().registerContextMenu(contextMenu, new SelectionUnwrapProvider(viewer));
+		// XXX registerContextMenu("anotherID", contextMenu, viewer); - for actions that need editPart in selection?
+
+		// XXX menu manager as part of genModel?
+
+		KeyHandler keyHandler = new GraphicalViewerKeyHandler(viewer);
+		keyHandler.put(KeyStroke.getPressed(SWT.F2, 0), getActionRegistry().getAction(GEFActionConstants.DIRECT_EDIT));
+		keyHandler.put(KeyStroke.getPressed(SWT.DEL, SWT.DEL, 0), getActionRegistry().getAction(ActionFactory.DELETE.getId()));
+		viewer.setKeyHandler(keyHandler);
+
+		viewer.setProperty(MouseWheelHandler.KeyGenerator.getKey(SWT.CTRL), MouseWheelZoomHandler.SINGLETON);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void createActions() {
+		super.createActions();
+
+		Action action = new DirectEditAction((IWorkbenchPart)this);
+		getActionRegistry().registerAction(action);
+		getSelectionActions().add(action.getId());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected FlyoutPreferences getPalettePreferences() {
+		return new <%=importManager.getImportedName("org.eclipse.gmf.util.DefaultPalettePreferences")%>(<%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.getInstance().getPluginPreferences());
+	}
+
+	/**
+	 * @generated
+	 */
+	protected PaletteRoot getPaletteRoot() {
+		if (myPaletteRoot == null) {
+			myPaletteRoot = <%=importManager.getImportedName(genDiagram.getPalette().getFactoryQualifiedClassName())%>.createPalette(getAdapterFactory4DomainModel());
+		}
+		return myPaletteRoot;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Object getAdapter(Class type) {
+		if (type == IPropertySheetPage.class) {
+			// placeholder
+		} else if (type == IContentOutlinePage.class) {
+			// another placeholder
+		}
+		return super.getAdapter(type);
+	}
+
+	// TODO later...
+//	protected PaletteViewerProvider createPaletteViewerProvider() {
+//		return new PaletteViewerProvider(getEditDomain()) {
+//			protected void configurePaletteViewer(PaletteViewer viewer) {
+//				super.configurePaletteViewer(viewer);
+//				viewer.setCustomizer(new PaletteCustomizer()...
+//				// to get Customize... action on palette 
+//			}
+//		};
+//	}
+
+	/**
+	 * @generated
+	 */
+	protected void initializeGraphicalViewer() {
+		super.initializeGraphicalViewer();
+		GraphicalViewer viewer = getGraphicalViewer();
+		viewer.setContents(myDiagram);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setInput(IEditorInput input) {
+		super.setInput(input);
+
+		IFile file = ((IFileEditorInput)input).getFile();
+		URI uri = URI.createURI(file.getFullPath().toString());
+		Resource resource = myResourceSet.getResource(uri, true);
+		myDiagram = (DiagramCanvas) resource.getContents().get(0);
+		setupDomainForDiagram(file);
+		AdapterFactory metaInfoAdapterFactory = new <%=importManager.getImportedName(genDiagram.getMetaInfoFactoryQualifiedClassName())%>();
+		myDiagram.eAdapters().add(new AdapterFactoryMetaInfoSource(metaInfoAdapterFactory));
+
+		setPartName(file.getName());
+		setContentDescription(file.getFullPath().toString());
+	}
+
+	/**
+	 * @generated
+	 */
+	public void doSave(IProgressMonitor monitor) {
+		try {
+			for (Iterator it = myResourceSet.getResources().iterator(); it.hasNext();) {
+				((Resource) it.next()).save(Collections.EMPTY_MAP);
+			}
+			getCommandStack().markSaveLocation();
+		} catch (IOException ex) {
+			// TODO handle exception
+			ex.printStackTrace();
+			MessageDialog.openWarning(getGraphicalControl().getShell(), "Errors Detected", ex.getMessage());
+		}
+	}
+	public void doSaveAs() {
+	}
+	public boolean isSaveAsAllowed() {
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void commandStackChanged(EventObject event) {
+		firePropertyChange(PROP_DIRTY);
+		super.commandStackChanged(event);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void setupDomainForDiagram(IFile file) {
+		EObject domainContainer = myDiagram.getDomainContainerObject();
+<%
+		EClass domainContainerClass = genDiagram.getDomainDiagramElement();
+		GenClass genClass = genDiagram.findGenClass(domainContainerClass);
+		GenPackage genPackage = genClass.getGenPackage();
+		importManager.addImport(genPackage.getInterfacePackageName(), genPackage.getPackageInterfaceName());
+%>
+		if (domainContainer == null || domainContainer.eClass() != <%=genPackage.getPackageInterfaceName()%>.eINSTANCE.get<%=genClass.getClassifierAccessorName()%>()) {
+			// XXX limiting outselves to single container which itself has no containers
+			domainContainer = <%=importManager.getImportedName(genPackage.getQualifiedFactoryInterfaceName())%>.eINSTANCE.create<%=genClass.getName()%>();
+<%if (genDiagram.isSameFileForDiagramAndModel()) {%>
+			Resource domainRes = myDiagram.eResource();
+<%} else {%>
+			URI domainResURI = URI.createURI(file.getFullPath().removeFileExtension().addFileExtension("<%=genPackage.getPrefix().toLowerCase()%>").toString());
+			Resource domainRes = myResourceSet.createResource(domainResURI);
+<%}%>
+			domainRes.getContents().add(domainContainer);
+			myDiagram.setDomainResource(domainRes);
+			myDiagram.setDomainContainerObject(domainContainer);
+		} else {
+			// XXX keeping domainResource in addition to domainContainerObject
+			// for future - when we implement support for "no dedicated domain container object"
+			// case, and created nodes go directly to the object
+			myDiagram.setDomainResource(domainContainer.eResource());
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected AdapterFactory getAdapterFactory4DomainModel() {
+		if (myDomainModelAdapterFactory == null) {
+			ArrayList factories = new ArrayList();
+			fillItemProviderFactories(factories);
+			myDomainModelAdapterFactory = new ComposedAdapterFactory(factories);
+		}
+		return myDomainModelAdapterFactory;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setupDomainsEMFEdititngDomain() {
+		BasicCommandStack commandStack = new BasicCommandStack();
+		commandStack.addCommandStackListener(new CommandStackListener() {
+			public void commandStackChanged(final EventObject event) {
+				getEditorDisplay().asyncExec(new Runnable() {
+					public void run() {
+						firePropertyChange(IEditorPart.PROP_DIRTY);
+					}
+				});
+			}
+		});
+		AdapterFactoryEditingDomain afed = new AdapterFactoryEditingDomain(getAdapterFactory4DomainModel(), commandStack);
+		myResourceSet.eAdapters().add(new AdapterFactoryEditingDomain.EditingDomainProvider(afed));
+	}
+
+	/**
+	 * @generated
+	 */
+	Display getEditorDisplay() {
+		return getGraphicalControl().getDisplay();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void fillItemProviderFactories(List factories) {
+<%for (Iterator i = genModel.getAllGenPackagesWithClassifiers().iterator(); i.hasNext(); ) {
+	GenPackage aGenPackage = (GenPackage)i.next();
+	if (aGenPackage.getGenModel().hasEditSupport()) {
+%>
+		factories.add(new <%=importManager.getImportedName(aGenPackage.getQualifiedItemProviderAdapterFactoryClassName())%>());
+<%	}%>
+<%}%>
+<%for (Iterator i = genModel.getAllUsedGenPackagesWithClassifiers().iterator(); i.hasNext(); ) {
+	GenPackage aGenPackage = (GenPackage)i.next();
+	if (aGenPackage.getGenModel().hasEditSupport()) {
+%>
+		factories.add(new <%=importManager.getImportedName(aGenPackage.getQualifiedItemProviderAdapterFactoryClassName())%>());
+<%	}%>
+<%}%>
+		factories.add(new ResourceItemProviderAdapterFactory());
+		factories.add(new ReflectiveItemProviderAdapterFactory());
+	}
+
+	/**
+	 * make accessible for command stack listener
+	 * @generated
+	 */
+	protected void firePropertyChange(int property) {
+		super.firePropertyChange(property);
+	}
+}
+<%importManager.emitSortedImports();%>

@@ -1,0 +1,15 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.edit" class="CanvasMetaInfoProviderGenerator" imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.ImportUtil"%>
+<%GenDiagram genDiagram = (GenDiagram) argument;%>
+package <%=genDiagram.getEditProvidersPackageName()%>;
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditProvidersPackageName());%>
+
+import org.eclipse.gmf.diagramrt.DiagramCanvas;
+import org.eclipse.gmf.edit.provider.CanvasMetaInfoProvider;
+import org.eclipse.gmf.edit.provider.MetaInfoProviderAdapter;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genDiagram.getMetaInfoProviderClassName()%> extends MetaInfoProviderAdapter implements CanvasMetaInfoProvider {
+}
