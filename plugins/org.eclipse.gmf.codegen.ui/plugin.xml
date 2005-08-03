@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="gmf.codegen.ui.contribution2"
+            nameFilter="*.gmfgen"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               label="GMF: Step 2 - Generate code"
+               class="org.eclipse.gmf.internal.codegen.popup.actions.ExecuteTemplatesAction"
+               menubarPath="additions"
+               enablesFor="1"
+               id="gmf.codegen.ui.newAction2">
+         </action>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="gmf.codegen.ui.contribution4"
+            nameFilter="*.gmfmap"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               class="org.eclipse.gmf.internal.codegen.popup.actions.TransformToGenModel"
+               enablesFor="1"
+               id="gmf.codegen.ui.newAction4"
+               label="GMF: Step 1 - Transform to .gmfgen"
+               menubarPath="additions"/>
+         <action
+               class="org.eclipse.gmf.internal.codegen.popup.actions.CreateSpecificDiagramRunTimeModelAction"
+               enablesFor="1"
+               id="gmf.codegen.ui.newAction5"
+               label="GMF: Step 0(opt) - Create specific DiagramRT model"
+               menubarPath="additions"/>
+      </objectContribution>
+   </extension>
+
+</plugin>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+  <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+    <factory 
+       uri = "http://www.eclipse.org/gmf/2005/DiagramDefinition" 
+       class = "org.eclipse.gmf.diadef.provider.DiagramDefinitionItemProviderAdapterFactory"
+       supportedTypes = 
+         "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+          org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+          org.eclipse.emf.edit.provider.ITreeItemContentProvider
+          org.eclipse.emf.edit.provider.IItemLabelProvider
+          org.eclipse.emf.edit.provider.IItemPropertySource" />
+  </extension>
+  
+
+  <extension
+    point = "org.eclipse.ui.newWizards">
+    <category
+      id = "org.eclipse.emf.ecore.Wizard.category.ID"
+      name="%_UI_Wizard_category">
+    </category>
+    <wizard
+      id = "org.eclipse.gmf.diadef.presentation.DiagramDefinitionModelWizardID"
+      name = "%_UI_DiagramDefinitionModelWizard_label"
+      class = "org.eclipse.gmf.diadef.presentation.DiagramDefinitionModelWizard"
+      category = "org.eclipse.emf.ecore.Wizard.category.ID"
+      icon = "icons/full/obj16/DiagramDefinitionModelFile.gif">
+      <description>%_UI_DiagramDefinitionModelWizard_description</description>
+      <selection class = "org.eclipse.core.resources.IResource" />
+    </wizard>
+  </extension>
+
+  <extension point = "org.eclipse.ui.editors">
+    <editor
+        id = "org.eclipse.gmf.diadef.presentation.DiagramDefinitionEditorID"
+        name = "%_UI_DiagramDefinitionEditor_label"
+        icon = "icons/full/obj16/DiagramDefinitionModelFile.gif"
+        extensions = "diadef"
+        class = "org.eclipse.gmf.diadef.presentation.DiagramDefinitionEditor" 
+        contributorClass="org.eclipse.gmf.diadef.presentation.DiagramDefinitionActionBarContributor" >
+    </editor>
+  </extension>    
+</plugin>

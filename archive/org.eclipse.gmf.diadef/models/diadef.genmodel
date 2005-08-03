@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.diadef/src"
+    editDirectory="/org.eclipse.gmf.diadef.edit/src" editorDirectory="/org.eclipse.gmf.diadef.edit/src"
+    modelPluginID="org.eclipse.gmf.diadef" modelName="DiaDef" editPluginClass="org.eclipse.gmf.diadef.provider.DiagramDefEditPlugin"
+    editorPluginClass="org.eclipse.gmf.diadef.provider.DiagramDefEditPlugin" importerID="org.eclipse.emf.importer.ecore">
+  <foreignModel>diadef.ecore</foreignModel>
+  <genPackages prefix="DiagramDefinition" basePackage="org.eclipse.gmf" disposableProviderFactory="true"
+      ecorePackage="diadef.ecore#/">
+    <genEnums ecoreEnum="diadef.ecore#//LineKind">
+      <genEnumLiterals ecoreEnumLiteral="diadef.ecore#//LineKind/SOLID"/>
+      <genEnumLiterals ecoreEnumLiteral="diadef.ecore#//LineKind/DOT"/>
+      <genEnumLiterals ecoreEnumLiteral="diadef.ecore#//LineKind/DASH"/>
+    </genEnums>
+    <genEnums ecoreEnum="diadef.ecore#//AdornmentKind">
+      <genEnumLiterals ecoreEnumLiteral="diadef.ecore#//AdornmentKind/None"/>
+      <genEnumLiterals ecoreEnumLiteral="diadef.ecore#//AdornmentKind/OpenTriangle"/>
+      <genEnumLiterals ecoreEnumLiteral="diadef.ecore#//AdornmentKind/FilledTriangle"/>
+      <genEnumLiterals ecoreEnumLiteral="diadef.ecore#//AdornmentKind/Rhomb"/>
+      <genEnumLiterals ecoreEnumLiteral="diadef.ecore#//AdornmentKind/FilledRhomb"/>
+    </genEnums>
+    <genClasses image="false" ecoreClass="diadef.ecore#//DiagramElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diadef.ecore#//DiagramElement/needsTool"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diadef.ecore#//DiagramElement/toolGroupID"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diadef.ecore#//DiagramElement/smallIconPath"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diadef.ecore#//DiagramElement/largeIconPath"/>
+    </genClasses>
+    <genClasses ecoreClass="diadef.ecore#//Node">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diadef.ecore#//Node/maxWidth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diadef.ecore#//Node/maxHeight"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diadef.ecore#//Node/defaultWidth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diadef.ecore#//Node/defaultHeight"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diadef.ecore#//Node/compartments"/>
+    </genClasses>
+    <genClasses ecoreClass="diadef.ecore#//Compartment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diadef.ecore#//Compartment/collapsible"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diadef.ecore#//Compartment/needsTitle"/>
+    </genClasses>
+    <genClasses ecoreClass="diadef.ecore#//Connection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diadef.ecore#//Connection/lineKind"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diadef.ecore#//Connection/sourceAdornment"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diadef.ecore#//Connection/targetAdornment"/>
+    </genClasses>
+    <genClasses ecoreClass="diadef.ecore#//Canvas">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diadef.ecore#//Canvas/nodes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diadef.ecore#//Canvas/links"/>
+    </genClasses>
+    <genClasses ecoreClass="diadef.ecore#//RunTimeProperty"/>
+    <genClasses image="false" ecoreClass="diadef.ecore#//Identity">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diadef.ecore#//Identity/name"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="diadef.ecore#//CommonBase">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diadef.ecore#//CommonBase/properties"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
