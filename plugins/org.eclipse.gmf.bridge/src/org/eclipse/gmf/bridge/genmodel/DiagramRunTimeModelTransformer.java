@@ -65,7 +65,7 @@ public class DiagramRunTimeModelTransformer extends MappingTransofrmer {
 			EAttribute a = EcoreFactory.eINSTANCE.createEAttribute();
 			a.setName(p.getName());
 			a.setEType(EcorePackage.eINSTANCE.getEString());
-			c.getEAttributes().add(a);
+			c.getEStructuralFeatures().add(a);
 		}
 	}
 
