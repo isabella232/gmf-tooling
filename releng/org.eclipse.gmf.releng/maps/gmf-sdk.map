@@ -12,3 +12,5 @@ plugin@org.eclipse.gmf.diadef.edit=HEAD,:pserver:anonymous@dev.eclipse.org:/home
 plugin@org.eclipse.gmf.edit=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.edit
 plugin@org.eclipse.gmf.map=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.map
 plugin@org.eclipse.gmf.map.edit=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.map.edit
+plugin@org.eclipse.gmf.runtime=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime
+plugin@org.eclipse.gmf.runtime.gef=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.gef
