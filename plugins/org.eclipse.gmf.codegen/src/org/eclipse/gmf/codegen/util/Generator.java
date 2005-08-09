@@ -213,6 +213,9 @@ public class Generator implements Runnable {
 		if (needsRequiredPlugins) {
 			classpathEntries.add(JavaCore.newContainerEntry(pdeReqPluginPath));
 		}
+		if (needsJREContainer) {
+			classpathEntries.add(JavaCore.newContainerEntry(jreContainerPath));
+		}
 		if (needsSourceLocation) {
 			IFolder srcFolder = ResourcesPlugin.getWorkspace().getRoot().getFolder(srcPath);
 			if (!srcFolder.exists()) {
