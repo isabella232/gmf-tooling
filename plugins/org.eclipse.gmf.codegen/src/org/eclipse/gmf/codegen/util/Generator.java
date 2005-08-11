@@ -12,15 +12,12 @@
 package org.eclipse.gmf.codegen.util;
 
 import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
+import java.util.List;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -37,9 +34,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.diagramrt.DiagramRTPackage;
-import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.ICompilationUnit;
-import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
@@ -151,108 +146,28 @@ public class Generator implements Runnable {
 	}
 
 	private void initializeEditorProject() throws CoreException, UnexpectedBehaviourException, InterruptedException {
-		final IProgressMonitor pm = getNextStepMonitor();
-		pm.beginTask(Messages.initproject, 7);
 		myDestProject = ResourcesPlugin.getWorkspace().getRoot().getProject(myDiagram.getPluginID());
-		if (!myDestProject.exists()) {
-			myDestProject.create(new SubProgressMonitor(pm, 1));
-		} else {
-			pm.worked(1);
-		}
-		if (!myDestProject.isOpen()) {
-			myDestProject.open(new SubProgressMonitor(pm, 1));
-		} else {
-			pm.worked(1);
-		}
-		IProjectDescription projectDesc = myDestProject.getDescription();
-		LinkedHashSet natures = new LinkedHashSet(Arrays.asList(projectDesc.getNatureIds()));
-		if (!natures.contains(JavaCore.NATURE_ID)) {
-			natures.add(JavaCore.NATURE_ID);
-		}
-		if (!natures.contains("org.eclipse.pde.PluginNature")) { //$NON-NLS-1$
-			natures.add("org.eclipse.pde.PluginNature"); //$NON-NLS-1$
-		}
-		if (natures.size() != projectDesc.getNatureIds().length) {
-			projectDesc.setNatureIds((String[]) natures.toArray(new String[natures.size()]));
-			myDestProject.setDescription(projectDesc, new SubProgressMonitor(pm, 1));
-		} else {
-			pm.worked(1);
-		}
+		final Path srcPath = new Path('/' + myDestProject.getName() + "/src"); //$NON-NLS-1$
+		final Path projectLocation = null; // use default
+		final List referencedProjects = createReferencedProjectsList();
+		final int style = org.eclipse.emf.codegen.ecore.Generator.EMF_PLUGIN_PROJECT_STYLE;
+		final List pluginVariables = createPluginVariablesList();
+		final IProgressMonitor pm = getNextStepMonitor();
 
-		IJavaProject jp = JavaCore.create(myDestProject);
-		if (!jp.exists()) {
-			throw new UnexpectedBehaviourException("Can't create java project for ");
-		}
-		ArrayList classpathEntries = new ArrayList(Arrays.asList(jp.getRawClasspath()));
-		boolean needsRequiredPlugins = true;
-		boolean needsSourceLocation = true;
-		boolean needsJREContainer = true;
-		final Path srcPath = new Path('/' + jp.getElementName() + "/src"); //$NON-NLS-1$
-		final Path pdeReqPluginPath = new Path("org.eclipse.pde.core.requiredPlugins"); //$NON-NLS-1$
-		final Path jreContainerPath = new Path("org.eclipse.jdt.launching.JRE_CONTAINER"); //$NON-NLS-1$
+		org.eclipse.emf.codegen.ecore.Generator.createEMFProject(srcPath, projectLocation, referencedProjects, pm, style, pluginVariables);
 
-		for (Iterator it = classpathEntries.iterator(); it.hasNext();) {
-			IClasspathEntry cpe = (IClasspathEntry) it.next();
-			if (cpe.getEntryKind() == IClasspathEntry.CPE_CONTAINER) {
-				if (needsRequiredPlugins && pdeReqPluginPath.equals(cpe.getPath())) {
-					needsRequiredPlugins = false;
-				}
-				if (needsJREContainer && jreContainerPath.equals(cpe.getPath())) {
-					needsJREContainer = false;
-				}
-			} else if (cpe.getEntryKind() == IClasspathEntry.CPE_SOURCE) {
-				if (needsSourceLocation && srcPath.equals(cpe.getPath())) {
-					needsSourceLocation = false;
-				}
-				if (cpe.getPath().segmentCount() == 1) {
-					// project-level source root
-					it.remove();
-				}
-			}
-		}
-		if (needsRequiredPlugins) {
-			classpathEntries.add(JavaCore.newContainerEntry(pdeReqPluginPath));
-		}
-		if (needsJREContainer) {
-			classpathEntries.add(JavaCore.newContainerEntry(jreContainerPath));
-		}
-		if (needsSourceLocation) {
-			IFolder srcFolder = ResourcesPlugin.getWorkspace().getRoot().getFolder(srcPath);
-			if (!srcFolder.exists()) {
-				srcFolder.create(true, true, new SubProgressMonitor(pm, 1));
-			} else {
-				pm.worked(1);
-			}
-			classpathEntries.add(JavaCore.newSourceEntry(srcPath));
-		} else {
-			pm.worked(1);
-		}
-		if (needsRequiredPlugins || needsSourceLocation) {
-			// i.e. there's change in classpath
-			jp.setRawClasspath((IClasspathEntry[]) classpathEntries.toArray(new IClasspathEntry[classpathEntries.size()]), new SubProgressMonitor(pm, 1));
-		} else {
-			pm.worked(1);
-		}
-
-		myDestRoot = jp.findPackageFragmentRoot(srcPath);
+		myDestRoot = JavaCore.create(myDestProject).findPackageFragmentRoot(srcPath);
 		if (myDestRoot == null) {
 			throw new UnexpectedBehaviourException("no source root can be found");
 		}
+	}
 
-		Path outputPath = new Path('/' + jp.getElementName() + "/runtime"); //$NON-NLS-1$
-		if (!outputPath.equals(jp.getOutputLocation())) {
-			IFolder outputFolder = ResourcesPlugin.getWorkspace().getRoot().getFolder(outputPath);
-			if (!outputFolder.exists()) {
-				outputFolder.create(true, true, new SubProgressMonitor(pm, 1));
-			} else {
-				pm.worked(1);
-			}
-			jp.setOutputLocation(outputPath, new SubProgressMonitor(pm, 1));
-		} else {
-			pm.worked(2);
-		}
+	private List createPluginVariablesList() {
+		return Collections.EMPTY_LIST;
+	}
 
-		pm.done();
+	private List createReferencedProjectsList() {
+		return Collections.EMPTY_LIST;
 	}
 
 	private void generatePalette() throws JETException, InterruptedException {
