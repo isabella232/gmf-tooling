@@ -615,7 +615,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getEditPartsPackageName() {
 		String value = getEditPartsPackageNameGen();
 		if (value == null || value.length() == 0) {
-			return getDomainMetaModel().getName() + ".edit.parts";
+			return toLowerCase(getDomainMetaModel().getName()) + ".edit.parts";
 		}
 		return value;
 	}
@@ -644,7 +644,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getCommandsPackageName() {
 		String value = getCommandsPackageNameGen();
 		if (value == null || value.length() == 0) {
-			return getDomainMetaModel().getName() + ".edit.commands";
+			return toLowerCase(getDomainMetaModel().getName()) + ".edit.commands";
 		}
 		return value;
 	}
@@ -673,7 +673,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getEditProvidersPackageName() {
 		String value = getEditProvidersPackageNameGen();
 		if (value == null || value.length() == 0) {
-			return getDomainMetaModel().getName() + ".providers";
+			return toLowerCase(getDomainMetaModel().getName()) + ".providers";
 		}
 		return value;
 	}
@@ -822,7 +822,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getEditorPackageName() {
 		String value = getEditorPackageNameGen();
 		if (value == null || value.length() == 0) {
-			return getDomainMetaModel().getName() + ".editor";
+			return toLowerCase(getDomainMetaModel().getName()) + ".editor";
 		}
 		return value;
 	}
@@ -1440,4 +1440,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		return result.toString();
 	}
 
+	private static String toLowerCase(String s) {
+		if (s == null) {
+			return "";
+		}
+		return s.toLowerCase();
+	}
 } //GenDiagramImpl
