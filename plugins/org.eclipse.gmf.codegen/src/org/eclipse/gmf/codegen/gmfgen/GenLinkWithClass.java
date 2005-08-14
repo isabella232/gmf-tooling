@@ -7,7 +7,6 @@
 package org.eclipse.gmf.codegen.gmfgen;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,7 +21,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass#getDomainMetaClass <em>Domain Meta Class</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass#getLinkContainerFeature <em>Link Container Feature</em>}</li>
  * </ul>
  * </p>
  *
@@ -30,7 +28,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * @model
  * @generated
  */
-public interface GenLinkWithClass extends GenLink {
+public interface GenLinkWithClass extends GenLink{
 	/**
 	 * Returns the value of the '<em><b>Domain Meta Class</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -56,31 +54,6 @@ public interface GenLinkWithClass extends GenLink {
 	 * @generated
 	 */
 	void setDomainMetaClass(EClass value);
-
-	/**
-	 * Returns the value of the '<em><b>Link Container Feature</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * references link containment feature, i.e. where to add created links (of type domainMetaClass)
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Link Container Feature</em>' reference.
-	 * @see #setLinkContainerFeature(EStructuralFeature)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLinkWithClass_LinkContainerFeature()
-	 * @model required="true"
-	 * @generated
-	 */
-	EStructuralFeature getLinkContainerFeature();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass#getLinkContainerFeature <em>Link Container Feature</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Link Container Feature</em>' reference.
-	 * @see #getLinkContainerFeature()
-	 * @generated
-	 */
-	void setLinkContainerFeature(EStructuralFeature value);
 
 	/**
 	 * <!-- begin-user-doc -->

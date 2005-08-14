@@ -796,15 +796,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenLinkWithClass_LinkContainerFeature() {
-		return (EReference)genLinkWithClassEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getGenLinkReferenceOnly() {
 		return genLinkReferenceOnlyEClass;
 	}
@@ -1157,7 +1148,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		genLinkWithClassEClass = createEClass(GEN_LINK_WITH_CLASS);
 		createEReference(genLinkWithClassEClass, GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS);
-		createEReference(genLinkWithClassEClass, GEN_LINK_WITH_CLASS__LINK_CONTAINER_FEATURE);
 
 		genLinkReferenceOnlyEClass = createEClass(GEN_LINK_REFERENCE_ONLY);
 
@@ -1339,7 +1329,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(genLinkWithClassEClass, GenLinkWithClass.class, "GenLinkWithClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenLinkWithClass_DomainMetaClass(), ecorePackage.getEClass(), null, "domainMetaClass", null, 1, 1, GenLinkWithClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenLinkWithClass_LinkContainerFeature(), ecorePackage.getEStructuralFeature(), null, "linkContainerFeature", null, 1, 1, GenLinkWithClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(genLinkWithClassEClass, null, "initialize");
 		addEParameter(op, ecorePackage.getEClass(), "eClass");
@@ -1420,7 +1409,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints"
-		   });																								
+		   });																							
 	}
 
 	/**
@@ -1460,7 +1449,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "super.domainLinkTargetFeature.eContainingClass \'equals to\' or \'superclass of\' domainMetaClass"
-		   });			
+		   });		
 	}
 
 } //GMFGenPackageImpl

@@ -1150,22 +1150,13 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS = GEN_LINK_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Link Container Feature</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK_WITH_CLASS__LINK_CONTAINER_FEATURE = GEN_LINK_FEATURE_COUNT + 1;
-
-	/**
 	 * The number of structural features of the the '<em>Gen Link With Class</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LINK_WITH_CLASS_FEATURE_COUNT = GEN_LINK_FEATURE_COUNT + 2;
+	int GEN_LINK_WITH_CLASS_FEATURE_COUNT = GEN_LINK_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkReferenceOnlyImpl <em>Gen Link Reference Only</em>}' class.
@@ -2478,17 +2469,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getGenLinkWithClass_DomainMetaClass();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass#getLinkContainerFeature <em>Link Container Feature</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Link Container Feature</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass#getLinkContainerFeature()
-	 * @see #getGenLinkWithClass()
-	 * @generated
-	 */
-	EReference getGenLinkWithClass_LinkContainerFeature();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkReferenceOnly <em>Gen Link Reference Only</em>}'.

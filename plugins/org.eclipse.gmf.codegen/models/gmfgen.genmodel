@@ -109,7 +109,6 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenLinkWithClass">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkWithClass/domainMetaClass"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkWithClass/linkContainerFeature"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLinkWithClass/initialize">
         <genParameters ecoreParameter="gmfgen.ecore#//GenLinkWithClass/initialize/eClass"/>
       </genOperations>

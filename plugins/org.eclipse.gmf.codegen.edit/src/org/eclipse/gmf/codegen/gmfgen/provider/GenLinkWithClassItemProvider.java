@@ -62,7 +62,6 @@ public class GenLinkWithClassItemProvider
 			super.getPropertyDescriptors(object);
 
 			addDomainMetaClassPropertyDescriptor(object);
-			addLinkContainerFeaturePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -81,26 +80,6 @@ public class GenLinkWithClassItemProvider
 				 getString("_UI_GenLinkWithClass_domainMetaClass_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenLinkWithClass_domainMetaClass_feature", "_UI_GenLinkWithClass_type"),
 				 GMFGenPackage.eINSTANCE.getGenLinkWithClass_DomainMetaClass(),
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Link Container Feature feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addLinkContainerFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenLinkWithClass_linkContainerFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenLinkWithClass_linkContainerFeature_feature", "_UI_GenLinkWithClass_type"),
-				 GMFGenPackage.eINSTANCE.getGenLinkWithClass_LinkContainerFeature(),
 				 true,
 				 null,
 				 null,

@@ -27,7 +27,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkWithClassImpl#getDomainMetaClass <em>Domain Meta Class</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkWithClassImpl#getLinkContainerFeature <em>Link Container Feature</em>}</li>
  * </ul>
  * </p>
  *
@@ -43,16 +42,6 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 	 * @ordered
 	 */
 	protected EClass domainMetaClass = null;
-
-	/**
-	 * The cached value of the '{@link #getLinkContainerFeature() <em>Link Container Feature</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLinkContainerFeature()
-	 * @generated
-	 * @ordered
-	 */
-	protected EStructuralFeature linkContainerFeature = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -108,44 +97,6 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 		domainMetaClass = newDomainMetaClass;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS, oldDomainMetaClass, domainMetaClass));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EStructuralFeature getLinkContainerFeature() {
-		if (linkContainerFeature != null && linkContainerFeature.eIsProxy()) {
-			EStructuralFeature oldLinkContainerFeature = linkContainerFeature;
-			linkContainerFeature = (EStructuralFeature)eResolveProxy((InternalEObject)linkContainerFeature);
-			if (linkContainerFeature != oldLinkContainerFeature) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_LINK_WITH_CLASS__LINK_CONTAINER_FEATURE, oldLinkContainerFeature, linkContainerFeature));
-			}
-		}
-		return linkContainerFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EStructuralFeature basicGetLinkContainerFeature() {
-		return linkContainerFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setLinkContainerFeature(EStructuralFeature newLinkContainerFeature) {
-		EStructuralFeature oldLinkContainerFeature = linkContainerFeature;
-		linkContainerFeature = newLinkContainerFeature;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK_WITH_CLASS__LINK_CONTAINER_FEATURE, oldLinkContainerFeature, linkContainerFeature));
 	}
 
 	/**
@@ -252,9 +203,6 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS:
 				if (resolve) return getDomainMetaClass();
 				return basicGetDomainMetaClass();
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__LINK_CONTAINER_FEATURE:
-				if (resolve) return getLinkContainerFeature();
-				return basicGetLinkContainerFeature();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -304,9 +252,6 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS:
 				setDomainMetaClass((EClass)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__LINK_CONTAINER_FEATURE:
-				setLinkContainerFeature((EStructuralFeature)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -358,9 +303,6 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS:
 				setDomainMetaClass((EClass)null);
 				return;
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__LINK_CONTAINER_FEATURE:
-				setLinkContainerFeature((EStructuralFeature)null);
-				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -400,8 +342,6 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 				return TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT == null ? targetDecorationFigureQualifiedClassName != null : !TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT.equals(targetDecorationFigureQualifiedClassName);
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS:
 				return domainMetaClass != null;
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__LINK_CONTAINER_FEATURE:
-				return linkContainerFeature != null;
 		}
 		return eDynamicIsSet(eFeature);
 	}
