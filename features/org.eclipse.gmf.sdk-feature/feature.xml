@@ -110,10 +110,8 @@ http://www.eclipse.org/legal/epl-v10.html
          version="0.0.0"
          unpack="false"/>
          
-    <!-- FIXME! This generated feature reference is inserted when building with 'sourceBuild' -->
-    <!-- property set, and corresponds to the inserted generate.feature option in the         -->
-    <!-- build.properties file.  See the postFetch target in the customTargets.xml file.      -->
-    <!-- <includes id="org.eclipse.gmf.sdk.source" version="0.0.0"/>                          -->
-	<!--@@INCLUDES@@-->         
+    <!-- This is a generated feature created during the build by the corresponding -->
+    <!-- generate.feature property in the build.properties file.                   -->
+    <includes id="org.eclipse.gmf.sdk.source" version="0.0.0"/>       
 
 </feature>
