@@ -6,8 +6,10 @@
    <feature url="features/org.eclipse.gmf.sdk_1.0.0.jar" id="org.eclipse.gmf.sdk" version="1.0.0">
       <category name="Eclipse Graphical Modeling Framework"/>
    </feature>
-   <!-- This is a generated feature, produced by the build process. -->
    <feature url="features/org.eclipse.gmf.sdk.source_1.0.0.jar" id="org.eclipse.gmf.sdk.source" version="1.0.0">
+      <category name="Eclipse Graphical Modeling Framework"/>
+   </feature>
+   <feature url="features/org.eclipse.gmf.tests_1.0.0.jar" id="org.eclipse.gmf.tests" version="1.0.0">
       <category name="Eclipse Graphical Modeling Framework"/>
    </feature>
    <category-def name="Eclipse Graphical Modeling Framework" label="org.eclipse.gmf"/>
