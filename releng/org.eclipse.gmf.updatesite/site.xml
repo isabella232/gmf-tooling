@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
    <feature url="features/org.eclipse.gmf.runtime_1.0.0.jar" id="org.eclipse.gmf.runtime" version="1.0.0">
-      <category name="Eclipse Graphical Modeling Framework"/>
+      <category name="GMF 1.0"/>
    </feature>
    <feature url="features/org.eclipse.gmf.sdk_1.0.0.jar" id="org.eclipse.gmf.sdk" version="1.0.0">
-      <category name="Eclipse Graphical Modeling Framework"/>
+      <category name="GMF 1.0"/>
    </feature>
    <feature url="features/org.eclipse.gmf.sdk.source_1.0.0.jar" id="org.eclipse.gmf.sdk.source" version="1.0.0">
-      <category name="Eclipse Graphical Modeling Framework"/>
+      <category name="GMF 1.0"/>
    </feature>
    <feature url="features/org.eclipse.gmf.tests_1.0.0.jar" id="org.eclipse.gmf.tests" version="1.0.0">
-      <category name="Eclipse Graphical Modeling Framework"/>
+      <category name="GMF 1.0"/>
    </feature>
-   <category-def name="Eclipse Graphical Modeling Framework" label="org.eclipse.gmf"/>
+   <category-def name="GMF 1.0" label="Graphical Modeling Framework"/>
 </site>
