@@ -215,9 +215,9 @@
 		This builds a GMF SDK in the directory d:\mybuild\sdk.
 		&quot;-DjavaVerbose=false&quot; indicates that no compile logs will be
 		generated and &quot;-javacFailOnError=false&quot; will cause the build
-		to not fail if there are any compile errors. <b>Note</b>
-		that declaration of the 'buildDirectory' property currently requires
-		the end of the path to correspond with the 'component' property (i.e.
+		to not fail if there are any compile errors. <b>Note</b> that
+		declaration of the 'buildDirectory' property currently requires the
+		end of the path to correspond with the 'component' property (i.e.
 		'sdk'). <br />
 		<br />
 		</p>
@@ -233,8 +233,8 @@
 		<p>This builds an the GMF test plug-ins in the same directory where a
 		SDK was previously built. The build will first delete the base
 		installation and unzip a fresh copy of Eclipse and install GMF's
-		dependencies. <b>Note</b> that an 'sdk'
-		build is a necessary dependency of the 'tests' build.<br />
+		dependencies. <b>Note</b> that an 'sdk' build is a necessary
+		dependency of the 'tests' build.<br />
 		</p>
 
 		</TD>
@@ -265,7 +265,14 @@
 		install GMF itself for unit tests runs. This has the added benefit of
 		testing update site packaging and leverages the ability to maintain a
 		local mirror site. The alternative is to download archives from the
-		Eclipse website, which may turn out to be a better approach ;).
+		Eclipse website, which may turn out to be a better approach ;-)</p>
+		<p>To use a local mirror, you will need to install Tomcat and perform
+		the following steps to setup the local update site:</p>
+		<ul>
+			<li><code>cd org.eclipse.gmf.releng.builder\scripts</code></li>
+			<li><code>build.bat initLocalMirror</code></li>
+			<li><code>restart Tomcat</code></li>
+		</ul>
 		</TD>
 	</TR>
 </table>
@@ -289,8 +296,10 @@
 			stable to take advantage of its new features)</li>
 			<li>Check the settings of config.xml and modify as necessary, in
 			particular the schedule interval, email server and addresses. Note
-			that the directories used are relative to the build folder which is
-			created by default by the normal build process.</li>
+			that the directories used are relative to the 'build' folder which is
+			created by default by the normal build process. In other words, if
+			you pass in or alter the 'buildDirectory' property to not build in
+			the default location, CC will not work (currently).</li>
 			<li>If using Tomcat for the reporting component, follow the
 			instructions to install the cruisecontrol.war and modify the web.xml
 			file to point at the build output's log and artifact locations.</li>
@@ -299,7 +308,7 @@
 			TOMCAT_HOME\webapps\cruisecontrol\WEB-INF\lib folder. Removing it
 			from CC's lib folder solves a problem with the generation of HTML
 			email, while the presence of it in the TOMCAT lib folder will prevent
-			ArrayIndexOutOfBounds exceptions when browsing the reporting site.
+			<code>ArrayIndexOutOfBounds</code> exceptions when browsing the reporting site.
 			Both of these issues and the addition of Ant-like properties to
 			config files is expected in version 2.2.2.</li>
 		</ul>
