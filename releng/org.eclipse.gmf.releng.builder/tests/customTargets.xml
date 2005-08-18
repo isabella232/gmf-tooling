@@ -288,14 +288,18 @@
 	
 	<target name="installTestsFromMirror" if="usingMirror">
 		<echo message="Installing GMF tests for execution..."/>
+		<!-- Publish new jars to local update site -->
+		<copy todir="${localUpdateSitePath}/features">
+		    <fileset dir="${buildUpdateSitePath}/features"/>
+		</copy>
+		<copy todir="${localUpdateSitePath}/plugins">
+			<fileset dir="${buildUpdateSitePath}/plugins"/>
+		</copy>
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${product}" />
 			<property name="version" value="${gmfVersion}" />
 		</ant>
-		<!-- FIXME! It seems the update manager does not recognize/respect the unpack="true" option in a feature.xml file. -->
-		<unzip dest="${baseLocation}/plugins/${product}_${gmfVersion}" overwrite="true" src="${baseLocation}/plugins/${product}_${gmfVersion}.jar" />
-		<delete file="${baseLocation}/plugins/${product}_${gmfVersion}.jar"/>
 	</target>
 	
 	<target name="installTestsFromZip" unless="usingMirror">
