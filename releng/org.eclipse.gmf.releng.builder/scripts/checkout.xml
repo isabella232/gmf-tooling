@@ -1,0 +1,19 @@
+<!-- As the generated fetch scripts use the CVS 'export' command, create a checkout
+     directory for use with CruiseControl. -->
+<!-- TODO: generate this from map feature.xml, along with map file. -->
+
+<project default="all">
+	<target name="plugins">
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" package="org.eclipse.gmf/plugins" dest="build/checkout/" />
+	</target>
+	<target name="features">
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" package="org.eclipse.gmf/features" dest="build/checkout/" />
+	</target>
+	<target name="tests">
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" package="org.eclipse.gmf/tests" dest="build/checkout/" />
+	</target>
+	<target name="docs">
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" package="org.eclipse.gmf/doc" dest="build/checkout/" />
+	</target>
+	<target name="all" depends="plugins,features,tests,docs" />
+</project>

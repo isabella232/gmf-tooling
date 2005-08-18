@@ -1,0 +1,464 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="http://dev.eclipse.org/default_style.css"
+	type="text/css">
+<title>GMF Build Instructions</title>
+</head>
+
+<body>
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td ALIGN="LEFT" width="80%">
+		<p><b><font face="Verdana" size="+3">GMF Build Instructions</font></b><br />
+		&nbsp;Last Updated: August 18, 2005</p>
+
+		</td>
+	</tr>
+</table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#0080C0"><b><font
+			face="Arial,Helvetica" color="#FFFFFF"><a name="policy"></a>Table of
+		Contents</font></b></td>
+	</tr>
+	<TR>
+		<TD align="LEFT" valign="TOP" colspan="3"><a href="#intro">Introduction</a><br />
+		<a href="#prereqs">Prerequisites</a><br />
+		<a href="#setup">Setup</a><br />
+		<a href="#build">Run the build</a><br />
+		<a href="#cruise">Using CruiseControl</a><br />
+		<a href="#antbuildproperties">Ant build.properties</a><br />
+		<a href="#structure">Project structure</a><br />
+		<a href="#developers">Developer information</a><br />
+		</TD>
+	</TR>
+</table>
+
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#999999"><b><font
+			face="Arial,Helvetica" color="#FFFFFF"> <a name="intro"></a>Introduction</font></b></td>
+	</tr>
+
+	<TR>
+		<TD align="LEFT" valign="TOP" colspan="3">
+
+		<p>This document describes how to build GMF components from the
+		command line using Ant scripts. Additional documents are in
+		development to cover automated <a href="">unit tests</a>, <a href="">performance
+		testing</a>, and how to set up a similar build <a href="">environment</a>
+		for your project.<br />
+		<br />
+		Note that while there is no mandated standard for builds among Eclipse
+		projects, they generally follow a similar process to what is described
+		here; that is, they leverage the <a href="">org.eclipse.releng.basebuilder</a>
+		framework. This framework enables headless operation of the Eclipse <a
+			href="http://dev.eclipse.org/viewcvs/index.cgi/~checkout~/org.eclipse.pde.build/notes/usingPDEBuild.html">PDE
+		build</a> functionality. The GMF build process was developed using
+		examples found in the Platform, GEF, EMF, VE, and WTP projects.<br />
+		<br />
+		A release engineering <a
+			href="http://download.eclipse.org/eclipse/downloads/drops/R-3.1-200506271435/download.php?dropFile=org.eclipse.releng.tools_3.1.0.zip">tool</a>
+		is available for use with this framework. Information on its use can
+		be found <a href="#developers">here</a>.</p>
+		</TD>
+	</TR>
+</table>
+
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#999999"><b><font
+			face="Arial,Helvetica" color="#FFFFFF"> <a name="prereqs"></a>Prerequisites</font></b></td>
+	</tr>
+
+	<TR>
+		<TD align="LEFT" valign="TOP" colspan="3">A number of prerequisites
+		need to be installed on the build machine, as follows:<br />
+
+		<p>1. <a href="http://www.cvshome.org/">CVS</a> version 1.10 or
+		higher.<br />
+		2. <a href="http://java.sun.com/j2se/1.5.0/download.jsp">J2SE 5.0</a>.<br />
+		3. <a href="http://www.info-zip.org/pub/infozip/">Info-Zip zip and
+		unzip</a><br />
+		4. <a href="cruisecontrol.sf.net">CruiseControl</a> (optional)<br />
+		5. <a href="http://jakarta.apache.org/tomcat/">Tomcat</a> or similar
+		webserver (optional)<br />
+		</p>
+		<p>For more information on PDE Build, refer to the <a
+			href="http://dev.eclipse.org/viewcvs/index.cgi/org.eclipse.pde.build/notes/Attic/usingPDEBuild.html?hidecvsroot=1&search=None&hideattic=1&sortby=file&logsort=date&rev=1.8&diff_format=h">plug-in</a>
+		itself.<br />
+		For examples, refer to the <a
+			href="http://dev.eclipse.org/viewcvs/index.cgi/org.eclipse.releng.eclipsebuilder/">org.eclipse.releng.eclipsebuilder</a>
+		plug-in and its <a
+			href="https://dev.eclipse.org/viewcvs/index.cgi/~checkout~/org.eclipse.releng.eclipsebuilder/readme.html">readme</a>.
+
+		</p>
+		</TD>
+	</TR>
+</table>
+
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#999999"><b><font
+			face="Arial,Helvetica" color="#FFFFFF"> <a name="setup"></a>Setup</font></b></td>
+	</tr>
+
+	<TR>
+		<TD align="LEFT" valign="TOP" colspan="3">With the prerequisites
+		installed, follow these steps to setup your environment to build the
+		GMF components:<br />
+		<br />
+		1. Add the zip, unzip, and cvs executables to your PATH environment
+		variable.<br />
+		2. Add the jre/bin directory of the installed JDK to your PATH
+		environment variable.<br />
+		3. Add the ant/bin directory of the installed Ant to your PATH
+		environment variable.<br />
+		4. Create a directory for the build, e.g.
+		<ul>
+			<li><code>mkdir /gmfbuild</code></li>
+		</ul>
+		5. Install the v3.1 Eclipse release engineering basebuilder (this
+		installation will be used to run the build tools, it is not itself a
+		GMF installation): Export <b>org.eclipse.releng.basebuilder</b> from
+		the CVS repository <b>/home/eclipse</b> into the build directory, e.g.
+		<ul>
+			<li><code>cd /gmfbuild</code></li>
+			<li><code>cvs -d :pserver:anonymous@dev.eclipse.org:/home/eclipse
+			export -r vI20050627-1435 org.eclipse.releng.basebuilder</code></li>
+		</ul>
+		6. Export <b>org.eclipse.gmf.releng.builder</b> into the build
+		directory.
+		<ul>
+			<li><code>cvs -d :pserver:anonymous@dev.eclipse.org:/home/technology
+			export -r HEAD -d org.eclipse.gmf.releng.builder
+			org.eclipse.gmf/releng/org.eclipse.gmf.releng.builder</code></li>
+		</ul>
+		7. Before running the build, you may wish to adjust some of the build
+		properties (see <a href="#antbuildproperties">below</a>). In
+		particular, you may want to comment-out the 'useMirror' property found
+		in the main build.properties file (in the 'scripts' directory). By
+		default, the GMF build machine uses a local <a
+			href="http://jakarta.apache.org/tomcat/">Tomcat</a> installation for
+		an update site and <a href="cruisecontrol.sf.net">CruiseControl</a>
+		reporting.</TD>
+	</TR>
+</table>
+
+
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#999999"><b><font
+			face="Arial,Helvetica" color="#FFFFFF"> <a name="build"></a>Run the
+		build</font></b></td>
+	</tr>
+
+	<TR>
+		<TD align="LEFT" valign="TOP" colspan="3">
+
+		<p><b>cd</b> to the 'scripts' directory under
+		org.eclipse.gmf.releng.builder and execute the following command (on
+		Windows) :</p>
+		<p><b>build.bat -Dcomponent=sdk|runtime|tests</b></p>
+		<p>Optionally, you can use the following command:</p>
+		<p><b>java -jar ..\org.eclipse.releng.basebuilder\startup.jar
+		-application org.eclipse.ant.core.antRunner
+		-Dcomponent=sdk|runtime|tests</b> <br />
+		</p>
+
+		<p><b><a name="components"></a></b>The component property value sets
+		the name of the directory in org.eclipse.gmf.releng.builder which
+		contains the Ant scripts that build a given GMF component, as descibed
+		below: <br />
+		</p>
+		<table width="100%" border="1">
+			<tr>
+				<td width="25%"><b>Component</b> (directory name in
+				org.eclipse.gmf.releng.builder)</td>
+				<td width="75%"><b>Description</b></td>
+			</tr>
+			<tr>
+				<td width="25%">sdk</td>
+				<td width="75%">This directory contains the scripts used to build
+				the GMF SDK. A GMF SDK is comprised of binaries, source, and
+				developer documentation.</td>
+			</tr>
+			<tr>
+				<td width="25%">runtime</td>
+				<td width="75%">This directory contains the scripts used to build
+				the GMF runtime. The GMF runtime component contains only those
+				binaries required to run a GMF-based application.</td>
+			</tr>
+			<tr>
+				<td width="25%">tests</td>
+				<td width="75%">This directory contains the scripts used to build
+				and execute the GMF unit tests.</td>
+			</tr>
+		</table>
+		</TD>
+	</TR>
+	<TR>
+		<TD align="LEFT" valign="TOP" colspan="3"><br />
+		A number of properties described <a href="#antbuildproperties">below</a>
+		can be passed in via the build command to override the default
+		settings. Of course, direct modification of the properties is an
+		alternative. <br />
+		<br />
+		<b>Examples:</b><br />
+		<br />
+
+		<p><b>build -Dcomponent=sdk -javacFailOnError=false
+		-DjavacVerbose=false -DbuildDirectory=d:\mybuild\sdk</b><br />
+		<br />
+		This builds a GMF SDK in the directory d:\mybuild\sdk.
+		&quot;-DjavaVerbose=false&quot; indicates that no compile logs will be
+		generated and &quot;-javacFailOnError=false&quot; will cause the build
+		to not fail if there are any compile errors. <b>Note</b>
+		that declaration of the 'buildDirectory' property currently requires
+		the end of the path to correspond with the 'component' property (i.e.
+		'sdk'). <br />
+		<br />
+		</p>
+		<p><b>build -Dcomponent=runtime -DbuildDirectory=d:\gmfbuilds\runtime
+		-DbaseLocation=d:\eclipse\eclipse3.1</b></p>
+		<p>This builds a GMF runtime in the directory
+		&quot;d:\gmfbuilds\runtime&quot; yet uses an installation of eclipse
+		located at 'd:\eclipse\eclipse3.1' as the base to build against.<br />
+		<br />
+		<p><b>build -Dcomponent=tests -DbuildDirectory=d:\mybuild\tests
+		-DcleanBase=true</b></p>
+		<p></p>
+		<p>This builds an the GMF test plug-ins in the same directory where a
+		SDK was previously built. The build will first delete the base
+		installation and unzip a fresh copy of Eclipse and install GMF's
+		dependencies. <b>Note</b> that an 'sdk'
+		build is a necessary dependency of the 'tests' build.<br />
+		</p>
+
+		</TD>
+	</TR>
+
+</table>
+
+
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#999999"><b><font
+			face="Arial,Helvetica" color="#FFFFFF"> <a name="mirror"></a>Using a
+		local mirror</font></b></td>
+	</tr>
+
+	<TR>
+		<TD align="LEFT" valign="TOP" colspan="3">
+		<p>The GMF build process utilizes the Eclipse update manager to
+		install its dependencies. If you plan to run a clean build frequently,
+		it is recommended that you configure a local mirror to provide the
+		features for installation. Simply uncomment the 'useMirror' property
+		set in the build.properties file(s) and install a local HTTP server to
+		enable this functionality. It is recommended that Tomcat is used, as
+		it can also serve to provide the CruiseControl reporting described
+		below.</p>
+		<p>GMF builds utilize the update manager via the command line for the
+		installation of build dependencies (e.g. EMF &amp; GEF), and also to
+		install GMF itself for unit tests runs. This has the added benefit of
+		testing update site packaging and leverages the ability to maintain a
+		local mirror site. The alternative is to download archives from the
+		Eclipse website, which may turn out to be a better approach ;).
+		</TD>
+	</TR>
+</table>
+
+
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#999999"><b><font
+			face="Arial,Helvetica" color="#FFFFFF"> <a name="cruise"></a>Using
+		CruiseControl</font></b></td>
+	</tr>
+
+	<TR>
+		<TD align="LEFT" valign="TOP" colspan="3">
+		<p>The GMF project utilizes <a href="cruisecontrol.sf.net">CruiseControl</a>
+		to manage its automated build process. The following basic steps are
+		required to leverage CruiseControl:</p>
+		<ul>
+			<li>Install <a href="cruisecontrol.sf.net">CruiseControl</a> (version
+			2.2.1 is used currently, although it is planned to move to 2.2.2 when
+			stable to take advantage of its new features)</li>
+			<li>Check the settings of config.xml and modify as necessary, in
+			particular the schedule interval, email server and addresses. Note
+			that the directories used are relative to the build folder which is
+			created by default by the normal build process.</li>
+			<li>If using Tomcat for the reporting component, follow the
+			instructions to install the cruisecontrol.war and modify the web.xml
+			file to point at the build output's log and artifact locations.</li>
+			<li>If using version 2.2.1, you may want to move the xalan.jar found
+			in CC_HOME\main\lib to the
+			TOMCAT_HOME\webapps\cruisecontrol\WEB-INF\lib folder. Removing it
+			from CC's lib folder solves a problem with the generation of HTML
+			email, while the presence of it in the TOMCAT lib folder will prevent
+			ArrayIndexOutOfBounds exceptions when browsing the reporting site.
+			Both of these issues and the addition of Ant-like properties to
+			config files is expected in version 2.2.2.</li>
+		</ul>
+		<p>To invoke CruiseControl, follow the instructions below (which
+		requires a CC_HOME environment variable to be set):</p>
+		<ul>
+			<li><code>cd org.eclipse.gmf.releng.builder\scripts</code></li>
+			<li><code>ant.bat -f checkout.xml</code></li>
+			<li><code>cruise.bat</code></li>
+		</ul>
+		</TD>
+	</TR>
+	<tr>
+		<td>
+		<p><b>Note</b> that the checkout command produces a full checkout
+		structure of GMF in a 'checkout' subfolder. This is necessary for CC
+		to check for changes and kick off a build. It seems necessary for this
+		duplication to exist, as the PDE build uses the 'export' CVS command
+		and not 'checkout' as is required for checking for changes.</p>
+		<p>Also, <b>note</b> that it should be possible for much of the
+		scripts here and in the build itself to be generated from plug-ins and
+		features.</p>
+		</td>
+	</tr>
+</table>
+
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#999999"><b><font
+			face="Arial,Helvetica" color="#FFFFFF"> <a name="antbuildproperties"></a>Ant
+		build.properties</font></b></td>
+	</tr>
+	<tr>
+		<td><a name="antbuildproperties"></a>There are a number of Ant
+		properties declared in the build.properties file, most of which are
+		provided by the org.eclipse.releng.basebuilder utility and are
+		described in <a
+			href="http://dev.eclipse.org/viewcvs/index.cgi/org.eclipse.releng.eclipsebuilder/readme.html?rev=1.24">this</a>
+		document. Below are a list of additional properties found in GMF's
+		build process and their description. <br />
+		<p>Each property can be overridden by setting them at the command line
+		at build time or by changing them directly in the component's
+		build.properties file, or a map definition's build.cfg file.</p>
+		<table width="100%" border="1">
+			<tr>
+				<td align="LEFT" valign="TOP" colspan="2" bgcolor="#999DDD"><b><font
+					face="Arial,Helvetica" color="#FFFFFF"> <a
+					name="antbuildproperties"></a>Component build.properties</font></b></td>
+			</tr>
+
+			<tr>
+				<td>cleanBase</td>
+				<td>Normally commented out, but if present will cause the base to be
+				deleted prior to the build. This will remove the base Eclipse
+				installation and force an updated install of all dependencies.</td>
+			</tr>
+			<tr>
+				<td>clean</td>
+				<td>This will normally cause the cleaning of all output directories
+				prior to the build, but in GMF will also cause a cleaning of all
+				checkout areas to force an update from CVS.</td>
+			</tr>
+			<tr>
+				<td>skipTests</td>
+				<td>This is only found in the tests component and will prevent the
+				execution of unit tests following the build and packaging steps.</td>
+			</tr>
+
+			<tr>
+				<td align="LEFT" valign="TOP" colspan="2" bgcolor="#999DDD"><b><font
+					face="Arial,Helvetica" color="#FFFFFF"> <a
+					name="antbuildproperties"></a>Map build.cfg</font></b></td>
+			</tr>
+			<tr>
+				<td>TODO:</td>
+				<td>The properties found here are presently self-explanatory and
+				largely to be unnecessary as most information can be gotten from
+				feature.xml files (as is planned for future versions of the build
+				process).</td>
+			</tr>
+		</table>
+	</tr>
+</table>
+
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#999999"><b><font
+			face="Arial,Helvetica" color="#FFFFFF"> <a name="structure"></a>Project
+		Structure</font></b></td>
+	</tr>
+
+	<TR>
+		<TD align="LEFT" valign="TOP" colspan="3">
+		<p>The CVS structure for GMF organizes the project by plug-ins,
+		features, tests, etc., as seen below:</p>
+		<table width="100%" border="0">
+			<tr>
+				<td colspan="6"><strong>/home/technology</strong></td>
+				<td width="62%">CVS ROOT (dev.eclipse.org)</td>
+			</tr>
+			<tr>
+				<td width="2%">&nbsp;</td>
+				<td colspan="5" bordercolor="0"><strong>/org.eclipse.gmf</strong></td>
+				<td>Graphical Modeling Framework subproject</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/contributions</strong></td>
+				<td>GMF code contributions</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/doc</strong></td>
+				<td>Project documentation</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/features</strong></td>
+				<td>GMF features</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/plugins</strong></td>
+				<td>GMF plugins</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/releng</strong></td>
+				<td>Build procedure scripts, update site, etc.</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/tests</strong></td>
+				<td>GMF unit tests</td>
+			</tr>
+		</table>
+		</TD>
+	</TR>
+</table>
+
+<table width="100%" border="0">
+	<tr>
+		<td bgcolor="#999999"><b><font face="Arial,Helvetica" color="#FFFFFF">
+		<a name="developers"></a>Developer information</font></b></td>
+	</tr>
+	<tr>
+		<td><font color="red"><b>TODO:</b></font> This section outlines some
+		of the procedures and practices for GMF developers to maintain a
+		smooth build/test environment. In particular, information on using the
+		releng tool and how to add a plug-in to the build is covered.</td>
+	</tr>
+
+</table>
+
+</body>
+</html>

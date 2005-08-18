@@ -1,0 +1,257 @@
+<project name="Build specific targets and properties" default="noDefault">
+	
+	<property name="id" value="org.eclipse.gmf.sdk" />
+	
+	<!-- ===================================================================== -->
+	<!-- Run a given ${target} on all elements being built -->
+	<!-- Add on <ant> task for each top level element being built. -->
+	<!-- ===================================================================== -->
+	<target name="allElements">
+		<ant antfile="${genericTargets}" target="${target}">
+		<property name="type" value="feature" />
+		<property name="id" value="${id}"/>		
+		</ant>
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Targets to assemble the built elements for particular configurations  -->
+	<!-- These generally call the generated assemble scripts (named in -->
+	<!-- ${assembleScriptName}) but may also add pre and post processing -->
+	<!-- Add one target for each root element and each configuration -->
+	<!-- ===================================================================== -->
+
+	<target name="assemble.org.eclipse.gmf.sdk">
+		<ant antfile="${assembleScriptName}" dir="${buildDirectory}"/>
+	</target>	
+
+	<!-- ===================================================================== -->
+	<!-- Check out map files from correct repository -->
+	<!-- Replace values for mapsCheckoutTag as desired. -->
+	<!-- ===================================================================== -->
+	<target name="getMapFiles" depends="checkLocalMaps" unless="skipMaps">
+		<property name="mapsCheckoutTag" value="HEAD" />
+		<cvs command="checkout -d org.eclipse.gmf.releng" cvsRoot="${mapsRepo}" package="${mapsRoot}" dest="${buildDirectory}/maps" tag="${mapsCheckoutTag}" />
+	</target>
+
+	<target name="checkLocalMaps">
+		<available property="skipMaps" file="${buildDirectory}/maps" />
+	</target>
+
+	<target name="tagMapFiles" if="tagMaps">
+		<cvs dest="${buildDirectory}/maps/${mapsRoot}" command="tag ${mapsTagTag}" />
+	</target>
+
+	<!-- ===================================================================== -->
+
+	<target name="clean" unless="noclean">
+		<antcall target="allElements">
+			<param name="target" value="cleanElement" />
+		</antcall>
+	</target>
+
+	<target name="gatherLogs">
+		<mkdir dir="${buildDirectory}/${buildLabel}/compilelogs" />
+		<antcall target="allElements">
+			<param name="target" value="gatherLogs" />
+		</antcall>
+		<unzip dest="${buildDirectory}/${buildLabel}/compilelogs" overwrite="true">
+			<fileset dir="${buildDirectory}/features">
+				<include name="**/*.log.zip" />
+			</fileset>
+		</unzip>
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before setup -->
+	<!-- ===================================================================== -->
+	<target name="preSetup">
+		<antcall target="cleanBase"/>
+	</target>
+	
+	<target name="cleanBase" if="cleanBase">
+		<delete dir="${baseLocation}"/>
+		<delete dir="${buildDirectory}/plugins"/>
+		<delete dir="${buildDirectory}/features"/>
+		<delete dir="${buildDirectory}/maps"/>
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after setup but before starting the build proper -->
+	<!-- ===================================================================== -->
+	<target name="postSetup">
+		<!-- Load build.cfg properties -->
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
+		<antcall target="getBaseComponents" />
+		<available file="${baseLocation}/configuration/config.ini" property="baseExists" />
+		<antcall target="installBase" />
+<!-- TODO: this is a poor way to check for an installation... the update manager
+     allows for querying an installation, but just returns a list that would require parsing. -->
+		<available file="${baseLocation}/plugins/org.eclipse.gef_${gefVersion}.jar" property="gefExists" />
+		<antcall target="installGEF" />
+		<available file="${baseLocation}/plugins/org.eclipse.emf_${emfVersion}.jar" property="emfExists" />
+		<antcall target="installEMF" />	
+	</target>
+	
+	<!-- ===================================================================== -->
+	<!-- ===================================================================== -->
+	<target name="getBaseComponents" depends="checkLocalBase" unless="skipBase">
+<!-- TODO: find a more reliable method! -->
+		<get src="${eclipseBaseURL}" dest="${baseLocationRoot}/eclipse-SDK-${eclipseVersion}-${baseos}.zip" verbose="true" usetimestamp="true"/>
+	</target>
+
+	<target name="checkLocalBase">
+		<available file="${baseLocationRoot}/eclipse-SDK-${eclipseVersion}-${baseos}.zip" property="skipBase" />
+	</target>
+	
+	<target name="installBase" unless="baseExists">
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/eclipse-SDK-${eclipseVersion}-${baseos}.zip" />
+	</target>
+	
+	<target name="installEMF" unless="emfExists">		
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${emfFeatureId}" />
+			<property name="version" value="${emfVersion}" />
+			<property name="updateSite" value="${emfUpdateSite}" />
+		</ant>
+	</target>
+
+	<target name="installGEF" unless="gefExists">
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${gefFeatureId}" />
+			<property name="version" value="${gefVersion}" />
+			<property name="updateSite" value="${gefUpdateSite}" />
+		</ant>
+	</target>	
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before fetching the build elements -->
+	<!-- ===================================================================== -->
+	<target name="preFetch">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after fetching the build elements -->
+	<!-- ===================================================================== -->
+	<target name="postFetch">
+		<!-- TODO: use this workaround if it is decided to have optional source builds -->
+		<!-- <antcall target="generateSources"/> -->
+	</target>
+	
+	<!-- ===================================================================== -->
+	<!--                 NOTE: This is not currently in use!				   -->
+	<!-- FIXME! This is a workaround, as there is apparently no property       -->
+	<!-- setting to enable/disable source builds using generate.feature option.-->
+	<!-- http://www.eclipse.org/articles/Article-PDE-Automation/automation.html-->
+	<!-- ===================================================================== -->	
+	<target name="generateSources" if="sourceBuild">
+		<replace file="${buildDirectory}/features/${id}/feature.xml">
+			<replacefilter token="&lt;!--@@INCLUDES@@--&gt;" value="&lt;includes id=&quot;${id}.source&quot; version=&quot;0.0.0&quot;/&gt;"/>
+		</replace>
+		<replace file="${buildDirectory}/features/${id}/build.properties">
+			<replacefilter token="#generate.feature" value="generate.feature" />
+		</replace>
+	</target>
+	
+	<!-- ===================================================================== -->
+	<!-- FIXME! In accordance with workaround above for source builds, clean   -->
+	<!-- this build structure and force clean rebuild for normal builds.	   -->
+	<!-- ===================================================================== -->
+	<target name="preGenerate">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after generating the build scripts. -->
+	<!-- ===================================================================== -->
+	<target name="postGenerate">
+		<antcall target="clean" />
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before running the build.xmls for the elements being built. -->
+	<!-- ===================================================================== -->
+	<target name="preProcess">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after running the build.xmls for the elements being built. -->
+	<!-- ===================================================================== -->
+	<target name="postProcess">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before running assemble. -->
+	<!-- ===================================================================== -->
+	<target name="preAssemble">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after  running assemble. -->
+	<!-- ===================================================================== -->
+	<target name="postAssemble">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do before running package. -->
+	<!-- ===================================================================== -->
+	<target name="prePackage">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after  running package. -->
+	<!-- ===================================================================== -->
+	<target name="postPackage">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do after the build is done. -->
+	<!-- ===================================================================== -->
+	<target name="postBuild">
+		<antcall target="gatherLogs" />
+		<!-- A temporary directory leftover? -->
+		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
+		<!-- Consolidate artifacts -->
+		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/gmf-sdk"/>
+		<antcall target="generateUpdateSite"/>
+	</target>
+	
+	<!-- ===================================================================== -->
+	<!-- Update the update site. -->
+	<!-- ===================================================================== -->	
+	<target name="generateUpdateSite">
+	  	<!-- Create the directory structure -->
+	  	<mkdir dir="${buildUpdateSitePath}/features"/>
+	  	<mkdir dir="${buildUpdateSitePath}/plugins"/>
+	  	<!-- Build the jar files -->
+	  	<antcall target="allElements">
+			<param name="genericTargets" value="${builder}/customTargets.xml"/>
+			<param name="target" value="updateSiteExport"/>
+	  	</antcall>
+	</target>
+	
+	<target name="updateSiteExport">
+	  <ant antfile="build.xml" dir="${buildDirectory}/features/${id}/" target="build.update.jar">
+	    <property name="feature.destination" value="${buildUpdateSitePath}/features"/>
+	    <property name="plugin.destination" value="${buildUpdateSitePath}/plugins"/>
+	  </ant>
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do to test the build results -->
+	<!-- ===================================================================== -->
+	<target name="test">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Steps to do to publish the build results -->
+	<!-- ===================================================================== -->
+	<target name="publish">
+	</target>
+
+	<!-- ===================================================================== -->
+	<!-- Default target                                                        -->
+	<!-- ===================================================================== -->
+	<target name="noDefault">
+		<echo message="You must specify a target when invoking this file" />
+	</target>
+
+</project>

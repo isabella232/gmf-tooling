@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<project name="project" default="">
+	
+	<!-- TODO: create custom Ant tasks for update manager -->
+
+	<!-- Mirror will check for current install to avoid unnecessary downloads. -->
+	<target name="installFeature" description="Install a feature using the update manager.">		
+		<antcall target="mirror"/>
+		<!-- TODO: check on success of mirror and default to install from remote -->
+		<antcall target="install"/>
+		<antcall target="installRemote"/>
+	</target>
+	
+	<target name="mirror" if="usingMirror">
+		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="false">
+			<arg value="-application"/>
+			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
+			<arg value="-command"/>
+			<arg value="mirror"/>
+			<arg value="-featureId"/>
+			<arg value="${featureId}"/>
+			<arg value="-version"/>
+			<arg value="${version}"/>
+			<arg value="-from"/>
+			<arg value="${updateSite}"/>
+			<arg value="-to"/>
+			<arg value="${localUpdateSitePath}"/>
+		</java>
+	</target>
+	
+	<target name="install" if="usingMirror">
+		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="false">
+			<arg value="-application"/>
+			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
+			<arg value="-command"/>
+			<arg value="install"/>
+			<arg value="-featureId"/>
+			<arg value="${featureId}"/>
+			<arg value="-version"/>
+			<arg value="${version}"/>
+			<arg value="-from"/>
+			<arg value="${localUpdateSite}"/>
+		</java>
+	</target>
+	
+	<target name="installRemote" unless="usingMirror">
+		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="false">
+			<arg value="-application"/>
+			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
+			<arg value="-command"/>
+			<arg value="install"/>
+			<arg value="-featureId"/>
+			<arg value="${featureId}"/>
+			<arg value="-version"/>
+			<arg value="${version}"/>
+			<arg value="-from"/>
+			<arg value="${updateSite}"/>
+		</java>
+	</target>
+	
+	<target name="uninstall" if="usingMirror">
+		<!-- First, must disable the feature -->
+		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="false">
+			<arg value="-application"/>
+			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
+			<arg value="-command"/>
+			<arg value="disable"/>
+			<arg value="-featureId"/>
+			<arg value="${featureId}"/>
+			<arg value="-version"/>
+			<arg value="${version}"/>
+		</java>
+		<!-- Now, uninstall -->
+		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="false">
+			<arg value="-application"/>
+			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
+			<arg value="-command"/>
+			<arg value="uninstall"/>
+			<arg value="-featureId"/>
+			<arg value="${featureId}"/>
+			<arg value="-version"/>
+			<arg value="${version}"/>
+		</java>		
+	</target>
+
+</project>
+

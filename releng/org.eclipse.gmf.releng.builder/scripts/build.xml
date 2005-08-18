@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<project default="main">
+	<property file="build.properties" />
+	
+	<target name="main" depends="checkArgs,init">
+		<ant antfile="build.xml" dir="${pde.build.scripts}">
+			<property name="builder" value="${basedir}/../${component}"/>
+		</ant>
+		<antcall target="publishLocal"/>
+	</target>
+	
+	<target name="publishLocal" if="useMirror">
+		<delete>
+		    <fileset dir="${buildUpdateSitePath}" excludes="**/*.jar"/>
+		</delete>
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" command="export -r HEAD -d updateSite" package="org.eclipse.gmf/releng/org.eclipse.gmf.updatesite" dest="${buildDirectory}/../" />
+		<copy todir="${localUpdateSitePath}/features">
+		    <fileset dir="${buildUpdateSitePath}/features"/>
+		</copy>
+		<copy todir="${localUpdateSitePath}/plugins">
+			<fileset dir="${buildUpdateSitePath}/plugins"/>
+		</copy>
+	</target>
+	
+	<!-- TODO: need to find a way to merge site.xml after initialization, mirror of EMF/GEF, and later 
+	           changes in GMF's site.xml -->
+	<target name="initLocalMirror">		
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" command="export -r HEAD -d updateSite" package="org.eclipse.gmf/releng/org.eclipse.gmf.updatesite" dest="${localUpdateSitePath}/../" />
+		<mkdir dir="${localUpdateSitePath}/WEB-INF"/>
+		<move file="${localUpdateSitePath}/web/web.xml" todir="${localUpdateSitePath}/WEB-INF"/>
+	</target>
+	
+	<target name="checkArgs" unless="component">
+		<echo message="-Dcomponent=&lt;path&gt; required." />
+		<fail/>
+	</target>
+
+	<target name="init">
+		<antcall target="clean"/>
+		<touch file="${user.home}/.cvspass" />
+		<available file="${buildDirectory}/label.properties" property="label.properties.exists" />
+		<antcall target="create.label.properties" />
+		<property file="${buildDirectory}/label.properties" />
+		<condition property="mirrorAvailable">
+			<http url="${localUpdateSite}/site.xml"/>
+		</condition>
+		<condition property="usingMirror">
+			<and>
+				<isset property="mirrorAvailable"/>
+				<isset property="useMirror"/>
+			</and>
+		</condition>
+	</target>
+	
+	<target name="clean" if="clean">
+		<delete dir="${buildDirectory}"/>
+	</target>
+
+	<target name="create.label.properties" unless="label.properties.exists">
+		<mkdir dir="${buildDirectory}" />
+		<tstamp/>
+		<property name="date" value="${DSTAMP}" />
+		<property name="time" value="${TSTAMP}" />
+		<property name="timestamp" value="${date}${time}" />
+		<property name="buildType" value="I" />
+		<property name="buildId" value="${buildType}${date}" />
+
+		<!--this naming convention used by php scripts on download server-->
+		<property name="buildLabel" value="${buildType}-${buildId}-${timestamp}" />
+
+		<!--store the build label information in a file-->
+		<echo file="${buildDirectory}/label.properties" append="true" >
+		buildDirectory=${buildDirectory}
+		</echo>
+		<echo file="${buildDirectory}/label.properties" append="true" >
+		buildType=${buildType}
+		</echo>
+		<echo file="${buildDirectory}/label.properties" append="true" >
+		buildId=${buildId}
+		</echo>
+		<echo file="${buildDirectory}/label.properties" append="true" >
+		timestamp=${timestamp}
+		</echo>
+		<echo file="${buildDirectory}/label.properties" append="true" >
+		buildLabel=${buildLabel}
+		</echo>
+	</target>
+
+</project>
