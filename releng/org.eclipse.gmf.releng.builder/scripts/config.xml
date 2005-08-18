@@ -2,8 +2,8 @@
 
 	<!-- TODO: Update to version 2.2.2 and take advantage of properties as soon as stable! -->
 	<!-- Change this directory to match your environment.  By default, assuming build
-		 takes place directly below the scripts directory. 
-		 <property name="build.dir" value="build" /> -->
+		takes place directly below the scripts directory. 
+		<property name="build.dir" value="build" /> -->
 
 	<plugin name="htmlemail"
 		buildresultsurl="http://www.eclipse.org/gmf/cruisecontrol"
@@ -11,8 +11,7 @@
 		returnname="gmf-buildmaster" subjectprefix="[GMF Build Results]"
 		skipusers="true" spamwhilebroken="true"
 		css="D:/java/cruisecontrol-2.2.1/reporting/jsp/webcontent/css/cruisecontrol.css"
-		xsldir="D:/java/cruisecontrol-2.2.1/reporting/jsp/webcontent/xsl"
-		logdir="build/logs/tests" />
+		xsldir="D:/java/cruisecontrol-2.2.1/reporting/jsp/webcontent/xsl" />
 
 	<project name="sdk" buildafterfailed="true">
 		<listeners>
@@ -52,7 +51,7 @@
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail>
+			<htmlemail logdir="build/logs/sdk">
 				<always address="richard.gronback@borland.com" />
 				<failure address="richard.gronback@borland.com" />
 			</htmlemail>
@@ -73,7 +72,7 @@
 
 		<!-- Defines where cruise looks for changes, to decide
 			whether to run the build -->
-		<modificationset quietperiod="30">
+		<modificationset quietperiod="10">
 			<alwaysbuild />
 			<cvs
 				cvsroot=":pserver:anonymous@dev.eclipse.org:/home/technology"
@@ -97,7 +96,7 @@
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail>
+			<htmlemail logdir="build/logs/tests">
 				<always address="richard.gronback@borland.com" />
 				<failure address="richard.gronback@borland.com" />
 			</htmlemail>
@@ -144,7 +143,7 @@
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail>
+			<htmlemail logdir="build/logs/runtime">
 				<always address="richard.gronback@borland.com" />
 				<failure address="richard.gronback@borland.com" />
 			</htmlemail>

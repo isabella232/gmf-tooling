@@ -10,6 +10,7 @@
 	</target>
 	
 	<target name="publishLocal" if="useMirror">
+		<echo message="Creating local update site at ${buildUpdateSitePath}"/>
 		<delete>
 		    <fileset dir="${buildUpdateSitePath}" excludes="**/*.jar"/>
 		</delete>

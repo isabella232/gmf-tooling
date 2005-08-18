@@ -32,6 +32,7 @@
 		<a href="#antbuildproperties">Ant build.properties</a><br />
 		<a href="#structure">Project structure</a><br />
 		<a href="#developers">Developer information</a><br />
+		<a href="#gotchas">Gotchas</a><br />
 		</TD>
 	</TR>
 </table>
@@ -77,7 +78,7 @@
 		<TD align="LEFT" valign="TOP" colspan="3">A number of prerequisites
 		need to be installed on the build machine, as follows:<br />
 
-		<p>1. <a href="http://www.cvshome.org/">CVS</a> version 1.10 or
+		<p>1. <a href="http://www.nongnu.org/cvs/">CVS</a> version 1.10 or
 		higher.<br />
 		2. <a href="http://java.sun.com/j2se/1.5.0/download.jsp">J2SE 5.0</a>.<br />
 		3. <a href="http://www.info-zip.org/pub/infozip/">Info-Zip zip and
@@ -167,6 +168,10 @@
 		-application org.eclipse.ant.core.antRunner
 		-Dcomponent=sdk|runtime|tests</b> <br />
 		</p>
+
+		<p><b>Note</b> that the download of the Eclipse SDK and/or test
+		framework may fail using the Ant 'get' task, so you may have to
+		download these elements and place in the 'build' folder manually.</p>
 
 		<p><b><a name="components"></a></b>The component property value sets
 		the name of the directory in org.eclipse.gmf.releng.builder which
@@ -269,10 +274,18 @@
 		<p>To use a local mirror, you will need to install Tomcat and perform
 		the following steps to setup the local update site:</p>
 		<ul>
+			<li><code>Adjust the 'localUpdateSite' and 'localUpdateSitePath'
+			properties in the main build.properties to reflect your
+			configuration.</code></li>
 			<li><code>cd org.eclipse.gmf.releng.builder\scripts</code></li>
-			<li><code>build.bat initLocalMirror</code></li>
-			<li><code>restart Tomcat</code></li>
+			<li><code>run 'build.bat initLocalMirror'</code></li>
+			<li><code>restart Tomcat (if necessary)</code></li>
 		</ul>
+		<p>Without the mirror running, the build will resort to using the
+		official update sites for EMF and GEF, while using a simple unzip of
+		GMF components (when running tests). When running, each build will
+		produce update site jars which are then copied to the update site
+		directory.</p>
 		</TD>
 	</TR>
 </table>
@@ -300,17 +313,20 @@
 			created by default by the normal build process. In other words, if
 			you pass in or alter the 'buildDirectory' property to not build in
 			the default location, CC will not work (currently).</li>
-			<li>If using Tomcat for the reporting component, follow the
+			<li>If using Tomcat for the reporting component, follow the CC
 			instructions to install the cruisecontrol.war and modify the web.xml
-			file to point at the build output's log and artifact locations.</li>
+			file to point at the build's log and artifact locations. These will
+			be specified in the CC config.xml file and are by default
+			/scripts/build/logs and /scripts/build/artifacts/published,
+			respectively.</li>
 			<li>If using version 2.2.1, you may want to move the xalan.jar found
 			in CC_HOME\main\lib to the
 			TOMCAT_HOME\webapps\cruisecontrol\WEB-INF\lib folder. Removing it
 			from CC's lib folder solves a problem with the generation of HTML
 			email, while the presence of it in the TOMCAT lib folder will prevent
-			<code>ArrayIndexOutOfBounds</code> exceptions when browsing the reporting site.
-			Both of these issues and the addition of Ant-like properties to
-			config files is expected in version 2.2.2.</li>
+			<code>ArrayIndexOutOfBounds</code> exceptions when browsing the
+			reporting site. Both of these issues and the addition of Ant-like
+			properties to config files is expected in version 2.2.2.</li>
 		</ul>
 		<p>To invoke CruiseControl, follow the instructions below (which
 		requires a CC_HOME environment variable to be set):</p>
@@ -465,6 +481,27 @@
 		of the procedures and practices for GMF developers to maintain a
 		smooth build/test environment. In particular, information on using the
 		releng tool and how to add a plug-in to the build is covered.</td>
+	</tr>
+
+</table>
+
+<table width="100%" border="0">
+	<tr>
+		<td bgcolor="#999999"><b><font face="Arial,Helvetica" color="#FFFFFF">
+		<a name="gotchas"></a>Gotchas</font></b></td>
+	</tr>
+	<tr>
+		<td>The build process is fairly complex, and will hopefully improve
+		with more being generated/automated. A few things to watch out for are
+		listed below: <br />
+		<p>If the build stops during the fetch with an error message telling
+		you to check your map files, open the generated fetch_*.xml file in
+		your component build directory. If it is cutoff (malformed), check
+		your CVS connection, as it is likely the cause.</p>
+		<p>If you are running a build and get the message that 'plug-in
+		org.*_X_X_X' cannot be found, check that you have declared/installed
+		the necessary dependencies for the plug-in.</p>
+		</td>
 	</tr>
 
 </table>
