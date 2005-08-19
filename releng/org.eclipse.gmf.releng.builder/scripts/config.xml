@@ -73,7 +73,6 @@
 		<!-- Defines where cruise looks for changes, to decide
 			whether to run the build -->
 		<modificationset quietperiod="10">
-			<alwaysbuild />
 			<cvs
 				cvsroot=":pserver:anonymous@dev.eclipse.org:/home/technology"
 				localworkingcopy="build/checkout" />
