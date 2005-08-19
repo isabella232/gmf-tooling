@@ -7,8 +7,8 @@ package <%=genDiagram.getEditProvidersPackageName()%>;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.diagramrt.DiagramLink;
-import org.eclipse.gmf.edit.provider.LinkMetaInfoProvider;
-import org.eclipse.gmf.edit.provider.MetaInfoProviderAdapter;
+import org.eclipse.gmf.edit.provider.metainfo.LinkMetaInfoProvider;
+import org.eclipse.gmf.edit.provider.metainfo.MetaInfoProviderAdapter;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**

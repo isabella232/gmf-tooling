@@ -4,8 +4,8 @@ package <%=genDiagram.getEditProvidersPackageName()%>;
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditProvidersPackageName());%>
 
 import org.eclipse.gmf.diagramrt.DiagramCanvas;
-import org.eclipse.gmf.edit.provider.CanvasMetaInfoProvider;
-import org.eclipse.gmf.edit.provider.MetaInfoProviderAdapter;
+import org.eclipse.gmf.edit.provider.metainfo.CanvasMetaInfoProvider;
+import org.eclipse.gmf.edit.provider.metainfo.MetaInfoProviderAdapter;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
