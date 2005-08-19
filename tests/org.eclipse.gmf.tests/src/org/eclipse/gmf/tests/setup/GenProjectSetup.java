@@ -13,36 +13,23 @@ package org.eclipse.gmf.tests.setup;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.util.Generator;
 import org.eclipse.gmf.tests.Plugin;
-import org.eclipse.jdt.core.ICompilationUnit;
-import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaModelMarker;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.IPackageFragment;
-import org.eclipse.jdt.core.IPackageFragmentRoot;
-import org.eclipse.jdt.core.ISourceRange;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.internal.corext.codemanipulation.OrganizeImportsOperation;
-import org.eclipse.jdt.internal.corext.codemanipulation.OrganizeImportsOperation.IChooseImportQuery;
-import org.eclipse.jdt.internal.corext.util.TypeInfo;
 import org.eclipse.pde.internal.core.PDEState;
 import org.eclipse.pde.internal.ui.wizards.imports.PluginImportOperation;
 import org.osgi.framework.Bundle;
@@ -89,9 +76,6 @@ public class GenProjectSetup {
 			try {
 				String pluginID = (String) it.next();
 				IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginID);
-				if (!it.hasNext()) { // XXX  HACK only last one needs
-					organizeImports(p);
-				}
 				p.build(IncrementalProjectBuilder.FULL_BUILD, new NullProgressMonitor());
 				if (hasJavaErrors(p)) {
 					System.err.println(p.getName() + " has compilation problems");
@@ -144,37 +128,6 @@ public class GenProjectSetup {
 			}
 		}
 		return (URL[]) urls.toArray(new URL[urls.size()]);
-	}
-
-	private void organizeImports(final IProject proj) throws CoreException {
-		ResourcesPlugin.getWorkspace().run(new IWorkspaceRunnable() {
-			public void run(IProgressMonitor monitor) throws CoreException {
-				IJavaProject jp = JavaCore.create(proj);
-				ICompilationUnit cu[] = collectCompilationUnits(jp);
-				IChooseImportQuery query = new IChooseImportQuery() {
-					public TypeInfo[] chooseImports(TypeInfo[][] typeInfo, ISourceRange[] sourceRange) {
-						return typeInfo[0];
-					}
-				};
-				for (int i = 0; i < cu.length; i++) {
-					new OrganizeImportsOperation(cu[i], new String[0], 99, true, true, true, query).run(monitor);
-				}
-			}
-		}, new NullProgressMonitor());
-	}
-
-	private ICompilationUnit[] collectCompilationUnits(IJavaProject jp) throws CoreException {
-		IPackageFragmentRoot[] pfr = jp.getPackageFragmentRoots();
-		LinkedList result = new LinkedList();
-		for (int i = 0; i < pfr.length; i++) {
-			if (pfr[i].getKind() == IPackageFragmentRoot.K_SOURCE) {
-				IJavaElement[] packages = pfr[i].getChildren();
-				for (int j = 0; j < packages.length; j++) {
-					result.addAll(Arrays.asList(((IPackageFragment) packages[j]).getCompilationUnits()));
-				}
-			}
-		}
-		return (ICompilationUnit[]) result.toArray(new ICompilationUnit[result.size()]);
 	}
 
 	public final Bundle getBundle() {
