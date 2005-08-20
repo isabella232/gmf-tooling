@@ -121,6 +121,11 @@
 		<ul>
 			<li><code>mkdir /gmfbuild</code></li>
 		</ul>
+		<b>Note</b> that you will want to place this directory close to the
+		root of the drive on Windows, due to path length limitations.
+		Optionally, you may choose to use the -DbuildDirectory property to
+		target a location near the root, utilize the 'subst' command, or simply rename the
+		org.eclipse.gmf.releng.builder directory to just 'builder'. <br /><br/>
 		5. Install the v3.1 Eclipse release engineering basebuilder (this
 		installation will be used to run the build tools, it is not itself a
 		GMF installation): Export <b>org.eclipse.releng.basebuilder</b> from
