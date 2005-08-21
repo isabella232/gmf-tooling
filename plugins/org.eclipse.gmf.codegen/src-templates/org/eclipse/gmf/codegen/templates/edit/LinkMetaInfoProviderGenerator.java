@@ -18,7 +18,7 @@ public class LinkMetaInfoProviderGenerator
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "package ";
   protected final String TEXT_2 = ";";
-  protected final String TEXT_3 = NL + NL + "import org.eclipse.emf.ecore.EReference;" + NL + "import org.eclipse.emf.ecore.EStructuralFeature;" + NL + "import org.eclipse.gmf.diagramrt.DiagramLink;" + NL + "import org.eclipse.gmf.edit.provider.LinkMetaInfoProvider;" + NL + "import org.eclipse.gmf.edit.provider.MetaInfoProviderAdapter;";
+  protected final String TEXT_3 = NL + NL + "import org.eclipse.emf.ecore.EReference;" + NL + "import org.eclipse.emf.ecore.EStructuralFeature;" + NL + "import org.eclipse.gmf.diagramrt.DiagramLink;" + NL + "import org.eclipse.gmf.edit.provider.metainfo.LinkMetaInfoProvider;" + NL + "import org.eclipse.gmf.edit.provider.metainfo.MetaInfoProviderAdapter;";
   protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_5 = " extends MetaInfoProviderAdapter implements LinkMetaInfoProvider {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic EStructuralFeature getTargetFeature(DiagramLink diagramLink) {";
   protected final String TEXT_6 = NL + "\t\treturn ";
