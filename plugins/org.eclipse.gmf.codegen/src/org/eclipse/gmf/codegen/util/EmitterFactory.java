@@ -100,8 +100,16 @@ public class EmitterFactory {
 	}
 
 	private static JETEmitter initializeEmitter(String relativeTemplatePath, Class precompiledTemplate) throws JETException {
-		String uri = getTemplatesBundle().getEntry(relativeTemplatePath).toString();
-		JETEmitter emitter = new JETEmitter(uri, EmitterFactory.class.getClassLoader());
+		String path = relativeTemplatePath;
+		URL url = getTemplatesBundle().getEntry(relativeTemplatePath);
+		if (url != null) {
+			path = url.toString();
+		} else {
+			if (!usePrecompiledTemplates()) {
+				throw new JETException("Template " + relativeTemplatePath + " unavailable.");
+			}
+		}
+		JETEmitter emitter = new JETEmitter(path, EmitterFactory.class.getClassLoader());
 		try {
 	        emitter.addVariable("EMF_CODEGEN", "org.eclipse.emf.codegen");
 			emitter.addVariable("EMF_CODEGEN_ECORE", "org.eclipse.emf.codegen.ecore");
