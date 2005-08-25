@@ -15,6 +15,7 @@ import junit.framework.Test;
 import junit.framework.TestSuite;
 
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
+import org.eclipse.gmf.tests.rt.CanvasTest;
 import org.eclipse.gmf.tests.rt.PropertiesTest;
 import org.eclipse.gmf.tests.tr.EPNamingStrategyTest;
 import org.eclipse.gmf.tests.tr.GenModelTransformerBasicRTTest;
@@ -34,6 +35,7 @@ public class AllTests {
 		suite.addTestSuite(RunTimeModelTransformerTest.class);
 		suite.addTestSuite(GenModelTransformerBasicRTTest.class);
 		suite.addTestSuite(PropertiesTest.class);
+		suite.addTestSuite(CanvasTest.class);
 //		suite.addTestSuite(SpecificRTPropertiesTest.class);
 		//$JUnit-END$
 		return suite;
