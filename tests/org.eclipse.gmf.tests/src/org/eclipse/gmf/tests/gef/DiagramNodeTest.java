@@ -13,9 +13,14 @@ package org.eclipse.gmf.tests.gef;
 
 import junit.framework.TestCase;
 
+import org.eclipse.draw2d.GraphicsSource;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.draw2d.PositionConstants;
+import org.eclipse.draw2d.UpdateManager;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.EditPartViewer;
@@ -32,6 +37,7 @@ import org.eclipse.gmf.tests.setup.RTSetup;
 import org.eclipse.gmf.tests.setup.RTSource;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.osgi.framework.Bundle;
 
@@ -55,6 +61,7 @@ public class DiagramNodeTest extends TestCase {
 		return myCommandStack;
 	}
 
+	// TODO EditPartViewer[Source|Setup]
 	protected void setUp() throws Exception {
 		super.setUp();
 		Bundle b = SessionSetup.getGenProject().getBundle();
@@ -69,7 +76,31 @@ public class DiagramNodeTest extends TestCase {
 	}
 
 	private EditPartViewer createViewer() {
-		GraphicalViewerImpl gv = new GraphicalViewerImpl();
+		System.err.println("Current display:" + Display.getCurrent());
+		System.err.println("Default display:" + Display.getDefault());
+		System.err.println("Current thread:" + Thread.currentThread());
+		final UpdateManager NO_MANAGER = new UpdateManager() {
+			public void addDirtyRegion(IFigure figure, int x, int y, int w, int h) {}
+			public void addInvalidFigure(IFigure figure) {}
+			public void performUpdate() {}
+			public void performUpdate(Rectangle exposed) {}
+			public void setGraphicsSource(GraphicsSource gs) {}
+			public void setRoot(IFigure figure) {}
+		};
+
+		GraphicalViewerImpl gv = new GraphicalViewerImpl() {
+			protected LightweightSystem createLightweightSystem() {
+				return new LightweightSystem() {
+					{
+						setUpdateManager(NO_MANAGER);
+					}
+
+					public UpdateManager getUpdateManager() {
+						return NO_MANAGER;
+					}
+				};
+			}
+		};
 		myParentShell = new Shell(SWT.NONE);
 		gv.createControl(myParentShell);
 		return gv;
