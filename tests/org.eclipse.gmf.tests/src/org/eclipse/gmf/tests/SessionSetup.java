@@ -40,7 +40,7 @@ public class SessionSetup {
 		return myGenModel;
 	}
 
-	public static GenProjectSetup getGenProject() {
+	public static GenProjectSetup getGenProject() throws Exception {
 		if (myProject == null) {
 			myProject = new GenProjectSetup();
 			myProject.init(getGenModel());
