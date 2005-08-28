@@ -7,11 +7,11 @@
 
 	<plugin name="htmlemail"
 		buildresultsurl="http://www.eclipse.org/gmf/cruisecontrol"
-		mailhost="smtp.comcast.net" returnaddress="gmf-dev@eclipse.org"
-		returnname="GMF Build Machine" subjectprefix="[GMF Build Results]"
+		mailhost="localhost" returnaddress="gmf-dev@eclipse.org"
+		returnname="GMF Buildmaster" subjectprefix="[GMF Build]"
 		skipusers="true" spamwhilebroken="true"
-		css="D:/java/cruisecontrol-2.2.1/reporting/jsp/webcontent/css/cruisecontrol.css"
-		xsldir="D:/java/cruisecontrol-2.2.1/reporting/jsp/webcontent/xsl" />
+		css="css/cruisecontrol.css"
+		xsldir="xsl" />
 
 	<project name="sdk" buildafterfailed="true">
 		<listeners>
@@ -33,13 +33,9 @@
 			build file/target -->
 		<schedule interval="600">
 			<ant antscript="build.bat" buildfile="build.xml"
-				target="main" uselogger="false" usedebug="false" time="0130">
-				<property name="component" value="sdk" />
-				<property name="cleanBase" value="true" />
-			</ant>
-			<ant antscript="build.bat" buildfile="build.xml"
 				target="main" uselogger="false" usedebug="false">
 				<property name="component" value="sdk" />
+				<property name="cleanBase" value="true" />
 				<property name="clean" value="true" />
 			</ant>
 		</schedule>
@@ -50,8 +46,8 @@
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
 			<htmlemail logdir="build/logs/sdk">
-				<always address="gronback@comcast.net" />
-				<failure address="gronback@comcast.net" />
+				<always address="richard.gronback@borland.com" />
+<!-- 			<failure address="gmf-dev@eclipse.org" />  			-->
 			</htmlemail>
 			<artifactspublisher dir="build/artifacts/gmf-sdk"
 				dest="build/artifacts/published/sdk" />
@@ -80,7 +76,7 @@
 			<ant antscript="build.bat" buildfile="build.xml"
 				target="main" uselogger="false" usedebug="false">
 				<property name="component" value="tests" />
-				<property name="cleanBase" value="true" />
+				<property name="clean" value="true" />
 			</ant>
 		</schedule>
 
@@ -92,8 +88,8 @@
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
 			<htmlemail logdir="build/logs/tests">
-				<always address="gronback@comcast.net" />
-				<failure address="gronback@comcast.net" />
+				<always address="richard.gronback@borland.com" />
+<!-- 			<failure address="gmf-dev@eclipse.org" />  			-->
 			</htmlemail>
 			<artifactspublisher dir="build/artifacts/gmf-tests"
 				dest="build/artifacts/published/tests" />
@@ -120,11 +116,6 @@
 			build file/target -->
 		<schedule interval="600">
 			<ant antscript="build.bat" buildfile="build.xml"
-				target="main" uselogger="false" usedebug="false" time="0130">
-				<property name="component" value="runtime" />
-				<property name="cleanBase" value="true" />
-			</ant>
-			<ant antscript="build.bat" buildfile="build.xml"
 				target="main" uselogger="false" usedebug="false">
 				<property name="component" value="runtime" />
 				<property name="clean" value="true" />
@@ -137,8 +128,7 @@
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
 			<htmlemail logdir="build/logs/runtime">
-				<always address="gronback@comcast.net" />
-				<failure address="gronback@comcast.net" />
+				<always address="richard.gronback@borland.com" />
 			</htmlemail>
 			<artifactspublisher dir="build/artifacts/gmf-runtime"
 				dest="build/artifacts/published/runtime" />
@@ -178,8 +168,7 @@
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
 			<htmlemail logdir="build/logs/checkout">
-				<always address="gronback@comcast.net" />
-				<failure address="gronback@comcast.net" />
+				<always address="richard.gronback@borland.com" />
 			</htmlemail>
 			<artifactspublisher dir="build/artifacts/gmf-checkout"
 				dest="build/artifacts/published/checkout" />
