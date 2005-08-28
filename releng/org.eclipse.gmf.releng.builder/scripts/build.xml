@@ -7,6 +7,7 @@
 			<property name="builder" value="${basedir}/../${component}"/>
 		</ant>
 		<antcall target="publishLocal"/>
+		<delete file="${buildDirectory}/label.properties"/>
 	</target>
 	
 	<target name="publishLocal" if="useMirror">
@@ -40,7 +41,6 @@
 	<target name="init">
 		<antcall target="clean"/>
 		<touch file="${user.home}/.cvspass" />
-		<available file="${buildDirectory}/label.properties" property="label.properties.exists" />
 		<antcall target="create.label.properties" />
 		<property file="${buildDirectory}/label.properties" />
 		<condition property="mirrorAvailable">
@@ -58,7 +58,7 @@
 		<delete dir="${buildDirectory}"/>
 	</target>
 
-	<target name="create.label.properties" unless="label.properties.exists">
+	<target name="create.label.properties">
 		<mkdir dir="${buildDirectory}" />
 		<tstamp/>
 		<property name="date" value="${DSTAMP}" />
