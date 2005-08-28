@@ -5,11 +5,28 @@
 <xsl:for-each select="site">
 	<html>
 	<head>
-	<title>org.eclipse.gmf.updatesite</title>
+	<title>GMF Development Update Site</title>
 	<style>@import url("web/site.css");</style>
 	</head>
 	<body>
-	<h1 class="title">org.eclipse.gmf.updatesite</h1>
+	<table width="100%">
+		<tr valign="top">
+		<td width="75%">
+			<a name="top"> </a>
+	<h2 class="title">GMF Development Update Site</h2>
+	<p class="bodyText"><xsl:copy-of select="description"/> For more on how to do this, <a href="http://eclipse.org/emf/docs.php?doc=docs/UsingUpdateManager/UsingUpdateManager.html">click here</a>.
+	</p>
+	<pre><p class="bodyText">   Help
+    > Software Updates
+       > Find and Install...
+          > Search for new features to install
+             > New Remote Site...
+                * Name: <b>GMF Development Update Site</b>
+                * URL:    <b><a href="http://localhost/updateSite/site.xml" target="_um">http://localhost/updateSite/site.xml</a></b></p></pre>
+		</td>
+		<td width="25%"><img alt="how to" src="http://eclipse.org/images/howto_banner.jpg" height="111" width="272" align="middle" /></td>
+		</tr>
+	</table>	
 	<p class="bodyText"><xsl:value-of select="description"/></p>
 	<table width="100%" border="0" cellspacing="1" cellpadding="2">
 	<xsl:for-each select="category-def">
