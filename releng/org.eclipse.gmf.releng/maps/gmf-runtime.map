@@ -1,12 +1,12 @@
 !*** Graphical Modeling Framework (GMF) runtime map *****************************************
 
 !*** GMF features ***************************************************************************
-feature@org.eclipse.gmf.runtime=v20050828,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/features/org.eclipse.gmf.runtime-feature
+feature@org.eclipse.gmf.runtime=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/features/org.eclipse.gmf.runtime-feature
 
 !*** GMF plug-ins ***************************************************************************
-plugin@org.eclipse.gmf.edit=v20050828,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.edit
-plugin@org.eclipse.gmf.runtime=v20050828,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime
-plugin@org.eclipse.gmf.runtime.gef=v20050828,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.gef
+plugin@org.eclipse.gmf.edit=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.edit
+plugin@org.eclipse.gmf.runtime=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime
+plugin@org.eclipse.gmf.runtime.gef=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.gef
 plugin@org.eclipse.gmf.runtime.doclet=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.doclet
 plugin@org.eclipse.gmf.runtime.common.core=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.core
 plugin@org.eclipse.gmf.runtime.common.core.provider=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.core.provider
