@@ -15,7 +15,6 @@ plugin@org.eclipse.gmf.runtime.common.ui.action=HEAD,:pserver:anonymous@dev.ecli
 plugin@org.eclipse.gmf.runtime.common.ui.action.ide=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.action.ide
 plugin@org.eclipse.gmf.runtime.common.ui.pathvariables.ide=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.pathvariables.ide
 plugin@org.eclipse.gmf.runtime.common.ui.printing=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.printing
-fragment@org.eclipse.gmf.runtime.common.ui.printing.win32=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.printing.win32
 plugin@org.eclipse.gmf.runtime.common.ui.services=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.services
 plugin@org.eclipse.gmf.runtime.common.ui.services.action=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.services.action
 plugin@org.eclipse.gmf.runtime.common.ui.services.dnd=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.services.dnd
@@ -46,10 +45,14 @@ plugin@org.eclipse.gmf.runtime.emf.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/h
 plugin@org.eclipse.gmf.runtime.emf.ui.properties=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.ui.properties
 plugin@org.eclipse.gmf.runtime.emf.type.core=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.type.core
 plugin@org.eclipse.gmf.runtime.emf.type.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.type.ui
-fragment@org.eclipse.gmf.runtime.emf.ui.transfer.providers=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.ui.transfer.providers
 plugin@org.eclipse.gmf.runtime.emf.clipboard.core=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.clipboard.core
 
+!*** GMF fragments ***************************************************************************
+fragment@org.eclipse.gmf.runtime.emf.ui.transfer.providers=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.ui.transfer.providers
+fragment@org.eclipse.gmf.runtime.common.ui.printing.win32=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.printing.win32
+
 !*** Third-party dependencies ***
+!*** TODO: move to its own feature and include? ***
 plugin@org.apache.batik=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.apache.batik
 
 !*** TODO: remove when moved to EMFT (install as usual with dependencies)
