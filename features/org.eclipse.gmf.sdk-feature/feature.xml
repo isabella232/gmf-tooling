@@ -27,6 +27,14 @@ http://www.eclipse.org/legal/epl-v10.html
       <discovery label="%updateSiteName" url="http://update.eclipse.org/updates"/>
    </url>
 
+   <includes
+         id="org.eclipse.gmf.sdk.source"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.gmf.runtime"
+         version="0.0.0"/>
+
    <requires>
       <import feature="org.eclipse.gef" version="3.1.0"/>
       <import feature="org.eclipse.emf" version="2.1.0"/>
@@ -69,13 +77,6 @@ http://www.eclipse.org/legal/epl-v10.html
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.gmf.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.gmf.map"
          download-size="0"
          install-size="0"
@@ -90,28 +91,10 @@ http://www.eclipse.org/legal/epl-v10.html
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.gmf.runtime"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.gmf.runtime.gef"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.gmf.bridge"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
-    <!-- This is a generated feature created during the build by the corresponding -->
-    <!-- generate.feature property in the build.properties file.                   -->
-    <includes id="org.eclipse.gmf.sdk.source" version="0.0.0"/>       
 
 </feature>
