@@ -47,11 +47,9 @@
 		<TD align="LEFT" valign="TOP" colspan="3">
 
 		<p>This document describes how to build GMF components from the
-		command line using Ant scripts. Additional documents are in
-		development to cover automated <a href="">unit tests</a>, <a href="">performance
-		testing</a>, and how to set up a similar build <a href="">environment</a>
-		for your project.<br />
-		<br />
+		command line using Ant scripts, including the running of unit tests and operation
+		under <a href="cruisecontrol.sf.net">CruiseControl</a>.
+		<br /><br />
 		Note that while there is no mandated standard for builds among Eclipse
 		projects, they generally follow a similar process to what is described
 		here; that is, they leverage the <a href="">org.eclipse.releng.basebuilder</a>
@@ -108,7 +106,7 @@
 
 	<TR>
 		<TD align="LEFT" valign="TOP" colspan="3">With the prerequisites
-		installed, follow these steps to setup your environment to build the
+		installed, follow these steps to setup your environment and build the
 		GMF components:<br />
 		<br />
 		1. Add the zip, unzip, and cvs executables to your PATH environment
@@ -286,6 +284,10 @@
 			<li><code>run 'build.bat initLocalMirror'</code></li>
 			<li><code>restart Tomcat (if necessary)</code></li>
 		</ul>
+		<p>Run the build and then navigate to http://localhost/updateSite (or similar, 
+		depending on your configuration).  If you 
+		had run the build previously, you may want to rerun with -DcleanBase=true option 
+		in order to force the mirror and install of EMF and GEF locally.</p>
 		<p>Without the mirror running, the build will resort to using the
 		official update sites for EMF and GEF, while using a simple unzip of
 		GMF components (when running tests). When running, each build will
@@ -450,6 +452,12 @@
 			<tr>
 				<td>&nbsp;</td>
 				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/examples</strong></td>
+				<td>GMF examples</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
 				<td colspan="4"><strong>/features</strong></td>
 				<td>GMF features</td>
 			</tr>
@@ -499,13 +507,15 @@
 		<td>The build process is fairly complex, and will hopefully improve
 		with more being generated/automated. A few things to watch out for are
 		listed below: <br />
-		<p>If the build stops during the fetch with an error message telling
+		<ul>
+		<li>If the build stops during the fetch with an error message telling
 		you to check your map files, open the generated fetch_*.xml file in
 		your component build directory. If it is cutoff (malformed), check
-		your CVS connection, as it is likely the cause.</p>
-		<p>If you are running a build and get the message that 'plug-in
+		your CVS connection, as it is likely the cause.</li>
+		<li>If you are running a build and get the message that 'plug-in
 		org.*_X_X_X' cannot be found, check that you have declared/installed
-		the necessary dependencies for the plug-in.</p>
+		the necessary dependencies for the plug-in.</li>
+		</ul>
 		</td>
 	</tr>
 

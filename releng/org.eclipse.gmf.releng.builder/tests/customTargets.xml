@@ -88,20 +88,29 @@
 		<available file="${baseLocation}/plugins/org.eclipse.gef_${gefVersion}.jar" property="gefExists" />
 		<antcall target="installGEF" />
 		<available file="${baseLocation}/plugins/org.eclipse.emf_${emfVersion}.jar" property="emfExists" />
-		<antcall target="installEMF" />		
-		<antcall target="installGMF" />	
+		<antcall target="installEMF" />	
+		<available file="${baseLocation}/plugins/org.eclipse.jem_${jemVersion}/plugin.xml" property="jemExists" />
+		<antcall target="installJEM" />
+		<available file="${baseLocation}/plugins/org.eclipse.xsd_${xsdVersion}.jar" property="xsdExists" />
+		<antcall target="installXSD" />
+		<available file="${baseLocation}/plugins/org.eclipse.emf.ecore.sdo_${sdoVersion}.jar" property="sdoExists" />
+		<antcall target="installSDO" />
+		<available file="${baseLocation}/plugins/org.eclipse.wst_${wstVersion}/plugin.properties" property="wstExists" />
+		<antcall target="installWST" />
+		<available file="${baseLocation}/plugins/org.eclipse.uml2_${uml2Version}.jar" property="uml2Exists" />
+		<antcall target="installUML2" />
+		<available file="${baseLocation}/features/org.eclipse.gmf.sdk_${gmfVersion}/feature.xml" property="gmfExists" />
+		<antcall target="installGMF" />				
 	</target>
 	
 	<!-- ===================================================================== -->
 	<!-- Retrieve and install Eclipse base and dependencies. -->
 	<!-- ===================================================================== -->
 	<target name="getBaseComponents" depends="checkLocalBase" unless="skipBase">
-<!-- TODO: find a more reliable method! -->
 		<get src="${eclipseBaseURL}" dest="${baseLocationRoot}/eclipse-SDK-${eclipseVersion}-${baseos}.zip" verbose="true" usetimestamp="true"/>
 	</target>
 	
 	<target name="getTestingFramework" unless="testingFrameworkExists">
-	<!-- TODO: find a more reliable method! -->
 		<get src="${testingFrameworkURL}" dest="${baseLocationRoot}/eclipse-test-framework-${eclipseVersion}.zip" verbose="true" usetimestamp="true"/>
 	</target>
 
@@ -133,7 +142,47 @@
 		</ant>
 	</target>
 	
-	<target name="installGMF" unless="gmfExists">		
+	<target name="installJEM" unless="jemExists">		
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${jemFeatureId}" />
+			<property name="version" value="${jemVersion}" />
+			<property name="updateSite" value="${jemUpdateSite}" />
+		</ant>
+	</target>
+	
+	<target name="installXSD" unless="xsdExists">		
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${xsdFeatureId}" />
+			<property name="version" value="${xsdVersion}" />
+			<property name="updateSite" value="${xsdUpdateSite}" />
+		</ant>
+	</target>
+	
+	<target name="installSDO" unless="sdoExists">		
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${sdoFeatureId}" />
+			<property name="version" value="${sdoVersion}" />
+			<property name="updateSite" value="${sdoUpdateSite}" />
+		</ant>
+	</target>
+
+	<target name="installWST" unless="wstExists">		
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${wstFeatureId}" />
+			<property name="version" value="${wstVersion}" />
+			<property name="updateSite" value="${wstUpdateSite}" />
+		</ant>
+	</target>
+	
+	<target name="installUML2" unless="uml2Exists">		
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${uml2FeatureId}" />
+			<property name="version" value="${uml2Version}" />
+			<property name="updateSite" value="${uml2UpdateSite}" />
+		</ant>
+	</target>
+	
+	<target name="installGMF" unless="gmfExists">	
 		<antcall target="installGMFfromMirror"/>
 		<antcall target="installGMFfromZip"/>
 	</target>
@@ -260,24 +309,7 @@
 	<!-- ===================================================================== -->
 	<target name="test" unless="skipTests">
 		<antcall target="installTests"/>
-	  	<echo message="Executing automated tests for GMF..."/>
-		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="true">
-			<arg value="-application"/>
-			<arg value="org.eclipse.ant.core.antRunner"/>			
-			<arg value="-file"/>
-			<arg value="${baseLocation}/plugins/${product}_${gmfVersion}/test.xml"/>
-			<arg value="-logger"/>
-			<arg value="org.apache.tools.ant.DefaultLogger"/>
-			<arg value="-Dos=${baseos}"/>
-			<arg value="-Dws=${basews}"/>
-			<arg value="-Darch=${basearch}"/>
-			<arg value="-DtestPlugin=${product}"/>
-			<arg value="-Dreport=${product}"/>
-			<arg value="-Declipse-home=${baseLocation}"/>
-			<arg value="-DlibraryFile=${baseLocation}/plugins/org.eclipse.test_${fullEclipseVersion}/library.xml"/>
-		</java>
-		<move file="${baseLocation}/${product}.xml" tofile="${artifacts}/gmf-tests/${product}.xml"/>
-		<move file="${baseLocation}/${product}.AllTests.xml" tofile="${artifacts}/gmf-tests/${product}.AllTests.xml"/>		
+	  	<ant antfile="${scripts}/test.xml"/>		
 		<antcall target="uninstallTests"/>
 	</target>
 	

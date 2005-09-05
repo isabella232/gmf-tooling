@@ -1,0 +1,77 @@
+<project name="Automated Testing for GMF" default="all" basedir=".">
+
+	<!-- TODO: modify to allow for testing to be run standalone (not only as part of the build) -->
+	<target name="runtests" depends="" description="Executes the junit tests for a specified plug-in.">
+		<tstamp>
+			<format property="runtests-starttime" pattern="HH:mm:ss" />
+		</tstamp>
+		<echo message="Start test of ${testPlugin}: [${runtests-starttime}]" />
+		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="true">
+			<arg value="-application" />
+			<arg value="org.eclipse.ant.core.antRunner" />
+<!--		<arg value="-debug" /> -->
+			<arg value="-file" />
+			<arg value="${baseLocation}/plugins/${testPlugin}_${gmfVersion}/test.xml" />
+			<arg value="-logger" />
+			<arg value="org.apache.tools.ant.DefaultLogger" />
+			<arg value="-Dos=${baseos}" />
+			<arg value="-Dws=${basews}" />
+			<arg value="-Darch=${basearch}" />
+			<arg value="-DtestPlugin=${testPlugin}" />
+			<arg value="-Dreport=${testPlugin}" />
+			<arg value="-Declipse-home=${baseLocation}" />
+			<arg value="-DlibraryFile=${baseLocation}/plugins/org.eclipse.test_${fullEclipseVersion}/library.xml" />
+		</java>
+		<move file="${baseLocation}/${testPlugin}.xml" tofile="${artifacts}/gmf-tests/${testPlugin}.xml" />
+		<move file="${baseLocation}/${testPlugin}.AllTests.xml" tofile="${artifacts}/gmf-tests/${testPlugin}.AllTests.xml" />
+		<tstamp>
+			<format property="runtests-endtime" pattern="HH:mm:ss" />
+		</tstamp>
+		<echo message="Done running tests of ${testPlugin}: [${runtests-endtime}]" />
+	</target>
+
+	<target name="all" description="Runs the test.xml of the test plugins">
+		<antcall target="runtests">
+			<param name="testPlugin" value="org.eclipse.gmf.tests" />
+		</antcall>
+		<antcall target="runtests">
+			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.emf.commands.core" />
+		</antcall>
+		<antcall target="runtests">
+			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.emf.core" />
+		</antcall>
+		<antcall target="runtests">
+			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.emf.type.ui" />
+		</antcall>
+		<antcall target="runtests">
+			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.emf.ui" />
+		</antcall>
+		<antcall target="runtests">
+			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.gef.ui" />
+		</antcall>
+		<antcall target="runtests">
+			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.common.core" />
+		</antcall>
+<!-- TODO: Errors occur... fix and restore 		
+		<antcall target="runtests">
+			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.common.ui" />
+		</antcall>
+-->		
+		<antcall target="runtests">
+			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.common.ui.services.action" />
+		</antcall>
+		<antcall target="runtests">
+			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.diagram.ui" />
+		</antcall>
+		<antcall target="runtests">
+			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.draw2d.ui" />
+		</antcall>
+		<antcall target="runtests">
+			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.draw2d.ui.render" />
+		</antcall>
+	</target>
+
+	<target name="genHtml" description="Generates HTML results with provided JUNIT.XSL provided">
+		<style style="JUNIT.XSL" basedir="${results}/xml" destdir="${results}/html" />
+	</target>
+</project>
