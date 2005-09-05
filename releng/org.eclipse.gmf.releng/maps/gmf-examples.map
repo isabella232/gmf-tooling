@@ -1,0 +1,22 @@
+!*** Graphical Modeling Framework (GMF) examples map *****************************************
+
+!*** GMF features ***************************************************************************
+feature@org.eclipse.gmf.examples=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/features/org.eclipse.gmf.examples-feature
+
+!*** GMF plug-ins ***************************************************************************
+plugin@org.eclipse.gmf.examples=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples
+plugin@org.eclipse.gmf.examples.runtime.common.service=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.common.service
+plugin@org.eclipse.gmf.examples.runtime.diagram.geoshapes=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.common.service
+plugin@org.eclipse.gmf.examples.runtime.diagram.logic=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.logic
+plugin@org.eclipse.gmf.examples.runtime.diagram.logic.model=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.logic.model
+plugin@org.eclipse.gmf.examples.runtime.diagram.logic.model.edit=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.logic.model.edit
+plugin@org.eclipse.gmf.examples.runtime.diagram.decorator=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.decorator
+plugin@org.eclipse.gmf.examples.runtime.diagram.layout=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.diagram.layout
+plugin@org.eclipse.gmf.examples.runtime.ui.pde=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.ui.pde
+plugin@org.eclipse.gmf.examples.runtime.emf=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.emf
+plugin@org.eclipse.gmf.examples.runtime.emf.clipboard=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.emf.clipboard
+
+!*** TODO: remove when moved to EMFT (install as usual with dependencies)
+plugin@org.eclipse.emf.examples.library=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/contributions/emft/org.eclipse.emf.examples.library
+plugin@org.eclipse.emf.examples.library.edit=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/contributions/emft/org.eclipse.emf.examples.library.edit
+plugin@org.eclipse.emf.examples.library.editor=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/contributions/emft/org.eclipse.emf.examples.library.editor

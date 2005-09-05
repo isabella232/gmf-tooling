@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Graphical Modeling Framework Examples
+Bundle-SymbolicName: org.eclipse.gmf.examples
+Bundle-Version: 1.0.0
+Bundle-Vendor: Eclipse.org
+Bundle-Localization: plugin
