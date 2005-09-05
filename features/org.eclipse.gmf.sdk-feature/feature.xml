@@ -30,6 +30,10 @@ http://www.eclipse.org/legal/epl-v10.html
    <includes
          id="org.eclipse.gmf.sdk.source"
          version="0.0.0"/>
+         
+   <includes
+         id="org.eclipse.gmf.source"
+         version="0.0.0"/>
 
    <includes
          id="org.eclipse.gmf"
