@@ -137,6 +137,7 @@ import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
+import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.provider.GMFGenItemProviderAdapterFactory;
 
 
@@ -728,7 +729,7 @@ public class GMFGenEditor
 	 * This is the method called to load a resource into the editing domain's resource set based on the editor's input.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public void createModel() {
 		// I assume that the input is a file object.
@@ -738,7 +739,12 @@ public class GMFGenEditor
 		try {
 			// Load the resource through the editing domain.
 			//
-			editingDomain.loadResource(URI.createPlatformResourceURI(modelFile.getFile().getFullPath().toString()).toString());
+			// [vano] reconcile genModel for domain
+			Resource res = editingDomain.loadResource(URI.createPlatformResourceURI(modelFile.getFile().getFullPath().toString()).toString());
+			GenDiagram gd = (GenDiagram) res.getContents().get(0);
+			if (gd.getEmfGenModel() != null) {
+				gd.getEmfGenModel().reconcile();
+			}
 		}
 		catch (Exception exception) {
 			EditorPlugin.INSTANCE.log(exception);
