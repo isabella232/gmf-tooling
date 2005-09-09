@@ -22,7 +22,7 @@
           > Search for new features to install
              > New Remote Site...
                 * Name: <b>GMF Development Update Site</b>
-                * URL:    <b><a href="http://localhost/updateSite/site.xml" target="_um">http://localhost/updateSite/site.xml</a></b></p></pre>
+                * URL:    <b><a href="http://gmf-dev.borland.com/updateSite/site.xml" target="_um">http://gmf-dev.borland.com/updateSite/site.xml</a></b></p></pre>
 		</td>
 		<td width="25%"><img alt="how to" src="http://eclipse.org/images/howto_banner.jpg" height="111" width="272" align="middle" /></td>
 		</tr>
