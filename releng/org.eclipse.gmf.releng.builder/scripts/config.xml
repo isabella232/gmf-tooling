@@ -11,6 +11,7 @@
     <plugin name="htmlemail"
             buildresultsurl="http://gmf-dev.borland.com/cruisecontrol"
             mailhost="localhost"
+            skipusers="true"
             returnaddress="${buildmaster.email}"
             returnname="Buildmaster"
             subjectprefix="[GMF build]"
@@ -35,7 +36,7 @@
 
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
-		<schedule interval="600">
+		<schedule interval="1200">
 			<ant antscript="build.bat" buildfile="build.xml"
 				target="main" uselogger="false" usedebug="false">
 				<property name="component" value="sdk" />
@@ -77,7 +78,7 @@
 
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
-		<schedule interval="600">
+		<schedule interval="1200">
 			<ant antscript="build.bat" buildfile="build.xml"
 				target="main" uselogger="false" usedebug="false">
 				<property name="component" value="tests" />
@@ -120,7 +121,7 @@
 
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
-		<schedule interval="600">
+		<schedule interval="1200">
 			<ant antscript="build.bat" buildfile="build.xml"
 				target="main" uselogger="false" usedebug="false">
 				<property name="component" value="examples" />
@@ -160,7 +161,7 @@
 
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
-		<schedule interval="600">
+		<schedule interval="1200">
 			<ant antscript="build.bat" buildfile="build.xml"
 				target="main" uselogger="false" usedebug="false">
 				<property name="component" value="runtime" />
@@ -202,7 +203,7 @@
 
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
-		<schedule interval="600">
+		<schedule interval="1200">
 			<!-- Perform checkout of all plug-ins and features, as builder uses export. -->
 			<ant antscript="ant.bat" buildfile="checkout.xml"
 				target="all" uselogger="false" usedebug="false">
