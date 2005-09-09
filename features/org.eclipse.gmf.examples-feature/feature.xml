@@ -30,9 +30,12 @@ http://www.eclipse.org/legal/epl-v10.html
       <import feature="org.eclipse.gmf.sdk" version="1.0.0"/>
    </requires>
    
-   <includes
+   <plugin
          id="org.eclipse.gmf.examples.source"
-         version="0.0.0"/>
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.eclipse.gmf.examples.runtime.emf"
