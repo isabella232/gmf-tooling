@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<project default="cruise">
+	<property file="build.properties" />
+	
+	<target name="init">
+		<delete file="${basedir}/cc.properties" failonerror="false"/>
+		<!-- Store the build properties in a file for CruiseControl to pick up. -->
+		<echo file="${basedir}/cc.properties" append="true" >
+		buildRoot=${buildRoot}
+		</echo>
+		<echo file="${basedir}/cc.properties" append="true" >
+			cc.home=${cc.home}
+		</echo>
+		<echo file="${basedir}/cc.properties" append="true" >
+			buildmaster.email=${buildmaster.email}
+		</echo>
+		<mkdir dir="${buildRoot}/logs/checkout"/>
+		<mkdir dir="${buildRoot}/logs/sdk"/>
+		<mkdir dir="${buildRoot}/logs/runtime"/>
+		<mkdir dir="${buildRoot}/logs/tests"/>
+		<mkdir dir="${buildRoot}/logs/examples"/>
+	</target>
+	
+	<target name="cruise" depends="init">
+		<java classname="CruiseControl" maxmemory="1024m" fork="true" failonerror="true">
+			<arg value="-Djavax.management.builder.initial=mx4j.server.MX4JMBeanServerBuilder" />
+			<classpath>
+				<fileset dir="${cc.home}/main/lib">
+		        	<include name="**/*.jar"/>
+		      	</fileset>
+				<fileset dir="${cc.home}/main/dist">
+		        	<include name="**/*.jar"/>
+		      	</fileset>
+			</classpath>
+		</java>
+	</target>
+
+</project>

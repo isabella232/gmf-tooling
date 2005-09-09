@@ -270,7 +270,7 @@
 		<!-- A temporary directory leftover? -->
 		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
 		<!-- Consolidate artifacts -->
-		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/gmf-tests"/>		
+		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/tests"/>		
 		<antcall target="generateUpdateSite"/>
 		<!-- Execute tests. -->
 		<antcall target="test"/>

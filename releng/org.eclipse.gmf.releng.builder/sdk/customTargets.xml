@@ -9,7 +9,7 @@
 	<target name="allElements">
 		<ant antfile="${genericTargets}" target="${target}">
 		<property name="type" value="feature" />
-		<property name="id" value="${id}"/>		
+		<property name="id" value="${id}"/>
 		</ant>
 	</target>
 
@@ -22,7 +22,7 @@
 
 	<target name="assemble.org.eclipse.gmf.sdk">
 		<ant antfile="${assembleScriptName}" dir="${buildDirectory}"/>
-	</target>	
+	</target>
 
 	<!-- ===================================================================== -->
 	<!-- Check out map files from correct repository -->
@@ -202,7 +202,6 @@
 	<!-- Steps to do after generating the build scripts. -->
 	<!-- ===================================================================== -->
 	<target name="postGenerate">
-		<antcall target="clean" />
 	</target>
 
 	<!-- ===================================================================== -->
@@ -249,7 +248,7 @@
 		<!-- A temporary directory leftover? -->
 		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
 		<!-- Consolidate artifacts -->
-		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/gmf-sdk"/>
+		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/sdk"/>
 		<antcall target="generateUpdateSite"/>
 	</target>
 	

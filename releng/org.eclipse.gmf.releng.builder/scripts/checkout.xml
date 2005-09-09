@@ -3,17 +3,22 @@
 <!-- TODO: generate this from map feature.xml, along with map file. -->
 
 <project default="all">
+	<property file="build.properties" />
+	
 	<target name="plugins">
-		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" package="org.eclipse.gmf/plugins" dest="build/checkout/" />
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" package="org.eclipse.gmf/plugins" dest="${checkoutDirectory}" />
 	</target>
 	<target name="features">
-		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" package="org.eclipse.gmf/features" dest="build/checkout/" />
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" package="org.eclipse.gmf/features" dest="${checkoutDirectory}" />
 	</target>
 	<target name="tests">
-		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" package="org.eclipse.gmf/tests" dest="build/checkout/" />
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" package="org.eclipse.gmf/tests" dest="${checkoutDirectory}" />
+	</target>
+	<target name="examples">
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" package="org.eclipse.gmf/examples" dest="${checkoutDirectory}" />
 	</target>
 	<target name="docs">
-		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" package="org.eclipse.gmf/doc" dest="build/checkout/" />
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" package="org.eclipse.gmf/doc" dest="${checkoutDirectory}" />
 	</target>
-	<target name="all" depends="plugins,features,tests,docs" />
+	<target name="all" depends="plugins,features,tests,examples,docs" />
 </project>

@@ -22,8 +22,8 @@
 			<arg value="-Declipse-home=${baseLocation}" />
 			<arg value="-DlibraryFile=${baseLocation}/plugins/org.eclipse.test_${fullEclipseVersion}/library.xml" />
 		</java>
-		<move file="${baseLocation}/${testPlugin}.xml" tofile="${artifacts}/gmf-tests/${testPlugin}.xml" />
-		<move file="${baseLocation}/${testPlugin}.AllTests.xml" tofile="${artifacts}/gmf-tests/${testPlugin}.AllTests.xml" />
+		<move file="${baseLocation}/${testPlugin}.xml" tofile="${artifacts}/tests/${testPlugin}.xml" />
+		<move file="${baseLocation}/${testPlugin}.AllTests.xml" tofile="${artifacts}/tests/${testPlugin}.AllTests.xml" />
 		<tstamp>
 			<format property="runtests-endtime" pattern="HH:mm:ss" />
 		</tstamp>

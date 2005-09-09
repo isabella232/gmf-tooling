@@ -1,22 +1,26 @@
 <cruisecontrol>
 
-	<!-- TODO: Update to version 2.2.2 and take advantage of properties as soon as stable! -->
-	<!-- Change this directory to match your environment.  By default, assuming build
-		takes place directly below the scripts directory. 
-		<property name="build.dir" value="build" /> -->
+    <property file="cc.properties"/>
+    
+    <!-- Commonly used directories -->
+    <property name="reportdir" value="${cc.home}/reporting"/>
+	<property name="checkout" value="${buildRoot}/checkout"/>
+    <property name="logs" value="${buildRoot}/logs"/>
+    <property name="artifacts" value="${buildRoot}/artifacts"/>
 
-	<plugin name="htmlemail"
-		buildresultsurl="http://www.eclipse.org/gmf/cruisecontrol"
-		mailhost="localhost" returnaddress="gmf-dev@eclipse.org"
-		returnname="GMF Buildmaster" subjectprefix="[GMF Build]"
-		skipusers="true" spamwhilebroken="true"
-		css="css/cruisecontrol.css"
-		xsldir="xsl" />
+    <plugin name="htmlemail"
+            buildresultsurl="http://gmf-dev.borland.com/cruisecontrol"
+            mailhost="localhost"
+            returnaddress="${buildmaster.email}"
+            returnname="Buildmaster"
+            subjectprefix="[GMF build]"
+            xsldir="${reportdir}/jsp/webcontent/xsl"
+            css="${reportdir}/jsp/webcontent/css/cruisecontrol.css"/>
 
 	<project name="sdk" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
-				file="build/logs/sdk/buildstatus.txt" />
+				file="${logs}/sdk/buildstatus.txt" />
 		</listeners>
 
 		<!-- Bootstrappers are run every time the build runs, 
@@ -26,7 +30,7 @@
 		<!-- Defines where cruise looks for changes, to decide
 			whether to run the build -->
 		<modificationset quietperiod="10">
-			<buildstatus logdir="build/logs/checkout" />
+			<buildstatus logdir="${logs}/checkout" />
 		</modificationset>
 
 		<!-- Configures the actual build loop, how often and which
@@ -37,27 +41,28 @@
 				<property name="component" value="sdk" />
 				<property name="cleanBase" value="true" />
 				<property name="clean" value="true" />
+				<property name="buildRoot" value="${buildRoot}"/>
 			</ant>
 		</schedule>
 
 		<!-- directory to write build logs to -->
-		<log dir="build/logs/sdk" />
+		<log dir="${logs}/sdk" />
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail logdir="build/logs/sdk">
-				<always address="richard.gronback@borland.com" />
+			<htmlemail logdir="${logs}/sdk">
+				<always address="${buildmaster.email}" />
 <!-- 			<failure address="gmf-dev@eclipse.org" />  			-->
 			</htmlemail>
-			<artifactspublisher dir="build/artifacts/gmf-sdk"
-				dest="build/artifacts/published/sdk" />
+			<artifactspublisher dir="${artifacts}/sdk"
+				dest="${artifacts}/published/sdk" />
 		</publishers>
 	</project>
 
 	<project name="tests" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
-				file="build/logs/tests/buildstatus.txt" />
+				file="${logs}/tests/buildstatus.txt" />
 		</listeners>
 
 		<!-- Bootstrappers are run every time the build runs, 
@@ -67,7 +72,7 @@
 		<!-- Defines where cruise looks for changes, to decide
 			whether to run the build -->
 		<modificationset quietperiod="10">
-			<buildstatus logdir="build/logs/checkout" />
+			<buildstatus logdir="${logs}/checkout" />
 		</modificationset>
 
 		<!-- Configures the actual build loop, how often and which
@@ -77,29 +82,30 @@
 				target="main" uselogger="false" usedebug="false">
 				<property name="component" value="tests" />
 				<property name="clean" value="true" />
+				<property name="buildRoot" value="${buildRoot}"/>
 			</ant>
 		</schedule>
 
 		<!-- directory to write build logs to -->
-		<log dir="build/logs/tests">
-			<merge dir="build/artifacts/gmf-tests/" />
+		<log dir="${logs}/tests">
+			<merge dir="${artifacts}/tests/" />
 		</log>
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail logdir="build/logs/tests">
-				<always address="richard.gronback@borland.com" />
+			<htmlemail logdir="${logs}/tests">
+				<always address="${buildmaster.email}" />
 <!-- 			<failure address="gmf-dev@eclipse.org" />  			-->
 			</htmlemail>
-			<artifactspublisher dir="build/artifacts/gmf-tests"
-				dest="build/artifacts/published/tests" />
+			<artifactspublisher dir="${artifacts}/tests"
+				dest="${artifacts}/published/tests" />
 		</publishers>
 	</project>
 
-	<project name="runtime" buildafterfailed="true">
+	<project name="examples" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
-				file="build/logs/runtime/buildstatus.txt" />
+				file="${logs}/examples/buildstatus.txt" />
 		</listeners>
 
 		<!-- Bootstrappers are run every time the build runs, 
@@ -109,7 +115,47 @@
 		<!-- Defines where cruise looks for changes, to decide
 			whether to run the build -->
 		<modificationset quietperiod="10">
-			<buildstatus logdir="build/logs/checkout" />
+			<buildstatus logdir="${logs}/checkout" />
+		</modificationset>
+
+		<!-- Configures the actual build loop, how often and which
+			build file/target -->
+		<schedule interval="600">
+			<ant antscript="build.bat" buildfile="build.xml"
+				target="main" uselogger="false" usedebug="false">
+				<property name="component" value="examples" />
+				<property name="clean" value="true" />
+				<property name="buildRoot" value="${buildRoot}"/>
+			</ant>
+		</schedule>
+
+		<!-- directory to write build logs to -->
+		<log dir="${logs}/examples" />
+
+		<!-- Publishers are run *after* a build completes -->
+		<publishers>
+			<htmlemail logdir="${logs}/examples">
+				<always address="${buildmaster.email}" />
+			</htmlemail>
+			<artifactspublisher dir="${artifacts}/examples"
+				dest="${artifacts}/published/examples" />
+		</publishers>
+	</project>
+	
+	<project name="runtime" buildafterfailed="true">
+		<listeners>
+			<currentbuildstatuslistener
+				file="${logs}/runtime/buildstatus.txt" />
+		</listeners>
+
+		<!-- Bootstrappers are run every time the build runs, 
+			*before* the modification checks -->
+		<bootstrappers></bootstrappers>
+
+		<!-- Defines where cruise looks for changes, to decide
+			whether to run the build -->
+		<modificationset quietperiod="10">
+			<buildstatus logdir="${logs}/checkout" />
 		</modificationset>
 
 		<!-- Configures the actual build loop, how often and which
@@ -119,26 +165,27 @@
 				target="main" uselogger="false" usedebug="false">
 				<property name="component" value="runtime" />
 				<property name="clean" value="true" />
+				<property name="buildRoot" value="${buildRoot}"/>
 			</ant>
 		</schedule>
 
 		<!-- directory to write build logs to -->
-		<log dir="build/logs/runtime" />
+		<log dir="${logs}/runtime" />
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail logdir="build/logs/runtime">
-				<always address="richard.gronback@borland.com" />
+			<htmlemail logdir="${logs}/runtime">
+				<always address="${buildmaster.email}" />
 			</htmlemail>
-			<artifactspublisher dir="build/artifacts/gmf-runtime"
-				dest="build/artifacts/published/runtime" />
+			<artifactspublisher dir="${artifacts}/runtime"
+				dest="${artifacts}/published/runtime" />
 		</publishers>
 	</project>
 
 	<project name="checkout" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
-				file="build/logs/checkout/buildstatus.txt" />
+				file="${logs}/checkout/buildstatus.txt" />
 		</listeners>
 
 		<!-- Bootstrappers are run every time the build runs, 
@@ -150,7 +197,7 @@
 		<modificationset quietperiod="10">
 			<cvs
 				cvsroot=":pserver:anonymous@dev.eclipse.org:/home/technology"
-				localworkingcopy="build/checkout" />
+				module="org.eclipse.gmf" />
 		</modificationset>
 
 		<!-- Configures the actual build loop, how often and which
@@ -163,15 +210,15 @@
 		</schedule>
 
 		<!-- directory to write build logs to -->
-		<log dir="build/logs/checkout" />
+		<log dir="${logs}/checkout" />
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail logdir="build/logs/checkout">
-				<always address="richard.gronback@borland.com" />
+			<htmlemail logdir="${logs}/checkout">
+				<always address="${buildmaster.email}" />
 			</htmlemail>
-			<artifactspublisher dir="build/artifacts/gmf-checkout"
-				dest="build/artifacts/published/checkout" />
+			<artifactspublisher dir="${artifacts}/checkout"
+				dest="${artifacts}/published/checkout" />
 		</publishers>
 	</project>
 </cruisecontrol>

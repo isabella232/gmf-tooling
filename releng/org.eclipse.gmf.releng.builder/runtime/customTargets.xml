@@ -228,7 +228,7 @@
 		<!-- A temporary directory leftover? -->
 		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
 		<!-- Consolidate artifacts -->
-		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/gmf-runtime"/>
+		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/runtime"/>
 		<antcall target="generateUpdateSite"/>
 	</target>
 	

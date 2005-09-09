@@ -12,7 +12,7 @@
 	<tr>
 		<td ALIGN="LEFT" width="80%">
 		<p><b><font face="Verdana" size="+3">GMF Build Instructions</font></b><br />
-		&nbsp;Last Updated: August 18, 2005</p>
+		&nbsp;Last Updated: September 09, 2005</p>
 
 		</td>
 	</tr>
@@ -47,9 +47,10 @@
 		<TD align="LEFT" valign="TOP" colspan="3">
 
 		<p>This document describes how to build GMF components from the
-		command line using Ant scripts, including the running of unit tests and operation
-		under <a href="cruisecontrol.sf.net">CruiseControl</a>.
-		<br /><br />
+		command line using Ant scripts, including the running of unit tests
+		and operation under <a href="cruisecontrol.sf.net">CruiseControl</a>.
+		<br />
+		<br />
 		Note that while there is no mandated standard for builds among Eclipse
 		projects, they generally follow a similar process to what is described
 		here; that is, they leverage the <a href="">org.eclipse.releng.basebuilder</a>
@@ -122,8 +123,10 @@
 		<b>Note</b> that you will want to place this directory close to the
 		root of the drive on Windows, due to path length limitations.
 		Optionally, you may choose to use the -DbuildDirectory property to
-		target a location near the root, utilize the 'subst' command, or simply rename the
-		org.eclipse.gmf.releng.builder directory to just 'builder'. <br /><br/>
+		target a location near the root, utilize the 'subst' command, or
+		simply rename the org.eclipse.gmf.releng.builder directory to just
+		'builder'. <br />
+		<br />
 		5. Install the v3.1 Eclipse release engineering basebuilder (this
 		installation will be used to run the build tools, it is not itself a
 		GMF installation): Export <b>org.eclipse.releng.basebuilder</b> from
@@ -165,11 +168,11 @@
 		<p><b>cd</b> to the 'scripts' directory under
 		org.eclipse.gmf.releng.builder and execute the following command (on
 		Windows) :</p>
-		<p><b>build.bat -Dcomponent=sdk|runtime|tests</b></p>
+		<p><b>build.bat -Dcomponent=sdk | runtime | tests | examples</b></p>
 		<p>Optionally, you can use the following command:</p>
 		<p><b>java -jar ..\org.eclipse.releng.basebuilder\startup.jar
-		-application org.eclipse.ant.core.antRunner
-		-Dcomponent=sdk|runtime|tests</b> <br />
+		-application org.eclipse.ant.core.antRunner -Dcomponent=sdk | runtime
+		| tests | examples</b> <br />
 		</p>
 
 		<p><b>Note</b> that the download of the Eclipse SDK and/or test
@@ -190,8 +193,8 @@
 			<tr>
 				<td width="25%">sdk</td>
 				<td width="75%">This directory contains the scripts used to build
-				the GMF SDK. A GMF SDK is comprised of binaries, source, and
-				developer documentation.</td>
+				the GMF SDK. A GMF SDK includes the runtime feature and is comprised
+				of binaries, source, and developer documentation.</td>
 			</tr>
 			<tr>
 				<td width="25%">runtime</td>
@@ -202,7 +205,14 @@
 			<tr>
 				<td width="25%">tests</td>
 				<td width="75%">This directory contains the scripts used to build
-				and execute the GMF unit tests.</td>
+				and execute the GMF unit tests. <b>Note</b> that the SDK build is a
+				prerequisite.</td>
+			</tr>
+			<tr>
+				<td width="25%">examples</td>
+				<td width="75%">This directory contains the scripts used to build
+				the GMF example plug-ins (with sources). <b>Note</b> that the SDK
+				build is a prerequisite.</td>
 			</tr>
 		</table>
 		</TD>
@@ -212,37 +222,38 @@
 		A number of properties described <a href="#antbuildproperties">below</a>
 		can be passed in via the build command to override the default
 		settings. Of course, direct modification of the properties is an
-		alternative. <br />
+		alternative. <b>Note</b> that if you choose to set the
+		'buildDirectory' property, it will need to and in the name of the
+		component. It is recommended that 'buildRoot' be used instead, as it
+		will have the component name appended to form the 'buildDirectory'
+		property by default. By default, 'buildRoot' will be a sibling of the
+		org.eclipse.gmf.releng.builder directory.<br />
 		<br />
 		<b>Examples:</b><br />
 		<br />
 
 		<p><b>build -Dcomponent=sdk -javacFailOnError=false
-		-DjavacVerbose=false -DbuildDirectory=d:\mybuild\sdk</b><br />
+		-DjavacVerbose=false -DbuildRoot=d:\mybuild</b><br />
 		<br />
 		This builds a GMF SDK in the directory d:\mybuild\sdk.
 		&quot;-DjavaVerbose=false&quot; indicates that no compile logs will be
 		generated and &quot;-javacFailOnError=false&quot; will cause the build
-		to not fail if there are any compile errors. <b>Note</b> that
-		declaration of the 'buildDirectory' property currently requires the
-		end of the path to correspond with the 'component' property (i.e.
-		'sdk'). <br />
+		to not fail if there are any compile errors.<br />
 		<br />
 		</p>
-		<p><b>build -Dcomponent=runtime -DbuildDirectory=d:\gmfbuilds\runtime
+		<p><b>build -Dcomponent=runtime -DbuildRoot=d:\gmfbuilds
 		-DbaseLocation=d:\eclipse\eclipse3.1</b></p>
 		<p>This builds a GMF runtime in the directory
 		&quot;d:\gmfbuilds\runtime&quot; yet uses an installation of eclipse
 		located at 'd:\eclipse\eclipse3.1' as the base to build against.<br />
 		<br />
-		<p><b>build -Dcomponent=tests -DbuildDirectory=d:\mybuild\tests
-		-DcleanBase=true</b></p>
+		<p><b>build -Dcomponent=tests -DbuildRoot=d:\mybuild -DcleanBase=true
+		-Dclean=true</b></p>
 		<p></p>
-		<p>This builds an the GMF test plug-ins in the same directory where a
-		SDK was previously built. The build will first delete the base
-		installation and unzip a fresh copy of Eclipse and install GMF's
-		dependencies. <b>Note</b> that an 'sdk' build is a necessary
-		dependency of the 'tests' build.<br />
+		<p>This builds the GMF test plug-ins from scratch, as 'clean' is used.
+		The build will also delete the base installation and unzip a fresh
+		copy of Eclipse and install GMF's dependencies. <b>Note</b> that an
+		'sdk' build is a necessary dependency of the 'tests' build.<br />
 		</p>
 
 		</TD>
@@ -284,10 +295,10 @@
 			<li><code>run 'build.bat initLocalMirror'</code></li>
 			<li><code>restart Tomcat (if necessary)</code></li>
 		</ul>
-		<p>Run the build and then navigate to http://localhost/updateSite (or similar, 
-		depending on your configuration).  If you 
-		had run the build previously, you may want to rerun with -DcleanBase=true option 
-		in order to force the mirror and install of EMF and GEF locally.</p>
+		<p>Run the build and then navigate to http://localhost/updateSite (or
+		similar, depending on your configuration). If you had run the build
+		previously, you may want to rerun with -DcleanBase=true option in
+		order to force the mirror and install of EMF and GEF locally.</p>
 		<p>Without the mirror running, the build will resort to using the
 		official update sites for EMF and GEF, while using a simple unzip of
 		GMF components (when running tests). When running, each build will
@@ -312,31 +323,17 @@
 		required to leverage CruiseControl:</p>
 		<ul>
 			<li>Install <a href="cruisecontrol.sf.net">CruiseControl</a> (version
-			2.2.1 is used currently, although it is planned to move to 2.2.2 when
-			stable to take advantage of its new features)</li>
-			<li>Check the settings of config.xml and modify as necessary, in
-			particular the schedule interval, email server and addresses. Note
-			that the directories used are relative to the 'build' folder which is
-			created by default by the normal build process. In other words, if
-			you pass in or alter the 'buildDirectory' property to not build in
-			the default location, CC will not work (currently).</li>
+			2.3 is used currently)</li>
+			<li>Check the settings of build.properties and config.xml files,
+			modifying as necessary. In particular, the schedule interval, email
+			server and addresses.</li>
 			<li>If using Tomcat for the reporting component, follow the CC
 			instructions to install the cruisecontrol.war and modify the web.xml
 			file to point at the build's log and artifact locations. These will
-			be specified in the CC config.xml file and are by default
-			/scripts/build/logs and /scripts/build/artifacts/published,
-			respectively.</li>
-			<li>If using version 2.2.1, you may want to move the xalan.jar found
-			in CC_HOME\main\lib to the
-			TOMCAT_HOME\webapps\cruisecontrol\WEB-INF\lib folder. Removing it
-			from CC's lib folder solves a problem with the generation of HTML
-			email, while the presence of it in the TOMCAT lib folder will prevent
-			<code>ArrayIndexOutOfBounds</code> exceptions when browsing the
-			reporting site. Both of these issues and the addition of Ant-like
-			properties to config files is expected in version 2.2.2.</li>
+			be specified in the CC config.xml file and are by default /build/logs
+			and /build/artifacts/published, respectively.</li>
 		</ul>
-		<p>To invoke CruiseControl, follow the instructions below (which
-		requires a CC_HOME environment variable to be set):</p>
+		<p>To invoke CruiseControl, follow the instructions below:</p>
 		<ul>
 			<li><code>cd org.eclipse.gmf.releng.builder\scripts</code></li>
 			<li><code>ant.bat -f checkout.xml</code></li>
@@ -382,6 +379,12 @@
 					name="antbuildproperties"></a>Component build.properties</font></b></td>
 			</tr>
 
+			<tr>
+				<td>buildRoot</td>
+				<td>This directory is the root of the build folders for each
+				component (e.g. sdk, tests, etc.) and the CruiseControl folders
+				(when used). By default, it is a sibling to the releng folders.</td>
+			</tr>
 			<tr>
 				<td>cleanBase</td>
 				<td>Normally commented out, but if present will cause the base to be
@@ -508,13 +511,13 @@
 		with more being generated/automated. A few things to watch out for are
 		listed below: <br />
 		<ul>
-		<li>If the build stops during the fetch with an error message telling
-		you to check your map files, open the generated fetch_*.xml file in
-		your component build directory. If it is cutoff (malformed), check
-		your CVS connection, as it is likely the cause.</li>
-		<li>If you are running a build and get the message that 'plug-in
-		org.*_X_X_X' cannot be found, check that you have declared/installed
-		the necessary dependencies for the plug-in.</li>
+			<li>If the build stops during the fetch with an error message telling
+			you to check your map files, open the generated fetch_*.xml file in
+			your component build directory. If it is cutoff (malformed), check
+			your CVS connection, as it is likely the cause.</li>
+			<li>If you are running a build and get the message that 'plug-in
+			org.*_X_X_X' cannot be found, check that you have declared/installed
+			the necessary dependencies for the plug-in.</li>
 		</ul>
 		</td>
 	</tr>

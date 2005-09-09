@@ -176,7 +176,7 @@
 	
 	<target name="installGMFfromZip" unless="usingMirror">
 		<echo message="Installing GMF for testing from zip file..."/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/gmf-sdk/org.eclipse.gmf.sdk-${buildId}.zip" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/sdk/org.eclipse.gmf.sdk-${buildId}.zip" />
 	</target>
 
 	<!-- ===================================================================== -->
@@ -249,7 +249,7 @@
 		<!-- A temporary directory leftover? -->
 		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
 		<!-- Consolidate artifacts -->
-		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/gmf-examples"/>		
+		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/examples"/>		
 		<antcall target="generateUpdateSite"/>
 		<!-- Uninstall GMF from base. -->
 		<echo message="Uninstalling GMF from base..."/>
