@@ -100,7 +100,9 @@
 		<available file="${baseLocation}/plugins/org.eclipse.uml2_${uml2Version}.jar" property="uml2Exists" />
 		<antcall target="installUML2" />
 		<available file="${baseLocation}/features/org.eclipse.gmf.sdk_${gmfVersion}/feature.xml" property="gmfExists" />
-		<antcall target="installGMF" />				
+		<antcall target="installGMF" />
+		<available file="${baseLocation}/features/org.eclipse.gmf.examples_${gmfVersion}/feature.xml" property="examplesExists" />
+		<antcall target="installExamples" />	
 	</target>
 	
 	<!-- ===================================================================== -->
@@ -197,7 +199,25 @@
 	
 	<target name="installGMFfromZip" unless="usingMirror">
 		<echo message="Installing GMF for testing from zip file..."/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/gmf-sdk/org.eclipse.gmf.sdk-${buildId}.zip" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/sdk/org.eclipse.gmf.sdk-${buildId}.zip" />
+	</target>
+	
+	<target name="installExamples" unless="examplesExists">	
+		<antcall target="installExamplesfromMirror"/>
+		<antcall target="installExamplesfromZip"/>
+	</target>
+	
+	<target name="installExamplesfromMirror" if="usingMirror">
+		<echo message="Installing GMF Examples for testing from local mirror..."/>
+		<ant antfile="${scripts}/update.xml" target="install">
+			<property name="featureId" value="org.eclipse.gmf.examples" />
+			<property name="version" value="${gmfVersion}" />
+		</ant>
+	</target>
+	
+	<target name="installExamplesfromZip" unless="usingMirror">
+		<echo message="Installing GMF Examples for testing from zip file..."/>
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/examples/org.eclipse.gmf.examples-${buildId}.zip" />
 	</target>
 
 	<!-- ===================================================================== -->
@@ -278,6 +298,10 @@
 		<echo message="Uninstalling GMF from base..."/>
 		<ant antfile="${scripts}/update.xml" target="uninstall">
 			<property name="featureId" value="org.eclipse.gmf.sdk" />
+			<property name="version" value="${gmfVersion}" />
+		</ant>
+		<ant antfile="${scripts}/update.xml" target="uninstall">
+			<property name="featureId" value="org.eclipse.gmf.examples" />
 			<property name="version" value="${gmfVersion}" />
 		</ant>
 	</target>
