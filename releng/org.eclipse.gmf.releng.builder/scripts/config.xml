@@ -15,6 +15,44 @@
 		subjectprefix="[GMF build]" xsldir="${reportdir}/jsp/webcontent/xsl"
 		css="${reportdir}/jsp/webcontent/css/cruisecontrol.css" />
 
+	<project name="checkout" buildafterfailed="true">
+		<listeners>
+			<currentbuildstatuslistener
+				file="${logs}/checkout/buildstatus.txt" />
+		</listeners>
+
+		<!-- Bootstrappers are run every time the build runs, 
+			*before* the modification checks -->
+		<bootstrappers></bootstrappers>
+
+		<!-- Defines where cruise looks for changes, to decide
+			whether to run the build -->
+		<modificationset quietperiod="10">
+			<cvs
+				cvsroot=":pserver:anonymous@dev.eclipse.org:/home/technology"
+				module="org.eclipse.gmf" />
+		</modificationset>
+
+		<!-- Configures the actual build loop, how often and which
+			build file/target -->
+		<schedule interval="1200">
+			<!-- Perform checkout of all plug-ins and features, as builder uses export. -->
+			<ant antscript="ant.bat" buildfile="checkout.xml"
+				target="all" uselogger="false" usedebug="false">
+			</ant>
+		</schedule>
+
+		<!-- directory to write build logs to -->
+		<log dir="${logs}/checkout" />
+
+		<!-- Publishers are run *after* a build completes -->
+		<publishers>
+			<htmlemail logdir="${logs}/checkout">
+				<always address="${buildmaster.email}" />
+			</htmlemail>
+		</publishers>
+	</project>
+	
 	<project name="runtime" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
@@ -183,41 +221,4 @@
 		</publishers>
 	</project>
 
-	<project name="checkout" buildafterfailed="true">
-		<listeners>
-			<currentbuildstatuslistener
-				file="${logs}/checkout/buildstatus.txt" />
-		</listeners>
-
-		<!-- Bootstrappers are run every time the build runs, 
-			*before* the modification checks -->
-		<bootstrappers></bootstrappers>
-
-		<!-- Defines where cruise looks for changes, to decide
-			whether to run the build -->
-		<modificationset quietperiod="10">
-			<cvs
-				cvsroot=":pserver:anonymous@dev.eclipse.org:/home/technology"
-				module="org.eclipse.gmf" />
-		</modificationset>
-
-		<!-- Configures the actual build loop, how often and which
-			build file/target -->
-		<schedule interval="1200">
-			<!-- Perform checkout of all plug-ins and features, as builder uses export. -->
-			<ant antscript="ant.bat" buildfile="checkout.xml"
-				target="all" uselogger="false" usedebug="false">
-			</ant>
-		</schedule>
-
-		<!-- directory to write build logs to -->
-		<log dir="${logs}/checkout" />
-
-		<!-- Publishers are run *after* a build completes -->
-		<publishers>
-			<htmlemail logdir="${logs}/checkout">
-				<always address="${buildmaster.email}" />
-			</htmlemail>
-		</publishers>
-	</project>
 </cruisecontrol>

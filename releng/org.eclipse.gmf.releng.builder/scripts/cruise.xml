@@ -20,7 +20,7 @@
 		<mkdir dir="${buildRoot}/logs/tests"/>
 		<mkdir dir="${buildRoot}/logs/examples"/>
 		<available file="${buildRoot}/checkout/org.eclipse.gmf/features/org.eclipse.gmf.sdk-feature/build.properties" property="skipCheckout" />
-		<ant antfile="${basedir}/checkout.xml" target="all"/>
+		<antcall target="checkout"/>
 	</target>
 	
 	<target name="cruise" depends="init">
@@ -35,6 +35,10 @@
 		      	</fileset>
 			</classpath>
 		</java>
+	</target>
+	
+	<target name="checkout" unless="skipCheckout">
+		<ant antfile="${basedir}/checkout.xml" target="all"/>
 	</target>
 
 </project>
