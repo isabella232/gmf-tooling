@@ -18,6 +18,47 @@
             xsldir="${reportdir}/jsp/webcontent/xsl"
             css="${reportdir}/jsp/webcontent/css/cruisecontrol.css"/>
 
+	<project name="runtime" buildafterfailed="true">
+		<listeners>
+			<currentbuildstatuslistener
+				file="${logs}/runtime/buildstatus.txt" />
+		</listeners>
+
+		<!-- Bootstrappers are run every time the build runs, 
+			*before* the modification checks -->
+		<bootstrappers></bootstrappers>
+
+		<!-- Defines where cruise looks for changes, to decide
+			whether to run the build -->
+		<modificationset quietperiod="10">
+			<buildstatus logdir="${logs}/checkout" />
+		</modificationset>
+
+		<!-- Configures the actual build loop, how often and which
+			build file/target -->
+		<schedule interval="1200">
+			<ant antscript="build.bat" buildfile="build.xml"
+				target="main" uselogger="false" usedebug="false">
+				<property name="component" value="runtime" />
+				<property name="clean" value="true" />
+				<property name="cleanBase" value="true" />
+				<property name="buildRoot" value="${buildRoot}"/>
+			</ant>
+		</schedule>
+
+		<!-- directory to write build logs to -->
+		<log dir="${logs}/runtime" />
+
+		<!-- Publishers are run *after* a build completes -->
+		<publishers>
+			<htmlemail logdir="${logs}/runtime">
+				<always address="${buildmaster.email}" />
+			</htmlemail>
+			<artifactspublisher dir="${artifacts}/runtime"
+				dest="${artifacts}/published/runtime" />
+		</publishers>
+	</project>
+	
 	<project name="sdk" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
@@ -39,9 +80,9 @@
 		<schedule interval="1200">
 			<ant antscript="build.bat" buildfile="build.xml"
 				target="main" uselogger="false" usedebug="false">
-				<property name="component" value="sdk" />
-				<property name="cleanBase" value="true" />
+				<property name="component" value="sdk" />				
 				<property name="clean" value="true" />
+				<property name="cleanBase" value="true" />
 				<property name="buildRoot" value="${buildRoot}"/>
 			</ant>
 		</schedule>
@@ -57,6 +98,47 @@
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/sdk"
 				dest="${artifacts}/published/sdk" />
+		</publishers>
+	</project>
+	
+	<project name="examples" buildafterfailed="true">
+		<listeners>
+			<currentbuildstatuslistener
+				file="${logs}/examples/buildstatus.txt" />
+		</listeners>
+
+		<!-- Bootstrappers are run every time the build runs, 
+			*before* the modification checks -->
+		<bootstrappers></bootstrappers>
+
+		<!-- Defines where cruise looks for changes, to decide
+			whether to run the build -->
+		<modificationset quietperiod="10">
+			<buildstatus logdir="${logs}/checkout" />
+		</modificationset>
+
+		<!-- Configures the actual build loop, how often and which
+			build file/target -->
+		<schedule interval="1200">
+			<ant antscript="build.bat" buildfile="build.xml"
+				target="main" uselogger="false" usedebug="false">
+				<property name="component" value="examples" />
+				<property name="clean" value="true" />
+				<property name="cleanBase" value="true" />
+				<property name="buildRoot" value="${buildRoot}"/>
+			</ant>
+		</schedule>
+
+		<!-- directory to write build logs to -->
+		<log dir="${logs}/examples" />
+
+		<!-- Publishers are run *after* a build completes -->
+		<publishers>
+			<htmlemail logdir="${logs}/examples">
+				<always address="${buildmaster.email}" />
+			</htmlemail>
+			<artifactspublisher dir="${artifacts}/examples"
+				dest="${artifacts}/published/examples" />
 		</publishers>
 	</project>
 
@@ -83,6 +165,7 @@
 				target="main" uselogger="false" usedebug="false">
 				<property name="component" value="tests" />
 				<property name="clean" value="true" />
+				<property name="cleanBase" value="true" />
 				<property name="buildRoot" value="${buildRoot}"/>
 			</ant>
 		</schedule>
@@ -103,85 +186,9 @@
 		</publishers>
 	</project>
 
-	<project name="examples" buildafterfailed="true">
-		<listeners>
-			<currentbuildstatuslistener
-				file="${logs}/examples/buildstatus.txt" />
-		</listeners>
-
-		<!-- Bootstrappers are run every time the build runs, 
-			*before* the modification checks -->
-		<bootstrappers></bootstrappers>
-
-		<!-- Defines where cruise looks for changes, to decide
-			whether to run the build -->
-		<modificationset quietperiod="10">
-			<buildstatus logdir="${logs}/checkout" />
-		</modificationset>
-
-		<!-- Configures the actual build loop, how often and which
-			build file/target -->
-		<schedule interval="1200">
-			<ant antscript="build.bat" buildfile="build.xml"
-				target="main" uselogger="false" usedebug="false">
-				<property name="component" value="examples" />
-				<property name="clean" value="true" />
-				<property name="buildRoot" value="${buildRoot}"/>
-			</ant>
-		</schedule>
-
-		<!-- directory to write build logs to -->
-		<log dir="${logs}/examples" />
-
-		<!-- Publishers are run *after* a build completes -->
-		<publishers>
-			<htmlemail logdir="${logs}/examples">
-				<always address="${buildmaster.email}" />
-			</htmlemail>
-			<artifactspublisher dir="${artifacts}/examples"
-				dest="${artifacts}/published/examples" />
-		</publishers>
-	</project>
 	
-	<project name="runtime" buildafterfailed="true">
-		<listeners>
-			<currentbuildstatuslistener
-				file="${logs}/runtime/buildstatus.txt" />
-		</listeners>
-
-		<!-- Bootstrappers are run every time the build runs, 
-			*before* the modification checks -->
-		<bootstrappers></bootstrappers>
-
-		<!-- Defines where cruise looks for changes, to decide
-			whether to run the build -->
-		<modificationset quietperiod="10">
-			<buildstatus logdir="${logs}/checkout" />
-		</modificationset>
-
-		<!-- Configures the actual build loop, how often and which
-			build file/target -->
-		<schedule interval="1200">
-			<ant antscript="build.bat" buildfile="build.xml"
-				target="main" uselogger="false" usedebug="false">
-				<property name="component" value="runtime" />
-				<property name="clean" value="true" />
-				<property name="buildRoot" value="${buildRoot}"/>
-			</ant>
-		</schedule>
-
-		<!-- directory to write build logs to -->
-		<log dir="${logs}/runtime" />
-
-		<!-- Publishers are run *after* a build completes -->
-		<publishers>
-			<htmlemail logdir="${logs}/runtime">
-				<always address="${buildmaster.email}" />
-			</htmlemail>
-			<artifactspublisher dir="${artifacts}/runtime"
-				dest="${artifacts}/published/runtime" />
-		</publishers>
-	</project>
+	
+	
 
 	<project name="checkout" buildafterfailed="true">
 		<listeners>
