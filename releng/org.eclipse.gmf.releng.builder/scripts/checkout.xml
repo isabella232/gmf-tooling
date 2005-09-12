@@ -20,5 +20,5 @@
 	<target name="docs">
 		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" package="org.eclipse.gmf/doc" dest="${checkoutDirectory}" />
 	</target>
-	<target name="all" depends="plugins,features,tests,examples,docs" />
+	<target name="all" depends="plugins,features,tests,examples,docs" unless="skipCheckout"/>
 </project>
