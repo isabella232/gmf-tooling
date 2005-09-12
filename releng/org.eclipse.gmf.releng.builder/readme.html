@@ -168,11 +168,11 @@
 		<p><b>cd</b> to the 'scripts' directory under
 		org.eclipse.gmf.releng.builder and execute the following command (on
 		Windows) :</p>
-		<p><b>build.bat -Dcomponent=sdk | runtime | tests | examples</b></p>
+		<p><b>build.bat -Dcomponent=sdk | runtime | examples | tests</b></p>
 		<p>Optionally, you can use the following command:</p>
 		<p><b>java -jar ..\org.eclipse.releng.basebuilder\startup.jar
 		-application org.eclipse.ant.core.antRunner -Dcomponent=sdk | runtime
-		| tests | examples</b> <br />
+		| examples | tests</b> <br />
 		</p>
 
 		<p><b>Note</b> that the download of the Eclipse SDK and/or test
@@ -203,16 +203,16 @@
 				binaries required to run a GMF-based application.</td>
 			</tr>
 			<tr>
-				<td width="25%">tests</td>
-				<td width="75%">This directory contains the scripts used to build
-				and execute the GMF unit tests. <b>Note</b> that the SDK build is a
-				prerequisite.</td>
-			</tr>
-			<tr>
 				<td width="25%">examples</td>
 				<td width="75%">This directory contains the scripts used to build
 				the GMF example plug-ins (with sources). <b>Note</b> that the SDK
 				build is a prerequisite.</td>
+			</tr>
+			<tr>
+				<td width="25%">tests</td>
+				<td width="75%">This directory contains the scripts used to build
+				and execute the GMF unit tests. <b>Note</b> that the SDK and
+				examples builds are prerequisites.</td>
 			</tr>
 		</table>
 		</TD>
@@ -332,6 +332,10 @@
 			file to point at the build's log and artifact locations. These will
 			be specified in the CC config.xml file and are by default /build/logs
 			and /build/artifacts/published, respectively.</li>
+			<li>You may want to adjust the maximum memory setting for Tomcat, and
+			copy the xalan.jar provided with CruiseControl into the WEB-INF/lib
+			directory of the exploded cruisecontrol webapp to avoid problems
+			rendering larger reports.</li>
 		</ul>
 		<p>To invoke CruiseControl, follow the instructions below:</p>
 		<ul>
