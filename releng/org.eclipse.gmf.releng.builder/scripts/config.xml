@@ -1,22 +1,19 @@
 <cruisecontrol>
 
-    <property file="cc.properties"/>
-    
-    <!-- Commonly used directories -->
-    <property name="reportdir" value="${cc.home}/reporting"/>
-	<property name="checkout" value="${buildRoot}/checkout"/>
-    <property name="logs" value="${buildRoot}/logs"/>
-    <property name="artifacts" value="${buildRoot}/artifacts"/>
+	<property file="cc.properties" />
 
-    <plugin name="htmlemail"
-            buildresultsurl="http://gmf-dev.borland.com/cruisecontrol"
-            mailhost="localhost"
-            skipusers="true"
-            returnaddress="${buildmaster.email}"
-            returnname="Buildmaster"
-            subjectprefix="[GMF build]"
-            xsldir="${reportdir}/jsp/webcontent/xsl"
-            css="${reportdir}/jsp/webcontent/css/cruisecontrol.css"/>
+	<!-- Commonly used directories -->
+	<property name="reportdir" value="${cc.home}/reporting" />
+	<property name="checkout" value="${buildRoot}/checkout" />
+	<property name="logs" value="${buildRoot}/logs" />
+	<property name="artifacts" value="${buildRoot}/artifacts" />
+
+	<plugin name="htmlemail"
+		buildresultsurl="http://gmf-dev.borland.com/cruisecontrol"
+		mailhost="localhost" skipusers="true"
+		returnaddress="${buildmaster.email}" returnname="Buildmaster"
+		subjectprefix="[GMF build]" xsldir="${reportdir}/jsp/webcontent/xsl"
+		css="${reportdir}/jsp/webcontent/css/cruisecontrol.css" />
 
 	<project name="runtime" buildafterfailed="true">
 		<listeners>
@@ -42,7 +39,7 @@
 				<property name="component" value="runtime" />
 				<property name="clean" value="true" />
 				<property name="cleanBase" value="true" />
-				<property name="buildRoot" value="${buildRoot}"/>
+				<property name="buildRoot" value="${buildRoot}" />
 			</ant>
 		</schedule>
 
@@ -58,7 +55,7 @@
 				dest="${artifacts}/published/runtime" />
 		</publishers>
 	</project>
-	
+
 	<project name="sdk" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
@@ -80,10 +77,10 @@
 		<schedule interval="1200">
 			<ant antscript="build.bat" buildfile="build.xml"
 				target="main" uselogger="false" usedebug="false">
-				<property name="component" value="sdk" />				
+				<property name="component" value="sdk" />
 				<property name="clean" value="true" />
 				<property name="cleanBase" value="true" />
-				<property name="buildRoot" value="${buildRoot}"/>
+				<property name="buildRoot" value="${buildRoot}" />
 			</ant>
 		</schedule>
 
@@ -94,13 +91,13 @@
 		<publishers>
 			<htmlemail logdir="${logs}/sdk">
 				<always address="${buildmaster.email}" />
-<!-- 			<failure address="gmf-dev@eclipse.org" />  			-->
+				<!-- 			<failure address="gmf-dev@eclipse.org" />  			-->
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/sdk"
 				dest="${artifacts}/published/sdk" />
 		</publishers>
 	</project>
-	
+
 	<project name="examples" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
@@ -125,7 +122,7 @@
 				<property name="component" value="examples" />
 				<property name="clean" value="true" />
 				<property name="cleanBase" value="true" />
-				<property name="buildRoot" value="${buildRoot}"/>
+				<property name="buildRoot" value="${buildRoot}" />
 			</ant>
 		</schedule>
 
@@ -166,7 +163,7 @@
 				<property name="component" value="tests" />
 				<property name="clean" value="true" />
 				<property name="cleanBase" value="true" />
-				<property name="buildRoot" value="${buildRoot}"/>
+				<property name="buildRoot" value="${buildRoot}" />
 			</ant>
 		</schedule>
 
@@ -179,16 +176,12 @@
 		<publishers>
 			<htmlemail logdir="${logs}/tests">
 				<always address="${buildmaster.email}" />
-<!-- 			<failure address="gmf-dev@eclipse.org" />  			-->
+				<!-- 			<failure address="gmf-dev@eclipse.org" />  			-->
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/tests"
 				dest="${artifacts}/published/tests" />
 		</publishers>
 	</project>
-
-	
-	
-	
 
 	<project name="checkout" buildafterfailed="true">
 		<listeners>
@@ -225,8 +218,6 @@
 			<htmlemail logdir="${logs}/checkout">
 				<always address="${buildmaster.email}" />
 			</htmlemail>
-			<artifactspublisher dir="${artifacts}/checkout"
-				dest="${artifacts}/published/checkout" />
 		</publishers>
 	</project>
 </cruisecontrol>
