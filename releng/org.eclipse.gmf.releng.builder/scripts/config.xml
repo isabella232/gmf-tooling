@@ -71,7 +71,7 @@
 
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
-		<schedule interval="1200">
+		<schedule>
 			<ant antscript="build.bat" buildfile="build.xml"
 				target="main" uselogger="false" usedebug="false">
 				<property name="component" value="runtime" />
@@ -112,7 +112,7 @@
 
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
-		<schedule interval="1200">
+		<schedule>
 			<ant antscript="build.bat" buildfile="build.xml"
 				target="main" uselogger="false" usedebug="false">
 				<property name="component" value="sdk" />
@@ -154,7 +154,7 @@
 
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
-		<schedule interval="1200">
+		<schedule>
 			<ant antscript="build.bat" buildfile="build.xml"
 				target="main" uselogger="false" usedebug="false">
 				<property name="component" value="examples" />
@@ -195,7 +195,7 @@
 
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
-		<schedule interval="1200">
+		<schedule>
 			<ant antscript="build.bat" buildfile="build.xml"
 				target="main" uselogger="false" usedebug="false">
 				<property name="component" value="tests" />
