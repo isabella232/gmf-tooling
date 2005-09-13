@@ -107,7 +107,7 @@
 		<!-- Defines where cruise looks for changes, to decide
 			whether to run the build -->
 		<modificationset quietperiod="10">
-			<buildstatus logdir="${logs}/checkout" />
+			<buildstatus logdir="${logs}/runtime" />
 		</modificationset>
 
 		<!-- Configures the actual build loop, how often and which
@@ -149,7 +149,7 @@
 		<!-- Defines where cruise looks for changes, to decide
 			whether to run the build -->
 		<modificationset quietperiod="10">
-			<buildstatus logdir="${logs}/checkout" />
+			<buildstatus logdir="${logs}/sdk" />
 		</modificationset>
 
 		<!-- Configures the actual build loop, how often and which
@@ -190,7 +190,7 @@
 		<!-- Defines where cruise looks for changes, to decide
 			whether to run the build -->
 		<modificationset quietperiod="10">
-			<buildstatus logdir="${logs}/checkout" />
+			<buildstatus logdir="${logs}/examples" />
 		</modificationset>
 
 		<!-- Configures the actual build loop, how often and which
