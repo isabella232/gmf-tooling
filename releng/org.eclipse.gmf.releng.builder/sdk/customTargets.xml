@@ -70,9 +70,6 @@
 	
 	<target name="cleanBase" if="cleanBase">
 		<delete dir="${baseLocation}"/>
-		<delete dir="${buildDirectory}/plugins"/>
-		<delete dir="${buildDirectory}/features"/>
-		<delete dir="${buildDirectory}/maps"/>
 	</target>
 
 	<!-- ===================================================================== -->
