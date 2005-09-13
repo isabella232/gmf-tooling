@@ -46,6 +46,7 @@ plugin@org.eclipse.gmf.runtime.emf.ui.properties=HEAD,:pserver:anonymous@dev.ecl
 plugin@org.eclipse.gmf.runtime.emf.type.core=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.type.core
 plugin@org.eclipse.gmf.runtime.emf.type.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.type.ui
 plugin@org.eclipse.gmf.runtime.emf.clipboard.core=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.clipboard.core
+plugin@org.eclipse.gmf.runtime.doc.isv=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.doc.isv
 
 !*** GMF fragments ***************************************************************************
 fragment@org.eclipse.gmf.runtime.emf.ui.transfer.providers=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.ui.transfer.providers
