@@ -2,12 +2,6 @@
 
 	<property file="cc.properties" />
 
-	<!-- Commonly used directories -->
-	<property name="reportdir" value="${cc.home}/reporting" />
-	<property name="checkout" value="${buildRoot}/checkout" />
-	<property name="logs" value="${buildRoot}/logs" />
-	<property name="artifacts" value="${buildRoot}/artifacts" />
-
 	<plugin name="htmlemail"
 		buildresultsurl="http://gmf-dev.borland.com/cruisecontrol"
 		mailhost="localhost" skipusers="true"

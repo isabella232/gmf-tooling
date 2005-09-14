@@ -2,6 +2,12 @@
 <project default="cruise">
 	<property file="build.properties" />
 	
+	<!-- Commonly used directories -->
+	<property name="reportdir" value="${cc.home}/reporting" />
+	<property name="checkout" value="${buildRoot}/checkout" />
+	<property name="logs" value="${buildRoot}/logs" />
+	<property name="artifacts" value="${buildRoot}/artifacts" />
+	
 	<target name="init">
 		<delete file="${basedir}/cc.properties" failonerror="false"/>
 		<!-- Store the build properties in a file for CruiseControl to pick up. -->
@@ -14,11 +20,30 @@
 		<echo file="${basedir}/cc.properties" append="true" >
 			buildmaster.email=${buildmaster.email}
 		</echo>
-		<mkdir dir="${buildRoot}/logs/checkout"/>
-		<mkdir dir="${buildRoot}/logs/sdk"/>
-		<mkdir dir="${buildRoot}/logs/runtime"/>
-		<mkdir dir="${buildRoot}/logs/tests"/>
-		<mkdir dir="${buildRoot}/logs/examples"/>
+		<echo file="${basedir}/cc.properties" append="true" >
+			reportdir=${reportdir}
+		</echo>
+		<echo file="${basedir}/cc.properties" append="true" >
+			checkout=${checkout}
+		</echo>
+		<echo file="${basedir}/cc.properties" append="true" >
+			logs=${logs}
+		</echo>
+		<echo file="${basedir}/cc.properties" append="true" >
+			artifacts=${artifacts}
+		</echo>
+		<mkdir dir="${logs}/checkout"/>
+		<mkdir dir="${logs}/sdk"/>
+		<mkdir dir="${logs}/runtime"/>
+		<mkdir dir="${logs}/tests"/>
+		<mkdir dir="${logs}/examples"/>
+		<mkdir dir="${logs}/doc"/>
+		<mkdir dir="${artifacts}/checkout"/>
+		<mkdir dir="${artifacts}/sdk"/>
+		<mkdir dir="${artifacts}/runtime"/>
+		<mkdir dir="${artifacts}/tests"/>
+		<mkdir dir="${artifacts}/examples"/>
+		<mkdir dir="${artifacts}/doc"/>
 		<available file="${buildRoot}/checkout/org.eclipse.gmf/features/org.eclipse.gmf.sdk-feature/build.properties" property="skipCheckout" />
 		<antcall target="checkout"/>
 	</target>
