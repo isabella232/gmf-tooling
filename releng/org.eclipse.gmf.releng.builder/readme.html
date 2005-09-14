@@ -12,7 +12,7 @@
 	<tr>
 		<td ALIGN="LEFT" width="80%">
 		<p><b><font face="Verdana" size="+3">GMF Build Instructions</font></b><br />
-		&nbsp;Last Updated: September 09, 2005</p>
+		&nbsp;Last Updated: September 14, 2005</p>
 
 		</td>
 	</tr>
@@ -48,14 +48,15 @@
 
 		<p>This document describes how to build GMF components from the
 		command line using Ant scripts, including the running of unit tests
-		and operation under <a href="cruisecontrol.sf.net">CruiseControl</a>.
+		and operation under <a href="http://cruisecontrol.sf.net">CruiseControl</a>.
 		<br />
 		<br />
 		Note that while there is no mandated standard for builds among Eclipse
 		projects, they generally follow a similar process to what is described
-		here; that is, they leverage the <a href="">org.eclipse.releng.basebuilder</a>
+		here; that is, they leverage the <a
+			href="http://dev.eclipse.org/viewcvs/index.cgi/*checkout*/org.eclipse.releng.eclipsebuilder/readme.html?rev=HEAD&content-type=text/html">org.eclipse.releng.basebuilder</a>
 		framework. This framework enables headless operation of the Eclipse <a
-			href="http://dev.eclipse.org/viewcvs/index.cgi/~checkout~/org.eclipse.pde.build/notes/usingPDEBuild.html">PDE
+			href="http://dev.eclipse.org/viewcvs/index.cgi/*checkout*/org.eclipse.releng.basebuilder/readme.html?rev=HEAD&content-type=text/html">PDE
 		build</a> functionality. The GMF build process was developed using
 		examples found in the Platform, GEF, EMF, VE, and WTP projects.<br />
 		<br />
@@ -82,17 +83,17 @@
 		2. <a href="http://java.sun.com/j2se/1.5.0/download.jsp">J2SE 5.0</a>.<br />
 		3. <a href="http://www.info-zip.org/pub/infozip/">Info-Zip zip and
 		unzip</a><br />
-		4. <a href="cruisecontrol.sf.net">CruiseControl</a> (optional)<br />
+		4. <a href="http://cruisecontrol.sf.net/">CruiseControl</a> (optional)<br />
 		5. <a href="http://jakarta.apache.org/tomcat/">Tomcat</a> or similar
 		webserver (optional)<br />
 		</p>
 		<p>For more information on PDE Build, refer to the <a
-			href="http://dev.eclipse.org/viewcvs/index.cgi/org.eclipse.pde.build/notes/Attic/usingPDEBuild.html?hidecvsroot=1&search=None&hideattic=1&sortby=file&logsort=date&rev=1.8&diff_format=h">plug-in</a>
+			href="http://dev.eclipse.org/viewcvs/index.cgi/*checkout*/org.eclipse.releng.basebuilder/readme.html?rev=HEAD&content-type=text/html">plug-in</a>
 		itself.<br />
 		For examples, refer to the <a
 			href="http://dev.eclipse.org/viewcvs/index.cgi/org.eclipse.releng.eclipsebuilder/">org.eclipse.releng.eclipsebuilder</a>
 		plug-in and its <a
-			href="https://dev.eclipse.org/viewcvs/index.cgi/~checkout~/org.eclipse.releng.eclipsebuilder/readme.html">readme</a>.
+			href="http://dev.eclipse.org/viewcvs/index.cgi/*checkout*/org.eclipse.releng.eclipsebuilder/readme.html?rev=HEAD&content-type=text/html">readme</a>.
 
 		</p>
 		</TD>
@@ -122,10 +123,8 @@
 		</ul>
 		<b>Note</b> that you will want to place this directory close to the
 		root of the drive on Windows, due to path length limitations.
-		Optionally, you may choose to use the -DbuildDirectory property to
-		target a location near the root, utilize the 'subst' command, or
-		simply rename the org.eclipse.gmf.releng.builder directory to just
-		'builder'. <br />
+		Optionally, you may choose to use the -DbuildRoot property to target a
+		location near the root. <br />
 		<br />
 		5. Install the v3.1 Eclipse release engineering basebuilder (this
 		installation will be used to run the build tools, it is not itself a
@@ -149,8 +148,145 @@
 		in the main build.properties file (in the 'scripts' directory). By
 		default, the GMF build machine uses a local <a
 			href="http://jakarta.apache.org/tomcat/">Tomcat</a> installation for
-		an update site and <a href="cruisecontrol.sf.net">CruiseControl</a>
-		reporting.</TD>
+		an update site and <a href="http://cruisecontrol.sf.net">CruiseControl</a>
+		reporting. Technically, the build should function without a local
+		mirror and default to the main update site for dependency
+		installation, which is obviously not desired for frequent builds.</TD>
+	</TR>
+	<TR>
+		<TD align="LEFT" valign="TOP" colspan="3">
+		<p>By default, the build will create the following structure, assuming
+		a 'gmfbuild' root was created as indicated above. This structure also
+		shows the default expected Tomcat and CruiseControl locations, which
+		are configurable:</p>
+		<table width="100%" border="0">
+			<tr>
+				<td colspan="6"><strong>/gmfbuild</strong></td>
+				<td width="62%">Root of build (named as in instructions above)</td>
+			</tr>
+			<tr>
+				<td width="2%">&nbsp;</td>
+				<td colspan="5" bordercolor="0"><strong>/build</strong></td>
+				<td>Root of the build output (configurable with -DbuildRoot
+				property)</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/artifacts</strong></td>
+				<td>Root of component build results, with a subdirectory for each</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/checkout</strong></td>
+				<td>CVS structure used by CruiseControl</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/doc</strong></td>
+				<td>Build directory of the 'doc' component</td>
+			</tr>			
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/eclipse</strong></td>
+				<td>Base installation to compile against and execute tests</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/examples</strong></td>
+				<td>Build directory of the 'examples' component</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/logs</strong></td>
+				<td>Location of CruiseControl logs</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/runtime</strong></td>
+				<td>Build directory of the 'runtime' component</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/sdk</strong></td>
+				<td>Build directory of the 'sdk' component</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/updateSite</strong></td>
+				<td>Target for generated update jars, replicated on local mirror if used</td>
+			</tr>
+			<tr>
+				<td width="2%">&nbsp;</td>
+				<td colspan="5" bordercolor="0"><strong>/org.eclipse.gmf.releng.builder</strong></td>
+				<td>GMF releng builder</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/doc</strong></td>
+				<td>Script to build the org.eclipse.gmf.doc feature</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/examples</strong></td>
+				<td>Script to build the org.eclipse.gmf.examples feature</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/runtime</strong></td>
+				<td>Script to build the org.eclipse.gmf feature</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/scripts</strong></td>
+				<td>Directory containing build, tests, update, cruise, etc. scripts.
+				Execute from this directory.</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/sdk</strong></td>
+				<td>Script to build the org.eclipse.gmf.sdk feature</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td width="3%" bordercolor="0">&nbsp;</td>
+				<td colspan="4"><strong>/tests</strong></td>
+				<td>Script to bulid the org.eclipse.gmf.tests feature</td>
+			</tr>
+			<tr>
+				<td width="2%">&nbsp;</td>
+				<td colspan="5" bordercolor="0"><strong>/org.eclipse.releng.basebuilder</strong></td>
+				<td>Eclipse releng builder</td>
+			</tr>
+			<tr>
+				<td colspan="6"><strong>/java</strong></td>
+				<td width="62%">Root of Tomcat and CruiseControl</td>
+			</tr>
+			<tr>
+				<td width="2%">&nbsp;</td>
+				<td colspan="5" bordercolor="0"><strong>/cruisecontrol-2.3.0.1</strong></td>
+				<td>CruiseControl installation</td>
+			</tr>
+			<tr>
+				<td width="2%">&nbsp;</td>
+				<td colspan="5" bordercolor="0"><strong>/Tomcat 5.5</strong></td>
+				<td>Tomcat installation</td>
+			</tr>
+		</table>
+		</TD>
 	</TR>
 </table>
 
@@ -166,18 +302,29 @@
 		<TD align="LEFT" valign="TOP" colspan="3">
 
 		<p><b>cd</b> to the 'scripts' directory under
-		org.eclipse.gmf.releng.builder and execute the following command (on
-		Windows) :</p>
-		<p><b>build.bat -Dcomponent=sdk | runtime | examples | tests</b></p>
+		org.eclipse.gmf.releng.builder and execute the build command passing
+		the desired component to target (on Windows) :</p>
+		<ul>
+			<li>cd org.eclipse.gmf.releng.builder\scripts</li>
+			<li>build.bat -Dcomponent=sdk | runtime | examples | tests | doc</li>
+		</ul>
 		<p>Optionally, you can use the following command:</p>
-		<p><b>java -jar ..\org.eclipse.releng.basebuilder\startup.jar
-		-application org.eclipse.ant.core.antRunner -Dcomponent=sdk | runtime
-		| examples | tests</b> <br />
-		</p>
+		<ul>
+			<li>java -jar ..\org.eclipse.releng.basebuilder\startup.jar
+			-application org.eclipse.ant.core.antRunner -Dcomponent=sdk | runtime
+			| examples | tests | doc</li>
+		</ul>
+		<br />
 
 		<p><b>Note</b> that the download of the Eclipse SDK and/or test
 		framework may fail using the Ant 'get' task, so you may have to
-		download these elements and place in the 'build' folder manually.</p>
+		download these elements and place in the 'build' folder manually.
+		These zips are maintained for future use in the 'build' directory to
+		make -DcleanBase builds quicker. Notice that unless a local mirror is
+		installed, each dependent feature (EMF, GEF, etc.) will be downloaded
+		from its respective update site with each -DcleanBase build.
+		Therefore, it is recommended that a local mirror be used to speed up
+		the process and to reduce stress on the update sites.</p>
 
 		<p><b><a name="components"></a></b>The component property value sets
 		the name of the directory in org.eclipse.gmf.releng.builder which
@@ -193,26 +340,32 @@
 			<tr>
 				<td width="25%">sdk</td>
 				<td width="75%">This directory contains the scripts used to build
-				the GMF SDK. A GMF SDK includes the runtime feature and is comprised
-				of binaries, source, and developer documentation.</td>
+				the GMF SDK feature (org.eclipse.gmf.sdk). A GMF SDK includes the
+				runtime feature and is comprised of binaries and sources.</td>
 			</tr>
 			<tr>
 				<td width="25%">runtime</td>
 				<td width="75%">This directory contains the scripts used to build
-				the GMF runtime. The GMF runtime component contains only those
-				binaries required to run a GMF-based application.</td>
+				the GMF runtime feature (org.eclipse.gmf). The GMF runtime component
+				contains only those binaries required to run a GMF-based
+				application.</td>
 			</tr>
 			<tr>
 				<td width="25%">examples</td>
 				<td width="75%">This directory contains the scripts used to build
-				the GMF example plug-ins (with sources). <b>Note</b> that the SDK
-				build is a prerequisite.</td>
+				the GMF example feature (org.eclipse.gmf.examples) with sources. <b>Note</b>
+				that the SDK build is a prerequisite.</td>
 			</tr>
 			<tr>
 				<td width="25%">tests</td>
 				<td width="75%">This directory contains the scripts used to build
-				and execute the GMF unit tests. <b>Note</b> that the SDK and
-				examples builds are prerequisites.</td>
+				and execute the GMF unit tests feature (org.eclispe.gmf.tests). <b>Note</b>
+				that the SDK and examples builds are prerequisites.</td>
+			</tr>
+			<tr>
+				<td width="25%">doc</td>
+				<td width="75%">This directory contains the scripts used to build
+				the GMF documentation feature (org.eclipse.gmf.doc).</td>
 			</tr>
 		</table>
 		</TD>
@@ -223,7 +376,7 @@
 		can be passed in via the build command to override the default
 		settings. Of course, direct modification of the properties is an
 		alternative. <b>Note</b> that if you choose to set the
-		'buildDirectory' property, it will need to and in the name of the
+		'buildDirectory' property, it will need to end in the name of the
 		component. It is recommended that 'buildRoot' be used instead, as it
 		will have the component name appended to form the 'buildDirectory'
 		property by default. By default, 'buildRoot' will be a sibling of the
@@ -282,9 +435,10 @@
 		<p>GMF builds utilize the update manager via the command line for the
 		installation of build dependencies (e.g. EMF &amp; GEF), and also to
 		install GMF itself for unit tests runs. This has the added benefit of
-		testing update site packaging and leverages the ability to maintain a
-		local mirror site. The alternative is to download archives from the
-		Eclipse website, which may turn out to be a better approach ;-)</p>
+		testing update site packaging and leverages the ability to update and
+		maintain a local mirror site. The alternative is to download archives
+		from the Eclipse website, which may turn out to be a better approach
+		;-)</p>
 		<p>To use a local mirror, you will need to install Tomcat and perform
 		the following steps to setup the local update site:</p>
 		<ul>
@@ -292,15 +446,17 @@
 			properties in the main build.properties to reflect your
 			configuration.</code></li>
 			<li><code>cd org.eclipse.gmf.releng.builder\scripts</code></li>
-			<li><code>run 'build.bat initLocalMirror'</code></li>
-			<li><code>restart Tomcat (if necessary)</code></li>
+			<li><code>run 'build initLocalMirror'</code></li>
+			<li><code>run 'build' command with -Dcomponent argument as described
+			above</code></li>
 		</ul>
+
 		<p>Run the build and then navigate to http://localhost/updateSite (or
 		similar, depending on your configuration). If you had run the build
 		previously, you may want to rerun with -DcleanBase=true option in
-		order to force the mirror and install of EMF and GEF locally.</p>
+		order to force the mirror and install of GMF dependencies locally.</p>
 		<p>Without the mirror running, the build will resort to using the
-		official update sites for EMF and GEF, while using a simple unzip of
+		official update sites for dependencies, while using a simple unzip of
 		GMF components (when running tests). When running, each build will
 		produce update site jars which are then copied to the update site
 		directory.</p>
@@ -318,12 +474,12 @@
 
 	<TR>
 		<TD align="LEFT" valign="TOP" colspan="3">
-		<p>The GMF project utilizes <a href="cruisecontrol.sf.net">CruiseControl</a>
+		<p>The GMF project utilizes <a href="http://cruisecontrol.sf.net">CruiseControl</a>
 		to manage its automated build process. The following basic steps are
 		required to leverage CruiseControl:</p>
 		<ul>
-			<li>Install <a href="cruisecontrol.sf.net">CruiseControl</a> (version
-			2.3 is used currently)</li>
+			<li>Install <a href="http://cruisecontrol.sf.net">CruiseControl</a>
+			(version 2.3 is used currently)</li>
 			<li>Check the settings of build.properties and config.xml files,
 			modifying as necessary. In particular, the schedule interval, email
 			server and addresses.</li>
@@ -331,7 +487,9 @@
 			instructions to install the cruisecontrol.war and modify the web.xml
 			file to point at the build's log and artifact locations. These will
 			be specified in the CC config.xml file and are by default /build/logs
-			and /build/artifacts/published, respectively.</li>
+			and /build/artifacts/published, respectively. The installation is as
+			simple as copying the cc/reporting/jsp/dist/cruisecontrol.war file
+			into the tomcat/webapps directory.</li>
 			<li>You may want to adjust the maximum memory setting for Tomcat, and
 			copy the xalan.jar provided with CruiseControl into the WEB-INF/lib
 			directory of the exploded cruisecontrol webapp to avoid problems
@@ -340,21 +498,22 @@
 		<p>To invoke CruiseControl, follow the instructions below:</p>
 		<ul>
 			<li><code>cd org.eclipse.gmf.releng.builder\scripts</code></li>
-			<li><code>ant.bat -f checkout.xml</code></li>
-			<li><code>cruise.bat</code></li>
+			<li><code>cruise</code></li>
 		</ul>
 		</TD>
 	</TR>
 	<tr>
 		<td>
-		<p><b>Note</b> that the checkout command produces a full checkout
-		structure of GMF in a 'checkout' subfolder. This is necessary for CC
-		to check for changes and kick off a build. It seems necessary for this
-		duplication to exist, as the PDE build uses the 'export' CVS command
-		and not 'checkout' as is required for checking for changes.</p>
+		<p><b>Note</b> that the checkout command is run initially and produces
+		a full checkout structure of GMF in a 'checkout' subfolder of 'build'.
+		This is necessary for CC to check for changes and kick off a build. It
+		seems necessary for this duplication to exist, as the PDE build uses
+		the 'export' CVS command and not 'checkout' as is required when
+		checking for changes.</p>
 		<p>Also, <b>note</b> that it should be possible for much of the
 		scripts here and in the build itself to be generated from plug-ins and
-		features.</p>
+		features. Perhaps future versions of the build will take advantage of
+		these possibilities.</p>
 		</td>
 	</tr>
 </table>
@@ -387,7 +546,9 @@
 				<td>buildRoot</td>
 				<td>This directory is the root of the build folders for each
 				component (e.g. sdk, tests, etc.) and the CruiseControl folders
-				(when used). By default, it is a sibling to the releng folders.</td>
+				(when used). By default, it is a sibling to the releng folders. In
+				GMF builds, it is recommended that you stick to setting buildRoot
+				and avoid the buildDirectory property found within the scripts.</td>
 			</tr>
 			<tr>
 				<td>cleanBase</td>
