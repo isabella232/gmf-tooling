@@ -122,7 +122,6 @@
 		<publishers>
 			<htmlemail logdir="${logs}/sdk">
 				<always address="${buildmaster.email}" />
-				<!-- 			<failure address="gmf-dev@eclipse.org" />  			-->
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/sdk"
 				dest="${artifacts}/published/sdk" />
@@ -206,7 +205,6 @@
 		<publishers>
 			<htmlemail logdir="${logs}/tests">
 				<always address="${buildmaster.email}" />
-				<!-- 			<failure address="gmf-dev@eclipse.org" />  			-->
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/tests"
 				dest="${artifacts}/published/tests" />
