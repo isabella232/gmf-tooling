@@ -111,7 +111,6 @@
 				target="main" uselogger="false" usedebug="false">
 				<property name="component" value="sdk" />
 				<property name="clean" value="true" />
-				<property name="cleanBase" value="true" />
 				<property name="buildRoot" value="${buildRoot}" />
 			</ant>
 		</schedule>
@@ -153,7 +152,6 @@
 				target="main" uselogger="false" usedebug="false">
 				<property name="component" value="examples" />
 				<property name="clean" value="true" />
-				<property name="cleanBase" value="true" />
 				<property name="buildRoot" value="${buildRoot}" />
 			</ant>
 		</schedule>
