@@ -42,7 +42,7 @@
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
 			<htmlemail logdir="${logs}/checkout">
-				<always address="${buildmaster.email}" />
+				<always address="gmf-releng@eclipse.org" />
 			</htmlemail>
 		</publishers>
 	</project>
@@ -81,7 +81,7 @@
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
 			<htmlemail logdir="${logs}/runtime">
-				<always address="${buildmaster.email}" />
+				<always address="gmf-releng@eclipse.org" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/runtime"
 				dest="${artifacts}/published/runtime" />
@@ -121,7 +121,7 @@
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
 			<htmlemail logdir="${logs}/sdk">
-				<always address="${buildmaster.email}" />
+				<always address="gmf-releng@eclipse.org" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/sdk"
 				dest="${artifacts}/published/sdk" />
@@ -161,7 +161,7 @@
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
 			<htmlemail logdir="${logs}/examples">
-				<always address="${buildmaster.email}" />
+				<always address="gmf-releng@eclipse.org" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/examples"
 				dest="${artifacts}/published/examples" />
