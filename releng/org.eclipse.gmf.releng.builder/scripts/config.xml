@@ -2,12 +2,9 @@
 
 	<property file="cc.properties" />
 
-	<plugin name="htmlemail"
-		buildresultsurl="http://gmf-dev.borland.com/cruisecontrol"
-		mailhost="localhost" skipusers="true"
+	<plugin name="htmlemail" mailhost="${mailhost}" skipusers="true"
 		returnaddress="${buildmaster.email}" returnname="Buildmaster"
-		subjectprefix="[GMF build]" xsldir="${reportdir}/jsp/webcontent/xsl"
-		css="${reportdir}/jsp/webcontent/css/cruisecontrol.css" />
+	/>
 
 	<project name="checkout" buildafterfailed="true">
 		<listeners>
@@ -41,9 +38,11 @@
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail logdir="${logs}/checkout">
-				<always address="gmf-releng@eclipse.org" />
+			<htmlemail subjectprefix="[checkout]" buildresultsurl="${reporting.url}/buildresults/checkout">
+				<always address="${always.email}" />
 			</htmlemail>
+<!-- 		<rss buildresultsurl="${reporting.url}/buildresults/checkout"
+			     file="${logs}/checkout/checkout.rss"/>  -->
 		</publishers>
 	</project>
 	
@@ -80,8 +79,8 @@
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail logdir="${logs}/runtime">
-				<always address="gmf-releng@eclipse.org" />
+			<htmlemail subjectprefix="[runtime]" buildresultsurl="${reporting.url}/buildresults/runtime">
+				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/runtime"
 				dest="${artifacts}/published/runtime" />
@@ -120,8 +119,8 @@
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail logdir="${logs}/sdk">
-				<always address="gmf-releng@eclipse.org" />
+			<htmlemail subjectprefix="[sdk]" buildresultsurl="${reporting.url}/buildresults/sdk">
+				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/sdk"
 				dest="${artifacts}/published/sdk" />
@@ -160,8 +159,8 @@
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail logdir="${logs}/examples">
-				<always address="gmf-releng@eclipse.org" />
+			<htmlemail subjectprefix="[examples]" buildresultsurl="${reporting.url}/buildresults/examples">
+				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/examples"
 				dest="${artifacts}/published/examples" />
@@ -203,8 +202,8 @@
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail logdir="${logs}/tests">
-				<always address="${buildmaster.email}" />
+			<htmlemail subjectprefix="[tests]" buildresultsurl="${reporting.url}/buildresults/tests">
+				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/tests"
 				dest="${artifacts}/published/tests" />
