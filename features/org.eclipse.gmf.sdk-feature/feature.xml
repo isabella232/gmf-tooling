@@ -6,14 +6,15 @@
       provider-name="%providerName"
       image="eclipse_update_120.jpg">
 
-   <description url="http://www.example.com/description">
+   <description url="http://www.eclipse.org/gmf">
       %description
    </description>
 
    <copyright url="http://www.eclipse.org/legal/epl-v10.html">
       Copyright (c) 2005 Borland Software Corporation and others.
 All rights reserved.   This program and the accompanying materials
-are made available under the terms of the Eclipse Public License v1.0
+are made available under the terms of the Eclipse Public License
+v1.0
 which accompanies this distribution, and is available at
 http://www.eclipse.org/legal/epl-v10.html
    </copyright>
@@ -29,20 +30,37 @@ http://www.eclipse.org/legal/epl-v10.html
 
    <includes
          id="org.eclipse.gmf.sdk.source"
-         version="0.0.0"/>
-         
+         version="0.0.0"
+         name="GMF SDK Developer Resources"/>
+
    <includes
          id="org.eclipse.gmf.source"
-         version="0.0.0"/>
+         version="0.0.0"
+         name="GMF Runtime Developer Resources"/>
 
    <includes
          id="org.eclipse.gmf"
-         version="0.0.0"/>
+         version="0.0.0"
+         name="GMF Runtime"/>
 
    <requires>
-      <import feature="org.eclipse.gef" version="3.1.0"/>
-      <import feature="org.eclipse.emf" version="2.1.0"/>
-      <import feature="org.eclipse.jdt" version="3.1.0"/>
+      <import feature="org.eclipse.gef" version="3.1.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.gef" version="3.1.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.emf" version="2.1.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.jdt" version="3.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.emf.codegen.ecore"/>
+      <import plugin="org.eclipse.emf.edit"/>
+      <import plugin="org.eclipse.gmf.runtime"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.emf.edit.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.emf.codegen.ecore.ui"/>
+      <import plugin="org.eclipse.ui"/>
    </requires>
 
    <plugin
