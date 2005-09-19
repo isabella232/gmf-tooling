@@ -3,9 +3,6 @@
    <feature url="features/org.eclipse.gmf.sdk_1.0.0.jar" id="org.eclipse.gmf.sdk" version="1.0.0">
       <category name="GMF 1.0.0"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.sdk.source_1.0.0.jar" id="org.eclipse.gmf.sdk.source" version="1.0.0">
-      <category name="GMF 1.0.0"/>
-   </feature>
    <feature url="features/org.eclipse.gmf.tests_1.0.0.jar" id="org.eclipse.gmf.tests" version="1.0.0">
       <category name="GMF 1.0.0"/>
    </feature>
@@ -15,8 +12,9 @@
    <feature url="features/org.eclipse.gmf.examples_1.0.0.jar" id="org.eclipse.gmf.examples" version="1.0.0">
       <category name="GMF 1.0.0"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.examples.source_1.0.0.jar" id="org.eclipse.gmf.examples.source" version="1.0.0">
-      <category name="GMF 1.0.0"/>
-   </feature>
-   <category-def name="GMF 1.0.0" label="Graphical Modeling Framework"/>
+   <category-def name="GMF 1.0.0" label="Graphical Modeling Framework">
+      <description>
+         A generative framework for developing graphical applications which leverage both the Eclipse Modeling Framework (EMF) and Graphical Editing Framework (GEF).
+      </description>
+   </category-def>
 </site>
