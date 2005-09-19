@@ -24,6 +24,9 @@
 			always.email=${always.email}
 		</echo>
 		<echo file="${basedir}/cc.properties" append="true" >
+			mailhost=${mailhost}
+		</echo>
+		<echo file="${basedir}/cc.properties" append="true" >
 			reporting.url=${reporting.url}
 		</echo>
 		<echo file="${basedir}/cc.properties" append="true" >
