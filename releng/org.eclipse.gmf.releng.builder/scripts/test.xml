@@ -9,7 +9,6 @@
 		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="true">
 			<arg value="-application" />
 			<arg value="org.eclipse.ant.core.antRunner" />
-<!--		<arg value="-debug" /> -->
 			<arg value="-file" />
 			<arg value="${baseLocation}/plugins/${testPlugin}_${gmfVersion}/test.xml" />
 			<arg value="-logger" />
@@ -21,9 +20,10 @@
 			<arg value="-Dreport=${testPlugin}" />
 			<arg value="-Declipse-home=${baseLocation}" />
 			<arg value="-DlibraryFile=${baseLocation}/plugins/org.eclipse.test_${fullEclipseVersion}/library.xml" />
+			<jvmarg value="-ea"/>
 		</java>
-		<move file="${baseLocation}/${testPlugin}.xml" tofile="${artifacts}/tests/${testPlugin}.xml" />
-		<move file="${baseLocation}/${testPlugin}.AllTests.xml" tofile="${artifacts}/tests/${testPlugin}.AllTests.xml" />
+		<move file="${baseLocation}/${testPlugin}.xml" tofile="${artifacts}/tests/${testPlugin}.xml" failonerror="false"/>
+		<move file="${baseLocation}/${testPlugin}.AllTests.xml" tofile="${artifacts}/tests/${testPlugin}.AllTests.xml" failonerror="false"/>
 		<tstamp>
 			<format property="runtests-endtime" pattern="HH:mm:ss" />
 		</tstamp>
@@ -52,11 +52,9 @@
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.common.core" />
 		</antcall>
-<!-- TODO: Errors occur... fix and restore 		
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.common.ui" />
 		</antcall>
--->		
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.common.ui.services.action" />
 		</antcall>
