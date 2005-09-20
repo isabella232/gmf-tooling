@@ -38,7 +38,8 @@
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail subjectprefix="[checkout]" buildresultsurl="${reporting.url}/buildresults/checkout">
+			<htmlemail subjectprefix="[checkout]" buildresultsurl="${reporting.url}/buildresults/checkout"
+			logdir="${logs}/checkout" />
 				<always address="${always.email}" />
 			</htmlemail>
 <!-- 		<rss buildresultsurl="${reporting.url}/buildresults/checkout"
@@ -79,7 +80,8 @@
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail subjectprefix="[runtime]" buildresultsurl="${reporting.url}/buildresults/runtime">
+			<htmlemail subjectprefix="[runtime]" buildresultsurl="${reporting.url}/buildresults/runtime"
+			logdir="${logs}/runtime" />
 				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/runtime"
@@ -119,7 +121,8 @@
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail subjectprefix="[sdk]" buildresultsurl="${reporting.url}/buildresults/sdk">
+			<htmlemail subjectprefix="[sdk]" buildresultsurl="${reporting.url}/buildresults/sdk"
+			logdir="${logs}/sdk" />
 				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/sdk"
@@ -159,7 +162,8 @@
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail subjectprefix="[examples]" buildresultsurl="${reporting.url}/buildresults/examples">
+			<htmlemail subjectprefix="[examples]" buildresultsurl="${reporting.url}/buildresults/examples"
+			logdir="${logs}/examples" />
 				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/examples"
@@ -202,11 +206,54 @@
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail subjectprefix="[tests]" buildresultsurl="${reporting.url}/buildresults/tests">
+			<htmlemail subjectprefix="[tests]" buildresultsurl="${reporting.url}/buildresults/tests"
+			logdir="${logs}/tests" />
 				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/tests"
 				dest="${artifacts}/published/tests" />
+		</publishers>
+	</project>
+	
+	<project name="doc" buildafterfailed="true">
+		<listeners>
+			<currentbuildstatuslistener
+				file="${logs}/doc/buildstatus.txt" />
+		</listeners>
+
+		<!-- Bootstrappers are run every time the build runs, 
+			*before* the modification checks -->
+		<bootstrappers></bootstrappers>
+
+		<!-- Defines where cruise looks for changes, to decide
+			whether to run the build -->
+		<modificationset quietperiod="10">
+			<alwaysbuild/>
+		</modificationset>
+
+		<!-- Configures the actual build loop, how often and which
+			build file/target -->
+		<schedule>
+			<ant time="0100" antscript="build.bat" buildfile="build.xml"
+				target="main" uselogger="false" usedebug="false">
+				<property name="component" value="doc" />
+				<property name="buildRoot" value="${buildRoot}" />
+			</ant>
+		</schedule>
+
+		<!-- directory to write build logs to -->
+		<log dir="${logs}/doc">
+			<merge dir="${artifacts}/doc/" />
+		</log>
+
+		<!-- Publishers are run *after* a build completes -->
+		<publishers>
+			<htmlemail subjectprefix="[doc]" buildresultsurl="${reporting.url}/buildresults/doc"
+			logdir="${logs}/doc" />
+				<always address="${always.email}" />
+			</htmlemail>
+			<artifactspublisher dir="${artifacts}/doc"
+				dest="${artifacts}/published/doc" />
 		</publishers>
 	</project>
 
