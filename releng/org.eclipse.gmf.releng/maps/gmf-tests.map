@@ -16,6 +16,7 @@ plugin@org.eclipse.gmf.tests.runtime.emf.commands.core=HEAD,:pserver:anonymous@d
 plugin@org.eclipse.gmf.tests.runtime.emf.core=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.core
 plugin@org.eclipse.gmf.tests.runtime.emf.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.ui
 plugin@org.eclipse.gmf.tests.runtime.emf.ui.properties=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.ui.properties
+plugin@org.eclipse.gmf.tests.runtime.emf.type.core=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.type.core
 plugin@org.eclipse.gmf.tests.runtime.emf.type.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/home/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.type.ui
 
 !*** TODO: remove when moved to EMFT, if not before
