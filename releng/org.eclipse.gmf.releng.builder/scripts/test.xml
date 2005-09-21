@@ -41,6 +41,9 @@
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.emf.core" />
 		</antcall>
 		<antcall target="runtests">
+			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.emf.type.core" />
+		</antcall>
+		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.emf.type.ui" />
 		</antcall>
 		<antcall target="runtests">
