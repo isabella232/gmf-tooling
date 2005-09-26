@@ -4,28 +4,51 @@ GenClass genClass = genDiagram.findGenClass(genNode.getDomainMetaClass());
 GenClass drtClass = genNode.getDiagramRunTimeClass();
 final String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create" + genClass.getName() + "()";
 %>
+	/**
+	 * @generated
+	 */
+	private void createNodeTool<%=nodeToolIndex%>(PaletteContainer paletteContainer) {
+
 //		ImageDescriptor img = ImageDescriptor.createFromFile(<%=palette.getFactoryClassName()%>.class, "<%=nodeEntry.getSmallIconPath()%>");
 		ImageDescriptor img = getImage(<%=domainElementInstanceCreationCode%>);
-		CreationFactory creationFactory = new CreationFactory() {
-			public Object getNewObject() {
-				<%=importManager.getImportedName(drtClass.getQualifiedInterfaceName())%> diagramNode = <%=importManager.getImportedName(drtClass.getGenPackage().getQualifiedFactoryInterfaceName())%>.eINSTANCE.create<%=drtClass.getName()%>();
-				diagramNode.setDomainModelElement(<%=domainElementInstanceCreationCode%>);
-				diagramNode.setVisualID(<%=importManager.getImportedName(genNode.getEditPartQualifiedClassName())%>.VISUAL_ID);
-<%if (genNode instanceof GenChildNode) {%>
-				diagramNode.setGroupID("<%=((GenChildNode) genNode).getGroupID()%>");
-<%}%>
-				initialize(diagramNode);
-				return diagramNode;
-			}
-			public Object getObjectType() {
-<%if (genNode instanceof GenChildNode) {%>
-				return <%=importManager.getImportedName("org.eclipse.gmf.diagramrt.ChildNode")%>.class;
-<%} else {%>
-				return <%=importManager.getImportedName("org.eclipse.gmf.diagramrt.DiagramNode")%>.class;
-<%}%>
-			}
-			private void initialize(<%=importManager.getImportedName(drtClass.getQualifiedInterfaceName())%> diagramNode) {
-				// place initialization code for attributes specific to your Diagram RunTime model here
-			}
-		};
+		CreationFactory creationFactory = new CreationNodeFactory<%=nodeToolIndex%>();
 		paletteContainer.add(new CreationToolEntry("<%=nodeEntry.getTitleKey()%>", "<%=nodeEntry.getDescriptionKey()%>", creationFactory, img, img));
+	}
+	
+	/**
+	 * @generated
+	 */
+	private class CreationNodeFactory<%=nodeToolIndex%> implements CreationFactory {
+	
+		/**
+	     * @generated
+	     */
+		public Object getNewObject() {
+			<%=importManager.getImportedName(drtClass.getQualifiedInterfaceName())%> diagramNode = <%=importManager.getImportedName(drtClass.getGenPackage().getQualifiedFactoryInterfaceName())%>.eINSTANCE.create<%=drtClass.getName()%>();
+			diagramNode.setDomainModelElement(<%=domainElementInstanceCreationCode%>);
+			diagramNode.setVisualID(<%=importManager.getImportedName(genNode.getEditPartQualifiedClassName())%>.VISUAL_ID);
+<%if (genNode instanceof GenChildNode) {%>
+			diagramNode.setGroupID("<%=((GenChildNode) genNode).getGroupID()%>");
+<%}%>
+			initialize(diagramNode);
+			return diagramNode;
+		}
+		
+		/**
+	     * @generated
+	     */
+		public Object getObjectType() {
+<%if (genNode instanceof GenChildNode) {%>
+			return <%=importManager.getImportedName("org.eclipse.gmf.diagramrt.ChildNode")%>.class;
+<%} else {%>
+			return <%=importManager.getImportedName("org.eclipse.gmf.diagramrt.DiagramNode")%>.class;
+<%}%>
+		}
+		
+		/**
+	     * @generated
+	     */
+		private void initialize(<%=importManager.getImportedName(drtClass.getQualifiedInterfaceName())%> diagramNode) {
+		// place initialization code for attributes specific to your Diagram RunTime model here
+		}
+	};

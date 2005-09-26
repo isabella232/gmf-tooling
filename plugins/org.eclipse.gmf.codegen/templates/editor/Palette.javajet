@@ -95,22 +95,12 @@ for(Iterator it = palette.getGroups().iterator(); it.hasNext(); toolGroupIndex++
 	for (Iterator it2 = tg.getNodeTools().iterator(); it2.hasNext(); nodeToolIndex++) {
 		NodeEntry nodeEntry = (NodeEntry) it2.next();
 %>
-	/**
-	 * @generated
-	 */
-	private void createNodeTool<%=nodeToolIndex%>(PaletteContainer paletteContainer) {
 <%@ include file="nodetool.jetinc" %>
-	}
 <%	}
 	for (Iterator it2 = tg.getLinkTools().iterator(); it2.hasNext(); linkToolIndex++) {
 		LinkEntry linkEntry = (LinkEntry) it2.next();
 %>
-	/**
-	 * @generated
-	 */
-	private void createLinkTool<%=linkToolIndex%>(PaletteContainer paletteContainer) {
 <%@ include file="linktool.jetinc" %>
-	}
 <%	}
 }%>
 	/**
