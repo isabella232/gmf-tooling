@@ -9,6 +9,8 @@ package org.eclipse.gmf.mappings.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.gmf.mappings.*;
+
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.GMFMapFactory;

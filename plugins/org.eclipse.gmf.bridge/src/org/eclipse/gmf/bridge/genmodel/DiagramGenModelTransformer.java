@@ -132,12 +132,23 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			assert childNodeMapping.getDomainChildrenFeature() instanceof EReference;
 			assert childNodeMapping.getDomainChildrenFeature().getEType() instanceof EClass;
 			childNode.setContainmentMetaFeature((EReference) childNodeMapping.getDomainChildrenFeature());
-			childNode.setDomainMetaClass((EClass) childNodeMapping.getDomainChildrenFeature().getEType());
+			
+			if (childNodeMapping.getDomainMetaElement() != null) {
+				childNode.setDomainMetaClass(childNodeMapping.getDomainMetaElement());
+			} else {
+				childNode.setDomainMetaClass((EClass) childNodeMapping.getDomainChildrenFeature().getEType());
+			}
+			
 			childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
 			childNode.setEditPartClassName(createEditPartClassName(childNodeMapping));
 			childNode.setMetaInfoProviderClassName(createMetaInfoProviderClassName(childNodeMapping));
 			childNode.setGroupID(childNodeMapping.getCompartment().getName());
 			childNode.setVisualID(CHILD_COUNT_BASE + (++myChildCount ));
+			
+			if (childNodeMapping.getEditFeature() != null) {
+				childNode.setDomainNameFeature(childNodeMapping.getEditFeature());
+			}
+			
 			genNode.getChildNodes().add(childNode);
 			handleToolDef(childNodeMapping.getDiagramNode(), childNode);
 		}

@@ -21,6 +21,8 @@
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/diagramNode"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/domainChildrenFeature"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/conditionalFeature"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/editFeature"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/domainMetaElement"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//LinkMapping">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/diagramLink"/>

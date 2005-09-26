@@ -10,6 +10,8 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.mappings.*;
+
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.GMFMapPackage;

@@ -50,6 +50,8 @@
         <details key="documentation" value="e.g. EcorePackage.getEClass_EReferences for domainChildrenFeature with EcorePackage.getEReference_Containment for conditionalFeature"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="editFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EAttribute"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="domainMetaElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LinkMapping" eSuperTypes="#//MappingEntry">
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramLink" lowerBound="1"

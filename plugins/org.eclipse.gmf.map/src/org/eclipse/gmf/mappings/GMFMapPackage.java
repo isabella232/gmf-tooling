@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EReference;
  * @model kind="package"
  * @generated
  */
-public interface GMFMapPackage extends EPackage {
+public interface GMFMapPackage extends EPackage{
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -188,13 +188,31 @@ public interface GMFMapPackage extends EPackage {
 	int CHILD_NODE_MAPPING__CONDITIONAL_FEATURE = 3;
 
 	/**
+	 * The feature id for the '<em><b>Edit Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_NODE_MAPPING__EDIT_FEATURE = 4;
+
+	/**
+	 * The feature id for the '<em><b>Domain Meta Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT = 5;
+
+	/**
 	 * The number of structural features of the the '<em>Child Node Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CHILD_NODE_MAPPING_FEATURE_COUNT = 4;
+	int CHILD_NODE_MAPPING_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl <em>Link Mapping</em>}' class.
@@ -490,6 +508,28 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getChildNodeMapping_ConditionalFeature();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.ChildNodeMapping#getEditFeature <em>Edit Feature</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Edit Feature</em>'.
+	 * @see org.eclipse.gmf.mappings.ChildNodeMapping#getEditFeature()
+	 * @see #getChildNodeMapping()
+	 * @generated
+	 */
+	EReference getChildNodeMapping_EditFeature();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.ChildNodeMapping#getDomainMetaElement <em>Domain Meta Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Domain Meta Element</em>'.
+	 * @see org.eclipse.gmf.mappings.ChildNodeMapping#getDomainMetaElement()
+	 * @see #getChildNodeMapping()
+	 * @generated
+	 */
+	EReference getChildNodeMapping_DomainMetaElement();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.LinkMapping <em>Link Mapping</em>}'.

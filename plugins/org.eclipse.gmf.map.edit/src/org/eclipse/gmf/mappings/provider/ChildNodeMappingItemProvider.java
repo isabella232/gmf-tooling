@@ -60,6 +60,8 @@ public class ChildNodeMappingItemProvider
 			addDiagramNodePropertyDescriptor(object);
 			addDomainChildrenFeaturePropertyDescriptor(object);
 			addConditionalFeaturePropertyDescriptor(object);
+			addEditFeaturePropertyDescriptor(object);
+			addDomainMetaElementPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -138,6 +140,46 @@ public class ChildNodeMappingItemProvider
 				 getString("_UI_ChildNodeMapping_conditionalFeature_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_ChildNodeMapping_conditionalFeature_feature", "_UI_ChildNodeMapping_type"),
 				 GMFMapPackage.eINSTANCE.getChildNodeMapping_ConditionalFeature(),
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Edit Feature feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEditFeaturePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ChildNodeMapping_editFeature_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ChildNodeMapping_editFeature_feature", "_UI_ChildNodeMapping_type"),
+				 GMFMapPackage.eINSTANCE.getChildNodeMapping_EditFeature(),
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Domain Meta Element feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDomainMetaElementPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ChildNodeMapping_domainMetaElement_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ChildNodeMapping_domainMetaElement_feature", "_UI_ChildNodeMapping_type"),
+				 GMFMapPackage.eINSTANCE.getChildNodeMapping_DomainMetaElement(),
 				 true,
 				 null,
 				 null,

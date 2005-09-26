@@ -254,6 +254,24 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getChildNodeMapping_EditFeature() {
+		return (EReference)childNodeMappingEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getChildNodeMapping_DomainMetaElement() {
+		return (EReference)childNodeMappingEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getLinkMapping() {
 		return linkMappingEClass;
 	}
@@ -426,6 +444,8 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		createEReference(childNodeMappingEClass, CHILD_NODE_MAPPING__DIAGRAM_NODE);
 		createEReference(childNodeMappingEClass, CHILD_NODE_MAPPING__DOMAIN_CHILDREN_FEATURE);
 		createEReference(childNodeMappingEClass, CHILD_NODE_MAPPING__CONDITIONAL_FEATURE);
+		createEReference(childNodeMappingEClass, CHILD_NODE_MAPPING__EDIT_FEATURE);
+		createEReference(childNodeMappingEClass, CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT);
 
 		linkMappingEClass = createEClass(LINK_MAPPING);
 		createEReference(linkMappingEClass, LINK_MAPPING__DIAGRAM_LINK);
@@ -492,6 +512,8 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEReference(getChildNodeMapping_DiagramNode(), theDiagramDefinitionPackage.getNode(), null, "diagramNode", null, 1, 1, ChildNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getChildNodeMapping_DomainChildrenFeature(), ecorePackage.getEStructuralFeature(), null, "domainChildrenFeature", null, 1, 1, ChildNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getChildNodeMapping_ConditionalFeature(), ecorePackage.getEAttribute(), null, "conditionalFeature", null, 1, 1, ChildNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getChildNodeMapping_EditFeature(), ecorePackage.getEAttribute(), null, "editFeature", null, 0, 1, ChildNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getChildNodeMapping_DomainMetaElement(), ecorePackage.getEClass(), null, "domainMetaElement", null, 0, 1, ChildNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(linkMappingEClass, LinkMapping.class, "LinkMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLinkMapping_DiagramLink(), theDiagramDefinitionPackage.getConnection(), null, "diagramLink", null, 1, 1, LinkMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

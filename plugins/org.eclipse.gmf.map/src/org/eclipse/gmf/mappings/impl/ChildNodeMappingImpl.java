@@ -29,6 +29,8 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
  *   <li>{@link org.eclipse.gmf.mappings.impl.ChildNodeMappingImpl#getDiagramNode <em>Diagram Node</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.ChildNodeMappingImpl#getDomainChildrenFeature <em>Domain Children Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.ChildNodeMappingImpl#getConditionalFeature <em>Conditional Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.ChildNodeMappingImpl#getEditFeature <em>Edit Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.ChildNodeMappingImpl#getDomainMetaElement <em>Domain Meta Element</em>}</li>
  * </ul>
  * </p>
  *
@@ -74,6 +76,26 @@ public class ChildNodeMappingImpl extends EObjectImpl implements ChildNodeMappin
 	 * @ordered
 	 */
 	protected EAttribute conditionalFeature = null;
+
+	/**
+	 * The cached value of the '{@link #getEditFeature() <em>Edit Feature</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditFeature()
+	 * @generated
+	 * @ordered
+	 */
+	protected EAttribute editFeature = null;
+
+	/**
+	 * The cached value of the '{@link #getDomainMetaElement() <em>Domain Meta Element</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainMetaElement()
+	 * @generated
+	 * @ordered
+	 */
+	protected EClass domainMetaElement = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -250,6 +272,82 @@ public class ChildNodeMappingImpl extends EObjectImpl implements ChildNodeMappin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getEditFeature() {
+		if (editFeature != null && editFeature.eIsProxy()) {
+			EAttribute oldEditFeature = editFeature;
+			editFeature = (EAttribute)eResolveProxy((InternalEObject)editFeature);
+			if (editFeature != oldEditFeature) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.CHILD_NODE_MAPPING__EDIT_FEATURE, oldEditFeature, editFeature));
+			}
+		}
+		return editFeature;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute basicGetEditFeature() {
+		return editFeature;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditFeature(EAttribute newEditFeature) {
+		EAttribute oldEditFeature = editFeature;
+		editFeature = newEditFeature;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.CHILD_NODE_MAPPING__EDIT_FEATURE, oldEditFeature, editFeature));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getDomainMetaElement() {
+		if (domainMetaElement != null && domainMetaElement.eIsProxy()) {
+			EClass oldDomainMetaElement = domainMetaElement;
+			domainMetaElement = (EClass)eResolveProxy((InternalEObject)domainMetaElement);
+			if (domainMetaElement != oldDomainMetaElement) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT, oldDomainMetaElement, domainMetaElement));
+			}
+		}
+		return domainMetaElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass basicGetDomainMetaElement() {
+		return domainMetaElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDomainMetaElement(EClass newDomainMetaElement) {
+		EClass oldDomainMetaElement = domainMetaElement;
+		domainMetaElement = newDomainMetaElement;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT, oldDomainMetaElement, domainMetaElement));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT:
@@ -264,6 +362,12 @@ public class ChildNodeMappingImpl extends EObjectImpl implements ChildNodeMappin
 			case GMFMapPackage.CHILD_NODE_MAPPING__CONDITIONAL_FEATURE:
 				if (resolve) return getConditionalFeature();
 				return basicGetConditionalFeature();
+			case GMFMapPackage.CHILD_NODE_MAPPING__EDIT_FEATURE:
+				if (resolve) return getEditFeature();
+				return basicGetEditFeature();
+			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT:
+				if (resolve) return getDomainMetaElement();
+				return basicGetDomainMetaElement();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -286,6 +390,12 @@ public class ChildNodeMappingImpl extends EObjectImpl implements ChildNodeMappin
 				return;
 			case GMFMapPackage.CHILD_NODE_MAPPING__CONDITIONAL_FEATURE:
 				setConditionalFeature((EAttribute)newValue);
+				return;
+			case GMFMapPackage.CHILD_NODE_MAPPING__EDIT_FEATURE:
+				setEditFeature((EAttribute)newValue);
+				return;
+			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT:
+				setDomainMetaElement((EClass)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -310,6 +420,12 @@ public class ChildNodeMappingImpl extends EObjectImpl implements ChildNodeMappin
 			case GMFMapPackage.CHILD_NODE_MAPPING__CONDITIONAL_FEATURE:
 				setConditionalFeature((EAttribute)null);
 				return;
+			case GMFMapPackage.CHILD_NODE_MAPPING__EDIT_FEATURE:
+				setEditFeature((EAttribute)null);
+				return;
+			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT:
+				setDomainMetaElement((EClass)null);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -329,6 +445,10 @@ public class ChildNodeMappingImpl extends EObjectImpl implements ChildNodeMappin
 				return domainChildrenFeature != null;
 			case GMFMapPackage.CHILD_NODE_MAPPING__CONDITIONAL_FEATURE:
 				return conditionalFeature != null;
+			case GMFMapPackage.CHILD_NODE_MAPPING__EDIT_FEATURE:
+				return editFeature != null;
+			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT:
+				return domainMetaElement != null;
 		}
 		return eDynamicIsSet(eFeature);
 	}

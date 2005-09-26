@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.mappings.*;
+
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.GMFMapPackage;
