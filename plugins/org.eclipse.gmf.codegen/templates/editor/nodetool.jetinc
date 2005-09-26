@@ -2,7 +2,7 @@
 GenNode genNode = nodeEntry.getGenNode(); 
 GenClass genClass = genDiagram.findGenClass(genNode.getDomainMetaClass());
 GenClass drtClass = genNode.getDiagramRunTimeClass();
-final String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create" + genClass.getName() + "()";
+final String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create(" + importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()) + ".eINSTANCE.get" + genClass.getName() + "())";
 %>
 	/**
 	 * @generated

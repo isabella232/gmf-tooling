@@ -154,7 +154,7 @@ for(Iterator it = palette.getGroups().iterator(); it.hasNext(); toolGroupIndex++
 GenNode genNode = nodeEntry.getGenNode(); 
 GenClass genClass = genDiagram.findGenClass(genNode.getDomainMetaClass());
 GenClass drtClass = genNode.getDiagramRunTimeClass();
-final String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create" + genClass.getName() + "()";
+final String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create(" + importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()) + ".eINSTANCE.get" + genClass.getName() + "())";
 
     stringBuffer.append(TEXT_25);
     stringBuffer.append(nodeToolIndex);
@@ -222,7 +222,7 @@ final String domainElementInstanceCreationCode;
 if (genLink instanceof GenLinkWithClass) {
 	EClass domainMetaClass = ((GenLinkWithClass) genLink).getDomainMetaClass();
 	GenClass genClass = genDiagram.findGenClass(domainMetaClass);
-	domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create" + genClass.getName() + "()";
+	domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create(" + importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()) + ".eINSTANCE.get" + genClass.getName() + "())";
 } else {
 	// no dedicated metaclass for link, thus no creation code
 	domainElementInstanceCreationCode = "null";

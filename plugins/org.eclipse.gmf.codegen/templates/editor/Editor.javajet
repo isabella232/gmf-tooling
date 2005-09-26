@@ -233,7 +233,7 @@ public class <%=genDiagram.getEditorClassName()%> extends GraphicalEditorWithFly
 %>
 		if (domainContainer == null || domainContainer.eClass() != <%=genPackage.getPackageInterfaceName()%>.eINSTANCE.get<%=genClass.getClassifierAccessorName()%>()) {
 			// XXX limiting outselves to single container which itself has no containers
-			domainContainer = <%=importManager.getImportedName(genPackage.getQualifiedFactoryInterfaceName())%>.eINSTANCE.create<%=genClass.getName()%>();
+			domainContainer = <%=importManager.getImportedName(genPackage.getQualifiedFactoryInterfaceName())%>.eINSTANCE.create(<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=genClass.getName()%>());
 <%if (genDiagram.isSameFileForDiagramAndModel()) {%>
 			Resource domainRes = myDiagram.eResource();
 <%} else {%>

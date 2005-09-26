@@ -32,17 +32,18 @@ public class EditorGen
   protected final String TEXT_12 = NL + "\t\tif (domainContainer == null || domainContainer.eClass() != ";
   protected final String TEXT_13 = ".eINSTANCE.get";
   protected final String TEXT_14 = "()) {" + NL + "\t\t\t// XXX limiting outselves to single container which itself has no containers" + NL + "\t\t\tdomainContainer = ";
-  protected final String TEXT_15 = ".eINSTANCE.create";
-  protected final String TEXT_16 = "();";
-  protected final String TEXT_17 = NL + "\t\t\tResource domainRes = myDiagram.eResource();";
-  protected final String TEXT_18 = NL + "\t\t\tURI domainResURI = URI.createURI(file.getFullPath().removeFileExtension().addFileExtension(\"";
-  protected final String TEXT_19 = "\").toString());" + NL + "\t\t\tResource domainRes = myResourceSet.createResource(domainResURI);";
-  protected final String TEXT_20 = NL + "\t\t\tdomainRes.getContents().add(domainContainer);" + NL + "\t\t\tmyDiagram.setDomainResource(domainRes);" + NL + "\t\t\tmyDiagram.setDomainContainerObject(domainContainer);" + NL + "\t\t} else {" + NL + "\t\t\t// XXX keeping domainResource in addition to domainContainerObject" + NL + "\t\t\t// for future - when we implement support for \"no dedicated domain container object\"" + NL + "\t\t\t// case, and created nodes go directly to the object" + NL + "\t\t\tmyDiagram.setDomainResource(domainContainer.eResource());" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected AdapterFactory getAdapterFactory4DomainModel() {" + NL + "\t\tif (myDomainModelAdapterFactory == null) {" + NL + "\t\t\tArrayList factories = new ArrayList();" + NL + "\t\t\tfillItemProviderFactories(factories);" + NL + "\t\t\tmyDomainModelAdapterFactory = new ComposedAdapterFactory(factories);" + NL + "\t\t}" + NL + "\t\treturn myDomainModelAdapterFactory;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setupDomainsEMFEdititngDomain() {" + NL + "\t\tBasicCommandStack commandStack = new BasicCommandStack();" + NL + "\t\tcommandStack.addCommandStackListener(new CommandStackListener() {" + NL + "\t\t\tpublic void commandStackChanged(final EventObject event) {" + NL + "\t\t\t\tgetEditorDisplay().asyncExec(new Runnable() {" + NL + "\t\t\t\t\tpublic void run() {" + NL + "\t\t\t\t\t\tfirePropertyChange(IEditorPart.PROP_DIRTY);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t});" + NL + "\t\t\t}" + NL + "\t\t});" + NL + "\t\tAdapterFactoryEditingDomain afed = new AdapterFactoryEditingDomain(getAdapterFactory4DomainModel(), commandStack);" + NL + "\t\tmyResourceSet.eAdapters().add(new AdapterFactoryEditingDomain.EditingDomainProvider(afed));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tDisplay getEditorDisplay() {" + NL + "\t\treturn getGraphicalControl().getDisplay();" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void fillItemProviderFactories(List factories) {";
-  protected final String TEXT_21 = NL + "\t\tfactories.add(new ";
-  protected final String TEXT_22 = "());";
-  protected final String TEXT_23 = NL + "\t\tfactories.add(new ";
-  protected final String TEXT_24 = "());";
-  protected final String TEXT_25 = NL + "\t\tfactories.add(new ResourceItemProviderAdapterFactory());" + NL + "\t\tfactories.add(new ReflectiveItemProviderAdapterFactory());" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * make accessible for command stack listener" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void firePropertyChange(int property) {" + NL + "\t\tsuper.firePropertyChange(property);" + NL + "\t}" + NL + "}";
+  protected final String TEXT_15 = ".eINSTANCE.create(";
+  protected final String TEXT_16 = ".eINSTANCE.get";
+  protected final String TEXT_17 = "());";
+  protected final String TEXT_18 = NL + "\t\t\tResource domainRes = myDiagram.eResource();";
+  protected final String TEXT_19 = NL + "\t\t\tURI domainResURI = URI.createURI(file.getFullPath().removeFileExtension().addFileExtension(\"";
+  protected final String TEXT_20 = "\").toString());" + NL + "\t\t\tResource domainRes = myResourceSet.createResource(domainResURI);";
+  protected final String TEXT_21 = NL + "\t\t\tdomainRes.getContents().add(domainContainer);" + NL + "\t\t\tmyDiagram.setDomainResource(domainRes);" + NL + "\t\t\tmyDiagram.setDomainContainerObject(domainContainer);" + NL + "\t\t} else {" + NL + "\t\t\t// XXX keeping domainResource in addition to domainContainerObject" + NL + "\t\t\t// for future - when we implement support for \"no dedicated domain container object\"" + NL + "\t\t\t// case, and created nodes go directly to the object" + NL + "\t\t\tmyDiagram.setDomainResource(domainContainer.eResource());" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected AdapterFactory getAdapterFactory4DomainModel() {" + NL + "\t\tif (myDomainModelAdapterFactory == null) {" + NL + "\t\t\tArrayList factories = new ArrayList();" + NL + "\t\t\tfillItemProviderFactories(factories);" + NL + "\t\t\tmyDomainModelAdapterFactory = new ComposedAdapterFactory(factories);" + NL + "\t\t}" + NL + "\t\treturn myDomainModelAdapterFactory;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setupDomainsEMFEdititngDomain() {" + NL + "\t\tBasicCommandStack commandStack = new BasicCommandStack();" + NL + "\t\tcommandStack.addCommandStackListener(new CommandStackListener() {" + NL + "\t\t\tpublic void commandStackChanged(final EventObject event) {" + NL + "\t\t\t\tgetEditorDisplay().asyncExec(new Runnable() {" + NL + "\t\t\t\t\tpublic void run() {" + NL + "\t\t\t\t\t\tfirePropertyChange(IEditorPart.PROP_DIRTY);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t});" + NL + "\t\t\t}" + NL + "\t\t});" + NL + "\t\tAdapterFactoryEditingDomain afed = new AdapterFactoryEditingDomain(getAdapterFactory4DomainModel(), commandStack);" + NL + "\t\tmyResourceSet.eAdapters().add(new AdapterFactoryEditingDomain.EditingDomainProvider(afed));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tDisplay getEditorDisplay() {" + NL + "\t\treturn getGraphicalControl().getDisplay();" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void fillItemProviderFactories(List factories) {";
+  protected final String TEXT_22 = NL + "\t\tfactories.add(new ";
+  protected final String TEXT_23 = "());";
+  protected final String TEXT_24 = NL + "\t\tfactories.add(new ";
+  protected final String TEXT_25 = "());";
+  protected final String TEXT_26 = NL + "\t\tfactories.add(new ResourceItemProviderAdapterFactory());" + NL + "\t\tfactories.add(new ReflectiveItemProviderAdapterFactory());" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * make accessible for command stack listener" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void firePropertyChange(int property) {" + NL + "\t\tsuper.firePropertyChange(property);" + NL + "\t}" + NL + "}";
 
   public String generate(Object argument)
   {
@@ -83,35 +84,37 @@ public class EditorGen
     stringBuffer.append(TEXT_14);
     stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedFactoryInterfaceName()));
     stringBuffer.append(TEXT_15);
-    stringBuffer.append(genClass.getName());
+    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
     stringBuffer.append(TEXT_16);
-    if (genDiagram.isSameFileForDiagramAndModel()) {
+    stringBuffer.append(genClass.getName());
     stringBuffer.append(TEXT_17);
-    } else {
+    if (genDiagram.isSameFileForDiagramAndModel()) {
     stringBuffer.append(TEXT_18);
-    stringBuffer.append(genPackage.getPrefix().toLowerCase());
+    } else {
     stringBuffer.append(TEXT_19);
-    }
+    stringBuffer.append(genPackage.getPrefix().toLowerCase());
     stringBuffer.append(TEXT_20);
+    }
+    stringBuffer.append(TEXT_21);
     for (Iterator i = genModel.getAllGenPackagesWithClassifiers().iterator(); i.hasNext(); ) {
 	GenPackage aGenPackage = (GenPackage)i.next();
 	if (aGenPackage.getGenModel().hasEditSupport()) {
 
-    stringBuffer.append(TEXT_21);
-    stringBuffer.append(importManager.getImportedName(aGenPackage.getQualifiedItemProviderAdapterFactoryClassName()));
     stringBuffer.append(TEXT_22);
+    stringBuffer.append(importManager.getImportedName(aGenPackage.getQualifiedItemProviderAdapterFactoryClassName()));
+    stringBuffer.append(TEXT_23);
     	}
     }
     for (Iterator i = genModel.getAllUsedGenPackagesWithClassifiers().iterator(); i.hasNext(); ) {
 	GenPackage aGenPackage = (GenPackage)i.next();
 	if (aGenPackage.getGenModel().hasEditSupport()) {
 
-    stringBuffer.append(TEXT_23);
-    stringBuffer.append(importManager.getImportedName(aGenPackage.getQualifiedItemProviderAdapterFactoryClassName()));
     stringBuffer.append(TEXT_24);
+    stringBuffer.append(importManager.getImportedName(aGenPackage.getQualifiedItemProviderAdapterFactoryClassName()));
+    stringBuffer.append(TEXT_25);
     	}
     }
-    stringBuffer.append(TEXT_25);
+    stringBuffer.append(TEXT_26);
     importManager.emitSortedImports();
     return stringBuffer.toString();
   }
