@@ -83,6 +83,7 @@ public class GenDiagramItemProvider
 			addHasDomainModelPropertyDescriptor(object);
 			addDiagramFileExtensionPropertyDescriptor(object);
 			addSameFileForDiagramAndModelPropertyDescriptor(object);
+			addInitDiagramFileActionClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -428,6 +429,26 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Init Diagram File Action Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInitDiagramFileActionClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_initDiagramFileActionClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_initDiagramFileActionClassName_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_InitDiagramFileActionClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -505,6 +526,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
+			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__NODES:

@@ -12,6 +12,7 @@
 package org.eclipse.gmf.codegen.util;
 
 import java.io.ByteArrayInputStream;
+import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -103,6 +104,7 @@ public class Generator implements Runnable {
 			generateCanvasMetaInfoProvider();
 			generatePluginClass();
 			generatePluginXml();
+			generateInitDiagramFileAction();
 			boolean isBasicRT = DiagramRTPackage.eNS_URI.equals(myDiagram.getDiagramRunTimeClass().getGenPackage().getEcorePackage().getNsURI());
 			generateMetaInfoProviderAdapterFactory(isBasicRT);
 		} catch (JETException ex) {
@@ -114,6 +116,14 @@ public class Generator implements Runnable {
 		} finally {
 			myProgress.done();
 		}
+	}
+
+	private void generateInitDiagramFileAction() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getInitDiagramFileActionEmitter(),
+			myDiagram.getEditorPackageName(),
+			myDiagram.getInitDiagramFileActionClassName(),
+			myDiagram);
 	}
 
 	/**
@@ -131,7 +141,7 @@ public class Generator implements Runnable {
 			// no need to set it up
 		}
 		Counter c = new Counter(myDiagram);
-		c.setAdditionalOperations(8); // init, palette, editor, plugin.xml, etc
+		c.setAdditionalOperations(9); // init, palette, editor, plugin.xml, etc
 		c.setOperationsPerNode(2);
 		c.setOperationsPerChildNode(1);
 		c.setOperationsPerLink(2);

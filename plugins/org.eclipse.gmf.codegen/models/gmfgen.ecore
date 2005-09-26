@@ -25,6 +25,11 @@
       <eParameters name="domainMetaFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStructuralFeature"/>
     </eOperations>
     <eOperations name="getRequiredPluginIDs" eType="#//StringArray"/>
+    <eOperations name="getInitDiagramFileActionQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Need this for customizing Init Diagram Action class name"/>
+      </eAnnotations>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainMetaModel" lowerBound="1"
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EPackage"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="emfGenModel" lowerBound="1"
@@ -60,6 +65,8 @@
         <details key="documentation" value="Specified whether editor should create separate file for domain elements if diagram file references no domain model"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="initDiagramFileActionClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="InitDiagramFileAction"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="StringArray" instanceClassName="String[]"/>
   <eClassifiers xsi:type="ecore:EClass" name="GenCommonBase" abstract="true">

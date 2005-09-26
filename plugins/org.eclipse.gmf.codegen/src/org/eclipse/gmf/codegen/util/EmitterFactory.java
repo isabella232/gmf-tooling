@@ -20,6 +20,7 @@ import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.gmf.codegen.templates.diacanvas.CanvasEditPartGen;
 import org.eclipse.gmf.codegen.templates.diacanvas.EditPartFactoryGen;
 import org.eclipse.gmf.codegen.templates.diacanvas.EditorGen;
+import org.eclipse.gmf.codegen.templates.diacanvas.InitDiagramFileActionGen;
 import org.eclipse.gmf.codegen.templates.diacanvas.LinkEditPartGen;
 import org.eclipse.gmf.codegen.templates.diacanvas.NodeEditPartGen;
 import org.eclipse.gmf.codegen.templates.diacanvas.PaletteGen;
@@ -73,6 +74,10 @@ public class EmitterFactory {
 
 	public static JETEmitter getPluginXmlEmitter() throws JETException {
 		return initializeEmitter("/templates/editor/plugin.xmljet", PluginXML.class);
+	}
+	
+	public static JETEmitter getInitDiagramFileActionEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGen.class);
 	}
 
 	public static JETEmitter getPluginClassEmitter() throws JETException {

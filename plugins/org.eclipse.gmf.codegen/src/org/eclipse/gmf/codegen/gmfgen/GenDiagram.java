@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isHasDomainModel <em>Has Domain Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getInitDiagramFileActionClassName <em>Init Diagram File Action Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,7 +51,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='nodes->forAll(n : GenNode | self.links->forAll(l : GenLink | l.domainMetaClass <> n.domainMetaClass))'"
  * @generated
  */
-public interface GenDiagram extends GenCommonBase {
+public interface GenDiagram extends GenCommonBase{
 	/**
 	 * Returns the value of the '<em><b>Domain Meta Model</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -561,6 +562,33 @@ public interface GenDiagram extends GenCommonBase {
 	void setSameFileForDiagramAndModel(boolean value);
 
 	/**
+	 * Returns the value of the '<em><b>Init Diagram File Action Class Name</b></em>' attribute.
+	 * The default value is <code>"InitDiagramFileAction"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Init Diagram File Action Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Init Diagram File Action Class Name</em>' attribute.
+	 * @see #setInitDiagramFileActionClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_InitDiagramFileActionClassName()
+	 * @model default="InitDiagramFileAction"
+	 * @generated
+	 */
+	String getInitDiagramFileActionClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getInitDiagramFileActionClassName <em>Init Diagram File Action Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Init Diagram File Action Class Name</em>' attribute.
+	 * @see #getInitDiagramFileActionClassName()
+	 * @generated
+	 */
+	void setInitDiagramFileActionClassName(String value);
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -618,5 +646,16 @@ public interface GenDiagram extends GenCommonBase {
 	 * @generated
 	 */
 	String[] getRequiredPluginIDs();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Need this for customizing Init Diagram Action class name
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getInitDiagramFileActionQualifiedClassName();
 
 } // GenDiagram

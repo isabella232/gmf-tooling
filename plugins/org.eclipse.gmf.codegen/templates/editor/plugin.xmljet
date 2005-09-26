@@ -73,6 +73,18 @@ for (Iterator it = Arrays.asList(requiredPlugins).iterator(); it.hasNext();) {%>
                id="<%=genDiagram.getPluginID()%>.ui.newDiagramAction">
          </action>
       </objectContribution>
+      <objectContribution
+            id="<%=genDiagram.getPluginID()%>.ui.contribution2"
+            nameFilter="*.<%=genModel.findGenPackage(genDiagram.getDomainDiagramElement().getEPackage()).getPrefix().toLowerCase()%>"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               label="Initialize <%=genDiagram.getDiagramFileExtension()%> diagram file"
+               class="<%=genDiagram.getInitDiagramFileActionQualifiedClassName()%>"
+               menubarPath="additions"
+               enablesFor="1"
+               id="<%=genDiagram.getPluginID()%>.ui.InitDiagramFileAction">
+         </action>
+      </objectContribution>            
   </extension>
   <extension point="org.eclipse.team.core.fileTypes">
       <fileTypes

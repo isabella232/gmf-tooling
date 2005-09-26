@@ -58,6 +58,7 @@ import org.eclipse.gmf.codegen.gmfgen.Palette;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isHasDomainModel <em>Has Domain Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getInitDiagramFileActionClassName <em>Init Diagram File Action Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -403,6 +404,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected boolean sameFileForDiagramAndModel = SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getInitDiagramFileActionClassName() <em>Init Diagram File Action Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInitDiagramFileActionClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT = "InitDiagramFileAction";
+
+	/**
+	 * The cached value of the '{@link #getInitDiagramFileActionClassName() <em>Init Diagram File Action Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInitDiagramFileActionClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String initDiagramFileActionClassName = INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -976,6 +997,27 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getInitDiagramFileActionClassName() {
+		return initDiagramFileActionClassName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setInitDiagramFileActionClassName(String newInitDiagramFileActionClassName) {
+		String oldInitDiagramFileActionClassName = initDiagramFileActionClassName;
+		initDiagramFileActionClassName = newInitDiagramFileActionClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME, oldInitDiagramFileActionClassName, initDiagramFileActionClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String getPluginQualifiedClassName() {
@@ -1052,6 +1094,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			requiredPlugins.add("org.eclipse.gmf.diagramrt.gefsvg");
 		}
 		return (String[]) requiredPlugins.toArray(new String[requiredPlugins.size()]);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getInitDiagramFileActionQualifiedClassName() {
+		return getEditorPackageName() + '.' + getInitDiagramFileActionClassName();
 	}
 
 	private boolean usesSVGShapes() {
@@ -1168,6 +1219,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getDiagramFileExtension();
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
 				return isSameFileForDiagramAndModel() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
+				return getInitDiagramFileActionClassName();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -1253,6 +1306,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
 				setSameFileForDiagramAndModel(((Boolean)newValue).booleanValue());
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
+				setInitDiagramFileActionClassName((String)newValue);
+				return;
 		}
 		eDynamicSet(eFeature, newValue);
 	}
@@ -1336,6 +1392,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
 				setSameFileForDiagramAndModel(SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
+				setInitDiagramFileActionClassName(INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -1395,6 +1454,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return DIAGRAM_FILE_EXTENSION_EDEFAULT == null ? diagramFileExtension != null : !DIAGRAM_FILE_EXTENSION_EDEFAULT.equals(diagramFileExtension);
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
 				return sameFileForDiagramAndModel != SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT;
+			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
+				return INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT == null ? initDiagramFileActionClassName != null : !INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT.equals(initDiagramFileActionClassName);
 		}
 		return eDynamicIsSet(eFeature);
 	}
@@ -1436,6 +1497,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(diagramFileExtension);
 		result.append(", sameFileForDiagramAndModel: ");
 		result.append(sameFileForDiagramAndModel);
+		result.append(", initDiagramFileActionClassName: ");
+		result.append(initDiagramFileActionClassName);
 		result.append(')');
 		return result.toString();
 	}

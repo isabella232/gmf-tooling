@@ -37,8 +37,13 @@ public class PluginXML
   protected final String TEXT_19 = " diagram file\"" + NL + "               class=\"org.eclipse.gmf.runtime.actions.NewDiagramAction\"" + NL + "               menubarPath=\"additions\"" + NL + "               defaultName=\"example1\"" + NL + "               fileExtension=\"";
   protected final String TEXT_20 = "\"" + NL + "               rtModelNsURI=\"";
   protected final String TEXT_21 = "\"" + NL + "               enablesFor=\"1\"" + NL + "               id=\"";
-  protected final String TEXT_22 = ".ui.newDiagramAction\">" + NL + "         </action>" + NL + "      </objectContribution>" + NL + "  </extension>" + NL + "  <extension point=\"org.eclipse.team.core.fileTypes\">" + NL + "      <fileTypes" + NL + "            type=\"text\"" + NL + "            extension=\"";
-  protected final String TEXT_23 = "\">" + NL + "      </fileTypes>" + NL + "  </extension>" + NL + "</plugin>";
+  protected final String TEXT_22 = ".ui.newDiagramAction\">" + NL + "         </action>" + NL + "      </objectContribution>" + NL + "      <objectContribution" + NL + "            id=\"";
+  protected final String TEXT_23 = ".ui.contribution2\"" + NL + "            nameFilter=\"*.";
+  protected final String TEXT_24 = "\"" + NL + "            objectClass=\"org.eclipse.core.resources.IFile\">" + NL + "         <action" + NL + "               label=\"Initialize ";
+  protected final String TEXT_25 = " diagram file\"" + NL + "               class=\"";
+  protected final String TEXT_26 = "\"" + NL + "               menubarPath=\"additions\"" + NL + "               enablesFor=\"1\"" + NL + "               id=\"";
+  protected final String TEXT_27 = ".ui.InitDiagramFileAction\">" + NL + "         </action>" + NL + "      </objectContribution>            " + NL + "  </extension>" + NL + "  <extension point=\"org.eclipse.team.core.fileTypes\">" + NL + "      <fileTypes" + NL + "            type=\"text\"" + NL + "            extension=\"";
+  protected final String TEXT_28 = "\">" + NL + "      </fileTypes>" + NL + "  </extension>" + NL + "</plugin>";
 
   public String generate(Object argument)
   {
@@ -97,8 +102,18 @@ for (Iterator it = Arrays.asList(requiredPlugins).iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_21);
     stringBuffer.append(genDiagram.getPluginID());
     stringBuffer.append(TEXT_22);
-    stringBuffer.append(genDiagram.getDiagramFileExtension());
+    stringBuffer.append(genDiagram.getPluginID());
     stringBuffer.append(TEXT_23);
+    stringBuffer.append(genModel.findGenPackage(genDiagram.getDomainDiagramElement().getEPackage()).getPrefix().toLowerCase());
+    stringBuffer.append(TEXT_24);
+    stringBuffer.append(genDiagram.getDiagramFileExtension());
+    stringBuffer.append(TEXT_25);
+    stringBuffer.append(genDiagram.getInitDiagramFileActionQualifiedClassName());
+    stringBuffer.append(TEXT_26);
+    stringBuffer.append(genDiagram.getPluginID());
+    stringBuffer.append(TEXT_27);
+    stringBuffer.append(genDiagram.getDiagramFileExtension());
+    stringBuffer.append(TEXT_28);
     return stringBuffer.toString();
   }
 }

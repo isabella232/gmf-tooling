@@ -42,6 +42,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/hasDomainModel"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/diagramFileExtension"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/sameFileForDiagramAndModel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/initDiagramFileActionClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getPluginQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getEditorQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getEditPartFactoryQualifiedClassName"/>
@@ -53,6 +54,7 @@
         <genParameters ecoreParameter="gmfgen.ecore#//GenDiagram/findGenFeature/domainMetaFeature"/>
       </genOperations>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getRequiredPluginIDs"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getInitDiagramFileActionQualifiedClassName"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenCommonBase">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCommonBase/diagramRunTimeClass"/>
