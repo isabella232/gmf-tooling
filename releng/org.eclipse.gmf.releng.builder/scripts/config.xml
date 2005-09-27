@@ -20,7 +20,7 @@
 			whether to run the build -->
 		<modificationset quietperiod="10">
 			<cvs
-				cvsroot=":pserver:anonymous@dev.eclipse.org:/home/technology"
+				cvsroot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology"
 				module="org.eclipse.gmf" />
 		</modificationset>
 
@@ -39,7 +39,7 @@
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
 			<htmlemail subjectprefix="[checkout]" buildresultsurl="${reporting.url}/buildresults/checkout"
-			logdir="${logs}/checkout" />
+			logdir="${logs}/checkout">
 				<always address="${always.email}" />
 			</htmlemail>
 <!-- 		<rss buildresultsurl="${reporting.url}/buildresults/checkout"
@@ -81,7 +81,7 @@
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
 			<htmlemail subjectprefix="[runtime]" buildresultsurl="${reporting.url}/buildresults/runtime"
-			logdir="${logs}/runtime" />
+			logdir="${logs}/runtime">
 				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/runtime"
@@ -122,7 +122,7 @@
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
 			<htmlemail subjectprefix="[sdk]" buildresultsurl="${reporting.url}/buildresults/sdk"
-			logdir="${logs}/sdk" />
+			logdir="${logs}/sdk">
 				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/sdk"
@@ -163,7 +163,7 @@
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
 			<htmlemail subjectprefix="[examples]" buildresultsurl="${reporting.url}/buildresults/examples"
-			logdir="${logs}/examples" />
+			logdir="${logs}/examples">
 				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/examples"
@@ -207,7 +207,7 @@
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
 			<htmlemail subjectprefix="[tests]" buildresultsurl="${reporting.url}/buildresults/tests"
-			logdir="${logs}/tests" />
+			logdir="${logs}/tests">
 				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/tests"
@@ -249,7 +249,7 @@
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
 			<htmlemail subjectprefix="[doc]" buildresultsurl="${reporting.url}/buildresults/doc"
-			logdir="${logs}/doc" />
+			logdir="${logs}/doc">
 				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/doc"
