@@ -6,19 +6,19 @@
 	<property file="build.properties" />
 	
 	<target name="plugins">
-		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" package="org.eclipse.gmf/plugins" dest="${checkoutDirectory}" />
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" package="org.eclipse.gmf/plugins" dest="${checkoutDirectory}" />
 	</target>
 	<target name="features">
-		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" package="org.eclipse.gmf/features" dest="${checkoutDirectory}" />
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" package="org.eclipse.gmf/features" dest="${checkoutDirectory}" />
 	</target>
 	<target name="tests">
-		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" package="org.eclipse.gmf/tests" dest="${checkoutDirectory}" />
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" package="org.eclipse.gmf/tests" dest="${checkoutDirectory}" />
 	</target>
 	<target name="examples">
-		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" package="org.eclipse.gmf/examples" dest="${checkoutDirectory}" />
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" package="org.eclipse.gmf/examples" dest="${checkoutDirectory}" />
 	</target>
 	<target name="docs">
-		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" package="org.eclipse.gmf/doc" dest="${checkoutDirectory}" />
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" package="org.eclipse.gmf/doc" dest="${checkoutDirectory}" />
 	</target>
 	<target name="all" depends="plugins,features,tests,examples,docs" unless="skipCheckout"/>
 </project>

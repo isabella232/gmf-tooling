@@ -15,7 +15,7 @@
 		<delete>
 		    <fileset dir="${buildUpdateSitePath}" excludes="**/*.jar"/>
 		</delete>
-		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" command="export -r HEAD -d updateSite" package="org.eclipse.gmf/releng/org.eclipse.gmf.updatesite" dest="${buildRoot}/" />
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" command="export -r HEAD -d updateSite" package="org.eclipse.gmf/releng/org.eclipse.gmf.updatesite" dest="${buildRoot}/" />
 		<copy todir="${localUpdateSitePath}/features">
 		    <fileset dir="${buildUpdateSitePath}/features"/>
 		</copy>
@@ -28,7 +28,7 @@
 	           changes in GMF's site.xml -->
 	<!-- TODO: copy css, xsl from scripts directory to the local CC web app for consistent look & feel, when modified -->
 	<target name="initLocalMirror">		
-		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/home/technology" command="export -r HEAD -d updateSite" package="org.eclipse.gmf/releng/org.eclipse.gmf.updatesite" dest="${localUpdateSitePath}/../" />
+		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" command="export -r HEAD -d updateSite" package="org.eclipse.gmf/releng/org.eclipse.gmf.updatesite" dest="${localUpdateSitePath}/../" />
 		<mkdir dir="${localUpdateSitePath}/WEB-INF"/>
 		<move file="${localUpdateSitePath}/web/web.xml" todir="${localUpdateSitePath}/WEB-INF"/>
 	</target>
