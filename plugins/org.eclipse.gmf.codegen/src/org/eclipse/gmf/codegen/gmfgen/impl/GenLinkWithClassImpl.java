@@ -108,6 +108,10 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 		setDomainMetaClass(eClass);
 	}
 
+	protected String getDefaultNotationViewFactoryClassName() {
+		return getDomainMetaClass().getName() + "ViewFactory"; //$NON-NLS-1$
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -187,6 +191,8 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__CONTAINMENT_META_FEATURE:
 				if (resolve) return getContainmentMetaFeature();
 				return basicGetContainmentMetaFeature();
+			case GMFGenPackage.GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return getNotationViewFactoryClassName();
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_LINK_TARGET_FEATURE:
@@ -234,6 +240,9 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((EReference)newValue);
+				return;
+			case GMFGenPackage.GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setNotationViewFactoryClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_LINK_TARGET_FEATURE:
 				setDomainLinkTargetFeature((EStructuralFeature)newValue);
@@ -285,6 +294,9 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((EReference)null);
 				return;
+			case GMFGenPackage.GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_LINK_TARGET_FEATURE:
 				setDomainLinkTargetFeature((EStructuralFeature)null);
 				return;
@@ -328,6 +340,8 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 				return FOREGROUND_COLOR_EDEFAULT == null ? foregroundColor != null : !FOREGROUND_COLOR_EDEFAULT.equals(foregroundColor);
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__CONTAINMENT_META_FEATURE:
 				return containmentMetaFeature != null;
+			case GMFGenPackage.GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DIAGRAM:
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_LINK_TARGET_FEATURE:

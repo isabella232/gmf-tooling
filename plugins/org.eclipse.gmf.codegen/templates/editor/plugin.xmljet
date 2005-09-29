@@ -1,4 +1,5 @@
-<%@ jet package="org.eclipse.gmf.codegen.templates.diacanvas" class="PluginXML" imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.*"%>
+<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="PluginXML"
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.*"%>
 <%GenDiagram genDiagram = (GenDiagram) argument;%>
 <%GenModel genModel = genDiagram.getEmfGenModel();%>
 <?xml version="1.0" encoding="UTF-8"?>
@@ -25,6 +26,10 @@
     <import plugin="org.eclipse.emf.edit.ui"/>
     <import plugin="org.eclipse.gef" export="true"/>
     <import plugin="<%=genDiagram.getDiagramRunTimeClass().getGenModel().getModelPluginID()%>" export="true"/>
+    <import plugin="org.eclipse.gmf.runtime.emf.commands.core"/>
+    <import plugin="org.eclipse.gmf.runtime.diagram.ui"/>
+    <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor"/>
+    <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide"/>
     <import plugin="org.eclipse.gmf.runtime.gef"/>
     <import plugin="org.eclipse.gmf.edit"/>
     <import plugin="<%=genModel.getModelPluginID()%>" export="true"/>
@@ -47,49 +52,63 @@ for (Iterator it = Arrays.asList(requiredPlugins).iterator(); it.hasNext();) {%>
     </library>
   </runtime>
 
-   <extension point="org.eclipse.ui.editors">
-     <editor 
-        id="<%=genDiagram.getEditorQualifiedClassName()%>_EditorID"
-        name="Diagram Editor for <%=genModel.getModelName()%>"
-        icon="none"
-        extensions="<%=genDiagram.getDiagramFileExtension()%>"
-        class="<%=genDiagram.getEditorQualifiedClassName()%>"
-        contributorClass="org.eclipse.ui.part.EditorActionBarContributor"/>
-    
+   <extension point="org.eclipse.core.runtime.preferences">
+      <initializer class="<%=genDiagram.getEditorPackageName()%>.PreferencesInitializer"/>
    </extension>
-   <extension point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            adaptable="true"
-            id="<%=genDiagram.getPluginID()%>.ui.contribution1"
-            objectClass="org.eclipse.core.resources.IContainer">
-         <action
-               label="Create empty <%=genDiagram.getDiagramFileExtension()%> diagram file"
-               class="org.eclipse.gmf.runtime.actions.NewDiagramAction"
-               menubarPath="additions"
-               defaultName="example1"
-               fileExtension="<%=genDiagram.getDiagramFileExtension()%>"
-               rtModelNsURI="<%=genDiagram.getDiagramRunTimeClass().getGenPackage().getEcorePackage().getNsURI()%>"
-               enablesFor="1"
-               id="<%=genDiagram.getPluginID()%>.ui.newDiagramAction">
-         </action>
-      </objectContribution>
-      <objectContribution
-            id="<%=genDiagram.getPluginID()%>.ui.contribution2"
-            nameFilter="*.<%=genModel.findGenPackage(genDiagram.getDomainDiagramElement().getEPackage()).getPrefix().toLowerCase()%>"
-            objectClass="org.eclipse.core.resources.IFile">
-         <action
-               label="Initialize <%=genDiagram.getDiagramFileExtension()%> diagram file"
-               class="<%=genDiagram.getInitDiagramFileActionQualifiedClassName()%>"
-               menubarPath="additions"
-               enablesFor="1"
-               id="<%=genDiagram.getPluginID()%>.ui.InitDiagramFileAction">
-         </action>
-      </objectContribution>            
-  </extension>
+
   <extension point="org.eclipse.team.core.fileTypes">
       <fileTypes
-            type="text"
-            extension="<%=genDiagram.getDiagramFileExtension()%>">
+         type="text"
+         extension="<%=genDiagram.getDiagramFileExtension()%>">
       </fileTypes>
   </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+         type="<%=genDiagram.getDiagramFileExtension()%>"
+         class="org.eclipse.gmf.runtime.emf.core.resources.MResourceFactory">
+      </parser>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+     <editor
+        id="<%=genDiagram.getEditorQualifiedClassName()%>ID"
+        name="<%=genModel.getModelName()%> Diagram Editor"
+        icon="icons/full/obj16/<%=genModel.getModelName()%>ModelFile.gif"
+        extensions="<%=genDiagram.getDiagramFileExtension()%>"
+        default="true"
+        matchingStrategy="<%=genDiagram.getEditorPackageName()%>.MDiagramEditorMatchingStrategy"
+        class="<%=genDiagram.getEditorPackageName()%>.<%=genDiagram.getEditorClassName()%>"
+        contributorClass="org.eclipse.gmf.runtime.diagram.ui.internal.parts.MinimalActionBarContributor">
+     </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+  	  <wizard
+  	     name="<%=genModel.getModelName()%> Diagram"
+  	     icon="icons/full/obj16/<%=genModel.getModelName()%>ModelFile.gif"
+  	     category="org.eclipse.ui.Examples"
+  	     class="<%=genDiagram.getEditorPackageName()%>.CreationWizard"
+  	     id="<%=genDiagram.getEditorPackageName()%>.CreationWizardID">
+  	  	 <description>
+  	  		Creates <%=genModel.getModelName()%> diagram.
+  	  	 </description>  
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
+      <viewProvider class="<%=genDiagram.getProvidersPackageName()%>.ViewProvider">
+         <Priority name="Lowest"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="<%=genModel.getModelName()%>"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints=""/>
+      </viewProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
+      <editpartProvider class="<%=genDiagram.getProvidersPackageName()%>.EditPartProvider">
+         <Priority name="Lowest"/>
+      </editpartProvider>
+   </extension>
+
 </plugin>

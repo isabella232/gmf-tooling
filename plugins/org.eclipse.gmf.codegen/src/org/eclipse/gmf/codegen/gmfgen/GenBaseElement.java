@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getDomainNameFeature <em>Domain Name Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getForegroundColor <em>Foreground Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getContainmentMetaFeature <em>Containment Meta Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -109,6 +110,33 @@ public interface GenBaseElement extends GenCommonBase{
 	 * @generated
 	 */
 	void setContainmentMetaFeature(EReference value);
+
+	/**
+	 * Returns the value of the '<em><b>Notation View Factory Class Name</b></em>' attribute.
+	 * The default value is <code>""</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Notation View Factory Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Notation View Factory Class Name</em>' attribute.
+	 * @see #setNotationViewFactoryClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenBaseElement_NotationViewFactoryClassName()
+	 * @model default=""
+	 * @generated
+	 */
+	String getNotationViewFactoryClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Notation View Factory Class Name</em>' attribute.
+	 * @see #getNotationViewFactoryClassName()
+	 * @generated
+	 */
+	void setNotationViewFactoryClassName(String value);
 
 	/**
 	 * <!-- begin-user-doc -->

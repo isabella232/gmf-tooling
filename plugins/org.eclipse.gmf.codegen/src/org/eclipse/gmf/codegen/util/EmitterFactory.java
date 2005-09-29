@@ -18,42 +18,53 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.gmf.codegen.templates.diacanvas.CanvasEditPartGen;
-import org.eclipse.gmf.codegen.templates.diacanvas.EditPartFactoryGen;
-import org.eclipse.gmf.codegen.templates.diacanvas.EditorGen;
 import org.eclipse.gmf.codegen.templates.diacanvas.InitDiagramFileActionGen;
 import org.eclipse.gmf.codegen.templates.diacanvas.LinkEditPartGen;
-import org.eclipse.gmf.codegen.templates.diacanvas.NodeEditPartGen;
-import org.eclipse.gmf.codegen.templates.diacanvas.PaletteGen;
-import org.eclipse.gmf.codegen.templates.diacanvas.PluginGen;
-import org.eclipse.gmf.codegen.templates.diacanvas.PluginXML;
-import org.eclipse.gmf.codegen.templates.edit.CanvasMetaInfoProviderGenerator;
-import org.eclipse.gmf.codegen.templates.edit.LinkMetaInfoProviderGenerator;
-import org.eclipse.gmf.codegen.templates.edit.MetaInfoProviderAdapterFactory1Generator;
-import org.eclipse.gmf.codegen.templates.edit.MetaInfoProviderAdapterFactory2Generator;
-import org.eclipse.gmf.codegen.templates.edit.NodeMetaInfoProviderGenerator;
+import org.eclipse.gmf.codegen.templates.edit.SemanticHintsGenerator;
+import org.eclipse.gmf.codegen.templates.edit.StructuralFeatureParserGenerator;
+import org.eclipse.gmf.codegen.templates.edit.ViewFactoryGenerator;
+import org.eclipse.gmf.codegen.templates.editor.CreationWizardGenerator;
+import org.eclipse.gmf.codegen.templates.editor.CreationWizardPageGenerator;
+import org.eclipse.gmf.codegen.templates.editor.DiagramEditorUtilGenerator;
+import org.eclipse.gmf.codegen.templates.editor.DiagramFileCreatorGenerator;
+import org.eclipse.gmf.codegen.templates.editor.EditorGenerator;
+import org.eclipse.gmf.codegen.templates.editor.EditorMatchingStrategyGenerator;
+import org.eclipse.gmf.codegen.templates.editor.PaletteFactoryGenerator;
+import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
+import org.eclipse.gmf.codegen.templates.editor.PluginXML;
+import org.eclipse.gmf.codegen.templates.editor.PreferencesInitializerGenerator;
+import org.eclipse.gmf.codegen.templates.parts.EditPartFactoryGenerator;
+import org.eclipse.gmf.codegen.templates.parts.NodeEditPartGenerator;
+import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
+import org.eclipse.gmf.codegen.templates.providers.ElementTypesGenerator;
+import org.eclipse.gmf.codegen.templates.providers.ViewProviderGenerator;
 import org.osgi.framework.Bundle;
 
 /**
- * Provides JET templates
+ * Provides JET templates.
+ * 
  * @author artem
  */
 public class EmitterFactory {
+
 	private static final String TEMPLATES_PLUGIN_ID = "org.eclipse.gmf.codegen";
 
-	private static boolean usePrecompiledTemplates() {
-		return true;
+	private static Bundle getTemplatesBundle() {
+		return Platform.getBundle(TEMPLATES_PLUGIN_ID);
 	}
 
 	public static URL getJMergeControlFile() {
 		return getTemplatesBundle().getEntry("/templates/emf-merge.xml");
 	}
 
-	public static JETEmitter getPaletteEmitter() throws JETException {
-		return initializeEmitter("/templates/editor/Palette.javajet", PaletteGen.class);
+	private static boolean usePrecompiledTemplates() {
+		return true;
 	}
 
+	// parts
+
 	public static JETEmitter getNodeEditPartEmitter() throws JETException {
-		return initializeEmitter("/templates/parts/NodeEditPart.javajet", NodeEditPartGen.class);
+		return initializeEmitter("/templates/parts/NodeEditPart.javajet", NodeEditPartGenerator.class);
 	}
 
 	public static JETEmitter getLinkEditPartEmitter() throws JETException {
@@ -65,25 +76,24 @@ public class EmitterFactory {
 	}
 
 	public static JETEmitter getEditPartFactoryEmitter() throws JETException {
-		return initializeEmitter("/templates/parts/EditPartFactory.javajet", EditPartFactoryGen.class);
+		return initializeEmitter("/templates/parts/EditPartFactory.javajet", EditPartFactoryGenerator.class);
 	}
 
-	public static JETEmitter getEditorEmitter() throws JETException {
-		return initializeEmitter("/templates/editor/Editor.javajet", EditorGen.class);
+	// edit
+
+	public static JETEmitter getStructuralFeatureParserEmitter() throws JETException {
+		return initializeEmitter("/templates/edit/StructuralFeatureParser.javajet", StructuralFeatureParserGenerator.class);
 	}
 
-	public static JETEmitter getPluginXmlEmitter() throws JETException {
-		return initializeEmitter("/templates/editor/plugin.xmljet", PluginXML.class);
-	}
-	
-	public static JETEmitter getInitDiagramFileActionEmitter() throws JETException {
-		return initializeEmitter("/templates/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGen.class);
+	public static JETEmitter getSemanticHintsEmitter() throws JETException {
+		return initializeEmitter("/templates/edit/SemanticHints.javajet", SemanticHintsGenerator.class);
 	}
 
-	public static JETEmitter getPluginClassEmitter() throws JETException {
-		return initializeEmitter("/templates/editor/Plugin.javajet", PluginGen.class);
+	public static JETEmitter getViewFactoryEmitter() throws JETException {
+		return initializeEmitter("/templates/edit/ViewFactory.javajet", ViewFactoryGenerator.class);
 	}
 
+	/*
 	public static JETEmitter getNodeMetaInfoProviderEmitter() throws JETException {
 		return initializeEmitter("/templates/edit/NodeMetaInfoProvider.javajet", NodeMetaInfoProviderGenerator.class);
 	}
@@ -102,6 +112,67 @@ public class EmitterFactory {
 
 	public static JETEmitter getMetaInfoProviderAF2Emitter() throws JETException {
 		return initializeEmitter("/templates/edit/MetaInfoProviderAdapterFactory2.javajet", MetaInfoProviderAdapterFactory2Generator.class);
+	}
+	*/
+
+	// providers
+
+	public static JETEmitter getElementTypesEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/ElementTypes.javajet", ElementTypesGenerator.class);
+	}
+
+	public static JETEmitter getViewProviderEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/ViewProvider.javajet", ViewProviderGenerator.class);
+	}
+
+	public static JETEmitter getEditPartProviderEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/EditPartProvider.javajet", EditPartProviderGenerator.class);
+	}
+
+	// editor
+	
+	public static JETEmitter getInitDiagramFileActionEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGen.class);
+	}
+
+	public static JETEmitter getPaletteEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/Palette.javajet", PaletteFactoryGenerator.class);
+	}
+
+	public static JETEmitter getDiagramEditorUtilEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/DiagramEditorUtil.javajet", DiagramEditorUtilGenerator.class);
+	}
+
+	public static JETEmitter getDiagramFileCreatorEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/DiagramFileCreator.javajet", DiagramFileCreatorGenerator.class);
+	}
+
+	public static JETEmitter getCreationWizardEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/CreationWizard.javajet", CreationWizardGenerator.class);
+	}
+
+	public static JETEmitter getCreationWizardPageEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
+	}
+
+	public static JETEmitter getEditorEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/Editor.javajet", EditorGenerator.class);
+	}
+
+	public static JETEmitter getEditorMatchingStrategyEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/EditorMatchingStrategy.javajet", EditorMatchingStrategyGenerator.class);
+	}
+
+	public static JETEmitter getPreferencesInitializerEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/PreferencesInitializer.javajet", PreferencesInitializerGenerator.class);
+	}
+
+	public static JETEmitter getPluginClassEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/Plugin.javajet", PluginGenerator.class);
+	}
+
+	public static JETEmitter getPluginXmlEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/plugin.xmljet", PluginXML.class);
 	}
 
 	private static JETEmitter initializeEmitter(String relativeTemplatePath, Class precompiledTemplate) throws JETException {
@@ -131,9 +202,5 @@ public class EmitterFactory {
 			// FALL-THROUGH. Ignore, rely on template file use
 		}
 		return emitter;
-	}
-
-	private static Bundle getTemplatesBundle() {
-		return Platform.getBundle(TEMPLATES_PLUGIN_ID);
 	}
 }

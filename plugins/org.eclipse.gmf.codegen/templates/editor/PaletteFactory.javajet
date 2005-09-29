@@ -1,0 +1,192 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="PaletteFactoryGenerator"
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.ecore.EClass org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.ImportUtil"%>
+<%GenDiagram genDiagram = (GenDiagram) argument; Palette palette = genDiagram.getPalette();%>
+package <%=palette.getPackageName()%>;
+
+<%ImportUtil importManager = new ImportUtil(palette.getPackageName());%>
+import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
+import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
+import org.eclipse.gef.Tool;
+import org.eclipse.gef.palette.MarqueeToolEntry;
+import org.eclipse.gef.palette.PaletteContainer;
+import org.eclipse.gef.palette.PaletteDrawer;
+import org.eclipse.gef.palette.PaletteGroup;
+import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.palette.PaletteSeparator;
+import org.eclipse.gef.palette.PanningSelectionToolEntry;
+import org.eclipse.gef.palette.ToolEntry;
+import org.eclipse.gmf.runtime.diagram.ui.tools.ConnectorCreationTool;
+import org.eclipse.gmf.runtime.diagram.ui.tools.CreationTool;
+import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.jface.resource.ImageDescriptor;
+import <%=genDiagram.getProvidersPackageName()%>.ElementTypes;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=palette.getFactoryClassName()%> {
+
+	/**
+	 * @generated
+	 */
+	private final PaletteRoot root = new PaletteRoot();
+
+	/**
+	 * @generated
+	 */
+	private final AdapterFactory adapterFactory;
+
+	/**
+	 * @generated
+	 */
+	private final Diagram diagram;
+
+	/**
+	 * @generated
+	 */
+	private <%=palette.getFactoryClassName()%>(AdapterFactory adapterFactory, Diagram diagram) {
+		this.adapterFactory = adapterFactory;
+		this.diagram = diagram;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static PaletteRoot createPalette(AdapterFactory adapterFactory, Diagram diagram) {
+		<%=palette.getFactoryClassName()%> factory = new <%=palette.getFactoryClassName()%>(adapterFactory, diagram);
+		factory.setupCommonTools();
+<%for (int toolGroupIndex = 0; toolGroupIndex < palette.getGroups().size(); toolGroupIndex++) {%>
+		factory.createToolGroup<%=toolGroupIndex%>();
+<%}%>
+		return factory.root;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Diagram getDiagram() {
+		return diagram;
+	}
+
+	/**
+	 * @generated
+	 */
+	private void setupCommonTools() {
+		PaletteGroup common = new PaletteGroup("Common");
+
+		ToolEntry selectionTool = new PanningSelectionToolEntry();
+		common.add(selectionTool);
+		common.add(new MarqueeToolEntry());
+
+		root.setDefaultEntry(selectionTool);
+
+		root.add(common);
+	}
+<%
+int nodeToolIndex = 0;
+int linkToolIndex = 0;
+List toolGroups = palette.getGroups();
+for (int toolGroupIndex = 0; toolGroupIndex < toolGroups.size(); toolGroupIndex++) {
+	ToolGroup toolGroup = (ToolGroup) toolGroups.get(toolGroupIndex);
+%>
+
+	/**
+	 * @generated
+	 */
+	private void createToolGroup<%=toolGroupIndex%>() {
+		PaletteContainer paletteContainer = createContainer("<%=toolGroup.getTitleKey()%>");
+<%	for (int i = toolGroup.getNodeTools().size(); i > 0; i--, nodeToolIndex++) {%>
+		createNodeTool<%=nodeToolIndex%>(paletteContainer);
+<%	}%>
+		paletteContainer.add(new PaletteSeparator());
+<%	for (int i = toolGroup.getLinkTools().size(); i > 0; i--, linkToolIndex++) {%>
+		createLinkTool<%=linkToolIndex%>(paletteContainer);
+<%	}%>
+		root.add(paletteContainer);
+	}
+<%
+}
+// Move on and create methods called from createToolGroup 
+nodeToolIndex = 0;
+linkToolIndex = 0;
+for (int toolGroupIndex = 0; toolGroupIndex < toolGroups.size(); toolGroupIndex++) {
+	ToolGroup toolGroup = (ToolGroup) toolGroups.get(toolGroupIndex);
+	List nodeEntries = toolGroup.getNodeTools();
+	for (int i = 0; i < nodeEntries.size(); i++, nodeToolIndex++) {
+		NodeEntry nodeEntry = (NodeEntry) nodeEntries.get(i);
+%>
+
+	/**
+	 * @generated
+	 */
+	private void createNodeTool<%=nodeToolIndex%>(PaletteContainer paletteContainer) {
+<%
+		GenNode genNode = nodeEntry.getGenNode(); 
+		GenClass genClass = genDiagram.findGenClass(genNode.getDomainMetaClass());
+		String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create" + genClass.getName() + "()";
+%>
+		ImageDescriptor img = getImage(<%=domainElementInstanceCreationCode%>);
+		paletteContainer.add(new ToolEntry("<%=nodeEntry.getTitleKey()%>",
+			"<%=nodeEntry.getDescriptionKey()%>", img, img) {
+
+			public Tool createTool() {
+				Tool tool = new CreationTool(ElementTypes.<%=genNode.getDomainMetaClass().getName()%>);
+				tool.setProperties(getToolProperties());
+				return tool;
+			}
+		});
+	}
+<%	}
+	List linkEntries = toolGroup.getLinkTools();
+	for (int i = 0; i < linkEntries.size(); i++, linkToolIndex++) {
+		LinkEntry linkEntry = (LinkEntry) linkEntries.get(i);
+%>
+
+	/**
+	 * @generated
+	 */
+	private void createLinkTool<%=linkToolIndex%>(PaletteContainer paletteContainer) {
+<%
+		GenLink genLink = linkEntry.getGenLink();
+		if (genLink instanceof GenLinkWithClass) {
+			GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
+			GenClass genClass = genDiagram.findGenClass(genLinkWithClass.getDomainMetaClass());
+			String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create" + genClass.getName() + "()";
+%>
+		ImageDescriptor img = getImage(<%=domainElementInstanceCreationCode%>);
+		paletteContainer.add(new ToolEntry("<%=linkEntry.getTitleKey()%>",
+			"<%=linkEntry.getDescriptionKey()%>", img, img) {
+
+			public Tool createTool() {
+				Tool tool = new ConnectorCreationTool(ElementTypes.<%=genLinkWithClass.getDomainMetaClass().getName()%>);
+				tool.setProperties(getToolProperties());
+				return tool;
+			}
+		});
+<%		}%>
+	}
+<%	}
+}
+%>
+
+	/**
+	 * @generated
+	 */
+	private PaletteContainer createContainer(String title) {
+		return new PaletteDrawer(title);
+	}
+
+	/**
+	 * @generated
+	 */
+	private ImageDescriptor getImage(Object obj) {
+		IItemLabelProvider labelProvider = (IItemLabelProvider) adapterFactory.adapt(obj, IItemLabelProvider.class);
+		if (labelProvider != null) {
+			return ExtendedImageRegistry.getInstance().getImageDescriptor(labelProvider.getImage(obj));
+		}
+		return null;
+	}
+}
+<%importManager.emitSortedImports();%>

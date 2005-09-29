@@ -1,12 +1,17 @@
-<%@ jet package="org.eclipse.gmf.codegen.templates.diacanvas" class="EditPartFactoryGen" 
-  imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.ecore.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.ImportUtil"%>
+<%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="EditPartFactoryGenerator" 
+  imports="java.util.List org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.util.*"%>
 <%GenDiagram genDiagram = (GenDiagram) argument;%>
 package <%=genDiagram.getEditPartsPackageName()%>;
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
 
-import org.eclipse.emf.ecore.*;
-import org.eclipse.gef.*;
-import org.eclipse.gmf.diagramrt.*;
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartFactory;
+import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart;
+import org.eclipse.gmf.runtime.notation.View;
+import <%=genDiagram.getEditProvidersPackageName()%>.StructuralFeatureParser;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -18,80 +23,48 @@ public class <%=genDiagram.getEditPartFactoryClassName()%> implements EditPartFa
 	 * @generated
 	 */
 	public EditPart createEditPart(EditPart context, Object model) {
-		if (model instanceof ChildNode) {
-			return createChildEditPart(context, (ChildNode) model);
-		}
-		if (model instanceof DiagramNode) {
-			return createNodeEditPart(context, (DiagramNode) model);
-		}
-		if (model instanceof DiagramLink) {
-			return createLinkEditPart(context, (DiagramLink) model);
-		}
-		if (model instanceof DiagramCanvas) {
-			return createCanvasEditPart(context, (DiagramCanvas) model);
+		if (model instanceof View) {
+			View view = (View) model;
+			EObject element = view.getElement();
+<%
+GenPackage genPackage = genDiagram.getEmfGenModel().findGenPackage(genDiagram.getDomainMetaModel());
+String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
+%>
+			if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getName()%>().isInstance(element)) {
+				return new DiagramEditPart(view);
+			}
+<%
+List genNodes = genDiagram.getNodes();
+for (int i = 0; i < genNodes.size(); i++) {
+		GenNode genNode = (GenNode) genNodes.get(i);
+		String semanticNodeInterfaceName = genNode.getDomainMetaClass().getName();
+%>
+			else if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>().isInstance(element)) {
+<%
+		if (genNode.hasNameToEdit()) {
+			String semanticHintsQualifiedClassName = genDiagram.getEditProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
+			String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
+			String semanticHint = semanticHintsClassName + '.' + AccessUtil.getNameSemanticHint(genNode);
+%>
+				if (<%=semanticHint%>.equals(view.getType())) {
+					return new TextCompartmentEditPart(view) {
+
+						public IParser getParser() {
+							if (parser == null) {
+								if (<%=semanticHint%>.equals(((View) getModel()).getType())) {
+									parser = new StructuralFeatureParser(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>().getEStructuralFeature("<%=genNode.getDomainNameFeature().getName()%>"));
+								}
+							}
+							return parser;
+						}
+					};
+				}
+<%		}%>
+				return new <%=genNode.getEditPartClassName()%>(view);
+			}
+<%}%>
 		}
 		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	public EditPart createNodeEditPart(EditPart context, DiagramNode diagramElement) {
-		final int visualID = diagramElement.getVisualID();
-<%
-	//HashMap domainToGenNode = new HashMap();
-	for (Iterator it = genDiagram.getNodes().iterator(); it.hasNext();) {
-		GenNode genNode = (GenNode) it.next();
-%>
-		<%@ include file="nodeepfactory.jetinc"%>
-<%
-	}
-%>
-		System.err.println("No NodeEditPart for " + diagramElement + " with visualID=" + visualID);
-		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	public EditPart createLinkEditPart(EditPart context, DiagramLink diagramElement) {
-		final int visualID = diagramElement.getVisualID();
-<%
-	for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
-		GenLink genLink = (GenLink) it.next();
-%>
-		<%@ include file="linkepfactory.jetinc"%>
-<%
-	}
-%>
-		System.err.println("No LinkEditPart for " + diagramElement + " with visualID=" + visualID);
-		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	public EditPart createChildEditPart(EditPart context, ChildNode diagramElement) {
-		DiagramNode parentNode = (DiagramNode) context.getModel();
-		final EClass parentMetaClass = parentNode.getDomainModelElement().eClass();
-		final EClass childMetaClass = diagramElement.getDomainModelElement().eClass();
-<%
-	for (Iterator it = genDiagram.getNodes().iterator(); it.hasNext();) {
-		GenNode genNode = (GenNode) it.next();
-		if (!genNode.getChildNodes().isEmpty()) {
-%>
-		<%@ include file="childnodeepfactory.jetinc"%>
-<%		}
-	}
-%>
-		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	public EditPart createCanvasEditPart(EditPart context, DiagramCanvas model) {
-		return new <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>(model);
 	}
 }
 <%importManager.emitSortedImports();%>

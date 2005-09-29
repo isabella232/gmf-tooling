@@ -1,0 +1,20 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="EditorMatchingStrategyGenerator"
+    imports="org.eclipse.gmf.codegen.gmfgen.*"%>
+<%GenDiagram genDiagram = (GenDiagram) argument;%>
+package <%=genDiagram.getEditorPackageName()%>;
+
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.parts.DiagramDocumentEditorMatchingStrategy;
+import org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain;
+
+/**
+ * @generated
+ */
+public class MDiagramEditorMatchingStrategy extends DiagramDocumentEditorMatchingStrategy {
+
+	/**
+	 * @generated
+	 */
+	public MEditingDomain getDefaultDomain() {
+		return MEditingDomain.INSTANCE;
+	}
+}

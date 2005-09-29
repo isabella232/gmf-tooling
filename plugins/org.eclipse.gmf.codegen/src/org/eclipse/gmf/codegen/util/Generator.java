@@ -12,7 +12,6 @@
 package org.eclipse.gmf.codegen.util;
 
 import java.io.ByteArrayInputStream;
-import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -30,11 +29,12 @@ import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.emf.codegen.jmerge.JControlModel;
 import org.eclipse.emf.codegen.jmerge.JMerger;
+import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.diagramrt.DiagramRTPackage;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -47,9 +47,11 @@ import org.eclipse.text.edits.TextEdit;
 
 /**
  * Invokes JET templates to populate diagram editor project.
+ * 
  * @author artem
  */
 public class Generator implements Runnable {
+
 	private final GenDiagram myDiagram;
 
 	// myDestRoot.getJavaProject().getElementName() == myDestProject.getName()
@@ -83,14 +85,15 @@ public class Generator implements Runnable {
 		try {
 			setupProgressMonitor();
 			initializeEditorProject();
-			generatePalette();
 			generateCanvasEditPart();
 			generateEditPartFactory();
-			generateEditor();
+			generateStructuralFeatureParser();
 			for (Iterator it = myDiagram.getNodes().iterator(); it.hasNext();) {
 				final GenNode next = (GenNode) it.next();
 				generateNodeEditPart(next);
-				generateNodeMetaInfoProvider(next);
+				generateSemanticHints(next);
+				generateViewFactory(next);
+				//generateNodeMetaInfoProvider(next);
 				for (Iterator it2 = next.getChildNodes().iterator(); it2.hasNext();) {
 					GenChildNode child = (GenChildNode) it2.next();
 					generateNodeEditPart(child);
@@ -98,15 +101,36 @@ public class Generator implements Runnable {
 			}
 			for (Iterator it = myDiagram.getLinks().iterator(); it.hasNext();) {
 				final GenLink next = (GenLink) it.next();
+				if (next instanceof GenLinkWithClass) {
+					generateSemanticHints(next);
+				}
 				generateLinkEditPart(next);
-				generateLinkMetaInfoProvider(next);
+				//generateLinkMetaInfoProvider(next);
 			}
+			/*
 			generateCanvasMetaInfoProvider();
-			generatePluginClass();
-			generatePluginXml();
-			generateInitDiagramFileAction();
 			boolean isBasicRT = DiagramRTPackage.eNS_URI.equals(myDiagram.getDiagramRunTimeClass().getGenPackage().getEcorePackage().getNsURI());
 			generateMetaInfoProviderAdapterFactory(isBasicRT);
+			*/
+
+			// providers
+			generateElementTypes();
+			generateViewProvider();
+			generateEditPartProvider();
+
+			// editor
+			//generateInitDiagramFileAction();
+			generatePalette();
+			generateDiagramEditorUtil();
+			generateDiagramFileCreator();
+			generateCreationWizard();
+			generateCreationWizardPage();
+			generateEditor();
+			generateEditorMatchingStrategy();
+			generatePreferencesInitializer();
+			generatePluginClass();
+			generatePluginXml();
+
 		} catch (JETException ex) {
 			ex.printStackTrace();
 		} catch (CoreException ex) {
@@ -118,12 +142,250 @@ public class Generator implements Runnable {
 		}
 	}
 
+	// parts
+
+	private void generateCanvasEditPart() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getCanvasEditPartEmitter(),
+			myDiagram.getEditPartsPackageName(),
+			myDiagram.getEditPartClassName(),
+			myDiagram
+		);
+	}
+
+	private void generateNodeEditPart(GenNode genNode) throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getNodeEditPartEmitter(),
+			myDiagram.getEditPartsPackageName(),
+			genNode.getEditPartClassName(),
+			genNode
+		);
+	}
+
+	private void generateLinkEditPart(GenLink genLink) throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getLinkEditPartEmitter(),
+			myDiagram.getEditPartsPackageName(),
+			genLink.getEditPartClassName(),
+			genLink
+		);
+	}
+
+	private void generateEditPartFactory() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getEditPartFactoryEmitter(),
+			myDiagram.getEditPartsPackageName(),
+			myDiagram.getEditPartFactoryClassName(),
+			myDiagram
+		);
+	}
+
+	// edit
+
+	private void generateStructuralFeatureParser() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getStructuralFeatureParserEmitter(),
+			myDiagram.getEditProvidersPackageName(),
+			"StructuralFeatureParser", //$NON-NLS-1$
+			myDiagram
+		);
+	}
+
+	private void generateSemanticHints(GenBaseElement genElement) throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getSemanticHintsEmitter(),
+			myDiagram.getEditProvidersPackageName(),
+			AccessUtil.getSemanticHintsClassName(genElement),
+			genElement
+		);
+	}
+
+	private void generateViewFactory(GenBaseElement genElement) throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getViewFactoryEmitter(),
+			myDiagram.getEditProvidersPackageName(),
+			genElement.getNotationViewFactoryClassName(),
+			genElement
+		);
+	}
+
+	/*
+	private void generateCanvasMetaInfoProvider() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getCanvasMetaInfoProviderEmitter(),
+			myDiagram.getEditProvidersPackageName(),
+			myDiagram.getMetaInfoProviderClassName(),
+			myDiagram
+		);
+	}
+
+	private void generateNodeMetaInfoProvider(GenNode genNode) throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getNodeMetaInfoProviderEmitter(),
+			myDiagram.getEditProvidersPackageName(),
+			genNode.getMetaInfoProviderClassName(),
+			genNode
+		);
+	}
+
+	private void generateLinkMetaInfoProvider(GenLink genLink) throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getLinkMetaInfoProviderEmitter(),
+			myDiagram.getEditProvidersPackageName(),
+			genLink.getMetaInfoProviderClassName(),
+			genLink
+		);
+	}
+
+	private void generateMetaInfoProviderAdapterFactory(boolean isBasicRT) throws JETException, InterruptedException {
+		generate(
+			isBasicRT ? EmitterFactory.getMetaInfoProviderAF1Emitter() : EmitterFactory.getMetaInfoProviderAF2Emitter(), 
+			myDiagram.getEditProvidersPackageName(),
+			myDiagram.getMetaInfoFactoryClassName(),  //$NON-NLS-1$
+			myDiagram
+		);
+	}
+	*/
+
+	// providers
+
+	private void generateElementTypes() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getElementTypesEmitter(),
+			myDiagram.getProvidersPackageName(),
+			"ElementTypes", //$NON-NLS-1$
+			myDiagram
+		);
+	}
+
+	private void generateViewProvider() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getViewProviderEmitter(),
+			myDiagram.getProvidersPackageName(),
+			"ViewProvider", //$NON-NLS-1$
+			myDiagram
+		);
+	}
+
+	private void generateEditPartProvider() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getEditPartProviderEmitter(),
+			myDiagram.getProvidersPackageName(),
+			"EditPartProvider", //$NON-NLS-1$
+			myDiagram
+		);
+	}
+
+	// editor
+
 	private void generateInitDiagramFileAction() throws JETException, InterruptedException {
 		generate(
 			EmitterFactory.getInitDiagramFileActionEmitter(),
 			myDiagram.getEditorPackageName(),
 			myDiagram.getInitDiagramFileActionClassName(),
 			myDiagram);
+	}
+
+	private void generatePalette() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getPaletteEmitter(),
+			myDiagram.getPalette().getPackageName(),
+			myDiagram.getPalette().getFactoryClassName(),
+			myDiagram
+		);
+	}
+
+	private void generateDiagramEditorUtil() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getDiagramEditorUtilEmitter(),
+			myDiagram.getEditorPackageName(),
+			"DiagramEditorUtil", //$NON-NLS-1$
+			myDiagram
+		);
+	}
+
+	private void generateDiagramFileCreator() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getDiagramFileCreatorEmitter(),
+			myDiagram.getEditorPackageName(),
+			"DiagramFileCreator", //$NON-NLS-1$
+			myDiagram
+		);
+	}
+
+	private void generateCreationWizard() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getCreationWizardEmitter(),
+			myDiagram.getEditorPackageName(),
+			"CreationWizard", //$NON-NLS-1$
+			myDiagram
+		);
+	}
+
+	private void generateCreationWizardPage() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getCreationWizardPageEmitter(),
+			myDiagram.getEditorPackageName(),
+			"CreationWizardPage", //$NON-NLS-1$
+			myDiagram
+		);
+	}
+
+	private void generateEditor() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getEditorEmitter(),
+			myDiagram.getEditorPackageName(),
+			myDiagram.getEditorClassName(),
+			myDiagram
+		);
+	}
+
+	private void generateEditorMatchingStrategy() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getEditorMatchingStrategyEmitter(),
+			myDiagram.getEditorPackageName(),
+			"MDiagramEditorMatchingStrategy", //$NON-NLS-1$
+			myDiagram
+		);
+	}
+
+	private void generatePreferencesInitializer() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getPreferencesInitializerEmitter(),
+			myDiagram.getEditorPackageName(),
+			"PreferencesInitializer", //$NON-NLS-1$
+			myDiagram
+		);
+	}
+
+	private void generatePluginClass() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getPluginClassEmitter(),
+			myDiagram.getEditorPackageName(), 
+			myDiagram.getPluginClassName(),
+			myDiagram
+		);
+	}
+
+	private void generatePluginXml() throws JETException, InterruptedException {
+		IProgressMonitor pm = getNextStepMonitor();
+		try {
+			pm.beginTask(Messages.pluginxml, 3);
+			JETEmitter emitter = EmitterFactory.getPluginXmlEmitter();
+			String genText = emitter.generate(new SubProgressMonitor(pm, 1), new Object[] { myDiagram });
+			IFile f = myDestProject.getFile("plugin.xml"); //$NON-NLS-1$
+			// FIXME merge!
+			if (f.exists()) {
+				f.setContents(new ByteArrayInputStream(genText.getBytes()), true, true, new SubProgressMonitor(pm, 1));
+			} else {
+				f.create(new ByteArrayInputStream(genText.getBytes()), true, new SubProgressMonitor(pm, 1));
+			}
+			f.getParent().refreshLocal(IResource.DEPTH_ONE, new SubProgressMonitor(pm, 1));
+		} catch (CoreException ex) {
+			ex.printStackTrace();
+		} finally {
+			pm.done();
+		}
 	}
 
 	/**
@@ -141,7 +403,7 @@ public class Generator implements Runnable {
 			// no need to set it up
 		}
 		Counter c = new Counter(myDiagram);
-		c.setAdditionalOperations(9); // init, palette, editor, plugin.xml, etc
+		c.setAdditionalOperations(8); // init, palette, editor, plugin.xml, etc
 		c.setOperationsPerNode(2);
 		c.setOperationsPerChildNode(1);
 		c.setOperationsPerLink(2);
@@ -178,126 +440,6 @@ public class Generator implements Runnable {
 
 	private List createReferencedProjectsList() {
 		return Collections.EMPTY_LIST;
-	}
-
-	private void generatePalette() throws JETException, InterruptedException {
-		generate(
-			EmitterFactory.getPaletteEmitter(),
-			myDiagram.getPalette().getPackageName(),
-			myDiagram.getPalette().getFactoryClassName(),
-			myDiagram
-		);
-	}
-
-	private void generateCanvasEditPart() throws JETException, InterruptedException {
-		generate(
-			EmitterFactory.getCanvasEditPartEmitter(),
-			myDiagram.getEditPartsPackageName(),
-			myDiagram.getEditPartClassName(),
-			myDiagram
-		);
-	}
-
-	private void generateEditPartFactory() throws JETException, InterruptedException {
-		generate(
-			EmitterFactory.getEditPartFactoryEmitter(),
-			myDiagram.getEditPartsPackageName(),
-			myDiagram.getEditPartFactoryClassName(),
-			myDiagram
-		);
-	}
-
-	private void generateNodeEditPart(GenNode genNode) throws JETException, InterruptedException {
-		generate(
-			EmitterFactory.getNodeEditPartEmitter(),
-			myDiagram.getEditPartsPackageName(),
-			genNode.getEditPartClassName(),
-			genNode
-		);
-	}
-
-	private void generateLinkEditPart(GenLink genLink) throws JETException, InterruptedException {
-		generate(
-			EmitterFactory.getLinkEditPartEmitter(),
-			myDiagram.getEditPartsPackageName(),
-			genLink.getEditPartClassName(),
-			genLink
-		);
-	}
-
-	private void generateEditor() throws JETException, InterruptedException {
-		generate(
-			EmitterFactory.getEditorEmitter(),
-			myDiagram.getEditorPackageName(),
-			myDiagram.getEditorClassName(), //$NON-NLS-1$
-			myDiagram
-		);
-	}
-
-	private void generatePluginClass() throws JETException, InterruptedException {
-		generate(
-			EmitterFactory.getPluginClassEmitter(),
-			myDiagram.getEditorPackageName(), 
-			myDiagram.getPluginClassName(),
-			myDiagram
-		);
-	}
-
-	private void generatePluginXml() throws JETException, InterruptedException {
-		IProgressMonitor pm = getNextStepMonitor();
-		try {
-			pm.beginTask(Messages.pluginxml, 3);
-			JETEmitter emitter = EmitterFactory.getPluginXmlEmitter();
-			String genText = emitter.generate(new SubProgressMonitor(pm, 1), new Object[] { myDiagram });
-			IFile f = myDestProject.getFile("plugin.xml"); //$NON-NLS-1$
-			// FIXME merge!
-			if (f.exists()) {
-				f.setContents(new ByteArrayInputStream(genText.getBytes()), true, true, new SubProgressMonitor(pm, 1));
-			} else {
-				f.create(new ByteArrayInputStream(genText.getBytes()), true, new SubProgressMonitor(pm, 1));
-			}
-			f.getParent().refreshLocal(IResource.DEPTH_ONE, new SubProgressMonitor(pm, 1));
-		} catch (CoreException ex) {
-			ex.printStackTrace();
-		} finally {
-			pm.done();
-		}
-	}
-
-	private void generateNodeMetaInfoProvider(GenNode genNode) throws JETException, InterruptedException {
-		generate(
-			EmitterFactory.getNodeMetaInfoProviderEmitter(),
-			myDiagram.getEditProvidersPackageName(),
-			genNode.getMetaInfoProviderClassName(),
-			genNode
-		);
-	}
-
-	private void generateLinkMetaInfoProvider(GenLink genLink) throws JETException, InterruptedException {
-		generate(
-			EmitterFactory.getLinkMetaInfoProviderEmitter(),
-			myDiagram.getEditProvidersPackageName(),
-			genLink.getMetaInfoProviderClassName(),
-			genLink
-		);
-	}
-
-	private void generateCanvasMetaInfoProvider() throws JETException, InterruptedException {
-		generate(
-			EmitterFactory.getCanvasMetaInfoProviderEmitter(),
-			myDiagram.getEditProvidersPackageName(),
-			myDiagram.getMetaInfoProviderClassName(),
-			myDiagram
-		);
-	}
-
-	private void generateMetaInfoProviderAdapterFactory(boolean isBasicRT) throws JETException, InterruptedException {
-		generate(
-			isBasicRT ? EmitterFactory.getMetaInfoProviderAF1Emitter() : EmitterFactory.getMetaInfoProviderAF2Emitter(), 
-			myDiagram.getEditProvidersPackageName(),
-			myDiagram.getMetaInfoFactoryClassName(),  //$NON-NLS-1$
-			myDiagram
-		);
 	}
 
 	/**

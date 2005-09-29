@@ -27,6 +27,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl#getDomainNameFeature <em>Domain Name Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl#getForegroundColor <em>Foreground Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl#getContainmentMetaFeature <em>Containment Meta Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -72,6 +73,26 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 	 * @ordered
 	 */
 	protected EReference containmentMetaFeature = null;
+
+	/**
+	 * The default value of the '{@link #getNotationViewFactoryClassName() <em>Notation View Factory Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNotationViewFactoryClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT = "";
+
+	/**
+	 * The cached value of the '{@link #getNotationViewFactoryClassName() <em>Notation View Factory Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNotationViewFactoryClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String notationViewFactoryClassName = NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -191,6 +212,37 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getNotationViewFactoryClassNameGen() {
+		return notationViewFactoryClassName;
+	}
+
+	public String getNotationViewFactoryClassName() {
+		String name = getNotationViewFactoryClassNameGen();
+		if (name == null || name.trim().length() == 0) {
+			name = getDefaultNotationViewFactoryClassName();
+		}
+		return name;
+	}
+
+	protected abstract String getDefaultNotationViewFactoryClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNotationViewFactoryClassName(String newNotationViewFactoryClassName) {
+		String oldNotationViewFactoryClassName = notationViewFactoryClassName;
+		notationViewFactoryClassName = newNotationViewFactoryClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME, oldNotationViewFactoryClassName, notationViewFactoryClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public boolean hasNameToEdit() {
@@ -221,6 +273,8 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 			case GMFGenPackage.GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE:
 				if (resolve) return getContainmentMetaFeature();
 				return basicGetContainmentMetaFeature();
+			case GMFGenPackage.GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return getNotationViewFactoryClassName();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -252,6 +306,9 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((EReference)newValue);
+				return;
+			case GMFGenPackage.GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setNotationViewFactoryClassName((String)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -285,6 +342,9 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 			case GMFGenPackage.GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((EReference)null);
 				return;
+			case GMFGenPackage.GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -310,6 +370,8 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 				return FOREGROUND_COLOR_EDEFAULT == null ? foregroundColor != null : !FOREGROUND_COLOR_EDEFAULT.equals(foregroundColor);
 			case GMFGenPackage.GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE:
 				return containmentMetaFeature != null;
+			case GMFGenPackage.GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
 		}
 		return eDynamicIsSet(eFeature);
 	}
@@ -325,6 +387,8 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (foregroundColor: ");
 		result.append(foregroundColor);
+		result.append(", notationViewFactoryClassName: ");
+		result.append(notationViewFactoryClassName);
 		result.append(')');
 		return result.toString();
 	}

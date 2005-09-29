@@ -77,6 +77,7 @@ public class GenDiagramItemProvider
 			addPluginIDPropertyDescriptor(object);
 			addPluginClassNamePropertyDescriptor(object);
 			addEditorPackageNamePropertyDescriptor(object);
+			addProvidersPackageNamePropertyDescriptor(object);
 			addEditorClassNamePropertyDescriptor(object);
 			addEditPartFactoryClassNamePropertyDescriptor(object);
 			addMetaInfoFactoryClassNamePropertyDescriptor(object);
@@ -309,6 +310,26 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Providers Package Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addProvidersPackageNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_providersPackageName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_providersPackageName_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_ProvidersPackageName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Editor Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -520,6 +541,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__META_INFO_FACTORY_CLASS_NAME:

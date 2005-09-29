@@ -1,0 +1,67 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="ViewProviderGenerator"
+    imports="org.eclipse.emf.common.util.EList org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+<%GenDiagram genDiagram = (GenDiagram) argument;%>
+<%GenModel genModel = genDiagram.getEmfGenModel();%>
+package <%=genDiagram.getProvidersPackageName()%>;
+
+<%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
+import org.eclipse.gmf.runtime.diagram.ui.view.factories.*;
+import org.eclipse.gmf.runtime.notation.View;
+import <%=genDiagram.getEditProvidersPackageName()%>.*;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class ViewProvider extends AbstractViewProvider {
+
+	/**
+	 * @generated
+	 */
+	protected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {
+		if ("<%=genModel.getModelName()%>".equals(diagramKind)) { //$NON-NLS-1$
+			return DiagramViewFactory.class;
+		}
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Class getNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
+		EClass semanticType = getSemanticEClass(semanticAdapter);
+<%
+GenPackage genPackage = genDiagram.getEmfGenModel().findGenPackage(genDiagram.getDomainMetaModel());
+String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
+EList genNodes = genDiagram.getNodes();
+for (int i = 0; i < genNodes.size(); i++) {
+	GenNode genNode = (GenNode) genNodes.get(i);
+	String semanticNodeInterfaceName = genNode.getDomainMetaClass().getName();
+%>
+		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>().equals(semanticType)) {
+<%
+		if (genNode.hasNameToEdit()) {
+			String semanticHintsQualifiedClassName = genDiagram.getEditProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
+			String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
+%>
+			if (<%=semanticHintsClassName%>.<%=AccessUtil.getNameSemanticHint(genNode)%>.equals(semanticHint)) {
+				return BasicNodeViewFactory.class;
+			}
+<%		}%>
+			return <%=genNode.getNotationViewFactoryClassName()%>.class;
+		}
+<%}%>
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Class getConnectorViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
+		return null;
+	}
+}
+<%importManager.emitSortedImports();%>

@@ -408,6 +408,10 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 		setDomainMetaClass(eClass);
 	}
 
+	protected String getDefaultNotationViewFactoryClassName() {
+		return getDomainMetaClass().getName() + "ViewFactory"; //$NON-NLS-1$
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -493,6 +497,8 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__CONTAINMENT_META_FEATURE:
 				if (resolve) return getContainmentMetaFeature();
 				return basicGetContainmentMetaFeature();
+			case GMFGenPackage.GEN_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return getNotationViewFactoryClassName();
 			case GMFGenPackage.GEN_NODE__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
@@ -545,6 +551,9 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return;
 			case GMFGenPackage.GEN_NODE__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((EReference)newValue);
+				return;
+			case GMFGenPackage.GEN_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setNotationViewFactoryClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
 				setDomainMetaClass((EClass)newValue);
@@ -608,6 +617,9 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((EReference)null);
 				return;
+			case GMFGenPackage.GEN_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
 				setDomainMetaClass((EClass)null);
 				return;
@@ -660,6 +672,8 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return FOREGROUND_COLOR_EDEFAULT == null ? foregroundColor != null : !FOREGROUND_COLOR_EDEFAULT.equals(foregroundColor);
 			case GMFGenPackage.GEN_NODE__CONTAINMENT_META_FEATURE:
 				return containmentMetaFeature != null;
+			case GMFGenPackage.GEN_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
 			case GMFGenPackage.GEN_NODE__DIAGRAM:
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:

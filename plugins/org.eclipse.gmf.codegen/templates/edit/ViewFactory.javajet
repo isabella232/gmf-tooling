@@ -1,0 +1,31 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.edit" class="ViewFactoryGenerator"
+  imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+<%GenBaseElement genElement = (GenBaseElement) argument;%>
+<%GenDiagram genDiagram = genElement.getDiagram();%>
+package <%=genDiagram.getEditProvidersPackageName()%>;
+
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditProvidersPackageName());%>
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+import org.eclipse.gmf.runtime.diagram.ui.view.factories.*;
+import org.eclipse.gmf.runtime.notation.View;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genElement.getNotationViewFactoryClassName()%> extends 
+<%if (genElement instanceof GenLink) {%>ConnectorViewFactory<%} else {%>AbstractShapeViewFactory<%}%> {
+<%if (genElement.hasNameToEdit()) {%>
+
+	/**
+	 * @generated
+	 */
+	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
+		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
+		getViewService().createNode(semanticAdapter, view, <%=AccessUtil.getSemanticHintsClassName(genElement)%>.<%=AccessUtil.getNameSemanticHint(genElement)%>,
+			ViewUtil.APPEND, persisted, getPreferencesHint());
+	}
+<%}%>
+}
+<%importManager.emitSortedImports();%>

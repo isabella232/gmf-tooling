@@ -52,6 +52,7 @@ import org.eclipse.gmf.codegen.gmfgen.Palette;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPluginID <em>Plugin ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPluginClassName <em>Plugin Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditorPackageName <em>Editor Package Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getProvidersPackageName <em>Providers Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditorClassName <em>Editor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartFactoryClassName <em>Edit Part Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMetaInfoFactoryClassName <em>Meta Info Factory Class Name</em>}</li>
@@ -284,6 +285,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String editorPackageName = EDITOR_PACKAGE_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getProvidersPackageName() <em>Providers Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getProvidersPackageName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String PROVIDERS_PACKAGE_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getProvidersPackageName() <em>Providers Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getProvidersPackageName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String providersPackageName = PROVIDERS_PACKAGE_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getEditorClassName() <em>Editor Class Name</em>}' attribute.
@@ -865,6 +886,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getProvidersPackageNameGen() {
+		return providersPackageName;
+	}
+
+	public String getProvidersPackageName() {
+		String value = getProvidersPackageNameGen();
+		if (value == null || value.length() == 0) {
+			return toLowerCase(getDomainMetaModel().getName()) + ".edit.providers";
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setProvidersPackageName(String newProvidersPackageName) {
+		String oldProvidersPackageName = providersPackageName;
+		providersPackageName = newProvidersPackageName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME, oldProvidersPackageName, providersPackageName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getEditorClassName() {
 		return editorClassName;
 	}
@@ -1207,6 +1257,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getPluginClassName();
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
 				return getEditorPackageName();
+			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
+				return getProvidersPackageName();
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
 				return getEditorClassName();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
@@ -1287,6 +1339,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
 				setEditorPackageName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
+				setProvidersPackageName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
 				setEditorClassName((String)newValue);
@@ -1374,6 +1429,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
 				setEditorPackageName(EDITOR_PACKAGE_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
+				setProvidersPackageName(PROVIDERS_PACKAGE_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
 				setEditorClassName(EDITOR_CLASS_NAME_EDEFAULT);
 				return;
@@ -1442,6 +1500,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return PLUGIN_CLASS_NAME_EDEFAULT == null ? pluginClassName != null : !PLUGIN_CLASS_NAME_EDEFAULT.equals(pluginClassName);
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
 				return EDITOR_PACKAGE_NAME_EDEFAULT == null ? editorPackageName != null : !EDITOR_PACKAGE_NAME_EDEFAULT.equals(editorPackageName);
+			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
+				return PROVIDERS_PACKAGE_NAME_EDEFAULT == null ? providersPackageName != null : !PROVIDERS_PACKAGE_NAME_EDEFAULT.equals(providersPackageName);
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
 				return EDITOR_CLASS_NAME_EDEFAULT == null ? editorClassName != null : !EDITOR_CLASS_NAME_EDEFAULT.equals(editorClassName);
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
@@ -1485,6 +1545,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(pluginClassName);
 		result.append(", editorPackageName: ");
 		result.append(editorPackageName);
+		result.append(", providersPackageName: ");
+		result.append(providersPackageName);
 		result.append(", editorClassName: ");
 		result.append(editorClassName);
 		result.append(", editPartFactoryClassName: ");

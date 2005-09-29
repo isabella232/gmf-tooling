@@ -1,0 +1,94 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="ElementTypesGenerator"
+	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+<%GenDiagram genDiagram = (GenDiagram) argument;%>
+package <%=genDiagram.getProvidersPackageName()%>;
+
+<%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.runtime.common.core.command.ICommand;
+import org.eclipse.gmf.runtime.emf.commands.core.edithelpers.MSLEditHelper;
+import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
+import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;
+import org.eclipse.gmf.runtime.emf.type.core.MetamodelType;
+import org.eclipse.gmf.runtime.emf.type.core.commands.GetEditContextCommand;
+import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.GetEditContextRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
+import org.eclipse.gmf.runtime.notation.View;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class ElementTypes {
+
+<%
+List types = new ArrayList();
+GenPackage genPackage = genDiagram.getEmfGenModel().findGenPackage(genDiagram.getDomainMetaModel());
+String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
+Iterator entities = AccessUtil.getGenEntities(genDiagram);
+while (entities.hasNext()) {
+	GenCommonBase entity = (GenCommonBase) entities.next();
+	String semanticNodeInterfaceName;
+	if (entity instanceof GenDiagram) {
+		semanticNodeInterfaceName = genDiagram.getDomainDiagramElement().getName();
+	} else if (entity instanceof GenNode) {
+		GenNode genNode = (GenNode) entity;
+		semanticNodeInterfaceName = genNode.getDomainMetaClass().getName();
+	} else if (entity instanceof GenLinkWithClass) {
+		GenLinkWithClass genLinkWithClass = (GenLinkWithClass) entity;
+		semanticNodeInterfaceName = genLinkWithClass.getDomainMetaClass().getName();
+	} else {
+		continue;
+	}
+	types.add(semanticNodeInterfaceName);
+%>
+
+	/**
+	 * @generated
+	 */
+	public static class <%=semanticNodeInterfaceName%>EditHelper extends BaseEditHelper {
+	}
+
+	/**
+	 * @generated
+	 */
+	public static final IMetamodelType <%=semanticNodeInterfaceName%> = new MetamodelType(
+		"<%=semanticNodeInterfaceName%>",	null, null,
+		<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>(),
+		new <%=semanticNodeInterfaceName%>EditHelper());
+<%}%>
+
+	/**
+	 * @generated
+	 */
+	public static void register() {
+<%for (int i = 0; i < types.size(); i++) {%>
+		ElementTypeRegistry.getInstance().register(<%=types.get(i)%>);
+<%}%>
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class BaseEditHelper extends MSLEditHelper {
+
+		/**
+		 * @generated
+		 */
+		protected ICommand getEditContextCommand(GetEditContextRequest req) {
+			GetEditContextCommand result = null;
+			IEditCommandRequest editRequest = req.getEditCommandRequest();
+			if (editRequest instanceof CreateElementRequest) {
+				result = new GetEditContextCommand(req);
+				EObject container = ((CreateElementRequest) editRequest).getContainer();
+				if (container instanceof View) {
+					container = ((View) container).getElement();
+				}
+				result.setEditContext(container);
+			}
+			return result;
+		}
+	}
+}
+<%importManager.emitSortedImports();%>

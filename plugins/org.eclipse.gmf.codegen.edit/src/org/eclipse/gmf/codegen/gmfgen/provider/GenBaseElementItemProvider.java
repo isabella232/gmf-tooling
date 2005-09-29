@@ -66,6 +66,7 @@ public class GenBaseElementItemProvider
 			addDomainNameFeaturePropertyDescriptor(object);
 			addForegroundColorPropertyDescriptor(object);
 			addContainmentMetaFeaturePropertyDescriptor(object);
+			addNotationViewFactoryClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -131,6 +132,26 @@ public class GenBaseElementItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Notation View Factory Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNotationViewFactoryClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenBaseElement_notationViewFactoryClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenBaseElement_notationViewFactoryClassName_feature", "_UI_GenBaseElement_type"),
+				 GMFGenPackage.eINSTANCE.getGenBaseElement_NotationViewFactoryClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -155,6 +176,7 @@ public class GenBaseElementItemProvider
 
 		switch (notification.getFeatureID(GenBaseElement.class)) {
 			case GMFGenPackage.GEN_BASE_ELEMENT__FOREGROUND_COLOR:
+			case GMFGenPackage.GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

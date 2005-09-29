@@ -1,9 +1,0 @@
-		PaletteGroup common = new PaletteGroup("Common controls");
-
-		ToolEntry selectionTool = new PanningSelectionToolEntry();
-		common.add(selectionTool);
-		common.add(new MarqueeToolEntry());
-
-		getRoot().setDefaultEntry(selectionTool);
-
-		getRoot().add(common);

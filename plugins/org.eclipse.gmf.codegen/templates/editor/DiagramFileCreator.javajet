@@ -1,0 +1,32 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="DiagramFileCreatorGenerator"
+    imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.*"%>
+<%GenDiagram genDiagram = (GenDiagram) argument;%>
+package <%=genDiagram.getEditorPackageName()%>;
+
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.util.IDEEditorFileCreator;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.EditorFileCreator;
+
+/**
+ * @generated
+ */
+public class DiagramFileCreator extends IDEEditorFileCreator {
+
+	/**
+	 * @generated
+	 */
+	private static DiagramFileCreator INSTANCE = new DiagramFileCreator();
+
+	/**
+	 * @generated
+	 */
+	public static EditorFileCreator getInstance() {
+		return INSTANCE;
+	}
+
+	/**
+	 * @generated
+	 */
+	public String getExtension() {
+		return ".<%=genDiagram.getDiagramFileExtension()%>"; //$NON-NLS-1$
+	}
+}

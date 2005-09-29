@@ -54,6 +54,13 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 		setDomainLinkTargetFeature(eFeature);
 	}
 
+	protected String getDefaultNotationViewFactoryClassName() {
+		EReference cnt = getContainmentMetaFeature();
+		String className = cnt.getEContainingClass().getName();
+		String featureName = cnt.getName();
+		return className + '_' + featureName + "ViewFactory"; //$NON-NLS-1$
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -133,6 +140,8 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__CONTAINMENT_META_FEATURE:
 				if (resolve) return getContainmentMetaFeature();
 				return basicGetContainmentMetaFeature();
+			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return getNotationViewFactoryClassName();
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DOMAIN_LINK_TARGET_FEATURE:
@@ -177,6 +186,9 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 				return;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((EReference)newValue);
+				return;
+			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setNotationViewFactoryClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DOMAIN_LINK_TARGET_FEATURE:
 				setDomainLinkTargetFeature((EStructuralFeature)newValue);
@@ -225,6 +237,9 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((EReference)null);
 				return;
+			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DOMAIN_LINK_TARGET_FEATURE:
 				setDomainLinkTargetFeature((EStructuralFeature)null);
 				return;
@@ -265,6 +280,8 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 				return FOREGROUND_COLOR_EDEFAULT == null ? foregroundColor != null : !FOREGROUND_COLOR_EDEFAULT.equals(foregroundColor);
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__CONTAINMENT_META_FEATURE:
 				return containmentMetaFeature != null;
+			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DIAGRAM:
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DOMAIN_LINK_TARGET_FEATURE:

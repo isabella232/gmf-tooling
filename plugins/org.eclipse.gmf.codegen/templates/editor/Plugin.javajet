@@ -1,17 +1,34 @@
-<%@ jet package="org.eclipse.gmf.codegen.templates.diacanvas" class="PluginGen" imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.ImportUtil"%>
+<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="PluginGenerator"
+    imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.ImportUtil"%>
 <%GenDiagram genDiagram = (GenDiagram) argument;%>
+<%GenModel genModel = genDiagram.getEmfGenModel();%>
 package <%=genDiagram.getEditorPackageName()%>;
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
 
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());%>
+import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
+import org.eclipse.gmf.runtime.emf.core.internal.util.MSLAdapterFactoryManager;
+import org.eclipse.gmf.runtime.emf.core.internal.util.MSLMetaModelManager;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-
+import <%=genDiagram.getProvidersPackageName()%>.ElementTypes;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
 public class <%=genDiagram.getPluginClassName()%> extends AbstractUIPlugin {
+
+	/**
+	 * @generated
+	 */
+	public static final String ID = "<%=genDiagram.getPluginID()%>"; //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final String EDITOR_ID = "<%=genDiagram.getEditorQualifiedClassName()%>ID";
+
 	/**
 	 * @generated
 	 */
@@ -29,6 +46,16 @@ public class <%=genDiagram.getPluginClassName()%> extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		ourInstance = this;
+		PreferencesHint.registerPreferenceStore(new PreferencesHint(EDITOR_ID), getPreferenceStore());
+<%
+GenPackage genPackage = genDiagram.getEmfGenModel().findGenPackage(genDiagram.getDomainMetaModel());
+String domainPackageIPAFInterfaceName = importManager.getImportedName(genPackage.getQualifiedItemProviderAdapterFactoryClassName());
+String domainPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
+String domainPackageEditPluginClassName = importManager.getImportedName(genPackage.getQualifiedEditPluginClassName());
+%>
+		MSLAdapterFactoryManager.register(new <%=domainPackageIPAFInterfaceName%>());
+		MSLMetaModelManager.register(<%=domainPackageInterfaceName%>.eINSTANCE, <%=domainPackageEditPluginClassName%>.INSTANCE);
+		ElementTypes.register();
 	}
 
 	/**
@@ -44,6 +71,18 @@ public class <%=genDiagram.getPluginClassName()%> extends AbstractUIPlugin {
 	 */
 	public static <%=genDiagram.getPluginClassName()%> getInstance() {
 		return ourInstance;
+	}
+
+	/**
+	 * Returns an image descriptor for the image file at the given
+	 * plug-in relative path.
+	 *
+	 * @generated
+	 * @param path the path
+	 * @return the image descriptor
+	 */
+	public static ImageDescriptor getImageDescriptor(String path) {
+		return AbstractUIPlugin.imageDescriptorFromPlugin(ID, path);
 	}
 }
 <%importManager.emitSortedImports();%>
