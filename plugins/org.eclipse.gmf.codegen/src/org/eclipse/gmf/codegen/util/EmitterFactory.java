@@ -17,9 +17,7 @@ import java.net.URL;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
-import org.eclipse.gmf.codegen.templates.diacanvas.CanvasEditPartGen;
 import org.eclipse.gmf.codegen.templates.diacanvas.InitDiagramFileActionGen;
-import org.eclipse.gmf.codegen.templates.diacanvas.LinkEditPartGen;
 import org.eclipse.gmf.codegen.templates.edit.SemanticHintsGenerator;
 import org.eclipse.gmf.codegen.templates.edit.StructuralFeatureParserGenerator;
 import org.eclipse.gmf.codegen.templates.edit.ViewFactoryGenerator;
@@ -33,7 +31,10 @@ import org.eclipse.gmf.codegen.templates.editor.PaletteFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginXML;
 import org.eclipse.gmf.codegen.templates.editor.PreferencesInitializerGenerator;
+import org.eclipse.gmf.codegen.templates.parts.ChildNodeEditPartGenerator;
+import org.eclipse.gmf.codegen.templates.parts.DiagramEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.EditPartFactoryGenerator;
+import org.eclipse.gmf.codegen.templates.parts.LinkEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.NodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ElementTypesGenerator;
@@ -63,16 +64,20 @@ public class EmitterFactory {
 
 	// parts
 
+	public static JETEmitter getDiagramEditPartEmitter() throws JETException {
+		return initializeEmitter("/templates/parts/DiagramEditPart.javajet", DiagramEditPartGenerator.class);
+	}
+
 	public static JETEmitter getNodeEditPartEmitter() throws JETException {
 		return initializeEmitter("/templates/parts/NodeEditPart.javajet", NodeEditPartGenerator.class);
 	}
 
-	public static JETEmitter getLinkEditPartEmitter() throws JETException {
-		return initializeEmitter("/templates/parts/LinkEditPart.javajet", LinkEditPartGen.class);
+	public static JETEmitter getChildNodeEditPartEmitter() throws JETException {
+		return initializeEmitter("/templates/parts/ChildNodeEditPart.javajet", ChildNodeEditPartGenerator.class);
 	}
 
-	public static JETEmitter getCanvasEditPartEmitter() throws JETException {
-		return initializeEmitter("/templates/parts/CanvasEditPart.javajet", CanvasEditPartGen.class);
+	public static JETEmitter getLinkEditPartEmitter() throws JETException {
+		return initializeEmitter("/templates/parts/LinkEditPart.javajet", LinkEditPartGenerator.class);
 	}
 
 	public static JETEmitter getEditPartFactoryEmitter() throws JETException {

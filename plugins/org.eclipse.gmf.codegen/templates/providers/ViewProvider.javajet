@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="ViewProviderGenerator"
-    imports="org.eclipse.emf.common.util.EList org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+    imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
 <%GenDiagram genDiagram = (GenDiagram) argument;%>
 <%GenModel genModel = genDiagram.getEmfGenModel();%>
 package <%=genDiagram.getProvidersPackageName()%>;
@@ -28,32 +28,54 @@ public class ViewProvider extends AbstractViewProvider {
 		return null;
 	}
 
+<%
+GenPackage genPackage = genDiagram.getEmfGenModel().findGenPackage(genDiagram.getDomainMetaModel());
+String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
+%>
+
 	/**
 	 * @generated
 	 */
 	protected Class getNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 <%
-GenPackage genPackage = genDiagram.getEmfGenModel().findGenPackage(genDiagram.getDomainMetaModel());
-String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
-EList genNodes = genDiagram.getNodes();
+List genNodes = genDiagram.getNodes();
 for (int i = 0; i < genNodes.size(); i++) {
 	GenNode genNode = (GenNode) genNodes.get(i);
 	String semanticNodeInterfaceName = genNode.getDomainMetaClass().getName();
 %>
 		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>().equals(semanticType)) {
 <%
-		if (genNode.hasNameToEdit()) {
-			String semanticHintsQualifiedClassName = genDiagram.getEditProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
-			String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
+	if (genNode.hasNameToEdit()) {
+		String semanticHintsQualifiedClassName = genDiagram.getEditProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
+		String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 %>
 			if (<%=semanticHintsClassName%>.<%=AccessUtil.getNameSemanticHint(genNode)%>.equals(semanticHint)) {
 				return BasicNodeViewFactory.class;
 			}
-<%		}%>
+<%	}
+	List genChildContainers = genNode.getChildContainers();
+	for (int j = 0; j < genChildContainers.size(); j++) {
+		GenChildContainer genChildContainer = (GenChildContainer) genChildContainers.get(j);
+%>
+			if ("<%=genChildContainer.getGroupID()%>".equals(semanticHint)) {
+				return ListCompartmentViewFactory.class;
+			}
+<%	}%>
 			return <%=genNode.getNotationViewFactoryClassName()%>.class;
 		}
-<%}%>
+<%
+	List genChildNodes = genNode.getChildNodes();
+	for (int j = 0; j < genChildNodes.size(); j++) {
+		GenChildNode genChildNode = (GenChildNode) genChildNodes.get(j);
+		String semanticChildNodeInterfaceName = genChildNode.getDomainMetaClass().getName();
+%>
+		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticChildNodeInterfaceName%>().equals(semanticType)) {
+			return <%=genChildNode.getNotationViewFactoryClassName()%>.class;
+		}
+<%	}
+}
+%>
 		return null;
 	}
 
@@ -61,6 +83,22 @@ for (int i = 0; i < genNodes.size(); i++) {
 	 * @generated
 	 */
 	protected Class getConnectorViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
+		EClass semanticType = getSemanticEClass(semanticAdapter);
+<%
+List genLinks = genDiagram.getLinks();
+for (int i = 0; i < genLinks.size(); i++) {
+	GenLink genLink = (GenLink) genLinks.get(i);
+	if (genLink instanceof GenLinkWithClass) {
+		GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
+		String semanticLinkInterfaceName = genLinkWithClass.getDomainMetaClass().getName();
+%>
+		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().equals(semanticType)) {
+			return <%=genLink.getNotationViewFactoryClassName()%>.class;
+		}
+<%
+	}
+}
+%>
 		return null;
 	}
 }

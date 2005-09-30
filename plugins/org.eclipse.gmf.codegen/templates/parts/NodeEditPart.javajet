@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="NodeEditPartGenerator"
-  imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
 <%
 GenNode genNode = (GenNode) argument;
 GenDiagram genDiagram = genNode.getDiagram();
@@ -42,10 +42,11 @@ public class <%=genNode.getEditPartClassName()%> extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodeFigure() {
-		NodeFigure node = new DefaultSizeNodeFigure(MapMode.DPtoLP(50), MapMode.DPtoLP(50)) {
+		NodeFigure node = new DefaultSizeNodeFigure(MapMode.DPtoLP(40), MapMode.DPtoLP(30)) {
 
 			protected void paintFigure(Graphics graphics) {
 				super.paintFigure(graphics);
+				graphics.fillRectangle(getClientArea());
 				graphics.drawRectangle(getClientArea());
 			}
 		};

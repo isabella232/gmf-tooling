@@ -1,0 +1,40 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="ChildNodeEditPartGenerator"
+	imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+<%
+GenChildNode genChildNode = (GenChildNode) argument;
+GenDiagram genDiagram = genChildNode.getDiagram();
+%>
+package <%=genDiagram.getEditPartsPackageName()%>;
+
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
+import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ListItemCompartmentEditPart;
+import org.eclipse.gmf.runtime.notation.View;
+import <%=genDiagram.getEditProvidersPackageName()%>.StructuralFeatureParser;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genChildNode.getEditPartClassName()%> extends ListItemCompartmentEditPart {
+
+	/**
+	 * @generated
+	 */
+	public <%=genChildNode.getEditPartClassName()%>(View view) {
+		super(view);
+	}
+<%
+GenPackage genPackage = genDiagram.getEmfGenModel().findGenPackage(genDiagram.getDomainMetaModel());
+String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
+String semanticChildNodeInterfaceName = genChildNode.getDomainMetaClass().getName();
+%>
+
+	public IParser getParser() {
+		if (parser == null) {
+			parser = new StructuralFeatureParser(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticChildNodeInterfaceName%>().getEStructuralFeature("<%=genChildNode.getDomainNameFeature().getName()%>"));
+		}
+		return parser;
+	}
+}
+<%importManager.emitSortedImports();%>

@@ -1,0 +1,22 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="DiagramEditPartGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.*"%>
+<%
+GenDiagram genDiagram = (GenDiagram) argument;
+%>
+package <%=genDiagram.getEditPartsPackageName()%>;
+
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
+import org.eclipse.gmf.runtime.notation.View;
+
+/**
+ * @generated
+ */
+public class <%=genDiagram.getEditPartClassName()%> extends DiagramEditPart {
+
+	/**
+	 * @generated
+	 */
+	public <%=genDiagram.getEditPartClassName()%>(View view) {
+		super(view);
+	}
+}

@@ -1,15 +1,19 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="EditPartFactoryGenerator" 
-  imports="java.util.List org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.util.*"%>
+	imports="java.util.List org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.util.*"%>
 <%GenDiagram genDiagram = (GenDiagram) argument;%>
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 import <%=genDiagram.getEditProvidersPackageName()%>.StructuralFeatureParser;
 <%importManager.markImportLocation(stringBuffer);%>
@@ -31,7 +35,7 @@ GenPackage genPackage = genDiagram.getEmfGenModel().findGenPackage(genDiagram.ge
 String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 %>
 			if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getName()%>().isInstance(element)) {
-				return new DiagramEditPart(view);
+				return new <%=genDiagram.getEditPartClassName()%>(view);
 			}
 <%
 List genNodes = genDiagram.getNodes();
@@ -59,10 +63,59 @@ for (int i = 0; i < genNodes.size(); i++) {
 						}
 					};
 				}
+<%
+		}
+		List genChildContainers = genNode.getChildContainers();
+		for (int j = 0; j < genChildContainers.size(); j++) {
+			GenChildContainer genChildContainer = (GenChildContainer) genChildContainers.get(j);
+%>
+				if ("<%=genChildContainer.getGroupID()%>".equals(view.getType())) {
+					return new ListCompartmentEditPart(view) {
+
+						protected boolean hasModelChildrenChanged(Notification evt) {
+							return false;
+						}
+
+						protected void createDefaultEditPolicies() {
+							super.createDefaultEditPolicies();
+							installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
+							installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
+							//installEditPolicy(EditPolicy.NODE_ROLE, null);
+						}
+
+						protected String getTitleName() {
+							return "<%=genChildContainer.getTitleKey()%>";
+						}
+					};
+				}
 <%		}%>
 				return new <%=genNode.getEditPartClassName()%>(view);
 			}
-<%}%>
+<%
+		List genChildNodes = genNode.getChildNodes();
+		for (int j = 0; j < genChildNodes.size(); j++) {
+			GenChildNode genChildNode = (GenChildNode) genChildNodes.get(j);
+			String semanticChildNodeInterfaceName = genChildNode.getDomainMetaClass().getName();
+%>
+			else if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticChildNodeInterfaceName%>().isInstance(element)) {
+				return new <%=genChildNode.getEditPartClassName()%>(view);
+			}
+<%		}
+}
+List genLinks = genDiagram.getLinks();
+for (int i = 0; i < genLinks.size(); i++) {
+	GenLink genLink = (GenLink) genLinks.get(i);
+	if (genLink instanceof GenLinkWithClass) {
+		GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
+		String semanticLinkInterfaceName = genLinkWithClass.getDomainMetaClass().getName();
+%>
+			else if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().isInstance(element)) {
+				return new <%=genLink.getEditPartClassName()%>(view);
+			}
+<%
+	}
+}
+%>
 		}
 		return null;
 	}

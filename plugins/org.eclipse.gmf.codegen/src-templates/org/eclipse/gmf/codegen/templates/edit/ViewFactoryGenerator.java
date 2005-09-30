@@ -1,5 +1,6 @@
 package org.eclipse.gmf.codegen.templates.edit;
 
+import java.util.*;
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.codegen.util.*;
 
@@ -17,17 +18,24 @@ public class ViewFactoryGenerator
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "package ";
   protected final String TEXT_2 = ";" + NL;
-  protected final String TEXT_3 = NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.view.factories.*;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
+  protected final String TEXT_3 = NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.draw2d.ColorConstants;" + NL + "import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.view.factories.*;" + NL + "import org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities;" + NL + "import org.eclipse.gmf.runtime.notation.NotationPackage;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
   protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_5 = " extends ";
-  protected final String TEXT_6 = "ConnectorViewFactory";
-  protected final String TEXT_7 = "AbstractShapeViewFactory";
-  protected final String TEXT_8 = " {";
-  protected final String TEXT_9 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {" + NL + "\t\tsuper.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);" + NL + "\t\tgetViewService().createNode(semanticAdapter, view, ";
-  protected final String TEXT_10 = ".";
-  protected final String TEXT_11 = "," + NL + "\t\t\tViewUtil.APPEND, persisted, getPreferencesHint());" + NL + "\t}";
-  protected final String TEXT_12 = NL + "}";
-  protected final String TEXT_13 = NL;
+  protected final String TEXT_6 = NL + "\tConnectorViewFactory";
+  protected final String TEXT_7 = NL + "\tAbstractLabelViewFactory";
+  protected final String TEXT_8 = NL + "\tAbstractShapeViewFactory";
+  protected final String TEXT_9 = NL + "{" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void decorateView(View containerView, View view, IAdaptable semanticAdapter," + NL + "\t\tString semanticHint, int index, boolean persisted) {" + NL + "\t\tsuper.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);";
+  protected final String TEXT_10 = NL + "\t\tViewUtil.setStructuralFeatureValue(view, NotationPackage.eINSTANCE.getLineStyle_LineColor()," + NL + "\t\t\tFigureUtilities.colorToInteger(ColorConstants.";
+  protected final String TEXT_11 = "));";
+  protected final String TEXT_12 = NL + "\t\tViewUtil.setStructuralFeatureValue(view, NotationPackage.eINSTANCE.getFillStyle_FillColor()," + NL + "\t\t\tFigureUtilities.colorToInteger(ColorConstants.";
+  protected final String TEXT_13 = "));";
+  protected final String TEXT_14 = NL + "\t\tgetViewService().createNode(semanticAdapter, view," + NL + "\t\t\t";
+  protected final String TEXT_15 = ".";
+  protected final String TEXT_16 = "," + NL + "\t\t\tViewUtil.APPEND, persisted, getPreferencesHint());";
+  protected final String TEXT_17 = NL + "\t\tgetViewService().createNode(semanticAdapter, view, \"";
+  protected final String TEXT_18 = "\"," + NL + "\t\t\tViewUtil.APPEND, persisted, getPreferencesHint());";
+  protected final String TEXT_19 = NL + "\t}" + NL + "}";
+  protected final String TEXT_20 = NL;
 
   public String generate(Object argument)
   {
@@ -45,20 +53,53 @@ public class ViewFactoryGenerator
     stringBuffer.append(TEXT_5);
     if (genElement instanceof GenLink) {
     stringBuffer.append(TEXT_6);
-    } else {
+    } else if (genElement instanceof GenChildNode) {
     stringBuffer.append(TEXT_7);
-    }
+    } else {
     stringBuffer.append(TEXT_8);
-    if (genElement.hasNameToEdit()) {
-    stringBuffer.append(TEXT_9);
-    stringBuffer.append(AccessUtil.getSemanticHintsClassName(genElement));
-    stringBuffer.append(TEXT_10);
-    stringBuffer.append(AccessUtil.getNameSemanticHint(genElement));
-    stringBuffer.append(TEXT_11);
     }
+    stringBuffer.append(TEXT_9);
+    
+String fgColour = genElement.getForegroundColor();
+if (fgColour != null && fgColour.trim().length() > 0) {
+    stringBuffer.append(TEXT_10);
+    stringBuffer.append(fgColour);
+    stringBuffer.append(TEXT_11);
+    
+}
+if (genElement instanceof GenNode) {
+	GenNode genNode = (GenNode) genElement;
+	String bgColour = genNode.getBackgroundColor();
+	if (bgColour != null && bgColour.trim().length() > 0) {
     stringBuffer.append(TEXT_12);
-    importManager.emitSortedImports();
+    stringBuffer.append(bgColour);
     stringBuffer.append(TEXT_13);
+    
+	}
+	if (!(genNode instanceof GenChildNode)) {
+		if (genElement.hasNameToEdit()) {
+    stringBuffer.append(TEXT_14);
+    stringBuffer.append(AccessUtil.getSemanticHintsClassName(genElement));
+    stringBuffer.append(TEXT_15);
+    stringBuffer.append(AccessUtil.getNameSemanticHint(genElement));
+    stringBuffer.append(TEXT_16);
+    
+		}
+		List genChildContainers = genNode.getChildContainers();
+		for (int j = 0; j < genChildContainers.size(); j++) {
+			GenChildContainer genChildContainer = (GenChildContainer) genChildContainers.get(j);
+
+    stringBuffer.append(TEXT_17);
+    stringBuffer.append(genChildContainer.getGroupID());
+    stringBuffer.append(TEXT_18);
+    
+		}
+	}
+}
+
+    stringBuffer.append(TEXT_19);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_20);
     return stringBuffer.toString();
   }
 }

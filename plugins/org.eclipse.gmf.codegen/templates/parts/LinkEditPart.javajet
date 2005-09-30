@@ -1,256 +1,104 @@
-<%@ jet package="org.eclipse.gmf.codegen.templates.diacanvas" class="LinkEditPartGen" imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.util.ImportUtil"%>
-<%GenLink genLink = (GenLink) argument;%>
-<%GenDiagram genDiagram = genLink.getDiagram();%>
+<%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="LinkEditPartGenerator"
+	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+<%
+GenLink genLink = (GenLink) argument;
+GenDiagram genDiagram = genLink.getDiagram();
+%>
 package <%=genDiagram.getEditPartsPackageName()%>;
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
 
-import org.eclipse.draw2d.*;
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gef.*;
-import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.editparts.*;
-import org.eclipse.gef.editpolicies.*;
-import org.eclipse.gef.requests.DirectEditRequest;
-import org.eclipse.gef.requests.GroupRequest;
-import org.eclipse.gef.tools.DirectEditManager;
-import org.eclipse.gmf.diagramrt.DiagramLink;
-import org.eclipse.gmf.runtime.gef.DefaultDirectEditManager;
-import org.eclipse.gmf.runtime.gef.commands.ChangeDiagramElementNameCommand;
-import org.eclipse.gmf.runtime.gef.commands.DeleteDiagramLinkCommand;
-import org.eclipse.swt.graphics.Font;
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
+import org.eclipse.draw2d.Connection;
+import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.RotatableDecoration;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
+import org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapMode;
+import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
-public class <%=genLink.getEditPartClassName()%> extends AbstractConnectionEditPart {
-	/**
-	 * @generated
-	 */
-	public static final int VISUAL_ID = <%=genLink.getVisualID()%>;
-
-<%if (genLink.hasNameToEdit()) {%>
-	/**
-	 * @generated
-	 */
-	protected DirectEditManager myManager;
+public class <%=genLink.getEditPartClassName()%> extends ConnectionNodeEditPart {
 
 	/**
 	 * @generated
 	 */
-	private IFigure myLabelFigure;
-
-<%}%>
-	/**
-	 * @generated
-	 */
-	public <%=genLink.getEditPartClassName()%>(DiagramLink model) {
-		setModel(model);
+	public <%=genLink.getEditPartClassName()%>(View view) {
+		super(view);
 	}
 
 	/**
 	 * @generated
 	 */
-	protected void createEditPolicies() {
-		installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE, new ConnectionEndpointEditPolicy());
-		installEditPolicy(EditPolicy.CONNECTION_ROLE, new ConnectionEditPolicy() {
-			protected Command getDeleteCommand(GroupRequest request) {
-				// TODO perhaps, request.getEditParts().getModel()?
-				return new DeleteDiagramLinkCommand(getDiagramLink());
-			}
-		});
-<%if (genLink.hasNameToEdit()) {%>
-		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, createDirectEditPolicy());
-<%}%>
-		// installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE, new BendpointEditPolicy() {});
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IFigure createFigure() {
-		PolylineConnection conn = createConnectionFigure();
-<%if (genLink.getLineStyle() != null) {%>
-		conn.setLineStyle(Graphics.<%=genLink.getLineStyle()%>);
-<%
-}
-if (genLink.getSourceDecorationFigureQualifiedClassName() != null && genLink.getSourceDecorationFigureQualifiedClassName().trim().length() != 0) {%>
-		conn.setSourceDecoration(new <%=importManager.getImportedName(genLink.getSourceDecorationFigureQualifiedClassName())%>()); 
-<%
-}
-if (genLink.getTargetDecorationFigureQualifiedClassName() != null && genLink.getTargetDecorationFigureQualifiedClassName().trim().length() != 0) {%>
-		conn.setTargetDecoration(new <%=importManager.getImportedName(genLink.getTargetDecorationFigureQualifiedClassName())%>()); 
-<%}%>
-<%if (genLink.getForegroundColor() != null) {%>
-		if (getDiagramLink().getForegroundColor() == null) {
-			// set default color from genmodel
-			// XXX no 'if' check? set color from genModel if any, and allow refreshColors to override later?
-			conn.setForegroundColor(getColorSupport().get("<%=genLink.getForegroundColor()%>"));
+	protected Connection createConnectionFigure() {
+		PolylineConnectionEx connection = new PolylineConnectionEx();
+		RotatableDecoration sourceDecoration = createSourceDecoration();
+		if (sourceDecoration != null) {
+			connection.setSourceDecoration(sourceDecoration);
 		}
-<%}%>
-<%if (genLink.hasNameToEdit()) {%>
-		conn.add(getLabelFigure(), createLabelConstraint(conn));
-<%}%>
-		refreshColors(conn);
-		return conn;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected PolylineConnection createConnectionFigure() {
-		return new <%=importManager.getImportedName(genLink.getFigureQualifiedClassName())%>();
-	}
-
-<%if (genLink.hasNameToEdit()) {%>
-	/**
-	 * @generated
-	 */
-	protected Object createLabelConstraint(Connection conn) {
-		ConnectionLocator cl = new ConnectionLocator(conn, ConnectionLocator.MIDDLE);
-		cl.setRelativePosition(PositionConstants.NORTH_EAST);
-		cl.setGap(2);
-		return cl;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected final IFigure getLabelFigure() {
-		if (myLabelFigure == null) {
-			myLabelFigure = createLabelFigure();
+		RotatableDecoration targetDecoration = createTargetDecoration();
+		if (targetDecoration != null) {
+			connection.setTargetDecoration(targetDecoration);
 		}
-		return myLabelFigure;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IFigure createLabelFigure() {
-		return new Label(getLabelText());
-	}
-
-	/**
-	 * @generated
-	 */
-	protected String getLabelText() {
-		EObject owner = getDiagramLink().getDomainModelElement();
-		if (owner == null) {
-			return null;
-		}
-		return String.valueOf(owner.eGet(getLabelFeature()));
-	}
-
-	/**
-	 * @generated
-	 */
-	protected EAttribute getLabelFeature() {
 <%
-final GenFeature genFeature = genDiagram.findGenFeature(genLink.getDomainNameFeature());
-final String metaPackageInterfaceName = importManager.getImportedName(genFeature.getGenPackage().getQualifiedPackageInterfaceName());
+String lineStyle = genLink.getLineStyle();
+if (lineStyle != null && lineStyle.trim().length() > 0) {
 %>
-		return <%=metaPackageInterfaceName%>.eINSTANCE.get<%=genFeature.getFeatureAccessorName()%>();
-	}
-
-	/**
-	 * @generated
-	 */
-	protected EditPolicy createDirectEditPolicy() {
-		return new DirectEditPolicy() {
-			protected Command getDirectEditCommand(DirectEditRequest request) {
-				EAttribute domainNameFeature = (EAttribute) request.getDirectEditFeature();
-				if (domainNameFeature == null) {
-					System.err.println("Someone passes DirectEditRequest without directEditFeature set");
-					domainNameFeature = getLabelFeature();
-				}
-				return new ChangeDiagramElementNameCommand(getDiagramLink(), domainNameFeature,(String) request.getCellEditor().getValue());
-			}
-			protected void showCurrentEditValue(DirectEditRequest request) {
-				IFigure fig = getLabelFigure();
-				if (fig instanceof Label) {
-					((Label)fig).setText((String)request.getCellEditor().getValue());
-					fig.getUpdateManager().performUpdate();
-				}
-			}
-		};
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void performDirectEdit() {
-		if(myManager == null) {
-			myManager = new DefaultDirectEditManager(this, new DefaultDirectEditManager.DirectEditInfoProvider() {
-				public Object getDirectEditFeature() {
-					return <%=metaPackageInterfaceName%>.eINSTANCE.get<%=genFeature.getFeatureAccessorName()%>();
-				}
-				public String getInitialText() {
-					return String.valueOf(getDiagramLink().getDomainModelElement().eGet(getLabelFeature()));
-				}
-				public IFigure getDirectEditFigure() {
-					return <%=genLink.getEditPartClassName()%>.this.getLabelFigure();
-				}
-				public Font getTextFont() {
-					return getLabelFigure().getFont();
-				}
-			});
-		}
-		myManager.show();
-	}
-
-	/**
-	 * @generated
-	 */
-	public void performRequest(Request request) {
-		if (request.getType() == RequestConstants.REQ_DIRECT_EDIT) {
-			performDirectEdit();
-		} else {
-			super.performRequest(request);
-		}
-	}
+		connection.setLineStyle(Graphics.<%=lineStyle%>);
 <%}%>
+		return connection;
+	}
+<%
+Set SCALABLE_DECORATIONS = new HashSet();
+{
+	SCALABLE_DECORATIONS.add("org.eclipse.draw2d.PolylineDecoration");
+	SCALABLE_DECORATIONS.add("org.eclipse.draw2d.PolygonDecoration");
+	SCALABLE_DECORATIONS.add("org.eclipse.gmf.draw2d.RhombDecoration");
+	SCALABLE_DECORATIONS.add("org.eclipse.gmf.draw2d.FilledRhombDecoration");
+}
+%>
+
 	/**
 	 * @generated
 	 */
-	public void activate() {
-		super.activate();
-		// FIXME placeholder for attaching listener to model object, e.g.:
-		// ((Notifier) getModel()).eAdapters().add(myListener)
-		// perhaps, for perfomance reasons it's better to have single listener
-		// (e.g. diagram attaches one to domain model) and then request updates
-		// of editParts (as maping of model element to edit part is known to diagram)
+	protected RotatableDecoration createSourceDecoration() {
+<%
+String sourceDecorationClassQualifiedName = genLink.getSourceDecorationFigureQualifiedClassName();
+if (sourceDecorationClassQualifiedName != null && sourceDecorationClassQualifiedName.trim().length() > 0) {
+	String sourceDecorationClassName = importManager.getImportedName(sourceDecorationClassQualifiedName);
+	if (SCALABLE_DECORATIONS.contains(sourceDecorationClassQualifiedName)) {
+%>
+		<%=sourceDecorationClassName%> decoration = new <%=sourceDecorationClassName%>();
+		decoration.setScale(MapMode.DPtoLP(7), MapMode.DPtoLP(3));
+		return decoration;
+<%	} else {%>
+		return new <%=sourceDecorationClassName%>();
+<%	}
+} else {%>
+		return null;
+<%}%>
 	}
 
 	/**
 	 * @generated
 	 */
-	public DiagramLink getDiagramLink() {
-		return (DiagramLink) getModel();
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void refreshVisuals() {
-		refreshColors(getFigure());
-		super.refreshVisuals();
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void refreshColors(IFigure fig) {
-		if (getDiagramLink().getForegroundColor() != null) {
-			fig.setForegroundColor(getColorSupport().get(getDiagramLink().getForegroundColor()));
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.gef.ColorSupport")%> getColorSupport() {
-		return ((<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>) getRoot().getContents()).getColorSupport();
+	protected RotatableDecoration createTargetDecoration() {
+<%
+String targetDecorationClassQualifiedName = genLink.getTargetDecorationFigureQualifiedClassName();
+if (targetDecorationClassQualifiedName != null && targetDecorationClassQualifiedName.trim().length() > 0) {
+	String targetDecorationClassName = importManager.getImportedName(targetDecorationClassQualifiedName);
+	if (SCALABLE_DECORATIONS.contains(targetDecorationClassQualifiedName)) {
+%>
+		<%=targetDecorationClassName%> decoration = new <%=targetDecorationClassName%>();
+		decoration.setScale(MapMode.DPtoLP(7), MapMode.DPtoLP(3));
+		return decoration;
+<%	} else {%>
+		return new <%=targetDecorationClassName%>();
+<%	}
+} else {%>
+		return null;
+<%}%>
 	}
 }
 <%importManager.emitSortedImports();%>

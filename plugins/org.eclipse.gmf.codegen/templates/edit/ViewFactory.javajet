@@ -1,13 +1,16 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.edit" class="ViewFactoryGenerator"
-  imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
 <%GenBaseElement genElement = (GenBaseElement) argument;%>
 <%GenDiagram genDiagram = genElement.getDiagram();%>
 package <%=genDiagram.getEditProvidersPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditProvidersPackageName());%>
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.*;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
 
@@ -15,17 +18,54 @@ import org.eclipse.gmf.runtime.notation.View;
  * @generated
  */
 public class <%=genElement.getNotationViewFactoryClassName()%> extends 
-<%if (genElement instanceof GenLink) {%>ConnectorViewFactory<%} else {%>AbstractShapeViewFactory<%}%> {
-<%if (genElement.hasNameToEdit()) {%>
+<%if (genElement instanceof GenLink) {%>
+	ConnectorViewFactory
+<%} else if (genElement instanceof GenChildNode) {%>
+	AbstractLabelViewFactory
+<%} else {%>
+	AbstractShapeViewFactory
+<%}%>
+{
 
 	/**
 	 * @generated
 	 */
-	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
+	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter,
+		String semanticHint, int index, boolean persisted) {
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
-		getViewService().createNode(semanticAdapter, view, <%=AccessUtil.getSemanticHintsClassName(genElement)%>.<%=AccessUtil.getNameSemanticHint(genElement)%>,
-			ViewUtil.APPEND, persisted, getPreferencesHint());
+<%
+String fgColour = genElement.getForegroundColor();
+if (fgColour != null && fgColour.trim().length() > 0) {%>
+		ViewUtil.setStructuralFeatureValue(view, NotationPackage.eINSTANCE.getLineStyle_LineColor(),
+			FigureUtilities.colorToInteger(ColorConstants.<%=fgColour%>));
+<%
+}
+if (genElement instanceof GenNode) {
+	GenNode genNode = (GenNode) genElement;
+	String bgColour = genNode.getBackgroundColor();
+	if (bgColour != null && bgColour.trim().length() > 0) {%>
+		ViewUtil.setStructuralFeatureValue(view, NotationPackage.eINSTANCE.getFillStyle_FillColor(),
+			FigureUtilities.colorToInteger(ColorConstants.<%=bgColour%>));
+<%
 	}
-<%}%>
+	if (!(genNode instanceof GenChildNode)) {
+		if (genElement.hasNameToEdit()) {%>
+		getViewService().createNode(semanticAdapter, view,
+			<%=AccessUtil.getSemanticHintsClassName(genElement)%>.<%=AccessUtil.getNameSemanticHint(genElement)%>,
+			ViewUtil.APPEND, persisted, getPreferencesHint());
+<%
+		}
+		List genChildContainers = genNode.getChildContainers();
+		for (int j = 0; j < genChildContainers.size(); j++) {
+			GenChildContainer genChildContainer = (GenChildContainer) genChildContainers.get(j);
+%>
+		getViewService().createNode(semanticAdapter, view, "<%=genChildContainer.getGroupID()%>",
+			ViewUtil.APPEND, persisted, getPreferencesHint());
+<%
+		}
+	}
+}
+%>
+	}
 }
 <%importManager.emitSortedImports();%>

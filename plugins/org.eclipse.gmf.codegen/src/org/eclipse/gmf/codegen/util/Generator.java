@@ -85,8 +85,7 @@ public class Generator implements Runnable {
 		try {
 			setupProgressMonitor();
 			initializeEditorProject();
-			generateCanvasEditPart();
-			generateEditPartFactory();
+
 			generateStructuralFeatureParser();
 			for (Iterator it = myDiagram.getNodes().iterator(); it.hasNext();) {
 				final GenNode next = (GenNode) it.next();
@@ -96,17 +95,22 @@ public class Generator implements Runnable {
 				//generateNodeMetaInfoProvider(next);
 				for (Iterator it2 = next.getChildNodes().iterator(); it2.hasNext();) {
 					GenChildNode child = (GenChildNode) it2.next();
-					generateNodeEditPart(child);
+					generateChildNodeEditPart(child);
+					generateViewFactory(child);
 				}
 			}
 			for (Iterator it = myDiagram.getLinks().iterator(); it.hasNext();) {
 				final GenLink next = (GenLink) it.next();
 				if (next instanceof GenLinkWithClass) {
 					generateSemanticHints(next);
+					generateViewFactory(next);
 				}
 				generateLinkEditPart(next);
 				//generateLinkMetaInfoProvider(next);
 			}
+			generateDiagramEditPart();
+			generateEditPartFactory();
+
 			/*
 			generateCanvasMetaInfoProvider();
 			boolean isBasicRT = DiagramRTPackage.eNS_URI.equals(myDiagram.getDiagramRunTimeClass().getGenPackage().getEcorePackage().getNsURI());
@@ -119,7 +123,7 @@ public class Generator implements Runnable {
 			generateEditPartProvider();
 
 			// editor
-			//generateInitDiagramFileAction();
+			//generateInitDiagramFileAction(); update action template to use notation model
 			generatePalette();
 			generateDiagramEditorUtil();
 			generateDiagramFileCreator();
@@ -144,9 +148,9 @@ public class Generator implements Runnable {
 
 	// parts
 
-	private void generateCanvasEditPart() throws JETException, InterruptedException {
+	private void generateDiagramEditPart() throws JETException, InterruptedException {
 		generate(
-			EmitterFactory.getCanvasEditPartEmitter(),
+			EmitterFactory.getDiagramEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			myDiagram.getEditPartClassName(),
 			myDiagram
@@ -159,6 +163,15 @@ public class Generator implements Runnable {
 			myDiagram.getEditPartsPackageName(),
 			genNode.getEditPartClassName(),
 			genNode
+		);
+	}
+
+	private void generateChildNodeEditPart(GenChildNode genChildNode) throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getChildNodeEditPartEmitter(),
+			myDiagram.getEditPartsPackageName(),
+			genChildNode.getEditPartClassName(),
+			genChildNode
 		);
 	}
 
