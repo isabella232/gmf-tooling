@@ -1156,11 +1156,13 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	private boolean usesSVGShapes() {
+/* couldn't tell now
 		for (Iterator it = getNodes().iterator(); it.hasNext();) {
 			if (((GenNode) it.next()).getViewmapURI() != null) {
 				return true;
 			}
 		}
+*/
 		return false;
 	}
 

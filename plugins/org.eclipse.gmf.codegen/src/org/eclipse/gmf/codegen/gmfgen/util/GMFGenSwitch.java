@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.codegen.gmfgen.*;
+
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
@@ -167,6 +169,60 @@ public class GMFGenSwitch {
 				if (result == null) result = caseGenLink(genLinkReferenceOnly);
 				if (result == null) result = caseGenBaseElement(genLinkReferenceOnly);
 				if (result == null) result = caseGenCommonBase(genLinkReferenceOnly);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.VIEWMAP: {
+				Viewmap viewmap = (Viewmap)theEObject;
+				Object result = caseViewmap(viewmap);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.ATTRIBUTES: {
+				Attributes attributes = (Attributes)theEObject;
+				Object result = caseAttributes(attributes);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.SHAPE_ATTRIBUTES: {
+				ShapeAttributes shapeAttributes = (ShapeAttributes)theEObject;
+				Object result = caseShapeAttributes(shapeAttributes);
+				if (result == null) result = caseAttributes(shapeAttributes);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.DEFAULT_SIZE_ATTRIBUTES: {
+				DefaultSizeAttributes defaultSizeAttributes = (DefaultSizeAttributes)theEObject;
+				Object result = caseDefaultSizeAttributes(defaultSizeAttributes);
+				if (result == null) result = caseAttributes(defaultSizeAttributes);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.FIGURE_VIEWMAP: {
+				FigureViewmap figureViewmap = (FigureViewmap)theEObject;
+				Object result = caseFigureViewmap(figureViewmap);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.BASIC_NODE_VIEWMAP: {
+				BasicNodeViewmap basicNodeViewmap = (BasicNodeViewmap)theEObject;
+				Object result = caseBasicNodeViewmap(basicNodeViewmap);
+				if (result == null) result = caseViewmap(basicNodeViewmap);
+				if (result == null) result = caseFigureViewmap(basicNodeViewmap);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.DECORATED_CONNECTION_VIEWMAP: {
+				DecoratedConnectionViewmap decoratedConnectionViewmap = (DecoratedConnectionViewmap)theEObject;
+				Object result = caseDecoratedConnectionViewmap(decoratedConnectionViewmap);
+				if (result == null) result = caseViewmap(decoratedConnectionViewmap);
+				if (result == null) result = caseFigureViewmap(decoratedConnectionViewmap);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.LINK_DECORATION: {
+				LinkDecoration linkDecoration = (LinkDecoration)theEObject;
+				Object result = caseLinkDecoration(linkDecoration);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -348,6 +404,126 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseGenLinkReferenceOnly(GenLinkReferenceOnly object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Viewmap</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Viewmap</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseViewmap(Viewmap object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Attributes</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Attributes</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseAttributes(Attributes object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Shape Attributes</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Shape Attributes</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseShapeAttributes(ShapeAttributes object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Default Size Attributes</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Default Size Attributes</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseDefaultSizeAttributes(DefaultSizeAttributes object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Figure Viewmap</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Figure Viewmap</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseFigureViewmap(FigureViewmap object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Basic Node Viewmap</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Basic Node Viewmap</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseBasicNodeViewmap(BasicNodeViewmap object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Decorated Connection Viewmap</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Decorated Connection Viewmap</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseDecoratedConnectionViewmap(DecoratedConnectionViewmap object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Link Decoration</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Link Decoration</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseLinkDecoration(LinkDecoration object) {
 		return null;
 	}
 

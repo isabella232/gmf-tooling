@@ -12,11 +12,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -25,11 +22,9 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
-
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
@@ -67,9 +62,6 @@ public class GenNodeItemProvider
 			super.getPropertyDescriptors(object);
 
 			addDomainMetaClassPropertyDescriptor(object);
-			addViewmapURIPropertyDescriptor(object);
-			addNodeVisualizationKindPropertyDescriptor(object);
-			addViewmapClassPropertyDescriptor(object);
 			addAffixedStereotypesPropertyDescriptor(object);
 			addBackgroundColorPropertyDescriptor(object);
 			addChildContainersPlacementPropertyDescriptor(object);
@@ -93,66 +85,6 @@ public class GenNodeItemProvider
 				 GMFGenPackage.eINSTANCE.getGenNode_DomainMetaClass(),
 				 true,
 				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Viewmap URI feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addViewmapURIPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenNode_viewmapURI_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenNode_viewmapURI_feature", "_UI_GenNode_type"),
-				 GMFGenPackage.eINSTANCE.getGenNode_ViewmapURI(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Node Visualization Kind feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNodeVisualizationKindPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenNode_nodeVisualizationKind_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenNode_nodeVisualizationKind_feature", "_UI_GenNode_type"),
-				 GMFGenPackage.eINSTANCE.getGenNode_NodeVisualizationKind(),
-				 true,
-				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Viewmap Class feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addViewmapClassPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenNode_viewmapClass_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenNode_viewmapClass_feature", "_UI_GenNode_type"),
-				 GMFGenPackage.eINSTANCE.getGenNode_ViewmapClass(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -280,9 +212,6 @@ public class GenNodeItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenNode.class)) {
-			case GMFGenPackage.GEN_NODE__VIEWMAP_URI:
-			case GMFGenPackage.GEN_NODE__NODE_VISUALIZATION_KIND:
-			case GMFGenPackage.GEN_NODE__VIEWMAP_CLASS:
 			case GMFGenPackage.GEN_NODE__AFFIXED_STEREOTYPES:
 			case GMFGenPackage.GEN_NODE__BACKGROUND_COLOR:
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:

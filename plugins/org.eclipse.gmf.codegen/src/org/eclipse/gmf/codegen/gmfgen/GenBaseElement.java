@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getForegroundColor <em>Foreground Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getContainmentMetaFeature <em>Containment Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getViewmap <em>Viewmap</em>}</li>
  * </ul>
  * </p>
  *
@@ -96,7 +97,7 @@ public interface GenBaseElement extends GenCommonBase{
 	 * @return the value of the '<em>Containment Meta Feature</em>' reference.
 	 * @see #setContainmentMetaFeature(EReference)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenBaseElement_ContainmentMetaFeature()
-	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='containmentFeature.isContainment'"
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='containmentMetaFeature.isContainment'"
 	 * @generated
 	 */
 	EReference getContainmentMetaFeature();
@@ -113,7 +114,6 @@ public interface GenBaseElement extends GenCommonBase{
 
 	/**
 	 * Returns the value of the '<em><b>Notation View Factory Class Name</b></em>' attribute.
-	 * The default value is <code>""</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Notation View Factory Class Name</em>' attribute isn't clear,
@@ -123,7 +123,7 @@ public interface GenBaseElement extends GenCommonBase{
 	 * @return the value of the '<em>Notation View Factory Class Name</em>' attribute.
 	 * @see #setNotationViewFactoryClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenBaseElement_NotationViewFactoryClassName()
-	 * @model default=""
+	 * @model
 	 * @generated
 	 */
 	String getNotationViewFactoryClassName();
@@ -137,6 +137,32 @@ public interface GenBaseElement extends GenCommonBase{
 	 * @generated
 	 */
 	void setNotationViewFactoryClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Viewmap</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Viewmap</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Viewmap</em>' containment reference.
+	 * @see #setViewmap(Viewmap)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenBaseElement_Viewmap()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	Viewmap getViewmap();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getViewmap <em>Viewmap</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Viewmap</em>' containment reference.
+	 * @see #getViewmap()
+	 * @generated
+	 */
+	void setViewmap(Viewmap value);
 
 	/**
 	 * <!-- begin-user-doc -->

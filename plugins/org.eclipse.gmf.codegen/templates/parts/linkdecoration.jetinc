@@ -1,0 +1,20 @@
+<%
+if (linkDecoration == null) {
+%>
+		return null;
+<%
+} else if (linkDecoration.getFigureQualifiedClassName() != null && linkDecoration.getFigureQualifiedClassName().trim().length() > 0) {
+	String decorationClassName = importManager.getImportedName(linkDecoration.getFigureQualifiedClassName());
+	String mapModeClassName = importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapMode");
+	if (SCALABLE_DECORATIONS.contains(linkDecoration.getFigureQualifiedClassName())) {
+		// XXX use smth like ScaleableAtttributes?
+%>
+		<%=decorationClassName%> decoration = new <%=decorationClassName%>();
+		decoration.setScale(<%=mapModeClassName%>.DPtoLP(7), <%=mapModeClassName%>.DPtoLP(3));
+		return decoration;
+<%	} else {%>
+		return new <%=decorationClassName%>();
+<%	}
+} else {%>
+		return null;
+<%}%>

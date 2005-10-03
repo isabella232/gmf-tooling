@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EFactory;
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage
  * @generated
  */
-public interface GMFGenFactory extends EFactory {
+public interface GMFGenFactory extends EFactory{
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
@@ -78,6 +78,51 @@ public interface GMFGenFactory extends EFactory {
 	 * @generated
 	 */
 	GenLinkReferenceOnly createGenLinkReferenceOnly();
+
+	/**
+	 * Returns a new object of class '<em>Shape Attributes</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Shape Attributes</em>'.
+	 * @generated
+	 */
+	ShapeAttributes createShapeAttributes();
+
+	/**
+	 * Returns a new object of class '<em>Default Size Attributes</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Default Size Attributes</em>'.
+	 * @generated
+	 */
+	DefaultSizeAttributes createDefaultSizeAttributes();
+
+	/**
+	 * Returns a new object of class '<em>Basic Node Viewmap</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Basic Node Viewmap</em>'.
+	 * @generated
+	 */
+	BasicNodeViewmap createBasicNodeViewmap();
+
+	/**
+	 * Returns a new object of class '<em>Decorated Connection Viewmap</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Decorated Connection Viewmap</em>'.
+	 * @generated
+	 */
+	DecoratedConnectionViewmap createDecoratedConnectionViewmap();
+
+	/**
+	 * Returns a new object of class '<em>Link Decoration</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Link Decoration</em>'.
+	 * @generated
+	 */
+	LinkDecoration createLinkDecoration();
 
 	/**
 	 * Returns a new object of class '<em>Palette</em>'.

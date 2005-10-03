@@ -29,6 +29,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 
+import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Gen Node</b></em>'.
@@ -38,9 +40,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getDomainMetaClass <em>Domain Meta Class</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getViewmapURI <em>Viewmap URI</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getNodeVisualizationKind <em>Node Visualization Kind</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getViewmapClass <em>Viewmap Class</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getAffixedStereotypes <em>Affixed Stereotypes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getBackgroundColor <em>Background Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getChildContainers <em>Child Containers</em>}</li>
@@ -61,66 +60,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 	 * @ordered
 	 */
 	protected EClass domainMetaClass = null;
-
-	/**
-	 * The default value of the '{@link #getViewmapURI() <em>Viewmap URI</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getViewmapURI()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String VIEWMAP_URI_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getViewmapURI() <em>Viewmap URI</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getViewmapURI()
-	 * @generated
-	 * @ordered
-	 */
-	protected String viewmapURI = VIEWMAP_URI_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getNodeVisualizationKind() <em>Node Visualization Kind</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getNodeVisualizationKind()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final int NODE_VISUALIZATION_KIND_EDEFAULT = 1;
-
-	/**
-	 * The cached value of the '{@link #getNodeVisualizationKind() <em>Node Visualization Kind</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getNodeVisualizationKind()
-	 * @generated
-	 * @ordered
-	 */
-	protected int nodeVisualizationKind = NODE_VISUALIZATION_KIND_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getViewmapClass() <em>Viewmap Class</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getViewmapClass()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String VIEWMAP_CLASS_EDEFAULT = "org.eclipse.gmf.editor.viewmaps.SVGViewMap";
-
-	/**
-	 * The cached value of the '{@link #getViewmapClass() <em>Viewmap Class</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getViewmapClass()
-	 * @generated
-	 * @ordered
-	 */
-	protected String viewmapClass = VIEWMAP_CLASS_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getAffixedStereotypes() <em>Affixed Stereotypes</em>}' attribute list.
@@ -263,69 +202,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getViewmapURI() {
-		return viewmapURI;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setViewmapURI(String newViewmapURI) {
-		String oldViewmapURI = viewmapURI;
-		viewmapURI = newViewmapURI;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NODE__VIEWMAP_URI, oldViewmapURI, viewmapURI));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public int getNodeVisualizationKind() {
-		return nodeVisualizationKind;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setNodeVisualizationKind(int newNodeVisualizationKind) {
-		int oldNodeVisualizationKind = nodeVisualizationKind;
-		nodeVisualizationKind = newNodeVisualizationKind;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NODE__NODE_VISUALIZATION_KIND, oldNodeVisualizationKind, nodeVisualizationKind));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getViewmapClass() {
-		return viewmapClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setViewmapClass(String newViewmapClass) {
-		String oldViewmapClass = viewmapClass;
-		viewmapClass = newViewmapClass;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NODE__VIEWMAP_CLASS, oldViewmapClass, viewmapClass));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList getAffixedStereotypes() {
 		if (affixedStereotypes == null) {
 			affixedStereotypes = new EDataTypeUniqueEList(String.class, this, GMFGenPackage.GEN_NODE__AFFIXED_STEREOTYPES);
@@ -443,6 +319,8 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case GMFGenPackage.GEN_NODE__VIEWMAP:
+					return basicSetViewmap(null, msgs);
 				case GMFGenPackage.GEN_NODE__DIAGRAM:
 					return eBasicSetContainer(null, GMFGenPackage.GEN_NODE__DIAGRAM, msgs);
 				case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
@@ -499,17 +377,13 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return basicGetContainmentMetaFeature();
 			case GMFGenPackage.GEN_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return getNotationViewFactoryClassName();
+			case GMFGenPackage.GEN_NODE__VIEWMAP:
+				return getViewmap();
 			case GMFGenPackage.GEN_NODE__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
 				if (resolve) return getDomainMetaClass();
 				return basicGetDomainMetaClass();
-			case GMFGenPackage.GEN_NODE__VIEWMAP_URI:
-				return getViewmapURI();
-			case GMFGenPackage.GEN_NODE__NODE_VISUALIZATION_KIND:
-				return new Integer(getNodeVisualizationKind());
-			case GMFGenPackage.GEN_NODE__VIEWMAP_CLASS:
-				return getViewmapClass();
 			case GMFGenPackage.GEN_NODE__AFFIXED_STEREOTYPES:
 				return getAffixedStereotypes();
 			case GMFGenPackage.GEN_NODE__BACKGROUND_COLOR:
@@ -555,17 +429,11 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_NODE__VIEWMAP:
+				setViewmap((Viewmap)newValue);
+				return;
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
 				setDomainMetaClass((EClass)newValue);
-				return;
-			case GMFGenPackage.GEN_NODE__VIEWMAP_URI:
-				setViewmapURI((String)newValue);
-				return;
-			case GMFGenPackage.GEN_NODE__NODE_VISUALIZATION_KIND:
-				setNodeVisualizationKind(((Integer)newValue).intValue());
-				return;
-			case GMFGenPackage.GEN_NODE__VIEWMAP_CLASS:
-				setViewmapClass((String)newValue);
 				return;
 			case GMFGenPackage.GEN_NODE__AFFIXED_STEREOTYPES:
 				getAffixedStereotypes().clear();
@@ -620,17 +488,11 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_NODE__VIEWMAP:
+				setViewmap((Viewmap)null);
+				return;
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
 				setDomainMetaClass((EClass)null);
-				return;
-			case GMFGenPackage.GEN_NODE__VIEWMAP_URI:
-				setViewmapURI(VIEWMAP_URI_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_NODE__NODE_VISUALIZATION_KIND:
-				setNodeVisualizationKind(NODE_VISUALIZATION_KIND_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_NODE__VIEWMAP_CLASS:
-				setViewmapClass(VIEWMAP_CLASS_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_NODE__AFFIXED_STEREOTYPES:
 				getAffixedStereotypes().clear();
@@ -674,16 +536,12 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return containmentMetaFeature != null;
 			case GMFGenPackage.GEN_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
+			case GMFGenPackage.GEN_NODE__VIEWMAP:
+				return viewmap != null;
 			case GMFGenPackage.GEN_NODE__DIAGRAM:
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
 				return domainMetaClass != null;
-			case GMFGenPackage.GEN_NODE__VIEWMAP_URI:
-				return VIEWMAP_URI_EDEFAULT == null ? viewmapURI != null : !VIEWMAP_URI_EDEFAULT.equals(viewmapURI);
-			case GMFGenPackage.GEN_NODE__NODE_VISUALIZATION_KIND:
-				return nodeVisualizationKind != NODE_VISUALIZATION_KIND_EDEFAULT;
-			case GMFGenPackage.GEN_NODE__VIEWMAP_CLASS:
-				return VIEWMAP_CLASS_EDEFAULT == null ? viewmapClass != null : !VIEWMAP_CLASS_EDEFAULT.equals(viewmapClass);
 			case GMFGenPackage.GEN_NODE__AFFIXED_STEREOTYPES:
 				return affixedStereotypes != null && !affixedStereotypes.isEmpty();
 			case GMFGenPackage.GEN_NODE__BACKGROUND_COLOR:
@@ -707,13 +565,7 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (viewmapURI: ");
-		result.append(viewmapURI);
-		result.append(", nodeVisualizationKind: ");
-		result.append(nodeVisualizationKind);
-		result.append(", viewmapClass: ");
-		result.append(viewmapClass);
-		result.append(", affixedStereotypes: ");
+		result.append(" (affixedStereotypes: ");
 		result.append(affixedStereotypes);
 		result.append(", backgroundColor: ");
 		result.append(backgroundColor);

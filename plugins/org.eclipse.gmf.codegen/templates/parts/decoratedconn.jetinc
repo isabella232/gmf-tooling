@@ -1,0 +1,31 @@
+<%
+DecoratedConnectionViewmap viewmap = (DecoratedConnectionViewmap) genLink.getViewmap();
+
+Set SCALABLE_DECORATIONS = new HashSet();
+{
+	SCALABLE_DECORATIONS.add("org.eclipse.draw2d.PolylineDecoration");
+	SCALABLE_DECORATIONS.add("org.eclipse.draw2d.PolygonDecoration");
+	SCALABLE_DECORATIONS.add("org.eclipse.gmf.draw2d.RhombDecoration");
+	SCALABLE_DECORATIONS.add("org.eclipse.gmf.draw2d.FilledRhombDecoration");
+}
+%>
+
+	/**
+	 * @generated
+	 */
+	protected RotatableDecoration createSourceDecoration() {
+<%
+LinkDecoration linkDecoration = viewmap.getSource();
+%>
+<%@ include file="linkdecoration.jetinc" %>
+	}
+
+	/**
+	 * @generated
+	 */
+	protected RotatableDecoration createTargetDecoration() {
+<%
+linkDecoration = viewmap.getTarget();
+%>
+<%@ include file="linkdecoration.jetinc" %>
+	}

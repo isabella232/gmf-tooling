@@ -1,11 +1,12 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="NodeEditPartGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.* java.util.*"%>
 <%
 GenNode genNode = (GenNode) argument;
 GenDiagram genDiagram = genNode.getDiagram();
 %>
 package <%=genDiagram.getEditPartsPackageName()%>;
 
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
@@ -14,7 +15,6 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapMode;
-import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
 <%if (genNode.hasNameToEdit()) {%>
@@ -42,7 +42,15 @@ public class <%=genNode.getEditPartClassName()%> extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected NodeFigure createNodeFigure() {
-		NodeFigure node = new DefaultSizeNodeFigure(MapMode.DPtoLP(40), MapMode.DPtoLP(30)) {
+<%
+String figureClassName;
+if (genNode.getViewmap() instanceof FigureViewmap) {
+	figureClassName = importManager.getImportedName(((FigureViewmap) genNode.getViewmap()).getFigureQualifiedClassName());
+} else {
+	figureClassName = importManager.getImportedName("org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure");
+}
+%> 
+		NodeFigure node = new <%=figureClassName%>() {
 
 			protected void paintFigure(Graphics graphics) {
 				super.paintFigure(graphics);
@@ -50,6 +58,21 @@ public class <%=genNode.getEditPartClassName()%> extends ShapeNodeEditPart {
 				graphics.drawRectangle(getClientArea());
 			}
 		};
+<%for (Iterator it = genNode.getViewmap().getAttributes().iterator(); it.hasNext();) {
+	Attributes next = (Attributes) it.next();
+	if (next instanceof ShapeAttributes) {
+		String figureVarName = "node";
+		ShapeAttributes attrs = (ShapeAttributes) next;
+%>
+<%@ include file="shapeattrs.jetinc" %>
+<%	}
+	if (next instanceof DefaultSizeAttributes) {
+		DefaultSizeAttributes attrs = (DefaultSizeAttributes) next;
+%>
+		node.setDefaultSize(MapMode.DPtoLP(<%=attrs.getWidth()%>), MapMode.DPtoLP(<%=attrs.getHeight()%>));
+<%	}
+}
+%>
 		node.setLayoutManager(new StackLayout());
 		node.add(contentPane = createContentPane());
 		return node;
@@ -84,4 +107,4 @@ public class <%=genNode.getEditPartClassName()%> extends ShapeNodeEditPart {
 		return getChildBySemanticHint(<%=AccessUtil.getSemanticHintsClassName(genNode)%>.<%=AccessUtil.getNameSemanticHint(genNode)%>);
 	}
 <%}%>
-}
+}<%importManager.emitSortedImports();%>

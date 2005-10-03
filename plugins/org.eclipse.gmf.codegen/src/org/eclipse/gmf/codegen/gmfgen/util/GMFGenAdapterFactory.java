@@ -10,6 +10,8 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.codegen.gmfgen.*;
+
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
@@ -108,6 +110,30 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseGenLinkReferenceOnly(GenLinkReferenceOnly object) {
 				return createGenLinkReferenceOnlyAdapter();
+			}
+			public Object caseViewmap(Viewmap object) {
+				return createViewmapAdapter();
+			}
+			public Object caseAttributes(Attributes object) {
+				return createAttributesAdapter();
+			}
+			public Object caseShapeAttributes(ShapeAttributes object) {
+				return createShapeAttributesAdapter();
+			}
+			public Object caseDefaultSizeAttributes(DefaultSizeAttributes object) {
+				return createDefaultSizeAttributesAdapter();
+			}
+			public Object caseFigureViewmap(FigureViewmap object) {
+				return createFigureViewmapAdapter();
+			}
+			public Object caseBasicNodeViewmap(BasicNodeViewmap object) {
+				return createBasicNodeViewmapAdapter();
+			}
+			public Object caseDecoratedConnectionViewmap(DecoratedConnectionViewmap object) {
+				return createDecoratedConnectionViewmapAdapter();
+			}
+			public Object caseLinkDecoration(LinkDecoration object) {
+				return createLinkDecorationAdapter();
 			}
 			public Object casePalette(Palette object) {
 				return createPaletteAdapter();
@@ -268,6 +294,118 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenLinkReferenceOnlyAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.Viewmap <em>Viewmap</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.Viewmap
+	 * @generated
+	 */
+	public Adapter createViewmapAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.Attributes <em>Attributes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.Attributes
+	 * @generated
+	 */
+	public Adapter createAttributesAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.ShapeAttributes <em>Shape Attributes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ShapeAttributes
+	 * @generated
+	 */
+	public Adapter createShapeAttributesAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes <em>Default Size Attributes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes
+	 * @generated
+	 */
+	public Adapter createDefaultSizeAttributesAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.FigureViewmap <em>Figure Viewmap</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.FigureViewmap
+	 * @generated
+	 */
+	public Adapter createFigureViewmapAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap <em>Basic Node Viewmap</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap
+	 * @generated
+	 */
+	public Adapter createBasicNodeViewmapAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap <em>Decorated Connection Viewmap</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap
+	 * @generated
+	 */
+	public Adapter createDecoratedConnectionViewmapAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.LinkDecoration <em>Link Decoration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LinkDecoration
+	 * @generated
+	 */
+	public Adapter createLinkDecorationAdapter() {
 		return null;
 	}
 

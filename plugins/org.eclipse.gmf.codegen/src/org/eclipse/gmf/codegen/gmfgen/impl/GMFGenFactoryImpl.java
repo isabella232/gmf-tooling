@@ -10,6 +10,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.gmf.codegen.gmfgen.*;
+
 import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
@@ -55,6 +57,11 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_CHILD_CONTAINER: return createGenChildContainer();
 			case GMFGenPackage.GEN_LINK_WITH_CLASS: return createGenLinkWithClass();
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY: return createGenLinkReferenceOnly();
+			case GMFGenPackage.SHAPE_ATTRIBUTES: return createShapeAttributes();
+			case GMFGenPackage.DEFAULT_SIZE_ATTRIBUTES: return createDefaultSizeAttributes();
+			case GMFGenPackage.BASIC_NODE_VIEWMAP: return createBasicNodeViewmap();
+			case GMFGenPackage.DECORATED_CONNECTION_VIEWMAP: return createDecoratedConnectionViewmap();
+			case GMFGenPackage.LINK_DECORATION: return createLinkDecoration();
 			case GMFGenPackage.PALETTE: return createPalette();
 			case GMFGenPackage.NODE_ENTRY: return createNodeEntry();
 			case GMFGenPackage.LINK_ENTRY: return createLinkEntry();
@@ -164,6 +171,56 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenLinkReferenceOnly createGenLinkReferenceOnly() {
 		GenLinkReferenceOnlyImpl genLinkReferenceOnly = new GenLinkReferenceOnlyImpl();
 		return genLinkReferenceOnly;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ShapeAttributes createShapeAttributes() {
+		ShapeAttributesImpl shapeAttributes = new ShapeAttributesImpl();
+		return shapeAttributes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DefaultSizeAttributes createDefaultSizeAttributes() {
+		DefaultSizeAttributesImpl defaultSizeAttributes = new DefaultSizeAttributesImpl();
+		return defaultSizeAttributes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BasicNodeViewmap createBasicNodeViewmap() {
+		BasicNodeViewmapImpl basicNodeViewmap = new BasicNodeViewmapImpl();
+		return basicNodeViewmap;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DecoratedConnectionViewmap createDecoratedConnectionViewmap() {
+		DecoratedConnectionViewmapImpl decoratedConnectionViewmap = new DecoratedConnectionViewmapImpl();
+		return decoratedConnectionViewmap;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LinkDecoration createLinkDecoration() {
+		LinkDecorationImpl linkDecoration = new LinkDecorationImpl();
+		return linkDecoration;
 	}
 
 	/**

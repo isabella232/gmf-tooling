@@ -1,0 +1,11 @@
+<%
+String lineStyle = attrs.getLineStyle();
+if (lineStyle != null && lineStyle.trim().length() > 0) {
+%>
+		<%=figureVarName%>.setLineStyle(Graphics.<%=lineStyle%>);
+<%
+}
+if (attrs.isSetLineWidth()) {
+%>
+		<%=figureVarName%>.setLineWidth(attrs.getLineWidth());
+<%}%>

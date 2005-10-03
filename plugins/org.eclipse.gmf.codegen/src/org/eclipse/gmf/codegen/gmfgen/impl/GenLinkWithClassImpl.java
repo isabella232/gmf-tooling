@@ -19,6 +19,8 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
 
+import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Gen Link With Class</b></em>'.
@@ -141,6 +143,8 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case GMFGenPackage.GEN_LINK_WITH_CLASS__VIEWMAP:
+					return basicSetViewmap(null, msgs);
 				case GMFGenPackage.GEN_LINK_WITH_CLASS__DIAGRAM:
 					return eBasicSetContainer(null, GMFGenPackage.GEN_LINK_WITH_CLASS__DIAGRAM, msgs);
 				default:
@@ -193,19 +197,13 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 				return basicGetContainmentMetaFeature();
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return getNotationViewFactoryClassName();
+			case GMFGenPackage.GEN_LINK_WITH_CLASS__VIEWMAP:
+				return getViewmap();
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_LINK_TARGET_FEATURE:
 				if (resolve) return getDomainLinkTargetFeature();
 				return basicGetDomainLinkTargetFeature();
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__LINE_STYLE:
-				return getLineStyle();
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__FIGURE_QUALIFIED_CLASS_NAME:
-				return getFigureQualifiedClassName();
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME:
-				return getSourceDecorationFigureQualifiedClassName();
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME:
-				return getTargetDecorationFigureQualifiedClassName();
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS:
 				if (resolve) return getDomainMetaClass();
 				return basicGetDomainMetaClass();
@@ -244,20 +242,11 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_LINK_WITH_CLASS__VIEWMAP:
+				setViewmap((Viewmap)newValue);
+				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_LINK_TARGET_FEATURE:
 				setDomainLinkTargetFeature((EStructuralFeature)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__LINE_STYLE:
-				setLineStyle((String)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__FIGURE_QUALIFIED_CLASS_NAME:
-				setFigureQualifiedClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME:
-				setSourceDecorationFigureQualifiedClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME:
-				setTargetDecorationFigureQualifiedClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS:
 				setDomainMetaClass((EClass)newValue);
@@ -297,20 +286,11 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_LINK_WITH_CLASS__VIEWMAP:
+				setViewmap((Viewmap)null);
+				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_LINK_TARGET_FEATURE:
 				setDomainLinkTargetFeature((EStructuralFeature)null);
-				return;
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__LINE_STYLE:
-				setLineStyle(LINE_STYLE_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__FIGURE_QUALIFIED_CLASS_NAME:
-				setFigureQualifiedClassName(FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME:
-				setSourceDecorationFigureQualifiedClassName(SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME:
-				setTargetDecorationFigureQualifiedClassName(TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS:
 				setDomainMetaClass((EClass)null);
@@ -342,18 +322,12 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 				return containmentMetaFeature != null;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
+			case GMFGenPackage.GEN_LINK_WITH_CLASS__VIEWMAP:
+				return viewmap != null;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DIAGRAM:
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_LINK_TARGET_FEATURE:
 				return domainLinkTargetFeature != null;
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__LINE_STYLE:
-				return LINE_STYLE_EDEFAULT == null ? lineStyle != null : !LINE_STYLE_EDEFAULT.equals(lineStyle);
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__FIGURE_QUALIFIED_CLASS_NAME:
-				return FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT == null ? figureQualifiedClassName != null : !FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT.equals(figureQualifiedClassName);
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME:
-				return SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT == null ? sourceDecorationFigureQualifiedClassName != null : !SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT.equals(sourceDecorationFigureQualifiedClassName);
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME:
-				return TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT == null ? targetDecorationFigureQualifiedClassName != null : !TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT.equals(targetDecorationFigureQualifiedClassName);
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS:
 				return domainMetaClass != null;
 		}

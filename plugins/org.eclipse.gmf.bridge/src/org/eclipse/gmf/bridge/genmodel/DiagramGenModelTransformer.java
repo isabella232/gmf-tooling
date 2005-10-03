@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
+import org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
@@ -26,9 +27,11 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkReferenceOnly;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.LinkDecoration;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.ShapeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.diadef.AdornmentKind;
@@ -114,6 +117,8 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		}
 		genNode.setEditPartClassName(createEditPartClassName(nme));
 		genNode.setMetaInfoProviderClassName(createMetaInfoProviderClassName(nme));
+		genNode.setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap());
+		// XXX nme.getDiagramNode.isSetDefaultWidth add DefaultSizeAttributes to viewmap
 		handleToolDef(nme.getDiagramNode(), genNode);
 		for (Iterator it = nme.getDiagramNode().getCompartments().iterator(); it.hasNext();) {
 			Compartment compartment = (Compartment) it.next();
@@ -191,21 +196,36 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		gl.setMetaInfoProviderClassName(createMetaInfoProviderClassName(lme));
 		gl.setContainmentMetaFeature(lme.getContainmentFeature());
 		gl.setVisualID(LINK_COUNT_BASE + (++myLinkCount));
+
+		initViewmap(lme, gl);
+
 		LineKind lineKind = lme.getDiagramLink().getLineKind();
 		if (lineKind != null) {
+			ShapeAttributes attrs = GMFGenFactory.eINSTANCE.createShapeAttributes();
 			switch (lineKind.getValue()) {
-			case LineKind.SOLID : gl.setLineStyle("LINE_SOLID"); break;
-			case LineKind.DOT : gl.setLineStyle("LINE_DOT"); break;
-			case LineKind.DASH : gl.setLineStyle("LINE_DASH"); break;
+			case LineKind.SOLID : attrs.setLineStyle("LINE_SOLID"); break;
+			case LineKind.DOT : attrs.setLineStyle("LINE_DOT"); break;
+			case LineKind.DASH : attrs.setLineStyle("LINE_DASH"); break;
 			}
+			gl.getViewmap().getAttributes().add(attrs);
 		}
-		String decorationFigure = figureClassFromAdornment(lme.getDiagramLink().getSourceAdornment());
-		if (decorationFigure != null) {
-			gl.setSourceDecorationFigureQualifiedClassName(decorationFigure);
-		}
-		decorationFigure = figureClassFromAdornment(lme.getDiagramLink().getTargetAdornment());
-		if (decorationFigure != null) {
-			gl.setTargetDecorationFigureQualifiedClassName(decorationFigure);
+	}
+
+	private void initViewmap(LinkMapping lme, GenLink gl) {
+		if (lme.getDiagramLink().getSourceAdornment() != null || lme.getDiagramLink().getTargetAdornment() != null) {
+			DecoratedConnectionViewmap viewmap = GMFGenFactory.eINSTANCE.createDecoratedConnectionViewmap();
+			LinkDecoration d = decorationFromAdornment(lme.getDiagramLink().getSourceAdornment());
+			if (d != null) {
+				viewmap.setSource(d);
+			}
+			d = decorationFromAdornment(lme.getDiagramLink().getTargetAdornment());
+			if (d != null) {
+				viewmap.setTarget(d);
+			}
+			gl.setViewmap(viewmap);
+		} else {
+			// XXX actually, another viewmap should be here
+			gl.setViewmap(GMFGenFactory.eINSTANCE.createDecoratedConnectionViewmap());
 		}
 	}
 
@@ -261,6 +281,16 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 
 	private GenClass findRunTimeClass(CanvasMapping mapping) {
 		return myDRTHelper.get(mapping);
+	}
+
+	private LinkDecoration decorationFromAdornment(AdornmentKind adornment) {
+		String figureClassName = figureClassFromAdornment(adornment);
+		if (figureClassName == null) {
+			return null;
+		}
+		LinkDecoration d = GMFGenFactory.eINSTANCE.createLinkDecoration();
+		d.setFigureQualifiedClassName(figureClassName);
+		return d;
 	}
 
 	private String figureClassFromAdornment(AdornmentKind adornment) {

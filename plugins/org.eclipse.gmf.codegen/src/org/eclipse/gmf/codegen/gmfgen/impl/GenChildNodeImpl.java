@@ -24,6 +24,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 
+import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Gen Child Node</b></em>'.
@@ -192,6 +194,8 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case GMFGenPackage.GEN_CHILD_NODE__VIEWMAP:
+					return basicSetViewmap(null, msgs);
 				case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM:
 					return eBasicSetContainer(null, GMFGenPackage.GEN_CHILD_NODE__DIAGRAM, msgs);
 				case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS:
@@ -252,17 +256,13 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return basicGetContainmentMetaFeature();
 			case GMFGenPackage.GEN_CHILD_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return getNotationViewFactoryClassName();
+			case GMFGenPackage.GEN_CHILD_NODE__VIEWMAP:
+				return getViewmap();
 			case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_META_CLASS:
 				if (resolve) return getDomainMetaClass();
 				return basicGetDomainMetaClass();
-			case GMFGenPackage.GEN_CHILD_NODE__VIEWMAP_URI:
-				return getViewmapURI();
-			case GMFGenPackage.GEN_CHILD_NODE__NODE_VISUALIZATION_KIND:
-				return new Integer(getNodeVisualizationKind());
-			case GMFGenPackage.GEN_CHILD_NODE__VIEWMAP_CLASS:
-				return getViewmapClass();
 			case GMFGenPackage.GEN_CHILD_NODE__AFFIXED_STEREOTYPES:
 				return getAffixedStereotypes();
 			case GMFGenPackage.GEN_CHILD_NODE__BACKGROUND_COLOR:
@@ -315,17 +315,11 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 			case GMFGenPackage.GEN_CHILD_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_CHILD_NODE__VIEWMAP:
+				setViewmap((Viewmap)newValue);
+				return;
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_META_CLASS:
 				setDomainMetaClass((EClass)newValue);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__VIEWMAP_URI:
-				setViewmapURI((String)newValue);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__NODE_VISUALIZATION_KIND:
-				setNodeVisualizationKind(((Integer)newValue).intValue());
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__VIEWMAP_CLASS:
-				setViewmapClass((String)newValue);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__AFFIXED_STEREOTYPES:
 				getAffixedStereotypes().clear();
@@ -386,17 +380,11 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 			case GMFGenPackage.GEN_CHILD_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_CHILD_NODE__VIEWMAP:
+				setViewmap((Viewmap)null);
+				return;
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_META_CLASS:
 				setDomainMetaClass((EClass)null);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__VIEWMAP_URI:
-				setViewmapURI(VIEWMAP_URI_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__NODE_VISUALIZATION_KIND:
-				setNodeVisualizationKind(NODE_VISUALIZATION_KIND_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__VIEWMAP_CLASS:
-				setViewmapClass(VIEWMAP_CLASS_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__AFFIXED_STEREOTYPES:
 				getAffixedStereotypes().clear();
@@ -446,16 +434,12 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return containmentMetaFeature != null;
 			case GMFGenPackage.GEN_CHILD_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
+			case GMFGenPackage.GEN_CHILD_NODE__VIEWMAP:
+				return viewmap != null;
 			case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM:
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_META_CLASS:
 				return domainMetaClass != null;
-			case GMFGenPackage.GEN_CHILD_NODE__VIEWMAP_URI:
-				return VIEWMAP_URI_EDEFAULT == null ? viewmapURI != null : !VIEWMAP_URI_EDEFAULT.equals(viewmapURI);
-			case GMFGenPackage.GEN_CHILD_NODE__NODE_VISUALIZATION_KIND:
-				return nodeVisualizationKind != NODE_VISUALIZATION_KIND_EDEFAULT;
-			case GMFGenPackage.GEN_CHILD_NODE__VIEWMAP_CLASS:
-				return VIEWMAP_CLASS_EDEFAULT == null ? viewmapClass != null : !VIEWMAP_CLASS_EDEFAULT.equals(viewmapClass);
 			case GMFGenPackage.GEN_CHILD_NODE__AFFIXED_STEREOTYPES:
 				return affixedStereotypes != null && !affixedStereotypes.isEmpty();
 			case GMFGenPackage.GEN_CHILD_NODE__BACKGROUND_COLOR:

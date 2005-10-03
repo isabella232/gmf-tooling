@@ -12,7 +12,6 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
-
 import org.eclipse.emf.edit.provider.ChangeNotifier;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
@@ -24,7 +23,6 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.INotifyChangedListener;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-
 import org.eclipse.gmf.codegen.gmfgen.util.GMFGenAdapterFactory;
 
 /**
@@ -205,6 +203,116 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		}
 
 		return genLinkReferenceOnlyItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ShapeAttributes} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ShapeAttributesItemProvider shapeAttributesItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ShapeAttributes}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createShapeAttributesAdapter() {
+		if (shapeAttributesItemProvider == null) {
+			shapeAttributesItemProvider = new ShapeAttributesItemProvider(this);
+		}
+
+		return shapeAttributesItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DefaultSizeAttributesItemProvider defaultSizeAttributesItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createDefaultSizeAttributesAdapter() {
+		if (defaultSizeAttributesItemProvider == null) {
+			defaultSizeAttributesItemProvider = new DefaultSizeAttributesItemProvider(this);
+		}
+
+		return defaultSizeAttributesItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected BasicNodeViewmapItemProvider basicNodeViewmapItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createBasicNodeViewmapAdapter() {
+		if (basicNodeViewmapItemProvider == null) {
+			basicNodeViewmapItemProvider = new BasicNodeViewmapItemProvider(this);
+		}
+
+		return basicNodeViewmapItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DecoratedConnectionViewmapItemProvider decoratedConnectionViewmapItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createDecoratedConnectionViewmapAdapter() {
+		if (decoratedConnectionViewmapItemProvider == null) {
+			decoratedConnectionViewmapItemProvider = new DecoratedConnectionViewmapItemProvider(this);
+		}
+
+		return decoratedConnectionViewmapItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.LinkDecoration} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LinkDecorationItemProvider linkDecorationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.LinkDecoration}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createLinkDecorationAdapter() {
+		if (linkDecorationItemProvider == null) {
+			linkDecorationItemProvider = new LinkDecorationItemProvider(this);
+		}
+
+		return linkDecorationItemProvider;
 	}
 
 	/**
@@ -397,6 +505,11 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genChildContainerItemProvider != null) genChildContainerItemProvider.dispose();
 		if (genLinkWithClassItemProvider != null) genLinkWithClassItemProvider.dispose();
 		if (genLinkReferenceOnlyItemProvider != null) genLinkReferenceOnlyItemProvider.dispose();
+		if (shapeAttributesItemProvider != null) shapeAttributesItemProvider.dispose();
+		if (defaultSizeAttributesItemProvider != null) defaultSizeAttributesItemProvider.dispose();
+		if (basicNodeViewmapItemProvider != null) basicNodeViewmapItemProvider.dispose();
+		if (decoratedConnectionViewmapItemProvider != null) decoratedConnectionViewmapItemProvider.dispose();
+		if (linkDecorationItemProvider != null) linkDecorationItemProvider.dispose();
 		if (paletteItemProvider != null) paletteItemProvider.dispose();
 		if (nodeEntryItemProvider != null) nodeEntryItemProvider.dispose();
 		if (linkEntryItemProvider != null) linkEntryItemProvider.dispose();

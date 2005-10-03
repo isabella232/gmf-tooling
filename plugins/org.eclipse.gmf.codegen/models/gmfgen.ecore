@@ -101,11 +101,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="containmentMetaFeature"
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EReference">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="containmentFeature.isContainment"/>
+        <details key="ocl" value="containmentMetaFeature.isContainment"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="notationViewFactoryClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral=""/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="viewmap" lowerBound="1"
+        eType="#//Viewmap" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenNode" eSuperTypes="#//GenBaseElement">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
@@ -127,15 +129,6 @@
         eType="#//GenDiagram" changeable="false" eOpposite="#//GenDiagram/nodes"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainMetaClass" lowerBound="1"
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewmapURI" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="e.g. platform:/proj1/images/file.svg#fig1"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nodeVisualizationKind"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="1"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewmapClass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        defaultValueLiteral="org.eclipse.gmf.editor.viewmaps.SVGViewMap"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="affixedStereotypes" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="backgroundColor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -187,33 +180,13 @@
     <eLiterals name="XY" value="4"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenLink" abstract="true" eSuperTypes="#//GenBaseElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="super.viewmap shall be {@link org.eclipse.draw2d.Connection} or subclass thereof"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
         eType="#//GenDiagram" changeable="false" eOpposite="#//GenDiagram/links"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainLinkTargetFeature"
         lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStructuralFeature"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineStyle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="One of LINE_* constants defined in {@link org.eclipse.draw2d.Graphics}"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="figureQualifiedClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="org.eclipse.draw2d.PolylineConnection">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Shall be {@link org.eclipse.draw2d.PolylineConnection} or subclass thereof to use decorations"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceDecorationFigureQualifiedClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Implementation of {@link org.eclipse.draw2d.RotatableDecoration}"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetDecorationFigureQualifiedClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Implementation of {@link org.eclipse.draw2d.RotatableDecoration}"/>
-      </eAnnotations>
-    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenLinkWithClass" eSuperTypes="#//GenLink">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -239,6 +212,65 @@
     <eOperations name="initialize">
       <eParameters name="eFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStructuralFeature"/>
     </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Viewmap" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
+        eType="#//Attributes" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Attributes" interface="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Captures aspects of variuos draw2d classes"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ShapeAttributes" eSuperTypes="#//Attributes">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Mirrors attributes of {@link org.eclipse.draw2d.Shape} class"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        unsettable="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineStyle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="LINE_SOLID">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="One of LINE_* constants defined in {@link org.eclipse.draw2d.Graphics}"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DefaultSizeAttributes" eSuperTypes="#//Attributes">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="40"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="30"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FigureViewmap" interface="true">
+    <eOperations name="getFigureQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Name of Figure class"/>
+      </eAnnotations>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BasicNodeViewmap" eSuperTypes="#//Viewmap #//FigureViewmap">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="figureQualifiedClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DecoratedConnectionViewmap" eSuperTypes="#//Viewmap #//FigureViewmap">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="figureQualifiedClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Shall be instance of {@link org.eclipse.draw2d.PolylineConnection}"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//LinkDecoration"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//LinkDecoration"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LinkDecoration">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="figureQualifiedClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Implementation of {@link org.eclipse.draw2d.RotatableDecoration}"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Palette">
     <eOperations name="getFactoryQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

@@ -19,6 +19,8 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 
+import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Gen Link</b></em>'.
@@ -28,10 +30,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getDomainLinkTargetFeature <em>Domain Link Target Feature</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getLineStyle <em>Line Style</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getFigureQualifiedClassName <em>Figure Qualified Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getSourceDecorationFigureQualifiedClassName <em>Source Decoration Figure Qualified Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getTargetDecorationFigureQualifiedClassName <em>Target Decoration Figure Qualified Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -47,86 +45,6 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 	 * @ordered
 	 */
 	protected EStructuralFeature domainLinkTargetFeature = null;
-
-	/**
-	 * The default value of the '{@link #getLineStyle() <em>Line Style</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLineStyle()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String LINE_STYLE_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getLineStyle() <em>Line Style</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLineStyle()
-	 * @generated
-	 * @ordered
-	 */
-	protected String lineStyle = LINE_STYLE_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getFigureQualifiedClassName() <em>Figure Qualified Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFigureQualifiedClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT = "org.eclipse.draw2d.PolylineConnection";
-
-	/**
-	 * The cached value of the '{@link #getFigureQualifiedClassName() <em>Figure Qualified Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFigureQualifiedClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String figureQualifiedClassName = FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getSourceDecorationFigureQualifiedClassName() <em>Source Decoration Figure Qualified Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSourceDecorationFigureQualifiedClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getSourceDecorationFigureQualifiedClassName() <em>Source Decoration Figure Qualified Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSourceDecorationFigureQualifiedClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String sourceDecorationFigureQualifiedClassName = SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getTargetDecorationFigureQualifiedClassName() <em>Target Decoration Figure Qualified Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTargetDecorationFigureQualifiedClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getTargetDecorationFigureQualifiedClassName() <em>Target Decoration Figure Qualified Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTargetDecorationFigureQualifiedClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String targetDecorationFigureQualifiedClassName = TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -199,90 +117,6 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getLineStyle() {
-		return lineStyle;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setLineStyle(String newLineStyle) {
-		String oldLineStyle = lineStyle;
-		lineStyle = newLineStyle;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__LINE_STYLE, oldLineStyle, lineStyle));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getFigureQualifiedClassName() {
-		return figureQualifiedClassName;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setFigureQualifiedClassName(String newFigureQualifiedClassName) {
-		String oldFigureQualifiedClassName = figureQualifiedClassName;
-		figureQualifiedClassName = newFigureQualifiedClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__FIGURE_QUALIFIED_CLASS_NAME, oldFigureQualifiedClassName, figureQualifiedClassName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getSourceDecorationFigureQualifiedClassName() {
-		return sourceDecorationFigureQualifiedClassName;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSourceDecorationFigureQualifiedClassName(String newSourceDecorationFigureQualifiedClassName) {
-		String oldSourceDecorationFigureQualifiedClassName = sourceDecorationFigureQualifiedClassName;
-		sourceDecorationFigureQualifiedClassName = newSourceDecorationFigureQualifiedClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME, oldSourceDecorationFigureQualifiedClassName, sourceDecorationFigureQualifiedClassName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getTargetDecorationFigureQualifiedClassName() {
-		return targetDecorationFigureQualifiedClassName;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTargetDecorationFigureQualifiedClassName(String newTargetDecorationFigureQualifiedClassName) {
-		String oldTargetDecorationFigureQualifiedClassName = targetDecorationFigureQualifiedClassName;
-		targetDecorationFigureQualifiedClassName = newTargetDecorationFigureQualifiedClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME, oldTargetDecorationFigureQualifiedClassName, targetDecorationFigureQualifiedClassName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
@@ -307,6 +141,8 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case GMFGenPackage.GEN_LINK__VIEWMAP:
+					return basicSetViewmap(null, msgs);
 				case GMFGenPackage.GEN_LINK__DIAGRAM:
 					return eBasicSetContainer(null, GMFGenPackage.GEN_LINK__DIAGRAM, msgs);
 				default:
@@ -359,19 +195,13 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				return basicGetContainmentMetaFeature();
 			case GMFGenPackage.GEN_LINK__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return getNotationViewFactoryClassName();
+			case GMFGenPackage.GEN_LINK__VIEWMAP:
+				return getViewmap();
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
 				if (resolve) return getDomainLinkTargetFeature();
 				return basicGetDomainLinkTargetFeature();
-			case GMFGenPackage.GEN_LINK__LINE_STYLE:
-				return getLineStyle();
-			case GMFGenPackage.GEN_LINK__FIGURE_QUALIFIED_CLASS_NAME:
-				return getFigureQualifiedClassName();
-			case GMFGenPackage.GEN_LINK__SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME:
-				return getSourceDecorationFigureQualifiedClassName();
-			case GMFGenPackage.GEN_LINK__TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME:
-				return getTargetDecorationFigureQualifiedClassName();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -407,20 +237,11 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 			case GMFGenPackage.GEN_LINK__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_LINK__VIEWMAP:
+				setViewmap((Viewmap)newValue);
+				return;
 			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
 				setDomainLinkTargetFeature((EStructuralFeature)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK__LINE_STYLE:
-				setLineStyle((String)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK__FIGURE_QUALIFIED_CLASS_NAME:
-				setFigureQualifiedClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK__SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME:
-				setSourceDecorationFigureQualifiedClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK__TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME:
-				setTargetDecorationFigureQualifiedClassName((String)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -457,20 +278,11 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 			case GMFGenPackage.GEN_LINK__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_LINK__VIEWMAP:
+				setViewmap((Viewmap)null);
+				return;
 			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
 				setDomainLinkTargetFeature((EStructuralFeature)null);
-				return;
-			case GMFGenPackage.GEN_LINK__LINE_STYLE:
-				setLineStyle(LINE_STYLE_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_LINK__FIGURE_QUALIFIED_CLASS_NAME:
-				setFigureQualifiedClassName(FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_LINK__SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME:
-				setSourceDecorationFigureQualifiedClassName(SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_LINK__TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME:
-				setTargetDecorationFigureQualifiedClassName(TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -499,41 +311,14 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				return containmentMetaFeature != null;
 			case GMFGenPackage.GEN_LINK__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
+			case GMFGenPackage.GEN_LINK__VIEWMAP:
+				return viewmap != null;
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
 				return domainLinkTargetFeature != null;
-			case GMFGenPackage.GEN_LINK__LINE_STYLE:
-				return LINE_STYLE_EDEFAULT == null ? lineStyle != null : !LINE_STYLE_EDEFAULT.equals(lineStyle);
-			case GMFGenPackage.GEN_LINK__FIGURE_QUALIFIED_CLASS_NAME:
-				return FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT == null ? figureQualifiedClassName != null : !FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT.equals(figureQualifiedClassName);
-			case GMFGenPackage.GEN_LINK__SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME:
-				return SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT == null ? sourceDecorationFigureQualifiedClassName != null : !SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT.equals(sourceDecorationFigureQualifiedClassName);
-			case GMFGenPackage.GEN_LINK__TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME:
-				return TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT == null ? targetDecorationFigureQualifiedClassName != null : !TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT.equals(targetDecorationFigureQualifiedClassName);
 		}
 		return eDynamicIsSet(eFeature);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (lineStyle: ");
-		result.append(lineStyle);
-		result.append(", figureQualifiedClassName: ");
-		result.append(figureQualifiedClassName);
-		result.append(", sourceDecorationFigureQualifiedClassName: ");
-		result.append(sourceDecorationFigureQualifiedClassName);
-		result.append(", targetDecorationFigureQualifiedClassName: ");
-		result.append(targetDecorationFigureQualifiedClassName);
-		result.append(')');
-		return result.toString();
 	}
 
 } //GenLinkImpl

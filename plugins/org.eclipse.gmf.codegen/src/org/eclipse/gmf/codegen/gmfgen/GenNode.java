@@ -23,9 +23,6 @@ import org.eclipse.emf.ecore.EClass;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getDomainMetaClass <em>Domain Meta Class</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getViewmapURI <em>Viewmap URI</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getNodeVisualizationKind <em>Node Visualization Kind</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getViewmapClass <em>Viewmap Class</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getAffixedStereotypes <em>Affixed Stereotypes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getBackgroundColor <em>Background Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getChildContainers <em>Child Containers</em>}</li>
@@ -39,7 +36,7 @@ import org.eclipse.emf.ecore.EClass;
  *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='diagramRunTimeClass.eCoreClass.eAllSuperTypes->includes(diagramrt.DiagramNode)'"
  * @generated
  */
-public interface GenNode extends GenBaseElement {
+public interface GenNode extends GenBaseElement{
 	/**
 	 * Returns the value of the '<em><b>Diagram</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getNodes <em>Nodes</em>}'.
@@ -82,85 +79,6 @@ public interface GenNode extends GenBaseElement {
 	 * @generated
 	 */
 	void setDomainMetaClass(EClass value);
-
-	/**
-	 * Returns the value of the '<em><b>Viewmap URI</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * e.g. platform:/proj1/images/file.svg#fig1
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Viewmap URI</em>' attribute.
-	 * @see #setViewmapURI(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_ViewmapURI()
-	 * @model
-	 * @generated
-	 */
-	String getViewmapURI();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getViewmapURI <em>Viewmap URI</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Viewmap URI</em>' attribute.
-	 * @see #getViewmapURI()
-	 * @generated
-	 */
-	void setViewmapURI(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Node Visualization Kind</b></em>' attribute.
-	 * The default value is <code>"1"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Node Visualization Kind</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Node Visualization Kind</em>' attribute.
-	 * @see #setNodeVisualizationKind(int)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_NodeVisualizationKind()
-	 * @model default="1"
-	 * @generated
-	 */
-	int getNodeVisualizationKind();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getNodeVisualizationKind <em>Node Visualization Kind</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Node Visualization Kind</em>' attribute.
-	 * @see #getNodeVisualizationKind()
-	 * @generated
-	 */
-	void setNodeVisualizationKind(int value);
-
-	/**
-	 * Returns the value of the '<em><b>Viewmap Class</b></em>' attribute.
-	 * The default value is <code>"org.eclipse.gmf.editor.viewmaps.SVGViewMap"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Viewmap Class</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Viewmap Class</em>' attribute.
-	 * @see #setViewmapClass(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_ViewmapClass()
-	 * @model default="org.eclipse.gmf.editor.viewmaps.SVGViewMap"
-	 * @generated
-	 */
-	String getViewmapClass();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getViewmapClass <em>Viewmap Class</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Viewmap Class</em>' attribute.
-	 * @see #getViewmapClass()
-	 * @generated
-	 */
-	void setViewmapClass(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Affixed Stereotypes</b></em>' attribute list.

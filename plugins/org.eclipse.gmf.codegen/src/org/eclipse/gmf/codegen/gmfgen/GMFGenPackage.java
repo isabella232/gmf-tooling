@@ -452,13 +452,22 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Viewmap</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_BASE_ELEMENT__VIEWMAP = GEN_COMMON_BASE_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the the '<em>Gen Base Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_BASE_ELEMENT_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 4;
+	int GEN_BASE_ELEMENT_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl <em>Gen Node</em>}' class.
@@ -543,6 +552,15 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME = GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Viewmap</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NODE__VIEWMAP = GEN_BASE_ELEMENT__VIEWMAP;
+
+	/**
 	 * The feature id for the '<em><b>Diagram</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -561,40 +579,13 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_NODE__DOMAIN_META_CLASS = GEN_BASE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Viewmap URI</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NODE__VIEWMAP_URI = GEN_BASE_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Node Visualization Kind</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NODE__NODE_VISUALIZATION_KIND = GEN_BASE_ELEMENT_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Viewmap Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NODE__VIEWMAP_CLASS = GEN_BASE_ELEMENT_FEATURE_COUNT + 4;
-
-	/**
 	 * The feature id for the '<em><b>Affixed Stereotypes</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE__AFFIXED_STEREOTYPES = GEN_BASE_ELEMENT_FEATURE_COUNT + 5;
+	int GEN_NODE__AFFIXED_STEREOTYPES = GEN_BASE_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Background Color</b></em>' attribute.
@@ -603,7 +594,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE__BACKGROUND_COLOR = GEN_BASE_ELEMENT_FEATURE_COUNT + 6;
+	int GEN_NODE__BACKGROUND_COLOR = GEN_BASE_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Child Containers</b></em>' containment reference list.
@@ -612,7 +603,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE__CHILD_CONTAINERS = GEN_BASE_ELEMENT_FEATURE_COUNT + 7;
+	int GEN_NODE__CHILD_CONTAINERS = GEN_BASE_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Child Nodes</b></em>' containment reference list.
@@ -621,7 +612,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE__CHILD_NODES = GEN_BASE_ELEMENT_FEATURE_COUNT + 8;
+	int GEN_NODE__CHILD_NODES = GEN_BASE_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Child Containers Placement</b></em>' attribute.
@@ -630,7 +621,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE__CHILD_CONTAINERS_PLACEMENT = GEN_BASE_ELEMENT_FEATURE_COUNT + 9;
+	int GEN_NODE__CHILD_CONTAINERS_PLACEMENT = GEN_BASE_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of structural features of the the '<em>Gen Node</em>' class.
@@ -639,7 +630,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE_FEATURE_COUNT = GEN_BASE_ELEMENT_FEATURE_COUNT + 10;
+	int GEN_NODE_FEATURE_COUNT = GEN_BASE_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildNodeImpl <em>Gen Child Node</em>}' class.
@@ -724,6 +715,15 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_CHILD_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME = GEN_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Viewmap</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_NODE__VIEWMAP = GEN_NODE__VIEWMAP;
+
+	/**
 	 * The feature id for the '<em><b>Diagram</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -740,33 +740,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @ordered
 	 */
 	int GEN_CHILD_NODE__DOMAIN_META_CLASS = GEN_NODE__DOMAIN_META_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Viewmap URI</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_NODE__VIEWMAP_URI = GEN_NODE__VIEWMAP_URI;
-
-	/**
-	 * The feature id for the '<em><b>Node Visualization Kind</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_NODE__NODE_VISUALIZATION_KIND = GEN_NODE__NODE_VISUALIZATION_KIND;
-
-	/**
-	 * The feature id for the '<em><b>Viewmap Class</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_NODE__VIEWMAP_CLASS = GEN_NODE__VIEWMAP_CLASS;
 
 	/**
 	 * The feature id for the '<em><b>Affixed Stereotypes</b></em>' attribute list.
@@ -1005,6 +978,15 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_LINK__NOTATION_VIEW_FACTORY_CLASS_NAME = GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Viewmap</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK__VIEWMAP = GEN_BASE_ELEMENT__VIEWMAP;
+
+	/**
 	 * The feature id for the '<em><b>Diagram</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1023,49 +1005,13 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_LINK__DOMAIN_LINK_TARGET_FEATURE = GEN_BASE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Line Style</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK__LINE_STYLE = GEN_BASE_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The feature id for the '<em><b>Figure Qualified Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK__FIGURE_QUALIFIED_CLASS_NAME = GEN_BASE_ELEMENT_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Source Decoration Figure Qualified Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK__SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME = GEN_BASE_ELEMENT_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Target Decoration Figure Qualified Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK__TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME = GEN_BASE_ELEMENT_FEATURE_COUNT + 5;
-
-	/**
 	 * The number of structural features of the the '<em>Gen Link</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LINK_FEATURE_COUNT = GEN_BASE_ELEMENT_FEATURE_COUNT + 6;
+	int GEN_LINK_FEATURE_COUNT = GEN_BASE_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkWithClassImpl <em>Gen Link With Class</em>}' class.
@@ -1150,6 +1096,15 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME = GEN_LINK__NOTATION_VIEW_FACTORY_CLASS_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Viewmap</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK_WITH_CLASS__VIEWMAP = GEN_LINK__VIEWMAP;
+
+	/**
 	 * The feature id for the '<em><b>Diagram</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1166,42 +1121,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @ordered
 	 */
 	int GEN_LINK_WITH_CLASS__DOMAIN_LINK_TARGET_FEATURE = GEN_LINK__DOMAIN_LINK_TARGET_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Line Style</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK_WITH_CLASS__LINE_STYLE = GEN_LINK__LINE_STYLE;
-
-	/**
-	 * The feature id for the '<em><b>Figure Qualified Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK_WITH_CLASS__FIGURE_QUALIFIED_CLASS_NAME = GEN_LINK__FIGURE_QUALIFIED_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Source Decoration Figure Qualified Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK_WITH_CLASS__SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME = GEN_LINK__SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Target Decoration Figure Qualified Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK_WITH_CLASS__TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME = GEN_LINK__TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Domain Meta Class</b></em>' reference.
@@ -1304,6 +1223,15 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_LINK_REFERENCE_ONLY__NOTATION_VIEW_FACTORY_CLASS_NAME = GEN_LINK__NOTATION_VIEW_FACTORY_CLASS_NAME;
 
 	/**
+	 * The feature id for the '<em><b>Viewmap</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK_REFERENCE_ONLY__VIEWMAP = GEN_LINK__VIEWMAP;
+
+	/**
 	 * The feature id for the '<em><b>Diagram</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1322,42 +1250,6 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_LINK_REFERENCE_ONLY__DOMAIN_LINK_TARGET_FEATURE = GEN_LINK__DOMAIN_LINK_TARGET_FEATURE;
 
 	/**
-	 * The feature id for the '<em><b>Line Style</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK_REFERENCE_ONLY__LINE_STYLE = GEN_LINK__LINE_STYLE;
-
-	/**
-	 * The feature id for the '<em><b>Figure Qualified Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK_REFERENCE_ONLY__FIGURE_QUALIFIED_CLASS_NAME = GEN_LINK__FIGURE_QUALIFIED_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Source Decoration Figure Qualified Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK_REFERENCE_ONLY__SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME = GEN_LINK__SOURCE_DECORATION_FIGURE_QUALIFIED_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Target Decoration Figure Qualified Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK_REFERENCE_ONLY__TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME = GEN_LINK__TARGET_DECORATION_FIGURE_QUALIFIED_CLASS_NAME;
-
-	/**
 	 * The number of structural features of the the '<em>Gen Link Reference Only</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1367,6 +1259,266 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_LINK_REFERENCE_ONLY_FEATURE_COUNT = GEN_LINK_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.ViewmapImpl <em>Viewmap</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.ViewmapImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getViewmap()
+	 * @generated
+	 */
+	int VIEWMAP = 9;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIEWMAP__ATTRIBUTES = 0;
+
+	/**
+	 * The number of structural features of the the '<em>Viewmap</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIEWMAP_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.Attributes <em>Attributes</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.Attributes
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getAttributes()
+	 * @generated
+	 */
+	int ATTRIBUTES = 10;
+
+	/**
+	 * The number of structural features of the the '<em>Attributes</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ATTRIBUTES_FEATURE_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.ShapeAttributesImpl <em>Shape Attributes</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.ShapeAttributesImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getShapeAttributes()
+	 * @generated
+	 */
+	int SHAPE_ATTRIBUTES = 11;
+
+	/**
+	 * The feature id for the '<em><b>Line Width</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE_ATTRIBUTES__LINE_WIDTH = ATTRIBUTES_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Line Style</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE_ATTRIBUTES__LINE_STYLE = ATTRIBUTES_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the the '<em>Shape Attributes</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE_ATTRIBUTES_FEATURE_COUNT = ATTRIBUTES_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.DefaultSizeAttributesImpl <em>Default Size Attributes</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.DefaultSizeAttributesImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getDefaultSizeAttributes()
+	 * @generated
+	 */
+	int DEFAULT_SIZE_ATTRIBUTES = 12;
+
+	/**
+	 * The feature id for the '<em><b>Width</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEFAULT_SIZE_ATTRIBUTES__WIDTH = ATTRIBUTES_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Height</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEFAULT_SIZE_ATTRIBUTES__HEIGHT = ATTRIBUTES_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the the '<em>Default Size Attributes</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DEFAULT_SIZE_ATTRIBUTES_FEATURE_COUNT = ATTRIBUTES_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.FigureViewmap <em>Figure Viewmap</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.FigureViewmap
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getFigureViewmap()
+	 * @generated
+	 */
+	int FIGURE_VIEWMAP = 13;
+
+	/**
+	 * The number of structural features of the the '<em>Figure Viewmap</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE_VIEWMAP_FEATURE_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.BasicNodeViewmapImpl <em>Basic Node Viewmap</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.BasicNodeViewmapImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getBasicNodeViewmap()
+	 * @generated
+	 */
+	int BASIC_NODE_VIEWMAP = 14;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BASIC_NODE_VIEWMAP__ATTRIBUTES = VIEWMAP__ATTRIBUTES;
+
+	/**
+	 * The feature id for the '<em><b>Figure Qualified Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BASIC_NODE_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME = VIEWMAP_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the the '<em>Basic Node Viewmap</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BASIC_NODE_VIEWMAP_FEATURE_COUNT = VIEWMAP_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.DecoratedConnectionViewmapImpl <em>Decorated Connection Viewmap</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.DecoratedConnectionViewmapImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getDecoratedConnectionViewmap()
+	 * @generated
+	 */
+	int DECORATED_CONNECTION_VIEWMAP = 15;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECORATED_CONNECTION_VIEWMAP__ATTRIBUTES = VIEWMAP__ATTRIBUTES;
+
+	/**
+	 * The feature id for the '<em><b>Figure Qualified Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECORATED_CONNECTION_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME = VIEWMAP_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECORATED_CONNECTION_VIEWMAP__SOURCE = VIEWMAP_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECORATED_CONNECTION_VIEWMAP__TARGET = VIEWMAP_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the the '<em>Decorated Connection Viewmap</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECORATED_CONNECTION_VIEWMAP_FEATURE_COUNT = VIEWMAP_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.LinkDecorationImpl <em>Link Decoration</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.LinkDecorationImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkDecoration()
+	 * @generated
+	 */
+	int LINK_DECORATION = 16;
+
+	/**
+	 * The feature id for the '<em><b>Figure Qualified Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_DECORATION__FIGURE_QUALIFIED_CLASS_NAME = 0;
+
+	/**
+	 * The number of structural features of the the '<em>Link Decoration</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_DECORATION_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.PaletteImpl <em>Palette</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1374,7 +1526,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getPalette()
 	 * @generated
 	 */
-	int PALETTE = 9;
+	int PALETTE = 17;
 
 	/**
 	 * The feature id for the '<em><b>Diagram</b></em>' container reference.
@@ -1447,7 +1599,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getEntryBase()
 	 * @generated
 	 */
-	int ENTRY_BASE = 10;
+	int ENTRY_BASE = 18;
 
 	/**
 	 * The feature id for the '<em><b>Order</b></em>' attribute.
@@ -1511,7 +1663,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getToolEntry()
 	 * @generated
 	 */
-	int TOOL_ENTRY = 11;
+	int TOOL_ENTRY = 19;
 
 	/**
 	 * The feature id for the '<em><b>Order</b></em>' attribute.
@@ -1584,7 +1736,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getNodeEntry()
 	 * @generated
 	 */
-	int NODE_ENTRY = 12;
+	int NODE_ENTRY = 20;
 
 	/**
 	 * The feature id for the '<em><b>Order</b></em>' attribute.
@@ -1675,7 +1827,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkEntry()
 	 * @generated
 	 */
-	int LINK_ENTRY = 13;
+	int LINK_ENTRY = 21;
 
 	/**
 	 * The feature id for the '<em><b>Order</b></em>' attribute.
@@ -1766,7 +1918,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getToolGroup()
 	 * @generated
 	 */
-	int TOOL_GROUP = 14;
+	int TOOL_GROUP = 22;
 
 	/**
 	 * The feature id for the '<em><b>Order</b></em>' attribute.
@@ -1857,7 +2009,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getCompartmentPlacementKind()
 	 * @generated
 	 */
-	int COMPARTMENT_PLACEMENT_KIND = 15;
+	int COMPARTMENT_PLACEMENT_KIND = 23;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind <em>Compartment Layout Kind</em>}' enum.
@@ -1867,7 +2019,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getCompartmentLayoutKind()
 	 * @generated
 	 */
-	int COMPARTMENT_LAYOUT_KIND = 16;
+	int COMPARTMENT_LAYOUT_KIND = 24;
 
 	/**
 	 * The meta object id for the '<em>String Array</em>' data type.
@@ -1876,7 +2028,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getStringArray()
 	 * @generated
 	 */
-	int STRING_ARRAY = 17;
+	int STRING_ARRAY = 25;
 
 
 	/**
@@ -2240,6 +2392,17 @@ public interface GMFGenPackage extends EPackage{
 	EAttribute getGenBaseElement_NotationViewFactoryClassName();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getViewmap <em>Viewmap</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Viewmap</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getViewmap()
+	 * @see #getGenBaseElement()
+	 * @generated
+	 */
+	EReference getGenBaseElement_Viewmap();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenNode <em>Gen Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2270,39 +2433,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getGenNode_DomainMetaClass();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getViewmapURI <em>Viewmap URI</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Viewmap URI</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenNode#getViewmapURI()
-	 * @see #getGenNode()
-	 * @generated
-	 */
-	EAttribute getGenNode_ViewmapURI();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getNodeVisualizationKind <em>Node Visualization Kind</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Node Visualization Kind</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenNode#getNodeVisualizationKind()
-	 * @see #getGenNode()
-	 * @generated
-	 */
-	EAttribute getGenNode_NodeVisualizationKind();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getViewmapClass <em>Viewmap Class</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Viewmap Class</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenNode#getViewmapClass()
-	 * @see #getGenNode()
-	 * @generated
-	 */
-	EAttribute getGenNode_ViewmapClass();
 
 	/**
 	 * Returns the meta object for the attribute list '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getAffixedStereotypes <em>Affixed Stereotypes</em>}'.
@@ -2511,50 +2641,6 @@ public interface GMFGenPackage extends EPackage{
 	EReference getGenLink_DomainLinkTargetFeature();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getLineStyle <em>Line Style</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Line Style</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenLink#getLineStyle()
-	 * @see #getGenLink()
-	 * @generated
-	 */
-	EAttribute getGenLink_LineStyle();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getFigureQualifiedClassName <em>Figure Qualified Class Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Figure Qualified Class Name</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenLink#getFigureQualifiedClassName()
-	 * @see #getGenLink()
-	 * @generated
-	 */
-	EAttribute getGenLink_FigureQualifiedClassName();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getSourceDecorationFigureQualifiedClassName <em>Source Decoration Figure Qualified Class Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Source Decoration Figure Qualified Class Name</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenLink#getSourceDecorationFigureQualifiedClassName()
-	 * @see #getGenLink()
-	 * @generated
-	 */
-	EAttribute getGenLink_SourceDecorationFigureQualifiedClassName();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getTargetDecorationFigureQualifiedClassName <em>Target Decoration Figure Qualified Class Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Target Decoration Figure Qualified Class Name</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenLink#getTargetDecorationFigureQualifiedClassName()
-	 * @see #getGenLink()
-	 * @generated
-	 */
-	EAttribute getGenLink_TargetDecorationFigureQualifiedClassName();
-
-	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass <em>Gen Link With Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2584,6 +2670,196 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 */
 	EClass getGenLinkReferenceOnly();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.Viewmap <em>Viewmap</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Viewmap</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.Viewmap
+	 * @generated
+	 */
+	EClass getViewmap();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.Viewmap#getAttributes <em>Attributes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Attributes</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.Viewmap#getAttributes()
+	 * @see #getViewmap()
+	 * @generated
+	 */
+	EReference getViewmap_Attributes();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.Attributes <em>Attributes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Attributes</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.Attributes
+	 * @generated
+	 */
+	EClass getAttributes();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.ShapeAttributes <em>Shape Attributes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Shape Attributes</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ShapeAttributes
+	 * @generated
+	 */
+	EClass getShapeAttributes();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.ShapeAttributes#getLineWidth <em>Line Width</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Line Width</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ShapeAttributes#getLineWidth()
+	 * @see #getShapeAttributes()
+	 * @generated
+	 */
+	EAttribute getShapeAttributes_LineWidth();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.ShapeAttributes#getLineStyle <em>Line Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Line Style</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ShapeAttributes#getLineStyle()
+	 * @see #getShapeAttributes()
+	 * @generated
+	 */
+	EAttribute getShapeAttributes_LineStyle();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes <em>Default Size Attributes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Default Size Attributes</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes
+	 * @generated
+	 */
+	EClass getDefaultSizeAttributes();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes#getWidth <em>Width</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Width</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes#getWidth()
+	 * @see #getDefaultSizeAttributes()
+	 * @generated
+	 */
+	EAttribute getDefaultSizeAttributes_Width();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes#getHeight <em>Height</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Height</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes#getHeight()
+	 * @see #getDefaultSizeAttributes()
+	 * @generated
+	 */
+	EAttribute getDefaultSizeAttributes_Height();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.FigureViewmap <em>Figure Viewmap</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Figure Viewmap</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.FigureViewmap
+	 * @generated
+	 */
+	EClass getFigureViewmap();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap <em>Basic Node Viewmap</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Basic Node Viewmap</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap
+	 * @generated
+	 */
+	EClass getBasicNodeViewmap();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap#getFigureQualifiedClassName <em>Figure Qualified Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Figure Qualified Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap#getFigureQualifiedClassName()
+	 * @see #getBasicNodeViewmap()
+	 * @generated
+	 */
+	EAttribute getBasicNodeViewmap_FigureQualifiedClassName();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap <em>Decorated Connection Viewmap</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Decorated Connection Viewmap</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap
+	 * @generated
+	 */
+	EClass getDecoratedConnectionViewmap();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap#getFigureQualifiedClassName <em>Figure Qualified Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Figure Qualified Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap#getFigureQualifiedClassName()
+	 * @see #getDecoratedConnectionViewmap()
+	 * @generated
+	 */
+	EAttribute getDecoratedConnectionViewmap_FigureQualifiedClassName();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Source</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap#getSource()
+	 * @see #getDecoratedConnectionViewmap()
+	 * @generated
+	 */
+	EReference getDecoratedConnectionViewmap_Source();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap#getTarget <em>Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Target</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap#getTarget()
+	 * @see #getDecoratedConnectionViewmap()
+	 * @generated
+	 */
+	EReference getDecoratedConnectionViewmap_Target();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.LinkDecoration <em>Link Decoration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Link Decoration</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LinkDecoration
+	 * @generated
+	 */
+	EClass getLinkDecoration();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.LinkDecoration#getFigureQualifiedClassName <em>Figure Qualified Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Figure Qualified Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LinkDecoration#getFigureQualifiedClassName()
+	 * @see #getLinkDecoration()
+	 * @generated
+	 */
+	EAttribute getLinkDecoration_FigureQualifiedClassName();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.Palette <em>Palette</em>}'.

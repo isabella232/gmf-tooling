@@ -11,8 +11,6 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
-import org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapMode;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
 
@@ -32,7 +30,18 @@ public class <%=genLink.getEditPartClassName()%> extends ConnectionNodeEditPart 
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
-		PolylineConnectionEx connection = new PolylineConnectionEx();
+<%
+if (false == genLink.getViewmap() instanceof FigureViewmap) {
+%>
+		return null;
+<%
+}
+String connClassName = importManager.getImportedName(((FigureViewmap) genLink.getViewmap()).getFigureQualifiedClassName());
+%>
+		<%=connClassName%> connection = new <%=connClassName%>();
+<%
+if (genLink.getViewmap() instanceof DecoratedConnectionViewmap) {
+%>
 		RotatableDecoration sourceDecoration = createSourceDecoration();
 		if (sourceDecoration != null) {
 			connection.setSourceDecoration(sourceDecoration);
@@ -42,63 +51,23 @@ public class <%=genLink.getEditPartClassName()%> extends ConnectionNodeEditPart 
 			connection.setTargetDecoration(targetDecoration);
 		}
 <%
-String lineStyle = genLink.getLineStyle();
-if (lineStyle != null && lineStyle.trim().length() > 0) {
+}
+for (Iterator it = genLink.getViewmap().getAttributes().iterator(); it.hasNext(); ) {
+	Attributes next = (Attributes) it.next();
+	if (next instanceof ShapeAttributes) {
+		String figureVarName = "connection";
+		ShapeAttributes attrs = (ShapeAttributes) next;
 %>
-		connection.setLineStyle(Graphics.<%=lineStyle%>);
-<%}%>
+<%@ include file="shapeattrs.jetinc" %>
+<%
+	}
+	// put additional Attributes support here 
+} // for
+%>
 		return connection;
 	}
-<%
-Set SCALABLE_DECORATIONS = new HashSet();
-{
-	SCALABLE_DECORATIONS.add("org.eclipse.draw2d.PolylineDecoration");
-	SCALABLE_DECORATIONS.add("org.eclipse.draw2d.PolygonDecoration");
-	SCALABLE_DECORATIONS.add("org.eclipse.gmf.draw2d.RhombDecoration");
-	SCALABLE_DECORATIONS.add("org.eclipse.gmf.draw2d.FilledRhombDecoration");
-}
-%>
 
-	/**
-	 * @generated
-	 */
-	protected RotatableDecoration createSourceDecoration() {
-<%
-String sourceDecorationClassQualifiedName = genLink.getSourceDecorationFigureQualifiedClassName();
-if (sourceDecorationClassQualifiedName != null && sourceDecorationClassQualifiedName.trim().length() > 0) {
-	String sourceDecorationClassName = importManager.getImportedName(sourceDecorationClassQualifiedName);
-	if (SCALABLE_DECORATIONS.contains(sourceDecorationClassQualifiedName)) {
-%>
-		<%=sourceDecorationClassName%> decoration = new <%=sourceDecorationClassName%>();
-		decoration.setScale(MapMode.DPtoLP(7), MapMode.DPtoLP(3));
-		return decoration;
-<%	} else {%>
-		return new <%=sourceDecorationClassName%>();
-<%	}
-} else {%>
-		return null;
+<%if (genLink.getViewmap() instanceof DecoratedConnectionViewmap) {%>
+<%@include file="decoratedconn.jetinc"%>
 <%}%>
-	}
-
-	/**
-	 * @generated
-	 */
-	protected RotatableDecoration createTargetDecoration() {
-<%
-String targetDecorationClassQualifiedName = genLink.getTargetDecorationFigureQualifiedClassName();
-if (targetDecorationClassQualifiedName != null && targetDecorationClassQualifiedName.trim().length() > 0) {
-	String targetDecorationClassName = importManager.getImportedName(targetDecorationClassQualifiedName);
-	if (SCALABLE_DECORATIONS.contains(targetDecorationClassQualifiedName)) {
-%>
-		<%=targetDecorationClassName%> decoration = new <%=targetDecorationClassName%>();
-		decoration.setScale(MapMode.DPtoLP(7), MapMode.DPtoLP(3));
-		return decoration;
-<%	} else {%>
-		return new <%=targetDecorationClassName%>();
-<%	}
-} else {%>
-		return null;
-<%}%>
-	}
-}
-<%importManager.emitSortedImports();%>
+}<%importManager.emitSortedImports();%>
