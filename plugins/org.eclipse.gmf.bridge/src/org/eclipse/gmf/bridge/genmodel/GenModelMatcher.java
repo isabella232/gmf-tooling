@@ -27,7 +27,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 
 /**
  * @author artem
- *
  */
 public class GenModelMatcher {
 	private final GenModel myEMFGenModel;
@@ -48,11 +47,23 @@ public class GenModelMatcher {
 		return myEMFGenModel;
 	}
 
+	/**
+	 * @param domainPackage
+	 * @return <code>null</code> in case <code>domainPackage</code> is <code>null</code> or no matching package found.
+	 */
 	public GenPackage findGenPackage(EPackage domainPackage) {
-		return getGenModel().findGenPackage(domainPackage);
+		return domainPackage == null ? null : getGenModel().findGenPackage(domainPackage);
 	}
 
+	/**
+	 * @param domainMetaClass
+	 * @return respective <code>GenClass</code>, or <code>null</code> if <code>domainMetaClass</code> is <code>null</code>.
+	 * @throws IllegalStateException if no matching <code>GenClass</code> found.
+	 */
 	public GenClass findGenClass(EClass domainMetaClass) {
+		if (domainMetaClass == null) {
+			return null;
+		}
 		GenPackage gp = findGenPackage(domainMetaClass.getEPackage());
 		for (Iterator it = gp.getGenClasses().iterator(); it.hasNext();) {
 			GenClass genClass = (GenClass) it.next();
@@ -63,7 +74,16 @@ public class GenModelMatcher {
 		throw new IllegalStateException("Can't find genClass for class '" + domainMetaClass.getName() + "' in package " + gp.getPackageName());
 	}
 
+	/**
+	 * 
+	 * @param domainMetaFeature
+	 * @return respective <code>GenFeature</code>, or <code>null</code> if <code>domainMetaFeature</code> is <code>null</code>.
+	 * @throws IllegalStateException if no matching <code>GenFeature</code> found.
+	 */
 	public GenFeature findGenFeature(EStructuralFeature domainMetaFeature) {
+		if (domainMetaFeature == null) {
+			return null;
+		}
 		GenClass genClass = findGenClass(domainMetaFeature.getEContainingClass());
 		for (Iterator it = genClass.getGenFeatures().iterator(); it.hasNext();) {
 			GenFeature next = (GenFeature) it.next();
@@ -75,6 +95,9 @@ public class GenModelMatcher {
 	}
 
 	public static GenModel findGenModel(EPackage model) {
+		if (model == null) {
+			return null;
+		}
 		URI genModelURI = (URI) EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(model.getNsURI());
 		if (genModelURI == null) {
 			URI domainModelURI = model.eResource().getURI(); 
