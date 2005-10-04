@@ -261,8 +261,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_META_CLASS:
 				if (resolve) return getDomainMetaClass();
 				return basicGetDomainMetaClass();
-			case GMFGenPackage.GEN_CHILD_NODE__AFFIXED_STEREOTYPES:
-				return getAffixedStereotypes();
 			case GMFGenPackage.GEN_CHILD_NODE__BACKGROUND_COLOR:
 				return getBackgroundColor();
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS:
@@ -318,10 +316,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_META_CLASS:
 				setDomainMetaClass((GenClass)newValue);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__AFFIXED_STEREOTYPES:
-				getAffixedStereotypes().clear();
-				getAffixedStereotypes().addAll((Collection)newValue);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__BACKGROUND_COLOR:
 				setBackgroundColor((String)newValue);
@@ -384,9 +378,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_META_CLASS:
 				setDomainMetaClass((GenClass)null);
 				return;
-			case GMFGenPackage.GEN_CHILD_NODE__AFFIXED_STEREOTYPES:
-				getAffixedStereotypes().clear();
-				return;
 			case GMFGenPackage.GEN_CHILD_NODE__BACKGROUND_COLOR:
 				setBackgroundColor(BACKGROUND_COLOR_EDEFAULT);
 				return;
@@ -438,8 +429,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_META_CLASS:
 				return domainMetaClass != null;
-			case GMFGenPackage.GEN_CHILD_NODE__AFFIXED_STEREOTYPES:
-				return affixedStereotypes != null && !affixedStereotypes.isEmpty();
 			case GMFGenPackage.GEN_CHILD_NODE__BACKGROUND_COLOR:
 				return BACKGROUND_COLOR_EDEFAULT == null ? backgroundColor != null : !BACKGROUND_COLOR_EDEFAULT.equals(backgroundColor);
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS:

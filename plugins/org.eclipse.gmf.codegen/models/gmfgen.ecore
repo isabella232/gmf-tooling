@@ -129,8 +129,6 @@
         eType="#//GenDiagram" changeable="false" eOpposite="#//GenDiagram/nodes"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainMetaClass" lowerBound="1"
         eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="affixedStereotypes" upperBound="-1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="backgroundColor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="childContainers" upperBound="-1"
         eType="#//GenChildContainer" containment="true"/>

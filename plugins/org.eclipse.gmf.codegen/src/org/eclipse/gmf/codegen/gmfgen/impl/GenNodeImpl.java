@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -38,7 +37,6 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getDomainMetaClass <em>Domain Meta Class</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getAffixedStereotypes <em>Affixed Stereotypes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getBackgroundColor <em>Background Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getChildContainers <em>Child Containers</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getChildNodes <em>Child Nodes</em>}</li>
@@ -58,16 +56,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 	 * @ordered
 	 */
 	protected GenClass domainMetaClass = null;
-
-	/**
-	 * The cached value of the '{@link #getAffixedStereotypes() <em>Affixed Stereotypes</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAffixedStereotypes()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList affixedStereotypes = null;
 
 	/**
 	 * The default value of the '{@link #getBackgroundColor() <em>Background Color</em>}' attribute.
@@ -193,18 +181,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 		domainMetaClass = newDomainMetaClass;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS, oldDomainMetaClass, domainMetaClass));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList getAffixedStereotypes() {
-		if (affixedStereotypes == null) {
-			affixedStereotypes = new EDataTypeUniqueEList(String.class, this, GMFGenPackage.GEN_NODE__AFFIXED_STEREOTYPES);
-		}
-		return affixedStereotypes;
 	}
 
 	/**
@@ -373,8 +349,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
 				if (resolve) return getDomainMetaClass();
 				return basicGetDomainMetaClass();
-			case GMFGenPackage.GEN_NODE__AFFIXED_STEREOTYPES:
-				return getAffixedStereotypes();
 			case GMFGenPackage.GEN_NODE__BACKGROUND_COLOR:
 				return getBackgroundColor();
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
@@ -423,10 +397,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return;
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
 				setDomainMetaClass((GenClass)newValue);
-				return;
-			case GMFGenPackage.GEN_NODE__AFFIXED_STEREOTYPES:
-				getAffixedStereotypes().clear();
-				getAffixedStereotypes().addAll((Collection)newValue);
 				return;
 			case GMFGenPackage.GEN_NODE__BACKGROUND_COLOR:
 				setBackgroundColor((String)newValue);
@@ -483,9 +453,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
 				setDomainMetaClass((GenClass)null);
 				return;
-			case GMFGenPackage.GEN_NODE__AFFIXED_STEREOTYPES:
-				getAffixedStereotypes().clear();
-				return;
 			case GMFGenPackage.GEN_NODE__BACKGROUND_COLOR:
 				setBackgroundColor(BACKGROUND_COLOR_EDEFAULT);
 				return;
@@ -531,8 +498,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
 				return domainMetaClass != null;
-			case GMFGenPackage.GEN_NODE__AFFIXED_STEREOTYPES:
-				return affixedStereotypes != null && !affixedStereotypes.isEmpty();
 			case GMFGenPackage.GEN_NODE__BACKGROUND_COLOR:
 				return BACKGROUND_COLOR_EDEFAULT == null ? backgroundColor != null : !BACKGROUND_COLOR_EDEFAULT.equals(backgroundColor);
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
@@ -554,9 +519,7 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (affixedStereotypes: ");
-		result.append(affixedStereotypes);
-		result.append(", backgroundColor: ");
+		result.append(" (backgroundColor: ");
 		result.append(backgroundColor);
 		result.append(", childContainersPlacement: ");
 		result.append(childContainersPlacement);

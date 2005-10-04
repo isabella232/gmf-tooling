@@ -570,22 +570,13 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_NODE__DOMAIN_META_CLASS = GEN_BASE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Affixed Stereotypes</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NODE__AFFIXED_STEREOTYPES = GEN_BASE_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>Background Color</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE__BACKGROUND_COLOR = GEN_BASE_ELEMENT_FEATURE_COUNT + 3;
+	int GEN_NODE__BACKGROUND_COLOR = GEN_BASE_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Child Containers</b></em>' containment reference list.
@@ -594,7 +585,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE__CHILD_CONTAINERS = GEN_BASE_ELEMENT_FEATURE_COUNT + 4;
+	int GEN_NODE__CHILD_CONTAINERS = GEN_BASE_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Child Nodes</b></em>' containment reference list.
@@ -603,7 +594,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE__CHILD_NODES = GEN_BASE_ELEMENT_FEATURE_COUNT + 5;
+	int GEN_NODE__CHILD_NODES = GEN_BASE_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Child Containers Placement</b></em>' attribute.
@@ -612,7 +603,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE__CHILD_CONTAINERS_PLACEMENT = GEN_BASE_ELEMENT_FEATURE_COUNT + 6;
+	int GEN_NODE__CHILD_CONTAINERS_PLACEMENT = GEN_BASE_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the the '<em>Gen Node</em>' class.
@@ -621,7 +612,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE_FEATURE_COUNT = GEN_BASE_ELEMENT_FEATURE_COUNT + 7;
+	int GEN_NODE_FEATURE_COUNT = GEN_BASE_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildNodeImpl <em>Gen Child Node</em>}' class.
@@ -731,15 +722,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @ordered
 	 */
 	int GEN_CHILD_NODE__DOMAIN_META_CLASS = GEN_NODE__DOMAIN_META_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Affixed Stereotypes</b></em>' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_NODE__AFFIXED_STEREOTYPES = GEN_NODE__AFFIXED_STEREOTYPES;
 
 	/**
 	 * The feature id for the '<em><b>Background Color</b></em>' attribute.
@@ -2413,17 +2395,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getGenNode_DomainMetaClass();
-
-	/**
-	 * Returns the meta object for the attribute list '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getAffixedStereotypes <em>Affixed Stereotypes</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Affixed Stereotypes</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenNode#getAffixedStereotypes()
-	 * @see #getGenNode()
-	 * @generated
-	 */
-	EAttribute getGenNode_AffixedStereotypes();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getBackgroundColor <em>Background Color</em>}'.

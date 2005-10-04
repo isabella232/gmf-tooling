@@ -62,7 +62,6 @@ public class GenNodeItemProvider
 			super.getPropertyDescriptors(object);
 
 			addDomainMetaClassPropertyDescriptor(object);
-			addAffixedStereotypesPropertyDescriptor(object);
 			addBackgroundColorPropertyDescriptor(object);
 			addChildContainersPlacementPropertyDescriptor(object);
 		}
@@ -85,26 +84,6 @@ public class GenNodeItemProvider
 				 GMFGenPackage.eINSTANCE.getGenNode_DomainMetaClass(),
 				 true,
 				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Affixed Stereotypes feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addAffixedStereotypesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenNode_affixedStereotypes_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenNode_affixedStereotypes_feature", "_UI_GenNode_type"),
-				 GMFGenPackage.eINSTANCE.getGenNode_AffixedStereotypes(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -212,7 +191,6 @@ public class GenNodeItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenNode.class)) {
-			case GMFGenPackage.GEN_NODE__AFFIXED_STEREOTYPES:
 			case GMFGenPackage.GEN_NODE__BACKGROUND_COLOR:
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

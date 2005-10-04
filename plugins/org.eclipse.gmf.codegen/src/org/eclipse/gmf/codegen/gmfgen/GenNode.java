@@ -23,7 +23,6 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getDomainMetaClass <em>Domain Meta Class</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getAffixedStereotypes <em>Affixed Stereotypes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getBackgroundColor <em>Background Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getChildContainers <em>Child Containers</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getChildNodes <em>Child Nodes</em>}</li>
@@ -79,22 +78,6 @@ public interface GenNode extends GenBaseElement{
 	 * @generated
 	 */
 	void setDomainMetaClass(GenClass value);
-
-	/**
-	 * Returns the value of the '<em><b>Affixed Stereotypes</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.String}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Affixed Stereotypes</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Affixed Stereotypes</em>' attribute list.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_AffixedStereotypes()
-	 * @model type="java.lang.String"
-	 * @generated
-	 */
-	EList getAffixedStereotypes();
 
 	/**
 	 * Returns the value of the '<em><b>Background Color</b></em>' attribute.

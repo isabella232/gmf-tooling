@@ -79,7 +79,6 @@
     <genClasses ecoreClass="gmfgen.ecore#//GenNode">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/diagram"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/domainMetaClass"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNode/affixedStereotypes"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNode/backgroundColor"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/childContainers"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/childNodes"/>
