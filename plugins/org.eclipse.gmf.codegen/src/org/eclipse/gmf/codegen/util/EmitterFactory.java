@@ -103,28 +103,6 @@ public class EmitterFactory {
 		return initializeEmitter("/templates/edit/ViewFactory.javajet", ViewFactoryGenerator.class);
 	}
 
-	/*
-	public static JETEmitter getNodeMetaInfoProviderEmitter() throws JETException {
-		return initializeEmitter("/templates/edit/NodeMetaInfoProvider.javajet", NodeMetaInfoProviderGenerator.class);
-	}
-
-	public static JETEmitter getLinkMetaInfoProviderEmitter() throws JETException {
-		return initializeEmitter("/templates/edit/LinkMetaInfoProvider.javajet", LinkMetaInfoProviderGenerator.class);
-	}
-
-	public static JETEmitter getCanvasMetaInfoProviderEmitter() throws JETException {
-		return initializeEmitter("/templates/edit/CanvasMetaInfoProvider.javajet", CanvasMetaInfoProviderGenerator.class);
-	}
-
-	public static JETEmitter getMetaInfoProviderAF1Emitter() throws JETException {
-		return initializeEmitter("/templates/edit/MetaInfoProviderAdapterFactory1.javajet", MetaInfoProviderAdapterFactory1Generator.class);
-	}
-
-	public static JETEmitter getMetaInfoProviderAF2Emitter() throws JETException {
-		return initializeEmitter("/templates/edit/MetaInfoProviderAdapterFactory2.javajet", MetaInfoProviderAdapterFactory2Generator.class);
-	}
-	*/
-
 	// providers
 
 	public static JETEmitter getElementTypesEmitter() throws JETException {
