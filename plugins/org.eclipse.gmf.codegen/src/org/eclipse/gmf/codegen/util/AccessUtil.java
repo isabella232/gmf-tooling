@@ -13,6 +13,7 @@ package org.eclipse.gmf.codegen.util;
 
 import java.util.Iterator;
 
+import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -29,6 +30,15 @@ public class AccessUtil {
 	private AccessUtil() {}
 
 	// naming patterns
+
+	public static String getPaletteEntryId(EntryBase entry) {
+		String id = entry.getTitleKey();
+		return id.replace(' ', '_');
+	}
+
+	public static String getNodeLabelEditPartClassName(GenNode genNode) {
+		return "Label" + genNode.getEditPartClassName(); //$NON-NLS-1$
+	}
 
 	public static String getNameSemanticHint(GenBaseElement genElement) {
 		return genElement.getDomainNameFeature().getName();

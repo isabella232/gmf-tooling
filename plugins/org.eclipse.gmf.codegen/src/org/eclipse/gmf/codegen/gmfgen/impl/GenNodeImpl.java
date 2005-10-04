@@ -249,10 +249,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT, oldChildContainersPlacement, childContainersPlacement));
 	}
 
-	protected String getDefaultNotationViewFactoryClassName() {
-		return getDomainMetaClass().getName() + "ViewFactory"; //$NON-NLS-1$
-	}
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

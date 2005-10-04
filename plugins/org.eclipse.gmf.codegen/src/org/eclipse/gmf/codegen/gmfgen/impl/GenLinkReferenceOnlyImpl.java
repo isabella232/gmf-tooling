@@ -45,13 +45,6 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 		return GMFGenPackage.eINSTANCE.getGenLinkReferenceOnly();
 	}
 
-	protected String getDefaultNotationViewFactoryClassName() {
-		EStructuralFeature cnt = getContainmentMetaFeature().getEcoreFeature();
-		String className = cnt.getEContainingClass().getName();
-		String featureName = cnt.getName();
-		return className + '_' + featureName + "ViewFactory"; //$NON-NLS-1$
-	}
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

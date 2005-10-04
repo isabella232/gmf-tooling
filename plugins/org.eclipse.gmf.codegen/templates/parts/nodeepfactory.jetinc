@@ -1,3 +1,0 @@
-		if (visualID == <%=importManager.getImportedName(genNode.getEditPartQualifiedClassName())%>.VISUAL_ID) {
-			return new <%=importManager.getImportedName(genNode.getEditPartQualifiedClassName())%>(diagramElement);
-		}

@@ -30,6 +30,9 @@ String semanticPackageInterfaceName = importManager.getImportedName(genPackage.g
 String semanticChildNodeInterfaceName = genChildNode.getDomainMetaClass().getName();
 %>
 
+	/**
+	 * @generated
+	 */
 	public IParser getParser() {
 		if (parser == null) {
 			parser = new StructuralFeatureParser(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticChildNodeInterfaceName%>().getEStructuralFeature("<%=genChildNode.getDomainNameFeature().getName()%>"));

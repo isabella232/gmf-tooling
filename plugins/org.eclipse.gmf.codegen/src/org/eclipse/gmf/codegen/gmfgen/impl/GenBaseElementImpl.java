@@ -233,12 +233,10 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 	public String getNotationViewFactoryClassName() {
 		String name = getNotationViewFactoryClassNameGen();
 		if (name == null || name.trim().length() == 0) {
-			name = getDefaultNotationViewFactoryClassName();
+			name = getClassNamePrefix() + "ViewFactory"; //$NON-NLS-1$
 		}
 		return name;
 	}
-
-	protected abstract String getDefaultNotationViewFactoryClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

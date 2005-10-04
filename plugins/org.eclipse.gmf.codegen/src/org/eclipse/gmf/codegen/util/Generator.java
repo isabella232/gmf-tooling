@@ -90,6 +90,9 @@ public class Generator implements Runnable {
 			for (Iterator it = myDiagram.getNodes().iterator(); it.hasNext();) {
 				final GenNode next = (GenNode) it.next();
 				generateNodeEditPart(next);
+				if (next.hasNameToEdit()) {
+					generateNodeLabelEditPart(next);
+				}
 				generateSemanticHints(next);
 				generateViewFactory(next);
 				//generateNodeMetaInfoProvider(next);
@@ -162,6 +165,15 @@ public class Generator implements Runnable {
 			EmitterFactory.getNodeEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			genNode.getEditPartClassName(),
+			genNode
+		);
+	}
+
+	private void generateNodeLabelEditPart(GenNode genNode) throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getNodeLabelEditPartEmitter(),
+			myDiagram.getEditPartsPackageName(),
+			AccessUtil.getNodeLabelEditPartClassName(genNode),
 			genNode
 		);
 	}

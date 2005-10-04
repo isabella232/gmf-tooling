@@ -76,13 +76,14 @@ public class DiagramEditorUtil extends IDEEditorUtil {
 	 */
 	public static final IFile createNewDiagramFile(EditorFileCreator diagramFileCreator,
 		IPath containerFullPath, String fileName, InputStream initialContents,
-		final String kind, Shell shell, final IProgressMonitor progressMonitor) {
+		String kind, Shell shell, IProgressMonitor progressMonitor) {
 
+		final IProgressMonitor progressMonitorParam = progressMonitor;
 		final IFile newDiagramFile = diagramFileCreator.createNewFile(containerFullPath,
 			fileName, initialContents, shell, new IRunnableContext() {
 
 			public void run(boolean fork, boolean cancelable, IRunnableWithProgress runnable) throws InvocationTargetException, InterruptedException {
-				runnable.run(progressMonitor);
+				runnable.run(progressMonitorParam);
 			}
 		});
 
@@ -103,6 +104,7 @@ public class DiagramEditorUtil extends IDEEditorUtil {
 
 		if (notationModel != null) {
 			final Resource notationModelParam = notationModel;
+			final String kindParam = kind;
 			OperationUtil.runAsUnchecked(new MRunnable() {
 
 				public Object run() {
@@ -112,7 +114,7 @@ String domainPackageInterfaceName = importManager.getImportedName(genPackage.get
 %>
 					EObject model = EObjectUtil.create(<%=domainPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getName()%>());
 					IAdaptable adapter = new EObjectAdapter(model);
-					Diagram diagram = DiagramUtil.createDiagram(model, kind,
+					Diagram diagram = DiagramUtil.createDiagram(model, kindParam,
 						new PreferencesHint(<%=genDiagram.getPluginClassName()%>.EDITOR_ID));
 					if (diagram != null) {
 						notationModelParam.getContents().add(diagram);

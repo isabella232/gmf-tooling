@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="EditPartFactoryGenerator" 
-	imports="java.util.List org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.util.*"%>
+	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.util.*"%>
 <%GenDiagram genDiagram = (GenDiagram) argument;%>
 package <%=genDiagram.getEditPartsPackageName()%>;
 
@@ -8,14 +8,11 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
-import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
-import <%=genDiagram.getEditProvidersPackageName()%>.StructuralFeatureParser;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -51,17 +48,7 @@ for (int i = 0; i < genNodes.size(); i++) {
 			String semanticHint = semanticHintsClassName + '.' + AccessUtil.getNameSemanticHint(genNode);
 %>
 				if (<%=semanticHint%>.equals(view.getType())) {
-					return new TextCompartmentEditPart(view) {
-
-						public IParser getParser() {
-							if (parser == null) {
-								if (<%=semanticHint%>.equals(((View) getModel()).getType())) {
-									parser = new StructuralFeatureParser(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>().getEStructuralFeature("<%=genNode.getDomainNameFeature().getName()%>"));
-								}
-							}
-							return parser;
-						}
-					};
+					return new <%=AccessUtil.getNodeLabelEditPartClassName(genNode)%>(view);
 				}
 <%
 		}

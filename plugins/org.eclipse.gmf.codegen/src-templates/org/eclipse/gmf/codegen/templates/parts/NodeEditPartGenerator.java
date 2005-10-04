@@ -62,6 +62,7 @@ GenDiagram genDiagram = genNode.getDiagram();
     stringBuffer.append(AccessUtil.getSemanticHintsClassName(genNode));
     stringBuffer.append(TEXT_6);
     }
+    importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_7);
     stringBuffer.append(genNode.getEditPartClassName());
     stringBuffer.append(TEXT_8);

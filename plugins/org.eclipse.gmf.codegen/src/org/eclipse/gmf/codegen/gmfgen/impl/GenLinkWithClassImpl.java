@@ -99,10 +99,6 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS, oldDomainMetaClass, domainMetaClass));
 	}
 
-	protected String getDefaultNotationViewFactoryClassName() {
-		return getDomainMetaClass().getName() + "ViewFactory"; //$NON-NLS-1$
-	}
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
