@@ -29,7 +29,7 @@
 		<schedule interval="1200">
 			<!-- Perform checkout of all plug-ins and features, as builder uses export. -->
 			<ant antscript="ant.bat" buildfile="checkout.xml"
-				target="all" uselogger="false" usedebug="false">
+				target="all" uselogger="true" usedebug="false" usequiet="true">
 			</ant>
 		</schedule>
 
@@ -67,7 +67,7 @@
 			build file/target -->
 		<schedule>
 			<ant antscript="build.bat" buildfile="build.xml"
-				target="main" uselogger="false" usedebug="false">
+				target="main" uselogger="true" usedebug="false" usequiet="true">
 				<property name="component" value="runtime" />
 				<property name="clean" value="true" />
 				<property name="cleanBase" value="true" />
@@ -109,7 +109,7 @@
 			build file/target -->
 		<schedule>
 			<ant antscript="build.bat" buildfile="build.xml"
-				target="main" uselogger="false" usedebug="false">
+				target="main" uselogger="true" usedebug="false" usequiet="true">
 				<property name="component" value="sdk" />
 				<property name="clean" value="true" />
 				<property name="buildRoot" value="${buildRoot}" />
@@ -150,7 +150,7 @@
 			build file/target -->
 		<schedule>
 			<ant antscript="build.bat" buildfile="build.xml"
-				target="main" uselogger="false" usedebug="false">
+				target="main" uselogger="true" usedebug="false" usequiet="true">
 				<property name="component" value="examples" />
 				<property name="clean" value="true" />
 				<property name="buildRoot" value="${buildRoot}" />
@@ -191,7 +191,7 @@
 			build file/target -->
 		<schedule>
 			<ant antscript="build.bat" buildfile="build.xml"
-				target="main" uselogger="false" usedebug="false">
+				target="main" uselogger="true" usedebug="false" usequiet="true">
 				<property name="component" value="tests" />
 				<property name="clean" value="true" />
 				<property name="cleanBase" value="true" />
@@ -235,7 +235,7 @@
 			build file/target -->
 		<schedule>
 			<ant time="0100" antscript="build.bat" buildfile="build.xml"
-				target="main" uselogger="false" usedebug="false">
+				target="main" uselogger="true" usedebug="false" usequiet="true">
 				<property name="component" value="doc" />
 				<property name="buildRoot" value="${buildRoot}" />
 			</ant>
