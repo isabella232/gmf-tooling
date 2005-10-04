@@ -1,7 +1,5 @@
 package org.eclipse.gmf.codegen.templates.editor;
 
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.codegen.ecore.genmodel.*;
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.codegen.util.ImportUtil;
@@ -34,7 +32,6 @@ public class DiagramEditorUtilGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     GenDiagram genDiagram = (GenDiagram) argument;
-    GenModel genModel = genDiagram.getEmfGenModel();
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getEditorPackageName());
     stringBuffer.append(TEXT_2);
@@ -47,7 +44,7 @@ public class DiagramEditorUtilGenerator
     stringBuffer.append(genDiagram.getPluginClassName());
     stringBuffer.append(TEXT_6);
     
-GenPackage genPackage = genDiagram.getEmfGenModel().findGenPackage(genDiagram.getDomainMetaModel());
+GenPackage genPackage = genDiagram.getDomainMetaModel();
 String domainPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 
     stringBuffer.append(TEXT_7);

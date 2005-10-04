@@ -56,7 +56,7 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 		ResourceSet srcResSet = new ResourceSetImpl();
 		Resource srcRes = srcResSet.getResource(selected, true);
 		GenDiagram gd = (GenDiagram) srcRes.getContents().get(0);
-		gd.getEmfGenModel().reconcile();
+		gd.getEMFGenModel().reconcile();
 		Generator g = new Generator(gd);
 		g.run(monitor);
 	}

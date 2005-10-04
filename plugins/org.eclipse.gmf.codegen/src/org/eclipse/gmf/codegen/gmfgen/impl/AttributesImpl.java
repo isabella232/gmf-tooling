@@ -7,9 +7,7 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 

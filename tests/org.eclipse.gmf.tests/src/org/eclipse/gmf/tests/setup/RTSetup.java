@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.tests.setup;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -51,16 +52,20 @@ public class RTSetup implements RTSource {
 		myLink.setDomainModelElement(linkElement);
 		myLink.setVisualID(genSource.getGenLink().getVisualID());
 
-		Object nc = diagramElement.eGet(genSource.getGenNode().getContainmentMetaFeature());
+		Object nc = diagramElement.eGet(genSource.getGenNode().getContainmentMetaFeature().getEcoreFeature());
 		assert nc instanceof EList;
 		((EList) nc).add(nodeElement);
-		Object lc = nodeElement.eGet(genSource.getGenLink().getContainmentMetaFeature());
+		Object lc = nodeElement.eGet(genSource.getGenLink().getContainmentMetaFeature().getEcoreFeature());
 		if (lc instanceof EList) {
 			((EList) lc).add(linkElement);
 		} else {
-			nodeElement.eSet(genSource.getGenLink().getContainmentMetaFeature(), linkElement);
+			nodeElement.eSet(genSource.getGenLink().getContainmentMetaFeature().getEcoreFeature(), linkElement);
 		}
 		return this;
+	}
+
+	private EObject createInstance(GenClass genClass) {
+		return createInstance(genClass.getEcoreClass());
 	}
 
 	private EObject createInstance(EClass eClass) {

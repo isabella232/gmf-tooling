@@ -9,12 +9,11 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -28,7 +27,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
-
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
@@ -59,7 +57,7 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 	 * @generated
 	 * @ordered
 	 */
-	protected EClass domainMetaClass = null;
+	protected GenClass domainMetaClass = null;
 
 	/**
 	 * The cached value of the '{@link #getAffixedStereotypes() <em>Affixed Stereotypes</em>}' attribute list.
@@ -164,10 +162,10 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getDomainMetaClass() {
+	public GenClass getDomainMetaClass() {
 		if (domainMetaClass != null && domainMetaClass.eIsProxy()) {
-			EClass oldDomainMetaClass = domainMetaClass;
-			domainMetaClass = (EClass)eResolveProxy((InternalEObject)domainMetaClass);
+			GenClass oldDomainMetaClass = domainMetaClass;
+			domainMetaClass = (GenClass)eResolveProxy((InternalEObject)domainMetaClass);
 			if (domainMetaClass != oldDomainMetaClass) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS, oldDomainMetaClass, domainMetaClass));
@@ -181,7 +179,7 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass basicGetDomainMetaClass() {
+	public GenClass basicGetDomainMetaClass() {
 		return domainMetaClass;
 	}
 
@@ -190,8 +188,8 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDomainMetaClass(EClass newDomainMetaClass) {
-		EClass oldDomainMetaClass = domainMetaClass;
+	public void setDomainMetaClass(GenClass newDomainMetaClass) {
+		GenClass oldDomainMetaClass = domainMetaClass;
 		domainMetaClass = newDomainMetaClass;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS, oldDomainMetaClass, domainMetaClass));
@@ -273,15 +271,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 		childContainersPlacement = newChildContainersPlacement == null ? CHILD_CONTAINERS_PLACEMENT_EDEFAULT : newChildContainersPlacement;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT, oldChildContainersPlacement, childContainersPlacement));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public void initialize(EClass eClass) {
-		setDomainMetaClass(eClass);
 	}
 
 	protected String getDefaultNotationViewFactoryClassName() {
@@ -418,13 +407,13 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				setMetaInfoProviderClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_NODE__DOMAIN_NAME_FEATURE:
-				setDomainNameFeature((EAttribute)newValue);
+				setDomainNameFeature((GenFeature)newValue);
 				return;
 			case GMFGenPackage.GEN_NODE__FOREGROUND_COLOR:
 				setForegroundColor((String)newValue);
 				return;
 			case GMFGenPackage.GEN_NODE__CONTAINMENT_META_FEATURE:
-				setContainmentMetaFeature((EReference)newValue);
+				setContainmentMetaFeature((GenFeature)newValue);
 				return;
 			case GMFGenPackage.GEN_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName((String)newValue);
@@ -433,7 +422,7 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				setViewmap((Viewmap)newValue);
 				return;
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
-				setDomainMetaClass((EClass)newValue);
+				setDomainMetaClass((GenClass)newValue);
 				return;
 			case GMFGenPackage.GEN_NODE__AFFIXED_STEREOTYPES:
 				getAffixedStereotypes().clear();
@@ -477,13 +466,13 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				setMetaInfoProviderClassName(META_INFO_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_NODE__DOMAIN_NAME_FEATURE:
-				setDomainNameFeature((EAttribute)null);
+				setDomainNameFeature((GenFeature)null);
 				return;
 			case GMFGenPackage.GEN_NODE__FOREGROUND_COLOR:
 				setForegroundColor(FOREGROUND_COLOR_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_NODE__CONTAINMENT_META_FEATURE:
-				setContainmentMetaFeature((EReference)null);
+				setContainmentMetaFeature((GenFeature)null);
 				return;
 			case GMFGenPackage.GEN_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
@@ -492,7 +481,7 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				setViewmap((Viewmap)null);
 				return;
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
-				setDomainMetaClass((EClass)null);
+				setDomainMetaClass((GenClass)null);
 				return;
 			case GMFGenPackage.GEN_NODE__AFFIXED_STEREOTYPES:
 				getAffixedStereotypes().clear();

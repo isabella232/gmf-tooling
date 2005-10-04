@@ -47,7 +47,7 @@ public class LinkMetaInfoProviderGenerator
     stringBuffer.append(genLink.getMetaInfoProviderClassName());
     stringBuffer.append(TEXT_5);
     
-GenFeature genFeature1 = genDiagram.findGenFeature(genLink.getDomainLinkTargetFeature());
+GenFeature genFeature1 = genLink.getDomainLinkTargetFeature();
 String metaPackageInterfaceName1 = importManager.getImportedName(genFeature1.getGenPackage().getQualifiedPackageInterfaceName());
 
     stringBuffer.append(TEXT_6);
@@ -59,7 +59,7 @@ String metaPackageInterfaceName1 = importManager.getImportedName(genFeature1.get
 if (genLink.getContainmentMetaFeature() == null) {
     stringBuffer.append(TEXT_9);
     } else {
-GenFeature genFeature2 = genDiagram.findGenFeature(genLink.getContainmentMetaFeature());
+GenFeature genFeature2 = genLink.getContainmentMetaFeature();
 String metaPackageInterfaceName2 = importManager.getImportedName(genFeature2.getGenPackage().getQualifiedPackageInterfaceName());
 
     stringBuffer.append(TEXT_10);

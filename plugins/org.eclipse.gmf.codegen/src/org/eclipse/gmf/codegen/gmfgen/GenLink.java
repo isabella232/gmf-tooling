@@ -6,7 +6,7 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 
 /**
  * <!-- begin-user-doc -->
@@ -56,12 +56,12 @@ public interface GenLink extends GenBaseElement{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Domain Link Target Feature</em>' reference.
-	 * @see #setDomainLinkTargetFeature(EStructuralFeature)
+	 * @see #setDomainLinkTargetFeature(GenFeature)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink_DomainLinkTargetFeature()
 	 * @model required="true"
 	 * @generated
 	 */
-	EStructuralFeature getDomainLinkTargetFeature();
+	GenFeature getDomainLinkTargetFeature();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getDomainLinkTargetFeature <em>Domain Link Target Feature</em>}' reference.
@@ -71,6 +71,6 @@ public interface GenLink extends GenBaseElement{
 	 * @see #getDomainLinkTargetFeature()
 	 * @generated
 	 */
-	void setDomainLinkTargetFeature(EStructuralFeature value);
+	void setDomainLinkTargetFeature(GenFeature value);
 
 } // GenLink

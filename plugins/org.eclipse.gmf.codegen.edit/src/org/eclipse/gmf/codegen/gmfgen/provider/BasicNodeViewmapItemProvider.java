@@ -64,7 +64,6 @@ public class BasicNodeViewmapItemProvider
 		return itemPropertyDescriptors;
 	}
 
-
 	/**
 	 * This adds a property descriptor for the Figure Qualified Class Name feature.
 	 * <!-- begin-user-doc -->

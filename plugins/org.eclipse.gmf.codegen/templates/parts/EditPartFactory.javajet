@@ -31,7 +31,7 @@ public class <%=genDiagram.getEditPartFactoryClassName()%> implements EditPartFa
 			View view = (View) model;
 			EObject element = view.getElement();
 <%
-GenPackage genPackage = genDiagram.getEmfGenModel().findGenPackage(genDiagram.getDomainMetaModel());
+GenPackage genPackage = genDiagram.getDomainMetaModel();
 String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 %>
 			if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getName()%>().isInstance(element)) {

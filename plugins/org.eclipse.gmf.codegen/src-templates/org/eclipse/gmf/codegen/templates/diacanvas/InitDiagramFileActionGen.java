@@ -115,7 +115,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext();) {
     
 for (Iterator nodes = genDiagram.getNodes().iterator(); nodes.hasNext();) {
 	GenNode nextGenNode = (GenNode) nodes.next();
-	GenClass nextGenNodeGenClass = genDiagram.findGenClass(nextGenNode.getDomainMetaClass());
+	GenClass nextGenNodeGenClass = nextGenNode.getDomainMetaClass();
 
     stringBuffer.append(TEXT_13);
     stringBuffer.append(importManager.getImportedName(nextGenNodeGenClass.getGenPackage().getQualifiedPackageInterfaceName()));
@@ -144,7 +144,7 @@ for (Iterator nodes = genDiagram.getNodes().iterator(); nodes.hasNext();) {
 	for (Iterator childNodes = nextGenNode.getChildNodes().iterator(); childNodes.hasNext();) {
 		GenChildNode nextChildGenNode = (GenChildNode) childNodes.next();
 		GenClass nextChildNodeRuntimeGenClass = nextChildGenNode.getDiagramRunTimeClass();
-		GenClass nextChildNodeDomainGenClass = genDiagram.findGenClass(nextChildGenNode.getDomainMetaClass());
+		GenClass nextChildNodeDomainGenClass = nextChildGenNode.getDomainMetaClass();
 
     stringBuffer.append(TEXT_23);
     stringBuffer.append(importManager.getImportedName(nextChildNodeDomainGenClass.getGenPackage().getQualifiedPackageInterfaceName()));
@@ -178,15 +178,15 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext();) {
 	if (nextGenLink instanceof GenLinkReferenceOnly) {
 		referenceOnly = true;
 	} else {
-		containmentGenFeature = genDiagram.findGenFeature(nextGenLink.getContainmentMetaFeature());
+		containmentGenFeature = nextGenLink.getContainmentMetaFeature();
 		GenLinkWithClass withClassLink = (GenLinkWithClass) nextGenLink;
 		if (withClassLink.getDomainMetaClass() != null) {
-			domainMetaElementGenClass = genDiagram.findGenClass(withClassLink.getDomainMetaClass());
+			domainMetaElementGenClass = withClassLink.getDomainMetaClass();
 		}
 	}
 	
 	GenClass nextLinkRuntimeGenClass = nextGenLink.getDiagramRunTimeClass();
-	GenFeature domainLinkTargetGenFeature = genDiagram.findGenFeature(nextGenLink.getDomainLinkTargetFeature());
+	GenFeature domainLinkTargetGenFeature = nextGenLink.getDomainLinkTargetFeature();
 
     stringBuffer.append(TEXT_35);
     stringBuffer.append(nextGenLink.getVisualID());

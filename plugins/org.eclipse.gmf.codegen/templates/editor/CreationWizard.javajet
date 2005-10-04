@@ -1,7 +1,7 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="CreationWizardGenerator"
     imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.*"%>
 <%GenDiagram genDiagram = (GenDiagram) argument;%>
-<%GenModel genModel = genDiagram.getEmfGenModel();%>
+<%GenModel genModel = genDiagram.getEMFGenModel();%>
 package <%=genDiagram.getEditorPackageName()%>;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.wizards.EditorCreationWizard;

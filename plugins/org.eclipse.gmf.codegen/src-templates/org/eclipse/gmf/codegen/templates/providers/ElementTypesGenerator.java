@@ -47,7 +47,7 @@ public class ElementTypesGenerator
     stringBuffer.append(TEXT_4);
     
 List types = new ArrayList();
-GenPackage genPackage = genDiagram.getEmfGenModel().findGenPackage(genDiagram.getDomainMetaModel());
+GenPackage genPackage = genDiagram.getDomainMetaModel();
 String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 Iterator entities = AccessUtil.getGenEntities(genDiagram);
 while (entities.hasNext()) {

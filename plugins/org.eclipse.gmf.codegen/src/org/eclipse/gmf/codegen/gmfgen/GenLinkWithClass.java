@@ -6,7 +6,7 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
-import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,13 +37,13 @@ public interface GenLinkWithClass extends GenLink{
 	 * instances of this class will be represented by link
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Domain Meta Class</em>' reference.
-	 * @see #setDomainMetaClass(EClass)
+	 * @see #setDomainMetaClass(GenClass)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLinkWithClass_DomainMetaClass()
 	 * @model required="true"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='super.domainLinkTargetFeature.eContainingClass \'equals to\' or \'superclass of\' domainMetaClass'"
 	 * @generated
 	 */
-	EClass getDomainMetaClass();
+	GenClass getDomainMetaClass();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass#getDomainMetaClass <em>Domain Meta Class</em>}' reference.
@@ -53,14 +53,6 @@ public interface GenLinkWithClass extends GenLink{
 	 * @see #getDomainMetaClass()
 	 * @generated
 	 */
-	void setDomainMetaClass(EClass value);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model
-	 * @generated
-	 */
-	void initialize(EClass eClass);
+	void setDomainMetaClass(GenClass value);
 
 } // GenLinkWithClass

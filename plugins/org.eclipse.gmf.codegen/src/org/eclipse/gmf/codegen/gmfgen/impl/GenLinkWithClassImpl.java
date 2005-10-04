@@ -7,18 +7,16 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
-
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
@@ -43,7 +41,7 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 	 * @generated
 	 * @ordered
 	 */
-	protected EClass domainMetaClass = null;
+	protected GenClass domainMetaClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -68,10 +66,10 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getDomainMetaClass() {
+	public GenClass getDomainMetaClass() {
 		if (domainMetaClass != null && domainMetaClass.eIsProxy()) {
-			EClass oldDomainMetaClass = domainMetaClass;
-			domainMetaClass = (EClass)eResolveProxy((InternalEObject)domainMetaClass);
+			GenClass oldDomainMetaClass = domainMetaClass;
+			domainMetaClass = (GenClass)eResolveProxy((InternalEObject)domainMetaClass);
 			if (domainMetaClass != oldDomainMetaClass) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS, oldDomainMetaClass, domainMetaClass));
@@ -85,7 +83,7 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass basicGetDomainMetaClass() {
+	public GenClass basicGetDomainMetaClass() {
 		return domainMetaClass;
 	}
 
@@ -94,20 +92,11 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDomainMetaClass(EClass newDomainMetaClass) {
-		EClass oldDomainMetaClass = domainMetaClass;
+	public void setDomainMetaClass(GenClass newDomainMetaClass) {
+		GenClass oldDomainMetaClass = domainMetaClass;
 		domainMetaClass = newDomainMetaClass;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS, oldDomainMetaClass, domainMetaClass));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public void initialize(EClass eClass) {
-		setDomainMetaClass(eClass);
 	}
 
 	protected String getDefaultNotationViewFactoryClassName() {
@@ -231,13 +220,13 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 				setMetaInfoProviderClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_NAME_FEATURE:
-				setDomainNameFeature((EAttribute)newValue);
+				setDomainNameFeature((GenFeature)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__FOREGROUND_COLOR:
 				setForegroundColor((String)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__CONTAINMENT_META_FEATURE:
-				setContainmentMetaFeature((EReference)newValue);
+				setContainmentMetaFeature((GenFeature)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName((String)newValue);
@@ -246,10 +235,10 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 				setViewmap((Viewmap)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_LINK_TARGET_FEATURE:
-				setDomainLinkTargetFeature((EStructuralFeature)newValue);
+				setDomainLinkTargetFeature((GenFeature)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS:
-				setDomainMetaClass((EClass)newValue);
+				setDomainMetaClass((GenClass)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -275,13 +264,13 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 				setMetaInfoProviderClassName(META_INFO_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_NAME_FEATURE:
-				setDomainNameFeature((EAttribute)null);
+				setDomainNameFeature((GenFeature)null);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__FOREGROUND_COLOR:
 				setForegroundColor(FOREGROUND_COLOR_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__CONTAINMENT_META_FEATURE:
-				setContainmentMetaFeature((EReference)null);
+				setContainmentMetaFeature((GenFeature)null);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
@@ -290,10 +279,10 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 				setViewmap((Viewmap)null);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_LINK_TARGET_FEATURE:
-				setDomainLinkTargetFeature((EStructuralFeature)null);
+				setDomainLinkTargetFeature((GenFeature)null);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS:
-				setDomainMetaClass((EClass)null);
+				setDomainMetaClass((GenClass)null);
 				return;
 		}
 		eDynamicUnset(eFeature);

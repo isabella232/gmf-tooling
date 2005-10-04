@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="PaletteFactoryGenerator"
-    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.ecore.EClass org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.ImportUtil"%>
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.ImportUtil"%>
 <%GenDiagram genDiagram = (GenDiagram) argument; Palette palette = genDiagram.getPalette();%>
 package <%=palette.getPackageName()%>;
 
@@ -124,7 +124,7 @@ for (int toolGroupIndex = 0; toolGroupIndex < toolGroups.size(); toolGroupIndex+
 	private void createNodeTool<%=nodeToolIndex%>(PaletteContainer paletteContainer) {
 <%
 		GenNode genNode = nodeEntry.getGenNode(); 
-		GenClass genClass = genDiagram.findGenClass(genNode.getDomainMetaClass());
+		GenClass genClass = genNode.getDomainMetaClass();
 		String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create" + genClass.getName() + "()";
 %>
 		ImageDescriptor img = getImage(<%=domainElementInstanceCreationCode%>);
@@ -152,7 +152,7 @@ for (int toolGroupIndex = 0; toolGroupIndex < toolGroups.size(); toolGroupIndex+
 		GenLink genLink = linkEntry.getGenLink();
 		if (genLink instanceof GenLinkWithClass) {
 			GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
-			GenClass genClass = genDiagram.findGenClass(genLinkWithClass.getDomainMetaClass());
+			GenClass genClass = genLinkWithClass.getDomainMetaClass();
 			String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create" + genClass.getName() + "()";
 %>
 		ImageDescriptor img = getImage(<%=domainElementInstanceCreationCode%>);

@@ -68,7 +68,7 @@ public class EditPartFactoryGenerator
     stringBuffer.append(genDiagram.getEditPartFactoryClassName());
     stringBuffer.append(TEXT_6);
     
-GenPackage genPackage = genDiagram.getEmfGenModel().findGenPackage(genDiagram.getDomainMetaModel());
+GenPackage genPackage = genDiagram.getDomainMetaModel();
 String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 
     stringBuffer.append(TEXT_7);

@@ -6,8 +6,7 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 
 /**
  * <!-- begin-user-doc -->
@@ -43,12 +42,12 @@ public interface GenBaseElement extends GenCommonBase{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Domain Name Feature</em>' reference.
-	 * @see #setDomainNameFeature(EAttribute)
+	 * @see #setDomainNameFeature(GenFeature)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenBaseElement_DomainNameFeature()
 	 * @model
 	 * @generated
 	 */
-	EAttribute getDomainNameFeature();
+	GenFeature getDomainNameFeature();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getDomainNameFeature <em>Domain Name Feature</em>}' reference.
@@ -58,7 +57,7 @@ public interface GenBaseElement extends GenCommonBase{
 	 * @see #getDomainNameFeature()
 	 * @generated
 	 */
-	void setDomainNameFeature(EAttribute value);
+	void setDomainNameFeature(GenFeature value);
 
 	/**
 	 * Returns the value of the '<em><b>Foreground Color</b></em>' attribute.
@@ -95,12 +94,12 @@ public interface GenBaseElement extends GenCommonBase{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Containment Meta Feature</em>' reference.
-	 * @see #setContainmentMetaFeature(EReference)
+	 * @see #setContainmentMetaFeature(GenFeature)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenBaseElement_ContainmentMetaFeature()
 	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='containmentMetaFeature.isContainment'"
 	 * @generated
 	 */
-	EReference getContainmentMetaFeature();
+	GenFeature getContainmentMetaFeature();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getContainmentMetaFeature <em>Containment Meta Feature</em>}' reference.
@@ -110,7 +109,7 @@ public interface GenBaseElement extends GenCommonBase{
 	 * @see #getContainmentMetaFeature()
 	 * @generated
 	 */
-	void setContainmentMetaFeature(EReference value);
+	void setContainmentMetaFeature(GenFeature value);
 
 	/**
 	 * Returns the value of the '<em><b>Notation View Factory Class Name</b></em>' attribute.

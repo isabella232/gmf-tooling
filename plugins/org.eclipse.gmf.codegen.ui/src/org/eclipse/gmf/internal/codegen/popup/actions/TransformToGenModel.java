@@ -18,15 +18,13 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.bridge.genmodel.BasicDiagramRunTimeModelHelper;
-import org.eclipse.gmf.bridge.genmodel.EditPartNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
+import org.eclipse.gmf.bridge.genmodel.EditPartNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.MetaInfoProviderNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.SpecificDiagramRunTimeModelHelper;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -76,10 +74,6 @@ public class TransformToGenModel implements IObjectActionDelegate {
 		t.transform(m);
 		GenDiagram genDiagram = t.getResult();
 
-		GenModel domainGenModel = findGenModel(genDiagram.getDomainMetaModel());
-		if (domainGenModel != null) {
-			genDiagram.setEmfGenModel(domainGenModel);
-		}
 		Resource dgmmRes = resSet.createResource(destinationModelURI);
 		dgmmRes.getContents().add(genDiagram);
 		try {
@@ -117,30 +111,6 @@ public class TransformToGenModel implements IObjectActionDelegate {
 		InputDialog dlg = new InputDialog(getShell(), "Diagram RunTime Model", "Please specify path to genmodel file that describes specific diagram runtime model, or press Cancel if you don't need one", defValue, null);
 		if (dlg.open() == InputDialog.OK) {
 			return URI.createPlatformResourceURI(dlg.getValue());
-		}
-		return null;
-	}
-
-	private GenModel findGenModel(EPackage model) {
-		URI genModelURI = (URI) EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(model.getNsURI());
-		if (genModelURI == null) {
-			URI domainModelURI = model.eResource().getURI(); 
-			genModelURI = domainModelURI.trimFileExtension().appendFileExtension("genmodel");
-			if (genModelURI.equals(domainModelURI)) {
-				genModelURI = null; // don't even try, then
-			}
-		}
-		if (genModelURI == null) {
-			return null;
-		}
-		ResourceSet rs = model.eResource().getResourceSet();
-		// @see org.eclipse.emf.importer.ModelImporter.getExternalGenModels()
-		Resource genModelResource = rs.getResource(genModelURI, false);
-		if (genModelResource == null) {
-			genModelResource = rs.getResource(genModelURI, true);
-			if (genModelResource != null) {
-				return (GenModel) genModelResource.getContents().get(0);
-			}
 		}
 		return null;
 	}

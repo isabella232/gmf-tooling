@@ -46,7 +46,7 @@ public class NodeMetaInfoProviderGenerator
     stringBuffer.append(genNode.getMetaInfoProviderClassName());
     stringBuffer.append(TEXT_5);
     
-GenFeature genFeature2 = genDiagram.findGenFeature(genNode.getContainmentMetaFeature());
+GenFeature genFeature2 = genNode.getContainmentMetaFeature();
 String metaPackageInterfaceName2 = importManager.getImportedName(genFeature2.getGenPackage().getQualifiedPackageInterfaceName());
 
     stringBuffer.append(TEXT_6);
@@ -57,7 +57,7 @@ String metaPackageInterfaceName2 = importManager.getImportedName(genFeature2.get
     
 for (Iterator it = genNode.getChildNodes().iterator(); it.hasNext();) {
 GenChildNode next = (GenChildNode) it.next();
-GenFeature genFeature1 = genDiagram.findGenFeature(next.getContainmentMetaFeature());
+GenFeature genFeature1 = next.getContainmentMetaFeature();
 String metaPackageInterfaceName1 = importManager.getImportedName(genFeature1.getGenPackage().getQualifiedPackageInterfaceName());
 
     stringBuffer.append(TEXT_9);

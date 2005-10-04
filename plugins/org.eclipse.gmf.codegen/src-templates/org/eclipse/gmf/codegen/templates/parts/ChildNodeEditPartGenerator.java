@@ -50,7 +50,7 @@ GenDiagram genDiagram = genChildNode.getDiagram();
     stringBuffer.append(genChildNode.getEditPartClassName());
     stringBuffer.append(TEXT_7);
     
-GenPackage genPackage = genDiagram.getEmfGenModel().findGenPackage(genDiagram.getDomainMetaModel());
+GenPackage genPackage = genDiagram.getDomainMetaModel();
 String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 String semanticChildNodeInterfaceName = genChildNode.getDomainMetaClass().getName();
 

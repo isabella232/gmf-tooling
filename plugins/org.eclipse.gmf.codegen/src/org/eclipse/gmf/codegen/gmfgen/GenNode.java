@@ -6,8 +6,8 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->
@@ -63,12 +63,12 @@ public interface GenNode extends GenBaseElement{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Domain Meta Class</em>' reference.
-	 * @see #setDomainMetaClass(EClass)
+	 * @see #setDomainMetaClass(GenClass)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_DomainMetaClass()
 	 * @model required="true"
 	 * @generated
 	 */
-	EClass getDomainMetaClass();
+	GenClass getDomainMetaClass();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getDomainMetaClass <em>Domain Meta Class</em>}' reference.
@@ -78,7 +78,7 @@ public interface GenNode extends GenBaseElement{
 	 * @see #getDomainMetaClass()
 	 * @generated
 	 */
-	void setDomainMetaClass(EClass value);
+	void setDomainMetaClass(GenClass value);
 
 	/**
 	 * Returns the value of the '<em><b>Affixed Stereotypes</b></em>' attribute list.
@@ -184,13 +184,5 @@ public interface GenNode extends GenBaseElement{
 	 * @generated
 	 */
 	void setChildContainersPlacement(CompartmentPlacementKind value);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model
-	 * @generated
-	 */
-	void initialize(EClass eClass);
 
 } // GenNode

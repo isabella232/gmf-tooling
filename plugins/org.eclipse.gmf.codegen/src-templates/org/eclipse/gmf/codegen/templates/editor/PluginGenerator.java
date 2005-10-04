@@ -37,7 +37,6 @@ public class PluginGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     GenDiagram genDiagram = (GenDiagram) argument;
-    GenModel genModel = genDiagram.getEmfGenModel();
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getEditorPackageName());
     stringBuffer.append(TEXT_2);
@@ -58,7 +57,7 @@ public class PluginGenerator
     stringBuffer.append(genDiagram.getPluginClassName());
     stringBuffer.append(TEXT_10);
     
-GenPackage genPackage = genDiagram.getEmfGenModel().findGenPackage(genDiagram.getDomainMetaModel());
+GenPackage genPackage = genDiagram.getDomainMetaModel();
 String domainPackageIPAFInterfaceName = importManager.getImportedName(genPackage.getQualifiedItemProviderAdapterFactoryClassName());
 String domainPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 String domainPackageEditPluginClassName = importManager.getImportedName(genPackage.getQualifiedEditPluginClassName());

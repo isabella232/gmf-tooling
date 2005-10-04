@@ -21,7 +21,7 @@ public class <%=genLink.getMetaInfoProviderClassName()%> extends MetaInfoProvide
 	 */
 	public EStructuralFeature getTargetFeature(DiagramLink diagramLink) {
 <%
-GenFeature genFeature1 = genDiagram.findGenFeature(genLink.getDomainLinkTargetFeature());
+GenFeature genFeature1 = genLink.getDomainLinkTargetFeature();
 String metaPackageInterfaceName1 = importManager.getImportedName(genFeature1.getGenPackage().getQualifiedPackageInterfaceName());
 %>
 		return <%=metaPackageInterfaceName1%>.eINSTANCE.get<%=genFeature1.getFeatureAccessorName()%>();
@@ -35,7 +35,7 @@ String metaPackageInterfaceName1 = importManager.getImportedName(genFeature1.get
 if (genLink.getContainmentMetaFeature() == null) {%>
 		return null;
 <%} else {
-GenFeature genFeature2 = genDiagram.findGenFeature(genLink.getContainmentMetaFeature());
+GenFeature genFeature2 = genLink.getContainmentMetaFeature();
 String metaPackageInterfaceName2 = importManager.getImportedName(genFeature2.getGenPackage().getQualifiedPackageInterfaceName());
 %>
 		return <%=metaPackageInterfaceName2%>.eINSTANCE.get<%=genFeature2.getFeatureAccessorName()%>();

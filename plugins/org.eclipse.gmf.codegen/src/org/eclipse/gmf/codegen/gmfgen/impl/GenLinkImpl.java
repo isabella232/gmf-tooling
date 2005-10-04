@@ -7,18 +7,16 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
-
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
@@ -44,7 +42,7 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 	 * @generated
 	 * @ordered
 	 */
-	protected EStructuralFeature domainLinkTargetFeature = null;
+	protected GenFeature domainLinkTargetFeature = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -79,10 +77,10 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EStructuralFeature getDomainLinkTargetFeature() {
+	public GenFeature getDomainLinkTargetFeature() {
 		if (domainLinkTargetFeature != null && domainLinkTargetFeature.eIsProxy()) {
-			EStructuralFeature oldDomainLinkTargetFeature = domainLinkTargetFeature;
-			domainLinkTargetFeature = (EStructuralFeature)eResolveProxy((InternalEObject)domainLinkTargetFeature);
+			GenFeature oldDomainLinkTargetFeature = domainLinkTargetFeature;
+			domainLinkTargetFeature = (GenFeature)eResolveProxy((InternalEObject)domainLinkTargetFeature);
 			if (domainLinkTargetFeature != oldDomainLinkTargetFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE, oldDomainLinkTargetFeature, domainLinkTargetFeature));
@@ -96,7 +94,7 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EStructuralFeature basicGetDomainLinkTargetFeature() {
+	public GenFeature basicGetDomainLinkTargetFeature() {
 		return domainLinkTargetFeature;
 	}
 
@@ -105,8 +103,8 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDomainLinkTargetFeature(EStructuralFeature newDomainLinkTargetFeature) {
-		EStructuralFeature oldDomainLinkTargetFeature = domainLinkTargetFeature;
+	public void setDomainLinkTargetFeature(GenFeature newDomainLinkTargetFeature) {
+		GenFeature oldDomainLinkTargetFeature = domainLinkTargetFeature;
 		domainLinkTargetFeature = newDomainLinkTargetFeature;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE, oldDomainLinkTargetFeature, domainLinkTargetFeature));
@@ -226,13 +224,13 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				setMetaInfoProviderClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__DOMAIN_NAME_FEATURE:
-				setDomainNameFeature((EAttribute)newValue);
+				setDomainNameFeature((GenFeature)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__FOREGROUND_COLOR:
 				setForegroundColor((String)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__CONTAINMENT_META_FEATURE:
-				setContainmentMetaFeature((EReference)newValue);
+				setContainmentMetaFeature((GenFeature)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName((String)newValue);
@@ -241,7 +239,7 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				setViewmap((Viewmap)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
-				setDomainLinkTargetFeature((EStructuralFeature)newValue);
+				setDomainLinkTargetFeature((GenFeature)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -267,13 +265,13 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				setMetaInfoProviderClassName(META_INFO_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_LINK__DOMAIN_NAME_FEATURE:
-				setDomainNameFeature((EAttribute)null);
+				setDomainNameFeature((GenFeature)null);
 				return;
 			case GMFGenPackage.GEN_LINK__FOREGROUND_COLOR:
 				setForegroundColor(FOREGROUND_COLOR_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_LINK__CONTAINMENT_META_FEATURE:
-				setContainmentMetaFeature((EReference)null);
+				setContainmentMetaFeature((GenFeature)null);
 				return;
 			case GMFGenPackage.GEN_LINK__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
@@ -282,7 +280,7 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				setViewmap((Viewmap)null);
 				return;
 			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
-				setDomainLinkTargetFeature((EStructuralFeature)null);
+				setDomainLinkTargetFeature((GenFeature)null);
 				return;
 		}
 		eDynamicUnset(eFeature);

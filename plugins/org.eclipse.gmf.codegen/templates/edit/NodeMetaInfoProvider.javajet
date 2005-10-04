@@ -21,7 +21,7 @@ public class <%=genNode.getMetaInfoProviderClassName()%> extends MetaInfoProvide
 	 */
 	public EStructuralFeature getContainmentFeature(DiagramNode node) {
 <%
-GenFeature genFeature2 = genDiagram.findGenFeature(genNode.getContainmentMetaFeature());
+GenFeature genFeature2 = genNode.getContainmentMetaFeature();
 String metaPackageInterfaceName2 = importManager.getImportedName(genFeature2.getGenPackage().getQualifiedPackageInterfaceName());
 %>
 		return <%=metaPackageInterfaceName2%>.eINSTANCE.get<%=genFeature2.getFeatureAccessorName()%>();
@@ -34,7 +34,7 @@ String metaPackageInterfaceName2 = importManager.getImportedName(genFeature2.get
 <%
 for (Iterator it = genNode.getChildNodes().iterator(); it.hasNext();) {
 GenChildNode next = (GenChildNode) it.next();
-GenFeature genFeature1 = genDiagram.findGenFeature(next.getContainmentMetaFeature());
+GenFeature genFeature1 = next.getContainmentMetaFeature();
 String metaPackageInterfaceName1 = importManager.getImportedName(genFeature1.getGenPackage().getQualifiedPackageInterfaceName());
 %>
 		if ("<%=next.getGroupID()%>".equals(childNode.getGroupID())) {

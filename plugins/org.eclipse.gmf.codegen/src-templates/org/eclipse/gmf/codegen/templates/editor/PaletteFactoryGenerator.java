@@ -1,7 +1,6 @@
 package org.eclipse.gmf.codegen.templates.editor;
 
 import org.eclipse.gmf.codegen.gmfgen.*;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.codegen.ecore.genmodel.*;
 import java.util.*;
 import org.eclipse.gmf.codegen.util.ImportUtil;
@@ -124,7 +123,7 @@ for (int toolGroupIndex = 0; toolGroupIndex < toolGroups.size(); toolGroupIndex+
     stringBuffer.append(TEXT_23);
     
 		GenNode genNode = nodeEntry.getGenNode(); 
-		GenClass genClass = genDiagram.findGenClass(genNode.getDomainMetaClass());
+		GenClass genClass = genNode.getDomainMetaClass();
 		String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create" + genClass.getName() + "()";
 
     stringBuffer.append(TEXT_24);
@@ -148,7 +147,7 @@ for (int toolGroupIndex = 0; toolGroupIndex < toolGroups.size(); toolGroupIndex+
 		GenLink genLink = linkEntry.getGenLink();
 		if (genLink instanceof GenLinkWithClass) {
 			GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
-			GenClass genClass = genDiagram.findGenClass(genLinkWithClass.getDomainMetaClass());
+			GenClass genClass = genLinkWithClass.getDomainMetaClass();
 			String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create" + genClass.getName() + "()";
 
     stringBuffer.append(TEXT_31);

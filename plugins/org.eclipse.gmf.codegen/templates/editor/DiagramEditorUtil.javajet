@@ -1,7 +1,6 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="DiagramEditorUtilGenerator"
-    imports="org.eclipse.emf.ecore.EPackage org.eclipse.emf.common.util.EList org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.ImportUtil"%>
+    imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.ImportUtil"%>
 <%GenDiagram genDiagram = (GenDiagram) argument;%>
-<%GenModel genModel = genDiagram.getEmfGenModel();%>
 package <%=genDiagram.getEditorPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());%>
@@ -108,7 +107,7 @@ public class DiagramEditorUtil extends IDEEditorUtil {
 
 				public Object run() {
 <%
-GenPackage genPackage = genDiagram.getEmfGenModel().findGenPackage(genDiagram.getDomainMetaModel());
+GenPackage genPackage = genDiagram.getDomainMetaModel();
 String domainPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 %>
 					EObject model = EObjectUtil.create(<%=domainPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getName()%>());

@@ -18,6 +18,7 @@ import org.eclipse.gmf.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.EditPartNamingStrategy;
+import org.eclipse.gmf.bridge.genmodel.GenModelMatcher;
 import org.eclipse.gmf.bridge.genmodel.MetaInfoProviderNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.NamingStrategy;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
@@ -44,26 +45,26 @@ public class DiaGenSetup implements DiaGenSource {
 		final GenModel runtimeModel = Utils.loadGenModel(DiagramRTPackage.eNS_URI);
 		final String pluginID = Utils.createUniquePluginID();
 		assert runtimeModel != null;
+		final GenModelMatcher gmm = new GenModelMatcher(Utils.createGenModel(domainSource.getModel(), pluginID));
 		myGenDiagram = GMFGenFactory.eINSTANCE.createGenDiagram();
-		myGenDiagram.setDomainDiagramElement(domainSource.getDiagramElement());
-		myGenDiagram.setDomainMetaModel(domainSource.getModel());
-		myGenDiagram.setEmfGenModel(Utils.createGenModel(domainSource.getModel(), pluginID));
+		myGenDiagram.setDomainDiagramElement(gmm.findGenClass(domainSource.getDiagramElement()));
+		myGenDiagram.setDomainMetaModel(gmm.findGenPackage(domainSource.getModel()));
 		myGenDiagram.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, DiagramRTPackage.eINSTANCE.getDiagramCanvas()));
 		myGenDiagram.setPalette(createPalette());
 		myGenDiagram.setVisualID(99);
 
 		myGenNode = GMFGenFactory.eINSTANCE.createGenNode();
 		myGenNode.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, DiagramRTPackage.eINSTANCE.getDiagramNode()));
-		myGenNode.setDomainMetaClass(domainSource.getNode().getEClass());
-		myGenNode.setDomainNameFeature(domainSource.getNode().getNameAttr());
-		myGenNode.setContainmentMetaFeature(domainSource.getNode().getContainment());
+		myGenNode.setDomainMetaClass(gmm.findGenClass(domainSource.getNode().getEClass()));
+		myGenNode.setDomainNameFeature(gmm.findGenFeature(domainSource.getNode().getNameAttr()));
+		myGenNode.setContainmentMetaFeature(gmm.findGenFeature(domainSource.getNode().getContainment()));
 		myGenNode.setVisualID(100);
 
 		myGenLink = GMFGenFactory.eINSTANCE.createGenLinkWithClass();
 		myGenLink.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, DiagramRTPackage.eINSTANCE.getDiagramLink()));
-		myGenLink.setDomainMetaClass(domainSource.getLinkAsClass().getEClass());
-		myGenLink.setDomainLinkTargetFeature(domainSource.getLinkAsClass().getTargetFeature());
-		myGenLink.setContainmentMetaFeature(domainSource.getLinkAsClass().getContainment());
+		myGenLink.setDomainMetaClass(gmm.findGenClass(domainSource.getLinkAsClass().getEClass()));
+		myGenLink.setDomainLinkTargetFeature(gmm.findGenFeature(domainSource.getLinkAsClass().getTargetFeature()));
+		myGenLink.setContainmentMetaFeature(gmm.findGenFeature(domainSource.getLinkAsClass().getContainment()));
 		myGenLink.setVisualID(200);
 		// TODO add linkRefOnly
 		myGenDiagram.getNodes().add(myGenNode);

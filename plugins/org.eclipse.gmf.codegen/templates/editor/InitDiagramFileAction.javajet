@@ -139,7 +139,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext();) {
 <%
 for (Iterator nodes = genDiagram.getNodes().iterator(); nodes.hasNext();) {
 	GenNode nextGenNode = (GenNode) nodes.next();
-	GenClass nextGenNodeGenClass = genDiagram.findGenClass(nextGenNode.getDomainMetaClass());
+	GenClass nextGenNodeGenClass = nextGenNode.getDomainMetaClass();
 %>
             if (<%=importManager.getImportedName(nextGenNodeGenClass.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=nextGenNodeGenClass.getInterfaceName()%>().equals(nextEClass)) {
             	generateNode<%=nextGenNode.getVisualID()%>(next, diagramCanvas);
@@ -191,7 +191,7 @@ for (Iterator nodes = genDiagram.getNodes().iterator(); nodes.hasNext();) {
 	for (Iterator childNodes = nextGenNode.getChildNodes().iterator(); childNodes.hasNext();) {
 		GenChildNode nextChildGenNode = (GenChildNode) childNodes.next();
 		GenClass nextChildNodeRuntimeGenClass = nextChildGenNode.getDiagramRunTimeClass();
-		GenClass nextChildNodeDomainGenClass = genDiagram.findGenClass(nextChildGenNode.getDomainMetaClass());
+		GenClass nextChildNodeDomainGenClass = nextChildGenNode.getDomainMetaClass();
 %>
             if (<%=importManager.getImportedName(nextChildNodeDomainGenClass.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=nextChildNodeDomainGenClass.getInterfaceName()%>().equals(nextEClass)) {
 				ChildNode nextChildNode = <%=importManager.getImportedName(nextChildNodeRuntimeGenClass.getGenPackage().getQualifiedFactoryInterfaceName())%>.eINSTANCE.create<%=nextChildNodeRuntimeGenClass.getInterfaceName()%>();
@@ -327,15 +327,15 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext();) {
 	if (nextGenLink instanceof GenLinkReferenceOnly) {
 		referenceOnly = true;
 	} else {
-		containmentGenFeature = genDiagram.findGenFeature(nextGenLink.getContainmentMetaFeature());
+		containmentGenFeature = nextGenLink.getContainmentMetaFeature();
 		GenLinkWithClass withClassLink = (GenLinkWithClass) nextGenLink;
 		if (withClassLink.getDomainMetaClass() != null) {
-			domainMetaElementGenClass = genDiagram.findGenClass(withClassLink.getDomainMetaClass());
+			domainMetaElementGenClass = withClassLink.getDomainMetaClass();
 		}
 	}
 	
 	GenClass nextLinkRuntimeGenClass = nextGenLink.getDiagramRunTimeClass();
-	GenFeature domainLinkTargetGenFeature = genDiagram.findGenFeature(nextGenLink.getDomainLinkTargetFeature());
+	GenFeature domainLinkTargetGenFeature = nextGenLink.getDomainLinkTargetFeature();
 %>
     /**
      * @generated

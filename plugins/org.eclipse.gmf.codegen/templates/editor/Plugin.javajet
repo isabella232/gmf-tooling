@@ -1,7 +1,6 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="PluginGenerator"
     imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.ImportUtil"%>
 <%GenDiagram genDiagram = (GenDiagram) argument;%>
-<%GenModel genModel = genDiagram.getEmfGenModel();%>
 package <%=genDiagram.getEditorPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());%>
@@ -48,7 +47,7 @@ public class <%=genDiagram.getPluginClassName()%> extends AbstractUIPlugin {
 		ourInstance = this;
 		PreferencesHint.registerPreferenceStore(new PreferencesHint(EDITOR_ID), getPreferenceStore());
 <%
-GenPackage genPackage = genDiagram.getEmfGenModel().findGenPackage(genDiagram.getDomainMetaModel());
+GenPackage genPackage = genDiagram.getDomainMetaModel();
 String domainPackageIPAFInterfaceName = importManager.getImportedName(genPackage.getQualifiedItemProviderAdapterFactoryClassName());
 String domainPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 String domainPackageEditPluginClassName = importManager.getImportedName(genPackage.getQualifiedEditPluginClassName());

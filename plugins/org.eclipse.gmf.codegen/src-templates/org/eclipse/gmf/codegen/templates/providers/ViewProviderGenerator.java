@@ -50,7 +50,7 @@ public class ViewProviderGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     GenDiagram genDiagram = (GenDiagram) argument;
-    GenModel genModel = genDiagram.getEmfGenModel();
+    GenModel genModel = genDiagram.getEMFGenModel();
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getProvidersPackageName());
     stringBuffer.append(TEXT_2);
@@ -63,7 +63,7 @@ public class ViewProviderGenerator
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_6);
     
-GenPackage genPackage = genDiagram.getEmfGenModel().findGenPackage(genDiagram.getDomainMetaModel());
+GenPackage genPackage = genDiagram.getDomainMetaModel();
 String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 
     stringBuffer.append(TEXT_7);

@@ -1,6 +1,5 @@
 <%
-	EClass next = genNode.getDomainMetaClass();
-	GenClass nextGen = genDiagram.findGenClass(next);
+	GenClass nextGen = genNode.getDomainMetaClass();
 	GenPackage genPackage = nextGen.getGenPackage();
 	importManager.addImport(genPackage.getInterfacePackageName(), genPackage.getPackageInterfaceName());
 %>
@@ -8,7 +7,7 @@
 <%
 	for (Iterator it2 = genNode.getChildNodes().iterator(); it2.hasNext();) {
 		GenChildNode genChildNode = (GenChildNode) it2.next();
-		GenClass nextGenChildClass = genDiagram.findGenClass(genChildNode.getDomainMetaClass());
+		GenClass nextGenChildClass = genChildNode.getDomainMetaClass();
 		GenPackage nextChildGenPackage = nextGenChildClass.getGenPackage();
 		if (nextChildGenPackage != genPackage) {
 			importManager.addImport(nextChildGenPackage.getInterfacePackageName(), nextChildGenPackage.getPackageInterfaceName());

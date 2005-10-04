@@ -172,22 +172,13 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_DIAGRAM__DOMAIN_META_MODEL = GEN_COMMON_BASE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Emf Gen Model</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_DIAGRAM__EMF_GEN_MODEL = GEN_COMMON_BASE_FEATURE_COUNT + 1;
-
-	/**
 	 * The feature id for the '<em><b>Domain Diagram Element</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT = GEN_COMMON_BASE_FEATURE_COUNT + 2;
+	int GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT = GEN_COMMON_BASE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
@@ -196,7 +187,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__NODES = GEN_COMMON_BASE_FEATURE_COUNT + 3;
+	int GEN_DIAGRAM__NODES = GEN_COMMON_BASE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Links</b></em>' containment reference list.
@@ -205,7 +196,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__LINKS = GEN_COMMON_BASE_FEATURE_COUNT + 4;
+	int GEN_DIAGRAM__LINKS = GEN_COMMON_BASE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Palette</b></em>' containment reference.
@@ -214,7 +205,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PALETTE = GEN_COMMON_BASE_FEATURE_COUNT + 5;
+	int GEN_DIAGRAM__PALETTE = GEN_COMMON_BASE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Edit Parts Package Name</b></em>' attribute.
@@ -223,7 +214,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 6;
+	int GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Commands Package Name</b></em>' attribute.
@@ -232,7 +223,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__COMMANDS_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 7;
+	int GEN_DIAGRAM__COMMANDS_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Edit Providers Package Name</b></em>' attribute.
@@ -241,7 +232,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__EDIT_PROVIDERS_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 8;
+	int GEN_DIAGRAM__EDIT_PROVIDERS_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Plugin Name</b></em>' attribute.
@@ -250,7 +241,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PLUGIN_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 9;
+	int GEN_DIAGRAM__PLUGIN_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Provider Name</b></em>' attribute.
@@ -259,7 +250,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PROVIDER_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 10;
+	int GEN_DIAGRAM__PROVIDER_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Plugin ID</b></em>' attribute.
@@ -268,7 +259,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PLUGIN_ID = GEN_COMMON_BASE_FEATURE_COUNT + 11;
+	int GEN_DIAGRAM__PLUGIN_ID = GEN_COMMON_BASE_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>Plugin Class Name</b></em>' attribute.
@@ -277,7 +268,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PLUGIN_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 12;
+	int GEN_DIAGRAM__PLUGIN_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 11;
 
 	/**
 	 * The feature id for the '<em><b>Editor Package Name</b></em>' attribute.
@@ -286,7 +277,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__EDITOR_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 13;
+	int GEN_DIAGRAM__EDITOR_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 12;
 
 	/**
 	 * The feature id for the '<em><b>Providers Package Name</b></em>' attribute.
@@ -295,7 +286,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 14;
+	int GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 13;
 
 	/**
 	 * The feature id for the '<em><b>Editor Class Name</b></em>' attribute.
@@ -304,7 +295,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__EDITOR_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 15;
+	int GEN_DIAGRAM__EDITOR_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 14;
 
 	/**
 	 * The feature id for the '<em><b>Edit Part Factory Class Name</b></em>' attribute.
@@ -313,7 +304,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 16;
+	int GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 15;
 
 	/**
 	 * The feature id for the '<em><b>Meta Info Factory Class Name</b></em>' attribute.
@@ -322,7 +313,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__META_INFO_FACTORY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 17;
+	int GEN_DIAGRAM__META_INFO_FACTORY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 16;
 
 	/**
 	 * The feature id for the '<em><b>Has Domain Model</b></em>' attribute.
@@ -331,7 +322,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__HAS_DOMAIN_MODEL = GEN_COMMON_BASE_FEATURE_COUNT + 18;
+	int GEN_DIAGRAM__HAS_DOMAIN_MODEL = GEN_COMMON_BASE_FEATURE_COUNT + 17;
 
 	/**
 	 * The feature id for the '<em><b>Diagram File Extension</b></em>' attribute.
@@ -340,7 +331,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION = GEN_COMMON_BASE_FEATURE_COUNT + 19;
+	int GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION = GEN_COMMON_BASE_FEATURE_COUNT + 18;
 
 	/**
 	 * The feature id for the '<em><b>Same File For Diagram And Model</b></em>' attribute.
@@ -349,7 +340,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL = GEN_COMMON_BASE_FEATURE_COUNT + 20;
+	int GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL = GEN_COMMON_BASE_FEATURE_COUNT + 19;
 
 	/**
 	 * The feature id for the '<em><b>Init Diagram File Action Class Name</b></em>' attribute.
@@ -358,7 +349,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 21;
+	int GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 20;
 
 	/**
 	 * The number of structural features of the the '<em>Gen Diagram</em>' class.
@@ -367,7 +358,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 22;
+	int GEN_DIAGRAM_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 21;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl <em>Gen Base Element</em>}' class.
@@ -2051,17 +2042,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getGenDiagram_DomainMetaModel();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEmfGenModel <em>Emf Gen Model</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Emf Gen Model</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEmfGenModel()
-	 * @see #getGenDiagram()
-	 * @generated
-	 */
-	EReference getGenDiagram_EmfGenModel();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDomainDiagramElement <em>Domain Diagram Element</em>}'.

@@ -23,7 +23,6 @@
     <genDataTypes ecoreDataType="gmfgen.ecore#//StringArray"/>
     <genClasses ecoreClass="gmfgen.ecore#//GenDiagram">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/domainMetaModel"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/emfGenModel"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/domainDiagramElement"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/nodes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/links"/>
@@ -44,6 +43,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/diagramFileExtension"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/sameFileForDiagramAndModel"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/initDiagramFileActionClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getEMFGenModel"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getPluginQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getEditorQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getEditPartFactoryQualifiedClassName"/>
@@ -84,9 +84,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/childContainers"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/childNodes"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNode/childContainersPlacement"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenNode/initialize">
-        <genParameters ecoreParameter="gmfgen.ecore#//GenNode/initialize/eClass"/>
-      </genOperations>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenChildNode">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildNode/groupID"/>
@@ -107,15 +104,8 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenLinkWithClass">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkWithClass/domainMetaClass"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenLinkWithClass/initialize">
-        <genParameters ecoreParameter="gmfgen.ecore#//GenLinkWithClass/initialize/eClass"/>
-      </genOperations>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//GenLinkReferenceOnly">
-      <genOperations ecoreOperation="gmfgen.ecore#//GenLinkReferenceOnly/initialize">
-        <genParameters ecoreParameter="gmfgen.ecore#//GenLinkReferenceOnly/initialize/eFeature"/>
-      </genOperations>
-    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenLinkReferenceOnly"/>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//Viewmap">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//Viewmap/attributes"/>
     </genClasses>

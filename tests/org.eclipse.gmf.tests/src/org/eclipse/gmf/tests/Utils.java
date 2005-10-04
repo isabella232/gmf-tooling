@@ -79,6 +79,11 @@ public class Utils {
 		return null;
 	}
 
+	/**
+	 * Tests need class matching using names as it's not always ok 
+	 * to compare ecore classes as done in 
+	 * {@link org.eclipse.gmf.bridge.genmodel.GenModelMatcher#findGenClass(EClass)} 
+	 */
 	public static GenClass findGenClass(GenModel genModel, EClass domainClass) {
 		return findGenClass(genModel, domainClass.getName());
 	}

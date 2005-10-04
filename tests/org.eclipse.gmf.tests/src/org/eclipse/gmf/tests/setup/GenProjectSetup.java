@@ -68,11 +68,11 @@ public class GenProjectSetup {
 		}
 		final GenDiagram d = diaGenSource.getGenDiagram();
 		final LinkedHashSet projectsToInit = new LinkedHashSet();
-		d.getEmfGenModel().setCanGenerate(true);
-		d.getEmfGenModel().generate(new NullProgressMonitor());
-		projectsToInit.add(d.getEmfGenModel().getModelPluginID());
-		d.getEmfGenModel().generateEdit(new NullProgressMonitor());
-		projectsToInit.add(d.getEmfGenModel().getEditPluginID());
+		d.getEMFGenModel().setCanGenerate(true);
+		d.getEMFGenModel().generate(new NullProgressMonitor());
+		projectsToInit.add(d.getEMFGenModel().getModelPluginID());
+		d.getEMFGenModel().generateEdit(new NullProgressMonitor());
+		projectsToInit.add(d.getEMFGenModel().getEditPluginID());
 		new Generator(d).run();
 		projectsToInit.add(d.getPluginID());
 		Bundle b = null;

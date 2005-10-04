@@ -9,11 +9,10 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -23,7 +22,6 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
-
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
@@ -70,7 +68,7 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	 * @generated
 	 * @ordered
 	 */
-	protected EReference childMetaFeature = null;
+	protected GenFeature childMetaFeature = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -126,10 +124,10 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getChildMetaFeature() {
+	public GenFeature getChildMetaFeature() {
 		if (childMetaFeature != null && childMetaFeature.eIsProxy()) {
-			EReference oldChildMetaFeature = childMetaFeature;
-			childMetaFeature = (EReference)eResolveProxy((InternalEObject)childMetaFeature);
+			GenFeature oldChildMetaFeature = childMetaFeature;
+			childMetaFeature = (GenFeature)eResolveProxy((InternalEObject)childMetaFeature);
 			if (childMetaFeature != oldChildMetaFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_CHILD_NODE__CHILD_META_FEATURE, oldChildMetaFeature, childMetaFeature));
@@ -143,7 +141,7 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference basicGetChildMetaFeature() {
+	public GenFeature basicGetChildMetaFeature() {
 		return childMetaFeature;
 	}
 
@@ -152,8 +150,8 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setChildMetaFeature(EReference newChildMetaFeature) {
-		EReference oldChildMetaFeature = childMetaFeature;
+	public void setChildMetaFeature(GenFeature newChildMetaFeature) {
+		GenFeature oldChildMetaFeature = childMetaFeature;
 		childMetaFeature = newChildMetaFeature;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_CHILD_NODE__CHILD_META_FEATURE, oldChildMetaFeature, childMetaFeature));
@@ -304,13 +302,13 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				setMetaInfoProviderClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_NAME_FEATURE:
-				setDomainNameFeature((EAttribute)newValue);
+				setDomainNameFeature((GenFeature)newValue);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__FOREGROUND_COLOR:
 				setForegroundColor((String)newValue);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__CONTAINMENT_META_FEATURE:
-				setContainmentMetaFeature((EReference)newValue);
+				setContainmentMetaFeature((GenFeature)newValue);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName((String)newValue);
@@ -319,7 +317,7 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				setViewmap((Viewmap)newValue);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_META_CLASS:
-				setDomainMetaClass((EClass)newValue);
+				setDomainMetaClass((GenClass)newValue);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__AFFIXED_STEREOTYPES:
 				getAffixedStereotypes().clear();
@@ -343,7 +341,7 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				setGroupID((String)newValue);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_META_FEATURE:
-				setChildMetaFeature((EReference)newValue);
+				setChildMetaFeature((GenFeature)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -369,13 +367,13 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				setMetaInfoProviderClassName(META_INFO_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_NAME_FEATURE:
-				setDomainNameFeature((EAttribute)null);
+				setDomainNameFeature((GenFeature)null);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__FOREGROUND_COLOR:
 				setForegroundColor(FOREGROUND_COLOR_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__CONTAINMENT_META_FEATURE:
-				setContainmentMetaFeature((EReference)null);
+				setContainmentMetaFeature((GenFeature)null);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
@@ -384,7 +382,7 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				setViewmap((Viewmap)null);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_META_CLASS:
-				setDomainMetaClass((EClass)null);
+				setDomainMetaClass((GenClass)null);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__AFFIXED_STEREOTYPES:
 				getAffixedStereotypes().clear();
@@ -405,7 +403,7 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				setGroupID(GROUP_ID_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_META_FEATURE:
-				setChildMetaFeature((EReference)null);
+				setChildMetaFeature((GenFeature)null);
 				return;
 		}
 		eDynamicUnset(eFeature);

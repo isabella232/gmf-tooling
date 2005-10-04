@@ -1,7 +1,7 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="PluginXML"
     imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.*"%>
 <%GenDiagram genDiagram = (GenDiagram) argument;%>
-<%GenModel genModel = genDiagram.getEmfGenModel();%>
+<%GenModel genModel = genDiagram.getEMFGenModel();%>
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin
@@ -25,13 +25,10 @@
 %>
     <import plugin="org.eclipse.emf.edit.ui"/>
     <import plugin="org.eclipse.gef" export="true"/>
-    <import plugin="<%=genDiagram.getDiagramRunTimeClass().getGenModel().getModelPluginID()%>" export="true"/>
     <import plugin="org.eclipse.gmf.runtime.emf.commands.core"/>
     <import plugin="org.eclipse.gmf.runtime.diagram.ui"/>
     <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor"/>
     <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide"/>
-    <import plugin="org.eclipse.gmf.runtime.gef"/>
-    <import plugin="org.eclipse.gmf.edit"/>
     <import plugin="<%=genModel.getModelPluginID()%>" export="true"/>
 <%if (!genModel.sameModelEditProject()) {%>
     <import plugin="<%=genModel.getEditPluginID()%>" export="true"/>

@@ -34,7 +34,7 @@ public class EditorGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     GenDiagram genDiagram = (GenDiagram) argument;
-    GenModel genModel = genDiagram.getEmfGenModel();
+    GenModel genModel = genDiagram.getEMFGenModel();
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getEditorPackageName());
     stringBuffer.append(TEXT_2);

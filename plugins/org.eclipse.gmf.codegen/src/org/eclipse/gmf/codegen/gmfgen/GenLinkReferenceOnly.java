@@ -6,7 +6,6 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,13 +21,5 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * @model
  * @generated
  */
-public interface GenLinkReferenceOnly extends GenLink {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model
-	 * @generated
-	 */
-	void initialize(EStructuralFeature eFeature);
-
+public interface GenLinkReferenceOnly extends GenLink{
 } // GenLinkReferenceOnly

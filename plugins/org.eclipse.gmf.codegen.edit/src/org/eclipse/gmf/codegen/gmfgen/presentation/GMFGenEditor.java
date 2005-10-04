@@ -704,8 +704,8 @@ public class GMFGenEditor
 			// [vano] reconcile genModel for domain
 			Resource res = editingDomain.loadResource(URI.createPlatformResourceURI(modelFile.getFile().getFullPath().toString()).toString());
 			GenDiagram gd = (GenDiagram) res.getContents().get(0);
-			if (gd.getEmfGenModel() != null) {
-				gd.getEmfGenModel().reconcile();
+			if (gd.getEMFGenModel() != null) {
+				gd.getEMFGenModel().reconcile();
 			}
 		}
 		catch (Exception exception) {

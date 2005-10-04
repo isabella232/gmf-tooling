@@ -14,9 +14,9 @@ package org.eclipse.gmf.tests.tr;
 import java.util.Iterator;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.gmf.bridge.genmodel.EditPartNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
+import org.eclipse.gmf.bridge.genmodel.EditPartNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.MetaInfoProviderNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.NamingStrategy;
 import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
@@ -40,11 +40,10 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 		final Mapping m = getMapping();
 
 		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, getEditPartNamingStrategy(), getMetaInfoNamingStrategy());
+		t.setEMFGenModel(Utils.createGenModel(m.getDiagram().getDomainModel(), Utils.createUniquePluginID()));
 		t.transform(m);
 		GenDiagram genDiagram = t.getResult();
 		assertNotNull("GenDiagram is expected as result of mapping transformation", genDiagram);
-		// XXX ? should genModel creation be here, not part of DGMTransformer?
-		genDiagram.setEmfGenModel(Utils.createGenModel(genDiagram.getDomainMetaModel(), Utils.createUniquePluginID()));
 		assertNotNull("Diagram filename extension not set", genDiagram.getDiagramFileExtension());
 		// FIXME add more
 

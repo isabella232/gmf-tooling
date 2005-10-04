@@ -1,5 +1,5 @@
 <%
-	GenFeature genFeature = genDiagram.findGenFeature(genNode.getDomainNameFeature());
+	GenFeature genFeature = genNode.getDomainNameFeature();
 	String metaPackageInterfaceName = importManager.getImportedName(genFeature.getGenPackage().getQualifiedPackageInterfaceName());
 %>
 	/**

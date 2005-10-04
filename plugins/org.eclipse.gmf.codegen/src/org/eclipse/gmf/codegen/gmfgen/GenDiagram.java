@@ -9,9 +9,9 @@ package org.eclipse.gmf.codegen.gmfgen;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 /**
@@ -23,7 +23,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDomainMetaModel <em>Domain Meta Model</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEmfGenModel <em>Emf Gen Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDomainDiagramElement <em>Domain Diagram Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getNodes <em>Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getLinks <em>Links</em>}</li>
@@ -62,12 +61,12 @@ public interface GenDiagram extends GenCommonBase{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Domain Meta Model</em>' reference.
-	 * @see #setDomainMetaModel(EPackage)
+	 * @see #setDomainMetaModel(GenPackage)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_DomainMetaModel()
 	 * @model required="true"
 	 * @generated
 	 */
-	EPackage getDomainMetaModel();
+	GenPackage getDomainMetaModel();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDomainMetaModel <em>Domain Meta Model</em>}' reference.
@@ -77,33 +76,7 @@ public interface GenDiagram extends GenCommonBase{
 	 * @see #getDomainMetaModel()
 	 * @generated
 	 */
-	void setDomainMetaModel(EPackage value);
-
-	/**
-	 * Returns the value of the '<em><b>Emf Gen Model</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Emf Gen Model</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Emf Gen Model</em>' reference.
-	 * @see #setEmfGenModel(GenModel)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_EmfGenModel()
-	 * @model required="true"
-	 * @generated
-	 */
-	GenModel getEmfGenModel();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEmfGenModel <em>Emf Gen Model</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Emf Gen Model</em>' reference.
-	 * @see #getEmfGenModel()
-	 * @generated
-	 */
-	void setEmfGenModel(GenModel value);
+	void setDomainMetaModel(GenPackage value);
 
 	/**
 	 * Returns the value of the '<em><b>Domain Diagram Element</b></em>' reference.
@@ -114,12 +87,12 @@ public interface GenDiagram extends GenCommonBase{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Domain Diagram Element</em>' reference.
-	 * @see #setDomainDiagramElement(EClass)
+	 * @see #setDomainDiagramElement(GenClass)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_DomainDiagramElement()
 	 * @model
 	 * @generated
 	 */
-	EClass getDomainDiagramElement();
+	GenClass getDomainDiagramElement();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDomainDiagramElement <em>Domain Diagram Element</em>}' reference.
@@ -129,7 +102,7 @@ public interface GenDiagram extends GenCommonBase{
 	 * @see #getDomainDiagramElement()
 	 * @generated
 	 */
-	void setDomainDiagramElement(EClass value);
+	void setDomainDiagramElement(GenClass value);
 
 	/**
 	 * Returns the value of the '<em><b>Nodes</b></em>' containment reference list.
@@ -614,6 +587,17 @@ public interface GenDiagram extends GenCommonBase{
 	 * @generated
 	 */
 	void setInitDiagramFileActionClassName(String value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * == domainMetaModel.getGenModel()
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	GenModel getEMFGenModel();
 
 	/**
 	 * <!-- begin-user-doc -->

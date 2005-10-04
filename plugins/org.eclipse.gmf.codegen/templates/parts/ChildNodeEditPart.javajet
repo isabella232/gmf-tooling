@@ -25,7 +25,7 @@ public class <%=genChildNode.getEditPartClassName()%> extends ListItemCompartmen
 		super(view);
 	}
 <%
-GenPackage genPackage = genDiagram.getEmfGenModel().findGenPackage(genDiagram.getDomainMetaModel());
+GenPackage genPackage = genDiagram.getDomainMetaModel();
 String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 String semanticChildNodeInterfaceName = genChildNode.getDomainMetaClass().getName();
 %>

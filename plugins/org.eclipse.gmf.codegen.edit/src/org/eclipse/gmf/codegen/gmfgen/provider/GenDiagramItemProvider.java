@@ -62,7 +62,6 @@ public class GenDiagramItemProvider
 			super.getPropertyDescriptors(object);
 
 			addDomainMetaModelPropertyDescriptor(object);
-			addEmfGenModelPropertyDescriptor(object);
 			addDomainDiagramElementPropertyDescriptor(object);
 			addEditPartsPackageNamePropertyDescriptor(object);
 			addCommandsPackageNamePropertyDescriptor(object);
@@ -98,26 +97,6 @@ public class GenDiagramItemProvider
 				 getString("_UI_GenDiagram_domainMetaModel_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_domainMetaModel_feature", "_UI_GenDiagram_type"),
 				 GMFGenPackage.eINSTANCE.getGenDiagram_DomainMetaModel(),
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Emf Gen Model feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addEmfGenModelPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenDiagram_emfGenModel_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_emfGenModel_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_EmfGenModel(),
 				 true,
 				 null,
 				 null,

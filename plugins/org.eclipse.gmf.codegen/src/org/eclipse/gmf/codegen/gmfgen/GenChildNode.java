@@ -6,7 +6,7 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
-import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.EReference;
  * @model
  * @generated
  */
-public interface GenChildNode extends GenNode {
+public interface GenChildNode extends GenNode{
 	/**
 	 * Returns the value of the '<em><b>Group ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -78,12 +78,12 @@ public interface GenChildNode extends GenNode {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Child Meta Feature</em>' reference.
-	 * @see #setChildMetaFeature(EReference)
+	 * @see #setChildMetaFeature(GenFeature)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenChildNode_ChildMetaFeature()
 	 * @model required="true"
 	 * @generated
 	 */
-	EReference getChildMetaFeature();
+	GenFeature getChildMetaFeature();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenChildNode#getChildMetaFeature <em>Child Meta Feature</em>}' reference.
@@ -93,6 +93,6 @@ public interface GenChildNode extends GenNode {
 	 * @see #getChildMetaFeature()
 	 * @generated
 	 */
-	void setChildMetaFeature(EReference value);
+	void setChildMetaFeature(GenFeature value);
 
 } // GenChildNode

@@ -8,7 +8,6 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -19,7 +18,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -39,7 +37,6 @@ import org.eclipse.gmf.codegen.gmfgen.Palette;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDomainMetaModel <em>Domain Meta Model</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEmfGenModel <em>Emf Gen Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDomainDiagramElement <em>Domain Diagram Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getNodes <em>Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getLinks <em>Links</em>}</li>
@@ -74,17 +71,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 * @ordered
 	 */
-	protected EPackage domainMetaModel = null;
-
-	/**
-	 * The cached value of the '{@link #getEmfGenModel() <em>Emf Gen Model</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEmfGenModel()
-	 * @generated
-	 * @ordered
-	 */
-	protected GenModel emfGenModel = null;
+	protected GenPackage domainMetaModel = null;
 
 	/**
 	 * The cached value of the '{@link #getDomainDiagramElement() <em>Domain Diagram Element</em>}' reference.
@@ -94,7 +81,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated
 	 * @ordered
 	 */
-	protected EClass domainDiagramElement = null;
+	protected GenClass domainDiagramElement = null;
 
 	/**
 	 * The cached value of the '{@link #getNodes() <em>Nodes</em>}' containment reference list.
@@ -469,10 +456,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EPackage getDomainMetaModel() {
+	public GenPackage getDomainMetaModel() {
 		if (domainMetaModel != null && domainMetaModel.eIsProxy()) {
-			EPackage oldDomainMetaModel = domainMetaModel;
-			domainMetaModel = (EPackage)eResolveProxy((InternalEObject)domainMetaModel);
+			GenPackage oldDomainMetaModel = domainMetaModel;
+			domainMetaModel = (GenPackage)eResolveProxy((InternalEObject)domainMetaModel);
 			if (domainMetaModel != oldDomainMetaModel) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL, oldDomainMetaModel, domainMetaModel));
@@ -486,7 +473,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EPackage basicGetDomainMetaModel() {
+	public GenPackage basicGetDomainMetaModel() {
 		return domainMetaModel;
 	}
 
@@ -495,8 +482,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDomainMetaModel(EPackage newDomainMetaModel) {
-		EPackage oldDomainMetaModel = domainMetaModel;
+	public void setDomainMetaModel(GenPackage newDomainMetaModel) {
+		GenPackage oldDomainMetaModel = domainMetaModel;
 		domainMetaModel = newDomainMetaModel;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL, oldDomainMetaModel, domainMetaModel));
@@ -507,48 +494,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenModel getEmfGenModel() {
-		if (emfGenModel != null && emfGenModel.eIsProxy()) {
-			GenModel oldEmfGenModel = emfGenModel;
-			emfGenModel = (GenModel)eResolveProxy((InternalEObject)emfGenModel);
-			if (emfGenModel != oldEmfGenModel) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_DIAGRAM__EMF_GEN_MODEL, oldEmfGenModel, emfGenModel));
-			}
-		}
-		return emfGenModel;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenModel basicGetEmfGenModel() {
-		return emfGenModel;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setEmfGenModel(GenModel newEmfGenModel) {
-		GenModel oldEmfGenModel = emfGenModel;
-		emfGenModel = newEmfGenModel;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__EMF_GEN_MODEL, oldEmfGenModel, emfGenModel));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getDomainDiagramElement() {
+	public GenClass getDomainDiagramElement() {
 		if (domainDiagramElement != null && domainDiagramElement.eIsProxy()) {
-			EClass oldDomainDiagramElement = domainDiagramElement;
-			domainDiagramElement = (EClass)eResolveProxy((InternalEObject)domainDiagramElement);
+			GenClass oldDomainDiagramElement = domainDiagramElement;
+			domainDiagramElement = (GenClass)eResolveProxy((InternalEObject)domainDiagramElement);
 			if (domainDiagramElement != oldDomainDiagramElement) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT, oldDomainDiagramElement, domainDiagramElement));
@@ -562,7 +511,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass basicGetDomainDiagramElement() {
+	public GenClass basicGetDomainDiagramElement() {
 		return domainDiagramElement;
 	}
 
@@ -571,8 +520,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDomainDiagramElement(EClass newDomainDiagramElement) {
-		EClass oldDomainDiagramElement = domainDiagramElement;
+	public void setDomainDiagramElement(GenClass newDomainDiagramElement) {
+		GenClass oldDomainDiagramElement = domainDiagramElement;
 		domainDiagramElement = newDomainDiagramElement;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT, oldDomainDiagramElement, domainDiagramElement));
@@ -657,7 +606,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getEditPartsPackageName() {
 		String value = getEditPartsPackageNameGen();
 		if (value == null || value.length() == 0) {
-			return toLowerCase(getDomainMetaModel().getName()) + ".edit.parts";
+			return getPackageNamePrefix() + ".edit.parts";
 		}
 		return value;
 	}
@@ -686,7 +635,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getCommandsPackageName() {
 		String value = getCommandsPackageNameGen();
 		if (value == null || value.length() == 0) {
-			return toLowerCase(getDomainMetaModel().getName()) + ".edit.commands";
+			return getPackageNamePrefix() + ".edit.commands";
 		}
 		return value;
 	}
@@ -715,7 +664,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getEditProvidersPackageName() {
 		String value = getEditProvidersPackageNameGen();
 		if (value == null || value.length() == 0) {
-			return toLowerCase(getDomainMetaModel().getName()) + ".providers";
+			return getPackageNamePrefix() + ".providers";
 		}
 		return value;
 	}
@@ -737,7 +686,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		if (getDomainDiagramElement() != null) {
 			prefix = getDomainDiagramElement().getName();
 		} else {
-			char[] v = getDomainMetaModel().getName().toCharArray();
+			char[] v = getDomainMetaModel().getEcorePackage().getName().toCharArray();
 			v[0] = Character.toUpperCase(v[0]);
 			prefix = new String(v);
 		}
@@ -806,7 +755,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getPluginID() {
 		String value = getPluginIDGen();
 		if (value == null || value.length() == 0) {
-			return getEmfGenModel().getModelPluginID() + ".gmf.editor";
+			return getEMFGenModel().getModelPluginID() + ".gmf.editor";
 		}
 		return value;
 	}
@@ -835,7 +784,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getPluginClassName() {
 		String value = getPluginClassNameGen();
 		if (value == null || value.length() == 0) {
-			return CodeGenUtil.validJavaIdentifier(getEmfGenModel().getModelName()) + "DiagramEditorPlugin";
+			return CodeGenUtil.validJavaIdentifier(getEMFGenModel().getModelName()) + "DiagramEditorPlugin";
 		}
 		return value;
 	}
@@ -864,7 +813,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getEditorPackageName() {
 		String value = getEditorPackageNameGen();
 		if (value == null || value.length() == 0) {
-			return toLowerCase(getDomainMetaModel().getName()) + ".editor";
+			return getPackageNamePrefix() + ".editor";
 		}
 		return value;
 	}
@@ -893,7 +842,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getProvidersPackageName() {
 		String value = getProvidersPackageNameGen();
 		if (value == null || value.length() == 0) {
-			return toLowerCase(getDomainMetaModel().getName()) + ".edit.providers";
+			return getPackageNamePrefix() + ".edit.providers";
 		}
 		return value;
 	}
@@ -1006,7 +955,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getDiagramFileExtension() {
 		String value = getDiagramFileExtensionGen();
 		if (value == null || value.trim().length() == 0) {
-			return getEmfGenModel().getModelName().toLowerCase() + "_diagram";
+			return getEMFGenModel().getModelName().toLowerCase() + "_diagram";
 		}
 		return value;
 	}
@@ -1070,6 +1019,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public GenModel getEMFGenModel() {
+		return getDomainMetaModel().getGenModel();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public String getPluginQualifiedClassName() {
 		return getEditorPackageName() + '.' + getPluginClassName();
 	}
@@ -1104,33 +1062,23 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	public GenClass findGenClass(EClass domainMetaClass) {
-		GenPackage gp = getEmfGenModel().findGenPackage(domainMetaClass.getEPackage());
-		for (Iterator it = gp.getGenClasses().iterator(); it.hasNext();) {
-			GenClass genClass = (GenClass) it.next();
-			if (genClass.getEcoreClass().equals(domainMetaClass)) {
-				return genClass;
-			}
-		}
-		throw new IllegalStateException("Can't find genClass for class '" + domainMetaClass.getName() + "' in package " + gp.getPackageName());
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
 	public GenFeature findGenFeature(EStructuralFeature domainMetaFeature) {
-		GenClass genClass = findGenClass(domainMetaFeature.getEContainingClass());
-		for (Iterator it = genClass.getGenFeatures().iterator(); it.hasNext();) {
-			GenFeature next = (GenFeature) it.next();
-			if (next.getEcoreFeature().equals(domainMetaFeature)) {
-				return next;
-			}
-		}
-		throw new IllegalStateException("Can't find genFeature for feature '" + domainMetaFeature.getName() + "' in class " + genClass.getName());
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -1231,9 +1179,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
 				if (resolve) return getDomainMetaModel();
 				return basicGetDomainMetaModel();
-			case GMFGenPackage.GEN_DIAGRAM__EMF_GEN_MODEL:
-				if (resolve) return getEmfGenModel();
-				return basicGetEmfGenModel();
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
 				if (resolve) return getDomainDiagramElement();
 				return basicGetDomainDiagramElement();
@@ -1299,13 +1244,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				setMetaInfoProviderClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
-				setDomainMetaModel((EPackage)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EMF_GEN_MODEL:
-				setEmfGenModel((GenModel)newValue);
+				setDomainMetaModel((GenPackage)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
-				setDomainDiagramElement((EClass)newValue);
+				setDomainDiagramElement((GenClass)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__NODES:
 				getNodes().clear();
@@ -1390,13 +1332,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				setMetaInfoProviderClassName(META_INFO_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
-				setDomainMetaModel((EPackage)null);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EMF_GEN_MODEL:
-				setEmfGenModel((GenModel)null);
+				setDomainMetaModel((GenPackage)null);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
-				setDomainDiagramElement((EClass)null);
+				setDomainDiagramElement((GenClass)null);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__NODES:
 				getNodes().clear();
@@ -1476,8 +1415,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return META_INFO_PROVIDER_CLASS_NAME_EDEFAULT == null ? metaInfoProviderClassName != null : !META_INFO_PROVIDER_CLASS_NAME_EDEFAULT.equals(metaInfoProviderClassName);
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
 				return domainMetaModel != null;
-			case GMFGenPackage.GEN_DIAGRAM__EMF_GEN_MODEL:
-				return emfGenModel != null;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
 				return domainDiagramElement != null;
 			case GMFGenPackage.GEN_DIAGRAM__NODES:
@@ -1565,6 +1502,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(initDiagramFileActionClassName);
 		result.append(')');
 		return result.toString();
+	}
+
+	private String getPackageNamePrefix() {
+		return toLowerCase(getDomainMetaModel().getEcorePackage().getName());
 	}
 
 	private static String toLowerCase(String s) {

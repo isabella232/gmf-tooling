@@ -7,16 +7,14 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkReferenceOnly;
-
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
@@ -47,17 +45,8 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 		return GMFGenPackage.eINSTANCE.getGenLinkReferenceOnly();
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public void initialize(EStructuralFeature eFeature) {
-		setDomainLinkTargetFeature(eFeature);
-	}
-
 	protected String getDefaultNotationViewFactoryClassName() {
-		EReference cnt = getContainmentMetaFeature();
+		EStructuralFeature cnt = getContainmentMetaFeature().getEcoreFeature();
 		String className = cnt.getEContainingClass().getName();
 		String featureName = cnt.getName();
 		return className + '_' + featureName + "ViewFactory"; //$NON-NLS-1$
@@ -177,13 +166,13 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 				setMetaInfoProviderClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DOMAIN_NAME_FEATURE:
-				setDomainNameFeature((EAttribute)newValue);
+				setDomainNameFeature((GenFeature)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__FOREGROUND_COLOR:
 				setForegroundColor((String)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__CONTAINMENT_META_FEATURE:
-				setContainmentMetaFeature((EReference)newValue);
+				setContainmentMetaFeature((GenFeature)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName((String)newValue);
@@ -192,7 +181,7 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 				setViewmap((Viewmap)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DOMAIN_LINK_TARGET_FEATURE:
-				setDomainLinkTargetFeature((EStructuralFeature)newValue);
+				setDomainLinkTargetFeature((GenFeature)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -218,13 +207,13 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 				setMetaInfoProviderClassName(META_INFO_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DOMAIN_NAME_FEATURE:
-				setDomainNameFeature((EAttribute)null);
+				setDomainNameFeature((GenFeature)null);
 				return;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__FOREGROUND_COLOR:
 				setForegroundColor(FOREGROUND_COLOR_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__CONTAINMENT_META_FEATURE:
-				setContainmentMetaFeature((EReference)null);
+				setContainmentMetaFeature((GenFeature)null);
 				return;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
@@ -233,7 +222,7 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 				setViewmap((Viewmap)null);
 				return;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DOMAIN_LINK_TARGET_FEATURE:
-				setDomainLinkTargetFeature((EStructuralFeature)null);
+				setDomainLinkTargetFeature((GenFeature)null);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -273,7 +262,7 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 	}
 
 	public String getClassNamePrefix() {
-		return getDomainLinkTargetFeature() == null ? "GenPseudoLink$" + hashCode() : getDomainLinkTargetFeature().getEType().getName();
+		return getDomainLinkTargetFeature() == null ? "GenPseudoLink$" + hashCode() : getDomainLinkTargetFeature().getEcoreFeature().getEType().getName();
 	}
 
 	public String getClassNameSuffux() {

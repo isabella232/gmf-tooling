@@ -14,9 +14,14 @@ package org.eclipse.gmf.bridge.genmodel;
 import java.util.Iterator;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
 import org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
@@ -42,6 +47,7 @@ import org.eclipse.gmf.diadef.Node;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
+import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 
 /**
@@ -55,6 +61,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 	private static final int LINK_COUNT_BASE = 300;
 
 	private GenDiagram myGenModel;
+	private GenModelMatcher myGenModelMatch;
 	private final DiagramRunTimeModelHelper myDRTHelper;
 	private final NamingStrategy myEditPartNamingStrategy;
 	private final NamingStrategy myMetaInfoNamingStrategy;
@@ -66,6 +73,17 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		myDRTHelper = drtHelper;
 		myEditPartNamingStrategy = editPartNaming;
 		myMetaInfoNamingStrategy = metaInfoNaming;
+	}
+
+	/**
+	 * Optionally set GenModel to match ECore elements against. 
+	 * Should be invoked prior to {@link MappingTransofrmer#transform(Mapping)}, otherwise has no effect.
+	 * Useful for tests (and other cases) when GenModel is not known to EMF 
+	 * (and thus can't be obtained using EMF techniques).
+	 * @param emfGenModel EMF GenModel for domain model
+	 */
+	public void setEMFGenModel(GenModel emfGenModel) {
+		myGenModelMatch = new GenModelMatcher(emfGenModel);
 	}
 
 	public GenDiagram getResult() {
@@ -90,8 +108,11 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 
 	protected void process(CanvasMapping mapping) {
 		assert mapping.getDomainModel() != null;
-		getGenDiagram().setDomainMetaModel(mapping.getDomainModel());
-		getGenDiagram().setDomainDiagramElement(mapping.getDomainMetaElement());
+		if (myGenModelMatch == null) {
+			myGenModelMatch = new GenModelMatcher(mapping.getDomainModel());
+		}
+		getGenDiagram().setDomainMetaModel(findGenPackage(mapping.getDomainModel()));
+		getGenDiagram().setDomainDiagramElement(findGenClass(mapping.getDomainMetaElement()));
 		getGenDiagram().setEditPartClassName(createEditPartClassName(mapping));
 		getGenDiagram().setMetaInfoProviderClassName(createMetaInfoProviderClassName(mapping));
 		getGenDiagram().setDiagramRunTimeClass(findRunTimeClass(mapping));
@@ -106,14 +127,14 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		GenNode genNode = GMFGenFactory.eINSTANCE.createGenNode();
 		getGenDiagram().getNodes().add(genNode);
 		genNode.setDiagramRunTimeClass(findRunTimeClass(nme));
-		genNode.setDomainMetaClass(nme.getDomainMetaElement());
-		genNode.setContainmentMetaFeature(nme.getContainmentFeature());
+		genNode.setDomainMetaClass(findGenClass(nme.getDomainMetaElement()));
+		genNode.setContainmentMetaFeature(findGenFeature(nme.getContainmentFeature()));
 		genNode.setVisualID(NODE_COUNT_BASE + (++myNodeCount));
 		if (getGenDiagram().getDomainMetaModel() != null) {
 			assert getGenDiagram().getDomainMetaModel() == nme.getDomainMetaElement().getEPackage();
 		}
 		if (nme.getEditFeature() != null) {
-			genNode.setDomainNameFeature(nme.getEditFeature());
+			genNode.setDomainNameFeature(findGenFeature(nme.getEditFeature()));
 		}
 		genNode.setEditPartClassName(createEditPartClassName(nme));
 		genNode.setMetaInfoProviderClassName(createMetaInfoProviderClassName(nme));
@@ -136,12 +157,12 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			GenChildNode childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
 			assert childNodeMapping.getDomainChildrenFeature() instanceof EReference;
 			assert childNodeMapping.getDomainChildrenFeature().getEType() instanceof EClass;
-			childNode.setContainmentMetaFeature((EReference) childNodeMapping.getDomainChildrenFeature());
+			childNode.setContainmentMetaFeature(findGenFeature(childNodeMapping.getDomainChildrenFeature()));
 			
 			if (childNodeMapping.getDomainMetaElement() != null) {
-				childNode.setDomainMetaClass(childNodeMapping.getDomainMetaElement());
+				childNode.setDomainMetaClass(findGenClass(childNodeMapping.getDomainMetaElement()));
 			} else {
-				childNode.setDomainMetaClass((EClass) childNodeMapping.getDomainChildrenFeature().getEType());
+				childNode.setDomainMetaClass(findGenClass((EClass) childNodeMapping.getDomainChildrenFeature().getEType()));
 			}
 			
 			childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
@@ -151,7 +172,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			childNode.setVisualID(CHILD_COUNT_BASE + (++myChildCount ));
 			
 			if (childNodeMapping.getEditFeature() != null) {
-				childNode.setDomainNameFeature(childNodeMapping.getEditFeature());
+				childNode.setDomainNameFeature(findGenFeature(childNodeMapping.getEditFeature()));
 			}
 			
 			genNode.getChildNodes().add(childNode);
@@ -175,13 +196,13 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		if (lme.getDomainMetaElement() != null) {
 			GenLinkWithClass genLink = GMFGenFactory.eINSTANCE.createGenLinkWithClass();
 			getGenDiagram().getLinks().add(genLink);
-			genLink.setDomainMetaClass(lme.getDomainMetaElement());
-			genLink.setDomainLinkTargetFeature(lme.getLinkMetaFeature());
+			genLink.setDomainMetaClass(findGenClass(lme.getDomainMetaElement()));
+			genLink.setDomainLinkTargetFeature(findGenFeature(lme.getLinkMetaFeature()));
 			gl = genLink;
 		} else {
 			GenLinkReferenceOnly genLink = GMFGenFactory.eINSTANCE.createGenLinkReferenceOnly();
 			getGenDiagram().getLinks().add(genLink);
-			genLink.setDomainLinkTargetFeature(lme.getLinkMetaFeature());
+			genLink.setDomainLinkTargetFeature(findGenFeature(lme.getLinkMetaFeature()));
 			gl = genLink;
 		}
 		if (lme.getDiagramLink().isNeedsTool()) {
@@ -190,11 +211,11 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			le.setGenLink(gl);
 			setupCommonToolEntry(le, lme.getDiagramLink());
 		}
-		gl.setDomainNameFeature(lme.getLabelEditFeature());
+		gl.setDomainNameFeature(findGenFeature(lme.getLabelEditFeature()));
 		gl.setDiagramRunTimeClass(findRunTimeClass(lme));
 		gl.setEditPartClassName(createEditPartClassName(lme));
 		gl.setMetaInfoProviderClassName(createMetaInfoProviderClassName(lme));
-		gl.setContainmentMetaFeature(lme.getContainmentFeature());
+		gl.setContainmentMetaFeature(findGenFeature(lme.getContainmentFeature()));
 		gl.setVisualID(LINK_COUNT_BASE + (++myLinkCount));
 
 		initViewmap(lme, gl);
@@ -343,5 +364,17 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		}
 		EClassifier attrContainer = nme.getEditFeature().getEContainingClass();
 		return attrContainer == nme.getDomainMetaElement() || nme.getDomainMetaElement().getEAllSuperTypes().contains(attrContainer);
+	}
+
+	private GenPackage findGenPackage(EPackage ePackage) {
+		return myGenModelMatch.findGenPackage(ePackage);
+	}
+
+	private GenClass findGenClass(EClass eClass) {
+		return myGenModelMatch.findGenClass(eClass);
+	}
+
+	private GenFeature findGenFeature(EStructuralFeature feature) {
+		return myGenModelMatch.findGenFeature(feature);
 	}
 }

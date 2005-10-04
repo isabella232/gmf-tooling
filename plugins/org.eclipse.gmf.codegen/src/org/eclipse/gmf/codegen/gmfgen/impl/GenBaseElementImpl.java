@@ -7,18 +7,15 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
-
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
@@ -47,7 +44,7 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 	 * @generated
 	 * @ordered
 	 */
-	protected EAttribute domainNameFeature = null;
+	protected GenFeature domainNameFeature = null;
 
 	/**
 	 * The default value of the '{@link #getForegroundColor() <em>Foreground Color</em>}' attribute.
@@ -77,7 +74,7 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 	 * @generated
 	 * @ordered
 	 */
-	protected EReference containmentMetaFeature = null;
+	protected GenFeature containmentMetaFeature = null;
 
 	/**
 	 * The default value of the '{@link #getNotationViewFactoryClassName() <em>Notation View Factory Class Name</em>}' attribute.
@@ -132,10 +129,10 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getDomainNameFeature() {
+	public GenFeature getDomainNameFeature() {
 		if (domainNameFeature != null && domainNameFeature.eIsProxy()) {
-			EAttribute oldDomainNameFeature = domainNameFeature;
-			domainNameFeature = (EAttribute)eResolveProxy((InternalEObject)domainNameFeature);
+			GenFeature oldDomainNameFeature = domainNameFeature;
+			domainNameFeature = (GenFeature)eResolveProxy((InternalEObject)domainNameFeature);
 			if (domainNameFeature != oldDomainNameFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE, oldDomainNameFeature, domainNameFeature));
@@ -149,7 +146,7 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute basicGetDomainNameFeature() {
+	public GenFeature basicGetDomainNameFeature() {
 		return domainNameFeature;
 	}
 
@@ -158,8 +155,8 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDomainNameFeature(EAttribute newDomainNameFeature) {
-		EAttribute oldDomainNameFeature = domainNameFeature;
+	public void setDomainNameFeature(GenFeature newDomainNameFeature) {
+		GenFeature oldDomainNameFeature = domainNameFeature;
 		domainNameFeature = newDomainNameFeature;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE, oldDomainNameFeature, domainNameFeature));
@@ -191,10 +188,10 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getContainmentMetaFeature() {
+	public GenFeature getContainmentMetaFeature() {
 		if (containmentMetaFeature != null && containmentMetaFeature.eIsProxy()) {
-			EReference oldContainmentMetaFeature = containmentMetaFeature;
-			containmentMetaFeature = (EReference)eResolveProxy((InternalEObject)containmentMetaFeature);
+			GenFeature oldContainmentMetaFeature = containmentMetaFeature;
+			containmentMetaFeature = (GenFeature)eResolveProxy((InternalEObject)containmentMetaFeature);
 			if (containmentMetaFeature != oldContainmentMetaFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE, oldContainmentMetaFeature, containmentMetaFeature));
@@ -208,7 +205,7 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference basicGetContainmentMetaFeature() {
+	public GenFeature basicGetContainmentMetaFeature() {
 		return containmentMetaFeature;
 	}
 
@@ -217,8 +214,8 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setContainmentMetaFeature(EReference newContainmentMetaFeature) {
-		EReference oldContainmentMetaFeature = containmentMetaFeature;
+	public void setContainmentMetaFeature(GenFeature newContainmentMetaFeature) {
+		GenFeature oldContainmentMetaFeature = containmentMetaFeature;
 		containmentMetaFeature = newContainmentMetaFeature;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE, oldContainmentMetaFeature, containmentMetaFeature));
@@ -376,13 +373,13 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 				setMetaInfoProviderClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE:
-				setDomainNameFeature((EAttribute)newValue);
+				setDomainNameFeature((GenFeature)newValue);
 				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__FOREGROUND_COLOR:
 				setForegroundColor((String)newValue);
 				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE:
-				setContainmentMetaFeature((EReference)newValue);
+				setContainmentMetaFeature((GenFeature)newValue);
 				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName((String)newValue);
@@ -414,13 +411,13 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 				setMetaInfoProviderClassName(META_INFO_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE:
-				setDomainNameFeature((EAttribute)null);
+				setDomainNameFeature((GenFeature)null);
 				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__FOREGROUND_COLOR:
 				setForegroundColor(FOREGROUND_COLOR_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE:
-				setContainmentMetaFeature((EReference)null);
+				setContainmentMetaFeature((GenFeature)null);
 				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
