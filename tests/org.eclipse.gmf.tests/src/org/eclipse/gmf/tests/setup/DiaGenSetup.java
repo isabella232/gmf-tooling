@@ -27,7 +27,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
-import org.eclipse.gmf.diagramrt.DiagramRTPackage;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.tests.Utils;
 
 public class DiaGenSetup implements DiaGenSource {
@@ -42,26 +42,26 @@ public class DiaGenSetup implements DiaGenSource {
 	 * @return <code>this</code> for convenience
 	 */
 	public DiaGenSetup init(DomainModelSource domainSource) {
-		final GenModel runtimeModel = Utils.loadGenModel(DiagramRTPackage.eNS_URI);
+		final GenModel runtimeModel = Utils.loadGenModel(NotationPackage.eNS_URI);
 		final String pluginID = Utils.createUniquePluginID();
 		assert runtimeModel != null;
 		final GenModelMatcher gmm = new GenModelMatcher(Utils.createGenModel(domainSource.getModel(), pluginID));
 		myGenDiagram = GMFGenFactory.eINSTANCE.createGenDiagram();
 		myGenDiagram.setDomainDiagramElement(gmm.findGenClass(domainSource.getDiagramElement()));
 		myGenDiagram.setDomainMetaModel(gmm.findGenPackage(domainSource.getModel()));
-		myGenDiagram.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, DiagramRTPackage.eINSTANCE.getDiagramCanvas()));
+		myGenDiagram.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getDiagram()));
 		myGenDiagram.setPalette(createPalette());
 		myGenDiagram.setVisualID(99);
 
 		myGenNode = GMFGenFactory.eINSTANCE.createGenNode();
-		myGenNode.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, DiagramRTPackage.eINSTANCE.getDiagramNode()));
+		myGenNode.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getNode()));
 		myGenNode.setDomainMetaClass(gmm.findGenClass(domainSource.getNode().getEClass()));
 		myGenNode.setDomainNameFeature(gmm.findGenFeature(domainSource.getNode().getNameAttr()));
 		myGenNode.setContainmentMetaFeature(gmm.findGenFeature(domainSource.getNode().getContainment()));
 		myGenNode.setVisualID(100);
 
 		myGenLink = GMFGenFactory.eINSTANCE.createGenLinkWithClass();
-		myGenLink.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, DiagramRTPackage.eINSTANCE.getDiagramLink()));
+		myGenLink.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getEdge()));
 		myGenLink.setDomainMetaClass(gmm.findGenClass(domainSource.getLinkAsClass().getEClass()));
 		myGenLink.setDomainLinkTargetFeature(gmm.findGenFeature(domainSource.getLinkAsClass().getTargetFeature()));
 		myGenLink.setContainmentMetaFeature(gmm.findGenFeature(domainSource.getLinkAsClass().getContainment()));

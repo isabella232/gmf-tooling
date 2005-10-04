@@ -15,10 +15,10 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.diagramrt.DiagramCanvas;
-import org.eclipse.gmf.diagramrt.DiagramLink;
-import org.eclipse.gmf.diagramrt.DiagramNode;
-import org.eclipse.gmf.diagramrt.DiagramRTFactory;
+import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.Edge;
+import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.runtime.notation.NotationFactory;
 
 /**
  * Simple implementation that creates simple diagram with few elements
@@ -26,9 +26,9 @@ import org.eclipse.gmf.diagramrt.DiagramRTFactory;
  */
 public class RTSetup implements RTSource {
 
-	private DiagramCanvas myCanvas;
-	private DiagramNode myNode;
-	private DiagramLink myLink;
+	private Diagram myCanvas;
+	private Node myNode;
+	private Edge myLink;
 
 	public RTSetup() {
 	}
@@ -37,20 +37,20 @@ public class RTSetup implements RTSource {
 	 * @return <code>this</code> for convenience
 	 */
 	public final RTSetup init(DiaGenSource genSource) {
-		myCanvas = DiagramRTFactory.eINSTANCE.createDiagramCanvas();
-		myNode = DiagramRTFactory.eINSTANCE.createDiagramNode();
-		myLink = DiagramRTFactory.eINSTANCE.createDiagramLink();
-		myCanvas.getNodes().add(myNode);
-		myCanvas.getLinks().add(myLink);
+		myCanvas = NotationFactory.eINSTANCE.createDiagram();
+		myNode = NotationFactory.eINSTANCE.createNode();
+		myLink = NotationFactory.eINSTANCE.createEdge();
+		myCanvas.getPersistedChildren().add(myNode);
+		myCanvas.getPersistedEdges().add(myLink);
 
 		EObject diagramElement = createInstance(genSource.getGenDiagram().getDomainDiagramElement());
-		myCanvas.setDomainContainerObject(diagramElement);
+		myCanvas.setElement(diagramElement);
 		EObject nodeElement = createInstance(genSource.getGenNode().getDomainMetaClass());
-		myNode.setDomainModelElement(nodeElement);
-		myNode.setVisualID(genSource.getGenNode().getVisualID());
+		myNode.setElement(nodeElement);
+		//myNode.setVisualID(genSource.getGenNode().getVisualID());
 		EObject linkElement = createInstance(genSource.getGenLink().getDomainMetaClass());
-		myLink.setDomainModelElement(linkElement);
-		myLink.setVisualID(genSource.getGenLink().getVisualID());
+		myLink.setElement(linkElement);
+		//myLink.setVisualID(genSource.getGenLink().getVisualID());
 
 		Object nc = diagramElement.eGet(genSource.getGenNode().getContainmentMetaFeature().getEcoreFeature());
 		assert nc instanceof EList;
@@ -72,15 +72,15 @@ public class RTSetup implements RTSource {
 		return eClass.getEPackage().getEFactoryInstance().create(eClass);
 	}
 
-	public final DiagramCanvas getCanvas() {
+	public final Diagram getCanvas() {
 		return myCanvas;
 	}
 
-	public final DiagramNode getNode() {
+	public final Node getNode() {
 		return myNode;
 	}
 
-	public DiagramLink getLink() {
+	public Edge getLink() {
 		return myLink;
 	}
 

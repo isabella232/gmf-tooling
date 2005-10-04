@@ -22,7 +22,7 @@ import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelTransformer;
 import org.eclipse.gmf.diadef.DiagramDefinitionFactory;
 import org.eclipse.gmf.diadef.Node;
 import org.eclipse.gmf.diadef.RunTimeProperty;
-import org.eclipse.gmf.diagramrt.DiagramRTPackage;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
 
 public class RunTimeModelTransformerTest extends AbstractMappingTransformerTest {
 	public RunTimeModelTransformerTest(String name) {
@@ -37,16 +37,16 @@ public class RunTimeModelTransformerTest extends AbstractMappingTransformerTest 
 		// make sure there's class for canvas, node and link and that they extend appropriate class from basicDRT
 		EClass c = findEClass(drtModel, getCanvasDef().getName());
 		assertNotNull("There's no rt model class for canvas definition", c);
-		assertTrue("rt model class for canvas definition should extend appropiate class from basic RT model", checkSuperclass(c, DiagramRTPackage.eINSTANCE.getDiagramCanvas()));
+		assertTrue("rt model class for canvas definition should extend appropiate class from basic RT model", checkSuperclass(c, NotationPackage.eINSTANCE.getDiagram()));
 
 		c = findEClass(drtModel, getNodeDef().getName());
 		assertNotNull("There's no rt model class for node definition", c);
-		assertTrue("rt model class for node definition should extend appropiate class from basic RT model", checkSuperclass(c, DiagramRTPackage.eINSTANCE.getDiagramNode()));
+		assertTrue("rt model class for node definition should extend appropiate class from basic RT model", checkSuperclass(c, NotationPackage.eINSTANCE.getNode()));
 		doTestRunTimeModelPropertiesTransform(c);
 
 		c = findEClass(drtModel, getLinkDef().getName());
 		assertNotNull("There's no rt model class for link definition", c);
-		assertTrue("rt model class for link definition should extend appropiate class from basic RT model", checkSuperclass(c, DiagramRTPackage.eINSTANCE.getDiagramLink()));
+		assertTrue("rt model class for link definition should extend appropiate class from basic RT model", checkSuperclass(c, NotationPackage.eINSTANCE.getEdge()));
 	}
 
 	public void setupNodeDef(Node nodeDef) {
@@ -63,17 +63,18 @@ public class RunTimeModelTransformerTest extends AbstractMappingTransformerTest 
 		EStructuralFeature sf = nodeRTClass.getEStructuralFeature("prop1");
 		assertNotNull("There should be 'prop1' structural feature in generated diagramNode EClass", sf);
 		assertTrue("StructuralFeature 'prop1' should be attribute", sf instanceof EAttribute);
-		org.eclipse.gmf.diagramrt.DiagramNode rtInstance = (org.eclipse.gmf.diagramrt.DiagramNode) nodeRTClass.getEPackage().getEFactoryInstance().create(nodeRTClass);
+		org.eclipse.gmf.runtime.notation.Node rtInstance = (org.eclipse.gmf.runtime.notation.Node) nodeRTClass.getEPackage().getEFactoryInstance().create(nodeRTClass);
 		rtInstance.eSet(sf, "abc");
 		assertEquals("Not possible to access rtProperty in EMF way", rtInstance.eGet(sf), "abc");
-		assertEquals("Not possible to get rtProperty using our 'generic' API", rtInstance.getProperty("prop1"), "abc");
-		assertFalse("[TENTATIVE] Specific RT should not use runTimeProperties", rtInstance.getRunTimeProperties().contains("prop1"));
+		fail("Fix runtime properties in new runtime/notation model");
+//		assertEquals("Not possible to get rtProperty using our 'generic' API", rtInstance.getProperty("prop1"), "abc");
+//		assertFalse("[TENTATIVE] Specific RT should not use runTimeProperties", rtInstance.getRunTimeProperties().contains("prop1"));
 
 		// FIXME make sure properties are persisted
 
-		assertNull(rtInstance.getProperty("prop3"));
-		assertNull(rtInstance.getRunTimeProperties().get("prop1"));
-		assertFalse(rtInstance.getRunTimeProperties().contains("prop3"));
+//		assertNull(rtInstance.getProperty("prop3"));
+//		assertNull(rtInstance.getRunTimeProperties().get("prop1"));
+//		assertFalse(rtInstance.getRunTimeProperties().contains("prop3"));
 	}
 
 	private static EClass findEClass(EPackage model, String name) {

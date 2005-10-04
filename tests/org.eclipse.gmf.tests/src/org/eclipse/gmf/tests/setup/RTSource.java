@@ -11,16 +11,16 @@
  */
 package org.eclipse.gmf.tests.setup;
 
-import org.eclipse.gmf.diagramrt.DiagramCanvas;
-import org.eclipse.gmf.diagramrt.DiagramLink;
-import org.eclipse.gmf.diagramrt.DiagramNode;
+import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.Edge;
+import org.eclipse.gmf.runtime.notation.Node;
 
 /**
  * Somehow configured diagram instance
  * @author artem
  */
 public interface RTSource {
-	DiagramCanvas getCanvas();
-	DiagramNode getNode();
-	DiagramLink getLink();
+	Diagram getCanvas();
+	Node getNode();
+	Edge getLink();
 }

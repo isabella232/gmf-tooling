@@ -20,11 +20,11 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.gmf.diagramrt.DiagramRTPackage;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
 
 /**
  * Makes use of basic/standard classes for runtime presentation of diagram 
@@ -69,20 +69,19 @@ public class BasicDiagramRunTimeModelHelper implements DiagramRunTimeModelHelper
 		URI diagramRTGenModelURI = (URI) EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(DIAGRAM_RT_URI);
 		Resource r = new ResourceSetImpl().getResource(diagramRTGenModelURI, true);
 		GenModel drtModel = (GenModel) r.getContents().get(0);
-		GenPackage gp = drtModel.findGenPackage(DiagramRTPackage.eINSTANCE);
+		GenPackage gp = drtModel.findGenPackage(NotationPackage.eINSTANCE);
 		for (Iterator it = gp.getGenClasses().iterator(); it.hasNext();) {
 			GenClass next = (GenClass) it.next();
-			if (DiagramRTPackage.eINSTANCE.getDiagramNode().getName().equals(next.getName())) {
+			if (NotationPackage.eINSTANCE.getNode().getName().equals(next.getName())) {
 				myNode = next;
-			} else if (DiagramRTPackage.eINSTANCE.getDiagramLink().getName().equals(next.getName())) {
-				myLink = next;
-			} else if (DiagramRTPackage.eINSTANCE.getDiagramCanvas().getName().equals(next.getName())) {
-				myCanvas = next;
-			} else if (DiagramRTPackage.eINSTANCE.getChildNode().getName().equals(next.getName())) {
 				myChildNode = next;
+			} else if (NotationPackage.eINSTANCE.getEdge().getName().equals(next.getName())) {
+				myLink = next;
+			} else if (NotationPackage.eINSTANCE.getDiagram().getName().equals(next.getName())) {
+				myCanvas = next;
 			}
 		}
 		r.unload();
-		assert myNode != null && myLink != null && myCanvas != null;
+		assert myNode != null && myLink != null && myCanvas != null && myChildNode != null;
 	}
 }

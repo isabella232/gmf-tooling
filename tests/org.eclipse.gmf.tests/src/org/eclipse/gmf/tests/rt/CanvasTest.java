@@ -15,9 +15,9 @@ import java.util.Arrays;
 
 import junit.framework.TestCase;
 
-import org.eclipse.gmf.diagramrt.DiagramBaseElement;
-import org.eclipse.gmf.diagramrt.DiagramCanvas;
-import org.eclipse.gmf.diagramrt.DiagramRTFactory;
+import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.NotationFactory;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @author artem
@@ -33,27 +33,28 @@ public class CanvasTest extends TestCase {
 	}
 
 	public void testUinAssignment() {
-		DiagramCanvas dc = DiagramRTFactory.eINSTANCE.createDiagramCanvas();
-		int[] assigned = new int[20];
-		for (int i = 0; i < assigned.length; i++) {
-			assigned[i] = dc.nextAvailableUin();
-			DiagramBaseElement de = null;
-			if (i % 3 == 0) {
-				dc.getNodes().add(de = DiagramRTFactory.eINSTANCE.createDiagramNode());
-			} else {
-				dc.getLinks().add(de = DiagramRTFactory.eINSTANCE.createDiagramLink());
-			}
-			de.setUin(assigned[i]);
-		}
-		Arrays.sort(assigned);
-		for (int i = 2; i < assigned.length; i++) {
-			assertTrue("There should be no same uins", assigned[i-1] != assigned[i]);
-		}
-		// choose arbitrary uin as last assigned
-		dc.setLastAssignedUin(assigned[assigned.length/2]);
-		// make sure newest uins do not contradict existing uins
-		for (int i = 0; i < 5; i++) {
-			assertTrue("Newly generated uin matches existing one after change of lastAssignedUin", Arrays.binarySearch(assigned, dc.nextAvailableUin()) < 0);
-		}
+		fail("Revisit");
+//		Diagram dc = NotationFactory.eINSTANCE.createDiagram();
+//		int[] assigned = new int[20];
+//		for (int i = 0; i < assigned.length; i++) {
+//			assigned[i] = dc.nextAvailableUin();
+//			View de = null;
+//			if (i % 3 == 0) {
+//				dc.getPersistedChildren().add(de = NotationFactory.eINSTANCE.createNode());
+//			} else {
+//				dc.getPersistedEdges().add(de = NotationFactory.eINSTANCE.createEdge());
+//			}
+//			de.setUin(assigned[i]);
+//		}
+//		Arrays.sort(assigned);
+//		for (int i = 2; i < assigned.length; i++) {
+//			assertTrue("There should be no same uins", assigned[i-1] != assigned[i]);
+//		}
+//		// choose arbitrary uin as last assigned
+//		dc.setLastAssignedUin(assigned[assigned.length/2]);
+//		// make sure newest uins do not contradict existing uins
+//		for (int i = 0; i < 5; i++) {
+//			assertTrue("Newly generated uin matches existing one after change of lastAssignedUin", Arrays.binarySearch(assigned, dc.nextAvailableUin()) < 0);
+//		}
 	}
 }

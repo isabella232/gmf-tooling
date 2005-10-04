@@ -13,8 +13,8 @@ package org.eclipse.gmf.tests.rt;
 
 import junit.framework.TestCase;
 
-import org.eclipse.gmf.diagramrt.DiagramBaseElement;
-import org.eclipse.gmf.diagramrt.DiagramRTFactory;
+import org.eclipse.gmf.runtime.notation.NotationFactory;
+import org.eclipse.gmf.runtime.notation.View;
 
 public class PropertiesTest extends TestCase {
 
@@ -23,24 +23,25 @@ public class PropertiesTest extends TestCase {
 	}
 
 	public void testPropertiesOnBasicRT() {
-		checkWithGenericAccess(DiagramRTFactory.eINSTANCE.createDiagramNode());
+		checkWithGenericAccess(NotationFactory.eINSTANCE.createNode());
 	}
 
-	protected void checkWithGenericAccess(DiagramBaseElement element) {
+	protected void checkWithGenericAccess(View element) {
 		final String propName = "prop1";
 		final String propValue = "abc";
 		assert propValue != null;
 
-		assertNull("Property has value prior to being set", element.getProperty(propName));
-		element.setProperty(propName, propValue);
-		assertNotNull("Not possible to get rtProperty using our 'generic' API", element.getProperty(propName));
-		assertEquals("Invalid property value", element.getProperty(propName), propValue);
-		assertTrue("[TENTATIVE] Property in basic RT should be also accessible via map", element.getRunTimeProperties().containsKey(propName));
-		assertEquals("[TENTATIVE] Invalid value of the property accessed via map", element.getRunTimeProperties().get(propName), propValue);
-		assertEquals("[TENTATIVE] Property in basic RT accessible via map should have same value", element.getRunTimeProperties().get(propName), element.getProperty(propName));
-
-		element.setProperty(propName, null);
-		assertNull("Setting property value to null should remove it", element.getProperty(propName));
-		assertFalse("...and from map, too", element.getRunTimeProperties().containsKey(propName));
+		fail("what about custom properties in new runtime?");
+//		assertNull("Property has value prior to being set", element.getProperty(propName));
+//		element.setProperty(propName, propValue);
+//		assertNotNull("Not possible to get rtProperty using our 'generic' API", element.getProperty(propName));
+//		assertEquals("Invalid property value", element.getProperty(propName), propValue);
+//		assertTrue("[TENTATIVE] Property in basic RT should be also accessible via map", element.getRunTimeProperties().containsKey(propName));
+//		assertEquals("[TENTATIVE] Invalid value of the property accessed via map", element.getRunTimeProperties().get(propName), propValue);
+//		assertEquals("[TENTATIVE] Property in basic RT accessible via map should have same value", element.getRunTimeProperties().get(propName), element.getProperty(propName));
+//
+//		element.setProperty(propName, null);
+//		assertNull("Setting property value to null should remove it", element.getProperty(propName));
+//		assertFalse("...and from map, too", element.getRunTimeProperties().containsKey(propName));
 	}
 }

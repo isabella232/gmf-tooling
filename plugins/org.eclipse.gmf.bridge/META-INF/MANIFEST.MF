@@ -10,5 +10,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.diadef;visibility:=reexport,
  org.eclipse.gmf.map;visibility:=reexport,
  org.eclipse.gmf.codegen;visibility:=reexport,
- org.eclipse.gmf.runtime
+ org.eclipse.gmf.runtime.notation;visibility:=reexport
 Export-Package: org.eclipse.gmf.bridge.genmodel

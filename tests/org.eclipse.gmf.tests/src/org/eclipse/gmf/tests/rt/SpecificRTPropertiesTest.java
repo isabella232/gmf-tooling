@@ -11,14 +11,14 @@
  */
 package org.eclipse.gmf.tests.rt;
 
-import org.eclipse.gmf.diagramrt.DiagramBaseElement;
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @author artem
  *
  */
 public class SpecificRTPropertiesTest extends PropertiesTest {
-	private DiagramBaseElement mySubject;
+	private View mySubject;
 
 	public SpecificRTPropertiesTest(String name) {
 		super(name);

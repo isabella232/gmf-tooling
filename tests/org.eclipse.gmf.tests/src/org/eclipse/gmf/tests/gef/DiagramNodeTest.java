@@ -29,13 +29,18 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.ui.parts.GraphicalViewerImpl;
-import org.eclipse.gmf.diagramrt.DiagramNode;
-import org.eclipse.gmf.runtime.gef.ColorSupport;
-import org.eclipse.gmf.runtime.gef.commands.ChangeNodeColorCommand;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities;
+import org.eclipse.gmf.runtime.notation.FillStyle;
+import org.eclipse.gmf.runtime.notation.LineStyle;
+import org.eclipse.gmf.runtime.notation.Location;
+import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
+import org.eclipse.gmf.runtime.notation.Size;
 import org.eclipse.gmf.tests.SessionSetup;
 import org.eclipse.gmf.tests.setup.RTSetup;
 import org.eclipse.gmf.tests.setup.RTSource;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -115,8 +120,8 @@ public class DiagramNodeTest extends TestCase {
 	}
 
 	public void testChangeBounds() {
-		final Point originalLocation = getNode().getLocation();
-		final Dimension originalSize = getNode().getSize();
+		final Point originalLocation = getLocation();
+		final Dimension originalSize = getSize();
 		final Point expectedLocation = originalLocation.getTranslated(myMoveDelta);
 		final Dimension expectedNewSize = originalSize.getExpanded(mySizeDelta);
 		ChangeBoundsRequest req = new ChangeBoundsRequest(RequestConstants.REQ_RESIZE);
@@ -141,17 +146,41 @@ public class DiagramNodeTest extends TestCase {
 	}
 
 	private void assertBoundValues(Point expectedLocation, Dimension expectedSize, String assertTag) {
-		assertEquals("Location doesn't match one set after [" + assertTag + ']', expectedLocation, getNode().getLocation());
-		assertEquals("Size doesn't match one set after [" + assertTag + ']', expectedSize, getNode().getSize());
+		assertEquals("Location doesn't match one set after [" + assertTag + ']', expectedLocation, getLocation());
+		assertEquals("Size doesn't match one set after [" + assertTag + ']', expectedSize, getSize());
+	}
+
+	private int getForegroundColor() {
+		// @see o.e.g.r.d.ui.GraphicalEditPart#refreshForegroundColor
+		LineStyle ls = (LineStyle) getNode().getStyle(NotationPackage.eINSTANCE.getLineStyle());
+		return ls.getLineColor();
+		//return PresentationResourceManager.getInstance().getColor(new Integer(ls.getLineColor()));
+	}
+
+	private int getBackgroundColor() {
+		FillStyle fs = (FillStyle) getNode().getStyle(NotationPackage.eINSTANCE.getFillStyle());
+		return fs.getFillColor();
+		//return PresentationResourceManager.getInstance().getColor(new Integer(fs.getFillColor()));
+	}
+
+	private Dimension getSize() {
+		Size b = (Size) getNode().getLayoutConstraint();
+		return new Dimension(b.getWidth(), b.getHeight());
+	}
+
+	private Point getLocation() {
+		Location l = (Location) getNode().getLayoutConstraint();
+		return new Point(l.getX(), l.getY());
 	}
 
 	public void testChangeColors() {
-		final String originalBackgroundColor = getNode().getBackgroundColor();
-		final String originalForegroundColor = getNode().getForegroundColor();
-		final String newBackgroundColor = ColorSupport.RED;
-		final String newForegroundColor = ColorSupport.CYAN;
-		assert !newBackgroundColor.equals(originalBackgroundColor);
-		assert !newForegroundColor.equals(originalForegroundColor);
+		final int originalBackgroundColor = getForegroundColor(); 
+		final int originalForegroundColor = getBackgroundColor();
+		
+		final int newBackgroundColor = FigureUtilities.RGBToInteger(new RGB(255, 0, 0)).intValue(); // RED
+		final int newForegroundColor = FigureUtilities.RGBToInteger(new RGB(0, 255, 255)).intValue(); // CYAN
+		assert newBackgroundColor != originalBackgroundColor;
+		assert newForegroundColor != originalForegroundColor;
 
 		final Command foreCmd = createChangeColorCommand(newForegroundColor, true);
 		assertNotNull("No changeForegroundColor command", foreCmd);
@@ -186,23 +215,52 @@ public class DiagramNodeTest extends TestCase {
 		assertColorValues(newForegroundColor, newBackgroundColor, "redo(back)");
 	}
 
-	private Command createChangeColorCommand(String newColor, boolean isForeground) {
+	private Command createChangeColorCommand(final int newColor, final boolean isForeground) {
 		// final Request req = createChangeColorRequest();
 		// req.setColor(newColor); FIXME
 		//return getNodeEditPart().getCommand(foreReq);
-		return new ChangeNodeColorCommand(getNode(), newColor, isForeground);
+		return new Command() {
+			private int oldColor = -1;
+			public boolean canExecute() {
+				return true;
+			}
+			public void execute() {
+				if (isForeground) {
+					LineStyle ls = (LineStyle) getNode().getStyle(NotationPackage.eINSTANCE.getLineStyle());
+					oldColor = ls.getLineColor();
+					ls.setLineColor(newColor);
+				} else {
+					FillStyle fs = (FillStyle) getNode().getStyle(NotationPackage.eINSTANCE.getFillStyle());
+					oldColor = fs.getFillColor();
+					fs.setFillColor(newColor);
+				}
+			}
+			public boolean canUndo() {
+				return oldColor != -1;
+			}
+			public void undo() {
+				if (isForeground) {
+					LineStyle ls = (LineStyle) getNode().getStyle(NotationPackage.eINSTANCE.getLineStyle());
+					ls.setLineColor(oldColor);
+				} else {
+					FillStyle fs = (FillStyle) getNode().getStyle(NotationPackage.eINSTANCE.getFillStyle());
+					fs.setFillColor(oldColor);
+				}
+				oldColor = -1;
+			}
+		};
 	}
 
-	private void assertColorValues(String expectedForegroundColor, String expectedBackgroundColor, String assertTag) {
-		assertEquals("Foreground color doesn't match after [" + assertTag + ']', expectedForegroundColor, getNode().getForegroundColor());
-		assertEquals("Background color doesn't match after [" + assertTag + ']', expectedBackgroundColor, getNode().getBackgroundColor());
+	private void assertColorValues(int expectedForegroundColor, int expectedBackgroundColor, String assertTag) {
+		assertEquals("Foreground color doesn't match after [" + assertTag + ']', expectedForegroundColor, getForegroundColor());
+		assertEquals("Background color doesn't match after [" + assertTag + ']', expectedBackgroundColor, getBackgroundColor());
 	}
 
 //	private Request createChangeColorRequest() {
 //		return new Request();
 //	}
 
-	private DiagramNode getNode() {
-		return (DiagramNode) getNodeEditPart().getModel();
+	protected Node getNode() {
+		return (Node) getNodeEditPart().getModel();
 	}
 }

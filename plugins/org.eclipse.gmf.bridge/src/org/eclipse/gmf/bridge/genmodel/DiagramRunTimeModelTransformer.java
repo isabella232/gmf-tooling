@@ -20,10 +20,10 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.diadef.CommonBase;
 import org.eclipse.gmf.diadef.RunTimeProperty;
-import org.eclipse.gmf.diagramrt.DiagramRTPackage;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
 
 /**
  * Creates bare extended version of basic Diagram Run-Time model from gmfmap. 
@@ -46,15 +46,15 @@ public class DiagramRunTimeModelTransformer extends MappingTransofrmer {
 	}
 
 	protected void process(CanvasMapping cme) {
-		addEClass(cme.getDiagramCanvas(), DiagramRTPackage.eINSTANCE.getDiagramCanvas());
+		addEClass(cme.getDiagramCanvas(), NotationPackage.eINSTANCE.getDiagram());
 	}
 
 	protected void process(NodeMapping nme) {
-		addEClass(nme.getDiagramNode(), DiagramRTPackage.eINSTANCE.getDiagramNode());
+		addEClass(nme.getDiagramNode(), NotationPackage.eINSTANCE.getNode());
 	}
 
 	protected void process(LinkMapping lme) {
-		addEClass(lme.getDiagramLink(), DiagramRTPackage.eINSTANCE.getDiagramLink());
+		addEClass(lme.getDiagramLink(), NotationPackage.eINSTANCE.getEdge());
 	}
 
 	private void addEClass(CommonBase diaDefElement, EClass superClass) {

@@ -14,8 +14,8 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelTransformer;
-import org.eclipse.gmf.diagramrt.DiagramRTPackage;
 import org.eclipse.gmf.mappings.Mapping;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -99,7 +99,7 @@ public class CreateSpecificDiagramRunTimeModelAction implements IObjectActionDel
 		URI diagramRTGenModelURI = (URI) EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(DIAGRAM_RT_URI);
 		Resource r = new ResourceSetImpl().getResource(diagramRTGenModelURI, true);
 		GenModel drtModel = (GenModel) r.getContents().get(0);
-		return drtModel.findGenPackage(DiagramRTPackage.eINSTANCE);
+		return drtModel.findGenPackage(NotationPackage.eINSTANCE);
 	}
 
 	private static final String DIAGRAM_RT_URI = "http://www.eclipse.org/gmf/2005/diagramrt";
