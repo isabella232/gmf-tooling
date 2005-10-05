@@ -138,8 +138,9 @@
 		6. Export <b>org.eclipse.gmf.releng.builder</b> into the build
 		directory.
 		<ul>
-			<li><code>cvs -d :pserver:anonymous@dev.eclipse.org:/cvsroot/technology
-			export -r HEAD -d org.eclipse.gmf.releng.builder
+			<li><code>cvs -d
+			:pserver:anonymous@dev.eclipse.org:/cvsroot/technology export -r HEAD
+			-d org.eclipse.gmf.releng.builder
 			org.eclipse.gmf/releng/org.eclipse.gmf.releng.builder</code></li>
 		</ul>
 		7. Before running the build, you may wish to adjust some of the build
@@ -187,7 +188,7 @@
 				<td width="3%" bordercolor="0">&nbsp;</td>
 				<td colspan="4"><strong>/doc</strong></td>
 				<td>Build directory of the 'doc' component</td>
-			</tr>			
+			</tr>
 			<tr>
 				<td>&nbsp;</td>
 				<td width="3%" bordercolor="0">&nbsp;</td>
@@ -228,7 +229,8 @@
 				<td>&nbsp;</td>
 				<td width="3%" bordercolor="0">&nbsp;</td>
 				<td colspan="4"><strong>/updateSite</strong></td>
-				<td>Target for generated update jars, replicated on local mirror if used</td>
+				<td>Target for generated update jars, replicated on local mirror if
+				used</td>
 			</tr>
 			<tr>
 				<td width="2%">&nbsp;</td>
@@ -668,6 +670,16 @@
 		of the procedures and practices for GMF developers to maintain a
 		smooth build/test environment. In particular, information on using the
 		releng tool and how to add a plug-in to the build is covered.</td>
+		<ul>
+			<li><b>Adding or removing a plug-in<b>: As the build depends on
+			features remaining accurate, be sure to update the feature.xml for
+			listed plug-ins and also check the 'Dependencies' list, using the
+			Compute feature of the PDE if desired. Otherwise, you will also need
+			to update the appropriate map file(s) to indicate the changes to
+			plug-ins and their location in the repository. Alternatively, email
+			the developer mailing list with changes requested and let the
+			maintainer of the build effect the change.</li>
+		</ul>
 	</tr>
 
 </table>
