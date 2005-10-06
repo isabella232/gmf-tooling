@@ -73,6 +73,7 @@ http://www.eclipse.org/legal/epl-v10.html
       <import feature="org.eclipse.gmf.sdk" version="1.0.0"/>
       <import plugin="org.eclipse.gmf.runtime.common.ui.services"/>
       <import plugin="org.eclipse.gmf.runtime.emf.type.ui"/>
+      <import plugin="org.eclipse.gmf.runtime.gef"/>
    </requires>
 
    <plugin
