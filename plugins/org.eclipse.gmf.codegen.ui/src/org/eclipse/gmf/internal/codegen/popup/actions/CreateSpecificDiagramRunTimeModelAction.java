@@ -96,11 +96,9 @@ public class CreateSpecificDiagramRunTimeModelAction implements IObjectActionDel
 	}
 
 	private GenPackage getDiagramRunTimeGenPackage() {
-		URI diagramRTGenModelURI = (URI) EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(DIAGRAM_RT_URI);
+		URI diagramRTGenModelURI = (URI) EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(NotationPackage.eNS_URI);
 		Resource r = new ResourceSetImpl().getResource(diagramRTGenModelURI, true);
 		GenModel drtModel = (GenModel) r.getContents().get(0);
 		return drtModel.findGenPackage(NotationPackage.eINSTANCE);
 	}
-
-	private static final String DIAGRAM_RT_URI = "http://www.eclipse.org/gmf/1.5.1/Notation";
 }
