@@ -185,7 +185,7 @@
 	</target>
 	
 	<target name="installGMF" unless="gmfExists">	
-		<antcall target="installGMFfromMirror"/>
+<!--	<antcall target="installGMFfromMirror"/> -->
 		<antcall target="installGMFfromZip"/>
 	</target>
 	
@@ -197,13 +197,13 @@
 		</ant>
 	</target>
 	
-	<target name="installGMFfromZip" unless="usingMirror">
+	<target name="installGMFfromZip"> <!-- unless="usingMirror" -->
 		<echo message="Installing GMF for testing from zip file..."/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/sdk/org.eclipse.gmf.sdk-${buildId}.zip" />
 	</target>
 	
 	<target name="installExamples" unless="examplesExists">	
-		<antcall target="installExamplesfromMirror"/>
+<!--	<antcall target="installExamplesfromMirror"/> -->
 		<antcall target="installExamplesfromZip"/>
 	</target>
 	
@@ -215,7 +215,7 @@
 		</ant>
 	</target>
 	
-	<target name="installExamplesfromZip" unless="usingMirror">
+	<target name="installExamplesfromZip"> <!-- unless="usingMirror" -->
 		<echo message="Installing GMF Examples for testing from zip file..."/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/examples/org.eclipse.gmf.examples-${buildId}.zip" />
 	</target>
@@ -338,7 +338,7 @@
 	</target>
 	
 	<target name="installTests" unless="testsExist">		
-		<antcall target="installTestsFromMirror"/>
+<!--	<antcall target="installTestsFromMirror"/> -->
 		<antcall target="installTestsFromZip"/>
 	</target>
 	
@@ -358,7 +358,7 @@
 		</ant>
 	</target>
 	
-	<target name="installTestsFromZip" unless="usingMirror">
+	<target name="installTestsFromZip"> <!-- unless="usingMirror" -->
 		<echo message="Installing GMF tests from zip file..."/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/gmf-tests/${product}-${buildId}.zip" />
 	</target>
