@@ -138,7 +138,7 @@ for (int i = 0; i < toolGroups.size(); i++) {
     
 		GenNode genNode = nodeCreationTool.getGenNode(); 
 		GenClass genClass = genNode.getDomainMetaClass();
-		String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create" + genClass.getName() + "()";
+		String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create(" + importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()) + ".eINSTANCE.get" + genClass.getClassifierAccessorName()+ "())";
 
     stringBuffer.append(TEXT_26);
     stringBuffer.append(domainElementInstanceCreationCode);
@@ -147,7 +147,7 @@ for (int i = 0; i < toolGroups.size(); i++) {
     stringBuffer.append(TEXT_28);
     stringBuffer.append(nodeCreationTool.getDescriptionKey());
     stringBuffer.append(TEXT_29);
-    stringBuffer.append(genNode.getDomainMetaClass().getName());
+    stringBuffer.append(genNode.getDomainMetaClass().getName() + "_" + genNode.getVisualID());
     stringBuffer.append(TEXT_30);
     	}
 	List linkCreationTools = toolGroup.getLinkTools();
@@ -162,7 +162,7 @@ for (int i = 0; i < toolGroups.size(); i++) {
 		if (genLink instanceof GenLinkWithClass) {
 			GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
 			GenClass genClass = genLinkWithClass.getDomainMetaClass();
-			String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create" + genClass.getName() + "()";
+			String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create(" + importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()) + ".eINSTANCE.get" + genClass.getClassifierAccessorName()+ "())";
 
     stringBuffer.append(TEXT_33);
     stringBuffer.append(domainElementInstanceCreationCode);
@@ -171,7 +171,7 @@ for (int i = 0; i < toolGroups.size(); i++) {
     stringBuffer.append(TEXT_35);
     stringBuffer.append(linkCreationTool.getDescriptionKey());
     stringBuffer.append(TEXT_36);
-    stringBuffer.append(genLinkWithClass.getDomainMetaClass().getName());
+    stringBuffer.append(genLinkWithClass.getDomainMetaClass().getName() + "_" + genLinkWithClass.getVisualID());
     stringBuffer.append(TEXT_37);
     		}
     stringBuffer.append(TEXT_38);

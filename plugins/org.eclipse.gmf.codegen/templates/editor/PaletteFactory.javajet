@@ -134,14 +134,14 @@ for (int i = 0; i < toolGroups.size(); i++) {
 <%
 		GenNode genNode = nodeCreationTool.getGenNode(); 
 		GenClass genClass = genNode.getDomainMetaClass();
-		String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create" + genClass.getName() + "()";
+		String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create(" + importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()) + ".eINSTANCE.get" + genClass.getClassifierAccessorName()+ "())";
 %>
 		ImageDescriptor img = getImage(<%=domainElementInstanceCreationCode%>);
 		paletteContainer.add(new ToolEntry("<%=nodeCreationTool.getTitleKey()%>",
 			"<%=nodeCreationTool.getDescriptionKey()%>", img, img) {
 
 			public Tool createTool() {
-				Tool tool = new CreationTool(ElementTypes.<%=genNode.getDomainMetaClass().getName()%>);
+				Tool tool = new CreationTool(ElementTypes.<%=genNode.getDomainMetaClass().getName() + "_" + genNode.getVisualID()%>);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
@@ -162,14 +162,14 @@ for (int i = 0; i < toolGroups.size(); i++) {
 		if (genLink instanceof GenLinkWithClass) {
 			GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
 			GenClass genClass = genLinkWithClass.getDomainMetaClass();
-			String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create" + genClass.getName() + "()";
+			String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create(" + importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()) + ".eINSTANCE.get" + genClass.getClassifierAccessorName()+ "())";
 %>
 		ImageDescriptor img = getImage(<%=domainElementInstanceCreationCode%>);
 		paletteContainer.add(new ToolEntry("<%=linkCreationTool.getTitleKey()%>",
 			"<%=linkCreationTool.getDescriptionKey()%>", img, img) {
 
 			public Tool createTool() {
-				Tool tool = new ConnectorCreationTool(ElementTypes.<%=genLinkWithClass.getDomainMetaClass().getName()%>);
+				Tool tool = new ConnectorCreationTool(ElementTypes.<%=genLinkWithClass.getDomainMetaClass().getName() + "_" + genLinkWithClass.getVisualID()%>);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
