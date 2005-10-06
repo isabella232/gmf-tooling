@@ -31,7 +31,6 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
  * @author artem
  */
 public class BasicDiagramRunTimeModelHelper implements DiagramRunTimeModelHelper {
-	private static final String DIAGRAM_RT_URI = "http://www.eclipse.org/gmf/2005/diagramrt";
 	private GenClass myNode;
 	private GenClass myLink;
 	private GenClass myCanvas;
@@ -66,7 +65,7 @@ public class BasicDiagramRunTimeModelHelper implements DiagramRunTimeModelHelper
 			return;
 		}
 		myIsLoaded = true;
-		URI diagramRTGenModelURI = (URI) EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(DIAGRAM_RT_URI);
+		URI diagramRTGenModelURI = (URI) EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(NotationPackage.eNS_URI);
 		Resource r = new ResourceSetImpl().getResource(diagramRTGenModelURI, true);
 		GenModel drtModel = (GenModel) r.getContents().get(0);
 		GenPackage gp = drtModel.findGenPackage(NotationPackage.eINSTANCE);
