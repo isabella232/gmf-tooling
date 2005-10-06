@@ -360,7 +360,7 @@
 	
 	<target name="installTestsFromZip"> <!-- unless="usingMirror" -->
 		<echo message="Installing GMF tests from zip file..."/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/gmf-tests/${product}-${buildId}.zip" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/tests/${product}-${buildId}.zip" />
 	</target>
 	
 	<!-- TODO: easy to uninstall if installed via update manager... need to add removal if installed from zips
