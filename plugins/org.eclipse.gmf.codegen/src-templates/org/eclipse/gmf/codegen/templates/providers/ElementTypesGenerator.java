@@ -19,15 +19,15 @@ public class ElementTypesGenerator
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "package ";
   protected final String TEXT_2 = ";" + NL;
-  protected final String TEXT_3 = NL + "import org.eclipse.emf.ecore.EObject;" + NL + "import org.eclipse.gmf.runtime.common.core.command.ICommand;" + NL + "import org.eclipse.gmf.runtime.emf.commands.core.edithelpers.MSLEditHelper;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.MetamodelType;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.commands.GetEditContextCommand;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.requests.GetEditContextRequest;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
+  protected final String TEXT_3 = NL + "import org.eclipse.core.runtime.IProgressMonitor;" + NL + "import org.eclipse.emf.ecore.EObject;" + NL + "import org.eclipse.gmf.runtime.common.core.command.CommandResult;" + NL + "import org.eclipse.gmf.runtime.common.core.command.ICommand;" + NL + "import org.eclipse.gmf.runtime.emf.commands.core.edithelpers.MSLEditHelper;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.MetamodelType;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.commands.ConfigureElementCommand;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.commands.GetEditContextCommand;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.requests.GetEditContextRequest;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
   protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ElementTypes {" + NL;
   protected final String TEXT_5 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static class ";
-  protected final String TEXT_6 = "EditHelper extends BaseEditHelper {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final IMetamodelType ";
+  protected final String TEXT_6 = "_EditHelper extends BaseEditHelper {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ICommand getConfigureCommand(ConfigureRequest req) {" + NL + "\t\t\treturn new ConfigureElementCommand(req) {" + NL + "\t\t\t\tprotected CommandResult doExecute(IProgressMonitor progressMonitor) {" + NL + "//\tWrite new object initialization code here. Use getElementToEdit() to get created element." + NL + "\t\t\t\t\treturn newOKCommandResult();" + NL + "\t\t\t\t}" + NL + "\t\t\t};" + NL + "\t\t}" + NL + "\t\t" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final IMetamodelType ";
   protected final String TEXT_7 = " = new MetamodelType(" + NL + "\t\t\"";
   protected final String TEXT_8 = "\",\tnull, null," + NL + "\t\t";
   protected final String TEXT_9 = ".eINSTANCE.get";
   protected final String TEXT_10 = "()," + NL + "\t\tnew ";
-  protected final String TEXT_11 = "EditHelper());";
+  protected final String TEXT_11 = "_EditHelper());";
   protected final String TEXT_12 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static void register() {";
   protected final String TEXT_13 = NL + "\t\tElementTypeRegistry.getInstance().register(";
   protected final String TEXT_14 = ");";
@@ -64,12 +64,13 @@ while (entities.hasNext()) {
 	} else {
 		continue;
 	}
-	types.add(semanticNodeInterfaceName);
+	String semanticNodeInterfaceNameUnique = semanticNodeInterfaceName + "_" + entity.getVisualID();
+	types.add(semanticNodeInterfaceNameUnique);
 
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(semanticNodeInterfaceName);
+    stringBuffer.append(semanticNodeInterfaceNameUnique);
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(semanticNodeInterfaceName);
+    stringBuffer.append(semanticNodeInterfaceNameUnique);
     stringBuffer.append(TEXT_7);
     stringBuffer.append(semanticNodeInterfaceName);
     stringBuffer.append(TEXT_8);
@@ -77,7 +78,7 @@ while (entities.hasNext()) {
     stringBuffer.append(TEXT_9);
     stringBuffer.append(semanticNodeInterfaceName);
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(semanticNodeInterfaceName);
+    stringBuffer.append(semanticNodeInterfaceNameUnique);
     stringBuffer.append(TEXT_11);
     }
     stringBuffer.append(TEXT_12);

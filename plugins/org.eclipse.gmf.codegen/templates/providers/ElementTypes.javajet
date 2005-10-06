@@ -4,13 +4,17 @@
 package <%=genDiagram.getProvidersPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.emf.commands.core.edithelpers.MSLEditHelper;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;
 import org.eclipse.gmf.runtime.emf.type.core.MetamodelType;
+import org.eclipse.gmf.runtime.emf.type.core.commands.ConfigureElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.GetEditContextCommand;
+import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.GetEditContextRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
@@ -41,22 +45,36 @@ while (entities.hasNext()) {
 	} else {
 		continue;
 	}
-	types.add(semanticNodeInterfaceName);
+	String semanticNodeInterfaceNameUnique = semanticNodeInterfaceName + "_" + entity.getVisualID();
+	types.add(semanticNodeInterfaceNameUnique);
 %>
 
 	/**
 	 * @generated
 	 */
-	public static class <%=semanticNodeInterfaceName%>EditHelper extends BaseEditHelper {
+	public static class <%=semanticNodeInterfaceNameUnique%>_EditHelper extends BaseEditHelper {
+
+		/**
+		 * @generated
+		 */
+		protected ICommand getConfigureCommand(ConfigureRequest req) {
+			return new ConfigureElementCommand(req) {
+				protected CommandResult doExecute(IProgressMonitor progressMonitor) {
+//	Write new object initialization code here. Use getElementToEdit() to get created element.
+					return newOKCommandResult();
+				}
+			};
+		}
+		
 	}
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType <%=semanticNodeInterfaceName%> = new MetamodelType(
+	public static final IMetamodelType <%=semanticNodeInterfaceNameUnique%> = new MetamodelType(
 		"<%=semanticNodeInterfaceName%>",	null, null,
 		<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>(),
-		new <%=semanticNodeInterfaceName%>EditHelper());
+		new <%=semanticNodeInterfaceNameUnique%>_EditHelper());
 <%}%>
 
 	/**

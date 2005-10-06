@@ -12,6 +12,9 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.Edge;
+import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
 
@@ -26,85 +29,239 @@ public class <%=genDiagram.getEditPartFactoryClassName()%> implements EditPartFa
 	public EditPart createEditPart(EditPart context, Object model) {
 		if (model instanceof View) {
 			View view = (View) model;
-			EObject element = view.getElement();
+			if (model instanceof Diagram) {
+				return createDiagramEditPart((Diagram) model);
+			} else if (view instanceof Node) {
+				boolean isTopLevel = view.eContainer() instanceof Diagram || (view.getType() != null && view.getType().length() > 0);
+				if (isTopLevel) {
+					return createNodeEditPart((Node) model);
+				} else {
+					return createChildNodeEditPart((Node) model);
+				}
+			} else if (view instanceof Edge) {
+				return createEdgeEditPart((Edge) model);
+			}
+		}
+		return null;
+	}
+
 <%
 GenPackage genPackage = genDiagram.getDomainMetaModel();
 String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 %>
-			if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getName()%>().isInstance(element)) {
-				return new <%=genDiagram.getEditPartClassName()%>(view);
-			}
+
+	/**
+	 * @generated
+	 */
+	private EditPart createDiagramEditPart(Diagram diagram) {
+		EObject element = diagram.getElement();
+		EClass elementMetaclass = element.eClass();
+		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>().equals(elementMetaclass) && isDiagram<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>_<%=genDiagram.getVisualID()%>((<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>) element)) {
+			return new <%=genDiagram.getEditPartClassName()%>(diagram);
+		}
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	private EditPart createNodeEditPart(Node node) {
+		EObject element = node.getElement();
+		EClass elementMetaclass = element.eClass();
 <%
 List genNodes = genDiagram.getNodes();
 for (int i = 0; i < genNodes.size(); i++) {
-		GenNode genNode = (GenNode) genNodes.get(i);
-		String semanticNodeInterfaceName = genNode.getDomainMetaClass().getName();
+	GenNode genNode = (GenNode) genNodes.get(i);
+	String semanticNodeInterfaceName = genNode.getDomainMetaClass().getClassifierAccessorName();
+	String qualifiedInterfaceName = genNode.getDomainMetaClass().getQualifiedInterfaceName();
 %>
-			else if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>().isInstance(element)) {
+		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>().equals(elementMetaclass) && isNode<%=semanticNodeInterfaceName%>_<%=genNode.getVisualID()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) element)) {
 <%
-		if (genNode.hasNameToEdit()) {
-			String semanticHintsQualifiedClassName = genDiagram.getEditProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
-			String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
-			String semanticHint = semanticHintsClassName + '.' + AccessUtil.getNameSemanticHint(genNode);
+	if (genNode.hasNameToEdit()) {
+		String semanticHintsQualifiedClassName = genDiagram.getEditProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
+		String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
+		String semanticHint = semanticHintsClassName + '.' + AccessUtil.getNameSemanticHint(genNode);
 %>
-				if (<%=semanticHint%>.equals(view.getType())) {
-					return new <%=AccessUtil.getNodeLabelEditPartClassName(genNode)%>(view);
-				}
+			if (<%=semanticHint%>.equals(node.getType())) {
+				return new <%=AccessUtil.getNodeLabelEditPartClassName(genNode)%>(node);
+			}
+<%
+	}
+	List genChildContainers = genNode.getChildContainers();
+	for (int j = 0; j < genChildContainers.size(); j++) {
+		GenChildContainer genChildContainer = (GenChildContainer) genChildContainers.get(j);
+%>
+			if ("<%=genChildContainer.getGroupID()%>".equals(node.getType())) {
+				return new ListCompartmentEditPart(node) {
+
+					protected boolean hasModelChildrenChanged(Notification evt) {
+						return false;
+					}
+
+					protected void createDefaultEditPolicies() {
+						super.createDefaultEditPolicies();
+						installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
+						installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
+						//installEditPolicy(EditPolicy.NODE_ROLE, null);
+					}
+
+					protected String getTitleName() {
+						return "<%=genChildContainer.getTitleKey()%>";
+					}
+				};
+			}
+<%	}%>
+			return new <%=genNode.getEditPartClassName()%>(node);
+		} else
+<%
+}
+%>
+		{ 
+			return createUnrecognizedNodeEditPart(node);
+		}
+	}
+	
+	/**
+	 * @generated
+	 */
+	 private EditPart createUnrecognizedNodeEditPart(Node node) {
+	 	// Handle creation of unrecognized node EditParts here
+	 	return null;
+	 }
+
+	/**
+	 * @generated
+	 */
+	private EditPart createChildNodeEditPart(Node node) {
+		EObject element = node.getElement();
+		EClass elementMetaclass = element.eClass();
+<%
+for (int i = 0; i < genNodes.size(); i++) {
+	GenNode genNode = (GenNode) genNodes.get(i);
+	List genChildNodes = genNode.getChildNodes();
+	for (int j = 0; j < genChildNodes.size(); j++) {
+		GenChildNode genChildNode = (GenChildNode) genChildNodes.get(j);
+		String semanticChildNodeInterfaceName = genChildNode.getDomainMetaClass().getClassifierAccessorName();
+		String qualifiedInterfaceName = genChildNode.getDomainMetaClass().getQualifiedInterfaceName();
+%>
+		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticChildNodeInterfaceName%>().equals(elementMetaclass) && isChildNode<%=semanticChildNodeInterfaceName%>_<%=genChildNode.getVisualID()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) element)) {
+			return new <%=genChildNode.getEditPartClassName()%>(node);
+		} else 
+<%	}
+}
+%>
+		{ 
+			return createUnrecognizedChildNodeEditPart(node);
+		}
+	}
+	
+	/**
+	 * @generated
+	 */
+	 private EditPart createUnrecognizedChildNodeEditPart(Node node) {
+	 	// Handle creation of unrecognized child node EditParts here
+	 	return null;
+	 }
+
+	/**
+	 * @generated
+	 */
+	private EditPart createEdgeEditPart(Edge edge) {
+		EObject element = edge.getElement();
+		EClass elementMetaclass = element.eClass();
+<%
+List genLinks = genDiagram.getLinks();
+if (genLinks.size() == 0) {
+%>
+		return createUnrecognizedEdgeEditPart(edge);
+<%
+} else {
+	for (int i = 0; i < genLinks.size(); i++) {
+		GenLink genLink = (GenLink) genLinks.get(i);
+		if (genLink instanceof GenLinkWithClass) {
+			GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
+			String semanticLinkInterfaceName = genLinkWithClass.getDomainMetaClass().getClassifierAccessorName();
+			String qualifiedInterfaceName = genLinkWithClass.getDomainMetaClass().getQualifiedInterfaceName();
+%>
+		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().equals(elementMetaclass) && isEdge<%=semanticLinkInterfaceName%>_<%=genLinkWithClass.getVisualID()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) element)) {
+			return new <%=genLink.getEditPartClassName()%>(edge);
+		} else 
 <%
 		}
-		List genChildContainers = genNode.getChildContainers();
-		for (int j = 0; j < genChildContainers.size(); j++) {
-			GenChildContainer genChildContainer = (GenChildContainer) genChildContainers.get(j);
+	}
 %>
-				if ("<%=genChildContainer.getGroupID()%>".equals(view.getType())) {
-					return new ListCompartmentEditPart(view) {
-
-						protected boolean hasModelChildrenChanged(Notification evt) {
-							return false;
-						}
-
-						protected void createDefaultEditPolicies() {
-							super.createDefaultEditPolicies();
-							installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
-							installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
-							//installEditPolicy(EditPolicy.NODE_ROLE, null);
-						}
-
-						protected String getTitleName() {
-							return "<%=genChildContainer.getTitleKey()%>";
-						}
-					};
-				}
-<%		}%>
-				return new <%=genNode.getEditPartClassName()%>(view);
-			}
+		{
+			return createUnrecognizedEdgeEditPart(edge);
+		}
 <%
-		List genChildNodes = genNode.getChildNodes();
-		for (int j = 0; j < genChildNodes.size(); j++) {
-			GenChildNode genChildNode = (GenChildNode) genChildNodes.get(j);
-			String semanticChildNodeInterfaceName = genChildNode.getDomainMetaClass().getName();
-%>
-			else if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticChildNodeInterfaceName%>().isInstance(element)) {
-				return new <%=genChildNode.getEditPartClassName()%>(view);
-			}
-<%		}
 }
-List genLinks = genDiagram.getLinks();
+%>				
+	}
+	
+	/**
+	 * @generated
+	 */
+	 private EditPart createUnrecognizedEdgeEditPart(Edge edge) {
+	 	// Handle creation of unrecognized edge EditParts here
+	 	return null;
+	 }
+
+	/**
+	 * @generated
+	 */
+	private boolean isDiagram<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>_<%=genDiagram.getVisualID()%>(<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%> element) {
+		return true;
+	}
+	
+<%
+for (int i = 0; i < genNodes.size(); i++) {
+	GenNode genNode = (GenNode) genNodes.get(i);
+	String semanticNodeInterfaceName = genNode.getDomainMetaClass().getClassifierAccessorName();
+	String qualifiedNodeInterfaceName = genNode.getDomainMetaClass().getQualifiedInterfaceName();
+%>
+	/**
+	 * @generated
+	 */
+	private boolean isNode<%=semanticNodeInterfaceName%>_<%=genNode.getVisualID()%>(<%=importManager.getImportedName(qualifiedNodeInterfaceName)%> element) {
+		return true;
+	}
+
+<%
+	List genChildNodes = genNode.getChildNodes();
+	for (int j = 0; j < genChildNodes.size(); j++) {
+		GenChildNode genChildNode = (GenChildNode) genChildNodes.get(j);
+		String semanticChildNodeInterfaceName = genChildNode.getDomainMetaClass().getClassifierAccessorName();
+		String qualifiedChildNodeInterfaceName = genChildNode.getDomainMetaClass().getQualifiedInterfaceName();
+%>
+	/**
+	 * @generated
+	 */
+	private boolean isChildNode<%=semanticChildNodeInterfaceName%>_<%=genChildNode.getVisualID()%>(<%=importManager.getImportedName(qualifiedChildNodeInterfaceName)%> element) {
+		return true;
+	}
+
+<%	}
+}
+%>
+	
+<%
 for (int i = 0; i < genLinks.size(); i++) {
 	GenLink genLink = (GenLink) genLinks.get(i);
 	if (genLink instanceof GenLinkWithClass) {
 		GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
-		String semanticLinkInterfaceName = genLinkWithClass.getDomainMetaClass().getName();
+		String semanticLinkInterfaceName = genLinkWithClass.getDomainMetaClass().getClassifierAccessorName();
+		String qualifiedInterfaceName = genLinkWithClass.getDomainMetaClass().getQualifiedInterfaceName();
 %>
-			else if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().isInstance(element)) {
-				return new <%=genLink.getEditPartClassName()%>(view);
-			}
+	/**
+	 * @generated
+	 */
+	private boolean isEdge<%=semanticLinkInterfaceName%>_<%=genLinkWithClass.getVisualID()%>(<%=importManager.getImportedName(qualifiedInterfaceName)%> element) {
+		return true;
+	}
 <%
 	}
 }
 %>
-		}
-		return null;
-	}
+
 }
 <%importManager.emitSortedImports();%>
