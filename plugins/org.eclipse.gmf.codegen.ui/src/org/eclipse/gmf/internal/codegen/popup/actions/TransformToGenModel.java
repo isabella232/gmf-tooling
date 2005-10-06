@@ -26,6 +26,7 @@ import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.EditPartNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.MetaInfoProviderNamingStrategy;
+import org.eclipse.gmf.bridge.genmodel.NotationViewFactoryNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.SpecificDiagramRunTimeModelHelper;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.mappings.Mapping;
@@ -70,7 +71,7 @@ public class TransformToGenModel implements IObjectActionDelegate {
 		if (drtModelHelper == null) {
 			drtModelHelper = new BasicDiagramRunTimeModelHelper();
 		}
-		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, new EditPartNamingStrategy(), new MetaInfoProviderNamingStrategy());
+		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, new EditPartNamingStrategy(), new MetaInfoProviderNamingStrategy(), new NotationViewFactoryNamingStrategy());
 		t.transform(m);
 		GenDiagram genDiagram = t.getResult();
 

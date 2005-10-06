@@ -65,14 +65,16 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 	private final DiagramRunTimeModelHelper myDRTHelper;
 	private final NamingStrategy myEditPartNamingStrategy;
 	private final NamingStrategy myMetaInfoNamingStrategy;
+	private final NamingStrategy myNotationViewFactoryNamingStrategy;
 	private int myNodeCount = 0;
 	private int myLinkCount = 0;
 	private int myChildCount = 0;
 
-	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, NamingStrategy editPartNaming, NamingStrategy metaInfoNaming) {
+	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, NamingStrategy editPartNaming, NamingStrategy metaInfoNaming, NamingStrategy notationViewFactoryNaming) {
 		myDRTHelper = drtHelper;
 		myEditPartNamingStrategy = editPartNaming;
 		myMetaInfoNamingStrategy = metaInfoNaming;
+		myNotationViewFactoryNamingStrategy = notationViewFactoryNaming;
 	}
 
 	/**
@@ -138,6 +140,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		}
 		genNode.setEditPartClassName(createEditPartClassName(nme));
 		genNode.setMetaInfoProviderClassName(createMetaInfoProviderClassName(nme));
+		genNode.setNotationViewFactoryClassName(createNotationViewFactoryClassName(nme));
 		genNode.setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap());
 		// XXX nme.getDiagramNode.isSetDefaultWidth add DefaultSizeAttributes to viewmap
 		handleToolDef(nme.getDiagramNode(), genNode);
@@ -168,6 +171,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
 			childNode.setEditPartClassName(createEditPartClassName(childNodeMapping));
 			childNode.setMetaInfoProviderClassName(createMetaInfoProviderClassName(childNodeMapping));
+			childNode.setNotationViewFactoryClassName(createNotationViewFactoryClassName(childNodeMapping));
 			childNode.setGroupID(childNodeMapping.getCompartment().getName());
 			childNode.setVisualID(CHILD_COUNT_BASE + (++myChildCount ));
 			
@@ -215,6 +219,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		gl.setDiagramRunTimeClass(findRunTimeClass(lme));
 		gl.setEditPartClassName(createEditPartClassName(lme));
 		gl.setMetaInfoProviderClassName(createMetaInfoProviderClassName(lme));
+		gl.setNotationViewFactoryClassName(createNotationViewFactoryClassName(lme));
 		gl.setContainmentMetaFeature(findGenFeature(lme.getContainmentFeature()));
 		gl.setVisualID(LINK_COUNT_BASE + (++myLinkCount));
 
@@ -284,6 +289,20 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 
 	private String createMetaInfoProviderClassName(ChildNodeMapping chnme) {
 		return myMetaInfoNamingStrategy.createClassName(chnme);
+	}
+	
+	//
+
+	private String createNotationViewFactoryClassName(NodeMapping nme) {
+		return myNotationViewFactoryNamingStrategy.createClassName(nme);
+	}
+
+	private String createNotationViewFactoryClassName(LinkMapping lme) {
+		return myNotationViewFactoryNamingStrategy.createClassName(lme);
+	}
+
+	private String createNotationViewFactoryClassName(ChildNodeMapping chnme) {
+		return myNotationViewFactoryNamingStrategy.createClassName(chnme);
 	}
 
 	//
