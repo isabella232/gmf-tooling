@@ -102,5 +102,5 @@ public class CreateSpecificDiagramRunTimeModelAction implements IObjectActionDel
 		return drtModel.findGenPackage(NotationPackage.eINSTANCE);
 	}
 
-	private static final String DIAGRAM_RT_URI = "http://www.eclipse.org/gmf/2005/diagramrt";
+	private static final String DIAGRAM_RT_URI = "http://www.eclipse.org/gmf/1.5.1/Notation";
 }
