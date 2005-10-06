@@ -22,6 +22,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -42,7 +43,7 @@ public class BasicGenModelAccess implements GenModelAccess {
 		this.model = aModel;
 	}
 
-	protected void initDefault() {
+	public void initDefault() {
 		registerLocation(fromExtpoint());
 		registerLocation(constructDefaultFromModel());
 	}
@@ -62,7 +63,10 @@ public class BasicGenModelAccess implements GenModelAccess {
 	}
 
 	protected final URI constructDefaultFromModel() {
-		URI domainModelURI = model.eResource().getURI(); 
+		URI domainModelURI = model.eResource().getURI();
+		if (model.getNsURI().equals(domainModelURI.toString())) {
+			return null;
+		}
 		URI genModelURI = domainModelURI.trimFileExtension().appendFileExtension("genmodel");
 		if (genModelURI.equals(domainModelURI)) {
 			return null;
@@ -99,15 +103,21 @@ public class BasicGenModelAccess implements GenModelAccess {
 	}
 
 	public IStatus load() {
-		ResourceSet rs = model.eResource() == null ? new ResourceSetImpl() : model.eResource().getResourceSet();
+		assert !locations.isEmpty(); // XXX if isEmpty() initDefault?
+		ResourceSet rs = model.eResource() == null || model.eResource().getResourceSet() == null ? new ResourceSetImpl() : model.eResource().getResourceSet();
 		for (Iterator/*<URI>*/ it = locations.iterator(); it.hasNext();) {
-			URI uri = (URI) it.next();
-			Resource r = rs.getResource(uri, false);
-			needUnload = r == null || !r.isLoaded();
-			r = rs.getResource(uri, true);
-			if (r != null) {
-				genModel = (GenModel) r.getContents().get(0);
-				return Status.OK_STATUS;
+			try {
+				URI uri = (URI) it.next();
+				Resource r = rs.getResource(uri, false);
+				needUnload = r == null || !r.isLoaded();
+				r = rs.getResource(uri, true);
+				if (r != null) {
+					genModel = (GenModel) r.getContents().get(0);
+					return Status.OK_STATUS;
+				}
+			} catch (WrappedException ex) {
+				// FIXME collect into status
+				System.err.println(ex.getMessage());
 			}
 		}
 		needUnload = false;

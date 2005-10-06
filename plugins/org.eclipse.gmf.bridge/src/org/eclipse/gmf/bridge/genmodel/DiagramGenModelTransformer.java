@@ -132,9 +132,6 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		genNode.setDomainMetaClass(findGenClass(nme.getDomainMetaElement()));
 		genNode.setContainmentMetaFeature(findGenFeature(nme.getContainmentFeature()));
 		genNode.setVisualID(NODE_COUNT_BASE + (++myNodeCount));
-		if (getGenDiagram().getDomainMetaModel() != null) {
-			assert getGenDiagram().getDomainMetaModel() == nme.getDomainMetaElement().getEPackage();
-		}
 		if (nme.getEditFeature() != null) {
 			genNode.setDomainNameFeature(findGenFeature(nme.getEditFeature()));
 		}

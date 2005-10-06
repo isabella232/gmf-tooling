@@ -25,7 +25,7 @@ public class RuntimeGenModelAccess extends BasicGenModelAccess {
 
 	public RuntimeGenModelAccess() {
 		super(NotationPackage.eINSTANCE);
-		initDefault();
+		registerLocation(fromExtpoint());
 		// hack
 		registerLocation(fromExtpoint("http://www.eclipse.org/gmf/1.5.0/Notation")); // as in plugin.xml at the moment %-)
 		// uglier 

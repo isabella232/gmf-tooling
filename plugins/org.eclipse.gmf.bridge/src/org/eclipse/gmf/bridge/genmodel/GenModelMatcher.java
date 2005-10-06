@@ -40,6 +40,7 @@ public class GenModelMatcher {
 	 */
 	public GenModelMatcher(EPackage domainModel) {
 		BasicGenModelAccess gma = new BasicGenModelAccess(domainModel);
+		gma.initDefault();
 		if (gma.load().isOK()) {
 			myEMFGenModel = gma.model();
 		} else {
