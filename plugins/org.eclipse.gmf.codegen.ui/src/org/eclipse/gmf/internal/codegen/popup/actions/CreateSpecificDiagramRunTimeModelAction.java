@@ -10,12 +10,11 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelTransformer;
+import org.eclipse.gmf.bridge.genmodel.RuntimeGenModelAccess;
 import org.eclipse.gmf.mappings.Mapping;
-import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -96,9 +95,8 @@ public class CreateSpecificDiagramRunTimeModelAction implements IObjectActionDel
 	}
 
 	private GenPackage getDiagramRunTimeGenPackage() {
-		URI diagramRTGenModelURI = (URI) EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(NotationPackage.eNS_URI);
-		Resource r = new ResourceSetImpl().getResource(diagramRTGenModelURI, true);
-		GenModel drtModel = (GenModel) r.getContents().get(0);
-		return drtModel.findGenPackage(NotationPackage.eINSTANCE);
+		RuntimeGenModelAccess runtimeAccess = new RuntimeGenModelAccess();
+		runtimeAccess.ensure();
+		return runtimeAccess.genPackage();
 	}
 }

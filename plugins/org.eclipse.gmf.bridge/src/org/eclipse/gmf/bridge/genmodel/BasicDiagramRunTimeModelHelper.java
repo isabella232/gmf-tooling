@@ -14,12 +14,7 @@ package org.eclipse.gmf.bridge.genmodel;
 import java.util.Iterator;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
@@ -65,10 +60,9 @@ public class BasicDiagramRunTimeModelHelper implements DiagramRunTimeModelHelper
 			return;
 		}
 		myIsLoaded = true;
-		URI diagramRTGenModelURI = (URI) EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(NotationPackage.eNS_URI);
-		Resource r = new ResourceSetImpl().getResource(diagramRTGenModelURI, true);
-		GenModel drtModel = (GenModel) r.getContents().get(0);
-		GenPackage gp = drtModel.findGenPackage(NotationPackage.eINSTANCE);
+		RuntimeGenModelAccess runtimeAccess = new RuntimeGenModelAccess();
+		assert runtimeAccess.ensure().isOK();
+		GenPackage gp = runtimeAccess.genPackage();
 		for (Iterator it = gp.getGenClasses().iterator(); it.hasNext();) {
 			GenClass next = (GenClass) it.next();
 			if (NotationPackage.eINSTANCE.getNode().getName().equals(next.getName())) {
@@ -80,7 +74,7 @@ public class BasicDiagramRunTimeModelHelper implements DiagramRunTimeModelHelper
 				myCanvas = next;
 			}
 		}
-		r.unload();
+		runtimeAccess.unload();
 		assert myNode != null && myLink != null && myCanvas != null && myChildNode != null;
 	}
 }

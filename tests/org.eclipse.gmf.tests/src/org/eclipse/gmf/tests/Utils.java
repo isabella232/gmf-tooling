@@ -12,20 +12,14 @@
 package org.eclipse.gmf.tests;
 
 import java.util.Calendar;
-import java.util.Collections;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
-import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.gmf.bridge.genmodel.BasicGenModelAccess;
 
 /**
  * @author artem
@@ -39,27 +33,13 @@ public class Utils {
 	 * @return initilized genModel, ready to run code generation
 	 */
 	public static GenModel createGenModel(EPackage aModel, String pluginID) {
-        GenModel genModel = GenModelFactory.eINSTANCE.createGenModel();
-        genModel.initialize(Collections.singleton(aModel));
-        GenPackage genPackage = (GenPackage) genModel.getGenPackages().get(0);
-        genModel.setModelName(aModel.getName() + "Gen");
+		BasicGenModelAccess gmAccess = new BasicGenModelAccess(aModel);
+		assert gmAccess.createDummy().isOK();
+		GenModel genModel = gmAccess.model();
+		// not sure I need these
         genModel.setModelPluginID(pluginID);
         genModel.setModelDirectory("/" + pluginID + "/src/");
-        genModel.setEditDirectory(genModel.getModelDirectory());
-        Resource r = new ResourceSetImpl().createResource(URI.createGenericURI("uri","fake/sample.genmodel", null));
-        r.getContents().add(genModel);
-        
-        assert genModel.eResource() != null;
-
-        // need different prefix to avoid name collisions with code generated for domain model
-        genPackage.setPrefix(aModel.getName() + "Gen");
         return genModel;
-	}
-
-	public static GenModel loadGenModel(String nsURI) {
-		URI modelURI = (URI) EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(nsURI);
-		Resource r = new ResourceSetImpl().getResource(modelURI, true);
-		return (GenModel) r.getContents().get(0);
 	}
 
 	public static GenClass findGenClass(GenModel genModel, String className) {

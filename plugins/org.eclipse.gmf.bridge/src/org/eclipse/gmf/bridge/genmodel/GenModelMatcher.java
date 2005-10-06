@@ -17,13 +17,9 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 
 /**
  * @author artem
@@ -36,9 +32,17 @@ public class GenModelMatcher {
 		myEMFGenModel = genModel;
 	}
 
+	/**
+	 * Rather use some subtype of {@link GenModelAccess} to 
+	 * get {@link GenModel} and {@link #GenModelMatcher(GenModel)}.
+	 * @param domainModel
+	 * @throws IllegalStateException if genmodel could not be found
+	 */
 	public GenModelMatcher(EPackage domainModel) {
-		myEMFGenModel = findGenModel(domainModel);
-		if (myEMFGenModel == null) {
+		BasicGenModelAccess gma = new BasicGenModelAccess(domainModel);
+		if (gma.load().isOK()) {
+			myEMFGenModel = gma.model();
+		} else {
 			throw new IllegalStateException();
 		}
 	}
@@ -92,32 +96,5 @@ public class GenModelMatcher {
 			}
 		}
 		throw new IllegalStateException("Can't find genFeature for feature '" + domainMetaFeature.getName() + "' in class " + genClass.getName());
-	}
-
-	public static GenModel findGenModel(EPackage model) {
-		if (model == null) {
-			return null;
-		}
-		URI genModelURI = (URI) EcorePlugin.getEPackageNsURIToGenModelLocationMap().get(model.getNsURI());
-		if (genModelURI == null) {
-			URI domainModelURI = model.eResource().getURI(); 
-			genModelURI = domainModelURI.trimFileExtension().appendFileExtension("genmodel");
-			if (genModelURI.equals(domainModelURI)) {
-				genModelURI = null; // don't even try, then
-			}
-		}
-		if (genModelURI == null) {
-			return null;
-		}
-		ResourceSet rs = model.eResource().getResourceSet();
-		// @see org.eclipse.emf.importer.ModelImporter.getExternalGenModels()
-		Resource genModelResource = rs.getResource(genModelURI, false);
-		if (genModelResource == null) {
-			genModelResource = rs.getResource(genModelURI, true);
-			if (genModelResource != null) {
-				return (GenModel) genModelResource.getContents().get(0);
-			}
-		}
-		return null;
 	}
 }

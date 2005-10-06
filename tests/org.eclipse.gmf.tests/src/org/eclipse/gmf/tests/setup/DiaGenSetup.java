@@ -21,6 +21,8 @@ import org.eclipse.gmf.bridge.genmodel.EditPartNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.GenModelMatcher;
 import org.eclipse.gmf.bridge.genmodel.MetaInfoProviderNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.NamingStrategy;
+import org.eclipse.gmf.bridge.genmodel.NotationViewFactoryNamingStrategy;
+import org.eclipse.gmf.bridge.genmodel.RuntimeGenModelAccess;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
@@ -42,7 +44,7 @@ public class DiaGenSetup implements DiaGenSource {
 	 * @return <code>this</code> for convenience
 	 */
 	public DiaGenSetup init(DomainModelSource domainSource) {
-		final GenModel runtimeModel = Utils.loadGenModel(NotationPackage.eNS_URI);
+		final GenModel runtimeModel = getRuntimeGenModel();
 		final String pluginID = Utils.createUniquePluginID();
 		assert runtimeModel != null;
 		final GenModelMatcher gmm = new GenModelMatcher(Utils.createGenModel(domainSource.getModel(), pluginID));
@@ -72,11 +74,17 @@ public class DiaGenSetup implements DiaGenSource {
 		return this;
 	}
 
+	private GenModel getRuntimeGenModel() {
+		RuntimeGenModelAccess runtimeAccess = new RuntimeGenModelAccess();
+		runtimeAccess.ensure();
+		return runtimeAccess.model();
+	}
+
 	public void init(MapDefSource mapSource) {
 		final DiagramRunTimeModelHelper drth = new BasicDiagramRunTimeModelHelper();
 		final NamingStrategy epns = new EditPartNamingStrategy();
 		final NamingStrategy mipns = new MetaInfoProviderNamingStrategy();
-		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, epns, mipns);
+		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, epns, mipns, new NotationViewFactoryNamingStrategy());
 		t.transform(mapSource.getMapping());
 		myGenDiagram = t.getResult();
 		final String nodeEPName = epns.createClassName(mapSource.getNodeMapping());
