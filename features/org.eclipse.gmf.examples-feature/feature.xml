@@ -27,121 +27,15 @@ http://www.eclipse.org/legal/epl-v10.html
    </url>
 
    <requires>
-      <import feature="org.eclipse.gmf.sdk" version="1.0.0"/>
-      <import plugin="org.eclipse.gmf.runtime.emf.core"/>
-      <import plugin="org.eclipse.jface"/>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.gmf.runtime.common.ui"/>
       <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.emf.ecore"/>
-      <import plugin="org.eclipse.emf.edit"/>
-      <import plugin="org.eclipse.gmf.runtime.common.core"/>
+      <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.gmf.runtime.diagram.ui"/>
-      <import plugin="org.eclipse.gmf.runtime.notation"/>
-      <import plugin="org.eclipse.core.runtime.compatibility"/>
       <import plugin="org.eclipse.ui.ide"/>
-      <import plugin="org.eclipse.ui.editors"/>
-      <import plugin="org.eclipse.gef"/>
-      <import plugin="org.eclipse.draw2d"/>
-      <import plugin="org.eclipse.gmf.runtime.diagram.ui.properties"/>
-      <import plugin="org.eclipse.gmf.runtime.notation.edit"/>
-      <import plugin="org.eclipse.gmf.runtime.common.ui.services"/>
-      <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor"/>
-      <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide"/>
-      <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers"/>
-      <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers.ide"/>
-      <import plugin="org.eclipse.gmf.runtime.common.ui.action.ide"/>
-      <import plugin="org.eclipse.gmf.runtime.gef.ui"/>
-      <import plugin="org.eclipse.gmf.runtime.emf.commands.core"/>
-      <import plugin="org.eclipse.gmf.runtime.diagram.ui.geoshapes"/>
-      <import plugin="org.eclipse.gmf.runtime.notation.providers"/>
-      <import plugin="org.eclipse.gmf.runtime.diagram.ui.render"/>
-      <import plugin="org.eclipse.emf.ecore.change"/>
-      <import plugin="org.eclipse.gmf.runtime.emf.clipboard.core"/>
-      <import plugin="org.eclipse.emf.ecore.xmi"/>
-      <import plugin="org.eclipse.emf.edit.ui"/>
+      <import feature="org.eclipse.gmf.sdk" version="1.0.0"/>
    </requires>
 
    <plugin
          id="org.eclipse.gmf.examples.source"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.gmf.examples.runtime.emf"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.emf.examples.library"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.emf.examples.library.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.gmf.examples.runtime.common.service"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.gmf.examples.runtime.diagram.decorator"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.gmf.examples.runtime.diagram.geoshapes"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.gmf.examples.runtime.diagram.layout"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.gmf.examples.runtime.diagram.logic"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.gmf.examples.runtime.diagram.logic.model"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.gmf.examples.runtime.diagram.logic.model.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.gmf.examples.runtime.emf.clipboard"
          download-size="0"
          install-size="0"
          version="0.0.0"
@@ -156,13 +50,6 @@ http://www.eclipse.org/legal/epl-v10.html
 
    <plugin
          id="org.eclipse.gmf.examples"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.emf.examples.library.editor"
          download-size="0"
          install-size="0"
          version="0.0.0"
