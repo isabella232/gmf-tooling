@@ -19,6 +19,7 @@ import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.EditPartNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.MetaInfoProviderNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.NamingStrategy;
+import org.eclipse.gmf.bridge.genmodel.NotationViewFactoryNamingStrategy;
 import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
@@ -39,7 +40,7 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 		final DiagramRunTimeModelHelper drtModelHelper = getRTHelper();
 		final Mapping m = getMapping();
 
-		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, getEditPartNamingStrategy(), getMetaInfoNamingStrategy());
+		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, getEditPartNamingStrategy(), getMetaInfoNamingStrategy(), new NotationViewFactoryNamingStrategy());
 		t.setEMFGenModel(Utils.createGenModel(m.getDiagram().getDomainModel(), Utils.createUniquePluginID()));
 		t.transform(m);
 		GenDiagram genDiagram = t.getResult();
