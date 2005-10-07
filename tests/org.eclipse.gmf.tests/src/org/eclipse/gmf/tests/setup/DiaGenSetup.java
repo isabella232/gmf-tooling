@@ -31,6 +31,11 @@ import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.tests.Utils;
 
+/**
+ * TODO another DiaGenSetup using DiagramGenModelTransformer 
+ * to avoid errors in GMFGen initialization (like missed viewmaps)
+ * @author artem
+ */
 public class DiaGenSetup implements DiaGenSource {
 	private GenDiagram myGenDiagram;
 	private GenNode myGenNode;
@@ -59,6 +64,7 @@ public class DiaGenSetup implements DiaGenSource {
 		myGenNode.setDomainMetaClass(gmm.findGenClass(domainSource.getNode().getEClass()));
 		myGenNode.setDomainNameFeature(gmm.findGenFeature(domainSource.getNode().getNameAttr()));
 		myGenNode.setContainmentMetaFeature(gmm.findGenFeature(domainSource.getNode().getContainment()));
+		myGenNode.setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap());
 		myGenNode.setVisualID(100);
 
 		myGenLink = GMFGenFactory.eINSTANCE.createGenLinkWithClass();
@@ -66,10 +72,13 @@ public class DiaGenSetup implements DiaGenSource {
 		myGenLink.setDomainMetaClass(gmm.findGenClass(domainSource.getLinkAsClass().getEClass()));
 		myGenLink.setDomainLinkTargetFeature(gmm.findGenFeature(domainSource.getLinkAsClass().getTargetFeature()));
 		myGenLink.setContainmentMetaFeature(gmm.findGenFeature(domainSource.getLinkAsClass().getContainment()));
+		myGenLink.setViewmap(GMFGenFactory.eINSTANCE.createDecoratedConnectionViewmap());
 		myGenLink.setVisualID(200);
 		// TODO add linkRefOnly
 		myGenDiagram.getNodes().add(myGenNode);
 		myGenDiagram.getLinks().add(myGenLink);
+		// TODO make sure (validate?) .gmfgen model is valid not to ruin tests...
+		// XXX alternatively, run this check as separate tests prior to those using this setup?
 		return this;
 	}
 
