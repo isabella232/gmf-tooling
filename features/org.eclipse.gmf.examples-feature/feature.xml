@@ -33,19 +33,73 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.ui.ide"/>
       <import feature="org.eclipse.gmf.sdk" version="1.0.0"/>
    </requires>
+   
+   <includes
+         id="org.eclipse.gmf.examples.source"
+         version="0.0.0"
+         name="GMF Examples Source Resources"/>
 
    <plugin
-         id="org.eclipse.gmf.examples.runtime.ui.pde"
+         id="org.eclipse.gmf.examples.runtime.common.service"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.gmf.examples"
+         id="org.eclipse.gmf.examples.runtime.diagram.decorator"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-         
+
+   <plugin
+         id="org.eclipse.gmf.examples.runtime.diagram.geoshapes"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.examples.runtime.diagram.layout"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.examples.runtime.diagram.logic"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.examples.runtime.diagram.logic.model"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.examples.runtime.diagram.logic.model.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.examples.runtime.emf"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.examples.runtime.emf.clipboard"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>
