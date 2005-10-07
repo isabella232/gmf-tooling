@@ -61,7 +61,7 @@ public class BasicDiagramRunTimeModelHelper implements DiagramRunTimeModelHelper
 		}
 		myIsLoaded = true;
 		RuntimeGenModelAccess runtimeAccess = new RuntimeGenModelAccess();
-		assert runtimeAccess.ensure().isOK();
+		runtimeAccess.ensure(); 
 		GenPackage gp = runtimeAccess.genPackage();
 		for (Iterator it = gp.getGenClasses().iterator(); it.hasNext();) {
 			GenClass next = (GenClass) it.next();
