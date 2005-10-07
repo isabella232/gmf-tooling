@@ -52,7 +52,6 @@ import org.eclipse.gmf.codegen.gmfgen.Palette;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getProvidersPackageName <em>Providers Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditorClassName <em>Editor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartFactoryClassName <em>Edit Part Factory Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMetaInfoFactoryClassName <em>Meta Info Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isHasDomainModel <em>Has Domain Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}</li>
@@ -332,26 +331,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String editPartFactoryClassName = EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getMetaInfoFactoryClassName() <em>Meta Info Factory Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMetaInfoFactoryClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String META_INFO_FACTORY_CLASS_NAME_EDEFAULT = "MetaInfoProviderAdapterFactory";
-
-	/**
-	 * The cached value of the '{@link #getMetaInfoFactoryClassName() <em>Meta Info Factory Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMetaInfoFactoryClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String metaInfoFactoryClassName = META_INFO_FACTORY_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #isHasDomainModel() <em>Has Domain Model</em>}' attribute.
@@ -906,27 +885,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getMetaInfoFactoryClassName() {
-		return metaInfoFactoryClassName;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setMetaInfoFactoryClassName(String newMetaInfoFactoryClassName) {
-		String oldMetaInfoFactoryClassName = metaInfoFactoryClassName;
-		metaInfoFactoryClassName = newMetaInfoFactoryClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__META_INFO_FACTORY_CLASS_NAME, oldMetaInfoFactoryClassName, metaInfoFactoryClassName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean isHasDomainModel() {
 		return hasDomainModel;
 	}
@@ -1053,15 +1011,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public String getMetaInfoFactoryQualifiedClassName() {
-		return getEditProvidersPackageName() + '.' + getMetaInfoFactoryClassName();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public GenClass findGenClass(EClass domainMetaClass) {
@@ -1174,8 +1123,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return new Integer(getVisualID());
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_CLASS_NAME:
 				return getEditPartClassName();
-			case GMFGenPackage.GEN_DIAGRAM__META_INFO_PROVIDER_CLASS_NAME:
-				return getMetaInfoProviderClassName();
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
 				if (resolve) return getDomainMetaModel();
 				return basicGetDomainMetaModel();
@@ -1210,8 +1157,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getEditorClassName();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				return getEditPartFactoryClassName();
-			case GMFGenPackage.GEN_DIAGRAM__META_INFO_FACTORY_CLASS_NAME:
-				return getMetaInfoFactoryClassName();
 			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
 				return isHasDomainModel() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
@@ -1239,9 +1184,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_CLASS_NAME:
 				setEditPartClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__META_INFO_PROVIDER_CLASS_NAME:
-				setMetaInfoProviderClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
 				setDomainMetaModel((GenPackage)newValue);
@@ -1293,9 +1235,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				setEditPartFactoryClassName((String)newValue);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__META_INFO_FACTORY_CLASS_NAME:
-				setMetaInfoFactoryClassName((String)newValue);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
 				setHasDomainModel(((Boolean)newValue).booleanValue());
 				return;
@@ -1327,9 +1266,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_CLASS_NAME:
 				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__META_INFO_PROVIDER_CLASS_NAME:
-				setMetaInfoProviderClassName(META_INFO_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
 				setDomainMetaModel((GenPackage)null);
@@ -1379,9 +1315,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				setEditPartFactoryClassName(EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__META_INFO_FACTORY_CLASS_NAME:
-				setMetaInfoFactoryClassName(META_INFO_FACTORY_CLASS_NAME_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
 				setHasDomainModel(HAS_DOMAIN_MODEL_EDEFAULT);
 				return;
@@ -1411,8 +1344,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return visualID != VISUAL_ID_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_CLASS_NAME:
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
-			case GMFGenPackage.GEN_DIAGRAM__META_INFO_PROVIDER_CLASS_NAME:
-				return META_INFO_PROVIDER_CLASS_NAME_EDEFAULT == null ? metaInfoProviderClassName != null : !META_INFO_PROVIDER_CLASS_NAME_EDEFAULT.equals(metaInfoProviderClassName);
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
 				return domainMetaModel != null;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
@@ -1445,8 +1376,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return EDITOR_CLASS_NAME_EDEFAULT == null ? editorClassName != null : !EDITOR_CLASS_NAME_EDEFAULT.equals(editorClassName);
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				return EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT == null ? editPartFactoryClassName != null : !EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT.equals(editPartFactoryClassName);
-			case GMFGenPackage.GEN_DIAGRAM__META_INFO_FACTORY_CLASS_NAME:
-				return META_INFO_FACTORY_CLASS_NAME_EDEFAULT == null ? metaInfoFactoryClassName != null : !META_INFO_FACTORY_CLASS_NAME_EDEFAULT.equals(metaInfoFactoryClassName);
 			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
 				return hasDomainModel != HAS_DOMAIN_MODEL_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
@@ -1490,8 +1419,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(editorClassName);
 		result.append(", editPartFactoryClassName: ");
 		result.append(editPartFactoryClassName);
-		result.append(", metaInfoFactoryClassName: ");
-		result.append(metaInfoFactoryClassName);
 		result.append(", hasDomainModel: ");
 		result.append(hasDomainModel);
 		result.append(", diagramFileExtension: ");

@@ -38,7 +38,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getProvidersPackageName <em>Providers Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditorClassName <em>Editor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditPartFactoryClassName <em>Edit Part Factory Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getMetaInfoFactoryClassName <em>Meta Info Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isHasDomainModel <em>Has Domain Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}</li>
@@ -458,33 +457,6 @@ public interface GenDiagram extends GenCommonBase{
 	void setEditPartFactoryClassName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Meta Info Factory Class Name</b></em>' attribute.
-	 * The default value is <code>"MetaInfoProviderAdapterFactory"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Meta Info Factory Class Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Meta Info Factory Class Name</em>' attribute.
-	 * @see #setMetaInfoFactoryClassName(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_MetaInfoFactoryClassName()
-	 * @model default="MetaInfoProviderAdapterFactory"
-	 * @generated
-	 */
-	String getMetaInfoFactoryClassName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getMetaInfoFactoryClassName <em>Meta Info Factory Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Meta Info Factory Class Name</em>' attribute.
-	 * @see #getMetaInfoFactoryClassName()
-	 * @generated
-	 */
-	void setMetaInfoFactoryClassName(String value);
-
-	/**
 	 * Returns the value of the '<em><b>Has Domain Model</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -625,14 +597,6 @@ public interface GenDiagram extends GenCommonBase{
 	 * @generated
 	 */
 	String getEditPartFactoryQualifiedClassName();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	String getMetaInfoFactoryQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

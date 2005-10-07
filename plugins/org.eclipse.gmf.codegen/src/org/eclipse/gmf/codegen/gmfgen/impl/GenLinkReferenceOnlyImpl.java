@@ -116,8 +116,6 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 				return new Integer(getVisualID());
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__EDIT_PART_CLASS_NAME:
 				return getEditPartClassName();
-			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__META_INFO_PROVIDER_CLASS_NAME:
-				return getMetaInfoProviderClassName();
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DOMAIN_NAME_FEATURE:
 				if (resolve) return getDomainNameFeature();
 				return basicGetDomainNameFeature();
@@ -154,9 +152,6 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 				return;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__EDIT_PART_CLASS_NAME:
 				setEditPartClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__META_INFO_PROVIDER_CLASS_NAME:
-				setMetaInfoProviderClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DOMAIN_NAME_FEATURE:
 				setDomainNameFeature((GenFeature)newValue);
@@ -196,9 +191,6 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__EDIT_PART_CLASS_NAME:
 				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__META_INFO_PROVIDER_CLASS_NAME:
-				setMetaInfoProviderClassName(META_INFO_PROVIDER_CLASS_NAME_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DOMAIN_NAME_FEATURE:
 				setDomainNameFeature((GenFeature)null);
 				return;
@@ -234,8 +226,6 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 				return visualID != VISUAL_ID_EDEFAULT;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__EDIT_PART_CLASS_NAME:
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
-			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__META_INFO_PROVIDER_CLASS_NAME:
-				return META_INFO_PROVIDER_CLASS_NAME_EDEFAULT == null ? metaInfoProviderClassName != null : !META_INFO_PROVIDER_CLASS_NAME_EDEFAULT.equals(metaInfoProviderClassName);
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DOMAIN_NAME_FEATURE:
 				return domainNameFeature != null;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__FOREGROUND_COLOR:

@@ -17,7 +17,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.EditPartNamingStrategy;
-import org.eclipse.gmf.bridge.genmodel.MetaInfoProviderNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.NamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.NotationViewFactoryNamingStrategy;
 import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
@@ -30,7 +29,6 @@ import org.eclipse.gmf.tests.Utils;
 public abstract class GenModelTransformerTest extends AbstractMappingTransformerTest {
 
 	private NamingStrategy myEditPartNamingStrategy;
-	private NamingStrategy myMetaInfoNamingStrategy;
 
 	public GenModelTransformerTest(String name) {
 		super(name);
@@ -40,7 +38,7 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 		final DiagramRunTimeModelHelper drtModelHelper = getRTHelper();
 		final Mapping m = getMapping();
 
-		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, getEditPartNamingStrategy(), getMetaInfoNamingStrategy(), new NotationViewFactoryNamingStrategy());
+		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, getEditPartNamingStrategy(), new NotationViewFactoryNamingStrategy());
 		t.setEMFGenModel(Utils.createGenModel(m.getDiagram().getDomainModel(), Utils.createUniquePluginID()));
 		t.transform(m);
 		GenDiagram genDiagram = t.getResult();
@@ -83,16 +81,5 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 
 	protected NamingStrategy createEditPartNamingStrategy() {
 		return new EditPartNamingStrategy();
-	}
-
-	protected final NamingStrategy getMetaInfoNamingStrategy() {
-		if (myMetaInfoNamingStrategy == null) {
-			myMetaInfoNamingStrategy = createMetaInfoNamingStrategy();
-		}
-		return myMetaInfoNamingStrategy;
-	}
-
-	protected NamingStrategy createMetaInfoNamingStrategy() {
-		return new MetaInfoProviderNamingStrategy();
 	}
 }

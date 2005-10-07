@@ -333,8 +333,6 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 				return new Integer(getVisualID());
 			case GMFGenPackage.GEN_BASE_ELEMENT__EDIT_PART_CLASS_NAME:
 				return getEditPartClassName();
-			case GMFGenPackage.GEN_BASE_ELEMENT__META_INFO_PROVIDER_CLASS_NAME:
-				return getMetaInfoProviderClassName();
 			case GMFGenPackage.GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE:
 				if (resolve) return getDomainNameFeature();
 				return basicGetDomainNameFeature();
@@ -366,9 +364,6 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__EDIT_PART_CLASS_NAME:
 				setEditPartClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_BASE_ELEMENT__META_INFO_PROVIDER_CLASS_NAME:
-				setMetaInfoProviderClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE:
 				setDomainNameFeature((GenFeature)newValue);
@@ -405,9 +400,6 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 			case GMFGenPackage.GEN_BASE_ELEMENT__EDIT_PART_CLASS_NAME:
 				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_BASE_ELEMENT__META_INFO_PROVIDER_CLASS_NAME:
-				setMetaInfoProviderClassName(META_INFO_PROVIDER_CLASS_NAME_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE:
 				setDomainNameFeature((GenFeature)null);
 				return;
@@ -440,8 +432,6 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 				return visualID != VISUAL_ID_EDEFAULT;
 			case GMFGenPackage.GEN_BASE_ELEMENT__EDIT_PART_CLASS_NAME:
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
-			case GMFGenPackage.GEN_BASE_ELEMENT__META_INFO_PROVIDER_CLASS_NAME:
-				return META_INFO_PROVIDER_CLASS_NAME_EDEFAULT == null ? metaInfoProviderClassName != null : !META_INFO_PROVIDER_CLASS_NAME_EDEFAULT.equals(metaInfoProviderClassName);
 			case GMFGenPackage.GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE:
 				return domainNameFeature != null;
 			case GMFGenPackage.GEN_BASE_ELEMENT__FOREGROUND_COLOR:

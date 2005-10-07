@@ -19,7 +19,6 @@ import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.EditPartNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.GenModelMatcher;
-import org.eclipse.gmf.bridge.genmodel.MetaInfoProviderNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.NamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.NotationViewFactoryNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.RuntimeGenModelAccess;
@@ -83,8 +82,7 @@ public class DiaGenSetup implements DiaGenSource {
 	public void init(MapDefSource mapSource) {
 		final DiagramRunTimeModelHelper drth = new BasicDiagramRunTimeModelHelper();
 		final NamingStrategy epns = new EditPartNamingStrategy();
-		final NamingStrategy mipns = new MetaInfoProviderNamingStrategy();
-		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, epns, mipns, new NotationViewFactoryNamingStrategy());
+		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, epns, new NotationViewFactoryNamingStrategy());
 		t.transform(mapSource.getMapping());
 		myGenDiagram = t.getResult();
 		final String nodeEPName = epns.createClassName(mapSource.getNodeMapping());

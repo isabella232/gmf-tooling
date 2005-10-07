@@ -137,18 +137,18 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.GEN_CHILD_CONTAINER: {
+				GenChildContainer genChildContainer = (GenChildContainer)theEObject;
+				Object result = caseGenChildContainer(genChildContainer);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.GEN_CHILD_NODE: {
 				GenChildNode genChildNode = (GenChildNode)theEObject;
 				Object result = caseGenChildNode(genChildNode);
 				if (result == null) result = caseGenNode(genChildNode);
 				if (result == null) result = caseGenBaseElement(genChildNode);
 				if (result == null) result = caseGenCommonBase(genChildNode);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GMFGenPackage.GEN_CHILD_CONTAINER: {
-				GenChildContainer genChildContainer = (GenChildContainer)theEObject;
-				Object result = caseGenChildContainer(genChildContainer);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -178,12 +178,6 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GMFGenPackage.VIEWMAP: {
-				Viewmap viewmap = (Viewmap)theEObject;
-				Object result = caseViewmap(viewmap);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case GMFGenPackage.ATTRIBUTES: {
 				Attributes attributes = (Attributes)theEObject;
 				Object result = caseAttributes(attributes);
@@ -201,6 +195,12 @@ public class GMFGenSwitch {
 				DefaultSizeAttributes defaultSizeAttributes = (DefaultSizeAttributes)theEObject;
 				Object result = caseDefaultSizeAttributes(defaultSizeAttributes);
 				if (result == null) result = caseAttributes(defaultSizeAttributes);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.VIEWMAP: {
+				Viewmap viewmap = (Viewmap)theEObject;
+				Object result = caseViewmap(viewmap);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

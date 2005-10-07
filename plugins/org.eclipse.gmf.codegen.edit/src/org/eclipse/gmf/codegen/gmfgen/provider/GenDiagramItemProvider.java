@@ -74,7 +74,6 @@ public class GenDiagramItemProvider
 			addProvidersPackageNamePropertyDescriptor(object);
 			addEditorClassNamePropertyDescriptor(object);
 			addEditPartFactoryClassNamePropertyDescriptor(object);
-			addMetaInfoFactoryClassNamePropertyDescriptor(object);
 			addHasDomainModelPropertyDescriptor(object);
 			addDiagramFileExtensionPropertyDescriptor(object);
 			addSameFileForDiagramAndModelPropertyDescriptor(object);
@@ -344,26 +343,6 @@ public class GenDiagramItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Meta Info Factory Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addMetaInfoFactoryClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenDiagram_metaInfoFactoryClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_metaInfoFactoryClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_MetaInfoFactoryClassName(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Has Domain Model feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -518,7 +497,6 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__META_INFO_FACTORY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:

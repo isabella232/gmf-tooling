@@ -63,7 +63,6 @@ public class GenCommonBaseItemProvider
 			addDiagramRunTimeClassPropertyDescriptor(object);
 			addVisualIDPropertyDescriptor(object);
 			addEditPartClassNamePropertyDescriptor(object);
-			addMetaInfoProviderClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -129,26 +128,6 @@ public class GenCommonBaseItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Meta Info Provider Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addMetaInfoProviderClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenCommonBase_metaInfoProviderClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenCommonBase_metaInfoProviderClassName_feature", "_UI_GenCommonBase_type"),
-				 GMFGenPackage.eINSTANCE.getGenCommonBase_MetaInfoProviderClassName(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -174,7 +153,6 @@ public class GenCommonBaseItemProvider
 		switch (notification.getFeatureID(GenCommonBase.class)) {
 			case GMFGenPackage.GEN_COMMON_BASE__VISUAL_ID:
 			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
-			case GMFGenPackage.GEN_COMMON_BASE__META_INFO_PROVIDER_CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

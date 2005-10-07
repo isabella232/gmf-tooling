@@ -64,16 +64,14 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 	private GenModelMatcher myGenModelMatch;
 	private final DiagramRunTimeModelHelper myDRTHelper;
 	private final NamingStrategy myEditPartNamingStrategy;
-	private final NamingStrategy myMetaInfoNamingStrategy;
 	private final NamingStrategy myNotationViewFactoryNamingStrategy;
 	private int myNodeCount = 0;
 	private int myLinkCount = 0;
 	private int myChildCount = 0;
 
-	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, NamingStrategy editPartNaming, NamingStrategy metaInfoNaming, NamingStrategy notationViewFactoryNaming) {
+	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, NamingStrategy editPartNaming, NamingStrategy notationViewFactoryNaming) {
 		myDRTHelper = drtHelper;
 		myEditPartNamingStrategy = editPartNaming;
-		myMetaInfoNamingStrategy = metaInfoNaming;
 		myNotationViewFactoryNamingStrategy = notationViewFactoryNaming;
 	}
 
@@ -116,7 +114,6 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		getGenDiagram().setDomainMetaModel(findGenPackage(mapping.getDomainModel()));
 		getGenDiagram().setDomainDiagramElement(findGenClass(mapping.getDomainMetaElement()));
 		getGenDiagram().setEditPartClassName(createEditPartClassName(mapping));
-		getGenDiagram().setMetaInfoProviderClassName(createMetaInfoProviderClassName(mapping));
 		getGenDiagram().setDiagramRunTimeClass(findRunTimeClass(mapping));
 		getGenDiagram().setVisualID(CANVAS_COUNT_BASE);
 		getGenDiagram().setPluginName(mapping.getDomainModel().getName() + " Plugin");
@@ -136,7 +133,6 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			genNode.setDomainNameFeature(findGenFeature(nme.getEditFeature()));
 		}
 		genNode.setEditPartClassName(createEditPartClassName(nme));
-		genNode.setMetaInfoProviderClassName(createMetaInfoProviderClassName(nme));
 		genNode.setNotationViewFactoryClassName(createNotationViewFactoryClassName(nme));
 		genNode.setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap());
 		// XXX nme.getDiagramNode.isSetDefaultWidth add DefaultSizeAttributes to viewmap
@@ -167,7 +163,6 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			
 			childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
 			childNode.setEditPartClassName(createEditPartClassName(childNodeMapping));
-			childNode.setMetaInfoProviderClassName(createMetaInfoProviderClassName(childNodeMapping));
 			childNode.setNotationViewFactoryClassName(createNotationViewFactoryClassName(childNodeMapping));
 			childNode.setGroupID(childNodeMapping.getCompartment().getName());
 			childNode.setVisualID(CHILD_COUNT_BASE + (++myChildCount ));
@@ -215,7 +210,6 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		gl.setDomainNameFeature(findGenFeature(lme.getLabelEditFeature()));
 		gl.setDiagramRunTimeClass(findRunTimeClass(lme));
 		gl.setEditPartClassName(createEditPartClassName(lme));
-		gl.setMetaInfoProviderClassName(createMetaInfoProviderClassName(lme));
 		gl.setNotationViewFactoryClassName(createNotationViewFactoryClassName(lme));
 		gl.setContainmentMetaFeature(findGenFeature(lme.getContainmentFeature()));
 		gl.setVisualID(LINK_COUNT_BASE + (++myLinkCount));
@@ -270,24 +264,6 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		return myEditPartNamingStrategy.createClassName(chnme);
 	}
 
-	//
-
-	private String createMetaInfoProviderClassName(NodeMapping nme) {
-		return myMetaInfoNamingStrategy.createClassName(nme);
-	}
-
-	private String createMetaInfoProviderClassName(LinkMapping lme) {
-		return myMetaInfoNamingStrategy.createClassName(lme);
-	}
-
-	private String createMetaInfoProviderClassName(CanvasMapping mapping) {
-		return myMetaInfoNamingStrategy.createClassName(mapping);
-	}
-
-	private String createMetaInfoProviderClassName(ChildNodeMapping chnme) {
-		return myMetaInfoNamingStrategy.createClassName(chnme);
-	}
-	
 	//
 
 	private String createNotationViewFactoryClassName(NodeMapping nme) {

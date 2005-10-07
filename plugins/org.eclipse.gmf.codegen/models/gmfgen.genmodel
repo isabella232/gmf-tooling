@@ -38,7 +38,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/providersPackageName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/editorClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/editPartFactoryClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/metaInfoFactoryClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/hasDomainModel"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/diagramFileExtension"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/sameFileForDiagramAndModel"/>
@@ -47,7 +46,6 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getPluginQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getEditorQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getEditPartFactoryQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getMetaInfoFactoryQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/findGenClass">
         <genParameters ecoreParameter="gmfgen.ecore#//GenDiagram/findGenClass/domainMetaClass"/>
       </genOperations>
@@ -61,9 +59,7 @@
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCommonBase/diagramRunTimeClass"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommonBase/visualID"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommonBase/editPartClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCommonBase/metaInfoProviderClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getEditPartQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getMetaInfoProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getDiagram"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getClassNamePrefix"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getClassNameSuffux"/>
@@ -84,11 +80,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/childNodes"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNode/childContainersPlacement"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//GenChildNode">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildNode/groupID"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildNode/parentNode"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildNode/childMetaFeature"/>
-    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenChildContainer">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/groupID"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/titleKey"/>
@@ -96,6 +87,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/hideIfEmpty"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/needsTitle"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/layoutKind"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenChildNode">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildNode/groupID"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildNode/parentNode"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildNode/childMetaFeature"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenLink">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/diagram"/>
@@ -105,9 +101,6 @@
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkWithClass/domainMetaClass"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenLinkReferenceOnly"/>
-    <genClasses image="false" ecoreClass="gmfgen.ecore#//Viewmap">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//Viewmap/attributes"/>
-    </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//Attributes"/>
     <genClasses ecoreClass="gmfgen.ecore#//ShapeAttributes">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ShapeAttributes/lineWidth"/>
@@ -116,6 +109,9 @@
     <genClasses ecoreClass="gmfgen.ecore#//DefaultSizeAttributes">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//DefaultSizeAttributes/width"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//DefaultSizeAttributes/height"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//Viewmap">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//Viewmap/attributes"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//FigureViewmap">
       <genOperations ecoreOperation="gmfgen.ecore#//FigureViewmap/getFigureQualifiedClassName"/>

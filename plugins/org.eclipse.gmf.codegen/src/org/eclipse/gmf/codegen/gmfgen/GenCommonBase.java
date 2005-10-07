@@ -24,7 +24,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getDiagramRunTimeClass <em>Diagram Run Time Class</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getVisualID <em>Visual ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getEditPartClassName <em>Edit Part Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getMetaInfoProviderClassName <em>Meta Info Provider Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -109,44 +108,6 @@ public interface GenCommonBase extends EObject{
 	 * @generated
 	 */
 	void setEditPartClassName(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Meta Info Provider Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Meta Info Provider Class Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Meta Info Provider Class Name</em>' attribute.
-	 * @see #setMetaInfoProviderClassName(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCommonBase_MetaInfoProviderClassName()
-	 * @model
-	 * @generated
-	 */
-	String getMetaInfoProviderClassName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getMetaInfoProviderClassName <em>Meta Info Provider Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Meta Info Provider Class Name</em>' attribute.
-	 * @see #getMetaInfoProviderClassName()
-	 * @generated
-	 */
-	void setMetaInfoProviderClassName(String value);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Meta Info Provider Qualified Class Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	String getMetaInfoProviderQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

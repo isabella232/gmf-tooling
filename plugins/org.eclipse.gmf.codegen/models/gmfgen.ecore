@@ -22,7 +22,6 @@
     </eOperations>
     <eOperations name="getEditorQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getEditPartFactoryQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getMetaInfoFactoryQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="findGenClass" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eParameters name="domainMetaClass" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
     </eOperations>
@@ -59,8 +58,6 @@
         defaultValueLiteral="DiagramEditor"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="editPartFactoryClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="EditPartFactoryImpl"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="metaInfoFactoryClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="MetaInfoProviderAdapterFactory"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasDomainModel" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="diagramFileExtension" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sameFileForDiagramAndModel"
@@ -78,7 +75,6 @@
       <details key="documentation" value="One that combines attributes that are essential for EditPart"/>
     </eAnnotations>
     <eOperations name="getEditPartQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getMetaInfoProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getDiagram" eType="#//GenDiagram"/>
     <eOperations name="getClassNamePrefix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getClassNameSuffux" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -91,8 +87,6 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="editPartClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="metaInfoProviderClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenBaseElement" abstract="true" eSuperTypes="#//GenCommonBase">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -145,17 +139,6 @@
     <eLiterals name="FLOW"/>
     <eLiterals name="TOOLBAR" value="1"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenChildNode" eSuperTypes="#//GenNode">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="groupID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="could be null if you don't use childContainers"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parentNode" lowerBound="1"
-        eType="#//GenNode" changeable="false" eOpposite="#//GenNode/childNodes"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="childMetaFeature" lowerBound="1"
-        eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenChildContainer">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Child container within node. Compartment, iow."/>
@@ -176,6 +159,17 @@
     <eLiterals name="SCROLL" value="2"/>
     <eLiterals name="TOOLBAR" value="3"/>
     <eLiterals name="XY" value="4"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenChildNode" eSuperTypes="#//GenNode">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="groupID" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="could be null if you don't use childContainers"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parentNode" lowerBound="1"
+        eType="#//GenNode" changeable="false" eOpposite="#//GenNode/childNodes"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="childMetaFeature" lowerBound="1"
+        eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenLink" abstract="true" eSuperTypes="#//GenBaseElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -205,10 +199,6 @@
       <details key="documentation" value="When eReference/eAttribute in source node points directly to another node"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Viewmap" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
-        eType="#//Attributes" containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Attributes" interface="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Captures aspects of variuos draw2d classes"/>
@@ -232,6 +222,10 @@
         defaultValueLiteral="40"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="30"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Viewmap" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
+        eType="#//Attributes" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FigureViewmap" interface="true">
     <eOperations name="getFigureQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">

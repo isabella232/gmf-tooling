@@ -501,8 +501,8 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	public void dispose() {
 		if (genDiagramItemProvider != null) genDiagramItemProvider.dispose();
 		if (genNodeItemProvider != null) genNodeItemProvider.dispose();
-		if (genChildNodeItemProvider != null) genChildNodeItemProvider.dispose();
 		if (genChildContainerItemProvider != null) genChildContainerItemProvider.dispose();
+		if (genChildNodeItemProvider != null) genChildNodeItemProvider.dispose();
 		if (genLinkWithClassItemProvider != null) genLinkWithClassItemProvider.dispose();
 		if (genLinkReferenceOnlyItemProvider != null) genLinkReferenceOnlyItemProvider.dispose();
 		if (shapeAttributesItemProvider != null) shapeAttributesItemProvider.dispose();

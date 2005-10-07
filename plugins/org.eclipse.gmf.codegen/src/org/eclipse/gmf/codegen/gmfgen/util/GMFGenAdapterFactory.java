@@ -102,11 +102,11 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGenNode(GenNode object) {
 				return createGenNodeAdapter();
 			}
-			public Object caseGenChildNode(GenChildNode object) {
-				return createGenChildNodeAdapter();
-			}
 			public Object caseGenChildContainer(GenChildContainer object) {
 				return createGenChildContainerAdapter();
+			}
+			public Object caseGenChildNode(GenChildNode object) {
+				return createGenChildNodeAdapter();
 			}
 			public Object caseGenLink(GenLink object) {
 				return createGenLinkAdapter();
@@ -117,9 +117,6 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGenLinkReferenceOnly(GenLinkReferenceOnly object) {
 				return createGenLinkReferenceOnlyAdapter();
 			}
-			public Object caseViewmap(Viewmap object) {
-				return createViewmapAdapter();
-			}
 			public Object caseAttributes(Attributes object) {
 				return createAttributesAdapter();
 			}
@@ -128,6 +125,9 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseDefaultSizeAttributes(DefaultSizeAttributes object) {
 				return createDefaultSizeAttributesAdapter();
+			}
+			public Object caseViewmap(Viewmap object) {
+				return createViewmapAdapter();
 			}
 			public Object caseFigureViewmap(FigureViewmap object) {
 				return createFigureViewmapAdapter();

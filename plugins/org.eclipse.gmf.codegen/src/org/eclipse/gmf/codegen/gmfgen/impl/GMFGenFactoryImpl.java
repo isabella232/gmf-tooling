@@ -56,8 +56,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 		switch (eClass.getClassifierID()) {
 			case GMFGenPackage.GEN_DIAGRAM: return createGenDiagram();
 			case GMFGenPackage.GEN_NODE: return createGenNode();
-			case GMFGenPackage.GEN_CHILD_NODE: return createGenChildNode();
 			case GMFGenPackage.GEN_CHILD_CONTAINER: return createGenChildContainer();
+			case GMFGenPackage.GEN_CHILD_NODE: return createGenChildNode();
 			case GMFGenPackage.GEN_LINK_WITH_CLASS: return createGenLinkWithClass();
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY: return createGenLinkReferenceOnly();
 			case GMFGenPackage.SHAPE_ATTRIBUTES: return createShapeAttributes();

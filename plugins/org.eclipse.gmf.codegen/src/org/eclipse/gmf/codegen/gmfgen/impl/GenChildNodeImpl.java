@@ -242,8 +242,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return new Integer(getVisualID());
 			case GMFGenPackage.GEN_CHILD_NODE__EDIT_PART_CLASS_NAME:
 				return getEditPartClassName();
-			case GMFGenPackage.GEN_CHILD_NODE__META_INFO_PROVIDER_CLASS_NAME:
-				return getMetaInfoProviderClassName();
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_NAME_FEATURE:
 				if (resolve) return getDomainNameFeature();
 				return basicGetDomainNameFeature();
@@ -295,9 +293,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__EDIT_PART_CLASS_NAME:
 				setEditPartClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__META_INFO_PROVIDER_CLASS_NAME:
-				setMetaInfoProviderClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_NAME_FEATURE:
 				setDomainNameFeature((GenFeature)newValue);
@@ -357,9 +352,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 			case GMFGenPackage.GEN_CHILD_NODE__EDIT_PART_CLASS_NAME:
 				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_CHILD_NODE__META_INFO_PROVIDER_CLASS_NAME:
-				setMetaInfoProviderClassName(META_INFO_PROVIDER_CLASS_NAME_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_NAME_FEATURE:
 				setDomainNameFeature((GenFeature)null);
 				return;
@@ -413,8 +405,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return visualID != VISUAL_ID_EDEFAULT;
 			case GMFGenPackage.GEN_CHILD_NODE__EDIT_PART_CLASS_NAME:
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
-			case GMFGenPackage.GEN_CHILD_NODE__META_INFO_PROVIDER_CLASS_NAME:
-				return META_INFO_PROVIDER_CLASS_NAME_EDEFAULT == null ? metaInfoProviderClassName != null : !META_INFO_PROVIDER_CLASS_NAME_EDEFAULT.equals(metaInfoProviderClassName);
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_NAME_FEATURE:
 				return domainNameFeature != null;
 			case GMFGenPackage.GEN_CHILD_NODE__FOREGROUND_COLOR:

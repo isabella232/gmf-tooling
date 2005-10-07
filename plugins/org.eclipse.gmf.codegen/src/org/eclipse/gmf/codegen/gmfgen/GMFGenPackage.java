@@ -99,22 +99,13 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_COMMON_BASE__EDIT_PART_CLASS_NAME = 2;
 
 	/**
-	 * The feature id for the '<em><b>Meta Info Provider Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_COMMON_BASE__META_INFO_PROVIDER_CLASS_NAME = 3;
-
-	/**
 	 * The number of structural features of the the '<em>Gen Common Base</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMMON_BASE_FEATURE_COUNT = 4;
+	int GEN_COMMON_BASE_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl <em>Gen Diagram</em>}' class.
@@ -152,15 +143,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @ordered
 	 */
 	int GEN_DIAGRAM__EDIT_PART_CLASS_NAME = GEN_COMMON_BASE__EDIT_PART_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Meta Info Provider Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_DIAGRAM__META_INFO_PROVIDER_CLASS_NAME = GEN_COMMON_BASE__META_INFO_PROVIDER_CLASS_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Domain Meta Model</b></em>' reference.
@@ -307,22 +289,13 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 15;
 
 	/**
-	 * The feature id for the '<em><b>Meta Info Factory Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_DIAGRAM__META_INFO_FACTORY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 16;
-
-	/**
 	 * The feature id for the '<em><b>Has Domain Model</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__HAS_DOMAIN_MODEL = GEN_COMMON_BASE_FEATURE_COUNT + 17;
+	int GEN_DIAGRAM__HAS_DOMAIN_MODEL = GEN_COMMON_BASE_FEATURE_COUNT + 16;
 
 	/**
 	 * The feature id for the '<em><b>Diagram File Extension</b></em>' attribute.
@@ -331,7 +304,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION = GEN_COMMON_BASE_FEATURE_COUNT + 18;
+	int GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION = GEN_COMMON_BASE_FEATURE_COUNT + 17;
 
 	/**
 	 * The feature id for the '<em><b>Same File For Diagram And Model</b></em>' attribute.
@@ -340,7 +313,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL = GEN_COMMON_BASE_FEATURE_COUNT + 19;
+	int GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL = GEN_COMMON_BASE_FEATURE_COUNT + 18;
 
 	/**
 	 * The feature id for the '<em><b>Init Diagram File Action Class Name</b></em>' attribute.
@@ -349,7 +322,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 20;
+	int GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 19;
 
 	/**
 	 * The number of structural features of the the '<em>Gen Diagram</em>' class.
@@ -358,7 +331,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 21;
+	int GEN_DIAGRAM_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 20;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl <em>Gen Base Element</em>}' class.
@@ -396,15 +369,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @ordered
 	 */
 	int GEN_BASE_ELEMENT__EDIT_PART_CLASS_NAME = GEN_COMMON_BASE__EDIT_PART_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Meta Info Provider Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_BASE_ELEMENT__META_INFO_PROVIDER_CLASS_NAME = GEN_COMMON_BASE__META_INFO_PROVIDER_CLASS_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Domain Name Feature</b></em>' reference.
@@ -496,15 +460,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @ordered
 	 */
 	int GEN_NODE__EDIT_PART_CLASS_NAME = GEN_BASE_ELEMENT__EDIT_PART_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Meta Info Provider Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NODE__META_INFO_PROVIDER_CLASS_NAME = GEN_BASE_ELEMENT__META_INFO_PROVIDER_CLASS_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Domain Name Feature</b></em>' reference.
@@ -622,7 +577,80 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenChildNode()
 	 * @generated
 	 */
-	int GEN_CHILD_NODE = 4;
+	int GEN_CHILD_NODE = 5;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl <em>Gen Child Container</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenChildContainer()
+	 * @generated
+	 */
+	int GEN_CHILD_CONTAINER = 4;
+
+	/**
+	 * The feature id for the '<em><b>Group ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_CONTAINER__GROUP_ID = 0;
+
+	/**
+	 * The feature id for the '<em><b>Title Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_CONTAINER__TITLE_KEY = 1;
+
+	/**
+	 * The feature id for the '<em><b>Can Collapse</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_CONTAINER__CAN_COLLAPSE = 2;
+
+	/**
+	 * The feature id for the '<em><b>Hide If Empty</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_CONTAINER__HIDE_IF_EMPTY = 3;
+
+	/**
+	 * The feature id for the '<em><b>Needs Title</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_CONTAINER__NEEDS_TITLE = 4;
+
+	/**
+	 * The feature id for the '<em><b>Layout Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_CONTAINER__LAYOUT_KIND = 5;
+
+	/**
+	 * The number of structural features of the the '<em>Gen Child Container</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_CONTAINER_FEATURE_COUNT = 6;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Run Time Class</b></em>' reference.
@@ -650,15 +678,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @ordered
 	 */
 	int GEN_CHILD_NODE__EDIT_PART_CLASS_NAME = GEN_NODE__EDIT_PART_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Meta Info Provider Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_NODE__META_INFO_PROVIDER_CLASS_NAME = GEN_NODE__META_INFO_PROVIDER_CLASS_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Domain Name Feature</b></em>' reference.
@@ -796,79 +815,6 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_CHILD_NODE_FEATURE_COUNT = GEN_NODE_FEATURE_COUNT + 3;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl <em>Gen Child Container</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl
-	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenChildContainer()
-	 * @generated
-	 */
-	int GEN_CHILD_CONTAINER = 5;
-
-	/**
-	 * The feature id for the '<em><b>Group ID</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_CONTAINER__GROUP_ID = 0;
-
-	/**
-	 * The feature id for the '<em><b>Title Key</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_CONTAINER__TITLE_KEY = 1;
-
-	/**
-	 * The feature id for the '<em><b>Can Collapse</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_CONTAINER__CAN_COLLAPSE = 2;
-
-	/**
-	 * The feature id for the '<em><b>Hide If Empty</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_CONTAINER__HIDE_IF_EMPTY = 3;
-
-	/**
-	 * The feature id for the '<em><b>Needs Title</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_CONTAINER__NEEDS_TITLE = 4;
-
-	/**
-	 * The feature id for the '<em><b>Layout Kind</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_CONTAINER__LAYOUT_KIND = 5;
-
-	/**
-	 * The number of structural features of the the '<em>Gen Child Container</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_CONTAINER_FEATURE_COUNT = 6;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl <em>Gen Link</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -904,15 +850,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @ordered
 	 */
 	int GEN_LINK__EDIT_PART_CLASS_NAME = GEN_BASE_ELEMENT__EDIT_PART_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Meta Info Provider Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK__META_INFO_PROVIDER_CLASS_NAME = GEN_BASE_ELEMENT__META_INFO_PROVIDER_CLASS_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Domain Name Feature</b></em>' reference.
@@ -1022,15 +959,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @ordered
 	 */
 	int GEN_LINK_WITH_CLASS__EDIT_PART_CLASS_NAME = GEN_LINK__EDIT_PART_CLASS_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Meta Info Provider Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK_WITH_CLASS__META_INFO_PROVIDER_CLASS_NAME = GEN_LINK__META_INFO_PROVIDER_CLASS_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Domain Name Feature</b></em>' reference.
@@ -1151,15 +1079,6 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_LINK_REFERENCE_ONLY__EDIT_PART_CLASS_NAME = GEN_LINK__EDIT_PART_CLASS_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Meta Info Provider Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK_REFERENCE_ONLY__META_INFO_PROVIDER_CLASS_NAME = GEN_LINK__META_INFO_PROVIDER_CLASS_NAME;
-
-	/**
 	 * The feature id for the '<em><b>Domain Name Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1239,25 +1158,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getViewmap()
 	 * @generated
 	 */
-	int VIEWMAP = 9;
-
-	/**
-	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VIEWMAP__ATTRIBUTES = 0;
-
-	/**
-	 * The number of structural features of the the '<em>Viewmap</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VIEWMAP_FEATURE_COUNT = 1;
+	int VIEWMAP = 12;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.Attributes <em>Attributes</em>}' class.
@@ -1267,7 +1168,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getAttributes()
 	 * @generated
 	 */
-	int ATTRIBUTES = 10;
+	int ATTRIBUTES = 9;
 
 	/**
 	 * The number of structural features of the the '<em>Attributes</em>' class.
@@ -1286,7 +1187,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getShapeAttributes()
 	 * @generated
 	 */
-	int SHAPE_ATTRIBUTES = 11;
+	int SHAPE_ATTRIBUTES = 10;
 
 	/**
 	 * The feature id for the '<em><b>Line Width</b></em>' attribute.
@@ -1323,7 +1224,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getDefaultSizeAttributes()
 	 * @generated
 	 */
-	int DEFAULT_SIZE_ATTRIBUTES = 12;
+	int DEFAULT_SIZE_ATTRIBUTES = 11;
 
 	/**
 	 * The feature id for the '<em><b>Width</b></em>' attribute.
@@ -1351,6 +1252,24 @@ public interface GMFGenPackage extends EPackage{
 	 * @ordered
 	 */
 	int DEFAULT_SIZE_ATTRIBUTES_FEATURE_COUNT = ATTRIBUTES_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIEWMAP__ATTRIBUTES = 0;
+
+	/**
+	 * The number of structural features of the the '<em>Viewmap</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VIEWMAP_FEATURE_COUNT = 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.FigureViewmap <em>Figure Viewmap</em>}' class.
@@ -2191,17 +2110,6 @@ public interface GMFGenPackage extends EPackage{
 	EAttribute getGenDiagram_EditPartFactoryClassName();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getMetaInfoFactoryClassName <em>Meta Info Factory Class Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Meta Info Factory Class Name</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getMetaInfoFactoryClassName()
-	 * @see #getGenDiagram()
-	 * @generated
-	 */
-	EAttribute getGenDiagram_MetaInfoFactoryClassName();
-
-	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isHasDomainModel <em>Has Domain Model</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2287,17 +2195,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 */
 	EAttribute getGenCommonBase_EditPartClassName();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getMetaInfoProviderClassName <em>Meta Info Provider Class Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Meta Info Provider Class Name</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getMetaInfoProviderClassName()
-	 * @see #getGenCommonBase()
-	 * @generated
-	 */
-	EAttribute getGenCommonBase_MetaInfoProviderClassName();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement <em>Gen Base Element</em>}'.
