@@ -35,91 +35,17 @@ http://www.eclipse.org/legal/epl-v10.html
    </requires>
 
    <plugin
-         id="org.eclipse.gmf.examples.source"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="true"/>
-         
-   <plugin
-         id="org.eclipse.gmf.examples.runtime.common.service"
+         id="org.eclipse.gmf.examples"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.gmf.examples.runtime.diagram.decorator"
+         id="org.eclipse.gmf.examples.runtime.ui.pde"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-   <plugin
-         id="org.eclipse.gmf.examples.runtime.diagram.geoshapes"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.gmf.examples.runtime.diagram.layout"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.gmf.examples.runtime.diagram.logic"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.gmf.examples.runtime.diagram.logic.model"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.gmf.examples.runtime.diagram.logic.model.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.gmf.examples.runtime.emf"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.gmf.examples.runtime.emf.clipboard"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.emf.examples.library"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.eclipse.emf.examples.library.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.eclipse.emf.examples.library.editor"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
 
 </feature>
