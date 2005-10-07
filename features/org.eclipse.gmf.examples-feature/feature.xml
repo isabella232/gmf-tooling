@@ -26,6 +26,11 @@ http://www.eclipse.org/legal/epl-v10.html
       <discovery label="%updateSiteName" url="http://update.eclipse.org/updates"/>
    </url>
 
+   <includes
+         id="org.eclipse.gmf.examples.source"
+         version="0.0.0"
+         name="GMF Examples Source Resources"/>
+
    <requires>
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.ui"/>
@@ -33,11 +38,6 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.ui.ide"/>
       <import feature="org.eclipse.gmf.sdk" version="1.0.0"/>
    </requires>
-   
-   <includes
-         id="org.eclipse.gmf.examples.source"
-         version="0.0.0"
-         name="GMF Examples Source Resources"/>
 
    <plugin
          id="org.eclipse.gmf.examples.runtime.common.service"
@@ -101,5 +101,23 @@ http://www.eclipse.org/legal/epl-v10.html
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
+   <plugin
+         id="org.eclipse.emf.examples.library"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.emf.examples.library.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.emf.examples.library.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
 </feature>
