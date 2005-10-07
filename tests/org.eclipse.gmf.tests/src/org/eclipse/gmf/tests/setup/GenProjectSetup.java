@@ -61,8 +61,6 @@ public class GenProjectSetup {
 		if (PDECore.isDevLaunchMode()) {
 			// Need to get some gmf source code into target workspace 
 			importDevPluginsIntoRunTimeWorkspace(new String[] {
-					"org.eclipse.gmf.runtime",
-					"org.eclipse.gmf.edit",
 					"org.eclipse.gmf.runtime.gef",
 			});
 		}
