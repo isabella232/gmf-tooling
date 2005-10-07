@@ -30,16 +30,25 @@
     <import plugin="org.eclipse.gmf.runtime.diagram.ui"/>
     <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor"/>
     <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide"/>
-    <import plugin="<%=genModel.getModelPluginID()%>" export="true"/>
-<%if (!genModel.sameModelEditProject()) {%>
-    <import plugin="<%=genModel.getEditPluginID()%>" export="true"/>
-<%}%>
 <%
+Set requiredPluginIDs = new LinkedHashSet();
+requiredPluginIDs.add(genModel.getModelPluginID());
+requiredPluginIDs.add(genModel.getEditPluginID());
+
+for (Iterator it = genModel.getAllUsedGenPackagesWithClassifiers().iterator(); it.hasNext();) {
+	GenModel nextGenModel = ((GenPackage) it.next()).getGenModel();
+	if (nextGenModel.hasEditSupport()) {
+		requiredPluginIDs.add(nextGenModel.getEditPluginID());
+	}
+}
+
 String[] requiredPlugins = genDiagram.getRequiredPluginIDs();
 if (requiredPlugins == null) {
 	requiredPlugins = new String[0];
 }
-for (Iterator it = Arrays.asList(requiredPlugins).iterator(); it.hasNext();) {%>
+requiredPluginIDs.addAll(Arrays.asList(requiredPlugins));
+
+for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {%>
     <import plugin="<%=it.next()%>" export="true"/>
 <%}%>
   </requires>
