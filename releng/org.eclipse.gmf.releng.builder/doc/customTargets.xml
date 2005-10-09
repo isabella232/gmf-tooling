@@ -107,6 +107,7 @@
 	<!-- Steps to do after fetching the build elements -->
 	<!-- ===================================================================== -->
 	<target name="postFetch">
+		<zip destfile="${buildDirectory}/plugins/org.eclipse.gmf.runtime.doc.isv/doc.zip" basedir="${buildDirectory}/plugins/org.eclipse.gmf.runtime.doc.isv/html" filesonly="false" whenempty="skip"/>
 	</target>
 
 	<!-- ===================================================================== -->
