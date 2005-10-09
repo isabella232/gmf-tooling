@@ -267,6 +267,9 @@
 	  <ant antfile="build.xml" dir="${buildDirectory}/features/${id}/" target="build.update.jar">
 	    <property name="feature.destination" value="${buildUpdateSitePath}/features"/>
 	    <property name="plugin.destination" value="${buildUpdateSitePath}/plugins"/>
+	  	<!-- Override the default temp.folder location, as it is too deep by default
+	  	     on Windows, causing missing files in jars. -->
+	  	<property name="temp.folder" value="${buildRoot}/temp.folder"/>
 	  </ant>
 	</target>
 
