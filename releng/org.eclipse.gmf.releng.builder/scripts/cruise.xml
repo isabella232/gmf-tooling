@@ -41,6 +41,9 @@
 		<echo file="${basedir}/cc.properties" append="true" >
 			artifacts=${artifacts}
 		</echo>
+		<echo file="${basedir}/cc.properties" append="true" >
+			ext=${ext}
+		</echo>
 		<mkdir dir="${logs}/checkout"/>
 		<mkdir dir="${logs}/sdk"/>
 		<mkdir dir="${logs}/runtime"/>

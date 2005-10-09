@@ -28,7 +28,7 @@
 			build file/target -->
 		<schedule interval="1200">
 			<!-- Perform checkout of all plug-ins and features, as builder uses export. -->
-			<ant antscript="ant.bat" buildfile="checkout.xml"
+			<ant antscript="ant.${ext}" buildfile="checkout.xml"
 				target="all" uselogger="true" usedebug="false" usequiet="true">
 			</ant>
 		</schedule>
@@ -66,7 +66,7 @@
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
 		<schedule>
-			<ant antscript="build.bat" buildfile="build.xml"
+			<ant antscript="build.${ext}" buildfile="build.xml"
 				target="main" uselogger="true" usedebug="false" usequiet="true">
 				<property name="component" value="runtime" />
 				<property name="clean" value="true" />
@@ -108,7 +108,7 @@
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
 		<schedule>
-			<ant antscript="build.bat" buildfile="build.xml"
+			<ant antscript="build.${ext}" buildfile="build.xml"
 				target="main" uselogger="true" usedebug="false" usequiet="true">
 				<property name="component" value="sdk" />
 				<property name="clean" value="true" />
@@ -149,7 +149,7 @@
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
 		<schedule>
-			<ant antscript="build.bat" buildfile="build.xml"
+			<ant antscript="build.${ext}" buildfile="build.xml"
 				target="main" uselogger="true" usedebug="false" usequiet="true">
 				<property name="component" value="examples" />
 				<property name="clean" value="true" />
@@ -190,7 +190,7 @@
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
 		<schedule>
-			<ant antscript="build.bat" buildfile="build.xml"
+			<ant antscript="build.${ext}" buildfile="build.xml"
 				target="main" uselogger="true" usedebug="false" usequiet="true">
 				<property name="component" value="tests" />
 				<property name="clean" value="true" />
@@ -234,7 +234,7 @@
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
 		<schedule>
-			<ant time="0100" antscript="build.bat" buildfile="build.xml"
+			<ant time="0100" antscript="build.${ext}" buildfile="build.xml"
 				target="main" uselogger="true" usedebug="false" usequiet="true">
 				<property name="component" value="doc" />
 				<property name="buildRoot" value="${buildRoot}" />
