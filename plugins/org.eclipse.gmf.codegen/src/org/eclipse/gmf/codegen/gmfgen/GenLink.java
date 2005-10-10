@@ -8,6 +8,8 @@ package org.eclipse.gmf.codegen.gmfgen;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Gen Link</b></em>'.
@@ -22,6 +24,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getDomainLinkTargetFeature <em>Domain Link Target Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getLabels <em>Labels</em>}</li>
  * </ul>
  * </p>
  *
@@ -72,5 +75,23 @@ public interface GenLink extends GenBaseElement{
 	 * @generated
 	 */
 	void setDomainLinkTargetFeature(GenFeature value);
+
+	/**
+	 * Returns the value of the '<em><b>Labels</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.LinkLabel}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabel#getLink <em>Link</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Labels</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Labels</em>' containment reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink_Labels()
+	 * @see org.eclipse.gmf.codegen.gmfgen.LinkLabel#getLink
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.LinkLabel" opposite="link" containment="true"
+	 * @generated
+	 */
+	EList getLabels();
 
 } // GenLink

@@ -34,8 +34,10 @@ public class ViewFactoryGenerator
   protected final String TEXT_16 = "," + NL + "\t\t\tViewUtil.APPEND, persisted, getPreferencesHint());";
   protected final String TEXT_17 = NL + "\t\tgetViewService().createNode(semanticAdapter, view, \"";
   protected final String TEXT_18 = "\"," + NL + "\t\t\tViewUtil.APPEND, persisted, getPreferencesHint());";
-  protected final String TEXT_19 = NL + "\t}" + NL + "}";
-  protected final String TEXT_20 = NL;
+  protected final String TEXT_19 = NL + "\t\tgetViewService().createNode(semanticAdapter, view, \"";
+  protected final String TEXT_20 = "\"," + NL + "\t\t\tViewUtil.APPEND, persisted, getPreferencesHint());";
+  protected final String TEXT_21 = NL + "\t}" + NL + "}";
+  protected final String TEXT_22 = NL;
 
   public String generate(Object argument)
   {
@@ -96,10 +98,22 @@ if (genElement instanceof GenNode) {
 		}
 	}
 }
+if (genElement instanceof GenLink) {
+	GenLink genLink = (GenLink) genElement;
+	List labels = genLink.getLabels();
+	for (int j = 0; j < labels.size(); j++) {
+		LinkLabel label = (LinkLabel) labels.get(j);
 
     stringBuffer.append(TEXT_19);
-    importManager.emitSortedImports();
+    stringBuffer.append(AccessUtil.getLinkLabelViewName(label));
     stringBuffer.append(TEXT_20);
+    
+	}
+}
+
+    stringBuffer.append(TEXT_21);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_22);
     return stringBuffer.toString();
   }
 }

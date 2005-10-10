@@ -6,7 +6,6 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer#isHideIfEmpty <em>Hide If Empty</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer#isNeedsTitle <em>Needs Title</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer#getLayoutKind <em>Layout Kind</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer#getParentNode <em>Parent Node</em>}</li>
  * </ul>
  * </p>
  *
@@ -33,7 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface GenChildContainer extends EObject {
+public interface GenChildContainer extends GenCommonBase{
 	/**
 	 * Returns the value of the '<em><b>Group ID</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -195,5 +195,22 @@ public interface GenChildContainer extends EObject {
 	 * @generated
 	 */
 	void setLayoutKind(CompartmentLayoutKind value);
+
+	/**
+	 * Returns the value of the '<em><b>Parent Node</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getChildContainers <em>Child Containers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Parent Node</em>' container reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Parent Node</em>' container reference.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenChildContainer_ParentNode()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNode#getChildContainers
+	 * @model opposite="childContainers" required="true" changeable="false"
+	 * @generated
+	 */
+	GenNode getParentNode();
 
 } // GenChildContainer

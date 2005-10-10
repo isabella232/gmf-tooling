@@ -10,6 +10,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.gmf.codegen.gmfgen.*;
+
 import org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind;
@@ -60,6 +62,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_CHILD_NODE: return createGenChildNode();
 			case GMFGenPackage.GEN_LINK_WITH_CLASS: return createGenLinkWithClass();
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY: return createGenLinkReferenceOnly();
+			case GMFGenPackage.LINK_LABEL: return createLinkLabel();
 			case GMFGenPackage.SHAPE_ATTRIBUTES: return createShapeAttributes();
 			case GMFGenPackage.DEFAULT_SIZE_ATTRIBUTES: return createDefaultSizeAttributes();
 			case GMFGenPackage.BASIC_NODE_VIEWMAP: return createBasicNodeViewmap();
@@ -174,6 +177,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenLinkReferenceOnly createGenLinkReferenceOnly() {
 		GenLinkReferenceOnlyImpl genLinkReferenceOnly = new GenLinkReferenceOnlyImpl();
 		return genLinkReferenceOnly;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LinkLabel createLinkLabel() {
+		LinkLabelImpl linkLabel = new LinkLabelImpl();
+		return linkLabel;
 	}
 
 	/**

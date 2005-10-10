@@ -18,6 +18,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.gmf.codegen.templates.diacanvas.InitDiagramFileActionGen;
+import org.eclipse.gmf.codegen.templates.edit.LinkLabelViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.edit.SemanticHintsGenerator;
 import org.eclipse.gmf.codegen.templates.edit.StructuralFeatureParserGenerator;
 import org.eclipse.gmf.codegen.templates.edit.ViewFactoryGenerator;
@@ -101,6 +102,10 @@ public class EmitterFactory {
 
 	public static JETEmitter getViewFactoryEmitter() throws JETException {
 		return initializeEmitter("/templates/edit/ViewFactory.javajet", ViewFactoryGenerator.class);
+	}
+
+	public static JETEmitter getLinkLabelViewFactoryEmitter() throws JETException {
+		return initializeEmitter("/templates/edit/LinkLabelViewFactory.javajet", LinkLabelViewFactoryGenerator.class);
 	}
 
 	// providers

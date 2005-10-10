@@ -6,6 +6,8 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
@@ -14,6 +16,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
@@ -111,6 +115,8 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
 					return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_LINK_WITH_CLASS__DIAGRAM, msgs);
+				case GMFGenPackage.GEN_LINK_WITH_CLASS__LABELS:
+					return ((InternalEList)getLabels()).basicAdd(otherEnd, msgs);
 				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
@@ -132,6 +138,8 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 					return basicSetViewmap(null, msgs);
 				case GMFGenPackage.GEN_LINK_WITH_CLASS__DIAGRAM:
 					return eBasicSetContainer(null, GMFGenPackage.GEN_LINK_WITH_CLASS__DIAGRAM, msgs);
+				case GMFGenPackage.GEN_LINK_WITH_CLASS__LABELS:
+					return ((InternalEList)getLabels()).basicRemove(otherEnd, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
@@ -187,6 +195,8 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_LINK_TARGET_FEATURE:
 				if (resolve) return getDomainLinkTargetFeature();
 				return basicGetDomainLinkTargetFeature();
+			case GMFGenPackage.GEN_LINK_WITH_CLASS__LABELS:
+				return getLabels();
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS:
 				if (resolve) return getDomainMetaClass();
 				return basicGetDomainMetaClass();
@@ -227,6 +237,10 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_LINK_TARGET_FEATURE:
 				setDomainLinkTargetFeature((GenFeature)newValue);
+				return;
+			case GMFGenPackage.GEN_LINK_WITH_CLASS__LABELS:
+				getLabels().clear();
+				getLabels().addAll((Collection)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS:
 				setDomainMetaClass((GenClass)newValue);
@@ -269,6 +283,9 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_LINK_TARGET_FEATURE:
 				setDomainLinkTargetFeature((GenFeature)null);
 				return;
+			case GMFGenPackage.GEN_LINK_WITH_CLASS__LABELS:
+				getLabels().clear();
+				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS:
 				setDomainMetaClass((GenClass)null);
 				return;
@@ -303,6 +320,8 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_LINK_TARGET_FEATURE:
 				return domainLinkTargetFeature != null;
+			case GMFGenPackage.GEN_LINK_WITH_CLASS__LABELS:
+				return labels != null && !labels.isEmpty();
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS:
 				return domainMetaClass != null;
 		}

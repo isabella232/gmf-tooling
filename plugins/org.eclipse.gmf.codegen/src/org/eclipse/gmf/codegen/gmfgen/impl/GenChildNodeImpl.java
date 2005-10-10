@@ -169,6 +169,8 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
 					return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_CHILD_NODE__DIAGRAM, msgs);
+				case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS:
+					return ((InternalEList)getChildContainers()).basicAdd(otherEnd, msgs);
 				case GMFGenPackage.GEN_CHILD_NODE__CHILD_NODES:
 					return ((InternalEList)getChildNodes()).basicAdd(otherEnd, msgs);
 				case GMFGenPackage.GEN_CHILD_NODE__PARENT_NODE:

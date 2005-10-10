@@ -6,12 +6,16 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkReferenceOnly;
@@ -57,6 +61,8 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
 					return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DIAGRAM, msgs);
+				case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__LABELS:
+					return ((InternalEList)getLabels()).basicAdd(otherEnd, msgs);
 				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
@@ -78,6 +84,8 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 					return basicSetViewmap(null, msgs);
 				case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DIAGRAM:
 					return eBasicSetContainer(null, GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DIAGRAM, msgs);
+				case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__LABELS:
+					return ((InternalEList)getLabels()).basicRemove(otherEnd, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
@@ -133,6 +141,8 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DOMAIN_LINK_TARGET_FEATURE:
 				if (resolve) return getDomainLinkTargetFeature();
 				return basicGetDomainLinkTargetFeature();
+			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__LABELS:
+				return getLabels();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -170,6 +180,10 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 				return;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DOMAIN_LINK_TARGET_FEATURE:
 				setDomainLinkTargetFeature((GenFeature)newValue);
+				return;
+			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__LABELS:
+				getLabels().clear();
+				getLabels().addAll((Collection)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -209,6 +223,9 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DOMAIN_LINK_TARGET_FEATURE:
 				setDomainLinkTargetFeature((GenFeature)null);
 				return;
+			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__LABELS:
+				getLabels().clear();
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -240,6 +257,8 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__DOMAIN_LINK_TARGET_FEATURE:
 				return domainLinkTargetFeature != null;
+			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY__LABELS:
+				return labels != null && !labels.isEmpty();
 		}
 		return eDynamicIsSet(eFeature);
 	}

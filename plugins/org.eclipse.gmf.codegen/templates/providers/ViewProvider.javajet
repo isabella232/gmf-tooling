@@ -40,6 +40,36 @@ String semanticPackageInterfaceName = importManager.getImportedName(genPackage.g
 	 * @generated
 	 */
 	protected Class getNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
+		EClass semanticType = getSemanticEClass(semanticAdapter);
+		EObject semanticElement = getSemanticElement(semanticAdapter);
+<%
+List genLinks = genDiagram.getLinks();
+for (int i = 0; i < genLinks.size(); i++) {
+	GenLink genLink = (GenLink) genLinks.get(i);
+	if (genLink instanceof GenLinkWithClass) {
+		GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
+		String semanticLinkInterfaceName = genLinkWithClass.getDomainMetaClass().getClassifierAccessorName();
+		String qualifiedInterfaceName = genLinkWithClass.getDomainMetaClass().getQualifiedInterfaceName();
+%>
+		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().equals(semanticType) && isConnector<%=semanticLinkInterfaceName%>_<%=genLinkWithClass.getVisualID()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) semanticElement)) {
+<%
+		List labels = genLink.getLabels();
+		for (int j = 0; j < labels.size(); j++) {
+			LinkLabel label = (LinkLabel) labels.get(j);
+%>
+			if ("<%=AccessUtil.getLinkLabelViewName(label)%>".equals(semanticHint)) {
+				return <%=AccessUtil.getLinkLabelViewFactoryClassName(label)%>.class;
+			}
+			if ("<%=AccessUtil.getLinkLabelTextViewName(label)%>".equals(semanticHint)) {
+				return BasicNodeViewFactory.class;
+			}
+<%		}%>
+			return null;
+		}
+<%
+	}
+}
+%>
 		boolean isTopLevel = containerView instanceof Diagram || (semanticHint != null && semanticHint.length() > 0);
 		if (isTopLevel) {
 			return getTopLevelNodeViewClass(semanticAdapter, containerView, semanticHint);
@@ -47,7 +77,7 @@ String semanticPackageInterfaceName = importManager.getImportedName(genPackage.g
 			return getChildNodeViewClass(semanticAdapter, containerView, semanticHint);
 		}
 	}
-	
+
 	/**
 	 * @generated
 	 */
@@ -134,7 +164,6 @@ for (int i = 0; i < genNodes.size(); i++) {
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
 <%
-List genLinks = genDiagram.getLinks();
 for (int i = 0; i < genLinks.size(); i++) {
 	GenLink genLink = (GenLink) genLinks.get(i);
 	if (genLink instanceof GenLinkWithClass) {
@@ -143,6 +172,19 @@ for (int i = 0; i < genLinks.size(); i++) {
 		String qualifiedInterfaceName = genLinkWithClass.getDomainMetaClass().getQualifiedInterfaceName();
 %>
 		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().equals(semanticType) && isConnector<%=semanticLinkInterfaceName%>_<%=genLinkWithClass.getVisualID()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) semanticElement)) {
+<%
+		// disable creation of connector views for label links
+		List labels = genLink.getLabels();
+		for (int j = 0; j < labels.size(); j++) {
+			LinkLabel label = (LinkLabel) labels.get(j);
+%>
+			if ("<%=AccessUtil.getLinkLabelViewName(label)%>".equals(semanticHint)) {
+				return null;
+			}
+			if ("<%=AccessUtil.getLinkLabelTextViewName(label)%>".equals(semanticHint)) {
+				return null;
+			}
+<%		}%>
 			return <%=genLink.getNotationViewFactoryClassName()%>.class;
 		}
 <%

@@ -6,17 +6,23 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.LinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
@@ -28,6 +34,7 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getDomainLinkTargetFeature <em>Domain Link Target Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getLabels <em>Labels</em>}</li>
  * </ul>
  * </p>
  *
@@ -43,6 +50,16 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 	 * @ordered
 	 */
 	protected GenFeature domainLinkTargetFeature = null;
+
+	/**
+	 * The cached value of the '{@link #getLabels() <em>Labels</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLabels()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList labels = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -115,6 +132,18 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList getLabels() {
+		if (labels == null) {
+			labels = new EObjectContainmentWithInverseEList(LinkLabel.class, this, GMFGenPackage.GEN_LINK__LABELS, GMFGenPackage.LINK_LABEL__LINK);
+		}
+		return labels;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
@@ -122,6 +151,8 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
 					return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_LINK__DIAGRAM, msgs);
+				case GMFGenPackage.GEN_LINK__LABELS:
+					return ((InternalEList)getLabels()).basicAdd(otherEnd, msgs);
 				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
@@ -143,6 +174,8 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 					return basicSetViewmap(null, msgs);
 				case GMFGenPackage.GEN_LINK__DIAGRAM:
 					return eBasicSetContainer(null, GMFGenPackage.GEN_LINK__DIAGRAM, msgs);
+				case GMFGenPackage.GEN_LINK__LABELS:
+					return ((InternalEList)getLabels()).basicRemove(otherEnd, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
@@ -198,6 +231,8 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
 				if (resolve) return getDomainLinkTargetFeature();
 				return basicGetDomainLinkTargetFeature();
+			case GMFGenPackage.GEN_LINK__LABELS:
+				return getLabels();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -235,6 +270,10 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				return;
 			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
 				setDomainLinkTargetFeature((GenFeature)newValue);
+				return;
+			case GMFGenPackage.GEN_LINK__LABELS:
+				getLabels().clear();
+				getLabels().addAll((Collection)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -274,6 +313,9 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
 				setDomainLinkTargetFeature((GenFeature)null);
 				return;
+			case GMFGenPackage.GEN_LINK__LABELS:
+				getLabels().clear();
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -305,6 +347,8 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
 				return domainLinkTargetFeature != null;
+			case GMFGenPackage.GEN_LINK__LABELS:
+				return labels != null && !labels.isEmpty();
 		}
 		return eDynamicIsSet(eFeature);
 	}

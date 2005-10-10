@@ -19,6 +19,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.LinkLabel;
 
 /**
  * Utility methods for templates.
@@ -34,6 +35,19 @@ public class AccessUtil {
 	public static String getPaletteEntryId(EntryBase entry) {
 		String id = entry.getTitleKey();
 		return id.replace(' ', '_');
+	}
+
+	public static String getLinkLabelViewFactoryClassName(LinkLabel label) {
+		String name = label.getLink().getNotationViewFactoryClassName();
+		return label.getDomainMetaFeature().getCapName() + name;
+	}
+
+	public static String getLinkLabelViewName(LinkLabel label) {
+		return "label" + label.getDomainMetaFeature().getCapName(); //$NON-NLS-1$
+	}
+
+	public static String getLinkLabelTextViewName(LinkLabel label) {
+		return "text" + label.getDomainMetaFeature().getCapName(); //$NON-NLS-1$
 	}
 
 	public static String getNodeLabelEditPartClassName(GenNode genNode) {

@@ -10,6 +10,8 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.codegen.gmfgen.*;
+
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
 import org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap;
 import org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap;
@@ -116,6 +118,9 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseGenLinkReferenceOnly(GenLinkReferenceOnly object) {
 				return createGenLinkReferenceOnlyAdapter();
+			}
+			public Object caseLinkLabel(LinkLabel object) {
+				return createLinkLabelAdapter();
 			}
 			public Object caseAttributes(Attributes object) {
 				return createAttributesAdapter();
@@ -300,6 +305,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenLinkReferenceOnlyAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabel <em>Link Label</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LinkLabel
+	 * @generated
+	 */
+	public Adapter createLinkLabelAdapter() {
 		return null;
 	}
 

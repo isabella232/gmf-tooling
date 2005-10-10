@@ -80,6 +80,15 @@ public interface GMFGenFactory extends EFactory{
 	GenLinkReferenceOnly createGenLinkReferenceOnly();
 
 	/**
+	 * Returns a new object of class '<em>Link Label</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Link Label</em>'.
+	 * @generated
+	 */
+	LinkLabel createLinkLabel();
+
+	/**
 	 * Returns a new object of class '<em>Shape Attributes</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -35,6 +35,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.LinkLabel;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -95,7 +96,6 @@ public class Generator implements Runnable {
 				}
 				generateSemanticHints(next);
 				generateViewFactory(next);
-				//generateNodeMetaInfoProvider(next);
 				for (Iterator it2 = next.getChildNodes().iterator(); it2.hasNext();) {
 					GenChildNode child = (GenChildNode) it2.next();
 					generateChildNodeEditPart(child);
@@ -109,16 +109,13 @@ public class Generator implements Runnable {
 					generateViewFactory(next);
 				}
 				generateLinkEditPart(next);
-				//generateLinkMetaInfoProvider(next);
+				for (Iterator labels = next.getLabels().iterator(); labels.hasNext();) {
+					LinkLabel label = (LinkLabel) labels.next();
+					generateLinkLabelViewFactory(label);
+				}
 			}
 			generateDiagramEditPart();
 			generateEditPartFactory();
-
-			/*
-			generateCanvasMetaInfoProvider();
-			boolean isBasicRT = DiagramRTPackage.eNS_URI.equals(myDiagram.getDiagramRunTimeClass().getGenPackage().getEcorePackage().getNsURI());
-			generateMetaInfoProviderAdapterFactory(isBasicRT);
-			*/
 
 			// providers
 			generateElementTypes();
@@ -234,43 +231,14 @@ public class Generator implements Runnable {
 		);
 	}
 
-	/*
-	private void generateCanvasMetaInfoProvider() throws JETException, InterruptedException {
+	private void generateLinkLabelViewFactory(LinkLabel label) throws JETException, InterruptedException {
 		generate(
-			EmitterFactory.getCanvasMetaInfoProviderEmitter(),
+			EmitterFactory.getLinkLabelViewFactoryEmitter(),
 			myDiagram.getEditProvidersPackageName(),
-			myDiagram.getMetaInfoProviderClassName(),
-			myDiagram
+			AccessUtil.getLinkLabelViewFactoryClassName(label),
+			label
 		);
 	}
-
-	private void generateNodeMetaInfoProvider(GenNode genNode) throws JETException, InterruptedException {
-		generate(
-			EmitterFactory.getNodeMetaInfoProviderEmitter(),
-			myDiagram.getEditProvidersPackageName(),
-			genNode.getMetaInfoProviderClassName(),
-			genNode
-		);
-	}
-
-	private void generateLinkMetaInfoProvider(GenLink genLink) throws JETException, InterruptedException {
-		generate(
-			EmitterFactory.getLinkMetaInfoProviderEmitter(),
-			myDiagram.getEditProvidersPackageName(),
-			genLink.getMetaInfoProviderClassName(),
-			genLink
-		);
-	}
-
-	private void generateMetaInfoProviderAdapterFactory(boolean isBasicRT) throws JETException, InterruptedException {
-		generate(
-			isBasicRT ? EmitterFactory.getMetaInfoProviderAF1Emitter() : EmitterFactory.getMetaInfoProviderAF2Emitter(), 
-			myDiagram.getEditProvidersPackageName(),
-			myDiagram.getMetaInfoFactoryClassName(),  //$NON-NLS-1$
-			myDiagram
-		);
-	}
-	*/
 
 	// providers
 

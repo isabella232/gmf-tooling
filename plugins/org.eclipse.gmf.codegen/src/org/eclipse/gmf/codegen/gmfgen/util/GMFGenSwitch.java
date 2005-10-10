@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.codegen.gmfgen.*;
+
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
 import org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap;
 import org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap;
@@ -140,6 +142,7 @@ public class GMFGenSwitch {
 			case GMFGenPackage.GEN_CHILD_CONTAINER: {
 				GenChildContainer genChildContainer = (GenChildContainer)theEObject;
 				Object result = caseGenChildContainer(genChildContainer);
+				if (result == null) result = caseGenCommonBase(genChildContainer);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -175,6 +178,12 @@ public class GMFGenSwitch {
 				if (result == null) result = caseGenLink(genLinkReferenceOnly);
 				if (result == null) result = caseGenBaseElement(genLinkReferenceOnly);
 				if (result == null) result = caseGenCommonBase(genLinkReferenceOnly);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.LINK_LABEL: {
+				LinkLabel linkLabel = (LinkLabel)theEObject;
+				Object result = caseLinkLabel(linkLabel);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -410,6 +419,21 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseGenLinkReferenceOnly(GenLinkReferenceOnly object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Link Label</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Link Label</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseLinkLabel(LinkLabel object) {
 		return null;
 	}
 

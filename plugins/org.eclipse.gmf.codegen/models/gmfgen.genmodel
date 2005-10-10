@@ -87,6 +87,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/hideIfEmpty"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/needsTitle"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/layoutKind"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildContainer/parentNode"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenChildNode">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildNode/groupID"/>
@@ -96,11 +97,18 @@
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenLink">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/diagram"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/domainLinkTargetFeature"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/labels"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenLinkWithClass">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkWithClass/domainMetaClass"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenLinkReferenceOnly"/>
+    <genClasses ecoreClass="gmfgen.ecore#//LinkLabel">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//LinkLabel/domainMetaFeature"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//LinkLabel/readOnly"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//LinkLabel/weight"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//LinkLabel/link"/>
+    </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//Attributes"/>
     <genClasses ecoreClass="gmfgen.ecore#//ShapeAttributes">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ShapeAttributes/lineWidth"/>

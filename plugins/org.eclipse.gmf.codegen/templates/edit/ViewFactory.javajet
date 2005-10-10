@@ -65,6 +65,17 @@ if (genElement instanceof GenNode) {
 		}
 	}
 }
+if (genElement instanceof GenLink) {
+	GenLink genLink = (GenLink) genElement;
+	List labels = genLink.getLabels();
+	for (int j = 0; j < labels.size(); j++) {
+		LinkLabel label = (LinkLabel) labels.get(j);
+%>
+		getViewService().createNode(semanticAdapter, view, "<%=AccessUtil.getLinkLabelViewName(label)%>",
+			ViewUtil.APPEND, persisted, getPreferencesHint());
+<%
+	}
+}
 %>
 	}
 }

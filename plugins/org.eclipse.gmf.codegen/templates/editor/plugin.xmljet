@@ -25,7 +25,6 @@
 %>
     <import plugin="org.eclipse.emf.edit.ui"/>
     <import plugin="org.eclipse.gef" export="true"/>
-    <import plugin="org.eclipse.gmf.runtime.gef"/>
     <import plugin="org.eclipse.gmf.runtime.emf.commands.core"/>
     <import plugin="org.eclipse.gmf.runtime.diagram.ui"/>
     <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor"/>

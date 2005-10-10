@@ -38,6 +38,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkDecoration;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
+import org.eclipse.gmf.codegen.gmfgen.LinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ShapeAttributes;
@@ -114,6 +115,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass genLinkReferenceOnlyEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass linkLabelEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -752,6 +760,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getGenChildContainer_ParentNode() {
+		return (EReference)genChildContainerEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenLink() {
 		return genLinkEClass;
 	}
@@ -779,6 +796,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getGenLink_Labels() {
+		return (EReference)genLinkEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenLinkWithClass() {
 		return genLinkWithClassEClass;
 	}
@@ -799,6 +825,51 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenLinkReferenceOnly() {
 		return genLinkReferenceOnlyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLinkLabel() {
+		return linkLabelEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLinkLabel_DomainMetaFeature() {
+		return (EReference)linkLabelEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLinkLabel_ReadOnly() {
+		return (EAttribute)linkLabelEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLinkLabel_Weight() {
+		return (EAttribute)linkLabelEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLinkLabel_Link() {
+		return (EReference)linkLabelEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1292,6 +1363,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genChildContainerEClass, GEN_CHILD_CONTAINER__HIDE_IF_EMPTY);
 		createEAttribute(genChildContainerEClass, GEN_CHILD_CONTAINER__NEEDS_TITLE);
 		createEAttribute(genChildContainerEClass, GEN_CHILD_CONTAINER__LAYOUT_KIND);
+		createEReference(genChildContainerEClass, GEN_CHILD_CONTAINER__PARENT_NODE);
 
 		genChildNodeEClass = createEClass(GEN_CHILD_NODE);
 		createEAttribute(genChildNodeEClass, GEN_CHILD_NODE__GROUP_ID);
@@ -1301,11 +1373,18 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genLinkEClass = createEClass(GEN_LINK);
 		createEReference(genLinkEClass, GEN_LINK__DIAGRAM);
 		createEReference(genLinkEClass, GEN_LINK__DOMAIN_LINK_TARGET_FEATURE);
+		createEReference(genLinkEClass, GEN_LINK__LABELS);
 
 		genLinkWithClassEClass = createEClass(GEN_LINK_WITH_CLASS);
 		createEReference(genLinkWithClassEClass, GEN_LINK_WITH_CLASS__DOMAIN_META_CLASS);
 
 		genLinkReferenceOnlyEClass = createEClass(GEN_LINK_REFERENCE_ONLY);
+
+		linkLabelEClass = createEClass(LINK_LABEL);
+		createEReference(linkLabelEClass, LINK_LABEL__DOMAIN_META_FEATURE);
+		createEAttribute(linkLabelEClass, LINK_LABEL__READ_ONLY);
+		createEAttribute(linkLabelEClass, LINK_LABEL__WEIGHT);
+		createEReference(linkLabelEClass, LINK_LABEL__LINK);
 
 		attributesEClass = createEClass(ATTRIBUTES);
 
@@ -1402,6 +1481,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genDiagramEClass.getESuperTypes().add(this.getGenCommonBase());
 		genBaseElementEClass.getESuperTypes().add(this.getGenCommonBase());
 		genNodeEClass.getESuperTypes().add(this.getGenBaseElement());
+		genChildContainerEClass.getESuperTypes().add(this.getGenCommonBase());
 		genChildNodeEClass.getESuperTypes().add(this.getGenNode());
 		genLinkEClass.getESuperTypes().add(this.getGenBaseElement());
 		genLinkWithClassEClass.getESuperTypes().add(this.getGenLink());
@@ -1484,7 +1564,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenNode_Diagram(), this.getGenDiagram(), this.getGenDiagram_Nodes(), "diagram", null, 1, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenNode_DomainMetaClass(), theGenModelPackage.getGenClass(), null, "domainMetaClass", null, 1, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNode_BackgroundColor(), ecorePackage.getEString(), "backgroundColor", null, 0, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenNode_ChildContainers(), this.getGenChildContainer(), null, "childContainers", null, 0, -1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenNode_ChildContainers(), this.getGenChildContainer(), this.getGenChildContainer_ParentNode(), "childContainers", null, 0, -1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenNode_ChildNodes(), this.getGenChildNode(), this.getGenChildNode_ParentNode(), "childNodes", null, 0, -1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNode_ChildContainersPlacement(), this.getCompartmentPlacementKind(), "childContainersPlacement", "TOOLBAR", 0, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1495,6 +1575,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenChildContainer_HideIfEmpty(), ecorePackage.getEBoolean(), "hideIfEmpty", "true", 0, 1, GenChildContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenChildContainer_NeedsTitle(), ecorePackage.getEBoolean(), "needsTitle", "true", 0, 1, GenChildContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenChildContainer_LayoutKind(), this.getCompartmentLayoutKind(), "layoutKind", null, 0, 1, GenChildContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenChildContainer_ParentNode(), this.getGenNode(), this.getGenNode_ChildContainers(), "parentNode", null, 1, 1, GenChildContainer.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genChildNodeEClass, GenChildNode.class, "GenChildNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenChildNode_GroupID(), ecorePackage.getEString(), "groupID", null, 0, 1, GenChildNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1504,11 +1585,18 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(genLinkEClass, GenLink.class, "GenLink", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenLink_Diagram(), this.getGenDiagram(), this.getGenDiagram_Links(), "diagram", null, 1, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenLink_DomainLinkTargetFeature(), theGenModelPackage.getGenFeature(), null, "domainLinkTargetFeature", null, 1, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenLink_Labels(), this.getLinkLabel(), this.getLinkLabel_Link(), "labels", null, 0, -1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genLinkWithClassEClass, GenLinkWithClass.class, "GenLinkWithClass", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenLinkWithClass_DomainMetaClass(), theGenModelPackage.getGenClass(), null, "domainMetaClass", null, 1, 1, GenLinkWithClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genLinkReferenceOnlyEClass, GenLinkReferenceOnly.class, "GenLinkReferenceOnly", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(linkLabelEClass, LinkLabel.class, "LinkLabel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLinkLabel_DomainMetaFeature(), theGenModelPackage.getGenFeature(), null, "domainMetaFeature", null, 1, 1, LinkLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLinkLabel_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", null, 0, 1, LinkLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLinkLabel_Weight(), ecorePackage.getEInt(), "weight", "50", 0, 1, LinkLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLinkLabel_Link(), this.getGenLink(), this.getGenLink_Labels(), "link", null, 1, 1, LinkLabel.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(attributesEClass, Attributes.class, "Attributes", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1609,7 +1697,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints"
-		   });																											
+		   });																													
 	}
 
 	/**
@@ -1649,7 +1737,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "super.domainLinkTargetFeature.eContainingClass \'equals to\' or \'superclass of\' domainMetaClass"
-		   });								
+		   });										
 	}
 
 } //GMFGenPackageImpl

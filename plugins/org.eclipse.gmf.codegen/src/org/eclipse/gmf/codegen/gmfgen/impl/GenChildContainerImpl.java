@@ -6,14 +6,18 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
 
 /**
  * <!-- begin-user-doc -->
@@ -28,12 +32,13 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl#isHideIfEmpty <em>Hide If Empty</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl#isNeedsTitle <em>Needs Title</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl#getLayoutKind <em>Layout Kind</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl#getParentNode <em>Parent Node</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class GenChildContainerImpl extends EObjectImpl implements GenChildContainer {
+public class GenChildContainerImpl extends GenCommonBaseImpl implements GenChildContainer {
 	/**
 	 * The default value of the '{@link #getGroupID() <em>Group ID</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -303,8 +308,80 @@ public class GenChildContainerImpl extends EObjectImpl implements GenChildContai
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GenNode getParentNode() {
+		if (eContainerFeatureID != GMFGenPackage.GEN_CHILD_CONTAINER__PARENT_NODE) return null;
+		return (GenNode)eContainer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
+		if (featureID >= 0) {
+			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case GMFGenPackage.GEN_CHILD_CONTAINER__PARENT_NODE:
+					if (eContainer != null)
+						msgs = eBasicRemoveFromContainer(msgs);
+					return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_CHILD_CONTAINER__PARENT_NODE, msgs);
+				default:
+					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
+			}
+		}
+		if (eContainer != null)
+			msgs = eBasicRemoveFromContainer(msgs);
+		return eBasicSetContainer(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
+		if (featureID >= 0) {
+			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case GMFGenPackage.GEN_CHILD_CONTAINER__PARENT_NODE:
+					return eBasicSetContainer(null, GMFGenPackage.GEN_CHILD_CONTAINER__PARENT_NODE, msgs);
+				default:
+					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
+			}
+		}
+		return eBasicSetContainer(null, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
+		if (eContainerFeatureID >= 0) {
+			switch (eContainerFeatureID) {
+				case GMFGenPackage.GEN_CHILD_CONTAINER__PARENT_NODE:
+					return eContainer.eInverseRemove(this, GMFGenPackage.GEN_NODE__CHILD_CONTAINERS, GenNode.class, msgs);
+				default:
+					return eDynamicBasicRemoveFromContainer(msgs);
+			}
+		}
+		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
+			case GMFGenPackage.GEN_CHILD_CONTAINER__DIAGRAM_RUN_TIME_CLASS:
+				if (resolve) return getDiagramRunTimeClass();
+				return basicGetDiagramRunTimeClass();
+			case GMFGenPackage.GEN_CHILD_CONTAINER__VISUAL_ID:
+				return new Integer(getVisualID());
+			case GMFGenPackage.GEN_CHILD_CONTAINER__EDIT_PART_CLASS_NAME:
+				return getEditPartClassName();
 			case GMFGenPackage.GEN_CHILD_CONTAINER__GROUP_ID:
 				return getGroupID();
 			case GMFGenPackage.GEN_CHILD_CONTAINER__TITLE_KEY:
@@ -317,6 +394,8 @@ public class GenChildContainerImpl extends EObjectImpl implements GenChildContai
 				return isNeedsTitle() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__LAYOUT_KIND:
 				return getLayoutKind();
+			case GMFGenPackage.GEN_CHILD_CONTAINER__PARENT_NODE:
+				return getParentNode();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -328,6 +407,15 @@ public class GenChildContainerImpl extends EObjectImpl implements GenChildContai
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
+			case GMFGenPackage.GEN_CHILD_CONTAINER__DIAGRAM_RUN_TIME_CLASS:
+				setDiagramRunTimeClass((GenClass)newValue);
+				return;
+			case GMFGenPackage.GEN_CHILD_CONTAINER__VISUAL_ID:
+				setVisualID(((Integer)newValue).intValue());
+				return;
+			case GMFGenPackage.GEN_CHILD_CONTAINER__EDIT_PART_CLASS_NAME:
+				setEditPartClassName((String)newValue);
+				return;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__GROUP_ID:
 				setGroupID((String)newValue);
 				return;
@@ -357,6 +445,15 @@ public class GenChildContainerImpl extends EObjectImpl implements GenChildContai
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
+			case GMFGenPackage.GEN_CHILD_CONTAINER__DIAGRAM_RUN_TIME_CLASS:
+				setDiagramRunTimeClass((GenClass)null);
+				return;
+			case GMFGenPackage.GEN_CHILD_CONTAINER__VISUAL_ID:
+				setVisualID(VISUAL_ID_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_CHILD_CONTAINER__EDIT_PART_CLASS_NAME:
+				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__GROUP_ID:
 				setGroupID(GROUP_ID_EDEFAULT);
 				return;
@@ -386,6 +483,12 @@ public class GenChildContainerImpl extends EObjectImpl implements GenChildContai
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
+			case GMFGenPackage.GEN_CHILD_CONTAINER__DIAGRAM_RUN_TIME_CLASS:
+				return diagramRunTimeClass != null;
+			case GMFGenPackage.GEN_CHILD_CONTAINER__VISUAL_ID:
+				return visualID != VISUAL_ID_EDEFAULT;
+			case GMFGenPackage.GEN_CHILD_CONTAINER__EDIT_PART_CLASS_NAME:
+				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
 			case GMFGenPackage.GEN_CHILD_CONTAINER__GROUP_ID:
 				return GROUP_ID_EDEFAULT == null ? groupID != null : !GROUP_ID_EDEFAULT.equals(groupID);
 			case GMFGenPackage.GEN_CHILD_CONTAINER__TITLE_KEY:
@@ -398,6 +501,8 @@ public class GenChildContainerImpl extends EObjectImpl implements GenChildContai
 				return needsTitle != NEEDS_TITLE_EDEFAULT;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__LAYOUT_KIND:
 				return layoutKind != LAYOUT_KIND_EDEFAULT;
+			case GMFGenPackage.GEN_CHILD_CONTAINER__PARENT_NODE:
+				return getParentNode() != null;
 		}
 		return eDynamicIsSet(eFeature);
 	}
@@ -425,6 +530,22 @@ public class GenChildContainerImpl extends EObjectImpl implements GenChildContai
 		result.append(layoutKind);
 		result.append(')');
 		return result.toString();
+	}
+
+	public String getClassNamePrefix() {
+		return getGroupID() == null ? "GenContainer$" + hashCode() : getGroupID();
+	}
+
+	public String getClassNameSuffux() {
+		return "Container";
+	}
+
+	public GenDiagram getDiagram() {
+		GenNode parentNode = getParentNode();
+		if (parentNode == null) {
+			return null;
+		}
+		return parentNode.getDiagram();
 	}
 
 } //GenChildContainerImpl

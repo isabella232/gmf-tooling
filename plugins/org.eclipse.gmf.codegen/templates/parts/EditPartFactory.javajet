@@ -9,7 +9,10 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
+import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
@@ -17,6 +20,7 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
+import <%=genDiagram.getEditProvidersPackageName()%>.StructuralFeatureParser;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -69,6 +73,42 @@ String semanticPackageInterfaceName = importManager.getImportedName(genPackage.g
 	private EditPart createNodeEditPart(Node node) {
 		EObject element = node.getElement();
 		EClass elementMetaclass = element.eClass();
+<%
+List genLinks = genDiagram.getLinks();
+for (int i = 0; i < genLinks.size(); i++) {
+	GenLink genLink = (GenLink) genLinks.get(i);
+	if (genLink instanceof GenLinkWithClass) {
+		GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
+		String semanticLinkInterfaceName = genLinkWithClass.getDomainMetaClass().getClassifierAccessorName();
+		String qualifiedInterfaceName = genLinkWithClass.getDomainMetaClass().getQualifiedInterfaceName();
+%>
+		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().equals(elementMetaclass) && isEdge<%=semanticLinkInterfaceName%>_<%=genLinkWithClass.getVisualID()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) element)) {
+<%
+		List labels = genLink.getLabels();
+		for (int j = 0; j < labels.size(); j++) {
+			LinkLabel label = (LinkLabel) labels.get(j);
+%>
+			if ("<%=AccessUtil.getLinkLabelViewName(label)%>".equals(node.getType())) {
+				return new LabelEditPart(node);
+			}
+			if ("<%=AccessUtil.getLinkLabelTextViewName(label)%>".equals(node.getType())) {
+				return new TextCompartmentEditPart(node) {
+
+					public IParser getParser() {
+						if (parser == null) {
+							parser = new StructuralFeatureParser(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().getEStructuralFeature("<%=label.getDomainMetaFeature().getName()%>"));
+						}
+						return parser;
+					}
+				};
+			}
+<%		}%>
+			return null;
+		}
+<%
+	}
+}
+%>				
 <%
 List genNodes = genDiagram.getNodes();
 for (int i = 0; i < genNodes.size(); i++) {
@@ -171,7 +211,6 @@ for (int i = 0; i < genNodes.size(); i++) {
 		EObject element = edge.getElement();
 		EClass elementMetaclass = element.eClass();
 <%
-List genLinks = genDiagram.getLinks();
 if (genLinks.size() == 0) {
 %>
 		return createUnrecognizedEdgeEditPart(edge);

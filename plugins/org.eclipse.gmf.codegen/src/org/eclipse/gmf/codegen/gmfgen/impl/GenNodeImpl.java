@@ -17,7 +17,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind;
@@ -211,7 +210,7 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 	 */
 	public EList getChildContainers() {
 		if (childContainers == null) {
-			childContainers = new EObjectContainmentEList(GenChildContainer.class, this, GMFGenPackage.GEN_NODE__CHILD_CONTAINERS);
+			childContainers = new EObjectContainmentWithInverseEList(GenChildContainer.class, this, GMFGenPackage.GEN_NODE__CHILD_CONTAINERS, GMFGenPackage.GEN_CHILD_CONTAINER__PARENT_NODE);
 		}
 		return childContainers;
 	}
@@ -261,6 +260,8 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
 					return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_NODE__DIAGRAM, msgs);
+				case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
+					return ((InternalEList)getChildContainers()).basicAdd(otherEnd, msgs);
 				case GMFGenPackage.GEN_NODE__CHILD_NODES:
 					return ((InternalEList)getChildNodes()).basicAdd(otherEnd, msgs);
 				default:
