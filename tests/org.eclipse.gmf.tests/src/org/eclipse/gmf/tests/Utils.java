@@ -13,6 +13,7 @@ package org.eclipse.gmf.tests;
 
 import java.util.Calendar;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
@@ -34,11 +35,13 @@ public class Utils {
 	 */
 	public static GenModel createGenModel(EPackage aModel, String pluginID) {
 		BasicGenModelAccess gmAccess = new BasicGenModelAccess(aModel);
-		assert gmAccess.createDummy().isOK();
+		IStatus s = gmAccess.createDummy();
+		assert s.isOK();
 		GenModel genModel = gmAccess.model();
 		// not sure I need these
         genModel.setModelPluginID(pluginID);
         genModel.setModelDirectory("/" + pluginID + "/src/");
+        genModel.setEditDirectory(genModel.getModelDirectory());
         return genModel;
 	}
 
