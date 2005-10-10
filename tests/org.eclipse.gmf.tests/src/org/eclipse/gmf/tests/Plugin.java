@@ -1,5 +1,6 @@
 package org.eclipse.gmf.tests;
 
+import org.eclipse.core.runtime.Status;
 import org.osgi.framework.BundleContext;
 
 
@@ -29,5 +30,23 @@ public class Plugin extends org.eclipse.core.runtime.Plugin {
 
 	public static BundleContext getBundleContext() {
 		return ourInstance.myContext;
+	}
+
+	/**
+	 * @param errorsMsg
+	 */
+	public static void logError(String errorsMsg) {
+		logError(errorsMsg, null);
+	}
+
+	public static void logError(String errorsMsg, Exception ex) {
+		getInstance().getLog().log(new Status(Status.ERROR, getPluginID(), 0, errorsMsg, ex));
+	}
+
+	/**
+	 * @return
+	 */
+	public static String getPluginID() {
+		return getInstance().getBundle().getSymbolicName();
 	}
 }

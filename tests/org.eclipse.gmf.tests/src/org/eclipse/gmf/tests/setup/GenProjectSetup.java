@@ -62,6 +62,29 @@ public class GenProjectSetup {
 			// Need to get some gmf source code into target workspace 
 			importDevPluginsIntoRunTimeWorkspace(new String[] {
 					"org.eclipse.gmf.runtime.gef",
+					"org.eclipse.gmf.runtime.notation",
+					"org.eclipse.wst.common.ui.properties",
+					"org.eclipse.gmf.runtime.common.core",
+					"org.eclipse.gmf.runtime.common.ui",
+					"org.eclipse.gmf.runtime.draw2d.ui",
+					"org.eclipse.gmf.runtime.gef.ui",
+					"org.eclipse.gmf.runtime.common.ui.services",
+					"org.eclipse.gmf.runtime.emf.type.core",
+					"org.eclipse.gmf.runtime.emf.clipboard.core",
+					"org.eclipse.emf.validation",
+					"org.eclipse.gmf.runtime.emf.core",
+					"org.eclipse.gmf.runtime.common.ui.services",
+					"org.eclipse.gmf.runtime.common.ui.services.action",
+					"org.eclipse.gmf.runtime.common.ui.action",
+					"org.eclipse.gmf.runtime.emf.ui",
+					"org.eclipse.gmf.runtime.emf.commands.core",
+					"org.eclipse.gmf.runtime.diagram.core",
+					"org.eclipse.gmf.runtime.diagram.ui",
+					"org.eclipse.gmf.runtime.common.ui.services.properties",
+					"org.eclipse.gmf.runtime.emf.ui.properties",
+					"org.eclipse.gmf.runtime.diagram.ui.properties",
+					"org.eclipse.gmf.runtime.diagram.ui.resources.editor",
+					"org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide"
 			});
 		}
 		final GenDiagram d = diaGenSource.getGenDiagram();
@@ -82,7 +105,9 @@ public class GenProjectSetup {
 			if (compileErrors.length > 0) {
 				StringBuilder sb = new StringBuilder();
 				sb.append(p.getName()).append(" has compilation problems:\n");
-				throw new AssertionFailedError(formatErrors(sb, compileErrors));
+				String errorsMsg = formatErrors(sb, compileErrors);
+				Plugin.logError(errorsMsg);
+				throw new AssertionFailedError(errorsMsg);
 			}
 			String url = p.getLocation().toFile().toURL().toExternalForm();
 			b = Plugin.getBundleContext().installBundle(url);
@@ -93,6 +118,7 @@ public class GenProjectSetup {
 	}
 
 	public final Bundle getBundle() {
+		assert myBundle != null : "GenProjectSetup was not initialized";
 		return myBundle;
 	}
 
@@ -110,7 +136,9 @@ public class GenProjectSetup {
 			p.build(IncrementalProjectBuilder.FULL_BUILD, new NullProgressMonitor());
 			IMarker[] compileErrors = getJavaErrors(p);
 			if (compileErrors.length > 0) {
-				throw new AssertionFailedError(formatErrors(new StringBuilder("UNEXPECTED: Compilation errors in imported devplugins:\n"), compileErrors));
+				String errorsMsg = formatErrors(new StringBuilder("UNEXPECTED: Compilation errors in imported plugin " + pluginIDs[i] + ":\n"), compileErrors);
+				Plugin.logError(errorsMsg);
+				throw new AssertionFailedError(errorsMsg);
 			}
 		}
 	}
@@ -122,6 +150,7 @@ public class GenProjectSetup {
 				Bundle b = Platform.getBundle(pluginIDs[i]);
 				urls.add(Platform.resolve(b.getEntry("/")));
 			} catch (Exception ex) {
+				Plugin.logError("Error looking for " + pluginIDs[i] + " plug-in:", ex);
 				ex.printStackTrace();
 			}
 		}
