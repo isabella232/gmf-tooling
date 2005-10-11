@@ -38,6 +38,8 @@ import org.eclipse.pde.internal.ui.wizards.imports.PluginImportOperation;
 import org.osgi.framework.Bundle;
 
 /**
+ * If you get CCE while running tests in PDE environment, try to set read-only attribute for the next file:
+ * 'development-workspace'\.metadata\.plugins\org.eclipse.pde.core\'JUnitLaunchConfigName'\dev.properties
  * @author artem
  */
 public class GenProjectSetup {
