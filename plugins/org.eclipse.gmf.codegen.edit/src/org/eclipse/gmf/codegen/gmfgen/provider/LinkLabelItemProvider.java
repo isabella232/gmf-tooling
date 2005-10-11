@@ -12,28 +12,32 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
-import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.LinkLabel;
+
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenLink} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.LinkLabel} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class GenLinkItemProvider
-	extends GenBaseElementItemProvider
+public class LinkLabelItemProvider
+	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -46,7 +50,7 @@ public class GenLinkItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenLinkItemProvider(AdapterFactory adapterFactory) {
+	public LinkLabelItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -60,25 +64,27 @@ public class GenLinkItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDomainLinkTargetFeaturePropertyDescriptor(object);
+			addDomainMetaFeaturePropertyDescriptor(object);
+			addReadOnlyPropertyDescriptor(object);
+			addWeightPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Domain Link Target Feature feature.
+	 * This adds a property descriptor for the Domain Meta Feature feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addDomainLinkTargetFeaturePropertyDescriptor(Object object) {
+	protected void addDomainMetaFeaturePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenLink_domainLinkTargetFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenLink_domainLinkTargetFeature_feature", "_UI_GenLink_type"),
-				 GMFGenPackage.eINSTANCE.getGenLink_DomainLinkTargetFeature(),
+				 getString("_UI_LinkLabel_domainMetaFeature_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_LinkLabel_domainMetaFeature_feature", "_UI_LinkLabel_type"),
+				 GMFGenPackage.eINSTANCE.getLinkLabel_DomainMetaFeature(),
 				 true,
 				 null,
 				 null,
@@ -86,19 +92,53 @@ public class GenLinkItemProvider
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * This adds a property descriptor for the Read Only feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Collection getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenLink_Labels());
-		}
-		return childrenFeatures;
+	protected void addReadOnlyPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_LinkLabel_readOnly_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_LinkLabel_readOnly_feature", "_UI_LinkLabel_type"),
+				 GMFGenPackage.eINSTANCE.getLinkLabel_ReadOnly(),
+				 true,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Weight feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addWeightPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_LinkLabel_weight_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_LinkLabel_weight_feature", "_UI_LinkLabel_type"),
+				 GMFGenPackage.eINSTANCE.getLinkLabel_Weight(),
+				 true,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This returns LinkLabel.gif.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object getImage(Object object) {
+		return getResourceLocator().getImage("full/obj16/LinkLabel");
 	}
 
 	/**
@@ -108,10 +148,8 @@ public class GenLinkItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((GenLink)object).getEditPartClassName();
-		return label == null || label.length() == 0 ?
-			getString("_UI_GenLink_type") :
-			getString("_UI_GenLink_type") + " " + label;
+		LinkLabel linkLabel = (LinkLabel)object;
+		return getString("_UI_LinkLabel_type") + " " + linkLabel.isReadOnly();
 	}
 
 	/**
@@ -124,9 +162,10 @@ public class GenLinkItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(GenLink.class)) {
-			case GMFGenPackage.GEN_LINK__LABELS:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+		switch (notification.getFeatureID(LinkLabel.class)) {
+			case GMFGenPackage.LINK_LABEL__READ_ONLY:
+			case GMFGenPackage.LINK_LABEL__WEIGHT:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -141,11 +180,6 @@ public class GenLinkItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenLink_Labels(),
-				 GMFGenFactory.eINSTANCE.createLinkLabel()));
 	}
 
 	/**

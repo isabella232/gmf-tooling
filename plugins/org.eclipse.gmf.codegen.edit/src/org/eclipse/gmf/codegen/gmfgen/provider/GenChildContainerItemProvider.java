@@ -33,7 +33,7 @@ import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
  * @generated
  */
 public class GenChildContainerItemProvider
-	extends ItemProviderAdapter
+	extends GenCommonBaseItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -207,7 +207,7 @@ public class GenChildContainerItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((GenChildContainer)object).getGroupID();
+		String label = ((GenChildContainer)object).getEditPartClassName();
 		return label == null || label.length() == 0 ?
 			getString("_UI_GenChildContainer_type") :
 			getString("_UI_GenChildContainer_type") + " " + label;

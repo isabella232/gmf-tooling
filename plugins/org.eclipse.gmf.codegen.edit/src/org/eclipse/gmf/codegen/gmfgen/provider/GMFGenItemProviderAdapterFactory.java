@@ -206,6 +206,28 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.LinkLabel} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LinkLabelItemProvider linkLabelItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.LinkLabel}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createLinkLabelAdapter() {
+		if (linkLabelItemProvider == null) {
+			linkLabelItemProvider = new LinkLabelItemProvider(this);
+		}
+
+		return linkLabelItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ShapeAttributes} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -505,6 +527,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genChildNodeItemProvider != null) genChildNodeItemProvider.dispose();
 		if (genLinkWithClassItemProvider != null) genLinkWithClassItemProvider.dispose();
 		if (genLinkReferenceOnlyItemProvider != null) genLinkReferenceOnlyItemProvider.dispose();
+		if (linkLabelItemProvider != null) linkLabelItemProvider.dispose();
 		if (shapeAttributesItemProvider != null) shapeAttributesItemProvider.dispose();
 		if (defaultSizeAttributesItemProvider != null) defaultSizeAttributesItemProvider.dispose();
 		if (basicNodeViewmapItemProvider != null) basicNodeViewmapItemProvider.dispose();
