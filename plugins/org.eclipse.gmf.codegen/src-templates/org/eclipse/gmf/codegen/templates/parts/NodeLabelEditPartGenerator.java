@@ -48,7 +48,7 @@ GenDiagram genDiagram = genNode.getDiagram();
     stringBuffer.append(TEXT_4);
     stringBuffer.append(genDiagram.getPluginClassName());
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(genDiagram.getEditProvidersPackageName());
+    stringBuffer.append(genDiagram.getProvidersPackageName());
     stringBuffer.append(TEXT_6);
     importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_7);

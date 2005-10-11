@@ -18,7 +18,7 @@ import org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapMode;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
 <%if (genNode.hasNameToEdit()) {%>
-import <%=genDiagram.getEditProvidersPackageName()%>.<%=AccessUtil.getSemanticHintsClassName(genNode)%>;
+import <%=genDiagram.getProvidersPackageName()%>.<%=AccessUtil.getSemanticHintsClassName(genNode)%>;
 <%}%>
 <%importManager.markImportLocation(stringBuffer);%>
 

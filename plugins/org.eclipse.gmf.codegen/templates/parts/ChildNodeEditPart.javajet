@@ -10,7 +10,7 @@ package <%=genDiagram.getEditPartsPackageName()%>;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListItemCompartmentEditPart;
 import org.eclipse.gmf.runtime.notation.View;
-import <%=genDiagram.getEditProvidersPackageName()%>.StructuralFeatureParser;
+import <%=genDiagram.getProvidersPackageName()%>.StructuralFeatureParser;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**

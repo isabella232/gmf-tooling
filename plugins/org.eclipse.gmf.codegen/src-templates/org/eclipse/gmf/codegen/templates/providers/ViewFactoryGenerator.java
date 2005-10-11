@@ -1,4 +1,4 @@
-package org.eclipse.gmf.codegen.templates.edit;
+package org.eclipse.gmf.codegen.templates.providers;
 
 import java.util.*;
 import org.eclipse.gmf.codegen.gmfgen.*;
@@ -45,9 +45,9 @@ public class ViewFactoryGenerator
     GenBaseElement genElement = (GenBaseElement) argument;
     GenDiagram genDiagram = genElement.getDiagram();
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(genDiagram.getEditProvidersPackageName());
+    stringBuffer.append(genDiagram.getProvidersPackageName());
     stringBuffer.append(TEXT_2);
-    ImportUtil importManager = new ImportUtil(genDiagram.getEditProvidersPackageName());
+    ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());
     stringBuffer.append(TEXT_3);
     importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_4);

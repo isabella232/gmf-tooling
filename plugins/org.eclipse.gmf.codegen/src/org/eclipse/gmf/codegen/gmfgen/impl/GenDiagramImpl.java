@@ -43,7 +43,6 @@ import org.eclipse.gmf.codegen.gmfgen.Palette;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPalette <em>Palette</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartsPackageName <em>Edit Parts Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCommandsPackageName <em>Commands Package Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditProvidersPackageName <em>Edit Providers Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPluginName <em>Plugin Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getProviderName <em>Provider Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPluginID <em>Plugin ID</em>}</li>
@@ -151,26 +150,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String commandsPackageName = COMMANDS_PACKAGE_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getEditProvidersPackageName() <em>Edit Providers Package Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEditProvidersPackageName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String EDIT_PROVIDERS_PACKAGE_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getEditProvidersPackageName() <em>Edit Providers Package Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEditProvidersPackageName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String editProvidersPackageName = EDIT_PROVIDERS_PACKAGE_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPluginName() <em>Plugin Name</em>}' attribute.
@@ -631,35 +610,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__COMMANDS_PACKAGE_NAME, oldCommandsPackageName, commandsPackageName));
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getEditProvidersPackageNameGen() {
-		return editProvidersPackageName;
-	}
-
-	public String getEditProvidersPackageName() {
-		String value = getEditProvidersPackageNameGen();
-		if (value == null || value.length() == 0) {
-			return getPackageNamePrefix() + ".providers";
-		}
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setEditProvidersPackageName(String newEditProvidersPackageName) {
-		String oldEditProvidersPackageName = editProvidersPackageName;
-		editProvidersPackageName = newEditProvidersPackageName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__EDIT_PROVIDERS_PACKAGE_NAME, oldEditProvidersPackageName, editProvidersPackageName));
-	}
-
 	public String getClassNamePrefix() {
 		String prefix;
 		if (getDomainDiagramElement() != null) {
@@ -821,7 +771,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getProvidersPackageName() {
 		String value = getProvidersPackageNameGen();
 		if (value == null || value.length() == 0) {
-			return getPackageNamePrefix() + ".edit.providers";
+			return getPackageNamePrefix() + ".providers";
 		}
 		return value;
 	}
@@ -1139,8 +1089,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getEditPartsPackageName();
 			case GMFGenPackage.GEN_DIAGRAM__COMMANDS_PACKAGE_NAME:
 				return getCommandsPackageName();
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PROVIDERS_PACKAGE_NAME:
-				return getEditProvidersPackageName();
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
 				return getPluginName();
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
@@ -1207,9 +1155,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__COMMANDS_PACKAGE_NAME:
 				setCommandsPackageName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PROVIDERS_PACKAGE_NAME:
-				setEditProvidersPackageName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
 				setPluginName((String)newValue);
@@ -1288,9 +1233,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__COMMANDS_PACKAGE_NAME:
 				setCommandsPackageName(COMMANDS_PACKAGE_NAME_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PROVIDERS_PACKAGE_NAME:
-				setEditProvidersPackageName(EDIT_PROVIDERS_PACKAGE_NAME_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
 				setPluginName(PLUGIN_NAME_EDEFAULT);
 				return;
@@ -1358,8 +1300,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return EDIT_PARTS_PACKAGE_NAME_EDEFAULT == null ? editPartsPackageName != null : !EDIT_PARTS_PACKAGE_NAME_EDEFAULT.equals(editPartsPackageName);
 			case GMFGenPackage.GEN_DIAGRAM__COMMANDS_PACKAGE_NAME:
 				return COMMANDS_PACKAGE_NAME_EDEFAULT == null ? commandsPackageName != null : !COMMANDS_PACKAGE_NAME_EDEFAULT.equals(commandsPackageName);
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PROVIDERS_PACKAGE_NAME:
-				return EDIT_PROVIDERS_PACKAGE_NAME_EDEFAULT == null ? editProvidersPackageName != null : !EDIT_PROVIDERS_PACKAGE_NAME_EDEFAULT.equals(editProvidersPackageName);
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
 				return PLUGIN_NAME_EDEFAULT == null ? pluginName != null : !PLUGIN_NAME_EDEFAULT.equals(pluginName);
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
@@ -1401,8 +1341,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(editPartsPackageName);
 		result.append(", commandsPackageName: ");
 		result.append(commandsPackageName);
-		result.append(", editProvidersPackageName: ");
-		result.append(editProvidersPackageName);
 		result.append(", pluginName: ");
 		result.append(pluginName);
 		result.append(", providerName: ");

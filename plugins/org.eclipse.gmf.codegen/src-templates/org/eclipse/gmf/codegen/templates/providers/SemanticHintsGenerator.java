@@ -1,4 +1,4 @@
-package org.eclipse.gmf.codegen.templates.edit;
+package org.eclipse.gmf.codegen.templates.providers;
 
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.codegen.util.*;
@@ -30,7 +30,7 @@ public class SemanticHintsGenerator
     GenBaseElement genElement = (GenBaseElement) argument;
     GenDiagram genDiagram = genElement.getDiagram();
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(genDiagram.getEditProvidersPackageName());
+    stringBuffer.append(genDiagram.getProvidersPackageName());
     stringBuffer.append(TEXT_2);
     stringBuffer.append(AccessUtil.getSemanticHintsClassName(genElement));
     stringBuffer.append(TEXT_3);

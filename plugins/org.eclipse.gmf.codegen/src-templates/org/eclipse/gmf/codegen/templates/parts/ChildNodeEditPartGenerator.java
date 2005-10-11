@@ -41,7 +41,7 @@ GenDiagram genDiagram = genChildNode.getDiagram();
     stringBuffer.append(TEXT_2);
     ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(genDiagram.getEditProvidersPackageName());
+    stringBuffer.append(genDiagram.getProvidersPackageName());
     stringBuffer.append(TEXT_4);
     importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_5);

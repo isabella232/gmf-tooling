@@ -1,8 +1,8 @@
-<%@ jet package="org.eclipse.gmf.codegen.templates.edit" class="SemanticHintsGenerator"
+<%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="SemanticHintsGenerator"
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
 <%GenBaseElement genElement = (GenBaseElement) argument;%>
 <%GenDiagram genDiagram = genElement.getDiagram();%>
-package <%=genDiagram.getEditProvidersPackageName()%>;
+package <%=genDiagram.getProvidersPackageName()%>;
 
 /**
  * @generated

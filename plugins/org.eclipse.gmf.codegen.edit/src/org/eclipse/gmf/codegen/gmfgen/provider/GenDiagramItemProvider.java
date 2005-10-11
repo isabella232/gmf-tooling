@@ -65,7 +65,6 @@ public class GenDiagramItemProvider
 			addDomainDiagramElementPropertyDescriptor(object);
 			addEditPartsPackageNamePropertyDescriptor(object);
 			addCommandsPackageNamePropertyDescriptor(object);
-			addEditProvidersPackageNamePropertyDescriptor(object);
 			addPluginNamePropertyDescriptor(object);
 			addProviderNamePropertyDescriptor(object);
 			addPluginIDPropertyDescriptor(object);
@@ -156,26 +155,6 @@ public class GenDiagramItemProvider
 				 getString("_UI_GenDiagram_commandsPackageName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_commandsPackageName_feature", "_UI_GenDiagram_type"),
 				 GMFGenPackage.eINSTANCE.getGenDiagram_CommandsPackageName(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Edit Providers Package Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addEditProvidersPackageNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenDiagram_editProvidersPackageName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_editProvidersPackageName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_EditProvidersPackageName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -488,7 +467,6 @@ public class GenDiagramItemProvider
 		switch (notification.getFeatureID(GenDiagram.class)) {
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__COMMANDS_PACKAGE_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PROVIDERS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:

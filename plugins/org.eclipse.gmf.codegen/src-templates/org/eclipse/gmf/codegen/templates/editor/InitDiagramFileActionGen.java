@@ -1,4 +1,4 @@
-package org.eclipse.gmf.codegen.templates.diacanvas;
+package org.eclipse.gmf.codegen.templates.editor;
 
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.emf.codegen.ecore.genmodel.*;

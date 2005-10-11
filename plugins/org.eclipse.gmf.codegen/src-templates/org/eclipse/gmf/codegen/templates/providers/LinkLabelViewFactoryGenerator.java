@@ -1,4 +1,4 @@
-package org.eclipse.gmf.codegen.templates.edit;
+package org.eclipse.gmf.codegen.templates.providers;
 
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.codegen.util.*;
@@ -27,7 +27,7 @@ public class LinkLabelViewFactoryGenerator
     LinkLabel label = (LinkLabel) argument;
     GenDiagram genDiagram = label.getLink().getDiagram();
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(genDiagram.getEditProvidersPackageName());
+    stringBuffer.append(genDiagram.getProvidersPackageName());
     stringBuffer.append(TEXT_2);
     stringBuffer.append(AccessUtil.getLinkLabelViewFactoryClassName(label));
     stringBuffer.append(TEXT_3);

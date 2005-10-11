@@ -17,17 +17,13 @@ import java.net.URL;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
-import org.eclipse.gmf.codegen.templates.diacanvas.InitDiagramFileActionGen;
-import org.eclipse.gmf.codegen.templates.edit.LinkLabelViewFactoryGenerator;
-import org.eclipse.gmf.codegen.templates.edit.SemanticHintsGenerator;
-import org.eclipse.gmf.codegen.templates.edit.StructuralFeatureParserGenerator;
-import org.eclipse.gmf.codegen.templates.edit.ViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardPageGenerator;
 import org.eclipse.gmf.codegen.templates.editor.DiagramEditorUtilGenerator;
 import org.eclipse.gmf.codegen.templates.editor.DiagramFileCreatorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.EditorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.EditorMatchingStrategyGenerator;
+import org.eclipse.gmf.codegen.templates.editor.InitDiagramFileActionGen;
 import org.eclipse.gmf.codegen.templates.editor.PaletteFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginXML;
@@ -40,6 +36,10 @@ import org.eclipse.gmf.codegen.templates.parts.NodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.NodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ElementTypesGenerator;
+import org.eclipse.gmf.codegen.templates.providers.LinkLabelViewFactoryGenerator;
+import org.eclipse.gmf.codegen.templates.providers.SemanticHintsGenerator;
+import org.eclipse.gmf.codegen.templates.providers.StructuralFeatureParserGenerator;
+import org.eclipse.gmf.codegen.templates.providers.ViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewProviderGenerator;
 import org.osgi.framework.Bundle;
 
@@ -90,25 +90,23 @@ public class EmitterFactory {
 		return initializeEmitter("/templates/parts/EditPartFactory.javajet", EditPartFactoryGenerator.class);
 	}
 
-	// edit
+	// providers
 
 	public static JETEmitter getStructuralFeatureParserEmitter() throws JETException {
-		return initializeEmitter("/templates/edit/StructuralFeatureParser.javajet", StructuralFeatureParserGenerator.class);
+		return initializeEmitter("/templates/providers/StructuralFeatureParser.javajet", StructuralFeatureParserGenerator.class);
 	}
 
 	public static JETEmitter getSemanticHintsEmitter() throws JETException {
-		return initializeEmitter("/templates/edit/SemanticHints.javajet", SemanticHintsGenerator.class);
+		return initializeEmitter("/templates/providers/SemanticHints.javajet", SemanticHintsGenerator.class);
 	}
 
 	public static JETEmitter getViewFactoryEmitter() throws JETException {
-		return initializeEmitter("/templates/edit/ViewFactory.javajet", ViewFactoryGenerator.class);
+		return initializeEmitter("/templates/providers/ViewFactory.javajet", ViewFactoryGenerator.class);
 	}
 
 	public static JETEmitter getLinkLabelViewFactoryEmitter() throws JETException {
-		return initializeEmitter("/templates/edit/LinkLabelViewFactory.javajet", LinkLabelViewFactoryGenerator.class);
+		return initializeEmitter("/templates/providers/LinkLabelViewFactory.javajet", LinkLabelViewFactoryGenerator.class);
 	}
-
-	// providers
 
 	public static JETEmitter getElementTypesEmitter() throws JETException {
 		return initializeEmitter("/templates/providers/ElementTypes.javajet", ElementTypesGenerator.class);

@@ -87,6 +87,7 @@ public class Generator implements Runnable {
 			setupProgressMonitor();
 			initializeEditorProject();
 
+			// parts and providers
 			generateStructuralFeatureParser();
 			for (Iterator it = myDiagram.getNodes().iterator(); it.hasNext();) {
 				final GenNode next = (GenNode) it.next();
@@ -116,8 +117,6 @@ public class Generator implements Runnable {
 			}
 			generateDiagramEditPart();
 			generateEditPartFactory();
-
-			// providers
 			generateElementTypes();
 			generateViewProvider();
 			generateEditPartProvider();
@@ -202,12 +201,12 @@ public class Generator implements Runnable {
 		);
 	}
 
-	// edit
+	// providers
 
 	private void generateStructuralFeatureParser() throws JETException, InterruptedException {
 		generate(
 			EmitterFactory.getStructuralFeatureParserEmitter(),
-			myDiagram.getEditProvidersPackageName(),
+			myDiagram.getProvidersPackageName(),
 			"StructuralFeatureParser", //$NON-NLS-1$
 			myDiagram
 		);
@@ -216,7 +215,7 @@ public class Generator implements Runnable {
 	private void generateSemanticHints(GenBaseElement genElement) throws JETException, InterruptedException {
 		generate(
 			EmitterFactory.getSemanticHintsEmitter(),
-			myDiagram.getEditProvidersPackageName(),
+			myDiagram.getProvidersPackageName(),
 			AccessUtil.getSemanticHintsClassName(genElement),
 			genElement
 		);
@@ -225,7 +224,7 @@ public class Generator implements Runnable {
 	private void generateViewFactory(GenBaseElement genElement) throws JETException, InterruptedException {
 		generate(
 			EmitterFactory.getViewFactoryEmitter(),
-			myDiagram.getEditProvidersPackageName(),
+			myDiagram.getProvidersPackageName(),
 			genElement.getNotationViewFactoryClassName(),
 			genElement
 		);
@@ -234,13 +233,11 @@ public class Generator implements Runnable {
 	private void generateLinkLabelViewFactory(LinkLabel label) throws JETException, InterruptedException {
 		generate(
 			EmitterFactory.getLinkLabelViewFactoryEmitter(),
-			myDiagram.getEditProvidersPackageName(),
+			myDiagram.getProvidersPackageName(),
 			AccessUtil.getLinkLabelViewFactoryClassName(label),
 			label
 		);
 	}
-
-	// providers
 
 	private void generateElementTypes() throws JETException, InterruptedException {
 		generate(

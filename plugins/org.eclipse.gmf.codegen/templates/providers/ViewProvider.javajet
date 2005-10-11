@@ -12,7 +12,6 @@ import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.*;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
-import <%=genDiagram.getEditProvidersPackageName()%>.*;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -94,7 +93,7 @@ for (int i = 0; i < genNodes.size(); i++) {
 		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>().equals(semanticType) && isNode<%=semanticNodeInterfaceName%>_<%=genNode.getVisualID()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) semanticElement)) {
 <%
 	if (genNode.hasNameToEdit()) {
-		String semanticHintsQualifiedClassName = genDiagram.getEditProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
+		String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
 		String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 %>
 			if (<%=semanticHintsClassName%>.<%=AccessUtil.getNameSemanticHint(genNode)%>.equals(semanticHint)) {

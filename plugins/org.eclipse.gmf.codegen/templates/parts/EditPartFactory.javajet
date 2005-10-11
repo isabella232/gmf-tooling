@@ -20,7 +20,7 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
-import <%=genDiagram.getEditProvidersPackageName()%>.StructuralFeatureParser;
+import <%=genDiagram.getProvidersPackageName()%>.StructuralFeatureParser;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -119,7 +119,7 @@ for (int i = 0; i < genNodes.size(); i++) {
 		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>().equals(elementMetaclass) && isNode<%=semanticNodeInterfaceName%>_<%=genNode.getVisualID()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) element)) {
 <%
 	if (genNode.hasNameToEdit()) {
-		String semanticHintsQualifiedClassName = genDiagram.getEditProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
+		String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
 		String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 		String semanticHint = semanticHintsClassName + '.' + AccessUtil.getNameSemanticHint(genNode);
 %>

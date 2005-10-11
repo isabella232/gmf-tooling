@@ -29,7 +29,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPalette <em>Palette</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditPartsPackageName <em>Edit Parts Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCommandsPackageName <em>Commands Package Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditProvidersPackageName <em>Edit Providers Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPluginName <em>Plugin Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getProviderName <em>Provider Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPluginID <em>Plugin ID</em>}</li>
@@ -218,32 +217,6 @@ public interface GenDiagram extends GenCommonBase{
 	 * @generated
 	 */
 	void setCommandsPackageName(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Edit Providers Package Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Edit Providers Package Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Edit Providers Package Name</em>' attribute.
-	 * @see #setEditProvidersPackageName(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_EditProvidersPackageName()
-	 * @model
-	 * @generated
-	 */
-	String getEditProvidersPackageName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditProvidersPackageName <em>Edit Providers Package Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Edit Providers Package Name</em>' attribute.
-	 * @see #getEditProvidersPackageName()
-	 * @generated
-	 */
-	void setEditProvidersPackageName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Plugin Name</b></em>' attribute.

@@ -1,10 +1,10 @@
-<%@ jet package="org.eclipse.gmf.codegen.templates.edit" class="ViewFactoryGenerator"
+<%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="ViewFactoryGenerator"
 	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
 <%GenBaseElement genElement = (GenBaseElement) argument;%>
 <%GenDiagram genDiagram = genElement.getDiagram();%>
-package <%=genDiagram.getEditProvidersPackageName()%>;
+package <%=genDiagram.getProvidersPackageName()%>;
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditProvidersPackageName());%>
+<%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;

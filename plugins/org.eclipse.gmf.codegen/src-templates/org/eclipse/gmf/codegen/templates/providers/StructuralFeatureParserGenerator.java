@@ -1,4 +1,4 @@
-package org.eclipse.gmf.codegen.templates.edit;
+package org.eclipse.gmf.codegen.templates.providers;
 
 import org.eclipse.gmf.codegen.gmfgen.*;
 
@@ -23,7 +23,7 @@ public class StructuralFeatureParserGenerator
     StringBuffer stringBuffer = new StringBuffer();
     GenDiagram genDiagram = (GenDiagram) argument;
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(genDiagram.getEditProvidersPackageName());
+    stringBuffer.append(genDiagram.getProvidersPackageName());
     stringBuffer.append(TEXT_2);
     stringBuffer.append(TEXT_3);
     return stringBuffer.toString();

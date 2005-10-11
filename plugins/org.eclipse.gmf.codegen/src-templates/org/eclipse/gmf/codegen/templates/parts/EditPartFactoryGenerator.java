@@ -105,7 +105,7 @@ public class EditPartFactoryGenerator
     stringBuffer.append(TEXT_2);
     ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(genDiagram.getEditProvidersPackageName());
+    stringBuffer.append(genDiagram.getProvidersPackageName());
     stringBuffer.append(TEXT_4);
     importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_5);
@@ -191,7 +191,7 @@ for (int i = 0; i < genNodes.size(); i++) {
     stringBuffer.append(TEXT_33);
     
 	if (genNode.hasNameToEdit()) {
-		String semanticHintsQualifiedClassName = genDiagram.getEditProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
+		String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
 		String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 		String semanticHint = semanticHintsClassName + '.' + AccessUtil.getNameSemanticHint(genNode);
 

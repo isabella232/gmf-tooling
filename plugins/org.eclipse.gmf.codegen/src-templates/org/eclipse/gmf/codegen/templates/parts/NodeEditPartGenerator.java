@@ -57,7 +57,7 @@ GenDiagram genDiagram = genNode.getDiagram();
     stringBuffer.append(TEXT_3);
     if (genNode.hasNameToEdit()) {
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(genDiagram.getEditProvidersPackageName());
+    stringBuffer.append(genDiagram.getProvidersPackageName());
     stringBuffer.append(TEXT_5);
     stringBuffer.append(AccessUtil.getSemanticHintsClassName(genNode));
     stringBuffer.append(TEXT_6);
