@@ -26,7 +26,6 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl#getDomainNameFeature <em>Domain Name Feature</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl#getForegroundColor <em>Foreground Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl#getContainmentMetaFeature <em>Containment Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl#getViewmap <em>Viewmap</em>}</li>
@@ -45,26 +44,6 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 	 * @ordered
 	 */
 	protected GenFeature domainNameFeature = null;
-
-	/**
-	 * The default value of the '{@link #getForegroundColor() <em>Foreground Color</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getForegroundColor()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String FOREGROUND_COLOR_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getForegroundColor() <em>Foreground Color</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getForegroundColor()
-	 * @generated
-	 * @ordered
-	 */
-	protected String foregroundColor = FOREGROUND_COLOR_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getContainmentMetaFeature() <em>Containment Meta Feature</em>}' reference.
@@ -160,27 +139,6 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 		domainNameFeature = newDomainNameFeature;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE, oldDomainNameFeature, domainNameFeature));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getForegroundColor() {
-		return foregroundColor;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setForegroundColor(String newForegroundColor) {
-		String oldForegroundColor = foregroundColor;
-		foregroundColor = newForegroundColor;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_BASE_ELEMENT__FOREGROUND_COLOR, oldForegroundColor, foregroundColor));
 	}
 
 	/**
@@ -336,8 +294,6 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 			case GMFGenPackage.GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE:
 				if (resolve) return getDomainNameFeature();
 				return basicGetDomainNameFeature();
-			case GMFGenPackage.GEN_BASE_ELEMENT__FOREGROUND_COLOR:
-				return getForegroundColor();
 			case GMFGenPackage.GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE:
 				if (resolve) return getContainmentMetaFeature();
 				return basicGetContainmentMetaFeature();
@@ -367,9 +323,6 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE:
 				setDomainNameFeature((GenFeature)newValue);
-				return;
-			case GMFGenPackage.GEN_BASE_ELEMENT__FOREGROUND_COLOR:
-				setForegroundColor((String)newValue);
 				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((GenFeature)newValue);
@@ -403,9 +356,6 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 			case GMFGenPackage.GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE:
 				setDomainNameFeature((GenFeature)null);
 				return;
-			case GMFGenPackage.GEN_BASE_ELEMENT__FOREGROUND_COLOR:
-				setForegroundColor(FOREGROUND_COLOR_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((GenFeature)null);
 				return;
@@ -434,8 +384,6 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
 			case GMFGenPackage.GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE:
 				return domainNameFeature != null;
-			case GMFGenPackage.GEN_BASE_ELEMENT__FOREGROUND_COLOR:
-				return FOREGROUND_COLOR_EDEFAULT == null ? foregroundColor != null : !FOREGROUND_COLOR_EDEFAULT.equals(foregroundColor);
 			case GMFGenPackage.GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE:
 				return containmentMetaFeature != null;
 			case GMFGenPackage.GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME:
@@ -455,9 +403,7 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (foregroundColor: ");
-		result.append(foregroundColor);
-		result.append(", notationViewFactoryClassName: ");
+		result.append(" (notationViewFactoryClassName: ");
 		result.append(notationViewFactoryClassName);
 		result.append(')');
 		return result.toString();

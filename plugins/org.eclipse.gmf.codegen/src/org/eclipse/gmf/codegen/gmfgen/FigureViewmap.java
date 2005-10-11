@@ -23,7 +23,7 @@ public interface FigureViewmap extends EObject{
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Name of Figure class
+	 * Name of GEF Figure class
 	 * <!-- end-model-doc -->
 	 * @model kind="operation"
 	 * @generated

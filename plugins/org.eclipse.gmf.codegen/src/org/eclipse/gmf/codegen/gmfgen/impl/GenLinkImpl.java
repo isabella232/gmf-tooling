@@ -217,8 +217,6 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 			case GMFGenPackage.GEN_LINK__DOMAIN_NAME_FEATURE:
 				if (resolve) return getDomainNameFeature();
 				return basicGetDomainNameFeature();
-			case GMFGenPackage.GEN_LINK__FOREGROUND_COLOR:
-				return getForegroundColor();
 			case GMFGenPackage.GEN_LINK__CONTAINMENT_META_FEATURE:
 				if (resolve) return getContainmentMetaFeature();
 				return basicGetContainmentMetaFeature();
@@ -255,9 +253,6 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				return;
 			case GMFGenPackage.GEN_LINK__DOMAIN_NAME_FEATURE:
 				setDomainNameFeature((GenFeature)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK__FOREGROUND_COLOR:
-				setForegroundColor((String)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((GenFeature)newValue);
@@ -298,9 +293,6 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 			case GMFGenPackage.GEN_LINK__DOMAIN_NAME_FEATURE:
 				setDomainNameFeature((GenFeature)null);
 				return;
-			case GMFGenPackage.GEN_LINK__FOREGROUND_COLOR:
-				setForegroundColor(FOREGROUND_COLOR_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_LINK__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((GenFeature)null);
 				return;
@@ -335,8 +327,6 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
 			case GMFGenPackage.GEN_LINK__DOMAIN_NAME_FEATURE:
 				return domainNameFeature != null;
-			case GMFGenPackage.GEN_LINK__FOREGROUND_COLOR:
-				return FOREGROUND_COLOR_EDEFAULT == null ? foregroundColor != null : !FOREGROUND_COLOR_EDEFAULT.equals(foregroundColor);
 			case GMFGenPackage.GEN_LINK__CONTAINMENT_META_FEATURE:
 				return containmentMetaFeature != null;
 			case GMFGenPackage.GEN_LINK__NOTATION_VIEW_FACTORY_CLASS_NAME:

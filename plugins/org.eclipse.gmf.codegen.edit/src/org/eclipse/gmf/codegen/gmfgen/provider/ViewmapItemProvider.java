@@ -120,6 +120,11 @@ public class ViewmapItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getViewmap_Attributes(),
+				 GMFGenFactory.eINSTANCE.createColorAttributes()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getViewmap_Attributes(),
 				 GMFGenFactory.eINSTANCE.createShapeAttributes()));
 
 		newChildDescriptors.add

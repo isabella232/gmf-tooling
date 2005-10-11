@@ -12,7 +12,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -20,20 +22,22 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+
+import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
+
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ColorAttributes} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class GenBaseElementItemProvider
-	extends GenCommonBaseItemProvider
+public class ColorAttributesItemProvider
+	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -46,7 +50,7 @@ public class GenBaseElementItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenBaseElementItemProvider(AdapterFactory adapterFactory) {
+	public ColorAttributesItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -60,67 +64,26 @@ public class GenBaseElementItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDomainNameFeaturePropertyDescriptor(object);
-			addContainmentMetaFeaturePropertyDescriptor(object);
-			addNotationViewFactoryClassNamePropertyDescriptor(object);
+			addForegroundColorPropertyDescriptor(object);
+			addBackgroundColorPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Domain Name Feature feature.
+	 * This adds a property descriptor for the Foreground Color feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addDomainNameFeaturePropertyDescriptor(Object object) {
+	protected void addForegroundColorPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenBaseElement_domainNameFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenBaseElement_domainNameFeature_feature", "_UI_GenBaseElement_type"),
-				 GMFGenPackage.eINSTANCE.getGenBaseElement_DomainNameFeature(),
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Containment Meta Feature feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addContainmentMetaFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenBaseElement_containmentMetaFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenBaseElement_containmentMetaFeature_feature", "_UI_GenBaseElement_type"),
-				 GMFGenPackage.eINSTANCE.getGenBaseElement_ContainmentMetaFeature(),
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Notation View Factory Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNotationViewFactoryClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenBaseElement_notationViewFactoryClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenBaseElement_notationViewFactoryClassName_feature", "_UI_GenBaseElement_type"),
-				 GMFGenPackage.eINSTANCE.getGenBaseElement_NotationViewFactoryClassName(),
+				 getString("_UI_ColorAttributes_foregroundColor_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ColorAttributes_foregroundColor_feature", "_UI_ColorAttributes_type"),
+				 GMFGenPackage.eINSTANCE.getColorAttributes_ForegroundColor(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -128,19 +91,33 @@ public class GenBaseElementItemProvider
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * This adds a property descriptor for the Background Color feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Collection getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenBaseElement_Viewmap());
-		}
-		return childrenFeatures;
+	protected void addBackgroundColorPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ColorAttributes_backgroundColor_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ColorAttributes_backgroundColor_feature", "_UI_ColorAttributes_type"),
+				 GMFGenPackage.eINSTANCE.getColorAttributes_BackgroundColor(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This returns ColorAttributes.gif.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object getImage(Object object) {
+		return getResourceLocator().getImage("full/obj16/ColorAttributes");
 	}
 
 	/**
@@ -150,10 +127,10 @@ public class GenBaseElementItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((GenBaseElement)object).getEditPartClassName();
+		String label = ((ColorAttributes)object).getForegroundColor();
 		return label == null || label.length() == 0 ?
-			getString("_UI_GenBaseElement_type") :
-			getString("_UI_GenBaseElement_type") + " " + label;
+			getString("_UI_ColorAttributes_type") :
+			getString("_UI_ColorAttributes_type") + " " + label;
 	}
 
 	/**
@@ -166,12 +143,10 @@ public class GenBaseElementItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(GenBaseElement.class)) {
-			case GMFGenPackage.GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME:
+		switch (notification.getFeatureID(ColorAttributes.class)) {
+			case GMFGenPackage.COLOR_ATTRIBUTES__FOREGROUND_COLOR:
+			case GMFGenPackage.COLOR_ATTRIBUTES__BACKGROUND_COLOR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case GMFGenPackage.GEN_BASE_ELEMENT__VIEWMAP:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -186,16 +161,6 @@ public class GenBaseElementItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenBaseElement_Viewmap(),
-				 GMFGenFactory.eINSTANCE.createBasicNodeViewmap()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenBaseElement_Viewmap(),
-				 GMFGenFactory.eINSTANCE.createDecoratedConnectionViewmap()));
 	}
 
 	/**

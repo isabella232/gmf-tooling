@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model abstract="true"
  * @generated
  */
-public interface Viewmap extends EObject {
+public interface Viewmap extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Attributes</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.Attributes}.
@@ -41,5 +41,16 @@ public interface Viewmap extends EObject {
 	 * @generated
 	 */
 	EList getAttributes();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Returns first attributes instance of specified class, if any
+	 * <!-- end-model-doc -->
+	 * @model
+	 * @generated
+	 */
+	Attributes find(Class attributesClass);
 
 } // Viewmap

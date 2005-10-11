@@ -89,6 +89,15 @@ public interface GMFGenFactory extends EFactory{
 	LinkLabel createLinkLabel();
 
 	/**
+	 * Returns a new object of class '<em>Color Attributes</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Color Attributes</em>'.
+	 * @generated
+	 */
+	ColorAttributes createColorAttributes();
+
+	/**
 	 * Returns a new object of class '<em>Shape Attributes</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

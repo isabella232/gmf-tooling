@@ -34,18 +34,17 @@ public class <%=genElement.getNotationViewFactoryClassName()%> extends
 		String semanticHint, int index, boolean persisted) {
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
 <%
-String fgColour = genElement.getForegroundColor();
-if (fgColour != null && fgColour.trim().length() > 0) {%>
+ColorAttributes colorAttrs = (ColorAttributes) genElement.getViewmap().find(ColorAttributes.class);
+if (colorAttrs != null && colorAttrs.getForegroundColor() != null && colorAttrs.getForegroundColor().trim().length() > 0) {%>
 		ViewUtil.setStructuralFeatureValue(view, NotationPackage.eINSTANCE.getLineStyle_LineColor(),
-			FigureUtilities.colorToInteger(ColorConstants.<%=fgColour%>));
+			FigureUtilities.colorToInteger(ColorConstants.<%=colorAttrs.getForegroundColor()%>));
 <%
 }
 if (genElement instanceof GenNode) {
 	GenNode genNode = (GenNode) genElement;
-	String bgColour = genNode.getBackgroundColor();
-	if (bgColour != null && bgColour.trim().length() > 0) {%>
+	if (colorAttrs != null && colorAttrs.getBackgroundColor() != null && colorAttrs.getBackgroundColor().trim().length() > 0) {%>
 		ViewUtil.setStructuralFeatureValue(view, NotationPackage.eINSTANCE.getFillStyle_FillColor(),
-			FigureUtilities.colorToInteger(ColorConstants.<%=bgColour%>));
+			FigureUtilities.colorToInteger(ColorConstants.<%=colorAttrs.getBackgroundColor()%>));
 <%
 	}
 	if (!(genNode instanceof GenChildNode)) {

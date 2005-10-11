@@ -36,7 +36,6 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getDomainMetaClass <em>Domain Meta Class</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getBackgroundColor <em>Background Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getChildContainers <em>Child Containers</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getChildNodes <em>Child Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getChildContainersPlacement <em>Child Containers Placement</em>}</li>
@@ -55,26 +54,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 	 * @ordered
 	 */
 	protected GenClass domainMetaClass = null;
-
-	/**
-	 * The default value of the '{@link #getBackgroundColor() <em>Background Color</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBackgroundColor()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String BACKGROUND_COLOR_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getBackgroundColor() <em>Background Color</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBackgroundColor()
-	 * @generated
-	 * @ordered
-	 */
-	protected String backgroundColor = BACKGROUND_COLOR_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getChildContainers() <em>Child Containers</em>}' containment reference list.
@@ -180,27 +159,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 		domainMetaClass = newDomainMetaClass;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS, oldDomainMetaClass, domainMetaClass));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getBackgroundColor() {
-		return backgroundColor;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setBackgroundColor(String newBackgroundColor) {
-		String oldBackgroundColor = backgroundColor;
-		backgroundColor = newBackgroundColor;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NODE__BACKGROUND_COLOR, oldBackgroundColor, backgroundColor));
 	}
 
 	/**
@@ -330,8 +288,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__DOMAIN_NAME_FEATURE:
 				if (resolve) return getDomainNameFeature();
 				return basicGetDomainNameFeature();
-			case GMFGenPackage.GEN_NODE__FOREGROUND_COLOR:
-				return getForegroundColor();
 			case GMFGenPackage.GEN_NODE__CONTAINMENT_META_FEATURE:
 				if (resolve) return getContainmentMetaFeature();
 				return basicGetContainmentMetaFeature();
@@ -344,8 +300,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
 				if (resolve) return getDomainMetaClass();
 				return basicGetDomainMetaClass();
-			case GMFGenPackage.GEN_NODE__BACKGROUND_COLOR:
-				return getBackgroundColor();
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
 				return getChildContainers();
 			case GMFGenPackage.GEN_NODE__CHILD_NODES:
@@ -375,9 +329,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__DOMAIN_NAME_FEATURE:
 				setDomainNameFeature((GenFeature)newValue);
 				return;
-			case GMFGenPackage.GEN_NODE__FOREGROUND_COLOR:
-				setForegroundColor((String)newValue);
-				return;
 			case GMFGenPackage.GEN_NODE__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((GenFeature)newValue);
 				return;
@@ -389,9 +340,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return;
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
 				setDomainMetaClass((GenClass)newValue);
-				return;
-			case GMFGenPackage.GEN_NODE__BACKGROUND_COLOR:
-				setBackgroundColor((String)newValue);
 				return;
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
 				getChildContainers().clear();
@@ -427,9 +375,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__DOMAIN_NAME_FEATURE:
 				setDomainNameFeature((GenFeature)null);
 				return;
-			case GMFGenPackage.GEN_NODE__FOREGROUND_COLOR:
-				setForegroundColor(FOREGROUND_COLOR_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_NODE__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((GenFeature)null);
 				return;
@@ -441,9 +386,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return;
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
 				setDomainMetaClass((GenClass)null);
-				return;
-			case GMFGenPackage.GEN_NODE__BACKGROUND_COLOR:
-				setBackgroundColor(BACKGROUND_COLOR_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
 				getChildContainers().clear();
@@ -473,8 +415,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
 			case GMFGenPackage.GEN_NODE__DOMAIN_NAME_FEATURE:
 				return domainNameFeature != null;
-			case GMFGenPackage.GEN_NODE__FOREGROUND_COLOR:
-				return FOREGROUND_COLOR_EDEFAULT == null ? foregroundColor != null : !FOREGROUND_COLOR_EDEFAULT.equals(foregroundColor);
 			case GMFGenPackage.GEN_NODE__CONTAINMENT_META_FEATURE:
 				return containmentMetaFeature != null;
 			case GMFGenPackage.GEN_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
@@ -485,8 +425,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
 				return domainMetaClass != null;
-			case GMFGenPackage.GEN_NODE__BACKGROUND_COLOR:
-				return BACKGROUND_COLOR_EDEFAULT == null ? backgroundColor != null : !BACKGROUND_COLOR_EDEFAULT.equals(backgroundColor);
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
 				return childContainers != null && !childContainers.isEmpty();
 			case GMFGenPackage.GEN_NODE__CHILD_NODES:
@@ -506,9 +444,7 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (backgroundColor: ");
-		result.append(backgroundColor);
-		result.append(", childContainersPlacement: ");
+		result.append(" (childContainersPlacement: ");
 		result.append(childContainersPlacement);
 		result.append(')');
 		return result.toString();

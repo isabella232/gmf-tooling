@@ -7,6 +7,7 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -72,6 +73,21 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 			attributes = new EObjectContainmentEList(Attributes.class, this, GMFGenPackage.VIEWMAP__ATTRIBUTES);
 		}
 		return attributes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public Attributes find(Class attributesClass) {
+		for (Iterator it = getAttributes().iterator(); it.hasNext(); ) {
+			Attributes next = (Attributes) it.next();
+			if (attributesClass.isInstance(next)) {
+				return next;
+			}
+		}
+		return null;
 	}
 
 	/**

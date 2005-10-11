@@ -181,8 +181,6 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_NAME_FEATURE:
 				if (resolve) return getDomainNameFeature();
 				return basicGetDomainNameFeature();
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__FOREGROUND_COLOR:
-				return getForegroundColor();
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__CONTAINMENT_META_FEATURE:
 				if (resolve) return getContainmentMetaFeature();
 				return basicGetContainmentMetaFeature();
@@ -222,9 +220,6 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_NAME_FEATURE:
 				setDomainNameFeature((GenFeature)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__FOREGROUND_COLOR:
-				setForegroundColor((String)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((GenFeature)newValue);
@@ -268,9 +263,6 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_NAME_FEATURE:
 				setDomainNameFeature((GenFeature)null);
 				return;
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__FOREGROUND_COLOR:
-				setForegroundColor(FOREGROUND_COLOR_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((GenFeature)null);
 				return;
@@ -308,8 +300,6 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_NAME_FEATURE:
 				return domainNameFeature != null;
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__FOREGROUND_COLOR:
-				return FOREGROUND_COLOR_EDEFAULT == null ? foregroundColor != null : !FOREGROUND_COLOR_EDEFAULT.equals(foregroundColor);
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__CONTAINMENT_META_FEATURE:
 				return containmentMetaFeature != null;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME:

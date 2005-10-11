@@ -21,7 +21,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getDomainNameFeature <em>Domain Name Feature</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getForegroundColor <em>Foreground Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getContainmentMetaFeature <em>Containment Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getViewmap <em>Viewmap</em>}</li>
@@ -58,32 +57,6 @@ public interface GenBaseElement extends GenCommonBase{
 	 * @generated
 	 */
 	void setDomainNameFeature(GenFeature value);
-
-	/**
-	 * Returns the value of the '<em><b>Foreground Color</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Foreground Color</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Foreground Color</em>' attribute.
-	 * @see #setForegroundColor(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenBaseElement_ForegroundColor()
-	 * @model
-	 * @generated
-	 */
-	String getForegroundColor();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getForegroundColor <em>Foreground Color</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Foreground Color</em>' attribute.
-	 * @see #getForegroundColor()
-	 * @generated
-	 */
-	void setForegroundColor(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Containment Meta Feature</b></em>' reference.

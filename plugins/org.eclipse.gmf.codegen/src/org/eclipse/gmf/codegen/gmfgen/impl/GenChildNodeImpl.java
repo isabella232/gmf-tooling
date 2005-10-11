@@ -247,8 +247,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_NAME_FEATURE:
 				if (resolve) return getDomainNameFeature();
 				return basicGetDomainNameFeature();
-			case GMFGenPackage.GEN_CHILD_NODE__FOREGROUND_COLOR:
-				return getForegroundColor();
 			case GMFGenPackage.GEN_CHILD_NODE__CONTAINMENT_META_FEATURE:
 				if (resolve) return getContainmentMetaFeature();
 				return basicGetContainmentMetaFeature();
@@ -261,8 +259,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_META_CLASS:
 				if (resolve) return getDomainMetaClass();
 				return basicGetDomainMetaClass();
-			case GMFGenPackage.GEN_CHILD_NODE__BACKGROUND_COLOR:
-				return getBackgroundColor();
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS:
 				return getChildContainers();
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_NODES:
@@ -299,9 +295,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_NAME_FEATURE:
 				setDomainNameFeature((GenFeature)newValue);
 				return;
-			case GMFGenPackage.GEN_CHILD_NODE__FOREGROUND_COLOR:
-				setForegroundColor((String)newValue);
-				return;
 			case GMFGenPackage.GEN_CHILD_NODE__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((GenFeature)newValue);
 				return;
@@ -313,9 +306,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_META_CLASS:
 				setDomainMetaClass((GenClass)newValue);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__BACKGROUND_COLOR:
-				setBackgroundColor((String)newValue);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS:
 				getChildContainers().clear();
@@ -357,9 +347,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_NAME_FEATURE:
 				setDomainNameFeature((GenFeature)null);
 				return;
-			case GMFGenPackage.GEN_CHILD_NODE__FOREGROUND_COLOR:
-				setForegroundColor(FOREGROUND_COLOR_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_CHILD_NODE__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((GenFeature)null);
 				return;
@@ -371,9 +358,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_META_CLASS:
 				setDomainMetaClass((GenClass)null);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__BACKGROUND_COLOR:
-				setBackgroundColor(BACKGROUND_COLOR_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS:
 				getChildContainers().clear();
@@ -409,8 +393,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_NAME_FEATURE:
 				return domainNameFeature != null;
-			case GMFGenPackage.GEN_CHILD_NODE__FOREGROUND_COLOR:
-				return FOREGROUND_COLOR_EDEFAULT == null ? foregroundColor != null : !FOREGROUND_COLOR_EDEFAULT.equals(foregroundColor);
 			case GMFGenPackage.GEN_CHILD_NODE__CONTAINMENT_META_FEATURE:
 				return containmentMetaFeature != null;
 			case GMFGenPackage.GEN_CHILD_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
@@ -421,8 +403,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_META_CLASS:
 				return domainMetaClass != null;
-			case GMFGenPackage.GEN_CHILD_NODE__BACKGROUND_COLOR:
-				return BACKGROUND_COLOR_EDEFAULT == null ? backgroundColor != null : !BACKGROUND_COLOR_EDEFAULT.equals(backgroundColor);
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS:
 				return childContainers != null && !childContainers.isEmpty();
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_NODES:

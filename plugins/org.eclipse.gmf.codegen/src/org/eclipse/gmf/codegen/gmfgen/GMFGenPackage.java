@@ -380,22 +380,13 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE = GEN_COMMON_BASE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Foreground Color</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_BASE_ELEMENT__FOREGROUND_COLOR = GEN_COMMON_BASE_FEATURE_COUNT + 1;
-
-	/**
 	 * The feature id for the '<em><b>Containment Meta Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE = GEN_COMMON_BASE_FEATURE_COUNT + 2;
+	int GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE = GEN_COMMON_BASE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Notation View Factory Class Name</b></em>' attribute.
@@ -404,7 +395,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 3;
+	int GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Viewmap</b></em>' containment reference.
@@ -413,7 +404,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_BASE_ELEMENT__VIEWMAP = GEN_COMMON_BASE_FEATURE_COUNT + 4;
+	int GEN_BASE_ELEMENT__VIEWMAP = GEN_COMMON_BASE_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the the '<em>Gen Base Element</em>' class.
@@ -422,7 +413,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_BASE_ELEMENT_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 5;
+	int GEN_BASE_ELEMENT_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl <em>Gen Node</em>}' class.
@@ -471,15 +462,6 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_NODE__DOMAIN_NAME_FEATURE = GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE;
 
 	/**
-	 * The feature id for the '<em><b>Foreground Color</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NODE__FOREGROUND_COLOR = GEN_BASE_ELEMENT__FOREGROUND_COLOR;
-
-	/**
 	 * The feature id for the '<em><b>Containment Meta Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -525,22 +507,13 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_NODE__DOMAIN_META_CLASS = GEN_BASE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Background Color</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NODE__BACKGROUND_COLOR = GEN_BASE_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>Child Containers</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE__CHILD_CONTAINERS = GEN_BASE_ELEMENT_FEATURE_COUNT + 3;
+	int GEN_NODE__CHILD_CONTAINERS = GEN_BASE_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Child Nodes</b></em>' containment reference list.
@@ -549,7 +522,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE__CHILD_NODES = GEN_BASE_ELEMENT_FEATURE_COUNT + 4;
+	int GEN_NODE__CHILD_NODES = GEN_BASE_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Child Containers Placement</b></em>' attribute.
@@ -558,7 +531,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE__CHILD_CONTAINERS_PLACEMENT = GEN_BASE_ELEMENT_FEATURE_COUNT + 5;
+	int GEN_NODE__CHILD_CONTAINERS_PLACEMENT = GEN_BASE_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the the '<em>Gen Node</em>' class.
@@ -567,7 +540,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE_FEATURE_COUNT = GEN_BASE_ELEMENT_FEATURE_COUNT + 6;
+	int GEN_NODE_FEATURE_COUNT = GEN_BASE_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildNodeImpl <em>Gen Child Node</em>}' class.
@@ -725,15 +698,6 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_CHILD_NODE__DOMAIN_NAME_FEATURE = GEN_NODE__DOMAIN_NAME_FEATURE;
 
 	/**
-	 * The feature id for the '<em><b>Foreground Color</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_NODE__FOREGROUND_COLOR = GEN_NODE__FOREGROUND_COLOR;
-
-	/**
 	 * The feature id for the '<em><b>Containment Meta Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -777,15 +741,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @ordered
 	 */
 	int GEN_CHILD_NODE__DOMAIN_META_CLASS = GEN_NODE__DOMAIN_META_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Background Color</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_NODE__BACKGROUND_COLOR = GEN_NODE__BACKGROUND_COLOR;
 
 	/**
 	 * The feature id for the '<em><b>Child Containers</b></em>' containment reference list.
@@ -897,15 +852,6 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_LINK__DOMAIN_NAME_FEATURE = GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE;
 
 	/**
-	 * The feature id for the '<em><b>Foreground Color</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK__FOREGROUND_COLOR = GEN_BASE_ELEMENT__FOREGROUND_COLOR;
-
-	/**
 	 * The feature id for the '<em><b>Containment Meta Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1013,15 +959,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @ordered
 	 */
 	int GEN_LINK_WITH_CLASS__DOMAIN_NAME_FEATURE = GEN_LINK__DOMAIN_NAME_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Foreground Color</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK_WITH_CLASS__FOREGROUND_COLOR = GEN_LINK__FOREGROUND_COLOR;
 
 	/**
 	 * The feature id for the '<em><b>Containment Meta Feature</b></em>' reference.
@@ -1140,15 +1077,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @ordered
 	 */
 	int GEN_LINK_REFERENCE_ONLY__DOMAIN_NAME_FEATURE = GEN_LINK__DOMAIN_NAME_FEATURE;
-
-	/**
-	 * The feature id for the '<em><b>Foreground Color</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_LINK_REFERENCE_ONLY__FOREGROUND_COLOR = GEN_LINK__FOREGROUND_COLOR;
 
 	/**
 	 * The feature id for the '<em><b>Containment Meta Feature</b></em>' reference.
@@ -1276,7 +1204,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getViewmap()
 	 * @generated
 	 */
-	int VIEWMAP = 13;
+	int VIEWMAP = 14;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.Attributes <em>Attributes</em>}' class.
@@ -1298,6 +1226,43 @@ public interface GMFGenPackage extends EPackage{
 	int ATTRIBUTES_FEATURE_COUNT = 0;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.ColorAttributesImpl <em>Color Attributes</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.ColorAttributesImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getColorAttributes()
+	 * @generated
+	 */
+	int COLOR_ATTRIBUTES = 11;
+
+	/**
+	 * The feature id for the '<em><b>Foreground Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLOR_ATTRIBUTES__FOREGROUND_COLOR = ATTRIBUTES_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Background Color</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLOR_ATTRIBUTES__BACKGROUND_COLOR = ATTRIBUTES_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the the '<em>Color Attributes</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLOR_ATTRIBUTES_FEATURE_COUNT = ATTRIBUTES_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.ShapeAttributesImpl <em>Shape Attributes</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1305,7 +1270,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getShapeAttributes()
 	 * @generated
 	 */
-	int SHAPE_ATTRIBUTES = 11;
+	int SHAPE_ATTRIBUTES = 12;
 
 	/**
 	 * The feature id for the '<em><b>Line Width</b></em>' attribute.
@@ -1342,7 +1307,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getDefaultSizeAttributes()
 	 * @generated
 	 */
-	int DEFAULT_SIZE_ATTRIBUTES = 12;
+	int DEFAULT_SIZE_ATTRIBUTES = 13;
 
 	/**
 	 * The feature id for the '<em><b>Width</b></em>' attribute.
@@ -1397,7 +1362,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getFigureViewmap()
 	 * @generated
 	 */
-	int FIGURE_VIEWMAP = 14;
+	int FIGURE_VIEWMAP = 15;
 
 	/**
 	 * The number of structural features of the the '<em>Figure Viewmap</em>' class.
@@ -1416,7 +1381,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getBasicNodeViewmap()
 	 * @generated
 	 */
-	int BASIC_NODE_VIEWMAP = 15;
+	int BASIC_NODE_VIEWMAP = 16;
 
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -1453,7 +1418,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getDecoratedConnectionViewmap()
 	 * @generated
 	 */
-	int DECORATED_CONNECTION_VIEWMAP = 16;
+	int DECORATED_CONNECTION_VIEWMAP = 17;
 
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -1508,7 +1473,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkDecoration()
 	 * @generated
 	 */
-	int LINK_DECORATION = 17;
+	int LINK_DECORATION = 18;
 
 	/**
 	 * The feature id for the '<em><b>Figure Qualified Class Name</b></em>' attribute.
@@ -1536,7 +1501,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getPalette()
 	 * @generated
 	 */
-	int PALETTE = 18;
+	int PALETTE = 19;
 
 	/**
 	 * The feature id for the '<em><b>Diagram</b></em>' container reference.
@@ -1609,7 +1574,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getEntryBase()
 	 * @generated
 	 */
-	int ENTRY_BASE = 19;
+	int ENTRY_BASE = 20;
 
 	/**
 	 * The feature id for the '<em><b>Order</b></em>' attribute.
@@ -1673,7 +1638,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getToolEntry()
 	 * @generated
 	 */
-	int TOOL_ENTRY = 20;
+	int TOOL_ENTRY = 21;
 
 	/**
 	 * The feature id for the '<em><b>Order</b></em>' attribute.
@@ -1746,7 +1711,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getNodeEntry()
 	 * @generated
 	 */
-	int NODE_ENTRY = 21;
+	int NODE_ENTRY = 22;
 
 	/**
 	 * The feature id for the '<em><b>Order</b></em>' attribute.
@@ -1837,7 +1802,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkEntry()
 	 * @generated
 	 */
-	int LINK_ENTRY = 22;
+	int LINK_ENTRY = 23;
 
 	/**
 	 * The feature id for the '<em><b>Order</b></em>' attribute.
@@ -1928,7 +1893,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getToolGroup()
 	 * @generated
 	 */
-	int TOOL_GROUP = 23;
+	int TOOL_GROUP = 24;
 
 	/**
 	 * The feature id for the '<em><b>Order</b></em>' attribute.
@@ -2019,7 +1984,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getCompartmentPlacementKind()
 	 * @generated
 	 */
-	int COMPARTMENT_PLACEMENT_KIND = 24;
+	int COMPARTMENT_PLACEMENT_KIND = 25;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind <em>Compartment Layout Kind</em>}' enum.
@@ -2029,7 +1994,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getCompartmentLayoutKind()
 	 * @generated
 	 */
-	int COMPARTMENT_LAYOUT_KIND = 25;
+	int COMPARTMENT_LAYOUT_KIND = 26;
 
 	/**
 	 * The meta object id for the '<em>String Array</em>' data type.
@@ -2038,7 +2003,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getStringArray()
 	 * @generated
 	 */
-	int STRING_ARRAY = 26;
+	int STRING_ARRAY = 27;
 
 
 	/**
@@ -2336,17 +2301,6 @@ public interface GMFGenPackage extends EPackage{
 	EReference getGenBaseElement_DomainNameFeature();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getForegroundColor <em>Foreground Color</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Foreground Color</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getForegroundColor()
-	 * @see #getGenBaseElement()
-	 * @generated
-	 */
-	EAttribute getGenBaseElement_ForegroundColor();
-
-	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getContainmentMetaFeature <em>Containment Meta Feature</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2410,17 +2364,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getGenNode_DomainMetaClass();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getBackgroundColor <em>Background Color</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Background Color</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenNode#getBackgroundColor()
-	 * @see #getGenNode()
-	 * @generated
-	 */
-	EAttribute getGenNode_BackgroundColor();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getChildContainers <em>Child Containers</em>}'.
@@ -2743,6 +2686,38 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 */
 	EClass getAttributes();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.ColorAttributes <em>Color Attributes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Color Attributes</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ColorAttributes
+	 * @generated
+	 */
+	EClass getColorAttributes();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.ColorAttributes#getForegroundColor <em>Foreground Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Foreground Color</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ColorAttributes#getForegroundColor()
+	 * @see #getColorAttributes()
+	 * @generated
+	 */
+	EAttribute getColorAttributes_ForegroundColor();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.ColorAttributes#getBackgroundColor <em>Background Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Background Color</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ColorAttributes#getBackgroundColor()
+	 * @see #getColorAttributes()
+	 * @generated
+	 */
+	EAttribute getColorAttributes_BackgroundColor();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.ShapeAttributes <em>Shape Attributes</em>}'.

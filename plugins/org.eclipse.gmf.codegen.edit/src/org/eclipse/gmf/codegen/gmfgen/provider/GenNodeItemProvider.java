@@ -62,7 +62,6 @@ public class GenNodeItemProvider
 			super.getPropertyDescriptors(object);
 
 			addDomainMetaClassPropertyDescriptor(object);
-			addBackgroundColorPropertyDescriptor(object);
 			addChildContainersPlacementPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -84,26 +83,6 @@ public class GenNodeItemProvider
 				 GMFGenPackage.eINSTANCE.getGenNode_DomainMetaClass(),
 				 true,
 				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Background Color feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addBackgroundColorPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenNode_backgroundColor_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenNode_backgroundColor_feature", "_UI_GenNode_type"),
-				 GMFGenPackage.eINSTANCE.getGenNode_BackgroundColor(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -191,7 +170,6 @@ public class GenNodeItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenNode.class)) {
-			case GMFGenPackage.GEN_NODE__BACKGROUND_COLOR:
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

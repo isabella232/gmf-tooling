@@ -63,6 +63,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_LINK_WITH_CLASS: return createGenLinkWithClass();
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY: return createGenLinkReferenceOnly();
 			case GMFGenPackage.LINK_LABEL: return createLinkLabel();
+			case GMFGenPackage.COLOR_ATTRIBUTES: return createColorAttributes();
 			case GMFGenPackage.SHAPE_ATTRIBUTES: return createShapeAttributes();
 			case GMFGenPackage.DEFAULT_SIZE_ATTRIBUTES: return createDefaultSizeAttributes();
 			case GMFGenPackage.BASIC_NODE_VIEWMAP: return createBasicNodeViewmap();
@@ -187,6 +188,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public LinkLabel createLinkLabel() {
 		LinkLabelImpl linkLabel = new LinkLabelImpl();
 		return linkLabel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ColorAttributes createColorAttributes() {
+		ColorAttributesImpl colorAttributes = new ColorAttributesImpl();
+		return colorAttributes;
 	}
 
 	/**

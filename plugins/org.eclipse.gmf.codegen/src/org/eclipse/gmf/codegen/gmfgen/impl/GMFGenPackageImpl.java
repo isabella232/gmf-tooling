@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.emf.ecore.impl.EcorePackageImpl;
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
 import org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap;
+import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind;
 import org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap;
@@ -136,6 +137,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass attributesEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass colorAttributesEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -562,17 +570,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenBaseElement_ForegroundColor() {
-		return (EAttribute)genBaseElementEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getGenBaseElement_ContainmentMetaFeature() {
-		return (EReference)genBaseElementEClass.getEStructuralFeatures().get(2);
+		return (EReference)genBaseElementEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -581,7 +580,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenBaseElement_NotationViewFactoryClassName() {
-		return (EAttribute)genBaseElementEClass.getEStructuralFeatures().get(3);
+		return (EAttribute)genBaseElementEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -590,7 +589,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenBaseElement_Viewmap() {
-		return (EReference)genBaseElementEClass.getEStructuralFeatures().get(4);
+		return (EReference)genBaseElementEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -625,17 +624,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenNode_BackgroundColor() {
-		return (EAttribute)genNodeEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getGenNode_ChildContainers() {
-		return (EReference)genNodeEClass.getEStructuralFeatures().get(3);
+		return (EReference)genNodeEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -644,7 +634,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNode_ChildNodes() {
-		return (EReference)genNodeEClass.getEStructuralFeatures().get(4);
+		return (EReference)genNodeEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -653,7 +643,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNode_ChildContainersPlacement() {
-		return (EAttribute)genNodeEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)genNodeEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -897,6 +887,33 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getAttributes() {
 		return attributesEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getColorAttributes() {
+		return colorAttributesEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getColorAttributes_ForegroundColor() {
+		return (EAttribute)colorAttributesEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getColorAttributes_BackgroundColor() {
+		return (EAttribute)colorAttributesEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1343,7 +1360,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		genBaseElementEClass = createEClass(GEN_BASE_ELEMENT);
 		createEReference(genBaseElementEClass, GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE);
-		createEAttribute(genBaseElementEClass, GEN_BASE_ELEMENT__FOREGROUND_COLOR);
 		createEReference(genBaseElementEClass, GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE);
 		createEAttribute(genBaseElementEClass, GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME);
 		createEReference(genBaseElementEClass, GEN_BASE_ELEMENT__VIEWMAP);
@@ -1351,7 +1367,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genNodeEClass = createEClass(GEN_NODE);
 		createEReference(genNodeEClass, GEN_NODE__DIAGRAM);
 		createEReference(genNodeEClass, GEN_NODE__DOMAIN_META_CLASS);
-		createEAttribute(genNodeEClass, GEN_NODE__BACKGROUND_COLOR);
 		createEReference(genNodeEClass, GEN_NODE__CHILD_CONTAINERS);
 		createEReference(genNodeEClass, GEN_NODE__CHILD_NODES);
 		createEAttribute(genNodeEClass, GEN_NODE__CHILD_CONTAINERS_PLACEMENT);
@@ -1387,6 +1402,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(linkLabelEClass, LINK_LABEL__LINK);
 
 		attributesEClass = createEClass(ATTRIBUTES);
+
+		colorAttributesEClass = createEClass(COLOR_ATTRIBUTES);
+		createEAttribute(colorAttributesEClass, COLOR_ATTRIBUTES__FOREGROUND_COLOR);
+		createEAttribute(colorAttributesEClass, COLOR_ATTRIBUTES__BACKGROUND_COLOR);
 
 		shapeAttributesEClass = createEClass(SHAPE_ATTRIBUTES);
 		createEAttribute(shapeAttributesEClass, SHAPE_ATTRIBUTES__LINE_WIDTH);
@@ -1486,6 +1505,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genLinkEClass.getESuperTypes().add(this.getGenBaseElement());
 		genLinkWithClassEClass.getESuperTypes().add(this.getGenLink());
 		genLinkReferenceOnlyEClass.getESuperTypes().add(this.getGenLink());
+		colorAttributesEClass.getESuperTypes().add(this.getAttributes());
 		shapeAttributesEClass.getESuperTypes().add(this.getAttributes());
 		defaultSizeAttributesEClass.getESuperTypes().add(this.getAttributes());
 		basicNodeViewmapEClass.getESuperTypes().add(this.getViewmap());
@@ -1553,7 +1573,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(genBaseElementEClass, GenBaseElement.class, "GenBaseElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenBaseElement_DomainNameFeature(), theGenModelPackage.getGenFeature(), null, "domainNameFeature", null, 0, 1, GenBaseElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenBaseElement_ForegroundColor(), ecorePackage.getEString(), "foregroundColor", null, 0, 1, GenBaseElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenBaseElement_ContainmentMetaFeature(), theGenModelPackage.getGenFeature(), null, "containmentMetaFeature", null, 0, 1, GenBaseElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenBaseElement_NotationViewFactoryClassName(), ecorePackage.getEString(), "notationViewFactoryClassName", null, 0, 1, GenBaseElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenBaseElement_Viewmap(), this.getViewmap(), null, "viewmap", null, 1, 1, GenBaseElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1563,7 +1582,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(genNodeEClass, GenNode.class, "GenNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenNode_Diagram(), this.getGenDiagram(), this.getGenDiagram_Nodes(), "diagram", null, 1, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenNode_DomainMetaClass(), theGenModelPackage.getGenClass(), null, "domainMetaClass", null, 1, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNode_BackgroundColor(), ecorePackage.getEString(), "backgroundColor", null, 0, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenNode_ChildContainers(), this.getGenChildContainer(), this.getGenChildContainer_ParentNode(), "childContainers", null, 0, -1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenNode_ChildNodes(), this.getGenChildNode(), this.getGenChildNode_ParentNode(), "childNodes", null, 0, -1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNode_ChildContainersPlacement(), this.getCompartmentPlacementKind(), "childContainersPlacement", "TOOLBAR", 0, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1600,6 +1618,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(attributesEClass, Attributes.class, "Attributes", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		initEClass(colorAttributesEClass, ColorAttributes.class, "ColorAttributes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getColorAttributes_ForegroundColor(), ecorePackage.getEString(), "foregroundColor", null, 0, 1, ColorAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getColorAttributes_BackgroundColor(), ecorePackage.getEString(), "backgroundColor", null, 0, 1, ColorAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(shapeAttributesEClass, ShapeAttributes.class, "ShapeAttributes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getShapeAttributes_LineWidth(), ecorePackage.getEInt(), "lineWidth", null, 0, 1, ShapeAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getShapeAttributes_LineStyle(), ecorePackage.getEString(), "lineStyle", "LINE_SOLID", 0, 1, ShapeAttributes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1610,6 +1632,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(viewmapEClass, Viewmap.class, "Viewmap", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getViewmap_Attributes(), this.getAttributes(), null, "attributes", null, 0, -1, Viewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		op = addEOperation(viewmapEClass, this.getAttributes(), "find");
+		addEParameter(op, ecorePackage.getEJavaClass(), "attributesClass");
 
 		initEClass(figureViewmapEClass, FigureViewmap.class, "FigureViewmap", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1697,7 +1722,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints"
-		   });																													
+		   });																														
 	}
 
 	/**
@@ -1737,7 +1762,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "super.domainLinkTargetFeature.eContainingClass \'equals to\' or \'superclass of\' domainMetaClass"
-		   });										
+		   });											
 	}
 
 } //GMFGenPackageImpl

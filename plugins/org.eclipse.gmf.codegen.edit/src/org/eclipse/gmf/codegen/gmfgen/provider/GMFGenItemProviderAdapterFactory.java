@@ -228,6 +228,28 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ColorAttributes} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ColorAttributesItemProvider colorAttributesItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ColorAttributes}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createColorAttributesAdapter() {
+		if (colorAttributesItemProvider == null) {
+			colorAttributesItemProvider = new ColorAttributesItemProvider(this);
+		}
+
+		return colorAttributesItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ShapeAttributes} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -528,6 +550,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genLinkWithClassItemProvider != null) genLinkWithClassItemProvider.dispose();
 		if (genLinkReferenceOnlyItemProvider != null) genLinkReferenceOnlyItemProvider.dispose();
 		if (linkLabelItemProvider != null) linkLabelItemProvider.dispose();
+		if (colorAttributesItemProvider != null) colorAttributesItemProvider.dispose();
 		if (shapeAttributesItemProvider != null) shapeAttributesItemProvider.dispose();
 		if (defaultSizeAttributesItemProvider != null) defaultSizeAttributesItemProvider.dispose();
 		if (basicNodeViewmapItemProvider != null) basicNodeViewmapItemProvider.dispose();

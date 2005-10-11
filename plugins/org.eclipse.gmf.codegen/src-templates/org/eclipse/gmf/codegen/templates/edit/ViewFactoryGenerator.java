@@ -62,19 +62,18 @@ public class ViewFactoryGenerator
     }
     stringBuffer.append(TEXT_9);
     
-String fgColour = genElement.getForegroundColor();
-if (fgColour != null && fgColour.trim().length() > 0) {
+ColorAttributes colorAttrs = (ColorAttributes) genElement.getViewmap().find(ColorAttributes.class);
+if (colorAttrs != null && colorAttrs.getForegroundColor() != null && colorAttrs.getForegroundColor().trim().length() > 0) {
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(fgColour);
+    stringBuffer.append(colorAttrs.getForegroundColor());
     stringBuffer.append(TEXT_11);
     
 }
 if (genElement instanceof GenNode) {
 	GenNode genNode = (GenNode) genElement;
-	String bgColour = genNode.getBackgroundColor();
-	if (bgColour != null && bgColour.trim().length() > 0) {
+	if (colorAttrs != null && colorAttrs.getBackgroundColor() != null && colorAttrs.getBackgroundColor().trim().length() > 0) {
     stringBuffer.append(TEXT_12);
-    stringBuffer.append(bgColour);
+    stringBuffer.append(colorAttrs.getBackgroundColor());
     stringBuffer.append(TEXT_13);
     
 	}
