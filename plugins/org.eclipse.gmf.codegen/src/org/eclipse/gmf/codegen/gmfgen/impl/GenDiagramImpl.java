@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
@@ -42,7 +41,6 @@ import org.eclipse.gmf.codegen.gmfgen.Palette;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getLinks <em>Links</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPalette <em>Palette</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartsPackageName <em>Edit Parts Package Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCommandsPackageName <em>Commands Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPluginName <em>Plugin Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getProviderName <em>Provider Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPluginID <em>Plugin ID</em>}</li>
@@ -130,26 +128,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String editPartsPackageName = EDIT_PARTS_PACKAGE_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getCommandsPackageName() <em>Commands Package Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCommandsPackageName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String COMMANDS_PACKAGE_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getCommandsPackageName() <em>Commands Package Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCommandsPackageName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String commandsPackageName = COMMANDS_PACKAGE_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPluginName() <em>Plugin Name</em>}' attribute.
@@ -581,35 +559,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME, oldEditPartsPackageName, editPartsPackageName));
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getCommandsPackageNameGen() {
-		return commandsPackageName;
-	}
-
-	public String getCommandsPackageName() {
-		String value = getCommandsPackageNameGen();
-		if (value == null || value.length() == 0) {
-			return getPackageNamePrefix() + ".edit.commands";
-		}
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setCommandsPackageName(String newCommandsPackageName) {
-		String oldCommandsPackageName = commandsPackageName;
-		commandsPackageName = newCommandsPackageName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__COMMANDS_PACKAGE_NAME, oldCommandsPackageName, commandsPackageName));
-	}
-
 	public String getClassNamePrefix() {
 		String prefix;
 		if (getDomainDiagramElement() != null) {
@@ -961,28 +910,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenClass findGenClass(EClass domainMetaClass) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenFeature findGenFeature(EStructuralFeature domainMetaFeature) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String[] getRequiredPluginIDs() {
@@ -1073,6 +1000,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return new Integer(getVisualID());
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_CLASS_NAME:
 				return getEditPartClassName();
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return getNotationViewFactoryClassName();
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
 				if (resolve) return getDomainMetaModel();
 				return basicGetDomainMetaModel();
@@ -1087,8 +1016,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getPalette();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 				return getEditPartsPackageName();
-			case GMFGenPackage.GEN_DIAGRAM__COMMANDS_PACKAGE_NAME:
-				return getCommandsPackageName();
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
 				return getPluginName();
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
@@ -1133,6 +1060,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_CLASS_NAME:
 				setEditPartClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setNotationViewFactoryClassName((String)newValue);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
 				setDomainMetaModel((GenPackage)newValue);
 				return;
@@ -1152,9 +1082,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 				setEditPartsPackageName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__COMMANDS_PACKAGE_NAME:
-				setCommandsPackageName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
 				setPluginName((String)newValue);
@@ -1212,6 +1139,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_CLASS_NAME:
 				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
 				setDomainMetaModel((GenPackage)null);
 				return;
@@ -1229,9 +1159,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 				setEditPartsPackageName(EDIT_PARTS_PACKAGE_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__COMMANDS_PACKAGE_NAME:
-				setCommandsPackageName(COMMANDS_PACKAGE_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
 				setPluginName(PLUGIN_NAME_EDEFAULT);
@@ -1286,6 +1213,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return visualID != VISUAL_ID_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_CLASS_NAME:
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
 				return domainMetaModel != null;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
@@ -1298,8 +1227,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return palette != null;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 				return EDIT_PARTS_PACKAGE_NAME_EDEFAULT == null ? editPartsPackageName != null : !EDIT_PARTS_PACKAGE_NAME_EDEFAULT.equals(editPartsPackageName);
-			case GMFGenPackage.GEN_DIAGRAM__COMMANDS_PACKAGE_NAME:
-				return COMMANDS_PACKAGE_NAME_EDEFAULT == null ? commandsPackageName != null : !COMMANDS_PACKAGE_NAME_EDEFAULT.equals(commandsPackageName);
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
 				return PLUGIN_NAME_EDEFAULT == null ? pluginName != null : !PLUGIN_NAME_EDEFAULT.equals(pluginName);
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
@@ -1339,8 +1266,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (editPartsPackageName: ");
 		result.append(editPartsPackageName);
-		result.append(", commandsPackageName: ");
-		result.append(commandsPackageName);
 		result.append(", pluginName: ");
 		result.append(pluginName);
 		result.append(", providerName: ");

@@ -382,6 +382,8 @@ public class GenChildContainerImpl extends GenCommonBaseImpl implements GenChild
 				return new Integer(getVisualID());
 			case GMFGenPackage.GEN_CHILD_CONTAINER__EDIT_PART_CLASS_NAME:
 				return getEditPartClassName();
+			case GMFGenPackage.GEN_CHILD_CONTAINER__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return getNotationViewFactoryClassName();
 			case GMFGenPackage.GEN_CHILD_CONTAINER__GROUP_ID:
 				return getGroupID();
 			case GMFGenPackage.GEN_CHILD_CONTAINER__TITLE_KEY:
@@ -415,6 +417,9 @@ public class GenChildContainerImpl extends GenCommonBaseImpl implements GenChild
 				return;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__EDIT_PART_CLASS_NAME:
 				setEditPartClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_CHILD_CONTAINER__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setNotationViewFactoryClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__GROUP_ID:
 				setGroupID((String)newValue);
@@ -454,6 +459,9 @@ public class GenChildContainerImpl extends GenCommonBaseImpl implements GenChild
 			case GMFGenPackage.GEN_CHILD_CONTAINER__EDIT_PART_CLASS_NAME:
 				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_CHILD_CONTAINER__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__GROUP_ID:
 				setGroupID(GROUP_ID_EDEFAULT);
 				return;
@@ -489,6 +497,8 @@ public class GenChildContainerImpl extends GenCommonBaseImpl implements GenChild
 				return visualID != VISUAL_ID_EDEFAULT;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__EDIT_PART_CLASS_NAME:
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
+			case GMFGenPackage.GEN_CHILD_CONTAINER__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
 			case GMFGenPackage.GEN_CHILD_CONTAINER__GROUP_ID:
 				return GROUP_ID_EDEFAULT == null ? groupID != null : !GROUP_ID_EDEFAULT.equals(groupID);
 			case GMFGenPackage.GEN_CHILD_CONTAINER__TITLE_KEY:

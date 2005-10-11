@@ -178,14 +178,14 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 				return new Integer(getVisualID());
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__EDIT_PART_CLASS_NAME:
 				return getEditPartClassName();
+			case GMFGenPackage.GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return getNotationViewFactoryClassName();
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_NAME_FEATURE:
 				if (resolve) return getDomainNameFeature();
 				return basicGetDomainNameFeature();
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__CONTAINMENT_META_FEATURE:
 				if (resolve) return getContainmentMetaFeature();
 				return basicGetContainmentMetaFeature();
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				return getNotationViewFactoryClassName();
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__VIEWMAP:
 				return getViewmap();
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DIAGRAM:
@@ -218,14 +218,14 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__EDIT_PART_CLASS_NAME:
 				setEditPartClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setNotationViewFactoryClassName((String)newValue);
+				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_NAME_FEATURE:
 				setDomainNameFeature((GenFeature)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((GenFeature)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				setNotationViewFactoryClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__VIEWMAP:
 				setViewmap((Viewmap)newValue);
@@ -260,14 +260,14 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__EDIT_PART_CLASS_NAME:
 				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_NAME_FEATURE:
 				setDomainNameFeature((GenFeature)null);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((GenFeature)null);
-				return;
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__VIEWMAP:
 				setViewmap((Viewmap)null);
@@ -298,12 +298,12 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 				return visualID != VISUAL_ID_EDEFAULT;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__EDIT_PART_CLASS_NAME:
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
+			case GMFGenPackage.GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DOMAIN_NAME_FEATURE:
 				return domainNameFeature != null;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__CONTAINMENT_META_FEATURE:
 				return containmentMetaFeature != null;
-			case GMFGenPackage.GEN_LINK_WITH_CLASS__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__VIEWMAP:
 				return viewmap != null;
 			case GMFGenPackage.GEN_LINK_WITH_CLASS__DIAGRAM:

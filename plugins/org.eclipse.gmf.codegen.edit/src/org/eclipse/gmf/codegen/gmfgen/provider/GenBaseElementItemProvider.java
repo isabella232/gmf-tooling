@@ -62,7 +62,6 @@ public class GenBaseElementItemProvider
 
 			addDomainNameFeaturePropertyDescriptor(object);
 			addContainmentMetaFeaturePropertyDescriptor(object);
-			addNotationViewFactoryClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -108,26 +107,6 @@ public class GenBaseElementItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Notation View Factory Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNotationViewFactoryClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenBaseElement_notationViewFactoryClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenBaseElement_notationViewFactoryClassName_feature", "_UI_GenBaseElement_type"),
-				 GMFGenPackage.eINSTANCE.getGenBaseElement_NotationViewFactoryClassName(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -167,9 +146,6 @@ public class GenBaseElementItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenBaseElement.class)) {
-			case GMFGenPackage.GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__VIEWMAP:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;

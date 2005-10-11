@@ -27,6 +27,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getDiagramRunTimeClass <em>Diagram Run Time Class</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getVisualID <em>Visual ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getEditPartClassName <em>Edit Part Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -82,6 +83,26 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * @ordered
 	 */
 	protected String editPartClassName = EDIT_PART_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getNotationViewFactoryClassName() <em>Notation View Factory Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNotationViewFactoryClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getNotationViewFactoryClassName() <em>Notation View Factory Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNotationViewFactoryClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String notationViewFactoryClassName = NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -207,6 +228,35 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getNotationViewFactoryClassNameGen() {
+		return notationViewFactoryClassName;
+	}
+
+	public String getNotationViewFactoryClassName() {
+		String name = getNotationViewFactoryClassNameGen();
+		if (name == null || name.trim().length() == 0) {
+			name = getClassNamePrefix() + "ViewFactory"; //$NON-NLS-1$
+		}
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNotationViewFactoryClassName(String newNotationViewFactoryClassName) {
+		String oldNotationViewFactoryClassName = notationViewFactoryClassName;
+		notationViewFactoryClassName = newNotationViewFactoryClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME, oldNotationViewFactoryClassName, notationViewFactoryClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public abstract String getClassNamePrefix();
@@ -232,6 +282,15 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public String getNotationViewFactoryQualifiedClassName() {
+		return getDiagram().getProvidersPackageName() + '.' + getNotationViewFactoryClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public abstract GenDiagram getDiagram();
 
 	/**
@@ -248,6 +307,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return new Integer(getVisualID());
 			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
 				return getEditPartClassName();
+			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return getNotationViewFactoryClassName();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -267,6 +328,9 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return;
 			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
 				setEditPartClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setNotationViewFactoryClassName((String)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -288,6 +352,9 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
 				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -305,6 +372,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return visualID != VISUAL_ID_EDEFAULT;
 			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
+			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
 		}
 		return eDynamicIsSet(eFeature);
 	}
@@ -322,6 +391,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 		result.append(visualID);
 		result.append(", editPartClassName: ");
 		result.append(editPartClassName);
+		result.append(", notationViewFactoryClassName: ");
+		result.append(notationViewFactoryClassName);
 		result.append(')');
 		return result.toString();
 	}
