@@ -1,0 +1,176 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" href="http://www.eclipse.org/default_style.css" type="text/css">
+<title>Eclipse Technology Project</title>
+</head>
+
+<body>
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" width="80%">
+		<p><b><font class=indextop>@type@ Build: @build@</font></b><br>
+		@date@ </p>
+		<p>These downloads are provided under the
+		<a href="http://www.eclipse.org/legal/notice.html">Eclipse.org Software 
+		User Agreement</a>.</p>
+		<p>To view the build notes for this build click <a
+ href="buildNotes.php">here</a>.<br>
+		<p>To view the map file entires for this build, click
+		<a href="directory.txt">here</a>.<br>
+		To view the test results for this build, click 
+		<a href="testResults.php">here</a>.<br>
+		To view the compile logs for this build, click 
+		<a href="testResults.php">here</a>.</p>
+		</td>
+		<td width="28%"><img src="http://www.eclipse.org/gmf/images/gmf_header.gif" height=134 width=347></td>
+	</tr>
+</table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#0080C0"><b>
+		<font face="Arial,Helvetica" color="#FFFFFF">Requirements</font></b></td>
+	</tr>
+</table>
+<table>
+  <tbody>
+    <tr>
+      <td>Eclipse build eclipse-SDK-@eclipseVersion@:</td>
+      <td>(<a href="http://download.eclipse.org/downloads/drops/@eclipseBuildId@">build page</a>) (<a href="@eclipseBaseURL@">download win32 zip</a>)</td>
+    </tr>
+    <tr>
+      <td>EMF build @emfVersion@:</td>
+      <td>(<a href="@emfUpdateSite@">update site</a>)</td>
+    </tr>
+    <tr>
+      <td>GEF Build @gefVersion@:</td>
+      <td>(<a href="@gefUpdateSite@">update site</a>)</td>
+    </tr>
+    <tr>
+      <td>WST Build @wstVersion@:</td>
+      <td>(<a href="@wstUpdateSite@">update site</a>) (Note: required for properties inspector until migrated to Platform)</td>
+    </tr>
+    <tr>
+      <td>UML2 Build @uml2Version@:</td>
+      <td>(<a href="@uml2UpdateSite@">update site</a>) (Note: only needed for unit tests)</td>
+    </tr>
+  </tbody>
+</table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#0080C0"><b>
+		<font face="Arial,Helvetica" color="#FFFFFF">SDK (includes Runtime and source)</font></b></td>
+	</tr>
+</table>
+<table border="0" cellspacing="2" cellpadding="0" width="100%">
+	<tr>
+		<td align="RIGHT" valign="TOP" width="7%">
+		<div align="left">
+			<b>Status</b></div>
+		</td>
+		<td width="34%"><b>Platform</b></td>
+		<td width="59%"><b>Download</b></td>
+		%sdk%
+</table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+</table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#0080C0"><b>
+		<font face="Arial,Helvetica" color="#FFFFFF">Runtime</font></b></td>
+	</tr>
+</table>
+<table border="0" cellspacing="2" cellpadding="0" width="100%">
+	<tr>
+		<td align="RIGHT" valign="TOP" width="7%">
+		<div align="left">
+			<b>Status</b></div>
+		</td>
+		<td width="34%"><b>Platform</b></td>
+		<td width="59%"><b>Download</b></td>
+		%runtime%
+	</tr>
+</table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+</table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#0080C0"><b>
+		<font face="Arial,Helvetica" color="#FFFFFF">Documentation</font></b>
+		</td>
+	</tr>
+</table>
+<table border="0" cellspacing="2" cellpadding="0" width="100%">
+	<tr>
+		<td align="RIGHT" valign="TOP" width="7%">
+		<div align="left">
+			<b>Status</b></div>
+		</td>
+		<td width="34%"><b>Platform</b></td>
+		<td width="59%"><b>Download</b></td>
+		%docs%
+	</tr>
+</table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+</table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#0080C0"><b>
+		<font face="Arial,Helvetica" color="#FFFFFF">Examples (includes source)</font></b>
+		</td>
+	</tr>
+</table>
+<table border="0" cellspacing="2" cellpadding="0" width="100%">
+	<tr>
+		<td align="RIGHT" valign="TOP" width="7%">
+		<div align="left">
+			<b>Status</b></div>
+		</td>
+		<td width="34%"><b>Platform</b></td>
+		<td width="59%"><b>Download</b></td>
+		%examples%
+	</tr>
+</table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+</table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td align="LEFT" valign="TOP" colspan="3" bgcolor="#0080C0"><b>
+		<font face="Arial,Helvetica" color="#FFFFFF">JUnit Plugin Tests</font></b></td>
+	</tr>
+</table>
+<table border="0" cellspacing="2" cellpadding="0" width="100%">
+	<tr>
+		<td align="RIGHT" valign="TOP" width="7%">
+		<div align="left">
+			<b>Status</b></div>
+		</td>
+		<td width="34%"><b>Platform</b></td>
+		<td width="59%"><b>Download</b></td>
+		%tests%
+	</tr>
+</table>
+<table border="0" cellspacing="5" cellpadding="2" width="100%">
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

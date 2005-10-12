@@ -20,6 +20,7 @@
 	<!-- ===================================================================== -->
 
 	<target name="assemble.org.eclipse.gmf.examples">
+		<property name="archiveName" value="GMF-examples-${buildId}.zip"/>
 		<ant antfile="${assembleScriptName}" dir="${buildDirectory}"/>
 	</target>	
 
@@ -176,7 +177,7 @@
 	
 	<target name="installGMFfromZip" unless="usingMirror">
 		<echo message="Installing GMF for testing from zip file..."/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/sdk/org.eclipse.gmf.sdk-${buildId}.zip" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/gmf/org.eclipse.gmf.sdk-${buildId}.zip" />
 	</target>
 
 	<!-- ===================================================================== -->
@@ -248,8 +249,7 @@
 		<antcall target="gatherLogs" />
 		<!-- A temporary directory leftover? -->
 		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
-		<!-- Consolidate artifacts -->
-		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/examples"/>		
+		<antcall target="publish"/>
 		<antcall target="generateUpdateSite"/>
 		<!-- Uninstall GMF from base. -->
 		<echo message="Uninstalling GMF from base..."/>
@@ -293,7 +293,13 @@
 	<!-- ===================================================================== -->
 	<!-- Steps to do to publish the build results -->
 	<!-- ===================================================================== -->
-	<target name="publish">
+	<target name="publish">		
+		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/${buildLabel}"/>
+		<!-- workaround for CC until figure out how to tell CC about buildLabel -->
+		<delete dir="${artifacts}/cc" failonerror="false"/>
+		<copy todir="${artifacts}/cc">
+		    <fileset dir="${artifacts}/${buildLabel}"/>
+		</copy>
 	</target>
 
 	<!-- ===================================================================== -->

@@ -7,7 +7,6 @@
 			<property name="builder" value="${basedir}/../${component}"/>
 		</ant>
 		<antcall target="publishLocal"/>
-		<delete file="${buildDirectory}/label.properties"/>
 	</target>
 	
 	<target name="publishLocal" if="useMirror">
@@ -40,9 +39,9 @@
 
 	<target name="init">
 		<antcall target="clean"/>
-		<touch file="${user.home}/.cvspass" />
-		<antcall target="create.label.properties" />
-		<property file="${buildDirectory}/label.properties" />
+		<mkdir dir="${buildDirectory}" />
+		<touch file="${user.home}/.cvspass" />		
+		<property file="label.properties" />
 		<condition property="mirrorAvailable">
 			<http url="${localUpdateSite}/site.xml"/>
 		</condition>
@@ -56,36 +55,6 @@
 	
 	<target name="clean" if="clean">
 		<delete dir="${buildDirectory}"/>
-	</target>
-
-	<target name="create.label.properties">
-		<mkdir dir="${buildDirectory}" />
-		<tstamp/>
-		<property name="date" value="${DSTAMP}" />
-		<property name="time" value="${TSTAMP}" />
-		<property name="timestamp" value="${date}${time}" />
-		<property name="buildType" value="N" />
-		<property name="buildId" value="${buildType}${date}" />
-
-		<!--this naming convention used by php scripts on download server-->
-		<property name="buildLabel" value="${buildType}-${buildId}-${timestamp}" />
-
-		<!--store the build label information in a file-->
-		<echo file="${buildDirectory}/label.properties" append="true" >
-		buildDirectory=${buildDirectory}
-		</echo>
-		<echo file="${buildDirectory}/label.properties" append="true" >
-		buildType=${buildType}
-		</echo>
-		<echo file="${buildDirectory}/label.properties" append="true" >
-		buildId=${buildId}
-		</echo>
-		<echo file="${buildDirectory}/label.properties" append="true" >
-		timestamp=${timestamp}
-		</echo>
-		<echo file="${buildDirectory}/label.properties" append="true" >
-		buildLabel=${buildLabel}
-		</echo>
 	</target>
 	
 	<target name="help">

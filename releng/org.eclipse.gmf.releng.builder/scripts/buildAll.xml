@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<project default="main" basedir=".">
+
+	<target name="init">
+		<delete file="label.properties"/>
+		<antcall target="create.label.properties" />
+	</target>
+	
+	<target name="main" depends="init">		
+		<echo message="Building runtime..."/>
+	     <ant antfile="build.xml" target="main">
+	           <property name="component" value="runtime"/>
+	           <property name="cleanBase" value="true"/> 
+	     </ant>
+	     <echo message="Building sdk..."/>
+	     <ant antfile="build.xml" target="main">
+	           <property name="component" value="sdk"/>
+	     </ant> 
+	     <echo message="Building examples..."/>
+	     <ant antfile="build.xml" target="main">
+	           <property name="component" value="examples"/>
+	     </ant>
+	     <echo message="Building tests..."/>
+	     <ant antfile="build.xml" target="main">
+	           <property name="component" value="tests"/>
+	           <property name="cleanBase" value="true"/>
+	     </ant>
+	</target>
+	
+	<target name="nightly" depends="init">
+		<echo message="Building runtime..."/>
+	     <ant antfile="build.xml" target="main">
+	           <property name="component" value="runtime"/>
+	           <property name="cleanBase" value="true"/> 
+	           <property name="clean" value="true"/>
+	     </ant>
+	     <echo message="Building sdk..."/>
+	     <ant antfile="build.xml" target="main">
+	           <property name="component" value="sdk"/>
+	           <property name="clean" value="true"/>
+	     </ant> 
+	     <echo message="Building examples..."/>
+	     <ant antfile="build.xml" target="main">
+	           <property name="component" value="examples"/>
+	           <property name="clean" value="true"/>
+	     </ant>
+	     <echo message="Building tests..."/>
+	     <ant antfile="build.xml" target="main">
+	           <property name="component" value="tests"/>
+	           <property name="cleanBase" value="true"/>
+	           <property name="clean" value="true"/>
+	     </ant>
+	     <echo message="Building documentation..."/>
+	     <ant antfile="build.xml" target="main">
+	           <property name="component" value="doc"/>
+	           <property name="clean" value="true"/>
+	     </ant>
+	     <antcall target="publish"/>
+	</target>
+	
+	<target name="create.label.properties">
+		<tstamp/>
+		<property name="date" value="${DSTAMP}" />
+		<property name="time" value="${TSTAMP}" />
+		<property name="timestamp" value="${date}${time}" />
+		<property name="buildType" value="N" />
+		<property name="buildId" value="${buildType}${date}" />
+
+		<!--this naming convention used by php scripts on download server-->
+		<property name="buildLabel" value="${buildType}-${buildId}-${timestamp}" />
+
+		<!--store the build label information in a file-->
+		<echo file="label.properties" append="true" >
+		buildDirectory=${buildDirectory}
+		</echo>
+		<echo file="label.properties" append="true" >
+		buildType=${buildType}
+		</echo>
+		<echo file="label.properties" append="true" >
+		buildId=${buildId}
+		</echo>
+		<echo file="label.properties" append="true" >
+		timestamp=${timestamp}
+		</echo>
+		<echo file="label.properties" append="true" >
+		buildLabel=${buildLabel}
+		</echo>
+	</target>
+	
+	<target name="publish" depends="">
+		<!-- Fake a component, use sdk -->
+		<property name="component" value="sdk"/>
+		<property file="build.properties" />
+		<property file="label.properties" />
+		<property file="${buildRoot}/sdk/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
+		<property name="publish.xml" value="../../org.eclipse.releng.basebuilder/plugins/org.eclipse.build.tools/scripts/publish.xml" />
+
+		<property name="indexFileName" value="index.php" />
+		<property name="result" value="${buildRoot}/artifacts/${buildLabel}" />
+
+		<ant antfile="${publish.xml}" dir="${basedir}">
+			<property name="dropTokenList" value="%sdk%,%runtime%,%examples%,%tests%,%docs%" />
+			<property name="isBuildTested" value="true" />
+		</ant>
+
+		<!-- Copy the directory.txt file to destination for download page -->
+		<copy file="${buildRoot}/sdk/directory.txt" todir="${artifacts}/${buildLabel}"/>
+
+		<replace file="${result}/${indexFileName}">
+		 	<!--  Insert url for supported eclipse drop-->
+			<replacefilter token="@eclipseVersion@" value="${eclipseVersion}"/>
+			<replacefilter token="@eclipseBuildId@" value="${eclipseBuildId}"/>
+			<replacefilter token="@eclipseBaseURL@" value="${eclipseBaseURL}"/>			
+
+		 	<!--  Insert url for supported EMF -->
+			<replacefilter token="@emfVersion@" value="${emfVersion}"/>
+			<replacefilter token="@emfUpdateSite@" value="${emfUpdateSite}"/>		
+
+		 	<!--  Insert url for supported GEF -->
+			<replacefilter token="@gefVersion@" value="${gefVersion}"/>
+			<replacefilter token="@gefUpdateSite@" value="${gefUpdateSite}"/>
+			
+			<!--  Insert url for supported WST -->
+			<replacefilter token="@wstVersion@" value="${wstVersion}"/>
+			<replacefilter token="@wstUpdateSite@" value="${wstUpdateSite}"/>
+			
+			<!--  Insert url for supported UML2 -->
+			<replacefilter token="@uml2Version@" value="${uml2Version}"/>
+			<replacefilter token="@uml2UpdateSite@" value="${uml2UpdateSite}"/>
+		</replace>
+		
+		<!-- Copy to "bldindex.html". This html will be used to reference locally without download counting. This file will not be pushed to main download site. -->
+		<copy file="${result}/${indexFileName}" tofile="${result}/bld${indexFileName}"/>
+	
+		<!-- Replace the base variables to be nothing for bld-index, and the full reroute url for the main index file. -->
+		<replace file="${result}/${indexFileName}" token="@base@" value="http://www.eclipse.org/downloads/download.php?file=/tools/ve/downloads/drops/${buildLabel}/"/>
+		<replace file="${result}/bld${indexFileName}" token="@base@" value=""/>	
+		
+	</target>
+</project>

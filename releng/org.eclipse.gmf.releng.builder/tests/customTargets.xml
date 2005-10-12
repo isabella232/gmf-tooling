@@ -20,6 +20,7 @@
 	<!-- ===================================================================== -->
 
 	<target name="assemble.org.eclipse.gmf.tests">
+		<property name="archiveName" value="GMF-tests-${buildId}.zip"/>
 		<ant antfile="${assembleScriptName}" dir="${buildDirectory}"/>
 	</target>	
 
@@ -199,7 +200,7 @@
 	
 	<target name="installGMFfromZip" unless="usingMirror">
 		<echo message="Installing GMF for testing from zip file..."/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/sdk/org.eclipse.gmf.sdk-${buildId}.zip" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/gmf/GMF-sdk-${buildId}.zip" />
 	</target>
 	
 	<target name="installExamples" unless="examplesExists">	
@@ -217,7 +218,7 @@
 	
 	<target name="installExamplesfromZip" unless="usingMirror">
 		<echo message="Installing GMF Examples for testing from zip file..."/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/examples/org.eclipse.gmf.examples-${buildId}.zip" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/gmf/GMF-examples-${buildId}.zip" />
 	</target>
 
 	<!-- ===================================================================== -->
@@ -288,10 +289,7 @@
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>		
 		<antcall target="gatherLogs" />
 		<!-- A temporary directory leftover? -->
-		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
-		<!-- Consolidate artifacts -->
-		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/tests"/>		
-		<antcall target="generateUpdateSite"/>
+		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>		
 		<!-- Execute tests. -->
 		<antcall target="test"/>
 		<!-- Uninstall GMF from base. -->
@@ -304,6 +302,8 @@
 			<property name="featureId" value="org.eclipse.gmf.examples" />
 			<property name="version" value="${gmfVersion}" />
 		</ant>
+		<antcall target="publish"/>
+		<antcall target="generateUpdateSite"/>
 	</target>
 		
 	<!-- ===================================================================== -->
@@ -363,7 +363,7 @@
 	
 	<target name="installTestsFromZip" unless="usingMirror">
 		<echo message="Installing GMF tests from zip file..."/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/tests/${product}-${buildId}.zip" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/gmf/GMF-tests-${buildId}.zip" />
 	</target>
 	
 	<!-- TODO: easy to uninstall if installed via update manager... need to add removal if installed from zips
@@ -379,7 +379,13 @@
 	<!-- ===================================================================== -->
 	<!-- Steps to do to publish the build results -->
 	<!-- ===================================================================== -->
-	<target name="publish">
+	<target name="publish">		
+		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/${buildLabel}"/>
+		<!-- workaround for CC until figure out how to tell CC about buildLabel -->
+		<delete dir="${artifacts}/cc" failonerror="false"/>
+		<copy todir="${artifacts}/cc">
+		    <fileset dir="${artifacts}/${buildLabel}"/>
+		</copy>
 	</target>
 
 	<!-- ===================================================================== -->

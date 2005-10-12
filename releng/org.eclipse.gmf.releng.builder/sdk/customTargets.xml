@@ -21,6 +21,7 @@
 	<!-- ===================================================================== -->
 
 	<target name="assemble.org.eclipse.gmf.sdk">
+		<property name="archiveName" value="GMF-sdk-${buildId}.zip"/>
 		<ant antfile="${assembleScriptName}" dir="${buildDirectory}"/>
 	</target>
 
@@ -244,8 +245,7 @@
 		<antcall target="gatherLogs" />
 		<!-- A temporary directory leftover? -->
 		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
-		<!-- Consolidate artifacts -->
-		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/sdk"/>
+		<antcall target="publish"/>		
 		<antcall target="generateUpdateSite"/>
 	</target>
 	
@@ -282,7 +282,13 @@
 	<!-- ===================================================================== -->
 	<!-- Steps to do to publish the build results -->
 	<!-- ===================================================================== -->
-	<target name="publish">
+	<target name="publish">		
+		<move file="${buildDirectory}/${buildLabel}" tofile="${artifacts}/${buildLabel}"/>		
+		<!-- workaround for CC until figure out how to tell CC about buildLabel -->
+		<delete dir="${artifacts}/cc" failonerror="false"/>
+		<copy todir="${artifacts}/cc">
+		    <fileset dir="${artifacts}/${buildLabel}"/>
+		</copy>
 	</target>
 
 	<!-- ===================================================================== -->

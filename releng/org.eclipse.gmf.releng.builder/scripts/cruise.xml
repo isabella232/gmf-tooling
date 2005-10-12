@@ -7,55 +7,49 @@
 	<property name="checkout" value="${buildRoot}/checkout" />
 	<property name="logs" value="${buildRoot}/logs" />
 	<property name="artifacts" value="${buildRoot}/artifacts" />
+	<property name="cc.publish" value="${buildRoot}/ccpublish" />
 	
-	<target name="init">
+	<target name="init">	
 		<delete file="${basedir}/cc.properties" failonerror="false"/>
 		<!-- Store the build properties in a file for CruiseControl to pick up. -->
-		<echo file="${basedir}/cc.properties" append="true" >
-		buildRoot=${buildRoot}
+		<echo file="${basedir}/cc.properties" append="true">
+buildRoot=${buildRoot}
 		</echo>
-		<echo file="${basedir}/cc.properties" append="true" >
-			cc.home=${cc.home}
+		<echo file="${basedir}/cc.properties" append="true">
+cc.home=${cc.home}
 		</echo>
-		<echo file="${basedir}/cc.properties" append="true" >
-			buildmaster.email=${buildmaster.email}
+		<echo file="${basedir}/cc.properties" append="true">
+buildmaster.email=${buildmaster.email}
 		</echo>
-		<echo file="${basedir}/cc.properties" append="true" >
-			always.email=${always.email}
+		<echo file="${basedir}/cc.properties" append="true">
+always.email=${always.email}
 		</echo>
-		<echo file="${basedir}/cc.properties" append="true" >
-			mailhost=${mailhost}
+		<echo file="${basedir}/cc.properties" append="true">
+mailhost=${mailhost}
 		</echo>
-		<echo file="${basedir}/cc.properties" append="true" >
-			reporting.url=${reporting.url}
+		<echo file="${basedir}/cc.properties" append="true">
+reporting.url=${reporting.url}
 		</echo>
-		<echo file="${basedir}/cc.properties" append="true" >
-			reportdir=${reportdir}
+		<echo file="${basedir}/cc.properties" append="true">
+reportdir=${reportdir}
 		</echo>
-		<echo file="${basedir}/cc.properties" append="true" >
-			checkout=${checkout}
+		<echo file="${basedir}/cc.properties" append="true">
+checkout=${checkout}
 		</echo>
-		<echo file="${basedir}/cc.properties" append="true" >
-			logs=${logs}
+		<echo file="${basedir}/cc.properties" append="true">
+logs=${logs}
 		</echo>
-		<echo file="${basedir}/cc.properties" append="true" >
-			artifacts=${artifacts}
+		<echo file="${basedir}/cc.properties" append="true">
+artifacts=${artifacts}
 		</echo>
-		<echo file="${basedir}/cc.properties" append="true" >
-			ext=${ext}
+		<echo file="${basedir}/cc.properties" append="true">
+ext=${ext}
 		</echo>
-		<mkdir dir="${logs}/checkout"/>
-		<mkdir dir="${logs}/sdk"/>
-		<mkdir dir="${logs}/runtime"/>
-		<mkdir dir="${logs}/tests"/>
-		<mkdir dir="${logs}/examples"/>
-		<mkdir dir="${logs}/doc"/>
-		<mkdir dir="${artifacts}/checkout"/>
-		<mkdir dir="${artifacts}/sdk"/>
-		<mkdir dir="${artifacts}/runtime"/>
-		<mkdir dir="${artifacts}/tests"/>
-		<mkdir dir="${artifacts}/examples"/>
-		<mkdir dir="${artifacts}/doc"/>
+		<echo file="${basedir}/cc.properties" append="true">
+cc.publish=${cc.publish}
+		</echo>
+		<mkdir dir="${logs}/gmf"/>
+		<mkdir dir="${cc.publish}/gmf"/>
 		<available file="${buildRoot}/checkout/org.eclipse.gmf/features/org.eclipse.gmf.sdk-feature/build.properties" property="skipCheckout" />
 		<antcall target="checkout"/>
 	</target>

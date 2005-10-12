@@ -22,8 +22,8 @@
 			<arg value="-DlibraryFile=${baseLocation}/plugins/org.eclipse.test_${fullEclipseVersion}/library.xml" />
 			<jvmarg value="-ea"/>
 		</java>
-		<move file="${baseLocation}/${testPlugin}.xml" tofile="${artifacts}/tests/${testPlugin}.xml" failonerror="false"/>
-		<move file="${baseLocation}/${testPlugin}.AllTests.xml" tofile="${artifacts}/tests/${testPlugin}.AllTests.xml" failonerror="false"/>
+		<move file="${baseLocation}/${testPlugin}.xml" tofile="${artifacts}/${buildLabel}/testresults/xml/${testPlugin}.xml" failonerror="false"/>
+<!--		<move file="${baseLocation}/${testPlugin}.AllTests.xml" tofile="${artifacts}/${buildLabel}/testresults/xml/${testPlugin}.AllTests.xml" failonerror="false"/>-->
 		<tstamp>
 			<format property="runtests-endtime" pattern="HH:mm:ss" />
 		</tstamp>
@@ -70,9 +70,10 @@
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.draw2d.ui.render" />
 		</antcall>
+		<antcall target="genHtml"/>
 	</target>
 
 	<target name="genHtml" description="Generates HTML results with provided JUNIT.XSL provided">
-		<style style="JUNIT.XSL" basedir="${results}/xml" destdir="${results}/html" />
+		<style style="${scripts}/templateFiles/JUNIT.XSL" basedir="${artifacts}/${buildLabel}/testresults/xml/" destdir="${artifacts}/${buildLabel}/testresults/html/" />
 	</target>
 </project>
