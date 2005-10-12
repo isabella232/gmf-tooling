@@ -83,8 +83,9 @@
 		2. <a href="http://java.sun.com/j2se/1.5.0/download.jsp">J2SE 5.0</a>.<br />
 		3. <a href="http://www.info-zip.org/pub/infozip/">Info-Zip zip and
 		unzip</a><br />
-		4. <a href="http://cruisecontrol.sf.net/">CruiseControl</a> (optional)<br />
-		5. <a href="http://jakarta.apache.org/tomcat/">Tomcat</a> or similar
+		5. <a href="http://ant.apache.org/">Ant</a><br />
+		5. <a href="http://cruisecontrol.sf.net/">CruiseControl</a> (optional)<br />
+		6. <a href="http://jakarta.apache.org/tomcat/">Tomcat</a> or similar
 		webserver (optional)<br />
 		</p>
 		<p>For more information on PDE Build, refer to the <a
@@ -285,7 +286,7 @@
 			</tr>
 			<tr>
 				<td width="2%">&nbsp;</td>
-				<td colspan="5" bordercolor="0"><strong>/cruisecontrol-2.3.0.1</strong></td>
+				<td colspan="5" bordercolor="0"><strong>/cruisecontrol-2.3.1</strong></td>
 				<td>CruiseControl installation</td>
 			</tr>
 			<tr>
@@ -666,20 +667,31 @@
 		<a name="developers"></a>Developer information</font></b></td>
 	</tr>
 	<tr>
-		<td><font color="red"><b>TODO:</b></font> This section outlines some
-		of the procedures and practices for GMF developers to maintain a
-		smooth build/test environment. In particular, information on using the
-		releng tool and how to add a plug-in to the build is covered.</td>
+		<td>This section outlines some of the procedures and practices for GMF
+		developers to maintain a smooth build/test environment. In particular,
+		information on using the releng tool and how to add a plug-in to the
+		build is covered.
 		<ul>
-			<li><b>Adding or removing a plug-in<b>: As the build depends on
+			<li><b>Adding or removing a plug-in</b>: As the build depends on
 			features remaining accurate, be sure to update the feature.xml for
 			listed plug-ins and also check the 'Dependencies' list, using the
-			Compute feature of the PDE if desired. Otherwise, you will also need
-			to update the appropriate map file(s) to indicate the changes to
-			plug-ins and their location in the repository. Alternatively, email
-			the developer mailing list with changes requested and let the
-			maintainer of the build effect the change.</li>
+			Compute feature of the PDE if desired. You will also need to update
+			the appropriate map file(s) to indicate the changes to plug-ins and
+			their location in the repository. Alternatively, email the developer
+			mailing list with changes requested and let the maintainer of the
+			build effect the change.</li>
+			<li><b>Adding a test plug-in</b>: Each test plug-in needs to have a
+			corresponding test.xml file in order to be run as part of the build.
+			See existing test.xml files for an example. Be sure to appropriately
+			choose either 'ui-test' or 'core-test' for the target within this
+			file. Information on what these mean is found in the <a
+				href="ftp://download.eclipse.org/R-3.0.2-200503110845/testframework.html">readme</a>
+			for the testing framework. Finally, each test plug-in is listed for
+			execution in the test.xml file found in the scripts directory of the
+			org.eclipse.gmf.releng.builder plug-in. You will need to add your new
+			test plug-in to this list.</li>
 		</ul>
+		</td>
 	</tr>
 
 </table>
