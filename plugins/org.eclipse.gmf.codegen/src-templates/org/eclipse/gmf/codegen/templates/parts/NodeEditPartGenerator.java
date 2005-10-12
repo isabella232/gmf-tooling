@@ -25,23 +25,24 @@ public class NodeEditPartGenerator
   protected final String TEXT_7 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_8 = " extends ShapeNodeEditPart {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate IFigure contentPane;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
   protected final String TEXT_9 = "(View view) {" + NL + "\t\tsuper(view);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected NodeFigure createNodeFigure() {";
-  protected final String TEXT_10 = " " + NL + "\t\tNodeFigure node = new ";
-  protected final String TEXT_11 = "() {" + NL + "" + NL + "\t\t\tprotected void paintFigure(Graphics graphics) {" + NL + "\t\t\t\tsuper.paintFigure(graphics);" + NL + "\t\t\t\tgraphics.fillRectangle(getClientArea());" + NL + "\t\t\t\tgraphics.drawRectangle(getClientArea());" + NL + "\t\t\t}" + NL + "\t\t};";
-  protected final String TEXT_12 = NL;
-  protected final String TEXT_13 = NL + "\t\t";
-  protected final String TEXT_14 = ".setLineStyle(Graphics.";
-  protected final String TEXT_15 = ");";
-  protected final String TEXT_16 = NL + "\t\t";
-  protected final String TEXT_17 = ".setLineWidth(attrs.getLineWidth());";
-  protected final String TEXT_18 = NL + "\t\tnode.setDefaultSize(MapMode.DPtoLP(";
-  protected final String TEXT_19 = "), MapMode.DPtoLP(";
-  protected final String TEXT_20 = "));";
-  protected final String TEXT_21 = NL + "\t\tnode.setLayoutManager(new StackLayout());" + NL + "\t\tnode.add(contentPane = createContentPane());" + NL + "\t\treturn node;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected IFigure createContentPane() {" + NL + "\t\tIFigure plate = new Figure();" + NL + "\t\tConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();" + NL + "\t\tlayout.setSpacing(MapMode.DPtoLP(5));" + NL + "\t\tplate.setLayoutManager(layout);" + NL + "\t\treturn plate;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic IFigure getContentPane() {" + NL + "\t\tif (contentPane != null) {" + NL + "\t\t\treturn contentPane;" + NL + "\t\t}" + NL + "\t\treturn super.getContentPane();" + NL + "\t}";
-  protected final String TEXT_22 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic EditPart getPrimaryChildEditPart() {" + NL + "\t\treturn getChildBySemanticHint(";
-  protected final String TEXT_23 = ".";
-  protected final String TEXT_24 = ");" + NL + "\t}";
-  protected final String TEXT_25 = NL + "}";
-  protected final String TEXT_26 = NL;
+  protected final String TEXT_10 = " " + NL + "\t\t";
+  protected final String TEXT_11 = " node = new ";
+  protected final String TEXT_12 = "() {" + NL + "" + NL + "\t\t\tprotected void paintFigure(Graphics graphics) {" + NL + "\t\t\t\tsuper.paintFigure(graphics);" + NL + "\t\t\t\tgraphics.fillRectangle(getClientArea());" + NL + "\t\t\t\tgraphics.drawRectangle(getClientArea());" + NL + "\t\t\t}" + NL + "\t\t};";
+  protected final String TEXT_13 = NL;
+  protected final String TEXT_14 = NL + "\t\t";
+  protected final String TEXT_15 = ".setLineStyle(Graphics.";
+  protected final String TEXT_16 = ");";
+  protected final String TEXT_17 = NL + "\t\t";
+  protected final String TEXT_18 = ".setLineWidth(attrs.getLineWidth());";
+  protected final String TEXT_19 = NL + "\t\tnode.setDefaultSize(MapMode.DPtoLP(";
+  protected final String TEXT_20 = "), MapMode.DPtoLP(";
+  protected final String TEXT_21 = "));";
+  protected final String TEXT_22 = NL + "\t\tnode.setLayoutManager(new StackLayout());" + NL + "\t\tnode.add(contentPane = createContentPane());" + NL + "\t\treturn node;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected IFigure createContentPane() {" + NL + "\t\tIFigure plate = new Figure();" + NL + "\t\tConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();" + NL + "\t\tlayout.setSpacing(MapMode.DPtoLP(5));" + NL + "\t\tplate.setLayoutManager(layout);" + NL + "\t\treturn plate;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic IFigure getContentPane() {" + NL + "\t\tif (contentPane != null) {" + NL + "\t\t\treturn contentPane;" + NL + "\t\t}" + NL + "\t\treturn super.getContentPane();" + NL + "\t}";
+  protected final String TEXT_23 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic EditPart getPrimaryChildEditPart() {" + NL + "\t\treturn getChildBySemanticHint(";
+  protected final String TEXT_24 = ".";
+  protected final String TEXT_25 = ");" + NL + "\t}";
+  protected final String TEXT_26 = NL + "}";
+  protected final String TEXT_27 = NL;
 
   public String generate(Object argument)
   {
@@ -79,53 +80,55 @@ if (genNode.getViewmap() instanceof FigureViewmap) {
     stringBuffer.append(TEXT_10);
     stringBuffer.append(figureClassName);
     stringBuffer.append(TEXT_11);
+    stringBuffer.append(figureClassName);
+    stringBuffer.append(TEXT_12);
     for (Iterator it = genNode.getViewmap().getAttributes().iterator(); it.hasNext();) {
 	Attributes next = (Attributes) it.next();
 	if (next instanceof ShapeAttributes) {
 		String figureVarName = "node";
 		ShapeAttributes attrs = (ShapeAttributes) next;
 
-    stringBuffer.append(TEXT_12);
+    stringBuffer.append(TEXT_13);
     
 String lineStyle = attrs.getLineStyle();
 if (lineStyle != null && lineStyle.trim().length() > 0) {
 
-    stringBuffer.append(TEXT_13);
-    stringBuffer.append(figureVarName);
     stringBuffer.append(TEXT_14);
-    stringBuffer.append(lineStyle);
+    stringBuffer.append(figureVarName);
     stringBuffer.append(TEXT_15);
+    stringBuffer.append(lineStyle);
+    stringBuffer.append(TEXT_16);
     
 }
 if (attrs.isSetLineWidth()) {
 
-    stringBuffer.append(TEXT_16);
-    stringBuffer.append(figureVarName);
     stringBuffer.append(TEXT_17);
+    stringBuffer.append(figureVarName);
+    stringBuffer.append(TEXT_18);
     }
     	}
 	if (next instanceof DefaultSizeAttributes) {
 		DefaultSizeAttributes attrs = (DefaultSizeAttributes) next;
 
-    stringBuffer.append(TEXT_18);
-    stringBuffer.append(attrs.getWidth());
     stringBuffer.append(TEXT_19);
-    stringBuffer.append(attrs.getHeight());
+    stringBuffer.append(attrs.getWidth());
     stringBuffer.append(TEXT_20);
+    stringBuffer.append(attrs.getHeight());
+    stringBuffer.append(TEXT_21);
     	}
 }
 
-    stringBuffer.append(TEXT_21);
-    if (genNode.hasNameToEdit()) {
     stringBuffer.append(TEXT_22);
-    stringBuffer.append(AccessUtil.getSemanticHintsClassName(genNode));
+    if (genNode.hasNameToEdit()) {
     stringBuffer.append(TEXT_23);
-    stringBuffer.append(AccessUtil.getNameSemanticHint(genNode));
+    stringBuffer.append(AccessUtil.getSemanticHintsClassName(genNode));
     stringBuffer.append(TEXT_24);
-    }
+    stringBuffer.append(AccessUtil.getNameSemanticHint(genNode));
     stringBuffer.append(TEXT_25);
-    importManager.emitSortedImports();
+    }
     stringBuffer.append(TEXT_26);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_27);
     return stringBuffer.toString();
   }
 }

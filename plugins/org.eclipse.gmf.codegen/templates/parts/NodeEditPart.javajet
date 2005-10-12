@@ -51,7 +51,7 @@ if (genNode.getViewmap() instanceof FigureViewmap) {
 	figureClassName = importManager.getImportedName("org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure");
 }
 %> 
-		NodeFigure node = new <%=figureClassName%>() {
+		<%=figureClassName%> node = new <%=figureClassName%>() {
 
 			protected void paintFigure(Graphics graphics) {
 				super.paintFigure(graphics);
