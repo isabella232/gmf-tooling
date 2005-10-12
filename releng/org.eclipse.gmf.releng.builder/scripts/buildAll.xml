@@ -128,13 +128,9 @@
 			<replacefilter token="@uml2Version@" value="${uml2Version}"/>
 			<replacefilter token="@uml2UpdateSite@" value="${uml2UpdateSite}"/>
 		</replace>
-		
-		<!-- Copy to "bldindex.html". This html will be used to reference locally without download counting. This file will not be pushed to main download site. -->
-		<copy file="${result}/${indexFileName}" tofile="${result}/bld${indexFileName}"/>
 	
 		<!-- Replace the base variables to be nothing for bld-index, and the full reroute url for the main index file. -->
-		<replace file="${result}/${indexFileName}" token="@base@" value="http://www.eclipse.org/downloads/download.php?file=/tools/ve/downloads/drops/${buildLabel}/"/>
-		<replace file="${result}/bld${indexFileName}" token="@base@" value=""/>	
+		<replace file="${result}/${indexFileName}" token="@base@" value="http://www.eclipse.org/downloads/download.php?file=/technology/gmf/downloads/drops/${buildLabel}/"/>
 		
 	</target>
 </project>
