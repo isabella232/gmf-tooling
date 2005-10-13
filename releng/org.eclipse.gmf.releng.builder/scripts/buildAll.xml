@@ -59,7 +59,7 @@
 	</target>
 	
 	<target name="publish" depends="">
-		<!-- Fake a component, use sdk -->
+		<!-- Fake a component, use sdk TODO: find proper solution -->
 		<property name="component" value="sdk"/>
 		<property file="build.properties" />
 		<property file="label.properties" />
@@ -103,5 +103,12 @@
 		<!-- Replace the base variables to be nothing for bld-index, and the full reroute url for the main index file. -->
 		<replace file="${result}/${indexFileName}" token="@base@" value="http://www.eclipse.org/downloads/download.php?file=/technology/gmf/downloads/drops/${buildLabel}/"/>
 		
+		<!-- Copy update jars as well -->
+		<copy todir="${buildRoot}/artifacts/updates/${buildLabel}/features">
+		    <fileset dir="${buildUpdateSitePath}/features"/>
+		  </copy>
+		<copy todir="${buildRoot}/artifacts/updates/${buildLabel}/plugins">
+		    <fileset dir="${buildUpdateSitePath}/plugins"/>
+		  </copy>
 	</target>
 </project>
