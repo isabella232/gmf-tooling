@@ -149,6 +149,12 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseLinkDecoration(LinkDecoration object) {
 				return createLinkDecorationAdapter();
 			}
+			public Object caseValueExpression(ValueExpression object) {
+				return createValueExpressionAdapter();
+			}
+			public Object caseModelElementSelector(ModelElementSelector object) {
+				return createModelElementSelectorAdapter();
+			}
 			public Object casePalette(Palette object) {
 				return createPaletteAdapter();
 			}
@@ -532,6 +538,34 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createToolGroupAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.ValueExpression <em>Value Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ValueExpression
+	 * @generated
+	 */
+	public Adapter createValueExpressionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.ModelElementSelector <em>Model Element Selector</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ModelElementSelector
+	 * @generated
+	 */
+	public Adapter createModelElementSelectorAdapter() {
 		return null;
 	}
 

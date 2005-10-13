@@ -34,6 +34,7 @@ import org.eclipse.gmf.codegen.templates.parts.EditPartFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.parts.LinkEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.NodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.NodeLabelEditPartGenerator;
+import org.eclipse.gmf.codegen.templates.parts.PartSelectorsGenerator;
 import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ElementTypesGenerator;
 import org.eclipse.gmf.codegen.templates.providers.LinkLabelViewFactoryGenerator;
@@ -90,6 +91,10 @@ public class EmitterFactory {
 		return initializeEmitter("/templates/parts/EditPartFactory.javajet", EditPartFactoryGenerator.class);
 	}
 
+	public static JETEmitter getEditPartSelectorsEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/PartSelectors.xmljet", PartSelectorsGenerator.class);
+	}		
+	
 	// providers
 
 	public static JETEmitter getStructuralFeatureParserEmitter() throws JETException {

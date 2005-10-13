@@ -96,6 +96,8 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="viewmap" lowerBound="1"
         eType="#//Viewmap" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElementSelector" ordered="false"
+        unique="false" eType="#//ModelElementSelector" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenNode" eSuperTypes="#//GenBaseElement">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
@@ -281,6 +283,27 @@
         <details key="documentation" value="Implementation of {@link org.eclipse.draw2d.RotatableDecoration}"/>
       </eAnnotations>
     </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ValueExpression">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Expression as a is textual statement which results in a value when evaluated in a context"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="body" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The text of the expression"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="language" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="ocl">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Specifies the language in which the expression is stated"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelElementSelector" eSuperTypes="#//ValueExpression">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Represents an boolean type expression which is criterion for model element match"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Palette">
     <eOperations name="getFactoryQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

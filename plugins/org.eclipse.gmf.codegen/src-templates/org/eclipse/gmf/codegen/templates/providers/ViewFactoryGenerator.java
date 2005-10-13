@@ -62,7 +62,7 @@ public class ViewFactoryGenerator
     }
     stringBuffer.append(TEXT_9);
     
-ColorAttributes colorAttrs = (ColorAttributes) genElement.getViewmap().find(ColorAttributes.class);
+ColorAttributes colorAttrs = genElement.getViewmap() != null ? (ColorAttributes) genElement.getViewmap().find(ColorAttributes.class) : null;
 if (colorAttrs != null && colorAttrs.getForegroundColor() != null && colorAttrs.getForegroundColor().trim().length() > 0) {
     stringBuffer.append(TEXT_10);
     stringBuffer.append(colorAttrs.getForegroundColor());

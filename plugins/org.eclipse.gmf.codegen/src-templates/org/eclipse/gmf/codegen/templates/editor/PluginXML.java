@@ -2,6 +2,7 @@ package org.eclipse.gmf.codegen.templates.editor;
 
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.emf.codegen.ecore.genmodel.*;
+import org.eclipse.gmf.codegen.util.*;
 import java.util.*;
 
 public class PluginXML
@@ -81,6 +82,10 @@ if (requiredPlugins == null) {
 	requiredPlugins = new String[0];
 }
 requiredPluginIDs.addAll(Arrays.asList(requiredPlugins));
+
+if(PartSelectorUtil.hasPartSelectors(genDiagram)) {
+	requiredPluginIDs.addAll(Arrays.asList(PartSelectorUtil.getRequiredPlugins(genDiagram)));
+}
 
 for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_7);

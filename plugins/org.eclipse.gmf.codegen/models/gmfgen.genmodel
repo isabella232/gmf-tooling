@@ -67,6 +67,7 @@
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenBaseElement/domainNameFeature"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenBaseElement/containmentMetaFeature"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenBaseElement/viewmap"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenBaseElement/modelElementSelector"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenBaseElement/hasNameToEdit"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenNode">
@@ -138,6 +139,11 @@
     <genClasses ecoreClass="gmfgen.ecore#//LinkDecoration">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//LinkDecoration/figureQualifiedClassName"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//ValueExpression">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/body"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/language"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//ModelElementSelector"/>
     <genClasses ecoreClass="gmfgen.ecore#//Palette">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//Palette/diagram"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//Palette/groups"/>

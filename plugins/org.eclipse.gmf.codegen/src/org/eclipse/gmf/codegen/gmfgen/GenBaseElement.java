@@ -23,6 +23,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getDomainNameFeature <em>Domain Name Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getContainmentMetaFeature <em>Containment Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getViewmap <em>Viewmap</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getModelElementSelector <em>Model Element Selector</em>}</li>
  * </ul>
  * </p>
  *
@@ -108,6 +109,32 @@ public interface GenBaseElement extends GenCommonBase{
 	 * @generated
 	 */
 	void setViewmap(Viewmap value);
+
+	/**
+	 * Returns the value of the '<em><b>Model Element Selector</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Model Element Selector</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Model Element Selector</em>' containment reference.
+	 * @see #setModelElementSelector(ModelElementSelector)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenBaseElement_ModelElementSelector()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	ModelElementSelector getModelElementSelector();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getModelElementSelector <em>Model Element Selector</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Model Element Selector</em>' containment reference.
+	 * @see #getModelElementSelector()
+	 * @generated
+	 */
+	void setModelElementSelector(ModelElementSelector value);
 
 	/**
 	 * <!-- begin-user-doc -->

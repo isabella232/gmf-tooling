@@ -69,6 +69,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.BASIC_NODE_VIEWMAP: return createBasicNodeViewmap();
 			case GMFGenPackage.DECORATED_CONNECTION_VIEWMAP: return createDecoratedConnectionViewmap();
 			case GMFGenPackage.LINK_DECORATION: return createLinkDecoration();
+			case GMFGenPackage.VALUE_EXPRESSION: return createValueExpression();
+			case GMFGenPackage.MODEL_ELEMENT_SELECTOR: return createModelElementSelector();
 			case GMFGenPackage.PALETTE: return createPalette();
 			case GMFGenPackage.NODE_ENTRY: return createNodeEntry();
 			case GMFGenPackage.LINK_ENTRY: return createLinkEntry();
@@ -255,6 +257,26 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public LinkDecoration createLinkDecoration() {
 		LinkDecorationImpl linkDecoration = new LinkDecorationImpl();
 		return linkDecoration;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ValueExpression createValueExpression() {
+		ValueExpressionImpl valueExpression = new ValueExpressionImpl();
+		return valueExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ModelElementSelector createModelElementSelector() {
+		ModelElementSelectorImpl modelElementSelector = new ModelElementSelectorImpl();
+		return modelElementSelector;
 	}
 
 	/**

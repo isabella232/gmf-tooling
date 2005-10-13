@@ -23,6 +23,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
@@ -172,6 +173,8 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case GMFGenPackage.GEN_LINK__VIEWMAP:
 					return basicSetViewmap(null, msgs);
+				case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_SELECTOR:
+					return basicSetModelElementSelector(null, msgs);
 				case GMFGenPackage.GEN_LINK__DIAGRAM:
 					return eBasicSetContainer(null, GMFGenPackage.GEN_LINK__DIAGRAM, msgs);
 				case GMFGenPackage.GEN_LINK__LABELS:
@@ -224,6 +227,8 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				return basicGetContainmentMetaFeature();
 			case GMFGenPackage.GEN_LINK__VIEWMAP:
 				return getViewmap();
+			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_SELECTOR:
+				return getModelElementSelector();
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
@@ -262,6 +267,9 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				return;
 			case GMFGenPackage.GEN_LINK__VIEWMAP:
 				setViewmap((Viewmap)newValue);
+				return;
+			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_SELECTOR:
+				setModelElementSelector((ModelElementSelector)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
 				setDomainLinkTargetFeature((GenFeature)newValue);
@@ -302,6 +310,9 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 			case GMFGenPackage.GEN_LINK__VIEWMAP:
 				setViewmap((Viewmap)null);
 				return;
+			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_SELECTOR:
+				setModelElementSelector((ModelElementSelector)null);
+				return;
 			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
 				setDomainLinkTargetFeature((GenFeature)null);
 				return;
@@ -333,6 +344,8 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				return containmentMetaFeature != null;
 			case GMFGenPackage.GEN_LINK__VIEWMAP:
 				return viewmap != null;
+			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_SELECTOR:
+				return modelElementSelector != null;
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:

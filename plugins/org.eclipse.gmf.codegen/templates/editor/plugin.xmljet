@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="PluginXML"
-    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.*"%>
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.util.* java.util.*"%>
 <%GenDiagram genDiagram = (GenDiagram) argument;%>
 <%GenModel genModel = genDiagram.getEMFGenModel();%>
 <?xml version="1.0" encoding="UTF-8"?>
@@ -46,6 +46,10 @@ if (requiredPlugins == null) {
 	requiredPlugins = new String[0];
 }
 requiredPluginIDs.addAll(Arrays.asList(requiredPlugins));
+
+if(PartSelectorUtil.hasPartSelectors(genDiagram)) {
+	requiredPluginIDs.addAll(Arrays.asList(PartSelectorUtil.getRequiredPlugins(genDiagram)));
+}
 
 for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {%>
     <import plugin="<%=it.next()%>" export="true"/>

@@ -248,6 +248,19 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.VALUE_EXPRESSION: {
+				ValueExpression valueExpression = (ValueExpression)theEObject;
+				Object result = caseValueExpression(valueExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.MODEL_ELEMENT_SELECTOR: {
+				ModelElementSelector modelElementSelector = (ModelElementSelector)theEObject;
+				Object result = caseModelElementSelector(modelElementSelector);
+				if (result == null) result = caseValueExpression(modelElementSelector);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.PALETTE: {
 				Palette palette = (Palette)theEObject;
 				Object result = casePalette(palette);
@@ -666,6 +679,36 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseToolGroup(ToolGroup object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Value Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Value Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseValueExpression(ValueExpression object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Model Element Selector</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Model Element Selector</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseModelElementSelector(ModelElementSelector object) {
 		return null;
 	}
 

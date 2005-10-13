@@ -84,18 +84,21 @@ public class EditPartFactoryGenerator
   protected final String TEXT_65 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isNode";
   protected final String TEXT_66 = "_";
   protected final String TEXT_67 = "(";
-  protected final String TEXT_68 = " element) {" + NL + "\t\treturn true;" + NL + "\t}" + NL;
-  protected final String TEXT_69 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isChildNode";
-  protected final String TEXT_70 = "_";
-  protected final String TEXT_71 = "(";
-  protected final String TEXT_72 = " element) {" + NL + "\t\treturn true;" + NL + "\t}" + NL;
-  protected final String TEXT_73 = NL + "\t";
-  protected final String TEXT_74 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isEdge";
-  protected final String TEXT_75 = "_";
-  protected final String TEXT_76 = "(";
-  protected final String TEXT_77 = " element) {" + NL + "\t\treturn true;" + NL + "\t}";
-  protected final String TEXT_78 = NL + NL + "}";
-  protected final String TEXT_79 = NL;
+  protected final String TEXT_68 = " element) {" + NL + "\t\treturn ";
+  protected final String TEXT_69 = "(element);" + NL + "\t}" + NL;
+  protected final String TEXT_70 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isChildNode";
+  protected final String TEXT_71 = "_";
+  protected final String TEXT_72 = "(";
+  protected final String TEXT_73 = " element) {" + NL + "\t\treturn ";
+  protected final String TEXT_74 = "(element);" + NL + "\t}" + NL;
+  protected final String TEXT_75 = NL + "\t";
+  protected final String TEXT_76 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isEdge";
+  protected final String TEXT_77 = "_";
+  protected final String TEXT_78 = "(";
+  protected final String TEXT_79 = " element) {" + NL + "\t\treturn ";
+  protected final String TEXT_80 = "(element);" + NL + "\t}";
+  protected final String TEXT_81 = NL + NL + "}";
+  protected final String TEXT_82 = NL;
 
   public String generate(Object argument)
   {
@@ -302,6 +305,8 @@ for (int i = 0; i < genNodes.size(); i++) {
     stringBuffer.append(TEXT_67);
     stringBuffer.append(importManager.getImportedName(qualifiedNodeInterfaceName));
     stringBuffer.append(TEXT_68);
+    stringBuffer.append(importManager.getImportedName(PartSelectorUtil.getPartSelectorsFullClassName(genDiagram)) + "." + PartSelectorUtil.getPartSelectorMethodName(genNode));
+    stringBuffer.append(TEXT_69);
     
 	List genChildNodes = genNode.getChildNodes();
 	for (int j = 0; j < genChildNodes.size(); j++) {
@@ -309,17 +314,19 @@ for (int i = 0; i < genNodes.size(); i++) {
 		String semanticChildNodeInterfaceName = genChildNode.getDomainMetaClass().getClassifierAccessorName();
 		String qualifiedChildNodeInterfaceName = genChildNode.getDomainMetaClass().getQualifiedInterfaceName();
 
-    stringBuffer.append(TEXT_69);
-    stringBuffer.append(semanticChildNodeInterfaceName);
     stringBuffer.append(TEXT_70);
-    stringBuffer.append(genChildNode.getVisualID());
+    stringBuffer.append(semanticChildNodeInterfaceName);
     stringBuffer.append(TEXT_71);
-    stringBuffer.append(importManager.getImportedName(qualifiedChildNodeInterfaceName));
+    stringBuffer.append(genChildNode.getVisualID());
     stringBuffer.append(TEXT_72);
+    stringBuffer.append(importManager.getImportedName(qualifiedChildNodeInterfaceName));
+    stringBuffer.append(TEXT_73);
+    stringBuffer.append(importManager.getImportedName(PartSelectorUtil.getPartSelectorsFullClassName(genDiagram)) + "." + PartSelectorUtil.getPartSelectorMethodName(genChildNode));
+    stringBuffer.append(TEXT_74);
     	}
 }
 
-    stringBuffer.append(TEXT_73);
+    stringBuffer.append(TEXT_75);
     
 for (int i = 0; i < genLinks.size(); i++) {
 	GenLink genLink = (GenLink) genLinks.get(i);
@@ -328,20 +335,22 @@ for (int i = 0; i < genLinks.size(); i++) {
 		String semanticLinkInterfaceName = genLinkWithClass.getDomainMetaClass().getClassifierAccessorName();
 		String qualifiedInterfaceName = genLinkWithClass.getDomainMetaClass().getQualifiedInterfaceName();
 
-    stringBuffer.append(TEXT_74);
-    stringBuffer.append(semanticLinkInterfaceName);
-    stringBuffer.append(TEXT_75);
-    stringBuffer.append(genLinkWithClass.getVisualID());
     stringBuffer.append(TEXT_76);
-    stringBuffer.append(importManager.getImportedName(qualifiedInterfaceName));
+    stringBuffer.append(semanticLinkInterfaceName);
     stringBuffer.append(TEXT_77);
+    stringBuffer.append(genLinkWithClass.getVisualID());
+    stringBuffer.append(TEXT_78);
+    stringBuffer.append(importManager.getImportedName(qualifiedInterfaceName));
+    stringBuffer.append(TEXT_79);
+    stringBuffer.append(importManager.getImportedName(PartSelectorUtil.getPartSelectorsFullClassName(genDiagram)) + "." + PartSelectorUtil.getPartSelectorMethodName(genLink));
+    stringBuffer.append(TEXT_80);
     
 	}
 }
 
-    stringBuffer.append(TEXT_78);
+    stringBuffer.append(TEXT_81);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_79);
+    stringBuffer.append(TEXT_82);
     return stringBuffer.toString();
   }
 }

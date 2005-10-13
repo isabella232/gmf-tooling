@@ -448,6 +448,50 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ValueExpression} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ValueExpressionItemProvider valueExpressionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ValueExpression}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createValueExpressionAdapter() {
+		if (valueExpressionItemProvider == null) {
+			valueExpressionItemProvider = new ValueExpressionItemProvider(this);
+		}
+
+		return valueExpressionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ModelElementSelector} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ModelElementSelectorItemProvider modelElementSelectorItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ModelElementSelector}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createModelElementSelectorAdapter() {
+		if (modelElementSelectorItemProvider == null) {
+			modelElementSelectorItemProvider = new ModelElementSelectorItemProvider(this);
+		}
+
+		return modelElementSelectorItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -556,6 +600,8 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (basicNodeViewmapItemProvider != null) basicNodeViewmapItemProvider.dispose();
 		if (decoratedConnectionViewmapItemProvider != null) decoratedConnectionViewmapItemProvider.dispose();
 		if (linkDecorationItemProvider != null) linkDecorationItemProvider.dispose();
+		if (valueExpressionItemProvider != null) valueExpressionItemProvider.dispose();
+		if (modelElementSelectorItemProvider != null) modelElementSelectorItemProvider.dispose();
 		if (paletteItemProvider != null) paletteItemProvider.dispose();
 		if (nodeEntryItemProvider != null) nodeEntryItemProvider.dispose();
 		if (linkEntryItemProvider != null) linkEntryItemProvider.dispose();

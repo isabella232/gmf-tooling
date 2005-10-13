@@ -41,11 +41,13 @@ import org.eclipse.gmf.codegen.gmfgen.LinkDecoration;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
+import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ShapeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
+import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
@@ -187,6 +189,20 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass linkDecorationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass valueExpressionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass modelElementSelectorEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -580,6 +596,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EReference getGenBaseElement_Viewmap() {
 		return (EReference)genBaseElementEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenBaseElement_ModelElementSelector() {
+		return (EReference)genBaseElementEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -1046,6 +1071,42 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getValueExpression() {
+		return valueExpressionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getValueExpression_Body() {
+		return (EAttribute)valueExpressionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getValueExpression_Language() {
+		return (EAttribute)valueExpressionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getModelElementSelector() {
+		return modelElementSelectorEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getPalette() {
 		return paletteEClass;
 	}
@@ -1360,6 +1421,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genBaseElementEClass, GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE);
 		createEReference(genBaseElementEClass, GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE);
 		createEReference(genBaseElementEClass, GEN_BASE_ELEMENT__VIEWMAP);
+		createEReference(genBaseElementEClass, GEN_BASE_ELEMENT__MODEL_ELEMENT_SELECTOR);
 
 		genNodeEClass = createEClass(GEN_NODE);
 		createEReference(genNodeEClass, GEN_NODE__DIAGRAM);
@@ -1427,6 +1489,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		linkDecorationEClass = createEClass(LINK_DECORATION);
 		createEAttribute(linkDecorationEClass, LINK_DECORATION__FIGURE_QUALIFIED_CLASS_NAME);
+
+		valueExpressionEClass = createEClass(VALUE_EXPRESSION);
+		createEAttribute(valueExpressionEClass, VALUE_EXPRESSION__BODY);
+		createEAttribute(valueExpressionEClass, VALUE_EXPRESSION__LANGUAGE);
+
+		modelElementSelectorEClass = createEClass(MODEL_ELEMENT_SELECTOR);
 
 		paletteEClass = createEClass(PALETTE);
 		createEReference(paletteEClass, PALETTE__DIAGRAM);
@@ -1510,6 +1578,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		basicNodeViewmapEClass.getESuperTypes().add(this.getFigureViewmap());
 		decoratedConnectionViewmapEClass.getESuperTypes().add(this.getViewmap());
 		decoratedConnectionViewmapEClass.getESuperTypes().add(this.getFigureViewmap());
+		modelElementSelectorEClass.getESuperTypes().add(this.getValueExpression());
 		toolEntryEClass.getESuperTypes().add(this.getEntryBase());
 		nodeEntryEClass.getESuperTypes().add(this.getToolEntry());
 		linkEntryEClass.getESuperTypes().add(this.getToolEntry());
@@ -1568,6 +1637,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenBaseElement_DomainNameFeature(), theGenModelPackage.getGenFeature(), null, "domainNameFeature", null, 0, 1, GenBaseElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenBaseElement_ContainmentMetaFeature(), theGenModelPackage.getGenFeature(), null, "containmentMetaFeature", null, 0, 1, GenBaseElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenBaseElement_Viewmap(), this.getViewmap(), null, "viewmap", null, 1, 1, GenBaseElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenBaseElement_ModelElementSelector(), this.getModelElementSelector(), null, "modelElementSelector", null, 0, 1, GenBaseElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		addEOperation(genBaseElementEClass, ecorePackage.getEBoolean(), "hasNameToEdit");
 
@@ -1642,6 +1712,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(linkDecorationEClass, LinkDecoration.class, "LinkDecoration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLinkDecoration_FigureQualifiedClassName(), ecorePackage.getEString(), "figureQualifiedClassName", null, 0, 1, LinkDecoration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(valueExpressionEClass, ValueExpression.class, "ValueExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getValueExpression_Body(), ecorePackage.getEString(), "body", null, 1, 1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getValueExpression_Language(), ecorePackage.getEString(), "language", "ocl", 0, 1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(modelElementSelectorEClass, ModelElementSelector.class, "ModelElementSelector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(paletteEClass, Palette.class, "Palette", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPalette_Diagram(), this.getGenDiagram(), this.getGenDiagram_Palette(), "diagram", null, 1, 1, Palette.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1719,7 +1795,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints"
-		   });																														
+		   });																																		
 	}
 
 	/**
@@ -1759,7 +1835,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "super.domainLinkTargetFeature.eContainingClass \'equals to\' or \'superclass of\' domainMetaClass"
-		   });											
+		   });															
 	}
 
 } //GMFGenPackageImpl

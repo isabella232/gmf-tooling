@@ -179,6 +179,24 @@ public interface GMFGenFactory extends EFactory{
 	ToolGroup createToolGroup();
 
 	/**
+	 * Returns a new object of class '<em>Value Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Value Expression</em>'.
+	 * @generated
+	 */
+	ValueExpression createValueExpression();
+
+	/**
+	 * Returns a new object of class '<em>Model Element Selector</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Model Element Selector</em>'.
+	 * @generated
+	 */
+	ModelElementSelector createModelElementSelector();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

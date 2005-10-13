@@ -25,6 +25,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
@@ -241,6 +242,8 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case GMFGenPackage.GEN_NODE__VIEWMAP:
 					return basicSetViewmap(null, msgs);
+				case GMFGenPackage.GEN_NODE__MODEL_ELEMENT_SELECTOR:
+					return basicSetModelElementSelector(null, msgs);
 				case GMFGenPackage.GEN_NODE__DIAGRAM:
 					return eBasicSetContainer(null, GMFGenPackage.GEN_NODE__DIAGRAM, msgs);
 				case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
@@ -295,6 +298,8 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return basicGetContainmentMetaFeature();
 			case GMFGenPackage.GEN_NODE__VIEWMAP:
 				return getViewmap();
+			case GMFGenPackage.GEN_NODE__MODEL_ELEMENT_SELECTOR:
+				return getModelElementSelector();
 			case GMFGenPackage.GEN_NODE__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
@@ -337,6 +342,9 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return;
 			case GMFGenPackage.GEN_NODE__VIEWMAP:
 				setViewmap((Viewmap)newValue);
+				return;
+			case GMFGenPackage.GEN_NODE__MODEL_ELEMENT_SELECTOR:
+				setModelElementSelector((ModelElementSelector)newValue);
 				return;
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
 				setDomainMetaClass((GenClass)newValue);
@@ -384,6 +392,9 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__VIEWMAP:
 				setViewmap((Viewmap)null);
 				return;
+			case GMFGenPackage.GEN_NODE__MODEL_ELEMENT_SELECTOR:
+				setModelElementSelector((ModelElementSelector)null);
+				return;
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
 				setDomainMetaClass((GenClass)null);
 				return;
@@ -421,6 +432,8 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return containmentMetaFeature != null;
 			case GMFGenPackage.GEN_NODE__VIEWMAP:
 				return viewmap != null;
+			case GMFGenPackage.GEN_NODE__MODEL_ELEMENT_SELECTOR:
+				return modelElementSelector != null;
 			case GMFGenPackage.GEN_NODE__DIAGRAM:
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:

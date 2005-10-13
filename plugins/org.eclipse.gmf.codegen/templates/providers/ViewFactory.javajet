@@ -34,7 +34,7 @@ public class <%=genElement.getNotationViewFactoryClassName()%> extends
 		String semanticHint, int index, boolean persisted) {
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
 <%
-ColorAttributes colorAttrs = (ColorAttributes) genElement.getViewmap().find(ColorAttributes.class);
+ColorAttributes colorAttrs = genElement.getViewmap() != null ? (ColorAttributes) genElement.getViewmap().find(ColorAttributes.class) : null;
 if (colorAttrs != null && colorAttrs.getForegroundColor() != null && colorAttrs.getForegroundColor().trim().length() > 0) {%>
 		ViewUtil.setStructuralFeatureValue(view, NotationPackage.eINSTANCE.getLineStyle_LineColor(),
 			FigureUtilities.colorToInteger(ColorConstants.<%=colorAttrs.getForegroundColor()%>));

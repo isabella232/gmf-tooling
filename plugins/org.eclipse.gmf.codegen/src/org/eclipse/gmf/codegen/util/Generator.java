@@ -117,6 +117,7 @@ public class Generator implements Runnable {
 			}
 			generateDiagramEditPart();
 			generateEditPartFactory();
+			generatePartSelectors();			
 			generateElementTypes();
 			generateViewProvider();
 			generateEditPartProvider();
@@ -200,7 +201,16 @@ public class Generator implements Runnable {
 			myDiagram
 		);
 	}
-
+	
+	private void generatePartSelectors() throws JETException, InterruptedException {	
+		generate(
+				EmitterFactory.getEditPartSelectorsEmitter(),
+				myDiagram.getEditPartsPackageName(),
+				PartSelectorUtil.getPartSelectorsClassName(myDiagram),
+				myDiagram
+		);
+	}
+		
 	// providers
 
 	private void generateStructuralFeatureParser() throws JETException, InterruptedException {
@@ -473,8 +483,11 @@ public class Generator implements Runnable {
 		TextEdit edit = getCodeFormatter().format(CodeFormatter.K_COMPILATION_UNIT, doc.get(), 0, doc.get().length(), 0, null);
 
 		try {
-			edit.apply(doc);
-			text = doc.get();
+			// check if text formatted successfully 
+			if(edit != null) {
+				edit.apply(doc);
+				text = doc.get();				
+			}		
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

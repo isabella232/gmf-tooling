@@ -218,7 +218,7 @@ for (int i = 0; i < genNodes.size(); i++) {
 	 * @generated
 	 */
 	private boolean isNode<%=semanticNodeInterfaceName%>_<%=genNode.getVisualID()%>(<%=importManager.getImportedName(qualifiedNodeInterfaceName)%> element) {
-		return true;
+		return element == null || <%=importManager.getImportedName(PartSelectorUtil.getPartSelectorsFullClassName(genDiagram)) + "." + PartSelectorUtil.getPartSelectorMethodName(genNode)%>(element);
 	}
 
 <%
@@ -232,7 +232,7 @@ for (int i = 0; i < genNodes.size(); i++) {
 	 * @generated
 	 */
 	private boolean isChildNode<%=semanticChildNodeInterfaceName%>_<%=genChildNode.getVisualID()%>(<%=importManager.getImportedName(qualifiedChildNodeInterfaceName)%> element) {
-		return true;
+		return element == null || <%=importManager.getImportedName(PartSelectorUtil.getPartSelectorsFullClassName(genDiagram)) + "." + PartSelectorUtil.getPartSelectorMethodName(genChildNode)%>(element);
 	}
 
 <%	}
@@ -251,7 +251,7 @@ for (int i = 0; i < genLinks.size(); i++) {
 	 * @generated
 	 */
 	private boolean isConnector<%=semanticLinkInterfaceName%>_<%=genLinkWithClass.getVisualID()%>(<%=importManager.getImportedName(qualifiedInterfaceName)%> element) {
-		return true;
+		return element == null || <%=importManager.getImportedName(PartSelectorUtil.getPartSelectorsFullClassName(genDiagram)) + "." + PartSelectorUtil.getPartSelectorMethodName(genLinkWithClass)%>(element);
 	}
 <%
 	}

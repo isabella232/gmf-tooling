@@ -12,8 +12,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -21,20 +21,23 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
+import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
+
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ValueExpression} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class GenBaseElementItemProvider
-	extends GenCommonBaseItemProvider
+public class ValueExpressionItemProvider
+	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -47,7 +50,7 @@ public class GenBaseElementItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenBaseElementItemProvider(AdapterFactory adapterFactory) {
+	public ValueExpressionItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -61,79 +64,60 @@ public class GenBaseElementItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDomainNameFeaturePropertyDescriptor(object);
-			addContainmentMetaFeaturePropertyDescriptor(object);
+			addBodyPropertyDescriptor(object);
+			addLanguagePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Domain Name Feature feature.
+	 * This adds a property descriptor for the Body feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addDomainNameFeaturePropertyDescriptor(Object object) {
+	protected void addBodyPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenBaseElement_domainNameFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenBaseElement_domainNameFeature_feature", "_UI_GenBaseElement_type"),
-				 GMFGenPackage.eINSTANCE.getGenBaseElement_DomainNameFeature(),
+				 getString("_UI_ValueExpression_body_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ValueExpression_body_feature", "_UI_ValueExpression_type"),
+				 GMFGenPackage.eINSTANCE.getValueExpression_Body(),
 				 true,
-				 null,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Containment Meta Feature feature.
+	 * This adds a property descriptor for the Language feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addContainmentMetaFeaturePropertyDescriptor(Object object) {
+	protected void addLanguagePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenBaseElement_containmentMetaFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenBaseElement_containmentMetaFeature_feature", "_UI_GenBaseElement_type"),
-				 GMFGenPackage.eINSTANCE.getGenBaseElement_ContainmentMetaFeature(),
+				 getString("_UI_ValueExpression_language_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ValueExpression_language_feature", "_UI_ValueExpression_type"),
+				 GMFGenPackage.eINSTANCE.getValueExpression_Language(),
 				 true,
-				 null,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * This returns ValueExpression.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Collection getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenBaseElement_Viewmap());
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenBaseElement_ModelElementSelector());
-		}
-		return childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
+	public Object getImage(Object object) {
+		return getResourceLocator().getImage("full/obj16/ValueExpression");
 	}
 
 	/**
@@ -143,10 +127,10 @@ public class GenBaseElementItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((GenBaseElement)object).getEditPartClassName();
+		String label = ((ValueExpression)object).getBody();
 		return label == null || label.length() == 0 ?
-			getString("_UI_GenBaseElement_type") :
-			getString("_UI_GenBaseElement_type") + " " + label;
+			getString("_UI_ValueExpression_type") :
+			getString("_UI_ValueExpression_type") + " " + label;
 	}
 
 	/**
@@ -159,10 +143,10 @@ public class GenBaseElementItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(GenBaseElement.class)) {
-			case GMFGenPackage.GEN_BASE_ELEMENT__VIEWMAP:
-			case GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_SELECTOR:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+		switch (notification.getFeatureID(ValueExpression.class)) {
+			case GMFGenPackage.VALUE_EXPRESSION__BODY:
+			case GMFGenPackage.VALUE_EXPRESSION__LANGUAGE:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -177,21 +161,6 @@ public class GenBaseElementItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenBaseElement_Viewmap(),
-				 GMFGenFactory.eINSTANCE.createBasicNodeViewmap()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenBaseElement_Viewmap(),
-				 GMFGenFactory.eINSTANCE.createDecoratedConnectionViewmap()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenBaseElement_ModelElementSelector(),
-				 GMFGenFactory.eINSTANCE.createModelElementSelector()));
 	}
 
 	/**
