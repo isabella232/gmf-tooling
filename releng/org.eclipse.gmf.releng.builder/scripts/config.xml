@@ -27,7 +27,7 @@
 
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
-		<schedule interval="10">
+		<schedule interval="1200">
 			<!-- Perform checkout of all plug-ins and features, as builder uses export. -->
 			<ant antscript="ant.${ext}" buildfile="checkout.xml"
 				target="all" uselogger="true" usedebug="false" usequiet="true">
@@ -64,9 +64,9 @@
 
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
-		<schedule interval="10">
+		<schedule interval="1200">
 			<ant antscript="build.${ext}" buildfile="buildAll.xml"
-				target="nightly" uselogger="true" usedebug="false" usequiet="true">
+				target="main" uselogger="true" usedebug="false" usequiet="true">
 				<property name="buildType" value="N" />
 				<property name="buildRoot" value="${buildRoot}" />
 			</ant>
