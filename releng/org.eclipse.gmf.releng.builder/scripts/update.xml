@@ -22,7 +22,7 @@
 			<arg value="-version"/>
 			<arg value="${version}"/>
 			<arg value="-from"/>
-			<arg value="${updateSite}"/>
+			<arg value="${updates}"/>
 			<arg value="-to"/>
 			<arg value="${localUpdateSitePath}"/>
 		</java>
@@ -54,7 +54,7 @@
 			<arg value="-version"/>
 			<arg value="${version}"/>
 			<arg value="-from"/>
-			<arg value="${updateSite}"/>
+			<arg value="${updates}"/>
 		</java>
 	</target>
 	

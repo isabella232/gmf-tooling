@@ -79,7 +79,7 @@
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail subjectprefix="" buildresultsurl="${reporting.url}/buildresults/gmf"
+			<htmlemail subjectprefix="[continuous]" buildresultsurl="${reporting.url}/buildresults/gmf"
 			logdir="${logs}/gmf">
 				<always address="${always.email}" />
 			</htmlemail>
@@ -121,7 +121,7 @@
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail subjectprefix="" buildresultsurl="${reporting.url}/buildresults/gmf"
+			<htmlemail subjectprefix="[nightly]" buildresultsurl="${reporting.url}/buildresults/gmf"
 			logdir="${logs}/gmf">
 				<always address="${always.email}" />
 			</htmlemail>

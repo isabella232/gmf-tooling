@@ -4,9 +4,9 @@
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
     version="2.4">
 
-  <display-name>GMF Development Update Site</display-name>
+  <display-name>GMF Update Site</display-name>
   <description>
-     Local update site used for builds.
+     Update site for the Eclipse Graphical Modeling Framework Project.
   </description>
   <welcome-file-list>
     	<welcome-file>index.html</welcome-file>

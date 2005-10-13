@@ -17,7 +17,7 @@
    </feature>
    <category-def name="GMF 1.0.0" label="Graphical Modeling Framework">
       <description>
-         A generative framework for developing graphical applications which leverage both the Eclipse Modeling Framework (EMF) and Graphical Editing Framework (GEF).
+         A generative framework and runtime for developing graphical applications which leverage both the Eclipse Modeling Framework (EMF) and Graphical Editing Framework (GEF).
       </description>
    </category-def>
 </site>
