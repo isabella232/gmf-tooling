@@ -488,7 +488,7 @@
 		required to leverage CruiseControl:</p>
 		<ul>
 			<li>Install <a href="http://cruisecontrol.sf.net">CruiseControl</a>
-			(version 2.3 is used currently)</li>
+			(version 2.3.1 is used currently)</li>
 			<li>Check the settings of build.properties and config.xml files,
 			modifying as necessary. In particular, the schedule interval, email
 			server and addresses.</li>
@@ -496,7 +496,7 @@
 			instructions to install the cruisecontrol.war and modify the web.xml
 			file to point at the build's log and artifact locations. These will
 			be specified in the CC config.xml file and are by default /build/logs
-			and /build/artifacts/published, respectively. The installation is as
+			and /build/ccpublish, respectively. The installation is as
 			simple as copying the cc/reporting/jsp/dist/cruisecontrol.war file
 			into the tomcat/webapps directory.</li>
 			<li>You may want to adjust the maximum memory setting for Tomcat, and
