@@ -5,7 +5,6 @@
 	<!-- Add on <ant> task for each top level element being built. -->
 	<!-- ===================================================================== -->
 	<target name="allElements">
-		
 		<ant antfile="${genericTargets}" target="${target}">
 			<property name="type" value="feature" />
 			<property name="id" value="${product}"/>
@@ -289,7 +288,9 @@
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>		
 		<antcall target="gatherLogs" />
 		<!-- A temporary directory leftover? -->
-		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>		
+		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>	
+		<antcall target="publish"/>
+		<antcall target="generateUpdateSite"/>
 		<!-- Execute tests. -->
 		<antcall target="test"/>
 		<!-- Uninstall GMF from base. -->
@@ -301,9 +302,7 @@
 		<ant antfile="${scripts}/update.xml" target="uninstall">
 			<property name="featureId" value="org.eclipse.gmf.examples" />
 			<property name="version" value="${gmfVersion}" />
-		</ant>
-		<antcall target="publish"/>
-		<antcall target="generateUpdateSite"/>
+		</ant>		
 	</target>
 		
 	<!-- ===================================================================== -->
