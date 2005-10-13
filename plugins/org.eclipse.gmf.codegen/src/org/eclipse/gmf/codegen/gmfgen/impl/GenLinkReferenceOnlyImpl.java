@@ -273,4 +273,9 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 	public String getClassNameSuffux() {
 		return "PseudoLink";
 	}
+	
+	public String getUniqueIdentifier() {
+		return getDomainLinkTargetFeature().getName() + "_" + getVisualID();
+	}
+	
 } //GenLinkReferenceOnlyImpl

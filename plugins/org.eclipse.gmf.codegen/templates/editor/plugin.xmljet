@@ -25,6 +25,7 @@
 %>
     <import plugin="org.eclipse.emf.edit.ui"/>
     <import plugin="org.eclipse.gef" export="true"/>
+    <import plugin="org.eclipse.gmf.runtime.gef" export="true"/>
     <import plugin="org.eclipse.gmf.runtime.emf.commands.core"/>
     <import plugin="org.eclipse.gmf.runtime.diagram.ui"/>
     <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor"/>
@@ -105,6 +106,21 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {%>
   	  	 </description>  
       </wizard>
    </extension>
+   
+   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="<%=genDiagram.getPluginID()%>.ui.objectContribution.IFile1"
+            nameFilter="*.<%=genDiagram.getDomainDiagramElement().getGenPackage().getPrefix().toLowerCase()%>"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               label="Initialize <%=genDiagram.getDiagramFileExtension()%> diagram file"
+               class="<%=genDiagram.getInitDiagramFileActionQualifiedClassName()%>"
+               menubarPath="additions"
+               enablesFor="1"
+               id="<%=genDiagram.getPluginID()%>.ui.InitDiagramFileAction">
+         </action>
+      </objectContribution>            
+  </extension>
 
    <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
       <viewProvider class="<%=genDiagram.getProvidersPackageName()%>.ViewProvider">

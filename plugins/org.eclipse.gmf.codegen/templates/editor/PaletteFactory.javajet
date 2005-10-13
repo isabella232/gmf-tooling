@@ -141,7 +141,7 @@ for (int i = 0; i < toolGroups.size(); i++) {
 			"<%=nodeCreationTool.getDescriptionKey()%>", img, img) {
 
 			public Tool createTool() {
-				Tool tool = new CreationTool(ElementTypes.<%=genNode.getDomainMetaClass().getName() + "_" + genNode.getVisualID()%>);
+				Tool tool = new CreationTool(ElementTypes.<%=genNode.getUniqueIdentifier()%>);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
@@ -169,7 +169,7 @@ for (int i = 0; i < toolGroups.size(); i++) {
 			"<%=linkCreationTool.getDescriptionKey()%>", img, img) {
 
 			public Tool createTool() {
-				Tool tool = new ConnectorCreationTool(ElementTypes.<%=genLinkWithClass.getDomainMetaClass().getName() + "_" + genLinkWithClass.getVisualID()%>);
+				Tool tool = new ConnectorCreationTool(ElementTypes.<%=genLinkWithClass.getUniqueIdentifier()%>);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}

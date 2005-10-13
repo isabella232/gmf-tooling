@@ -41,6 +41,11 @@ public class <%=genDiagram.getPluginClassName()%> extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
+	public static final PreferencesHint DIAGRAM_PREFERENCES_HINT = new PreferencesHint(EDITOR_ID);
+
+	/**
+	 * @generated
+	 */
 	private static <%=genDiagram.getPluginClassName()%> instance;
 
 	/**
@@ -60,7 +65,7 @@ public class <%=genDiagram.getPluginClassName()%> extends AbstractUIPlugin {
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		instance = this;
-		PreferencesHint.registerPreferenceStore(new PreferencesHint(EDITOR_ID), getPreferenceStore());
+		PreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT, getPreferenceStore());
 <%
 GenPackage genPackage = genDiagram.getDomainMetaModel();
 String domainPackageIPAFInterfaceName = importManager.getImportedName(genPackage.getQualifiedItemProviderAdapterFactoryClassName());

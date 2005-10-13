@@ -123,10 +123,11 @@ public class Generator implements Runnable {
 			generateEditPartProvider();
 
 			// editor
-			//generateInitDiagramFileAction(); update action template to use notation model
+			generateInitDiagramFileAction();
 			generatePalette();
 			generateDiagramEditorUtil();
 			generateDiagramFileCreator();
+			generateVisualIDRegistry();
 			generateCreationWizard();
 			generateCreationWizardPage();
 			generateEditor();
@@ -311,6 +312,15 @@ public class Generator implements Runnable {
 			"DiagramFileCreator", //$NON-NLS-1$
 			myDiagram
 		);
+	}
+	
+	private void generateVisualIDRegistry() throws JETException, InterruptedException {
+		generate(
+				EmitterFactory.getVisualIDRegistryEmitter(),
+				myDiagram.getEditorPackageName(),
+				"VisualIDRegistry", //$NON-NLS-1$
+				myDiagram
+			);
 	}
 
 	private void generateCreationWizard() throws JETException, InterruptedException {

@@ -1,0 +1,248 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="VisualIDRegistry" imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.ImportUtil org.eclipse.gmf.codegen.util.PartSelectorUtil"%>
+<%
+GenDiagram genDiagram = (GenDiagram) argument;
+List genNodes = genDiagram.getNodes();
+%>
+package <%=genDiagram.getEditorPackageName()%>;
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());%>
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+
+<%importManager.markImportLocation(stringBuffer);%>
+	
+/**
+ * This registry is used to determine which type of visual object should be
+ * created for the corresponding Diagram, Node, ChildNode or Link represented 
+ * by a domain model object.
+ *
+ * @generated
+ */
+public class VisualIDRegistry {
+
+	public static final VisualIDRegistry INSTANCE = new VisualIDRegistry();
+		
+	/**
+	 * @generated
+	 */
+	public int getDiagramVisualID(EObject domainElement) {
+		EClass domainElementMetaclass = domainElement.eClass();
+		return getDiagramVisualID(domainElement, domainElementMetaclass);
+	}
+
+	/**
+	 * @generated
+	 */
+	public int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
+<%
+GenPackage genPackage = genDiagram.getDomainMetaModel();
+String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
+%>
+		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>().equals(domainElementMetaclass) && (domainElement != null ? isDiagram<%=genDiagram.getUniqueIdentifier()%>((<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>) domainElement) : true)) {
+			return <%=genDiagram.getVisualID()%>;
+		}
+		return getUnrecognizedDiagramID(domainElement);
+	}
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private int getUnrecognizedDiagramID(EObject domainElement) {
+		return -1;
+	}
+
+	/**
+	 * @generated
+	 */
+	public int getNodeVisualID(EObject domainElement) {
+		EClass domainElementMetaclass = domainElement.eClass();
+		return getNodeVisualID(domainElement, domainElementMetaclass);
+
+	}
+
+	/**
+	 * @generated
+	 */
+	public int getNodeVisualID(EObject domainElement, EClass domainElementMetaclass) {
+<%
+for (int i = 0; i < genNodes.size(); i++) {
+	GenNode genNode = (GenNode) genNodes.get(i);
+	String semanticNodeInterfaceName = genNode.getDomainMetaClass().getClassifierAccessorName();
+	String qualifiedInterfaceName = genNode.getDomainMetaClass().getQualifiedInterfaceName();
+%>
+		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>().equals(domainElementMetaclass) && (domainElement != null ? isNode<%=genNode.getUniqueIdentifier()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) domainElement) : true)) {
+			return <%=genNode.getVisualID()%>;
+		} else
+<%
+}
+%>
+		{
+			return getUnrecognizedNodeID(domainElement);
+		}
+	}
+		
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private int getUnrecognizedNodeID(EObject domainElement) {
+		return -1;
+	}
+
+	/**
+	 * @generated
+	 */
+	public int getChildNodeVisualID(EObject domainElement) {
+		EClass domainElementMetaclass = domainElement.eClass();
+		return getChildNodeVisualID(domainElement, domainElementMetaclass);
+	}
+	
+	/**
+	 * @generated
+	 */
+	public int getChildNodeVisualID(EObject domainElement, EClass domainElementMetaclass) {
+<%
+for (int i = 0; i < genNodes.size(); i++) {
+	GenNode genNode = (GenNode) genNodes.get(i);
+	List genChildNodes = genNode.getChildNodes();
+	for (int j = 0; j < genChildNodes.size(); j++) {
+		GenChildNode genChildNode = (GenChildNode) genChildNodes.get(j);
+		String semanticChildNodeInterfaceName = genChildNode.getDomainMetaClass().getClassifierAccessorName();
+		String qualifiedInterfaceName = genChildNode.getDomainMetaClass().getQualifiedInterfaceName();
+%>
+		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticChildNodeInterfaceName%>().equals(domainElementMetaclass) && (domainElement != null ? isChildNode<%=genChildNode.getUniqueIdentifier()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) domainElement) : true)) {
+			return <%=genChildNode.getVisualID()%>;
+		} else 
+<%	}
+}
+%>
+		{
+			return getUnrecognizedChildNodeID(domainElement);
+		}
+	}
+		
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private int getUnrecognizedChildNodeID(EObject domainElement) {
+		return -1;
+	}
+
+	/**
+	 * @generated
+	 */
+	public int getLinkWithClassVisualID(EObject domainElement) {
+		EClass domainElementMetaclass = domainElement.eClass();
+		return getLinkWithClassVisualID(domainElement, domainElementMetaclass);
+	}
+		
+	/**
+	 * @generated
+	 */
+	public int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
+<%
+List genLinks = genDiagram.getLinks();
+for (int i = 0; i < genLinks.size(); i++) {
+	GenLink genLink = (GenLink) genLinks.get(i);
+	if (genLink instanceof GenLinkWithClass) {
+		GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
+		String semanticLinkInterfaceName = genLinkWithClass.getDomainMetaClass().getClassifierAccessorName();
+		String qualifiedInterfaceName = genLinkWithClass.getDomainMetaClass().getQualifiedInterfaceName();
+%>
+		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().equals(domainElementMetaclass) && (domainElement != null ? isLinkWithClass<%=genLinkWithClass.getUniqueIdentifier()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) domainElement) : true)) {
+			return <%=genLink.getVisualID()%>;
+		} else 
+<%
+		}
+	}
+%>
+		{
+			return getUnrecognizedLinkWithClassID(domainElement);
+		}
+	}
+		
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private int getUnrecognizedLinkWithClassID(EObject domainElement) {
+		return -1;
+	}
+		
+	/**
+	 * User can change implementation of this method to check some additional conditions here.
+	 *
+	 * @generated
+	 */
+	private boolean isDiagram<%=genDiagram.getUniqueIdentifier()%>(<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%> element) {
+		return true;
+	}
+		
+<%
+for (int i = 0; i < genNodes.size(); i++) {
+	GenNode genNode = (GenNode) genNodes.get(i);
+	String semanticNodeInterfaceName = genNode.getDomainMetaClass().getClassifierAccessorName();
+	String qualifiedNodeInterfaceName = genNode.getDomainMetaClass().getQualifiedInterfaceName();
+%>
+	/**
+	 * User can change implementation of this method to check some additional conditions here.
+	 *
+	 * @generated
+	 */
+	private boolean isNode<%=genNode.getUniqueIdentifier()%>(<%=importManager.getImportedName(qualifiedNodeInterfaceName)%> element) {
+		return <%=importManager.getImportedName(PartSelectorUtil.getPartSelectorsFullClassName(genDiagram)) + "." + PartSelectorUtil.getPartSelectorMethodName(genNode)%>(element);
+	}
+
+<%
+	List genChildNodes = genNode.getChildNodes();
+	for (int j = 0; j < genChildNodes.size(); j++) {
+		GenChildNode genChildNode = (GenChildNode) genChildNodes.get(j);
+		String semanticChildNodeInterfaceName = genChildNode.getDomainMetaClass().getClassifierAccessorName();
+		String qualifiedChildNodeInterfaceName = genChildNode.getDomainMetaClass().getQualifiedInterfaceName();
+%>
+	/**
+	 * User can change implementation of this method to check some additional conditions here.
+	 *
+	 * @generated
+	 */
+	private boolean isChildNode<%=genChildNode.getUniqueIdentifier()%>(<%=importManager.getImportedName(qualifiedChildNodeInterfaceName)%> element) {
+		return <%=importManager.getImportedName(PartSelectorUtil.getPartSelectorsFullClassName(genDiagram)) + "." + PartSelectorUtil.getPartSelectorMethodName(genChildNode)%>(element);
+	}
+
+<%	}
+}
+%>
+	
+<%
+for (int i = 0; i < genLinks.size(); i++) {
+	GenLink genLink = (GenLink) genLinks.get(i);
+	if (genLink instanceof GenLinkWithClass) {
+		GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
+		String semanticLinkInterfaceName = genLinkWithClass.getDomainMetaClass().getClassifierAccessorName();
+		String qualifiedInterfaceName = genLinkWithClass.getDomainMetaClass().getQualifiedInterfaceName();
+%>
+	/**
+	 * User can change implementation of this method to check some additional conditions here.
+	 *
+	 * @generated
+	 */
+	private boolean isLinkWithClass<%=genLinkWithClass.getUniqueIdentifier()%>(<%=importManager.getImportedName(qualifiedInterfaceName)%> element) {
+		return <%=importManager.getImportedName(PartSelectorUtil.getPartSelectorsFullClassName(genDiagram)) + "." + PartSelectorUtil.getPartSelectorMethodName(genLink)%>(element);
+	}
+<%
+	}
+}
+%>
+		
+}
+	
+<%importManager.emitSortedImports();%>

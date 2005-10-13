@@ -147,7 +147,7 @@ for (int i = 0; i < toolGroups.size(); i++) {
     stringBuffer.append(TEXT_28);
     stringBuffer.append(nodeCreationTool.getDescriptionKey());
     stringBuffer.append(TEXT_29);
-    stringBuffer.append(genNode.getDomainMetaClass().getName() + "_" + genNode.getVisualID());
+    stringBuffer.append(genNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_30);
     	}
 	List linkCreationTools = toolGroup.getLinkTools();
@@ -171,7 +171,7 @@ for (int i = 0; i < toolGroups.size(); i++) {
     stringBuffer.append(TEXT_35);
     stringBuffer.append(linkCreationTool.getDescriptionKey());
     stringBuffer.append(TEXT_36);
-    stringBuffer.append(genLinkWithClass.getDomainMetaClass().getName() + "_" + genLinkWithClass.getVisualID());
+    stringBuffer.append(genLinkWithClass.getUniqueIdentifier());
     stringBuffer.append(TEXT_37);
     		}
     stringBuffer.append(TEXT_38);

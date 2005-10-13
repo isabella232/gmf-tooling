@@ -28,6 +28,7 @@ import org.eclipse.gmf.codegen.templates.editor.PaletteFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginXML;
 import org.eclipse.gmf.codegen.templates.editor.PreferencesInitializerGenerator;
+import org.eclipse.gmf.codegen.templates.editor.VisualIDRegistry;
 import org.eclipse.gmf.codegen.templates.parts.ChildNodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.DiagramEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.EditPartFactoryGenerator;
@@ -141,6 +142,10 @@ public class EmitterFactory {
 
 	public static JETEmitter getDiagramFileCreatorEmitter() throws JETException {
 		return initializeEmitter("/templates/editor/DiagramFileCreator.javajet", DiagramFileCreatorGenerator.class);
+	}
+	
+	public static JETEmitter getVisualIDRegistryEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/VisualIDRegistry.javajet", VisualIDRegistry.class);
 	}
 
 	public static JETEmitter getCreationWizardEmitter() throws JETException {

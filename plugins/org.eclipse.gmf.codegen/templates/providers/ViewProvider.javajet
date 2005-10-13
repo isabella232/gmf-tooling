@@ -24,7 +24,7 @@ public class ViewProvider extends AbstractViewProvider {
 	 */
 	protected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		if ("<%=genModel.getModelName()%>".equals(diagramKind) && isDiagram<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>_<%=genDiagram.getVisualID()%>((<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%>) semanticElement)) { //$NON-NLS-1$
+		if ("<%=genModel.getModelName()%>".equals(diagramKind) && <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getDiagramVisualID(semanticElement) != -1) { //$NON-NLS-1$
 			return DiagramViewFactory.class;
 		}
 		return null;
@@ -32,43 +32,17 @@ public class ViewProvider extends AbstractViewProvider {
 
 <%
 GenPackage genPackage = genDiagram.getDomainMetaModel();
-String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 %>
 
 	/**
 	 * @generated
 	 */
 	protected Class getNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-		EClass semanticType = getSemanticEClass(semanticAdapter);
-		EObject semanticElement = getSemanticElement(semanticAdapter);
-<%
-List genLinks = genDiagram.getLinks();
-for (int i = 0; i < genLinks.size(); i++) {
-	GenLink genLink = (GenLink) genLinks.get(i);
-	if (genLink instanceof GenLinkWithClass) {
-		GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
-		String semanticLinkInterfaceName = genLinkWithClass.getDomainMetaClass().getClassifierAccessorName();
-		String qualifiedInterfaceName = genLinkWithClass.getDomainMetaClass().getQualifiedInterfaceName();
-%>
-		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().equals(semanticType) && isConnector<%=semanticLinkInterfaceName%>_<%=genLinkWithClass.getVisualID()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) semanticElement)) {
-<%
-		List labels = genLink.getLabels();
-		for (int j = 0; j < labels.size(); j++) {
-			LinkLabel label = (LinkLabel) labels.get(j);
-%>
-			if ("<%=AccessUtil.getLinkLabelViewName(label)%>".equals(semanticHint)) {
-				return <%=AccessUtil.getLinkLabelViewFactoryClassName(label)%>.class;
-			}
-			if ("<%=AccessUtil.getLinkLabelTextViewName(label)%>".equals(semanticHint)) {
-				return BasicNodeViewFactory.class;
-			}
-<%		}%>
-			return null;
+		Class linkLabelViewClass = getLinkLabelViewClass(semanticAdapter, containerView, semanticHint);
+		if (linkLabelViewClass != null) {
+			return linkLabelViewClass;
 		}
-<%
-	}
-}
-%>
+		
 		boolean isTopLevel = containerView instanceof Diagram || (semanticHint != null && semanticHint.length() > 0);
 		if (isTopLevel) {
 			return getTopLevelNodeViewClass(semanticAdapter, containerView, semanticHint);
@@ -80,9 +54,58 @@ for (int i = 0; i < genLinks.size(); i++) {
 	/**
 	 * @generated
 	 */
+	private Class getLinkLabelViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
+<%
+List genLinks = genDiagram.getLinks();
+if (genLinks.size() != 0) {
+%>
+		EClass semanticType = getSemanticEClass(semanticAdapter);
+		EObject semanticElement = getSemanticElement(semanticAdapter);
+		int linkVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getLinkWithClassVisualID(semanticElement, semanticType);
+		
+		switch (linkVID) {
+<%
+	for (int i = 0; i < genLinks.size(); i++) {
+		GenLink genLink = (GenLink) genLinks.get(i);
+		if (genLink instanceof GenLinkWithClass) {
+%>
+		case <%=genLink.getVisualID()%>:
+<%
+			List labels = genLink.getLabels();
+			for (int j = 0; j < labels.size(); j++) {
+				LinkLabel label = (LinkLabel) labels.get(j);
+%>
+			if ("<%=AccessUtil.getLinkLabelViewName(label)%>".equals(semanticHint)) {
+				return <%=AccessUtil.getLinkLabelViewFactoryClassName(label)%>.class;
+			}
+			if ("<%=AccessUtil.getLinkLabelTextViewName(label)%>".equals(semanticHint)) {
+				return BasicNodeViewFactory.class;
+			}
+<%
+			}
+%>
+			return null;
+<%			
+		}
+	}
+%>
+			
+		}
+<%
+}
+%>
+		return null;
+	}
+	
+	/**
+	 * @generated
+	 */
 	private Class getTopLevelNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
+		int nodeVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getNodeVisualID(semanticElement, semanticType);
+		
+		switch (nodeVID) {
 <%
 List genNodes = genDiagram.getNodes();
 for (int i = 0; i < genNodes.size(); i++) {
@@ -90,7 +113,7 @@ for (int i = 0; i < genNodes.size(); i++) {
 	String semanticNodeInterfaceName = genNode.getDomainMetaClass().getClassifierAccessorName();
 	String qualifiedInterfaceName = genNode.getDomainMetaClass().getQualifiedInterfaceName();
 %>
-		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>().equals(semanticType) && isNode<%=semanticNodeInterfaceName%>_<%=genNode.getVisualID()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) semanticElement)) {
+		case <%=genNode.getVisualID()%>:
 <%
 	if (genNode.hasNameToEdit()) {
 		String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
@@ -109,10 +132,10 @@ for (int i = 0; i < genNodes.size(); i++) {
 			}
 <%	}%>
 			return <%=genNode.getNotationViewFactoryClassName()%>.class;
-		}
 <%
 }
 %>
+		}
 		return getUnrecognizedTopLevelNodeViewClass(semanticAdapter, containerView, semanticHint);
 	}
 	
@@ -130,21 +153,22 @@ for (int i = 0; i < genNodes.size(); i++) {
 	private Class getChildNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
+		int nodeVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getChildNodeVisualID(semanticElement, semanticType);
+		
+		switch (nodeVID) {
 <%
 for (int i = 0; i < genNodes.size(); i++) {
 	GenNode genNode = (GenNode) genNodes.get(i);
 	List genChildNodes = genNode.getChildNodes();
 	for (int j = 0; j < genChildNodes.size(); j++) {
 		GenChildNode genChildNode = (GenChildNode) genChildNodes.get(j);
-		String semanticChildNodeInterfaceName = genChildNode.getDomainMetaClass().getClassifierAccessorName();
-		String qualifiedInterfaceName = genChildNode.getDomainMetaClass().getQualifiedInterfaceName();
 %>
-		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticChildNodeInterfaceName%>().equals(semanticType) && isChildNode<%=semanticChildNodeInterfaceName%>_<%=genChildNode.getVisualID()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) semanticElement)) {
+		case <%=genChildNode.getVisualID()%>:
 			return <%=genChildNode.getNotationViewFactoryClassName()%>.class;
-		}
 <%	}
 }
 %>
+		}
 		return getUnrecognizedChildNodeViewClass(semanticAdapter, containerView, semanticHint);
 	}
 	
@@ -162,15 +186,15 @@ for (int i = 0; i < genNodes.size(); i++) {
 	protected Class getConnectorViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
+		int linkVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getLinkWithClassVisualID(semanticElement, semanticType);
+		
+		switch (linkVID) {
 <%
 for (int i = 0; i < genLinks.size(); i++) {
 	GenLink genLink = (GenLink) genLinks.get(i);
 	if (genLink instanceof GenLinkWithClass) {
-		GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
-		String semanticLinkInterfaceName = genLinkWithClass.getDomainMetaClass().getClassifierAccessorName();
-		String qualifiedInterfaceName = genLinkWithClass.getDomainMetaClass().getQualifiedInterfaceName();
 %>
-		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().equals(semanticType) && isConnector<%=semanticLinkInterfaceName%>_<%=genLinkWithClass.getVisualID()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) semanticElement)) {
+		case <%=genLink.getVisualID()%>:
 <%
 		// disable creation of connector views for label links
 		List labels = genLink.getLabels();
@@ -185,11 +209,11 @@ for (int i = 0; i < genLinks.size(); i++) {
 			}
 <%		}%>
 			return <%=genLink.getNotationViewFactoryClassName()%>.class;
-		}
 <%
 	}
 }
 %>
+		}
 		return getUnrecognizedConnectorViewClass(semanticAdapter, containerView, semanticHint);
 	}
 	
@@ -200,63 +224,6 @@ for (int i = 0; i < genLinks.size(); i++) {
 	 	// Handle unrecognized child node classes here
 	 	return null;
 	 }
-	
-	/**
-	 * @generated
-	 */
-	private boolean isDiagram<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>_<%=genDiagram.getVisualID()%>(<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%> element) {
-		return true;
-	}
-	
-<%
-for (int i = 0; i < genNodes.size(); i++) {
-	GenNode genNode = (GenNode) genNodes.get(i);
-	String semanticNodeInterfaceName = genNode.getDomainMetaClass().getClassifierAccessorName();
-	String qualifiedNodeInterfaceName = genNode.getDomainMetaClass().getQualifiedInterfaceName();
-%>
-	/**
-	 * @generated
-	 */
-	private boolean isNode<%=semanticNodeInterfaceName%>_<%=genNode.getVisualID()%>(<%=importManager.getImportedName(qualifiedNodeInterfaceName)%> element) {
-		return element == null || <%=importManager.getImportedName(PartSelectorUtil.getPartSelectorsFullClassName(genDiagram)) + "." + PartSelectorUtil.getPartSelectorMethodName(genNode)%>(element);
-	}
-
-<%
-	List genChildNodes = genNode.getChildNodes();
-	for (int j = 0; j < genChildNodes.size(); j++) {
-		GenChildNode genChildNode = (GenChildNode) genChildNodes.get(j);
-		String semanticChildNodeInterfaceName = genChildNode.getDomainMetaClass().getClassifierAccessorName();
-		String qualifiedChildNodeInterfaceName = genChildNode.getDomainMetaClass().getQualifiedInterfaceName();
-%>
-	/**
-	 * @generated
-	 */
-	private boolean isChildNode<%=semanticChildNodeInterfaceName%>_<%=genChildNode.getVisualID()%>(<%=importManager.getImportedName(qualifiedChildNodeInterfaceName)%> element) {
-		return element == null || <%=importManager.getImportedName(PartSelectorUtil.getPartSelectorsFullClassName(genDiagram)) + "." + PartSelectorUtil.getPartSelectorMethodName(genChildNode)%>(element);
-	}
-
-<%	}
-}
-%>
-	
-<%
-for (int i = 0; i < genLinks.size(); i++) {
-	GenLink genLink = (GenLink) genLinks.get(i);
-	if (genLink instanceof GenLinkWithClass) {
-		GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
-		String semanticLinkInterfaceName = genLinkWithClass.getDomainMetaClass().getClassifierAccessorName();
-		String qualifiedInterfaceName = genLinkWithClass.getDomainMetaClass().getQualifiedInterfaceName();
-%>
-	/**
-	 * @generated
-	 */
-	private boolean isConnector<%=semanticLinkInterfaceName%>_<%=genLinkWithClass.getVisualID()%>(<%=importManager.getImportedName(qualifiedInterfaceName)%> element) {
-		return element == null || <%=importManager.getImportedName(PartSelectorUtil.getPartSelectorsFullClassName(genDiagram)) + "." + PartSelectorUtil.getPartSelectorMethodName(genLinkWithClass)%>(element);
-	}
-<%
-	}
-}
-%>
 	
 }
 <%importManager.emitSortedImports();%>

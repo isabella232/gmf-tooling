@@ -470,4 +470,9 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 	public String getClassNameSuffux() {
 		return "Node";
 	}
+	
+	public String getUniqueIdentifier() {
+		return getDomainMetaClass().getInterfaceName() + "_" + getVisualID();
+	}
+	
 } //GenNodeImpl

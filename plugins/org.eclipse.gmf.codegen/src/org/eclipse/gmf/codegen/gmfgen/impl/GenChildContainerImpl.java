@@ -557,5 +557,9 @@ public class GenChildContainerImpl extends GenCommonBaseImpl implements GenChild
 		}
 		return parentNode.getDiagram();
 	}
+	
+	public String getUniqueIdentifier() {
+		return getGroupID() + "_" + getVisualID();
+	}
 
 } //GenChildContainerImpl

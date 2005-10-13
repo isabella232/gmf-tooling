@@ -45,14 +45,13 @@ while (entities.hasNext()) {
 	} else {
 		continue;
 	}
-	String semanticNodeInterfaceNameUnique = semanticNodeInterfaceName + "_" + entity.getVisualID();
-	types.add(semanticNodeInterfaceNameUnique);
+	types.add(entity.getUniqueIdentifier());
 %>
 
 	/**
 	 * @generated
 	 */
-	public static class <%=semanticNodeInterfaceNameUnique%>_EditHelper extends BaseEditHelper {
+	public static class <%=entity.getUniqueIdentifier()%>_EditHelper extends BaseEditHelper {
 
 		/**
 		 * @generated
@@ -71,10 +70,10 @@ while (entities.hasNext()) {
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType <%=semanticNodeInterfaceNameUnique%> = new MetamodelType(
+	public static final IMetamodelType <%=entity.getUniqueIdentifier()%> = new MetamodelType(
 		"<%=semanticNodeInterfaceName%>",	null, null,
 		<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>(),
-		new <%=semanticNodeInterfaceNameUnique%>_EditHelper());
+		new <%=entity.getUniqueIdentifier()%>_EditHelper());
 <%}%>
 
 	/**

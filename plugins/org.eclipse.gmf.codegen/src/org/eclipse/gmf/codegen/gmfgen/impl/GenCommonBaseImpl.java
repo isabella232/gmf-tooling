@@ -273,6 +273,13 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public abstract String getUniqueIdentifier();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public String getEditPartQualifiedClassName() {
 		return getDiagram().getEditPartsPackageName() + '.' + getEditPartClassName();
 	}

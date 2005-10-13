@@ -1,14 +1,17 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="InitDiagramFileActionGen" imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.ImportUtil"%>
-<%GenDiagram genDiagram = (GenDiagram) argument;%>
+<%
+GenDiagram genDiagram = (GenDiagram) argument;
+List genNodes = genDiagram.getNodes();
+List genLinks = genDiagram.getLinks();
+%>
 package <%=genDiagram.getEditorPackageName()%>;
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());%>
-
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
@@ -17,12 +20,18 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.gmf.runtime.diagram.ui.DiagramUtil;
+import org.eclipse.gmf.runtime.emf.core.edit.MRunnable;
+import org.eclipse.gmf.runtime.emf.core.util.OperationUtil;
+import org.eclipse.gmf.runtime.emf.core.util.ResourceUtil;
+import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
@@ -34,12 +43,6 @@ import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.IDE;
-
-import org.eclipse.gmf.diagramrt.ChildNode;
-import org.eclipse.gmf.diagramrt.DiagramCanvas;
-import org.eclipse.gmf.diagramrt.DiagramLink;
-import org.eclipse.gmf.diagramrt.DiagramNode;
-
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -56,26 +59,21 @@ public class <%=genDiagram.getInitDiagramFileActionClassName()%> implements IObj
 	 * @generated
 	 */
 	private IWorkbenchPart myPart;
-    
-	/**
-	 * @generated
-	 */
-	private ResourceSet myResSet;
-    
+	
 	/**
 	 * @generated
 	 */
 	private IFile mySelection;
+    
+	/**
+	 * @generated
+	 */
+	private Map myLinkWithClassVID2EObject = new HashMap();
 	
 	/**
 	 * @generated
 	 */
-	private Map myObject2NodeMap = new HashMap();
-	
-	/**
-	 * @generated
-	 */
-	private Map myLinkFactory2SourceNodeMap = new HashMap();
+	private Map myEObject2NodeMap = new HashMap();
 
     /**
      * @generated
@@ -87,185 +85,10 @@ public class <%=genDiagram.getInitDiagramFileActionClassName()%> implements IObj
     /**
      * @generated
      */
-	public void run(IAction action) {
-		InputDialog outputFileNameDialog = new InputDialog(getShell(), "Diagram file name", "Please provide diagram file name", mySelection.getProjectRelativePath().removeFileExtension().addFileExtension(FILE_EXT)
-				.lastSegment(), this);
-		if (outputFileNameDialog.open() != InputDialog.OK) {
-			return;
-		}
-		myResSet = new ResourceSetImpl();
-		EObject diagramModelObject = load();
-		if (diagramModelObject == null) {
-			MessageDialog.openError(getShell(), "Error", "Failed to load user model");
-			return;
-		}
-		EObject diagram = create(diagramModelObject);
-		if (diagram == null) {
-			MessageDialog.openError(getShell(), "Error", "Failed to create diagram object");
-			return;
-		}
-		IFile destFile = mySelection.getParent().getFile(new Path(outputFileNameDialog.getValue()));
-		String filePath = mySelection.getFullPath().removeLastSegments(1).append(outputFileNameDialog.getValue()).toString();
-		save(filePath, diagram);
-		try {
-			IDE.openEditor(myPart.getSite().getPage(), destFile);
-		} catch (PartInitException ex) {
-			ex.printStackTrace();
-		}
+	private Shell getShell() {
+		return myPart.getSite().getShell();
 	}
 	
-    /**
-     * @generated
-     */
-	private EObject create(EObject diagramModel) {
-		myObject2NodeMap.clear();
-		myLinkFactory2SourceNodeMap.clear();
-<% GenClass diagramGenClass = genDiagram.getDiagramRunTimeClass();%>
-		DiagramCanvas diagramCanvas = <%=importManager.getImportedName(diagramGenClass.getGenPackage().getQualifiedFactoryInterfaceName())%>.eINSTANCE.create<%=diagramGenClass.getInterfaceName()%>();
-		diagramCanvas.setDomainContainerObject(diagramModel);
-		
-<%
-for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext();) {
-	GenLink nextGenLink = (GenLink) links.next();
-%>
-		myLinkFactory2SourceNodeMap.put(new LinkFactoryImpl<%=nextGenLink.getVisualID()%>(), new LinkedList());
-<%
-}
-%>
-		
-		for (Iterator it = diagramModel.eContents().iterator(); it.hasNext();) {
-			EObject next = (EObject) it.next();
-			EClass nextEClass = next.eClass();
-<%
-for (Iterator nodes = genDiagram.getNodes().iterator(); nodes.hasNext();) {
-	GenNode nextGenNode = (GenNode) nodes.next();
-	GenClass nextGenNodeGenClass = nextGenNode.getDomainMetaClass();
-%>
-            if (<%=importManager.getImportedName(nextGenNodeGenClass.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=nextGenNodeGenClass.getInterfaceName()%>().equals(nextEClass)) {
-            	generateNode<%=nextGenNode.getVisualID()%>(next, diagramCanvas);
-            } else 
-<%}%>
-			{
-				generateUnrecognizedNode(next, diagramCanvas);
-			}
-		}
-		
-		for (Iterator it = myLinkFactory2SourceNodeMap.entrySet().iterator(); it.hasNext();) {
-			Map.Entry entry = (Map.Entry) it.next();
-			LinkFactory nextLinkFactory = (LinkFactory) entry.getKey();
-			for (Iterator nodes = ((Collection) entry.getValue()).iterator(); nodes.hasNext();) {
-				nextLinkFactory.createLinks((DiagramNode) nodes.next(), diagramCanvas);
-			}
-		}
-		
-	    return diagramCanvas;
-	}
-	
-    /**
-     * @generated
-     */
-	private void generateUnrecognizedNode(EObject modelElement, DiagramCanvas diagramCanvas) {
-		// Handle special cases here
-	}
-	
-<%
-for (Iterator nodes = genDiagram.getNodes().iterator(); nodes.hasNext();) {
-	GenNode nextGenNode = (GenNode) nodes.next();
-	GenClass nextNodeRuntimeGenClass = nextGenNode.getDiagramRunTimeClass();
-%>
-    /**
-     * @generated
-     */
-	private void generateNode<%=nextGenNode.getVisualID()%>(EObject modelElement, DiagramCanvas diagramCanvas) {
-		DiagramNode diagramNode = <%=importManager.getImportedName(nextNodeRuntimeGenClass.getGenPackage().getQualifiedFactoryInterfaceName())%>.eINSTANCE.create<%=nextNodeRuntimeGenClass.getInterfaceName()%>();
-		diagramNode.setDomainModelElement(modelElement);
-		storeDiagramNode(diagramNode);
-		diagramNode.setUin(diagramCanvas.nextAvailableUin());
-		diagramNode.setVisualID(<%=importManager.getImportedName(nextGenNode.getEditPartQualifiedClassName())%>.VISUAL_ID);
-		diagramCanvas.getNodes().add(diagramNode);
-		
-		for (Iterator it = modelElement.eContents().iterator(); it.hasNext();) {
-			EObject next = (EObject) it.next();
-			EClass nextEClass = next.eClass();
-<%
-	for (Iterator childNodes = nextGenNode.getChildNodes().iterator(); childNodes.hasNext();) {
-		GenChildNode nextChildGenNode = (GenChildNode) childNodes.next();
-		GenClass nextChildNodeRuntimeGenClass = nextChildGenNode.getDiagramRunTimeClass();
-		GenClass nextChildNodeDomainGenClass = nextChildGenNode.getDomainMetaClass();
-%>
-            if (<%=importManager.getImportedName(nextChildNodeDomainGenClass.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=nextChildNodeDomainGenClass.getInterfaceName()%>().equals(nextEClass)) {
-				ChildNode nextChildNode = <%=importManager.getImportedName(nextChildNodeRuntimeGenClass.getGenPackage().getQualifiedFactoryInterfaceName())%>.eINSTANCE.create<%=nextChildNodeRuntimeGenClass.getInterfaceName()%>();
-				nextChildNode.setGroupID("<%=nextChildGenNode.getGroupID()%>");
-				nextChildNode.setDomainModelElement(next);
-				storeDiagramNode(nextChildNode);
-				nextChildNode.setUin(diagramCanvas.nextAvailableUin());
-				nextChildNode.setVisualID(<%=importManager.getImportedName(nextChildGenNode.getEditPartQualifiedClassName())%>.VISUAL_ID);
-				diagramNode.getChildNodes().add(nextChildNode);
-            } else 
-<%	}%>
-			{
-				generateUnrecognizedSubNode<%=nextGenNode.getVisualID()%>(next, diagramNode, diagramCanvas);
-			}
-		}
-	}
-	
-    /**
-     * @generated
-     */
-	private void generateUnrecognizedSubNode<%=nextGenNode.getVisualID()%>(EObject modelElement, DiagramNode diagramNode, DiagramCanvas diagramCanvas) {
-		// Handle special cases here for subnodes of the node with Visual_ID = <%=nextGenNode.getVisualID()%>
-	}
-<%}%>
-
-    /**
-     * @generated
-     */
-	private void storeDiagramNode(DiagramNode diagramNode) {
-		myObject2NodeMap.put(diagramNode.getDomainModelElement(), diagramNode);
-		for (Iterator it = myLinkFactory2SourceNodeMap.entrySet().iterator(); it.hasNext();) {
-			Map.Entry entry = (Map.Entry) it.next();
-			LinkFactory nextLinkFactory = (LinkFactory) entry.getKey();
-			Collection nodes = (Collection) entry.getValue();
-			if (nextLinkFactory.isApplicable(diagramNode)) {
-				nodes.add(diagramNode);
-			}
-		}
-	}
-
-    /**
-     * @generated
-     */
-	private DiagramNode getDiagramNode(EObject modelElement) {
-		return (DiagramNode) myObject2NodeMap.get(modelElement);
-	}
-
-    /**
-     * @generated
-     */
-	private EObject load() {
-		Resource resource = myResSet.getResource(URI.createPlatformResourceURI(mySelection.getFullPath().toString()), true);
-		try {
-			resource.load(Collections.EMPTY_MAP);
-			return (EObject) resource.getContents().get(0);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-		return null;
-	}
-	
-    /**
-     * @generated
-     */
-	private void save(String filePath, EObject canvas) {
-		Resource resource = myResSet.createResource(URI.createURI(filePath));
-		resource.getContents().add(canvas);
-		try {
-			resource.save(Collections.EMPTY_MAP);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
-	}
-
     /**
      * @generated
      */
@@ -278,7 +101,7 @@ for (Iterator nodes = genDiagram.getNodes().iterator(); nodes.hasNext();) {
 		mySelection = (IFile) ((IStructuredSelection) selection).getFirstElement();
 		action.setEnabled(true);
 	}
-
+	
     /**
      * @generated
      */	
@@ -292,177 +115,218 @@ for (Iterator nodes = genDiagram.getNodes().iterator(); nodes.hasNext();) {
 		}
 		return null;
 	}
-
-
-    /**
-     * @generated
-     */
-	private Shell getShell() {
-		return myPart.getSite().getShell();
-	}
 	
     /**
      * @generated
      */
-	private interface LinkFactory {
-		
-	    /**
-    	 * @generated
-    	 */
-		boolean isApplicable(DiagramNode node);
-		
-	    /**
-    	 * @generated
-    	 */
-		void createLinks(DiagramNode node, DiagramCanvas diagramCanvas);
-		
-	}
-	
-<%
-for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext();) {
-	GenLink nextGenLink = (GenLink) links.next();
-	boolean referenceOnly = false;
-	GenFeature containmentGenFeature = null;
-	GenClass domainMetaElementGenClass = null;
-	if (nextGenLink instanceof GenLinkReferenceOnly) {
-		referenceOnly = true;
-	} else {
-		containmentGenFeature = nextGenLink.getContainmentMetaFeature();
-		GenLinkWithClass withClassLink = (GenLinkWithClass) nextGenLink;
-		if (withClassLink.getDomainMetaClass() != null) {
-			domainMetaElementGenClass = withClassLink.getDomainMetaClass();
+	public void run(IAction action) {
+		final InputDialog outputFileNameDialog = new InputDialog(getShell(), "Diagram file name", "Please provide diagram file name", mySelection.getProjectRelativePath().removeFileExtension().addFileExtension(FILE_EXT).lastSegment(), this);
+		if (outputFileNameDialog.open() != InputDialog.OK) {
+			return;
 		}
-	}
-	
-	GenClass nextLinkRuntimeGenClass = nextGenLink.getDiagramRunTimeClass();
-	GenFeature domainLinkTargetGenFeature = nextGenLink.getDomainLinkTargetFeature();
-%>
-    /**
-     * @generated
-     */
-	private class LinkFactoryImpl<%=nextGenLink.getVisualID()%> implements LinkFactory {
-		
-	    /**
-    	 * @generated
-    	 */
-		public boolean isApplicable(DiagramNode node) {
-			EObject modelObject = node.getDomainModelElement();
-			EClass modelObjectEClass = modelObject.eClass();
-<%
-	GenFeature genFeature;
-	if (referenceOnly) {
-		genFeature = domainLinkTargetGenFeature;
-	} else {
-		genFeature = containmentGenFeature;
-	}
-%>
-			for (Iterator it = modelObjectEClass.getEAllStructuralFeatures().iterator(); it.hasNext();) {
-				if (<%=importManager.getImportedName(genFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=genFeature.getFeatureAccessorName()%>().equals(it.next())) {
-					return true;
+		final EObject diagramModelObject = load();
+		if (diagramModelObject == null) {
+			MessageDialog.openError(getShell(), "Error", "Failed to load user model");
+			return;
+		}
+		OperationUtil.runAsUnchecked(new MRunnable() {
+			public Object run() {
+				EObject diagram = create(diagramModelObject);
+				if (diagram == null) {
+					MessageDialog.openError(getShell(), "Error", "Failed to create diagram object");
+					return null;
 				}
-			}
-			return false;
-		}
-		
-	    /**
-    	 * @generated
-    	 */
-		public void createLinks(DiagramNode node, DiagramCanvas diagramCanvas) {
-			EObject modelObject = node.getDomainModelElement();
-<%
-	if (referenceOnly) {
-%>			
-			EStructuralFeature structuralFeature = <%=importManager.getImportedName(domainLinkTargetGenFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=domainLinkTargetGenFeature.getFeatureAccessorName()%>();
-			Object structuralFeatureResult = modelObject.eGet(structuralFeature);
-			if (structuralFeatureResult instanceof Collection) {
-				for (Iterator it = ((Collection) structuralFeatureResult).iterator(); it.hasNext();) {
-					EObject nextLinkTarget = (EObject) it.next();
-					DiagramNode targetNode = null;
-					if (vetoLinkCreation(modelObject, nextLinkTarget)) {
-						continue;
-					}
-					targetNode = getDiagramNode(nextLinkTarget);
-<%	
-	} else {
-%>
-			EStructuralFeature containmentFeature = <%=importManager.getImportedName(containmentGenFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentGenFeature.getFeatureAccessorName()%>();
-			Object containmentFeatureResult = modelObject.eGet(containmentFeature);
-			if (containmentFeatureResult instanceof Collection) {
-				for (Iterator it = ((Collection) containmentFeatureResult).iterator(); it.hasNext();) {
-					EObject modelLinkObject = (EObject) it.next();
-					DiagramNode targetNode = null;
-<%
-		if (domainMetaElementGenClass != null) {
-%>
-					EClass modelLinkObjectEClass = modelLinkObject.eClass();
-            		if (!<%=importManager.getImportedName(domainMetaElementGenClass.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=domainMetaElementGenClass.getInterfaceName()%>().equals(modelLinkObjectEClass)) {
-            			continue;
-            		}
-<%
-		}
-%>
-					EStructuralFeature structuralFeature = <%=importManager.getImportedName(domainLinkTargetGenFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=domainLinkTargetGenFeature.getFeatureAccessorName()%>();
-					if (structuralFeature == null) {
-						continue;
-					}
-					Object structuralFeatureResult = modelLinkObject.eGet(structuralFeature);
-					if (structuralFeatureResult instanceof EObject == false) {
-						continue;
-					}
-					if (vetoLinkCreation(modelObject, (EObject) structuralFeatureResult, modelLinkObject)) {
-						continue;
-					}
-					targetNode = getDiagramNode((EObject) structuralFeatureResult);
-<%
-	}
-%>
-					if (targetNode == null) {
-						continue;
-					}
-					DiagramLink diagramLink = <%=importManager.getImportedName(nextLinkRuntimeGenClass.getGenPackage().getQualifiedFactoryInterfaceName())%>.eINSTANCE.create<%=nextLinkRuntimeGenClass.getInterfaceName()%>();
-					diagramLink.setSource(node);
-					diagramLink.setUin(diagramCanvas.nextAvailableUin());
-					diagramLink.setTarget(targetNode);
-					diagramLink.setVisualID(<%=importManager.getImportedName(nextGenLink.getEditPartQualifiedClassName())%>.VISUAL_ID);
-					diagramCanvas.getLinks().add(diagramLink);
-<%
-	if (!referenceOnly) {
-%>
-					diagramLink.setDomainModelElement(modelLinkObject);
-<%
-	}
-%>
+				IFile destFile = mySelection.getParent().getFile(new Path(outputFileNameDialog.getValue()));
+				save(destFile.getLocation().toOSString(), diagram);
+				try {
+					IDE.openEditor(myPart.getSite().getPage(), destFile);
+				} catch (PartInitException ex) {
+					ex.printStackTrace();
 				}
+				return null;
 			}
-		}
-		
-<%
-	if (referenceOnly) {
-%>
-	    /**
-    	 * @generated
-    	 */
-		private boolean vetoLinkCreation(EObject linkSource, EObject target) {
-			return false;
-		}
-<%
-	} else {
-%>
-	    /**
-    	 * @generated
-    	 */
-		private boolean vetoLinkCreation(EObject linkSource, EObject target, EObject linkObject) {
-			return false;
-		}
-<%
+		});
 	}
-%>
-		
-		}
 	
+    /**
+     * @generated
+     */
+	private EObject load() {
+		ResourceSet resourceSet = new ResourceSetImpl();
+		Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(mySelection.getFullPath().toString()), true);
+		try {
+			resource.load(Collections.EMPTY_MAP);
+			return (EObject) resource.getContents().get(0);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+	
+    /**
+     * @generated
+     */
+	private void save(String filePath, EObject canvas) {
+		Resource resource = ResourceUtil.create(filePath, null);
+		resource.getContents().add(((Diagram) canvas).getElement());
+		resource.getContents().add(canvas);
+		try {
+			resource.save(Collections.EMPTY_MAP);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+    /**
+     * @generated
+     */
+	private EObject create(EObject diagramModel) {
+		int diagramVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getDiagramVisualID(diagramModel);
+		if (diagramVID == -1) {
+			return null;
+		}
+		
+		myLinkWithClassVID2EObject.clear();
+		myEObject2NodeMap.clear();
+<%
+for (Iterator it = genLinks.iterator(); it.hasNext();) {
+	GenLink nextLink = (GenLink) it.next();
+%>
+		myLinkWithClassVID2EObject.put(new Integer(<%=nextLink.getVisualID()%>), new LinkedList());
 <%
 }
 %>
+		Diagram diagram = DiagramUtil.createDiagram(diagramModel, "<%=genDiagram.getEMFGenModel().getModelName()%>", <%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
+		createDiagramChildren(diagram, diagramModel);
+		
+		createLinks();
+		
+	    return diagram;
+	}
+	
+    /**
+     * @generated
+     */
+	private void createDiagramChildren(Diagram diagram, EObject diagramObject) {
+		for (Iterator it = diagramObject.eContents().iterator(); it.hasNext();) {
+			EObject nextChild = (EObject) it.next();
+			int nodeVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getNodeVisualID(nextChild);
+			if (nodeVID == -1) {
+				storeDiagramLink(nextChild);
+				continue;
+			}
+			Node nextNode = DiagramUtil.createNode(diagram, nextChild, null, <%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
+			myEObject2NodeMap.put(nextChild, nextNode);
+			switch (nodeVID) {
+<%
+for (Iterator it = genNodes.iterator(); it.hasNext();) {
+	GenNode nextGenNode = (GenNode) it.next();
+%>		
+			case <%=nextGenNode.getVisualID()%>:
+				create<%=nextGenNode.getUniqueIdentifier()%>Children(nextNode, nextChild);
+				break;
+<%
+}
+%>
+			}
+		}
+	}
+	
+<%
+for (Iterator genNodesIt = genNodes.iterator(); genNodesIt.hasNext();) {
+	GenNode nextGenNode = (GenNode) genNodesIt.next();
+%>		
+    /**
+     * @generated
+     */
+	private void create<%=nextGenNode.getUniqueIdentifier()%>Children(Node node, EObject nodeObject) {
+		for (Iterator it = nodeObject.eContents().iterator(); it.hasNext();) {
+			EObject nextChild = (EObject) it.next();
+			int nodeVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getChildNodeVisualID(nextChild);
+			if (nodeVID == -1) {
+				storeDiagramLink(nextChild);
+				continue;
+			}
+			
+			Node container;
+			switch (nodeVID) {
+<%
+	for (Iterator childGenNodesIt = nextGenNode.getChildNodes().iterator(); childGenNodesIt.hasNext();) {
+		GenChildNode nextChildGenNode = (GenChildNode) childGenNodesIt.next();
+%>		
+			case <%=nextChildGenNode.getVisualID()%>:
+				container = getCompartment(node, "<%=nextChildGenNode.getGroupID()%>");
+				break;
+<%
+	}
+%>
+			default:
+				container = node;
+				break;
+			}
+			Node nextNode = DiagramUtil.createNode(container, nextChild, null, <%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
+			myEObject2NodeMap.put(nextChild, nextNode);
+		}
+	}
+<%
+}
+%>
+	
+    /**
+     * @generated
+     */
+	private Node getCompartment(Node node, String name) {
+		for (Iterator it = node.getChildren().iterator(); it.hasNext();) {
+			View nextView = (View) it.next();
+			if (nextView instanceof Node && name.equals(nextView.getType())) {
+				return (Node) nextView;
+			}
+		}
+		return node;
+	}
+	
+	/**
+     * @generated
+     */
+	private void storeDiagramLink(EObject link) {
+		int linkVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getLinkWithClassVisualID(link);
+		if (linkVID == -1) {
+			return;
+		}
+		((Collection) myLinkWithClassVID2EObject.get(new Integer(linkVID))).add(link);
+	}
 
+	/**
+     * @generated
+     */
+	private void createLinks() {
+		Collection linkElements;
+<%
+for (Iterator it = genLinks.iterator(); it.hasNext();) {
+	GenLink nextLink = (GenLink) it.next();
+	GenFeature domainLinkTargetGenFeature = nextLink.getDomainLinkTargetFeature();
+%>
+		linkElements = (Collection) myLinkWithClassVID2EObject.get(new Integer(<%=nextLink.getVisualID()%>));
+		for (Iterator it = linkElements.iterator(); it.hasNext();) {
+			EObject linkElement = (EObject) it.next();
+			EObject src = linkElement.eContainer();
+			EStructuralFeature structuralFeature = <%=importManager.getImportedName(domainLinkTargetGenFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=domainLinkTargetGenFeature.getFeatureAccessorName()%>();
+			Object structuralFeatureResult = linkElement.eGet(structuralFeature);
+			if (structuralFeatureResult instanceof EObject == false) {
+				continue;
+			}
+			EObject dst = (EObject) structuralFeatureResult;
+			
+			Node srcNode = (Node) myEObject2NodeMap.get(src);
+			Node dstNode = (Node) myEObject2NodeMap.get(dst);
+			if (srcNode != null && dstNode != null) {
+				DiagramUtil.createEdge(srcNode, dstNode, linkElement, null, <%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
+			}
+		}
+<%
+}
+%>
+	}
+	
 }
 <%importManager.emitSortedImports();%>

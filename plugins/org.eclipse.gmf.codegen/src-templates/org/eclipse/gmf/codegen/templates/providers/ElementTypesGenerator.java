@@ -64,13 +64,12 @@ while (entities.hasNext()) {
 	} else {
 		continue;
 	}
-	String semanticNodeInterfaceNameUnique = semanticNodeInterfaceName + "_" + entity.getVisualID();
-	types.add(semanticNodeInterfaceNameUnique);
+	types.add(entity.getUniqueIdentifier());
 
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(semanticNodeInterfaceNameUnique);
+    stringBuffer.append(entity.getUniqueIdentifier());
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(semanticNodeInterfaceNameUnique);
+    stringBuffer.append(entity.getUniqueIdentifier());
     stringBuffer.append(TEXT_7);
     stringBuffer.append(semanticNodeInterfaceName);
     stringBuffer.append(TEXT_8);
@@ -78,7 +77,7 @@ while (entities.hasNext()) {
     stringBuffer.append(TEXT_9);
     stringBuffer.append(semanticNodeInterfaceName);
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(semanticNodeInterfaceNameUnique);
+    stringBuffer.append(entity.getUniqueIdentifier());
     stringBuffer.append(TEXT_11);
     }
     stringBuffer.append(TEXT_12);

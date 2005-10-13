@@ -338,4 +338,9 @@ public class GenLinkWithClassImpl extends GenLinkImpl implements GenLinkWithClas
 	public String getClassNameSuffux() {
 		return "Link";
 	}
+	
+	public String getUniqueIdentifier() {
+		return getDomainMetaClass().getInterfaceName() + "_" + getVisualID();
+	}
+	
 } //GenLinkWithClassImpl

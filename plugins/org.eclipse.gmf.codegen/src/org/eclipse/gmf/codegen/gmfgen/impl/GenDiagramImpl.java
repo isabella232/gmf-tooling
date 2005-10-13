@@ -1294,6 +1294,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		return result.toString();
 	}
 
+	public String getUniqueIdentifier() {
+		return getDomainDiagramElement().getInterfaceName() + "_" + getVisualID();
+	}
+
 	private String getPackageNamePrefix() {
 		return toLowerCase(getDomainMetaModel().getEcorePackage().getName());
 	}
