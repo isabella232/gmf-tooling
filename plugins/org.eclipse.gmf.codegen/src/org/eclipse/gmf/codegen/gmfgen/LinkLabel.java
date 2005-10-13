@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.LinkLabel#getDomainMetaFeature <em>Domain Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.LinkLabel#isReadOnly <em>Read Only</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.LinkLabel#getWeight <em>Weight</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.LinkLabel#getAlignment <em>Alignment</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.LinkLabel#getLink <em>Link</em>}</li>
  * </ul>
  * </p>
@@ -87,30 +87,33 @@ public interface LinkLabel extends EObject{
 	void setReadOnly(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Weight</b></em>' attribute.
-	 * The default value is <code>"50"</code>.
+	 * Returns the value of the '<em><b>Alignment</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment}.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Alignment</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * relative position on link; ranges from 0 to 100 (percent)
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Weight</em>' attribute.
-	 * @see #setWeight(int)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getLinkLabel_Weight()
-	 * @model default="50"
+	 * @return the value of the '<em>Alignment</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment
+	 * @see #setAlignment(LinkLabelAlignment)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getLinkLabel_Alignment()
+	 * @model required="true"
 	 * @generated
 	 */
-	int getWeight();
+	LinkLabelAlignment getAlignment();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabel#getWeight <em>Weight</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabel#getAlignment <em>Alignment</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Weight</em>' attribute.
-	 * @see #getWeight()
+	 * @param value the new value of the '<em>Alignment</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment
+	 * @see #getAlignment()
 	 * @generated
 	 */
-	void setWeight(int value);
+	void setAlignment(LinkLabelAlignment value);
 
 	/**
 	 * Returns the value of the '<em><b>Link</b></em>' container reference.

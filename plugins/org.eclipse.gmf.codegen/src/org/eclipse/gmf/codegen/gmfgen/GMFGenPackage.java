@@ -217,22 +217,22 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Plugin Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Editor Package Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PLUGIN_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 6;
+	int GEN_DIAGRAM__EDITOR_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Provider Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Providers Package Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PROVIDER_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 7;
+	int GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Plugin ID</b></em>' attribute.
@@ -244,31 +244,31 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_DIAGRAM__PLUGIN_ID = GEN_COMMON_BASE_FEATURE_COUNT + 8;
 
 	/**
+	 * The feature id for the '<em><b>Plugin Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM__PLUGIN_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 9;
+
+	/**
+	 * The feature id for the '<em><b>Provider Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM__PROVIDER_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 10;
+
+	/**
 	 * The feature id for the '<em><b>Plugin Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PLUGIN_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 9;
-
-	/**
-	 * The feature id for the '<em><b>Editor Package Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_DIAGRAM__EDITOR_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 10;
-
-	/**
-	 * The feature id for the '<em><b>Providers Package Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 11;
+	int GEN_DIAGRAM__PLUGIN_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 11;
 
 	/**
 	 * The feature id for the '<em><b>Editor Class Name</b></em>' attribute.
@@ -1179,13 +1179,13 @@ public interface GMFGenPackage extends EPackage{
 	int LINK_LABEL__READ_ONLY = 1;
 
 	/**
-	 * The feature id for the '<em><b>Weight</b></em>' attribute.
+	 * The feature id for the '<em><b>Alignment</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_LABEL__WEIGHT = 2;
+	int LINK_LABEL__ALIGNMENT = 2;
 
 	/**
 	 * The feature id for the '<em><b>Link</b></em>' container reference.
@@ -2006,13 +2006,23 @@ public interface GMFGenPackage extends EPackage{
 	int COMPARTMENT_LAYOUT_KIND = 26;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment <em>Link Label Alignment</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkLabelAlignment()
+	 * @generated
+	 */
+	int LINK_LABEL_ALIGNMENT = 27;
+
+	/**
 	 * The meta object id for the '<em>String Array</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getStringArray()
 	 * @generated
 	 */
-	int STRING_ARRAY = 27;
+	int STRING_ARRAY = 28;
 
 
 	/**
@@ -2622,15 +2632,15 @@ public interface GMFGenPackage extends EPackage{
 	EAttribute getLinkLabel_ReadOnly();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabel#getWeight <em>Weight</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabel#getAlignment <em>Alignment</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Weight</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.LinkLabel#getWeight()
+	 * @return the meta object for the attribute '<em>Alignment</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LinkLabel#getAlignment()
 	 * @see #getLinkLabel()
 	 * @generated
 	 */
-	EAttribute getLinkLabel_Weight();
+	EAttribute getLinkLabel_Alignment();
 
 	/**
 	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabel#getLink <em>Link</em>}'.
@@ -3153,6 +3163,16 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 */
 	EEnum getCompartmentLayoutKind();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment <em>Link Label Alignment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Link Label Alignment</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment
+	 * @generated
+	 */
+	EEnum getLinkLabelAlignment();
 
 	/**
 	 * Returns the meta object for data type '<em>String Array</em>'.

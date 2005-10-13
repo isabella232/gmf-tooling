@@ -66,7 +66,7 @@ public class LinkLabelItemProvider
 
 			addDomainMetaFeaturePropertyDescriptor(object);
 			addReadOnlyPropertyDescriptor(object);
-			addWeightPropertyDescriptor(object);
+			addAlignmentPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -112,21 +112,21 @@ public class LinkLabelItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Weight feature.
+	 * This adds a property descriptor for the Alignment feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addWeightPropertyDescriptor(Object object) {
+	protected void addAlignmentPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_LinkLabel_weight_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LinkLabel_weight_feature", "_UI_LinkLabel_type"),
-				 GMFGenPackage.eINSTANCE.getLinkLabel_Weight(),
+				 getString("_UI_LinkLabel_alignment_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_LinkLabel_alignment_feature", "_UI_LinkLabel_type"),
+				 GMFGenPackage.eINSTANCE.getLinkLabel_Alignment(),
 				 true,
-				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -164,7 +164,7 @@ public class LinkLabelItemProvider
 
 		switch (notification.getFeatureID(LinkLabel.class)) {
 			case GMFGenPackage.LINK_LABEL__READ_ONLY:
-			case GMFGenPackage.LINK_LABEL__WEIGHT:
+			case GMFGenPackage.LINK_LABEL__ALIGNMENT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

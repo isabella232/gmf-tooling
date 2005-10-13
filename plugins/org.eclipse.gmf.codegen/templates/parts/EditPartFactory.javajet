@@ -4,6 +4,7 @@
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
+import org.eclipse.draw2d.ConnectionLocator;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -89,7 +90,12 @@ for (int i = 0; i < genLinks.size(); i++) {
 			LinkLabel label = (LinkLabel) labels.get(j);
 %>
 			if ("<%=AccessUtil.getLinkLabelViewName(label)%>".equals(node.getType())) {
-				return new LabelEditPart(node);
+				return new LabelEditPart(node) {
+
+					public int getKeyPoint() {
+						return ConnectionLocator.<%=label.getAlignment()%>;
+					}
+				};
 			}
 			if ("<%=AccessUtil.getLinkLabelTextViewName(label)%>".equals(node.getType())) {
 				return new TextCompartmentEditPart(node) {

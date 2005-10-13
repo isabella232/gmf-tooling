@@ -18,6 +18,8 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabel;
 
+import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Link Label</b></em>'.
@@ -27,7 +29,7 @@ import org.eclipse.gmf.codegen.gmfgen.LinkLabel;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.LinkLabelImpl#getDomainMetaFeature <em>Domain Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.LinkLabelImpl#isReadOnly <em>Read Only</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.LinkLabelImpl#getWeight <em>Weight</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.LinkLabelImpl#getAlignment <em>Alignment</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.LinkLabelImpl#getLink <em>Link</em>}</li>
  * </ul>
  * </p>
@@ -66,24 +68,24 @@ public class LinkLabelImpl extends EObjectImpl implements LinkLabel {
 	protected boolean readOnly = READ_ONLY_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getWeight() <em>Weight</em>}' attribute.
+	 * The default value of the '{@link #getAlignment() <em>Alignment</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getWeight()
+	 * @see #getAlignment()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int WEIGHT_EDEFAULT = 50;
+	protected static final LinkLabelAlignment ALIGNMENT_EDEFAULT = LinkLabelAlignment.MIDDLE_LITERAL;
 
 	/**
-	 * The cached value of the '{@link #getWeight() <em>Weight</em>}' attribute.
+	 * The cached value of the '{@link #getAlignment() <em>Alignment</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getWeight()
+	 * @see #getAlignment()
 	 * @generated
 	 * @ordered
 	 */
-	protected int weight = WEIGHT_EDEFAULT;
+	protected LinkLabelAlignment alignment = ALIGNMENT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -167,8 +169,8 @@ public class LinkLabelImpl extends EObjectImpl implements LinkLabel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getWeight() {
-		return weight;
+	public LinkLabelAlignment getAlignment() {
+		return alignment;
 	}
 
 	/**
@@ -176,11 +178,11 @@ public class LinkLabelImpl extends EObjectImpl implements LinkLabel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setWeight(int newWeight) {
-		int oldWeight = weight;
-		weight = newWeight;
+	public void setAlignment(LinkLabelAlignment newAlignment) {
+		LinkLabelAlignment oldAlignment = alignment;
+		alignment = newAlignment == null ? ALIGNMENT_EDEFAULT : newAlignment;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.LINK_LABEL__WEIGHT, oldWeight, weight));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.LINK_LABEL__ALIGNMENT, oldAlignment, alignment));
 	}
 
 	/**
@@ -260,8 +262,8 @@ public class LinkLabelImpl extends EObjectImpl implements LinkLabel {
 				return basicGetDomainMetaFeature();
 			case GMFGenPackage.LINK_LABEL__READ_ONLY:
 				return isReadOnly() ? Boolean.TRUE : Boolean.FALSE;
-			case GMFGenPackage.LINK_LABEL__WEIGHT:
-				return new Integer(getWeight());
+			case GMFGenPackage.LINK_LABEL__ALIGNMENT:
+				return getAlignment();
 			case GMFGenPackage.LINK_LABEL__LINK:
 				return getLink();
 		}
@@ -281,8 +283,8 @@ public class LinkLabelImpl extends EObjectImpl implements LinkLabel {
 			case GMFGenPackage.LINK_LABEL__READ_ONLY:
 				setReadOnly(((Boolean)newValue).booleanValue());
 				return;
-			case GMFGenPackage.LINK_LABEL__WEIGHT:
-				setWeight(((Integer)newValue).intValue());
+			case GMFGenPackage.LINK_LABEL__ALIGNMENT:
+				setAlignment((LinkLabelAlignment)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -301,8 +303,8 @@ public class LinkLabelImpl extends EObjectImpl implements LinkLabel {
 			case GMFGenPackage.LINK_LABEL__READ_ONLY:
 				setReadOnly(READ_ONLY_EDEFAULT);
 				return;
-			case GMFGenPackage.LINK_LABEL__WEIGHT:
-				setWeight(WEIGHT_EDEFAULT);
+			case GMFGenPackage.LINK_LABEL__ALIGNMENT:
+				setAlignment(ALIGNMENT_EDEFAULT);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -319,8 +321,8 @@ public class LinkLabelImpl extends EObjectImpl implements LinkLabel {
 				return domainMetaFeature != null;
 			case GMFGenPackage.LINK_LABEL__READ_ONLY:
 				return readOnly != READ_ONLY_EDEFAULT;
-			case GMFGenPackage.LINK_LABEL__WEIGHT:
-				return weight != WEIGHT_EDEFAULT;
+			case GMFGenPackage.LINK_LABEL__ALIGNMENT:
+				return alignment != ALIGNMENT_EDEFAULT;
 			case GMFGenPackage.LINK_LABEL__LINK:
 				return getLink() != null;
 		}
@@ -338,8 +340,8 @@ public class LinkLabelImpl extends EObjectImpl implements LinkLabel {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (readOnly: ");
 		result.append(readOnly);
-		result.append(", weight: ");
-		result.append(weight);
+		result.append(", alignment: ");
+		result.append(alignment);
 		result.append(')');
 		return result.toString();
 	}

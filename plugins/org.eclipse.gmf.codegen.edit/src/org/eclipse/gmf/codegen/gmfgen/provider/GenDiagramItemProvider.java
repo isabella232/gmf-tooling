@@ -64,12 +64,12 @@ public class GenDiagramItemProvider
 			addDomainMetaModelPropertyDescriptor(object);
 			addDomainDiagramElementPropertyDescriptor(object);
 			addEditPartsPackageNamePropertyDescriptor(object);
-			addPluginNamePropertyDescriptor(object);
-			addProviderNamePropertyDescriptor(object);
-			addPluginIDPropertyDescriptor(object);
-			addPluginClassNamePropertyDescriptor(object);
 			addEditorPackageNamePropertyDescriptor(object);
 			addProvidersPackageNamePropertyDescriptor(object);
+			addPluginIDPropertyDescriptor(object);
+			addPluginNamePropertyDescriptor(object);
+			addProviderNamePropertyDescriptor(object);
+			addPluginClassNamePropertyDescriptor(object);
 			addEditorClassNamePropertyDescriptor(object);
 			addEditPartFactoryClassNamePropertyDescriptor(object);
 			addHasDomainModelPropertyDescriptor(object);
@@ -445,12 +445,12 @@ public class GenDiagramItemProvider
 
 		switch (notification.getFeatureID(GenDiagram.class)) {
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:

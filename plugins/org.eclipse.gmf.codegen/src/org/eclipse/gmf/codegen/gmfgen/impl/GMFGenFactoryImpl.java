@@ -95,6 +95,11 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
 				return result;
 			}
+			case GMFGenPackage.LINK_LABEL_ALIGNMENT: {
+				LinkLabelAlignment result = LinkLabelAlignment.get(initialValue);
+				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+				return result;
+			}
 			case GMFGenPackage.STRING_ARRAY:
 				return createStringArrayFromString(eDataType, initialValue);
 			default:
@@ -112,6 +117,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.COMPARTMENT_PLACEMENT_KIND:
 				return instanceValue == null ? null : instanceValue.toString();
 			case GMFGenPackage.COMPARTMENT_LAYOUT_KIND:
+				return instanceValue == null ? null : instanceValue.toString();
+			case GMFGenPackage.LINK_LABEL_ALIGNMENT:
 				return instanceValue == null ? null : instanceValue.toString();
 			case GMFGenPackage.STRING_ARRAY:
 				return convertStringArrayToString(eDataType, instanceValue);
