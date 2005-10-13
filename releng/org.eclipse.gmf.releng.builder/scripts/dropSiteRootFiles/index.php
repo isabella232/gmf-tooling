@@ -30,7 +30,7 @@ Software User Agreement</a> unless otherwise specified. </p>
 about different kinds of builds read our build <a href="build_types.html">types</a> page.</p>
 
 <p>Builds can also be installed via Update Manager, from an existing installation of Eclipse, by following these  
-<a href="http://www.eclipse.org/technology/gmf/updates/index.html" target="_self">steps</a>.
+<a href="http://download.eclipse.org/technology/gmf/updates/index.html" target="_self">steps</a>.
 </p></td></tr>
 	
   <tr> 
