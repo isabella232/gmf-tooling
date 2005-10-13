@@ -2,6 +2,24 @@
 <project default="main">
 	<property file="build.properties" />
 	
+	<target name="init">
+		<antcall target="clean"/>
+		<mkdir dir="${buildDirectory}" />
+		<touch file="${user.home}/.cvspass" />
+		<available file="label.properties" property="label.properties.present"/>
+		<antcall target="create.label.properties"/>
+		<property file="label.properties" />
+		<condition property="mirrorAvailable">
+			<http url="${localUpdateSite}/site.xml"/>
+		</condition>
+		<condition property="usingMirror">
+			<and>
+				<isset property="mirrorAvailable"/>
+				<isset property="useMirror"/>
+			</and>
+		</condition>
+	</target>
+	
 	<target name="main" depends="checkArgs,init">
 		<ant antfile="build.xml" dir="${pde.build.scripts}">
 			<property name="builder" value="${basedir}/../${component}"/>
@@ -36,22 +54,35 @@
 		<echo message="-Dcomponent=&lt;path&gt; required." />
 		<fail/>
 	</target>
+	
+	<target name="create.label.properties" unless="label.properties.present">
+			<tstamp/>
+			<property name="date" value="${DSTAMP}" />
+			<property name="time" value="${TSTAMP}" />
+			<property name="timestamp" value="${date}${time}" />
+			<property name="buildType" value="N" />
+			<property name="buildId" value="${buildType}${date}" />
 
-	<target name="init">
-		<antcall target="clean"/>
-		<mkdir dir="${buildDirectory}" />
-		<touch file="${user.home}/.cvspass" />		
-		<property file="label.properties" />
-		<condition property="mirrorAvailable">
-			<http url="${localUpdateSite}/site.xml"/>
-		</condition>
-		<condition property="usingMirror">
-			<and>
-				<isset property="mirrorAvailable"/>
-				<isset property="useMirror"/>
-			</and>
-		</condition>
-	</target>
+			<!--this naming convention used by php scripts on download server-->
+			<property name="buildLabel" value="${buildType}-${buildId}-${timestamp}" />
+
+			<!--store the build label information in a file-->
+			<echo file="label.properties" append="true" >
+			buildDirectory=${buildDirectory}
+			</echo>
+			<echo file="label.properties" append="true" >
+			buildType=${buildType}
+			</echo>
+			<echo file="label.properties" append="true" >
+			buildId=${buildId}
+			</echo>
+			<echo file="label.properties" append="true" >
+			timestamp=${timestamp}
+			</echo>
+			<echo file="label.properties" append="true" >
+			buildLabel=${buildLabel}
+			</echo>
+		</target>
 	
 	<target name="clean" if="clean">
 		<delete dir="${buildDirectory}"/>

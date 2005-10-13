@@ -3,7 +3,7 @@
 
 	<target name="init">
 		<delete file="label.properties"/>
-		<antcall target="create.label.properties" />
+		<ant antfile="build.xml" target="create.label.properties" />
 	</target>
 	
 	<target name="main" depends="init">		
@@ -56,35 +56,6 @@
 	           <property name="clean" value="true"/>
 	     </ant>
 	     <antcall target="publish"/>
-	</target>
-	
-	<target name="create.label.properties">
-		<tstamp/>
-		<property name="date" value="${DSTAMP}" />
-		<property name="time" value="${TSTAMP}" />
-		<property name="timestamp" value="${date}${time}" />
-		<property name="buildType" value="N" />
-		<property name="buildId" value="${buildType}${date}" />
-
-		<!--this naming convention used by php scripts on download server-->
-		<property name="buildLabel" value="${buildType}-${buildId}-${timestamp}" />
-
-		<!--store the build label information in a file-->
-		<echo file="label.properties" append="true" >
-		buildDirectory=${buildDirectory}
-		</echo>
-		<echo file="label.properties" append="true" >
-		buildType=${buildType}
-		</echo>
-		<echo file="label.properties" append="true" >
-		buildId=${buildId}
-		</echo>
-		<echo file="label.properties" append="true" >
-		timestamp=${timestamp}
-		</echo>
-		<echo file="label.properties" append="true" >
-		buildLabel=${buildLabel}
-		</echo>
 	</target>
 	
 	<target name="publish" depends="">
