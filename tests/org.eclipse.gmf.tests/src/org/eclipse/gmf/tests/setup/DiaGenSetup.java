@@ -88,7 +88,7 @@ public class DiaGenSetup implements DiaGenSource {
 		return runtimeAccess.model();
 	}
 
-	public void init(MapDefSource mapSource) {
+	public DiaGenSetup init(MapDefSource mapSource) {
 		final DiagramRunTimeModelHelper drth = new BasicDiagramRunTimeModelHelper();
 		final NamingStrategy epns = new EditPartNamingStrategy();
 		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, epns, new NotationViewFactoryNamingStrategy());
@@ -112,6 +112,7 @@ public class DiaGenSetup implements DiaGenSource {
 		}
 		assert myGenNode != null;
 		assert myGenLink != null;
+		return this;
 	}
 
 	public final GenDiagram getGenDiagram() {

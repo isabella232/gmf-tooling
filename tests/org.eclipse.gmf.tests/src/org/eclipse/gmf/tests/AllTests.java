@@ -17,6 +17,7 @@ import junit.framework.TestSuite;
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.rt.CanvasTest;
 import org.eclipse.gmf.tests.rt.PropertiesTest;
+import org.eclipse.gmf.tests.setup.TestSetupTest;
 import org.eclipse.gmf.tests.tr.EPNamingStrategyTest;
 import org.eclipse.gmf.tests.tr.GenModelTransformerBasicRTTest;
 import org.eclipse.gmf.tests.tr.RunTimeModelTransformerTest;
@@ -30,6 +31,7 @@ public class AllTests {
 	public static Test suite() {
 		TestSuite suite = new TestSuite("Tests for org.eclipse.gmf");
 		//$JUnit-BEGIN$
+		suite.addTestSuite(TestSetupTest.class); // first, check sources/setups we use for rest of the tests
 		suite.addTestSuite(DiagramNodeTest.class);
 		suite.addTestSuite(EPNamingStrategyTest.class);
 		suite.addTestSuite(RunTimeModelTransformerTest.class);
