@@ -293,6 +293,10 @@
 		<antcall target="generateUpdateSite"/>
 		<!-- Execute tests. -->
 		<antcall target="test"/>
+		<!-- Publish results to CC TODO: clean up CC logic to make optional based on property -->
+		<copy todir="${artifacts}/cc">
+		    <fileset dir="${artifacts}/${buildLabel}/testresults/xml/"/>
+		  </copy>
 		<!-- Uninstall GMF from base. -->
 		<echo message="Uninstalling GMF from base..."/>
 		<ant antfile="${scripts}/update.xml" target="uninstall">
