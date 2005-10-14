@@ -17,19 +17,26 @@ import java.util.Map;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.gmf.ecore.edit.providers.ElementTypes;
+import org.eclipse.gmf.runtime.diagram.core.internal.services.view.ViewService;
+import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.DiagramUtil;
 import org.eclipse.gmf.runtime.emf.core.edit.MRunnable;
 import org.eclipse.gmf.runtime.emf.core.util.OperationUtil;
 import org.eclipse.gmf.runtime.emf.core.util.ResourceUtil;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.action.IAction;
@@ -210,9 +217,10 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 	private void createDiagramChildren(Diagram diagram, EObject diagramObject) {
 		for (Iterator it = diagramObject.eContents().iterator(); it.hasNext();) {
 			EObject nextChild = (EObject) it.next();
+			storeLinkReferenceOnly(nextChild);
 			int nodeVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getNodeVisualID(nextChild);
 			if (nodeVID == -1) {
-				storeDiagramLink(nextChild);
+				storeLinkWithClass(nextChild);
 				continue;
 			}
 			Node nextNode = DiagramUtil.createNode(diagram, nextChild, null, <%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
@@ -242,9 +250,10 @@ for (Iterator genNodesIt = genNodes.iterator(); genNodesIt.hasNext();) {
 	private void create<%=nextGenNode.getUniqueIdentifier()%>Children(Node node, EObject nodeObject) {
 		for (Iterator it = nodeObject.eContents().iterator(); it.hasNext();) {
 			EObject nextChild = (EObject) it.next();
+			storeLinkReferenceOnly(nextChild);
 			int nodeVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getChildNodeVisualID(nextChild);
 			if (nodeVID == -1) {
-				storeDiagramLink(nextChild);
+				storeLinkWithClass(nextChild);
 				continue;
 			}
 			
@@ -288,12 +297,35 @@ for (Iterator genNodesIt = genNodes.iterator(); genNodesIt.hasNext();) {
 	/**
      * @generated
      */
-	private void storeDiagramLink(EObject link) {
+	private void storeLinkWithClass(EObject link) {
 		int linkVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getLinkWithClassVisualID(link);
 		if (linkVID == -1) {
 			return;
 		}
 		((Collection) myLinkWithClassVID2EObject.get(new Integer(linkVID))).add(link);
+	}
+	
+	/**
+	 *@generated
+	 */
+	private void storeLinkReferenceOnly(EObject container) {
+		EClass containerMetaclass = container.eClass();
+		for (Iterator it = containerMetaclass.getEAllStructuralFeatures().iterator(); it.hasNext();) {
+			EStructuralFeature nextFeature = (EStructuralFeature) it.next();
+<%
+for (Iterator it = genLinks.iterator(); it.hasNext();) {
+	GenLink nextLink = (GenLink) it.next();
+	if (nextLink instanceof GenLinkReferenceOnly) {
+		GenFeature genFeature = nextLink.getDomainLinkTargetFeature();
+%>
+			if (<%=importManager.getImportedName(genFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=genFeature.getFeatureAccessorName()%>().equals(nextFeature)) {
+				((Collection) myLinkWithClassVID2EObject.get(new Integer(<%=nextLink.getVisualID()%>))).add(container);
+			}
+<%
+	}
+}
+%>
+		}
 	}
 
 	/**
@@ -309,19 +341,68 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 		linkElements = (Collection) myLinkWithClassVID2EObject.get(new Integer(<%=nextLink.getVisualID()%>));
 		for (Iterator it = linkElements.iterator(); it.hasNext();) {
 			EObject linkElement = (EObject) it.next();
+<%	
+	if (nextLink instanceof GenLinkWithClass) {
+%>
 			EObject src = linkElement.eContainer();
+<%
+	} else {
+%>
+			EObject src = linkElement;
+<%	
+	}
+%>
+			Node srcNode = (Node) myEObject2NodeMap.get(src);
+			if (srcNode == null) {
+				continue;
+			}
 			EStructuralFeature structuralFeature = <%=importManager.getImportedName(domainLinkTargetGenFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=domainLinkTargetGenFeature.getFeatureAccessorName()%>();
 			Object structuralFeatureResult = linkElement.eGet(structuralFeature);
+<%
+	if (nextLink instanceof GenLinkWithClass) {
+%>
 			if (structuralFeatureResult instanceof EObject == false) {
 				continue;
 			}
 			EObject dst = (EObject) structuralFeatureResult;
-			
-			Node srcNode = (Node) myEObject2NodeMap.get(src);
+<%
+	} else {
+%>
+			if (structuralFeatureResult instanceof Collection == false) {
+				continue;
+			}
+			for (Iterator destinations = ((Collection) structuralFeatureResult).iterator(); destinations.hasNext();) {
+				EObject dst = (EObject) destinations.next();
+<%	
+	}
+%>
 			Node dstNode = (Node) myEObject2NodeMap.get(dst);
-			if (srcNode != null && dstNode != null) {
+			if (dstNode != null) {
+<%
+	if (nextLink instanceof GenLinkWithClass) {
+%>
 				DiagramUtil.createEdge(srcNode, dstNode, linkElement, null, <%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
 			}
+<%
+	} else {
+%>
+					Edge edge = (Edge) ViewService.getInstance().createConnectorView(new IAdaptable() {
+						public Object getAdapter(Class adapter) {
+							if (IElementType.class.equals(adapter)) {
+								return ElementTypes.<%=nextLink.getUniqueIdentifier()%>;
+							}
+							return null;
+						}
+					}, srcNode.getDiagram(), "", ViewUtil.APPEND, <%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
+					if (edge != null) {
+						edge.setSource(srcNode);
+						edge.setTarget(dstNode);
+					}
+				}
+			}
+<%	
+	}
+%>
 		}
 <%
 }

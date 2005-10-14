@@ -173,7 +173,6 @@ for (int i = 0; i < genLinks.size(); i++) {
     
 for (int i = 0; i < genNodes.size(); i++) {
 	GenNode genNode = (GenNode) genNodes.get(i);
-	String semanticNodeInterfaceName = genNode.getDomainMetaClass().getClassifierAccessorName();
 	String qualifiedNodeInterfaceName = genNode.getDomainMetaClass().getQualifiedInterfaceName();
 
     stringBuffer.append(TEXT_34);
@@ -187,7 +186,6 @@ for (int i = 0; i < genNodes.size(); i++) {
 	List genChildNodes = genNode.getChildNodes();
 	for (int j = 0; j < genChildNodes.size(); j++) {
 		GenChildNode genChildNode = (GenChildNode) genChildNodes.get(j);
-		String semanticChildNodeInterfaceName = genChildNode.getDomainMetaClass().getClassifierAccessorName();
 		String qualifiedChildNodeInterfaceName = genChildNode.getDomainMetaClass().getQualifiedInterfaceName();
 
     stringBuffer.append(TEXT_38);
@@ -206,7 +204,6 @@ for (int i = 0; i < genLinks.size(); i++) {
 	GenLink genLink = (GenLink) genLinks.get(i);
 	if (genLink instanceof GenLinkWithClass) {
 		GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
-		String semanticLinkInterfaceName = genLinkWithClass.getDomainMetaClass().getClassifierAccessorName();
 		String qualifiedInterfaceName = genLinkWithClass.getDomainMetaClass().getQualifiedInterfaceName();
 
     stringBuffer.append(TEXT_43);
