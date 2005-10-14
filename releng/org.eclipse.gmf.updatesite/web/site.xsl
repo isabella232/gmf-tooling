@@ -14,14 +14,14 @@
 		<td width="75%">
 			<a name="top"> </a>
 	<h2 class="title">GMF Update Site</h2>
-	<p class="bodyText"><xsl:copy-of select="description"/> For more on how to do this, <a href="http://eclipse.org/emf/docs.php?doc=docs/UsingUpdateManager/UsingUpdateManager.html">click here</a>.
+	<p class="bodyText"><xsl:copy-of select="description"/> For more on how to do this, <a href="http://help.eclipse.org/help31/topic/org.eclipse.platform.doc.user/tasks/tasks-36.htm">click here</a>.
 	</p>
 	<pre><p class="bodyText">   Help
     > Software Updates
        > Find and Install...
           > Search for new features to install
              > New Remote Site...
-                * Name: <b>GMF Development Update Site</b>
+                * Name: <b>GMF Update Site</b>
                 * URL:    <b><a href="http://download.eclipse.org/technology/gmf/updates/site.xml" target="_um">http://download.eclipse.org/technology/gmf/updates/site.xml</a></b></p></pre>
 		</td>
 		<td width="25%"><img alt="how to" src="http://eclipse.org/images/howto_banner.jpg" height="111" width="272" align="middle" /></td>
