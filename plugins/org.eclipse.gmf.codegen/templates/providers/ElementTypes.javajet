@@ -6,17 +6,28 @@ package <%=genDiagram.getProvidersPackageName()%>;
 <%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.emf.commands.core.edithelpers.MSLEditHelper;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
+import org.eclipse.gmf.runtime.emf.type.core.IContainerDescriptor;
+import org.eclipse.gmf.runtime.emf.type.core.IElementMatcher;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;
+import org.eclipse.gmf.runtime.emf.type.core.ISpecializationType;
 import org.eclipse.gmf.runtime.emf.type.core.MetamodelType;
+import org.eclipse.gmf.runtime.emf.type.core.NullElementType;
+import org.eclipse.gmf.runtime.emf.type.core.SpecializationType;
 import org.eclipse.gmf.runtime.emf.type.core.commands.ConfigureElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.GetEditContextCommand;
+import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
+import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelperAdvice;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.GetEditContextRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
@@ -28,9 +39,18 @@ public class ElementTypes {
 
 <%
 List types = new ArrayList();
+List refLinks = new ArrayList();
+Iterator entities = AccessUtil.getGenEntities(genDiagram);
+while (entities.hasNext()) {
+	GenCommonBase entity = (GenCommonBase) entities.next();
+	if (entity instanceof GenLinkReferenceOnly) {
+		refLinks.add(entity);
+		types.add(entity.getUniqueIdentifier());
+	}
+}
 GenPackage genPackage = genDiagram.getDomainMetaModel();
 String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
-Iterator entities = AccessUtil.getGenEntities(genDiagram);
+entities = AccessUtil.getGenEntities(genDiagram);
 while (entities.hasNext()) {
 	GenCommonBase entity = (GenCommonBase) entities.next();
 	String semanticNodeInterfaceName;
@@ -58,23 +78,112 @@ while (entities.hasNext()) {
 		 */
 		protected ICommand getConfigureCommand(ConfigureRequest req) {
 			return new ConfigureElementCommand(req) {
+
+				/**
+				 * @generated
+				 */
 				protected CommandResult doExecute(IProgressMonitor progressMonitor) {
-//	Write new object initialization code here. Use getElementToEdit() to get created element.
+					// Write new object initialization code here.
+					// Use getElementToEdit() to get created element.
 					return newOKCommandResult();
 				}
 			};
 		}
-		
+<%
+	if (entity instanceof GenNode) {
+		GenNode node = (GenNode) entity;
+%>
+
+		/**
+		 * @generated
+		 */
+		protected ICommand getCreateRelationshipCommand(CreateRelationshipRequest reqest) {
+<%
+		for (int i = 0; i < refLinks.size(); i++) {
+			GenLinkReferenceOnly refLink = (GenLinkReferenceOnly) refLinks.get(i);
+			GenFeature targetFeature = refLink.getDomainLinkTargetFeature();
+			if (node.getDomainMetaClass().equals(targetFeature.getGenClass())) {
+%>
+			if (<%=refLink.getUniqueIdentifier()%>.equals(reqest.getElementType())) {
+				reqest.setContainmentFeature(<%=refLink.getUniqueIdentifier()%>.getEContainerDescriptor().getContainmentFeatures()[0]);
+				return new SetValueCommand(new SetRequest(reqest.getSource(), reqest.getContainmentFeature(), reqest.getTarget()));
+			}
+<%
+			}
+		}
+%>
+			return super.getCreateRelationshipCommand(reqest);
+		}
+<%	}%>
 	}
 
 	/**
 	 * @generated
 	 */
 	public static final IMetamodelType <%=entity.getUniqueIdentifier()%> = new MetamodelType(
-		"<%=semanticNodeInterfaceName%>",	null, null,
+		"<%=entity.getUniqueIdentifier()%>", null, null,
 		<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>(),
 		new <%=entity.getUniqueIdentifier()%>_EditHelper());
-<%}%>
+<%
+}
+for (int i = 0; i < refLinks.size(); i++) {
+	GenLinkReferenceOnly entity = (GenLinkReferenceOnly) refLinks.get(i);
+	GenFeature targetFeature = entity.getDomainLinkTargetFeature();
+	String semanticFeatureCapName = targetFeature.getCapName();
+	String semanticNodeInterfaceName = targetFeature.getGenClass().getName();
+%>
+
+	/**
+	 * @generated
+	 */
+	public static class <%=entity.getUniqueIdentifier()%>_ContainerDescriptor implements IContainerDescriptor {
+
+		/**
+		 * @generated
+		 */
+		private static final EReference[] containmentFeatures = new EReference[] {
+			<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName + '_' + semanticFeatureCapName%>()
+		};
+
+		/**
+		 * @generated
+		 */
+		public EReference[] getContainmentFeatures() {
+			return containmentFeatures;
+		}
+
+		/**
+		 * @generated
+		 */
+		public IElementMatcher getMatcher() {
+			return new IElementMatcher() {
+
+				/**
+				 * @generated
+				 */
+				public boolean matches(EObject eObject) {
+					return <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>().isInstance(eObject);
+				}
+			};
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class <%=entity.getUniqueIdentifier()%>_EditHelperAdvice extends BaseEditHelperAdvice {}
+
+	/**
+	 * @generated
+	 */
+	public static final ISpecializationType <%=entity.getUniqueIdentifier()%> = new SpecializationType(
+		"<%=entity.getUniqueIdentifier()%>", null, null,
+		new IElementType[] { NullElementType.getInstance() }, null,
+		new <%=entity.getUniqueIdentifier()%>_ContainerDescriptor(),
+		new <%=entity.getUniqueIdentifier()%>_EditHelperAdvice());
+<%
+}
+%>
 
 	/**
 	 * @generated
@@ -83,6 +192,28 @@ while (entities.hasNext()) {
 <%for (int i = 0; i < types.size(); i++) {%>
 		ElementTypeRegistry.getInstance().register(<%=types.get(i)%>);
 <%}%>
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class BaseEditHelperAdvice extends AbstractEditHelperAdvice {
+
+		/**
+		 * @generated
+		 */
+		protected ICommand getBeforeEditContextCommand(GetEditContextRequest reqest) {
+			GetEditContextCommand result = null;
+			IEditCommandRequest editRequest = reqest.getEditCommandRequest();
+			if (editRequest instanceof CreateElementRequest) {
+				result = new GetEditContextCommand(reqest);
+				EObject container = ((CreateElementRequest) editRequest).getContainer();
+				if (container instanceof View) {
+					result.setEditContext(((View) container).getElement());
+				}
+			}
+			return result;
+		}
 	}
 
 	/**

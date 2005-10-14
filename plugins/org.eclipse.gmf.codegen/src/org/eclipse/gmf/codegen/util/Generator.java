@@ -33,7 +33,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabel;
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -105,10 +104,8 @@ public class Generator implements Runnable {
 			}
 			for (Iterator it = myDiagram.getLinks().iterator(); it.hasNext();) {
 				final GenLink next = (GenLink) it.next();
-				if (next instanceof GenLinkWithClass) {
-					generateSemanticHints(next);
-					generateViewFactory(next);
-				}
+				generateViewFactory(next);
+				generateSemanticHints(next);
 				generateLinkEditPart(next);
 				for (Iterator labels = next.getLabels().iterator(); labels.hasNext();) {
 					LinkLabel label = (LinkLabel) labels.next();

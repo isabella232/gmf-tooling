@@ -8,7 +8,16 @@ package <%=genDiagram.getProvidersPackageName()%>;
  * @generated
  */
 public class <%=AccessUtil.getSemanticHintsClassName(genElement)%> {
-<%if (genElement.hasNameToEdit()) {%>
+<%if (genElement instanceof GenLinkReferenceOnly) {%>
+
+	/**
+	 * @generated
+	 */
+	public static final String VIEW_TYPE = "<%=((GenLinkReferenceOnly) genElement).getDomainLinkTargetFeature().getName()%>Link";
+<%
+}
+if (genElement.hasNameToEdit()) {
+%>
 
 	/**
 	 * @generated

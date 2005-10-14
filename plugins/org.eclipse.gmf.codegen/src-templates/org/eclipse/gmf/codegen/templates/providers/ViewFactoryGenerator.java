@@ -36,8 +36,10 @@ public class ViewFactoryGenerator
   protected final String TEXT_18 = "\"," + NL + "\t\t\tViewUtil.APPEND, persisted, getPreferencesHint());";
   protected final String TEXT_19 = NL + "\t\tgetViewService().createNode(semanticAdapter, view, \"";
   protected final String TEXT_20 = "\"," + NL + "\t\t\tViewUtil.APPEND, persisted, getPreferencesHint());";
-  protected final String TEXT_21 = NL + "\t}" + NL + "}";
-  protected final String TEXT_22 = NL;
+  protected final String TEXT_21 = NL + "\t\tview.setType(";
+  protected final String TEXT_22 = ".VIEW_TYPE);";
+  protected final String TEXT_23 = NL + "\t}" + NL + "}";
+  protected final String TEXT_24 = NL;
 
   public String generate(Object argument)
   {
@@ -106,13 +108,19 @@ if (genElement instanceof GenLink) {
     stringBuffer.append(TEXT_19);
     stringBuffer.append(AccessUtil.getLinkLabelViewName(label));
     stringBuffer.append(TEXT_20);
+    	}
+	if (genLink instanceof GenLinkReferenceOnly) {
+
+    stringBuffer.append(TEXT_21);
+    stringBuffer.append(AccessUtil.getSemanticHintsClassName(genLink));
+    stringBuffer.append(TEXT_22);
     
 	}
 }
 
-    stringBuffer.append(TEXT_21);
+    stringBuffer.append(TEXT_23);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_22);
+    stringBuffer.append(TEXT_24);
     return stringBuffer.toString();
   }
 }

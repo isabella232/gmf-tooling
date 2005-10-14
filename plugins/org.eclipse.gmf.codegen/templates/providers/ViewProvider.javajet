@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.*;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
@@ -184,8 +185,23 @@ for (int i = 0; i < genNodes.size(); i++) {
 	 * @generated
 	 */
 	protected Class getConnectorViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
+		IElementType elementType = (IElementType) semanticAdapter.getAdapter(IElementType.class);
+<%
+for (int i = 0; i < genLinks.size(); i++) {
+	GenLink genLink = (GenLink) genLinks.get(i);
+	if (genLink instanceof GenLinkReferenceOnly) {
+%>
+		if (ElementTypes.<%=genLink.getUniqueIdentifier()%>.equals(elementType)) {
+			return <%=genLink.getNotationViewFactoryClassName()%>.class;
+		}
+<%
+	}
+}
+%>
+
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
+
 		int linkVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getLinkWithClassVisualID(semanticElement, semanticType);
 		
 		switch (linkVID) {

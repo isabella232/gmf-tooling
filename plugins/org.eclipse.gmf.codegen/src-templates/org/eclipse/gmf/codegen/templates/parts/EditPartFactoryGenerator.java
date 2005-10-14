@@ -57,14 +57,18 @@ public class EditPartFactoryGenerator
   protected final String TEXT_38 = ":" + NL + "\t\t\treturn new ";
   protected final String TEXT_39 = "(node);";
   protected final String TEXT_40 = NL + "\t\t} " + NL + "\t\treturn createUnrecognizedChildNodeEditPart(node);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private EditPart createUnrecognizedChildNodeEditPart(Node node) {" + NL + "\t \t// Handle creation of unrecognized child node EditParts here" + NL + "\t \treturn null;" + NL + "\t }" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate EditPart createEdgeEditPart(Edge edge) {";
-  protected final String TEXT_41 = NL + "\t\tEObject element = edge.getElement();" + NL + "\t\tint linkVID = ";
-  protected final String TEXT_42 = ".INSTANCE.getLinkWithClassVisualID(element);" + NL + "\t\t" + NL + "\t\tswitch (linkVID) {";
-  protected final String TEXT_43 = NL + "\t\tcase ";
-  protected final String TEXT_44 = ":" + NL + "\t\t\treturn new ";
-  protected final String TEXT_45 = "(edge);";
-  protected final String TEXT_46 = NL + "\t\t}";
-  protected final String TEXT_47 = NL + "\t\treturn createUnrecognizedEdgeEditPart(edge);\t\t\t\t" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private EditPart createUnrecognizedEdgeEditPart(Edge edge) {" + NL + "\t \t// Handle creation of unrecognized edge EditParts here" + NL + "\t \treturn null;" + NL + "\t }" + NL + "" + NL + "}";
-  protected final String TEXT_48 = NL;
+  protected final String TEXT_41 = NL + "\t\tEObject element = edge.getElement();" + NL + "\t\tif (element == null) {";
+  protected final String TEXT_42 = NL + "\t\t\tif (";
+  protected final String TEXT_43 = ".VIEW_TYPE.equals(edge.getType())) {" + NL + "\t\t\t\treturn new ";
+  protected final String TEXT_44 = "(edge);" + NL + "\t\t\t}";
+  protected final String TEXT_45 = NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\tint linkVID = ";
+  protected final String TEXT_46 = ".INSTANCE.getLinkWithClassVisualID(element);" + NL + "\t\t" + NL + "\t\tswitch (linkVID) {";
+  protected final String TEXT_47 = NL + "\t\tcase ";
+  protected final String TEXT_48 = ":" + NL + "\t\t\treturn new ";
+  protected final String TEXT_49 = "(edge);";
+  protected final String TEXT_50 = NL + "\t\t}";
+  protected final String TEXT_51 = NL + "\t\treturn createUnrecognizedEdgeEditPart(edge);\t\t\t\t" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private EditPart createUnrecognizedEdgeEditPart(Edge edge) {" + NL + "\t \t// Handle creation of unrecognized edge EditParts here" + NL + "\t \treturn null;" + NL + "\t }" + NL + "" + NL + "}";
+  protected final String TEXT_52 = NL;
 
   public String generate(Object argument)
   {
@@ -195,33 +199,50 @@ for (int i = 0; i < genNodes.size(); i++) {
 
     stringBuffer.append(TEXT_40);
     
-if (genLinks.size() != 0) {
+if (!genLinks.isEmpty()) {
 
     stringBuffer.append(TEXT_41);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry"));
+    
+	for (int i = 0; i < genLinks.size(); i++) {
+		GenLink genLink = (GenLink) genLinks.get(i);
+		if (genLink instanceof GenLinkReferenceOnly) {
+			String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genLink);
+			String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
+
     stringBuffer.append(TEXT_42);
+    stringBuffer.append(semanticHintsClassName);
+    stringBuffer.append(TEXT_43);
+    stringBuffer.append(genLink.getEditPartClassName());
+    stringBuffer.append(TEXT_44);
+    
+		}
+	}
+
+    stringBuffer.append(TEXT_45);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry"));
+    stringBuffer.append(TEXT_46);
     
 	for (int i = 0; i < genLinks.size(); i++) {
 		GenLink genLink = (GenLink) genLinks.get(i);
 		if (genLink instanceof GenLinkWithClass) {
 			GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
 
-    stringBuffer.append(TEXT_43);
+    stringBuffer.append(TEXT_47);
     stringBuffer.append(genLink.getVisualID());
-    stringBuffer.append(TEXT_44);
+    stringBuffer.append(TEXT_48);
     stringBuffer.append(genLink.getEditPartClassName());
-    stringBuffer.append(TEXT_45);
+    stringBuffer.append(TEXT_49);
     
 		}
 	}
 
-    stringBuffer.append(TEXT_46);
+    stringBuffer.append(TEXT_50);
     
 }
 
-    stringBuffer.append(TEXT_47);
+    stringBuffer.append(TEXT_51);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_48);
+    stringBuffer.append(TEXT_52);
     return stringBuffer.toString();
   }
 }

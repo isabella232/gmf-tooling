@@ -54,10 +54,15 @@ public class PaletteFactoryGenerator
   protected final String TEXT_35 = "\"," + NL + "\t\t\t\"";
   protected final String TEXT_36 = "\", img, img) {" + NL + "" + NL + "\t\t\tpublic Tool createTool() {" + NL + "\t\t\t\tTool tool = new ConnectorCreationTool(ElementTypes.";
   protected final String TEXT_37 = ");" + NL + "\t\t\t\ttool.setProperties(getToolProperties());" + NL + "\t\t\t\treturn tool;" + NL + "\t\t\t}" + NL + "\t\t});";
-  protected final String TEXT_38 = NL + "\t}";
-  protected final String TEXT_39 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate PaletteContainer createContainer(String title) {" + NL + "\t\treturn new PaletteDrawer(title);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ImageDescriptor getImage(Object item) {" + NL + "\t\treturn ";
-  protected final String TEXT_40 = ".getInstance().getItemImageDescriptor(item);" + NL + "\t}" + NL + "}";
-  protected final String TEXT_41 = NL;
+  protected final String TEXT_38 = NL + "\t\tImageDescriptor img = getImage(";
+  protected final String TEXT_39 = ");" + NL + "\t\tpaletteContainer.add(new ToolEntry(\"";
+  protected final String TEXT_40 = "\"," + NL + "\t\t\t\"";
+  protected final String TEXT_41 = "\", img, img) {" + NL + "" + NL + "\t\t\tpublic Tool createTool() {" + NL + "\t\t\t\tTool tool = new ConnectorCreationTool(ElementTypes.";
+  protected final String TEXT_42 = ");" + NL + "\t\t\t\ttool.setProperties(getToolProperties());" + NL + "\t\t\t\treturn tool;" + NL + "\t\t\t}" + NL + "\t\t});";
+  protected final String TEXT_43 = NL + "\t}";
+  protected final String TEXT_44 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate PaletteContainer createContainer(String title) {" + NL + "\t\treturn new PaletteDrawer(title);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ImageDescriptor getImage(Object item) {" + NL + "\t\treturn ";
+  protected final String TEXT_45 = ".getInstance().getItemImageDescriptor(item);" + NL + "\t}" + NL + "}";
+  protected final String TEXT_46 = NL;
 
   public String generate(Object argument)
   {
@@ -173,16 +178,31 @@ for (int i = 0; i < toolGroups.size(); i++) {
     stringBuffer.append(TEXT_36);
     stringBuffer.append(genLinkWithClass.getUniqueIdentifier());
     stringBuffer.append(TEXT_37);
-    		}
+    
+		} else if (genLink instanceof GenLinkReferenceOnly) {
+			GenLinkReferenceOnly genLinkWithRef = (GenLinkReferenceOnly) genLink;
+			GenClass genClass = genLinkWithRef.getDomainLinkTargetFeature().getGenClass();
+			String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create(" + importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()) + ".eINSTANCE.get" + genClass.getClassifierAccessorName()+ "())";
+
     stringBuffer.append(TEXT_38);
+    stringBuffer.append(domainElementInstanceCreationCode);
+    stringBuffer.append(TEXT_39);
+    stringBuffer.append(linkCreationTool.getTitleKey());
+    stringBuffer.append(TEXT_40);
+    stringBuffer.append(linkCreationTool.getDescriptionKey());
+    stringBuffer.append(TEXT_41);
+    stringBuffer.append(genLinkWithRef.getUniqueIdentifier());
+    stringBuffer.append(TEXT_42);
+    		}
+    stringBuffer.append(TEXT_43);
     	}
 }
 
-    stringBuffer.append(TEXT_39);
+    stringBuffer.append(TEXT_44);
     stringBuffer.append(genDiagram.getPluginClassName());
-    stringBuffer.append(TEXT_40);
+    stringBuffer.append(TEXT_45);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_41);
+    stringBuffer.append(TEXT_46);
     return stringBuffer.toString();
   }
 }

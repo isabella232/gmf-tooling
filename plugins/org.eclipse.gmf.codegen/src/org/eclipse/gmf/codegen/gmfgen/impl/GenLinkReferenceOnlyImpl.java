@@ -267,11 +267,11 @@ public class GenLinkReferenceOnlyImpl extends GenLinkImpl implements GenLinkRefe
 	}
 
 	public String getClassNamePrefix() {
-		return getDomainLinkTargetFeature() == null ? "GenPseudoLink$" + hashCode() : getDomainLinkTargetFeature().getEcoreFeature().getEType().getName();
+		return getDomainLinkTargetFeature() == null ? "GenRefLink$" + hashCode() : getDomainLinkTargetFeature().getCapName();
 	}
 
 	public String getClassNameSuffux() {
-		return "PseudoLink";
+		return "RefLink";
 	}
 	
 	public String getUniqueIdentifier() {

@@ -17,7 +17,6 @@ import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabel;
 
@@ -59,13 +58,7 @@ public class AccessUtil {
 	}
 
 	public static String getSemanticHintsClassName(GenBaseElement genElement) {
-		String domainClassName;
-		if (genElement instanceof GenLinkWithClass) {
-			domainClassName = ((GenLinkWithClass) genElement).getDomainMetaClass().getName();
-		} else {
-			domainClassName = ((GenNode) genElement).getDomainMetaClass().getName();
-		}
-		return domainClassName + "SemanticHints"; //$NON-NLS-1$
+		return genElement.getClassNamePrefix() + genElement.getClassNameSuffux() + "SemanticHints"; //$NON-NLS-1$
 	}
 
 	// model access

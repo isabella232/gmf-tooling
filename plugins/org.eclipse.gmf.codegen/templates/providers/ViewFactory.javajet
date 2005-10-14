@@ -72,6 +72,10 @@ if (genElement instanceof GenLink) {
 %>
 		getViewService().createNode(semanticAdapter, view, "<%=AccessUtil.getLinkLabelViewName(label)%>",
 			ViewUtil.APPEND, persisted, getPreferencesHint());
+<%	}
+	if (genLink instanceof GenLinkReferenceOnly) {
+%>
+		view.setType(<%=AccessUtil.getSemanticHintsClassName(genLink)%>.VIEW_TYPE);
 <%
 	}
 }
