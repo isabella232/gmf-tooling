@@ -44,8 +44,8 @@ public class BasicGenModelAccess implements GenModelAccess {
 	}
 
 	public void initDefault() {
-		registerLocation(fromExtpoint());
 		registerLocation(constructDefaultFromModel());
+		registerLocation(fromExtpoint());
 	}
 
 	protected final URI fromExtpoint() {
