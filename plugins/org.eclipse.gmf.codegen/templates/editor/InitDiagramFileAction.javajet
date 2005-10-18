@@ -27,7 +27,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.gmf.ecore.edit.providers.ElementTypes;
 import org.eclipse.gmf.runtime.diagram.core.internal.services.view.ViewService;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.DiagramUtil;
@@ -389,7 +388,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 					Edge edge = (Edge) ViewService.getInstance().createConnectorView(new IAdaptable() {
 						public Object getAdapter(Class adapter) {
 							if (IElementType.class.equals(adapter)) {
-								return ElementTypes.<%=nextLink.getUniqueIdentifier()%>;
+								return <%=importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes")%>.<%=nextLink.getUniqueIdentifier()%>;
 							}
 							return null;
 						}
