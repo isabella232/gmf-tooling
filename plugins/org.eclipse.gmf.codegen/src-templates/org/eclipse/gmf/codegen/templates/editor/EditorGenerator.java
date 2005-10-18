@@ -19,8 +19,8 @@ public class EditorGenerator
   protected final String TEXT_2 = ";" + NL;
   protected final String TEXT_3 = NL + "import org.eclipse.gef.palette.PaletteRoot;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.editor.FileDiagramEditorWithFlyoutPalette;";
   protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_5 = " extends FileDiagramEditorWithFlyoutPalette {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected PaletteRoot createPaletteRoot() {" + NL + "\t\treturn ";
-  protected final String TEXT_6 = ".createPalette(getDiagram());" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void updatePaletteRoot() {" + NL + "\t}" + NL + "}";
+  protected final String TEXT_5 = " extends FileDiagramEditorWithFlyoutPalette {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected PaletteRoot createPaletteRoot(PaletteRoot existingPaletteRoot) {" + NL + "\t\tif (existingPaletteRoot != null) {" + NL + "\t\t\treturn existingPaletteRoot;" + NL + "\t\t}" + NL + "\t\treturn ";
+  protected final String TEXT_6 = ".createPalette(getDiagram());" + NL + "\t}" + NL + "}";
   protected final String TEXT_7 = NL;
 
   public String generate(Object argument)
