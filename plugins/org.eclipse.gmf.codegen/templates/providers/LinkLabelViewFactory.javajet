@@ -20,7 +20,8 @@ public class <%=AccessUtil.getLinkLabelViewFactoryClassName(label)%> extends Abs
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter,
 		String semanticHint, int index, boolean persisted) {
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
-		getViewService().createNode(semanticAdapter, view, "<%=AccessUtil.getLinkLabelTextViewName(label)%>",
+		getViewService().createNode(semanticAdapter, view,
+			<%=AccessUtil.getSemanticHintsClassName(label.getLink())%>.Labels.<%=AccessUtil.getLinkLabelTextId(label)%>,
 			ViewUtil.APPEND, persisted, getPreferencesHint());
 	}
 }

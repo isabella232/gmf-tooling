@@ -54,11 +54,14 @@ if (genElement instanceof GenNode) {
 			ViewUtil.APPEND, persisted, getPreferencesHint());
 <%
 		}
+		String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
+		String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 		List genChildContainers = genNode.getChildContainers();
 		for (int j = 0; j < genChildContainers.size(); j++) {
 			GenChildContainer genChildContainer = (GenChildContainer) genChildContainers.get(j);
+			String compartmentId = semanticHintsClassName + ".Compartments." + AccessUtil.getCompartmentId(genChildContainer);
 %>
-		getViewService().createNode(semanticAdapter, view, "<%=genChildContainer.getGroupID()%>",
+		getViewService().createNode(semanticAdapter, view, <%=compartmentId%>,
 			ViewUtil.APPEND, persisted, getPreferencesHint());
 <%
 		}
@@ -66,11 +69,14 @@ if (genElement instanceof GenNode) {
 }
 if (genElement instanceof GenLink) {
 	GenLink genLink = (GenLink) genElement;
+	String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genLink);
+	String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 	List labels = genLink.getLabels();
 	for (int j = 0; j < labels.size(); j++) {
 		LinkLabel label = (LinkLabel) labels.get(j);
+		String labelViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLinkLabelId(label);
 %>
-		getViewService().createNode(semanticAdapter, view, "<%=AccessUtil.getLinkLabelViewName(label)%>",
+		getViewService().createNode(semanticAdapter, view, <%=labelViewId%>,
 			ViewUtil.APPEND, persisted, getPreferencesHint());
 <%	}
 	if (genLink instanceof GenLinkReferenceOnly) {

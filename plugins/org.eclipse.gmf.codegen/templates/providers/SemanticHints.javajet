@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="SemanticHintsGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
 <%GenBaseElement genElement = (GenBaseElement) argument;%>
 <%GenDiagram genDiagram = genElement.getDiagram();%>
 package <%=genDiagram.getProvidersPackageName()%>;
@@ -8,6 +8,11 @@ package <%=genDiagram.getProvidersPackageName()%>;
  * @generated
  */
 public class <%=AccessUtil.getSemanticHintsClassName(genElement)%> {
+
+	/**
+	 * @generated
+	 */
+	private <%=AccessUtil.getSemanticHintsClassName(genElement)%>() {}
 <%if (genElement instanceof GenLinkReferenceOnly) {%>
 
 	/**
@@ -15,6 +20,74 @@ public class <%=AccessUtil.getSemanticHintsClassName(genElement)%> {
 	 */
 	public static final String VIEW_TYPE = "<%=((GenLinkReferenceOnly) genElement).getDomainLinkTargetFeature().getName()%>Link";
 <%
+}
+if (genElement instanceof GenNode) {
+	GenNode genNode = (GenNode) genElement;
+	List compartments = genNode.getChildContainers();
+	if (!compartments.isEmpty()) {
+%>
+	/**
+	 * @generated
+	 */
+	public static class Compartments {
+
+		/**
+		 * @generated
+		 */
+		private Compartments() {}
+<%
+		for (int i = 0; i < compartments.size(); i++) {
+			GenChildContainer compartment = (GenChildContainer) compartments.get(i);
+			String id = AccessUtil.getCompartmentId(compartment);
+			if (id != null && id.length() > 0) {
+%>
+
+		/**
+		 * @generated
+		 */
+		public static final String <%=id%> = "<%=compartment.getGroupID()%>";
+<%
+			}
+		}
+%>
+	}
+<%
+	}
+}
+if (genElement instanceof GenLink) {
+	GenLink genLink = (GenLink) genElement;
+	List labels = genLink.getLabels();
+	if (!labels.isEmpty()) {
+%>
+	/**
+	 * @generated
+	 */
+	public static class Labels {
+
+		/**
+		 * @generated
+		 */
+		private Labels() {}
+<%
+		for (int i = 0; i < labels.size(); i++) {
+			LinkLabel label = (LinkLabel) labels.get(i);
+%>
+
+		/**
+		 * @generated
+		 */
+		public static final String <%=AccessUtil.getLinkLabelId(label)%> = "<%=label.getDomainMetaFeature().getName()%>Label";
+
+		/**
+		 * @generated
+		 */
+		public static final String <%=AccessUtil.getLinkLabelTextId(label)%> = "<%=label.getDomainMetaFeature().getName()%>Text";
+<%
+		}
+%>
+	}
+<%
+	}
 }
 if (genElement.hasNameToEdit()) {
 %>

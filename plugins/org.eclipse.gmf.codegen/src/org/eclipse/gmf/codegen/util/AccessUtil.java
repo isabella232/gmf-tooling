@@ -15,6 +15,7 @@ import java.util.Iterator;
 
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
+import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
@@ -29,11 +30,33 @@ public class AccessUtil {
 
 	private AccessUtil() {}
 
+	private static String asJavaConstantName(String s) {
+		s = s.toUpperCase();
+		StringBuffer b = new StringBuffer();
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if (i == 0) {
+				if (!Character.isJavaIdentifierStart(c)) {
+					c = '_';
+				}
+			} else {
+				if (!Character.isJavaIdentifierPart(c)) {
+					c = '_';
+				}
+			}
+			b.append(c);
+		}
+		return b.toString();
+	}
+
 	// naming patterns
 
+	public static String getCompartmentId(GenChildContainer compartment) {
+		return asJavaConstantName(compartment.getTitleKey());
+	}
+
 	public static String getPaletteEntryId(EntryBase entry) {
-		String id = entry.getTitleKey();
-		return id.replace(' ', '_');
+		return asJavaConstantName(entry.getTitleKey());
 	}
 
 	public static String getLinkLabelViewFactoryClassName(LinkLabel label) {
@@ -41,12 +64,12 @@ public class AccessUtil {
 		return label.getDomainMetaFeature().getCapName() + name;
 	}
 
-	public static String getLinkLabelViewName(LinkLabel label) {
-		return "label" + label.getDomainMetaFeature().getCapName(); //$NON-NLS-1$
+	public static String getLinkLabelId(LinkLabel label) {
+		return label.getDomainMetaFeature().getUpperName() + "_LABEL"; //$NON-NLS-1$
 	}
 
-	public static String getLinkLabelTextViewName(LinkLabel label) {
-		return "text" + label.getDomainMetaFeature().getCapName(); //$NON-NLS-1$
+	public static String getLinkLabelTextId(LinkLabel label) {
+		return label.getDomainMetaFeature().getUpperName() + "_TEXT"; //$NON-NLS-1$
 	}
 
 	public static String getNodeLabelEditPartClassName(GenNode genNode) {

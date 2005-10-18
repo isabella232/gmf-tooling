@@ -22,7 +22,7 @@ public class EditPartFactoryGenerator
   protected final String TEXT_3 = NL + "import org.eclipse.draw2d.ConnectionLocator;" + NL + "import org.eclipse.emf.common.notify.Notification;" + NL + "import org.eclipse.emf.ecore.EObject;" + NL + "import org.eclipse.gef.EditPart;" + NL + "import org.eclipse.gef.EditPartFactory;" + NL + "import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;" + NL + "import org.eclipse.gmf.runtime.notation.Diagram;" + NL + "import org.eclipse.gmf.runtime.notation.Edge;" + NL + "import org.eclipse.gmf.runtime.notation.Node;" + NL + "import org.eclipse.gmf.runtime.notation.View;" + NL + "import ";
   protected final String TEXT_4 = ".StructuralFeatureParser;";
   protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_6 = " implements EditPartFactory {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic EditPart createEditPart(EditPart context, Object model) {" + NL + "\t\tif (model instanceof View) {" + NL + "\t\t\tView view = (View) model;" + NL + "\t\t\tif (model instanceof Diagram) {" + NL + "\t\t\t\treturn createDiagramEditPart((Diagram) model);" + NL + "\t\t\t} else if (view instanceof Node) {" + NL + "\t\t\t\tboolean isTopLevel = view.eContainer() instanceof Diagram || (view.getType() != null && view.getType().length() > 0);" + NL + "\t\t\t\tif (isTopLevel) {" + NL + "\t\t\t\t\treturn createNodeEditPart((Node) model);" + NL + "\t\t\t\t} else {" + NL + "\t\t\t\t\treturn createChildNodeEditPart((Node) model);" + NL + "\t\t\t\t}" + NL + "\t\t\t} else if (view instanceof Edge) {" + NL + "\t\t\t\treturn createEdgeEditPart((Edge) model);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL;
+  protected final String TEXT_6 = " implements EditPartFactory {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic EditPart createEditPart(EditPart context, Object model) {" + NL + "\t\tif (model instanceof View) {" + NL + "\t\t\tView view = (View) model;" + NL + "\t\t\tif (model instanceof Diagram) {" + NL + "\t\t\t\treturn createDiagramEditPart((Diagram) model);" + NL + "\t\t\t} else if (view instanceof Node) {" + NL + "\t\t\t\tif (view.eContainer() instanceof Diagram || (view.getType() != null && view.getType().length() > 0)) {" + NL + "\t\t\t\t\treturn createNodeEditPart((Node) model);" + NL + "\t\t\t\t} else {" + NL + "\t\t\t\t\treturn createChildNodeEditPart((Node) model);" + NL + "\t\t\t\t}" + NL + "\t\t\t} else if (view instanceof Edge) {" + NL + "\t\t\t\treturn createEdgeEditPart((Edge) model);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL;
   protected final String TEXT_7 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate EditPart createDiagramEditPart(Diagram diagram) {" + NL + "\t\tEObject element = diagram.getElement();" + NL + "\t\tif (";
   protected final String TEXT_8 = ".INSTANCE.getDiagramVisualID(element) != -1) {" + NL + "\t\t\treturn new ";
   protected final String TEXT_9 = "(diagram);" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate EditPart createNodeEditPart(Node node) {" + NL + "\t\tEditPart linkLabelEditPart = createLinkLabelEditPart(node);" + NL + "\t\tif (linkLabelEditPart != null) {" + NL + "\t\t\treturn linkLabelEditPart;" + NL + "\t\t}" + NL + "\t\tEObject element = node.getElement();" + NL + "\t\tint nodeVID = ";
@@ -32,8 +32,8 @@ public class EditPartFactoryGenerator
   protected final String TEXT_13 = NL + "\t\t\tif (";
   protected final String TEXT_14 = ".equals(node.getType())) {" + NL + "\t\t\t\treturn new ";
   protected final String TEXT_15 = "(node);" + NL + "\t\t\t}";
-  protected final String TEXT_16 = NL + "\t\t\tif (\"";
-  protected final String TEXT_17 = "\".equals(node.getType())) {" + NL + "\t\t\t\treturn new ListCompartmentEditPart(node) {" + NL + "" + NL + "\t\t\t\t\tprotected boolean hasModelChildrenChanged(Notification evt) {" + NL + "\t\t\t\t\t\treturn false;" + NL + "\t\t\t\t\t}" + NL + "" + NL + "\t\t\t\t\tprotected void createDefaultEditPolicies() {" + NL + "\t\t\t\t\t\tsuper.createDefaultEditPolicies();" + NL + "\t\t\t\t\t\tinstallEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());" + NL + "\t\t\t\t\t\tinstallEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());" + NL + "\t\t\t\t\t\t//installEditPolicy(EditPolicy.NODE_ROLE, null);" + NL + "\t\t\t\t\t}" + NL + "" + NL + "\t\t\t\t\tprotected String getTitleName() {" + NL + "\t\t\t\t\t\treturn \"";
+  protected final String TEXT_16 = NL + "\t\t\tif (";
+  protected final String TEXT_17 = ".equals(node.getType())) {" + NL + "\t\t\t\treturn new ListCompartmentEditPart(node) {" + NL + "" + NL + "\t\t\t\t\tprotected boolean hasModelChildrenChanged(Notification evt) {" + NL + "\t\t\t\t\t\treturn false;" + NL + "\t\t\t\t\t}" + NL + "" + NL + "\t\t\t\t\tprotected void createDefaultEditPolicies() {" + NL + "\t\t\t\t\t\tsuper.createDefaultEditPolicies();" + NL + "\t\t\t\t\t\tinstallEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());" + NL + "\t\t\t\t\t\tinstallEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());" + NL + "\t\t\t\t\t\t//installEditPolicy(EditPolicy.NODE_ROLE, null);" + NL + "\t\t\t\t\t}" + NL + "" + NL + "\t\t\t\t\tprotected String getTitleName() {" + NL + "\t\t\t\t\t\treturn \"";
   protected final String TEXT_18 = "\";" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t};" + NL + "\t\t\t}";
   protected final String TEXT_19 = NL + "\t\t\treturn new ";
   protected final String TEXT_20 = "(node);";
@@ -42,10 +42,10 @@ public class EditPartFactoryGenerator
   protected final String TEXT_23 = ".INSTANCE.getLinkWithClassVisualID(element);" + NL + "\t\t" + NL + "\t\tswitch (linkVID) {";
   protected final String TEXT_24 = NL + "\t\tcase ";
   protected final String TEXT_25 = ":";
-  protected final String TEXT_26 = NL + "\t\t\tif (\"";
-  protected final String TEXT_27 = "\".equals(node.getType())) {" + NL + "\t\t\t\treturn new LabelEditPart(node) {" + NL + "" + NL + "\t\t\t\t\tpublic int getKeyPoint() {" + NL + "\t\t\t\t\t\treturn ConnectionLocator.";
-  protected final String TEXT_28 = ";" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t};" + NL + "\t\t\t}" + NL + "\t\t\tif (\"";
-  protected final String TEXT_29 = "\".equals(node.getType())) {" + NL + "\t\t\t\treturn new TextCompartmentEditPart(node) {" + NL + "" + NL + "\t\t\t\t\tpublic IParser getParser() {" + NL + "\t\t\t\t\t\tif (parser == null) {" + NL + "\t\t\t\t\t\t\tparser = new StructuralFeatureParser(";
+  protected final String TEXT_26 = NL + "\t\t\tif (";
+  protected final String TEXT_27 = ".equals(node.getType())) {" + NL + "\t\t\t\treturn new LabelEditPart(node) {" + NL + "" + NL + "\t\t\t\t\tpublic int getKeyPoint() {" + NL + "\t\t\t\t\t\treturn ConnectionLocator.";
+  protected final String TEXT_28 = ";" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t};" + NL + "\t\t\t}" + NL + "\t\t\tif (";
+  protected final String TEXT_29 = ".equals(node.getType())) {" + NL + "\t\t\t\treturn new TextCompartmentEditPart(node) {" + NL + "" + NL + "\t\t\t\t\tpublic IParser getParser() {" + NL + "\t\t\t\t\t\tif (parser == null) {" + NL + "\t\t\t\t\t\t\tparser = new StructuralFeatureParser(";
   protected final String TEXT_30 = ".eINSTANCE.get";
   protected final String TEXT_31 = "().getEStructuralFeature(\"";
   protected final String TEXT_32 = "\"));" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\treturn parser;" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t};" + NL + "\t\t\t}";
@@ -67,7 +67,7 @@ public class EditPartFactoryGenerator
   protected final String TEXT_48 = ":" + NL + "\t\t\treturn new ";
   protected final String TEXT_49 = "(edge);";
   protected final String TEXT_50 = NL + "\t\t}";
-  protected final String TEXT_51 = NL + "\t\treturn createUnrecognizedEdgeEditPart(edge);\t\t\t\t" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private EditPart createUnrecognizedEdgeEditPart(Edge edge) {" + NL + "\t \t// Handle creation of unrecognized edge EditParts here" + NL + "\t \treturn null;" + NL + "\t }" + NL + "" + NL + "}";
+  protected final String TEXT_51 = NL + "\t\treturn createUnrecognizedEdgeEditPart(edge);\t\t\t\t" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private EditPart createUnrecognizedEdgeEditPart(Edge edge) {" + NL + "\t \t// Handle creation of unrecognized edge EditParts here" + NL + "\t \treturn null;" + NL + "\t }" + NL + "}";
   protected final String TEXT_52 = NL;
 
   public String generate(Object argument)
@@ -106,9 +106,9 @@ for (int i = 0; i < genNodes.size(); i++) {
     stringBuffer.append(genNode.getVisualID());
     stringBuffer.append(TEXT_12);
     
+	String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
+	String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 	if (genNode.hasNameToEdit()) {
-		String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
-		String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 		String semanticHint = semanticHintsClassName + '.' + AccessUtil.getNameSemanticHint(genNode);
 
     stringBuffer.append(TEXT_13);
@@ -121,9 +121,10 @@ for (int i = 0; i < genNodes.size(); i++) {
 	List genChildContainers = genNode.getChildContainers();
 	for (int j = 0; j < genChildContainers.size(); j++) {
 		GenChildContainer genChildContainer = (GenChildContainer) genChildContainers.get(j);
+		String compartmentId = semanticHintsClassName + ".Compartments." + AccessUtil.getCompartmentId(genChildContainer);
 
     stringBuffer.append(TEXT_16);
-    stringBuffer.append(genChildContainer.getGroupID());
+    stringBuffer.append(compartmentId);
     stringBuffer.append(TEXT_17);
     stringBuffer.append(genChildContainer.getTitleKey());
     stringBuffer.append(TEXT_18);
@@ -144,6 +145,8 @@ if (genLinks.size() != 0) {
     
 	for (int i = 0; i < genLinks.size(); i++) {
 		GenLink genLink = (GenLink) genLinks.get(i);
+		String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genLink);
+		String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 		if (genLink instanceof GenLinkWithClass) {
 			GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
 			String semanticLinkInterfaceName = genLinkWithClass.getDomainMetaClass().getClassifierAccessorName();
@@ -155,13 +158,15 @@ if (genLinks.size() != 0) {
 			List labels = genLink.getLabels();
 			for (int j = 0; j < labels.size(); j++) {
 				LinkLabel label = (LinkLabel) labels.get(j);
+				String labelViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLinkLabelId(label);
+				String labelTextViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLinkLabelTextId(label);
 
     stringBuffer.append(TEXT_26);
-    stringBuffer.append(AccessUtil.getLinkLabelViewName(label));
+    stringBuffer.append(labelViewId);
     stringBuffer.append(TEXT_27);
     stringBuffer.append(label.getAlignment());
     stringBuffer.append(TEXT_28);
-    stringBuffer.append(AccessUtil.getLinkLabelTextViewName(label));
+    stringBuffer.append(labelTextViewId);
     stringBuffer.append(TEXT_29);
     stringBuffer.append(semanticPackageInterfaceName);
     stringBuffer.append(TEXT_30);
@@ -225,7 +230,6 @@ if (!genLinks.isEmpty()) {
 	for (int i = 0; i < genLinks.size(); i++) {
 		GenLink genLink = (GenLink) genLinks.get(i);
 		if (genLink instanceof GenLinkWithClass) {
-			GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
 
     stringBuffer.append(TEXT_47);
     stringBuffer.append(genLink.getVisualID());

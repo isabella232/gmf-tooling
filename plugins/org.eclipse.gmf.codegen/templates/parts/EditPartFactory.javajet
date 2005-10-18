@@ -37,8 +37,7 @@ public class <%=genDiagram.getEditPartFactoryClassName()%> implements EditPartFa
 			if (model instanceof Diagram) {
 				return createDiagramEditPart((Diagram) model);
 			} else if (view instanceof Node) {
-				boolean isTopLevel = view.eContainer() instanceof Diagram || (view.getType() != null && view.getType().length() > 0);
-				if (isTopLevel) {
+				if (view.eContainer() instanceof Diagram || (view.getType() != null && view.getType().length() > 0)) {
 					return createNodeEditPart((Node) model);
 				} else {
 					return createChildNodeEditPart((Node) model);
@@ -86,9 +85,9 @@ for (int i = 0; i < genNodes.size(); i++) {
 %>
 		case <%=genNode.getVisualID()%>:
 <%
+	String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
+	String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 	if (genNode.hasNameToEdit()) {
-		String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
-		String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 		String semanticHint = semanticHintsClassName + '.' + AccessUtil.getNameSemanticHint(genNode);
 %>
 			if (<%=semanticHint%>.equals(node.getType())) {
@@ -99,8 +98,9 @@ for (int i = 0; i < genNodes.size(); i++) {
 	List genChildContainers = genNode.getChildContainers();
 	for (int j = 0; j < genChildContainers.size(); j++) {
 		GenChildContainer genChildContainer = (GenChildContainer) genChildContainers.get(j);
+		String compartmentId = semanticHintsClassName + ".Compartments." + AccessUtil.getCompartmentId(genChildContainer);
 %>
-			if ("<%=genChildContainer.getGroupID()%>".equals(node.getType())) {
+			if (<%=compartmentId%>.equals(node.getType())) {
 				return new ListCompartmentEditPart(node) {
 
 					protected boolean hasModelChildrenChanged(Notification evt) {
@@ -142,6 +142,8 @@ if (genLinks.size() != 0) {
 <%
 	for (int i = 0; i < genLinks.size(); i++) {
 		GenLink genLink = (GenLink) genLinks.get(i);
+		String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genLink);
+		String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 		if (genLink instanceof GenLinkWithClass) {
 			GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
 			String semanticLinkInterfaceName = genLinkWithClass.getDomainMetaClass().getClassifierAccessorName();
@@ -151,8 +153,10 @@ if (genLinks.size() != 0) {
 			List labels = genLink.getLabels();
 			for (int j = 0; j < labels.size(); j++) {
 				LinkLabel label = (LinkLabel) labels.get(j);
+				String labelViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLinkLabelId(label);
+				String labelTextViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLinkLabelTextId(label);
 %>
-			if ("<%=AccessUtil.getLinkLabelViewName(label)%>".equals(node.getType())) {
+			if (<%=labelViewId%>.equals(node.getType())) {
 				return new LabelEditPart(node) {
 
 					public int getKeyPoint() {
@@ -160,7 +164,7 @@ if (genLinks.size() != 0) {
 					}
 				};
 			}
-			if ("<%=AccessUtil.getLinkLabelTextViewName(label)%>".equals(node.getType())) {
+			if (<%=labelTextViewId%>.equals(node.getType())) {
 				return new TextCompartmentEditPart(node) {
 
 					public IParser getParser() {
@@ -256,7 +260,6 @@ if (!genLinks.isEmpty()) {
 	for (int i = 0; i < genLinks.size(); i++) {
 		GenLink genLink = (GenLink) genLinks.get(i);
 		if (genLink instanceof GenLinkWithClass) {
-			GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
 %>
 		case <%=genLink.getVisualID()%>:
 			return new <%=genLink.getEditPartClassName()%>(edge);
@@ -270,7 +273,7 @@ if (!genLinks.isEmpty()) {
 %>
 		return createUnrecognizedEdgeEditPart(edge);				
 	}
-	
+
 	/**
 	 * @generated
 	 */
@@ -278,6 +281,5 @@ if (!genLinks.isEmpty()) {
 	 	// Handle creation of unrecognized edge EditParts here
 	 	return null;
 	 }
-
 }
 <%importManager.emitSortedImports();%>

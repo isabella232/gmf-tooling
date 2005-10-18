@@ -32,10 +32,10 @@ public class ViewFactoryGenerator
   protected final String TEXT_14 = NL + "\t\tgetViewService().createNode(semanticAdapter, view," + NL + "\t\t\t";
   protected final String TEXT_15 = ".";
   protected final String TEXT_16 = "," + NL + "\t\t\tViewUtil.APPEND, persisted, getPreferencesHint());";
-  protected final String TEXT_17 = NL + "\t\tgetViewService().createNode(semanticAdapter, view, \"";
-  protected final String TEXT_18 = "\"," + NL + "\t\t\tViewUtil.APPEND, persisted, getPreferencesHint());";
-  protected final String TEXT_19 = NL + "\t\tgetViewService().createNode(semanticAdapter, view, \"";
-  protected final String TEXT_20 = "\"," + NL + "\t\t\tViewUtil.APPEND, persisted, getPreferencesHint());";
+  protected final String TEXT_17 = NL + "\t\tgetViewService().createNode(semanticAdapter, view, ";
+  protected final String TEXT_18 = "," + NL + "\t\t\tViewUtil.APPEND, persisted, getPreferencesHint());";
+  protected final String TEXT_19 = NL + "\t\tgetViewService().createNode(semanticAdapter, view, ";
+  protected final String TEXT_20 = "," + NL + "\t\t\tViewUtil.APPEND, persisted, getPreferencesHint());";
   protected final String TEXT_21 = NL + "\t\tview.setType(";
   protected final String TEXT_22 = ".VIEW_TYPE);";
   protected final String TEXT_23 = NL + "\t}" + NL + "}";
@@ -88,12 +88,15 @@ if (genElement instanceof GenNode) {
     stringBuffer.append(TEXT_16);
     
 		}
+		String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
+		String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 		List genChildContainers = genNode.getChildContainers();
 		for (int j = 0; j < genChildContainers.size(); j++) {
 			GenChildContainer genChildContainer = (GenChildContainer) genChildContainers.get(j);
+			String compartmentId = semanticHintsClassName + ".Compartments." + AccessUtil.getCompartmentId(genChildContainer);
 
     stringBuffer.append(TEXT_17);
-    stringBuffer.append(genChildContainer.getGroupID());
+    stringBuffer.append(compartmentId);
     stringBuffer.append(TEXT_18);
     
 		}
@@ -101,12 +104,15 @@ if (genElement instanceof GenNode) {
 }
 if (genElement instanceof GenLink) {
 	GenLink genLink = (GenLink) genElement;
+	String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genLink);
+	String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 	List labels = genLink.getLabels();
 	for (int j = 0; j < labels.size(); j++) {
 		LinkLabel label = (LinkLabel) labels.get(j);
+		String labelViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLinkLabelId(label);
 
     stringBuffer.append(TEXT_19);
-    stringBuffer.append(AccessUtil.getLinkLabelViewName(label));
+    stringBuffer.append(labelViewId);
     stringBuffer.append(TEXT_20);
     	}
 	if (genLink instanceof GenLinkReferenceOnly) {
