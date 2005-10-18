@@ -6,6 +6,7 @@
  */
 package org.eclipse.gmf.mappings;
 
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -106,13 +107,22 @@ public interface GMFMapPackage extends EPackage{
 	int NODE_MAPPING__DOMAIN_META_ELEMENT = MAPPING_ENTRY_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Domain Specialization</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE_MAPPING__DOMAIN_SPECIALIZATION = MAPPING_ENTRY_FEATURE_COUNT + 2;
+
+	/**
 	 * The feature id for the '<em><b>Containment Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_MAPPING__CONTAINMENT_FEATURE = MAPPING_ENTRY_FEATURE_COUNT + 2;
+	int NODE_MAPPING__CONTAINMENT_FEATURE = MAPPING_ENTRY_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Edit Feature</b></em>' reference.
@@ -121,7 +131,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_MAPPING__EDIT_FEATURE = MAPPING_ENTRY_FEATURE_COUNT + 3;
+	int NODE_MAPPING__EDIT_FEATURE = MAPPING_ENTRY_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Child Mappings</b></em>' containment reference list.
@@ -130,7 +140,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_MAPPING__CHILD_MAPPINGS = MAPPING_ENTRY_FEATURE_COUNT + 4;
+	int NODE_MAPPING__CHILD_MAPPINGS = MAPPING_ENTRY_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the the '<em>Node Mapping</em>' class.
@@ -139,7 +149,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_MAPPING_FEATURE_COUNT = MAPPING_ENTRY_FEATURE_COUNT + 5;
+	int NODE_MAPPING_FEATURE_COUNT = MAPPING_ENTRY_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.ChildNodeMappingImpl <em>Child Node Mapping</em>}' class.
@@ -206,13 +216,22 @@ public interface GMFMapPackage extends EPackage{
 	int CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT = 5;
 
 	/**
+	 * The feature id for the '<em><b>Domain Specialization</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_NODE_MAPPING__DOMAIN_SPECIALIZATION = 6;
+
+	/**
 	 * The number of structural features of the the '<em>Child Node Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CHILD_NODE_MAPPING_FEATURE_COUNT = 6;
+	int CHILD_NODE_MAPPING_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl <em>Link Mapping</em>}' class.
@@ -243,13 +262,22 @@ public interface GMFMapPackage extends EPackage{
 	int LINK_MAPPING__DOMAIN_META_ELEMENT = MAPPING_ENTRY_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Domain Specialization</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_MAPPING__DOMAIN_SPECIALIZATION = MAPPING_ENTRY_FEATURE_COUNT + 2;
+
+	/**
 	 * The feature id for the '<em><b>Containment Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_MAPPING__CONTAINMENT_FEATURE = MAPPING_ENTRY_FEATURE_COUNT + 2;
+	int LINK_MAPPING__CONTAINMENT_FEATURE = MAPPING_ENTRY_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Label Edit Feature</b></em>' reference.
@@ -258,7 +286,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_MAPPING__LABEL_EDIT_FEATURE = MAPPING_ENTRY_FEATURE_COUNT + 3;
+	int LINK_MAPPING__LABEL_EDIT_FEATURE = MAPPING_ENTRY_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Label Display Feature</b></em>' reference.
@@ -267,7 +295,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_MAPPING__LABEL_DISPLAY_FEATURE = MAPPING_ENTRY_FEATURE_COUNT + 4;
+	int LINK_MAPPING__LABEL_DISPLAY_FEATURE = MAPPING_ENTRY_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Link Meta Feature</b></em>' reference.
@@ -276,7 +304,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_MAPPING__LINK_META_FEATURE = MAPPING_ENTRY_FEATURE_COUNT + 5;
+	int LINK_MAPPING__LINK_META_FEATURE = MAPPING_ENTRY_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of structural features of the the '<em>Link Mapping</em>' class.
@@ -285,7 +313,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_MAPPING_FEATURE_COUNT = MAPPING_ENTRY_FEATURE_COUNT + 6;
+	int LINK_MAPPING_FEATURE_COUNT = MAPPING_ENTRY_FEATURE_COUNT + 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.CanvasMappingImpl <em>Canvas Mapping</em>}' class.
@@ -381,6 +409,81 @@ public interface GMFMapPackage extends EPackage{
 
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.ValueExpressionImpl <em>Value Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.ValueExpressionImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getValueExpression()
+	 * @generated
+	 */
+	int VALUE_EXPRESSION = 7;
+
+	/**
+	 * The feature id for the '<em><b>Body</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VALUE_EXPRESSION__BODY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Language</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VALUE_EXPRESSION__LANGUAGE = 1;
+
+	/**
+	 * The number of structural features of the the '<em>Value Expression</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VALUE_EXPRESSION_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.ConstraintImpl <em>Constraint</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.ConstraintImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getConstraint()
+	 * @generated
+	 */
+	int CONSTRAINT = 6;
+
+	/**
+	 * The feature id for the '<em><b>Body</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTRAINT__BODY = VALUE_EXPRESSION__BODY;
+
+	/**
+	 * The feature id for the '<em><b>Language</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTRAINT__LANGUAGE = VALUE_EXPRESSION__LANGUAGE;
+
+	/**
+	 * The number of structural features of the the '<em>Constraint</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONSTRAINT_FEATURE_COUNT = VALUE_EXPRESSION_FEATURE_COUNT + 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.MappingEntry <em>Mapping Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -421,6 +524,17 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getNodeMapping_DomainMetaElement();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.NodeMapping#getDomainSpecialization <em>Domain Specialization</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Domain Specialization</em>'.
+	 * @see org.eclipse.gmf.mappings.NodeMapping#getDomainSpecialization()
+	 * @see #getNodeMapping()
+	 * @generated
+	 */
+	EReference getNodeMapping_DomainSpecialization();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.NodeMapping#getContainmentFeature <em>Containment Feature</em>}'.
@@ -532,6 +646,17 @@ public interface GMFMapPackage extends EPackage{
 	EReference getChildNodeMapping_DomainMetaElement();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.ChildNodeMapping#getDomainSpecialization <em>Domain Specialization</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Domain Specialization</em>'.
+	 * @see org.eclipse.gmf.mappings.ChildNodeMapping#getDomainSpecialization()
+	 * @see #getChildNodeMapping()
+	 * @generated
+	 */
+	EReference getChildNodeMapping_DomainSpecialization();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.LinkMapping <em>Link Mapping</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -562,6 +687,17 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getLinkMapping_DomainMetaElement();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.LinkMapping#getDomainSpecialization <em>Domain Specialization</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Domain Specialization</em>'.
+	 * @see org.eclipse.gmf.mappings.LinkMapping#getDomainSpecialization()
+	 * @see #getLinkMapping()
+	 * @generated
+	 */
+	EReference getLinkMapping_DomainSpecialization();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.LinkMapping#getContainmentFeature <em>Containment Feature</em>}'.
@@ -692,6 +828,48 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getMapping_Diagram();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.Constraint <em>Constraint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Constraint</em>'.
+	 * @see org.eclipse.gmf.mappings.Constraint
+	 * @generated
+	 */
+	EClass getConstraint();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.ValueExpression <em>Value Expression</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Value Expression</em>'.
+	 * @see org.eclipse.gmf.mappings.ValueExpression
+	 * @generated
+	 */
+	EClass getValueExpression();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.ValueExpression#getBody <em>Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Body</em>'.
+	 * @see org.eclipse.gmf.mappings.ValueExpression#getBody()
+	 * @see #getValueExpression()
+	 * @generated
+	 */
+	EAttribute getValueExpression_Body();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.ValueExpression#getLanguage <em>Language</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Language</em>'.
+	 * @see org.eclipse.gmf.mappings.ValueExpression#getLanguage()
+	 * @see #getValueExpression()
+	 * @generated
+	 */
+	EAttribute getValueExpression_Language();
 
 	/**
 	 * Returns the factory that creates the instances of the model.

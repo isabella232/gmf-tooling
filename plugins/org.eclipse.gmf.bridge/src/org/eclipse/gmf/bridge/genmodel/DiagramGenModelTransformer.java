@@ -34,6 +34,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkDecoration;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
+import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ShapeAttributes;
@@ -46,6 +47,7 @@ import org.eclipse.gmf.diadef.LineKind;
 import org.eclipse.gmf.diadef.Node;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
+import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
@@ -171,9 +173,19 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 				childNode.setDomainNameFeature(findGenFeature(childNodeMapping.getEditFeature()));
 			}
 			
+			// construct model element selector for domain EClass specializations if any exist
+			if(childNodeMapping.getDomainSpecialization() != null) {
+				childNode.setModelElementSelector(createModelElementSelector(childNodeMapping.getDomainSpecialization()));
+			}					
+			
 			genNode.getChildNodes().add(childNode);
 			handleToolDef(childNodeMapping.getDiagramNode(), childNode);
 		}
+		
+		// construct model element selector for domain EClass specializations if any exist
+		if(nme.getDomainSpecialization() != null) {
+			genNode.setModelElementSelector(createModelElementSelector(nme.getDomainSpecialization()));
+		}		
 	}
 
 	private void handleToolDef(Node nodeToolDef, GenNode genNode) {
@@ -225,6 +237,11 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			case LineKind.DASH : attrs.setLineStyle("LINE_DASH"); break;
 			}
 			gl.getViewmap().getAttributes().add(attrs);
+		}
+
+		// construct model element selector for domain EClass specializations if any exist
+		if(lme.getDomainSpecialization() != null) {
+			gl.setModelElementSelector(createModelElementSelector(lme.getDomainSpecialization()));
 		}
 	}
 
@@ -368,5 +385,12 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 
 	private GenFeature findGenFeature(EStructuralFeature feature) {
 		return myGenModelMatch.findGenFeature(feature);
+	}
+	
+	private static ModelElementSelector createModelElementSelector(Constraint metaElementConstraint) {
+		ModelElementSelector modelElementSelector = GMFGenFactory.eINSTANCE.createModelElementSelector();
+		modelElementSelector.setBody(metaElementConstraint.getBody());
+		modelElementSelector.setLanguage(metaElementConstraint.getLanguage());		
+		return modelElementSelector;
 	}
 }

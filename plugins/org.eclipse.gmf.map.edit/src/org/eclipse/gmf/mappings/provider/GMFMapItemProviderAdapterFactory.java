@@ -184,6 +184,50 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.Constraint} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ConstraintItemProvider constraintItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.Constraint}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createConstraintAdapter() {
+		if (constraintItemProvider == null) {
+			constraintItemProvider = new ConstraintItemProvider(this);
+		}
+
+		return constraintItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.ValueExpression} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ValueExpressionItemProvider valueExpressionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.ValueExpression}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createValueExpressionAdapter() {
+		if (valueExpressionItemProvider == null) {
+			valueExpressionItemProvider = new ValueExpressionItemProvider(this);
+		}
+
+		return valueExpressionItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -284,6 +328,8 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 		if (linkMappingItemProvider != null) linkMappingItemProvider.dispose();
 		if (canvasMappingItemProvider != null) canvasMappingItemProvider.dispose();
 		if (mappingItemProvider != null) mappingItemProvider.dispose();
+		if (constraintItemProvider != null) constraintItemProvider.dispose();
+		if (valueExpressionItemProvider != null) valueExpressionItemProvider.dispose();
 	}
 
 }

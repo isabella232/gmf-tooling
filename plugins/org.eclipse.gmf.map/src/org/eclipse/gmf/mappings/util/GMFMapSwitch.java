@@ -133,6 +133,19 @@ public class GMFMapSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFMapPackage.CONSTRAINT: {
+				Constraint constraint = (Constraint)theEObject;
+				Object result = caseConstraint(constraint);
+				if (result == null) result = caseValueExpression(constraint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.VALUE_EXPRESSION: {
+				ValueExpression valueExpression = (ValueExpression)theEObject;
+				Object result = caseValueExpression(valueExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -224,6 +237,36 @@ public class GMFMapSwitch {
 	 * @generated
 	 */
 	public Object caseMapping(Mapping object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Constraint</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseConstraint(Constraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Value Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Value Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseValueExpression(ValueExpression object) {
 		return null;
 	}
 

@@ -22,6 +22,7 @@ import org.eclipse.gmf.diadef.Connection;
  * <ul>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getDiagramLink <em>Diagram Link</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getDomainMetaElement <em>Domain Meta Element</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getDomainSpecialization <em>Domain Specialization</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getContainmentFeature <em>Containment Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getLabelEditFeature <em>Label Edit Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getLabelDisplayFeature <em>Label Display Feature</em>}</li>
@@ -85,6 +86,31 @@ public interface LinkMapping extends MappingEntry{
 	 * @generated
 	 */
 	void setDomainMetaElement(EClass value);
+
+	/**
+	 * Returns the value of the '<em><b>Domain Specialization</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specializes further the domain meta element EClass associated with this mapping and should be evaluated in this EClass context
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Domain Specialization</em>' containment reference.
+	 * @see #setDomainSpecialization(Constraint)
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping_DomainSpecialization()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Constraint getDomainSpecialization();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.mappings.LinkMapping#getDomainSpecialization <em>Domain Specialization</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Domain Specialization</em>' containment reference.
+	 * @see #getDomainSpecialization()
+	 * @generated
+	 */
+	void setDomainSpecialization(Constraint value);
 
 	/**
 	 * Returns the value of the '<em><b>Containment Feature</b></em>' reference.

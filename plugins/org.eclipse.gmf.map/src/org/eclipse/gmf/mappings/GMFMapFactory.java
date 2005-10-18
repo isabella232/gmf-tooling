@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EFactory;
  * @see org.eclipse.gmf.mappings.GMFMapPackage
  * @generated
  */
-public interface GMFMapFactory extends EFactory {
+public interface GMFMapFactory extends EFactory{
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
@@ -69,6 +69,24 @@ public interface GMFMapFactory extends EFactory {
 	 * @generated
 	 */
 	Mapping createMapping();
+
+	/**
+	 * Returns a new object of class '<em>Constraint</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Constraint</em>'.
+	 * @generated
+	 */
+	Constraint createConstraint();
+
+	/**
+	 * Returns a new object of class '<em>Value Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Value Expression</em>'.
+	 * @generated
+	 */
+	ValueExpression createValueExpression();
 
 	/**
 	 * Returns the package supported by this factory.

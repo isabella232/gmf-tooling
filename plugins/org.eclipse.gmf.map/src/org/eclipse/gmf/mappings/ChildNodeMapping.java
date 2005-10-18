@@ -27,6 +27,7 @@ import org.eclipse.gmf.diadef.Node;
  *   <li>{@link org.eclipse.gmf.mappings.ChildNodeMapping#getConditionalFeature <em>Conditional Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.ChildNodeMapping#getEditFeature <em>Edit Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.ChildNodeMapping#getDomainMetaElement <em>Domain Meta Element</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.ChildNodeMapping#getDomainSpecialization <em>Domain Specialization</em>}</li>
  * </ul>
  * </p>
  *
@@ -192,5 +193,30 @@ public interface ChildNodeMapping extends EObject{
 	 * @generated
 	 */
 	void setDomainMetaElement(EClass value);
+
+	/**
+	 * Returns the value of the '<em><b>Domain Specialization</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specializes further the domain meta element EClass associated with this mapping and should be evaluated in this EClass context
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Domain Specialization</em>' containment reference.
+	 * @see #setDomainSpecialization(Constraint)
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getChildNodeMapping_DomainSpecialization()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Constraint getDomainSpecialization();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.mappings.ChildNodeMapping#getDomainSpecialization <em>Domain Specialization</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Domain Specialization</em>' containment reference.
+	 * @see #getDomainSpecialization()
+	 * @generated
+	 */
+	void setDomainSpecialization(Constraint value);
 
 } // ChildNodeMapping

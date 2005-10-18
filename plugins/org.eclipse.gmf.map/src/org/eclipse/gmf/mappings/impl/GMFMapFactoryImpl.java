@@ -48,6 +48,8 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 			case GMFMapPackage.LINK_MAPPING: return createLinkMapping();
 			case GMFMapPackage.CANVAS_MAPPING: return createCanvasMapping();
 			case GMFMapPackage.MAPPING: return createMapping();
+			case GMFMapPackage.CONSTRAINT: return createConstraint();
+			case GMFMapPackage.VALUE_EXPRESSION: return createValueExpression();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -101,6 +103,26 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	public Mapping createMapping() {
 		MappingImpl mapping = new MappingImpl();
 		return mapping;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Constraint createConstraint() {
+		ConstraintImpl constraint = new ConstraintImpl();
+		return constraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ValueExpression createValueExpression() {
+		ValueExpressionImpl valueExpression = new ValueExpressionImpl();
+		return valueExpression;
 	}
 
 	/**

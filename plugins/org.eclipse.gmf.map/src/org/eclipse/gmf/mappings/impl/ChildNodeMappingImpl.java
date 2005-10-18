@@ -7,6 +7,8 @@
 package org.eclipse.gmf.mappings.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -16,6 +18,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.diadef.Compartment;
 import org.eclipse.gmf.diadef.Node;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
+import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 
 /**
@@ -31,6 +34,7 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
  *   <li>{@link org.eclipse.gmf.mappings.impl.ChildNodeMappingImpl#getConditionalFeature <em>Conditional Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.ChildNodeMappingImpl#getEditFeature <em>Edit Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.ChildNodeMappingImpl#getDomainMetaElement <em>Domain Meta Element</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.ChildNodeMappingImpl#getDomainSpecialization <em>Domain Specialization</em>}</li>
  * </ul>
  * </p>
  *
@@ -96,6 +100,16 @@ public class ChildNodeMappingImpl extends EObjectImpl implements ChildNodeMappin
 	 * @ordered
 	 */
 	protected EClass domainMetaElement = null;
+
+	/**
+	 * The cached value of the '{@link #getDomainSpecialization() <em>Domain Specialization</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainSpecialization()
+	 * @generated
+	 * @ordered
+	 */
+	protected Constraint domainSpecialization = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -348,6 +362,66 @@ public class ChildNodeMappingImpl extends EObjectImpl implements ChildNodeMappin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Constraint getDomainSpecialization() {
+		return domainSpecialization;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetDomainSpecialization(Constraint newDomainSpecialization, NotificationChain msgs) {
+		Constraint oldDomainSpecialization = domainSpecialization;
+		domainSpecialization = newDomainSpecialization;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_SPECIALIZATION, oldDomainSpecialization, newDomainSpecialization);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDomainSpecialization(Constraint newDomainSpecialization) {
+		if (newDomainSpecialization != domainSpecialization) {
+			NotificationChain msgs = null;
+			if (domainSpecialization != null)
+				msgs = ((InternalEObject)domainSpecialization).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_SPECIALIZATION, null, msgs);
+			if (newDomainSpecialization != null)
+				msgs = ((InternalEObject)newDomainSpecialization).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_SPECIALIZATION, null, msgs);
+			msgs = basicSetDomainSpecialization(newDomainSpecialization, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_SPECIALIZATION, newDomainSpecialization, newDomainSpecialization));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
+		if (featureID >= 0) {
+			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_SPECIALIZATION:
+					return basicSetDomainSpecialization(null, msgs);
+				default:
+					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
+			}
+		}
+		return eBasicSetContainer(null, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT:
@@ -368,6 +442,8 @@ public class ChildNodeMappingImpl extends EObjectImpl implements ChildNodeMappin
 			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				if (resolve) return getDomainMetaElement();
 				return basicGetDomainMetaElement();
+			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_SPECIALIZATION:
+				return getDomainSpecialization();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -396,6 +472,9 @@ public class ChildNodeMappingImpl extends EObjectImpl implements ChildNodeMappin
 				return;
 			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				setDomainMetaElement((EClass)newValue);
+				return;
+			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_SPECIALIZATION:
+				setDomainSpecialization((Constraint)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -426,6 +505,9 @@ public class ChildNodeMappingImpl extends EObjectImpl implements ChildNodeMappin
 			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				setDomainMetaElement((EClass)null);
 				return;
+			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_SPECIALIZATION:
+				setDomainSpecialization((Constraint)null);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -449,6 +531,8 @@ public class ChildNodeMappingImpl extends EObjectImpl implements ChildNodeMappin
 				return editFeature != null;
 			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				return domainMetaElement != null;
+			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_SPECIALIZATION:
+				return domainSpecialization != null;
 		}
 		return eDynamicIsSet(eFeature);
 	}
