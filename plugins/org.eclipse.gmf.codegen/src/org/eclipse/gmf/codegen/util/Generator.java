@@ -131,6 +131,7 @@ public class Generator implements Runnable {
 			generateCreationWizard();
 			generateCreationWizardPage();
 			generateEditor();
+			generateDocumentProvider();
 			generateActionBarContributor();
 			generateMatchingStrategy();
 			generatePreferencesInitializer();
@@ -373,6 +374,15 @@ public class Generator implements Runnable {
 			myDiagram.getEditorClassName(),
 			myDiagram
 		);
+	}
+	
+	private void generateDocumentProvider() throws JETException, InterruptedException {
+		generate(
+				EmitterFactory.getDocumentProviderEmitter(),
+				myDiagram.getEditorPackageName(),
+				myDiagram.getDocumentProviderClassName(),
+				myDiagram
+			);
 	}
 
 	private void generateActionBarContributor() throws JETException, InterruptedException {

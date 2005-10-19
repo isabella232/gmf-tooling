@@ -22,6 +22,7 @@ import org.eclipse.gmf.codegen.templates.editor.CreationWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardPageGenerator;
 import org.eclipse.gmf.codegen.templates.editor.DiagramEditorUtilGenerator;
 import org.eclipse.gmf.codegen.templates.editor.DiagramFileCreatorGenerator;
+import org.eclipse.gmf.codegen.templates.editor.DocumentProviderGenerator;
 import org.eclipse.gmf.codegen.templates.editor.EditorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.InitDiagramFileActionGen;
 import org.eclipse.gmf.codegen.templates.editor.MatchingStrategyGenerator;
@@ -176,6 +177,10 @@ public class EmitterFactory {
 		return initializeEmitter("/templates/editor/Editor.javajet", EditorGenerator.class);
 	}
 
+	public static JETEmitter getDocumentProviderEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/DocumentProvider.javajet", DocumentProviderGenerator.class);
+	}
+	
 	public static JETEmitter getActionBarContributorEmitter() throws JETException {
 		return initializeEmitter("/templates/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
 	}

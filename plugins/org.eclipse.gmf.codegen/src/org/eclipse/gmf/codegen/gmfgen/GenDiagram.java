@@ -41,6 +41,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getIconProviderClassName <em>Icon Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getInitDiagramFileActionClassName <em>Init Diagram File Action Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditorClassName <em>Editor Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDocumentProviderClassName <em>Document Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getActionBarContributorClassName <em>Action Bar Contributor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getMatchingStrategyClassName <em>Matching Strategy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPluginClassName <em>Plugin Class Name</em>}</li>
@@ -378,6 +379,33 @@ public interface GenDiagram extends GenCommonBase{
 	 * @generated
 	 */
 	void setEditorClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Document Provider Class Name</b></em>' attribute.
+	 * The default value is <code>"DocumentProvider"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Document Provider Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Document Provider Class Name</em>' attribute.
+	 * @see #setDocumentProviderClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_DocumentProviderClassName()
+	 * @model default="DocumentProvider"
+	 * @generated
+	 */
+	String getDocumentProviderClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDocumentProviderClassName <em>Document Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Document Provider Class Name</em>' attribute.
+	 * @see #getDocumentProviderClassName()
+	 * @generated
+	 */
+	void setDocumentProviderClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Edit Part Factory Class Name</b></em>' attribute.

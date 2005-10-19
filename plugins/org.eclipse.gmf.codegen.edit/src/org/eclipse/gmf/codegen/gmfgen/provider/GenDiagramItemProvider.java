@@ -80,6 +80,7 @@ public class GenDiagramItemProvider
 			addIconProviderClassNamePropertyDescriptor(object);
 			addInitDiagramFileActionClassNamePropertyDescriptor(object);
 			addEditorClassNamePropertyDescriptor(object);
+			addDocumentProviderClassNamePropertyDescriptor(object);
 			addActionBarContributorClassNamePropertyDescriptor(object);
 			addMatchingStrategyClassNamePropertyDescriptor(object);
 			addPluginClassNamePropertyDescriptor(object);
@@ -281,6 +282,26 @@ public class GenDiagramItemProvider
 				 getString("_UI_GenDiagram_editorClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_editorClassName_feature", "_UI_GenDiagram_type"),
 				 GMFGenPackage.eINSTANCE.getGenDiagram_EditorClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Document Provider Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDocumentProviderClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_documentProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_documentProviderClassName_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_DocumentProviderClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -608,6 +629,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:

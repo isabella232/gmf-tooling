@@ -6,6 +6,7 @@ package <%=genDiagram.getEditorPackageName()%>;
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());%>
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.editor.FileDiagramEditorWithFlyoutPalette;
+import org.eclipse.ui.IEditorInput;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -22,5 +23,13 @@ public class <%=genDiagram.getEditorClassName()%> extends FileDiagramEditorWithF
 		}
 		return <%=importManager.getImportedName(genDiagram.getPalette().getFactoryQualifiedClassName())%>.createPalette(getDiagram());
 	}
+	
+	/**
+	 * @generated
+	 */
+	protected void setDocumentProvider(IEditorInput input) {
+		setDocumentProvider(new <%=genDiagram.getDocumentProviderClassName()%>());
+	}
+	
 }
 <%importManager.emitSortedImports();%>

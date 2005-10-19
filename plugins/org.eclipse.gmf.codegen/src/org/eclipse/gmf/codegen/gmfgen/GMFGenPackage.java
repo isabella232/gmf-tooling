@@ -361,13 +361,22 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_DIAGRAM__EDITOR_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 21;
 
 	/**
+	 * The feature id for the '<em><b>Document Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 22;
+
+	/**
 	 * The feature id for the '<em><b>Action Bar Contributor Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 22;
+	int GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 23;
 
 	/**
 	 * The feature id for the '<em><b>Matching Strategy Class Name</b></em>' attribute.
@@ -376,7 +385,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 23;
+	int GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 24;
 
 	/**
 	 * The feature id for the '<em><b>Plugin Class Name</b></em>' attribute.
@@ -385,7 +394,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PLUGIN_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 24;
+	int GEN_DIAGRAM__PLUGIN_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 25;
 
 	/**
 	 * The number of structural features of the the '<em>Gen Diagram</em>' class.
@@ -394,7 +403,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 25;
+	int GEN_DIAGRAM_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 26;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl <em>Gen Base Element</em>}' class.
@@ -2368,6 +2377,17 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 */
 	EAttribute getGenDiagram_EditorClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDocumentProviderClassName <em>Document Provider Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Document Provider Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDocumentProviderClassName()
+	 * @see #getGenDiagram()
+	 * @generated
+	 */
+	EAttribute getGenDiagram_DocumentProviderClassName();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditPartFactoryClassName <em>Edit Part Factory Class Name</em>}'.

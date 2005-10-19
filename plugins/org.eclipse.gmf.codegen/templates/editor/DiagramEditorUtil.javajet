@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -20,7 +19,6 @@ import org.eclipse.gmf.runtime.diagram.ui.DiagramUtil;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.util.IDEEditorUtil;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.EditorFileCreator;
 import org.eclipse.gmf.runtime.emf.core.edit.MRunnable;
-import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectUtil;
 import org.eclipse.gmf.runtime.emf.core.util.OperationUtil;
 import org.eclipse.gmf.runtime.emf.core.util.ResourceUtil;
@@ -86,17 +84,16 @@ public class DiagramEditorUtil extends IDEEditorUtil {
 				runnable.run(progressMonitorParam);
 			}
 		});
-
+<%if (!genDiagram.isSameFileForDiagramAndModel()) {%>
+		IPath modelFilePath = newDiagramFile.getLocation().removeFileExtension();
+		modelFilePath = modelFilePath.addFileExtension("<%=genDiagram.getDomainDiagramElement().getGenPackage().getPrefix().toLowerCase()%>"); //$NON-NLS-1$
+		final Resource modelResource = ResourceUtil.create(modelFilePath.toOSString(), null);
+<%}%>
 		Resource notationModel = null;
 		try {
 			newDiagramFile.refreshLocal(IResource.DEPTH_ZERO, null);
-			InputStream stream = newDiagramFile.getContents();
 			String completeFileName = newDiagramFile.getLocation().toOSString();
-			try {
-				notationModel = ResourceUtil.create(completeFileName, null);
-			} finally {
-				stream.close();
-			}
+			notationModel = ResourceUtil.create(completeFileName, null);
 		} catch (Exception e) {
 			IStatus status = new Status(IStatus.ERROR, <%=genDiagram.getPluginClassName()%>.ID, 0, e.getMessage(), e);
 			<%=genDiagram.getPluginClassName()%>.getInstance().getLog().log(status);
@@ -113,14 +110,18 @@ GenPackage genPackage = genDiagram.getDomainMetaModel();
 String domainPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 %>
 					EObject model = EObjectUtil.create(<%=domainPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getName()%>());
-					IAdaptable adapter = new EObjectAdapter(model);
-					Diagram diagram = DiagramUtil.createDiagram(model, kindParam,
-						new PreferencesHint(<%=genDiagram.getPluginClassName()%>.EDITOR_ID));
+					Diagram diagram = DiagramUtil.createDiagram(model, kindParam, new PreferencesHint(<%=genDiagram.getPluginClassName()%>.EDITOR_ID));
 					if (diagram != null) {
 						notationModelParam.getContents().add(diagram);
+<%if (genDiagram.isSameFileForDiagramAndModel()) {%>
 						notationModelParam.getContents().add(model);
+<%} else {%>
+						modelResource.getContents().add(model);
+						ResourceUtil.save(modelResource);
+<%}%>
 						diagram.setName(newDiagramFile.getName());
 						diagram.setElement(model);
+						ResourceUtil.save(notationModelParam);
 					}
 					return null;
 				}
