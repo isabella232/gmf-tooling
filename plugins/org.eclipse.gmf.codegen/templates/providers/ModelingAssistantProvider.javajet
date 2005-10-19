@@ -1,0 +1,52 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="ModelingAssistantProviderGenerator"
+	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+<%GenDiagram diagram = (GenDiagram) argument;%>
+package <%=diagram.getProvidersPackageName()%>;
+
+<%ImportUtil importManager = new ImportUtil(diagram.getProvidersPackageName());%>
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
+import org.eclipse.gmf.runtime.emf.ui.services.modelingassistant.ModelingAssistantProvider;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=diagram.getModelingAssistantProviderClassName()%> extends ModelingAssistantProvider {
+
+	/**
+	 * @generated
+	 */
+	public List getTypesForActionBar(IAdaptable host) {
+		Object editPart = host.getAdapter(IGraphicalEditPart.class);
+<%
+Iterator entities = AccessUtil.getGenEntities(diagram);
+while (entities.hasNext()) {
+	GenCommonBase entity = (GenCommonBase) entities.next();
+	List children = Collections.EMPTY_LIST;
+	if (entity instanceof GenDiagram) {
+		children = diagram.getNodes();
+	} else if (entity instanceof GenNode) {
+		children = ((GenNode) entity).getChildNodes();
+	}
+	if (children.isEmpty()) {
+		continue;
+	}
+	String editPartClassName = importManager.getImportedName(entity.getEditPartQualifiedClassName());
+%>
+		if (editPart instanceof <%=editPartClassName%>) {
+			List children = new ArrayList();
+<%	for (int i = 0; i < children.size(); i++) {%>
+			children.add(ElementTypes.<%=((GenNode) children.get(i)).getUniqueIdentifier()%>);
+<%	}%>
+			return children;
+		}
+<%}%>
+		return Collections.EMPTY_LIST;
+	}
+}
+<%importManager.emitSortedImports();%>

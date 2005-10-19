@@ -79,6 +79,8 @@ public class GenDiagramItemProvider
 			addViewProviderClassNamePropertyDescriptor(object);
 			addEditPartProviderClassNamePropertyDescriptor(object);
 			addMetamodelSupportProviderClassNamePropertyDescriptor(object);
+			addModelingAssistantProviderClassNamePropertyDescriptor(object);
+			addIconProviderClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -444,6 +446,46 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Modeling Assistant Provider Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addModelingAssistantProviderClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_modelingAssistantProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_modelingAssistantProviderClassName_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_ModelingAssistantProviderClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Icon Provider Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addIconProviderClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_iconProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_iconProviderClassName_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_IconProviderClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -523,6 +565,8 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__VIEW_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__NODES:

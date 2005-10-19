@@ -352,13 +352,31 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 20;
 
 	/**
+	 * The feature id for the '<em><b>Modeling Assistant Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 21;
+
+	/**
+	 * The feature id for the '<em><b>Icon Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 22;
+
+	/**
 	 * The number of structural features of the the '<em>Gen Diagram</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 21;
+	int GEN_DIAGRAM_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 23;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl <em>Gen Base Element</em>}' class.
@@ -2420,6 +2438,28 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 */
 	EAttribute getGenDiagram_MetamodelSupportProviderClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getModelingAssistantProviderClassName <em>Modeling Assistant Provider Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Modeling Assistant Provider Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getModelingAssistantProviderClassName()
+	 * @see #getGenDiagram()
+	 * @generated
+	 */
+	EAttribute getGenDiagram_ModelingAssistantProviderClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getIconProviderClassName <em>Icon Provider Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Icon Provider Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getIconProviderClassName()
+	 * @see #getGenDiagram()
+	 * @generated
+	 */
+	EAttribute getGenDiagram_IconProviderClassName();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase <em>Gen Common Base</em>}'.

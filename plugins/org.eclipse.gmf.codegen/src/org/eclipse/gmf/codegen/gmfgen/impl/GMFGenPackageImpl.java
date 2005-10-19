@@ -549,6 +549,24 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenDiagram_ModelingAssistantProviderClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(21);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_IconProviderClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(22);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenCommonBase() {
 		return genCommonBaseEClass;
 	}
@@ -1440,6 +1458,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genDiagramEClass, GEN_DIAGRAM__VIEW_PROVIDER_CLASS_NAME);
 		createEAttribute(genDiagramEClass, GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME);
 		createEAttribute(genDiagramEClass, GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME);
+		createEAttribute(genDiagramEClass, GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME);
+		createEAttribute(genDiagramEClass, GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME);
 
 		genCommonBaseEClass = createEClass(GEN_COMMON_BASE);
 		createEReference(genCommonBaseEClass, GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS);
@@ -1637,6 +1657,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenDiagram_ViewProviderClassName(), ecorePackage.getEString(), "viewProviderClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagram_EditPartProviderClassName(), ecorePackage.getEString(), "editPartProviderClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagram_MetamodelSupportProviderClassName(), ecorePackage.getEString(), "metamodelSupportProviderClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagram_ModelingAssistantProviderClassName(), ecorePackage.getEString(), "modelingAssistantProviderClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagram_IconProviderClassName(), ecorePackage.getEString(), "iconProviderClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genDiagramEClass, theGenModelPackage.getGenModel(), "getEMFGenModel");
 
@@ -1655,6 +1677,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getEditPartProviderQualifiedClassName");
 
 		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getMetamodelSupportProviderQualifiedClassName");
+
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getModelingAssistantProviderQualifiedClassName");
+
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getIconProviderQualifiedClassName");
 
 		initEClass(genCommonBaseEClass, GenCommonBase.class, "GenCommonBase", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenCommonBase_DiagramRunTimeClass(), theGenModelPackage.getGenClass(), null, "diagramRunTimeClass", null, 1, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

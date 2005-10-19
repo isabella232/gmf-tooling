@@ -144,4 +144,16 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {%>
       </MetaModelProvider>
    </extension>
 
+   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
+      <modelingAssistantProvider class="<%=genDiagram.getModelingAssistantProviderQualifiedClassName()%>">
+         <Priority name="Medium"/>
+      </modelingAssistantProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
+      <IconProvider class="<%=genDiagram.getIconProviderQualifiedClassName()%>">
+         <Priority name="Medium"/>
+      </IconProvider>
+   </extension>
+
 </plugin>

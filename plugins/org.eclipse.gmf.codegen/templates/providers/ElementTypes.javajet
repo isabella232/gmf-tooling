@@ -4,9 +4,13 @@
 package <%=genDiagram.getProvidersPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.emf.commands.core.edithelpers.MSLEditHelper;
@@ -27,9 +31,12 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.GetEditContextRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
+import org.eclipse.swt.graphics.Image;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -37,6 +44,101 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class ElementTypes {
 
+	/**
+	 * @generated
+	 */
+	private static ImageRegistry imageRegistry;
+
+	/**
+	 * @generated
+	 */
+	private static ImageRegistry getImageRegistry() {
+		if (imageRegistry == null) {
+			imageRegistry = new ImageRegistry();
+		}
+		return imageRegistry;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static String getImageRegistryKey(ENamedElement element) {
+		return element.getName();
+	}
+
+	/**
+	 * @generated
+	 */
+	private static ImageDescriptor getProvidedImageDescriptor(ENamedElement element) {
+		if (element instanceof EStructuralFeature) {
+			element = ((EStructuralFeature) element).getEContainingClass();
+		}
+		if (element instanceof EClass) {
+<%
+String pluginClassName = importManager.getImportedName(genDiagram.getPluginQualifiedClassName());
+String semanticFactoryClassName = importManager.getImportedName(genDiagram.getDomainMetaModel().getQualifiedFactoryInterfaceName());
+%>
+			return <%=pluginClassName%>.getInstance().getItemImageDescriptor(
+				<%=semanticFactoryClassName%>.eINSTANCE.create((EClass) element));
+		}
+		// TODO : support structural features
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static ImageDescriptor getImageDescriptor(ENamedElement element) {
+		String key = getImageRegistryKey(element);
+		ImageDescriptor imageDescriptor = getImageRegistry().getDescriptor(key);
+		if (imageDescriptor == null) {
+			imageDescriptor = getProvidedImageDescriptor(element);
+			if (imageDescriptor == null) {
+				imageDescriptor = ImageDescriptor.getMissingImageDescriptor();
+			}
+			getImageRegistry().put(key, imageDescriptor);
+		}
+		return imageDescriptor;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static Image getImage(ENamedElement element) {
+		String key = getImageRegistryKey(element);
+		Image image = getImageRegistry().get(key);
+		if (image == null) {
+			ImageDescriptor imageDescriptor = getProvidedImageDescriptor(element);
+			if (imageDescriptor == null) {
+				imageDescriptor = ImageDescriptor.getMissingImageDescriptor();
+			}
+			getImageRegistry().put(key, imageDescriptor);
+			image = getImageRegistry().get(key);
+		}
+		return image;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static ImageDescriptor getImageDescriptor(IAdaptable hint) {
+		ENamedElement element = getElement(hint);
+		if (element == null) {
+			return null;
+		}
+		return getImageDescriptor(element);
+	}
+
+	/**
+	 * @generated
+	 */
+	public static Image getImage(IAdaptable hint) {
+		ENamedElement element = getElement(hint);
+		if (element == null) {
+			return null;
+		}
+		return getImage(element);
+	}
 <%
 List types = new ArrayList();
 List refLinks = new ArrayList();
@@ -50,6 +152,39 @@ while (entities.hasNext()) {
 }
 GenPackage genPackage = genDiagram.getDomainMetaModel();
 String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
+%>
+
+	/**
+	 * Returns 'type' of the ecore object associated with the hint.
+	 * 
+	 * @generated
+	 */
+	public static ENamedElement getElement(IAdaptable hint) {
+		Object type = hint.getAdapter(IElementType.class);
+		if (type instanceof IMetamodelType) {
+			EClass eClass = ((IMetamodelType) type).getEClass();
+			if (eClass != null && eClass.getEPackage() == <%=semanticPackageInterfaceName%>.eINSTANCE) {
+				return eClass;
+			}
+			return null;
+<%if (!refLinks.isEmpty()) {%>
+		} else if (type instanceof ISpecializationType) {
+<%
+	for (int i = 0; i < refLinks.size(); i++) {
+		GenLinkReferenceOnly refLink = (GenLinkReferenceOnly) refLinks.get(i);
+%>
+			if (<%=refLink.getUniqueIdentifier()%> == type) {
+				return <%=refLink.getUniqueIdentifier()%>.getEContainerDescriptor().getContainmentFeatures()[0];
+			}
+<%
+	}
+}
+%>
+		}
+		return null;
+	}
+
+<%
 entities = AccessUtil.getGenEntities(genDiagram);
 while (entities.hasNext()) {
 	GenCommonBase entity = (GenCommonBase) entities.next();
@@ -121,7 +256,7 @@ while (entities.hasNext()) {
 	 * @generated
 	 */
 	public static final IMetamodelType <%=entity.getUniqueIdentifier()%> = new MetamodelType(
-		"<%=entity.getUniqueIdentifier()%>", null, null,
+		"<%=entity.getUniqueIdentifier()%>", null, "<%=entity.getUniqueIdentifier()%>",
 		<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>(),
 		new <%=entity.getUniqueIdentifier()%>_EditHelper());
 <%
@@ -177,7 +312,7 @@ for (int i = 0; i < refLinks.size(); i++) {
 	 * @generated
 	 */
 	public static final ISpecializationType <%=entity.getUniqueIdentifier()%> = new SpecializationType(
-		"<%=entity.getUniqueIdentifier()%>", null, null,
+		"<%=entity.getUniqueIdentifier()%>", null, "<%=entity.getUniqueIdentifier()%>",
 		new IElementType[] { NullElementType.getInstance() }, null,
 		new <%=entity.getUniqueIdentifier()%>_ContainerDescriptor(),
 		new <%=entity.getUniqueIdentifier()%>_EditHelperAdvice());

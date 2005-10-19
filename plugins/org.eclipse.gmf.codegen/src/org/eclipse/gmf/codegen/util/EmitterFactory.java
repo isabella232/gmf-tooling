@@ -38,8 +38,10 @@ import org.eclipse.gmf.codegen.templates.parts.NodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.PartSelectorsGenerator;
 import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ElementTypesGenerator;
+import org.eclipse.gmf.codegen.templates.providers.IconProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.LinkLabelViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.MetamodelSupportProviderGenerator;
+import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.SemanticHintsGenerator;
 import org.eclipse.gmf.codegen.templates.providers.StructuralFeatureParserGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewFactoryGenerator;
@@ -129,6 +131,14 @@ public class EmitterFactory {
 
 	public static JETEmitter getMetamodelSupportProviderEmitter() throws JETException {
 		return initializeEmitter("/templates/providers/MetamodelSupportProvider.javajet", MetamodelSupportProviderGenerator.class);
+	}
+
+	public static JETEmitter getModelingAssistantProviderEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/ModelingAssistantProvider.javajet", ModelingAssistantProviderGenerator.class);
+	}
+
+	public static JETEmitter getIconProviderEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/IconProvider.javajet", IconProviderGenerator.class);
 	}
 
 	// editor

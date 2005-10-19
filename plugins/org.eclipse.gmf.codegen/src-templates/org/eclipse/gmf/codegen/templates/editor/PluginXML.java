@@ -49,8 +49,10 @@ public class PluginXML
   protected final String TEXT_30 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "         <context viewClass=\"org.eclipse.gmf.runtime.notation.Diagram\" semanticHints=\"";
   protected final String TEXT_31 = "\"/>" + NL + "         <context viewClass=\"org.eclipse.gmf.runtime.notation.Node\" semanticHints=\"\"/>" + NL + "         <context viewClass=\"org.eclipse.gmf.runtime.notation.Edge\" semanticHints=\"\"/>" + NL + "      </viewProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.diagram.ui.editpartProviders\">" + NL + "      <editpartProvider class=\"";
   protected final String TEXT_32 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </editpartProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.emf.core.MetaModelProviders\">" + NL + "      <MetaModelProvider class=\"";
-  protected final String TEXT_33 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </MetaModelProvider>" + NL + "   </extension>" + NL + "" + NL + "</plugin>";
-  protected final String TEXT_34 = NL;
+  protected final String TEXT_33 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </MetaModelProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders\">" + NL + "      <modelingAssistantProvider class=\"";
+  protected final String TEXT_34 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </modelingAssistantProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.common.ui.services.iconProviders\">" + NL + "      <IconProvider class=\"";
+  protected final String TEXT_35 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </IconProvider>" + NL + "   </extension>" + NL + "" + NL + "</plugin>";
+  protected final String TEXT_36 = NL;
 
   public String generate(Object argument)
   {
@@ -147,7 +149,11 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_32);
     stringBuffer.append(genDiagram.getMetamodelSupportProviderQualifiedClassName());
     stringBuffer.append(TEXT_33);
+    stringBuffer.append(genDiagram.getModelingAssistantProviderQualifiedClassName());
     stringBuffer.append(TEXT_34);
+    stringBuffer.append(genDiagram.getIconProviderQualifiedClassName());
+    stringBuffer.append(TEXT_35);
+    stringBuffer.append(TEXT_36);
     return stringBuffer.toString();
   }
 }

@@ -1,8 +1,7 @@
 package org.eclipse.gmf.codegen.templates.editor;
 
-import org.eclipse.gmf.codegen.gmfgen.*;
-import org.eclipse.emf.codegen.ecore.genmodel.*;
 import java.util.*;
+import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.codegen.util.*;
 
 public class PaletteFactoryGenerator
@@ -42,27 +41,26 @@ public class PaletteFactoryGenerator
   protected final String TEXT_23 = NL + "\t\troot.add(paletteContainer);" + NL + "\t}";
   protected final String TEXT_24 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate void create";
   protected final String TEXT_25 = "CreationTool(PaletteContainer paletteContainer) {";
-  protected final String TEXT_26 = NL + "\t\tImageDescriptor img = getImage(";
+  protected final String TEXT_26 = NL + "\t\tImageDescriptor image = ElementTypes.getImageDescriptor(ElementTypes.";
   protected final String TEXT_27 = ");" + NL + "\t\tpaletteContainer.add(new ToolEntry(\"";
   protected final String TEXT_28 = "\"," + NL + "\t\t\t\"";
-  protected final String TEXT_29 = "\", img, img) {" + NL + "" + NL + "\t\t\tpublic Tool createTool() {" + NL + "\t\t\t\tTool tool = new CreationTool(ElementTypes.";
+  protected final String TEXT_29 = "\", image, image) {" + NL + "" + NL + "\t\t\tpublic Tool createTool() {" + NL + "\t\t\t\tTool tool = new CreationTool(ElementTypes.";
   protected final String TEXT_30 = ");" + NL + "\t\t\t\ttool.setProperties(getToolProperties());" + NL + "\t\t\t\treturn tool;" + NL + "\t\t\t}" + NL + "\t\t});" + NL + "\t}";
   protected final String TEXT_31 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate void create";
   protected final String TEXT_32 = "CreationTool(PaletteContainer paletteContainer) {";
-  protected final String TEXT_33 = NL + "\t\tImageDescriptor img = getImage(";
+  protected final String TEXT_33 = NL + "\t\tImageDescriptor image = ElementTypes.getImageDescriptor(ElementTypes.";
   protected final String TEXT_34 = ");" + NL + "\t\tpaletteContainer.add(new ToolEntry(\"";
   protected final String TEXT_35 = "\"," + NL + "\t\t\t\"";
-  protected final String TEXT_36 = "\", img, img) {" + NL + "" + NL + "\t\t\tpublic Tool createTool() {" + NL + "\t\t\t\tTool tool = new ConnectorCreationTool(ElementTypes.";
+  protected final String TEXT_36 = "\", image, image) {" + NL + "" + NL + "\t\t\tpublic Tool createTool() {" + NL + "\t\t\t\tTool tool = new ConnectorCreationTool(ElementTypes.";
   protected final String TEXT_37 = ");" + NL + "\t\t\t\ttool.setProperties(getToolProperties());" + NL + "\t\t\t\treturn tool;" + NL + "\t\t\t}" + NL + "\t\t});";
-  protected final String TEXT_38 = NL + "\t\tImageDescriptor img = getImage(";
+  protected final String TEXT_38 = NL + "\t\tImageDescriptor image = ElementTypes.getImageDescriptor(ElementTypes.";
   protected final String TEXT_39 = ");" + NL + "\t\tpaletteContainer.add(new ToolEntry(\"";
   protected final String TEXT_40 = "\"," + NL + "\t\t\t\"";
-  protected final String TEXT_41 = "\", img, img) {" + NL + "" + NL + "\t\t\tpublic Tool createTool() {" + NL + "\t\t\t\tTool tool = new ConnectorCreationTool(ElementTypes.";
+  protected final String TEXT_41 = "\", image, image) {" + NL + "" + NL + "\t\t\tpublic Tool createTool() {" + NL + "\t\t\t\tTool tool = new ConnectorCreationTool(ElementTypes.";
   protected final String TEXT_42 = ");" + NL + "\t\t\t\ttool.setProperties(getToolProperties());" + NL + "\t\t\t\treturn tool;" + NL + "\t\t\t}" + NL + "\t\t});";
   protected final String TEXT_43 = NL + "\t}";
-  protected final String TEXT_44 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate PaletteContainer createContainer(String title) {" + NL + "\t\treturn new PaletteDrawer(title);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ImageDescriptor getImage(Object item) {" + NL + "\t\treturn ";
-  protected final String TEXT_45 = ".getInstance().getItemImageDescriptor(item);" + NL + "\t}" + NL + "}";
-  protected final String TEXT_46 = NL;
+  protected final String TEXT_44 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate PaletteContainer createContainer(String title) {" + NL + "\t\treturn new PaletteDrawer(title);" + NL + "\t}" + NL + "}";
+  protected final String TEXT_45 = NL;
 
   public String generate(Object argument)
   {
@@ -142,11 +140,9 @@ for (int i = 0; i < toolGroups.size(); i++) {
     stringBuffer.append(TEXT_25);
     
 		GenNode genNode = nodeCreationTool.getGenNode(); 
-		GenClass genClass = genNode.getDomainMetaClass();
-		String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create(" + importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()) + ".eINSTANCE.get" + genClass.getClassifierAccessorName()+ "())";
 
     stringBuffer.append(TEXT_26);
-    stringBuffer.append(domainElementInstanceCreationCode);
+    stringBuffer.append(genNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_27);
     stringBuffer.append(nodeCreationTool.getTitleKey());
     stringBuffer.append(TEXT_28);
@@ -166,11 +162,9 @@ for (int i = 0; i < toolGroups.size(); i++) {
 		GenLink genLink = linkCreationTool.getGenLink();
 		if (genLink instanceof GenLinkWithClass) {
 			GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
-			GenClass genClass = genLinkWithClass.getDomainMetaClass();
-			String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create(" + importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()) + ".eINSTANCE.get" + genClass.getClassifierAccessorName()+ "())";
 
     stringBuffer.append(TEXT_33);
-    stringBuffer.append(domainElementInstanceCreationCode);
+    stringBuffer.append(genLinkWithClass.getUniqueIdentifier());
     stringBuffer.append(TEXT_34);
     stringBuffer.append(linkCreationTool.getTitleKey());
     stringBuffer.append(TEXT_35);
@@ -181,11 +175,9 @@ for (int i = 0; i < toolGroups.size(); i++) {
     
 		} else if (genLink instanceof GenLinkReferenceOnly) {
 			GenLinkReferenceOnly genLinkWithRef = (GenLinkReferenceOnly) genLink;
-			GenClass genClass = genLinkWithRef.getDomainLinkTargetFeature().getGenClass();
-			String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create(" + importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()) + ".eINSTANCE.get" + genClass.getClassifierAccessorName()+ "())";
 
     stringBuffer.append(TEXT_38);
-    stringBuffer.append(domainElementInstanceCreationCode);
+    stringBuffer.append(genLinkWithRef.getUniqueIdentifier());
     stringBuffer.append(TEXT_39);
     stringBuffer.append(linkCreationTool.getTitleKey());
     stringBuffer.append(TEXT_40);
@@ -199,10 +191,8 @@ for (int i = 0; i < toolGroups.size(); i++) {
 }
 
     stringBuffer.append(TEXT_44);
-    stringBuffer.append(genDiagram.getPluginClassName());
-    stringBuffer.append(TEXT_45);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_46);
+    stringBuffer.append(TEXT_45);
     return stringBuffer.toString();
   }
 }

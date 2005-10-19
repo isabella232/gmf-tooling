@@ -119,6 +119,8 @@ public class Generator implements Runnable {
 			generateViewProvider();
 			generateEditPartProvider();
 			generateMetamodelSupportProvider();
+			generateModelingAssistantProvider();
+			generateIconProvider();
 
 			// editor
 			generateInitDiagramFileAction();
@@ -280,6 +282,22 @@ public class Generator implements Runnable {
 			EmitterFactory.getMetamodelSupportProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getMetamodelSupportProviderClassName(),
+			myDiagram);
+	}
+
+	private void generateModelingAssistantProvider() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getModelingAssistantProviderEmitter(),
+			myDiagram.getProvidersPackageName(),
+			myDiagram.getModelingAssistantProviderClassName(),
+			myDiagram);
+	}
+
+	private void generateIconProvider() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getIconProviderEmitter(),
+			myDiagram.getProvidersPackageName(),
+			myDiagram.getIconProviderClassName(),
 			myDiagram);
 	}
 

@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="PaletteFactoryGenerator"
-    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.*"%>
+    imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
 <%GenDiagram genDiagram = (GenDiagram) argument; Palette palette = genDiagram.getPalette();%>
 package <%=palette.getPackageName()%>;
 
@@ -133,12 +133,10 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	private void create<%=AccessUtil.getPaletteEntryId(nodeCreationTool)%>CreationTool(PaletteContainer paletteContainer) {
 <%
 		GenNode genNode = nodeCreationTool.getGenNode(); 
-		GenClass genClass = genNode.getDomainMetaClass();
-		String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create(" + importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()) + ".eINSTANCE.get" + genClass.getClassifierAccessorName()+ "())";
 %>
-		ImageDescriptor img = getImage(<%=domainElementInstanceCreationCode%>);
+		ImageDescriptor image = ElementTypes.getImageDescriptor(ElementTypes.<%=genNode.getUniqueIdentifier()%>);
 		paletteContainer.add(new ToolEntry("<%=nodeCreationTool.getTitleKey()%>",
-			"<%=nodeCreationTool.getDescriptionKey()%>", img, img) {
+			"<%=nodeCreationTool.getDescriptionKey()%>", image, image) {
 
 			public Tool createTool() {
 				Tool tool = new CreationTool(ElementTypes.<%=genNode.getUniqueIdentifier()%>);
@@ -161,12 +159,10 @@ for (int i = 0; i < toolGroups.size(); i++) {
 		GenLink genLink = linkCreationTool.getGenLink();
 		if (genLink instanceof GenLinkWithClass) {
 			GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
-			GenClass genClass = genLinkWithClass.getDomainMetaClass();
-			String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create(" + importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()) + ".eINSTANCE.get" + genClass.getClassifierAccessorName()+ "())";
 %>
-		ImageDescriptor img = getImage(<%=domainElementInstanceCreationCode%>);
+		ImageDescriptor image = ElementTypes.getImageDescriptor(ElementTypes.<%=genLinkWithClass.getUniqueIdentifier()%>);
 		paletteContainer.add(new ToolEntry("<%=linkCreationTool.getTitleKey()%>",
-			"<%=linkCreationTool.getDescriptionKey()%>", img, img) {
+			"<%=linkCreationTool.getDescriptionKey()%>", image, image) {
 
 			public Tool createTool() {
 				Tool tool = new ConnectorCreationTool(ElementTypes.<%=genLinkWithClass.getUniqueIdentifier()%>);
@@ -177,12 +173,10 @@ for (int i = 0; i < toolGroups.size(); i++) {
 <%
 		} else if (genLink instanceof GenLinkReferenceOnly) {
 			GenLinkReferenceOnly genLinkWithRef = (GenLinkReferenceOnly) genLink;
-			GenClass genClass = genLinkWithRef.getDomainLinkTargetFeature().getGenClass();
-			String domainElementInstanceCreationCode = importManager.getImportedName(genClass.getGenPackage().getQualifiedFactoryInterfaceName()) + ".eINSTANCE.create(" + importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()) + ".eINSTANCE.get" + genClass.getClassifierAccessorName()+ "())";
 %>
-		ImageDescriptor img = getImage(<%=domainElementInstanceCreationCode%>);
+		ImageDescriptor image = ElementTypes.getImageDescriptor(ElementTypes.<%=genLinkWithRef.getUniqueIdentifier()%>);
 		paletteContainer.add(new ToolEntry("<%=linkCreationTool.getTitleKey()%>",
-			"<%=linkCreationTool.getDescriptionKey()%>", img, img) {
+			"<%=linkCreationTool.getDescriptionKey()%>", image, image) {
 
 			public Tool createTool() {
 				Tool tool = new ConnectorCreationTool(ElementTypes.<%=genLinkWithRef.getUniqueIdentifier()%>);
@@ -201,13 +195,6 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	 */
 	private PaletteContainer createContainer(String title) {
 		return new PaletteDrawer(title);
-	}
-
-	/**
-	 * @generated
-	 */
-	private ImageDescriptor getImage(Object item) {
-		return <%=genDiagram.getPluginClassName()%>.getInstance().getItemImageDescriptor(item);
 	}
 }
 <%importManager.emitSortedImports();%>

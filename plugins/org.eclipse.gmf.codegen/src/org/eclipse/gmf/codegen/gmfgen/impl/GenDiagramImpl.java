@@ -56,6 +56,8 @@ import org.eclipse.gmf.codegen.gmfgen.Palette;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getViewProviderClassName <em>View Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartProviderClassName <em>Edit Part Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMetamodelSupportProviderClassName <em>Metamodel Support Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getModelingAssistantProviderClassName <em>Modeling Assistant Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getIconProviderClassName <em>Icon Provider Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -431,6 +433,46 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String metamodelSupportProviderClassName = METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getModelingAssistantProviderClassName() <em>Modeling Assistant Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getModelingAssistantProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String MODELING_ASSISTANT_PROVIDER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getModelingAssistantProviderClassName() <em>Modeling Assistant Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getModelingAssistantProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String modelingAssistantProviderClassName = MODELING_ASSISTANT_PROVIDER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getIconProviderClassName() <em>Icon Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIconProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ICON_PROVIDER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getIconProviderClassName() <em>Icon Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIconProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String iconProviderClassName = ICON_PROVIDER_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1021,6 +1063,64 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME, oldMetamodelSupportProviderClassName, metamodelSupportProviderClassName));
 	}
 
+	public String getModelingAssistantProviderClassName() {
+		String name = getModelingAssistantProviderClassNameGen();
+		if (name == null) {
+			return getDomainPackageCapName() + "ModelingAssistantProvider"; //$NON-NLS-1$
+		}
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getModelingAssistantProviderClassNameGen() {
+		return modelingAssistantProviderClassName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setModelingAssistantProviderClassName(String newModelingAssistantProviderClassName) {
+		String oldModelingAssistantProviderClassName = modelingAssistantProviderClassName;
+		modelingAssistantProviderClassName = newModelingAssistantProviderClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME, oldModelingAssistantProviderClassName, modelingAssistantProviderClassName));
+	}
+
+	public String getIconProviderClassName() {
+		String name = getIconProviderClassNameGen();
+		if (name == null) {
+			return getDomainPackageCapName() + "IconProvider"; //$NON-NLS-1$
+		}
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getIconProviderClassNameGen() {
+		return iconProviderClassName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIconProviderClassName(String newIconProviderClassName) {
+		String oldIconProviderClassName = iconProviderClassName;
+		iconProviderClassName = newIconProviderClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME, oldIconProviderClassName, iconProviderClassName));
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1104,6 +1204,24 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public String getMetamodelSupportProviderQualifiedClassName() {
 		return getProvidersPackageName() + '.' + getMetamodelSupportProviderClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getModelingAssistantProviderQualifiedClassName() {
+		return getProvidersPackageName() + '.' + getModelingAssistantProviderClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getIconProviderQualifiedClassName() {
+		return getProvidersPackageName() + '.' + getIconProviderClassName();
 	}
 
 	private boolean usesSVGShapes() {
@@ -1223,6 +1341,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getEditPartProviderClassName();
 			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
 				return getMetamodelSupportProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
+				return getModelingAssistantProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
+				return getIconProviderClassName();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -1311,6 +1433,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
 				setMetamodelSupportProviderClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
+				setModelingAssistantProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
+				setIconProviderClassName((String)newValue);
+				return;
 		}
 		eDynamicSet(eFeature, newValue);
 	}
@@ -1397,6 +1525,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
 				setMetamodelSupportProviderClassName(METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
+				setModelingAssistantProviderClassName(MODELING_ASSISTANT_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
+				setIconProviderClassName(ICON_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -1458,6 +1592,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT == null ? editPartProviderClassName != null : !EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT.equals(editPartProviderClassName);
 			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
 				return METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT == null ? metamodelSupportProviderClassName != null : !METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT.equals(metamodelSupportProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
+				return MODELING_ASSISTANT_PROVIDER_CLASS_NAME_EDEFAULT == null ? modelingAssistantProviderClassName != null : !MODELING_ASSISTANT_PROVIDER_CLASS_NAME_EDEFAULT.equals(modelingAssistantProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
+				return ICON_PROVIDER_CLASS_NAME_EDEFAULT == null ? iconProviderClassName != null : !ICON_PROVIDER_CLASS_NAME_EDEFAULT.equals(iconProviderClassName);
 		}
 		return eDynamicIsSet(eFeature);
 	}
@@ -1503,6 +1641,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(editPartProviderClassName);
 		result.append(", metamodelSupportProviderClassName: ");
 		result.append(metamodelSupportProviderClassName);
+		result.append(", modelingAssistantProviderClassName: ");
+		result.append(modelingAssistantProviderClassName);
+		result.append(", iconProviderClassName: ");
+		result.append(iconProviderClassName);
 		result.append(')');
 		return result.toString();
 	}
