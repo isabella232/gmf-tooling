@@ -13,8 +13,14 @@ package org.eclipse.gmf.tests.setup;
 
 import java.util.Iterator;
 
+import junit.framework.Assert;
+
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.gmf.bridge.genmodel.BasicDiagramRunTimeModelHelper;
+import org.eclipse.gmf.bridge.genmodel.BasicGenModelAccess;
 import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.EditPartNamingStrategy;
@@ -77,8 +83,7 @@ public class DiaGenSetup implements DiaGenSource {
 		// TODO add linkRefOnly
 		myGenDiagram.getNodes().add(myGenNode);
 		myGenDiagram.getLinks().add(myGenLink);
-		// TODO make sure (validate?) .gmfgen model is valid not to ruin tests...
-		// XXX alternatively, run this check as separate tests prior to those using this setup?
+		confineInResource();
 		return this;
 	}
 
@@ -92,6 +97,10 @@ public class DiaGenSetup implements DiaGenSource {
 		final DiagramRunTimeModelHelper drth = new BasicDiagramRunTimeModelHelper();
 		final NamingStrategy epns = new EditPartNamingStrategy();
 		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, epns, new NotationViewFactoryNamingStrategy());
+		BasicGenModelAccess gma = new BasicGenModelAccess(mapSource.getCanvasMapping().getDomainModel());
+		IStatus gmaStatus = gma.createDummy();
+		Assert.assertTrue("Need (fake) genModel for transformation to work", gmaStatus.isOK());
+		t.setEMFGenModel(gma.model());
 		t.transform(mapSource.getMapping());
 		myGenDiagram = t.getResult();
 		final String nodeEPName = epns.createClassName(mapSource.getNodeMapping());
@@ -112,7 +121,12 @@ public class DiaGenSetup implements DiaGenSource {
 		}
 		assert myGenNode != null;
 		assert myGenLink != null;
+		confineInResource();
 		return this;
+	}
+
+	private void confineInResource() {
+		new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/DiaGenSetup")).getContents().add(myGenDiagram);
 	}
 
 	public final GenDiagram getGenDiagram() {

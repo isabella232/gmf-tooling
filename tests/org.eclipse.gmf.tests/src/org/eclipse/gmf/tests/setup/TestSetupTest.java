@@ -15,6 +15,7 @@ import java.util.Iterator;
 
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.util.Diagnostician;
+import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.diadef.Canvas;
 import org.eclipse.gmf.diadef.Connection;
 import org.eclipse.gmf.diadef.Node;
@@ -85,6 +86,9 @@ public class TestSetupTest extends TestCase {
 		doAssert("GenNode", d);
 		d = Diagnostician.INSTANCE.validate(s.getGenLink());
 		doAssert("GenLink", d);
+		if (!s.getGenDiagram().getPalette().getGroups().isEmpty()) {
+			doAssert("Palette", Diagnostician.INSTANCE.validate((ToolGroup) s.getGenDiagram().getPalette().getGroups().get(0)));
+		}
 		d = Diagnostician.INSTANCE.validate(s.getGenDiagram());
 		doAssert("GenDiagram", d);
 	}

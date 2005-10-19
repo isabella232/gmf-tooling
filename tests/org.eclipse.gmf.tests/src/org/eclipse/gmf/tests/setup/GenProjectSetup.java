@@ -65,6 +65,7 @@ public class GenProjectSetup {
 			importDevPluginsIntoRunTimeWorkspace(new String[] {
 					"org.eclipse.gmf.runtime.gef",
 					"org.eclipse.gmf.runtime.notation",
+					"org.eclipse.gmf.runtime.notation.edit",
 					"org.eclipse.wst.common.ui.properties",
 					"org.eclipse.gmf.runtime.common.core",
 					"org.eclipse.gmf.runtime.common.ui",
@@ -86,7 +87,8 @@ public class GenProjectSetup {
 					"org.eclipse.gmf.runtime.emf.ui.properties",
 					"org.eclipse.gmf.runtime.diagram.ui.properties",
 					"org.eclipse.gmf.runtime.diagram.ui.resources.editor",
-					"org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide"
+					"org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide",
+					"org.eclipse.gmf.runtime.notation.providers",
 			});
 		}
 		final GenDiagram d = diaGenSource.getGenDiagram();
