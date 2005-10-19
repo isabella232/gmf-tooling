@@ -15,24 +15,26 @@
         <details key="documentation" value="== domainMetaModel.getGenModel()"/>
       </eAnnotations>
     </eOperations>
-    <eOperations name="getPluginQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eOperations name="getRequiredPluginIDs" eType="#//StringArray">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Need this one for NewDiagramAction. Takes first diagramRunTimeClass and it's package's namespace. Perhaps, should just reference appropriate genModel instead"/>
       </eAnnotations>
     </eOperations>
-    <eOperations name="getEditorQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getEditPartFactoryQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eOperations name="getRequiredPluginIDs" eType="#//StringArray"/>
-    <eOperations name="getInitDiagramFileActionQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Need this for customizing Init Diagram Action class name"/>
-      </eAnnotations>
-    </eOperations>
     <eOperations name="getViewProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getEditPartProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getMetamodelSupportProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getModelingAssistantProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getIconProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getInitDiagramFileActionQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Need this for customizing Init Diagram Action class name"/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="getEditorQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getActionBarContributorQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getMatchingStrategyQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getPluginQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainMetaModel" lowerBound="1"
         eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenPackage"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainDiagramElement" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
@@ -49,11 +51,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="pluginName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="providerName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral="Sample Plugin Provider, Inc"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pluginClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editorClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        defaultValueLiteral="DiagramEditor"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editPartFactoryClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="EditPartFactoryImpl"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sameFileForDiagramAndModel"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -62,8 +59,8 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasDomainModel" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="diagramFileExtension" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="initDiagramFileActionClassName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="InitDiagramFileAction"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editPartFactoryClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="EditPartFactoryImpl"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="editPartProviderClassName"
@@ -74,6 +71,15 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="initDiagramFileActionClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="InitDiagramFileAction"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editorClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="DiagramEditor"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="actionBarContributorClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="matchingStrategyClassName"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pluginClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="StringArray" instanceClassName="String[]"/>
   <eClassifiers xsi:type="ecore:EClass" name="GenCommonBase" abstract="true">

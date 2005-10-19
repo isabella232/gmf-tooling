@@ -89,9 +89,9 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {%>
         icon="icons/full/obj16/<%=genModel.getModelName()%>ModelFile.gif"
         extensions="<%=genDiagram.getDiagramFileExtension()%>"
         default="true"
-        matchingStrategy="<%=genDiagram.getEditorPackageName()%>.MDiagramEditorMatchingStrategy"
-        class="<%=genDiagram.getEditorPackageName()%>.<%=genDiagram.getEditorClassName()%>"
-        contributorClass="org.eclipse.gmf.runtime.diagram.ui.internal.parts.MinimalActionBarContributor">
+        class="<%=genDiagram.getEditorQualifiedClassName()%>"
+        matchingStrategy="<%=genDiagram.getMatchingStrategyQualifiedClassName()%>"
+        contributorClass="<%=genDiagram.getActionBarContributorQualifiedClassName()%>">
      </editor>
    </extension>
 

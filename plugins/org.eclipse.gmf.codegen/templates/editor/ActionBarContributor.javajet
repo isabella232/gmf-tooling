@@ -1,0 +1,26 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="ActionBarContributorGenerator"
+    imports="org.eclipse.gmf.codegen.gmfgen.*"%>
+<%GenDiagram diagram = (GenDiagram) argument;%>
+package <%=diagram.getEditorPackageName()%>;
+
+import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramActionBarContributor;
+
+/**
+ * @generated
+ */
+public class <%=diagram.getActionBarContributorClassName()%> extends DiagramActionBarContributor {
+
+	/**
+	 * @generated
+	 */
+	protected Class getEditorClass() {
+		return <%=diagram.getEditorClassName()%>.class;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected String getEditorId() {
+		return <%=diagram.getPluginClassName()%>.EDITOR_ID;
+	}
+}

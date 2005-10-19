@@ -1,7 +1,7 @@
-<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="EditorMatchingStrategyGenerator"
+<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="MatchingStrategyGenerator"
     imports="org.eclipse.gmf.codegen.gmfgen.*"%>
-<%GenDiagram genDiagram = (GenDiagram) argument;%>
-package <%=genDiagram.getEditorPackageName()%>;
+<%GenDiagram diagram = (GenDiagram) argument;%>
+package <%=diagram.getEditorPackageName()%>;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.parts.DiagramDocumentEditorMatchingStrategy;
 import org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain;
@@ -9,7 +9,7 @@ import org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain;
 /**
  * @generated
  */
-public class MDiagramEditorMatchingStrategy extends DiagramDocumentEditorMatchingStrategy {
+public class <%=diagram.getMatchingStrategyClassName()%> extends DiagramDocumentEditorMatchingStrategy {
 
 	/**
 	 * @generated

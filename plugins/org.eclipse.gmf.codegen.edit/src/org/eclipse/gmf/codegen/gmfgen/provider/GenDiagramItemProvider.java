@@ -69,18 +69,20 @@ public class GenDiagramItemProvider
 			addPluginIDPropertyDescriptor(object);
 			addPluginNamePropertyDescriptor(object);
 			addProviderNamePropertyDescriptor(object);
-			addPluginClassNamePropertyDescriptor(object);
-			addEditorClassNamePropertyDescriptor(object);
-			addEditPartFactoryClassNamePropertyDescriptor(object);
 			addSameFileForDiagramAndModelPropertyDescriptor(object);
 			addHasDomainModelPropertyDescriptor(object);
 			addDiagramFileExtensionPropertyDescriptor(object);
-			addInitDiagramFileActionClassNamePropertyDescriptor(object);
+			addEditPartFactoryClassNamePropertyDescriptor(object);
 			addViewProviderClassNamePropertyDescriptor(object);
 			addEditPartProviderClassNamePropertyDescriptor(object);
 			addMetamodelSupportProviderClassNamePropertyDescriptor(object);
 			addModelingAssistantProviderClassNamePropertyDescriptor(object);
 			addIconProviderClassNamePropertyDescriptor(object);
+			addInitDiagramFileActionClassNamePropertyDescriptor(object);
+			addEditorClassNamePropertyDescriptor(object);
+			addActionBarContributorClassNamePropertyDescriptor(object);
+			addMatchingStrategyClassNamePropertyDescriptor(object);
+			addPluginClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -386,6 +388,46 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Action Bar Contributor Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addActionBarContributorClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_actionBarContributorClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_actionBarContributorClassName_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_ActionBarContributorClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Matching Strategy Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMatchingStrategyClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_matchingStrategyClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_matchingStrategyClassName_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_MatchingStrategyClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the View Provider Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -555,18 +597,20 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
 			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
-			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__VIEW_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__NODES:

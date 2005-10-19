@@ -30,18 +30,20 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPluginID <em>Plugin ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPluginName <em>Plugin Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getProviderName <em>Provider Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPluginClassName <em>Plugin Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditorClassName <em>Editor Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditPartFactoryClassName <em>Edit Part Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isHasDomainModel <em>Has Domain Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getInitDiagramFileActionClassName <em>Init Diagram File Action Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditPartFactoryClassName <em>Edit Part Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getViewProviderClassName <em>View Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditPartProviderClassName <em>Edit Part Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getMetamodelSupportProviderClassName <em>Metamodel Support Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getModelingAssistantProviderClassName <em>Modeling Assistant Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getIconProviderClassName <em>Icon Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getInitDiagramFileActionClassName <em>Init Diagram File Action Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditorClassName <em>Editor Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getActionBarContributorClassName <em>Action Bar Contributor Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getMatchingStrategyClassName <em>Matching Strategy Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPluginClassName <em>Plugin Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -509,6 +511,58 @@ public interface GenDiagram extends GenCommonBase{
 	void setInitDiagramFileActionClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Action Bar Contributor Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Action Bar Contributor Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Action Bar Contributor Class Name</em>' attribute.
+	 * @see #setActionBarContributorClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_ActionBarContributorClassName()
+	 * @model
+	 * @generated
+	 */
+	String getActionBarContributorClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getActionBarContributorClassName <em>Action Bar Contributor Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Action Bar Contributor Class Name</em>' attribute.
+	 * @see #getActionBarContributorClassName()
+	 * @generated
+	 */
+	void setActionBarContributorClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Matching Strategy Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Matching Strategy Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Matching Strategy Class Name</em>' attribute.
+	 * @see #setMatchingStrategyClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_MatchingStrategyClassName()
+	 * @model
+	 * @generated
+	 */
+	String getMatchingStrategyClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getMatchingStrategyClassName <em>Matching Strategy Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Matching Strategy Class Name</em>' attribute.
+	 * @see #getMatchingStrategyClassName()
+	 * @generated
+	 */
+	void setMatchingStrategyClassName(String value);
+
+	/**
 	 * Returns the value of the '<em><b>View Provider Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -652,9 +706,6 @@ public interface GenDiagram extends GenCommonBase{
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Need this one for NewDiagramAction. Takes first diagramRunTimeClass and it's package's namespace. Perhaps, should just reference appropriate genModel instead
-	 * <!-- end-model-doc -->
 	 * @model kind="operation"
 	 * @generated
 	 */
@@ -679,6 +730,9 @@ public interface GenDiagram extends GenCommonBase{
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Need this one for NewDiagramAction. Takes first diagramRunTimeClass and it's package's namespace. Perhaps, should just reference appropriate genModel instead
+	 * <!-- end-model-doc -->
 	 * @model kind="operation" dataType="org.eclipse.gmf.codegen.gmfgen.StringArray"
 	 * @generated
 	 */
@@ -734,5 +788,21 @@ public interface GenDiagram extends GenCommonBase{
 	 * @generated
 	 */
 	String getIconProviderQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getActionBarContributorQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getMatchingStrategyQualifiedClassName();
 
 } // GenDiagram

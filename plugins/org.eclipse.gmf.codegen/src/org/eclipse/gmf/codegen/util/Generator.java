@@ -131,7 +131,8 @@ public class Generator implements Runnable {
 			generateCreationWizard();
 			generateCreationWizardPage();
 			generateEditor();
-			generateEditorMatchingStrategy();
+			generateActionBarContributor();
+			generateMatchingStrategy();
 			generatePreferencesInitializer();
 			generatePluginClass();
 			generatePluginXml();
@@ -374,11 +375,20 @@ public class Generator implements Runnable {
 		);
 	}
 
-	private void generateEditorMatchingStrategy() throws JETException, InterruptedException {
+	private void generateActionBarContributor() throws JETException, InterruptedException {
 		generate(
-			EmitterFactory.getEditorMatchingStrategyEmitter(),
+			EmitterFactory.getActionBarContributorEmitter(),
 			myDiagram.getEditorPackageName(),
-			"MDiagramEditorMatchingStrategy", //$NON-NLS-1$
+			myDiagram.getActionBarContributorClassName(),
+			myDiagram
+		);
+	}
+
+	private void generateMatchingStrategy() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getMatchingStrategyEmitter(),
+			myDiagram.getEditorPackageName(),
+			myDiagram.getMatchingStrategyClassName(),
 			myDiagram
 		);
 	}

@@ -17,13 +17,14 @@ import java.net.URL;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
+import org.eclipse.gmf.codegen.templates.editor.ActionBarContributorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardPageGenerator;
 import org.eclipse.gmf.codegen.templates.editor.DiagramEditorUtilGenerator;
 import org.eclipse.gmf.codegen.templates.editor.DiagramFileCreatorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.EditorGenerator;
-import org.eclipse.gmf.codegen.templates.editor.EditorMatchingStrategyGenerator;
 import org.eclipse.gmf.codegen.templates.editor.InitDiagramFileActionGen;
+import org.eclipse.gmf.codegen.templates.editor.MatchingStrategyGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PaletteFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginXML;
@@ -175,8 +176,12 @@ public class EmitterFactory {
 		return initializeEmitter("/templates/editor/Editor.javajet", EditorGenerator.class);
 	}
 
-	public static JETEmitter getEditorMatchingStrategyEmitter() throws JETException {
-		return initializeEmitter("/templates/editor/EditorMatchingStrategy.javajet", EditorMatchingStrategyGenerator.class);
+	public static JETEmitter getActionBarContributorEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
+	}
+
+	public static JETEmitter getMatchingStrategyEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/MatchingStrategy.javajet", MatchingStrategyGenerator.class);
 	}
 
 	public static JETEmitter getPreferencesInitializerEmitter() throws JETException {
