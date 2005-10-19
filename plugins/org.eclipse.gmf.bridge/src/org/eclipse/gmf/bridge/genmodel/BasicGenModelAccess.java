@@ -124,6 +124,9 @@ public class BasicGenModelAccess implements GenModelAccess {
 		return Status.CANCEL_STATUS; // FIXME
 	}
 
+	/**
+	 * Use with care, model elements obtained earlier will become proxies.
+	 */
 	public void unload() {
 		if (needUnload) {
 			genModel.eResource().unload();

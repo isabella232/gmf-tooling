@@ -74,7 +74,8 @@ public class BasicDiagramRunTimeModelHelper implements DiagramRunTimeModelHelper
 				myCanvas = next;
 			}
 		}
-		runtimeAccess.unload();
+		// my... become proxies on unload
+		//runtimeAccess.unload();
 		assert myNode != null && myLink != null && myCanvas != null && myChildNode != null;
 	}
 }
