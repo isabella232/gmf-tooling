@@ -182,6 +182,8 @@ public class GenProjectSetup {
 	private String formatErrors(StringBuilder sb, IMarker[] compileErrors) {
 		for (int i = 0; i < compileErrors.length; i++) {
 			try {
+				sb.append(compileErrors[i].getResource().getName());
+				sb.append(':');
 				sb.append(compileErrors[i].getAttribute(IMarker.MESSAGE));
 			} catch (CoreException ex) {
 				sb.append("--ex:");
