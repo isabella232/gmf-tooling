@@ -17,7 +17,7 @@ import <%=genDiagram.getEditPartsPackageName()%>.<%=genDiagram.getEditPartFactor
 /**
  * @generated
  */
-public class EditPartProvider extends AbstractEditPartProvider {
+public class <%=genDiagram.getEditPartProviderClassName()%> extends AbstractEditPartProvider {
 
 	/**
 	 * @generated
@@ -42,7 +42,7 @@ public class EditPartProvider extends AbstractEditPartProvider {
 	/**
 	 * @generated
 	 */
-	public EditPartProvider() {
+	public <%=genDiagram.getEditPartProviderClassName()%>() {
 		setFactory(new <%=genDiagram.getEditPartFactoryClassName()%>());
 		setAllowCaching(true);
 	}

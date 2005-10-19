@@ -118,6 +118,7 @@ public class Generator implements Runnable {
 			generateElementTypes();
 			generateViewProvider();
 			generateEditPartProvider();
+			generateMetamodelSupportProvider();
 
 			// editor
 			generateInitDiagramFileAction();
@@ -260,7 +261,7 @@ public class Generator implements Runnable {
 		generate(
 			EmitterFactory.getViewProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
-			"ViewProvider", //$NON-NLS-1$
+			myDiagram.getViewProviderClassName(),
 			myDiagram
 		);
 	}
@@ -269,9 +270,17 @@ public class Generator implements Runnable {
 		generate(
 			EmitterFactory.getEditPartProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
-			"EditPartProvider", //$NON-NLS-1$
+			myDiagram.getEditPartProviderClassName(),
 			myDiagram
 		);
+	}
+
+	private void generateMetamodelSupportProvider() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getMetamodelSupportProviderEmitter(),
+			myDiagram.getProvidersPackageName(),
+			myDiagram.getMetamodelSupportProviderClassName(),
+			myDiagram);
 	}
 
 	// editor

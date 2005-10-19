@@ -49,10 +49,13 @@ import org.eclipse.gmf.codegen.gmfgen.Palette;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPluginClassName <em>Plugin Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditorClassName <em>Editor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartFactoryClassName <em>Edit Part Factory Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isHasDomainModel <em>Has Domain Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getInitDiagramFileActionClassName <em>Init Diagram File Action Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getViewProviderClassName <em>View Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartProviderClassName <em>Edit Part Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMetamodelSupportProviderClassName <em>Metamodel Support Provider Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -290,6 +293,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected String editPartFactoryClassName = EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #isSameFileForDiagramAndModel() <em>Same File For Diagram And Model</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSameFileForDiagramAndModel()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isSameFileForDiagramAndModel() <em>Same File For Diagram And Model</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSameFileForDiagramAndModel()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean sameFileForDiagramAndModel = SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #isHasDomainModel() <em>Has Domain Model</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -330,26 +353,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected String diagramFileExtension = DIAGRAM_FILE_EXTENSION_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isSameFileForDiagramAndModel() <em>Same File For Diagram And Model</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSameFileForDiagramAndModel()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isSameFileForDiagramAndModel() <em>Same File For Diagram And Model</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSameFileForDiagramAndModel()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean sameFileForDiagramAndModel = SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT;
-
-	/**
 	 * The default value of the '{@link #getInitDiagramFileActionClassName() <em>Init Diagram File Action Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -368,6 +371,66 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String initDiagramFileActionClassName = INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getViewProviderClassName() <em>View Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getViewProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String VIEW_PROVIDER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getViewProviderClassName() <em>View Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getViewProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String viewProviderClassName = VIEW_PROVIDER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getEditPartProviderClassName() <em>Edit Part Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditPartProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getEditPartProviderClassName() <em>Edit Part Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditPartProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String editPartProviderClassName = EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getMetamodelSupportProviderClassName() <em>Metamodel Support Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetamodelSupportProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getMetamodelSupportProviderClassName() <em>Metamodel Support Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetamodelSupportProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String metamodelSupportProviderClassName = METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -871,6 +934,93 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME, oldInitDiagramFileActionClassName, initDiagramFileActionClassName));
 	}
 
+	public String getViewProviderClassName() {
+		String name = getViewProviderClassNameGen();
+		if (name == null) {
+			return getDomainPackageCapName() + "ViewProvider"; //$NON-NLS-1$
+		}
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getViewProviderClassNameGen() {
+		return viewProviderClassName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setViewProviderClassName(String newViewProviderClassName) {
+		String oldViewProviderClassName = viewProviderClassName;
+		viewProviderClassName = newViewProviderClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__VIEW_PROVIDER_CLASS_NAME, oldViewProviderClassName, viewProviderClassName));
+	}
+
+	public String getEditPartProviderClassName() {
+		String name = getEditPartProviderClassNameGen();
+		if (name == null) {
+			return getDomainPackageCapName() + "EditPartProvider"; //$NON-NLS-1$
+		}
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getEditPartProviderClassNameGen() {
+		return editPartProviderClassName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditPartProviderClassName(String newEditPartProviderClassName) {
+		String oldEditPartProviderClassName = editPartProviderClassName;
+		editPartProviderClassName = newEditPartProviderClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME, oldEditPartProviderClassName, editPartProviderClassName));
+	}
+
+	public String getMetamodelSupportProviderClassName() {
+		String name = getMetamodelSupportProviderClassNameGen();
+		if (name == null) {
+			return getDomainPackageCapName() + "MetaModelSupportProvider"; //$NON-NLS-1$
+		}
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getMetamodelSupportProviderClassNameGen() {
+		return metamodelSupportProviderClassName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMetamodelSupportProviderClassName(String newMetamodelSupportProviderClassName) {
+		String oldMetamodelSupportProviderClassName = metamodelSupportProviderClassName;
+		metamodelSupportProviderClassName = newMetamodelSupportProviderClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME, oldMetamodelSupportProviderClassName, metamodelSupportProviderClassName));
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -927,6 +1077,33 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public String getInitDiagramFileActionQualifiedClassName() {
 		return getEditorPackageName() + '.' + getInitDiagramFileActionClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getViewProviderQualifiedClassName() {
+		return getProvidersPackageName() + '.' + getViewProviderClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getEditPartProviderQualifiedClassName() {
+		return getProvidersPackageName() + '.' + getEditPartProviderClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getMetamodelSupportProviderQualifiedClassName() {
+		return getProvidersPackageName() + '.' + getMetamodelSupportProviderClassName();
 	}
 
 	private boolean usesSVGShapes() {
@@ -1032,14 +1209,20 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getEditorClassName();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				return getEditPartFactoryClassName();
+			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
+				return isSameFileForDiagramAndModel() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
 				return isHasDomainModel() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 				return getDiagramFileExtension();
-			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
-				return isSameFileForDiagramAndModel() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
 				return getInitDiagramFileActionClassName();
+			case GMFGenPackage.GEN_DIAGRAM__VIEW_PROVIDER_CLASS_NAME:
+				return getViewProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
+				return getEditPartProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
+				return getMetamodelSupportProviderClassName();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -1107,17 +1290,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				setEditPartFactoryClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
+				setSameFileForDiagramAndModel(((Boolean)newValue).booleanValue());
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
 				setHasDomainModel(((Boolean)newValue).booleanValue());
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 				setDiagramFileExtension((String)newValue);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
-				setSameFileForDiagramAndModel(((Boolean)newValue).booleanValue());
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
 				setInitDiagramFileActionClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__VIEW_PROVIDER_CLASS_NAME:
+				setViewProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
+				setEditPartProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
+				setMetamodelSupportProviderClassName((String)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -1184,17 +1376,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				setEditPartFactoryClassName(EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
+				setSameFileForDiagramAndModel(SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
 				setHasDomainModel(HAS_DOMAIN_MODEL_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 				setDiagramFileExtension(DIAGRAM_FILE_EXTENSION_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
-				setSameFileForDiagramAndModel(SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
 				setInitDiagramFileActionClassName(INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__VIEW_PROVIDER_CLASS_NAME:
+				setViewProviderClassName(VIEW_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
+				setEditPartProviderClassName(EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
+				setMetamodelSupportProviderClassName(METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -1243,14 +1444,20 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return EDITOR_CLASS_NAME_EDEFAULT == null ? editorClassName != null : !EDITOR_CLASS_NAME_EDEFAULT.equals(editorClassName);
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				return EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT == null ? editPartFactoryClassName != null : !EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT.equals(editPartFactoryClassName);
+			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
+				return sameFileForDiagramAndModel != SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
 				return hasDomainModel != HAS_DOMAIN_MODEL_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 				return DIAGRAM_FILE_EXTENSION_EDEFAULT == null ? diagramFileExtension != null : !DIAGRAM_FILE_EXTENSION_EDEFAULT.equals(diagramFileExtension);
-			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
-				return sameFileForDiagramAndModel != SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
 				return INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT == null ? initDiagramFileActionClassName != null : !INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT.equals(initDiagramFileActionClassName);
+			case GMFGenPackage.GEN_DIAGRAM__VIEW_PROVIDER_CLASS_NAME:
+				return VIEW_PROVIDER_CLASS_NAME_EDEFAULT == null ? viewProviderClassName != null : !VIEW_PROVIDER_CLASS_NAME_EDEFAULT.equals(viewProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
+				return EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT == null ? editPartProviderClassName != null : !EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT.equals(editPartProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
+				return METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT == null ? metamodelSupportProviderClassName != null : !METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT.equals(metamodelSupportProviderClassName);
 		}
 		return eDynamicIsSet(eFeature);
 	}
@@ -1282,14 +1489,20 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(editorClassName);
 		result.append(", editPartFactoryClassName: ");
 		result.append(editPartFactoryClassName);
+		result.append(", sameFileForDiagramAndModel: ");
+		result.append(sameFileForDiagramAndModel);
 		result.append(", hasDomainModel: ");
 		result.append(hasDomainModel);
 		result.append(", diagramFileExtension: ");
 		result.append(diagramFileExtension);
-		result.append(", sameFileForDiagramAndModel: ");
-		result.append(sameFileForDiagramAndModel);
 		result.append(", initDiagramFileActionClassName: ");
 		result.append(initDiagramFileActionClassName);
+		result.append(", viewProviderClassName: ");
+		result.append(viewProviderClassName);
+		result.append(", editPartProviderClassName: ");
+		result.append(editPartProviderClassName);
+		result.append(", metamodelSupportProviderClassName: ");
+		result.append(metamodelSupportProviderClassName);
 		result.append(')');
 		return result.toString();
 	}
@@ -1300,6 +1513,14 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	private String getPackageNamePrefix() {
 		return toLowerCase(getDomainMetaModel().getEcorePackage().getName());
+	}
+
+	private String getDomainPackageCapName() {
+		String name = getDomainMetaModel().getEcorePackage().getName();
+		if (name.length() < 2) {
+			return name.toUpperCase();
+		}
+		return Character.toUpperCase(name.charAt(0)) + name.substring(1);
 	}
 
 	private static String toLowerCase(String s) {

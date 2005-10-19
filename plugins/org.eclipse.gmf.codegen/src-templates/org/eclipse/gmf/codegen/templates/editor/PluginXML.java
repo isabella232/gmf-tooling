@@ -22,7 +22,7 @@ public class PluginXML
   protected final String TEXT_3 = "\"" + NL + "    version=\"1.0.0\"" + NL + "    class=\"";
   protected final String TEXT_4 = "\"" + NL + "    provider-name = \"";
   protected final String TEXT_5 = "\">" + NL + "" + NL + "  <requires>" + NL + "    <import plugin=\"org.eclipse.core.runtime\"/>" + NL + "    <import plugin=\"org.eclipse.core.resources\"/>" + NL + "    <import plugin=\"org.eclipse.jface\"/>" + NL + "    <import plugin=\"org.eclipse.ui.ide\"/>" + NL + "    <import plugin=\"org.eclipse.ui.views\"/>" + NL + "    <import plugin=\"org.eclipse.ui.workbench\"/>" + NL + "    <import plugin=\"org.eclipse.emf.ecore\"/>";
-  protected final String TEXT_6 = NL + "    <import plugin=\"org.eclipse.emf.edit.ui\"/>" + NL + "    <import plugin=\"org.eclipse.gef\" export=\"true\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.gef\" export=\"true\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.emf.commands.core\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.diagram.ui\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.diagram.ui.resources.editor\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide\"/>";
+  protected final String TEXT_6 = NL + "    <import plugin=\"org.eclipse.emf.edit.ui\"/>" + NL + "    <import plugin=\"org.eclipse.gef\" export=\"true\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.gef\" export=\"true\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.emf.commands.core\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.diagram.ui\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.diagram.ui.resources.editor\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.notation.providers\"/>";
   protected final String TEXT_7 = NL + "    <import plugin=\"";
   protected final String TEXT_8 = "\" export=\"true\"/>";
   protected final String TEXT_9 = NL + "  </requires>" + NL + "" + NL + "  <runtime>" + NL + "    <library name=\"plugin.jar\">" + NL + "      <export name=\"*\"/>" + NL + "    </library>" + NL + "  </runtime>" + NL + "" + NL + "   <extension point=\"org.eclipse.core.runtime.preferences\">" + NL + "      <initializer class=\"";
@@ -40,16 +40,17 @@ public class PluginXML
   protected final String TEXT_21 = "ModelFile.gif\"" + NL + "  \t     category=\"org.eclipse.ui.Examples\"" + NL + "  \t     class=\"";
   protected final String TEXT_22 = ".CreationWizard\"" + NL + "  \t     id=\"";
   protected final String TEXT_23 = ".CreationWizardID\">" + NL + "  \t  \t <description>" + NL + "  \t  \t\tCreates ";
-  protected final String TEXT_24 = " diagram." + NL + "  \t  \t </description>  " + NL + "      </wizard>" + NL + "   </extension>" + NL + "   " + NL + "   <extension point=\"org.eclipse.ui.popupMenus\">" + NL + "      <objectContribution" + NL + "            id=\"";
+  protected final String TEXT_24 = " diagram." + NL + "  \t  \t </description>  " + NL + "      </wizard>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.popupMenus\">" + NL + "      <objectContribution" + NL + "            id=\"";
   protected final String TEXT_25 = ".ui.objectContribution.IFile1\"" + NL + "            nameFilter=\"*.";
   protected final String TEXT_26 = "\"" + NL + "            objectClass=\"org.eclipse.core.resources.IFile\">" + NL + "         <action" + NL + "               label=\"Initialize ";
   protected final String TEXT_27 = " diagram file\"" + NL + "               class=\"";
   protected final String TEXT_28 = "\"" + NL + "               menubarPath=\"additions\"" + NL + "               enablesFor=\"1\"" + NL + "               id=\"";
   protected final String TEXT_29 = ".ui.InitDiagramFileAction\">" + NL + "         </action>" + NL + "      </objectContribution>            " + NL + "  </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.diagram.core.viewProviders\">" + NL + "      <viewProvider class=\"";
-  protected final String TEXT_30 = ".ViewProvider\">" + NL + "         <Priority name=\"Lowest\"/>" + NL + "         <context viewClass=\"org.eclipse.gmf.runtime.notation.Diagram\" semanticHints=\"";
+  protected final String TEXT_30 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "         <context viewClass=\"org.eclipse.gmf.runtime.notation.Diagram\" semanticHints=\"";
   protected final String TEXT_31 = "\"/>" + NL + "         <context viewClass=\"org.eclipse.gmf.runtime.notation.Node\" semanticHints=\"\"/>" + NL + "         <context viewClass=\"org.eclipse.gmf.runtime.notation.Edge\" semanticHints=\"\"/>" + NL + "      </viewProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.diagram.ui.editpartProviders\">" + NL + "      <editpartProvider class=\"";
-  protected final String TEXT_32 = ".EditPartProvider\">" + NL + "         <Priority name=\"Lowest\"/>" + NL + "      </editpartProvider>" + NL + "   </extension>" + NL + "" + NL + "</plugin>";
-  protected final String TEXT_33 = NL;
+  protected final String TEXT_32 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </editpartProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.emf.core.MetaModelProviders\">" + NL + "      <MetaModelProvider class=\"";
+  protected final String TEXT_33 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </MetaModelProvider>" + NL + "   </extension>" + NL + "" + NL + "</plugin>";
+  protected final String TEXT_34 = NL;
 
   public String generate(Object argument)
   {
@@ -138,13 +139,15 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_28);
     stringBuffer.append(genDiagram.getPluginID());
     stringBuffer.append(TEXT_29);
-    stringBuffer.append(genDiagram.getProvidersPackageName());
+    stringBuffer.append(genDiagram.getViewProviderQualifiedClassName());
     stringBuffer.append(TEXT_30);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_31);
-    stringBuffer.append(genDiagram.getProvidersPackageName());
+    stringBuffer.append(genDiagram.getEditPartProviderQualifiedClassName());
     stringBuffer.append(TEXT_32);
+    stringBuffer.append(genDiagram.getMetamodelSupportProviderQualifiedClassName());
     stringBuffer.append(TEXT_33);
+    stringBuffer.append(TEXT_34);
     return stringBuffer.toString();
   }
 }

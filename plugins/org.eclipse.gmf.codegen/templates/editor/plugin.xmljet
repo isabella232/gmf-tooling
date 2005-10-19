@@ -30,6 +30,7 @@
     <import plugin="org.eclipse.gmf.runtime.diagram.ui"/>
     <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor"/>
     <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide"/>
+    <import plugin="org.eclipse.gmf.runtime.notation.providers"/>
 <%
 Set requiredPluginIDs = new LinkedHashSet();
 requiredPluginIDs.add(genModel.getModelPluginID());
@@ -106,7 +107,7 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {%>
   	  	 </description>  
       </wizard>
    </extension>
-   
+
    <extension point="org.eclipse.ui.popupMenus">
       <objectContribution
             id="<%=genDiagram.getPluginID()%>.ui.objectContribution.IFile1"
@@ -123,8 +124,8 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {%>
   </extension>
 
    <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
-      <viewProvider class="<%=genDiagram.getProvidersPackageName()%>.ViewProvider">
-         <Priority name="Lowest"/>
+      <viewProvider class="<%=genDiagram.getViewProviderQualifiedClassName()%>">
+         <Priority name="Medium"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="<%=genModel.getModelName()%>"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints=""/>
@@ -132,9 +133,15 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {%>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
-      <editpartProvider class="<%=genDiagram.getProvidersPackageName()%>.EditPartProvider">
-         <Priority name="Lowest"/>
+      <editpartProvider class="<%=genDiagram.getEditPartProviderQualifiedClassName()%>">
+         <Priority name="Medium"/>
       </editpartProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.core.MetaModelProviders">
+      <MetaModelProvider class="<%=genDiagram.getMetamodelSupportProviderQualifiedClassName()%>">
+         <Priority name="Medium"/>
+      </MetaModelProvider>
    </extension>
 
 </plugin>

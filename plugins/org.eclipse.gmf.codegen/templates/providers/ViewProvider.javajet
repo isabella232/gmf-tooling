@@ -18,7 +18,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class ViewProvider extends AbstractViewProvider {
+public class <%=genDiagram.getViewProviderClassName()%> extends AbstractViewProvider {
 
 	/**
 	 * @generated
