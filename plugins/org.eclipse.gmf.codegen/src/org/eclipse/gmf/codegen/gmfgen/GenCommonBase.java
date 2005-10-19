@@ -166,7 +166,7 @@ public interface GenCommonBase extends EObject{
 	 * <!-- begin-model-doc -->
 	 * This unique string identifier could be used to construct unique identifiers in generated java code
 	 * <!-- end-model-doc -->
-	 * @model kind="operation" required="true"
+	 * @model kind="operation"
 	 * @generated
 	 */
 	String getUniqueIdentifier();

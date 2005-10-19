@@ -121,7 +121,7 @@ public interface GenBaseElement extends GenCommonBase{
 	 * @return the value of the '<em>Model Element Selector</em>' containment reference.
 	 * @see #setModelElementSelector(ModelElementSelector)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenBaseElement_ModelElementSelector()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	ModelElementSelector getModelElementSelector();
