@@ -14,6 +14,7 @@ package org.eclipse.gmf.tests.setup;
 import org.eclipse.gmf.diadef.Canvas;
 import org.eclipse.gmf.diadef.Connection;
 import org.eclipse.gmf.diadef.DiagramDefinitionFactory;
+import org.eclipse.gmf.diadef.LineKind;
 import org.eclipse.gmf.diadef.Node;
 
 public class DiaDefSetup implements DiaDefSource {
@@ -58,6 +59,7 @@ public class DiaDefSetup implements DiaDefSource {
 
 	protected void setupLinkDef(Connection linkDef) {
 		linkDef.setName("Test-dd-link");
+		linkDef.setLineKind(LineKind.DASH_LITERAL);
 		if (myConfig != null) {
 			myConfig.setupLinkDef(linkDef);
 		}

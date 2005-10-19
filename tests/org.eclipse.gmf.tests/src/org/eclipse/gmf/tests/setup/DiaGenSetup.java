@@ -128,6 +128,8 @@ public class DiaGenSetup implements DiaGenSource {
 
 	// Empty palette, unless we'd like to test it
 	private Palette createPalette() {
-		return GMFGenFactory.eINSTANCE.createPalette();
+		Palette rv = GMFGenFactory.eINSTANCE.createPalette();
+		rv.getGroups().add(GMFGenFactory.eINSTANCE.createToolGroup()); // to satisfy [+] restriction
+		return rv;
 	}
 }
