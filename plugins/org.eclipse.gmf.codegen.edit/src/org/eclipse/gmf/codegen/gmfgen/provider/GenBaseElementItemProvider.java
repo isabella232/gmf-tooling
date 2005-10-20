@@ -120,6 +120,7 @@ public class GenBaseElementItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenBaseElement_Viewmap());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenBaseElement_ModelElementSelector());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenBaseElement_ModelElementInitializer());
 		}
 		return childrenFeatures;
 	}
@@ -162,6 +163,7 @@ public class GenBaseElementItemProvider
 		switch (notification.getFeatureID(GenBaseElement.class)) {
 			case GMFGenPackage.GEN_BASE_ELEMENT__VIEWMAP:
 			case GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_SELECTOR:
+			case GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_INITIALIZER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -192,6 +194,11 @@ public class GenBaseElementItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenBaseElement_ModelElementSelector(),
 				 GMFGenFactory.eINSTANCE.createModelElementSelector()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenBaseElement_ModelElementInitializer(),
+				 GMFGenFactory.eINSTANCE.createGenFeatureSeqInitializer()));
 	}
 
 	/**

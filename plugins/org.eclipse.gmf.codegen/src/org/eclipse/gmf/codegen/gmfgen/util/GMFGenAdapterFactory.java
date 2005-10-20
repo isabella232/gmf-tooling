@@ -173,6 +173,15 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseToolGroup(ToolGroup object) {
 				return createToolGroupAdapter();
 			}
+			public Object caseGenElementInitializer(GenElementInitializer object) {
+				return createGenElementInitializerAdapter();
+			}
+			public Object caseGenFeatureSeqInitializer(GenFeatureSeqInitializer object) {
+				return createGenFeatureSeqInitializerAdapter();
+			}
+			public Object caseGenFeatureValueSpec(GenFeatureValueSpec object) {
+				return createGenFeatureValueSpecAdapter();
+			}
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -538,6 +547,48 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createToolGroupAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenElementInitializer <em>Gen Element Initializer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenElementInitializer
+	 * @generated
+	 */
+	public Adapter createGenElementInitializerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer <em>Gen Feature Seq Initializer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer
+	 * @generated
+	 */
+	public Adapter createGenFeatureSeqInitializerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec <em>Gen Feature Value Spec</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec
+	 * @generated
+	 */
+	public Adapter createGenFeatureValueSpecAdapter() {
 		return null;
 	}
 

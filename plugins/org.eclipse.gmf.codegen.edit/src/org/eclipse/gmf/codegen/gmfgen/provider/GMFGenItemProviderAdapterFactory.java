@@ -448,6 +448,50 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenFeatureSeqInitializerItemProvider genFeatureSeqInitializerItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenFeatureSeqInitializerAdapter() {
+		if (genFeatureSeqInitializerItemProvider == null) {
+			genFeatureSeqInitializerItemProvider = new GenFeatureSeqInitializerItemProvider(this);
+		}
+
+		return genFeatureSeqInitializerItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenFeatureValueSpecItemProvider genFeatureValueSpecItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenFeatureValueSpecAdapter() {
+		if (genFeatureValueSpecItemProvider == null) {
+			genFeatureValueSpecItemProvider = new GenFeatureValueSpecItemProvider(this);
+		}
+
+		return genFeatureValueSpecItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ValueExpression} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -606,6 +650,8 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (nodeEntryItemProvider != null) nodeEntryItemProvider.dispose();
 		if (linkEntryItemProvider != null) linkEntryItemProvider.dispose();
 		if (toolGroupItemProvider != null) toolGroupItemProvider.dispose();
+		if (genFeatureSeqInitializerItemProvider != null) genFeatureSeqInitializerItemProvider.dispose();
+		if (genFeatureValueSpecItemProvider != null) genFeatureValueSpecItemProvider.dispose();
 	}
 
 }

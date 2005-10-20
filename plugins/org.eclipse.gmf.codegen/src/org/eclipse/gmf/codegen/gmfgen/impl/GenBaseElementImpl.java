@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
+import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
 import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
@@ -30,6 +31,7 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl#getContainmentMetaFeature <em>Containment Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl#getViewmap <em>Viewmap</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl#getModelElementSelector <em>Model Element Selector</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl#getModelElementInitializer <em>Model Element Initializer</em>}</li>
  * </ul>
  * </p>
  *
@@ -75,6 +77,16 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 	 * @ordered
 	 */
 	protected ModelElementSelector modelElementSelector = null;
+
+	/**
+	 * The cached value of the '{@link #getModelElementInitializer() <em>Model Element Initializer</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getModelElementInitializer()
+	 * @generated
+	 * @ordered
+	 */
+	protected GenElementInitializer modelElementInitializer = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -259,10 +271,74 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenElementInitializer getModelElementInitializer() {
+		return modelElementInitializer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetModelElementInitializer(GenElementInitializer newModelElementInitializer, NotificationChain msgs) {
+		GenElementInitializer oldModelElementInitializer = modelElementInitializer;
+		modelElementInitializer = newModelElementInitializer;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_INITIALIZER, oldModelElementInitializer, newModelElementInitializer);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setModelElementInitializer(GenElementInitializer newModelElementInitializer) {
+		if (newModelElementInitializer != modelElementInitializer) {
+			NotificationChain msgs = null;
+			if (modelElementInitializer != null)
+				msgs = ((InternalEObject)modelElementInitializer).eInverseRemove(this, GMFGenPackage.GEN_ELEMENT_INITIALIZER__ELEMENT, GenElementInitializer.class, msgs);
+			if (newModelElementInitializer != null)
+				msgs = ((InternalEObject)newModelElementInitializer).eInverseAdd(this, GMFGenPackage.GEN_ELEMENT_INITIALIZER__ELEMENT, GenElementInitializer.class, msgs);
+			msgs = basicSetModelElementInitializer(newModelElementInitializer, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_INITIALIZER, newModelElementInitializer, newModelElementInitializer));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public boolean hasNameToEdit() {
 		return getDomainNameFeature() != null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
+		if (featureID >= 0) {
+			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_INITIALIZER:
+					if (modelElementInitializer != null)
+						msgs = ((InternalEObject)modelElementInitializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_INITIALIZER, null, msgs);
+					return basicSetModelElementInitializer((GenElementInitializer)otherEnd, msgs);
+				default:
+					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
+			}
+		}
+		if (eContainer != null)
+			msgs = eBasicRemoveFromContainer(msgs);
+		return eBasicSetContainer(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -277,6 +353,8 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 					return basicSetViewmap(null, msgs);
 				case GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_SELECTOR:
 					return basicSetModelElementSelector(null, msgs);
+				case GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_INITIALIZER:
+					return basicSetModelElementInitializer(null, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
@@ -310,6 +388,8 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 				return getViewmap();
 			case GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_SELECTOR:
 				return getModelElementSelector();
+			case GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_INITIALIZER:
+				return getModelElementInitializer();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -344,6 +424,9 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_SELECTOR:
 				setModelElementSelector((ModelElementSelector)newValue);
+				return;
+			case GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_INITIALIZER:
+				setModelElementInitializer((GenElementInitializer)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -380,6 +463,9 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 			case GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_SELECTOR:
 				setModelElementSelector((ModelElementSelector)null);
 				return;
+			case GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_INITIALIZER:
+				setModelElementInitializer((GenElementInitializer)null);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -407,6 +493,8 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 				return viewmap != null;
 			case GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_SELECTOR:
 				return modelElementSelector != null;
+			case GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_INITIALIZER:
+				return modelElementInitializer != null;
 		}
 		return eDynamicIsSet(eFeature);
 	}

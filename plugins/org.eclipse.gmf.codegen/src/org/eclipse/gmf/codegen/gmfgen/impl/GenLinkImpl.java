@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
@@ -148,6 +149,10 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_INITIALIZER:
+					if (modelElementInitializer != null)
+						msgs = ((InternalEObject)modelElementInitializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_LINK__MODEL_ELEMENT_INITIALIZER, null, msgs);
+					return basicSetModelElementInitializer((GenElementInitializer)otherEnd, msgs);
 				case GMFGenPackage.GEN_LINK__DIAGRAM:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
@@ -175,6 +180,8 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 					return basicSetViewmap(null, msgs);
 				case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_SELECTOR:
 					return basicSetModelElementSelector(null, msgs);
+				case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_INITIALIZER:
+					return basicSetModelElementInitializer(null, msgs);
 				case GMFGenPackage.GEN_LINK__DIAGRAM:
 					return eBasicSetContainer(null, GMFGenPackage.GEN_LINK__DIAGRAM, msgs);
 				case GMFGenPackage.GEN_LINK__LABELS:
@@ -229,6 +236,8 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				return getViewmap();
 			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_SELECTOR:
 				return getModelElementSelector();
+			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_INITIALIZER:
+				return getModelElementInitializer();
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
@@ -270,6 +279,9 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				return;
 			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_SELECTOR:
 				setModelElementSelector((ModelElementSelector)newValue);
+				return;
+			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_INITIALIZER:
+				setModelElementInitializer((GenElementInitializer)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
 				setDomainLinkTargetFeature((GenFeature)newValue);
@@ -313,6 +325,9 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_SELECTOR:
 				setModelElementSelector((ModelElementSelector)null);
 				return;
+			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_INITIALIZER:
+				setModelElementInitializer((GenElementInitializer)null);
+				return;
 			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
 				setDomainLinkTargetFeature((GenFeature)null);
 				return;
@@ -346,6 +361,8 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				return viewmap != null;
 			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_SELECTOR:
 				return modelElementSelector != null;
+			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_INITIALIZER:
+				return modelElementInitializer != null;
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:

@@ -24,6 +24,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getContainmentMetaFeature <em>Containment Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getViewmap <em>Viewmap</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getModelElementSelector <em>Model Element Selector</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getModelElementInitializer <em>Model Element Initializer</em>}</li>
  * </ul>
  * </p>
  *
@@ -135,6 +136,34 @@ public interface GenBaseElement extends GenCommonBase{
 	 * @generated
 	 */
 	void setModelElementSelector(ModelElementSelector value);
+
+	/**
+	 * Returns the value of the '<em><b>Model Element Initializer</b></em>' containment reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenElementInitializer#getElement <em>Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Model Element Initializer</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Model Element Initializer</em>' containment reference.
+	 * @see #setModelElementInitializer(GenElementInitializer)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenBaseElement_ModelElementInitializer()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenElementInitializer#getElement
+	 * @model opposite="element" containment="true"
+	 * @generated
+	 */
+	GenElementInitializer getModelElementInitializer();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenBaseElement#getModelElementInitializer <em>Model Element Initializer</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Model Element Initializer</em>' containment reference.
+	 * @see #getModelElementInitializer()
+	 * @generated
+	 */
+	void setModelElementInitializer(GenElementInitializer value);
 
 	/**
 	 * <!-- begin-user-doc -->

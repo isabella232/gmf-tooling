@@ -22,4 +22,12 @@ package org.eclipse.gmf.codegen.gmfgen;
  * @generated
  */
 public interface ModelElementSelector extends ValueExpression{
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" dataType="org.eclipse.gmf.codegen.gmfgen.StringArray"
+	 * @generated
+	 */
+	String[] getRequiredPluginIDs();
+
 } // ModelElementSelector

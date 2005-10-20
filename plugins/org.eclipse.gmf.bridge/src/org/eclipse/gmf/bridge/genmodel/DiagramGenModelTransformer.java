@@ -28,6 +28,9 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkReferenceOnly;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
@@ -48,6 +51,9 @@ import org.eclipse.gmf.diadef.Node;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.Constraint;
+import org.eclipse.gmf.mappings.ElementInitializer;
+import org.eclipse.gmf.mappings.FeatureSeqInitializer;
+import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
@@ -176,6 +182,10 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			// construct model element selector for domain EClass specializations if any exist
 			if(childNodeMapping.getDomainSpecialization() != null) {
 				childNode.setModelElementSelector(createModelElementSelector(childNodeMapping.getDomainSpecialization()));
+			}
+			
+			if(childNodeMapping.getDomainInitializer() != null) {
+				childNode.setModelElementInitializer(createElementInitializer(childNodeMapping.getDomainInitializer()));			
 			}					
 			
 			genNode.getChildNodes().add(childNode);
@@ -185,6 +195,10 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		// construct model element selector for domain EClass specializations if any exist
 		if(nme.getDomainSpecialization() != null) {
 			genNode.setModelElementSelector(createModelElementSelector(nme.getDomainSpecialization()));
+		}
+		
+		if(nme.getDomainInitializer() != null) {
+			genNode.setModelElementInitializer(createElementInitializer(nme.getDomainInitializer()));			
 		}		
 	}
 
@@ -242,6 +256,9 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		// construct model element selector for domain EClass specializations if any exist
 		if(lme.getDomainSpecialization() != null) {
 			gl.setModelElementSelector(createModelElementSelector(lme.getDomainSpecialization()));
+		}
+		if(lme.getDomainInitializer() != null) {
+			gl.setModelElementInitializer(createElementInitializer(lme.getDomainInitializer()));			
 		}
 	}
 
@@ -386,6 +403,26 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 	private GenFeature findGenFeature(EStructuralFeature feature) {
 		return myGenModelMatch.findGenFeature(feature);
 	}
+	
+	private GenElementInitializer createElementInitializer(ElementInitializer elementInitializer) {
+		if(elementInitializer instanceof FeatureSeqInitializer) {
+			FeatureSeqInitializer fsInitializer = (FeatureSeqInitializer) elementInitializer;
+			GenFeatureSeqInitializer fSeqInitializer = GMFGenFactory.eINSTANCE.createGenFeatureSeqInitializer();
+			
+			for (Iterator it = fsInitializer.getInitializers().iterator(); it.hasNext();) {
+				FeatureValueSpec nextValSpec = (FeatureValueSpec) it.next();
+				
+				GenFeatureValueSpec nextGenValSpec = GMFGenFactory.eINSTANCE.createGenFeatureValueSpec();				
+				nextGenValSpec.setBody(nextValSpec.getBody());
+				nextGenValSpec.setLanguage(nextValSpec.getLanguage());
+				nextGenValSpec.setFeature(findGenFeature(nextValSpec.getFeature()));
+				
+				fSeqInitializer.getInitializers().add(nextGenValSpec);
+			}
+			return fSeqInitializer;
+		}
+		return null;
+	}	
 	
 	private static ModelElementSelector createModelElementSelector(Constraint metaElementConstraint) {
 		ModelElementSelector modelElementSelector = GMFGenFactory.eINSTANCE.createModelElementSelector();

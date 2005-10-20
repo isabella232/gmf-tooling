@@ -7,7 +7,11 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
@@ -23,6 +27,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
@@ -1351,6 +1356,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		if (usesSVGShapes()) {
 			requiredPlugins.add("org.eclipse.gmf.diagramrt.gefsvg");
 		}
+		
+		requiredPlugins.addAll(getExpressionsRequiredPluginIDs());
 		return (String[]) requiredPlugins.toArray(new String[requiredPlugins.size()]);
 	}
 
@@ -1426,6 +1433,24 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		return getEditorPackageName() + '.' + getMatchingStrategyClassName();
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getElementInitializersClassName() {
+		return "ElementInitializers"; //$NON-NLS-1$
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getElementInitializersPackageName() {
+		return getProvidersPackageName();
+	}
+	
 	private boolean usesSVGShapes() {
 /* couldn't tell now
 		for (Iterator it = getNodes().iterator(); it.hasNext();) {
@@ -1920,5 +1945,39 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			return "";
 		}
 		return s.toLowerCase();
+	}
+	
+	private Set getExpressionsRequiredPluginIDs() {
+		Set requiredIDs = new HashSet();
+		for (Iterator it = getNodes().iterator(); it.hasNext();) {
+			GenNode nextNode = (GenNode) it.next();
+			if(nextNode.getModelElementInitializer() != null) {
+				requiredIDs.addAll(Arrays.asList(nextNode.getModelElementInitializer().getRequiredPluginIDs()));
+			}
+			if(nextNode.getModelElementSelector() != null) {
+				requiredIDs.addAll(Arrays.asList(nextNode.getModelElementSelector().getRequiredPluginIDs()));				
+			}
+			
+			for (Iterator childIt = nextNode.getChildNodes().iterator(); childIt.hasNext();) {
+				GenChildNode nextChild = (GenChildNode) childIt.next();			
+				if(nextChild.getModelElementInitializer() != null) {
+					requiredIDs.addAll(Arrays.asList(nextChild.getModelElementInitializer().getRequiredPluginIDs()));
+				}
+				if(nextChild.getModelElementSelector() != null) {
+					requiredIDs.addAll(Arrays.asList(nextChild.getModelElementSelector().getRequiredPluginIDs()));				
+				}				
+			}
+		}
+		
+		for (Iterator it = getLinks().iterator(); it.hasNext();) {
+			GenLink nextLink = (GenLink) it.next();
+			if(nextLink.getModelElementInitializer() != null) {
+				requiredIDs.addAll(Arrays.asList(nextLink.getModelElementInitializer().getRequiredPluginIDs()));
+			}
+			if(nextLink.getModelElementSelector() != null) {
+				requiredIDs.addAll(Arrays.asList(nextLink.getModelElementSelector().getRequiredPluginIDs()));
+			}			
+		}		
+		return requiredIDs;
 	}
 } //GenDiagramImpl

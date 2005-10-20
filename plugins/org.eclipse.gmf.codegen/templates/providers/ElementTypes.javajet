@@ -220,6 +220,12 @@ while (entities.hasNext()) {
 				protected CommandResult doExecute(IProgressMonitor progressMonitor) {
 					// Write new object initialization code here.
 					// Use getElementToEdit() to get created element.
+					<%if(entity instanceof GenBaseElement) {
+						GenElementInitializer initializer = ((GenBaseElement)entity).getModelElementInitializer();
+						if(initializer != null) {%>
+							<%=importManager.getImportedName(initializer.getInitializersQualifiedClassName())%>.<%=initializer.getInitializerMethodName()%>(getElementToEdit());
+						<%}
+					}%>
 					return newOKCommandResult();
 				}
 			};

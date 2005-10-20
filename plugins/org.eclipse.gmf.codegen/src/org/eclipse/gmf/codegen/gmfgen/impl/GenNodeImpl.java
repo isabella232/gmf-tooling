@@ -24,6 +24,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
@@ -215,6 +216,10 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case GMFGenPackage.GEN_NODE__MODEL_ELEMENT_INITIALIZER:
+					if (modelElementInitializer != null)
+						msgs = ((InternalEObject)modelElementInitializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_NODE__MODEL_ELEMENT_INITIALIZER, null, msgs);
+					return basicSetModelElementInitializer((GenElementInitializer)otherEnd, msgs);
 				case GMFGenPackage.GEN_NODE__DIAGRAM:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
@@ -244,6 +249,8 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 					return basicSetViewmap(null, msgs);
 				case GMFGenPackage.GEN_NODE__MODEL_ELEMENT_SELECTOR:
 					return basicSetModelElementSelector(null, msgs);
+				case GMFGenPackage.GEN_NODE__MODEL_ELEMENT_INITIALIZER:
+					return basicSetModelElementInitializer(null, msgs);
 				case GMFGenPackage.GEN_NODE__DIAGRAM:
 					return eBasicSetContainer(null, GMFGenPackage.GEN_NODE__DIAGRAM, msgs);
 				case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
@@ -300,6 +307,8 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return getViewmap();
 			case GMFGenPackage.GEN_NODE__MODEL_ELEMENT_SELECTOR:
 				return getModelElementSelector();
+			case GMFGenPackage.GEN_NODE__MODEL_ELEMENT_INITIALIZER:
+				return getModelElementInitializer();
 			case GMFGenPackage.GEN_NODE__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
@@ -345,6 +354,9 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return;
 			case GMFGenPackage.GEN_NODE__MODEL_ELEMENT_SELECTOR:
 				setModelElementSelector((ModelElementSelector)newValue);
+				return;
+			case GMFGenPackage.GEN_NODE__MODEL_ELEMENT_INITIALIZER:
+				setModelElementInitializer((GenElementInitializer)newValue);
 				return;
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
 				setDomainMetaClass((GenClass)newValue);
@@ -395,6 +407,9 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__MODEL_ELEMENT_SELECTOR:
 				setModelElementSelector((ModelElementSelector)null);
 				return;
+			case GMFGenPackage.GEN_NODE__MODEL_ELEMENT_INITIALIZER:
+				setModelElementInitializer((GenElementInitializer)null);
+				return;
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
 				setDomainMetaClass((GenClass)null);
 				return;
@@ -434,6 +449,8 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return viewmap != null;
 			case GMFGenPackage.GEN_NODE__MODEL_ELEMENT_SELECTOR:
 				return modelElementSelector != null;
+			case GMFGenPackage.GEN_NODE__MODEL_ELEMENT_INITIALIZER:
+				return modelElementInitializer != null;
 			case GMFGenPackage.GEN_NODE__DIAGRAM:
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:

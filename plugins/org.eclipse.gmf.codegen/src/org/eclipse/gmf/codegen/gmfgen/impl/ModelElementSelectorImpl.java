@@ -8,7 +8,6 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 
@@ -38,6 +37,20 @@ public class ModelElementSelectorImpl extends ValueExpressionImpl implements Mod
 	 */
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getModelElementSelector();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String[] getRequiredPluginIDs() {
+		// For now hardcode only the default support for OCL
+		// TODO - to be refactored to plugg-in other languages
+		if("ocl".equals(getLanguage())) { //$NON-NLS-1$
+			return new String[] { "org.eclipse.emf.query.ocl" }; //$NON-NLS-1$
+		}
+		return new String[0];		
 	}
 
 	/**

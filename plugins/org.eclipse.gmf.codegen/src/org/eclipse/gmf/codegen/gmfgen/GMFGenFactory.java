@@ -179,6 +179,24 @@ public interface GMFGenFactory extends EFactory{
 	ToolGroup createToolGroup();
 
 	/**
+	 * Returns a new object of class '<em>Gen Feature Seq Initializer</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Feature Seq Initializer</em>'.
+	 * @generated
+	 */
+	GenFeatureSeqInitializer createGenFeatureSeqInitializer();
+
+	/**
+	 * Returns a new object of class '<em>Gen Feature Value Spec</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Feature Value Spec</em>'.
+	 * @generated
+	 */
+	GenFeatureValueSpec createGenFeatureValueSpec();
+
+	/**
 	 * Returns a new object of class '<em>Value Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
