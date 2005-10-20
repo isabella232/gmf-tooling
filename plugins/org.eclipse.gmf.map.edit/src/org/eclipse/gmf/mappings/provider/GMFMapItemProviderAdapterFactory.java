@@ -228,6 +228,50 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.FeatureSeqInitializer} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FeatureSeqInitializerItemProvider featureSeqInitializerItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.FeatureSeqInitializer}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createFeatureSeqInitializerAdapter() {
+		if (featureSeqInitializerItemProvider == null) {
+			featureSeqInitializerItemProvider = new FeatureSeqInitializerItemProvider(this);
+		}
+
+		return featureSeqInitializerItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.FeatureValueSpec} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FeatureValueSpecItemProvider featureValueSpecItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.FeatureValueSpec}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createFeatureValueSpecAdapter() {
+		if (featureValueSpecItemProvider == null) {
+			featureValueSpecItemProvider = new FeatureValueSpecItemProvider(this);
+		}
+
+		return featureValueSpecItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -330,6 +374,8 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 		if (mappingItemProvider != null) mappingItemProvider.dispose();
 		if (constraintItemProvider != null) constraintItemProvider.dispose();
 		if (valueExpressionItemProvider != null) valueExpressionItemProvider.dispose();
+		if (featureSeqInitializerItemProvider != null) featureSeqInitializerItemProvider.dispose();
+		if (featureValueSpecItemProvider != null) featureValueSpecItemProvider.dispose();
 	}
 
 }

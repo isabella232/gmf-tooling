@@ -160,6 +160,7 @@ public class NodeMappingItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getNodeMapping_DomainSpecialization());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getNodeMapping_DomainInitializer());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getNodeMapping_ChildMappings());
 		}
 		return childrenFeatures;
@@ -209,6 +210,7 @@ public class NodeMappingItemProvider
 
 		switch (notification.getFeatureID(NodeMapping.class)) {
 			case GMFMapPackage.NODE_MAPPING__DOMAIN_SPECIALIZATION:
+			case GMFMapPackage.NODE_MAPPING__DOMAIN_INITIALIZER:
 			case GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -230,6 +232,11 @@ public class NodeMappingItemProvider
 			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getNodeMapping_DomainSpecialization(),
 				 GMFMapFactory.eINSTANCE.createConstraint()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFMapPackage.eINSTANCE.getNodeMapping_DomainInitializer(),
+				 GMFMapFactory.eINSTANCE.createFeatureSeqInitializer()));
 
 		newChildDescriptors.add
 			(createChildParameter

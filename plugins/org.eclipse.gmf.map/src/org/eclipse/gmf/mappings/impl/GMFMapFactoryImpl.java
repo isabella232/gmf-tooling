@@ -50,6 +50,8 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 			case GMFMapPackage.MAPPING: return createMapping();
 			case GMFMapPackage.CONSTRAINT: return createConstraint();
 			case GMFMapPackage.VALUE_EXPRESSION: return createValueExpression();
+			case GMFMapPackage.FEATURE_SEQ_INITIALIZER: return createFeatureSeqInitializer();
+			case GMFMapPackage.FEATURE_VALUE_SPEC: return createFeatureValueSpec();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -123,6 +125,26 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	public ValueExpression createValueExpression() {
 		ValueExpressionImpl valueExpression = new ValueExpressionImpl();
 		return valueExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureSeqInitializer createFeatureSeqInitializer() {
+		FeatureSeqInitializerImpl featureSeqInitializer = new FeatureSeqInitializerImpl();
+		return featureSeqInitializer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureValueSpec createFeatureValueSpec() {
+		FeatureValueSpecImpl featureValueSpec = new FeatureValueSpecImpl();
+		return featureValueSpec;
 	}
 
 	/**

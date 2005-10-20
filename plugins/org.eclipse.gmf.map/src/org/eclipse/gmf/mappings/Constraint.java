@@ -18,8 +18,8 @@ package org.eclipse.gmf.mappings;
  *
  *
  * @see org.eclipse.gmf.mappings.GMFMapPackage#getConstraint()
- * @model annotation="http://www.eclipse.org/gmf/2005/constraints text='body->evaluate() instanceof Boolean'"
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='body->evaluate() instanceof Boolean'"
  * @generated
  */
-public interface Constraint extends ValueExpression {
+public interface Constraint extends ValueExpression{
 } // Constraint

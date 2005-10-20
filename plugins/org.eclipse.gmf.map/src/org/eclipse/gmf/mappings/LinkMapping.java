@@ -23,6 +23,7 @@ import org.eclipse.gmf.diadef.Connection;
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getDiagramLink <em>Diagram Link</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getDomainMetaElement <em>Domain Meta Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getDomainSpecialization <em>Domain Specialization</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getDomainInitializer <em>Domain Initializer</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getContainmentFeature <em>Containment Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getLabelEditFeature <em>Label Edit Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getLabelDisplayFeature <em>Label Display Feature</em>}</li>
@@ -111,6 +112,35 @@ public interface LinkMapping extends MappingEntry{
 	 * @generated
 	 */
 	void setDomainSpecialization(Constraint value);
+
+	/**
+	 * Returns the value of the '<em><b>Domain Initializer</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Domain Initializer</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Initializer for the domain model element associated with mapping
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Domain Initializer</em>' containment reference.
+	 * @see #setDomainInitializer(ElementInitializer)
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping_DomainInitializer()
+	 * @model containment="true"
+	 * @generated
+	 */
+	ElementInitializer getDomainInitializer();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.mappings.LinkMapping#getDomainInitializer <em>Domain Initializer</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Domain Initializer</em>' containment reference.
+	 * @see #getDomainInitializer()
+	 * @generated
+	 */
+	void setDomainInitializer(ElementInitializer value);
 
 	/**
 	 * Returns the value of the '<em><b>Containment Feature</b></em>' reference.

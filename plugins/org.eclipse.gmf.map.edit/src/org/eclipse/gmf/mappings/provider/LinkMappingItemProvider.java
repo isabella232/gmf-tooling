@@ -13,6 +13,8 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -202,8 +204,21 @@ public class LinkMappingItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getLinkMapping_DomainSpecialization());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getLinkMapping_DomainInitializer());
 		}
 		return childrenFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
 	}
 
 	/**
@@ -238,6 +253,7 @@ public class LinkMappingItemProvider
 
 		switch (notification.getFeatureID(LinkMapping.class)) {
 			case GMFMapPackage.LINK_MAPPING__DOMAIN_SPECIALIZATION:
+			case GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -258,6 +274,11 @@ public class LinkMappingItemProvider
 			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getLinkMapping_DomainSpecialization(),
 				 GMFMapFactory.eINSTANCE.createConstraint()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFMapPackage.eINSTANCE.getLinkMapping_DomainInitializer(),
+				 GMFMapFactory.eINSTANCE.createFeatureSeqInitializer()));
 	}
 
 	/**

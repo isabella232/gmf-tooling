@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.gmf.diadef.Connection;
 import org.eclipse.gmf.mappings.Constraint;
+import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LinkMapping;
 
@@ -30,6 +31,7 @@ import org.eclipse.gmf.mappings.LinkMapping;
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getDiagramLink <em>Diagram Link</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getDomainMetaElement <em>Domain Meta Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getDomainSpecialization <em>Domain Specialization</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getDomainInitializer <em>Domain Initializer</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getContainmentFeature <em>Containment Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getLabelEditFeature <em>Label Edit Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getLabelDisplayFeature <em>Label Display Feature</em>}</li>
@@ -69,6 +71,16 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * @ordered
 	 */
 	protected Constraint domainSpecialization = null;
+
+	/**
+	 * The cached value of the '{@link #getDomainInitializer() <em>Domain Initializer</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainInitializer()
+	 * @generated
+	 * @ordered
+	 */
+	protected ElementInitializer domainInitializer = null;
 
 	/**
 	 * The cached value of the '{@link #getContainmentFeature() <em>Containment Feature</em>}' reference.
@@ -252,6 +264,49 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ElementInitializer getDomainInitializer() {
+		return domainInitializer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetDomainInitializer(ElementInitializer newDomainInitializer, NotificationChain msgs) {
+		ElementInitializer oldDomainInitializer = domainInitializer;
+		domainInitializer = newDomainInitializer;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER, oldDomainInitializer, newDomainInitializer);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDomainInitializer(ElementInitializer newDomainInitializer) {
+		if (newDomainInitializer != domainInitializer) {
+			NotificationChain msgs = null;
+			if (domainInitializer != null)
+				msgs = ((InternalEObject)domainInitializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER, null, msgs);
+			if (newDomainInitializer != null)
+				msgs = ((InternalEObject)newDomainInitializer).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER, null, msgs);
+			msgs = basicSetDomainInitializer(newDomainInitializer, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER, newDomainInitializer, newDomainInitializer));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getContainmentFeature() {
 		if (containmentFeature != null && containmentFeature.eIsProxy()) {
 			EReference oldContainmentFeature = containmentFeature;
@@ -417,6 +472,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case GMFMapPackage.LINK_MAPPING__DOMAIN_SPECIALIZATION:
 					return basicSetDomainSpecialization(null, msgs);
+				case GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER:
+					return basicSetDomainInitializer(null, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
@@ -439,6 +496,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 				return basicGetDomainMetaElement();
 			case GMFMapPackage.LINK_MAPPING__DOMAIN_SPECIALIZATION:
 				return getDomainSpecialization();
+			case GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER:
+				return getDomainInitializer();
 			case GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE:
 				if (resolve) return getContainmentFeature();
 				return basicGetContainmentFeature();
@@ -470,6 +529,9 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 				return;
 			case GMFMapPackage.LINK_MAPPING__DOMAIN_SPECIALIZATION:
 				setDomainSpecialization((Constraint)newValue);
+				return;
+			case GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER:
+				setDomainInitializer((ElementInitializer)newValue);
 				return;
 			case GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE:
 				setContainmentFeature((EReference)newValue);
@@ -503,6 +565,9 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 			case GMFMapPackage.LINK_MAPPING__DOMAIN_SPECIALIZATION:
 				setDomainSpecialization((Constraint)null);
 				return;
+			case GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER:
+				setDomainInitializer((ElementInitializer)null);
+				return;
 			case GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE:
 				setContainmentFeature((EReference)null);
 				return;
@@ -532,6 +597,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 				return domainMetaElement != null;
 			case GMFMapPackage.LINK_MAPPING__DOMAIN_SPECIALIZATION:
 				return domainSpecialization != null;
+			case GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER:
+				return domainInitializer != null;
 			case GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE:
 				return containmentFeature != null;
 			case GMFMapPackage.LINK_MAPPING__LABEL_EDIT_FEATURE:

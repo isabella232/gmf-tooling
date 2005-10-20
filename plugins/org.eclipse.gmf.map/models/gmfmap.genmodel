@@ -13,6 +13,7 @@
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//NodeMapping/diagramNode"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//NodeMapping/domainMetaElement"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//NodeMapping/domainSpecialization"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//NodeMapping/domainInitializer"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//NodeMapping/containmentFeature"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//NodeMapping/editFeature"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//NodeMapping/childMappings"/>
@@ -21,15 +22,16 @@
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/compartment"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/diagramNode"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/domainChildrenFeature"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/conditionalFeature"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/editFeature"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/domainMetaElement"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/domainSpecialization"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/domainInitializer"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//LinkMapping">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/diagramLink"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/domainMetaElement"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/domainSpecialization"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/domainInitializer"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/containmentFeature"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/labelEditFeature"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/labelDisplayFeature"/>
@@ -49,6 +51,13 @@
     <genClasses ecoreClass="gmfmap.ecore#//ValueExpression">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//ValueExpression/body"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//ValueExpression/language"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//ElementInitializer"/>
+    <genClasses ecoreClass="gmfmap.ecore#//FeatureSeqInitializer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureSeqInitializer/initializers"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//FeatureValueSpec">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureValueSpec/feature"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

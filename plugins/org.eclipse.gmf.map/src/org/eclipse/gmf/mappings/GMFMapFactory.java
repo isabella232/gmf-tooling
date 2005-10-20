@@ -89,6 +89,24 @@ public interface GMFMapFactory extends EFactory{
 	ValueExpression createValueExpression();
 
 	/**
+	 * Returns a new object of class '<em>Feature Seq Initializer</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Feature Seq Initializer</em>'.
+	 * @generated
+	 */
+	FeatureSeqInitializer createFeatureSeqInitializer();
+
+	/**
+	 * Returns a new object of class '<em>Feature Value Spec</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Feature Value Spec</em>'.
+	 * @generated
+	 */
+	FeatureValueSpec createFeatureValueSpec();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
