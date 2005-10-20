@@ -47,6 +47,7 @@ import org.eclipse.gmf.codegen.gmfgen.Palette;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPluginName <em>Plugin Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getProviderName <em>Provider Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isPrintingEnabled <em>Printing Enabled</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isHasDomainModel <em>Has Domain Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartFactoryClassName <em>Edit Part Factory Class Name</em>}</li>
@@ -256,6 +257,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected boolean sameFileForDiagramAndModel = SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isPrintingEnabled() <em>Printing Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isPrintingEnabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean PRINTING_ENABLED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isPrintingEnabled() <em>Printing Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isPrintingEnabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean printingEnabled = PRINTING_ENABLED_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #isHasDomainModel() <em>Has Domain Model</em>}' attribute.
@@ -1044,6 +1065,27 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isPrintingEnabled() {
+		return printingEnabled;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPrintingEnabled(boolean newPrintingEnabled) {
+		boolean oldPrintingEnabled = printingEnabled;
+		printingEnabled = newPrintingEnabled;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED, oldPrintingEnabled, printingEnabled));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getInitDiagramFileActionClassName() {
 		return initDiagramFileActionClassName;
 	}
@@ -1483,6 +1525,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getProviderName();
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
 				return isSameFileForDiagramAndModel() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
+				return isPrintingEnabled() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
 				return isHasDomainModel() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
@@ -1571,6 +1615,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
 				setSameFileForDiagramAndModel(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
+				setPrintingEnabled(((Boolean)newValue).booleanValue());
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
 				setHasDomainModel(((Boolean)newValue).booleanValue());
@@ -1673,6 +1720,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
 				setSameFileForDiagramAndModel(SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
+				setPrintingEnabled(PRINTING_ENABLED_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
 				setHasDomainModel(HAS_DOMAIN_MODEL_EDEFAULT);
 				return;
@@ -1758,6 +1808,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return PROVIDER_NAME_EDEFAULT == null ? providerName != null : !PROVIDER_NAME_EDEFAULT.equals(providerName);
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
 				return sameFileForDiagramAndModel != SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT;
+			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
+				return printingEnabled != PRINTING_ENABLED_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
 				return hasDomainModel != HAS_DOMAIN_MODEL_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
@@ -1813,6 +1865,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(providerName);
 		result.append(", sameFileForDiagramAndModel: ");
 		result.append(sameFileForDiagramAndModel);
+		result.append(", printingEnabled: ");
+		result.append(printingEnabled);
 		result.append(", hasDomainModel: ");
 		result.append(hasDomainModel);
 		result.append(", diagramFileExtension: ");

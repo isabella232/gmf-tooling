@@ -70,6 +70,7 @@ public class GenDiagramItemProvider
 			addPluginNamePropertyDescriptor(object);
 			addProviderNamePropertyDescriptor(object);
 			addSameFileForDiagramAndModelPropertyDescriptor(object);
+			addPrintingEnabledPropertyDescriptor(object);
 			addHasDomainModelPropertyDescriptor(object);
 			addDiagramFileExtensionPropertyDescriptor(object);
 			addEditPartFactoryClassNamePropertyDescriptor(object);
@@ -389,6 +390,26 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Printing Enabled feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPrintingEnabledPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_printingEnabled_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_printingEnabled_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_PrintingEnabled(),
+				 true,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Init Diagram File Action Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -619,6 +640,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
+			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
 			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:

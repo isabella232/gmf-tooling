@@ -28,6 +28,12 @@
     <import plugin="org.eclipse.gmf.runtime.gef" export="true"/>
     <import plugin="org.eclipse.gmf.runtime.emf.commands.core"/>
     <import plugin="org.eclipse.gmf.runtime.diagram.ui"/>
+<%if (genDiagram.isPrintingEnabled()) {%>
+    <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing"/>
+<%}%>
+    <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers"/>
+    <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers.ide"/>
+    <import plugin="org.eclipse.gmf.runtime.diagram.ui.render"/>
     <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor"/>
     <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide"/>
     <import plugin="org.eclipse.gmf.runtime.notation.providers"/>
@@ -122,6 +128,56 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {%>
          </action>
       </objectContribution>            
   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.PresentationGlobalActionHandlerProvider"
+         id="<%=genModel.getModelName()%>Presentation">
+         <Priority name="Medium"/>
+         <ViewId id="<%=genDiagram.getEditorQualifiedClassName()%>ID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="delete"/>
+            </ElementType>
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart">
+               <GlobalActionId actionId="save"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+<%if (genDiagram.isPrintingEnabled()) {%>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.printing.internal.providers.PresentationWithPrintGlobalActionHandlerProvider"
+         id="<%=genModel.getModelName()%>PresentationPrint">
+         <Priority name="Medium"/>
+         <ViewId id="<%=genDiagram.getEditorQualifiedClassName()%>ID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="print"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+<%}%>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
+         id="<%=genModel.getModelName()%>PresentationIDE">
+         <Priority name="Medium"/>
+         <ViewId id="<%=genDiagram.getEditorQualifiedClassName()%>ID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="bookmark"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+            class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
+            id="<%=genModel.getModelName()%>Render">
+         <Priority name="Medium"/>
+         <ViewId id="<%=genDiagram.getEditorQualifiedClassName()%>ID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="cut"/>
+               <GlobalActionId actionId="copy"/>
+               <GlobalActionId actionId="paste"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+   </extension>
 
    <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
       <viewProvider class="<%=genDiagram.getViewProviderQualifiedClassName()%>">
