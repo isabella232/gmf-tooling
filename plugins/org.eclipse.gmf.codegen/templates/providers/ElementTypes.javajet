@@ -213,19 +213,25 @@ while (entities.hasNext()) {
 		 */
 		protected ICommand getConfigureCommand(ConfigureRequest req) {
 			return new ConfigureElementCommand(req) {
-
-				/**
-				 * @generated
-				 */
 				protected CommandResult doExecute(IProgressMonitor progressMonitor) {
-					// Write new object initialization code here.
-					// Use getElementToEdit() to get created element.
+					// To customize newly created domain objects remove @renerated tag of 
+					// getConfigureCommand(ConfigureRequest req) method and write your custom
+					// code here. Use getElementToEdit() to get created element.
 					<%if(entity instanceof GenBaseElement) {
 						GenElementInitializer initializer = ((GenBaseElement)entity).getModelElementInitializer();
 						if(initializer != null) {%>
 							<%=importManager.getImportedName(initializer.getInitializersQualifiedClassName())%>.<%=initializer.getInitializerMethodName()%>(getElementToEdit());
 						<%}
 					}%>
+<%
+	if (entity instanceof GenLinkWithClass) {
+		GenLinkWithClass linkWithClass = (GenLinkWithClass) entity;
+		GenFeature linkFeature = linkWithClass.getDomainLinkTargetFeature();
+%>
+					((<%=importManager.getImportedName(linkWithClass.getDomainMetaClass().getQualifiedInterfaceName())%>) getElementToEdit()).set<%=linkFeature.getAccessorName()%>((<%=importManager.getImportedName(linkFeature.getTypeGenClass().getQualifiedInterfaceName())%>) getRequest().getParameter(CreateRelationshipRequest.TARGET));
+<%
+	}
+%>				
 					return newOKCommandResult();
 				}
 			};
