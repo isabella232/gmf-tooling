@@ -34,6 +34,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.tests.Utils;
 
@@ -125,10 +126,15 @@ public class DiaGenSetup implements DiaGenSource {
 		return this;
 	}
 
+	public DiaGenSetup init(GenDiagram genDiagram) {
+		myGenDiagram = genDiagram;
+		return this;
+	}
+	
 	private void confineInResource() {
 		new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/DiaGenSetup")).getContents().add(myGenDiagram);
 	}
-
+	
 	public final GenDiagram getGenDiagram() {
 		return myGenDiagram;
 	}
@@ -143,7 +149,9 @@ public class DiaGenSetup implements DiaGenSource {
 	// Empty palette, unless we'd like to test it
 	private Palette createPalette() {
 		Palette rv = GMFGenFactory.eINSTANCE.createPalette();
-		rv.getGroups().add(GMFGenFactory.eINSTANCE.createToolGroup()); // to satisfy [+] restriction
+		ToolGroup tg = GMFGenFactory.eINSTANCE.createToolGroup();
+		tg.setTitleKey("fake-group");
+		rv.getGroups().add(tg); // to satisfy [+] restriction
 		return rv;
 	}
 }

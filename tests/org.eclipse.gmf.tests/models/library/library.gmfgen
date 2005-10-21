@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ASCII"?>
+<gmfgen:GenDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel" visualID="79" editPartClassName="LibrarySurfaceEditPart" pluginName="library Plugin">
+  <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Diagram"/>
+  <domainMetaModel href="library.genmodel#//library"/>
+  <domainDiagramElement href="library.genmodel#//library/Library"/>
+  <nodes visualID="101" editPartClassName="WriterNodeEditPart" notationViewFactoryClassName="WriterNodeNotationViewFactory">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
+    <domainNameFeature href="library.genmodel#//library/Writer/name"/>
+    <containmentMetaFeature href="library.genmodel#//library/Library/writers"/>
+    <viewmap xsi:type="gmfgen:BasicNodeViewmap"/>
+    <domainMetaClass href="library.genmodel#//library/Writer"/>
+  </nodes>
+  <nodes visualID="102" editPartClassName="BookNodeEditPart" notationViewFactoryClassName="BookNodeNotationViewFactory">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
+    <domainNameFeature href="library.genmodel#//library/Book/title"/>
+    <containmentMetaFeature href="library.genmodel#//library/Writer/books"/>
+    <viewmap xsi:type="gmfgen:BasicNodeViewmap"/>
+    <domainMetaClass href="library.genmodel#//library/Book"/>
+    <childContainers groupID="reviews" titleKey="reviews" layoutKind="TOOLBAR"/>
+    <childNodes visualID="201" editPartClassName="ReviewNodeChildNodeEditPart" notationViewFactoryClassName="ReviewNodeNotationViewFactory" groupID="reviews">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
+      <domainNameFeature href="library.genmodel#//library/Review/title"/>
+      <containmentMetaFeature href="library.genmodel#//library/Book/reviews"/>
+      <viewmap xsi:type="gmfgen:BasicNodeViewmap"/>
+      <domainMetaClass href="library.genmodel#//library/Review"/>
+    </childNodes>
+  </nodes>
+  <links xsi:type="gmfgen:GenLinkWithClass" visualID="301" editPartClassName="OpinionLinkEditPart" notationViewFactoryClassName="OpinionLinkNotationViewFactory">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Edge"/>
+    <domainNameFeature href="library.genmodel#//library/Opinion/text"/>
+    <containmentMetaFeature href="library.genmodel#//library/Writer/opinions"/>
+    <viewmap xsi:type="gmfgen:DecoratedConnectionViewmap">
+      <attributes xsi:type="gmfgen:ShapeAttributes" lineStyle="LINE_DOT"/>
+      <target figureQualifiedClassName="org.eclipse.draw2d.PolylineDecoration"/>
+    </viewmap>
+    <domainLinkTargetFeature href="library.genmodel#//library/Opinion/book"/>
+    <domainMetaClass href="library.genmodel#//library/Opinion"/>
+  </links>
+  <links xsi:type="gmfgen:GenLinkReferenceOnly" visualID="302" editPartClassName="AuthorLinkEditPart" notationViewFactoryClassName="AuthorLinkNotationViewFactory">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Edge"/>
+    <containmentMetaFeature href="library.genmodel#//library/Book/author"/>
+    <viewmap xsi:type="gmfgen:DecoratedConnectionViewmap">
+      <attributes xsi:type="gmfgen:ShapeAttributes"/>
+    </viewmap>
+    <domainLinkTargetFeature href="library.genmodel#//library/Book/author"/>
+  </links>
+  <palette>
+    <groups titleKey="Library Tools">
+      <nodeTools titleKey="WriterNode" descriptionKey="WriterNode" largeIconPath="icons/large/WriterNode.gif" smallIconPath="icons/small/WriterNode.gif" genNode="//@nodes.0"/>
+      <nodeTools titleKey="BookNode" descriptionKey="BookNode" largeIconPath="icons/large/BookNode.gif" smallIconPath="icons/small/BookNode.gif" genNode="//@nodes.1"/>
+      <nodeTools titleKey="ReviewNode" descriptionKey="ReviewNode" largeIconPath="icons/large/ReviewNode.gif" smallIconPath="icons/small/ReviewNode.gif" genNode="//@nodes.1/@childNodes.0"/>
+      <linkTools titleKey="OpinionLink" descriptionKey="OpinionLink" largeIconPath="icons/large/OpinionLink.gif" smallIconPath="icons/small/OpinionLink.gif" genLink="//@links.0"/>
+      <linkTools titleKey="AuthorLink" descriptionKey="AuthorLink" largeIconPath="icons/large/AuthorLink.gif" smallIconPath="icons/small/AuthorLink.gif" genLink="//@links.1"/>
+    </groups>
+  </palette>
+</gmfgen:GenDiagram>

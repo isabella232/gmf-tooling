@@ -16,6 +16,7 @@ import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.DomainModelSetup;
 import org.eclipse.gmf.tests.setup.DomainModelSource;
 import org.eclipse.gmf.tests.setup.GenProjectSetup;
+import org.eclipse.gmf.tests.setup.RuntimeWorkspaceSetup;
 
 /**
  * @author artem
@@ -25,6 +26,7 @@ public class SessionSetup {
 	private static DomainModelSource myDomainModel;
 	private static DiaGenSource myGenModel;
 	private static GenProjectSetup myProject;
+	private static RuntimeWorkspaceSetup myRuntimeWorkspaceSetup;
 
 	public static DomainModelSource getDomainModel() {
 		if (myDomainModel == null) {
@@ -43,8 +45,16 @@ public class SessionSetup {
 	public static GenProjectSetup getGenProject() throws Exception {
 		if (myProject == null) {
 			myProject = new GenProjectSetup();
-			myProject.init(getGenModel());
+			myProject.init(getRuntimeWorkspaceSetup(), getGenModel());
 		}
 		return myProject;
 	}
+
+	public static RuntimeWorkspaceSetup getRuntimeWorkspaceSetup() throws Exception {
+		if (myRuntimeWorkspaceSetup == null) {
+			myRuntimeWorkspaceSetup = new RuntimeWorkspaceSetup();
+			myRuntimeWorkspaceSetup.init();
+		}
+		return myRuntimeWorkspaceSetup;
+	}	
 }
