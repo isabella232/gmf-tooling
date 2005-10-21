@@ -108,13 +108,15 @@ for (int i = 0; i < genNodes.size(); i++) {
     
 	String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
 	String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
-	if (genNode.hasNameToEdit()) {
-		String semanticHint = semanticHintsClassName + '.' + AccessUtil.getNameSemanticHint(genNode);
+	List labels = genNode.getLabels();
+	for (int j = 0; j < labels.size(); j++) {
+		GenNodeLabel label = (GenNodeLabel) labels.get(j);
+		String labelTextViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelTextId(label);
 
     stringBuffer.append(TEXT_13);
-    stringBuffer.append(semanticHint);
+    stringBuffer.append(labelTextViewId);
     stringBuffer.append(TEXT_14);
-    stringBuffer.append(AccessUtil.getNodeLabelEditPartClassName(genNode));
+    stringBuffer.append(label.getEditPartClassName());
     stringBuffer.append(TEXT_15);
     
 	}
@@ -136,9 +138,7 @@ for (int i = 0; i < genNodes.size(); i++) {
 }
 
     stringBuffer.append(TEXT_21);
-    
-if (genLinks.size() != 0) {
-
+    if (!genLinks.isEmpty()) {
     stringBuffer.append(TEXT_22);
     stringBuffer.append(importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry"));
     stringBuffer.append(TEXT_23);
@@ -157,9 +157,9 @@ if (genLinks.size() != 0) {
     
 			List labels = genLink.getLabels();
 			for (int j = 0; j < labels.size(); j++) {
-				LinkLabel label = (LinkLabel) labels.get(j);
-				String labelViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLinkLabelId(label);
-				String labelTextViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLinkLabelTextId(label);
+				GenLinkLabel label = (GenLinkLabel) labels.get(j);
+				String labelViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelId(label);
+				String labelTextViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelTextId(label);
 
     stringBuffer.append(TEXT_26);
     stringBuffer.append(labelViewId);
@@ -172,7 +172,7 @@ if (genLinks.size() != 0) {
     stringBuffer.append(TEXT_30);
     stringBuffer.append(semanticLinkInterfaceName);
     stringBuffer.append(TEXT_31);
-    stringBuffer.append(label.getDomainMetaFeature().getName());
+    stringBuffer.append(label.getMetaFeature().getName());
     stringBuffer.append(TEXT_32);
     			}
     stringBuffer.append(TEXT_33);
@@ -181,9 +181,7 @@ if (genLinks.size() != 0) {
 	}
 
     stringBuffer.append(TEXT_34);
-    
-}
-
+    }
     stringBuffer.append(TEXT_35);
     stringBuffer.append(importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry"));
     stringBuffer.append(TEXT_36);
@@ -199,13 +197,12 @@ for (int i = 0; i < genNodes.size(); i++) {
     stringBuffer.append(TEXT_38);
     stringBuffer.append(genChildNode.getEditPartClassName());
     stringBuffer.append(TEXT_39);
-    	}
+    
+	}
 }
 
     stringBuffer.append(TEXT_40);
-    
-if (!genLinks.isEmpty()) {
-
+    if (!genLinks.isEmpty()) {
     stringBuffer.append(TEXT_41);
     
 	for (int i = 0; i < genLinks.size(); i++) {
@@ -241,9 +238,7 @@ if (!genLinks.isEmpty()) {
 	}
 
     stringBuffer.append(TEXT_50);
-    
-}
-
+    }
     stringBuffer.append(TEXT_51);
     importManager.emitSortedImports();
     stringBuffer.append(TEXT_52);

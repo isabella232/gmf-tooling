@@ -206,25 +206,113 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.LinkLabel} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenNodeLabel} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected LinkLabelItemProvider linkLabelItemProvider;
+	protected GenNodeLabelItemProvider genNodeLabelItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.LinkLabel}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenNodeLabel}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Adapter createLinkLabelAdapter() {
-		if (linkLabelItemProvider == null) {
-			linkLabelItemProvider = new LinkLabelItemProvider(this);
+	public Adapter createGenNodeLabelAdapter() {
+		if (genNodeLabelItemProvider == null) {
+			genNodeLabelItemProvider = new GenNodeLabelItemProvider(this);
 		}
 
-		return linkLabelItemProvider;
+		return genNodeLabelItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenLinkLabelItemProvider genLinkLabelItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenLinkLabelAdapter() {
+		if (genLinkLabelItemProvider == null) {
+			genLinkLabelItemProvider = new GenLinkLabelItemProvider(this);
+		}
+
+		return genLinkLabelItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TypeModelFacetItemProvider typeModelFacetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createTypeModelFacetAdapter() {
+		if (typeModelFacetItemProvider == null) {
+			typeModelFacetItemProvider = new TypeModelFacetItemProvider(this);
+		}
+
+		return typeModelFacetItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FeatureModelFacetItemProvider featureModelFacetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createFeatureModelFacetAdapter() {
+		if (featureModelFacetItemProvider == null) {
+			featureModelFacetItemProvider = new FeatureModelFacetItemProvider(this);
+		}
+
+		return featureModelFacetItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TypeLinkModelFacetItemProvider typeLinkModelFacetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createTypeLinkModelFacetAdapter() {
+		if (typeLinkModelFacetItemProvider == null) {
+			typeLinkModelFacetItemProvider = new TypeLinkModelFacetItemProvider(this);
+		}
+
+		return typeLinkModelFacetItemProvider;
 	}
 
 	/**
@@ -637,7 +725,11 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genChildNodeItemProvider != null) genChildNodeItemProvider.dispose();
 		if (genLinkWithClassItemProvider != null) genLinkWithClassItemProvider.dispose();
 		if (genLinkReferenceOnlyItemProvider != null) genLinkReferenceOnlyItemProvider.dispose();
-		if (linkLabelItemProvider != null) linkLabelItemProvider.dispose();
+		if (genNodeLabelItemProvider != null) genNodeLabelItemProvider.dispose();
+		if (genLinkLabelItemProvider != null) genLinkLabelItemProvider.dispose();
+		if (typeModelFacetItemProvider != null) typeModelFacetItemProvider.dispose();
+		if (featureModelFacetItemProvider != null) featureModelFacetItemProvider.dispose();
+		if (typeLinkModelFacetItemProvider != null) typeLinkModelFacetItemProvider.dispose();
 		if (colorAttributesItemProvider != null) colorAttributesItemProvider.dispose();
 		if (shapeAttributesItemProvider != null) shapeAttributesItemProvider.dispose();
 		if (defaultSizeAttributesItemProvider != null) defaultSizeAttributesItemProvider.dispose();

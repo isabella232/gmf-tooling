@@ -23,9 +23,36 @@ public class <%=AccessUtil.getSemanticHintsClassName(genElement)%> {
 }
 if (genElement instanceof GenNode) {
 	GenNode genNode = (GenNode) genElement;
+	List labels = genNode.getLabels();
+	if (!labels.isEmpty()) {
+%>
+
+	/**
+	 * @generated
+	 */
+	public static class Labels {
+
+		/**
+		 * @generated
+		 */
+		private Labels() {}
+<%
+		for (int i = 0; i < labels.size(); i++) {
+			GenNodeLabel label = (GenNodeLabel) labels.get(i);
+%>
+
+		/**
+		 * @generated
+		 */
+		public static final String <%=AccessUtil.getLabelTextId(label)%> = "<%=label.getMetaFeature().getName()%>Text";
+<%		}%>
+	}
+<%
+	}
 	List compartments = genNode.getChildContainers();
 	if (!compartments.isEmpty()) {
 %>
+
 	/**
 	 * @generated
 	 */
@@ -53,12 +80,12 @@ if (genElement instanceof GenNode) {
 	}
 <%
 	}
-}
-if (genElement instanceof GenLink) {
+} else if (genElement instanceof GenLink) {
 	GenLink genLink = (GenLink) genElement;
 	List labels = genLink.getLabels();
 	if (!labels.isEmpty()) {
 %>
+
 	/**
 	 * @generated
 	 */
@@ -70,31 +97,22 @@ if (genElement instanceof GenLink) {
 		private Labels() {}
 <%
 		for (int i = 0; i < labels.size(); i++) {
-			LinkLabel label = (LinkLabel) labels.get(i);
+			GenLinkLabel label = (GenLinkLabel) labels.get(i);
 %>
 
 		/**
 		 * @generated
 		 */
-		public static final String <%=AccessUtil.getLinkLabelId(label)%> = "<%=label.getDomainMetaFeature().getName()%>Label";
+		public static final String <%=AccessUtil.getLabelId(label)%> = "<%=label.getMetaFeature().getName()%>Label";
 
 		/**
 		 * @generated
 		 */
-		public static final String <%=AccessUtil.getLinkLabelTextId(label)%> = "<%=label.getDomainMetaFeature().getName()%>Text";
-<%
-		}
-%>
+		public static final String <%=AccessUtil.getLabelTextId(label)%> = "<%=label.getMetaFeature().getName()%>Text";
+<%		}%>
 	}
 <%
 	}
 }
-if (genElement.hasNameToEdit()) {
 %>
-
-	/**
-	 * @generated
-	 */
-	public static final String <%=AccessUtil.getNameSemanticHint(genElement)%> = "<%=AccessUtil.getNameSemanticHint(genElement)%>Feature";
-<%}%>
 }

@@ -17,6 +17,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
@@ -24,6 +25,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
 import org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap;
+import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
@@ -32,9 +34,11 @@ import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkReferenceOnly;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.LinkDecoration;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
@@ -67,6 +71,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 	private static final int NODE_COUNT_BASE = 100;
 	private static final int CHILD_COUNT_BASE = 200;
 	private static final int LINK_COUNT_BASE = 300;
+	private static final int LABEL_COUNT_BASE = 400;
 
 	private GenDiagram myGenModel;
 	private GenModelMatcher myGenModelMatch;
@@ -76,6 +81,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 	private int myNodeCount = 0;
 	private int myLinkCount = 0;
 	private int myChildCount = 0;
+	private int myLabelCount = 0;
 
 	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, NamingStrategy editPartNaming, NamingStrategy notationViewFactoryNaming) {
 		myDRTHelper = drtHelper;
@@ -125,6 +131,8 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		getGenDiagram().setDiagramRunTimeClass(findRunTimeClass(mapping));
 		getGenDiagram().setVisualID(CANVAS_COUNT_BASE);
 		getGenDiagram().setPluginName(mapping.getDomainModel().getName() + " Plugin");
+		// FIXME invalid viewmap class in use
+		getGenDiagram().setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap());
 	}
 
 	protected void process(NodeMapping nme) {
@@ -135,10 +143,15 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		getGenDiagram().getNodes().add(genNode);
 		genNode.setDiagramRunTimeClass(findRunTimeClass(nme));
 		genNode.setDomainMetaClass(findGenClass(nme.getDomainMetaElement()));
-		genNode.setContainmentMetaFeature(findGenFeature(nme.getContainmentFeature()));
+		//genNode.setContainmentMetaFeature(findGenFeature(nme.getContainmentFeature()));
 		genNode.setVisualID(NODE_COUNT_BASE + (++myNodeCount));
 		if (nme.getEditFeature() != null) {
-			genNode.setDomainNameFeature(findGenFeature(nme.getEditFeature()));
+			FeatureModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureModelFacet();
+			modelFacet.setMetaFeature(findGenFeature(nme.getEditFeature()));
+			GenNodeLabel label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
+			label.setModelFacet(modelFacet);
+			label.setVisualID(LABEL_COUNT_BASE + (++myLabelCount));
+			genNode.getLabels().add(label);
 		}
 		genNode.setEditPartClassName(createEditPartClassName(nme));
 		genNode.setNotationViewFactoryClassName(createNotationViewFactoryClassName(nme));
@@ -161,7 +174,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			GenChildNode childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
 			assert childNodeMapping.getDomainChildrenFeature() instanceof EReference;
 			assert childNodeMapping.getDomainChildrenFeature().getEType() instanceof EClass;
-			childNode.setContainmentMetaFeature(findGenFeature(childNodeMapping.getDomainChildrenFeature()));
+			//childNode.setContainmentMetaFeature(findGenFeature(childNodeMapping.getDomainChildrenFeature()));
 			
 			if (childNodeMapping.getDomainMetaElement() != null) {
 				childNode.setDomainMetaClass(findGenClass(childNodeMapping.getDomainMetaElement()));
@@ -176,7 +189,12 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			childNode.setVisualID(CHILD_COUNT_BASE + (++myChildCount ));
 			
 			if (childNodeMapping.getEditFeature() != null) {
-				childNode.setDomainNameFeature(findGenFeature(childNodeMapping.getEditFeature()));
+				FeatureModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureModelFacet();
+				modelFacet.setMetaFeature(findGenFeature(childNodeMapping.getEditFeature()));
+				GenNodeLabel label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
+				label.setModelFacet(modelFacet);
+				label.setVisualID(LABEL_COUNT_BASE + (++myLabelCount));
+				childNode.getLabels().add(label);
 			}
 			
 			// construct model element selector for domain EClass specializations if any exist
@@ -233,11 +251,19 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			le.setGenLink(gl);
 			setupCommonToolEntry(le, lme.getDiagramLink());
 		}
-		gl.setDomainNameFeature(findGenFeature(lme.getLabelEditFeature()));
+		EAttribute editFeature = lme.getLabelEditFeature();
+		if (editFeature != null) {
+			FeatureModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureModelFacet();
+			modelFacet.setMetaFeature(findGenFeature(lme.getLabelEditFeature()));
+			GenLinkLabel label = GMFGenFactory.eINSTANCE.createGenLinkLabel();
+			label.setModelFacet(modelFacet);
+			label.setVisualID(LABEL_COUNT_BASE + (++myLabelCount));
+			gl.getLabels().add(label);
+		}
 		gl.setDiagramRunTimeClass(findRunTimeClass(lme));
 		gl.setEditPartClassName(createEditPartClassName(lme));
 		gl.setNotationViewFactoryClassName(createNotationViewFactoryClassName(lme));
-		gl.setContainmentMetaFeature(findGenFeature(lme.getContainmentFeature()));
+		//gl.setContainmentMetaFeature(findGenFeature(lme.getContainmentFeature()));
 		gl.setVisualID(LINK_COUNT_BASE + (++myLinkCount));
 
 		initViewmap(lme, gl);

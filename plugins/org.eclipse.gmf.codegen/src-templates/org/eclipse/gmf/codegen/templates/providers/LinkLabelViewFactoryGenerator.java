@@ -25,16 +25,16 @@ public class LinkLabelViewFactoryGenerator
   public String generate(Object argument)
   {
     StringBuffer stringBuffer = new StringBuffer();
-    LinkLabel label = (LinkLabel) argument;
-    GenDiagram genDiagram = label.getLink().getDiagram();
+    GenLinkLabel label = (GenLinkLabel) argument;
+    GenDiagram diagram = label.getDiagram();
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(genDiagram.getProvidersPackageName());
+    stringBuffer.append(diagram.getProvidersPackageName());
     stringBuffer.append(TEXT_2);
-    stringBuffer.append(AccessUtil.getLinkLabelViewFactoryClassName(label));
+    stringBuffer.append(label.getNotationViewFactoryClassName());
     stringBuffer.append(TEXT_3);
     stringBuffer.append(AccessUtil.getSemanticHintsClassName(label.getLink()));
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(AccessUtil.getLinkLabelTextId(label));
+    stringBuffer.append(AccessUtil.getLabelTextId(label));
     stringBuffer.append(TEXT_5);
     stringBuffer.append(TEXT_6);
     return stringBuffer.toString();

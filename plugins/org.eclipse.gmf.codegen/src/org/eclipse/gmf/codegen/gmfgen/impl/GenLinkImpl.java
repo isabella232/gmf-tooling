@@ -23,7 +23,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.LinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
@@ -136,7 +136,7 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 	 */
 	public EList getLabels() {
 		if (labels == null) {
-			labels = new EObjectContainmentWithInverseEList(LinkLabel.class, this, GMFGenPackage.GEN_LINK__LABELS, GMFGenPackage.LINK_LABEL__LINK);
+			labels = new EObjectContainmentWithInverseEList(GenLinkLabel.class, this, GMFGenPackage.GEN_LINK__LABELS, GMFGenPackage.GEN_LINK_LABEL__LINK);
 		}
 		return labels;
 	}
@@ -226,12 +226,6 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				return getEditPartClassName();
 			case GMFGenPackage.GEN_LINK__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return getNotationViewFactoryClassName();
-			case GMFGenPackage.GEN_LINK__DOMAIN_NAME_FEATURE:
-				if (resolve) return getDomainNameFeature();
-				return basicGetDomainNameFeature();
-			case GMFGenPackage.GEN_LINK__CONTAINMENT_META_FEATURE:
-				if (resolve) return getContainmentMetaFeature();
-				return basicGetContainmentMetaFeature();
 			case GMFGenPackage.GEN_LINK__VIEWMAP:
 				return getViewmap();
 			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_SELECTOR:
@@ -267,12 +261,6 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				return;
 			case GMFGenPackage.GEN_LINK__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK__DOMAIN_NAME_FEATURE:
-				setDomainNameFeature((GenFeature)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK__CONTAINMENT_META_FEATURE:
-				setContainmentMetaFeature((GenFeature)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__VIEWMAP:
 				setViewmap((Viewmap)newValue);
@@ -313,12 +301,6 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 			case GMFGenPackage.GEN_LINK__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_LINK__DOMAIN_NAME_FEATURE:
-				setDomainNameFeature((GenFeature)null);
-				return;
-			case GMFGenPackage.GEN_LINK__CONTAINMENT_META_FEATURE:
-				setContainmentMetaFeature((GenFeature)null);
-				return;
 			case GMFGenPackage.GEN_LINK__VIEWMAP:
 				setViewmap((Viewmap)null);
 				return;
@@ -353,10 +335,6 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
 			case GMFGenPackage.GEN_LINK__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
-			case GMFGenPackage.GEN_LINK__DOMAIN_NAME_FEATURE:
-				return domainNameFeature != null;
-			case GMFGenPackage.GEN_LINK__CONTAINMENT_META_FEATURE:
-				return containmentMetaFeature != null;
 			case GMFGenPackage.GEN_LINK__VIEWMAP:
 				return viewmap != null;
 			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_SELECTOR:

@@ -61,50 +61,8 @@ public class GenBaseElementItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDomainNameFeaturePropertyDescriptor(object);
-			addContainmentMetaFeaturePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Domain Name Feature feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDomainNameFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenBaseElement_domainNameFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenBaseElement_domainNameFeature_feature", "_UI_GenBaseElement_type"),
-				 GMFGenPackage.eINSTANCE.getGenBaseElement_DomainNameFeature(),
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Containment Meta Feature feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addContainmentMetaFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenBaseElement_containmentMetaFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenBaseElement_containmentMetaFeature_feature", "_UI_GenBaseElement_type"),
-				 GMFGenPackage.eINSTANCE.getGenBaseElement_ContainmentMetaFeature(),
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**
@@ -118,7 +76,6 @@ public class GenBaseElementItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenBaseElement_Viewmap());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenBaseElement_ModelElementSelector());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenBaseElement_ModelElementInitializer());
 		}
@@ -161,7 +118,6 @@ public class GenBaseElementItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenBaseElement.class)) {
-			case GMFGenPackage.GEN_BASE_ELEMENT__VIEWMAP:
 			case GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_SELECTOR:
 			case GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_INITIALIZER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -179,16 +135,6 @@ public class GenBaseElementItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenBaseElement_Viewmap(),
-				 GMFGenFactory.eINSTANCE.createBasicNodeViewmap()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenBaseElement_Viewmap(),
-				 GMFGenFactory.eINSTANCE.createDecoratedConnectionViewmap()));
 
 		newChildDescriptors.add
 			(createChildParameter

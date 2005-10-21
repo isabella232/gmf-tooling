@@ -33,6 +33,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 
+import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Gen Diagram</b></em>'.
@@ -1495,6 +1497,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case GMFGenPackage.GEN_DIAGRAM__VIEWMAP:
+					return basicSetViewmap(null, msgs);
 				case GMFGenPackage.GEN_DIAGRAM__NODES:
 					return ((InternalEList)getNodes()).basicRemove(otherEnd, msgs);
 				case GMFGenPackage.GEN_DIAGRAM__LINKS:
@@ -1524,6 +1528,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getEditPartClassName();
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return getNotationViewFactoryClassName();
+			case GMFGenPackage.GEN_DIAGRAM__VIEWMAP:
+				return getViewmap();
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
 				if (resolve) return getDomainMetaModel();
 				return basicGetDomainMetaModel();
@@ -1602,6 +1608,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__VIEWMAP:
+				setViewmap((Viewmap)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
 				setDomainMetaModel((GenPackage)newValue);
@@ -1709,6 +1718,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__VIEWMAP:
+				setViewmap((Viewmap)null);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
 				setDomainMetaModel((GenPackage)null);
 				return;
@@ -1809,6 +1821,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
+			case GMFGenPackage.GEN_DIAGRAM__VIEWMAP:
+				return viewmap != null;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
 				return domainMetaModel != null;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:

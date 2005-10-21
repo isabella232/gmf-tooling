@@ -78,8 +78,8 @@ public interface GenLink extends GenBaseElement{
 
 	/**
 	 * Returns the value of the '<em><b>Labels</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.LinkLabel}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabel#getLink <em>Link</em>}'.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getLink <em>Link</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Labels</em>' containment reference list isn't clear,
@@ -88,8 +88,8 @@ public interface GenLink extends GenBaseElement{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Labels</em>' containment reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink_Labels()
-	 * @see org.eclipse.gmf.codegen.gmfgen.LinkLabel#getLink
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.LinkLabel" opposite="link" containment="true"
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getLink
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenLinkLabel" opposite="link" containment="true"
 	 * @generated
 	 */
 	EList getLabels();

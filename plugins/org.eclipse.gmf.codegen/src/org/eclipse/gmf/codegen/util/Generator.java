@@ -33,8 +33,9 @@ import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.codegen.gmfgen.LinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -91,8 +92,9 @@ public class Generator implements Runnable {
 			for (Iterator it = myDiagram.getNodes().iterator(); it.hasNext();) {
 				final GenNode next = (GenNode) it.next();
 				generateNodeEditPart(next);
-				if (next.hasNameToEdit()) {
-					generateNodeLabelEditPart(next);
+				for (Iterator labels = next.getLabels().iterator(); labels.hasNext();) {
+					GenNodeLabel label = (GenNodeLabel) labels.next();
+					generateNodeLabelEditPart(label);
 				}
 				generateSemanticHints(next);
 				generateViewFactory(next);
@@ -108,7 +110,7 @@ public class Generator implements Runnable {
 				generateSemanticHints(next);
 				generateLinkEditPart(next);
 				for (Iterator labels = next.getLabels().iterator(); labels.hasNext();) {
-					LinkLabel label = (LinkLabel) labels.next();
+					GenLinkLabel label = (GenLinkLabel) labels.next();
 					generateLinkLabelViewFactory(label);
 				}
 			}
@@ -170,12 +172,12 @@ public class Generator implements Runnable {
 		);
 	}
 
-	private void generateNodeLabelEditPart(GenNode genNode) throws JETException, InterruptedException {
+	private void generateNodeLabelEditPart(GenNodeLabel label) throws JETException, InterruptedException {
 		generate(
 			EmitterFactory.getNodeLabelEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
-			AccessUtil.getNodeLabelEditPartClassName(genNode),
-			genNode
+			label.getEditPartClassName(),
+			label
 		);
 	}
 
@@ -244,11 +246,11 @@ public class Generator implements Runnable {
 		);
 	}
 
-	private void generateLinkLabelViewFactory(LinkLabel label) throws JETException, InterruptedException {
+	private void generateLinkLabelViewFactory(GenLinkLabel label) throws JETException, InterruptedException {
 		generate(
 			EmitterFactory.getLinkLabelViewFactoryEmitter(),
 			myDiagram.getProvidersPackageName(),
-			AccessUtil.getLinkLabelViewFactoryClassName(label),
+			label.getNotationViewFactoryClassName(),
 			label
 		);
 	}

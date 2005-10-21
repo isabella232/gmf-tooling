@@ -145,7 +145,7 @@ public class GenLinkItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenLink_Labels(),
-				 GMFGenFactory.eINSTANCE.createLinkLabel()));
+				 GMFGenFactory.eINSTANCE.createGenLinkLabel()));
 	}
 
 	/**

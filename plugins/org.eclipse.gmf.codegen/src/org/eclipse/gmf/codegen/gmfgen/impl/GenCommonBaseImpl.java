@@ -8,6 +8,8 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -16,6 +18,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+
+import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
  * <!-- begin-user-doc -->
@@ -28,6 +32,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getVisualID <em>Visual ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getEditPartClassName <em>Edit Part Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getViewmap <em>Viewmap</em>}</li>
  * </ul>
  * </p>
  *
@@ -103,6 +108,16 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * @ordered
 	 */
 	protected String notationViewFactoryClassName = NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getViewmap() <em>Viewmap</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getViewmap()
+	 * @generated
+	 * @ordered
+	 */
+	protected Viewmap viewmap = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -257,6 +272,49 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Viewmap getViewmap() {
+		return viewmap;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetViewmap(Viewmap newViewmap, NotificationChain msgs) {
+		Viewmap oldViewmap = viewmap;
+		viewmap = newViewmap;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_COMMON_BASE__VIEWMAP, oldViewmap, newViewmap);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setViewmap(Viewmap newViewmap) {
+		if (newViewmap != viewmap) {
+			NotificationChain msgs = null;
+			if (viewmap != null)
+				msgs = ((InternalEObject)viewmap).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_COMMON_BASE__VIEWMAP, null, msgs);
+			if (newViewmap != null)
+				msgs = ((InternalEObject)newViewmap).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_COMMON_BASE__VIEWMAP, null, msgs);
+			msgs = basicSetViewmap(newViewmap, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_COMMON_BASE__VIEWMAP, newViewmap, newViewmap));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public abstract String getClassNamePrefix();
@@ -274,6 +332,23 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * @generated NOT
 	 */
 	public abstract String getUniqueIdentifier();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
+		if (featureID >= 0) {
+			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
+					return basicSetViewmap(null, msgs);
+				default:
+					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
+			}
+		}
+		return eBasicSetContainer(null, featureID, msgs);
+	}
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -316,6 +391,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return getEditPartClassName();
 			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return getNotationViewFactoryClassName();
+			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
+				return getViewmap();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -338,6 +415,9 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return;
 			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
+				setViewmap((Viewmap)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -362,6 +442,9 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
+				setViewmap((Viewmap)null);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -381,6 +464,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
 			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
+			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
+				return viewmap != null;
 		}
 		return eDynamicIsSet(eFeature);
 	}

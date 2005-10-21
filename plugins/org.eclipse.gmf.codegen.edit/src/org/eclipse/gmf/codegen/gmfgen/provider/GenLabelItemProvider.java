@@ -22,22 +22,22 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.LinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.LinkLabel} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenLabel} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class LinkLabelItemProvider
-	extends ItemProviderAdapter
+public class GenLabelItemProvider
+	extends GenCommonBaseItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -50,7 +50,7 @@ public class LinkLabelItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public LinkLabelItemProvider(AdapterFactory adapterFactory) {
+	public GenLabelItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -64,31 +64,9 @@ public class LinkLabelItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDomainMetaFeaturePropertyDescriptor(object);
 			addReadOnlyPropertyDescriptor(object);
-			addAlignmentPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Domain Meta Feature feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDomainMetaFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_LinkLabel_domainMetaFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LinkLabel_domainMetaFeature_feature", "_UI_LinkLabel_type"),
-				 GMFGenPackage.eINSTANCE.getLinkLabel_DomainMetaFeature(),
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**
@@ -102,9 +80,9 @@ public class LinkLabelItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_LinkLabel_readOnly_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LinkLabel_readOnly_feature", "_UI_LinkLabel_type"),
-				 GMFGenPackage.eINSTANCE.getLinkLabel_ReadOnly(),
+				 getString("_UI_GenLabel_readOnly_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenLabel_readOnly_feature", "_UI_GenLabel_type"),
+				 GMFGenPackage.eINSTANCE.getGenLabel_ReadOnly(),
 				 true,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
@@ -112,33 +90,19 @@ public class LinkLabelItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Alignment feature.
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addAlignmentPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_LinkLabel_alignment_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LinkLabel_alignment_feature", "_UI_LinkLabel_type"),
-				 GMFGenPackage.eINSTANCE.getLinkLabel_Alignment(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This returns LinkLabel.gif.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/LinkLabel");
+	public Collection getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenLabel_ModelFacet());
+		}
+		return childrenFeatures;
 	}
 
 	/**
@@ -148,8 +112,10 @@ public class LinkLabelItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		LinkLabel linkLabel = (LinkLabel)object;
-		return getString("_UI_LinkLabel_type") + " " + linkLabel.isReadOnly();
+		String label = ((GenLabel)object).getEditPartClassName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_GenLabel_type") :
+			getString("_UI_GenLabel_type") + " " + label;
 	}
 
 	/**
@@ -162,10 +128,12 @@ public class LinkLabelItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(LinkLabel.class)) {
-			case GMFGenPackage.LINK_LABEL__READ_ONLY:
-			case GMFGenPackage.LINK_LABEL__ALIGNMENT:
+		switch (notification.getFeatureID(GenLabel.class)) {
+			case GMFGenPackage.GEN_LABEL__READ_ONLY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case GMFGenPackage.GEN_LABEL__MODEL_FACET:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -180,6 +148,11 @@ public class LinkLabelItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenLabel_ModelFacet(),
+				 GMFGenFactory.eINSTANCE.createFeatureModelFacet()));
 	}
 
 	/**

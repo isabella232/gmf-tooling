@@ -18,6 +18,7 @@ import junit.framework.Assert;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.gmf.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.BasicGenModelAccess;
@@ -28,11 +29,13 @@ import org.eclipse.gmf.bridge.genmodel.GenModelMatcher;
 import org.eclipse.gmf.bridge.genmodel.NamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.NotationViewFactoryNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.RuntimeGenModelAccess;
+import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
@@ -64,13 +67,22 @@ public class DiaGenSetup implements DiaGenSource {
 		myGenDiagram.setDomainMetaModel(gmm.findGenPackage(domainSource.getModel()));
 		myGenDiagram.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getDiagram()));
 		myGenDiagram.setPalette(createPalette());
+		myGenDiagram.setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap()); // XXX need diagram viewmap
 		myGenDiagram.setVisualID(99);
 
 		myGenNode = GMFGenFactory.eINSTANCE.createGenNode();
 		myGenNode.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getNode()));
 		myGenNode.setDomainMetaClass(gmm.findGenClass(domainSource.getNode().getEClass()));
-		myGenNode.setDomainNameFeature(gmm.findGenFeature(domainSource.getNode().getNameAttr()));
-		myGenNode.setContainmentMetaFeature(gmm.findGenFeature(domainSource.getNode().getContainment()));
+		EAttribute editFeature = domainSource.getNode().getNameAttr();
+		if (editFeature != null) {
+			FeatureModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureModelFacet();
+			modelFacet.setMetaFeature(gmm.findGenFeature(editFeature));
+			GenNodeLabel label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
+			label.setModelFacet(modelFacet);
+			label.setVisualID(401);
+			myGenNode.getLabels().add(label);
+		}
+		//myGenNode.setContainmentMetaFeature(gmm.findGenFeature(domainSource.getNode().getContainment()));
 		myGenNode.setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap());
 		myGenNode.setVisualID(100);
 
@@ -78,7 +90,7 @@ public class DiaGenSetup implements DiaGenSource {
 		myGenLink.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getEdge()));
 		myGenLink.setDomainMetaClass(gmm.findGenClass(domainSource.getLinkAsClass().getEClass()));
 		myGenLink.setDomainLinkTargetFeature(gmm.findGenFeature(domainSource.getLinkAsClass().getTargetFeature()));
-		myGenLink.setContainmentMetaFeature(gmm.findGenFeature(domainSource.getLinkAsClass().getContainment()));
+		//myGenLink.setContainmentMetaFeature(gmm.findGenFeature(domainSource.getLinkAsClass().getContainment()));
 		myGenLink.setViewmap(GMFGenFactory.eINSTANCE.createDecoratedConnectionViewmap());
 		myGenLink.setVisualID(200);
 		// TODO add linkRefOnly

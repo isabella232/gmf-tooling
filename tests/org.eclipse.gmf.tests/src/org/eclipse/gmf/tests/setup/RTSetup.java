@@ -52,6 +52,7 @@ public class RTSetup implements RTSource {
 		myLink.setElement(linkElement);
 		//myLink.setVisualID(genSource.getGenLink().getVisualID());
 
+		/*
 		Object nc = diagramElement.eGet(genSource.getGenNode().getContainmentMetaFeature().getEcoreFeature());
 		assert nc instanceof EList;
 		((EList) nc).add(nodeElement);
@@ -61,6 +62,7 @@ public class RTSetup implements RTSource {
 		} else {
 			nodeElement.eSet(genSource.getGenLink().getContainmentMetaFeature().getEcoreFeature(), linkElement);
 		}
+		*/
 		return this;
 	}
 

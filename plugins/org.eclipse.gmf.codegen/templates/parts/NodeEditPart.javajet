@@ -17,9 +17,6 @@ import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapMode;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
-<%if (genNode.hasNameToEdit()) {%>
-import <%=genDiagram.getProvidersPackageName()%>.<%=AccessUtil.getSemanticHintsClassName(genNode)%>;
-<%}%>
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -59,7 +56,8 @@ if (genNode.getViewmap() instanceof FigureViewmap) {
 				graphics.drawRectangle(getClientArea());
 			}
 		};
-<%for (Iterator it = genNode.getViewmap().getAttributes().iterator(); it.hasNext();) {
+<%
+for (Iterator it = genNode.getViewmap().getAttributes().iterator(); it.hasNext();) {
 	Attributes next = (Attributes) it.next();
 	if (next instanceof ShapeAttributes) {
 		String figureVarName = "node";
@@ -71,7 +69,8 @@ if (genNode.getViewmap() instanceof FigureViewmap) {
 		DefaultSizeAttributes attrs = (DefaultSizeAttributes) next;
 %>
 		node.setDefaultSize(MapMode.DPtoLP(<%=attrs.getWidth()%>), MapMode.DPtoLP(<%=attrs.getHeight()%>));
-<%	}
+<%
+	}
 }
 %>
 		node.setLayoutManager(new StackLayout());
@@ -99,13 +98,19 @@ if (genNode.getViewmap() instanceof FigureViewmap) {
 		}
 		return super.getContentPane();
 	}
-<%if (genNode.hasNameToEdit()) {%>
+<%
+if (!genNode.getLabels().isEmpty()) {
+	GenNodeLabel primaryLabel = (GenNodeLabel) genNode.getLabels().get(0);
+	String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
+	String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
+%>
 
 	/**
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(<%=AccessUtil.getSemanticHintsClassName(genNode)%>.<%=AccessUtil.getNameSemanticHint(genNode)%>);
+		return getChildBySemanticHint(<%=semanticHintsClassName%>.Labels.<%=AccessUtil.getLabelTextId(primaryLabel)%>);
 	}
 <%}%>
-}<%importManager.emitSortedImports();%>
+}
+<%importManager.emitSortedImports();%>

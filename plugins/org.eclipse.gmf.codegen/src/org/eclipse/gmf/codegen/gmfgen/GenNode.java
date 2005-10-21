@@ -23,9 +23,11 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getDomainMetaClass <em>Domain Meta Class</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getLabels <em>Labels</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getChildContainers <em>Child Containers</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getChildNodes <em>Child Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getChildContainersPlacement <em>Child Containers Placement</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getModelFacet <em>Model Facet</em>}</li>
  * </ul>
  * </p>
  *
@@ -77,6 +79,24 @@ public interface GenNode extends GenBaseElement{
 	 * @generated
 	 */
 	void setDomainMetaClass(GenClass value);
+
+	/**
+	 * Returns the value of the '<em><b>Labels</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenNodeLabel}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenNodeLabel#getNode <em>Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Labels</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Labels</em>' containment reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_Labels()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenNodeLabel#getNode
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNodeLabel" opposite="node" containment="true"
+	 * @generated
+	 */
+	EList getLabels();
 
 	/**
 	 * Returns the value of the '<em><b>Child Containers</b></em>' containment reference list.
@@ -142,5 +162,31 @@ public interface GenNode extends GenBaseElement{
 	 * @generated
 	 */
 	void setChildContainersPlacement(CompartmentPlacementKind value);
+
+	/**
+	 * Returns the value of the '<em><b>Model Facet</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Model Facet</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Model Facet</em>' containment reference.
+	 * @see #setModelFacet(TypeModelFacet)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_ModelFacet()
+	 * @model containment="true"
+	 * @generated
+	 */
+	TypeModelFacet getModelFacet();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getModelFacet <em>Model Facet</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Model Facet</em>' containment reference.
+	 * @see #getModelFacet()
+	 * @generated
+	 */
+	void setModelFacet(TypeModelFacet value);
 
 } // GenNode

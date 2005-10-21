@@ -28,6 +28,7 @@ public class <%=genChildNode.getEditPartClassName()%> extends ListItemCompartmen
 GenPackage genPackage = genDiagram.getDomainMetaModel();
 String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 String semanticChildNodeInterfaceName = genChildNode.getDomainMetaClass().getName();
+GenNodeLabel label = (GenNodeLabel) genChildNode.getLabels().get(0);
 %>
 
 	/**
@@ -35,7 +36,7 @@ String semanticChildNodeInterfaceName = genChildNode.getDomainMetaClass().getNam
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			parser = new StructuralFeatureParser(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticChildNodeInterfaceName%>().getEStructuralFeature("<%=genChildNode.getDomainNameFeature().getName()%>"));
+			parser = new StructuralFeatureParser(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticChildNodeInterfaceName%>().getEStructuralFeature("<%=label.getMetaFeature().getName()%>"));
 		}
 		return parser;
 	}

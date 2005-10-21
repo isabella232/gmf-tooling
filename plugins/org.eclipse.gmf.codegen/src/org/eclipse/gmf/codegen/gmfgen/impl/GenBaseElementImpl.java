@@ -7,7 +7,6 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -27,9 +26,6 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl#getDomainNameFeature <em>Domain Name Feature</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl#getContainmentMetaFeature <em>Containment Meta Feature</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl#getViewmap <em>Viewmap</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl#getModelElementSelector <em>Model Element Selector</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenBaseElementImpl#getModelElementInitializer <em>Model Element Initializer</em>}</li>
  * </ul>
@@ -38,36 +34,6 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  * @generated
  */
 public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements GenBaseElement {
-	/**
-	 * The cached value of the '{@link #getDomainNameFeature() <em>Domain Name Feature</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDomainNameFeature()
-	 * @generated
-	 * @ordered
-	 */
-	protected GenFeature domainNameFeature = null;
-
-	/**
-	 * The cached value of the '{@link #getContainmentMetaFeature() <em>Containment Meta Feature</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContainmentMetaFeature()
-	 * @generated
-	 * @ordered
-	 */
-	protected GenFeature containmentMetaFeature = null;
-
-	/**
-	 * The cached value of the '{@link #getViewmap() <em>Viewmap</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getViewmap()
-	 * @generated
-	 * @ordered
-	 */
-	protected Viewmap viewmap = null;
-
 	/**
 	 * The cached value of the '{@link #getModelElementSelector() <em>Model Element Selector</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -104,125 +70,6 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 	 */
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenBaseElement();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenFeature getDomainNameFeature() {
-		if (domainNameFeature != null && domainNameFeature.eIsProxy()) {
-			GenFeature oldDomainNameFeature = domainNameFeature;
-			domainNameFeature = (GenFeature)eResolveProxy((InternalEObject)domainNameFeature);
-			if (domainNameFeature != oldDomainNameFeature) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE, oldDomainNameFeature, domainNameFeature));
-			}
-		}
-		return domainNameFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenFeature basicGetDomainNameFeature() {
-		return domainNameFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDomainNameFeature(GenFeature newDomainNameFeature) {
-		GenFeature oldDomainNameFeature = domainNameFeature;
-		domainNameFeature = newDomainNameFeature;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE, oldDomainNameFeature, domainNameFeature));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenFeature getContainmentMetaFeature() {
-		if (containmentMetaFeature != null && containmentMetaFeature.eIsProxy()) {
-			GenFeature oldContainmentMetaFeature = containmentMetaFeature;
-			containmentMetaFeature = (GenFeature)eResolveProxy((InternalEObject)containmentMetaFeature);
-			if (containmentMetaFeature != oldContainmentMetaFeature) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE, oldContainmentMetaFeature, containmentMetaFeature));
-			}
-		}
-		return containmentMetaFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenFeature basicGetContainmentMetaFeature() {
-		return containmentMetaFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setContainmentMetaFeature(GenFeature newContainmentMetaFeature) {
-		GenFeature oldContainmentMetaFeature = containmentMetaFeature;
-		containmentMetaFeature = newContainmentMetaFeature;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE, oldContainmentMetaFeature, containmentMetaFeature));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Viewmap getViewmap() {
-		return viewmap;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetViewmap(Viewmap newViewmap, NotificationChain msgs) {
-		Viewmap oldViewmap = viewmap;
-		viewmap = newViewmap;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_BASE_ELEMENT__VIEWMAP, oldViewmap, newViewmap);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setViewmap(Viewmap newViewmap) {
-		if (newViewmap != viewmap) {
-			NotificationChain msgs = null;
-			if (viewmap != null)
-				msgs = ((InternalEObject)viewmap).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_BASE_ELEMENT__VIEWMAP, null, msgs);
-			if (newViewmap != null)
-				msgs = ((InternalEObject)newViewmap).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_BASE_ELEMENT__VIEWMAP, null, msgs);
-			msgs = basicSetViewmap(newViewmap, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_BASE_ELEMENT__VIEWMAP, newViewmap, newViewmap));
 	}
 
 	/**
@@ -314,15 +161,6 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public boolean hasNameToEdit() {
-		return getDomainNameFeature() != null;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
@@ -378,12 +216,6 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 				return getEditPartClassName();
 			case GMFGenPackage.GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return getNotationViewFactoryClassName();
-			case GMFGenPackage.GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE:
-				if (resolve) return getDomainNameFeature();
-				return basicGetDomainNameFeature();
-			case GMFGenPackage.GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE:
-				if (resolve) return getContainmentMetaFeature();
-				return basicGetContainmentMetaFeature();
 			case GMFGenPackage.GEN_BASE_ELEMENT__VIEWMAP:
 				return getViewmap();
 			case GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_SELECTOR:
@@ -412,12 +244,6 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE:
-				setDomainNameFeature((GenFeature)newValue);
-				return;
-			case GMFGenPackage.GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE:
-				setContainmentMetaFeature((GenFeature)newValue);
 				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__VIEWMAP:
 				setViewmap((Viewmap)newValue);
@@ -451,12 +277,6 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 			case GMFGenPackage.GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE:
-				setDomainNameFeature((GenFeature)null);
-				return;
-			case GMFGenPackage.GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE:
-				setContainmentMetaFeature((GenFeature)null);
-				return;
 			case GMFGenPackage.GEN_BASE_ELEMENT__VIEWMAP:
 				setViewmap((Viewmap)null);
 				return;
@@ -485,10 +305,6 @@ public abstract class GenBaseElementImpl extends GenCommonBaseImpl implements Ge
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
 			case GMFGenPackage.GEN_BASE_ELEMENT__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
-			case GMFGenPackage.GEN_BASE_ELEMENT__DOMAIN_NAME_FEATURE:
-				return domainNameFeature != null;
-			case GMFGenPackage.GEN_BASE_ELEMENT__CONTAINMENT_META_FEATURE:
-				return containmentMetaFeature != null;
 			case GMFGenPackage.GEN_BASE_ELEMENT__VIEWMAP:
 				return viewmap != null;
 			case GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_SELECTOR:

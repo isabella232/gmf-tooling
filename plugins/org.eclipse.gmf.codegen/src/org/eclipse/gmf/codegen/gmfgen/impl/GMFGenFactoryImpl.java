@@ -62,7 +62,11 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_CHILD_NODE: return createGenChildNode();
 			case GMFGenPackage.GEN_LINK_WITH_CLASS: return createGenLinkWithClass();
 			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY: return createGenLinkReferenceOnly();
-			case GMFGenPackage.LINK_LABEL: return createLinkLabel();
+			case GMFGenPackage.GEN_NODE_LABEL: return createGenNodeLabel();
+			case GMFGenPackage.GEN_LINK_LABEL: return createGenLinkLabel();
+			case GMFGenPackage.TYPE_MODEL_FACET: return createTypeModelFacet();
+			case GMFGenPackage.FEATURE_MODEL_FACET: return createFeatureModelFacet();
+			case GMFGenPackage.TYPE_LINK_MODEL_FACET: return createTypeLinkModelFacet();
 			case GMFGenPackage.COLOR_ATTRIBUTES: return createColorAttributes();
 			case GMFGenPackage.SHAPE_ATTRIBUTES: return createShapeAttributes();
 			case GMFGenPackage.DEFAULT_SIZE_ATTRIBUTES: return createDefaultSizeAttributes();
@@ -196,9 +200,49 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public LinkLabel createLinkLabel() {
-		LinkLabelImpl linkLabel = new LinkLabelImpl();
-		return linkLabel;
+	public GenNodeLabel createGenNodeLabel() {
+		GenNodeLabelImpl genNodeLabel = new GenNodeLabelImpl();
+		return genNodeLabel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenLinkLabel createGenLinkLabel() {
+		GenLinkLabelImpl genLinkLabel = new GenLinkLabelImpl();
+		return genLinkLabel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TypeModelFacet createTypeModelFacet() {
+		TypeModelFacetImpl typeModelFacet = new TypeModelFacetImpl();
+		return typeModelFacet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureModelFacet createFeatureModelFacet() {
+		FeatureModelFacetImpl featureModelFacet = new FeatureModelFacetImpl();
+		return featureModelFacet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TypeLinkModelFacet createTypeLinkModelFacet() {
+		TypeLinkModelFacetImpl typeLinkModelFacet = new TypeLinkModelFacetImpl();
+		return typeLinkModelFacet;
 	}
 
 	/**

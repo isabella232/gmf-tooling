@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getVisualID <em>Visual ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getEditPartClassName <em>Edit Part Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getViewmap <em>Viewmap</em>}</li>
  * </ul>
  * </p>
  *
@@ -135,6 +136,32 @@ public interface GenCommonBase extends EObject{
 	 * @generated
 	 */
 	void setNotationViewFactoryClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Viewmap</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Viewmap</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Viewmap</em>' containment reference.
+	 * @see #setViewmap(Viewmap)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCommonBase_Viewmap()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	Viewmap getViewmap();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getViewmap <em>Viewmap</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Viewmap</em>' containment reference.
+	 * @see #getViewmap()
+	 * @generated
+	 */
+	void setViewmap(Viewmap value);
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -19,6 +19,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 
+import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Gen Child Container</b></em>'.
@@ -342,6 +344,8 @@ public class GenChildContainerImpl extends GenCommonBaseImpl implements GenChild
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case GMFGenPackage.GEN_CHILD_CONTAINER__VIEWMAP:
+					return basicSetViewmap(null, msgs);
 				case GMFGenPackage.GEN_CHILD_CONTAINER__PARENT_NODE:
 					return eBasicSetContainer(null, GMFGenPackage.GEN_CHILD_CONTAINER__PARENT_NODE, msgs);
 				default:
@@ -384,6 +388,8 @@ public class GenChildContainerImpl extends GenCommonBaseImpl implements GenChild
 				return getEditPartClassName();
 			case GMFGenPackage.GEN_CHILD_CONTAINER__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return getNotationViewFactoryClassName();
+			case GMFGenPackage.GEN_CHILD_CONTAINER__VIEWMAP:
+				return getViewmap();
 			case GMFGenPackage.GEN_CHILD_CONTAINER__GROUP_ID:
 				return getGroupID();
 			case GMFGenPackage.GEN_CHILD_CONTAINER__TITLE_KEY:
@@ -420,6 +426,9 @@ public class GenChildContainerImpl extends GenCommonBaseImpl implements GenChild
 				return;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_CHILD_CONTAINER__VIEWMAP:
+				setViewmap((Viewmap)newValue);
 				return;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__GROUP_ID:
 				setGroupID((String)newValue);
@@ -462,6 +471,9 @@ public class GenChildContainerImpl extends GenCommonBaseImpl implements GenChild
 			case GMFGenPackage.GEN_CHILD_CONTAINER__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_CHILD_CONTAINER__VIEWMAP:
+				setViewmap((Viewmap)null);
+				return;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__GROUP_ID:
 				setGroupID(GROUP_ID_EDEFAULT);
 				return;
@@ -499,6 +511,8 @@ public class GenChildContainerImpl extends GenCommonBaseImpl implements GenChild
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
 			case GMFGenPackage.GEN_CHILD_CONTAINER__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
+			case GMFGenPackage.GEN_CHILD_CONTAINER__VIEWMAP:
+				return viewmap != null;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__GROUP_ID:
 				return GROUP_ID_EDEFAULT == null ? groupID != null : !GROUP_ID_EDEFAULT.equals(groupID);
 			case GMFGenPackage.GEN_CHILD_CONTAINER__TITLE_KEY:

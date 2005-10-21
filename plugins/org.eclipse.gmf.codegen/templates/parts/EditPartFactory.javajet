@@ -87,11 +87,13 @@ for (int i = 0; i < genNodes.size(); i++) {
 <%
 	String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
 	String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
-	if (genNode.hasNameToEdit()) {
-		String semanticHint = semanticHintsClassName + '.' + AccessUtil.getNameSemanticHint(genNode);
+	List labels = genNode.getLabels();
+	for (int j = 0; j < labels.size(); j++) {
+		GenNodeLabel label = (GenNodeLabel) labels.get(j);
+		String labelTextViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelTextId(label);
 %>
-			if (<%=semanticHint%>.equals(node.getType())) {
-				return new <%=AccessUtil.getNodeLabelEditPartClassName(genNode)%>(node);
+			if (<%=labelTextViewId%>.equals(node.getType())) {
+				return new <%=label.getEditPartClassName()%>(node);
 			}
 <%
 	}
@@ -132,9 +134,7 @@ for (int i = 0; i < genNodes.size(); i++) {
 	 * @generated
 	 */
 	private EditPart createLinkLabelEditPart(Node node) {
-<%
-if (genLinks.size() != 0) {
-%>
+<%if (!genLinks.isEmpty()) {%>
 		EObject element = node.getElement();
 		int linkVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getLinkWithClassVisualID(element);
 		
@@ -152,9 +152,9 @@ if (genLinks.size() != 0) {
 <%
 			List labels = genLink.getLabels();
 			for (int j = 0; j < labels.size(); j++) {
-				LinkLabel label = (LinkLabel) labels.get(j);
-				String labelViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLinkLabelId(label);
-				String labelTextViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLinkLabelTextId(label);
+				GenLinkLabel label = (GenLinkLabel) labels.get(j);
+				String labelViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelId(label);
+				String labelTextViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelTextId(label);
 %>
 			if (<%=labelViewId%>.equals(node.getType())) {
 				return new LabelEditPart(node) {
@@ -169,7 +169,7 @@ if (genLinks.size() != 0) {
 
 					public IParser getParser() {
 						if (parser == null) {
-							parser = new StructuralFeatureParser(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().getEStructuralFeature("<%=label.getDomainMetaFeature().getName()%>"));
+							parser = new StructuralFeatureParser(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().getEStructuralFeature("<%=label.getMetaFeature().getName()%>"));
 						}
 						return parser;
 					}
@@ -182,9 +182,7 @@ if (genLinks.size() != 0) {
 	}
 %>
 		}
-<%
-}
-%>				
+<%}%>				
 		return null;
 	}
 	
@@ -213,7 +211,8 @@ for (int i = 0; i < genNodes.size(); i++) {
 %>
 		case <%=genChildNode.getVisualID()%>:
 			return new <%=genChildNode.getEditPartClassName()%>(node);
-<%	}
+<%
+	}
 }
 %>
 		} 
@@ -232,9 +231,7 @@ for (int i = 0; i < genNodes.size(); i++) {
 	 * @generated
 	 */
 	private EditPart createEdgeEditPart(Edge edge) {
-<%
-if (!genLinks.isEmpty()) {
-%>
+<%if (!genLinks.isEmpty()) {%>
 		EObject element = edge.getElement();
 		if (element == null) {
 <%
@@ -268,9 +265,7 @@ if (!genLinks.isEmpty()) {
 	}
 %>
 		}
-<%
-}
-%>
+<%}%>
 		return createUnrecognizedEdgeEditPart(edge);				
 	}
 

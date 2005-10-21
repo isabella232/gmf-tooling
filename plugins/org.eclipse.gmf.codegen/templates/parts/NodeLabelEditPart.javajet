@@ -1,8 +1,8 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="NodeLabelEditPartGenerator"
 	imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
 <%
-GenNode genNode = (GenNode) argument;
-GenDiagram genDiagram = genNode.getDiagram();
+GenNodeLabel label = (GenNodeLabel) argument;
+GenDiagram genDiagram = label.getDiagram();
 %>
 package <%=genDiagram.getEditPartsPackageName()%>;
 
@@ -12,19 +12,18 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
-import <%=genDiagram.getEditorPackageName()%>.<%=genDiagram.getPluginClassName()%>;
 import <%=genDiagram.getProvidersPackageName()%>.StructuralFeatureParser;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
-public class <%=AccessUtil.getNodeLabelEditPartClassName(genNode)%> extends TextCompartmentEditPart {
+public class <%=label.getEditPartClassName()%> extends TextCompartmentEditPart {
 
 	/**
 	 * @generated
 	 */
-	public <%=AccessUtil.getNodeLabelEditPartClassName(genNode)%>(View view) {
+	public <%=label.getEditPartClassName()%>(View view) {
 		super(view);
 		setNumIcons(1);
 	}
@@ -33,7 +32,7 @@ public class <%=AccessUtil.getNodeLabelEditPartClassName(genNode)%> extends Text
 	 * @generated
 	 */
 	protected Image getLabelIcon(int index) {
-		ImageDescriptor descriptor = <%=genDiagram.getPluginClassName()%>.getInstance().getItemImageDescriptor(resolveSemanticElement());
+		ImageDescriptor descriptor = <%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.getInstance().getItemImageDescriptor(resolveSemanticElement());
 		if (descriptor == null) {
 			descriptor = ImageDescriptor.getMissingImageDescriptor();
 		}
@@ -42,7 +41,7 @@ public class <%=AccessUtil.getNodeLabelEditPartClassName(genNode)%> extends Text
 <%
 GenPackage genPackage = genDiagram.getDomainMetaModel();
 String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
-String semanticNodeInterfaceName = genNode.getDomainMetaClass().getName();
+String semanticNodeInterfaceName = label.getNode().getDomainMetaClass().getName();
 %>
 
 	/**
@@ -50,7 +49,7 @@ String semanticNodeInterfaceName = genNode.getDomainMetaClass().getName();
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			parser = new StructuralFeatureParser(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>().getEStructuralFeature("<%=genNode.getDomainNameFeature().getName()%>"));
+			parser = new StructuralFeatureParser(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>().getEStructuralFeature("<%=label.getMetaFeature().getName()%>"));
 		}
 		return parser;
 	}

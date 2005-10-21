@@ -18,8 +18,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.codegen.gmfgen.LinkLabel;
 
 /**
  * Utility methods for templates.
@@ -59,25 +59,16 @@ public class AccessUtil {
 		return asJavaConstantName(entry.getTitleKey());
 	}
 
-	public static String getLinkLabelViewFactoryClassName(LinkLabel label) {
-		String name = label.getLink().getNotationViewFactoryClassName();
-		return label.getDomainMetaFeature().getCapName() + name;
+	public static String getLabelId(GenLabel label) {
+		return label.getMetaFeature().getUpperName() + "_LABEL"; //$NON-NLS-1$
 	}
 
-	public static String getLinkLabelId(LinkLabel label) {
-		return label.getDomainMetaFeature().getUpperName() + "_LABEL"; //$NON-NLS-1$
-	}
-
-	public static String getLinkLabelTextId(LinkLabel label) {
-		return label.getDomainMetaFeature().getUpperName() + "_TEXT"; //$NON-NLS-1$
+	public static String getLabelTextId(GenLabel label) {
+		return label.getMetaFeature().getUpperName() + "_TEXT"; //$NON-NLS-1$
 	}
 
 	public static String getNodeLabelEditPartClassName(GenNode genNode) {
 		return "Label" + genNode.getEditPartClassName(); //$NON-NLS-1$
-	}
-
-	public static String getNameSemanticHint(GenBaseElement genElement) {
-		return genElement.getDomainNameFeature().getName();
 	}
 
 	public static String getSemanticHintsClassName(GenBaseElement genElement) {

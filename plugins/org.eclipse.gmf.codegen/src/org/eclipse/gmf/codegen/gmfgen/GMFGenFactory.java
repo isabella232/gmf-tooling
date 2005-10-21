@@ -80,13 +80,49 @@ public interface GMFGenFactory extends EFactory{
 	GenLinkReferenceOnly createGenLinkReferenceOnly();
 
 	/**
-	 * Returns a new object of class '<em>Link Label</em>'.
+	 * Returns a new object of class '<em>Gen Node Label</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Link Label</em>'.
+	 * @return a new object of class '<em>Gen Node Label</em>'.
 	 * @generated
 	 */
-	LinkLabel createLinkLabel();
+	GenNodeLabel createGenNodeLabel();
+
+	/**
+	 * Returns a new object of class '<em>Gen Link Label</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Link Label</em>'.
+	 * @generated
+	 */
+	GenLinkLabel createGenLinkLabel();
+
+	/**
+	 * Returns a new object of class '<em>Type Model Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Type Model Facet</em>'.
+	 * @generated
+	 */
+	TypeModelFacet createTypeModelFacet();
+
+	/**
+	 * Returns a new object of class '<em>Feature Model Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Feature Model Facet</em>'.
+	 * @generated
+	 */
+	FeatureModelFacet createFeatureModelFacet();
+
+	/**
+	 * Returns a new object of class '<em>Type Link Model Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Type Link Model Facet</em>'.
+	 * @generated
+	 */
+	TypeLinkModelFacet createTypeLinkModelFacet();
 
 	/**
 	 * Returns a new object of class '<em>Color Attributes</em>'.

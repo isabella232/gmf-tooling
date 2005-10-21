@@ -103,14 +103,14 @@ if (genLinks.size() != 0) {
     
 			List labels = genLink.getLabels();
 			for (int j = 0; j < labels.size(); j++) {
-				LinkLabel label = (LinkLabel) labels.get(j);
-				String labelViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLinkLabelId(label);
-				String labelTextViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLinkLabelTextId(label);
+				GenLinkLabel label = (GenLinkLabel) labels.get(j);
+				String labelViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelId(label);
+				String labelTextViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelTextId(label);
 
     stringBuffer.append(TEXT_12);
     stringBuffer.append(labelViewId);
     stringBuffer.append(TEXT_13);
-    stringBuffer.append(AccessUtil.getLinkLabelViewFactoryClassName(label));
+    stringBuffer.append(importManager.getImportedName(label.getNotationViewFactoryQualifiedClassName()));
     stringBuffer.append(TEXT_14);
     stringBuffer.append(labelTextViewId);
     stringBuffer.append(TEXT_15);
@@ -138,13 +138,16 @@ for (int i = 0; i < genNodes.size(); i++) {
     
 	String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
 	String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
-	if (genNode.hasNameToEdit()) {
-		String semanticHint = semanticHintsClassName + '.' + AccessUtil.getNameSemanticHint(genNode);
+	List labels = genNode.getLabels();
+	for (int j = 0; j < labels.size(); j++) {
+		GenNodeLabel label = (GenNodeLabel) labels.get(j);
+		String labelTextViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelTextId(label);
 
     stringBuffer.append(TEXT_22);
-    stringBuffer.append(semanticHint);
+    stringBuffer.append(labelTextViewId);
     stringBuffer.append(TEXT_23);
-    	}
+    
+	}
 	List genChildContainers = genNode.getChildContainers();
 	for (int j = 0; j < genChildContainers.size(); j++) {
 		GenChildContainer genChildContainer = (GenChildContainer) genChildContainers.get(j);
@@ -209,9 +212,9 @@ for (int i = 0; i < genLinks.size(); i++) {
 		// disable creation of connector views for label links
 		List labels = genLink.getLabels();
 		for (int j = 0; j < labels.size(); j++) {
-			LinkLabel label = (LinkLabel) labels.get(j);
-			String labelViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLinkLabelId(label);
-			String labelTextViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLinkLabelTextId(label);
+			GenLinkLabel label = (GenLinkLabel) labels.get(j);
+			String labelViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelId(label);
+			String labelTextViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelTextId(label);
 
     stringBuffer.append(TEXT_41);
     stringBuffer.append(labelViewId);
