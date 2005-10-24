@@ -37,7 +37,7 @@ public class ElementTypesGenerator
   protected final String TEXT_18 = ".";
   protected final String TEXT_19 = "(getElementToEdit());";
   protected final String TEXT_20 = NL + "\t\t\t\t\t((";
-  protected final String TEXT_21 = ") getElementToEdit()).set";
+  protected final String TEXT_21 = ") getElementToEdit()).";
   protected final String TEXT_22 = "((";
   protected final String TEXT_23 = ") getRequest().getParameter(CreateRelationshipRequest.TARGET));";
   protected final String TEXT_24 = "\t\t\t\t" + NL + "\t\t\t\t\treturn newOKCommandResult();" + NL + "\t\t\t\t}" + NL + "\t\t\t};" + NL + "\t\t}";
@@ -161,11 +161,12 @@ while (entities.hasNext()) {
 	if (entity instanceof GenLink) {
 		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) ((GenLink) entity).getModelFacet();
 		GenFeature linkFeature = modelFacet.getTargetMetaFeature();
+        String featureAccessorName = linkFeature.isListType() ? linkFeature.getGetAccessor() + "().add" : "set" + linkFeature.getAccessorName();
 
     stringBuffer.append(TEXT_20);
     stringBuffer.append(importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName()));
     stringBuffer.append(TEXT_21);
-    stringBuffer.append(linkFeature.getAccessorName());
+    stringBuffer.append(featureAccessorName);
     stringBuffer.append(TEXT_22);
     stringBuffer.append(importManager.getImportedName(linkFeature.getTypeGenClass().getQualifiedInterfaceName()));
     stringBuffer.append(TEXT_23);

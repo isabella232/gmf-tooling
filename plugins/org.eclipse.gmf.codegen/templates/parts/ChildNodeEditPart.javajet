@@ -7,8 +7,13 @@ GenDiagram genDiagram = genChildNode.getDiagram();
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
+import java.util.Collections;
+import java.util.List;
+
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListItemCompartmentEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 import <%=genDiagram.getProvidersPackageName()%>.StructuralFeatureParser;
 <%importManager.markImportLocation(stringBuffer);%>
@@ -40,5 +45,28 @@ GenNodeLabel label = (GenNodeLabel) genChildNode.getLabels().get(0);
 		}
 		return parser;
 	}
+	
+	/**
+	 * @generated
+	 */
+	protected void createDefaultEditPolicies() {
+		super.createDefaultEditPolicies();
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=genChildNode.getEditPartClassName()%>CanonicalEditPolicy());
+	}
+	
+	/**
+	 * @generated
+	 */
+	private class <%=genChildNode.getEditPartClassName()%>CanonicalEditPolicy extends CanonicalEditPolicy {
+	
+		/**
+		 * @generated
+		 */
+		protected List getSemanticChildrenList() {
+			return Collections.EMPTY_LIST;
+		}
+	
+	}
+	
 }
 <%importManager.emitSortedImports();%>

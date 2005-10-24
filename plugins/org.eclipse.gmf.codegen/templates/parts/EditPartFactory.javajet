@@ -4,8 +4,14 @@
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.eclipse.draw2d.ConnectionLocator;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
@@ -13,6 +19,7 @@ import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
@@ -75,13 +82,14 @@ String semanticPackageInterfaceName = importManager.getImportedName(genPackage.g
 		if (linkLabelEditPart != null) {
 			return linkLabelEditPart;
 		}
-		EObject element = node.getElement();
+		final EObject element = node.getElement();
 		int nodeVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getNodeVisualID(element);
 		
 		switch (nodeVID) {
 <%
 for (int i = 0; i < genNodes.size(); i++) {
 	GenNode genNode = (GenNode) genNodes.get(i);
+	String modelElementInterfaceName = importManager.getImportedName(genNode.getDomainMetaClass().getQualifiedInterfaceName());
 %>
 		case <%=genNode.getVisualID()%>:
 <%
@@ -113,6 +121,81 @@ for (int i = 0; i < genNodes.size(); i++) {
 						super.createDefaultEditPolicies();
 						installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 						installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
+						installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new CanonicalEditPolicy() {
+							protected List getSemanticChildrenList() {
+								List result = new LinkedList();
+<%
+		Map childFeature2NodesMap = new HashMap();
+		for (Iterator it = genNode.getChildNodes().iterator(); it.hasNext();) {
+			GenChildNode nextChildNode = (GenChildNode) it.next();
+//TODO: add link from ChildNode to it's compartment into genmodel
+			if (!genChildContainer.getGroupID().equals(nextChildNode.getGroupID())) {
+				continue;
+			}
+			GenFeature genFeature = nextChildNode.getChildMetaFeature() != null ? nextChildNode.getChildMetaFeature() : nextChildNode.getModelFacet().getContainmentMetaFeature();
+			List genChildNodes; 
+			if (!childFeature2NodesMap.containsKey(genFeature)) {
+				genChildNodes = new ArrayList();
+				childFeature2NodesMap.put(genFeature, genChildNodes);
+			} else {
+				genChildNodes = (List) childFeature2NodesMap.get(genFeature);
+			}
+
+			if (nextChildNode.getDomainMetaClass() == null) {
+				genChildNodes.clear();
+				genChildNodes.add(nextChildNode);
+				continue;
+			}
+			if (genChildNodes.size() == 1 && ((GenChildNode) genChildNodes.get(0)).getDomainMetaClass() == null) {
+				continue;
+			}
+			genChildNodes.add(nextChildNode);
+		}
+		
+		for (Iterator it = childFeature2NodesMap.entrySet().iterator(); it.hasNext();) {
+			Map.Entry nextEntry = (Map.Entry) it.next();
+			GenFeature nextFeature = (GenFeature) nextEntry.getKey();
+			List childNodes = (List) nextEntry.getValue();
+			if (childNodes.size() == 1 && ((GenChildNode) childNodes.get(0)).getDomainMetaClass() == null) {
+%>
+								result.<%=nextFeature.isListType() ? "addAll" : "add"%>(((<%=modelElementInterfaceName%>) element).<%=nextFeature.getGetAccessor()%>());
+<%
+				continue;
+			}
+			
+			if (nextFeature.isListType()) {
+%>
+								Collection featureValues = ((<%=modelElementInterfaceName%>) element).<%=nextFeature.getGetAccessor()%>();
+								for (Iterator it = featureValues.iterator(); it.hasNext();) {
+									EObject nextValue = (EObject) it.next();
+<%
+			} else {
+%>
+								EObject nextValue = (EObject) ((<%=modelElementInterfaceName%>) element).<%=nextFeature.getGetAccessor()%>();
+<%
+			}
+%>
+								EClass nextEClass = nextValue.eClass();
+<%			
+			for (Iterator childNodesIterator = childNodes.iterator(); childNodesIterator.hasNext();) {
+				GenChildNode nextChildNode = (GenChildNode) childNodesIterator.next();
+				GenClass domainMetaclass = nextChildNode.getDomainMetaClass();
+%>
+								if (<%=importManager.getImportedName(domainMetaclass.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=domainMetaclass.getClassifierAccessorName()%>().equals(nextEClass)) {
+									result.add(nextValue);
+								} <%=childNodesIterator.hasNext() ? "else" : ""%>
+<%
+			}
+			if (nextFeature.isListType()) {
+%>
+								}
+<%
+			}
+		}
+%>
+								return result;
+							}
+						});
 						//installEditPolicy(EditPolicy.NODE_ROLE, null);
 					}
 

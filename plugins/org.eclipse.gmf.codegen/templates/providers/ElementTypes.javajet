@@ -230,8 +230,9 @@ while (entities.hasNext()) {
 	if (entity instanceof GenLink) {
 		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) ((GenLink) entity).getModelFacet();
 		GenFeature linkFeature = modelFacet.getTargetMetaFeature();
+        String featureAccessorName = linkFeature.isListType() ? linkFeature.getGetAccessor() + "().add" : "set" + linkFeature.getAccessorName();
 %>
-					((<%=importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName())%>) getElementToEdit()).set<%=linkFeature.getAccessorName()%>((<%=importManager.getImportedName(linkFeature.getTypeGenClass().getQualifiedInterfaceName())%>) getRequest().getParameter(CreateRelationshipRequest.TARGET));
+					((<%=importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName())%>) getElementToEdit()).<%=featureAccessorName%>((<%=importManager.getImportedName(linkFeature.getTypeGenClass().getQualifiedInterfaceName())%>) getRequest().getParameter(CreateRelationshipRequest.TARGET));
 <%	}%>				
 					return newOKCommandResult();
 				}
