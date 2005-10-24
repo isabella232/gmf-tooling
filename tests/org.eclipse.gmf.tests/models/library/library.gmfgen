@@ -1,44 +1,55 @@
 <?xml version="1.0" encoding="ASCII"?>
 <gmfgen:GenDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel" visualID="79" editPartClassName="LibrarySurfaceEditPart" pluginName="library Plugin">
-  <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Diagram"/>
+  <diagramRunTimeClass href="../../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Diagram"/>
+  <viewmap xsi:type="gmfgen:BasicNodeViewmap"/>
   <domainMetaModel href="library.genmodel#//library"/>
   <domainDiagramElement href="library.genmodel#//library/Library"/>
   <nodes visualID="101" editPartClassName="WriterNodeEditPart" notationViewFactoryClassName="WriterNodeNotationViewFactory">
-    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
-    <domainNameFeature href="library.genmodel#//library/Writer/name"/>
-    <containmentMetaFeature href="library.genmodel#//library/Library/writers"/>
+    <diagramRunTimeClass href="../../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
     <viewmap xsi:type="gmfgen:BasicNodeViewmap"/>
     <domainMetaClass href="library.genmodel#//library/Writer"/>
+    <labels visualID="401">
+      <modelFacet>
+        <metaFeature href="library.genmodel#//library/Writer/name"/>
+      </modelFacet>
+    </labels>
   </nodes>
   <nodes visualID="102" editPartClassName="BookNodeEditPart" notationViewFactoryClassName="BookNodeNotationViewFactory">
-    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
-    <domainNameFeature href="library.genmodel#//library/Book/title"/>
-    <containmentMetaFeature href="library.genmodel#//library/Writer/books"/>
+    <diagramRunTimeClass href="../../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
     <viewmap xsi:type="gmfgen:BasicNodeViewmap"/>
     <domainMetaClass href="library.genmodel#//library/Book"/>
+    <labels visualID="402">
+      <modelFacet>
+        <metaFeature href="library.genmodel#//library/Book/title"/>
+      </modelFacet>
+    </labels>
     <childContainers groupID="reviews" titleKey="reviews" layoutKind="TOOLBAR"/>
     <childNodes visualID="201" editPartClassName="ReviewNodeChildNodeEditPart" notationViewFactoryClassName="ReviewNodeNotationViewFactory" groupID="reviews">
-      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
-      <domainNameFeature href="library.genmodel#//library/Review/title"/>
-      <containmentMetaFeature href="library.genmodel#//library/Book/reviews"/>
-      <viewmap xsi:type="gmfgen:BasicNodeViewmap"/>
+      <diagramRunTimeClass href="../../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
       <domainMetaClass href="library.genmodel#//library/Review"/>
+      <labels visualID="403">
+        <modelFacet>
+          <metaFeature href="library.genmodel#//library/Review/title"/>
+        </modelFacet>
+      </labels>
     </childNodes>
   </nodes>
   <links xsi:type="gmfgen:GenLinkWithClass" visualID="301" editPartClassName="OpinionLinkEditPart" notationViewFactoryClassName="OpinionLinkNotationViewFactory">
-    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Edge"/>
-    <domainNameFeature href="library.genmodel#//library/Opinion/text"/>
-    <containmentMetaFeature href="library.genmodel#//library/Writer/opinions"/>
+    <diagramRunTimeClass href="../../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Edge"/>
     <viewmap xsi:type="gmfgen:DecoratedConnectionViewmap">
       <attributes xsi:type="gmfgen:ShapeAttributes" lineStyle="LINE_DOT"/>
       <target figureQualifiedClassName="org.eclipse.draw2d.PolylineDecoration"/>
     </viewmap>
     <domainLinkTargetFeature href="library.genmodel#//library/Opinion/book"/>
+    <labels visualID="404">
+      <modelFacet>
+        <metaFeature href="library.genmodel#//library/Opinion/text"/>
+      </modelFacet>
+    </labels>
     <domainMetaClass href="library.genmodel#//library/Opinion"/>
   </links>
   <links xsi:type="gmfgen:GenLinkReferenceOnly" visualID="302" editPartClassName="AuthorLinkEditPart" notationViewFactoryClassName="AuthorLinkNotationViewFactory">
-    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Edge"/>
-    <containmentMetaFeature href="library.genmodel#//library/Book/author"/>
+    <diagramRunTimeClass href="../../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Edge"/>
     <viewmap xsi:type="gmfgen:DecoratedConnectionViewmap">
       <attributes xsi:type="gmfgen:ShapeAttributes"/>
     </viewmap>
