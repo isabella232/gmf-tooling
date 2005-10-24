@@ -104,7 +104,7 @@ public class DiaGenSetup implements DiaGenSource {
 		TypeModelFacet mf = GMFGenFactory.eINSTANCE.createTypeModelFacet();
 		mf.setMetaClass(gmm.findGenClass(node.getEClass()));
 		mf.setContainmentMetaFeature(gmm.findGenFeature(node.getContainment()));
-		return null;
+		return mf;
 	}
 
 	private GenModel getRuntimeGenModel() {
