@@ -22,12 +22,11 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getDiagram <em>Diagram</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getDomainMetaClass <em>Domain Meta Class</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getModelFacet <em>Model Facet</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getLabels <em>Labels</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getChildContainers <em>Child Containers</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getChildNodes <em>Child Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getChildContainersPlacement <em>Child Containers Placement</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getModelFacet <em>Model Facet</em>}</li>
  * </ul>
  * </p>
  *
@@ -55,30 +54,19 @@ public interface GenNode extends GenBaseElement{
 	GenDiagram getDiagram();
 
 	/**
-	 * Returns the value of the '<em><b>Domain Meta Class</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Domain Meta Class</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Domain Meta Class</em>' reference.
-	 * @see #setDomainMetaClass(GenClass)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_DomainMetaClass()
-	 * @model required="true"
+	 * <!-- begin-model-doc -->
+	 * Delegates to modelFacet
+	 * <!-- end-model-doc -->
+	 * @model kind="operation" required="true"
 	 * @generated
 	 */
 	GenClass getDomainMetaClass();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getDomainMetaClass <em>Domain Meta Class</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Domain Meta Class</em>' reference.
-	 * @see #getDomainMetaClass()
-	 * @generated
-	 */
-	void setDomainMetaClass(GenClass value);
 
 	/**
 	 * Returns the value of the '<em><b>Labels</b></em>' containment reference list.
@@ -174,7 +162,7 @@ public interface GenNode extends GenBaseElement{
 	 * @return the value of the '<em>Model Facet</em>' containment reference.
 	 * @see #setModelFacet(TypeModelFacet)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_ModelFacet()
-	 * @model containment="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	TypeModelFacet getModelFacet();

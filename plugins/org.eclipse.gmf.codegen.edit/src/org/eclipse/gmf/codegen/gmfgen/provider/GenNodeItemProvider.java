@@ -61,30 +61,9 @@ public class GenNodeItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDomainMetaClassPropertyDescriptor(object);
 			addChildContainersPlacementPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Domain Meta Class feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDomainMetaClassPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenNode_domainMetaClass_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenNode_domainMetaClass_feature", "_UI_GenNode_type"),
-				 GMFGenPackage.eINSTANCE.getGenNode_DomainMetaClass(),
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**
@@ -118,10 +97,10 @@ public class GenNodeItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenNode_ModelFacet());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenNode_Labels());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenNode_ChildContainers());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenNode_ChildNodes());
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenNode_ModelFacet());
 		}
 		return childrenFeatures;
 	}
@@ -175,10 +154,10 @@ public class GenNodeItemProvider
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
+			case GMFGenPackage.GEN_NODE__MODEL_FACET:
 			case GMFGenPackage.GEN_NODE__LABELS:
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
 			case GMFGenPackage.GEN_NODE__CHILD_NODES:
-			case GMFGenPackage.GEN_NODE__MODEL_FACET:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -197,6 +176,16 @@ public class GenNodeItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenNode_ModelFacet(),
+				 GMFGenFactory.eINSTANCE.createTypeModelFacet()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenNode_ModelFacet(),
+				 GMFGenFactory.eINSTANCE.createTypeLinkModelFacet()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenNode_Labels(),
 				 GMFGenFactory.eINSTANCE.createGenNodeLabel()));
 
@@ -209,16 +198,6 @@ public class GenNodeItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenNode_ChildNodes(),
 				 GMFGenFactory.eINSTANCE.createGenChildNode()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenNode_ModelFacet(),
-				 GMFGenFactory.eINSTANCE.createTypeModelFacet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenNode_ModelFacet(),
-				 GMFGenFactory.eINSTANCE.createTypeLinkModelFacet()));
 	}
 
 	/**

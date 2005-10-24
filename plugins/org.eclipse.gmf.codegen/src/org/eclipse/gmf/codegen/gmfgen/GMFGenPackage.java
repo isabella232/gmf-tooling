@@ -597,13 +597,13 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_NODE__DIAGRAM = GEN_BASE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Domain Meta Class</b></em>' reference.
+	 * The feature id for the '<em><b>Model Facet</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE__DOMAIN_META_CLASS = GEN_BASE_ELEMENT_FEATURE_COUNT + 1;
+	int GEN_NODE__MODEL_FACET = GEN_BASE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Labels</b></em>' containment reference list.
@@ -642,22 +642,13 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_NODE__CHILD_CONTAINERS_PLACEMENT = GEN_BASE_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Model Facet</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NODE__MODEL_FACET = GEN_BASE_ELEMENT_FEATURE_COUNT + 6;
-
-	/**
 	 * The number of structural features of the the '<em>Gen Node</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE_FEATURE_COUNT = GEN_BASE_ELEMENT_FEATURE_COUNT + 7;
+	int GEN_NODE_FEATURE_COUNT = GEN_BASE_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildNodeImpl <em>Gen Child Node</em>}' class.
@@ -869,13 +860,13 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_CHILD_NODE__DIAGRAM = GEN_NODE__DIAGRAM;
 
 	/**
-	 * The feature id for the '<em><b>Domain Meta Class</b></em>' reference.
+	 * The feature id for the '<em><b>Model Facet</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CHILD_NODE__DOMAIN_META_CLASS = GEN_NODE__DOMAIN_META_CLASS;
+	int GEN_CHILD_NODE__MODEL_FACET = GEN_NODE__MODEL_FACET;
 
 	/**
 	 * The feature id for the '<em><b>Labels</b></em>' containment reference list.
@@ -912,15 +903,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @ordered
 	 */
 	int GEN_CHILD_NODE__CHILD_CONTAINERS_PLACEMENT = GEN_NODE__CHILD_CONTAINERS_PLACEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Model Facet</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_NODE__MODEL_FACET = GEN_NODE__MODEL_FACET;
 
 	/**
 	 * The feature id for the '<em><b>Group ID</b></em>' attribute.
@@ -3135,17 +3117,6 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getGenNode_Diagram();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getDomainMetaClass <em>Domain Meta Class</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Domain Meta Class</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenNode#getDomainMetaClass()
-	 * @see #getGenNode()
-	 * @generated
-	 */
-	EReference getGenNode_DomainMetaClass();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getLabels <em>Labels</em>}'.

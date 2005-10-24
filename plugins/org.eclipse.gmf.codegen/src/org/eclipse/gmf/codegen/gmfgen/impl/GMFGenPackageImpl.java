@@ -774,15 +774,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenNode_DomainMetaClass() {
-		return (EReference)genNodeEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getGenNode_Labels() {
 		return (EReference)genNodeEClass.getEStructuralFeatures().get(2);
 	}
@@ -820,7 +811,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNode_ModelFacet() {
-		return (EReference)genNodeEClass.getEStructuralFeatures().get(6);
+		return (EReference)genNodeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1757,12 +1748,11 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		genNodeEClass = createEClass(GEN_NODE);
 		createEReference(genNodeEClass, GEN_NODE__DIAGRAM);
-		createEReference(genNodeEClass, GEN_NODE__DOMAIN_META_CLASS);
+		createEReference(genNodeEClass, GEN_NODE__MODEL_FACET);
 		createEReference(genNodeEClass, GEN_NODE__LABELS);
 		createEReference(genNodeEClass, GEN_NODE__CHILD_CONTAINERS);
 		createEReference(genNodeEClass, GEN_NODE__CHILD_NODES);
 		createEAttribute(genNodeEClass, GEN_NODE__CHILD_CONTAINERS_PLACEMENT);
-		createEReference(genNodeEClass, GEN_NODE__MODEL_FACET);
 
 		genChildContainerEClass = createEClass(GEN_CHILD_CONTAINER);
 		createEAttribute(genChildContainerEClass, GEN_CHILD_CONTAINER__GROUP_ID);
@@ -2038,12 +2028,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(genNodeEClass, GenNode.class, "GenNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenNode_Diagram(), this.getGenDiagram(), this.getGenDiagram_Nodes(), "diagram", null, 1, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenNode_DomainMetaClass(), theGenModelPackage.getGenClass(), null, "domainMetaClass", null, 1, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenNode_ModelFacet(), this.getTypeModelFacet(), null, "modelFacet", null, 1, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenNode_Labels(), this.getGenNodeLabel(), this.getGenNodeLabel_Node(), "labels", null, 0, -1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenNode_ChildContainers(), this.getGenChildContainer(), this.getGenChildContainer_ParentNode(), "childContainers", null, 0, -1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenNode_ChildNodes(), this.getGenChildNode(), this.getGenChildNode_ParentNode(), "childNodes", null, 0, -1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNode_ChildContainersPlacement(), this.getCompartmentPlacementKind(), "childContainersPlacement", "TOOLBAR", 0, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenNode_ModelFacet(), this.getTypeModelFacet(), null, "modelFacet", null, 0, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(genNodeEClass, theGenModelPackage.getGenClass(), "getDomainMetaClass");
 
 		initEClass(genChildContainerEClass, GenChildContainer.class, "GenChildContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenChildContainer_GroupID(), ecorePackage.getEString(), "groupID", null, 0, 1, GenChildContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2231,7 +2222,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints"
-		   });																																																							
+		   });																																																								
 	}
 
 	/**
@@ -2259,7 +2250,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "diagramRunTimeClass.eCoreClass.eAllSuperTypes->includes(diagramrt.DiagramNode)"
-		   });								
+		   });									
 		addAnnotation
 		  (getGenLinkWithClass_DomainMetaClass(), 
 		   source, 

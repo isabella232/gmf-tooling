@@ -38,6 +38,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.tests.Utils;
 
@@ -72,7 +73,7 @@ public class DiaGenSetup implements DiaGenSource {
 
 		myGenNode = GMFGenFactory.eINSTANCE.createGenNode();
 		myGenNode.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getNode()));
-		myGenNode.setDomainMetaClass(gmm.findGenClass(domainSource.getNode().getEClass()));
+		myGenNode.setModelFacet(createNodeModelFacet(gmm, domainSource.getNode()));
 		EAttribute editFeature = domainSource.getNode().getNameAttr();
 		if (editFeature != null) {
 			FeatureModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureModelFacet();
@@ -82,7 +83,6 @@ public class DiaGenSetup implements DiaGenSource {
 			label.setVisualID(401);
 			myGenNode.getLabels().add(label);
 		}
-		//myGenNode.setContainmentMetaFeature(gmm.findGenFeature(domainSource.getNode().getContainment()));
 		myGenNode.setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap());
 		myGenNode.setVisualID(100);
 
@@ -98,6 +98,13 @@ public class DiaGenSetup implements DiaGenSource {
 		myGenDiagram.getLinks().add(myGenLink);
 		confineInResource();
 		return this;
+	}
+
+	private TypeModelFacet createNodeModelFacet(GenModelMatcher gmm, DomainModelSource.NodeData node) {
+		TypeModelFacet mf = GMFGenFactory.eINSTANCE.createTypeModelFacet();
+		mf.setMetaClass(gmm.findGenClass(node.getEClass()));
+		mf.setContainmentMetaFeature(gmm.findGenFeature(node.getContainment()));
+		return null;
 	}
 
 	private GenModel getRuntimeGenModel() {

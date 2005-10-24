@@ -211,14 +211,14 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 					return basicSetModelElementInitializer(null, msgs);
 				case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM:
 					return eBasicSetContainer(null, GMFGenPackage.GEN_CHILD_NODE__DIAGRAM, msgs);
+				case GMFGenPackage.GEN_CHILD_NODE__MODEL_FACET:
+					return basicSetModelFacet(null, msgs);
 				case GMFGenPackage.GEN_CHILD_NODE__LABELS:
 					return ((InternalEList)getLabels()).basicRemove(otherEnd, msgs);
 				case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS:
 					return ((InternalEList)getChildContainers()).basicRemove(otherEnd, msgs);
 				case GMFGenPackage.GEN_CHILD_NODE__CHILD_NODES:
 					return ((InternalEList)getChildNodes()).basicRemove(otherEnd, msgs);
-				case GMFGenPackage.GEN_CHILD_NODE__MODEL_FACET:
-					return basicSetModelFacet(null, msgs);
 				case GMFGenPackage.GEN_CHILD_NODE__PARENT_NODE:
 					return eBasicSetContainer(null, GMFGenPackage.GEN_CHILD_NODE__PARENT_NODE, msgs);
 				default:
@@ -271,9 +271,8 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return getModelElementInitializer();
 			case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM:
 				return getDiagram();
-			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_META_CLASS:
-				if (resolve) return getDomainMetaClass();
-				return basicGetDomainMetaClass();
+			case GMFGenPackage.GEN_CHILD_NODE__MODEL_FACET:
+				return getModelFacet();
 			case GMFGenPackage.GEN_CHILD_NODE__LABELS:
 				return getLabels();
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS:
@@ -282,8 +281,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return getChildNodes();
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS_PLACEMENT:
 				return getChildContainersPlacement();
-			case GMFGenPackage.GEN_CHILD_NODE__MODEL_FACET:
-				return getModelFacet();
 			case GMFGenPackage.GEN_CHILD_NODE__GROUP_ID:
 				return getGroupID();
 			case GMFGenPackage.GEN_CHILD_NODE__PARENT_NODE:
@@ -323,8 +320,8 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 			case GMFGenPackage.GEN_CHILD_NODE__MODEL_ELEMENT_INITIALIZER:
 				setModelElementInitializer((GenElementInitializer)newValue);
 				return;
-			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_META_CLASS:
-				setDomainMetaClass((GenClass)newValue);
+			case GMFGenPackage.GEN_CHILD_NODE__MODEL_FACET:
+				setModelFacet((TypeModelFacet)newValue);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__LABELS:
 				getLabels().clear();
@@ -340,9 +337,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS_PLACEMENT:
 				setChildContainersPlacement((CompartmentPlacementKind)newValue);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__MODEL_FACET:
-				setModelFacet((TypeModelFacet)newValue);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__GROUP_ID:
 				setGroupID((String)newValue);
@@ -382,8 +376,8 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 			case GMFGenPackage.GEN_CHILD_NODE__MODEL_ELEMENT_INITIALIZER:
 				setModelElementInitializer((GenElementInitializer)null);
 				return;
-			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_META_CLASS:
-				setDomainMetaClass((GenClass)null);
+			case GMFGenPackage.GEN_CHILD_NODE__MODEL_FACET:
+				setModelFacet((TypeModelFacet)null);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__LABELS:
 				getLabels().clear();
@@ -396,9 +390,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS_PLACEMENT:
 				setChildContainersPlacement(CHILD_CONTAINERS_PLACEMENT_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__MODEL_FACET:
-				setModelFacet((TypeModelFacet)null);
 				return;
 			case GMFGenPackage.GEN_CHILD_NODE__GROUP_ID:
 				setGroupID(GROUP_ID_EDEFAULT);
@@ -433,8 +424,8 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return modelElementInitializer != null;
 			case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM:
 				return getDiagram() != null;
-			case GMFGenPackage.GEN_CHILD_NODE__DOMAIN_META_CLASS:
-				return domainMetaClass != null;
+			case GMFGenPackage.GEN_CHILD_NODE__MODEL_FACET:
+				return modelFacet != null;
 			case GMFGenPackage.GEN_CHILD_NODE__LABELS:
 				return labels != null && !labels.isEmpty();
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS:
@@ -443,8 +434,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return childNodes != null && !childNodes.isEmpty();
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS_PLACEMENT:
 				return childContainersPlacement != CHILD_CONTAINERS_PLACEMENT_EDEFAULT;
-			case GMFGenPackage.GEN_CHILD_NODE__MODEL_FACET:
-				return modelFacet != null;
 			case GMFGenPackage.GEN_CHILD_NODE__GROUP_ID:
 				return GROUP_ID_EDEFAULT == null ? groupID != null : !GROUP_ID_EDEFAULT.equals(groupID);
 			case GMFGenPackage.GEN_CHILD_NODE__PARENT_NODE:

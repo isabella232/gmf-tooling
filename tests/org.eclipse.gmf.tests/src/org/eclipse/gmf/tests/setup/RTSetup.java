@@ -12,7 +12,6 @@
 package org.eclipse.gmf.tests.setup;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.notation.Diagram;

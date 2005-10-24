@@ -38,12 +38,11 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getDiagram <em>Diagram</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getDomainMetaClass <em>Domain Meta Class</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getModelFacet <em>Model Facet</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getLabels <em>Labels</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getChildContainers <em>Child Containers</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getChildNodes <em>Child Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getChildContainersPlacement <em>Child Containers Placement</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getModelFacet <em>Model Facet</em>}</li>
  * </ul>
  * </p>
  *
@@ -51,14 +50,14 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  */
 public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 	/**
-	 * The cached value of the '{@link #getDomainMetaClass() <em>Domain Meta Class</em>}' reference.
+	 * The cached value of the '{@link #getModelFacet() <em>Model Facet</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDomainMetaClass()
+	 * @see #getModelFacet()
 	 * @generated
 	 * @ordered
 	 */
-	protected GenClass domainMetaClass = null;
+	protected TypeModelFacet modelFacet = null;
 
 	/**
 	 * The cached value of the '{@link #getLabels() <em>Labels</em>}' containment reference list.
@@ -111,16 +110,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 	protected CompartmentPlacementKind childContainersPlacement = CHILD_CONTAINERS_PLACEMENT_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getModelFacet() <em>Model Facet</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getModelFacet()
-	 * @generated
-	 * @ordered
-	 */
-	protected TypeModelFacet modelFacet = null;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -151,39 +140,10 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public GenClass getDomainMetaClass() {
-		if (domainMetaClass != null && domainMetaClass.eIsProxy()) {
-			GenClass oldDomainMetaClass = domainMetaClass;
-			domainMetaClass = (GenClass)eResolveProxy((InternalEObject)domainMetaClass);
-			if (domainMetaClass != oldDomainMetaClass) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS, oldDomainMetaClass, domainMetaClass));
-			}
-		}
-		return domainMetaClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenClass basicGetDomainMetaClass() {
-		return domainMetaClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDomainMetaClass(GenClass newDomainMetaClass) {
-		GenClass oldDomainMetaClass = domainMetaClass;
-		domainMetaClass = newDomainMetaClass;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS, oldDomainMetaClass, domainMetaClass));
+		return getModelFacet().getMetaClass();
 	}
 
 	/**
@@ -333,14 +293,14 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 					return basicSetModelElementInitializer(null, msgs);
 				case GMFGenPackage.GEN_NODE__DIAGRAM:
 					return eBasicSetContainer(null, GMFGenPackage.GEN_NODE__DIAGRAM, msgs);
+				case GMFGenPackage.GEN_NODE__MODEL_FACET:
+					return basicSetModelFacet(null, msgs);
 				case GMFGenPackage.GEN_NODE__LABELS:
 					return ((InternalEList)getLabels()).basicRemove(otherEnd, msgs);
 				case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
 					return ((InternalEList)getChildContainers()).basicRemove(otherEnd, msgs);
 				case GMFGenPackage.GEN_NODE__CHILD_NODES:
 					return ((InternalEList)getChildNodes()).basicRemove(otherEnd, msgs);
-				case GMFGenPackage.GEN_NODE__MODEL_FACET:
-					return basicSetModelFacet(null, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
@@ -389,9 +349,8 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return getModelElementInitializer();
 			case GMFGenPackage.GEN_NODE__DIAGRAM:
 				return getDiagram();
-			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
-				if (resolve) return getDomainMetaClass();
-				return basicGetDomainMetaClass();
+			case GMFGenPackage.GEN_NODE__MODEL_FACET:
+				return getModelFacet();
 			case GMFGenPackage.GEN_NODE__LABELS:
 				return getLabels();
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
@@ -400,8 +359,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return getChildNodes();
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
 				return getChildContainersPlacement();
-			case GMFGenPackage.GEN_NODE__MODEL_FACET:
-				return getModelFacet();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -434,8 +391,8 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__MODEL_ELEMENT_INITIALIZER:
 				setModelElementInitializer((GenElementInitializer)newValue);
 				return;
-			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
-				setDomainMetaClass((GenClass)newValue);
+			case GMFGenPackage.GEN_NODE__MODEL_FACET:
+				setModelFacet((TypeModelFacet)newValue);
 				return;
 			case GMFGenPackage.GEN_NODE__LABELS:
 				getLabels().clear();
@@ -451,9 +408,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return;
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
 				setChildContainersPlacement((CompartmentPlacementKind)newValue);
-				return;
-			case GMFGenPackage.GEN_NODE__MODEL_FACET:
-				setModelFacet((TypeModelFacet)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -487,8 +441,8 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__MODEL_ELEMENT_INITIALIZER:
 				setModelElementInitializer((GenElementInitializer)null);
 				return;
-			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
-				setDomainMetaClass((GenClass)null);
+			case GMFGenPackage.GEN_NODE__MODEL_FACET:
+				setModelFacet((TypeModelFacet)null);
 				return;
 			case GMFGenPackage.GEN_NODE__LABELS:
 				getLabels().clear();
@@ -501,9 +455,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return;
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
 				setChildContainersPlacement(CHILD_CONTAINERS_PLACEMENT_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_NODE__MODEL_FACET:
-				setModelFacet((TypeModelFacet)null);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -532,8 +483,8 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return modelElementInitializer != null;
 			case GMFGenPackage.GEN_NODE__DIAGRAM:
 				return getDiagram() != null;
-			case GMFGenPackage.GEN_NODE__DOMAIN_META_CLASS:
-				return domainMetaClass != null;
+			case GMFGenPackage.GEN_NODE__MODEL_FACET:
+				return modelFacet != null;
 			case GMFGenPackage.GEN_NODE__LABELS:
 				return labels != null && !labels.isEmpty();
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
@@ -542,8 +493,6 @@ public class GenNodeImpl extends GenBaseElementImpl implements GenNode {
 				return childNodes != null && !childNodes.isEmpty();
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
 				return childContainersPlacement != CHILD_CONTAINERS_PLACEMENT_EDEFAULT;
-			case GMFGenPackage.GEN_NODE__MODEL_FACET:
-				return modelFacet != null;
 		}
 		return eDynamicIsSet(eFeature);
 	}
