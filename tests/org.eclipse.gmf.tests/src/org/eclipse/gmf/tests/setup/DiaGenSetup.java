@@ -33,11 +33,11 @@ import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.tests.Utils;
@@ -50,7 +50,7 @@ import org.eclipse.gmf.tests.Utils;
 public class DiaGenSetup implements DiaGenSource {
 	private GenDiagram myGenDiagram;
 	private GenNode myGenNode;
-	private GenLinkWithClass myGenLink;
+	private GenLink myGenLink;
 
 	public DiaGenSetup() {
 	}
@@ -86,11 +86,14 @@ public class DiaGenSetup implements DiaGenSource {
 		myGenNode.setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap());
 		myGenNode.setVisualID(100);
 
-		myGenLink = GMFGenFactory.eINSTANCE.createGenLinkWithClass();
+		myGenLink = GMFGenFactory.eINSTANCE.createGenLink();
 		myGenLink.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getEdge()));
-		myGenLink.setDomainMetaClass(gmm.findGenClass(domainSource.getLinkAsClass().getEClass()));
-		myGenLink.setDomainLinkTargetFeature(gmm.findGenFeature(domainSource.getLinkAsClass().getTargetFeature()));
-		//myGenLink.setContainmentMetaFeature(gmm.findGenFeature(domainSource.getLinkAsClass().getContainment()));
+		TypeLinkModelFacet mf = GMFGenFactory.eINSTANCE.createTypeLinkModelFacet();
+		mf.setMetaClass(gmm.findGenClass(domainSource.getLinkAsClass().getEClass()));
+		mf.setContainmentMetaFeature(gmm.findGenFeature(domainSource.getLinkAsClass().getContainment()));
+		mf.setTargetMetaFeature(gmm.findGenFeature(domainSource.getLinkAsClass().getTargetFeature()));
+		mf.setSourceMetaFeature(gmm.findGenFeature(domainSource.getLinkAsClass().getContainment()));
+		myGenLink.setModelFacet(mf);
 		myGenLink.setViewmap(GMFGenFactory.eINSTANCE.createDecoratedConnectionViewmap());
 		myGenLink.setVisualID(200);
 		// TODO add linkRefOnly
@@ -134,8 +137,8 @@ public class DiaGenSetup implements DiaGenSource {
 		}
 		for (Iterator it = myGenDiagram.getLinks().iterator(); it.hasNext();) {
 			GenLink l = (GenLink) it.next();
-			if (l.getEditPartClassName().equals(linkEPName) && l instanceof GenLinkWithClass) {
-				myGenLink = (GenLinkWithClass) l;
+			if (l.getEditPartClassName().equals(linkEPName)) {
+				myGenLink = l;
 				break;
 			}
 		}
@@ -161,7 +164,7 @@ public class DiaGenSetup implements DiaGenSource {
 		return myGenNode;
 	}
 
-	public final GenLinkWithClass getGenLink() {
+	public final GenLink getGenLink() {
 		return myGenLink;
 	}
 

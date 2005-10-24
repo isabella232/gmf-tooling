@@ -125,15 +125,13 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	List nodeCreationTools = toolGroup.getNodeTools();
 	for (int j = 0; j < nodeCreationTools.size(); j++) {
 		NodeEntry nodeCreationTool = (NodeEntry) nodeCreationTools.get(j);
+		GenNode genNode = nodeCreationTool.getGenNode(); 
 %>
 
 	/**
 	 * @generated
 	 */
 	private void create<%=AccessUtil.getPaletteEntryId(nodeCreationTool)%>CreationTool(PaletteContainer paletteContainer) {
-<%
-		GenNode genNode = nodeCreationTool.getGenNode(); 
-%>
 		ImageDescriptor image = ElementTypes.getImageDescriptor(ElementTypes.<%=genNode.getUniqueIdentifier()%>);
 		paletteContainer.add(new ToolEntry("<%=nodeCreationTool.getTitleKey()%>",
 			"<%=nodeCreationTool.getDescriptionKey()%>", image, image) {
@@ -145,48 +143,31 @@ for (int i = 0; i < toolGroups.size(); i++) {
 			}
 		});
 	}
-<%	}
+<%
+	}
 	List linkCreationTools = toolGroup.getLinkTools();
 	for (int j = 0; j < linkCreationTools.size(); j++) {
 		LinkEntry linkCreationTool = (LinkEntry) linkCreationTools.get(j);
+		GenLink genLink = linkCreationTool.getGenLink();
 %>
 
 	/**
 	 * @generated
 	 */
 	private void create<%=AccessUtil.getPaletteEntryId(linkCreationTool)%>CreationTool(PaletteContainer paletteContainer) {
-<%
-		GenLink genLink = linkCreationTool.getGenLink();
-		if (genLink instanceof GenLinkWithClass) {
-			GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
-%>
-		ImageDescriptor image = ElementTypes.getImageDescriptor(ElementTypes.<%=genLinkWithClass.getUniqueIdentifier()%>);
+		ImageDescriptor image = ElementTypes.getImageDescriptor(ElementTypes.<%=genLink.getUniqueIdentifier()%>);
 		paletteContainer.add(new ToolEntry("<%=linkCreationTool.getTitleKey()%>",
 			"<%=linkCreationTool.getDescriptionKey()%>", image, image) {
 
 			public Tool createTool() {
-				Tool tool = new ConnectorCreationTool(ElementTypes.<%=genLinkWithClass.getUniqueIdentifier()%>);
+				Tool tool = new ConnectorCreationTool(ElementTypes.<%=genLink.getUniqueIdentifier()%>);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
 		});
-<%
-		} else if (genLink instanceof GenLinkReferenceOnly) {
-			GenLinkReferenceOnly genLinkWithRef = (GenLinkReferenceOnly) genLink;
-%>
-		ImageDescriptor image = ElementTypes.getImageDescriptor(ElementTypes.<%=genLinkWithRef.getUniqueIdentifier()%>);
-		paletteContainer.add(new ToolEntry("<%=linkCreationTool.getTitleKey()%>",
-			"<%=linkCreationTool.getDescriptionKey()%>", image, image) {
-
-			public Tool createTool() {
-				Tool tool = new ConnectorCreationTool(ElementTypes.<%=genLinkWithRef.getUniqueIdentifier()%>);
-				tool.setProperties(getToolProperties());
-				return tool;
-			}
-		});
-<%		}%>
 	}
-<%	}
+<%
+	}
 }
 %>
 

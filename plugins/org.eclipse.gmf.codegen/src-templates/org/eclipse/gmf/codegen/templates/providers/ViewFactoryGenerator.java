@@ -115,7 +115,7 @@ if (genElement instanceof GenNode) {
     stringBuffer.append(labelViewId);
     stringBuffer.append(TEXT_19);
     	}
-	if (genLink instanceof GenLinkReferenceOnly) {
+	if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 
     stringBuffer.append(TEXT_20);
     stringBuffer.append(AccessUtil.getSemanticHintsClassName(genLink));

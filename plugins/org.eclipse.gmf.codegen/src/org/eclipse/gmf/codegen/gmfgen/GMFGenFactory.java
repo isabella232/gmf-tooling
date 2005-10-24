@@ -53,6 +53,15 @@ public interface GMFGenFactory extends EFactory{
 	GenChildNode createGenChildNode();
 
 	/**
+	 * Returns a new object of class '<em>Gen Link</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Link</em>'.
+	 * @generated
+	 */
+	GenLink createGenLink();
+
+	/**
 	 * Returns a new object of class '<em>Gen Child Container</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -60,24 +69,6 @@ public interface GMFGenFactory extends EFactory{
 	 * @generated
 	 */
 	GenChildContainer createGenChildContainer();
-
-	/**
-	 * Returns a new object of class '<em>Gen Link With Class</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Gen Link With Class</em>'.
-	 * @generated
-	 */
-	GenLinkWithClass createGenLinkWithClass();
-
-	/**
-	 * Returns a new object of class '<em>Gen Link Reference Only</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Gen Link Reference Only</em>'.
-	 * @generated
-	 */
-	GenLinkReferenceOnly createGenLinkReferenceOnly();
 
 	/**
 	 * Returns a new object of class '<em>Gen Node Label</em>'.

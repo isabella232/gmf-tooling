@@ -24,13 +24,13 @@ import org.eclipse.gmf.codegen.templates.editor.DiagramEditorUtilGenerator;
 import org.eclipse.gmf.codegen.templates.editor.DiagramFileCreatorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.DocumentProviderGenerator;
 import org.eclipse.gmf.codegen.templates.editor.EditorGenerator;
-import org.eclipse.gmf.codegen.templates.editor.InitDiagramFileActionGen;
+import org.eclipse.gmf.codegen.templates.editor.InitDiagramFileActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.MatchingStrategyGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PaletteFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginXML;
 import org.eclipse.gmf.codegen.templates.editor.PreferencesInitializerGenerator;
-import org.eclipse.gmf.codegen.templates.editor.VisualIDRegistry;
+import org.eclipse.gmf.codegen.templates.editor.VisualIDRegistryGenerator;
 import org.eclipse.gmf.codegen.templates.parts.ChildNodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.DiagramEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.EditPartFactoryGenerator;
@@ -151,7 +151,7 @@ public class EmitterFactory {
 	// editor
 
 	public static JETEmitter getInitDiagramFileActionEmitter() throws JETException {
-		return initializeEmitter("/templates/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGen.class);
+		return initializeEmitter("/templates/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGenerator.class);
 	}
 
 	public static JETEmitter getPaletteEmitter() throws JETException {
@@ -167,7 +167,7 @@ public class EmitterFactory {
 	}
 	
 	public static JETEmitter getVisualIDRegistryEmitter() throws JETException {
-		return initializeEmitter("/templates/editor/VisualIDRegistry.javajet", VisualIDRegistry.class);
+		return initializeEmitter("/templates/editor/VisualIDRegistry.javajet", VisualIDRegistryGenerator.class);
 	}
 
 	public static JETEmitter getCreationWizardEmitter() throws JETException {

@@ -3,16 +3,15 @@ package org.eclipse.gmf.codegen.templates.editor;
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.emf.codegen.ecore.genmodel.*;
 import java.util.*;
-import org.eclipse.gmf.codegen.util.ImportUtil;
-import org.eclipse.gmf.codegen.util.PartSelectorUtil;
+import org.eclipse.gmf.codegen.util.*;
 
-public class VisualIDRegistry
+public class VisualIDRegistryGenerator
 {
   protected static String nl;
-  public static synchronized VisualIDRegistry create(String lineSeparator)
+  public static synchronized VisualIDRegistryGenerator create(String lineSeparator)
   {
     nl = lineSeparator;
-    VisualIDRegistry result = new VisualIDRegistry();
+    VisualIDRegistryGenerator result = new VisualIDRegistryGenerator();
     nl = null;
     return result;
   }
@@ -145,17 +144,17 @@ for (int i = 0; i < genNodes.size(); i++) {
 List genLinks = genDiagram.getLinks();
 for (int i = 0; i < genLinks.size(); i++) {
 	GenLink genLink = (GenLink) genLinks.get(i);
-	if (genLink instanceof GenLinkWithClass) {
-		GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
-		String semanticLinkInterfaceName = genLinkWithClass.getDomainMetaClass().getClassifierAccessorName();
-		String qualifiedInterfaceName = genLinkWithClass.getDomainMetaClass().getQualifiedInterfaceName();
+	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+		String semanticLinkInterfaceName = modelFacet.getMetaClass().getClassifierAccessorName();
+		String qualifiedInterfaceName = modelFacet.getMetaClass().getQualifiedInterfaceName();
 
     stringBuffer.append(TEXT_25);
     stringBuffer.append(semanticPackageInterfaceName);
     stringBuffer.append(TEXT_26);
     stringBuffer.append(semanticLinkInterfaceName);
     stringBuffer.append(TEXT_27);
-    stringBuffer.append(genLinkWithClass.getUniqueIdentifier());
+    stringBuffer.append(genLink.getUniqueIdentifier());
     stringBuffer.append(TEXT_28);
     stringBuffer.append(importManager.getImportedName(qualifiedInterfaceName));
     stringBuffer.append(TEXT_29);
@@ -202,12 +201,12 @@ for (int i = 0; i < genNodes.size(); i++) {
     
 for (int i = 0; i < genLinks.size(); i++) {
 	GenLink genLink = (GenLink) genLinks.get(i);
-	if (genLink instanceof GenLinkWithClass) {
-		GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
-		String qualifiedInterfaceName = genLinkWithClass.getDomainMetaClass().getQualifiedInterfaceName();
+	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+		String qualifiedInterfaceName = modelFacet.getMetaClass().getQualifiedInterfaceName();
 
     stringBuffer.append(TEXT_43);
-    stringBuffer.append(genLinkWithClass.getUniqueIdentifier());
+    stringBuffer.append(genLink.getUniqueIdentifier());
     stringBuffer.append(TEXT_44);
     stringBuffer.append(importManager.getImportedName(qualifiedInterfaceName));
     stringBuffer.append(TEXT_45);

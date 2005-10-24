@@ -19,12 +19,15 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
@@ -35,23 +38,23 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getDiagram <em>Diagram</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getDomainLinkTargetFeature <em>Domain Link Target Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getModelFacet <em>Model Facet</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getLabels <em>Labels</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink {
+public class GenLinkImpl extends GenBaseElementImpl implements GenLink {
 	/**
-	 * The cached value of the '{@link #getDomainLinkTargetFeature() <em>Domain Link Target Feature</em>}' reference.
+	 * The cached value of the '{@link #getModelFacet() <em>Model Facet</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDomainLinkTargetFeature()
+	 * @see #getModelFacet()
 	 * @generated
 	 * @ordered
 	 */
-	protected GenFeature domainLinkTargetFeature = null;
+	protected LinkModelFacet modelFacet = null;
 
 	/**
 	 * The cached value of the '{@link #getLabels() <em>Labels</em>}' containment reference list.
@@ -96,16 +99,23 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenFeature getDomainLinkTargetFeature() {
-		if (domainLinkTargetFeature != null && domainLinkTargetFeature.eIsProxy()) {
-			GenFeature oldDomainLinkTargetFeature = domainLinkTargetFeature;
-			domainLinkTargetFeature = (GenFeature)eResolveProxy((InternalEObject)domainLinkTargetFeature);
-			if (domainLinkTargetFeature != oldDomainLinkTargetFeature) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE, oldDomainLinkTargetFeature, domainLinkTargetFeature));
-			}
+	public LinkModelFacet getModelFacet() {
+		return modelFacet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetModelFacet(LinkModelFacet newModelFacet, NotificationChain msgs) {
+		LinkModelFacet oldModelFacet = modelFacet;
+		modelFacet = newModelFacet;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__MODEL_FACET, oldModelFacet, newModelFacet);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
-		return domainLinkTargetFeature;
+		return msgs;
 	}
 
 	/**
@@ -113,20 +123,18 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenFeature basicGetDomainLinkTargetFeature() {
-		return domainLinkTargetFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDomainLinkTargetFeature(GenFeature newDomainLinkTargetFeature) {
-		GenFeature oldDomainLinkTargetFeature = domainLinkTargetFeature;
-		domainLinkTargetFeature = newDomainLinkTargetFeature;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE, oldDomainLinkTargetFeature, domainLinkTargetFeature));
+	public void setModelFacet(LinkModelFacet newModelFacet) {
+		if (newModelFacet != modelFacet) {
+			NotificationChain msgs = null;
+			if (modelFacet != null)
+				msgs = ((InternalEObject)modelFacet).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_LINK__MODEL_FACET, null, msgs);
+			if (newModelFacet != null)
+				msgs = ((InternalEObject)newModelFacet).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_LINK__MODEL_FACET, null, msgs);
+			msgs = basicSetModelFacet(newModelFacet, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__MODEL_FACET, newModelFacet, newModelFacet));
 	}
 
 	/**
@@ -184,6 +192,8 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 					return basicSetModelElementInitializer(null, msgs);
 				case GMFGenPackage.GEN_LINK__DIAGRAM:
 					return eBasicSetContainer(null, GMFGenPackage.GEN_LINK__DIAGRAM, msgs);
+				case GMFGenPackage.GEN_LINK__MODEL_FACET:
+					return basicSetModelFacet(null, msgs);
 				case GMFGenPackage.GEN_LINK__LABELS:
 					return ((InternalEList)getLabels()).basicRemove(otherEnd, msgs);
 				default:
@@ -234,9 +244,8 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				return getModelElementInitializer();
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
 				return getDiagram();
-			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
-				if (resolve) return getDomainLinkTargetFeature();
-				return basicGetDomainLinkTargetFeature();
+			case GMFGenPackage.GEN_LINK__MODEL_FACET:
+				return getModelFacet();
 			case GMFGenPackage.GEN_LINK__LABELS:
 				return getLabels();
 		}
@@ -271,8 +280,8 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_INITIALIZER:
 				setModelElementInitializer((GenElementInitializer)newValue);
 				return;
-			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
-				setDomainLinkTargetFeature((GenFeature)newValue);
+			case GMFGenPackage.GEN_LINK__MODEL_FACET:
+				setModelFacet((LinkModelFacet)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__LABELS:
 				getLabels().clear();
@@ -310,8 +319,8 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_INITIALIZER:
 				setModelElementInitializer((GenElementInitializer)null);
 				return;
-			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
-				setDomainLinkTargetFeature((GenFeature)null);
+			case GMFGenPackage.GEN_LINK__MODEL_FACET:
+				setModelFacet((LinkModelFacet)null);
 				return;
 			case GMFGenPackage.GEN_LINK__LABELS:
 				getLabels().clear();
@@ -343,12 +352,32 @@ public abstract class GenLinkImpl extends GenBaseElementImpl implements GenLink 
 				return modelElementInitializer != null;
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
 				return getDiagram() != null;
-			case GMFGenPackage.GEN_LINK__DOMAIN_LINK_TARGET_FEATURE:
-				return domainLinkTargetFeature != null;
+			case GMFGenPackage.GEN_LINK__MODEL_FACET:
+				return modelFacet != null;
 			case GMFGenPackage.GEN_LINK__LABELS:
 				return labels != null && !labels.isEmpty();
 		}
 		return eDynamicIsSet(eFeature);
+	}
+
+	public String getClassNamePrefix() {
+		LinkModelFacet aModelFacet = getModelFacet();
+		if (aModelFacet instanceof FeatureModelFacet) {
+			GenFeature metaFeature = ((FeatureModelFacet) aModelFacet).getMetaFeature();
+			return metaFeature.getGenClass().getName() + metaFeature.getCapName();
+		} else if (aModelFacet instanceof TypeLinkModelFacet) {
+			GenClass metaClass = ((TypeLinkModelFacet) aModelFacet).getMetaClass();
+			return metaClass.getName();
+		}
+		return "Link$" + hashCode();
+	}
+
+	public String getClassNameSuffux() {
+		return "Link";
+	}
+
+	public String getUniqueIdentifier() {
+		return getClassNamePrefix() + "_" + getVisualID();
 	}
 
 } //GenLinkImpl

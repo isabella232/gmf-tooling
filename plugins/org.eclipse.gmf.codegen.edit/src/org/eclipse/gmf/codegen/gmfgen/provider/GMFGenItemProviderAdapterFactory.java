@@ -140,6 +140,28 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenLink} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenLinkItemProvider genLinkItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenLink}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenLinkAdapter() {
+		if (genLinkItemProvider == null) {
+			genLinkItemProvider = new GenLinkItemProvider(this);
+		}
+
+		return genLinkItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -159,50 +181,6 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		}
 
 		return genChildContainerItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected GenLinkWithClassItemProvider genLinkWithClassItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Adapter createGenLinkWithClassAdapter() {
-		if (genLinkWithClassItemProvider == null) {
-			genLinkWithClassItemProvider = new GenLinkWithClassItemProvider(this);
-		}
-
-		return genLinkWithClassItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenLinkReferenceOnly} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected GenLinkReferenceOnlyItemProvider genLinkReferenceOnlyItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenLinkReferenceOnly}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Adapter createGenLinkReferenceOnlyAdapter() {
-		if (genLinkReferenceOnlyItemProvider == null) {
-			genLinkReferenceOnlyItemProvider = new GenLinkReferenceOnlyItemProvider(this);
-		}
-
-		return genLinkReferenceOnlyItemProvider;
 	}
 
 	/**
@@ -723,8 +701,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genNodeItemProvider != null) genNodeItemProvider.dispose();
 		if (genChildContainerItemProvider != null) genChildContainerItemProvider.dispose();
 		if (genChildNodeItemProvider != null) genChildNodeItemProvider.dispose();
-		if (genLinkWithClassItemProvider != null) genLinkWithClassItemProvider.dispose();
-		if (genLinkReferenceOnlyItemProvider != null) genLinkReferenceOnlyItemProvider.dispose();
+		if (genLinkItemProvider != null) genLinkItemProvider.dispose();
 		if (genNodeLabelItemProvider != null) genNodeLabelItemProvider.dispose();
 		if (genLinkLabelItemProvider != null) genLinkLabelItemProvider.dispose();
 		if (typeModelFacetItemProvider != null) typeModelFacetItemProvider.dispose();

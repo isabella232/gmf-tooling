@@ -35,8 +35,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkReferenceOnly;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.LinkDecoration;
@@ -47,6 +45,7 @@ import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ShapeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.diadef.AdornmentKind;
 import org.eclipse.gmf.diadef.Compartment;
@@ -231,18 +230,20 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 	protected void process(LinkMapping lme) {
 		assert lme.getDiagramLink() != null;
 		assert lme.getLinkMetaFeature() != null;
-		GenLink gl;
+		GenLink gl = GMFGenFactory.eINSTANCE.createGenLink();
+		getGenDiagram().getLinks().add(gl);
 		if (lme.getDomainMetaElement() != null) {
-			GenLinkWithClass genLink = GMFGenFactory.eINSTANCE.createGenLinkWithClass();
-			getGenDiagram().getLinks().add(genLink);
-			genLink.setDomainMetaClass(findGenClass(lme.getDomainMetaElement()));
-			genLink.setDomainLinkTargetFeature(findGenFeature(lme.getLinkMetaFeature()));
-			gl = genLink;
+			TypeLinkModelFacet mf = GMFGenFactory.eINSTANCE.createTypeLinkModelFacet();
+			mf.setMetaClass(findGenClass(lme.getDomainMetaElement()));
+			mf.setContainmentMetaFeature(findGenFeature(lme.getContainmentFeature()));
+			// TODO : source may be arbitrary feature
+			mf.setSourceMetaFeature(findGenFeature(lme.getContainmentFeature()));
+			mf.setTargetMetaFeature(findGenFeature(lme.getLinkMetaFeature()));
+			gl.setModelFacet(mf);
 		} else {
-			GenLinkReferenceOnly genLink = GMFGenFactory.eINSTANCE.createGenLinkReferenceOnly();
-			getGenDiagram().getLinks().add(genLink);
-			genLink.setDomainLinkTargetFeature(findGenFeature(lme.getLinkMetaFeature()));
-			gl = genLink;
+			FeatureModelFacet mf = GMFGenFactory.eINSTANCE.createFeatureModelFacet();
+			mf.setMetaFeature(findGenFeature(lme.getLinkMetaFeature()));
+			gl.setModelFacet(mf);
 		}
 		if (lme.getDiagramLink().isNeedsTool()) {
 			LinkEntry le = GMFGenFactory.eINSTANCE.createLinkEntry();

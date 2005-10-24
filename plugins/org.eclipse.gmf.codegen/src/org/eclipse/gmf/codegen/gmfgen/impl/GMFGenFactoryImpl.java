@@ -22,8 +22,6 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkReferenceOnly;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkDecoration;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
@@ -60,8 +58,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_NODE: return createGenNode();
 			case GMFGenPackage.GEN_CHILD_CONTAINER: return createGenChildContainer();
 			case GMFGenPackage.GEN_CHILD_NODE: return createGenChildNode();
-			case GMFGenPackage.GEN_LINK_WITH_CLASS: return createGenLinkWithClass();
-			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY: return createGenLinkReferenceOnly();
+			case GMFGenPackage.GEN_LINK: return createGenLink();
 			case GMFGenPackage.GEN_NODE_LABEL: return createGenNodeLabel();
 			case GMFGenPackage.GEN_LINK_LABEL: return createGenLinkLabel();
 			case GMFGenPackage.TYPE_MODEL_FACET: return createTypeModelFacet();
@@ -170,29 +167,19 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GenLink createGenLink() {
+		GenLinkImpl genLink = new GenLinkImpl();
+		return genLink;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GenChildContainer createGenChildContainer() {
 		GenChildContainerImpl genChildContainer = new GenChildContainerImpl();
 		return genChildContainer;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenLinkWithClass createGenLinkWithClass() {
-		GenLinkWithClassImpl genLinkWithClass = new GenLinkWithClassImpl();
-		return genLinkWithClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenLinkReferenceOnly createGenLinkReferenceOnly() {
-		GenLinkReferenceOnlyImpl genLinkReferenceOnly = new GenLinkReferenceOnlyImpl();
-		return genLinkReferenceOnly;
 	}
 
 	/**

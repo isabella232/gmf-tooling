@@ -29,7 +29,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  * @model
  * @generated
  */
-public interface TypeLinkModelFacet extends TypeModelFacet {
+public interface TypeLinkModelFacet extends TypeModelFacet, LinkModelFacet {
 	/**
 	 * Returns the value of the '<em><b>Source Meta Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -68,6 +68,7 @@ public interface TypeLinkModelFacet extends TypeModelFacet {
 	 * @see #setTargetMetaFeature(GenFeature)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeLinkModelFacet_TargetMetaFeature()
 	 * @model required="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='targetMetaFeature.eContainingClass \'equals to\' or \'superclass of\' super.metaClass'"
 	 * @generated
 	 */
 	GenFeature getTargetMetaFeature();

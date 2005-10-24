@@ -81,7 +81,7 @@ if (genElement instanceof GenNode) {
 		getViewService().createNode(semanticAdapter, view, <%=labelViewId%>,
 			ViewUtil.APPEND, persisted, getPreferencesHint());
 <%	}
-	if (genLink instanceof GenLinkReferenceOnly) {
+	if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 %>
 		view.setType(<%=AccessUtil.getSemanticHintsClassName(genLink)%>.VIEW_TYPE);
 <%

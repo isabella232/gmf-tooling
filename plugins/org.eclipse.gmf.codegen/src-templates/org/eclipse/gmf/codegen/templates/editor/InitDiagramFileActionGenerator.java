@@ -5,13 +5,13 @@ import org.eclipse.emf.codegen.ecore.genmodel.*;
 import java.util.*;
 import org.eclipse.gmf.codegen.util.ImportUtil;
 
-public class InitDiagramFileActionGen
+public class InitDiagramFileActionGenerator
 {
   protected static String nl;
-  public static synchronized InitDiagramFileActionGen create(String lineSeparator)
+  public static synchronized InitDiagramFileActionGenerator create(String lineSeparator)
   {
     nl = lineSeparator;
-    InitDiagramFileActionGen result = new InitDiagramFileActionGen();
+    InitDiagramFileActionGenerator result = new InitDiagramFileActionGenerator();
     nl = null;
     return result;
   }
@@ -180,8 +180,8 @@ for (Iterator genNodesIt = genNodes.iterator(); genNodesIt.hasNext();) {
     
 for (Iterator it = genLinks.iterator(); it.hasNext();) {
 	GenLink nextLink = (GenLink) it.next();
-	if (nextLink instanceof GenLinkReferenceOnly) {
-		GenFeature genFeature = nextLink.getDomainLinkTargetFeature();
+	if (nextLink.getModelFacet() instanceof FeatureModelFacet) {
+		GenFeature genFeature = ((FeatureModelFacet) nextLink.getModelFacet()).getMetaFeature();
 
     stringBuffer.append(TEXT_37);
     stringBuffer.append(importManager.getImportedName(genFeature.getGenPackage().getQualifiedPackageInterfaceName()));
@@ -198,17 +198,19 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
     
 for (Iterator it = genLinks.iterator(); it.hasNext();) {
 	GenLink nextLink = (GenLink) it.next();
-	GenFeature domainLinkTargetGenFeature = nextLink.getDomainLinkTargetFeature();
+	GenFeature domainLinkTargetGenFeature;
 
     stringBuffer.append(TEXT_42);
     stringBuffer.append(nextLink.getVisualID());
     stringBuffer.append(TEXT_43);
     	
-	if (nextLink instanceof GenLinkWithClass) {
+	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		domainLinkTargetGenFeature = ((TypeLinkModelFacet) nextLink.getModelFacet()).getTargetMetaFeature();
 
     stringBuffer.append(TEXT_44);
     
 	} else {
+		domainLinkTargetGenFeature = ((FeatureModelFacet) nextLink.getModelFacet()).getMetaFeature();
 
     stringBuffer.append(TEXT_45);
     	
@@ -220,7 +222,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
     stringBuffer.append(domainLinkTargetGenFeature.getFeatureAccessorName());
     stringBuffer.append(TEXT_48);
     
-	if (nextLink instanceof GenLinkWithClass) {
+	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
 
     stringBuffer.append(TEXT_49);
     
@@ -232,7 +234,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 
     stringBuffer.append(TEXT_51);
     
-	if (nextLink instanceof GenLinkWithClass) {
+	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
 
     stringBuffer.append(TEXT_52);
     stringBuffer.append(importManager.getImportedName(genDiagram.getPluginQualifiedClassName()));

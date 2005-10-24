@@ -277,11 +277,7 @@ public class GenNodeLabelImpl extends GenLabelImpl implements GenNodeLabel {
 	}
 
 	protected String getHostName() {
-		GenClass metaClass = getNode().getDomainMetaClass();
-		if (metaClass != null) {
-			return metaClass.getInterfaceName();
-		}
-		return "Node$" + hashCode();
+		return getNode().getClassNamePrefix();
 	}
 
 } //GenNodeLabelImpl

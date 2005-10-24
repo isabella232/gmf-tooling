@@ -25,8 +25,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkReferenceOnly;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkDecoration;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
@@ -113,12 +111,6 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGenLink(GenLink object) {
 				return createGenLinkAdapter();
 			}
-			public Object caseGenLinkWithClass(GenLinkWithClass object) {
-				return createGenLinkWithClassAdapter();
-			}
-			public Object caseGenLinkReferenceOnly(GenLinkReferenceOnly object) {
-				return createGenLinkReferenceOnlyAdapter();
-			}
 			public Object caseGenLabel(GenLabel object) {
 				return createGenLabelAdapter();
 			}
@@ -130,6 +122,9 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseModelFacet(ModelFacet object) {
 				return createModelFacetAdapter();
+			}
+			public Object caseLinkModelFacet(LinkModelFacet object) {
+				return createLinkModelFacetAdapter();
 			}
 			public Object caseTypeModelFacet(TypeModelFacet object) {
 				return createTypeModelFacetAdapter();
@@ -317,34 +312,6 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass <em>Gen Link With Class</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass
-	 * @generated
-	 */
-	public Adapter createGenLinkWithClassAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkReferenceOnly <em>Gen Link Reference Only</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenLinkReferenceOnly
-	 * @generated
-	 */
-	public Adapter createGenLinkReferenceOnlyAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenLabel <em>Gen Label</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -397,6 +364,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createModelFacetAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.LinkModelFacet <em>Link Model Facet</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LinkModelFacet
+	 * @generated
+	 */
+	public Adapter createLinkModelFacetAdapter() {
 		return null;
 	}
 

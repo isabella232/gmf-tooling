@@ -54,9 +54,12 @@ public class SemanticHintsGenerator
     stringBuffer.append(TEXT_3);
     stringBuffer.append(AccessUtil.getSemanticHintsClassName(genElement));
     stringBuffer.append(TEXT_4);
-    if (genElement instanceof GenLinkReferenceOnly) {
+    
+if (genElement instanceof GenLink && ((GenLink) genElement).getModelFacet() instanceof FeatureModelFacet) {
+	FeatureModelFacet modelFacet = (FeatureModelFacet) ((GenLink) genElement).getModelFacet();
+
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(((GenLinkReferenceOnly) genElement).getDomainLinkTargetFeature().getName());
+    stringBuffer.append(modelFacet.getMetaFeature().getName());
     stringBuffer.append(TEXT_6);
     
 }

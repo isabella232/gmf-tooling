@@ -112,13 +112,9 @@
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenLink">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/diagram"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/domainLinkTargetFeature"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/modelFacet"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/labels"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//GenLinkWithClass">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkWithClass/domainMetaClass"/>
-    </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//GenLinkReferenceOnly"/>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenLabel">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLabel/readOnly"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLabel/modelFacet"/>
@@ -132,6 +128,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLinkLabel/alignment"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//ModelFacet"/>
+    <genClasses ecoreClass="gmfgen.ecore#//LinkModelFacet"/>
     <genClasses ecoreClass="gmfgen.ecore#//TypeModelFacet">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/metaClass"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/containmentMetaFeature"/>

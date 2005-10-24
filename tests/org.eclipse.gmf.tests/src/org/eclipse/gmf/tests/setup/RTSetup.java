@@ -14,6 +14,7 @@ package org.eclipse.gmf.tests.setup;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
@@ -47,7 +48,8 @@ public class RTSetup implements RTSource {
 		EObject nodeElement = createInstance(genSource.getGenNode().getDomainMetaClass());
 		myNode.setElement(nodeElement);
 		//myNode.setVisualID(genSource.getGenNode().getVisualID());
-		EObject linkElement = createInstance(genSource.getGenLink().getDomainMetaClass());
+		TypeLinkModelFacet mf = (TypeLinkModelFacet) genSource.getGenLink().getModelFacet();
+		EObject linkElement = createInstance(mf.getMetaClass());
 		myLink.setElement(linkElement);
 		//myLink.setVisualID(genSource.getGenLink().getVisualID());
 

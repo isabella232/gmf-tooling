@@ -1,4 +1,5 @@
-<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="VisualIDRegistry" imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.ImportUtil org.eclipse.gmf.codegen.util.PartSelectorUtil"%>
+<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="VisualIDRegistryGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.*"%>
 <%
 GenDiagram genDiagram = (GenDiagram) argument;
 List genNodes = genDiagram.getNodes();
@@ -151,12 +152,12 @@ for (int i = 0; i < genNodes.size(); i++) {
 List genLinks = genDiagram.getLinks();
 for (int i = 0; i < genLinks.size(); i++) {
 	GenLink genLink = (GenLink) genLinks.get(i);
-	if (genLink instanceof GenLinkWithClass) {
-		GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
-		String semanticLinkInterfaceName = genLinkWithClass.getDomainMetaClass().getClassifierAccessorName();
-		String qualifiedInterfaceName = genLinkWithClass.getDomainMetaClass().getQualifiedInterfaceName();
+	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+		String semanticLinkInterfaceName = modelFacet.getMetaClass().getClassifierAccessorName();
+		String qualifiedInterfaceName = modelFacet.getMetaClass().getQualifiedInterfaceName();
 %>
-		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().equals(domainElementMetaclass) && (domainElement != null ? isLinkWithClass<%=genLinkWithClass.getUniqueIdentifier()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) domainElement) : true)) {
+		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().equals(domainElementMetaclass) && (domainElement != null ? isLinkWithClass<%=genLink.getUniqueIdentifier()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) domainElement) : true)) {
 			return <%=genLink.getVisualID()%>;
 		} else 
 <%
@@ -223,16 +224,16 @@ for (int i = 0; i < genNodes.size(); i++) {
 <%
 for (int i = 0; i < genLinks.size(); i++) {
 	GenLink genLink = (GenLink) genLinks.get(i);
-	if (genLink instanceof GenLinkWithClass) {
-		GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
-		String qualifiedInterfaceName = genLinkWithClass.getDomainMetaClass().getQualifiedInterfaceName();
+	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+		String qualifiedInterfaceName = modelFacet.getMetaClass().getQualifiedInterfaceName();
 %>
 	/**
 	 * User can change implementation of this method to check some additional conditions here.
 	 *
 	 * @generated
 	 */
-	private boolean isLinkWithClass<%=genLinkWithClass.getUniqueIdentifier()%>(<%=importManager.getImportedName(qualifiedInterfaceName)%> element) {
+	private boolean isLinkWithClass<%=genLink.getUniqueIdentifier()%>(<%=importManager.getImportedName(qualifiedInterfaceName)%> element) {
 		return <%=importManager.getImportedName(PartSelectorUtil.getPartSelectorsFullClassName(genDiagram)) + "." + PartSelectorUtil.getPartSelectorMethodName(genLink)%>(element);
 	}
 <%

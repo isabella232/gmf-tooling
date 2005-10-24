@@ -13,12 +13,15 @@ public class <%=AccessUtil.getSemanticHintsClassName(genElement)%> {
 	 * @generated
 	 */
 	private <%=AccessUtil.getSemanticHintsClassName(genElement)%>() {}
-<%if (genElement instanceof GenLinkReferenceOnly) {%>
+<%
+if (genElement instanceof GenLink && ((GenLink) genElement).getModelFacet() instanceof FeatureModelFacet) {
+	FeatureModelFacet modelFacet = (FeatureModelFacet) ((GenLink) genElement).getModelFacet();
+%>
 
 	/**
 	 * @generated
 	 */
-	public static final String VIEW_TYPE = "<%=((GenLinkReferenceOnly) genElement).getDomainLinkTargetFeature().getName()%>Link";
+	public static final String VIEW_TYPE = "<%=modelFacet.getMetaFeature().getName()%>Link";
 <%
 }
 if (genElement instanceof GenNode) {

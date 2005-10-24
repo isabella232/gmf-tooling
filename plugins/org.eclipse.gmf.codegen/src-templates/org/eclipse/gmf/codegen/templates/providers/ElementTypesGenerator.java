@@ -32,10 +32,10 @@ public class ElementTypesGenerator
   protected final String TEXT_13 = ".getEContainerDescriptor().getContainmentFeatures()[0];" + NL + "\t\t\t}";
   protected final String TEXT_14 = NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL;
   protected final String TEXT_15 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static class ";
-  protected final String TEXT_16 = "_EditHelper extends BaseEditHelper {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ICommand getConfigureCommand(ConfigureRequest req) {" + NL + "\t\t\treturn new ConfigureElementCommand(req) {" + NL + "\t\t\t\tprotected CommandResult doExecute(IProgressMonitor progressMonitor) {" + NL + "\t\t\t\t\t// To customize newly created domain objects remove @renerated tag of " + NL + "\t\t\t\t\t// getConfigureCommand(ConfigureRequest req) method and write your custom" + NL + "\t\t\t\t\t// code here. Use getElementToEdit() to get created element." + NL + "\t\t\t\t\t";
-  protected final String TEXT_17 = NL + "\t\t\t\t\t\t\t";
+  protected final String TEXT_16 = "_EditHelper extends BaseEditHelper {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ICommand getConfigureCommand(ConfigureRequest req) {" + NL + "\t\t\treturn new ConfigureElementCommand(req) {" + NL + "" + NL + "\t\t\t\tprotected CommandResult doExecute(IProgressMonitor progressMonitor) {" + NL + "\t\t\t\t\t// To customize newly created domain objects remove @renerated tag of " + NL + "\t\t\t\t\t// getConfigureCommand(ConfigureRequest req) method and write your custom" + NL + "\t\t\t\t\t// code here. Use getElementToEdit() to get created element.";
+  protected final String TEXT_17 = NL + "\t\t\t\t\t";
   protected final String TEXT_18 = ".";
-  protected final String TEXT_19 = "(getElementToEdit());" + NL + "\t\t\t\t\t\t";
+  protected final String TEXT_19 = "(getElementToEdit());";
   protected final String TEXT_20 = NL + "\t\t\t\t\t((";
   protected final String TEXT_21 = ") getElementToEdit()).set";
   protected final String TEXT_22 = "((";
@@ -97,7 +97,7 @@ List refLinks = new ArrayList();
 Iterator entities = AccessUtil.getGenEntities(genDiagram);
 while (entities.hasNext()) {
 	GenCommonBase entity = (GenCommonBase) entities.next();
-	if (entity instanceof GenLinkReferenceOnly) {
+	if (entity instanceof GenLink && ((GenLink) entity).getModelFacet() instanceof FeatureModelFacet) {
 		refLinks.add(entity);
 		types.add(entity.getUniqueIdentifier());
 	}
@@ -112,7 +112,7 @@ String semanticPackageInterfaceName = importManager.getImportedName(genPackage.g
     stringBuffer.append(TEXT_10);
     
 	for (int i = 0; i < refLinks.size(); i++) {
-		GenLinkReferenceOnly refLink = (GenLinkReferenceOnly) refLinks.get(i);
+		GenLink refLink = (GenLink) refLinks.get(i);
 
     stringBuffer.append(TEXT_11);
     stringBuffer.append(refLink.getUniqueIdentifier());
@@ -134,9 +134,9 @@ while (entities.hasNext()) {
 	} else if (entity instanceof GenNode) {
 		GenNode genNode = (GenNode) entity;
 		semanticNodeInterfaceName = genNode.getDomainMetaClass().getName();
-	} else if (entity instanceof GenLinkWithClass) {
-		GenLinkWithClass genLinkWithClass = (GenLinkWithClass) entity;
-		semanticNodeInterfaceName = genLinkWithClass.getDomainMetaClass().getName();
+	} else if (entity instanceof GenLink && ((GenLink) entity).getModelFacet() instanceof TypeLinkModelFacet) {
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) ((GenLink) entity).getModelFacet();
+		semanticNodeInterfaceName = modelFacet.getMetaClass().getName();
 	} else {
 		continue;
 	}
@@ -145,31 +145,31 @@ while (entities.hasNext()) {
     stringBuffer.append(TEXT_15);
     stringBuffer.append(entity.getUniqueIdentifier());
     stringBuffer.append(TEXT_16);
-    if(entity instanceof GenBaseElement) {
-						GenElementInitializer initializer = ((GenBaseElement)entity).getModelElementInitializer();
-						if(initializer != null) {
+    
+	if (entity instanceof GenBaseElement) {
+		GenElementInitializer initializer = ((GenBaseElement) entity).getModelElementInitializer();
+		if (initializer != null) {
+
     stringBuffer.append(TEXT_17);
     stringBuffer.append(importManager.getImportedName(initializer.getInitializersQualifiedClassName()));
     stringBuffer.append(TEXT_18);
     stringBuffer.append(initializer.getInitializerMethodName());
     stringBuffer.append(TEXT_19);
-    }
-					}
     
-	if (entity instanceof GenLinkWithClass) {
-		GenLinkWithClass linkWithClass = (GenLinkWithClass) entity;
-		GenFeature linkFeature = linkWithClass.getDomainLinkTargetFeature();
+		}
+	}
+	if (entity instanceof GenLink) {
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) ((GenLink) entity).getModelFacet();
+		GenFeature linkFeature = modelFacet.getTargetMetaFeature();
 
     stringBuffer.append(TEXT_20);
-    stringBuffer.append(importManager.getImportedName(linkWithClass.getDomainMetaClass().getQualifiedInterfaceName()));
+    stringBuffer.append(importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName()));
     stringBuffer.append(TEXT_21);
     stringBuffer.append(linkFeature.getAccessorName());
     stringBuffer.append(TEXT_22);
     stringBuffer.append(importManager.getImportedName(linkFeature.getTypeGenClass().getQualifiedInterfaceName()));
     stringBuffer.append(TEXT_23);
-    
-	}
-
+    	}
     stringBuffer.append(TEXT_24);
     
 	if (entity instanceof GenNode) {
@@ -178,8 +178,8 @@ while (entities.hasNext()) {
     stringBuffer.append(TEXT_25);
     
 		for (int i = 0; i < refLinks.size(); i++) {
-			GenLinkReferenceOnly refLink = (GenLinkReferenceOnly) refLinks.get(i);
-			GenFeature targetFeature = refLink.getDomainLinkTargetFeature();
+			GenLink refLink = (GenLink) refLinks.get(i);
+			GenFeature targetFeature = ((FeatureModelFacet) refLink.getModelFacet()).getMetaFeature();
 			if (node.getDomainMetaClass().equals(targetFeature.getGenClass())) {
 
     stringBuffer.append(TEXT_26);
@@ -209,8 +209,8 @@ while (entities.hasNext()) {
     
 }
 for (int i = 0; i < refLinks.size(); i++) {
-	GenLinkReferenceOnly entity = (GenLinkReferenceOnly) refLinks.get(i);
-	GenFeature targetFeature = entity.getDomainLinkTargetFeature();
+	GenLink entity = (GenLink) refLinks.get(i);
+	GenFeature targetFeature = ((FeatureModelFacet) entity.getModelFacet()).getMetaFeature();
 	String semanticFeatureCapName = targetFeature.getCapName();
 	String semanticNodeInterfaceName = targetFeature.getGenClass().getName();
 
@@ -237,9 +237,7 @@ for (int i = 0; i < refLinks.size(); i++) {
     stringBuffer.append(TEXT_47);
     stringBuffer.append(entity.getUniqueIdentifier());
     stringBuffer.append(TEXT_48);
-    
-}
-
+    }
     stringBuffer.append(TEXT_49);
     for (int i = 0; i < types.size(); i++) {
     stringBuffer.append(TEXT_50);

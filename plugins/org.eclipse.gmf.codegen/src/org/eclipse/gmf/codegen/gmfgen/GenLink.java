@@ -6,8 +6,6 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -23,13 +21,13 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getDiagram <em>Diagram</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getDomainLinkTargetFeature <em>Domain Link Target Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getModelFacet <em>Model Facet</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getLabels <em>Labels</em>}</li>
  * </ul>
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink()
- * @model abstract="true"
+ * @model
  * @generated
  */
 public interface GenLink extends GenBaseElement{
@@ -51,30 +49,30 @@ public interface GenLink extends GenBaseElement{
 	GenDiagram getDiagram();
 
 	/**
-	 * Returns the value of the '<em><b>Domain Link Target Feature</b></em>' reference.
+	 * Returns the value of the '<em><b>Model Facet</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Domain Link Target Feature</em>' reference isn't clear,
+	 * If the meaning of the '<em>Model Facet</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Domain Link Target Feature</em>' reference.
-	 * @see #setDomainLinkTargetFeature(GenFeature)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink_DomainLinkTargetFeature()
-	 * @model required="true"
+	 * @return the value of the '<em>Model Facet</em>' containment reference.
+	 * @see #setModelFacet(LinkModelFacet)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink_ModelFacet()
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	GenFeature getDomainLinkTargetFeature();
+	LinkModelFacet getModelFacet();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getDomainLinkTargetFeature <em>Domain Link Target Feature</em>}' reference.
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getModelFacet <em>Model Facet</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Domain Link Target Feature</em>' reference.
-	 * @see #getDomainLinkTargetFeature()
+	 * @param value the new value of the '<em>Model Facet</em>' containment reference.
+	 * @see #getModelFacet()
 	 * @generated
 	 */
-	void setDomainLinkTargetFeature(GenFeature value);
+	void setModelFacet(LinkModelFacet value);
 
 	/**
 	 * Returns the value of the '<em><b>Labels</b></em>' containment reference list.

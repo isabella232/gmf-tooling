@@ -13,6 +13,8 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -60,29 +62,8 @@ public class GenLinkItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDomainLinkTargetFeaturePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Domain Link Target Feature feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDomainLinkTargetFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenLink_domainLinkTargetFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenLink_domainLinkTargetFeature_feature", "_UI_GenLink_type"),
-				 GMFGenPackage.eINSTANCE.getGenLink_DomainLinkTargetFeature(),
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**
@@ -96,9 +77,22 @@ public class GenLinkItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenLink_ModelFacet());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenLink_Labels());
 		}
 		return childrenFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
 	}
 
 	/**
@@ -125,6 +119,7 @@ public class GenLinkItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenLink.class)) {
+			case GMFGenPackage.GEN_LINK__MODEL_FACET:
 			case GMFGenPackage.GEN_LINK__LABELS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -141,6 +136,16 @@ public class GenLinkItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenLink_ModelFacet(),
+				 GMFGenFactory.eINSTANCE.createFeatureModelFacet()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenLink_ModelFacet(),
+				 GMFGenFactory.eINSTANCE.createTypeLinkModelFacet()));
 
 		newChildDescriptors.add
 			(createChildParameter

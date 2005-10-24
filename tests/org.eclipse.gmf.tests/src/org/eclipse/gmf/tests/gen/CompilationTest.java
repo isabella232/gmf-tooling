@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.SessionSetup;
@@ -65,8 +65,8 @@ public class CompilationTest extends TestCase {
 	private static class FakeDiaGenSource implements DiaGenSource {
 		private final GenDiagram genDiagram;
 		private final GenNode genNode;
-		private final GenLinkWithClass genLink;
-		FakeDiaGenSource(GenDiagram gd, GenNode gn, GenLinkWithClass gl) {
+		private final GenLink genLink;
+		FakeDiaGenSource(GenDiagram gd, GenNode gn, GenLink gl) {
 			genDiagram = gd;
 			genNode = gn;
 			genLink = gl;
@@ -74,7 +74,7 @@ public class CompilationTest extends TestCase {
 		public GenDiagram getGenDiagram() {
 			return genDiagram;
 		}
-		public GenLinkWithClass getGenLink() {
+		public GenLink getGenLink() {
 			return genLink;
 		}
 		public GenNode getGenNode() {

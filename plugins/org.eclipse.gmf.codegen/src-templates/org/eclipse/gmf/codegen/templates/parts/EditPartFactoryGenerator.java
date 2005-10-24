@@ -147,9 +147,9 @@ for (int i = 0; i < genNodes.size(); i++) {
 		GenLink genLink = (GenLink) genLinks.get(i);
 		String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genLink);
 		String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
-		if (genLink instanceof GenLinkWithClass) {
-			GenLinkWithClass genLinkWithClass = (GenLinkWithClass) genLink;
-			String semanticLinkInterfaceName = genLinkWithClass.getDomainMetaClass().getClassifierAccessorName();
+		if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+			TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+			String semanticLinkInterfaceName = modelFacet.getMetaClass().getClassifierAccessorName();
 
     stringBuffer.append(TEXT_24);
     stringBuffer.append(genLink.getVisualID());
@@ -207,7 +207,7 @@ for (int i = 0; i < genNodes.size(); i++) {
     
 	for (int i = 0; i < genLinks.size(); i++) {
 		GenLink genLink = (GenLink) genLinks.get(i);
-		if (genLink instanceof GenLinkReferenceOnly) {
+		if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 			String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genLink);
 			String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 
@@ -226,7 +226,7 @@ for (int i = 0; i < genNodes.size(); i++) {
     
 	for (int i = 0; i < genLinks.size(); i++) {
 		GenLink genLink = (GenLink) genLinks.get(i);
-		if (genLink instanceof GenLinkWithClass) {
+		if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 
     stringBuffer.append(TEXT_47);
     stringBuffer.append(genLink.getVisualID());

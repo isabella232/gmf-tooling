@@ -25,8 +25,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkReferenceOnly;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkDecoration;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
@@ -163,24 +161,6 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GMFGenPackage.GEN_LINK_WITH_CLASS: {
-				GenLinkWithClass genLinkWithClass = (GenLinkWithClass)theEObject;
-				Object result = caseGenLinkWithClass(genLinkWithClass);
-				if (result == null) result = caseGenLink(genLinkWithClass);
-				if (result == null) result = caseGenBaseElement(genLinkWithClass);
-				if (result == null) result = caseGenCommonBase(genLinkWithClass);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GMFGenPackage.GEN_LINK_REFERENCE_ONLY: {
-				GenLinkReferenceOnly genLinkReferenceOnly = (GenLinkReferenceOnly)theEObject;
-				Object result = caseGenLinkReferenceOnly(genLinkReferenceOnly);
-				if (result == null) result = caseGenLink(genLinkReferenceOnly);
-				if (result == null) result = caseGenBaseElement(genLinkReferenceOnly);
-				if (result == null) result = caseGenCommonBase(genLinkReferenceOnly);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case GMFGenPackage.GEN_LABEL: {
 				GenLabel genLabel = (GenLabel)theEObject;
 				Object result = caseGenLabel(genLabel);
@@ -210,6 +190,13 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.LINK_MODEL_FACET: {
+				LinkModelFacet linkModelFacet = (LinkModelFacet)theEObject;
+				Object result = caseLinkModelFacet(linkModelFacet);
+				if (result == null) result = caseModelFacet(linkModelFacet);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.TYPE_MODEL_FACET: {
 				TypeModelFacet typeModelFacet = (TypeModelFacet)theEObject;
 				Object result = caseTypeModelFacet(typeModelFacet);
@@ -221,6 +208,7 @@ public class GMFGenSwitch {
 				FeatureModelFacet featureModelFacet = (FeatureModelFacet)theEObject;
 				Object result = caseFeatureModelFacet(featureModelFacet);
 				if (result == null) result = caseModelFacet(featureModelFacet);
+				if (result == null) result = caseLinkModelFacet(featureModelFacet);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -228,6 +216,7 @@ public class GMFGenSwitch {
 				TypeLinkModelFacet typeLinkModelFacet = (TypeLinkModelFacet)theEObject;
 				Object result = caseTypeLinkModelFacet(typeLinkModelFacet);
 				if (result == null) result = caseTypeModelFacet(typeLinkModelFacet);
+				if (result == null) result = caseLinkModelFacet(typeLinkModelFacet);
 				if (result == null) result = caseModelFacet(typeLinkModelFacet);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -478,36 +467,6 @@ public class GMFGenSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Link With Class</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Link With Class</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseGenLinkWithClass(GenLinkWithClass object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Link Reference Only</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Link Reference Only</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseGenLinkReferenceOnly(GenLinkReferenceOnly object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpretting the object as an instance of '<em>Gen Label</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -564,6 +523,21 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseModelFacet(ModelFacet object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Link Model Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Link Model Facet</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseLinkModelFacet(LinkModelFacet object) {
 		return null;
 	}
 

@@ -689,12 +689,7 @@ public class GenDiagramItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenDiagram_Links(),
-				 GMFGenFactory.eINSTANCE.createGenLinkWithClass()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenDiagram_Links(),
-				 GMFGenFactory.eINSTANCE.createGenLinkReferenceOnly()));
+				 GMFGenFactory.eINSTANCE.createGenLink()));
 
 		newChildDescriptors.add
 			(createChildParameter

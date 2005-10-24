@@ -7,7 +7,10 @@
   <nodes visualID="101" editPartClassName="WriterNodeEditPart" notationViewFactoryClassName="WriterNodeNotationViewFactory">
     <diagramRunTimeClass href="../../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
     <viewmap xsi:type="gmfgen:BasicNodeViewmap"/>
-    <domainMetaClass href="library.genmodel#//library/Writer"/>
+    <modelFacet>
+      <metaClass href="library.genmodel#//library/Writer"/>
+      <containmentMetaFeature href="library.genmodel#//library/Library/writers"/>
+    </modelFacet>
     <labels visualID="401">
       <modelFacet>
         <metaFeature href="library.genmodel#//library/Writer/name"/>
@@ -17,7 +20,10 @@
   <nodes visualID="102" editPartClassName="BookNodeEditPart" notationViewFactoryClassName="BookNodeNotationViewFactory">
     <diagramRunTimeClass href="../../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
     <viewmap xsi:type="gmfgen:BasicNodeViewmap"/>
-    <domainMetaClass href="library.genmodel#//library/Book"/>
+    <modelFacet>
+      <metaClass href="library.genmodel#//library/Book"/>
+      <containmentMetaFeature href="library.genmodel#//library/Writer/books"/>
+    </modelFacet>
     <labels visualID="402">
       <modelFacet>
         <metaFeature href="library.genmodel#//library/Book/title"/>
@@ -26,7 +32,10 @@
     <childContainers groupID="reviews" titleKey="reviews" layoutKind="TOOLBAR"/>
     <childNodes visualID="201" editPartClassName="ReviewNodeChildNodeEditPart" notationViewFactoryClassName="ReviewNodeNotationViewFactory" groupID="reviews">
       <diagramRunTimeClass href="../../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
-      <domainMetaClass href="library.genmodel#//library/Review"/>
+      <modelFacet>
+        <metaClass href="library.genmodel#//library/Review"/>
+        <containmentMetaFeature href="library.genmodel#//library/Book/reviews"/>
+      </modelFacet>
       <labels visualID="403">
         <modelFacet>
           <metaFeature href="library.genmodel#//library/Review/title"/>
@@ -34,26 +43,32 @@
       </labels>
     </childNodes>
   </nodes>
-  <links xsi:type="gmfgen:GenLinkWithClass" visualID="301" editPartClassName="OpinionLinkEditPart" notationViewFactoryClassName="OpinionLinkNotationViewFactory">
+  <links visualID="301" editPartClassName="OpinionLinkEditPart" notationViewFactoryClassName="OpinionLinkNotationViewFactory">
     <diagramRunTimeClass href="../../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Edge"/>
     <viewmap xsi:type="gmfgen:DecoratedConnectionViewmap">
       <attributes xsi:type="gmfgen:ShapeAttributes" lineStyle="LINE_DOT"/>
       <target figureQualifiedClassName="org.eclipse.draw2d.PolylineDecoration"/>
     </viewmap>
-    <domainLinkTargetFeature href="library.genmodel#//library/Opinion/book"/>
+    <modelFacet xsi:type="gmfgen:TypeLinkModelFacet">
+      <metaClass href="library.genmodel#//library/Opinion"/>
+      <containmentMetaFeature href="library.genmodel#//library/Writer/opinions"/>
+      <sourceMetaFeature href="library.genmodel#//library/Writer/opinions"/>
+      <targetMetaFeature href="library.genmodel#//library/Opinion/book"/>
+    </modelFacet>
     <labels visualID="404">
       <modelFacet>
         <metaFeature href="library.genmodel#//library/Opinion/text"/>
       </modelFacet>
     </labels>
-    <domainMetaClass href="library.genmodel#//library/Opinion"/>
   </links>
-  <links xsi:type="gmfgen:GenLinkReferenceOnly" visualID="302" editPartClassName="AuthorLinkEditPart" notationViewFactoryClassName="AuthorLinkNotationViewFactory">
+  <links visualID="302" editPartClassName="AuthorLinkEditPart" notationViewFactoryClassName="AuthorLinkNotationViewFactory">
     <diagramRunTimeClass href="../../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Edge"/>
     <viewmap xsi:type="gmfgen:DecoratedConnectionViewmap">
       <attributes xsi:type="gmfgen:ShapeAttributes"/>
     </viewmap>
-    <domainLinkTargetFeature href="library.genmodel#//library/Book/author"/>
+    <modelFacet xsi:type="gmfgen:FeatureModelFacet">
+      <metaFeature href="library.genmodel#//library/Book/author"/>
+    </modelFacet>
   </links>
   <palette>
     <groups titleKey="Library Tools">

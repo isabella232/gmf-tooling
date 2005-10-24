@@ -1,4 +1,5 @@
-<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="InitDiagramFileActionGen" imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.ImportUtil"%>
+<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="InitDiagramFileActionGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.ImportUtil"%>
 <%
 GenDiagram genDiagram = (GenDiagram) argument;
 List genNodes = genDiagram.getNodes();
@@ -318,8 +319,8 @@ for (Iterator genNodesIt = genNodes.iterator(); genNodesIt.hasNext();) {
 <%
 for (Iterator it = genLinks.iterator(); it.hasNext();) {
 	GenLink nextLink = (GenLink) it.next();
-	if (nextLink instanceof GenLinkReferenceOnly) {
-		GenFeature genFeature = nextLink.getDomainLinkTargetFeature();
+	if (nextLink.getModelFacet() instanceof FeatureModelFacet) {
+		GenFeature genFeature = ((FeatureModelFacet) nextLink.getModelFacet()).getMetaFeature();
 %>
 			if (<%=importManager.getImportedName(genFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=genFeature.getFeatureAccessorName()%>().equals(nextFeature)) {
 				((Collection) myLinkWithClassVID2EObject.get(new Integer(<%=nextLink.getVisualID()%>))).add(container);
@@ -339,17 +340,19 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 <%
 for (Iterator it = genLinks.iterator(); it.hasNext();) {
 	GenLink nextLink = (GenLink) it.next();
-	GenFeature domainLinkTargetGenFeature = nextLink.getDomainLinkTargetFeature();
+	GenFeature domainLinkTargetGenFeature;
 %>
 		linkElements = (Collection) myLinkWithClassVID2EObject.get(new Integer(<%=nextLink.getVisualID()%>));
 		for (Iterator it = linkElements.iterator(); it.hasNext();) {
 			EObject linkElement = (EObject) it.next();
 <%	
-	if (nextLink instanceof GenLinkWithClass) {
+	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		domainLinkTargetGenFeature = ((TypeLinkModelFacet) nextLink.getModelFacet()).getTargetMetaFeature();
 %>
 			EObject src = linkElement.eContainer();
 <%
 	} else {
+		domainLinkTargetGenFeature = ((FeatureModelFacet) nextLink.getModelFacet()).getMetaFeature();
 %>
 			EObject src = linkElement;
 <%	
@@ -362,7 +365,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 			EStructuralFeature structuralFeature = <%=importManager.getImportedName(domainLinkTargetGenFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=domainLinkTargetGenFeature.getFeatureAccessorName()%>();
 			Object structuralFeatureResult = linkElement.eGet(structuralFeature);
 <%
-	if (nextLink instanceof GenLinkWithClass) {
+	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
 %>
 			if (structuralFeatureResult instanceof EObject == false) {
 				continue;
@@ -382,7 +385,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 			Node dstNode = (Node) myEObject2NodeMap.get(dst);
 			if (dstNode != null) {
 <%
-	if (nextLink instanceof GenLinkWithClass) {
+	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
 %>
 				DiagramUtil.createEdge(srcNode, dstNode, linkElement, null, <%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
 			}

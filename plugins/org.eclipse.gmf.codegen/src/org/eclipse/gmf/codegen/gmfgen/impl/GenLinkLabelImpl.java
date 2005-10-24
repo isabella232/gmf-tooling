@@ -7,7 +7,6 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -20,8 +19,6 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkReferenceOnly;
-import org.eclipse.gmf.codegen.gmfgen.GenLinkWithClass;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
@@ -348,18 +345,7 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	}
 
 	protected String getHostName() {
-		if (getLink() instanceof GenLinkWithClass) {
-			GenClass metaClass = ((GenLinkWithClass) getLink()).getDomainMetaClass();
-			if (metaClass != null) {
-				return metaClass.getInterfaceName();
-			}
-		} else if (getLink() instanceof GenLinkReferenceOnly) {
-			GenFeature metaFeature = ((GenLinkReferenceOnly) getLink()).getDomainLinkTargetFeature();
-			if (metaFeature != null) {
-				return metaFeature.getCapName();
-			}
-		}
-		return "Link$" + hashCode();
+		return getLink().getClassNamePrefix();
 	}
 
 } //GenLinkLabelImpl
