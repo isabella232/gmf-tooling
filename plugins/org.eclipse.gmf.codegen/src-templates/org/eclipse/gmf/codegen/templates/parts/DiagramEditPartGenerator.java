@@ -74,7 +74,7 @@ String modelElementInterfaceName = importManager.getImportedName(genDiagram.getD
     stringBuffer.append(modelElementInterfaceName);
     stringBuffer.append(TEXT_11);
     
-Set containmentFeatures = new HashSet();
+Set containmentFeatures = new LinkedHashSet();
 for (Iterator it = genDiagram.getNodes().iterator(); it.hasNext();) {
 	GenNode nextGenNode = (GenNode) it.next();
 	containmentFeatures.add(nextGenNode.getModelFacet().getContainmentMetaFeature());

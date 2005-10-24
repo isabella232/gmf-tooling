@@ -55,7 +55,7 @@ String modelElementInterfaceName = importManager.getImportedName(genDiagram.getD
 			<%=modelElementInterfaceName%> modelElement = (<%=modelElementInterfaceName%>) ((View) getHost().getModel()).getElement();
 			List result = new LinkedList();
 <%
-Set containmentFeatures = new HashSet();
+Set containmentFeatures = new LinkedHashSet();
 for (Iterator it = genDiagram.getNodes().iterator(); it.hasNext();) {
 	GenNode nextGenNode = (GenNode) it.next();
 	containmentFeatures.add(nextGenNode.getModelFacet().getContainmentMetaFeature());

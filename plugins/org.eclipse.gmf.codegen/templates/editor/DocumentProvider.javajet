@@ -6,6 +6,7 @@ package <%=genDiagram.getEditorPackageName()%>;
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());%>
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -16,20 +17,19 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramModificationListener;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileDiagramDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileDiagramModificationListener;
+import org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain;
 import org.eclipse.gmf.runtime.emf.core.edit.MFilter;
 import org.eclipse.gmf.runtime.emf.core.edit.MListener;
 import org.eclipse.gmf.runtime.emf.core.resources.ILogicalResource;
@@ -50,11 +50,12 @@ public class <%=genDiagram.getDocumentProviderClassName()%> extends FileDiagramD
 		monitor.beginTask("", 100); //$NON-NLS-1$
 		super.saveDocumentToFile(document, file, overwrite, new SubProgressMonitor(monitor, 20));
 
-		IProgressMonitor subMonitor = new SubProgressMonitor(monitor, 50);
+		IProgressMonitor subMonitor = new SubProgressMonitor(monitor, 20);
 		Diagram diagram = (Diagram)document.getContent();
-		Set externalResources = getReferencedResources(diagram, subMonitor);
+		Set externalResources = getReferencedResources(diagram);
+		subMonitor.done();
 		
-		subMonitor = new SubProgressMonitor(monitor, 30);
+		subMonitor = new SubProgressMonitor(monitor, 60);
 		subMonitor.beginTask("Saving external resources", externalResources.size());
 		for (Iterator it = externalResources.iterator(); it.hasNext();) {
 			Resource nextResource = (Resource) it.next();
@@ -86,7 +87,7 @@ public class <%=genDiagram.getDocumentProviderClassName()%> extends FileDiagramD
 					rules.add(resource);
 				}
 				
-				Set externalResources = getReferencedResources(diagram, new NullProgressMonitor());
+				Set externalResources = getReferencedResources(diagram);
 				for (Iterator it = externalResources.iterator(); it.hasNext();) {
 					Resource nextResource = (Resource) it.next();
 					IFile resourceFile = ResourceUtil.getFile(nextResource);
@@ -115,25 +116,13 @@ public class <%=genDiagram.getDocumentProviderClassName()%> extends FileDiagramD
 	/**
 	 * @generated
 	 */
-	private static Set getReferencedResources(Diagram diagram, IProgressMonitor monitor) {
-		monitor.beginTask("Collecting referenced resources", 3);
-		Map externalReferences = EcoreUtil.ExternalCrossReferencer.find(diagram);
-		monitor.worked(2);
-		
-		IProgressMonitor subMonitor = new SubProgressMonitor(monitor, 1);
-		subMonitor.beginTask("Collecting external resources", externalReferences.size());
-		Set externalResources = new HashSet();
-		for (Iterator it = externalReferences.keySet().iterator(); it.hasNext();) {
-			EObject nextExternalObject = (EObject) it.next();
-			Resource resource = nextExternalObject.eResource();
-			if (resource != null) {
-				externalResources.add(resource);
-			}
-			subMonitor.worked(1);
+	private static Set getReferencedResources(Diagram diagram) {
+		Resource diagramResource = ((EObject) diagram).eResource();
+		if (diagramResource == null) {
+			return Collections.EMPTY_SET;
 		}
-		subMonitor.done();
-		monitor.done();
-		return externalResources;
+		
+		return new HashSet(MEditingDomain.INSTANCE.getImports(diagramResource));
 	}
 	
 	/**
@@ -178,7 +167,7 @@ public class <%=genDiagram.getDocumentProviderClassName()%> extends FileDiagramD
 					Object notifier = notification.getNotifier();
 					if (diagram != null && notifier instanceof Resource) {
 						Resource notifierResource = (Resource) notifier;
-						Set externalResources = getReferencedResources(diagram, new NullProgressMonitor());
+						Set externalResources = getReferencedResources(diagram);
 						for (Iterator it = externalResources.iterator(); it.hasNext();) {
 							Resource nextResource = (Resource) it.next();
 							if (notifierResource == nextResource) {
