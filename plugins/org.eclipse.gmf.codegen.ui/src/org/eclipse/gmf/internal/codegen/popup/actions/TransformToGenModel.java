@@ -44,6 +44,7 @@ import org.eclipse.ui.IWorkbenchPart;
 public class TransformToGenModel implements IObjectActionDelegate {
 	private IFile myMapFile;
 	private IWorkbenchPart myPart;
+	private static final Boolean THERE_IS_NO_SPECIFIC_RT = Boolean.TRUE; 
 
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
 		myPart = targetPart;
@@ -106,6 +107,9 @@ public class TransformToGenModel implements IObjectActionDelegate {
 	}
 
 	private URI decideOnRunTimeModel() {
+		if (THERE_IS_NO_SPECIFIC_RT.booleanValue()) {
+			return null;
+		}
 		IPath p = myMapFile.getFullPath();
 		String defValue = p.removeLastSegments(1).append(p.removeFileExtension().lastSegment() + "-drt").addFileExtension("genmodel").toString();
 		InputDialog dlg = new InputDialog(getShell(), "Diagram RunTime Model", "Please specify path to genmodel file that describes specific diagram runtime model, or press Cancel if you don't need one", defValue, null);
