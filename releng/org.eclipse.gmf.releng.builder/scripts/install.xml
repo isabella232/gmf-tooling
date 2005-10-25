@@ -12,6 +12,10 @@
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/eclipse-SDK-${eclipseVersion}-${baseos}.zip" />
 	</target>
 
+	<target name="getTestingFramework" unless="testingFrameworkExists">
+		<get src="${testingFrameworkURL}" dest="${baseLocationRoot}/eclipse-test-framework-${eclipseVersion}.zip" verbose="true" usetimestamp="true" />
+	</target>
+
 	<target name="installTestingFramework">
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/eclipse-test-framework-${eclipseVersion}.zip" />
 	</target>
