@@ -83,7 +83,7 @@ public class DefaultNamingStrategy extends NamingStrategy {
 		if (s.getSeverity() != IStatus.ERROR) {
 			return name;
 		}
-		StringBuilder sb = new StringBuilder(name.length());
+		StringBuffer sb = new StringBuffer(name.length());
 		if (!Character.isJavaIdentifierStart(name.charAt(0)) && Character.isJavaIdentifierPart(name.charAt(0))) {
 			sb.append('_');
 		}
