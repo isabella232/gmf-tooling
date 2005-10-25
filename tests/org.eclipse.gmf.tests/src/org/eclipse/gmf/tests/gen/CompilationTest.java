@@ -53,7 +53,10 @@ public class CompilationTest extends TestCase {
 			new GenProjectBaseSetup().generateAndCompile(SessionSetup.getRuntimeWorkspaceSetup(), new FakeDiaGenSource(gd, null, null));
 		} catch (IOException ex) {
 			fail(ex.getMessage());
+		} catch (RuntimeException ex) {
+			throw ex;
 		} catch (Exception ex) {
+			Plugin.logError("Unexpected exception:", ex);
 			fail("Hm, looks like unexpected..." + ex.getMessage());
 		}
 	}
