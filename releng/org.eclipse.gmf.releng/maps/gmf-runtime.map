@@ -5,7 +5,6 @@ feature@org.eclipse.gmf=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technol
 
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf
-plugin@org.eclipse.gmf.runtime.gef=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.gef
 plugin@org.eclipse.gmf.runtime.common.core=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.core
 plugin@org.eclipse.gmf.runtime.common.core.provider=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.core.provider
 plugin@org.eclipse.gmf.runtime.common.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui
