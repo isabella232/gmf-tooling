@@ -54,4 +54,15 @@ public interface GenFeatureValueSpec extends ValueExpression{
 	 */
 	void setFeature(GenFeature value);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Gets the qualified name of the package interface which contains the given feature meta object
+	 * <!-- end-model-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	String getFeatureQualifiedPackageInterfaceName();
+
 } // GenFeatureValueSpec

@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -25,6 +26,10 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.ModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 
 /**
  * <!-- begin-user-doc -->
@@ -96,6 +101,26 @@ public class GenFeatureSeqInitializerImpl extends GenElementInitializerImpl impl
 			}
 		}
 		return (String[]) ids.toArray(new String[ids.size()]);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getElementClassAccessorName() {
+		GenClass genClass = getElementClass();
+		return (genClass != null) ? genClass.getClassifierAccessorName() : null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getElementQualifiedPackageInterfaceName() {
+		GenClass genClass = getElementClass();
+		return (genClass != null) ? genClass.getGenPackage().getQualifiedPackageInterfaceName() : null;		
 	}
 
 	/**
@@ -212,6 +237,21 @@ public class GenFeatureSeqInitializerImpl extends GenElementInitializerImpl impl
 				return initializers != null && !initializers.isEmpty();
 		}
 		return eDynamicIsSet(eFeature);
+	}
+
+	private GenClass getElementClass() {
+		GenBaseElement baseElement = getElement();
+		if(baseElement == null) {
+			return null;
+		}
+		GenClass contextEClass = null;
+		if(baseElement instanceof GenNode) {
+			contextEClass = ((GenNode)baseElement).getDomainMetaClass();
+		} else if(baseElement instanceof GenLink) {
+			ModelFacet facet = ((GenLink)baseElement).getModelFacet(); 
+			contextEClass = (facet instanceof TypeLinkModelFacet) ? ((TypeLinkModelFacet)facet).getMetaClass() : null;		
+		}
+		return contextEClass;
 	}
 
 } //GenFeatureSeqInitializerImpl

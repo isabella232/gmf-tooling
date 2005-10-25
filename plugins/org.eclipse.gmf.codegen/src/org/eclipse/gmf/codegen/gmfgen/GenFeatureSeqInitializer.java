@@ -55,4 +55,26 @@ public interface GenFeatureSeqInitializer extends GenElementInitializer {
 	 */
 	String[] getRequiredPluginIDs();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Gets the accessor name of this initializer's element class meta object within its package interface
+	 * <!-- end-model-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	String getElementClassAccessorName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Gets the qualified name of the package interface which contains this initializer's element class meta object
+	 * <!-- end-model-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	String getElementQualifiedPackageInterfaceName();
+
 } // GenFeatureSeqInitializer

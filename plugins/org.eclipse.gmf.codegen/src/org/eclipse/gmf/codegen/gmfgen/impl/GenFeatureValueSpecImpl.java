@@ -102,6 +102,18 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getFeatureQualifiedPackageInterfaceName() {
+		if(getFeature() == null) {
+			return null;
+		}
+		return getFeature().getGenClass().getGenPackage().getQualifiedPackageInterfaceName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {

@@ -2145,8 +2145,14 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genFeatureSeqInitializerEClass, this.getStringArray(), "getRequiredPluginIDs");
 
+		addEOperation(genFeatureSeqInitializerEClass, ecorePackage.getEString(), "getElementClassAccessorName");
+
+		addEOperation(genFeatureSeqInitializerEClass, ecorePackage.getEString(), "getElementQualifiedPackageInterfaceName");
+
 		initEClass(genFeatureValueSpecEClass, GenFeatureValueSpec.class, "GenFeatureValueSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenFeatureValueSpec_Feature(), theGenModelPackage.getGenFeature(), null, "feature", null, 1, 1, GenFeatureValueSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(genFeatureValueSpecEClass, ecorePackage.getEString(), "getFeatureQualifiedPackageInterfaceName");
 
 		// Initialize enums and add enum literals
 		initEEnum(compartmentPlacementKindEEnum, CompartmentPlacementKind.class, "CompartmentPlacementKind");
@@ -2191,7 +2197,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints"
-		   });																																																					
+		   });																																																									
 	}
 
 	/**
@@ -2219,7 +2225,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "diagramRunTimeClass.eCoreClass.eAllSuperTypes->includes(diagramrt.DiagramNode)"
-		   });														
+		   });															
 		addAnnotation
 		  (getTypeModelFacet_ContainmentMetaFeature(), 
 		   source, 
@@ -2237,13 +2243,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "initializers.feature.genClass.ecoreClass->asSet()->size() = 1 -- common ECore class"
-		   });					
+		   });							
 		addAnnotation
 		  (genFeatureValueSpecEClass, 
 		   source, 
 		   new String[] {
 			 "ocl", "self.feature.ecoreFeature.eType = self.body->evaluate().eType"
-		   });	
+		   });		
 	}
 
 } //GMFGenPackageImpl
