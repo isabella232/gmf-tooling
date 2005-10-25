@@ -68,12 +68,11 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.uml2.edit"/>
       <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.eclipse.gmf.runtime.emf.type.core"/>
+      <import plugin="org.eclipse.gmf.runtime.common.ui.services"/>
+      <import plugin="org.eclipse.gmf.runtime.emf.type.ui"/>
       <import plugin="org.eclipse.gmf.runtime.emf.ui"/>
       <import plugin="org.eclipse.gmf.runtime.gef.ui"/>
       <import feature="org.eclipse.gmf.sdk" version="1.0.0"/>
-      <import plugin="org.eclipse.gmf.runtime.common.ui.services"/>
-      <import plugin="org.eclipse.gmf.runtime.emf.type.ui"/>
-      <import plugin="org.eclipse.gmf.runtime.gef"/>
    </requires>
 
    <plugin
