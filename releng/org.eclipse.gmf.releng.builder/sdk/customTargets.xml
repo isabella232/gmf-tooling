@@ -79,87 +79,25 @@
 	<target name="postSetup">
 		<!-- Load build.cfg properties -->
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
-		<antcall target="getBaseComponents" />
+		<ant antfile="${scripts}/install.xml" target="getBaseComponents" />
 		<available file="${baseLocation}/configuration/config.ini" property="baseExists" />
-		<antcall target="installBase" />
+		<ant antfile="${scripts}/install.xml" target="installBase" />
 <!-- TODO: this is a poor way to check for an installation... the update manager
      allows for querying an installation, but just returns a list that would require parsing. -->
 		<available file="${baseLocation}/plugins/org.eclipse.gef_${gefVersion}.jar" property="gefExists" />
-		<antcall target="installGEF" />
+		<ant antfile="${scripts}/install.xml" target="installGEF" />
 		<available file="${baseLocation}/plugins/org.eclipse.emf_${emfVersion}.jar" property="emfExists" />
-		<antcall target="installEMF" />	
+		<ant antfile="${scripts}/install.xml" target="installEMF" />	
 		<available file="${baseLocation}/plugins/org.eclipse.jem_${jemVersion}/plugin.xml" property="jemExists" />
-		<antcall target="installJEM" />
+		<ant antfile="${scripts}/install.xml" target="installJEM" />
 		<available file="${baseLocation}/plugins/org.eclipse.xsd_${xsdVersion}.jar" property="xsdExists" />
-		<antcall target="installXSD" />
+		<ant antfile="${scripts}/install.xml" target="installXSD" />
 		<available file="${baseLocation}/plugins/org.eclipse.emf.ecore.sdo_${sdoVersion}.jar" property="sdoExists" />
-		<antcall target="installSDO" />
+		<ant antfile="${scripts}/install.xml" target="installSDO" />
 		<available file="${baseLocation}/plugins/org.eclipse.wst_${wstVersion}/plugin.properties" property="wstExists" />
-		<antcall target="installWST" />	
+		<ant antfile="${scripts}/install.xml" target="installWST" />	
 	</target>
 	
-	<!-- ===================================================================== -->
-	<!-- ===================================================================== -->
-	<target name="getBaseComponents" depends="checkLocalBase" unless="skipBase">
-		<get src="${eclipseBaseURL}" dest="${baseLocationRoot}/eclipse-SDK-${eclipseVersion}-${baseos}.zip" verbose="true" usetimestamp="true"/>
-	</target>
-
-	<target name="checkLocalBase">
-		<available file="${baseLocationRoot}/eclipse-SDK-${eclipseVersion}-${baseos}.zip" property="skipBase" />
-	</target>
-	
-	<target name="installBase" unless="baseExists">
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/eclipse-SDK-${eclipseVersion}-${baseos}.zip" />
-	</target>
-	
-	<target name="installEMF" unless="emfExists">		
-		<ant antfile="${scripts}/update.xml" target="installFeature">
-			<property name="featureId" value="${emfFeatureId}" />
-			<property name="version" value="${emfVersion}" />
-			<property name="updateSite" value="${emfUpdateSite}" />
-		</ant>
-	</target>
-
-	<target name="installGEF" unless="gefExists">
-		<ant antfile="${scripts}/update.xml" target="installFeature">
-			<property name="featureId" value="${gefFeatureId}" />
-			<property name="version" value="${gefVersion}" />
-			<property name="updateSite" value="${gefUpdateSite}" />
-		</ant>
-	</target>
-	
-	<target name="installJEM" unless="jemExists">		
-		<ant antfile="${scripts}/update.xml" target="installFeature">
-			<property name="featureId" value="${jemFeatureId}" />
-			<property name="version" value="${jemVersion}" />
-			<property name="updateSite" value="${jemUpdateSite}" />
-		</ant>
-	</target>
-	
-	<target name="installXSD" unless="xsdExists">		
-		<ant antfile="${scripts}/update.xml" target="installFeature">
-			<property name="featureId" value="${xsdFeatureId}" />
-			<property name="version" value="${xsdVersion}" />
-			<property name="updateSite" value="${xsdUpdateSite}" />
-		</ant>
-	</target>
-	
-	<target name="installSDO" unless="sdoExists">		
-		<ant antfile="${scripts}/update.xml" target="installFeature">
-			<property name="featureId" value="${sdoFeatureId}" />
-			<property name="version" value="${sdoVersion}" />
-			<property name="updateSite" value="${sdoUpdateSite}" />
-		</ant>
-	</target>
-
-	<target name="installWST" unless="wstExists">		
-		<ant antfile="${scripts}/update.xml" target="installFeature">
-			<property name="featureId" value="${wstFeatureId}" />
-			<property name="version" value="${wstVersion}" />
-			<property name="updateSite" value="${wstUpdateSite}" />
-		</ant>
-	</target>
-
 	<!-- ===================================================================== -->
 	<!-- Steps to do before fetching the build elements -->
 	<!-- ===================================================================== -->

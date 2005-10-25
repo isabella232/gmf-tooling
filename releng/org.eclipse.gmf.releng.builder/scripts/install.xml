@@ -1,0 +1,110 @@
+<project name="Installation script for GMF and dependencies" default="" basedir=".">
+
+	<target name="getBaseComponents" depends="checkLocalBase" unless="skipBase">
+		<get src="${eclipseBaseURL}" dest="${baseLocationRoot}/eclipse-SDK-${eclipseVersion}-${baseos}.zip" verbose="true" usetimestamp="true" />
+	</target>
+
+	<target name="checkLocalBase">
+		<available file="${baseLocationRoot}/eclipse-SDK-${eclipseVersion}-${baseos}.zip" property="skipBase" />
+	</target>
+
+	<target name="installBase" unless="baseExists">
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/eclipse-SDK-${eclipseVersion}-${baseos}.zip" />
+	</target>
+
+	<target name="installTestingFramework">
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/eclipse-test-framework-${eclipseVersion}.zip" />
+	</target>
+
+	<target name="installEMF" unless="emfExists">
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${emfFeatureId}" />
+			<property name="version" value="${emfVersion}" />
+			<property name="updateSite" value="${emfUpdateSite}" />
+		</ant>
+	</target>
+
+	<target name="installGEF" unless="gefExists">
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${gefFeatureId}" />
+			<property name="version" value="${gefVersion}" />
+			<property name="updateSite" value="${gefUpdateSite}" />
+		</ant>
+	</target>
+
+	<target name="installJEM" unless="jemExists">
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${jemFeatureId}" />
+			<property name="version" value="${jemVersion}" />
+			<property name="updateSite" value="${jemUpdateSite}" />
+		</ant>
+	</target>
+
+	<target name="installXSD" unless="xsdExists">
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${xsdFeatureId}" />
+			<property name="version" value="${xsdVersion}" />
+			<property name="updateSite" value="${xsdUpdateSite}" />
+		</ant>
+	</target>
+
+	<target name="installSDO" unless="sdoExists">
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${sdoFeatureId}" />
+			<property name="version" value="${sdoVersion}" />
+			<property name="updateSite" value="${sdoUpdateSite}" />
+		</ant>
+	</target>
+
+	<target name="installWST" unless="wstExists">
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${wstFeatureId}" />
+			<property name="version" value="${wstVersion}" />
+			<property name="updateSite" value="${wstUpdateSite}" />
+		</ant>
+	</target>
+
+	<target name="installUML2" unless="uml2Exists">
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${uml2FeatureId}" />
+			<property name="version" value="${uml2Version}" />
+			<property name="updateSite" value="${uml2UpdateSite}" />
+		</ant>
+	</target>
+
+	<target name="installGMF" unless="gmfExists">
+		<antcall target="installGMFfromMirror" />
+		<antcall target="installGMFfromZip" />
+	</target>
+
+	<target name="installGMFfromMirror" if="usingMirror">
+		<echo message="Installing GMF for testing from local mirror..." />
+		<ant antfile="${scripts}/update.xml" target="install">
+			<property name="featureId" value="org.eclipse.gmf.sdk" />
+			<property name="version" value="${gmfVersion}" />
+		</ant>
+	</target>
+
+	<target name="installGMFfromZip" unless="usingMirror">
+		<echo message="Installing GMF for testing from zip file..." />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-sdk-${buildId}.zip" />
+	</target>
+
+	<target name="installExamples" unless="examplesExists">
+		<antcall target="installExamplesfromMirror" />
+		<antcall target="installExamplesfromZip" />
+	</target>
+
+	<target name="installExamplesfromMirror" if="usingMirror">
+		<echo message="Installing GMF Examples for testing from local mirror..." />
+		<ant antfile="${scripts}/update.xml" target="install">
+			<property name="featureId" value="org.eclipse.gmf.examples" />
+			<property name="version" value="${gmfVersion}" />
+		</ant>
+	</target>
+
+	<target name="installExamplesfromZip" unless="usingMirror">
+		<echo message="Installing GMF Examples for testing from zip file..." />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-examples-${buildId}.zip" />
+	</target>
+</project>
