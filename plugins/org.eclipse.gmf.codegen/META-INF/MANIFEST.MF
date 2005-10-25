@@ -4,6 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gmf.codegen; singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Export-Package: org.eclipse.gmf.codegen.gmfgen,
  org.eclipse.gmf.codegen.gmfgen.util,
  org.eclipse.gmf.codegen.util
