@@ -80,7 +80,7 @@
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
 		<ant antfile="${scripts}/install.xml" target="getBaseComponents" />
 		<available file="${baseLocation}/configuration/config.ini" property="baseExists" />
-		<antcall target="installBase" />
+		<ant antfile="${scripts}/install.xml" target="installBase" />
 <!-- TODO: this is a poor way to check for an installation... the update manager
      allows for querying an installation, but just returns a list that would require parsing. -->
 		<available file="${baseLocation}/plugins/org.eclipse.gef_${gefVersion}.jar" property="gefExists" />
