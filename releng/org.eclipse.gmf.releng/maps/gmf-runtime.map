@@ -36,6 +36,7 @@ plugin@org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide=HEAD,:pserver:ano
 plugin@org.eclipse.gmf.runtime.draw2d.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.draw2d.ui
 plugin@org.eclipse.gmf.runtime.draw2d.ui.render=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.draw2d.ui.render
 plugin@org.eclipse.gmf.runtime.gef.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.gef.ui
+plugin@org.eclipse.gmf.runtime.gef=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/archive/org.eclipse.gmf.runtime.gef
 plugin@org.eclipse.gmf.runtime.emf.commands.core=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.commands.core
 plugin@org.eclipse.gmf.runtime.emf.core=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.core
 plugin@org.eclipse.gmf.runtime.emf.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.ui
