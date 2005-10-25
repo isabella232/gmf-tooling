@@ -189,9 +189,11 @@ for (int i = 0; i < genLinks.size(); i++) {
 	}
 		
 <%
+String acceptAllMatcherAccessor = "acceptAllMatcher()"; //$NON-NLS-1$
 for (int i = 0; i < genNodes.size(); i++) {
 	GenNode genNode = (GenNode) genNodes.get(i);
 	String qualifiedNodeInterfaceName = genNode.getDomainMetaClass().getQualifiedInterfaceName();
+	String nodeSelector = genNode.getModelElementSelector() != null ? genNode.getUniqueIdentifier() : acceptAllMatcherAccessor;
 %>
 	/**
 	 * User can change implementation of this method to check some additional conditions here.
@@ -199,7 +201,7 @@ for (int i = 0; i < genNodes.size(); i++) {
 	 * @generated
 	 */
 	private boolean isNode<%=genNode.getUniqueIdentifier()%>(<%=importManager.getImportedName(qualifiedNodeInterfaceName)%> element) {
-		return <%=importManager.getImportedName(PartSelectorUtil.getPartSelectorsFullClassName(genDiagram)) + "." + PartSelectorUtil.getPartSelectorMethodName(genNode)%>(element);
+		return ElementSelectors.<%=nodeSelector%>.matches(element);
 	}
 
 <%
@@ -207,6 +209,7 @@ for (int i = 0; i < genNodes.size(); i++) {
 	for (int j = 0; j < genChildNodes.size(); j++) {
 		GenChildNode genChildNode = (GenChildNode) genChildNodes.get(j);
 		String qualifiedChildNodeInterfaceName = genChildNode.getDomainMetaClass().getQualifiedInterfaceName();
+		String childNodeSelector = genChildNode.getModelElementSelector() != null ? genChildNode.getUniqueIdentifier() : acceptAllMatcherAccessor;
 %>
 	/**
 	 * User can change implementation of this method to check some additional conditions here.
@@ -214,7 +217,7 @@ for (int i = 0; i < genNodes.size(); i++) {
 	 * @generated
 	 */
 	private boolean isChildNode<%=genChildNode.getUniqueIdentifier()%>(<%=importManager.getImportedName(qualifiedChildNodeInterfaceName)%> element) {
-		return <%=importManager.getImportedName(PartSelectorUtil.getPartSelectorsFullClassName(genDiagram)) + "." + PartSelectorUtil.getPartSelectorMethodName(genChildNode)%>(element);
+		return ElementSelectors.<%=childNodeSelector%>.matches(element);
 	}
 
 <%	}
@@ -227,6 +230,7 @@ for (int i = 0; i < genLinks.size(); i++) {
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
 		String qualifiedInterfaceName = modelFacet.getMetaClass().getQualifiedInterfaceName();
+		String linkSelector = genLink.getModelElementSelector() != null ? genLink.getUniqueIdentifier() : acceptAllMatcherAccessor;		
 %>
 	/**
 	 * User can change implementation of this method to check some additional conditions here.
@@ -234,13 +238,134 @@ for (int i = 0; i < genLinks.size(); i++) {
 	 * @generated
 	 */
 	private boolean isLinkWithClass<%=genLink.getUniqueIdentifier()%>(<%=importManager.getImportedName(qualifiedInterfaceName)%> element) {
-		return <%=importManager.getImportedName(PartSelectorUtil.getPartSelectorsFullClassName(genDiagram)) + "." + PartSelectorUtil.getPartSelectorMethodName(genLink)%>(element);
+		return ElementSelectors.<%=linkSelector%>.matches(element);
 	}
 <%
 	}
 }
 %>
+
+	/**
+	 * @generated
+	 */
+	private static class ElementSelectors {	
+<%
+int selectorCounter = 0;
+for(Iterator it = AccessUtil.getGenEntities(genDiagram); it.hasNext();) {
+	GenCommonBase nextElement = (GenCommonBase)it.next();
+	GenBaseElement  genElement = nextElement instanceof GenBaseElement ? (GenBaseElement) nextElement : null;
+	if(genElement == null || genElement.getModelElementSelector() == null) continue;	
 		
+	ModelElementSelector selector = genElement.getModelElementSelector();
+	if(selector.getBody() == null) continue;
+	selectorCounter++;
+	%>
+		/**
+		 * Element matching condition for <%=nextElement.getUniqueIdentifier()%>.
+		 * <pre>language: <%=selector.getLanguage()%></pre>	
+		 * <pre>body    : <%=selector.getBody()%></pre>
+		 * @generated
+		 */
+		private static final Matcher <%=nextElement.getUniqueIdentifier()%> = new Matcher("<%=selector.getBody()%>");
+<%}%>
+		
+		/**
+		 * @generated
+		 */
+		private ElementSelectors() {
+		}
+<%if(selectorCounter > 0) { %>			
+		/**
+		* @generated	
+		*/
+		static class Matcher {
+	
+			/**
+			* @generated	
+			*/					
+			private EClass evalContext;
+	
+			/**
+			* @generated	
+			*/						
+			private <%=importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OclConstraintCondition")%> condition;
+	
+			/**
+			* @generated	
+			*/						
+			private String body;		
+					
+			/**
+			* @generated	
+			*/				
+			Matcher(String expressionBody) {			
+				body = expressionBody;
+			}
+	
+			/**
+			* @generated	
+			*/						
+			boolean matches(EObject object) {		
+				try {
+					Boolean result = (object != null) ? evaluate(object) : Boolean.FALSE;
+					return result.booleanValue();
+				} catch(IllegalArgumentException e) {
+					// TODO - add log entry
+					e.printStackTrace();
+					return false;
+				}
+			}
+	
+			/**
+			* @generated	
+			*/		
+			private Boolean evaluate(EObject context) {
+				this.evalContext = context.eClass();
+				if(condition == null) {					
+					condition = new OclConstraintCondition(body, evalContext);
+				}
+				if(condition != null) {
+					return booleanCast(condition.evaluate(context));
+				}
+				return Boolean.FALSE;
+			}
+	
+			/**
+			* @generated	
+			*/					
+			private static Boolean booleanCast(Object value) {
+				if(value == null) {
+					return null;
+				} else if(value instanceof Boolean) {
+					 return (Boolean)value;	
+				}
+				return Boolean.FALSE;
+			}
+		} // end of Matcher
+<%}%>		
+		/**
+		 * @generated
+		 */
+		static class AcceptAllMatcher {
+			/**
+			 * @generated
+			 */		
+			static final AcceptAllMatcher INSTANCE = new AcceptAllMatcher();
+			/**
+			 * @generated
+			 */					
+			boolean matches(Object element) {
+				return true;
+			}
+		}
+		
+		/**
+		 * @generated
+		 */		
+		static AcceptAllMatcher acceptAllMatcher() {
+			return AcceptAllMatcher.INSTANCE;
+		}
+	} // end of ElementSelectors
 }
 	
 <%importManager.emitSortedImports();%>

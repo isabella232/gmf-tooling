@@ -107,10 +107,6 @@ if (requiredPlugins == null) {
 }
 requiredPluginIDs.addAll(Arrays.asList(requiredPlugins));
 
-if(PartSelectorUtil.hasPartSelectors(genDiagram)) {
-	requiredPluginIDs.addAll(Arrays.asList(PartSelectorUtil.getRequiredPlugins(genDiagram)));
-}
-
 for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_9);
     stringBuffer.append(it.next());

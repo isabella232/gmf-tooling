@@ -116,14 +116,12 @@ public class Generator implements Runnable {
 			}
 			generateDiagramEditPart();
 			generateEditPartFactory();
-			generatePartSelectors();			
 			generateElementTypes();
 			generateViewProvider();
 			generateEditPartProvider();
 			generateMetamodelSupportProvider();
 			generateModelingAssistantProvider();
 			generateIconProvider();
-			generateElementInitializers();			
 
 			// editor
 			generateInitDiagramFileAction();
@@ -207,15 +205,6 @@ public class Generator implements Runnable {
 			myDiagram
 		);
 	}
-	
-	private void generatePartSelectors() throws JETException, InterruptedException {	
-		generate(
-				EmitterFactory.getEditPartSelectorsEmitter(),
-				myDiagram.getEditPartsPackageName(),
-				PartSelectorUtil.getPartSelectorsClassName(myDiagram),
-				myDiagram
-		);
-	}
 		
 	// providers
 
@@ -278,15 +267,6 @@ public class Generator implements Runnable {
 			EmitterFactory.getEditPartProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getEditPartProviderClassName(),
-			myDiagram
-		);
-	}
-
-	private void generateElementInitializers() throws JETException, InterruptedException {
-		generate(
-			EmitterFactory.getElementInitializersEmitter(),
-			myDiagram.getElementInitializersPackageName(),
-			myDiagram.getElementInitializersClassName(),
 			myDiagram
 		);
 	}

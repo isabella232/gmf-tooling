@@ -55,10 +55,6 @@ if (requiredPlugins == null) {
 }
 requiredPluginIDs.addAll(Arrays.asList(requiredPlugins));
 
-if(PartSelectorUtil.hasPartSelectors(genDiagram)) {
-	requiredPluginIDs.addAll(Arrays.asList(PartSelectorUtil.getRequiredPlugins(genDiagram)));
-}
-
 for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {%>
     <import plugin="<%=it.next()%>" export="true"/>
 <%}%>
