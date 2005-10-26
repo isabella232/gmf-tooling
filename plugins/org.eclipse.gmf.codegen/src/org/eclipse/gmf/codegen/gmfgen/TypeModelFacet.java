@@ -24,6 +24,8 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getMetaClass <em>Meta Class</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getContainmentMetaFeature <em>Containment Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getChildMetaFeature <em>Child Meta Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getModelElementSelector <em>Model Element Selector</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getModelElementInitializer <em>Model Element Initializer</em>}</li>
  * </ul>
  * </p>
  *
@@ -109,5 +111,57 @@ public interface TypeModelFacet extends ModelFacet{
 	 * @generated
 	 */
 	void setChildMetaFeature(GenFeature value);
+
+	/**
+	 * Returns the value of the '<em><b>Model Element Selector</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Selection criterion for domain model elements associated with this type model facet
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Model Element Selector</em>' containment reference.
+	 * @see #setModelElementSelector(ModelElementSelector)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeModelFacet_ModelElementSelector()
+	 * @model containment="true"
+	 * @generated
+	 */
+	ModelElementSelector getModelElementSelector();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getModelElementSelector <em>Model Element Selector</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Model Element Selector</em>' containment reference.
+	 * @see #getModelElementSelector()
+	 * @generated
+	 */
+	void setModelElementSelector(ModelElementSelector value);
+
+	/**
+	 * Returns the value of the '<em><b>Model Element Initializer</b></em>' containment reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenElementInitializer#getTypeModelFacet <em>Type Model Facet</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * State initializer for domain model elements associated with this type model facet
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Model Element Initializer</em>' containment reference.
+	 * @see #setModelElementInitializer(GenElementInitializer)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeModelFacet_ModelElementInitializer()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenElementInitializer#getTypeModelFacet
+	 * @model opposite="typeModelFacet" containment="true"
+	 * @generated
+	 */
+	GenElementInitializer getModelElementInitializer();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getModelElementInitializer <em>Model Element Initializer</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Model Element Initializer</em>' containment reference.
+	 * @see #getModelElementInitializer()
+	 * @generated
+	 */
+	void setModelElementInitializer(GenElementInitializer value);
 
 } // TypeModelFacet

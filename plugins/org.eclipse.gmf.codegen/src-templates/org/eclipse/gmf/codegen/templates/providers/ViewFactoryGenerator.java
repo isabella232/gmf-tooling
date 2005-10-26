@@ -43,7 +43,7 @@ public class ViewFactoryGenerator
   public String generate(Object argument)
   {
     StringBuffer stringBuffer = new StringBuffer();
-    GenBaseElement genElement = (GenBaseElement) argument;
+    GenCommonBase genElement = (GenCommonBase) argument;
     GenDiagram genDiagram = genElement.getDiagram();
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getProvidersPackageName());

@@ -34,7 +34,7 @@ import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
  * @generated
  */
 public class GenNodeItemProvider
-	extends GenBaseElementItemProvider
+	extends GenCommonBaseItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	

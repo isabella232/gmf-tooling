@@ -14,7 +14,6 @@ package org.eclipse.gmf.codegen.util;
 import java.util.Iterator;
 
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
-import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -71,7 +70,7 @@ public class AccessUtil {
 		return "Label" + genNode.getEditPartClassName(); //$NON-NLS-1$
 	}
 
-	public static String getSemanticHintsClassName(GenBaseElement genElement) {
+	public static String getSemanticHintsClassName(GenCommonBase genElement) {
 		return genElement.getClassNamePrefix() + genElement.getClassNameSuffux() + "SemanticHints"; //$NON-NLS-1$
 	}
 

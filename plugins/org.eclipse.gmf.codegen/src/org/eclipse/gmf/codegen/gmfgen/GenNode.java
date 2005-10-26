@@ -35,7 +35,7 @@ import org.eclipse.emf.common.util.EList;
  *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='diagramRunTimeClass.eCoreClass.eAllSuperTypes->includes(diagramrt.DiagramNode)'"
  * @generated
  */
-public interface GenNode extends GenBaseElement{
+public interface GenNode extends GenCommonBase {
 	/**
 	 * Returns the value of the '<em><b>Diagram</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getNodes <em>Nodes</em>}'.

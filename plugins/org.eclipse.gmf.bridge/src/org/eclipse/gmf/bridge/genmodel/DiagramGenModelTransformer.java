@@ -201,28 +201,10 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 				label.setDiagramRunTimeClass(getNodeLabelRunTimeClass());
 				childNode.getLabels().add(label);
 			}
-			
-			// construct model element selector for domain EClass specializations if any exist
-			if(childNodeMapping.getDomainSpecialization() != null) {
-				childNode.setModelElementSelector(createModelElementSelector(childNodeMapping.getDomainSpecialization()));
-			}
-			
-			if(childNodeMapping.getDomainInitializer() != null) {
-				childNode.setModelElementInitializer(createElementInitializer(childNodeMapping.getDomainInitializer()));			
-			}					
-			
+						
 			genNode.getChildNodes().add(childNode);
 			handleToolDef(childNodeMapping.getDiagramNode(), childNode);
 		}
-		
-		// construct model element selector for domain EClass specializations if any exist
-		if(nme.getDomainSpecialization() != null) {
-			genNode.setModelElementSelector(createModelElementSelector(nme.getDomainSpecialization()));
-		}
-		
-		if(nme.getDomainInitializer() != null) {
-			genNode.setModelElementInitializer(createElementInitializer(nme.getDomainInitializer()));			
-		}		
 	}
 
 	private void handleToolDef(Node nodeToolDef, GenNode genNode) {
@@ -259,7 +241,6 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		gl.setDiagramRunTimeClass(findRunTimeClass(lme));
 		gl.setEditPartClassName(createEditPartClassName(lme));
 		gl.setNotationViewFactoryClassName(createNotationViewFactoryClassName(lme));
-		//FIXME gl.setContainmentMetaFeature(findGenFeature(lme.getContainmentFeature()));
 		gl.setVisualID(LINK_COUNT_BASE + (++myLinkCount));
 
 		initViewmap(lme, gl);
@@ -273,14 +254,6 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			case LineKind.DASH : attrs.setLineStyle("LINE_DASH"); break;
 			}
 			gl.getViewmap().getAttributes().add(attrs);
-		}
-
-		// construct model element selector for domain EClass specializations if any exist
-		if(lme.getDomainSpecialization() != null) {
-			gl.setModelElementSelector(createModelElementSelector(lme.getDomainSpecialization()));
-		}
-		if(lme.getDomainInitializer() != null) {
-			gl.setModelElementInitializer(createElementInitializer(lme.getDomainInitializer()));			
 		}
 	}
 
@@ -439,7 +412,8 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 	}
 
 	private TypeModelFacet createModelFacet(NodeMapping nme) {
-		return setupModelFacet(nme.getDomainMetaElement(), nme.getContainmentFeature(), null);
+		TypeModelFacet typeModelFacet = setupModelFacet(nme.getDomainMetaElement(), nme.getContainmentFeature(), null);
+		return setupAux(typeModelFacet, nme.getDomainSpecialization(), nme.getDomainInitializer());
 	}
 
 	private LinkModelFacet createModelFacet(LinkMapping lme) {
@@ -451,6 +425,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			// TODO : source may be arbitrary feature
 			mf.setSourceMetaFeature(findGenFeature(lme.getContainmentFeature()));
 			mf.setTargetMetaFeature(findGenFeature(lme.getLinkMetaFeature()));
+			setupAux(mf, lme.getDomainSpecialization(), lme.getDomainInitializer());
 			return mf;
 		} else {
 			FeatureModelFacet mf = GMFGenFactory.eINSTANCE.createFeatureModelFacet();
@@ -461,7 +436,8 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 
 	private TypeModelFacet createModelFacet(ChildNodeMapping nme) {
 		// XXX domainChildrenFeature is NOT necessarily containment feature!!!
-		return setupModelFacet(nme.getDomainMetaElement(), nme.getDomainChildrenFeature(), nme.getDomainChildrenFeature());
+		TypeModelFacet mf = setupModelFacet(nme.getDomainMetaElement(), nme.getDomainChildrenFeature(), nme.getDomainChildrenFeature());
+		return setupAux(mf, nme.getDomainSpecialization(), nme.getDomainInitializer());
 	}
 
 	private TypeModelFacet setupModelFacet(EClass domainMetaElement, EStructuralFeature containmentFeature, EStructuralFeature childFeature) {
@@ -470,6 +446,20 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		mf.setContainmentMetaFeature(findGenFeature(containmentFeature));
 		mf.setChildMetaFeature(childFeature == null ? mf.getContainmentMetaFeature() : findGenFeature(childFeature));
 		return mf;
+	}
+
+	/**
+	 * @return typeModelFacet argument for convenience
+	 */
+	private TypeModelFacet setupAux(TypeModelFacet typeModelFacet, Constraint spec, ElementInitializer init) {
+		// construct model element selector for domain EClass specializations if any exist
+		if(spec != null) {
+			typeModelFacet.setModelElementSelector(createModelElementSelector(spec));
+		}
+		if(init != null) {
+			typeModelFacet.setModelElementInitializer(createElementInitializer(init));			
+		}
+		return typeModelFacet;
 	}
 
 	private GenElementInitializer createElementInitializer(ElementInitializer elementInitializer) {

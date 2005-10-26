@@ -189,15 +189,17 @@ entities = AccessUtil.getGenEntities(genDiagram);
 int elementInitializerCount = 0;
 while (entities.hasNext()) {
 	GenCommonBase entity = (GenCommonBase) entities.next();
+	TypeModelFacet typeModelFacet = null;
 	String semanticNodeInterfaceName;
 	if (entity instanceof GenDiagram) {
 		semanticNodeInterfaceName = genDiagram.getDomainDiagramElement().getName();
 	} else if (entity instanceof GenNode) {
 		GenNode genNode = (GenNode) entity;
+		typeModelFacet = genNode.getModelFacet();
 		semanticNodeInterfaceName = genNode.getDomainMetaClass().getName();
 	} else if (entity instanceof GenLink && ((GenLink) entity).getModelFacet() instanceof TypeLinkModelFacet) {
-		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) ((GenLink) entity).getModelFacet();
-		semanticNodeInterfaceName = modelFacet.getMetaClass().getName();
+		typeModelFacet = (TypeLinkModelFacet) ((GenLink) entity).getModelFacet();
+		semanticNodeInterfaceName = typeModelFacet.getMetaClass().getName();
 	} else {
 		continue;
 	}
@@ -220,14 +222,11 @@ while (entities.hasNext()) {
 					// getConfigureCommand(ConfigureRequest req) method and write your custom
 					// code here. Use getElementToEdit() to get created element.
 <%
-	if (entity instanceof GenBaseElement) {
-		GenElementInitializer initializer = ((GenBaseElement) entity).getModelElementInitializer();
-		if (initializer != null) {
-			++elementInitializerCount;
+	if (typeModelFacet != null && typeModelFacet.getModelElementInitializer() != null) {
+		++elementInitializerCount;
 %>
-					Initializers.<%=initializer.getElement().getUniqueIdentifier()%>.init(getElementToEdit());
+					Initializers.<%=entity.getUniqueIdentifier()%>.init(getElementToEdit());
 <%
-		}
 	}
 	if (entity instanceof GenLink) {
 		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) ((GenLink) entity).getModelFacet();
@@ -393,31 +392,40 @@ for (int i = 0; i < refLinks.size(); i++) {
 	 * @generated
 	 */
 	private static class Initializers {
-	<%
-	for(Iterator it = AccessUtil.getGenEntities(genDiagram); it.hasNext();) {
-		GenCommonBase nextElement = (GenCommonBase)it.next();
-		GenBaseElement  genElement = nextElement instanceof GenBaseElement ? (GenBaseElement) nextElement : null;
-		if(genElement == null || genElement.getModelElementInitializer() == null) continue;	
-			
-		GenElementInitializer initializer = genElement.getModelElementInitializer();
-		if(initializer instanceof GenFeatureSeqInitializer) {
-			GenFeatureSeqInitializer ftInitializer = (GenFeatureSeqInitializer)initializer;
-		%>
+<%
+for(Iterator it = AccessUtil.getGenEntities(genDiagram); it.hasNext();) {
+	GenCommonBase nextElement = (GenCommonBase)it.next();
+	TypeModelFacet modelFacet = null;
+	if(nextElement instanceof GenNode) {
+		modelFacet = ((GenNode)nextElement).getModelFacet();
+	} else if(nextElement instanceof GenLink && 
+		((GenLink)nextElement).getModelFacet() instanceof TypeLinkModelFacet) {
+		modelFacet = (TypeLinkModelFacet)((GenLink)nextElement).getModelFacet();
+	} 
+	
+	if(modelFacet != null && modelFacet.getModelElementInitializer() instanceof GenFeatureSeqInitializer) {				
+		GenFeatureSeqInitializer ftInitializer = (GenFeatureSeqInitializer)modelFacet.getModelElementInitializer();
+%>
 		/**
 		* @generated
 		*/
-		private static final ObjectInitializer <%=initializer.getElement().getUniqueIdentifier()%> = new ObjectInitializer(new FeatureInitializer[] {
-			<% for(Iterator featInitIt = ftInitializer.getInitializers().iterator(); featInitIt.hasNext();) { 
-					GenFeatureValueSpec featureValSpec = (GenFeatureValueSpec)featInitIt.next();%>
+		private static final ObjectInitializer <%=nextElement.getUniqueIdentifier()%> = new ObjectInitializer(new FeatureInitializer[] {
+<%
+		for(Iterator featInitIt = ftInitializer.getInitializers().iterator(); featInitIt.hasNext();) { 
+			GenFeatureValueSpec featureValSpec = (GenFeatureValueSpec)featInitIt.next();%>
 			new FeatureInitializer("<%=featureValSpec.getBody()%>", //$NON-NLS-1$
 						<%=importManager.getImportedName(ftInitializer.getElementQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=ftInitializer.getElementClassAccessorName()%>(),
 						<%=importManager.getImportedName(featureValSpec.getFeatureQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=featureValSpec.getFeature().getFeatureAccessorName()
 						%>())<%=featInitIt.hasNext() ? "," : ""%>
-			<%	}
-			} %>
+
+<%
+		} // end of GenFeatureValueSpec iteration
+%>
 		});
-	<%	} // end of FeatureSeqInitializer
-	%>
+<%
+	} // end of GenFeatureSeqInitializer 
+} // end of getGenEntities iteration
+%>
 	
 		/** 
 		 * @generated

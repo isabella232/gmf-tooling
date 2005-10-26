@@ -23,13 +23,10 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
-import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.codegen.gmfgen.ModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -131,10 +128,10 @@ public class GenFeatureSeqInitializerImpl extends GenElementInitializerImpl impl
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__ELEMENT:
+				case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__TYPE_MODEL_FACET:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__ELEMENT, msgs);
+					return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__TYPE_MODEL_FACET, msgs);
 				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
@@ -152,8 +149,8 @@ public class GenFeatureSeqInitializerImpl extends GenElementInitializerImpl impl
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__ELEMENT:
-					return eBasicSetContainer(null, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__ELEMENT, msgs);
+				case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__TYPE_MODEL_FACET:
+					return eBasicSetContainer(null, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__TYPE_MODEL_FACET, msgs);
 				case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS:
 					return ((InternalEList)getInitializers()).basicRemove(otherEnd, msgs);
 				default:
@@ -171,8 +168,8 @@ public class GenFeatureSeqInitializerImpl extends GenElementInitializerImpl impl
 	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
 		if (eContainerFeatureID >= 0) {
 			switch (eContainerFeatureID) {
-				case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__ELEMENT:
-					return eContainer.eInverseRemove(this, GMFGenPackage.GEN_BASE_ELEMENT__MODEL_ELEMENT_INITIALIZER, GenBaseElement.class, msgs);
+				case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__TYPE_MODEL_FACET:
+					return eContainer.eInverseRemove(this, GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_INITIALIZER, TypeModelFacet.class, msgs);
 				default:
 					return eDynamicBasicRemoveFromContainer(msgs);
 			}
@@ -187,8 +184,8 @@ public class GenFeatureSeqInitializerImpl extends GenElementInitializerImpl impl
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__ELEMENT:
-				return getElement();
+			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__TYPE_MODEL_FACET:
+				return getTypeModelFacet();
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS:
 				return getInitializers();
 		}
@@ -231,8 +228,8 @@ public class GenFeatureSeqInitializerImpl extends GenElementInitializerImpl impl
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__ELEMENT:
-				return getElement() != null;
+			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__TYPE_MODEL_FACET:
+				return getTypeModelFacet() != null;
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS:
 				return initializers != null && !initializers.isEmpty();
 		}
@@ -240,18 +237,11 @@ public class GenFeatureSeqInitializerImpl extends GenElementInitializerImpl impl
 	}
 
 	private GenClass getElementClass() {
-		GenBaseElement baseElement = getElement();
-		if(baseElement == null) {
+		TypeModelFacet typeModelFacet = getTypeModelFacet();
+		if(typeModelFacet == null) {
 			return null;
 		}
-		GenClass contextEClass = null;
-		if(baseElement instanceof GenNode) {
-			contextEClass = ((GenNode)baseElement).getDomainMetaClass();
-		} else if(baseElement instanceof GenLink) {
-			ModelFacet facet = ((GenLink)baseElement).getModelFacet(); 
-			contextEClass = (facet instanceof TypeLinkModelFacet) ? ((TypeLinkModelFacet)facet).getMetaClass() : null;		
-		}
-		return contextEClass;
+		return typeModelFacet.getMetaClass();
 	}
 
 } //GenFeatureSeqInitializerImpl

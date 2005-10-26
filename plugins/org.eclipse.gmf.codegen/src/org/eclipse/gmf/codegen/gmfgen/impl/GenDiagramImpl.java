@@ -31,7 +31,10 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
@@ -1965,32 +1968,38 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		Set requiredIDs = new HashSet();
 		for (Iterator it = getNodes().iterator(); it.hasNext();) {
 			GenNode nextNode = (GenNode) it.next();
-			if(nextNode.getModelElementInitializer() != null) {
-				requiredIDs.addAll(Arrays.asList(nextNode.getModelElementInitializer().getRequiredPluginIDs()));
+			TypeModelFacet modelFacet = nextNode.getModelFacet();
+			if(modelFacet.getModelElementInitializer() != null) {
+				requiredIDs.addAll(Arrays.asList(modelFacet.getModelElementInitializer().getRequiredPluginIDs()));
 			}
-			if(nextNode.getModelElementSelector() != null) {
-				requiredIDs.addAll(Arrays.asList(nextNode.getModelElementSelector().getRequiredPluginIDs()));				
+			if(modelFacet.getModelElementSelector() != null) {
+				requiredIDs.addAll(Arrays.asList(modelFacet.getModelElementSelector().getRequiredPluginIDs()));				
 			}
 			
 			for (Iterator childIt = nextNode.getChildNodes().iterator(); childIt.hasNext();) {
-				GenChildNode nextChild = (GenChildNode) childIt.next();			
-				if(nextChild.getModelElementInitializer() != null) {
-					requiredIDs.addAll(Arrays.asList(nextChild.getModelElementInitializer().getRequiredPluginIDs()));
+				GenChildNode nextChild = (GenChildNode) childIt.next();
+				TypeModelFacet childModelFacet = nextChild.getModelFacet();
+				if(childModelFacet.getModelElementInitializer() != null) {
+					requiredIDs.addAll(Arrays.asList(childModelFacet.getModelElementInitializer().getRequiredPluginIDs()));
 				}
-				if(nextChild.getModelElementSelector() != null) {
-					requiredIDs.addAll(Arrays.asList(nextChild.getModelElementSelector().getRequiredPluginIDs()));				
+				if(childModelFacet.getModelElementSelector() != null) {
+					requiredIDs.addAll(Arrays.asList(childModelFacet.getModelElementSelector().getRequiredPluginIDs()));				
 				}				
 			}
 		}
 		
 		for (Iterator it = getLinks().iterator(); it.hasNext();) {
 			GenLink nextLink = (GenLink) it.next();
-			if(nextLink.getModelElementInitializer() != null) {
-				requiredIDs.addAll(Arrays.asList(nextLink.getModelElementInitializer().getRequiredPluginIDs()));
+			LinkModelFacet modelFacet = nextLink.getModelFacet();
+			if(modelFacet instanceof TypeLinkModelFacet) {
+				TypeLinkModelFacet  typeModelFacet = (TypeLinkModelFacet)modelFacet;
+				if(typeModelFacet.getModelElementInitializer() != null) {
+					requiredIDs.addAll(Arrays.asList(typeModelFacet.getModelElementInitializer().getRequiredPluginIDs()));
+				}
+				if(typeModelFacet.getModelElementSelector() != null) {
+					requiredIDs.addAll(Arrays.asList(typeModelFacet.getModelElementSelector().getRequiredPluginIDs()));
+				}
 			}
-			if(nextLink.getModelElementSelector() != null) {
-				requiredIDs.addAll(Arrays.asList(nextLink.getModelElementSelector().getRequiredPluginIDs()));
-			}			
 		}		
 		return requiredIDs;
 	}

@@ -22,11 +22,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
@@ -45,7 +43,7 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  *
  * @generated
  */
-public class GenLinkImpl extends GenBaseElementImpl implements GenLink {
+public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	/**
 	 * The cached value of the '{@link #getModelFacet() <em>Model Facet</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -157,10 +155,6 @@ public class GenLinkImpl extends GenBaseElementImpl implements GenLink {
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_INITIALIZER:
-					if (modelElementInitializer != null)
-						msgs = ((InternalEObject)modelElementInitializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_LINK__MODEL_ELEMENT_INITIALIZER, null, msgs);
-					return basicSetModelElementInitializer((GenElementInitializer)otherEnd, msgs);
 				case GMFGenPackage.GEN_LINK__DIAGRAM:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
@@ -186,10 +180,6 @@ public class GenLinkImpl extends GenBaseElementImpl implements GenLink {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case GMFGenPackage.GEN_LINK__VIEWMAP:
 					return basicSetViewmap(null, msgs);
-				case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_SELECTOR:
-					return basicSetModelElementSelector(null, msgs);
-				case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_INITIALIZER:
-					return basicSetModelElementInitializer(null, msgs);
 				case GMFGenPackage.GEN_LINK__DIAGRAM:
 					return eBasicSetContainer(null, GMFGenPackage.GEN_LINK__DIAGRAM, msgs);
 				case GMFGenPackage.GEN_LINK__MODEL_FACET:
@@ -238,10 +228,6 @@ public class GenLinkImpl extends GenBaseElementImpl implements GenLink {
 				return getNotationViewFactoryClassName();
 			case GMFGenPackage.GEN_LINK__VIEWMAP:
 				return getViewmap();
-			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_SELECTOR:
-				return getModelElementSelector();
-			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_INITIALIZER:
-				return getModelElementInitializer();
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
@@ -273,12 +259,6 @@ public class GenLinkImpl extends GenBaseElementImpl implements GenLink {
 				return;
 			case GMFGenPackage.GEN_LINK__VIEWMAP:
 				setViewmap((Viewmap)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_SELECTOR:
-				setModelElementSelector((ModelElementSelector)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_INITIALIZER:
-				setModelElementInitializer((GenElementInitializer)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
 				setModelFacet((LinkModelFacet)newValue);
@@ -313,12 +293,6 @@ public class GenLinkImpl extends GenBaseElementImpl implements GenLink {
 			case GMFGenPackage.GEN_LINK__VIEWMAP:
 				setViewmap((Viewmap)null);
 				return;
-			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_SELECTOR:
-				setModelElementSelector((ModelElementSelector)null);
-				return;
-			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_INITIALIZER:
-				setModelElementInitializer((GenElementInitializer)null);
-				return;
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
 				setModelFacet((LinkModelFacet)null);
 				return;
@@ -346,10 +320,6 @@ public class GenLinkImpl extends GenBaseElementImpl implements GenLink {
 				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
 			case GMFGenPackage.GEN_LINK__VIEWMAP:
 				return viewmap != null;
-			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_SELECTOR:
-				return modelElementSelector != null;
-			case GMFGenPackage.GEN_LINK__MODEL_ELEMENT_INITIALIZER:
-				return modelElementInitializer != null;
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:

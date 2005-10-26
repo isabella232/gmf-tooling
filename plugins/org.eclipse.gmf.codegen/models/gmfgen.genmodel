@@ -83,10 +83,6 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getClassNameSuffux"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getUniqueIdentifier"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="gmfgen.ecore#//GenBaseElement">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenBaseElement/modelElementSelector"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenBaseElement/modelElementInitializer"/>
-    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenNode">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/diagram"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/modelFacet"/>
@@ -132,6 +128,8 @@
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/metaClass"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/containmentMetaFeature"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/childMetaFeature"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/modelElementSelector"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/modelElementInitializer"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//FeatureModelFacet">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//FeatureModelFacet/metaFeature"/>
@@ -213,9 +211,7 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//ToolGroup/palette"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenElementInitializer">
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenElementInitializer/element"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenElementInitializer/getInitializerMethodName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenElementInitializer/getInitializersQualifiedClassName"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenElementInitializer/typeModelFacet"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenElementInitializer/getRequiredPluginIDs"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenFeatureSeqInitializer">

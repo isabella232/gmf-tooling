@@ -1,6 +1,6 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="ViewFactoryGenerator"
 	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
-<%GenBaseElement genElement = (GenBaseElement) argument;%>
+<%GenCommonBase genElement = (GenCommonBase) argument;%>
 <%GenDiagram genDiagram = genElement.getDiagram();%>
 package <%=genDiagram.getProvidersPackageName()%>;
 

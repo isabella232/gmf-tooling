@@ -68,17 +68,17 @@ public class ElementTypesGenerator
   protected final String TEXT_49 = NL + "\t\tElementTypeRegistry.getInstance().register(";
   protected final String TEXT_50 = ");";
   protected final String TEXT_51 = NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static class BaseEditHelperAdvice extends AbstractEditHelperAdvice {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ICommand getBeforeEditContextCommand(GetEditContextRequest reqest) {" + NL + "\t\t\tGetEditContextCommand result = null;" + NL + "\t\t\tIEditCommandRequest editRequest = reqest.getEditCommandRequest();" + NL + "\t\t\tif (editRequest instanceof CreateElementRequest) {" + NL + "\t\t\t\tresult = new GetEditContextCommand(reqest);" + NL + "\t\t\t\tEObject container = ((CreateElementRequest) editRequest).getContainer();" + NL + "\t\t\t\tif (container instanceof View) {" + NL + "\t\t\t\t\tresult.setEditContext(((View) container).getElement());" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static class BaseEditHelper extends MSLEditHelper {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ICommand getEditContextCommand(GetEditContextRequest req) {" + NL + "\t\t\tGetEditContextCommand result = null;" + NL + "\t\t\tIEditCommandRequest editRequest = req.getEditCommandRequest();" + NL + "\t\t\tif (editRequest instanceof CreateElementRequest) {" + NL + "\t\t\t\tresult = new GetEditContextCommand(req);" + NL + "\t\t\t\tEObject container = ((CreateElementRequest) editRequest).getContainer();" + NL + "\t\t\t\tif (container instanceof View) {" + NL + "\t\t\t\t\tcontainer = ((View) container).getElement();" + NL + "\t\t\t\t}" + NL + "\t\t\t\tresult.setEditContext(container);" + NL + "\t\t\t}" + NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t}" + NL + "\t" + NL + "\t";
-  protected final String TEXT_52 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class Initializers {" + NL + "\t";
+  protected final String TEXT_52 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class Initializers {";
   protected final String TEXT_53 = NL + "\t\t/**" + NL + "\t\t* @generated" + NL + "\t\t*/" + NL + "\t\tprivate static final ObjectInitializer ";
-  protected final String TEXT_54 = " = new ObjectInitializer(new FeatureInitializer[] {" + NL + "\t\t\t";
+  protected final String TEXT_54 = " = new ObjectInitializer(new FeatureInitializer[] {";
   protected final String TEXT_55 = NL + "\t\t\tnew FeatureInitializer(\"";
   protected final String TEXT_56 = "\", //$NON-NLS-1$" + NL + "\t\t\t\t\t\t";
   protected final String TEXT_57 = ".eINSTANCE.get";
   protected final String TEXT_58 = "()," + NL + "\t\t\t\t\t\t";
   protected final String TEXT_59 = ".eINSTANCE.get";
   protected final String TEXT_60 = "())";
-  protected final String TEXT_61 = NL + "\t\t\t";
-  protected final String TEXT_62 = NL + "\t\t});" + NL + "\t";
+  protected final String TEXT_61 = NL;
+  protected final String TEXT_62 = NL + "\t\t});";
   protected final String TEXT_63 = NL + "\t" + NL + "\t\t/** " + NL + "\t\t * @generated" + NL + "\t\t */\t" + NL + "\t\tprivate Initializers() {" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t/** " + NL + "\t\t * @generated" + NL + "\t\t */\t" + NL + "\t\tstatic class ObjectInitializer {" + NL + "\t\t\t/** " + NL + "\t\t\t * @generated" + NL + "\t\t\t */\t\t" + NL + "\t\t\tprivate FeatureInitializer[] initExpressions;\t" + NL + "\t\t\t" + NL + "\t\t\t/** " + NL + "\t\t\t * @generated" + NL + "\t\t\t */\t\t" + NL + "\t\t\tObjectInitializer(FeatureInitializer[] initExpressions) {" + NL + "\t\t\t\tthis.initExpressions = initExpressions;" + NL + "\t\t\t}" + NL + "\t\t\t" + NL + "\t\t\t/** " + NL + "\t\t\t * @generated" + NL + "\t\t\t */\t\t" + NL + "\t\t\tvoid init(";
   protected final String TEXT_64 = " instance) {" + NL + "\t\t\t\tfor (int i = 0; i < initExpressions.length; i++) {" + NL + "\t\t\t\t\tFeatureInitializer nextExpr = initExpressions[i];" + NL + "\t\t\t\t\tnextExpr.init(instance);" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t\t} // end of ObjectInitializer" + NL + "\t\t" + NL + "\t\t/** " + NL + "\t\t * @generated" + NL + "\t\t */\t" + NL + "\t\tstatic class FeatureInitializer {" + NL + "\t\t\t/** " + NL + "\t\t\t * @generated" + NL + "\t\t\t */\t\t" + NL + "\t\t\tprivate ";
   protected final String TEXT_65 = " contextClass;\t" + NL + "\t\t\t/** " + NL + "\t\t\t * @generated" + NL + "\t\t\t */\t\t" + NL + "\t\t\tprivate ";
@@ -151,15 +151,17 @@ entities = AccessUtil.getGenEntities(genDiagram);
 int elementInitializerCount = 0;
 while (entities.hasNext()) {
 	GenCommonBase entity = (GenCommonBase) entities.next();
+	TypeModelFacet typeModelFacet = null;
 	String semanticNodeInterfaceName;
 	if (entity instanceof GenDiagram) {
 		semanticNodeInterfaceName = genDiagram.getDomainDiagramElement().getName();
 	} else if (entity instanceof GenNode) {
 		GenNode genNode = (GenNode) entity;
+		typeModelFacet = genNode.getModelFacet();
 		semanticNodeInterfaceName = genNode.getDomainMetaClass().getName();
 	} else if (entity instanceof GenLink && ((GenLink) entity).getModelFacet() instanceof TypeLinkModelFacet) {
-		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) ((GenLink) entity).getModelFacet();
-		semanticNodeInterfaceName = modelFacet.getMetaClass().getName();
+		typeModelFacet = (TypeLinkModelFacet) ((GenLink) entity).getModelFacet();
+		semanticNodeInterfaceName = typeModelFacet.getMetaClass().getName();
 	} else {
 		continue;
 	}
@@ -169,16 +171,13 @@ while (entities.hasNext()) {
     stringBuffer.append(entity.getUniqueIdentifier());
     stringBuffer.append(TEXT_16);
     
-	if (entity instanceof GenBaseElement) {
-		GenElementInitializer initializer = ((GenBaseElement) entity).getModelElementInitializer();
-		if (initializer != null) {
-			++elementInitializerCount;
+	if (typeModelFacet != null && typeModelFacet.getModelElementInitializer() != null) {
+		++elementInitializerCount;
 
     stringBuffer.append(TEXT_17);
-    stringBuffer.append(initializer.getElement().getUniqueIdentifier());
+    stringBuffer.append(entity.getUniqueIdentifier());
     stringBuffer.append(TEXT_18);
     
-		}
 	}
 	if (entity instanceof GenLink) {
 		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) ((GenLink) entity).getModelFacet();
@@ -271,20 +270,25 @@ for (int i = 0; i < refLinks.size(); i++) {
      if(elementInitializerCount > 0) {
     stringBuffer.append(TEXT_52);
     
-	for(Iterator it = AccessUtil.getGenEntities(genDiagram); it.hasNext();) {
-		GenCommonBase nextElement = (GenCommonBase)it.next();
-		GenBaseElement  genElement = nextElement instanceof GenBaseElement ? (GenBaseElement) nextElement : null;
-		if(genElement == null || genElement.getModelElementInitializer() == null) continue;	
-			
-		GenElementInitializer initializer = genElement.getModelElementInitializer();
-		if(initializer instanceof GenFeatureSeqInitializer) {
-			GenFeatureSeqInitializer ftInitializer = (GenFeatureSeqInitializer)initializer;
-		
+for(Iterator it = AccessUtil.getGenEntities(genDiagram); it.hasNext();) {
+	GenCommonBase nextElement = (GenCommonBase)it.next();
+	TypeModelFacet modelFacet = null;
+	if(nextElement instanceof GenNode) {
+		modelFacet = ((GenNode)nextElement).getModelFacet();
+	} else if(nextElement instanceof GenLink && 
+		((GenLink)nextElement).getModelFacet() instanceof TypeLinkModelFacet) {
+		modelFacet = (TypeLinkModelFacet)((GenLink)nextElement).getModelFacet();
+	} 
+	
+	if(modelFacet != null && modelFacet.getModelElementInitializer() instanceof GenFeatureSeqInitializer) {				
+		GenFeatureSeqInitializer ftInitializer = (GenFeatureSeqInitializer)modelFacet.getModelElementInitializer();
+
     stringBuffer.append(TEXT_53);
-    stringBuffer.append(initializer.getElement().getUniqueIdentifier());
+    stringBuffer.append(nextElement.getUniqueIdentifier());
     stringBuffer.append(TEXT_54);
-     for(Iterator featInitIt = ftInitializer.getInitializers().iterator(); featInitIt.hasNext();) { 
-					GenFeatureValueSpec featureValSpec = (GenFeatureValueSpec)featInitIt.next();
+    
+		for(Iterator featInitIt = ftInitializer.getInitializers().iterator(); featInitIt.hasNext();) { 
+			GenFeatureValueSpec featureValSpec = (GenFeatureValueSpec)featInitIt.next();
     stringBuffer.append(TEXT_55);
     stringBuffer.append(featureValSpec.getBody());
     stringBuffer.append(TEXT_56);
@@ -299,11 +303,14 @@ for (int i = 0; i < refLinks.size(); i++) {
     stringBuffer.append(TEXT_60);
     stringBuffer.append(featInitIt.hasNext() ? "," : "");
     stringBuffer.append(TEXT_61);
-    	}
-			} 
+    
+		} // end of GenFeatureValueSpec iteration
+
     stringBuffer.append(TEXT_62);
-    	} // end of FeatureSeqInitializer
-	
+    
+	} // end of GenFeatureSeqInitializer 
+} // end of getGenEntities iteration
+
     stringBuffer.append(TEXT_63);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_64);

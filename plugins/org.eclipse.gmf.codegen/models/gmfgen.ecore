@@ -123,16 +123,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="viewmap" lowerBound="1"
         eType="#//Viewmap" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenBaseElement" abstract="true" eSuperTypes="#//GenCommonBase">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="would be better to call this one GenBaseDiagramElement, as it is for elements placed on the canvas"/>
-    </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElementSelector" eType="#//ModelElementSelector"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElementInitializer"
-        eType="#//GenElementInitializer" containment="true" eOpposite="#//GenElementInitializer/element"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenNode" eSuperTypes="#//GenBaseElement">
+  <eClassifiers xsi:type="ecore:EClass" name="GenNode" eSuperTypes="#//GenCommonBase">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
       <details key="ocl" value="super.domainNameFeature.eClass == domainMetaClass"/>
     </eAnnotations>
@@ -203,7 +194,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentNode" lowerBound="1"
         eType="#//GenNode" changeable="false" eOpposite="#//GenNode/childNodes"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenLink" eSuperTypes="#//GenBaseElement">
+  <eClassifiers xsi:type="ecore:EClass" name="GenLink" eSuperTypes="#//GenCommonBase">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="super.viewmap shall be {@link org.eclipse.draw2d.Connection} or subclass thereof"/>
     </eAnnotations>
@@ -273,6 +264,18 @@
         eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Usually the same as containmentMetaFeature, unless you need to distinguish where to put and where to get from"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElementSelector" eType="#//ModelElementSelector"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Selection criterion for domain model elements associated with this type model facet"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElementInitializer"
+        eType="#//GenElementInitializer" containment="true" eOpposite="#//GenElementInitializer/typeModelFacet">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="State initializer for domain model elements associated with this type model facet"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -435,25 +438,15 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Base class for initializers of domain model elements"/>
     </eAnnotations>
-    <eOperations name="getInitializerMethodName" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Gets the name of the generated method which contains the initialization code for the domain element"/>
-      </eAnnotations>
-    </eOperations>
-    <eOperations name="getInitializersQualifiedClassName" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Gets full class name of the generated class holding element initializers"/>
-      </eAnnotations>
-    </eOperations>
     <eOperations name="getRequiredPluginIDs" lowerBound="1" eType="#//StringArray">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Gets IDs of plugins required by this initializer"/>
       </eAnnotations>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="element" lowerBound="1"
-        eType="#//GenBaseElement" changeable="false" eOpposite="#//GenBaseElement/modelElementInitializer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeModelFacet" lowerBound="1"
+        eType="#//TypeModelFacet" changeable="false" eOpposite="#//TypeModelFacet/modelElementInitializer">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The genBase element whose domain model element is to be intialized by this initializer"/>
+        <details key="documentation" value="The type model facet whose domain model element is to be intialized by this initializer"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>

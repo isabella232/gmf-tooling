@@ -19,7 +19,6 @@ import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
@@ -122,17 +121,9 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GMFGenPackage.GEN_BASE_ELEMENT: {
-				GenBaseElement genBaseElement = (GenBaseElement)theEObject;
-				Object result = caseGenBaseElement(genBaseElement);
-				if (result == null) result = caseGenCommonBase(genBaseElement);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case GMFGenPackage.GEN_NODE: {
 				GenNode genNode = (GenNode)theEObject;
 				Object result = caseGenNode(genNode);
-				if (result == null) result = caseGenBaseElement(genNode);
 				if (result == null) result = caseGenCommonBase(genNode);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -148,7 +139,6 @@ public class GMFGenSwitch {
 				GenChildNode genChildNode = (GenChildNode)theEObject;
 				Object result = caseGenChildNode(genChildNode);
 				if (result == null) result = caseGenNode(genChildNode);
-				if (result == null) result = caseGenBaseElement(genChildNode);
 				if (result == null) result = caseGenCommonBase(genChildNode);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -156,7 +146,6 @@ public class GMFGenSwitch {
 			case GMFGenPackage.GEN_LINK: {
 				GenLink genLink = (GenLink)theEObject;
 				Object result = caseGenLink(genLink);
-				if (result == null) result = caseGenBaseElement(genLink);
 				if (result == null) result = caseGenCommonBase(genLink);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -388,21 +377,6 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseGenCommonBase(GenCommonBase object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Base Element</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Base Element</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseGenBaseElement(GenBaseElement object) {
 		return null;
 	}
 

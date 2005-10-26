@@ -29,8 +29,8 @@ import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.emf.codegen.jmerge.JControlModel;
 import org.eclipse.emf.codegen.jmerge.JMerger;
-import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
@@ -217,7 +217,7 @@ public class Generator implements Runnable {
 		);
 	}
 
-	private void generateSemanticHints(GenBaseElement genElement) throws JETException, InterruptedException {
+	private void generateSemanticHints(GenCommonBase genElement) throws JETException, InterruptedException {
 		generate(
 			EmitterFactory.getSemanticHintsEmitter(),
 			myDiagram.getProvidersPackageName(),
@@ -226,7 +226,7 @@ public class Generator implements Runnable {
 		);
 	}
 
-	private void generateViewFactory(GenBaseElement genElement) throws JETException, InterruptedException {
+	private void generateViewFactory(GenCommonBase genElement) throws JETException, InterruptedException {
 		generate(
 			EmitterFactory.getViewFactoryEmitter(),
 			myDiagram.getProvidersPackageName(),
