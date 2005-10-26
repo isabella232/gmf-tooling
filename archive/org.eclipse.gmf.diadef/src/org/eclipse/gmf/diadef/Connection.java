@@ -25,9 +25,10 @@ package org.eclipse.gmf.diadef;
  * @model
  * @generated
  */
-public interface Connection extends DiagramElement {
+public interface Connection extends DiagramElement{
 	/**
 	 * Returns the value of the '<em><b>Line Kind</b></em>' attribute.
+	 * The default value is <code>"SOLID"</code>.
 	 * The literals are from the enumeration {@link org.eclipse.gmf.diadef.LineKind}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -39,7 +40,7 @@ public interface Connection extends DiagramElement {
 	 * @see org.eclipse.gmf.diadef.LineKind
 	 * @see #setLineKind(LineKind)
 	 * @see org.eclipse.gmf.diadef.DiagramDefinitionPackage#getConnection_LineKind()
-	 * @model required="true"
+	 * @model default="SOLID"
 	 * @generated
 	 */
 	LineKind getLineKind();

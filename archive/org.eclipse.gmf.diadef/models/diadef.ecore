@@ -23,8 +23,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="needsTitle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Connection" eSuperTypes="#//DiagramElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineKind" lowerBound="1"
-        eType="#//LineKind"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineKind" eType="#//LineKind"
+        defaultValueLiteral="SOLID"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceAdornment" eType="#//AdornmentKind"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetAdornment" eType="#//AdornmentKind"/>
   </eClassifiers>

@@ -10,6 +10,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.gmf.diadef.*;
+
 import org.eclipse.gmf.diadef.AdornmentKind;
 import org.eclipse.gmf.diadef.Canvas;
 import org.eclipse.gmf.diadef.Compartment;
