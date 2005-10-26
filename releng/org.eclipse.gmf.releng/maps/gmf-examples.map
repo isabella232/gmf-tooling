@@ -2,7 +2,6 @@
 
 !*** GMF features ***************************************************************************
 feature@org.eclipse.gmf.examples=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.examples-feature
-feature@org.eclipse.gmf.examples.projects=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.examples.projects-feature
 
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf.examples=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples
