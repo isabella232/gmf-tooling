@@ -238,8 +238,8 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="link" lowerBound="1" eType="#//GenLink"
         eOpposite="#//GenLink/labels"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alignment" lowerBound="1"
-        eType="#//LinkLabelAlignment"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alignment" eType="#//LinkLabelAlignment"
+        defaultValueLiteral="MIDDLE"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="LinkLabelAlignment">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

@@ -28,7 +28,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  * @model
  * @generated
  */
-public interface GenLinkLabel extends GenLabel {
+public interface GenLinkLabel extends GenLabel{
 	/**
 	 * Returns the value of the '<em><b>Link</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getLabels <em>Labels</em>}'.
@@ -59,6 +59,7 @@ public interface GenLinkLabel extends GenLabel {
 
 	/**
 	 * Returns the value of the '<em><b>Alignment</b></em>' attribute.
+	 * The default value is <code>"MIDDLE"</code>.
 	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -70,7 +71,7 @@ public interface GenLinkLabel extends GenLabel {
 	 * @see org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment
 	 * @see #setAlignment(LinkLabelAlignment)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLinkLabel_Alignment()
-	 * @model required="true"
+	 * @model default="MIDDLE"
 	 * @generated
 	 */
 	LinkLabelAlignment getAlignment();
