@@ -19,11 +19,17 @@ import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.EditPartNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.NamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.NotationViewFactoryNamingStrategy;
-import org.eclipse.gmf.codegen.gmfgen.GenBaseElement;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
+import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
+import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
+import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
+import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.tests.Utils;
 
 public abstract class GenModelTransformerTest extends AbstractMappingTransformerTest {
@@ -32,6 +38,11 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 
 	public GenModelTransformerTest(String name) {
 		super(name);
+	}
+
+	protected void setUp() throws Exception {
+		// TODO Auto-generated method stub
+		super.setUp();
 	}
 
 	public void testGenModelTransform() {
@@ -56,18 +67,62 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 	}
 
 	public void testCreatedPalette() {
-		fail("FIXME");
+		final DiagramRunTimeModelHelper drtModelHelper = getRTHelper();
+		final Mapping m = getMapping();
+		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, getEditPartNamingStrategy(), new NotationViewFactoryNamingStrategy());
+		t.setEMFGenModel(Utils.createGenModel(m.getDiagram().getDomainModel(), Utils.createUniquePluginID()));
+		t.transform(m);
+		GenDiagram genDiagram = t.getResult();
+		Palette palette = genDiagram.getPalette();
+		for (Iterator itN = m.getNodes().iterator(); itN.hasNext();) {
+			NodeMapping nodeMapping = (NodeMapping) (itN.next());
+			assertEquals(nodeMapping.getDiagramNode().isNeedsTool() ? 1 : 0, countUses(nodeMapping, palette));
+		}
+		for (Iterator itL = m.getLinks().iterator(); itL.hasNext();) {
+			LinkMapping linkMapping = (LinkMapping) (itL.next());
+			assertEquals(linkMapping.getDiagramLink().isNeedsTool() ? 1 : 0, countUses(linkMapping, palette));
+		}
+		// TODO add grooping test
 	}
 
-	// actually, we could deal with GenCommonBase
-	private GenBaseElement findGenBaseElement(EList/*<GenBaseElement>*/ genBaseElements, String epName) {
-		for (Iterator it = genBaseElements.iterator(); it.hasNext(); ) {
-			GenBaseElement next = (GenBaseElement) it.next();
+	private GenCommonBase findGenBaseElement(EList/* <GenCommonBase> */genBaseElements, String epName) {
+		for (Iterator it = genBaseElements.iterator(); it.hasNext();) {
+			GenCommonBase next = (GenCommonBase) it.next();
 			if (next.getEditPartClassName().equals(epName)) {
 				return next;
 			}
 		}
 		return null;
+	}
+
+	private int countUses(NodeMapping mappingEntry, Palette palette) {
+		int uses = 0;
+		final String epName = getEditPartNamingStrategy().createClassName(mappingEntry);
+		for (Iterator itG = palette.getGroups().iterator(); itG.hasNext();) {
+			ToolGroup nextGroup = (ToolGroup) (itG.next());
+			for (Iterator itE = nextGroup.getNodeTools().iterator(); itE.hasNext();) {
+				NodeEntry nodeEntry = (NodeEntry) (itE.next());
+				if (nodeEntry.getGenNode().getEditPartClassName().equals(epName)) {
+					uses++;
+				}
+			}
+		}
+		return uses;
+	}
+
+	private int countUses(LinkMapping mappingEntry, Palette palette) {
+		int uses = 0;
+		final String epName = getEditPartNamingStrategy().createClassName(mappingEntry);
+		for (Iterator itG = palette.getGroups().iterator(); itG.hasNext();) {
+			ToolGroup nextGroup = (ToolGroup) (itG.next());
+			for (Iterator itE = nextGroup.getLinkTools().iterator(); itE.hasNext();) {
+				LinkEntry linkEntry = (LinkEntry) (itE.next());
+				if (linkEntry.getGenLink().getEditPartClassName().equals(epName)) {
+					uses++;
+				}
+			}
+		}
+		return uses;
 	}
 
 	protected abstract DiagramRunTimeModelHelper getRTHelper();
