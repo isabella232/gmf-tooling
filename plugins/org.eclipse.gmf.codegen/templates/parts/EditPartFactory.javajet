@@ -132,7 +132,7 @@ for (int i = 0; i < genNodes.size(); i++) {
 			if (!genChildContainer.getGroupID().equals(nextChildNode.getGroupID())) {
 				continue;
 			}
-			GenFeature genFeature = nextChildNode.getChildMetaFeature() != null ? nextChildNode.getChildMetaFeature() : nextChildNode.getModelFacet().getContainmentMetaFeature();
+			GenFeature genFeature = nextChildNode.getModelFacet().getChildMetaFeature();
 			List genChildNodes; 
 			if (!childFeature2NodesMap.containsKey(genFeature)) {
 				genChildNodes = new ArrayList();

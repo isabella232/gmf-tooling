@@ -9,7 +9,6 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -36,7 +35,6 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildNodeImpl#getGroupID <em>Group ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildNodeImpl#getParentNode <em>Parent Node</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildNodeImpl#getChildMetaFeature <em>Child Meta Feature</em>}</li>
  * </ul>
  * </p>
  *
@@ -62,16 +60,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	 * @ordered
 	 */
 	protected String groupID = GROUP_ID_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getChildMetaFeature() <em>Child Meta Feature</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getChildMetaFeature()
-	 * @generated
-	 * @ordered
-	 */
-	protected GenFeature childMetaFeature = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -120,44 +108,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	public GenNode getParentNode() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_CHILD_NODE__PARENT_NODE) return null;
 		return (GenNode)eContainer;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenFeature getChildMetaFeature() {
-		if (childMetaFeature != null && childMetaFeature.eIsProxy()) {
-			GenFeature oldChildMetaFeature = childMetaFeature;
-			childMetaFeature = (GenFeature)eResolveProxy((InternalEObject)childMetaFeature);
-			if (childMetaFeature != oldChildMetaFeature) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_CHILD_NODE__CHILD_META_FEATURE, oldChildMetaFeature, childMetaFeature));
-			}
-		}
-		return childMetaFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenFeature basicGetChildMetaFeature() {
-		return childMetaFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setChildMetaFeature(GenFeature newChildMetaFeature) {
-		GenFeature oldChildMetaFeature = childMetaFeature;
-		childMetaFeature = newChildMetaFeature;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_CHILD_NODE__CHILD_META_FEATURE, oldChildMetaFeature, childMetaFeature));
 	}
 
 	/**
@@ -285,9 +235,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return getGroupID();
 			case GMFGenPackage.GEN_CHILD_NODE__PARENT_NODE:
 				return getParentNode();
-			case GMFGenPackage.GEN_CHILD_NODE__CHILD_META_FEATURE:
-				if (resolve) return getChildMetaFeature();
-				return basicGetChildMetaFeature();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -341,9 +288,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 			case GMFGenPackage.GEN_CHILD_NODE__GROUP_ID:
 				setGroupID((String)newValue);
 				return;
-			case GMFGenPackage.GEN_CHILD_NODE__CHILD_META_FEATURE:
-				setChildMetaFeature((GenFeature)newValue);
-				return;
 		}
 		eDynamicSet(eFeature, newValue);
 	}
@@ -394,9 +338,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 			case GMFGenPackage.GEN_CHILD_NODE__GROUP_ID:
 				setGroupID(GROUP_ID_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_CHILD_NODE__CHILD_META_FEATURE:
-				setChildMetaFeature((GenFeature)null);
-				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -438,8 +379,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return GROUP_ID_EDEFAULT == null ? groupID != null : !GROUP_ID_EDEFAULT.equals(groupID);
 			case GMFGenPackage.GEN_CHILD_NODE__PARENT_NODE:
 				return getParentNode() != null;
-			case GMFGenPackage.GEN_CHILD_NODE__CHILD_META_FEATURE:
-				return childMetaFeature != null;
 		}
 		return eDynamicIsSet(eFeature);
 	}

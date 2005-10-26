@@ -202,8 +202,6 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentNode" lowerBound="1"
         eType="#//GenNode" changeable="false" eOpposite="#//GenNode/childNodes"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="childMetaFeature" lowerBound="1"
-        eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenLink" eSuperTypes="#//GenBaseElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -269,6 +267,12 @@
         lowerBound="1" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
         <details key="ocl" value="containmentMetaFeature.isContainment"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="childMetaFeature" lowerBound="1"
+        eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Usually the same as containmentMetaFeature, unless you need to distinguish where to put and where to get from"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>

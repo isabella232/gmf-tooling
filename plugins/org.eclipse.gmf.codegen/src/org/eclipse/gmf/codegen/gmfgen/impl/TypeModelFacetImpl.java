@@ -26,6 +26,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.TypeModelFacetImpl#getMetaClass <em>Meta Class</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.TypeModelFacetImpl#getContainmentMetaFeature <em>Containment Meta Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.TypeModelFacetImpl#getChildMetaFeature <em>Child Meta Feature</em>}</li>
  * </ul>
  * </p>
  *
@@ -51,6 +52,16 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 	 * @ordered
 	 */
 	protected GenFeature containmentMetaFeature = null;
+
+	/**
+	 * The cached value of the '{@link #getChildMetaFeature() <em>Child Meta Feature</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getChildMetaFeature()
+	 * @generated
+	 * @ordered
+	 */
+	protected GenFeature childMetaFeature = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -151,6 +162,52 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GenFeature getChildMetaFeatureGen() {
+		if (childMetaFeature != null && childMetaFeature.eIsProxy()) {
+			GenFeature oldChildMetaFeature = childMetaFeature;
+			childMetaFeature = (GenFeature)eResolveProxy((InternalEObject)childMetaFeature);
+			if (childMetaFeature != oldChildMetaFeature) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.TYPE_MODEL_FACET__CHILD_META_FEATURE, oldChildMetaFeature, childMetaFeature));
+			}
+		}
+		return childMetaFeature;
+	}
+
+	public GenFeature getChildMetaFeature() {
+		GenFeature f = getChildMetaFeatureGen();
+		if (f == null) {
+			return getContainmentMetaFeature();
+		}
+		return f;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenFeature basicGetChildMetaFeature() {
+		return childMetaFeature;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setChildMetaFeature(GenFeature newChildMetaFeature) {
+		GenFeature oldChildMetaFeature = childMetaFeature;
+		childMetaFeature = newChildMetaFeature;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.TYPE_MODEL_FACET__CHILD_META_FEATURE, oldChildMetaFeature, childMetaFeature));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case GMFGenPackage.TYPE_MODEL_FACET__META_CLASS:
@@ -159,6 +216,9 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 			case GMFGenPackage.TYPE_MODEL_FACET__CONTAINMENT_META_FEATURE:
 				if (resolve) return getContainmentMetaFeature();
 				return basicGetContainmentMetaFeature();
+			case GMFGenPackage.TYPE_MODEL_FACET__CHILD_META_FEATURE:
+				if (resolve) return getChildMetaFeature();
+				return basicGetChildMetaFeature();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -175,6 +235,9 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 				return;
 			case GMFGenPackage.TYPE_MODEL_FACET__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((GenFeature)newValue);
+				return;
+			case GMFGenPackage.TYPE_MODEL_FACET__CHILD_META_FEATURE:
+				setChildMetaFeature((GenFeature)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -193,6 +256,9 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 			case GMFGenPackage.TYPE_MODEL_FACET__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((GenFeature)null);
 				return;
+			case GMFGenPackage.TYPE_MODEL_FACET__CHILD_META_FEATURE:
+				setChildMetaFeature((GenFeature)null);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -208,6 +274,8 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 				return metaClass != null;
 			case GMFGenPackage.TYPE_MODEL_FACET__CONTAINMENT_META_FEATURE:
 				return containmentMetaFeature != null;
+			case GMFGenPackage.TYPE_MODEL_FACET__CHILD_META_FEATURE:
+				return childMetaFeature != null;
 		}
 		return eDynamicIsSet(eFeature);
 	}

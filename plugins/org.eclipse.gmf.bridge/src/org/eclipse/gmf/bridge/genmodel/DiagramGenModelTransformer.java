@@ -182,7 +182,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			if (childNodeMapping.getDomainMetaElement() != null) {
 				childNode.setModelFacet(createModelFacet(childNodeMapping));
 			} else {
-				childNode.setModelFacet(setupModelFacet((EClass) childNodeMapping.getDomainChildrenFeature().getEType(), childNodeMapping.getDomainChildrenFeature()));
+				childNode.setModelFacet(setupModelFacet((EClass) childNodeMapping.getDomainChildrenFeature().getEType(), childNodeMapping.getDomainChildrenFeature(), null));
 			}
 			
 			childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
@@ -450,18 +450,19 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 	}
 
 	private TypeModelFacet createModelFacet(NodeMapping nme) {
-		return setupModelFacet(nme.getDomainMetaElement(), nme.getContainmentFeature());
+		return setupModelFacet(nme.getDomainMetaElement(), nme.getContainmentFeature(), null);
 	}
 
 	private TypeModelFacet createModelFacet(ChildNodeMapping nme) {
 		// XXX domainChildrenFeature is NOT necessarily containment feature!!!
-		return setupModelFacet(nme.getDomainMetaElement(), nme.getDomainChildrenFeature());
+		return setupModelFacet(nme.getDomainMetaElement(), nme.getDomainChildrenFeature(), nme.getDomainChildrenFeature());
 	}
 
-	private TypeModelFacet setupModelFacet(EClass domainMetaElement, EStructuralFeature containmentFeature) {
+	private TypeModelFacet setupModelFacet(EClass domainMetaElement, EStructuralFeature containmentFeature, EStructuralFeature childFeature) {
 		TypeModelFacet mf = GMFGenFactory.eINSTANCE.createTypeModelFacet();
 		mf.setMetaClass(findGenClass(domainMetaElement));
 		mf.setContainmentMetaFeature(findGenFeature(containmentFeature));
+		mf.setChildMetaFeature(childFeature == null ? mf.getContainmentMetaFeature() : findGenFeature(childFeature));
 		return mf;
 	}
 

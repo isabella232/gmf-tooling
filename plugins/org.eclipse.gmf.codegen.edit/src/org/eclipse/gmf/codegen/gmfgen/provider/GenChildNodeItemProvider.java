@@ -60,7 +60,6 @@ public class GenChildNodeItemProvider
 			super.getPropertyDescriptors(object);
 
 			addGroupIDPropertyDescriptor(object);
-			addChildMetaFeaturePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -81,26 +80,6 @@ public class GenChildNodeItemProvider
 				 GMFGenPackage.eINSTANCE.getGenChildNode_GroupID(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Child Meta Feature feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addChildMetaFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenChildNode_childMetaFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenChildNode_childMetaFeature_feature", "_UI_GenChildNode_type"),
-				 GMFGenPackage.eINSTANCE.getGenChildNode_ChildMetaFeature(),
-				 true,
-				 null,
 				 null,
 				 null));
 	}

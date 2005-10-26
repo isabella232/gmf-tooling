@@ -923,22 +923,13 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_CHILD_NODE__PARENT_NODE = GEN_NODE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Child Meta Feature</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_NODE__CHILD_META_FEATURE = GEN_NODE_FEATURE_COUNT + 2;
-
-	/**
 	 * The number of structural features of the the '<em>Gen Child Node</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CHILD_NODE_FEATURE_COUNT = GEN_NODE_FEATURE_COUNT + 3;
+	int GEN_CHILD_NODE_FEATURE_COUNT = GEN_NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl <em>Gen Link</em>}' class.
@@ -1389,13 +1380,22 @@ public interface GMFGenPackage extends EPackage{
 	int TYPE_MODEL_FACET__CONTAINMENT_META_FEATURE = MODEL_FACET_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Child Meta Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_MODEL_FACET__CHILD_META_FEATURE = MODEL_FACET_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the the '<em>Type Model Facet</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_MODEL_FACET_FEATURE_COUNT = MODEL_FACET_FEATURE_COUNT + 2;
+	int TYPE_MODEL_FACET_FEATURE_COUNT = MODEL_FACET_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureModelFacetImpl <em>Feature Model Facet</em>}' class.
@@ -1452,6 +1452,15 @@ public interface GMFGenPackage extends EPackage{
 	 * @ordered
 	 */
 	int TYPE_LINK_MODEL_FACET__CONTAINMENT_META_FEATURE = TYPE_MODEL_FACET__CONTAINMENT_META_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Child Meta Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_LINK_MODEL_FACET__CHILD_META_FEATURE = TYPE_MODEL_FACET__CHILD_META_FEATURE;
 
 	/**
 	 * The feature id for the '<em><b>Source Meta Feature</b></em>' reference.
@@ -2998,17 +3007,6 @@ public interface GMFGenPackage extends EPackage{
 	EReference getGenChildNode_ParentNode();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenChildNode#getChildMetaFeature <em>Child Meta Feature</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Child Meta Feature</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildNode#getChildMetaFeature()
-	 * @see #getGenChildNode()
-	 * @generated
-	 */
-	EReference getGenChildNode_ChildMetaFeature();
-
-	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer <em>Gen Child Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3274,6 +3272,17 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getTypeModelFacet_ContainmentMetaFeature();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getChildMetaFeature <em>Child Meta Feature</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Child Meta Feature</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getChildMetaFeature()
+	 * @see #getTypeModelFacet()
+	 * @generated
+	 */
+	EReference getTypeModelFacet_ChildMetaFeature();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet <em>Feature Model Facet</em>}'.

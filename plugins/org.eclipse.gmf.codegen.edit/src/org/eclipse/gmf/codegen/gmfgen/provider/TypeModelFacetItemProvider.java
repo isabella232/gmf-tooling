@@ -63,6 +63,7 @@ public class TypeModelFacetItemProvider
 
 			addMetaClassPropertyDescriptor(object);
 			addContainmentMetaFeaturePropertyDescriptor(object);
+			addChildMetaFeaturePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -101,6 +102,26 @@ public class TypeModelFacetItemProvider
 				 getString("_UI_TypeModelFacet_containmentMetaFeature_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_TypeModelFacet_containmentMetaFeature_feature", "_UI_TypeModelFacet_type"),
 				 GMFGenPackage.eINSTANCE.getTypeModelFacet_ContainmentMetaFeature(),
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Child Meta Feature feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addChildMetaFeaturePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_TypeModelFacet_childMetaFeature_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_TypeModelFacet_childMetaFeature_feature", "_UI_TypeModelFacet_type"),
+				 GMFGenPackage.eINSTANCE.getTypeModelFacet_ChildMetaFeature(),
 				 true,
 				 null,
 				 null,

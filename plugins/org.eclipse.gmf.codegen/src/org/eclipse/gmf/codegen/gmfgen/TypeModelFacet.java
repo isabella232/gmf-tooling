@@ -23,6 +23,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getMetaClass <em>Meta Class</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getContainmentMetaFeature <em>Containment Meta Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getChildMetaFeature <em>Child Meta Feature</em>}</li>
  * </ul>
  * </p>
  *
@@ -30,7 +31,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  * @model
  * @generated
  */
-public interface TypeModelFacet extends ModelFacet {
+public interface TypeModelFacet extends ModelFacet{
 	/**
 	 * Returns the value of the '<em><b>Meta Class</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -83,5 +84,30 @@ public interface TypeModelFacet extends ModelFacet {
 	 * @generated
 	 */
 	void setContainmentMetaFeature(GenFeature value);
+
+	/**
+	 * Returns the value of the '<em><b>Child Meta Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Usually the same as containmentMetaFeature, unless you need to distinguish where to put and where to get from
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Child Meta Feature</em>' reference.
+	 * @see #setChildMetaFeature(GenFeature)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeModelFacet_ChildMetaFeature()
+	 * @model required="true"
+	 * @generated
+	 */
+	GenFeature getChildMetaFeature();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getChildMetaFeature <em>Child Meta Feature</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Child Meta Feature</em>' reference.
+	 * @see #getChildMetaFeature()
+	 * @generated
+	 */
+	void setChildMetaFeature(GenFeature value);
 
 } // TypeModelFacet

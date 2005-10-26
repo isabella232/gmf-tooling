@@ -158,6 +158,9 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CONTAINMENT_META_FEATURE:
 				if (resolve) return getContainmentMetaFeature();
 				return basicGetContainmentMetaFeature();
+			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CHILD_META_FEATURE:
+				if (resolve) return getChildMetaFeature();
+				return basicGetChildMetaFeature();
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET__SOURCE_META_FEATURE:
 				if (resolve) return getSourceMetaFeature();
 				return basicGetSourceMetaFeature();
@@ -180,6 +183,9 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 				return;
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((GenFeature)newValue);
+				return;
+			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CHILD_META_FEATURE:
+				setChildMetaFeature((GenFeature)newValue);
 				return;
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET__SOURCE_META_FEATURE:
 				setSourceMetaFeature((GenFeature)newValue);
@@ -204,6 +210,9 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CONTAINMENT_META_FEATURE:
 				setContainmentMetaFeature((GenFeature)null);
 				return;
+			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CHILD_META_FEATURE:
+				setChildMetaFeature((GenFeature)null);
+				return;
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET__SOURCE_META_FEATURE:
 				setSourceMetaFeature((GenFeature)null);
 				return;
@@ -225,6 +234,8 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 				return metaClass != null;
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CONTAINMENT_META_FEATURE:
 				return containmentMetaFeature != null;
+			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CHILD_META_FEATURE:
+				return childMetaFeature != null;
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET__SOURCE_META_FEATURE:
 				return sourceMetaFeature != null;
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET__TARGET_META_FEATURE:

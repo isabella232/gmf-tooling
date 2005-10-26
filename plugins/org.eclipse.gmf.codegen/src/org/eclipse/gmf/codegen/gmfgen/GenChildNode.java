@@ -6,7 +6,6 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,7 +17,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenChildNode#getGroupID <em>Group ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenChildNode#getParentNode <em>Parent Node</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenChildNode#getChildMetaFeature <em>Child Meta Feature</em>}</li>
  * </ul>
  * </p>
  *
@@ -68,31 +66,5 @@ public interface GenChildNode extends GenNode{
 	 * @generated
 	 */
 	GenNode getParentNode();
-
-	/**
-	 * Returns the value of the '<em><b>Child Meta Feature</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Child Meta Feature</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Child Meta Feature</em>' reference.
-	 * @see #setChildMetaFeature(GenFeature)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenChildNode_ChildMetaFeature()
-	 * @model required="true"
-	 * @generated
-	 */
-	GenFeature getChildMetaFeature();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenChildNode#getChildMetaFeature <em>Child Meta Feature</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Child Meta Feature</em>' reference.
-	 * @see #getChildMetaFeature()
-	 * @generated
-	 */
-	void setChildMetaFeature(GenFeature value);
 
 } // GenChildNode

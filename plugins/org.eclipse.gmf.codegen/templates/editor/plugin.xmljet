@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="PluginXML"
-    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.util.* java.util.*"%>
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.*"%>
 <%GenDiagram genDiagram = (GenDiagram) argument;%>
 <%GenModel genModel = genDiagram.getEMFGenModel();%>
 <?xml version="1.0" encoding="UTF-8"?>
