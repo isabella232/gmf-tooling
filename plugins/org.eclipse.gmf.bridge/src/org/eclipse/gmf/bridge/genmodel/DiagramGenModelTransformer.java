@@ -152,6 +152,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			GenNodeLabel label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
 			label.setModelFacet(modelFacet);
 			label.setVisualID(LABEL_COUNT_BASE + (++myLabelCount));
+			label.setDiagramRunTimeClass(getNodeLabelRunTimeClass());
 			genNode.getLabels().add(label);
 		}
 		genNode.setEditPartClassName(createEditPartClassName(nme));
@@ -163,6 +164,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			Compartment compartment = (Compartment) it.next();
 			GenChildContainer childContainer = GMFGenFactory.eINSTANCE.createGenChildContainer();
 			childContainer.setVisualID(COMPARTMENT_COUNT_BASE + (++myCompartmentCount));
+			childContainer.setDiagramRunTimeClass(getChildContainerRunTimeClass());
 			childContainer.setGroupID(compartment.getName());
 			childContainer.setCanCollapse(compartment.isCollapsible());
 			childContainer.setNeedsTitle(compartment.isNeedsTitle());
@@ -195,6 +197,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 				GenNodeLabel label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
 				label.setModelFacet(modelFacet);
 				label.setVisualID(LABEL_COUNT_BASE + (++myLabelCount));
+				label.setDiagramRunTimeClass(getNodeLabelRunTimeClass());
 				childNode.getLabels().add(label);
 			}
 			
@@ -261,6 +264,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			GenLinkLabel label = GMFGenFactory.eINSTANCE.createGenLinkLabel();
 			label.setModelFacet(modelFacet);
 			label.setVisualID(LABEL_COUNT_BASE + (++myLabelCount));
+			label.setDiagramRunTimeClass(getLinkLabelRunTimeClass());
 			gl.getLabels().add(label);
 		}
 		gl.setDiagramRunTimeClass(findRunTimeClass(lme));
@@ -357,6 +361,18 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 
 	private GenClass findRunTimeClass(CanvasMapping mapping) {
 		return myDRTHelper.get(mapping);
+	}
+
+	private GenClass getChildContainerRunTimeClass() {
+		return myDRTHelper.getChildContainerDefault();
+	}
+
+	private GenClass getNodeLabelRunTimeClass() {
+		return myDRTHelper.getNodeLabelDefault();
+	}
+
+	private GenClass getLinkLabelRunTimeClass() {
+		return myDRTHelper.getLinkLabelDefault();
 	}
 
 	private LinkDecoration decorationFromAdornment(AdornmentKind adornment) {

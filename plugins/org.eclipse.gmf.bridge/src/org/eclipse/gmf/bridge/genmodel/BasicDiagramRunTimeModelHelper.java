@@ -55,6 +55,21 @@ public class BasicDiagramRunTimeModelHelper implements DiagramRunTimeModelHelper
 		return myChildNode;
 	}
 
+	public GenClass getChildContainerDefault() {
+		loadGenModel();
+		return myNode;
+	}
+
+	public GenClass getNodeLabelDefault() {
+		loadGenModel();
+		return myNode;
+	}
+
+	public GenClass getLinkLabelDefault() {
+		loadGenModel();
+		return myNode;
+	}
+
 	private void loadGenModel() {
 		if (myIsLoaded ) {
 			return;

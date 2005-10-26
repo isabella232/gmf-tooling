@@ -30,4 +30,10 @@ public interface DiagramRunTimeModelHelper {
 	public GenClass get(LinkMapping linkMapping);
 
 	public GenClass get(CanvasMapping canvasMapping);
+
+	public GenClass getChildContainerDefault();
+
+	public GenClass getNodeLabelDefault();
+
+	public GenClass getLinkLabelDefault();
 }
