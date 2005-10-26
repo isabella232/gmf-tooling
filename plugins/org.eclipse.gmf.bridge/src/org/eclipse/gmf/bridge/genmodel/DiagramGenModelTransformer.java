@@ -68,10 +68,11 @@ import org.eclipse.gmf.mappings.NodeMapping;
  */
 public class DiagramGenModelTransformer extends MappingTransofrmer {
 	private static final int CANVAS_COUNT_BASE = 79;
-	private static final int NODE_COUNT_BASE = 100;
-	private static final int CHILD_COUNT_BASE = 200;
-	private static final int LINK_COUNT_BASE = 300;
-	private static final int LABEL_COUNT_BASE = 400;
+	private static final int NODE_COUNT_BASE = 1000;
+	private static final int CHILD_COUNT_BASE = 2000;
+	private static final int LINK_COUNT_BASE = 3000;
+	private static final int LABEL_COUNT_BASE = 4000;
+	private static final int COMPARTMENT_COUNT_BASE = 5000;
 
 	private GenDiagram myGenModel;
 	private GenModelMatcher myGenModelMatch;
@@ -82,6 +83,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 	private int myLinkCount = 0;
 	private int myChildCount = 0;
 	private int myLabelCount = 0;
+	private int myCompartmentCount = 0;
 
 	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, NamingStrategy editPartNaming, NamingStrategy notationViewFactoryNaming) {
 		myDRTHelper = drtHelper;
@@ -160,6 +162,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		for (Iterator it = nme.getDiagramNode().getCompartments().iterator(); it.hasNext();) {
 			Compartment compartment = (Compartment) it.next();
 			GenChildContainer childContainer = GMFGenFactory.eINSTANCE.createGenChildContainer();
+			childContainer.setVisualID(COMPARTMENT_COUNT_BASE + (++myCompartmentCount));
 			childContainer.setGroupID(compartment.getName());
 			childContainer.setCanCollapse(compartment.isCollapsible());
 			childContainer.setNeedsTitle(compartment.isNeedsTitle());

@@ -180,23 +180,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public int getVisualIDGen() {
-		return visualID;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
 	public int getVisualID() {
-		int value = getVisualIDGen();
-		// eIsSet
-		if (value == VISUAL_ID_EDEFAULT) {
-			// XXX breaking 'no changes on read' contract
-			setVisualID(hashCode());
-		}
-		return getVisualIDGen();
+		return visualID;
 	}
 
 	/**
