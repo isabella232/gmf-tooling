@@ -10,6 +10,7 @@
     <modelFacet>
       <metaClass href="library.genmodel#//library/Writer"/>
       <containmentMetaFeature href="library.genmodel#//library/Library/writers"/>
+      <childMetaFeature href="library.genmodel#//library/Library/writers"/>
     </modelFacet>
     <labels visualID="401">
       <modelFacet>
@@ -23,6 +24,7 @@
     <modelFacet>
       <metaClass href="library.genmodel#//library/Book"/>
       <containmentMetaFeature href="library.genmodel#//library/Writer/books"/>
+      <childMetaFeature href="library.genmodel#//library/Writer/books"/>
     </modelFacet>
     <labels visualID="402">
       <modelFacet>
@@ -35,6 +37,7 @@
       <modelFacet>
         <metaClass href="library.genmodel#//library/Review"/>
         <containmentMetaFeature href="library.genmodel#//library/Book/reviews"/>
+        <childMetaFeature href="library.genmodel#//library/Book/reviews"/>
       </modelFacet>
       <labels visualID="403">
         <modelFacet>
@@ -52,6 +55,7 @@
     <modelFacet xsi:type="gmfgen:TypeLinkModelFacet">
       <metaClass href="library.genmodel#//library/Opinion"/>
       <containmentMetaFeature href="library.genmodel#//library/Writer/opinions"/>
+      <childMetaFeature href="library.genmodel#//library/Writer/opinions"/>
       <sourceMetaFeature href="library.genmodel#//library/Writer/opinions"/>
       <targetMetaFeature href="library.genmodel#//library/Opinion/book"/>
     </modelFacet>

@@ -88,12 +88,7 @@ public class DiaGenSetup implements DiaGenSource {
 
 		myGenLink = GMFGenFactory.eINSTANCE.createGenLink();
 		myGenLink.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getEdge()));
-		TypeLinkModelFacet mf = GMFGenFactory.eINSTANCE.createTypeLinkModelFacet();
-		mf.setMetaClass(gmm.findGenClass(domainSource.getLinkAsClass().getEClass()));
-		mf.setContainmentMetaFeature(gmm.findGenFeature(domainSource.getLinkAsClass().getContainment()));
-		mf.setTargetMetaFeature(gmm.findGenFeature(domainSource.getLinkAsClass().getTargetFeature()));
-		mf.setSourceMetaFeature(gmm.findGenFeature(domainSource.getLinkAsClass().getContainment()));
-		myGenLink.setModelFacet(mf);
+		myGenLink.setModelFacet(createLinkModelFacet(gmm, domainSource.getLinkAsClass()));
 		myGenLink.setViewmap(GMFGenFactory.eINSTANCE.createDecoratedConnectionViewmap());
 		myGenLink.setVisualID(200);
 		// TODO add linkRefOnly
@@ -107,6 +102,17 @@ public class DiaGenSetup implements DiaGenSource {
 		TypeModelFacet mf = GMFGenFactory.eINSTANCE.createTypeModelFacet();
 		mf.setMetaClass(gmm.findGenClass(node.getEClass()));
 		mf.setContainmentMetaFeature(gmm.findGenFeature(node.getContainment()));
+		mf.setChildMetaFeature(mf.getContainmentMetaFeature());
+		return mf;
+	}
+
+	private TypeLinkModelFacet createLinkModelFacet(final GenModelMatcher gmm, DomainModelSource.LinkData link) {
+		TypeLinkModelFacet mf = GMFGenFactory.eINSTANCE.createTypeLinkModelFacet();
+		mf.setMetaClass(gmm.findGenClass(link.getEClass()));
+		mf.setContainmentMetaFeature(gmm.findGenFeature(link.getContainment()));
+		mf.setChildMetaFeature(mf.getContainmentMetaFeature());
+		mf.setTargetMetaFeature(gmm.findGenFeature(link.getTargetFeature()));
+		mf.setSourceMetaFeature(gmm.findGenFeature(link.getContainment()));
 		return mf;
 	}
 

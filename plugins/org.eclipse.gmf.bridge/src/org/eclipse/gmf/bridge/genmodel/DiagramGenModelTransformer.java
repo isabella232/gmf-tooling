@@ -39,6 +39,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.LinkDecoration;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
+import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
@@ -238,19 +239,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		assert lme.getLinkMetaFeature() != null;
 		GenLink gl = GMFGenFactory.eINSTANCE.createGenLink();
 		getGenDiagram().getLinks().add(gl);
-		if (lme.getDomainMetaElement() != null) {
-			TypeLinkModelFacet mf = GMFGenFactory.eINSTANCE.createTypeLinkModelFacet();
-			mf.setMetaClass(findGenClass(lme.getDomainMetaElement()));
-			mf.setContainmentMetaFeature(findGenFeature(lme.getContainmentFeature()));
-			// TODO : source may be arbitrary feature
-			mf.setSourceMetaFeature(findGenFeature(lme.getContainmentFeature()));
-			mf.setTargetMetaFeature(findGenFeature(lme.getLinkMetaFeature()));
-			gl.setModelFacet(mf);
-		} else {
-			FeatureModelFacet mf = GMFGenFactory.eINSTANCE.createFeatureModelFacet();
-			mf.setMetaFeature(findGenFeature(lme.getLinkMetaFeature()));
-			gl.setModelFacet(mf);
-		}
+		gl.setModelFacet(createModelFacet(lme));
 		if (lme.getDiagramLink().isNeedsTool()) {
 			LinkEntry le = GMFGenFactory.eINSTANCE.createLinkEntry();
 			findToolGroup(lme.getDiagramLink().getToolGroupID()).getLinkTools().add(le);
@@ -451,6 +440,23 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 
 	private TypeModelFacet createModelFacet(NodeMapping nme) {
 		return setupModelFacet(nme.getDomainMetaElement(), nme.getContainmentFeature(), null);
+	}
+
+	private LinkModelFacet createModelFacet(LinkMapping lme) {
+		if (lme.getDomainMetaElement() != null) {
+			TypeLinkModelFacet mf = GMFGenFactory.eINSTANCE.createTypeLinkModelFacet();
+			mf.setMetaClass(findGenClass(lme.getDomainMetaElement()));
+			mf.setContainmentMetaFeature(findGenFeature(lme.getContainmentFeature()));
+			mf.setChildMetaFeature(mf.getContainmentMetaFeature());
+			// TODO : source may be arbitrary feature
+			mf.setSourceMetaFeature(findGenFeature(lme.getContainmentFeature()));
+			mf.setTargetMetaFeature(findGenFeature(lme.getLinkMetaFeature()));
+			return mf;
+		} else {
+			FeatureModelFacet mf = GMFGenFactory.eINSTANCE.createFeatureModelFacet();
+			mf.setMetaFeature(findGenFeature(lme.getLinkMetaFeature()));
+			return mf;
+		}
 	}
 
 	private TypeModelFacet createModelFacet(ChildNodeMapping nme) {
