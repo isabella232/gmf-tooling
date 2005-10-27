@@ -54,8 +54,6 @@ public class RuntimeWorkspaceSetup {
 			// Need to get some gmf source code into target workspace 
 			importDevPluginsIntoRunTimeWorkspace(new String[] {
 					"org.apache.batik",
-					//"org.eclipse.gmf.dev.hook",
-					"org.eclipse.gmf.runtime.gef",
 					"org.eclipse.gmf.runtime.notation",
 					"org.eclipse.gmf.runtime.notation.edit",
 					"org.eclipse.wst.common.ui.properties",
