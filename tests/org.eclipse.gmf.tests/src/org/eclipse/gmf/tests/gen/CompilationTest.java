@@ -45,6 +45,7 @@ public class CompilationTest extends TestCase {
 	public void testCodeCompilation() {
 		try {
 			URL gmfgenURL = Plugin.getInstance().getBundle().getEntry("/models/library/library.gmfgen");
+			assertNotNull("No sample model to run tests against", gmfgenURL);
 			String filePath = Platform.asLocalURL(gmfgenURL).toExternalForm();
 			URI selected = URI.createURI(filePath);
 			ResourceSet srcResSet = new ResourceSetImpl();
