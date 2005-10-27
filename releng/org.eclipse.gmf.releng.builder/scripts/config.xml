@@ -22,7 +22,16 @@
 		<modificationset quietperiod="10">
 			<cvs
 				cvsroot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology"
-				module="org.eclipse.gmf" />
+				module="org.eclipse.gmf/plugins" />
+				<cvs
+				cvsroot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology"
+				module="org.eclipse.gmf/features" />
+			<cvs
+				cvsroot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology"
+				module="org.eclipse.gmf/tests" />
+			<cvs
+				cvsroot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology"
+				module="org.eclipse.gmf/examples" />
 		</modificationset>
 
 		<!-- Configures the actual build loop, how often and which
