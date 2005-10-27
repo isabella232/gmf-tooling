@@ -11,6 +11,9 @@
  */
 package org.eclipse.gmf.tests.gef;
 
+import java.util.Collections;
+import java.util.List;
+
 import junit.framework.TestCase;
 
 import org.eclipse.draw2d.GraphicsSource;
@@ -29,6 +32,9 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.ui.parts.GraphicalViewerImpl;
+import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditDomain;
+import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditDomain;
+import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramGraphicalViewer;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities;
 import org.eclipse.gmf.runtime.notation.FillStyle;
 import org.eclipse.gmf.runtime.notation.LineStyle;
@@ -47,6 +53,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.osgi.framework.Bundle;
 
 public class DiagramNodeTest extends TestCase {
+
 	private final Point myMoveDelta = new Point(10, 20);
 	private final Dimension mySizeDelta = new Dimension(100, 50);
 	private final CommandStack myCommandStack = new CommandStack();
@@ -75,7 +82,7 @@ public class DiagramNodeTest extends TestCase {
 		assert EditPartFactory.class.isAssignableFrom(epFactory);
 		myViewer = createViewer();
 		myViewer.setEditPartFactory((EditPartFactory) epFactory.newInstance());
-		RTSource rtDiagram = new RTSetup().init(SessionSetup.getGenModel());
+		RTSource rtDiagram = new RTSetup().init(b, SessionSetup.getGenModel());
 		myViewer.setContents(rtDiagram.getCanvas());
 		myNodeEditPart = (EditPart) myViewer.getEditPartRegistry().get(rtDiagram.getNode());
 	}
@@ -84,30 +91,11 @@ public class DiagramNodeTest extends TestCase {
 		System.err.println("Current display:" + Display.getCurrent());
 		System.err.println("Default display:" + Display.getDefault());
 		System.err.println("Current thread:" + Thread.currentThread());
-		final UpdateManager NO_MANAGER = new UpdateManager() {
-			public void addDirtyRegion(IFigure figure, int x, int y, int w, int h) {}
-			public void addInvalidFigure(IFigure figure) {}
-			public void performUpdate() {}
-			public void performUpdate(Rectangle exposed) {}
-			public void setGraphicsSource(GraphicsSource gs) {}
-			public void setRoot(IFigure figure) {}
-		};
 
-		GraphicalViewerImpl gv = new GraphicalViewerImpl() {
-			protected LightweightSystem createLightweightSystem() {
-				return new LightweightSystem() {
-					{
-						setUpdateManager(NO_MANAGER);
-					}
-
-					public UpdateManager getUpdateManager() {
-						return NO_MANAGER;
-					}
-				};
-			}
-		};
+		FakeViewer gv = new FakeViewer();
 		myParentShell = new Shell(SWT.NONE);
 		gv.createControl(myParentShell);
+		gv.setEditDomain(new DiagramEditDomain(null));
 		return gv;
 	}
 
@@ -262,5 +250,46 @@ public class DiagramNodeTest extends TestCase {
 
 	protected Node getNode() {
 		return (Node) getNodeEditPart().getModel();
+	}
+
+	private static final class FakeViewer extends GraphicalViewerImpl implements IDiagramGraphicalViewer{
+
+		private FakeViewer() {
+		}
+
+		protected LightweightSystem createLightweightSystem() {
+			final UpdateManager NO_MANAGER = new UpdateManager() {
+				public void addDirtyRegion(IFigure figure, int x, int y, int w, int h) {}
+				public void addInvalidFigure(IFigure figure) {}
+				public void performUpdate() {}
+				public void performUpdate(Rectangle exposed) {}
+				public void setGraphicsSource(GraphicsSource gs) {}
+				public void setRoot(IFigure figure) {}
+			};
+
+			return new LightweightSystem() {
+				{
+					setUpdateManager(NO_MANAGER);
+				}
+		
+				public UpdateManager getUpdateManager() {
+					return NO_MANAGER;
+				}
+			};
+		}
+
+		public IDiagramEditDomain getDiagramEditDomain() {
+			return (IDiagramEditDomain) super.getEditDomain();
+		}
+
+		public List findEditPartsForElement(String elementIdStr, Class editPartClass) {
+			return Collections.EMPTY_LIST;
+		}
+
+		public void registerEditPartForElement(String elementIdStr, EditPart ep) {
+		}
+
+		public void unregisterEditPartForElement(String elementIdStr, EditPart ep) {
+		}
 	}
 }
