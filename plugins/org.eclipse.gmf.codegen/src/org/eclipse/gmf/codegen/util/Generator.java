@@ -98,7 +98,7 @@ public class Generator implements Runnable {
 				}
 				generateSemanticHints(next);
 				generateViewFactory(next);
-				for (Iterator it2 = next.getChildNodes().iterator(); it2.hasNext();) {
+				for (Iterator it2 = AccessUtil.getAllChildNodes(next).iterator(); it2.hasNext();) {
 					GenChildNode child = (GenChildNode) it2.next();
 					generateChildNodeEditPart(child);
 					generateViewFactory(child);
@@ -588,7 +588,7 @@ public class Generator implements Runnable {
 		private int getChildNodeCount() {
 			int rv = 0;
 			for (Iterator it = myDiagram.getNodes().iterator(); it.hasNext();) {
-				rv += ((GenNode) it.next()).getChildNodes().size();
+				rv += AccessUtil.getAllChildNodes((GenNode) it.next()).size();
 			}
 			return rv;
 		}

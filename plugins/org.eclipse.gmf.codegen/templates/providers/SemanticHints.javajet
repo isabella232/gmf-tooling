@@ -52,7 +52,7 @@ if (genElement instanceof GenNode) {
 	}
 <%
 	}
-	List compartments = genNode.getChildContainers();
+	List compartments = genNode.getCompartments();
 	if (!compartments.isEmpty()) {
 %>
 
@@ -67,7 +67,7 @@ if (genElement instanceof GenNode) {
 		private Compartments() {}
 <%
 		for (int i = 0; i < compartments.size(); i++) {
-			GenChildContainer compartment = (GenChildContainer) compartments.get(i);
+			GenCompartment compartment = (GenCompartment) compartments.get(i);
 			String id = AccessUtil.getCompartmentId(compartment);
 			if (id != null && id.length() > 0) {
 %>
@@ -75,7 +75,7 @@ if (genElement instanceof GenNode) {
 		/**
 		 * @generated
 		 */
-		public static final String <%=id%> = "<%=compartment.getGroupID()%>";
+		public static final String <%=id%> = "<%=compartment.getTitle()%>";
 <%
 			}
 		}

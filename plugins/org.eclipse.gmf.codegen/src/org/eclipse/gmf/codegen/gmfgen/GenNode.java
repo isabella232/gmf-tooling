@@ -24,8 +24,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getModelFacet <em>Model Facet</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getLabels <em>Labels</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getChildContainers <em>Child Containers</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getChildNodes <em>Child Nodes</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getChildContainersPlacement <em>Child Containers Placement</em>}</li>
  * </ul>
  * </p>
@@ -35,7 +34,7 @@ import org.eclipse.emf.common.util.EList;
  *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='diagramRunTimeClass.eCoreClass.eAllSuperTypes->includes(diagramrt.DiagramNode)'"
  * @generated
  */
-public interface GenNode extends GenCommonBase {
+public interface GenNode extends GenChildContainer{
 	/**
 	 * Returns the value of the '<em><b>Diagram</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getNodes <em>Nodes</em>}'.
@@ -87,40 +86,22 @@ public interface GenNode extends GenCommonBase {
 	EList getLabels();
 
 	/**
-	 * Returns the value of the '<em><b>Child Containers</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer#getParentNode <em>Parent Node</em>}'.
+	 * Returns the value of the '<em><b>Compartments</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenCompartment}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#getNode <em>Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Child Containers</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Compartments</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Child Containers</em>' containment reference list.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_ChildContainers()
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildContainer#getParentNode
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenChildContainer" opposite="parentNode" containment="true"
+	 * @return the value of the '<em>Compartments</em>' containment reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_Compartments()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCompartment#getNode
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenCompartment" opposite="node" containment="true"
 	 * @generated
 	 */
-	EList getChildContainers();
-
-	/**
-	 * Returns the value of the '<em><b>Child Nodes</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenChildNode}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenChildNode#getParentNode <em>Parent Node</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Child Nodes</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Child Nodes</em>' containment reference list.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_ChildNodes()
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildNode#getParentNode
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenChildNode" opposite="parentNode" containment="true"
-	 * @generated
-	 */
-	EList getChildNodes();
+	EList getCompartments();
 
 	/**
 	 * Returns the value of the '<em><b>Child Containers Placement</b></em>' attribute.
@@ -129,7 +110,7 @@ public interface GenNode extends GenCommonBase {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * valid only when there are childContainers
+	 * valid only when there are compartments
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Child Containers Placement</em>' attribute.
 	 * @see org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind

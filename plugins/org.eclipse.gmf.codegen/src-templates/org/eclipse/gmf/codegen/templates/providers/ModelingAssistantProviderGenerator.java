@@ -50,7 +50,7 @@ while (entities.hasNext()) {
 	if (entity instanceof GenDiagram) {
 		children = diagram.getNodes();
 	} else if (entity instanceof GenNode) {
-		children = ((GenNode) entity).getChildNodes();
+		children = AccessUtil.getAllChildNodes((GenNode) entity);
 	}
 	if (children.isEmpty()) {
 		continue;

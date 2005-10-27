@@ -82,20 +82,20 @@ if (genElement instanceof GenNode) {
     stringBuffer.append(TEXT_11);
     
 	}
-	List compartments = genNode.getChildContainers();
+	List compartments = genNode.getCompartments();
 	if (!compartments.isEmpty()) {
 
     stringBuffer.append(TEXT_12);
     
 		for (int i = 0; i < compartments.size(); i++) {
-			GenChildContainer compartment = (GenChildContainer) compartments.get(i);
+			GenCompartment compartment = (GenCompartment) compartments.get(i);
 			String id = AccessUtil.getCompartmentId(compartment);
 			if (id != null && id.length() > 0) {
 
     stringBuffer.append(TEXT_13);
     stringBuffer.append(id);
     stringBuffer.append(TEXT_14);
-    stringBuffer.append(compartment.getGroupID());
+    stringBuffer.append(compartment.getTitle());
     stringBuffer.append(TEXT_15);
     
 			}

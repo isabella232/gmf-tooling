@@ -118,6 +118,28 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenCompartment} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenCompartmentItemProvider genCompartmentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenCompartment}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenCompartmentAdapter() {
+		if (genCompartmentItemProvider == null) {
+			genCompartmentItemProvider = new GenCompartmentItemProvider(this);
+		}
+
+		return genCompartmentItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenChildNode} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -159,28 +181,6 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		}
 
 		return genLinkItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected GenChildContainerItemProvider genChildContainerItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Adapter createGenChildContainerAdapter() {
-		if (genChildContainerItemProvider == null) {
-			genChildContainerItemProvider = new GenChildContainerItemProvider(this);
-		}
-
-		return genChildContainerItemProvider;
 	}
 
 	/**
@@ -765,7 +765,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	public void dispose() {
 		if (genDiagramItemProvider != null) genDiagramItemProvider.dispose();
 		if (genNodeItemProvider != null) genNodeItemProvider.dispose();
-		if (genChildContainerItemProvider != null) genChildContainerItemProvider.dispose();
+		if (genCompartmentItemProvider != null) genCompartmentItemProvider.dispose();
 		if (genChildNodeItemProvider != null) genChildNodeItemProvider.dispose();
 		if (genLinkItemProvider != null) genLinkItemProvider.dispose();
 		if (genNodeLabelItemProvider != null) genNodeLabelItemProvider.dispose();

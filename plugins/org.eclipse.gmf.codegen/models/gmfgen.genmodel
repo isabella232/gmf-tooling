@@ -83,27 +83,27 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getClassNameSuffux"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getUniqueIdentifier"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenChildContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildContainer/childNodes"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenNode">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/diagram"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/modelFacet"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/labels"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/childContainers"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/childNodes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/compartments"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNode/childContainersPlacement"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNode/getDomainMetaClass"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//GenChildContainer">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/groupID"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/titleKey"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/canCollapse"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/hideIfEmpty"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/needsTitle"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/layoutKind"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildContainer/parentNode"/>
+    <genClasses ecoreClass="gmfgen.ecore#//GenCompartment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCompartment/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCompartment/canCollapse"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCompartment/hideIfEmpty"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCompartment/needsTitle"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCompartment/layoutKind"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCompartment/node"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenChildNode">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildNode/groupID"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildNode/parentNode"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildNode/container"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenLink">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/diagram"/>

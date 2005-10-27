@@ -92,9 +92,9 @@ if (genElement instanceof GenNode) {
     
 		}
 	}
-	List genChildContainers = genNode.getChildContainers();
+	List genChildContainers = genNode.getCompartments();
 	for (int j = 0; j < genChildContainers.size(); j++) {
-		GenChildContainer genChildContainer = (GenChildContainer) genChildContainers.get(j);
+		GenCompartment genChildContainer = (GenCompartment) genChildContainers.get(j);
 		String compartmentId = semanticHintsClassName + ".Compartments." + AccessUtil.getCompartmentId(genChildContainer);
 
     stringBuffer.append(TEXT_16);

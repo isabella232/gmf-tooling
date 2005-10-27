@@ -22,6 +22,7 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
@@ -60,134 +61,24 @@ public class GenChildContainerItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addGroupIDPropertyDescriptor(object);
-			addTitleKeyPropertyDescriptor(object);
-			addCanCollapsePropertyDescriptor(object);
-			addHideIfEmptyPropertyDescriptor(object);
-			addNeedsTitlePropertyDescriptor(object);
-			addLayoutKindPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Group ID feature.
+	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addGroupIDPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenChildContainer_groupID_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenChildContainer_groupID_feature", "_UI_GenChildContainer_type"),
-				 GMFGenPackage.eINSTANCE.getGenChildContainer_GroupID(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Title Key feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTitleKeyPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenChildContainer_titleKey_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenChildContainer_titleKey_feature", "_UI_GenChildContainer_type"),
-				 GMFGenPackage.eINSTANCE.getGenChildContainer_TitleKey(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Can Collapse feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addCanCollapsePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenChildContainer_canCollapse_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenChildContainer_canCollapse_feature", "_UI_GenChildContainer_type"),
-				 GMFGenPackage.eINSTANCE.getGenChildContainer_CanCollapse(),
-				 true,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Hide If Empty feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addHideIfEmptyPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenChildContainer_hideIfEmpty_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenChildContainer_hideIfEmpty_feature", "_UI_GenChildContainer_type"),
-				 GMFGenPackage.eINSTANCE.getGenChildContainer_HideIfEmpty(),
-				 true,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Needs Title feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNeedsTitlePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenChildContainer_needsTitle_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenChildContainer_needsTitle_feature", "_UI_GenChildContainer_type"),
-				 GMFGenPackage.eINSTANCE.getGenChildContainer_NeedsTitle(),
-				 true,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Layout Kind feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addLayoutKindPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenChildContainer_layoutKind_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenChildContainer_layoutKind_feature", "_UI_GenChildContainer_type"),
-				 GMFGenPackage.eINSTANCE.getGenChildContainer_LayoutKind(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
+	public Collection getChildrenFeatures(Object object) {
+		if (childrenFeatures == null) {
+			super.getChildrenFeatures(object);
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenChildContainer_ChildNodes());
+		}
+		return childrenFeatures;
 	}
 
 	/**
@@ -224,13 +115,8 @@ public class GenChildContainerItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenChildContainer.class)) {
-			case GMFGenPackage.GEN_CHILD_CONTAINER__GROUP_ID:
-			case GMFGenPackage.GEN_CHILD_CONTAINER__TITLE_KEY:
-			case GMFGenPackage.GEN_CHILD_CONTAINER__CAN_COLLAPSE:
-			case GMFGenPackage.GEN_CHILD_CONTAINER__HIDE_IF_EMPTY:
-			case GMFGenPackage.GEN_CHILD_CONTAINER__NEEDS_TITLE:
-			case GMFGenPackage.GEN_CHILD_CONTAINER__LAYOUT_KIND:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -245,6 +131,11 @@ public class GenChildContainerItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenChildContainer_ChildNodes(),
+				 GMFGenFactory.eINSTANCE.createGenChildNode()));
 	}
 
 	/**

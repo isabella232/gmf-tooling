@@ -148,9 +148,9 @@ for (int i = 0; i < genNodes.size(); i++) {
     stringBuffer.append(TEXT_23);
     
 	}
-	List genChildContainers = genNode.getChildContainers();
-	for (int j = 0; j < genChildContainers.size(); j++) {
-		GenChildContainer genChildContainer = (GenChildContainer) genChildContainers.get(j);
+	List genCompartments = genNode.getCompartments();
+	for (int j = 0; j < genCompartments.size(); j++) {
+		GenCompartment genChildContainer = (GenCompartment) genCompartments.get(j);
 		String compartmentId = semanticHintsClassName + ".Compartments." + AccessUtil.getCompartmentId(genChildContainer);
 
     stringBuffer.append(TEXT_24);
@@ -167,7 +167,7 @@ for (int i = 0; i < genNodes.size(); i++) {
     
 for (int i = 0; i < genNodes.size(); i++) {
 	GenNode genNode = (GenNode) genNodes.get(i);
-	List genChildNodes = genNode.getChildNodes();
+	List genChildNodes = AccessUtil.getAllChildNodes(genNode);
 	for (int j = 0; j < genChildNodes.size(); j++) {
 		GenChildNode genChildNode = (GenChildNode) genChildNodes.get(j);
 

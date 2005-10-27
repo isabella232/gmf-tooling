@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="InitDiagramFileActionGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.ImportUtil"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.ImportUtil"%>
 <%
 GenDiagram genDiagram = (GenDiagram) argument;
 List genNodes = genDiagram.getNodes();
@@ -264,11 +264,22 @@ for (Iterator genNodesIt = genNodes.iterator(); genNodesIt.hasNext();) {
 			Node container;
 			switch (nodeVID) {
 <%
-	for (Iterator childGenNodesIt = nextGenNode.getChildNodes().iterator(); childGenNodesIt.hasNext();) {
+	for (Iterator childGenNodesIt = AccessUtil.getAllChildNodes(nextGenNode).iterator(); childGenNodesIt.hasNext();) {
 		GenChildNode nextChildGenNode = (GenChildNode) childGenNodesIt.next();
 %>		
 			case <%=nextChildGenNode.getVisualID()%>:
-				container = getCompartment(node, "<%=nextChildGenNode.getGroupID()%>");
+<%
+		if (nextChildGenNode.getContainer() instanceof GenCompartment) {
+			GenCompartment compartment = (GenCompartment) nextChildGenNode.getContainer();
+%>			
+				container = getCompartment(node, "<%=compartment.getTitle()%>");
+<%
+		} else {
+%>
+				container = node;
+<%
+		}
+%>
 				break;
 <%
 	}

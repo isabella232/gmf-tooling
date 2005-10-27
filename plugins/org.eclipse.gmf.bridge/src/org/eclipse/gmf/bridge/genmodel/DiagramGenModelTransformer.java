@@ -11,7 +11,9 @@
  */
 package org.eclipse.gmf.bridge.genmodel;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -29,6 +31,7 @@ import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
@@ -163,18 +166,20 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		genNode.setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap());
 		// XXX nme.getDiagramNode.isSetDefaultWidth add DefaultSizeAttributes to viewmap
 		handleToolDef(nme.getDiagramNode(), genNode);
+		
+		Map compartment2GenMap = new HashMap();
 		for (Iterator it = nme.getDiagramNode().getCompartments().iterator(); it.hasNext();) {
 			Compartment compartment = (Compartment) it.next();
-			GenChildContainer childContainer = GMFGenFactory.eINSTANCE.createGenChildContainer();
-			childContainer.setVisualID(COMPARTMENT_COUNT_BASE + (++myCompartmentCount));
-			childContainer.setDiagramRunTimeClass(getChildContainerRunTimeClass());
-			childContainer.setViewmap(GMFGenFactory.eINSTANCE.createCompartmentViewmap());
-			childContainer.setGroupID(compartment.getName());
-			childContainer.setCanCollapse(compartment.isCollapsible());
-			childContainer.setNeedsTitle(compartment.isNeedsTitle());
-			childContainer.setLayoutKind(CompartmentLayoutKind.TOOLBAR_LITERAL);
-			childContainer.setTitleKey(compartment.getName());
-			genNode.getChildContainers().add(childContainer);
+			GenCompartment childCompartment = GMFGenFactory.eINSTANCE.createGenCompartment();
+			childCompartment.setVisualID(COMPARTMENT_COUNT_BASE + (++myCompartmentCount));
+			childCompartment.setDiagramRunTimeClass(getChildContainerRunTimeClass());
+			childCompartment.setViewmap(GMFGenFactory.eINSTANCE.createCompartmentViewmap());
+			childCompartment.setCanCollapse(compartment.isCollapsible());
+			childCompartment.setNeedsTitle(compartment.isNeedsTitle());
+			childCompartment.setLayoutKind(CompartmentLayoutKind.TOOLBAR_LITERAL);
+			childCompartment.setTitle(compartment.getName());
+			genNode.getCompartments().add(childCompartment);
+			compartment2GenMap.put(compartment, childCompartment);
 		}
 
 		for (Iterator it = nme.getChildMappings().iterator(); it.hasNext();) {
@@ -193,7 +198,6 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			childNode.setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap());
 			childNode.setEditPartClassName(createEditPartClassName(childNodeMapping));
 			childNode.setNotationViewFactoryClassName(createNotationViewFactoryClassName(childNodeMapping));
-			childNode.setGroupID(childNodeMapping.getCompartment().getName());
 			childNode.setVisualID(CHILD_COUNT_BASE + (++myChildCount ));
 			
 			if (childNodeMapping.getEditFeature() != null) {
@@ -206,8 +210,15 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 				label.setViewmap(GMFGenFactory.eINSTANCE.createLabelViewmap());
 				childNode.getLabels().add(label);
 			}
-						
-			genNode.getChildNodes().add(childNode);
+				
+			Compartment parentCompartment = childNodeMapping.getCompartment();
+			GenChildContainer container;
+			if (parentCompartment == null || !compartment2GenMap.containsKey(parentCompartment)) {
+				container = genNode;
+			} else {
+				container = (GenChildContainer) compartment2GenMap.get(parentCompartment);
+			}
+			container.getChildNodes().add(childNode);
 			handleToolDef(childNodeMapping.getDiagramNode(), childNode);
 		}
 	}

@@ -13,22 +13,34 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.gmf.codegen.gmfgen.*;
 
 import org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap;
+import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind;
 import org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
+import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.LinkDecoration;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
+import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
+import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ShapeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -56,7 +68,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 		switch (eClass.getClassifierID()) {
 			case GMFGenPackage.GEN_DIAGRAM: return createGenDiagram();
 			case GMFGenPackage.GEN_NODE: return createGenNode();
-			case GMFGenPackage.GEN_CHILD_CONTAINER: return createGenChildContainer();
+			case GMFGenPackage.GEN_COMPARTMENT: return createGenCompartment();
 			case GMFGenPackage.GEN_CHILD_NODE: return createGenChildNode();
 			case GMFGenPackage.GEN_LINK: return createGenLink();
 			case GMFGenPackage.GEN_NODE_LABEL: return createGenNodeLabel();
@@ -160,6 +172,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GenCompartment createGenCompartment() {
+		GenCompartmentImpl genCompartment = new GenCompartmentImpl();
+		return genCompartment;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GenChildNode createGenChildNode() {
 		GenChildNodeImpl genChildNode = new GenChildNodeImpl();
 		return genChildNode;
@@ -173,16 +195,6 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenLink createGenLink() {
 		GenLinkImpl genLink = new GenLinkImpl();
 		return genLink;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenChildContainer createGenChildContainer() {
-		GenChildContainerImpl genChildContainer = new GenChildContainerImpl();
-		return genChildContainer;
 	}
 
 	/**

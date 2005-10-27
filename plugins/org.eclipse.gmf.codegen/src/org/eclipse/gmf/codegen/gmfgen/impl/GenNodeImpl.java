@@ -20,8 +20,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
@@ -38,15 +37,14 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getModelFacet <em>Model Facet</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getLabels <em>Labels</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getChildContainers <em>Child Containers</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getChildNodes <em>Child Nodes</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getChildContainersPlacement <em>Child Containers Placement</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class GenNodeImpl extends GenCommonBaseImpl implements GenNode {
+public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 	/**
 	 * The cached value of the '{@link #getModelFacet() <em>Model Facet</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -68,24 +66,14 @@ public class GenNodeImpl extends GenCommonBaseImpl implements GenNode {
 	protected EList labels = null;
 
 	/**
-	 * The cached value of the '{@link #getChildContainers() <em>Child Containers</em>}' containment reference list.
+	 * The cached value of the '{@link #getCompartments() <em>Compartments</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getChildContainers()
+	 * @see #getCompartments()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList childContainers = null;
-
-	/**
-	 * The cached value of the '{@link #getChildNodes() <em>Child Nodes</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getChildNodes()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList childNodes = null;
+	protected EList compartments = null;
 
 	/**
 	 * The default value of the '{@link #getChildContainersPlacement() <em>Child Containers Placement</em>}' attribute.
@@ -161,23 +149,11 @@ public class GenNodeImpl extends GenCommonBaseImpl implements GenNode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getChildContainers() {
-		if (childContainers == null) {
-			childContainers = new EObjectContainmentWithInverseEList(GenChildContainer.class, this, GMFGenPackage.GEN_NODE__CHILD_CONTAINERS, GMFGenPackage.GEN_CHILD_CONTAINER__PARENT_NODE);
+	public EList getCompartments() {
+		if (compartments == null) {
+			compartments = new EObjectContainmentWithInverseEList(GenCompartment.class, this, GMFGenPackage.GEN_NODE__COMPARTMENTS, GMFGenPackage.GEN_COMPARTMENT__NODE);
 		}
-		return childContainers;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList getChildNodes() {
-		if (childNodes == null) {
-			childNodes = new EObjectContainmentWithInverseEList(GenChildNode.class, this, GMFGenPackage.GEN_NODE__CHILD_NODES, GMFGenPackage.GEN_CHILD_NODE__PARENT_NODE);
-		}
-		return childNodes;
+		return compartments;
 	}
 
 	/**
@@ -252,16 +228,16 @@ public class GenNodeImpl extends GenCommonBaseImpl implements GenNode {
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case GMFGenPackage.GEN_NODE__CHILD_NODES:
+					return ((InternalEList)getChildNodes()).basicAdd(otherEnd, msgs);
 				case GMFGenPackage.GEN_NODE__DIAGRAM:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
 					return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_NODE__DIAGRAM, msgs);
 				case GMFGenPackage.GEN_NODE__LABELS:
 					return ((InternalEList)getLabels()).basicAdd(otherEnd, msgs);
-				case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
-					return ((InternalEList)getChildContainers()).basicAdd(otherEnd, msgs);
-				case GMFGenPackage.GEN_NODE__CHILD_NODES:
-					return ((InternalEList)getChildNodes()).basicAdd(otherEnd, msgs);
+				case GMFGenPackage.GEN_NODE__COMPARTMENTS:
+					return ((InternalEList)getCompartments()).basicAdd(otherEnd, msgs);
 				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
@@ -281,16 +257,16 @@ public class GenNodeImpl extends GenCommonBaseImpl implements GenNode {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case GMFGenPackage.GEN_NODE__VIEWMAP:
 					return basicSetViewmap(null, msgs);
+				case GMFGenPackage.GEN_NODE__CHILD_NODES:
+					return ((InternalEList)getChildNodes()).basicRemove(otherEnd, msgs);
 				case GMFGenPackage.GEN_NODE__DIAGRAM:
 					return eBasicSetContainer(null, GMFGenPackage.GEN_NODE__DIAGRAM, msgs);
 				case GMFGenPackage.GEN_NODE__MODEL_FACET:
 					return basicSetModelFacet(null, msgs);
 				case GMFGenPackage.GEN_NODE__LABELS:
 					return ((InternalEList)getLabels()).basicRemove(otherEnd, msgs);
-				case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
-					return ((InternalEList)getChildContainers()).basicRemove(otherEnd, msgs);
-				case GMFGenPackage.GEN_NODE__CHILD_NODES:
-					return ((InternalEList)getChildNodes()).basicRemove(otherEnd, msgs);
+				case GMFGenPackage.GEN_NODE__COMPARTMENTS:
+					return ((InternalEList)getCompartments()).basicRemove(otherEnd, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
@@ -333,16 +309,16 @@ public class GenNodeImpl extends GenCommonBaseImpl implements GenNode {
 				return getNotationViewFactoryClassName();
 			case GMFGenPackage.GEN_NODE__VIEWMAP:
 				return getViewmap();
+			case GMFGenPackage.GEN_NODE__CHILD_NODES:
+				return getChildNodes();
 			case GMFGenPackage.GEN_NODE__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.GEN_NODE__MODEL_FACET:
 				return getModelFacet();
 			case GMFGenPackage.GEN_NODE__LABELS:
 				return getLabels();
-			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
-				return getChildContainers();
-			case GMFGenPackage.GEN_NODE__CHILD_NODES:
-				return getChildNodes();
+			case GMFGenPackage.GEN_NODE__COMPARTMENTS:
+				return getCompartments();
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
 				return getChildContainersPlacement();
 		}
@@ -371,6 +347,10 @@ public class GenNodeImpl extends GenCommonBaseImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__VIEWMAP:
 				setViewmap((Viewmap)newValue);
 				return;
+			case GMFGenPackage.GEN_NODE__CHILD_NODES:
+				getChildNodes().clear();
+				getChildNodes().addAll((Collection)newValue);
+				return;
 			case GMFGenPackage.GEN_NODE__MODEL_FACET:
 				setModelFacet((TypeModelFacet)newValue);
 				return;
@@ -378,13 +358,9 @@ public class GenNodeImpl extends GenCommonBaseImpl implements GenNode {
 				getLabels().clear();
 				getLabels().addAll((Collection)newValue);
 				return;
-			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
-				getChildContainers().clear();
-				getChildContainers().addAll((Collection)newValue);
-				return;
-			case GMFGenPackage.GEN_NODE__CHILD_NODES:
-				getChildNodes().clear();
-				getChildNodes().addAll((Collection)newValue);
+			case GMFGenPackage.GEN_NODE__COMPARTMENTS:
+				getCompartments().clear();
+				getCompartments().addAll((Collection)newValue);
 				return;
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
 				setChildContainersPlacement((CompartmentPlacementKind)newValue);
@@ -415,17 +391,17 @@ public class GenNodeImpl extends GenCommonBaseImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__VIEWMAP:
 				setViewmap((Viewmap)null);
 				return;
+			case GMFGenPackage.GEN_NODE__CHILD_NODES:
+				getChildNodes().clear();
+				return;
 			case GMFGenPackage.GEN_NODE__MODEL_FACET:
 				setModelFacet((TypeModelFacet)null);
 				return;
 			case GMFGenPackage.GEN_NODE__LABELS:
 				getLabels().clear();
 				return;
-			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
-				getChildContainers().clear();
-				return;
-			case GMFGenPackage.GEN_NODE__CHILD_NODES:
-				getChildNodes().clear();
+			case GMFGenPackage.GEN_NODE__COMPARTMENTS:
+				getCompartments().clear();
 				return;
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
 				setChildContainersPlacement(CHILD_CONTAINERS_PLACEMENT_EDEFAULT);
@@ -451,16 +427,16 @@ public class GenNodeImpl extends GenCommonBaseImpl implements GenNode {
 				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
 			case GMFGenPackage.GEN_NODE__VIEWMAP:
 				return viewmap != null;
+			case GMFGenPackage.GEN_NODE__CHILD_NODES:
+				return childNodes != null && !childNodes.isEmpty();
 			case GMFGenPackage.GEN_NODE__DIAGRAM:
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_NODE__MODEL_FACET:
 				return modelFacet != null;
 			case GMFGenPackage.GEN_NODE__LABELS:
 				return labels != null && !labels.isEmpty();
-			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
-				return childContainers != null && !childContainers.isEmpty();
-			case GMFGenPackage.GEN_NODE__CHILD_NODES:
-				return childNodes != null && !childNodes.isEmpty();
+			case GMFGenPackage.GEN_NODE__COMPARTMENTS:
+				return compartments != null && !compartments.isEmpty();
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
 				return childContainersPlacement != CHILD_CONTAINERS_PLACEMENT_EDEFAULT;
 		}

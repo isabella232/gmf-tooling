@@ -12,10 +12,12 @@
 package org.eclipse.gmf.codegen.util;
 
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
-import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
@@ -50,8 +52,8 @@ public class AccessUtil {
 
 	// naming patterns
 
-	public static String getCompartmentId(GenChildContainer compartment) {
-		return asJavaConstantName(compartment.getTitleKey());
+	public static String getCompartmentId(GenCompartment compartment) {
+		return asJavaConstantName(compartment.getTitle());
 	}
 
 	public static String getPaletteEntryId(EntryBase entry) {
@@ -75,6 +77,16 @@ public class AccessUtil {
 	}
 
 	// model access
+	
+	public static List getAllChildNodes(GenNode node) {
+		List result = new LinkedList();
+		result.addAll(node.getChildNodes());
+		for (Iterator it = node.getCompartments().iterator(); it.hasNext();) {
+			GenCompartment nextCompartment = (GenCompartment) it.next();
+			result.addAll(nextCompartment.getChildNodes());
+		}
+		return result;
+	}
 
 	/**
 	 * Returns iterator that traverse gen entities hierarchy
@@ -150,7 +162,7 @@ public class AccessUtil {
 			} else if (entity instanceof GenNode) {
 				GenNode genNode = (GenNode) entity;
 				if (feature == 1) {
-					i = genNode.getChildNodes().iterator();
+					i = getAllChildNodes(genNode).iterator();
 				}
 			}
 			return i;

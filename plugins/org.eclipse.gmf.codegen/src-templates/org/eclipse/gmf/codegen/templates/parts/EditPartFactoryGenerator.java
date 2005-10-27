@@ -137,22 +137,18 @@ for (int i = 0; i < genNodes.size(); i++) {
     stringBuffer.append(TEXT_15);
     
 	}
-	List genChildContainers = genNode.getChildContainers();
-	for (int j = 0; j < genChildContainers.size(); j++) {
-		GenChildContainer genChildContainer = (GenChildContainer) genChildContainers.get(j);
-		String compartmentId = semanticHintsClassName + ".Compartments." + AccessUtil.getCompartmentId(genChildContainer);
+	List genCompartments = genNode.getCompartments();
+	for (int j = 0; j < genCompartments.size(); j++) {
+		GenCompartment genCompartment = (GenCompartment) genCompartments.get(j);
+		String compartmentId = semanticHintsClassName + ".Compartments." + AccessUtil.getCompartmentId(genCompartment);
 
     stringBuffer.append(TEXT_16);
     stringBuffer.append(compartmentId);
     stringBuffer.append(TEXT_17);
     
 		Map childFeature2NodesMap = new HashMap();
-		for (Iterator it = genNode.getChildNodes().iterator(); it.hasNext();) {
+		for (Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext();) {
 			GenChildNode nextChildNode = (GenChildNode) it.next();
-//TODO: add link from ChildNode to it's compartment into genmodel
-			if (!genChildContainer.getGroupID().equals(nextChildNode.getGroupID())) {
-				continue;
-			}
 			GenFeature genFeature = nextChildNode.getModelFacet().getChildMetaFeature();
 			List genChildNodes; 
 			if (!childFeature2NodesMap.containsKey(genFeature)) {
@@ -230,7 +226,7 @@ for (int i = 0; i < genNodes.size(); i++) {
 		}
 
     stringBuffer.append(TEXT_33);
-    stringBuffer.append(genChildContainer.getTitleKey());
+    stringBuffer.append(genCompartment.getTitle());
     stringBuffer.append(TEXT_34);
     	}
     stringBuffer.append(TEXT_35);
@@ -290,7 +286,7 @@ for (int i = 0; i < genNodes.size(); i++) {
     
 for (int i = 0; i < genNodes.size(); i++) {
 	GenNode genNode = (GenNode) genNodes.get(i);
-	List genChildNodes = genNode.getChildNodes();
+	List genChildNodes = AccessUtil.getAllChildNodes(genNode);
 	for (int j = 0; j < genChildNodes.size(); j++) {
 		GenChildNode genChildNode = (GenChildNode) genChildNodes.get(j);
 

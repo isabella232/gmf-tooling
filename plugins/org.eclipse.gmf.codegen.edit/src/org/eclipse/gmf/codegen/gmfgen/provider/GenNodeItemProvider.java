@@ -34,7 +34,7 @@ import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
  * @generated
  */
 public class GenNodeItemProvider
-	extends GenCommonBaseItemProvider
+	extends GenChildContainerItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -99,8 +99,7 @@ public class GenNodeItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenNode_ModelFacet());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenNode_Labels());
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenNode_ChildContainers());
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenNode_ChildNodes());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenNode_Compartments());
 		}
 		return childrenFeatures;
 	}
@@ -156,8 +155,7 @@ public class GenNodeItemProvider
 				return;
 			case GMFGenPackage.GEN_NODE__MODEL_FACET:
 			case GMFGenPackage.GEN_NODE__LABELS:
-			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS:
-			case GMFGenPackage.GEN_NODE__CHILD_NODES:
+			case GMFGenPackage.GEN_NODE__COMPARTMENTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -191,13 +189,8 @@ public class GenNodeItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenNode_ChildContainers(),
-				 GMFGenFactory.eINSTANCE.createGenChildContainer()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenNode_ChildNodes(),
-				 GMFGenFactory.eINSTANCE.createGenChildNode()));
+				(GMFGenPackage.eINSTANCE.getGenNode_Compartments(),
+				 GMFGenFactory.eINSTANCE.createGenCompartment()));
 	}
 
 	/**
