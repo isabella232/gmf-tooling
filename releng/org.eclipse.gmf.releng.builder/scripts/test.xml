@@ -2,9 +2,6 @@
 
 	<!-- TODO: modify to allow for testing to be run standalone (not only as part of the build) -->
 	<target name="runtests" depends="" description="Executes the junit tests for a specified plug-in.">
-		<tstamp>
-			<format property="runtests-starttime" pattern="HH:mm:ss" />
-		</tstamp>
 		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="true">
 			<arg value="-application" />
 			<arg value="org.eclipse.ant.core.antRunner" />
@@ -22,9 +19,6 @@
 			<jvmarg value="-ea"/>
 		</java>
 		<move file="${baseLocation}/${testPlugin}.xml" tofile="${artifacts}/${buildLabel}/testresults/xml/${testPlugin}.xml" failonerror="false"/>
-		<tstamp>
-			<format property="runtests-endtime" pattern="HH:mm:ss" />
-		</tstamp>
 	</target>
 
 	<target name="all" description="Runs the test.xml of the test plugins">
