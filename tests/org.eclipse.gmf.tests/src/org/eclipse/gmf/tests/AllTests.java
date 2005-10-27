@@ -20,7 +20,6 @@ import org.eclipse.gmf.tests.gen.HandcodedImplTest;
 import org.eclipse.gmf.tests.setup.TestSetupTest;
 import org.eclipse.gmf.tests.tr.EPNamingStrategyTest;
 import org.eclipse.gmf.tests.tr.GenModelTransformerBasicRTTest;
-import org.eclipse.gmf.tests.tr.RunTimeModelTransformerTest;
 
 public class AllTests {
 
@@ -37,12 +36,12 @@ public class AllTests {
 
 		suite.addTestSuite(DiagramNodeTest.class);
 		suite.addTestSuite(EPNamingStrategyTest.class);
-		suite.addTestSuite(RunTimeModelTransformerTest.class);
 		suite.addTestSuite(GenModelTransformerBasicRTTest.class);
 
-//		suite.addTestSuite(PropertiesTest.class); Nothing there yet
+//		suite.addTestSuite(RunTimeModelTransformerTest.class); #113966
+//		suite.addTestSuite(PropertiesTest.class); #113965 
 //		suite.addTestSuite(CanvasTest.class); Nothing there yet
-//		suite.addTestSuite(SpecificRTPropertiesTest.class);
+//		suite.addTestSuite(SpecificRTPropertiesTest.class); #113965 
 		//$JUnit-END$
 		return suite;
 	}
