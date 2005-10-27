@@ -60,12 +60,13 @@
 	           <property name="clean" value="true"/>
 	     </ant>
 	     <antcall target="publish"/>
+		 <property file="build.properties" />
+		 <antcall target="statCVS"/>
 	</target>
 	
 	<target name="publish" depends="">
 		<!-- Fake a component, use sdk -->
 		<property name="component" value="sdk"/>
-		<property file="build.properties" />
 		<property file="label.properties" />
 		<property file="${buildRoot}/sdk/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
 		<property name="publish.xml" value="../../org.eclipse.releng.basebuilder/plugins/org.eclipse.build.tools/scripts/publish.xml" />
@@ -114,4 +115,17 @@
 		    <fileset dir="${buildUpdateSitePath}/plugins"/>
 		  </copy>
 	</target>
+	
+	<target name="statCVS" if="statCVShome">
+		<cvs dest="${checkoutDirectory}/org.eclipse.gmf" command="log" output="${checkoutDirectory}/logfile.log"/>
+		<java jar="${statCVShome}/statcvs.jar" dir="${statCVSpublish}"
+              fork="true"
+              failonerror="true"
+              maxmemory="1024m">
+            <arg value="${checkoutDirectory}/logfile.log"/>
+			<arg value="${checkoutDirectory}/org.eclipse.gmf"/>
+        </java>
+		<copy file="${scripts}/css/statcvs.css" todir="${statCVSpublish}" overwrite="true"/>
+	</target>
+	
 </project>
