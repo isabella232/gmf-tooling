@@ -70,6 +70,9 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.BASIC_NODE_VIEWMAP: return createBasicNodeViewmap();
 			case GMFGenPackage.DECORATED_CONNECTION_VIEWMAP: return createDecoratedConnectionViewmap();
 			case GMFGenPackage.LINK_DECORATION: return createLinkDecoration();
+			case GMFGenPackage.DIAGRAM_VIEWMAP: return createDiagramViewmap();
+			case GMFGenPackage.COMPARTMENT_VIEWMAP: return createCompartmentViewmap();
+			case GMFGenPackage.LABEL_VIEWMAP: return createLabelViewmap();
 			case GMFGenPackage.VALUE_EXPRESSION: return createValueExpression();
 			case GMFGenPackage.MODEL_ELEMENT_SELECTOR: return createModelElementSelector();
 			case GMFGenPackage.PALETTE: return createPalette();
@@ -290,6 +293,36 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public LinkDecoration createLinkDecoration() {
 		LinkDecorationImpl linkDecoration = new LinkDecorationImpl();
 		return linkDecoration;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DiagramViewmap createDiagramViewmap() {
+		DiagramViewmapImpl diagramViewmap = new DiagramViewmapImpl();
+		return diagramViewmap;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CompartmentViewmap createCompartmentViewmap() {
+		CompartmentViewmapImpl compartmentViewmap = new CompartmentViewmapImpl();
+		return compartmentViewmap;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LabelViewmap createLabelViewmap() {
+		LabelViewmapImpl labelViewmap = new LabelViewmapImpl();
+		return labelViewmap;
 	}
 
 	/**

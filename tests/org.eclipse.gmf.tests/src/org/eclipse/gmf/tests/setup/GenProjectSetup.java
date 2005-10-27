@@ -51,7 +51,6 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 
 
 	protected void hookProjectBuild(IProject p) throws Exception {
-		// TODO Auto-generated method stub
 		super.hookProjectBuild(p);
 		try {
 			String url = p.getLocation().toFile().toURL().toExternalForm();

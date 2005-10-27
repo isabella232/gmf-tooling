@@ -220,6 +220,21 @@ public class GenCommonBaseItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenCommonBase_Viewmap(),
 				 GMFGenFactory.eINSTANCE.createDecoratedConnectionViewmap()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenCommonBase_Viewmap(),
+				 GMFGenFactory.eINSTANCE.createDiagramViewmap()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenCommonBase_Viewmap(),
+				 GMFGenFactory.eINSTANCE.createCompartmentViewmap()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenCommonBase_Viewmap(),
+				 GMFGenFactory.eINSTANCE.createLabelViewmap()));
 	}
 
 	/**

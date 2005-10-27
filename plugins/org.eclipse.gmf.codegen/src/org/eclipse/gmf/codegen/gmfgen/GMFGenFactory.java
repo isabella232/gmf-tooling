@@ -170,6 +170,33 @@ public interface GMFGenFactory extends EFactory{
 	LinkDecoration createLinkDecoration();
 
 	/**
+	 * Returns a new object of class '<em>Diagram Viewmap</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Diagram Viewmap</em>'.
+	 * @generated
+	 */
+	DiagramViewmap createDiagramViewmap();
+
+	/**
+	 * Returns a new object of class '<em>Compartment Viewmap</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Compartment Viewmap</em>'.
+	 * @generated
+	 */
+	CompartmentViewmap createCompartmentViewmap();
+
+	/**
+	 * Returns a new object of class '<em>Label Viewmap</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Label Viewmap</em>'.
+	 * @generated
+	 */
+	LabelViewmap createLabelViewmap();
+
+	/**
 	 * Returns a new object of class '<em>Palette</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

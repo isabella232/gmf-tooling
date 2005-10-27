@@ -68,6 +68,7 @@ import org.eclipse.gmf.mappings.NodeMapping;
  * @author artem
  */
 public class DiagramGenModelTransformer extends MappingTransofrmer {
+
 	private static final int CANVAS_COUNT_BASE = 79;
 	private static final int NODE_COUNT_BASE = 1000;
 	private static final int CHILD_COUNT_BASE = 2000;
@@ -80,6 +81,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 	private final DiagramRunTimeModelHelper myDRTHelper;
 	private final NamingStrategy myEditPartNamingStrategy;
 	private final NamingStrategy myNotationViewFactoryNamingStrategy;
+
 	private int myNodeCount = 0;
 	private int myLinkCount = 0;
 	private int myChildCount = 0;
@@ -134,8 +136,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 		getGenDiagram().setDiagramRunTimeClass(findRunTimeClass(mapping));
 		getGenDiagram().setVisualID(CANVAS_COUNT_BASE);
 		getGenDiagram().setPluginName(mapping.getDomainModel().getName() + " Plugin");
-		// FIXME invalid viewmap class in use
-		getGenDiagram().setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap());
+		getGenDiagram().setViewmap(GMFGenFactory.eINSTANCE.createDiagramViewmap());
 	}
 
 	protected void process(NodeMapping nme) {
@@ -154,6 +155,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			label.setModelFacet(modelFacet);
 			label.setVisualID(LABEL_COUNT_BASE + (++myLabelCount));
 			label.setDiagramRunTimeClass(getNodeLabelRunTimeClass());
+			label.setViewmap(GMFGenFactory.eINSTANCE.createLabelViewmap());
 			genNode.getLabels().add(label);
 		}
 		genNode.setEditPartClassName(createEditPartClassName(nme));
@@ -166,6 +168,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			GenChildContainer childContainer = GMFGenFactory.eINSTANCE.createGenChildContainer();
 			childContainer.setVisualID(COMPARTMENT_COUNT_BASE + (++myCompartmentCount));
 			childContainer.setDiagramRunTimeClass(getChildContainerRunTimeClass());
+			childContainer.setViewmap(GMFGenFactory.eINSTANCE.createCompartmentViewmap());
 			childContainer.setGroupID(compartment.getName());
 			childContainer.setCanCollapse(compartment.isCollapsible());
 			childContainer.setNeedsTitle(compartment.isNeedsTitle());
@@ -187,6 +190,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			}
 			
 			childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
+			childNode.setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap());
 			childNode.setEditPartClassName(createEditPartClassName(childNodeMapping));
 			childNode.setNotationViewFactoryClassName(createNotationViewFactoryClassName(childNodeMapping));
 			childNode.setGroupID(childNodeMapping.getCompartment().getName());
@@ -199,6 +203,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 				label.setModelFacet(modelFacet);
 				label.setVisualID(LABEL_COUNT_BASE + (++myLabelCount));
 				label.setDiagramRunTimeClass(getNodeLabelRunTimeClass());
+				label.setViewmap(GMFGenFactory.eINSTANCE.createLabelViewmap());
 				childNode.getLabels().add(label);
 			}
 						
@@ -236,6 +241,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			label.setModelFacet(modelFacet);
 			label.setVisualID(LABEL_COUNT_BASE + (++myLabelCount));
 			label.setDiagramRunTimeClass(getLinkLabelRunTimeClass());
+			label.setViewmap(GMFGenFactory.eINSTANCE.createLabelViewmap());
 			gl.getLabels().add(label);
 		}
 		gl.setDiagramRunTimeClass(findRunTimeClass(lme));

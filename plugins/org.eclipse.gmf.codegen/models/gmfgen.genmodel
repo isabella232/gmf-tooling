@@ -171,6 +171,9 @@
     <genClasses ecoreClass="gmfgen.ecore#//LinkDecoration">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//LinkDecoration/figureQualifiedClassName"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//DiagramViewmap"/>
+    <genClasses ecoreClass="gmfgen.ecore#//CompartmentViewmap"/>
+    <genClasses ecoreClass="gmfgen.ecore#//LabelViewmap"/>
     <genClasses ecoreClass="gmfgen.ecore#//ValueExpression">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/body"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/language"/>

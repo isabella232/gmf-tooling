@@ -68,7 +68,7 @@ public class DiaGenSetup implements DiaGenSource {
 		myGenDiagram.setDomainMetaModel(gmm.findGenPackage(domainSource.getModel()));
 		myGenDiagram.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getDiagram()));
 		myGenDiagram.setPalette(createPalette());
-		myGenDiagram.setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap()); // XXX need diagram viewmap
+		myGenDiagram.setViewmap(GMFGenFactory.eINSTANCE.createDiagramViewmap());
 		myGenDiagram.setVisualID(99);
 
 		myGenNode = GMFGenFactory.eINSTANCE.createGenNode();

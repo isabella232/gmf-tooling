@@ -368,6 +368,9 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DiagramViewmap" eSuperTypes="#//Viewmap"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CompartmentViewmap" eSuperTypes="#//Viewmap"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LabelViewmap" eSuperTypes="#//Viewmap"/>
   <eClassifiers xsi:type="ecore:EClass" name="ValueExpression">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Expression as a is textual statement which results in a value when evaluated in a context"/>

@@ -1687,6 +1687,90 @@ public interface GMFGenPackage extends EPackage{
 	int LINK_DECORATION_FEATURE_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.DiagramViewmapImpl <em>Diagram Viewmap</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.DiagramViewmapImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getDiagramViewmap()
+	 * @generated
+	 */
+	int DIAGRAM_VIEWMAP = 23;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIAGRAM_VIEWMAP__ATTRIBUTES = VIEWMAP__ATTRIBUTES;
+
+	/**
+	 * The number of structural features of the the '<em>Diagram Viewmap</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIAGRAM_VIEWMAP_FEATURE_COUNT = VIEWMAP_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.CompartmentViewmapImpl <em>Compartment Viewmap</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.CompartmentViewmapImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getCompartmentViewmap()
+	 * @generated
+	 */
+	int COMPARTMENT_VIEWMAP = 24;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPARTMENT_VIEWMAP__ATTRIBUTES = VIEWMAP__ATTRIBUTES;
+
+	/**
+	 * The number of structural features of the the '<em>Compartment Viewmap</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPARTMENT_VIEWMAP_FEATURE_COUNT = VIEWMAP_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.LabelViewmapImpl <em>Label Viewmap</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.LabelViewmapImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLabelViewmap()
+	 * @generated
+	 */
+	int LABEL_VIEWMAP = 25;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_VIEWMAP__ATTRIBUTES = VIEWMAP__ATTRIBUTES;
+
+	/**
+	 * The number of structural features of the the '<em>Label Viewmap</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_VIEWMAP_FEATURE_COUNT = VIEWMAP_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.PaletteImpl <em>Palette</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1694,7 +1778,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getPalette()
 	 * @generated
 	 */
-	int PALETTE = 25;
+	int PALETTE = 28;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl <em>Entry Base</em>}' class.
@@ -1704,7 +1788,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getEntryBase()
 	 * @generated
 	 */
-	int ENTRY_BASE = 26;
+	int ENTRY_BASE = 29;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.ToolEntryImpl <em>Tool Entry</em>}' class.
@@ -1714,7 +1798,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getToolEntry()
 	 * @generated
 	 */
-	int TOOL_ENTRY = 27;
+	int TOOL_ENTRY = 30;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.NodeEntryImpl <em>Node Entry</em>}' class.
@@ -1724,7 +1808,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getNodeEntry()
 	 * @generated
 	 */
-	int NODE_ENTRY = 28;
+	int NODE_ENTRY = 31;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.LinkEntryImpl <em>Link Entry</em>}' class.
@@ -1734,7 +1818,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkEntry()
 	 * @generated
 	 */
-	int LINK_ENTRY = 29;
+	int LINK_ENTRY = 32;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.ToolGroupImpl <em>Tool Group</em>}' class.
@@ -1744,7 +1828,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getToolGroup()
 	 * @generated
 	 */
-	int TOOL_GROUP = 30;
+	int TOOL_GROUP = 33;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.ValueExpressionImpl <em>Value Expression</em>}' class.
@@ -1754,7 +1838,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getValueExpression()
 	 * @generated
 	 */
-	int VALUE_EXPRESSION = 23;
+	int VALUE_EXPRESSION = 26;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -1791,7 +1875,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getModelElementSelector()
 	 * @generated
 	 */
-	int MODEL_ELEMENT_SELECTOR = 24;
+	int MODEL_ELEMENT_SELECTOR = 27;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -2251,7 +2335,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenElementInitializer()
 	 * @generated
 	 */
-	int GEN_ELEMENT_INITIALIZER = 31;
+	int GEN_ELEMENT_INITIALIZER = 34;
 
 	/**
 	 * The feature id for the '<em><b>Type Model Facet</b></em>' container reference.
@@ -2279,7 +2363,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenFeatureSeqInitializer()
 	 * @generated
 	 */
-	int GEN_FEATURE_SEQ_INITIALIZER = 32;
+	int GEN_FEATURE_SEQ_INITIALIZER = 35;
 
 	/**
 	 * The feature id for the '<em><b>Type Model Facet</b></em>' container reference.
@@ -2316,7 +2400,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenFeatureValueSpec()
 	 * @generated
 	 */
-	int GEN_FEATURE_VALUE_SPEC = 33;
+	int GEN_FEATURE_VALUE_SPEC = 36;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -2362,7 +2446,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getCompartmentPlacementKind()
 	 * @generated
 	 */
-	int COMPARTMENT_PLACEMENT_KIND = 34;
+	int COMPARTMENT_PLACEMENT_KIND = 37;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind <em>Compartment Layout Kind</em>}' enum.
@@ -2372,7 +2456,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getCompartmentLayoutKind()
 	 * @generated
 	 */
-	int COMPARTMENT_LAYOUT_KIND = 35;
+	int COMPARTMENT_LAYOUT_KIND = 38;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment <em>Link Label Alignment</em>}' enum.
@@ -2382,7 +2466,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkLabelAlignment()
 	 * @generated
 	 */
-	int LINK_LABEL_ALIGNMENT = 36;
+	int LINK_LABEL_ALIGNMENT = 39;
 
 	/**
 	 * The meta object id for the '<em>String Array</em>' data type.
@@ -2391,7 +2475,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getStringArray()
 	 * @generated
 	 */
-	int STRING_ARRAY = 37;
+	int STRING_ARRAY = 40;
 
 
 	/**
@@ -3448,6 +3532,36 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 */
 	EAttribute getLinkDecoration_FigureQualifiedClassName();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.DiagramViewmap <em>Diagram Viewmap</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Diagram Viewmap</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.DiagramViewmap
+	 * @generated
+	 */
+	EClass getDiagramViewmap();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.CompartmentViewmap <em>Compartment Viewmap</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Compartment Viewmap</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.CompartmentViewmap
+	 * @generated
+	 */
+	EClass getCompartmentViewmap();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.LabelViewmap <em>Label Viewmap</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Label Viewmap</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LabelViewmap
+	 * @generated
+	 */
+	EClass getLabelViewmap();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.ValueExpression <em>Value Expression</em>}'.

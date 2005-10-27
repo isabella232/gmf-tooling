@@ -426,6 +426,72 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.DiagramViewmap} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DiagramViewmapItemProvider diagramViewmapItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.DiagramViewmap}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createDiagramViewmapAdapter() {
+		if (diagramViewmapItemProvider == null) {
+			diagramViewmapItemProvider = new DiagramViewmapItemProvider(this);
+		}
+
+		return diagramViewmapItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.CompartmentViewmap} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CompartmentViewmapItemProvider compartmentViewmapItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.CompartmentViewmap}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createCompartmentViewmapAdapter() {
+		if (compartmentViewmapItemProvider == null) {
+			compartmentViewmapItemProvider = new CompartmentViewmapItemProvider(this);
+		}
+
+		return compartmentViewmapItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.LabelViewmap} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LabelViewmapItemProvider labelViewmapItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.LabelViewmap}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createLabelViewmapAdapter() {
+		if (labelViewmapItemProvider == null) {
+			labelViewmapItemProvider = new LabelViewmapItemProvider(this);
+		}
+
+		return labelViewmapItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.Palette} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -713,6 +779,9 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (basicNodeViewmapItemProvider != null) basicNodeViewmapItemProvider.dispose();
 		if (decoratedConnectionViewmapItemProvider != null) decoratedConnectionViewmapItemProvider.dispose();
 		if (linkDecorationItemProvider != null) linkDecorationItemProvider.dispose();
+		if (diagramViewmapItemProvider != null) diagramViewmapItemProvider.dispose();
+		if (compartmentViewmapItemProvider != null) compartmentViewmapItemProvider.dispose();
+		if (labelViewmapItemProvider != null) labelViewmapItemProvider.dispose();
 		if (valueExpressionItemProvider != null) valueExpressionItemProvider.dispose();
 		if (modelElementSelectorItemProvider != null) modelElementSelectorItemProvider.dispose();
 		if (paletteItemProvider != null) paletteItemProvider.dispose();

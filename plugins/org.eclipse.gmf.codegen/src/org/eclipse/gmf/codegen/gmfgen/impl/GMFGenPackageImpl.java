@@ -22,8 +22,10 @@ import org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap;
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind;
+import org.eclipse.gmf.codegen.gmfgen.CompartmentViewmap;
 import org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
+import org.eclipse.gmf.codegen.gmfgen.DiagramViewmap;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
@@ -41,6 +43,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.LabelViewmap;
 import org.eclipse.gmf.codegen.gmfgen.LinkDecoration;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
@@ -224,6 +227,27 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass linkDecorationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass diagramViewmapEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass compartmentViewmapEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass labelViewmapEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1289,6 +1313,33 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getDiagramViewmap() {
+		return diagramViewmapEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCompartmentViewmap() {
+		return compartmentViewmapEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLabelViewmap() {
+		return labelViewmapEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getValueExpression() {
 		return valueExpressionEClass;
 	}
@@ -1784,6 +1835,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		linkDecorationEClass = createEClass(LINK_DECORATION);
 		createEAttribute(linkDecorationEClass, LINK_DECORATION__FIGURE_QUALIFIED_CLASS_NAME);
 
+		diagramViewmapEClass = createEClass(DIAGRAM_VIEWMAP);
+
+		compartmentViewmapEClass = createEClass(COMPARTMENT_VIEWMAP);
+
+		labelViewmapEClass = createEClass(LABEL_VIEWMAP);
+
 		valueExpressionEClass = createEClass(VALUE_EXPRESSION);
 		createEAttribute(valueExpressionEClass, VALUE_EXPRESSION__BODY);
 		createEAttribute(valueExpressionEClass, VALUE_EXPRESSION__LANGUAGE);
@@ -1887,6 +1944,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		basicNodeViewmapEClass.getESuperTypes().add(this.getFigureViewmap());
 		decoratedConnectionViewmapEClass.getESuperTypes().add(this.getViewmap());
 		decoratedConnectionViewmapEClass.getESuperTypes().add(this.getFigureViewmap());
+		diagramViewmapEClass.getESuperTypes().add(this.getViewmap());
+		compartmentViewmapEClass.getESuperTypes().add(this.getViewmap());
+		labelViewmapEClass.getESuperTypes().add(this.getViewmap());
 		modelElementSelectorEClass.getESuperTypes().add(this.getValueExpression());
 		toolEntryEClass.getESuperTypes().add(this.getEntryBase());
 		nodeEntryEClass.getESuperTypes().add(this.getToolEntry());
@@ -2067,6 +2127,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(linkDecorationEClass, LinkDecoration.class, "LinkDecoration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getLinkDecoration_FigureQualifiedClassName(), ecorePackage.getEString(), "figureQualifiedClassName", null, 0, 1, LinkDecoration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(diagramViewmapEClass, DiagramViewmap.class, "DiagramViewmap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(compartmentViewmapEClass, CompartmentViewmap.class, "CompartmentViewmap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(labelViewmapEClass, LabelViewmap.class, "LabelViewmap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(valueExpressionEClass, ValueExpression.class, "ValueExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getValueExpression_Body(), ecorePackage.getEString(), "body", null, 1, 1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
