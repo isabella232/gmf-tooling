@@ -108,7 +108,7 @@
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
 		<schedule>
-			<ant time="2300" antscript="build.${ext}" buildfile="buildAll.xml"
+			<ant time="0300" antscript="build.${ext}" buildfile="buildAll.xml"
 				target="nightly" uselogger="true" usedebug="false" usequiet="true">
 				<property name="buildType" value="N" />
 			</ant>

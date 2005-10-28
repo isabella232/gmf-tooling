@@ -67,7 +67,8 @@
 	<target name="publish" depends="">
 		<!-- Fake a component, use sdk -->
 		<property name="component" value="sdk"/>
-		<property file="label.properties" />
+		<property file="build.properties" />
+		<property file="label.properties" />		
 		<property file="${buildRoot}/sdk/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
 		<property name="publish.xml" value="../../org.eclipse.releng.basebuilder/plugins/org.eclipse.build.tools/scripts/publish.xml" />
 
