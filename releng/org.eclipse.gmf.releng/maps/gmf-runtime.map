@@ -52,5 +52,8 @@ fragment@org.eclipse.gmf.runtime.common.ui.printing.win32=HEAD,:pserver:anonymou
 !*** TODO: move to its own feature and include? ***
 plugin@org.apache.batik=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.apache.batik
 
-!*** TODO: remove when moved to EMFT (install as usual with dependencies)
+!*** TODO: remove when moved to EMFT (install as usual with dependencies) ***
 plugin@org.eclipse.emf.validation=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/contributions/emft/org.eclipse.emf.validation
+
+!*** TODO: remove when moved to Platform ***
+plugin@org.eclipse.wst.common.ui.properties=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,wst/components/common/plugins/org.eclipse.wst.common.ui.properties
