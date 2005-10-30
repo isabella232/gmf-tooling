@@ -29,12 +29,21 @@
 	</target>
 
 	<target name="installGEF" unless="gefExists">
+<!-- GEF doesn't currently have interim builds available via the update manager, so use zip		
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${gefFeatureId}" />
 			<property name="version" value="${gefVersion}" />
 			<property name="updateSite" value="${gefUpdateSite}" />
 		</ant>
+-->
+		<available file="${baseLocationRoot}/GEF-runtime-${gefVersion}.zip" property="gefZipExists" />
+		<antcall target="getGEF"/>
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/GEF-runtime-${gefVersion}.zip" />
 	</target>
+	
+	<target name="getGEF" unless="gefZipExists">
+			<get src="${gefZipURL}" dest="${baseLocationRoot}/GEF-runtime-${gefVersion}.zip" verbose="true" usetimestamp="true" />
+		</target>
 
 	<target name="installJEM" unless="jemExists">
 		<ant antfile="${scripts}/update.xml" target="installFeature">
