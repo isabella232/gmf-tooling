@@ -89,14 +89,6 @@
 		<ant antfile="${scripts}/install.xml" target="installGEF" />
 		<available file="${baseLocation}/plugins/org.eclipse.emf_${emfVersion}.jar" property="emfExists" />
 		<ant antfile="${scripts}/install.xml" target="installEMF" />	
-		<available file="${baseLocation}/plugins/org.eclipse.jem_${jemVersion}/plugin.xml" property="jemExists" />
-		<ant antfile="${scripts}/install.xml" target="installJEM" />
-		<available file="${baseLocation}/plugins/org.eclipse.xsd_${xsdVersion}.jar" property="xsdExists" />
-		<ant antfile="${scripts}/install.xml" target="installXSD" />
-		<available file="${baseLocation}/plugins/org.eclipse.emf.ecore.sdo_${sdoVersion}.jar" property="sdoExists" />
-		<ant antfile="${scripts}/install.xml" target="installSDO" />
-		<available file="${baseLocation}/plugins/org.eclipse.wst_${wstVersion}/plugin.properties" property="wstExists" />
-		<ant antfile="${scripts}/install.xml" target="installWST" />
 		<available file="${baseLocation}/plugins/org.eclipse.uml2_${uml2Version}.jar" property="uml2Exists" />
 		<ant antfile="${scripts}/install.xml" target="installUML2" />
 		<available file="${baseLocation}/features/org.eclipse.gmf.sdk_${gmfVersion}/feature.xml" property="gmfExists" />

@@ -15,7 +15,7 @@
 			<arg value="-DtestPlugin=${testPlugin}" />
 			<arg value="-Dreport=${testPlugin}" />
 			<arg value="-Declipse-home=${baseLocation}" />
-			<arg value="-DlibraryFile=${baseLocation}/plugins/org.eclipse.test_${fullEclipseVersion}/library.xml" />
+			<arg value="-DlibraryFile=${baseLocation}/plugins/org.eclipse.test_${testPluginVersion}/library.xml" />
 			<jvmarg value="-ea"/>
 		</java>
 		<move file="${baseLocation}/${testPlugin}.xml" tofile="${artifacts}/${buildLabel}/testresults/xml/${testPlugin}.xml" failonerror="false"/>

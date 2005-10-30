@@ -26,6 +26,15 @@
 			<property name="version" value="${emfVersion}" />
 			<property name="updateSite" value="${emfUpdateSite}" />
 		</ant>
+<!--		
+		<available file="${baseLocationRoot}/${emfZipName}" property="emfZipExists" />
+		<antcall target="getEMF"/>
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfZipName}" />
+-->		
+	</target>
+	
+	<target name="getEMF" unless="emfZipExists">
+		<get src="${emfZipURL}" dest="${baseLocationRoot}/${emfZipName}" verbose="true" usetimestamp="true" />
 	</target>
 
 	<target name="installGEF" unless="gefExists">
@@ -36,53 +45,30 @@
 			<property name="updateSite" value="${gefUpdateSite}" />
 		</ant>
 -->
-		<available file="${baseLocationRoot}/GEF-runtime-${gefVersion}.zip" property="gefZipExists" />
+		<available file="${baseLocationRoot}/${gefZipName}" property="gefZipExists" />
 		<antcall target="getGEF"/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/GEF-runtime-${gefVersion}.zip" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${gefZipName}" />
 	</target>
 	
 	<target name="getGEF" unless="gefZipExists">
-			<get src="${gefZipURL}" dest="${baseLocationRoot}/GEF-runtime-${gefVersion}.zip" verbose="true" usetimestamp="true" />
-		</target>
-
-	<target name="installJEM" unless="jemExists">
-		<ant antfile="${scripts}/update.xml" target="installFeature">
-			<property name="featureId" value="${jemFeatureId}" />
-			<property name="version" value="${jemVersion}" />
-			<property name="updateSite" value="${jemUpdateSite}" />
-		</ant>
-	</target>
-
-	<target name="installXSD" unless="xsdExists">
-		<ant antfile="${scripts}/update.xml" target="installFeature">
-			<property name="featureId" value="${xsdFeatureId}" />
-			<property name="version" value="${xsdVersion}" />
-			<property name="updateSite" value="${xsdUpdateSite}" />
-		</ant>
-	</target>
-
-	<target name="installSDO" unless="sdoExists">
-		<ant antfile="${scripts}/update.xml" target="installFeature">
-			<property name="featureId" value="${sdoFeatureId}" />
-			<property name="version" value="${sdoVersion}" />
-			<property name="updateSite" value="${sdoUpdateSite}" />
-		</ant>
-	</target>
-
-	<target name="installWST" unless="wstExists">
-		<ant antfile="${scripts}/update.xml" target="installFeature">
-			<property name="featureId" value="${wstFeatureId}" />
-			<property name="version" value="${wstVersion}" />
-			<property name="updateSite" value="${wstUpdateSite}" />
-		</ant>
+		<get src="${gefZipURL}" dest="${baseLocationRoot}/${gefZipName}" verbose="true" usetimestamp="true" />
 	</target>
 
 	<target name="installUML2" unless="uml2Exists">
+<!-- GEF doesn't currently have interim builds available via the update manager, so use zip	
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${uml2FeatureId}" />
 			<property name="version" value="${uml2Version}" />
 			<property name="updateSite" value="${uml2UpdateSite}" />
 		</ant>
+-->
+		<available file="${baseLocationRoot}/${uml2ZipName}" property="uml2ZipExists" />
+		<antcall target="getUML2"/>
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${uml2ZipName}" />
+	</target>
+			
+	<target name="getUML2" unless="uml2ZipExists">
+		<get src="${uml2ZipURL}" dest="${baseLocationRoot}/${uml2ZipName}" verbose="true" usetimestamp="true" />
 	</target>
 
 	<target name="installGMF" unless="gmfExists">
