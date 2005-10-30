@@ -61,6 +61,7 @@
 			<property name="time" value="${TSTAMP}" />
 			<property name="timestamp" value="${date}${time}" />
 			<property name="buildType" value="N" />
+			<property name="fetchTag" value="HEAD" />
 			<property name="buildId" value="${buildType}${date}" />
 
 			<!--this naming convention used by php scripts on download server-->
@@ -72,6 +73,9 @@
 			</echo>
 			<echo file="label.properties" append="true" >
 			buildId=${buildId}
+			</echo>
+			<echo file="label.properties" append="true" >
+				fetchTag=${fetchTag}
 			</echo>
 			<echo file="label.properties" append="true" >
 			timestamp=${timestamp}
