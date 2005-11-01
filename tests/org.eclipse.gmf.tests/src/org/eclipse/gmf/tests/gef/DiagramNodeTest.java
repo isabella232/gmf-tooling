@@ -16,6 +16,7 @@ import java.util.List;
 
 import junit.framework.TestCase;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.GraphicsSource;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LightweightSystem;
@@ -32,11 +33,15 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.ui.parts.GraphicalViewerImpl;
+import org.eclipse.gmf.runtime.common.core.command.CommandResult;
+import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramCommandStack;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditDomain;
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditDomain;
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramGraphicalViewer;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities;
+import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractModelCommand;
 import org.eclipse.gmf.runtime.notation.FillStyle;
 import org.eclipse.gmf.runtime.notation.LineStyle;
 import org.eclipse.gmf.runtime.notation.Location;
@@ -65,7 +70,7 @@ public class DiagramNodeTest extends TestCase {
 		super(name);
 	}
 
-	private EditPart getNodeEditPart() {
+	protected EditPart getNodeEditPart() {
 		return myNodeEditPart;
 	}
 
@@ -165,8 +170,8 @@ public class DiagramNodeTest extends TestCase {
 	}
 
 	public void testChangeColors() {
-		final int originalBackgroundColor = getForegroundColor(); 
-		final int originalForegroundColor = getBackgroundColor();
+		final int originalBackgroundColor = getBackgroundColor(); 
+		final int originalForegroundColor = getForegroundColor();
 		
 		final int newBackgroundColor = FigureUtilities.RGBToInteger(new RGB(255, 0, 0)).intValue(); // RED
 		final int newForegroundColor = FigureUtilities.RGBToInteger(new RGB(0, 255, 255)).intValue(); // CYAN
@@ -207,39 +212,13 @@ public class DiagramNodeTest extends TestCase {
 	}
 
 	private Command createChangeColorCommand(final int newColor, final boolean isForeground) {
-		// final Request req = createChangeColorRequest();
-		// req.setColor(newColor); FIXME
-		//return getNodeEditPart().getCommand(foreReq);
-		return new Command() {
-			private int oldColor = -1;
-			public boolean canExecute() {
-				return true;
+		return new EtoolsProxyCommand(new AbstractModelCommand("ChangeColor", getNode().eResource()) {
+			protected CommandResult doExecute(IProgressMonitor progressMonitor) {
+				IGraphicalEditPart ep = ((IGraphicalEditPart) getNodeEditPart()); 
+				ep.setStructuralFeatureValue(isForeground ? NotationPackage.eINSTANCE.getLineStyle_LineColor() : NotationPackage.eINSTANCE.getFillStyle_FillColor(), new Integer(newColor));
+				return newOKCommandResult();
 			}
-			public void execute() {
-				if (isForeground) {
-					LineStyle ls = (LineStyle) getNode().getStyle(NotationPackage.eINSTANCE.getLineStyle());
-					oldColor = ls.getLineColor();
-					ls.setLineColor(newColor);
-				} else {
-					FillStyle fs = (FillStyle) getNode().getStyle(NotationPackage.eINSTANCE.getFillStyle());
-					oldColor = fs.getFillColor();
-					fs.setFillColor(newColor);
-				}
-			}
-			public boolean canUndo() {
-				return oldColor != -1;
-			}
-			public void undo() {
-				if (isForeground) {
-					LineStyle ls = (LineStyle) getNode().getStyle(NotationPackage.eINSTANCE.getLineStyle());
-					ls.setLineColor(oldColor);
-				} else {
-					FillStyle fs = (FillStyle) getNode().getStyle(NotationPackage.eINSTANCE.getFillStyle());
-					fs.setFillColor(oldColor);
-				}
-				oldColor = -1;
-			}
-		};
+		});
 	}
 
 	private void assertColorValues(int expectedForegroundColor, int expectedBackgroundColor, String assertTag) {
