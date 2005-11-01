@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain;
+import org.eclipse.gmf.runtime.notation.Bounds;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
@@ -72,7 +73,10 @@ public class RTSetup implements RTSource {
 		//myLink.setVisualID(genSource.getGenLink().getVisualID());
 
 		myNode.getStyles().add(NotationFactory.eINSTANCE.createShapeStyle());
-		myNode.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
+		final Bounds b = NotationFactory.eINSTANCE.createBounds();
+		b.setWidth(0);
+		b.setHeight(0);
+		myNode.setLayoutConstraint(b);
 
 		/*
 		Object nc = diagramElement.eGet(genSource.getGenNode().getContainmentMetaFeature().getEcoreFeature());
