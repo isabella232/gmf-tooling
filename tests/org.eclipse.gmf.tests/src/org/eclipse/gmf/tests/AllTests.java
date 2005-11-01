@@ -43,6 +43,7 @@ public class AllTests {
 //		suite.addTestSuite(CanvasTest.class); Nothing there yet
 //		suite.addTestSuite(SpecificRTPropertiesTest.class); #113965 
 		//$JUnit-END$
+		SessionSetup.cleanup();
 		return suite;
 	}
 

@@ -56,5 +56,11 @@ public class SessionSetup {
 			myRuntimeWorkspaceSetup.init();
 		}
 		return myRuntimeWorkspaceSetup;
+	}
+
+	public static void cleanup() {
+		if (myProject != null) {
+			myProject.uninstall();
+		}
 	}	
 }

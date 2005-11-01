@@ -59,8 +59,17 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 			Assert.fail(ex.getMessage());
 		}
 	}
+
 	public final Bundle getBundle() {
 		assert myBundle != null : "GenProjectSetup was not initialized";
 		return myBundle;
+	}
+
+	public void uninstall() {
+		try {
+			myBundle.uninstall();
+		} catch (BundleException ex) {
+			Plugin.logError("uninstall failed", ex);
+		}
 	}
 }
