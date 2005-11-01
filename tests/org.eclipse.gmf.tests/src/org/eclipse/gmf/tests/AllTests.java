@@ -45,7 +45,7 @@ public class AllTests {
 //		suite.addTestSuite(SpecificRTPropertiesTest.class); #113965 
 		//$JUnit-END$
 		suite.addTest(new TestCase("testCleanup") {
-			public void testCleanup() {
+			protected void runTest() throws Throwable {
 				try {
 					SessionSetup.cleanup();
 				} catch (RuntimeException ex) {
