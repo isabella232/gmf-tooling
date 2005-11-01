@@ -65,11 +65,7 @@ public class GenProjectSetup extends GenProjectBaseSetup {
 		return myBundle;
 	}
 
-	public void uninstall() {
-		try {
-			myBundle.uninstall();
-		} catch (BundleException ex) {
-			Plugin.logError("uninstall failed", ex);
-		}
+	public void uninstall() throws Exception {
+		myBundle.uninstall();
 	}
 }

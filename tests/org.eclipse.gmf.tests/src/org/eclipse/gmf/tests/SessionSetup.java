@@ -58,7 +58,7 @@ public class SessionSetup {
 		return myRuntimeWorkspaceSetup;
 	}
 
-	public static void cleanup() {
+	public static void cleanup() throws Exception {
 		if (myProject != null) {
 			myProject.uninstall();
 		}

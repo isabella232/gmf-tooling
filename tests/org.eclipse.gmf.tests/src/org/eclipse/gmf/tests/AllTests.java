@@ -12,6 +12,7 @@
 package org.eclipse.gmf.tests;
 
 import junit.framework.Test;
+import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
@@ -43,7 +44,18 @@ public class AllTests {
 //		suite.addTestSuite(CanvasTest.class); Nothing there yet
 //		suite.addTestSuite(SpecificRTPropertiesTest.class); #113965 
 		//$JUnit-END$
-		SessionSetup.cleanup();
+		suite.addTest(new TestCase("cleanup") {
+			public void testCleanup() {
+				try {
+					SessionSetup.cleanup();
+				} catch (RuntimeException ex) {
+					throw ex;
+				} catch (Exception ex) {
+					Plugin.logError("cleanup failed", ex);
+					fail(ex.getMessage());
+				}
+			}
+		});
 		return suite;
 	}
 
