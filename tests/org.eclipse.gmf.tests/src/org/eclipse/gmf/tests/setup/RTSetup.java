@@ -17,9 +17,13 @@ import java.lang.reflect.Method;
 import junit.framework.Assert;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
+import org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
@@ -78,6 +82,16 @@ public class RTSetup implements RTSource {
 			nodeElement.eSet(genSource.getGenLink().getContainmentMetaFeature().getEcoreFeature(), linkElement);
 		}
 		*/
+		ResourceSet rs = MEditingDomain.INSTANCE.getResourceSet();
+		URI uri = URI.createURI("uri://fake/z");
+		Resource r = rs.getResource(uri, false);
+		if (r == null) {
+			r = rs.createResource(uri);
+		} else {
+			r.getContents().clear();
+		}
+		r.getContents().add(getCanvas());
+
 		return this;
 	}
 
