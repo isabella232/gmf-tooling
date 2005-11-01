@@ -32,6 +32,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.ui.parts.GraphicalViewerImpl;
+import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramCommandStack;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditDomain;
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditDomain;
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramGraphicalViewer;
@@ -56,7 +57,6 @@ public class DiagramNodeTest extends TestCase {
 
 	private final Point myMoveDelta = new Point(10, 20);
 	private final Dimension mySizeDelta = new Dimension(100, 50);
-	private final CommandStack myCommandStack = new CommandStack();
 	private EditPart myNodeEditPart;
 	private EditPartViewer myViewer;
 	private Composite myParentShell;
@@ -70,7 +70,7 @@ public class DiagramNodeTest extends TestCase {
 	}
 
 	private CommandStack getCommandStack() {
-		return myCommandStack;
+		return myViewer.getEditDomain().getCommandStack();
 	}
 
 	// TODO EditPartViewer[Source|Setup]
@@ -83,6 +83,7 @@ public class DiagramNodeTest extends TestCase {
 		myViewer = createViewer();
 		myViewer.setEditPartFactory((EditPartFactory) epFactory.newInstance());
 		RTSource rtDiagram = new RTSetup().init(b, SessionSetup.getGenModel());
+
 		myViewer.setContents(rtDiagram.getCanvas());
 		myNodeEditPart = (EditPart) myViewer.getEditPartRegistry().get(rtDiagram.getNode());
 	}
@@ -95,7 +96,9 @@ public class DiagramNodeTest extends TestCase {
 		FakeViewer gv = new FakeViewer();
 		myParentShell = new Shell(SWT.NONE);
 		gv.createControl(myParentShell);
-		gv.setEditDomain(new DiagramEditDomain(null));
+		DiagramEditDomain ded = new DiagramEditDomain(null);
+		gv.setEditDomain(ded);
+		gv.getEditDomain().setCommandStack(new DiagramCommandStack(ded));
 		return gv;
 	}
 
