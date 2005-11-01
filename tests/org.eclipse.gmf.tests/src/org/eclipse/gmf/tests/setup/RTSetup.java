@@ -71,6 +71,9 @@ public class RTSetup implements RTSource {
 		myLink.setElement(linkElement);
 		//myLink.setVisualID(genSource.getGenLink().getVisualID());
 
+		myNode.getStyles().add(NotationFactory.eINSTANCE.createShapeStyle());
+		myNode.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
+
 		/*
 		Object nc = diagramElement.eGet(genSource.getGenNode().getContainmentMetaFeature().getEcoreFeature());
 		assert nc instanceof EList;
