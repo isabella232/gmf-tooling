@@ -7,6 +7,8 @@ package <%=genDiagram.getProvidersPackageName()%>;
 <%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.*;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities;
@@ -22,6 +24,10 @@ public class <%=genElement.getNotationViewFactoryClassName()%> extends
 	ConnectorViewFactory
 <%} else if (genElement instanceof GenChildNode) {%>
 	AbstractLabelViewFactory
+<%} else if (genElement instanceof GenCompartment) {%>
+    ListCompartmentViewFactory
+<%} else if (genElement instanceof GenDiagram) {%>    
+	DiagramViewFactory
 <%} else {%>
 	AbstractShapeViewFactory
 <%}%>
@@ -30,9 +36,21 @@ public class <%=genElement.getNotationViewFactoryClassName()%> extends
 	/**
 	 * @generated
 	 */
+<%
+if (genElement instanceof GenDiagram) {
+%>
+	protected void decorateView(View view, IAdaptable semanticAdapter, String diagramKind){
+		super.decorateView(view, semanticAdapter, diagramKind);
+<%
+} else {
+%>
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter,
-		String semanticHint, int index, boolean persisted) {
+			String semanticHint, int index, boolean persisted) {
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
+<%
+}
+%>
+<%@ include file="createVIDAnnotation.jetinc"%>
 <%
 ColorAttributes colorAttrs = genElement.getViewmap() != null ? (ColorAttributes) genElement.getViewmap().find(ColorAttributes.class) : null;
 if (colorAttrs != null && colorAttrs.getForegroundColor() != null && colorAttrs.getForegroundColor().trim().length() > 0) {%>

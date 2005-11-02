@@ -5,6 +5,8 @@
 package <%=diagram.getProvidersPackageName()%>;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory;
 import org.eclipse.gmf.runtime.notation.View;
@@ -20,6 +22,8 @@ public class <%=label.getNotationViewFactoryClassName()%> extends AbstractLabelV
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter,
 		String semanticHint, int index, boolean persisted) {
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
+<%GenCommonBase genElement = label;%>
+<%@ include file="createVIDAnnotation.jetinc"%>
 		getViewService().createNode(semanticAdapter, view,
 			<%=AccessUtil.getSemanticHintsClassName(label.getLink())%>.Labels.<%=AccessUtil.getLabelTextId(label)%>,
 			ViewUtil.APPEND, persisted, getPreferencesHint());

@@ -159,6 +159,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			label.setVisualID(LABEL_COUNT_BASE + (++myLabelCount));
 			label.setDiagramRunTimeClass(getNodeLabelRunTimeClass());
 			label.setViewmap(GMFGenFactory.eINSTANCE.createLabelViewmap());
+			label.setNotationViewFactoryClassName(createLabelTextNotationViewFactoryClassName(nme));
 			genNode.getLabels().add(label);
 		}
 		genNode.setEditPartClassName(createEditPartClassName(nme));
@@ -178,6 +179,8 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			childCompartment.setNeedsTitle(compartment.isNeedsTitle());
 			childCompartment.setLayoutKind(CompartmentLayoutKind.TOOLBAR_LITERAL);
 			childCompartment.setTitle(compartment.getName());
+			childCompartment.setEditPartClassName(createEditPartClassName(compartment));
+			childCompartment.setNotationViewFactoryClassName(createNotationViewFactoryClassName(compartment));
 			genNode.getCompartments().add(childCompartment);
 			compartment2GenMap.put(compartment, childCompartment);
 		}
@@ -208,6 +211,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 				label.setVisualID(LABEL_COUNT_BASE + (++myLabelCount));
 				label.setDiagramRunTimeClass(getNodeLabelRunTimeClass());
 				label.setViewmap(GMFGenFactory.eINSTANCE.createLabelViewmap());
+				label.setNotationViewFactoryClassName(createLabelTextNotationViewFactoryClassName(childNodeMapping));
 				childNode.getLabels().add(label);
 			}
 				
@@ -253,6 +257,8 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 			label.setVisualID(LABEL_COUNT_BASE + (++myLabelCount));
 			label.setDiagramRunTimeClass(getLinkLabelRunTimeClass());
 			label.setViewmap(GMFGenFactory.eINSTANCE.createLabelViewmap());
+			label.setNotationViewFactoryClassName(createLabelNotationViewFactoryClassName(lme));
+			label.setTextNotationViewFactoryClassName(createLabelTextNotationViewFactoryClassName(lme));
 			gl.getLabels().add(label);
 		}
 		gl.setDiagramRunTimeClass(findRunTimeClass(lme));
@@ -297,6 +303,10 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 	private String createEditPartClassName(NodeMapping nme) {
 		return myEditPartNamingStrategy.createClassName(nme);
 	}
+	
+	private String createEditPartClassName(Compartment compartment) {
+		return myEditPartNamingStrategy.createClassName(compartment);
+	}
 
 	private String createEditPartClassName(LinkMapping lme) {
 		return myEditPartNamingStrategy.createClassName(lme);
@@ -315,10 +325,30 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 	private String createNotationViewFactoryClassName(NodeMapping nme) {
 		return myNotationViewFactoryNamingStrategy.createClassName(nme);
 	}
+	
+	private String createLabelTextNotationViewFactoryClassName(NodeMapping nme) {
+		return myNotationViewFactoryNamingStrategy.createLableTextClassName(nme);
+	}	
 
+	private String createLabelTextNotationViewFactoryClassName(ChildNodeMapping chnme) {
+		return myNotationViewFactoryNamingStrategy.createLableTextClassName(chnme);
+	}	
+	
+	private String createNotationViewFactoryClassName(Compartment compartment) {
+		return myNotationViewFactoryNamingStrategy.createClassName(compartment);
+	}
+	
 	private String createNotationViewFactoryClassName(LinkMapping lme) {
 		return myNotationViewFactoryNamingStrategy.createClassName(lme);
 	}
+
+	private String createLabelNotationViewFactoryClassName(LinkMapping lme) {
+		return myNotationViewFactoryNamingStrategy.createLableClassName(lme);
+	}	
+	
+	private String createLabelTextNotationViewFactoryClassName(LinkMapping lme) {
+		return myNotationViewFactoryNamingStrategy.createLableTextClassName(lme);
+	}	
 
 	private String createNotationViewFactoryClassName(ChildNodeMapping chnme) {
 		return myNotationViewFactoryNamingStrategy.createClassName(chnme);

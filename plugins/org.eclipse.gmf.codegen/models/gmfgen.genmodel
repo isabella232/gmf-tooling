@@ -121,6 +121,8 @@
     <genClasses ecoreClass="gmfgen.ecore#//GenLinkLabel">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkLabel/link"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLinkLabel/alignment"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLinkLabel/textNotationViewFactoryClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenLinkLabel/getTextNotationViewFactoryQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//ModelFacet"/>
     <genClasses ecoreClass="gmfgen.ecore#//LinkModelFacet"/>

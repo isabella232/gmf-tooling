@@ -21,6 +21,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getLink <em>Link</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getAlignment <em>Alignment</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getTextNotationViewFactoryClassName <em>Text Notation View Factory Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -86,5 +87,39 @@ public interface GenLinkLabel extends GenLabel{
 	 * @generated
 	 */
 	void setAlignment(LinkLabelAlignment value);
+
+	/**
+	 * Returns the value of the '<em><b>Text Notation View Factory Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Text Notation View Factory Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Text Notation View Factory Class Name</em>' attribute.
+	 * @see #setTextNotationViewFactoryClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLinkLabel_TextNotationViewFactoryClassName()
+	 * @model
+	 * @generated
+	 */
+	String getTextNotationViewFactoryClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getTextNotationViewFactoryClassName <em>Text Notation View Factory Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Text Notation View Factory Class Name</em>' attribute.
+	 * @see #getTextNotationViewFactoryClassName()
+	 * @generated
+	 */
+	void setTextNotationViewFactoryClassName(String value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getTextNotationViewFactoryQualifiedClassName();
 
 } // GenLinkLabel

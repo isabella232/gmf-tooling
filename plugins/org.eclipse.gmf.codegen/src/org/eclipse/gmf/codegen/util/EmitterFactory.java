@@ -32,6 +32,7 @@ import org.eclipse.gmf.codegen.templates.editor.PluginXML;
 import org.eclipse.gmf.codegen.templates.editor.PreferencesInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.editor.VisualIDRegistryGenerator;
 import org.eclipse.gmf.codegen.templates.parts.ChildNodeEditPartGenerator;
+import org.eclipse.gmf.codegen.templates.parts.CompartmentEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.DiagramEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.EditPartFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.parts.LinkEditPartGenerator;
@@ -45,6 +46,7 @@ import org.eclipse.gmf.codegen.templates.providers.MetamodelSupportProviderGener
 import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.SemanticHintsGenerator;
 import org.eclipse.gmf.codegen.templates.providers.StructuralFeatureParserGenerator;
+import org.eclipse.gmf.codegen.templates.providers.TextLabelViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewProviderGenerator;
 import org.osgi.framework.Bundle;
@@ -88,6 +90,10 @@ public class EmitterFactory {
 		return initializeEmitter("/templates/parts/ChildNodeEditPart.javajet", ChildNodeEditPartGenerator.class);
 	}
 
+	public static JETEmitter getCompartmentEditPartEmitter() throws JETException {
+		return initializeEmitter("/templates/parts/CompartmentEditPart.javajet", CompartmentEditPartGenerator.class);
+	}
+	
 	public static JETEmitter getLinkEditPartEmitter() throws JETException {
 		return initializeEmitter("/templates/parts/LinkEditPart.javajet", LinkEditPartGenerator.class);
 	}
@@ -114,6 +120,10 @@ public class EmitterFactory {
 		return initializeEmitter("/templates/providers/LinkLabelViewFactory.javajet", LinkLabelViewFactoryGenerator.class);
 	}
 
+	public static JETEmitter getTextLabelViewFactoryEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/TextLabelViewFactory.javajet", TextLabelViewFactoryGenerator.class);
+	}
+	
 	public static JETEmitter getElementTypesEmitter() throws JETException {
 		return initializeEmitter("/templates/providers/ElementTypes.javajet", ElementTypesGenerator.class);
 	}

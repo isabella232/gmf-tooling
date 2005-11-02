@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.bridge.genmodel;
 
+import org.eclipse.gmf.diadef.Compartment;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
@@ -28,8 +29,16 @@ public class NamingStrategy {
 	public String createClassName(NodeMapping nme) {
 		return null;
 	}
+	
+	public String createLableTextClassName(NodeMapping nme) {
+		return null;
+	}
 
 	public String createClassName(ChildNodeMapping chnme) {
+		return null;
+	}
+	
+	public String createLableTextClassName(ChildNodeMapping chnme) {
 		return null;
 	}
 
@@ -37,7 +46,21 @@ public class NamingStrategy {
 		return null;
 	}
 
+	public String createLableClassName(LinkMapping lme) {
+		return null;
+	}
+
+	public String createLableTextClassName(LinkMapping lme) {
+		return null;
+	}
+
+	
 	public String createClassName(CanvasMapping mapping) {
 		return null;
 	}
+	
+	public String createClassName(Compartment compartment) {
+		return null;
+	}
+	
 }

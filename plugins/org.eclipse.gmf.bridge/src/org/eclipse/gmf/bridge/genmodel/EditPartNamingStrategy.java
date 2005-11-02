@@ -32,4 +32,21 @@ public class EditPartNamingStrategy extends DefaultNamingStrategy {
 	protected String getChildNodeSuffix() {
 		return "ChildNodeEditPart";
 	}
+
+	protected String getChildNodeLabelSuffix() {
+		return getChildNodeSuffix();
+	}
+
+	protected String getLinkLabelSuffix() {
+		return getNodeSuffix();
+	}
+
+	protected String getNodeLabelSuffix() {
+		return getNodeSuffix();
+	}
+
+	protected String getCompartmentSuffix() {
+		return "CompartmentEditPart";
+	}
+	
 }

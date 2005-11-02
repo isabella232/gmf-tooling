@@ -11,11 +11,14 @@
  */
 package org.eclipse.gmf.codegen.util;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
+import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -86,6 +89,30 @@ public class AccessUtil {
 			result.addAll(nextCompartment.getChildNodes());
 		}
 		return result;
+	}
+	
+	public static Collection getAllContainers(GenDiagram diagram) {
+		Collection result = new LinkedList();
+		for (Iterator nodes = diagram.getNodes().iterator(); nodes.hasNext();) {
+			GenNode nextNode = (GenNode) nodes.next();
+			fillContainers(result, nextNode);
+		}
+		return result;
+	}
+	
+	private static void fillContainers(Collection result, GenChildContainer container) {
+		result.add(container);
+		for (Iterator childNodes = container.getChildNodes().iterator(); childNodes.hasNext();) {
+			GenChildNode childNode = (GenChildNode) childNodes.next();
+			fillContainers(result, childNode);
+		}
+		if (container instanceof GenNode) {
+			GenNode genNode = (GenNode) container;
+			for (Iterator compartments = genNode.getCompartments().iterator(); compartments.hasNext();) {
+				GenCompartment compartment = (GenCompartment) compartments.next();
+				fillContainers(result, compartment);
+			}
+		}
 	}
 
 	/**

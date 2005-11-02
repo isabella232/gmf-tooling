@@ -31,6 +31,7 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkLabelImpl#getLink <em>Link</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkLabelImpl#getAlignment <em>Alignment</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkLabelImpl#getTextNotationViewFactoryClassName <em>Text Notation View Factory Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -56,6 +57,26 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	 * @ordered
 	 */
 	protected LinkLabelAlignment alignment = ALIGNMENT_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getTextNotationViewFactoryClassName() <em>Text Notation View Factory Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTextNotationViewFactoryClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getTextNotationViewFactoryClassName() <em>Text Notation View Factory Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTextNotationViewFactoryClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String textNotationViewFactoryClassName = TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -125,6 +146,44 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 		alignment = newAlignment == null ? ALIGNMENT_EDEFAULT : newAlignment;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK_LABEL__ALIGNMENT, oldAlignment, alignment));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getTextNotationViewFactoryClassNameGen() {
+		return textNotationViewFactoryClassName;
+	}
+
+	public String getTextNotationViewFactoryClassName() {
+		String name = getTextNotationViewFactoryClassNameGen();
+		if (name == null || name.trim().length() == 0) {
+			name = getClassNamePrefix() + "TextViewFactory"; //$NON-NLS-1$
+		}
+		return name;
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTextNotationViewFactoryClassName(String newTextNotationViewFactoryClassName) {
+		String oldTextNotationViewFactoryClassName = textNotationViewFactoryClassName;
+		textNotationViewFactoryClassName = newTextNotationViewFactoryClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK_LABEL__TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME, oldTextNotationViewFactoryClassName, textNotationViewFactoryClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getTextNotationViewFactoryQualifiedClassName() {
+		return getDiagram().getProvidersPackageName() + '.' + getTextNotationViewFactoryClassName();
 	}
 
 	/**
@@ -212,6 +271,8 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 				return getLink();
 			case GMFGenPackage.GEN_LINK_LABEL__ALIGNMENT:
 				return getAlignment();
+			case GMFGenPackage.GEN_LINK_LABEL__TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return getTextNotationViewFactoryClassName();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -249,6 +310,9 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 				return;
 			case GMFGenPackage.GEN_LINK_LABEL__ALIGNMENT:
 				setAlignment((LinkLabelAlignment)newValue);
+				return;
+			case GMFGenPackage.GEN_LINK_LABEL__TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setTextNotationViewFactoryClassName((String)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -288,6 +352,9 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 			case GMFGenPackage.GEN_LINK_LABEL__ALIGNMENT:
 				setAlignment(ALIGNMENT_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_LINK_LABEL__TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setTextNotationViewFactoryClassName(TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -317,6 +384,8 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 				return getLink() != null;
 			case GMFGenPackage.GEN_LINK_LABEL__ALIGNMENT:
 				return alignment != ALIGNMENT_EDEFAULT;
+			case GMFGenPackage.GEN_LINK_LABEL__TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? textNotationViewFactoryClassName != null : !TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(textNotationViewFactoryClassName);
 		}
 		return eDynamicIsSet(eFeature);
 	}
@@ -332,6 +401,8 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (alignment: ");
 		result.append(alignment);
+		result.append(", textNotationViewFactoryClassName: ");
+		result.append(textNotationViewFactoryClassName);
 		result.append(')');
 		return result.toString();
 	}

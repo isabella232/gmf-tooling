@@ -18,10 +18,13 @@ import junit.framework.Assert;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain;
 import org.eclipse.gmf.runtime.notation.Bounds;
@@ -29,6 +32,7 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
+import org.eclipse.gmf.runtime.notation.View;
 import org.osgi.framework.Bundle;
 
 /**
@@ -78,6 +82,12 @@ public class RTSetup implements RTSource {
 		b.setHeight(0);
 		myNode.setLayoutConstraint(b);
 
+		myCanvas.setType(genSource.getGenDiagram().getEMFGenModel().getModelName());
+
+		affixVisualID(myCanvas, genSource.getGenDiagram());
+		affixVisualID(myNode, genSource.getGenNode());
+		affixVisualID(myLink, genSource.getGenLink());
+
 		/*
 		Object nc = diagramElement.eGet(genSource.getGenNode().getContainmentMetaFeature().getEcoreFeature());
 		assert nc instanceof EList;
@@ -100,6 +110,13 @@ public class RTSetup implements RTSource {
 		r.getContents().add(getCanvas());
 
 		return this;
+	}
+
+	private void affixVisualID(View view, GenCommonBase genBase) {
+		EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
+		annotation.setSource("VisualID");
+		annotation.getDetails().put("value", String.valueOf(genBase.getVisualID()));
+		view.getEAnnotations().add(annotation);
 	}
 
 	public final Diagram getCanvas() {

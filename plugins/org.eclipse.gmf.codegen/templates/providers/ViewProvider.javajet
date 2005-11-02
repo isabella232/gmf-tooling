@@ -1,7 +1,11 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="ViewProviderGenerator"
     imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
-<%GenDiagram genDiagram = (GenDiagram) argument;%>
-<%GenModel genModel = genDiagram.getEMFGenModel();%>
+<%
+GenDiagram genDiagram = (GenDiagram) argument;
+GenModel genModel = genDiagram.getEMFGenModel();
+List genLinks = genDiagram.getLinks();
+Collection allContainers = AccessUtil.getAllContainers(genDiagram);
+%>
 package <%=genDiagram.getProvidersPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
@@ -11,7 +15,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.*;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
 
@@ -26,7 +29,7 @@ public class <%=genDiagram.getViewProviderClassName()%> extends AbstractViewProv
 	protected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {
 		EObject semanticElement = getSemanticElement(semanticAdapter);
 		if ("<%=genModel.getModelName()%>".equals(diagramKind) && <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getDiagramVisualID(semanticElement) != -1) { //$NON-NLS-1$
-			return DiagramViewFactory.class;
+			return <%=genDiagram.getNotationViewFactoryClassName()%>.class;
 		}
 		return null;
 	}
@@ -35,147 +38,64 @@ public class <%=genDiagram.getViewProviderClassName()%> extends AbstractViewProv
 	 * @generated
 	 */
 	protected Class getNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-		Class linkLabelViewClass = getLinkLabelViewClass(semanticAdapter, containerView, semanticHint);
-		if (linkLabelViewClass != null) {
-			return linkLabelViewClass;
-		}
-		if (containerView instanceof Diagram || (semanticHint != null && semanticHint.length() > 0)) {
-			return getTopLevelNodeViewClass(semanticAdapter, containerView, semanticHint);
-		} else {
-			return getChildNodeViewClass(semanticAdapter, containerView, semanticHint);
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private Class getLinkLabelViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-<%
-List genLinks = genDiagram.getLinks();
-if (genLinks.size() != 0) {
-%>
-		EClass semanticType = getSemanticEClass(semanticAdapter);
-		EObject semanticElement = getSemanticElement(semanticAdapter);
-		int linkVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getLinkWithClassVisualID(semanticElement, semanticType);
-		
-		switch (linkVID) {
-<%
-	for (int i = 0; i < genLinks.size(); i++) {
-		GenLink genLink = (GenLink) genLinks.get(i);
-		String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genLink);
-		String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
-		if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
-%>
-		case <%=genLink.getVisualID()%>:
-<%
-			List labels = genLink.getLabels();
-			for (int j = 0; j < labels.size(); j++) {
-				GenLinkLabel label = (GenLinkLabel) labels.get(j);
-				String labelViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelId(label);
-				String labelTextViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelTextId(label);
-%>
-			if (<%=labelViewId%>.equals(semanticHint)) {
-				return <%=importManager.getImportedName(label.getNotationViewFactoryQualifiedClassName())%>.class;
-			}
-			if (<%=labelTextViewId%>.equals(semanticHint)) {
-				return BasicNodeViewFactory.class;
-			}
-<%
-			}
-%>
+		if (containerView == null) {
 			return null;
-<%			
 		}
-	}
-%>
-			
+		if (!"<%=genModel.getModelName()%>".equals(containerView.getDiagram().getType())) {
+			return null;
 		}
-<%}%>
-		return null;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Class getTopLevelNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
+		
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		int nodeVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getNodeVisualID(semanticElement, semanticType);
-		
+		int nodeVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
+
 		switch (nodeVID) {
 <%
-List genNodes = genDiagram.getNodes();
-for (int i = 0; i < genNodes.size(); i++) {
-	GenNode genNode = (GenNode) genNodes.get(i);
+for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
+	GenChildContainer container = (GenChildContainer) containers.next();
 %>
-		case <%=genNode.getVisualID()%>:
+		case <%=container.getVisualID()%>:
+			 return <%=importManager.getImportedName(container.getNotationViewFactoryQualifiedClassName())%>.class;
 <%
-	String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
+	if (container instanceof GenNode) {
+		GenNode node = (GenNode) container;
+		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
+			GenNodeLabel label = (GenNodeLabel) labels.next();
+%>
+		case <%=label.getVisualID()%>:
+			return <%=importManager.getImportedName(label.getNotationViewFactoryQualifiedClassName())%>.class;
+<%
+		}
+	}
+}
+
+for (Iterator links = genLinks.iterator(); links.hasNext();) {
+	GenLink link = (GenLink) links.next();
+	String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(link);
 	String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
-	List labels = genNode.getLabels();
-	for (int j = 0; j < labels.size(); j++) {
-		GenNodeLabel label = (GenNodeLabel) labels.get(j);
-		String labelTextViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelTextId(label);
+	for (Iterator linkLabels = link.getLabels().iterator(); linkLabels.hasNext();) {
+		GenLinkLabel linkLabel = (GenLinkLabel) linkLabels.next();
+		String labelViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelId(linkLabel);
 %>
-			if (<%=labelTextViewId%>.equals(semanticHint)) {
-				return BasicNodeViewFactory.class;
+		case <%=linkLabel.getVisualID()%>:
+			if (<%=labelViewId%>.equals(semanticHint)) {
+				return <%=importManager.getImportedName(linkLabel.getNotationViewFactoryQualifiedClassName())%>.class;
+			} else { 
+				return <%=importManager.getImportedName(linkLabel.getTextNotationViewFactoryQualifiedClassName())%>.class;
 			}
-<%
-	}
-	List genCompartments = genNode.getCompartments();
-	for (int j = 0; j < genCompartments.size(); j++) {
-		GenCompartment genChildContainer = (GenCompartment) genCompartments.get(j);
-		String compartmentId = semanticHintsClassName + ".Compartments." + AccessUtil.getCompartmentId(genChildContainer);
-%>
-			if (<%=compartmentId%>.equals(semanticHint)) {
-				return ListCompartmentViewFactory.class;
-			}
-<%	}%>
-			return <%=genNode.getNotationViewFactoryClassName()%>.class;
-<%}%>
-		}
-		return getUnrecognizedTopLevelNodeViewClass(semanticAdapter, containerView, semanticHint);
-	}
-	
-	/**
-	 * @generated
-	 */
-	 private Class getUnrecognizedTopLevelNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-	 	// Handle unrecognized node classes here
-	 	return null;
-	 }
-
-	/**
-	 * @generated
-	 */
-	private Class getChildNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-		EClass semanticType = getSemanticEClass(semanticAdapter);
-		EObject semanticElement = getSemanticElement(semanticAdapter);
-		int nodeVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getChildNodeVisualID(semanticElement, semanticType);
-		
-		switch (nodeVID) {
-<%
-for (int i = 0; i < genNodes.size(); i++) {
-	GenNode genNode = (GenNode) genNodes.get(i);
-	List genChildNodes = AccessUtil.getAllChildNodes(genNode);
-	for (int j = 0; j < genChildNodes.size(); j++) {
-		GenChildNode genChildNode = (GenChildNode) genChildNodes.get(j);
-%>
-		case <%=genChildNode.getVisualID()%>:
-			return <%=genChildNode.getNotationViewFactoryClassName()%>.class;
 <%
 	}
 }
 %>
 		}
-		return getUnrecognizedChildNodeViewClass(semanticAdapter, containerView, semanticHint);
+		return getUnrecognizedNodeViewClass(semanticAdapter, containerView, semanticHint);
 	}
 	
 	/**
 	 * @generated
 	 */
-	 private Class getUnrecognizedChildNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-	 	// Handle unrecognized child node classes here
+	 private Class getUnrecognizedNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
+	 	// Handle unrecognized node classes here
 	 	return null;
 	 }
 
@@ -211,21 +131,6 @@ for (int i = 0; i < genLinks.size(); i++) {
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 %>
 		case <%=genLink.getVisualID()%>:
-<%
-		// disable creation of connector views for label links
-		List labels = genLink.getLabels();
-		for (int j = 0; j < labels.size(); j++) {
-			GenLinkLabel label = (GenLinkLabel) labels.get(j);
-			String labelViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelId(label);
-			String labelTextViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelTextId(label);
-%>
-			if (<%=labelViewId%>.equals(semanticHint)) {
-				return null;
-			}
-			if (<%=labelTextViewId%>.equals(semanticHint)) {
-				return null;
-			}
-<%		}%>
 			return <%=genLink.getNotationViewFactoryClassName()%>.class;
 <%
 	}

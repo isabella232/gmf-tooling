@@ -15,6 +15,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.gmf.diadef.Compartment;
+import org.eclipse.gmf.diadef.Node;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
@@ -36,17 +38,53 @@ public class DefaultNamingStrategy extends NamingStrategy {
 	public String createClassName(CanvasMapping mapping) {
 		return translateNameToJavaIdentifier(mapping.getDiagramCanvas().getName() + getCanvasSuffix());
 	}
-
+	
 	public String createClassName(NodeMapping nme) {
 		return translateNameToJavaIdentifier(nme.getDiagramNode().getName() + getNodeSuffix());
 	}
 
+	public String createLableTextClassName(NodeMapping nme) {
+		return translateNameToJavaIdentifier(nme.getDiagramNode().getName() + " " + (nme.getEditFeature() != null ? nme.getEditFeature().getName() : "LabelText" + nme.hashCode()) + getNodeLabelSuffix());
+	}
+	
 	public String createClassName(ChildNodeMapping chnme) {
 		return translateNameToJavaIdentifier(chnme.getDiagramNode().getName() + getChildNodeSuffix());
+	}
+	
+	public String createLableTextClassName(ChildNodeMapping chnme) {
+		return translateNameToJavaIdentifier(chnme.getDiagramNode().getName() + " " + (chnme.getEditFeature() != null ? chnme.getEditFeature().getName() : "LabelText" + chnme.hashCode()) + getChildNodeLabelSuffix());
 	}
 
 	public String createClassName(LinkMapping lme) {
 		return translateNameToJavaIdentifier(lme.getDiagramLink().getName() + getLinkSuffix());
+	}
+
+	public String createLableClassName(LinkMapping lme) {
+		return translateNameToJavaIdentifier(lme.getDiagramLink().getName() + " " + (lme.getLabelEditFeature() != null ? lme.getLabelEditFeature().getName() : "Label" + lme.hashCode()) + getLinkLabelSuffix());
+	}
+
+	public String createLableTextClassName(LinkMapping lme) {
+		return translateNameToJavaIdentifier(lme.getDiagramLink().getName() + " " + (lme.getLabelEditFeature() != null ? lme.getLabelEditFeature().getName() : "LabelText" + lme.hashCode()) + getLinkLabelTextSuffix());
+	}
+	
+	public String createClassName(Compartment compartment) {
+		return translateNameToJavaIdentifier(((Node) compartment.eContainer()).getName() + " " + compartment.getName() + getCompartmentSuffix());
+	}
+	
+	protected String getNodeLabelSuffix() {
+		return "";
+	}
+	
+	protected String getLinkLabelSuffix() {
+		return "";
+	}
+	
+	protected String getLinkLabelTextSuffix() {
+		return "Text" + getLinkLabelSuffix();
+	}
+
+	protected String getCompartmentSuffix() {
+		return "";
 	}
 
 	protected String getLinkSuffix() {
@@ -62,6 +100,10 @@ public class DefaultNamingStrategy extends NamingStrategy {
 	}
 
 	protected String getChildNodeSuffix() {
+		return "";
+	}
+	
+	protected String getChildNodeLabelSuffix() {
 		return "";
 	}
 

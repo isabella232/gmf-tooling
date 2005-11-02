@@ -1233,13 +1233,22 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_LINK_LABEL__ALIGNMENT = GEN_LABEL_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Text Notation View Factory Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK_LABEL__TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME = GEN_LABEL_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the the '<em>Gen Link Label</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LINK_LABEL_FEATURE_COUNT = GEN_LABEL_FEATURE_COUNT + 2;
+	int GEN_LINK_LABEL_FEATURE_COUNT = GEN_LABEL_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ModelFacet <em>Model Facet</em>}' class.
@@ -3224,6 +3233,17 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 */
 	EAttribute getGenLinkLabel_Alignment();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getTextNotationViewFactoryClassName <em>Text Notation View Factory Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Text Notation View Factory Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getTextNotationViewFactoryClassName()
+	 * @see #getGenLinkLabel()
+	 * @generated
+	 */
+	EAttribute getGenLinkLabel_TextNotationViewFactoryClassName();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.ModelFacet <em>Model Facet</em>}'.

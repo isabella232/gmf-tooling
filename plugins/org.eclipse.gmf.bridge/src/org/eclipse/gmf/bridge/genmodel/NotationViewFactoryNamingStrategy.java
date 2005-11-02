@@ -17,5 +17,21 @@ public class NotationViewFactoryNamingStrategy extends DefaultNamingStrategy {
 	protected String getChildNodeSuffix() {
 		return getNodeSuffix();
 	}
+	
+	protected String getChildNodeLabelSuffix() {
+		return getNodeSuffix();
+	}
 
+	protected String getCompartmentSuffix() {
+		return getNodeSuffix();
+	}
+
+	protected String getLinkLabelSuffix() {
+		return getNodeSuffix();
+	}
+
+	protected String getNodeLabelSuffix() {
+		return getNodeSuffix();
+	}
+	
 }

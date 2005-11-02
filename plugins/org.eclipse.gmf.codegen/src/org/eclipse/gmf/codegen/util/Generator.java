@@ -29,8 +29,10 @@ import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.emf.codegen.jmerge.JControlModel;
 import org.eclipse.emf.codegen.jmerge.JMerger;
+import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
@@ -89,20 +91,9 @@ public class Generator implements Runnable {
 
 			// parts and providers
 			generateStructuralFeatureParser();
-			for (Iterator it = myDiagram.getNodes().iterator(); it.hasNext();) {
-				final GenNode next = (GenNode) it.next();
-				generateNodeEditPart(next);
-				for (Iterator labels = next.getLabels().iterator(); labels.hasNext();) {
-					GenNodeLabel label = (GenNodeLabel) labels.next();
-					generateNodeLabelEditPart(label);
-				}
-				generateSemanticHints(next);
-				generateViewFactory(next);
-				for (Iterator it2 = AccessUtil.getAllChildNodes(next).iterator(); it2.hasNext();) {
-					GenChildNode child = (GenChildNode) it2.next();
-					generateChildNodeEditPart(child);
-					generateViewFactory(child);
-				}
+			for (Iterator nodes = myDiagram.getNodes().iterator(); nodes.hasNext();) {
+				GenNode node = (GenNode) nodes.next();
+				generateNode(node);
 			}
 			for (Iterator it = myDiagram.getLinks().iterator(); it.hasNext();) {
 				final GenLink next = (GenLink) it.next();
@@ -112,8 +103,10 @@ public class Generator implements Runnable {
 				for (Iterator labels = next.getLabels().iterator(); labels.hasNext();) {
 					GenLinkLabel label = (GenLinkLabel) labels.next();
 					generateLinkLabelViewFactory(label);
+					generateTextLinkLabelViewFactory(label);
 				}
 			}
+			generateViewFactory(myDiagram);
 			generateDiagramEditPart();
 			generateEditPartFactory();
 			generateElementTypes();
@@ -147,6 +140,43 @@ public class Generator implements Runnable {
 			ex.printStackTrace();
 		} finally {
 			myProgress.done();
+		}
+	}
+
+	private void generateNode(GenNode node) throws JETException, InterruptedException {
+		generateNodeEditPart(node);
+		generateCommonNode(node);
+	}
+
+	private void generateChildnode(GenChildNode child) throws JETException, InterruptedException {
+		generateChildNodeEditPart(child);
+		generateCommonNode(child);
+	}
+	
+	private void generateCommonNode(GenNode node) throws JETException, InterruptedException {
+		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
+			GenNodeLabel label = (GenNodeLabel) labels.next();
+			generateNodeLabelEditPart(label);
+			generateTextLabelViewFactory(label);
+		}
+		for (Iterator compartments = node.getCompartments().iterator(); compartments.hasNext();) {
+			GenCompartment compartment = (GenCompartment) compartments.next();
+			generateCompartment(compartment);
+		}
+		generateSemanticHints(node);
+		generateChildContainer(node);
+	}
+	
+	private void generateCompartment(GenCompartment compartment) throws JETException, InterruptedException {
+		generateCompartmentEditPart(compartment);
+		generateChildContainer(compartment);
+	}
+	
+	private void generateChildContainer(GenChildContainer childContainer) throws JETException, InterruptedException {
+		generateViewFactory(childContainer);
+		for (Iterator childNodes = childContainer.getChildNodes().iterator(); childNodes.hasNext();) {
+			GenChildNode childNode = (GenChildNode) childNodes.next();
+			generateChildnode(childNode);
 		}
 	}
 
@@ -185,6 +215,15 @@ public class Generator implements Runnable {
 			myDiagram.getEditPartsPackageName(),
 			genChildNode.getEditPartClassName(),
 			genChildNode
+		);
+	}
+	
+	private void generateCompartmentEditPart(GenCompartment genCompartment) throws JETException, InterruptedException {
+		generate(
+				EmitterFactory.getCompartmentEditPartEmitter(),
+				myDiagram.getEditPartsPackageName(),
+				genCompartment.getEditPartClassName(),
+				genCompartment
 		);
 	}
 
@@ -241,6 +280,24 @@ public class Generator implements Runnable {
 			myDiagram.getProvidersPackageName(),
 			label.getNotationViewFactoryClassName(),
 			label
+		);
+	}
+	
+	private void generateTextLinkLabelViewFactory(GenLinkLabel label) throws JETException, InterruptedException {
+		generate(
+				EmitterFactory.getTextLabelViewFactoryEmitter(),
+				myDiagram.getProvidersPackageName(),
+				label.getTextNotationViewFactoryClassName(),
+				label
+		);
+	}
+	
+	private void generateTextLabelViewFactory(GenNodeLabel label) throws JETException, InterruptedException {
+		generate(
+				EmitterFactory.getTextLabelViewFactoryEmitter(),
+				myDiagram.getProvidersPackageName(),
+				label.getNotationViewFactoryClassName(),
+				label
 		);
 	}
 

@@ -1,0 +1,19 @@
+	/**
+	 * @generated
+	 */
+	public int getVisualID(View containerView) {
+		<%=importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation")%> annotation = containerView.getEAnnotation("VisualID");
+		if (annotation == null) {
+			return -1;
+		}
+		String visualID = (String) annotation.getDetails().get("value");
+		if (visualID == null) {
+			return -1;
+		}
+		try {
+			return Integer.parseInt(visualID);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();		
+		}
+		return -1;
+	}
