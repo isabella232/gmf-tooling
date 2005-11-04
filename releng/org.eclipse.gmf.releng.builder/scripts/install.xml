@@ -1,7 +1,7 @@
 <project name="Installation script for GMF and dependencies" default="" basedir=".">
 
 	<target name="getBaseComponents" depends="checkLocalBase" unless="skipBase">
-		<get src="${eclipseBaseURL}" dest="${baseLocationRoot}/eclipse-SDK-${eclipseVersion}-${baseos}.zip" verbose="true" usetimestamp="true" />
+		<get src="${eclipseBaseURL}" dest="${baseLocationRoot}/eclipse-SDK-${eclipseBuildId}-${baseos}.zip" verbose="true" usetimestamp="true" />
 	</target>
 
 	<target name="checkLocalBase">
@@ -9,7 +9,7 @@
 	</target>
 
 	<target name="installBase" unless="baseExists">
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/eclipse-SDK-${eclipseVersion}-${baseos}.zip" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/eclipse-SDK-${eclipseBuildId}-${baseos}.zip" />
 	</target>
 
 	<target name="getTestingFramework" unless="testingFrameworkExists">
