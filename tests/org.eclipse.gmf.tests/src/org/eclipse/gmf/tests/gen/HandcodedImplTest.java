@@ -18,9 +18,13 @@ import java.util.NoSuchElementException;
 
 import junit.framework.TestCase;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.tests.SessionSetup;
+import org.eclipse.jdt.core.JavaConventions;
 
 /**
  * Tests for handcoded method implementations in GMFGen model
@@ -70,6 +74,15 @@ public class HandcodedImplTest extends TestCase {
 		}
 		assertEquals("Lists are not equal in size", itSaved.hasNext(), it.hasNext());
 		allIdsOrdered.clear();
+	}
+
+	public void testCompartmentClassNamePrefix() {
+		GenCompartment c = GMFGenFactory.eINSTANCE.createGenCompartment();
+		IStatus s = JavaConventions.validateJavaTypeName(c.getClassNamePrefix());
+		assertTrue("Default prefix (no title set):" + s.getMessage(), s.getSeverity() != IStatus.ERROR);
+		c.setTitle("<>?#!. =\"'\n\t\\");
+		s = JavaConventions.validateJavaTypeName(c.getClassNamePrefix());
+		assertTrue(s.getMessage(), s.getSeverity() != IStatus.ERROR);
 	}
 
 	private static class GenCommonBaseIterator implements Iterator {

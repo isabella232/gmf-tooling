@@ -525,7 +525,22 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	}
 
 	public String getClassNamePrefix() {
-		return getTitle() == null ? "GenContainer$" + hashCode() : getTitle();
+		if (getTitle() == null) {
+			return "GenContainer$" + hashCode();
+		}
+		char[] chars = getTitle().toCharArray();
+		for (int i = 0; i < chars.length; i++) {
+			if (i == 0) {
+				if (!Character.isJavaIdentifierStart(chars[i])) {
+					chars[i] = '_';
+				}
+			} else {
+				if (!Character.isJavaIdentifierPart(chars[i])) {
+					chars[i] = '_';
+				}
+			}
+		}
+		return new String(chars);
 	}
 
 	public String getClassNameSuffux() {
