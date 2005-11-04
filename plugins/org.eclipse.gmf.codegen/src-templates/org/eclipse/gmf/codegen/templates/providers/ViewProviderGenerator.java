@@ -145,8 +145,6 @@ for (int i = 0; i < genLinks.size(); i++) {
     
 for (int i = 0; i < genLinks.size(); i++) {
 	GenLink genLink = (GenLink) genLinks.get(i);
-	String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genLink);
-	String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 
     stringBuffer.append(TEXT_28);

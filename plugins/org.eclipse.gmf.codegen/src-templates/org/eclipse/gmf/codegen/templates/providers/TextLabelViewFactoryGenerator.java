@@ -1,7 +1,6 @@
 package org.eclipse.gmf.codegen.templates.providers;
 
 import org.eclipse.gmf.codegen.gmfgen.*;
-import org.eclipse.gmf.codegen.util.*;
 
 public class TextLabelViewFactoryGenerator
 {
