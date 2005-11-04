@@ -403,7 +403,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 <%
 	} else {
 %>
-					Edge edge = (Edge) ViewService.getInstance().createConnectorView(new IAdaptable() {
+					Edge edge = (Edge) ViewService.getInstance().createEdge(new IAdaptable() {
 						public Object getAdapter(Class adapter) {
 							if (IElementType.class.equals(adapter)) {
 								return <%=importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes")%>.<%=nextLink.getUniqueIdentifier()%>;

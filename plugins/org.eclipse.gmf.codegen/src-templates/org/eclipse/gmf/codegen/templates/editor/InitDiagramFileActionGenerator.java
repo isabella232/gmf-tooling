@@ -74,7 +74,7 @@ public class InitDiagramFileActionGenerator
   protected final String TEXT_54 = NL + "\t\t\tNode dstNode = (Node) myEObject2NodeMap.get(dst);" + NL + "\t\t\tif (dstNode != null) {";
   protected final String TEXT_55 = NL + "\t\t\t\tDiagramUtil.createEdge(srcNode, dstNode, linkElement, null, ";
   protected final String TEXT_56 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\t\t}";
-  protected final String TEXT_57 = NL + "\t\t\t\t\tEdge edge = (Edge) ViewService.getInstance().createConnectorView(new IAdaptable() {" + NL + "\t\t\t\t\t\tpublic Object getAdapter(Class adapter) {" + NL + "\t\t\t\t\t\t\tif (IElementType.class.equals(adapter)) {" + NL + "\t\t\t\t\t\t\t\treturn ";
+  protected final String TEXT_57 = NL + "\t\t\t\t\tEdge edge = (Edge) ViewService.getInstance().createEdge(new IAdaptable() {" + NL + "\t\t\t\t\t\tpublic Object getAdapter(Class adapter) {" + NL + "\t\t\t\t\t\t\tif (IElementType.class.equals(adapter)) {" + NL + "\t\t\t\t\t\t\t\treturn ";
   protected final String TEXT_58 = ".";
   protected final String TEXT_59 = ";" + NL + "\t\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\t\treturn null;" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t}, srcNode.getDiagram(), \"\", ViewUtil.APPEND, ";
   protected final String TEXT_60 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\t\t\t\tif (edge != null) {" + NL + "\t\t\t\t\t\tedge.setSource(srcNode);" + NL + "\t\t\t\t\t\tedge.setTarget(dstNode);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t}";
