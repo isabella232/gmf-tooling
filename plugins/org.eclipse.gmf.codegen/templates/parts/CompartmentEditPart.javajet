@@ -7,8 +7,6 @@ GenDiagram genDiagram = genCompartment.getDiagram();
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,8 +18,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -114,17 +110,17 @@ for (Iterator it = childFeature2NodesMap.entrySet().iterator(); it.hasNext();) {
 			
 	if (nextFeature.isListType()) {
 %>
-			Collection featureValues = ((<%=modelElementInterfaceName%>) modelElement).<%=nextFeature.getGetAccessor()%>();
-			for (Iterator it = featureValues.iterator(); it.hasNext();) {
-				EObject nextValue = (EObject) it.next();
+			<%=importManager.getImportedName("java.util.Collection")%> featureValues = ((<%=modelElementInterfaceName%>) modelElement).<%=nextFeature.getGetAccessor()%>();
+			for (<%=importManager.getImportedName("java.util.Iterator")%> it = featureValues.iterator(); it.hasNext();) {
+				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextValue = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) it.next();
 <%
 	} else {
 %>
-			EObject nextValue = (EObject) ((<%=modelElementInterfaceName%>) modelElement).<%=nextFeature.getGetAccessor()%>();
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextValue = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) ((<%=modelElementInterfaceName%>) modelElement).<%=nextFeature.getGetAccessor()%>();
 <%
 	}
 %>
-			EClass nextEClass = nextValue.eClass();
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> nextEClass = nextValue.eClass();
 <%			
 	for (Iterator childNodesIterator = childNodes.iterator(); childNodesIterator.hasNext();) {
 		GenChildNode nextChildNode = (GenChildNode) childNodesIterator.next();

@@ -4,30 +4,9 @@
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.eclipse.draw2d.ConnectionLocator;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
-import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.notation.Diagram;
-import org.eclipse.gmf.runtime.notation.Edge;
-import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
-import <%=genDiagram.getProvidersPackageName()%>.StructuralFeatureParser;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -39,7 +18,6 @@ public class <%=genDiagram.getEditPartFactoryClassName()%> implements EditPartFa
 <%
 List genLinks = genDiagram.getLinks();
 Collection allContainers = AccessUtil.getAllContainers(genDiagram);
-String semanticPackageInterfaceName = importManager.getImportedName(genDiagram.getDomainMetaModel().getQualifiedPackageInterfaceName());
 %>
 
 	/**
@@ -82,8 +60,11 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 				return new <%=link.getEditPartClassName()%>(view);
 <%
 	String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(link);
-	String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 	for (Iterator linkLabels = link.getLabels().iterator(); linkLabels.hasNext();) {
+// [++] Just to remove unnecessary imports we are doing this import insode a loop
+		String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
+		String semanticPackageInterfaceName = importManager.getImportedName(genDiagram.getDomainMetaModel().getQualifiedPackageInterfaceName());
+// [--]		
 		GenLinkLabel linkLabel = (GenLinkLabel) linkLabels.next();
 		String labelViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelId(linkLabel);
 		String semanticLinkInterfaceName;
@@ -98,18 +79,18 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 %>
 			case <%=linkLabel.getVisualID()%>:
 				if (<%=labelViewId%>.equals(view.getType())) {
-					return new LabelEditPart(view) {
+					return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart")%>(view) {
 					
 						public int getKeyPoint() {
-							return ConnectionLocator.<%=linkLabel.getAlignment()%>;
+							return <%=importManager.getImportedName("org.eclipse.draw2d.ConnectionLocator")%>.<%=linkLabel.getAlignment()%>;
 						}
 					};
 				} else {
-					return new TextCompartmentEditPart(view) {
+					return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart")%>(view) {
 
-						public IParser getParser() {
+						public <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParser")%> getParser() {
 							if (parser == null) {
-								parser = new StructuralFeatureParser(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().getEStructuralFeature("<%=linkLabel.getMetaFeature().getName()%>"));
+								parser = new <%=importManager.getImportedName(genDiagram.getProvidersPackageName() + ".StructuralFeatureParser")%>(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().getEStructuralFeature("<%=linkLabel.getMetaFeature().getName()%>"));
 							}
 							return parser;
 						}

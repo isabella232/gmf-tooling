@@ -16,7 +16,7 @@ import org.eclipse.gef.palette.PanningSelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.ui.actions.ZoomInAction;
 import org.eclipse.gmf.runtime.diagram.ui.internal.tools.ZoomTool;
-import org.eclipse.gmf.runtime.diagram.ui.tools.ConnectorCreationTool;
+import org.eclipse.gmf.runtime.diagram.ui.tools.ConnectionCreationTool;
 import org.eclipse.gmf.runtime.diagram.ui.tools.CreationTool;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -160,7 +160,7 @@ for (int i = 0; i < toolGroups.size(); i++) {
 			"<%=linkCreationTool.getDescriptionKey()%>", image, image) {
 
 			public Tool createTool() {
-				Tool tool = new ConnectorCreationTool(ElementTypes.<%=genLink.getUniqueIdentifier()%>);
+				Tool tool = new ConnectionCreationTool(ElementTypes.<%=genLink.getUniqueIdentifier()%>);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}

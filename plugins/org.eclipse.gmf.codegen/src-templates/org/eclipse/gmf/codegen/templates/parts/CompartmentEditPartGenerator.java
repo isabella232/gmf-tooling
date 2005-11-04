@@ -19,7 +19,7 @@ public class CompartmentEditPartGenerator
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "package ";
   protected final String TEXT_2 = ";" + NL;
-  protected final String TEXT_3 = NL + "import java.util.Collection;" + NL + "import java.util.Iterator;" + NL + "import java.util.LinkedList;" + NL + "import java.util.List;" + NL + "" + NL + "import org.eclipse.emf.common.notify.Notification;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;" + NL + "import org.eclipse.gmf.runtime.notation.View;" + NL + "" + NL + "import org.eclipse.emf.ecore.EClass;" + NL + "import org.eclipse.emf.ecore.EObject;";
+  protected final String TEXT_3 = NL + "import java.util.LinkedList;" + NL + "import java.util.List;" + NL + "" + NL + "import org.eclipse.emf.common.notify.Notification;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;" + NL + "import org.eclipse.gmf.runtime.notation.View;" + NL;
   protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_5 = " extends ListCompartmentEditPart {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
   protected final String TEXT_6 = "(View view) {" + NL + "\t\tsuper(view);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean hasModelChildrenChanged(Notification evt) {" + NL + "\t\treturn false;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getTitleName() {" + NL + "\t\treturn \"";
@@ -33,19 +33,26 @@ public class CompartmentEditPartGenerator
   protected final String TEXT_14 = "(((";
   protected final String TEXT_15 = ") modelElement).";
   protected final String TEXT_16 = "());";
-  protected final String TEXT_17 = NL + "\t\t\tCollection featureValues = ((";
-  protected final String TEXT_18 = ") modelElement).";
-  protected final String TEXT_19 = "();" + NL + "\t\t\tfor (Iterator it = featureValues.iterator(); it.hasNext();) {" + NL + "\t\t\t\tEObject nextValue = (EObject) it.next();";
-  protected final String TEXT_20 = NL + "\t\t\tEObject nextValue = (EObject) ((";
-  protected final String TEXT_21 = ") modelElement).";
-  protected final String TEXT_22 = "();";
-  protected final String TEXT_23 = NL + "\t\t\tEClass nextEClass = nextValue.eClass();";
-  protected final String TEXT_24 = NL + "\t\t\tif (";
-  protected final String TEXT_25 = ".eINSTANCE.get";
-  protected final String TEXT_26 = "().equals(nextEClass)) {" + NL + "\t\t\t\tresult.add(nextValue);" + NL + "\t\t\t} ";
-  protected final String TEXT_27 = NL + "\t\t\t}";
-  protected final String TEXT_28 = NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "}";
-  protected final String TEXT_29 = NL;
+  protected final String TEXT_17 = NL + "\t\t\t";
+  protected final String TEXT_18 = " featureValues = ((";
+  protected final String TEXT_19 = ") modelElement).";
+  protected final String TEXT_20 = "();" + NL + "\t\t\tfor (";
+  protected final String TEXT_21 = " it = featureValues.iterator(); it.hasNext();) {" + NL + "\t\t\t\t";
+  protected final String TEXT_22 = " nextValue = (";
+  protected final String TEXT_23 = ") it.next();";
+  protected final String TEXT_24 = NL + "\t\t\t";
+  protected final String TEXT_25 = " nextValue = (";
+  protected final String TEXT_26 = ") ((";
+  protected final String TEXT_27 = ") modelElement).";
+  protected final String TEXT_28 = "();";
+  protected final String TEXT_29 = NL + "\t\t\t";
+  protected final String TEXT_30 = " nextEClass = nextValue.eClass();";
+  protected final String TEXT_31 = NL + "\t\t\tif (";
+  protected final String TEXT_32 = ".eINSTANCE.get";
+  protected final String TEXT_33 = "().equals(nextEClass)) {" + NL + "\t\t\t\tresult.add(nextValue);" + NL + "\t\t\t} ";
+  protected final String TEXT_34 = NL + "\t\t\t}";
+  protected final String TEXT_35 = NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "}";
+  protected final String TEXT_36 = NL;
 
   public String generate(Object argument)
   {
@@ -124,45 +131,59 @@ for (Iterator it = childFeature2NodesMap.entrySet().iterator(); it.hasNext();) {
 	if (nextFeature.isListType()) {
 
     stringBuffer.append(TEXT_17);
-    stringBuffer.append(modelElementInterfaceName);
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_18);
-    stringBuffer.append(nextFeature.getGetAccessor());
+    stringBuffer.append(modelElementInterfaceName);
     stringBuffer.append(TEXT_19);
+    stringBuffer.append(nextFeature.getGetAccessor());
+    stringBuffer.append(TEXT_20);
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(TEXT_21);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_22);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_23);
     
 	} else {
 
-    stringBuffer.append(TEXT_20);
+    stringBuffer.append(TEXT_24);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_25);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_26);
     stringBuffer.append(modelElementInterfaceName);
-    stringBuffer.append(TEXT_21);
+    stringBuffer.append(TEXT_27);
     stringBuffer.append(nextFeature.getGetAccessor());
-    stringBuffer.append(TEXT_22);
+    stringBuffer.append(TEXT_28);
     
 	}
 
-    stringBuffer.append(TEXT_23);
+    stringBuffer.append(TEXT_29);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClass"));
+    stringBuffer.append(TEXT_30);
     			
 	for (Iterator childNodesIterator = childNodes.iterator(); childNodesIterator.hasNext();) {
 		GenChildNode nextChildNode = (GenChildNode) childNodesIterator.next();
 		GenClass domainMetaclass = nextChildNode.getDomainMetaClass();
 
-    stringBuffer.append(TEXT_24);
+    stringBuffer.append(TEXT_31);
     stringBuffer.append(importManager.getImportedName(domainMetaclass.getGenPackage().getQualifiedPackageInterfaceName()));
-    stringBuffer.append(TEXT_25);
+    stringBuffer.append(TEXT_32);
     stringBuffer.append(domainMetaclass.getClassifierAccessorName());
-    stringBuffer.append(TEXT_26);
+    stringBuffer.append(TEXT_33);
     stringBuffer.append(childNodesIterator.hasNext() ? "else" : "");
     
 	}
 	if (nextFeature.isListType()) {
 
-    stringBuffer.append(TEXT_27);
+    stringBuffer.append(TEXT_34);
     
 	}
 }
 
-    stringBuffer.append(TEXT_28);
+    stringBuffer.append(TEXT_35);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_29);
+    stringBuffer.append(TEXT_36);
     return stringBuffer.toString();
   }
 }

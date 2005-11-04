@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ListItemCompartmentEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ListItemEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
@@ -21,7 +21,7 @@ import <%=genDiagram.getProvidersPackageName()%>.StructuralFeatureParser;
 /**
  * @generated
  */
-public class <%=genChildNode.getEditPartClassName()%> extends ListItemCompartmentEditPart {
+public class <%=genChildNode.getEditPartClassName()%> extends ListItemEditPart {
 
 	/**
 	 * @generated
