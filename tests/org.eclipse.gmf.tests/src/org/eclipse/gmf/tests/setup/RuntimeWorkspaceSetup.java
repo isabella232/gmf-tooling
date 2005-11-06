@@ -101,12 +101,12 @@ public class RuntimeWorkspaceSetup {
 
 	private void importDevPluginsIntoRunTimeWorkspace(String[] pluginIDs) throws CoreException {
 		PDEState pdeState = new PDEState(getDevPluginsLocations(pluginIDs), false, new NullProgressMonitor());
-		PluginImportOperation.IReplaceQuery query = new PluginImportOperation.IReplaceQuery() {
-			public int doQuery(IProject arg0) {
+		PluginImportOperation.IImportQuery query = new PluginImportOperation.IImportQuery() {
+			public int doQuery(String arg0) {
 				return YES;
 			}
 		};
-		PluginImportOperation op = new PluginImportOperation(pdeState.getModels(), PluginImportOperation.IMPORT_WITH_SOURCE, query, true);
+		PluginImportOperation op = new PluginImportOperation(pdeState.getModels(), PluginImportOperation.IMPORT_WITH_SOURCE, query, query, true);
 		ResourcesPlugin.getWorkspace().run(op, new NullProgressMonitor());
 		for (int i = 0; i < pluginIDs.length; i++) {
 			IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginIDs[i]);
