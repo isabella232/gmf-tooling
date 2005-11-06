@@ -1,23 +1,23 @@
 <project name="Installation script for GMF and dependencies" default="" basedir=".">
 
 	<target name="getBaseComponents" depends="checkLocalBase" unless="skipBase">
-		<get src="${eclipseBaseURL}" dest="${baseLocationRoot}/eclipse-SDK-${eclipseBuildId}-${baseos}.zip" verbose="true" usetimestamp="true" />
+		<get src="${eclipseBaseURL}" dest="${baseLocationRoot}/${eclipseZipName}" verbose="true" usetimestamp="true" />
 	</target>
 
 	<target name="checkLocalBase">
-		<available file="${baseLocationRoot}/eclipse-SDK-${eclipseVersion}-${baseos}.zip" property="skipBase" />
+		<available file="${baseLocationRoot}/${eclipseZipName}" property="skipBase" />
 	</target>
 
 	<target name="installBase" unless="baseExists">
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/eclipse-SDK-${eclipseBuildId}-${baseos}.zip" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${eclipseZipName}" />
 	</target>
 
 	<target name="getTestingFramework" unless="testingFrameworkExists">
-		<get src="${testingFrameworkURL}" dest="${baseLocationRoot}/eclipse-test-framework-${eclipseVersion}.zip" verbose="true" usetimestamp="true" />
+		<get src="${testingFrameworkURL}" dest="${baseLocationRoot}/${testingFrameworkZipName}" verbose="true" usetimestamp="true" />
 	</target>
 
 	<target name="installTestingFramework">
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/eclipse-test-framework-${eclipseVersion}.zip" />
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${testingFrameworkZipName}" />
 	</target>
 
 	<target name="installEMF" unless="emfExists">
