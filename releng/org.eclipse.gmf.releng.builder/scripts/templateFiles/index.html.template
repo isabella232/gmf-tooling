@@ -37,24 +37,20 @@
 <table>
   <tbody>
     <tr>
-      <td>Eclipse build eclipse-SDK-@eclipseVersion@:</td>
-      <td>(<a href="http://download.eclipse.org/downloads/drops/@eclipseBuildId@">build page</a>) (<a href="@eclipseBaseURL@">download win32 zip</a>)</td>
+      <td>Eclipse build @eclipseBuildId@:</td>
+      <td>(<a href="@eclipseDownloadPage@">build page</a>)</td>
     </tr>
     <tr>
       <td>EMF build @emfVersion@:</td>
-      <td>(<a href="@emfUpdateSite@">update site</a>)</td>
+      <td>(<a href="@emfDownloadPage@">build page</>, <a href="@emfUpdateSite@">update site</a>)</td>
     </tr>
     <tr>
       <td>GEF Build @gefVersion@:</td>
-      <td>(<a href="@gefUpdateSite@">update site</a>)</td>
-    </tr>
-    <tr>
-      <td>WST Build @wstVersion@:</td>
-      <td>(<a href="@wstUpdateSite@">update site</a>) (Note: required for properties inspector until migrated to Platform)</td>
+      <td>(<a href="@gefDownloadPage@">build page</>, <a href="@gefUpdateSite@">update site</a>)</td>
     </tr>
     <tr>
       <td>UML2 Build @uml2Version@:</td>
-      <td>(<a href="@uml2UpdateSite@">update site</a>) (Note: only needed for unit tests)</td>
+      <td>(<a href="@uml2DownloadPage@">build page</>, <a href="@uml2UpdateSite@">update site</a>) (Note: only needed for unit tests)</td>
     </tr>
   </tbody>
 </table>
