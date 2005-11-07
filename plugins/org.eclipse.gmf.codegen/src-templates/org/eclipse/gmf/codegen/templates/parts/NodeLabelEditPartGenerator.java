@@ -55,12 +55,12 @@ GenDiagram genDiagram = label.getDiagram();
     
 GenPackage genPackage = genDiagram.getDomainMetaModel();
 String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
-String semanticNodeInterfaceName = label.getNode().getDomainMetaClass().getName();
+String accessorName = label.getNode().getDomainMetaClass().getClassifierAccessorName();
 
     stringBuffer.append(TEXT_9);
     stringBuffer.append(semanticPackageInterfaceName);
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(semanticNodeInterfaceName);
+    stringBuffer.append(accessorName);
     stringBuffer.append(TEXT_11);
     stringBuffer.append(label.getMetaFeature().getName());
     stringBuffer.append(TEXT_12);

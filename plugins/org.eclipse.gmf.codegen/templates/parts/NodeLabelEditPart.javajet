@@ -41,7 +41,7 @@ public class <%=label.getEditPartClassName()%> extends TextCompartmentEditPart {
 <%
 GenPackage genPackage = genDiagram.getDomainMetaModel();
 String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
-String semanticNodeInterfaceName = label.getNode().getDomainMetaClass().getName();
+String accessorName = label.getNode().getDomainMetaClass().getClassifierAccessorName();
 %>
 
 	/**
@@ -49,7 +49,7 @@ String semanticNodeInterfaceName = label.getNode().getDomainMetaClass().getName(
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			parser = new StructuralFeatureParser(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>().getEStructuralFeature("<%=label.getMetaFeature().getName()%>"));
+			parser = new StructuralFeatureParser(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=accessorName%>().getEStructuralFeature("<%=label.getMetaFeature().getName()%>"));
 		}
 		return parser;
 	}

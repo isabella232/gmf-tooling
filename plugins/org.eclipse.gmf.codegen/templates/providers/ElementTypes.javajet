@@ -192,14 +192,14 @@ while (entities.hasNext()) {
 	TypeModelFacet typeModelFacet = null;
 	String semanticNodeInterfaceName;
 	if (entity instanceof GenDiagram) {
-		semanticNodeInterfaceName = genDiagram.getDomainDiagramElement().getName();
+		semanticNodeInterfaceName = genDiagram.getDomainDiagramElement().getClassifierAccessorName();
 	} else if (entity instanceof GenNode) {
 		GenNode genNode = (GenNode) entity;
 		typeModelFacet = genNode.getModelFacet();
-		semanticNodeInterfaceName = genNode.getDomainMetaClass().getName();
+		semanticNodeInterfaceName = genNode.getDomainMetaClass().getClassifierAccessorName();
 	} else if (entity instanceof GenLink && ((GenLink) entity).getModelFacet() instanceof TypeLinkModelFacet) {
 		typeModelFacet = (TypeLinkModelFacet) ((GenLink) entity).getModelFacet();
-		semanticNodeInterfaceName = typeModelFacet.getMetaClass().getName();
+		semanticNodeInterfaceName = typeModelFacet.getMetaClass().getClassifierAccessorName();
 	} else {
 		continue;
 	}
@@ -279,8 +279,6 @@ while (entities.hasNext()) {
 for (int i = 0; i < refLinks.size(); i++) {
 	GenLink entity = (GenLink) refLinks.get(i);
 	GenFeature targetFeature = ((FeatureModelFacet) entity.getModelFacet()).getMetaFeature();
-	String semanticFeatureCapName = targetFeature.getCapName();
-	String semanticNodeInterfaceName = targetFeature.getGenClass().getName();
 %>
 
 	/**
@@ -292,7 +290,7 @@ for (int i = 0; i < refLinks.size(); i++) {
 		 * @generated
 		 */
 		private static final EReference[] containmentFeatures = new EReference[] {
-			<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName + '_' + semanticFeatureCapName%>()
+			<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=targetFeature.getFeatureAccessorName()%>()
 		};
 
 		/**
@@ -312,7 +310,7 @@ for (int i = 0; i < refLinks.size(); i++) {
 				 * @generated
 				 */
 				public boolean matches(EObject eObject) {
-					return <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>().isInstance(eObject);
+					return <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=targetFeature.getGenClass().getClassifierAccessorName()%>().isInstance(eObject);
 				}
 			};
 		}

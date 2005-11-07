@@ -154,14 +154,14 @@ while (entities.hasNext()) {
 	TypeModelFacet typeModelFacet = null;
 	String semanticNodeInterfaceName;
 	if (entity instanceof GenDiagram) {
-		semanticNodeInterfaceName = genDiagram.getDomainDiagramElement().getName();
+		semanticNodeInterfaceName = genDiagram.getDomainDiagramElement().getClassifierAccessorName();
 	} else if (entity instanceof GenNode) {
 		GenNode genNode = (GenNode) entity;
 		typeModelFacet = genNode.getModelFacet();
-		semanticNodeInterfaceName = genNode.getDomainMetaClass().getName();
+		semanticNodeInterfaceName = genNode.getDomainMetaClass().getClassifierAccessorName();
 	} else if (entity instanceof GenLink && ((GenLink) entity).getModelFacet() instanceof TypeLinkModelFacet) {
 		typeModelFacet = (TypeLinkModelFacet) ((GenLink) entity).getModelFacet();
-		semanticNodeInterfaceName = typeModelFacet.getMetaClass().getName();
+		semanticNodeInterfaceName = typeModelFacet.getMetaClass().getClassifierAccessorName();
 	} else {
 		continue;
 	}
@@ -233,19 +233,17 @@ while (entities.hasNext()) {
 for (int i = 0; i < refLinks.size(); i++) {
 	GenLink entity = (GenLink) refLinks.get(i);
 	GenFeature targetFeature = ((FeatureModelFacet) entity.getModelFacet()).getMetaFeature();
-	String semanticFeatureCapName = targetFeature.getCapName();
-	String semanticNodeInterfaceName = targetFeature.getGenClass().getName();
 
     stringBuffer.append(TEXT_36);
     stringBuffer.append(entity.getUniqueIdentifier());
     stringBuffer.append(TEXT_37);
     stringBuffer.append(semanticPackageInterfaceName);
     stringBuffer.append(TEXT_38);
-    stringBuffer.append(semanticNodeInterfaceName + '_' + semanticFeatureCapName);
+    stringBuffer.append(targetFeature.getFeatureAccessorName());
     stringBuffer.append(TEXT_39);
     stringBuffer.append(semanticPackageInterfaceName);
     stringBuffer.append(TEXT_40);
-    stringBuffer.append(semanticNodeInterfaceName);
+    stringBuffer.append(targetFeature.getGenClass().getClassifierAccessorName());
     stringBuffer.append(TEXT_41);
     stringBuffer.append(entity.getUniqueIdentifier());
     stringBuffer.append(TEXT_42);

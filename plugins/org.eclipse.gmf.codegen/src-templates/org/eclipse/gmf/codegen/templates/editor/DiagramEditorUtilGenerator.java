@@ -62,7 +62,7 @@ String domainPackageInterfaceName = importManager.getImportedName(genPackage.get
     stringBuffer.append(TEXT_10);
     stringBuffer.append(domainPackageInterfaceName);
     stringBuffer.append(TEXT_11);
-    stringBuffer.append(genDiagram.getDomainDiagramElement().getName());
+    stringBuffer.append(genDiagram.getDomainDiagramElement().getClassifierAccessorName());
     stringBuffer.append(TEXT_12);
     stringBuffer.append(genDiagram.getPluginClassName());
     stringBuffer.append(TEXT_13);

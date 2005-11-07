@@ -109,7 +109,7 @@ public class DiagramEditorUtil extends IDEEditorUtil {
 GenPackage genPackage = genDiagram.getDomainMetaModel();
 String domainPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 %>
-					EObject model = EObjectUtil.create(<%=domainPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getName()%>());
+					EObject model = EObjectUtil.create(<%=domainPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>());
 					Diagram diagram = DiagramUtil.createDiagram(model, kindParam, new PreferencesHint(<%=genDiagram.getPluginClassName()%>.EDITOR_ID));
 					if (diagram != null) {
 						notationModelParam.getContents().add(diagram);
