@@ -21,7 +21,7 @@ public class <%=diagram.getModelingAssistantProviderClassName()%> extends Modeli
 	/**
 	 * @generated
 	 */
-	public List getTypesForActionBar(IAdaptable host) {
+	public List getTypesForPopupBar(IAdaptable host) {
 		Object editPart = host.getAdapter(IGraphicalEditPart.class);
 <%
 Iterator entities = AccessUtil.getGenEntities(diagram);
