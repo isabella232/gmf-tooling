@@ -7,6 +7,7 @@ feature@org.eclipse.gmf.tests=I20051106-0900,:pserver:anonymous@dev.eclipse.org:
 plugin@org.eclipse.gmf.tests=I20051106-0900,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests
 plugin@org.eclipse.gmf.tests.runtime.common.core=I20051106-0900,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.core
 plugin@org.eclipse.gmf.tests.runtime.common.ui.services.action=I20051106-0900,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services.action
+plugin@org.eclipse.gmf.tests.runtime.common.ui.services.provider=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services.provider
 plugin@org.eclipse.gmf.tests.runtime.common.ui=I20051106-0900,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui
 plugin@org.eclipse.gmf.tests.runtime.diagram.ui=I20051106-0900,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.diagram.ui
 plugin@org.eclipse.gmf.tests.runtime.draw2d.ui.render=I20051106-0900,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.draw2d.ui.render
