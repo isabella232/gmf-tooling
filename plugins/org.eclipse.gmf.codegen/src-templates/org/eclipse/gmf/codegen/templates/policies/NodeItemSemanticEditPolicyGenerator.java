@@ -182,7 +182,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_26);
     stringBuffer.append(metaClassName);
     stringBuffer.append(TEXT_27);
-    stringBuffer.append(incomingClass.getClassifierAccessorName());
+    stringBuffer.append(modelFacet.getTargetMetaFeature().getAccessorName());
     stringBuffer.append(TEXT_28);
     stringBuffer.append(importManager.getImportedName(incomingClass.getQualifiedInterfaceName()));
     stringBuffer.append(TEXT_29);
@@ -223,7 +223,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_45);
     stringBuffer.append(metaClassName);
     stringBuffer.append(TEXT_46);
-    stringBuffer.append(incomingClass.getClassifierAccessorName());
+    stringBuffer.append(modelFacet.getTargetMetaFeature().getAccessorName());
     stringBuffer.append(TEXT_47);
     stringBuffer.append(importManager.getImportedName(incomingClass.getQualifiedInterfaceName()));
     stringBuffer.append(TEXT_48);

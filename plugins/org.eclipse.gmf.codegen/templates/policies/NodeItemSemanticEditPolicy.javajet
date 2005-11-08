@@ -139,7 +139,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 <%			String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
 			<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
 			if (newElement != null) {
-				newElement.set<%=incomingClass.getClassifierAccessorName()%>((<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) getSource());
+				newElement.set<%=modelFacet.getTargetMetaFeature().getAccessorName()%>((<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) getSource());
 <%			if (modelFacet.getModelElementInitializer() != null) { %>
 				ElementTypes.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
 <%}%>
@@ -206,7 +206,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 <%			String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
 			<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
 			if (newElement != null) {
-				newElement.set<%=incomingClass.getClassifierAccessorName()%>((<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) getTarget());
+				newElement.set<%=modelFacet.getTargetMetaFeature().getAccessorName()%>((<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) getTarget());
 <%			if (modelFacet.getModelElementInitializer() != null) { %>
 				ElementTypes.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
 <%}%>
