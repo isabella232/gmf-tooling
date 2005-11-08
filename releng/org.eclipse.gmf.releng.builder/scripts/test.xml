@@ -26,6 +26,9 @@
 			<param name="testPlugin" value="org.eclipse.gmf.tests" />
 		</antcall>
 		<antcall target="runtests">
+			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.emf.clipboard.core" />
+		</antcall>
+		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests.runtime.emf.commands.core" />
 		</antcall>
 		<antcall target="runtests">

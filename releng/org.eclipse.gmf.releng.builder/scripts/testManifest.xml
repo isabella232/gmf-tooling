@@ -35,6 +35,11 @@
 			<effectedFile id="SDK"></effectedFile>
 		</logFile>
 		<logFile
+			name="org.eclipse.gmf.tests.runtime.emf.clipboard.core.xml">
+			<effectedFile id="SDK"></effectedFile>
+			<effectedFile id="RUN"></effectedFile>
+		</logFile>
+		<logFile
 			name="org.eclipse.gmf.tests.runtime.emf.commands.core.xml">
 			<effectedFile id="SDK"></effectedFile>
 			<effectedFile id="RUN"></effectedFile>
