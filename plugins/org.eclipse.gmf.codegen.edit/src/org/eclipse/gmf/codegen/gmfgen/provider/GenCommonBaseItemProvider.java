@@ -64,6 +64,7 @@ public class GenCommonBaseItemProvider
 			addDiagramRunTimeClassPropertyDescriptor(object);
 			addVisualIDPropertyDescriptor(object);
 			addEditPartClassNamePropertyDescriptor(object);
+			addItemSemanticEditPolicyClassNamePropertyDescriptor(object);
 			addNotationViewFactoryClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -123,6 +124,26 @@ public class GenCommonBaseItemProvider
 				 getString("_UI_GenCommonBase_editPartClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenCommonBase_editPartClassName_feature", "_UI_GenCommonBase_type"),
 				 GMFGenPackage.eINSTANCE.getGenCommonBase_EditPartClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Item Semantic Edit Policy Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addItemSemanticEditPolicyClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenCommonBase_itemSemanticEditPolicyClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenCommonBase_itemSemanticEditPolicyClassName_feature", "_UI_GenCommonBase_type"),
+				 GMFGenPackage.eINSTANCE.getGenCommonBase_ItemSemanticEditPolicyClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -191,6 +212,7 @@ public class GenCommonBaseItemProvider
 		switch (notification.getFeatureID(GenCommonBase.class)) {
 			case GMFGenPackage.GEN_COMMON_BASE__VISUAL_ID:
 			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
+			case GMFGenPackage.GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

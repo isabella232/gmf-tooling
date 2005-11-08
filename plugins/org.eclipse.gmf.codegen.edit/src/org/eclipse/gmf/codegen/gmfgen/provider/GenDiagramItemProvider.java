@@ -64,6 +64,7 @@ public class GenDiagramItemProvider
 			addDomainMetaModelPropertyDescriptor(object);
 			addDomainDiagramElementPropertyDescriptor(object);
 			addEditPartsPackageNamePropertyDescriptor(object);
+			addEditPoliciesPackageNamePropertyDescriptor(object);
 			addEditorPackageNamePropertyDescriptor(object);
 			addProvidersPackageNamePropertyDescriptor(object);
 			addPluginIDPropertyDescriptor(object);
@@ -143,6 +144,26 @@ public class GenDiagramItemProvider
 				 getString("_UI_GenDiagram_editPartsPackageName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_editPartsPackageName_feature", "_UI_GenDiagram_type"),
 				 GMFGenPackage.eINSTANCE.getGenDiagram_EditPartsPackageName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Edit Policies Package Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEditPoliciesPackageNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_editPoliciesPackageName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_editPoliciesPackageName_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_EditPoliciesPackageName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -634,6 +655,7 @@ public class GenDiagramItemProvider
 
 		switch (notification.getFeatureID(GenDiagram.class)) {
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
