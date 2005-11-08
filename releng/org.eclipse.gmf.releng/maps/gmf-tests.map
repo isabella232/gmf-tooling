@@ -13,8 +13,7 @@ plugin@org.eclipse.gmf.tests.runtime.diagram.ui=I20051106-0900,:pserver:anonymou
 plugin@org.eclipse.gmf.tests.runtime.draw2d.ui.render=I20051106-0900,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.draw2d.ui.render
 plugin@org.eclipse.gmf.tests.runtime.draw2d.ui=I20051106-0900,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.draw2d.ui
 plugin@org.eclipse.gmf.tests.runtime.gef.ui=I20051106-0900,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.gef.ui
-!*** New test plugin added 2005-10-31
-!*** plugin@org.eclipse.gmf.tests.runtime.emf.clipboard.core=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.clipboard.core
+plugin@org.eclipse.gmf.tests.runtime.emf.clipboard.core=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.clipboard.core
 plugin@org.eclipse.gmf.tests.runtime.emf.commands.core=I20051106-0900,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.commands.core
 plugin@org.eclipse.gmf.tests.runtime.emf.core=I20051106-0900,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.core
 plugin@org.eclipse.gmf.tests.runtime.emf.ui=I20051106-0900,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.emf.ui
