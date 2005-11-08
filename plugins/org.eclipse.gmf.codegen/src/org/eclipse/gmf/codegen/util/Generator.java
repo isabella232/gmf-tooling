@@ -89,8 +89,11 @@ public class Generator implements Runnable {
 			setupProgressMonitor();
 			initializeEditorProject();
 
-			// parts and providers
+			// edit parts, edit policies and providers
 			generateStructuralFeatureParser();
+			generateBaseItemSemanticEditPolicy();
+			generateReferenceConnectionEditPolicy();
+			generateDiagramItemSemanticEditPolicy();
 			for (Iterator nodes = myDiagram.getNodes().iterator(); nodes.hasNext();) {
 				GenNode node = (GenNode) nodes.next();
 				generateNode(node);
@@ -100,6 +103,7 @@ public class Generator implements Runnable {
 				generateViewFactory(next);
 				generateSemanticHints(next);
 				generateLinkEditPart(next);
+				generateLinkItemSemanticEditPolicy(next);
 				for (Iterator labels = next.getLabels().iterator(); labels.hasNext();) {
 					GenLinkLabel label = (GenLinkLabel) labels.next();
 					generateLinkLabelViewFactory(label);
@@ -165,10 +169,12 @@ public class Generator implements Runnable {
 		}
 		generateSemanticHints(node);
 		generateChildContainer(node);
+		generateNodeItemSemanticEditPolicy(node);
 	}
 	
 	private void generateCompartment(GenCompartment compartment) throws JETException, InterruptedException {
 		generateCompartmentEditPart(compartment);
+		generateCompartmentItemSemanticEditPolicy(compartment);
 		generateChildContainer(compartment);
 	}
 	
@@ -244,7 +250,65 @@ public class Generator implements Runnable {
 			myDiagram
 		);
 	}
-		
+
+	// edit policies
+
+	private void generateBaseItemSemanticEditPolicy() throws JETException, InterruptedException {
+		String fqn = myDiagram.getBaseItemSemanticEditPolicyQualifiedClassName();
+		generate(
+			EmitterFactory.getBaseItemSemanticEditPolicyEmitter(),
+			myDiagram.getEditPoliciesPackageName(),
+			fqn.substring(fqn.lastIndexOf('.') + 1),
+			myDiagram
+		);
+	}
+
+	private void generateReferenceConnectionEditPolicy() throws JETException, InterruptedException {
+		String fqn = myDiagram.getReferenceConnectionEditPolicyQualifiedClassName();
+		generate(
+			EmitterFactory.getReferenceConnectionEditPolicyEmitter(),
+			myDiagram.getEditPoliciesPackageName(),
+			fqn.substring(fqn.lastIndexOf('.') + 1),
+			myDiagram
+		);
+	}
+
+	private void generateDiagramItemSemanticEditPolicy() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getDiagramItemSemanticEditPolicyEmitter(),
+			myDiagram.getEditPoliciesPackageName(),
+			myDiagram.getItemSemanticEditPolicyClassName(),
+			myDiagram
+		);
+	}
+
+	private void generateCompartmentItemSemanticEditPolicy(GenCompartment genCompartment) throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getCompartmentItemSemanticEditPolicyEmitter(),
+			myDiagram.getEditPoliciesPackageName(),
+			genCompartment.getItemSemanticEditPolicyClassName(),
+			genCompartment
+		);
+	}
+
+	private void generateNodeItemSemanticEditPolicy(GenNode genNode) throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getNodeItemSemanticEditPolicyEmitter(),
+			myDiagram.getEditPoliciesPackageName(),
+			genNode.getItemSemanticEditPolicyClassName(),
+			genNode
+		);
+	}
+
+	private void generateLinkItemSemanticEditPolicy(GenLink genLink) throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getLinkItemSemanticEditPolicyEmitter(),
+			myDiagram.getEditPoliciesPackageName(),
+			genLink.getItemSemanticEditPolicyClassName(),
+			genLink
+		);
+	}
+
 	// providers
 
 	private void generateStructuralFeatureParser() throws JETException, InterruptedException {

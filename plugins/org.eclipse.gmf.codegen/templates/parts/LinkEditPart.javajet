@@ -10,7 +10,9 @@ package <%=genDiagram.getEditPartsPackageName()%>;
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.RotatableDecoration;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
 
@@ -24,6 +26,17 @@ public class <%=genLink.getEditPartClassName()%> extends ConnectionNodeEditPart 
 	 */
 	public <%=genLink.getEditPartClassName()%>(View view) {
 		super(view);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void createDefaultEditPolicies() {
+		super.createDefaultEditPolicies();
+<%if (genLink.getModelFacet() instanceof FeatureModelFacet) {%>
+		installEditPolicy(EditPolicy.CONNECTION_ROLE, new <%=importManager.getImportedName(genDiagram.getReferenceConnectionEditPolicyQualifiedClassName())%>());
+<%}%>
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genLink.getItemSemanticEditPolicyQualifiedClassName())%>());
 	}
 
 	/**
@@ -70,4 +83,5 @@ for (Iterator it = genLink.getViewmap().getAttributes().iterator(); it.hasNext()
 <%if (genLink.getViewmap() instanceof DecoratedConnectionViewmap) {%>
 <%@include file="decoratedconn.jetinc"%>
 <%}%>
-}<%importManager.emitSortedImports();%>
+}
+<%importManager.emitSortedImports();%>

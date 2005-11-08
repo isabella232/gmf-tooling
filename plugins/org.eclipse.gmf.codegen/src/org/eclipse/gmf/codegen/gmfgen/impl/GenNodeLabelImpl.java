@@ -157,6 +157,8 @@ public class GenNodeLabelImpl extends GenLabelImpl implements GenNodeLabel {
 				return new Integer(getVisualID());
 			case GMFGenPackage.GEN_NODE_LABEL__EDIT_PART_CLASS_NAME:
 				return getEditPartClassName();
+			case GMFGenPackage.GEN_NODE_LABEL__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				return getItemSemanticEditPolicyClassName();
 			case GMFGenPackage.GEN_NODE_LABEL__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return getNotationViewFactoryClassName();
 			case GMFGenPackage.GEN_NODE_LABEL__VIEWMAP:
@@ -186,6 +188,9 @@ public class GenNodeLabelImpl extends GenLabelImpl implements GenNodeLabel {
 				return;
 			case GMFGenPackage.GEN_NODE_LABEL__EDIT_PART_CLASS_NAME:
 				setEditPartClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_NODE_LABEL__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				setItemSemanticEditPolicyClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_NODE_LABEL__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName((String)newValue);
@@ -222,6 +227,9 @@ public class GenNodeLabelImpl extends GenLabelImpl implements GenNodeLabel {
 			case GMFGenPackage.GEN_NODE_LABEL__EDIT_PART_CLASS_NAME:
 				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_NODE_LABEL__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				setItemSemanticEditPolicyClassName(ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_NODE_LABEL__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
 				return;
@@ -254,6 +262,8 @@ public class GenNodeLabelImpl extends GenLabelImpl implements GenNodeLabel {
 				return visualID != VISUAL_ID_EDEFAULT;
 			case GMFGenPackage.GEN_NODE_LABEL__EDIT_PART_CLASS_NAME:
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
+			case GMFGenPackage.GEN_NODE_LABEL__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				return ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? itemSemanticEditPolicyClassName != null : !ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(itemSemanticEditPolicyClassName);
 			case GMFGenPackage.GEN_NODE_LABEL__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
 			case GMFGenPackage.GEN_NODE_LABEL__VIEWMAP:

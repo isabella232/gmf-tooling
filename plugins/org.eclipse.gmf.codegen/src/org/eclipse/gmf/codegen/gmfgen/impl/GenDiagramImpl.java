@@ -51,6 +51,7 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getLinks <em>Links</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPalette <em>Palette</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartsPackageName <em>Edit Parts Package Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPoliciesPackageName <em>Edit Policies Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditorPackageName <em>Editor Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getProvidersPackageName <em>Providers Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPluginID <em>Plugin ID</em>}</li>
@@ -147,6 +148,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String editPartsPackageName = EDIT_PARTS_PACKAGE_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getEditPoliciesPackageName() <em>Edit Policies Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditPoliciesPackageName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String EDIT_POLICIES_PACKAGE_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getEditPoliciesPackageName() <em>Edit Policies Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditPoliciesPackageName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String editPoliciesPackageName = EDIT_POLICIES_PACKAGE_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getEditorPackageName() <em>Editor Package Name</em>}' attribute.
@@ -758,6 +779,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME, oldEditPartsPackageName, editPartsPackageName));
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getEditPoliciesPackageNameGen() {
+		return editPoliciesPackageName;
+	}
+
+	public String getEditPoliciesPackageName() {
+		String value = getEditPoliciesPackageNameGen();
+		if (value == null || value.length() == 0) {
+			return getPackageNamePrefix() + ".edit.policies";
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditPoliciesPackageName(String newEditPoliciesPackageName) {
+		String oldEditPoliciesPackageName = editPoliciesPackageName;
+		editPoliciesPackageName = newEditPoliciesPackageName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME, oldEditPoliciesPackageName, editPoliciesPackageName));
+	}
+
 	public String getClassNamePrefix() {
 		String prefix;
 		if (getDomainDiagramElement() != null) {
@@ -1356,6 +1406,24 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public String getBaseItemSemanticEditPolicyQualifiedClassName() {
+		return getEditPoliciesPackageName() + '.' + "ItemSemanticEditPolicy";
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getReferenceConnectionEditPolicyQualifiedClassName() {
+		return getEditPoliciesPackageName() + '.' + "ReferenceConnectionEditPolicy";
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public String[] getRequiredPluginIDs() {
 		ArrayList requiredPlugins = new ArrayList();
 		if (usesSVGShapes()) {
@@ -1529,6 +1597,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return new Integer(getVisualID());
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_CLASS_NAME:
 				return getEditPartClassName();
+			case GMFGenPackage.GEN_DIAGRAM__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				return getItemSemanticEditPolicyClassName();
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return getNotationViewFactoryClassName();
 			case GMFGenPackage.GEN_DIAGRAM__VIEWMAP:
@@ -1547,6 +1617,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getPalette();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 				return getEditPartsPackageName();
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
+				return getEditPoliciesPackageName();
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
 				return getEditorPackageName();
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
@@ -1609,6 +1681,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_CLASS_NAME:
 				setEditPartClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				setItemSemanticEditPolicyClassName((String)newValue);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName((String)newValue);
 				return;
@@ -1634,6 +1709,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 				setEditPartsPackageName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
+				setEditPoliciesPackageName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
 				setEditorPackageName((String)newValue);
@@ -1718,6 +1796,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_CLASS_NAME:
 				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				setItemSemanticEditPolicyClassName(ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
 				return;
@@ -1741,6 +1822,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 				setEditPartsPackageName(EDIT_PARTS_PACKAGE_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
+				setEditPoliciesPackageName(EDIT_POLICIES_PACKAGE_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
 				setEditorPackageName(EDITOR_PACKAGE_NAME_EDEFAULT);
@@ -1822,6 +1906,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return visualID != VISUAL_ID_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_CLASS_NAME:
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
+			case GMFGenPackage.GEN_DIAGRAM__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				return ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? itemSemanticEditPolicyClassName != null : !ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(itemSemanticEditPolicyClassName);
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
 			case GMFGenPackage.GEN_DIAGRAM__VIEWMAP:
@@ -1838,6 +1924,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return palette != null;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 				return EDIT_PARTS_PACKAGE_NAME_EDEFAULT == null ? editPartsPackageName != null : !EDIT_PARTS_PACKAGE_NAME_EDEFAULT.equals(editPartsPackageName);
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
+				return EDIT_POLICIES_PACKAGE_NAME_EDEFAULT == null ? editPoliciesPackageName != null : !EDIT_POLICIES_PACKAGE_NAME_EDEFAULT.equals(editPoliciesPackageName);
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
 				return EDITOR_PACKAGE_NAME_EDEFAULT == null ? editorPackageName != null : !EDITOR_PACKAGE_NAME_EDEFAULT.equals(editorPackageName);
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
@@ -1895,6 +1983,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (editPartsPackageName: ");
 		result.append(editPartsPackageName);
+		result.append(", editPoliciesPackageName: ");
+		result.append(editPoliciesPackageName);
 		result.append(", editorPackageName: ");
 		result.append(editorPackageName);
 		result.append(", providersPackageName: ");

@@ -36,6 +36,7 @@ public class <%=genDiagram.getEditPartClassName()%> extends DiagramEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genDiagram.getItemSemanticEditPolicyQualifiedClassName())%>());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=genDiagram.getEditPartClassName()%>CanonicalEditPolicy());
 	}
 	

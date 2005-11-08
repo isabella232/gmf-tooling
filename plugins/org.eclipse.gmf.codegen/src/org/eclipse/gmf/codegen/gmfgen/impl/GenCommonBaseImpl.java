@@ -31,6 +31,7 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getDiagramRunTimeClass <em>Diagram Run Time Class</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getVisualID <em>Visual ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getEditPartClassName <em>Edit Part Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getItemSemanticEditPolicyClassName <em>Item Semantic Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl#getViewmap <em>Viewmap</em>}</li>
  * </ul>
@@ -88,6 +89,26 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * @ordered
 	 */
 	protected String editPartClassName = EDIT_PART_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getItemSemanticEditPolicyClassName() <em>Item Semantic Edit Policy Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getItemSemanticEditPolicyClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getItemSemanticEditPolicyClassName() <em>Item Semantic Edit Policy Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getItemSemanticEditPolicyClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String itemSemanticEditPolicyClassName = ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getNotationViewFactoryClassName() <em>Notation View Factory Class Name</em>}' attribute.
@@ -230,6 +251,35 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getItemSemanticEditPolicyClassNameGen() {
+		return itemSemanticEditPolicyClassName;
+	}
+
+	public String getItemSemanticEditPolicyClassName() {
+		String value = getItemSemanticEditPolicyClassNameGen();
+		if (value == null || value.length() == 0) {
+			return getClassNamePrefix() + getClassNameSuffux() + "ItemSemanticEditPolicy";
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setItemSemanticEditPolicyClassName(String newItemSemanticEditPolicyClassName) {
+		String oldItemSemanticEditPolicyClassName = itemSemanticEditPolicyClassName;
+		itemSemanticEditPolicyClassName = newItemSemanticEditPolicyClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME, oldItemSemanticEditPolicyClassName, itemSemanticEditPolicyClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getNotationViewFactoryClassNameGen() {
 		return notationViewFactoryClassName;
 	}
@@ -349,6 +399,15 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public String getItemSemanticEditPolicyQualifiedClassName() {
+		return getDiagram().getEditPoliciesPackageName() + '.' + getItemSemanticEditPolicyClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public String getNotationViewFactoryQualifiedClassName() {
 		return getDiagram().getProvidersPackageName() + '.' + getNotationViewFactoryClassName();
 	}
@@ -374,6 +433,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return new Integer(getVisualID());
 			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
 				return getEditPartClassName();
+			case GMFGenPackage.GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				return getItemSemanticEditPolicyClassName();
 			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return getNotationViewFactoryClassName();
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
@@ -397,6 +458,9 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return;
 			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
 				setEditPartClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				setItemSemanticEditPolicyClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName((String)newValue);
@@ -424,6 +488,9 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
 				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				setItemSemanticEditPolicyClassName(ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
 				return;
@@ -447,6 +514,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 				return visualID != VISUAL_ID_EDEFAULT;
 			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
 				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
+			case GMFGenPackage.GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				return ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? itemSemanticEditPolicyClassName != null : !ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(itemSemanticEditPolicyClassName);
 			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
 			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
@@ -468,6 +537,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 		result.append(visualID);
 		result.append(", editPartClassName: ");
 		result.append(editPartClassName);
+		result.append(", itemSemanticEditPolicyClassName: ");
+		result.append(itemSemanticEditPolicyClassName);
 		result.append(", notationViewFactoryClassName: ");
 		result.append(notationViewFactoryClassName);
 		result.append(')');

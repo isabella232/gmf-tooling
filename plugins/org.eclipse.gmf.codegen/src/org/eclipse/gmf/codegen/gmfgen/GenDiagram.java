@@ -25,6 +25,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getLinks <em>Links</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPalette <em>Palette</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditPartsPackageName <em>Edit Parts Package Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditPoliciesPackageName <em>Edit Policies Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditorPackageName <em>Editor Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getProvidersPackageName <em>Providers Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPluginID <em>Plugin ID</em>}</li>
@@ -196,6 +197,32 @@ public interface GenDiagram extends GenCommonBase{
 	 * @generated
 	 */
 	void setEditPartsPackageName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Edit Policies Package Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Edit Policies Package Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Edit Policies Package Name</em>' attribute.
+	 * @see #setEditPoliciesPackageName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_EditPoliciesPackageName()
+	 * @model
+	 * @generated
+	 */
+	String getEditPoliciesPackageName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditPoliciesPackageName <em>Edit Policies Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Edit Policies Package Name</em>' attribute.
+	 * @see #getEditPoliciesPackageName()
+	 * @generated
+	 */
+	void setEditPoliciesPackageName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Plugin Name</b></em>' attribute.
@@ -781,6 +808,22 @@ public interface GenDiagram extends GenCommonBase{
 	 * @generated
 	 */
 	String getEditPartFactoryQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getBaseItemSemanticEditPolicyQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getReferenceConnectionEditPolicyQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

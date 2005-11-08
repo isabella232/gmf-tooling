@@ -38,6 +38,12 @@ import org.eclipse.gmf.codegen.templates.parts.EditPartFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.parts.LinkEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.NodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.NodeLabelEditPartGenerator;
+import org.eclipse.gmf.codegen.templates.policies.CompartmentItemSemanticEditPolicyGenerator;
+import org.eclipse.gmf.codegen.templates.policies.DiagramItemSemanticEditPolicyGenerator;
+import org.eclipse.gmf.codegen.templates.policies.ItemSemanticEditPolicyGenerator;
+import org.eclipse.gmf.codegen.templates.policies.LinkItemSemanticEditPolicyGenerator;
+import org.eclipse.gmf.codegen.templates.policies.NodeItemSemanticEditPolicyGenerator;
+import org.eclipse.gmf.codegen.templates.policies.ReferenceConnectionEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ElementTypesGenerator;
 import org.eclipse.gmf.codegen.templates.providers.IconProviderGenerator;
@@ -100,6 +106,32 @@ public class EmitterFactory {
 
 	public static JETEmitter getEditPartFactoryEmitter() throws JETException {
 		return initializeEmitter("/templates/parts/EditPartFactory.javajet", EditPartFactoryGenerator.class);
+	}
+	
+	// policies
+
+	public static JETEmitter getBaseItemSemanticEditPolicyEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/ItemSemanticEditPolicy.javajet", ItemSemanticEditPolicyGenerator.class);
+	}
+
+	public static JETEmitter getReferenceConnectionEditPolicyEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/ReferenceConnectionEditPolicy.javajet", ReferenceConnectionEditPolicyGenerator.class);
+	}
+
+	public static JETEmitter getDiagramItemSemanticEditPolicyEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/DiagramItemSemanticEditPolicy.javajet", DiagramItemSemanticEditPolicyGenerator.class);
+	}
+
+	public static JETEmitter getCompartmentItemSemanticEditPolicyEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/CompartmentItemSemanticEditPolicy.javajet", CompartmentItemSemanticEditPolicyGenerator.class);
+	}
+
+	public static JETEmitter getNodeItemSemanticEditPolicyEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/NodeItemSemanticEditPolicy.javajet", NodeItemSemanticEditPolicyGenerator.class);
+	}
+
+	public static JETEmitter getLinkItemSemanticEditPolicyEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/LinkItemSemanticEditPolicy.javajet", LinkItemSemanticEditPolicyGenerator.class);
 	}
 	
 	// providers

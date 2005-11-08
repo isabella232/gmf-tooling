@@ -1,0 +1,35 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.policies" class="ReferenceConnectionEditPolicyGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+<%GenDiagram diagram = (GenDiagram) argument;%>
+package <%=diagram.getEditPoliciesPackageName()%>;
+
+<%ImportUtil importManager = new ImportUtil(diagram.getEditPoliciesPackageName());%>
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.gef.requests.GroupRequest;
+import org.eclipse.gmf.runtime.diagram.ui.internal.editpolicies.ConnectionEditPolicy;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=importManager.getImportedName(diagram.getReferenceConnectionEditPolicyQualifiedClassName())%> extends ConnectionEditPolicy {
+
+	/**
+	 * @generated
+	 */
+	protected boolean shouldDeleteSemantic() {
+		return false;
+	};
+
+	/**
+	 * @generated
+	 */
+	protected Command createDeleteViewCommand(GroupRequest deleteRequest) {
+		CompoundCommand cmd = new CompoundCommand();
+		cmd.add(super.createDeleteViewCommand(deleteRequest));
+		cmd.add(createDeleteSemanticCommand(deleteRequest));
+		return cmd;
+	}
+}
+<%importManager.emitSortedImports();%>

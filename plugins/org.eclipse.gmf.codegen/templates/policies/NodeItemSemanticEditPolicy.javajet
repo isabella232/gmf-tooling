@@ -1,0 +1,276 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.policies" class="NodeItemSemanticEditPolicyGenerator"
+	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+<%
+GenNode genNode = (GenNode) argument;
+GenDiagram genDiagram = genNode.getDiagram();
+%>
+package <%=genDiagram.getEditPoliciesPackageName()%>;
+
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPoliciesPackageName());%>
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.UnexecutableCommand;
+import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateRelationshipCommand;
+import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLDestroyElementCommand;
+import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
+import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
+import <%=genDiagram.getProvidersPackageName()%>.ElementTypes;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genNode.getItemSemanticEditPolicyClassName()%> extends <%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())%> {
+
+	/**
+	 * @generated
+	 */
+	protected Command getDestroyElementCommand(DestroyElementRequest req) {
+		return getMSLWrapper(new MSLDestroyElementCommand(req));
+	}
+<%
+GenPackage genPackage = genDiagram.getDomainMetaModel();
+String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
+GenClass nodeMetaClass = genNode.getModelFacet().getMetaClass();
+final String OUTGOING_TOKEN = "Outgoing";
+final String INCOMING_TOKEN = "Incoming";
+%>
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
+<%
+for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
+	GenLink genLink = (GenLink) links.next();
+	String namePart = null;
+	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+		if (nodeMetaClass.equals(modelFacet.getContainmentMetaFeature().getGenClass())) {
+			namePart = OUTGOING_TOKEN + modelFacet.getMetaClass().getName();
+		} else if (nodeMetaClass.equals(modelFacet.getTargetMetaFeature().getTypeGenClass())) {
+			namePart = INCOMING_TOKEN + modelFacet.getMetaClass().getName();
+		}
+	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+		if (nodeMetaClass.equals(metaFeature.getGenClass())) {
+			namePart = OUTGOING_TOKEN + metaFeature.getFeatureAccessorName();
+		} else if (nodeMetaClass.equals(metaFeature.getTypeGenClass())) {
+			namePart = INCOMING_TOKEN + metaFeature.getFeatureAccessorName();
+		}
+	}
+	if (namePart != null) {
+%>
+		if (ElementTypes.<%=genLink.getUniqueIdentifier()%> == req.getElementType()) {
+			return req.getTarget() == null ? getCreateStart<%=namePart%>Command(req) : getCreateComplete<%=namePart%>Command(req);
+		}
+<%
+	}
+}
+%>
+		return super.getCreateRelationshipCommand(req);
+	}
+<%
+for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
+	GenLink genLink = (GenLink) links.next();
+	String namePart = null;
+	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+		GenClass outgoingClass = modelFacet.getContainmentMetaFeature().getGenClass();
+		GenClass incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
+		if (nodeMetaClass.equals(outgoingClass)) {
+			namePart = OUTGOING_TOKEN + modelFacet.getMetaClass().getName();
+%>
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
+		return new Command() {
+		};
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateComplete<%=namePart%>Command(CreateRelationshipRequest req) {
+		if (!(req.getSource() instanceof <%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>)) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		if (req.getContainmentFeature() == null) {
+			req.setContainmentFeature(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
+		}
+		return getMSLWrapper(new Create<%=namePart%>Command(req));
+	}
+
+	/**
+	 * @generated
+	 */
+	private static class Create<%=namePart%>Command extends MSLCreateRelationshipCommand {
+
+		/**
+		 * @generated
+		 */
+		public Create<%=namePart%>Command(CreateRelationshipRequest req) {
+			super(req);
+		}
+
+		/**
+		 * @generated
+		 */
+		protected EClass getEClassToEdit() {
+			return <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=outgoingClass.getClassifierAccessorName()%>();
+		};
+
+		/**
+		 * @generated
+		 */
+		protected EObject getElementToEdit() {
+			return getTarget();
+		}
+
+		/**
+		 * @generated
+		 */
+		protected EObject doDefaultElementCreation() {
+<%			String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
+			<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
+			if (newElement != null) {
+				newElement.set<%=incomingClass.getClassifierAccessorName()%>((<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) getSource());
+<%			if (modelFacet.getModelElementInitializer() != null) { %>
+				ElementTypes.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
+<%}%>
+			}
+			return newElement;
+		}
+	}
+<%
+		} else if (nodeMetaClass.equals(incomingClass)) {
+			namePart = INCOMING_TOKEN + modelFacet.getMetaClass().getName();
+%>
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
+		return new Command() {
+		};
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateComplete<%=namePart%>Command(CreateRelationshipRequest req) {
+		if (!(req.getSource() instanceof <%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>)) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		if (req.getContainmentFeature() == null) {
+			req.setContainmentFeature(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
+		}
+		return getMSLWrapper(new Create<%=namePart%>Command(req));
+	}
+
+	/**
+	 * @generated
+	 */
+	private static class Create<%=namePart%>Command extends MSLCreateRelationshipCommand {
+
+		/**
+		 * @generated
+		 */
+		public Create<%=namePart%>Command(CreateRelationshipRequest req) {
+			super(req);
+		}
+
+		/**
+		 * @generated
+		 */
+		protected EClass getEClassToEdit() {
+			return <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=outgoingClass.getClassifierAccessorName()%>();
+		};
+
+		/**
+		 * @generated
+		 */
+		protected EObject getElementToEdit() {
+			return getSource();
+		}
+
+		/**
+		 * @generated
+		 */
+		protected EObject doDefaultElementCreation() {
+<%			String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
+			<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
+			if (newElement != null) {
+				newElement.set<%=incomingClass.getClassifierAccessorName()%>((<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) getTarget());
+<%			if (modelFacet.getModelElementInitializer() != null) { %>
+				ElementTypes.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
+<%}%>
+			}
+			return newElement;
+		}
+	}
+<%
+		}
+	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+		GenClass outgoingClass = metaFeature.getGenClass();
+		GenClass incomingClass = metaFeature.getTypeGenClass();
+		if (nodeMetaClass.equals(outgoingClass)) {
+			namePart = OUTGOING_TOKEN + metaFeature.getFeatureAccessorName();
+%>
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
+		return new Command() {
+		};
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateComplete<%=namePart%>Command(CreateRelationshipRequest req) {
+		if (!(req.getSource() instanceof <%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>)) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		SetRequest setReq = new SetRequest(req.getTarget(),
+			<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>(), req.getSource());
+		return getMSLWrapper(new SetValueCommand(setReq));
+	}
+<%
+		} else if (nodeMetaClass.equals(incomingClass)) {
+			namePart = INCOMING_TOKEN + metaFeature.getFeatureAccessorName();
+%>
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
+		return new Command() {
+		};
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateComplete<%=namePart%>Command(CreateRelationshipRequest req) {
+		if (!(req.getSource() instanceof <%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>)) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		SetRequest setReq = new SetRequest(req.getSource(),
+			<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>(), req.getTarget());
+		return getMSLWrapper(new SetValueCommand(setReq));
+	}
+<%
+		}
+	}
+}
+%>
+}
+<%importManager.emitSortedImports();%>

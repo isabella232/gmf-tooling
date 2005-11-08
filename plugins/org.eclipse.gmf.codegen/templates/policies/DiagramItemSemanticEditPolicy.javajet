@@ -1,0 +1,97 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.policies" class="DiagramItemSemanticEditPolicyGenerator"
+	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+<%
+GenDiagram genDiagram = (GenDiagram) argument;
+%>
+package <%=genDiagram.getEditPoliciesPackageName()%>;
+
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPoliciesPackageName());%>
+import <%=genDiagram.getProvidersPackageName()%>.ElementTypes;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateElementCommand;
+import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
+import org.eclipse.gmf.runtime.notation.View;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genDiagram.getItemSemanticEditPolicyClassName()%> extends <%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())%> {
+<%
+GenPackage genPackage = genDiagram.getDomainMetaModel();
+String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
+%>
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateCommand(CreateElementRequest req) {
+<%
+for (Iterator nodes = genDiagram.getNodes().iterator(); nodes.hasNext(); ) {
+	GenNode genNode = (GenNode) nodes.next();
+	TypeModelFacet modelFacet = (TypeModelFacet) genNode.getModelFacet();
+%>
+		if (ElementTypes.<%=genNode.getUniqueIdentifier()%> == req.getElementType()) {
+			if (req.getContainmentFeature() == null) {
+				req.setContainmentFeature(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
+			}
+			return getMSLWrapper(new Create<%=modelFacet.getMetaClass().getName()%>Command(req));
+		}
+<%}%>
+		return super.getCreateCommand(req);
+	}
+<%
+for (Iterator nodes = genDiagram.getNodes().iterator(); nodes.hasNext(); ) {
+	GenNode genNode = (GenNode) nodes.next();
+	TypeModelFacet modelFacet = (TypeModelFacet) genNode.getModelFacet();
+%>
+
+	/**
+	 * @generated
+	 */
+	private static class Create<%=modelFacet.getMetaClass().getName()%>Command extends MSLCreateElementCommand {
+
+		/**
+		 * @generated
+		 */
+		public Create<%=modelFacet.getMetaClass().getName()%>Command(CreateElementRequest req) {
+			super(req);
+		}
+
+		/**
+		 * @generated
+		 */
+		protected EClass getEClassToEdit() {
+			return <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>();
+		};
+
+		/**
+		 * @generated
+		 */
+		protected EObject getElementToEdit() {
+			EObject container = ((CreateElementRequest) getRequest()).getContainer();
+			if (container instanceof View) {
+				container = ((View) container).getElement();
+			}
+			return container;
+		}
+<%	if (modelFacet.getModelElementInitializer() != null) { %>
+
+		/**
+		 * @generated
+		 */
+		protected EObject doDefaultElementCreation() {
+<%		String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
+			<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
+			if (newElement != null) {
+				ElementTypes.Initializers.<%=genNode.getUniqueIdentifier()%>.init(newElement);
+			}
+			return newElement;
+		}
+<%	}%>
+	}
+<%}%>
+}
+<%importManager.emitSortedImports();%>

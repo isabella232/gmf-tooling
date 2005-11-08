@@ -26,6 +26,7 @@ import org.eclipse.gmf.runtime.emf.type.core.SpecializationType;
 import org.eclipse.gmf.runtime.emf.type.core.commands.ConfigureElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.GetEditContextCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
+import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelper;
 import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelperAdvice;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
@@ -161,21 +162,31 @@ String semanticPackageInterfaceName = importManager.getImportedName(genPackage.g
 	 */
 	public static ENamedElement getElement(IAdaptable hint) {
 		Object type = hint.getAdapter(IElementType.class);
-		if (type instanceof IMetamodelType) {
-			EClass eClass = ((IMetamodelType) type).getEClass();
-			if (eClass != null && eClass.getEPackage() == <%=semanticPackageInterfaceName%>.eINSTANCE) {
-				return eClass;
-			}
-			return null;
-<%if (!refLinks.isEmpty()) {%>
-		} else if (type instanceof ISpecializationType) {
+		if (<%=genDiagram.getUniqueIdentifier()%> == type) {
+			return <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>();
 <%
-	for (int i = 0; i < refLinks.size(); i++) {
-		GenLink refLink = (GenLink) refLinks.get(i);
+for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
+	Object next = contents.next();
+	String id = null;
+	ModelFacet modelFacet = null;
+	if (next instanceof GenNode) {
+		id = ((GenNode) next).getUniqueIdentifier();
+		modelFacet = ((GenNode) next).getModelFacet();
+	} else if (next instanceof GenLink) {
+		id = ((GenLink) next).getUniqueIdentifier();
+		modelFacet = ((GenLink) next).getModelFacet();
+	}
+	if (modelFacet instanceof TypeModelFacet) {
+		GenClass metaClass = ((TypeModelFacet) modelFacet).getMetaClass();
 %>
-			if (<%=refLink.getUniqueIdentifier()%> == type) {
-				return <%=refLink.getUniqueIdentifier()%>.getEContainerDescriptor().getContainmentFeatures()[0];
-			}
+		} else if (<%=id%> == type) {
+			return <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=metaClass.getClassifierAccessorName()%>();
+<%
+	} else if (modelFacet instanceof FeatureModelFacet) {
+		GenFeature metaFeature = ((FeatureModelFacet) modelFacet).getMetaFeature();
+%>
+		} else if (<%=id%> == type) {
+			return <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>();
 <%
 	}
 }
@@ -204,131 +215,29 @@ while (entities.hasNext()) {
 		continue;
 	}
 	types.add(entity.getUniqueIdentifier());
-%>
-
-	/**
-	 * @generated
-	 */
-	public static class <%=entity.getUniqueIdentifier()%>_EditHelper extends BaseEditHelper {
-
-		/**
-		 * @generated
-		 */
-		protected ICommand getConfigureCommand(ConfigureRequest req) {
-			return new ConfigureElementCommand(req) {
-
-				protected CommandResult doExecute(IProgressMonitor progressMonitor) {
-					// To customize newly created domain objects remove @renerated tag of 
-					// getConfigureCommand(ConfigureRequest req) method and write your custom
-					// code here. Use getElementToEdit() to get created element.
-<%
 	if (typeModelFacet != null && typeModelFacet.getModelElementInitializer() != null) {
-		++elementInitializerCount;
-%>
-					Initializers.<%=entity.getUniqueIdentifier()%>.init(getElementToEdit());
-<%
+		elementInitializerCount++;
 	}
-	if (entity instanceof GenLink) {
-		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) ((GenLink) entity).getModelFacet();
-		GenFeature linkFeature = modelFacet.getTargetMetaFeature();
-        String featureAccessorName = linkFeature.isListType() ? linkFeature.getGetAccessor() + "().add" : "set" + linkFeature.getAccessorName();
 %>
-					((<%=importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName())%>) getElementToEdit()).<%=featureAccessorName%>((<%=importManager.getImportedName(linkFeature.getTypeGenClass().getQualifiedInterfaceName())%>) getRequest().getParameter(CreateRelationshipRequest.TARGET));
-<%	}%>				
-					return newOKCommandResult();
-				}
-			};
-		}
-<%
-	if (entity instanceof GenNode) {
-		GenNode node = (GenNode) entity;
-%>
-
-		/**
-		 * @generated
-		 */
-		protected ICommand getCreateRelationshipCommand(CreateRelationshipRequest reqest) {
-<%
-		for (int i = 0; i < refLinks.size(); i++) {
-			GenLink refLink = (GenLink) refLinks.get(i);
-			GenFeature targetFeature = ((FeatureModelFacet) refLink.getModelFacet()).getMetaFeature();
-			if (node.getDomainMetaClass().equals(targetFeature.getGenClass())) {
-%>
-			if (<%=refLink.getUniqueIdentifier()%>.equals(reqest.getElementType())) {
-				reqest.setContainmentFeature(<%=refLink.getUniqueIdentifier()%>.getEContainerDescriptor().getContainmentFeatures()[0]);
-				return new SetValueCommand(new SetRequest(reqest.getSource(), reqest.getContainmentFeature(), reqest.getTarget()));
-			}
-<%
-			}
-		}
-%>
-			return super.getCreateRelationshipCommand(reqest);
-		}
-<%	}%>
-	}
 
 	/**
 	 * @generated
 	 */
 	public static final IMetamodelType <%=entity.getUniqueIdentifier()%> = new MetamodelType(
 		"<%=entity.getUniqueIdentifier()%>", null, "<%=entity.getUniqueIdentifier()%>",
-		<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>(),
-		new <%=entity.getUniqueIdentifier()%>_EditHelper());
+		<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>(), new NullEditHelper());
 <%
 }
 for (int i = 0; i < refLinks.size(); i++) {
 	GenLink entity = (GenLink) refLinks.get(i);
-	GenFeature targetFeature = ((FeatureModelFacet) entity.getModelFacet()).getMetaFeature();
 %>
 
 	/**
 	 * @generated
 	 */
-	public static class <%=entity.getUniqueIdentifier()%>_ContainerDescriptor implements IContainerDescriptor {
-
-		/**
-		 * @generated
-		 */
-		private static final EReference[] containmentFeatures = new EReference[] {
-			<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=targetFeature.getFeatureAccessorName()%>()
-		};
-
-		/**
-		 * @generated
-		 */
-		public EReference[] getContainmentFeatures() {
-			return containmentFeatures;
-		}
-
-		/**
-		 * @generated
-		 */
-		public IElementMatcher getMatcher() {
-			return new IElementMatcher() {
-
-				/**
-				 * @generated
-				 */
-				public boolean matches(EObject eObject) {
-					return <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=targetFeature.getGenClass().getClassifierAccessorName()%>().isInstance(eObject);
-				}
-			};
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class <%=entity.getUniqueIdentifier()%>_EditHelperAdvice extends BaseEditHelperAdvice {}
-
-	/**
-	 * @generated
-	 */
-	public static final ISpecializationType <%=entity.getUniqueIdentifier()%> = new SpecializationType(
+	public static final IMetamodelType <%=entity.getUniqueIdentifier()%> = new MetamodelType(
 		"<%=entity.getUniqueIdentifier()%>", null, "<%=entity.getUniqueIdentifier()%>",
-		new IElementType[] { NullElementType.getInstance() }, null,
-		new <%=entity.getUniqueIdentifier()%>_ContainerDescriptor(),
-		new <%=entity.getUniqueIdentifier()%>_EditHelperAdvice());
+		null, new NullEditHelper());
 <%}%>
 
 	/**
@@ -343,53 +252,24 @@ for (int i = 0; i < refLinks.size(); i++) {
 	/**
 	 * @generated
 	 */
-	public static class BaseEditHelperAdvice extends AbstractEditHelperAdvice {
+	public static class NullEditHelper extends AbstractEditHelper {
 
 		/**
 		 * @generated
 		 */
-		protected ICommand getBeforeEditContextCommand(GetEditContextRequest reqest) {
-			GetEditContextCommand result = null;
-			IEditCommandRequest editRequest = reqest.getEditCommandRequest();
-			if (editRequest instanceof CreateElementRequest) {
-				result = new GetEditContextCommand(reqest);
-				EObject container = ((CreateElementRequest) editRequest).getContainer();
-				if (container instanceof View) {
-					result.setEditContext(((View) container).getElement());
-				}
+		public ICommand getEditCommand(IEditCommandRequest req) {
+			if (!(req instanceof ConfigureRequest)) {
+				System.err.println("unserved request " + req);
 			}
-			return result;
+			return null;
 		}
 	}
+<%if(elementInitializerCount > 0) {%>
 
 	/**
 	 * @generated
 	 */
-	public static class BaseEditHelper extends MSLEditHelper {
-
-		/**
-		 * @generated
-		 */
-		protected ICommand getEditContextCommand(GetEditContextRequest req) {
-			GetEditContextCommand result = null;
-			IEditCommandRequest editRequest = req.getEditCommandRequest();
-			if (editRequest instanceof CreateElementRequest) {
-				result = new GetEditContextCommand(req);
-				EObject container = ((CreateElementRequest) editRequest).getContainer();
-				if (container instanceof View) {
-					container = ((View) container).getElement();
-				}
-				result.setEditContext(container);
-			}
-			return result;
-		}
-	}
-	
-	<% if(elementInitializerCount > 0) {%>
-	/**
-	 * @generated
-	 */
-	private static class Initializers {
+	public static class Initializers {
 <%
 for(Iterator it = AccessUtil.getGenEntities(genDiagram); it.hasNext();) {
 	GenCommonBase nextElement = (GenCommonBase)it.next();
@@ -502,6 +382,6 @@ for(Iterator it = AccessUtil.getGenEntities(genDiagram); it.hasNext();) {
 		} // end of FeatureInitializer
 				
 	} // end of Initializers
-<%	} %>
+<%}%>
 }
 <%importManager.emitSortedImports();%>

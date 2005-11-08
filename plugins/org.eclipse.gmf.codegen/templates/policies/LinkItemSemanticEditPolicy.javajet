@@ -1,0 +1,39 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.policies" class="LinkItemSemanticEditPolicyGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+<%
+GenLink genLink = (GenLink) argument;
+GenDiagram genDiagram = genLink.getDiagram();
+%>
+package <%=genDiagram.getEditPoliciesPackageName()%>;
+
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPoliciesPackageName());%>
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLDestroyElementCommand;
+import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand;
+import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genLink.getItemSemanticEditPolicyClassName()%> extends <%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())%> {
+<%if (genLink.getModelFacet() instanceof FeatureModelFacet) {%>
+
+	/**
+	 * @generated
+	 */
+	protected Command getDestroyReferenceCommand(DestroyReferenceRequest req) {
+		return getMSLWrapper(new DestroyReferenceCommand(req));
+	}
+<%} else if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {%>
+
+	/**
+	 * @generated
+	 */
+	protected Command getDestroyElementCommand(DestroyElementRequest req) {
+		return getMSLWrapper(new MSLDestroyElementCommand(req));
+	}
+<%}%>
+}
+<%importManager.emitSortedImports();%>

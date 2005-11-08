@@ -51,6 +51,7 @@ GenNodeLabel label = (GenNodeLabel) genChildNode.getLabels().get(0);
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genChildNode.getItemSemanticEditPolicyQualifiedClassName())%>());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=genChildNode.getEditPartClassName()%>CanonicalEditPolicy());
 	}
 	
