@@ -73,7 +73,7 @@ String semanticPackageInterfaceName = importManager.getImportedName(genPackage.g
     
 for (Iterator nodes = genCompartment.getChildNodes().iterator(); nodes.hasNext(); ) {
 	GenNode genNode = (GenNode) nodes.next();
-	TypeModelFacet modelFacet = (TypeModelFacet) genNode.getModelFacet();
+	TypeModelFacet modelFacet = genNode.getModelFacet();
 
     stringBuffer.append(TEXT_9);
     stringBuffer.append(genNode.getUniqueIdentifier());
@@ -89,7 +89,7 @@ for (Iterator nodes = genCompartment.getChildNodes().iterator(); nodes.hasNext()
     
 for (Iterator nodes = genCompartment.getChildNodes().iterator(); nodes.hasNext(); ) {
 	GenNode genNode = (GenNode) nodes.next();
-	TypeModelFacet modelFacet = (TypeModelFacet) genNode.getModelFacet();
+	TypeModelFacet modelFacet = genNode.getModelFacet();
 
     stringBuffer.append(TEXT_15);
     stringBuffer.append(modelFacet.getMetaClass().getName());
