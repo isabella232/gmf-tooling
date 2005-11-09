@@ -17,14 +17,18 @@ public class LinkItemSemanticEditPolicyGenerator
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "package ";
   protected final String TEXT_2 = ";" + NL;
-  protected final String TEXT_3 = NL + "import org.eclipse.gef.commands.Command;" + NL + "import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLDestroyElementCommand;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest;";
+  protected final String TEXT_3 = NL + "import org.eclipse.gef.commands.Command;";
   protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_5 = " extends ";
   protected final String TEXT_6 = " {";
-  protected final String TEXT_7 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getDestroyReferenceCommand(DestroyReferenceRequest req) {" + NL + "\t\treturn getMSLWrapper(new DestroyReferenceCommand(req));" + NL + "\t}";
-  protected final String TEXT_8 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getDestroyElementCommand(DestroyElementRequest req) {" + NL + "\t\treturn getMSLWrapper(new MSLDestroyElementCommand(req));" + NL + "\t}";
-  protected final String TEXT_9 = NL + "}";
-  protected final String TEXT_10 = NL;
+  protected final String TEXT_7 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getDestroyReferenceCommand(";
+  protected final String TEXT_8 = " req) {" + NL + "\t\treturn getMSLWrapper(new ";
+  protected final String TEXT_9 = "(req));" + NL + "\t}";
+  protected final String TEXT_10 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getDestroyElementCommand(";
+  protected final String TEXT_11 = " req) {" + NL + "\t\treturn getMSLWrapper(new ";
+  protected final String TEXT_12 = "(req));" + NL + "\t}";
+  protected final String TEXT_13 = NL + "}";
+  protected final String TEXT_14 = NL;
 
   public String generate(Object argument)
   {
@@ -46,12 +50,20 @@ GenDiagram genDiagram = genLink.getDiagram();
     stringBuffer.append(TEXT_6);
     if (genLink.getModelFacet() instanceof FeatureModelFacet) {
     stringBuffer.append(TEXT_7);
-    } else if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest"));
     stringBuffer.append(TEXT_8);
-    }
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand"));
     stringBuffer.append(TEXT_9);
-    importManager.emitSortedImports();
+    } else if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
     stringBuffer.append(TEXT_10);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest"));
+    stringBuffer.append(TEXT_11);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.commands.core.commands.MSLDestroyElementCommand"));
+    stringBuffer.append(TEXT_12);
+    }
+    stringBuffer.append(TEXT_13);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_14);
     return stringBuffer.toString();
   }
 }

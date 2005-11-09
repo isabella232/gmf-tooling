@@ -7,17 +7,10 @@ GenDiagram genDiagram = genNode.getDiagram();
 package <%=genDiagram.getEditPoliciesPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPoliciesPackageName());%>
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.UnexecutableCommand;
-import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateRelationshipCommand;
 import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLDestroyElementCommand;
-import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
-import <%=genDiagram.getProvidersPackageName()%>.ElementTypes;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -33,7 +26,6 @@ public class <%=genNode.getItemSemanticEditPolicyClassName()%> extends <%=import
 	}
 <%
 GenPackage genPackage = genDiagram.getDomainMetaModel();
-String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 GenClass nodeMetaClass = genNode.getModelFacet().getMetaClass();
 final String OUTGOING_TOKEN = "Outgoing";
 final String INCOMING_TOKEN = "Incoming";
@@ -65,7 +57,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	if (namePart != null) {
 		namePart += genLink.getVisualID();
 %>
-		if (ElementTypes.<%=genLink.getUniqueIdentifier()%> == req.getElementType()) {
+		if (<%=importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes")%>.<%=genLink.getUniqueIdentifier()%> == req.getElementType()) {
 			return req.getTarget() == null ? getCreateStart<%=namePart%>Command(req) : getCreateComplete<%=namePart%>Command(req);
 		}
 <%
@@ -99,10 +91,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 */
 	protected Command getCreateComplete<%=namePart%>Command(CreateRelationshipRequest req) {
 		if (!(req.getSource() instanceof <%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>)) {
-			return UnexecutableCommand.INSTANCE;
+			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
+			req.setContainmentFeature(<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
 		}
 		return getMSLWrapper(new Create<%=namePart%>Command(req));
 	}
@@ -110,7 +102,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	/**
 	 * @generated
 	 */
-	private static class Create<%=namePart%>Command extends MSLCreateRelationshipCommand {
+	private static class Create<%=namePart%>Command extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateRelationshipCommand")%> {
 
 		/**
 		 * @generated
@@ -122,27 +114,27 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		/**
 		 * @generated
 		 */
-		protected EClass getEClassToEdit() {
-			return <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=outgoingClass.getClassifierAccessorName()%>();
+		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> getEClassToEdit() {
+			return <%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=outgoingClass.getClassifierAccessorName()%>();
 		};
 
 		/**
 		 * @generated
 		 */
-		protected EObject getElementToEdit() {
+		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> getElementToEdit() {
 			return getTarget();
 		}
 
 		/**
 		 * @generated
 		 */
-		protected EObject doDefaultElementCreation() {
+		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> doDefaultElementCreation() {
 <%			String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
 			<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
 			if (newElement != null) {
 				newElement.set<%=modelFacet.getTargetMetaFeature().getAccessorName()%>((<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) getSource());
 <%			if (modelFacet.getModelElementInitializer() != null) { %>
-				ElementTypes.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
+				<%=importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes")%>.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
 <%}%>
 			}
 			return newElement;
@@ -166,10 +158,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 */
 	protected Command getCreateComplete<%=namePart%>Command(CreateRelationshipRequest req) {
 		if (!(req.getSource() instanceof <%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>)) {
-			return UnexecutableCommand.INSTANCE;
+			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 		if (req.getContainmentFeature() == null) {
-			req.setContainmentFeature(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
+			req.setContainmentFeature(<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
 		}
 		return getMSLWrapper(new Create<%=namePart%>Command(req));
 	}
@@ -177,7 +169,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	/**
 	 * @generated
 	 */
-	private static class Create<%=namePart%>Command extends MSLCreateRelationshipCommand {
+	private static class Create<%=namePart%>Command extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateRelationshipCommand")%> {
 
 		/**
 		 * @generated
@@ -189,27 +181,27 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		/**
 		 * @generated
 		 */
-		protected EClass getEClassToEdit() {
-			return <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=outgoingClass.getClassifierAccessorName()%>();
+		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> getEClassToEdit() {
+			return <%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=outgoingClass.getClassifierAccessorName()%>();
 		};
 
 		/**
 		 * @generated
 		 */
-		protected EObject getElementToEdit() {
+		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> getElementToEdit() {
 			return getSource();
 		}
 
 		/**
 		 * @generated
 		 */
-		protected EObject doDefaultElementCreation() {
+		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> doDefaultElementCreation() {
 <%			String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
 			<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
 			if (newElement != null) {
 				newElement.set<%=modelFacet.getTargetMetaFeature().getAccessorName()%>((<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) getTarget());
 <%			if (modelFacet.getModelElementInitializer() != null) { %>
-				ElementTypes.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
+				<%=importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes")%>.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
 <%}%>
 			}
 			return newElement;
@@ -238,11 +230,11 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 */
 	protected Command getCreateComplete<%=namePart%>Command(CreateRelationshipRequest req) {
 		if (!(req.getSource() instanceof <%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>)) {
-			return UnexecutableCommand.INSTANCE;
+			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
-		SetRequest setReq = new SetRequest(req.getTarget(),
-			<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>(), req.getSource());
-		return getMSLWrapper(new SetValueCommand(setReq));
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest")%> setReq = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest")%>(req.getTarget(),
+			<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>(), req.getSource());
+		return getMSLWrapper(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand")%>(setReq));
 	}
 <%
 		} else if (nodeMetaClass.equals(incomingClass)) {
@@ -262,11 +254,11 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 */
 	protected Command getCreateComplete<%=namePart%>Command(CreateRelationshipRequest req) {
 		if (!(req.getSource() instanceof <%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>)) {
-			return UnexecutableCommand.INSTANCE;
+			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
-		SetRequest setReq = new SetRequest(req.getSource(),
-			<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>(), req.getTarget());
-		return getMSLWrapper(new SetValueCommand(setReq));
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest")%> setReq = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest")%>(req.getSource(),
+			<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>(), req.getTarget());
+		return getMSLWrapper(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand")%>(setReq));
 	}
 <%
 		}

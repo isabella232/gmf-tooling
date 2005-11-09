@@ -8,10 +8,6 @@ package <%=genDiagram.getEditPoliciesPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPoliciesPackageName());%>
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLDestroyElementCommand;
-import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand;
-import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -23,16 +19,16 @@ public class <%=genLink.getItemSemanticEditPolicyClassName()%> extends <%=import
 	/**
 	 * @generated
 	 */
-	protected Command getDestroyReferenceCommand(DestroyReferenceRequest req) {
-		return getMSLWrapper(new DestroyReferenceCommand(req));
+	protected Command getDestroyReferenceCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest")%> req) {
+		return getMSLWrapper(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand")%>(req));
 	}
 <%} else if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {%>
 
 	/**
 	 * @generated
 	 */
-	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		return getMSLWrapper(new MSLDestroyElementCommand(req));
+	protected Command getDestroyElementCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest")%> req) {
+		return getMSLWrapper(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.commands.core.commands.MSLDestroyElementCommand")%>(req));
 	}
 <%}%>
 }
