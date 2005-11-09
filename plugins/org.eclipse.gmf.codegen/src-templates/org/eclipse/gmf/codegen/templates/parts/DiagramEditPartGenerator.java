@@ -116,7 +116,7 @@ for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_23);
     stringBuffer.append(nextLinkTargetFeature.getGetAccessor());
     stringBuffer.append(TEXT_24);
-    stringBuffer.append(nextLinkTargetFeature.isListType() ? "get(0)" : "");
+    stringBuffer.append(nextLinkTargetFeature.isListType() ? ".get(0)" : "");
     stringBuffer.append(TEXT_25);
     
 	}

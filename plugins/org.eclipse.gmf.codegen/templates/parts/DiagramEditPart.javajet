@@ -110,7 +110,7 @@ for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
 		GenFeature nextLinkTargetFeature = typeLinkFacet.getTargetMetaFeature();
 %>
 				case <%=nextGenLink.getVisualID()%>:
-					((<%=importManager.getImportedName(typeLinkFacet.getMetaClass().getQualifiedInterfaceName())%>) relationship).<%=nextLinkTargetFeature.getGetAccessor()%>()<%=nextLinkTargetFeature.isListType() ? "get(0)" : ""%>;
+					((<%=importManager.getImportedName(typeLinkFacet.getMetaClass().getQualifiedInterfaceName())%>) relationship).<%=nextLinkTargetFeature.getGetAccessor()%>()<%=nextLinkTargetFeature.isListType() ? ".get(0)" : ""%>;
 <%
 	}
 }

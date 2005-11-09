@@ -63,6 +63,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		}
 	}
 	if (namePart != null) {
+		namePart += genLink.getVisualID();
 %>
 		if (ElementTypes.<%=genLink.getUniqueIdentifier()%> == req.getElementType()) {
 			return req.getTarget() == null ? getCreateStart<%=namePart%>Command(req) : getCreateComplete<%=namePart%>Command(req);
@@ -82,7 +83,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		GenClass outgoingClass = modelFacet.getContainmentMetaFeature().getGenClass();
 		GenClass incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
 		if (nodeMetaClass.equals(outgoingClass)) {
-			namePart = OUTGOING_TOKEN + modelFacet.getMetaClass().getName();
+			namePart = OUTGOING_TOKEN + modelFacet.getMetaClass().getName() + genLink.getVisualID();
 %>
 
 	/**
@@ -149,7 +150,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	}
 <%
 		} else if (nodeMetaClass.equals(incomingClass)) {
-			namePart = INCOMING_TOKEN + modelFacet.getMetaClass().getName();
+			namePart = INCOMING_TOKEN + modelFacet.getMetaClass().getName() + genLink.getVisualID();
 %>
 
 	/**
@@ -221,7 +222,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		GenClass outgoingClass = metaFeature.getGenClass();
 		GenClass incomingClass = metaFeature.getTypeGenClass();
 		if (nodeMetaClass.equals(outgoingClass)) {
-			namePart = OUTGOING_TOKEN + metaFeature.getFeatureAccessorName();
+			namePart = OUTGOING_TOKEN + metaFeature.getFeatureAccessorName() + genLink.getVisualID();
 %>
 
 	/**
@@ -245,7 +246,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	}
 <%
 		} else if (nodeMetaClass.equals(incomingClass)) {
-			namePart = INCOMING_TOKEN + metaFeature.getFeatureAccessorName();
+			namePart = INCOMING_TOKEN + metaFeature.getFeatureAccessorName() + genLink.getVisualID();
 %>
 
 	/**

@@ -5,36 +5,17 @@ package <%=genDiagram.getProvidersPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
 import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
-import org.eclipse.gmf.runtime.emf.commands.core.edithelpers.MSLEditHelper;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
-import org.eclipse.gmf.runtime.emf.type.core.IContainerDescriptor;
-import org.eclipse.gmf.runtime.emf.type.core.IElementMatcher;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;
-import org.eclipse.gmf.runtime.emf.type.core.ISpecializationType;
 import org.eclipse.gmf.runtime.emf.type.core.MetamodelType;
-import org.eclipse.gmf.runtime.emf.type.core.NullElementType;
-import org.eclipse.gmf.runtime.emf.type.core.SpecializationType;
-import org.eclipse.gmf.runtime.emf.type.core.commands.ConfigureElementCommand;
-import org.eclipse.gmf.runtime.emf.type.core.commands.GetEditContextCommand;
-import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
-import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelper;
-import org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelperAdvice;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.GetEditContextRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
-import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
-import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
@@ -252,7 +233,7 @@ for (int i = 0; i < refLinks.size(); i++) {
 	/**
 	 * @generated
 	 */
-	public static class NullEditHelper extends AbstractEditHelper {
+	public static class NullEditHelper extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.edithelper.AbstractEditHelper")%> {
 
 		/**
 		 * @generated
@@ -287,7 +268,7 @@ for(Iterator it = AccessUtil.getGenEntities(genDiagram); it.hasNext();) {
 		/**
 		* @generated
 		*/
-		private static final ObjectInitializer <%=nextElement.getUniqueIdentifier()%> = new ObjectInitializer(new FeatureInitializer[] {
+		public static final ObjectInitializer <%=nextElement.getUniqueIdentifier()%> = new ObjectInitializer(new FeatureInitializer[] {
 <%
 		for(Iterator featInitIt = ftInitializer.getInitializers().iterator(); featInitIt.hasNext();) { 
 			GenFeatureValueSpec featureValSpec = (GenFeatureValueSpec)featInitIt.next();%>
@@ -314,7 +295,7 @@ for(Iterator it = AccessUtil.getGenEntities(genDiagram); it.hasNext();) {
 		/** 
 		 * @generated
 		 */	
-		static class ObjectInitializer {
+		public static class ObjectInitializer {
 			/** 
 			 * @generated
 			 */		
@@ -330,7 +311,7 @@ for(Iterator it = AccessUtil.getGenEntities(genDiagram); it.hasNext();) {
 			/** 
 			 * @generated
 			 */		
-			void init(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> instance) {
+			public void init(<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> instance) {
 				for (int i = 0; i < initExpressions.length; i++) {
 					FeatureInitializer nextExpr = initExpressions[i];
 					nextExpr.init(instance);

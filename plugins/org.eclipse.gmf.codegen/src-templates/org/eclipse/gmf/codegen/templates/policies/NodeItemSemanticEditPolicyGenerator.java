@@ -131,6 +131,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		}
 	}
 	if (namePart != null) {
+		namePart += genLink.getVisualID();
 
     stringBuffer.append(TEXT_9);
     stringBuffer.append(genLink.getUniqueIdentifier());
@@ -153,7 +154,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		GenClass outgoingClass = modelFacet.getContainmentMetaFeature().getGenClass();
 		GenClass incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
 		if (nodeMetaClass.equals(outgoingClass)) {
-			namePart = OUTGOING_TOKEN + modelFacet.getMetaClass().getName();
+			namePart = OUTGOING_TOKEN + modelFacet.getMetaClass().getName() + genLink.getVisualID();
 
     stringBuffer.append(TEXT_14);
     stringBuffer.append(namePart);
@@ -194,7 +195,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_32);
     
 		} else if (nodeMetaClass.equals(incomingClass)) {
-			namePart = INCOMING_TOKEN + modelFacet.getMetaClass().getName();
+			namePart = INCOMING_TOKEN + modelFacet.getMetaClass().getName() + genLink.getVisualID();
 
     stringBuffer.append(TEXT_33);
     stringBuffer.append(namePart);
@@ -240,7 +241,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		GenClass outgoingClass = metaFeature.getGenClass();
 		GenClass incomingClass = metaFeature.getTypeGenClass();
 		if (nodeMetaClass.equals(outgoingClass)) {
-			namePart = OUTGOING_TOKEN + metaFeature.getFeatureAccessorName();
+			namePart = OUTGOING_TOKEN + metaFeature.getFeatureAccessorName() + genLink.getVisualID();
 
     stringBuffer.append(TEXT_52);
     stringBuffer.append(namePart);
@@ -255,7 +256,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_57);
     
 		} else if (nodeMetaClass.equals(incomingClass)) {
-			namePart = INCOMING_TOKEN + metaFeature.getFeatureAccessorName();
+			namePart = INCOMING_TOKEN + metaFeature.getFeatureAccessorName() + genLink.getVisualID();
 
     stringBuffer.append(TEXT_58);
     stringBuffer.append(namePart);
