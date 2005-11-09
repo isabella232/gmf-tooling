@@ -94,12 +94,6 @@ http://www.eclipse.org/legal/epl-v10.html
          version="0.0.0"/>
 
    <plugin
-         id="org.eclipse.gmf.tests.runtime.common.ui.services.action"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
          id="org.eclipse.gmf.tests.runtime.diagram.ui"
          download-size="0"
          install-size="0"
@@ -164,13 +158,6 @@ http://www.eclipse.org/legal/epl-v10.html
          download-size="0"
          install-size="0"
          version="0.0.0"/>
-
-   <plugin
-         id="org.eclipse.gmf.tests.runtime.common.ui.services.provider"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
 
    <plugin
          id="org.eclipse.gmf.tests.runtime.emf.clipboard.core"
