@@ -11,6 +11,11 @@
  */
 package org.eclipse.gmf.internal.codegen;
 
+import java.text.MessageFormat;
+
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -41,5 +46,34 @@ public class CodeGenUIPlugin extends AbstractUIPlugin {
 
 	public static CodeGenUIPlugin getDefault() {
 		return plugin;
+	}
+
+	public static String getBundleString(String key) {
+		return Platform.getResourceBundle(getDefault().getBundle()).getString(key);
+	}
+
+	public static String getBundleString(String key, Object[] args) {
+		String val = getBundleString(key);
+		if (val == null) {
+			return key;
+		}
+		return MessageFormat.format(val, args);
+	}
+
+	public static IStatus createStatus(int statusCode, String message, Exception ex) {
+		return new Status(statusCode, getPluginID(), 0, message, ex);
+	}
+	public static IStatus createError(String message, Exception ex) {
+		return createStatus(IStatus.ERROR, message, ex);
+	}
+	public static IStatus createWarning(String message) {
+		return createStatus(IStatus.WARNING, message, null);
+	}
+	public static IStatus createInfo(String message) {
+		return createStatus(IStatus.INFO, message, null);
+	}
+
+	public static String getPluginID() {
+		return getDefault().getBundle().getSymbolicName();
 	}
 }

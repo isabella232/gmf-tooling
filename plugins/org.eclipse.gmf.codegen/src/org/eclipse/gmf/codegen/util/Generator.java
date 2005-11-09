@@ -14,6 +14,7 @@ package org.eclipse.gmf.codegen.util;
 import java.io.ByteArrayInputStream;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -22,8 +23,11 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
@@ -42,6 +46,7 @@ import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
 import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.core.ToolFactory;
 import org.eclipse.jdt.core.formatter.CodeFormatter;
 import org.eclipse.jface.text.Document;
@@ -68,6 +73,9 @@ public class Generator implements Runnable {
 
 	private IProgressMonitor myProgress;
 
+	private IStatus myRunStatus = Status.CANCEL_STATUS;
+	private List/*<IStatus>*/ myExceptions;
+
 	public Generator(GenDiagram diagram) {
 		myDiagram = diagram;
 	}
@@ -81,12 +89,14 @@ public class Generator implements Runnable {
 		try {
 			doRun();
 		} catch (InterruptedException ex) {
+			myRunStatus = new Status(IStatus.CANCEL, "org.eclipse.gmf.codegen", 0, Messages.interrupted, ex);
 		}
 	}
 
 	private void doRun() throws InterruptedException {
 		try {
 			setupProgressMonitor();
+			myExceptions = new LinkedList/*<IStatus>*/();
 			initializeEditorProject();
 
 			// edit parts, edit policies and providers
@@ -136,15 +146,30 @@ public class Generator implements Runnable {
 			generatePluginClass();
 			generatePluginXml();
 
+			if (myExceptions.isEmpty()) {
+				myRunStatus = Status.OK_STATUS;
+			} else {
+				IStatus[] s = (IStatus[]) myExceptions.toArray(new IStatus[myExceptions.size()]);
+				myRunStatus = new MultiStatus("org.eclipse.gmf.codegen", 0, s, Messages.problems, null);
+			}
+		} catch (NullPointerException ex) {
+			myRunStatus = new Status(IStatus.ERROR, "org.eclipse.gmf.codegen", 0, NullPointerException.class.getName(), ex);
 		} catch (JETException ex) {
-			ex.printStackTrace();
-		} catch (CoreException ex) {
-			ex.printStackTrace();
+			myRunStatus = ex.getStatus();
 		} catch (UnexpectedBehaviourException ex) {
-			ex.printStackTrace();
+			myRunStatus = new Status(Status.ERROR, "org.eclipse.gmf.codegen", 0, Messages.unexpected, ex);
 		} finally {
 			myProgress.done();
+			myExceptions = null;
 		}
+	}
+
+	/**
+	 * Provides information about success/failures during {@link #run()}
+	 * @return state of the generator run, or CANCEL if generator was not yet run.
+	 */
+	public IStatus getRunStatus() {
+		return myRunStatus;
 	}
 
 	private void generateNode(GenNode node) throws JETException, InterruptedException {
@@ -549,7 +574,7 @@ public class Generator implements Runnable {
 			}
 			f.getParent().refreshLocal(IResource.DEPTH_ONE, new SubProgressMonitor(pm, 1));
 		} catch (CoreException ex) {
-			ex.printStackTrace();
+			myExceptions.add(ex.getStatus());
 		} finally {
 			pm.done();
 		}
@@ -584,7 +609,7 @@ public class Generator implements Runnable {
 		return new SubProgressMonitor(myProgress, 1);
 	}
 
-	private void initializeEditorProject() throws CoreException, UnexpectedBehaviourException, InterruptedException {
+	private void initializeEditorProject() throws UnexpectedBehaviourException, InterruptedException {
 		myDestProject = ResourcesPlugin.getWorkspace().getRoot().getProject(myDiagram.getPluginID());
 		final Path srcPath = new Path('/' + myDestProject.getName() + "/src"); //$NON-NLS-1$
 		final Path projectLocation = null; // use default
@@ -595,7 +620,11 @@ public class Generator implements Runnable {
 
 		org.eclipse.emf.codegen.ecore.Generator.createEMFProject(srcPath, projectLocation, referencedProjects, pm, style, pluginVariables);
 
-		myDestRoot = JavaCore.create(myDestProject).findPackageFragmentRoot(srcPath);
+		try {
+			myDestRoot = JavaCore.create(myDestProject).findPackageFragmentRoot(srcPath);
+		} catch (JavaModelException ex) {
+			throw new UnexpectedBehaviourException(ex.getMessage());
+		}
 		if (myDestRoot == null) {
 			throw new UnexpectedBehaviourException("no source root can be found");
 		}
@@ -614,7 +643,7 @@ public class Generator implements Runnable {
 	 * the template. Besides, getQualifiedXXX helpers in diagram GenModel should also correctly
 	 * return qualified class names.  
 	 */
-	private void generate(JETEmitter emitter, String packageName, String className, Object input) throws JETException, InterruptedException {
+	private void generate(JETEmitter emitter, String packageName, String className, Object input) throws InterruptedException {
 		IProgressMonitor pm = getNextStepMonitor();
 		try {
 			pm.beginTask(className, 4);
@@ -627,8 +656,10 @@ public class Generator implements Runnable {
 				pm.worked(1);
 			}
 			pf.createCompilationUnit(cu.getElementName(), formatCode(genText), true, new SubProgressMonitor(pm, 1));
+		} catch (NullPointerException ex) {
+			myExceptions.add(new Status(IStatus.ERROR, "org.eclipse.gmf.codegen", 0, ex.getMessage(), ex));
 		} catch (CoreException ex) {
-			ex.printStackTrace();
+			myExceptions.add(ex.getStatus());
 		} finally {
 			pm.done();
 		}
