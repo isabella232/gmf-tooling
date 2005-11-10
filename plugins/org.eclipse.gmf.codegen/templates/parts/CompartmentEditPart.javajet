@@ -6,19 +6,16 @@ GenDiagram genDiagram = genCompartment.getDiagram();
 %>
 package <%=genDiagram.getEditPartsPackageName()%>;
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
-import java.util.LinkedList;
-import java.util.List;
-
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.notation.View;
-
-<%importManager.markImportLocation(stringBuffer);%>
+<%
+ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());
+importManager.markImportLocation(stringBuffer);
+importManager.addImport("org.eclipse.emf.common.notify.Notification");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles");
+importManager.addImport("org.eclipse.gmf.runtime.notation.View");
+%>
 
 /**
  * @generated
@@ -58,90 +55,14 @@ public class <%=genCompartment.getEditPartClassName()%> extends ListCompartmentE
 		//installEditPolicy(EditPolicy.NODE_ROLE, null);
 	}
 	
-	/**
-	 * @generated
-	 */
-	private class <%=genCompartment.getEditPartClassName()%>CanonicalEditPolicy extends CanonicalEditPolicy {
-
-		/**
-		 * @generated
-		 */
-		protected List getSemanticChildrenList() {	
 <%
-GenNode containerNode = genCompartment.getNode();
-String modelElementInterfaceName = importManager.getImportedName(containerNode.getModelFacet().getMetaClass().getQualifiedInterfaceName());
-%>		
-			<%=modelElementInterfaceName%> modelElement = (<%=modelElementInterfaceName%>) ((View) getHost().getModel()).getElement();
-			List result = new LinkedList();
-
-<%
-Map childFeature2NodesMap = new HashMap();
-for (Iterator it = genCompartment.getChildNodes().iterator(); it.hasNext();) {
-	GenChildNode nextChildNode = (GenChildNode) it.next();
-	GenFeature genFeature = nextChildNode.getModelFacet().getChildMetaFeature();
-	List genChildNodes; 
-	if (!childFeature2NodesMap.containsKey(genFeature)) {
-		genChildNodes = new ArrayList();
-		childFeature2NodesMap.put(genFeature, genChildNodes);
-	} else {
-		genChildNodes = (List) childFeature2NodesMap.get(genFeature);
-	}
-
-	if (nextChildNode.getDomainMetaClass() == null) {
-		genChildNodes.clear();
-		genChildNodes.add(nextChildNode);
-		continue;
-	}
-	if (genChildNodes.size() == 1 && ((GenChildNode) genChildNodes.get(0)).getDomainMetaClass() == null) {
-		continue;
-	}
-	genChildNodes.add(nextChildNode);
-}
-		
-for (Iterator it = childFeature2NodesMap.entrySet().iterator(); it.hasNext();) {
-	Map.Entry nextEntry = (Map.Entry) it.next();
-	GenFeature nextFeature = (GenFeature) nextEntry.getKey();
-	List childNodes = (List) nextEntry.getValue();
-	if (childNodes.size() == 1 && ((GenChildNode) childNodes.get(0)).getDomainMetaClass() == null) {
+{
+	GenChildContainer childContainer = genCompartment;
+	GenNode containerNode = genCompartment.getNode();
 %>
-			result.<%=nextFeature.isListType() ? "addAll" : "add"%>(((<%=modelElementInterfaceName%>) modelElement).<%=nextFeature.getGetAccessor()%>());
+<%@ include file="childContainerCanonicalEditPolicy.jetinc"%>
 <%
-		continue;
-	}
-			
-	if (nextFeature.isListType()) {
-%>
-			<%=importManager.getImportedName("java.util.Collection")%> featureValues = ((<%=modelElementInterfaceName%>) modelElement).<%=nextFeature.getGetAccessor()%>();
-			for (<%=importManager.getImportedName("java.util.Iterator")%> it = featureValues.iterator(); it.hasNext();) {
-				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextValue = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) it.next();
-<%
-	} else {
-%>
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextValue = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) ((<%=modelElementInterfaceName%>) modelElement).<%=nextFeature.getGetAccessor()%>();
-<%
-	}
-%>
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> nextEClass = nextValue.eClass();
-<%			
-	for (Iterator childNodesIterator = childNodes.iterator(); childNodesIterator.hasNext();) {
-		GenChildNode nextChildNode = (GenChildNode) childNodesIterator.next();
-		GenClass domainMetaclass = nextChildNode.getDomainMetaClass();
-%>
-			if (<%=importManager.getImportedName(domainMetaclass.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=domainMetaclass.getClassifierAccessorName()%>().equals(nextEClass)) {
-				result.add(nextValue);
-			} <%=childNodesIterator.hasNext() ? "else" : ""%>
-<%
-	}
-	if (nextFeature.isListType()) {
-%>
-			}
-<%
-	}
 }
 %>
-			return result;
-		}
-	}
-
 }
 <%importManager.emitSortedImports();%>

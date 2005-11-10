@@ -17,6 +17,16 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
  * @generated
  */
 public class <%=genNode.getItemSemanticEditPolicyClassName()%> extends <%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())%> {
+<%
+if (genNode.getChildNodes().size() > 0) {
+	GenChildContainer childContainer = genNode;
+	GenNode containerNode = genNode;
+%>
+
+<%@ include file="childContainerCreateCommand.jetinc"%>
+<%
+}
+%>
 
 	/**
 	 * @generated

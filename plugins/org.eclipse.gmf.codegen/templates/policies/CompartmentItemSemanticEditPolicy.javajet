@@ -6,87 +6,21 @@ GenDiagram genDiagram = genCompartment.getDiagram();
 %>
 package <%=genDiagram.getEditPoliciesPackageName()%>;
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPoliciesPackageName());%>
-import org.eclipse.gef.commands.Command;
-import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
-<%importManager.markImportLocation(stringBuffer);%>
+<%
+ImportUtil importManager = new ImportUtil(genDiagram.getEditPoliciesPackageName());
+importManager.markImportLocation(stringBuffer);
+%>
 
 /**
  * @generated
  */
 public class <%=genCompartment.getItemSemanticEditPolicyClassName()%> extends <%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())%> {
 <%
-GenPackage genPackage = genDiagram.getDomainMetaModel();
+GenChildContainer childContainer = genCompartment;
+GenNode containerNode = genCompartment.getNode();
 %>
 
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCommand(CreateElementRequest req) {
-<%
-for (Iterator nodes = genCompartment.getChildNodes().iterator(); nodes.hasNext(); ) {
-	GenNode genNode = (GenNode) nodes.next();
-	TypeModelFacet modelFacet = genNode.getModelFacet();
-%>
-		if (<%=importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes")%>.<%=genNode.getUniqueIdentifier()%> == req.getElementType()) {
-			if (req.getContainmentFeature() == null) {
-				req.setContainmentFeature(<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
-			}
-			return getMSLWrapper(new Create<%=modelFacet.getMetaClass().getName()%>Command(req));
-		}
-<%}%>
-		return super.getCreateCommand(req);
-	}
-<%
-for (Iterator nodes = genCompartment.getChildNodes().iterator(); nodes.hasNext(); ) {
-	GenNode genNode = (GenNode) nodes.next();
-	TypeModelFacet modelFacet = genNode.getModelFacet();
-%>
+<%@ include file="childContainerCreateCommand.jetinc"%>
 
-	/**
-	 * @generated
-	 */
-	private static class Create<%=modelFacet.getMetaClass().getName()%>Command extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateElementCommand")%> {
-
-		/**
-		 * @generated
-		 */
-		public Create<%=modelFacet.getMetaClass().getName()%>Command(CreateElementRequest req) {
-			super(req);
-		}
-
-		/**
-		 * @generated
-		 */
-		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> getEClassToEdit() {
-			return <%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=genCompartment.getNode().getModelFacet().getMetaClass().getClassifierAccessorName()%>();
-		};
-
-		/**
-		 * @generated
-		 */
-		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> getElementToEdit() {
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> container = ((CreateElementRequest) getRequest()).getContainer();
-			if (container instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) {
-				container = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) container).getElement();
-			}
-			return container;
-		}
-<%	if (modelFacet.getModelElementInitializer() != null) { %>
-
-		/**
-		 * @generated
-		 */
-		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> doDefaultElementCreation() {
-<%		String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
-			<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
-			if (newElement != null) {
-				<%=importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes")%>.Initializers.<%=genNode.getUniqueIdentifier()%>.init(newElement);
-			}
-			return newElement;
-		}
-<%	}%>
-	}
-<%}%>
 }
 <%importManager.emitSortedImports();%>

@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="NodeEditPartGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.* java.util.*"%>
+	imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.* java.util.*"%>
 <%
 GenNode genNode = (GenNode) argument;
 GenDiagram genDiagram = genNode.getDiagram();
@@ -15,7 +15,7 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
-import org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapMode;
+import org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapModeUtil;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
@@ -43,6 +43,15 @@ public class <%=genNode.getEditPartClassName()%> extends ShapeNodeEditPart {
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genNode.getItemSemanticEditPolicyQualifiedClassName())%>());
+<%
+if (genNode.getChildNodes().size() > 0) {
+%>		
+		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy")%>());
+		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy")%>());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=genNode.getEditPartClassName()%>CanonicalEditPolicy());
+<%
+}
+%>
 	}
 
 	/**
@@ -77,7 +86,7 @@ for (Iterator it = genNode.getViewmap().getAttributes().iterator(); it.hasNext()
 	if (next instanceof DefaultSizeAttributes) {
 		DefaultSizeAttributes attrs = (DefaultSizeAttributes) next;
 %>
-		node.setDefaultSize(MapMode.DPtoLP(<%=attrs.getWidth()%>), MapMode.DPtoLP(<%=attrs.getHeight()%>));
+		node.setDefaultSize(MapModeUtil.getMapMode().DPtoLP(<%=attrs.getWidth()%>), MapModeUtil.getMapMode().DPtoLP(<%=attrs.getHeight()%>));
 <%
 	}
 }
@@ -93,7 +102,7 @@ for (Iterator it = genNode.getViewmap().getAttributes().iterator(); it.hasNext()
 	protected IFigure createContentPane() {
 		IFigure plate = new Figure();
 		ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
-		layout.setSpacing(MapMode.DPtoLP(5));
+		layout.setSpacing(MapModeUtil.getMapMode().DPtoLP(5));
 		plate.setLayoutManager(layout);
 		return plate;
 	}
@@ -120,6 +129,17 @@ if (!genNode.getLabels().isEmpty()) {
 	public EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(<%=semanticHintsClassName%>.Labels.<%=AccessUtil.getLabelTextId(primaryLabel)%>);
 	}
-<%}%>
+	
+<%
+}
+
+if (genNode.getChildNodes().size() > 0) {
+	GenChildContainer childContainer = genNode;
+	GenNode containerNode = genNode;
+%>
+<%@ include file="childContainerCanonicalEditPolicy.jetinc" %>	
+<%
+}
+%>
 }
 <%importManager.emitSortedImports();%>

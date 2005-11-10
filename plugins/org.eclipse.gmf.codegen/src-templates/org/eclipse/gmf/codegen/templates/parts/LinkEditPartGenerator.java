@@ -46,8 +46,8 @@ public class LinkEditPartGenerator
   protected final String TEXT_28 = NL + "\t\t";
   protected final String TEXT_29 = " decoration = new ";
   protected final String TEXT_30 = "();" + NL + "\t\tdecoration.setScale(";
-  protected final String TEXT_31 = ".DPtoLP(7), ";
-  protected final String TEXT_32 = ".DPtoLP(3));" + NL + "\t\treturn decoration;";
+  protected final String TEXT_31 = ".getMapMode().DPtoLP(7), ";
+  protected final String TEXT_32 = ".getMapMode().DPtoLP(3));" + NL + "\t\treturn decoration;";
   protected final String TEXT_33 = NL + "\t\treturn new ";
   protected final String TEXT_34 = "();";
   protected final String TEXT_35 = NL + "\t\treturn null;";
@@ -57,8 +57,8 @@ public class LinkEditPartGenerator
   protected final String TEXT_39 = NL + "\t\t";
   protected final String TEXT_40 = " decoration = new ";
   protected final String TEXT_41 = "();" + NL + "\t\tdecoration.setScale(";
-  protected final String TEXT_42 = ".DPtoLP(7), ";
-  protected final String TEXT_43 = ".DPtoLP(3));" + NL + "\t\treturn decoration;";
+  protected final String TEXT_42 = ".getMapMode().DPtoLP(7), ";
+  protected final String TEXT_43 = ".getMapMode().DPtoLP(3));" + NL + "\t\treturn decoration;";
   protected final String TEXT_44 = NL + "\t\treturn new ";
   protected final String TEXT_45 = "();";
   protected final String TEXT_46 = NL + "\t\treturn null;";
@@ -168,7 +168,7 @@ if (linkDecoration == null) {
     
 } else if (linkDecoration.getFigureQualifiedClassName() != null && linkDecoration.getFigureQualifiedClassName().trim().length() > 0) {
 	String decorationClassName = importManager.getImportedName(linkDecoration.getFigureQualifiedClassName());
-	String mapModeClassName = importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapMode");
+	String mapModeClassName = importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapModeUtil");
 	if (SCALABLE_DECORATIONS.contains(linkDecoration.getFigureQualifiedClassName())) {
 		// XXX use smth like ScaleableAtttributes?
 
@@ -201,7 +201,7 @@ if (linkDecoration == null) {
     
 } else if (linkDecoration.getFigureQualifiedClassName() != null && linkDecoration.getFigureQualifiedClassName().trim().length() > 0) {
 	String decorationClassName = importManager.getImportedName(linkDecoration.getFigureQualifiedClassName());
-	String mapModeClassName = importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapMode");
+	String mapModeClassName = importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapModeUtil");
 	if (SCALABLE_DECORATIONS.contains(linkDecoration.getFigureQualifiedClassName())) {
 		// XXX use smth like ScaleableAtttributes?
 
