@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ASCII"?>
+<gmfgen:GenDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel" visualID="79" editPartClassName="AquatoryCanvasEditPart" editPartsPackageName="org.eclipse.gmf.examples.taipan.edit.parts" editPoliciesPackageName="org.eclipse.gmf.examples.taipan.edit.policies" editorPackageName="org.eclipse.gmf.examples.taipan.editor" providersPackageName="org.eclipse.gmf.examples.taipan.providers" pluginName="TaiPan Plugin" viewProviderClassName="TaiPanViewProvider" editPartProviderClassName="TaiPanEditPartProvider" metamodelSupportProviderClassName="TaiPanMetaModelSupportProvider" modelingAssistantProviderClassName="TaiPanModelingAssistantProvider" iconProviderClassName="TaiPanIconProvider" actionBarContributorClassName="TaiPanActionBarContributor" matchingStrategyClassName="TaiPanMatchingStrategy">
+  <diagramRunTimeClass href="../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Diagram"/>
+  <viewmap xsi:type="gmfgen:DiagramViewmap"/>
+  <domainMetaModel href="taipan.genmodel#//taipan"/>
+  <domainDiagramElement href="taipan.genmodel#//taipan/Aquatory"/>
+  <nodes visualID="1001" editPartClassName="PortNodeEditPart" notationViewFactoryClassName="PortNodeNotationViewFactory">
+    <diagramRunTimeClass href="../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:BasicNodeViewmap"/>
+    <modelFacet>
+      <metaClass href="taipan.genmodel#//taipan/Port"/>
+      <containmentMetaFeature href="taipan.genmodel#//taipan/Aquatory/ports"/>
+      <childMetaFeature href="taipan.genmodel#//taipan/Aquatory/ports"/>
+    </modelFacet>
+    <labels visualID="4001" notationViewFactoryClassName="PortNode_locationNotationViewFactory">
+      <diagramRunTimeClass href="../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:LabelViewmap"/>
+      <modelFacet>
+        <metaFeature href="taipan.genmodel#//taipan/Port/location"/>
+      </modelFacet>
+    </labels>
+  </nodes>
+  <nodes visualID="1002" editPartClassName="ShipNodeEditPart" notationViewFactoryClassName="ShipNodeNotationViewFactory">
+    <diagramRunTimeClass href="../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:BasicNodeViewmap"/>
+    <modelFacet>
+      <metaClass href="taipan.genmodel#//taipan/Ship"/>
+      <containmentMetaFeature href="taipan.genmodel#//taipan/Aquatory/ships"/>
+      <childMetaFeature href="taipan.genmodel#//taipan/Aquatory/ships"/>
+    </modelFacet>
+    <labels visualID="4002" notationViewFactoryClassName="ShipNode_nameNotationViewFactory">
+      <diagramRunTimeClass href="../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:LabelViewmap"/>
+      <modelFacet>
+        <metaFeature href="taipan.genmodel#//taipan/Ship/name"/>
+      </modelFacet>
+    </labels>
+    <compartments visualID="5001" editPartClassName="ShipNode_cargoCompartmentEditPart" notationViewFactoryClassName="ShipNode_cargoNotationViewFactory" title="cargo" layoutKind="TOOLBAR">
+      <diagramRunTimeClass href="../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:CompartmentViewmap"/>
+      <childNodes visualID="2001" editPartClassName="ItemNodeChildNodeEditPart" notationViewFactoryClassName="ItemNodeNotationViewFactory">
+        <diagramRunTimeClass href="../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
+        <viewmap xsi:type="gmfgen:BasicNodeViewmap"/>
+        <modelFacet>
+          <metaClass href="taipan.genmodel#//taipan/Item"/>
+          <containmentMetaFeature href="taipan.genmodel#//taipan/Ship/cargo"/>
+          <childMetaFeature href="taipan.genmodel#//taipan/Ship/cargo"/>
+        </modelFacet>
+        <labels visualID="4003" notationViewFactoryClassName="ItemNode_articleNotationViewFactory">
+          <diagramRunTimeClass href="../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
+          <viewmap xsi:type="gmfgen:LabelViewmap"/>
+          <modelFacet>
+            <metaFeature href="taipan.genmodel#//taipan/Item/article"/>
+          </modelFacet>
+        </labels>
+      </childNodes>
+    </compartments>
+  </nodes>
+  <links visualID="3001" editPartClassName="DestinationLinkEditPart" notationViewFactoryClassName="DestinationLinkNotationViewFactory">
+    <diagramRunTimeClass href="../../org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Edge"/>
+    <viewmap xsi:type="gmfgen:DecoratedConnectionViewmap">
+      <attributes xsi:type="gmfgen:ShapeAttributes"/>
+      <target figureQualifiedClassName="org.eclipse.draw2d.PolylineDecoration"/>
+    </viewmap>
+    <modelFacet xsi:type="gmfgen:FeatureModelFacet">
+      <metaFeature href="taipan.genmodel#//taipan/Ship/destination"/>
+    </modelFacet>
+  </links>
+  <palette>
+    <groups titleKey="TaiPan">
+      <nodeTools titleKey="PortNode" descriptionKey="PortNode" largeIconPath="icons/large/PortNode.gif" smallIconPath="icons/small/PortNode.gif" genNode="//@nodes.0"/>
+      <nodeTools titleKey="ShipNode" descriptionKey="ShipNode" largeIconPath="icons/large/ShipNode.gif" smallIconPath="icons/small/ShipNode.gif" genNode="//@nodes.1"/>
+      <nodeTools titleKey="ItemNode" descriptionKey="ItemNode" largeIconPath="icons/large/ItemNode.gif" smallIconPath="icons/small/ItemNode.gif" genNode="//@nodes.1/@compartments.0/@childNodes.0"/>
+      <linkTools titleKey="DestinationLink" descriptionKey="DestinationLink" largeIconPath="icons/large/DestinationLink.gif" smallIconPath="icons/small/DestinationLink.gif" genLink="//@links.0"/>
+    </groups>
+  </palette>
+</gmfgen:GenDiagram>

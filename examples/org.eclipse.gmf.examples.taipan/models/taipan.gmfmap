@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmfmap:Mapping xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:gmfmap="http://www.eclipse.org/gmf/2005/mappings">
+  <nodes>
+    <diagramNode href="taipan.diadef#PortNode"/>
+    <domainMetaElement href="taipan.ecore#//Port"/>
+    <containmentFeature href="taipan.ecore#//Aquatory/ports"/>
+    <editFeature href="taipan.ecore#//Port/location"/>
+  </nodes>
+  <nodes>
+    <diagramNode href="taipan.diadef#ShipNode"/>
+    <domainMetaElement href="taipan.ecore#//Ship"/>
+    <containmentFeature href="taipan.ecore#//Aquatory/ships"/>
+    <editFeature href="taipan.ecore#//Ship/name"/>
+    <childMappings>
+      <compartment href="taipan.diadef#cargo"/>
+      <diagramNode href="taipan.diadef#ItemNode"/>
+      <domainChildrenFeature xsi:type="ecore:EReference" href="taipan.ecore#//Ship/cargo"/>
+      <editFeature href="taipan.ecore#//Item/article"/>
+      <domainMetaElement href="taipan.ecore#//Item"/>
+    </childMappings>
+  </nodes>
+  <links>
+    <diagramLink href="taipan.diadef#DestinationLink"/>
+    <linkMetaFeature xsi:type="ecore:EReference" href="taipan.ecore#//Ship/destination"/>
+  </links>
+  <diagram>
+    <diagramCanvas href="taipan.diadef#AquatoryCanvas"/>
+    <domainModel href="taipan.ecore#/"/>
+    <domainMetaElement href="taipan.ecore#//Aquatory"/>
+  </diagram>
+</gmfmap:Mapping>
