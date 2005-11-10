@@ -122,16 +122,6 @@ String semanticFactoryClassName = importManager.getImportedName(genDiagram.getDo
 		return getImage(element);
 	}
 <%
-List types = new ArrayList();
-List refLinks = new ArrayList();
-Iterator entities = AccessUtil.getGenEntities(genDiagram);
-while (entities.hasNext()) {
-	GenCommonBase entity = (GenCommonBase) entities.next();
-	if (entity instanceof GenLink && ((GenLink) entity).getModelFacet() instanceof FeatureModelFacet) {
-		refLinks.add(entity);
-		types.add(entity.getUniqueIdentifier());
-	}
-}
 GenPackage genPackage = genDiagram.getDomainMetaModel();
 String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 %>
@@ -176,26 +166,36 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 		return null;
 	}
 
+	/**
+	 * @generated
+	 */
+	public static final IMetamodelType <%=genDiagram.getUniqueIdentifier()%> = new MetamodelType(
+		"<%=genDiagram.getUniqueIdentifier()%>", null, "<%=genDiagram.getUniqueIdentifier()%>",
+		<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>(),
+		new NullEditHelper());
 <%
-entities = AccessUtil.getGenEntities(genDiagram);
+List types = new ArrayList();
+types.add(genDiagram.getUniqueIdentifier());
 int elementInitializerCount = 0;
-while (entities.hasNext()) {
-	GenCommonBase entity = (GenCommonBase) entities.next();
+for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
+	Object next = contents.next();
+	String id;
 	TypeModelFacet typeModelFacet = null;
-	String semanticNodeInterfaceName;
-	if (entity instanceof GenDiagram) {
-		semanticNodeInterfaceName = genDiagram.getDomainDiagramElement().getClassifierAccessorName();
-	} else if (entity instanceof GenNode) {
-		GenNode genNode = (GenNode) entity;
-		typeModelFacet = genNode.getModelFacet();
-		semanticNodeInterfaceName = genNode.getDomainMetaClass().getClassifierAccessorName();
-	} else if (entity instanceof GenLink && ((GenLink) entity).getModelFacet() instanceof TypeLinkModelFacet) {
-		typeModelFacet = (TypeLinkModelFacet) ((GenLink) entity).getModelFacet();
-		semanticNodeInterfaceName = typeModelFacet.getMetaClass().getClassifierAccessorName();
+	String semanticEntityInterfaceName = null;
+	if (next instanceof GenNode) {
+		id = ((GenNode) next).getUniqueIdentifier();
+		typeModelFacet = ((GenNode) next).getModelFacet();
+		semanticEntityInterfaceName = typeModelFacet.getMetaClass().getClassifierAccessorName();
+	} else if (next instanceof GenLink) {
+		id = ((GenLink) next).getUniqueIdentifier();
+		if (((GenLink) next).getModelFacet() instanceof TypeLinkModelFacet) {
+			typeModelFacet = (TypeLinkModelFacet) ((GenLink) next).getModelFacet();
+			semanticEntityInterfaceName = typeModelFacet.getMetaClass().getClassifierAccessorName();
+		}
 	} else {
 		continue;
 	}
-	types.add(entity.getUniqueIdentifier());
+	types.add(id);
 	if (typeModelFacet != null && typeModelFacet.getModelElementInitializer() != null) {
 		elementInitializerCount++;
 	}
@@ -204,21 +204,13 @@ while (entities.hasNext()) {
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType <%=entity.getUniqueIdentifier()%> = new MetamodelType(
-		"<%=entity.getUniqueIdentifier()%>", null, "<%=entity.getUniqueIdentifier()%>",
-		<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>(), new NullEditHelper());
-<%
-}
-for (int i = 0; i < refLinks.size(); i++) {
-	GenLink entity = (GenLink) refLinks.get(i);
-%>
-
-	/**
-	 * @generated
-	 */
-	public static final IMetamodelType <%=entity.getUniqueIdentifier()%> = new MetamodelType(
-		"<%=entity.getUniqueIdentifier()%>", null, "<%=entity.getUniqueIdentifier()%>",
-		null, new NullEditHelper());
+	public static final IMetamodelType <%=id%> = new MetamodelType("<%=id%>", null, "<%=id%>",
+<%	if (semanticEntityInterfaceName != null) {%>
+		<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticEntityInterfaceName%>(),
+<%	} else { %>
+		null,
+<%	}%>
+		new NullEditHelper());
 <%}%>
 
 	/**
@@ -252,23 +244,25 @@ for (int i = 0; i < refLinks.size(); i++) {
 	 */
 	public static class Initializers {
 <%
-for(Iterator it = AccessUtil.getGenEntities(genDiagram); it.hasNext();) {
-	GenCommonBase nextElement = (GenCommonBase)it.next();
+for (Iterator it = genDiagram.eAllContents(); it.hasNext(); ) {
+	Object next = it.next();
+	String id = null;
 	TypeModelFacet modelFacet = null;
-	if(nextElement instanceof GenNode) {
-		modelFacet = ((GenNode)nextElement).getModelFacet();
-	} else if(nextElement instanceof GenLink && 
-		((GenLink)nextElement).getModelFacet() instanceof TypeLinkModelFacet) {
-		modelFacet = (TypeLinkModelFacet)((GenLink)nextElement).getModelFacet();
-	} 
-	
-	if(modelFacet != null && modelFacet.getModelElementInitializer() instanceof GenFeatureSeqInitializer) {				
+	if (next instanceof GenNode) {
+		id = ((GenNode) next).getUniqueIdentifier();
+		modelFacet = ((GenNode) next).getModelFacet();
+	} else if (next instanceof GenLink && ((GenLink) next).getModelFacet() instanceof TypeLinkModelFacet) {
+		id = ((GenLink) next).getUniqueIdentifier();
+		modelFacet = (TypeLinkModelFacet) ((GenLink) next).getModelFacet();
+	}
+	if (modelFacet != null && modelFacet.getModelElementInitializer() instanceof GenFeatureSeqInitializer) {				
 		GenFeatureSeqInitializer ftInitializer = (GenFeatureSeqInitializer)modelFacet.getModelElementInitializer();
 %>
+
 		/**
-		* @generated
-		*/
-		public static final ObjectInitializer <%=nextElement.getUniqueIdentifier()%> = new ObjectInitializer(new FeatureInitializer[] {
+		 * @generated
+		 */
+		public static final ObjectInitializer <%=id%> = new ObjectInitializer(new FeatureInitializer[] {
 <%
 		for(Iterator featInitIt = ftInitializer.getInitializers().iterator(); featInitIt.hasNext();) { 
 			GenFeatureValueSpec featureValSpec = (GenFeatureValueSpec)featInitIt.next();%>

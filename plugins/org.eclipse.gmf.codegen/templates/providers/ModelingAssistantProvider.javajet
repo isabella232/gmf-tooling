@@ -1,9 +1,9 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="ModelingAssistantProviderGenerator"
 	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
-<%GenDiagram diagram = (GenDiagram) argument;%>
-package <%=diagram.getProvidersPackageName()%>;
+<%GenDiagram genDiagram = (GenDiagram) argument;%>
+package <%=genDiagram.getProvidersPackageName()%>;
 
-<%ImportUtil importManager = new ImportUtil(diagram.getProvidersPackageName());%>
+<%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,36 +16,42 @@ import org.eclipse.gmf.runtime.emf.ui.services.modelingassistant.ModelingAssista
 /**
  * @generated
  */
-public class <%=diagram.getModelingAssistantProviderClassName()%> extends ModelingAssistantProvider {
+public class <%=genDiagram.getModelingAssistantProviderClassName()%> extends ModelingAssistantProvider {
 
 	/**
 	 * @generated
 	 */
 	public List getTypesForPopupBar(IAdaptable host) {
 		Object editPart = host.getAdapter(IGraphicalEditPart.class);
-<%
-Iterator entities = AccessUtil.getGenEntities(diagram);
-while (entities.hasNext()) {
-	GenCommonBase entity = (GenCommonBase) entities.next();
-	List children = Collections.EMPTY_LIST;
-	if (entity instanceof GenDiagram) {
-		children = diagram.getNodes();
-	} else if (entity instanceof GenNode) {
-		children = AccessUtil.getAllChildNodes((GenNode) entity);
-	}
-	if (children.isEmpty()) {
-		continue;
-	}
-	String editPartClassName = importManager.getImportedName(entity.getEditPartQualifiedClassName());
-%>
-		if (editPart instanceof <%=editPartClassName%>) {
+		if (editPart instanceof <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>) {
 			List children = new ArrayList();
-<%	for (int i = 0; i < children.size(); i++) {%>
+<%
+List children = genDiagram.getNodes();
+for (int i = 0; i < children.size(); i++) {
+%>
 			children.add(ElementTypes.<%=((GenNode) children.get(i)).getUniqueIdentifier()%>);
-<%	}%>
-			return children;
-		}
 <%}%>
+			return children;
+<%
+for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
+	Object next = contents.next();
+	if (next instanceof GenNode) {
+		GenNode genNode = (GenNode) next;
+		children = AccessUtil.getAllChildNodes(genNode);
+		if (!children.isEmpty()) {
+%>
+		} else if (editPart instanceof <%=importManager.getImportedName(genNode.getEditPartQualifiedClassName())%>) {
+			List children = new ArrayList();
+<%			for (int i = 0; i < children.size(); i++) {%>
+			children.add(ElementTypes.<%=((GenNode) children.get(i)).getUniqueIdentifier()%>);
+<%			}%>
+			return children;
+<%
+		}
+	}
+}
+%>
+		}
 		return Collections.EMPTY_LIST;
 	}
 }

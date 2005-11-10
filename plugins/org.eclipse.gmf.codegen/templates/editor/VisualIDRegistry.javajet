@@ -440,27 +440,31 @@ for (int i = 0; i < genLinks.size(); i++) {
 	private static class ElementSelectors {	
 <%
 int selectorCounter = 0;
-for(Iterator it = AccessUtil.getGenEntities(genDiagram); it.hasNext();) {
-	GenCommonBase nextElement = (GenCommonBase)it.next();
+for (Iterator it = genDiagram.eAllContents(); it.hasNext();) {
+	Object next = it.next();
+	String id = null;
 	TypeModelFacet modelFacet = null;
-	if(nextElement instanceof GenNode) {
-		modelFacet = ((GenNode)nextElement).getModelFacet();
-	} else if(nextElement instanceof GenLink && 
-		((GenLink)nextElement).getModelFacet() instanceof TypeLinkModelFacet) {
-		modelFacet = (TypeLinkModelFacet)((GenLink)nextElement).getModelFacet();
-	} 
-	
-	if(modelFacet == null || modelFacet.getModelElementSelector() == null) continue;
+	if (next instanceof GenNode) {
+		id = ((GenNode) next).getUniqueIdentifier();
+		modelFacet = ((GenNode) next).getModelFacet();
+	} else if (next instanceof GenLink && ((GenLink) next).getModelFacet() instanceof TypeLinkModelFacet) {
+		id = ((GenLink) next).getUniqueIdentifier();
+		modelFacet = (TypeLinkModelFacet) ((GenLink) next).getModelFacet();
+	}
+	if (modelFacet == null || modelFacet.getModelElementSelector() == null) {
+		continue;
+	}
 	ModelElementSelector selector = modelFacet.getModelElementSelector();
 	selectorCounter++;
-	%>
+%>
+
 		/**
-		 * Element matching condition for <%=nextElement.getUniqueIdentifier()%>.
+		 * Element matching condition for <%=id%>.
 		 * <pre>language: <%=selector.getLanguage()%></pre>	
 		 * <pre>body    : <%=selector.getBody()%></pre>
 		 * @generated
 		 */
-		private static final Matcher <%=nextElement.getUniqueIdentifier()%> = new Matcher("<%=selector.getBody()%>");
+		private static final Matcher <%=id%> = new Matcher("<%=selector.getBody()%>");
 <%}%>
 		
 		/**

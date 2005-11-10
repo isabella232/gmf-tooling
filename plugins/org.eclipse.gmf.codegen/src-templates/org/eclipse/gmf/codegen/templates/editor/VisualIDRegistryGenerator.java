@@ -115,7 +115,7 @@ public class VisualIDRegistryGenerator
   protected final String TEXT_96 = " element) {" + NL + "\t\treturn ElementSelectors.";
   protected final String TEXT_97 = ".matches(element);" + NL + "\t}";
   protected final String TEXT_98 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class ElementSelectors {\t";
-  protected final String TEXT_99 = NL + "\t\t/**" + NL + "\t\t * Element matching condition for ";
+  protected final String TEXT_99 = NL + NL + "\t\t/**" + NL + "\t\t * Element matching condition for ";
   protected final String TEXT_100 = "." + NL + "\t\t * <pre>language: ";
   protected final String TEXT_101 = "</pre>\t" + NL + "\t\t * <pre>body    : ";
   protected final String TEXT_102 = "</pre>" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate static final Matcher ";
@@ -458,28 +458,31 @@ for (int i = 0; i < genLinks.size(); i++) {
     stringBuffer.append(TEXT_98);
     
 int selectorCounter = 0;
-for(Iterator it = AccessUtil.getGenEntities(genDiagram); it.hasNext();) {
-	GenCommonBase nextElement = (GenCommonBase)it.next();
+for (Iterator it = genDiagram.eAllContents(); it.hasNext();) {
+	Object next = it.next();
+	String id = null;
 	TypeModelFacet modelFacet = null;
-	if(nextElement instanceof GenNode) {
-		modelFacet = ((GenNode)nextElement).getModelFacet();
-	} else if(nextElement instanceof GenLink && 
-		((GenLink)nextElement).getModelFacet() instanceof TypeLinkModelFacet) {
-		modelFacet = (TypeLinkModelFacet)((GenLink)nextElement).getModelFacet();
-	} 
-	
-	if(modelFacet == null || modelFacet.getModelElementSelector() == null) continue;
+	if (next instanceof GenNode) {
+		id = ((GenNode) next).getUniqueIdentifier();
+		modelFacet = ((GenNode) next).getModelFacet();
+	} else if (next instanceof GenLink && ((GenLink) next).getModelFacet() instanceof TypeLinkModelFacet) {
+		id = ((GenLink) next).getUniqueIdentifier();
+		modelFacet = (TypeLinkModelFacet) ((GenLink) next).getModelFacet();
+	}
+	if (modelFacet == null || modelFacet.getModelElementSelector() == null) {
+		continue;
+	}
 	ModelElementSelector selector = modelFacet.getModelElementSelector();
 	selectorCounter++;
-	
+
     stringBuffer.append(TEXT_99);
-    stringBuffer.append(nextElement.getUniqueIdentifier());
+    stringBuffer.append(id);
     stringBuffer.append(TEXT_100);
     stringBuffer.append(selector.getLanguage());
     stringBuffer.append(TEXT_101);
     stringBuffer.append(selector.getBody());
     stringBuffer.append(TEXT_102);
-    stringBuffer.append(nextElement.getUniqueIdentifier());
+    stringBuffer.append(id);
     stringBuffer.append(TEXT_103);
     stringBuffer.append(selector.getBody());
     stringBuffer.append(TEXT_104);
