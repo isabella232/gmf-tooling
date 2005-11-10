@@ -45,26 +45,22 @@ public class LinkEditPartGenerator
   protected final String TEXT_27 = NL + "\t\treturn null;";
   protected final String TEXT_28 = NL + "\t\t";
   protected final String TEXT_29 = " decoration = new ";
-  protected final String TEXT_30 = "();" + NL + "\t\tdecoration.setScale(";
-  protected final String TEXT_31 = ".getMapMode().DPtoLP(7), ";
-  protected final String TEXT_32 = ".getMapMode().DPtoLP(3));" + NL + "\t\treturn decoration;";
-  protected final String TEXT_33 = NL + "\t\treturn new ";
-  protected final String TEXT_34 = "();";
-  protected final String TEXT_35 = NL + "\t\treturn null;";
-  protected final String TEXT_36 = NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected RotatableDecoration createTargetDecoration() {";
-  protected final String TEXT_37 = NL;
-  protected final String TEXT_38 = NL + "\t\treturn null;";
-  protected final String TEXT_39 = NL + "\t\t";
-  protected final String TEXT_40 = " decoration = new ";
-  protected final String TEXT_41 = "();" + NL + "\t\tdecoration.setScale(";
-  protected final String TEXT_42 = ".getMapMode().DPtoLP(7), ";
-  protected final String TEXT_43 = ".getMapMode().DPtoLP(3));" + NL + "\t\treturn decoration;";
-  protected final String TEXT_44 = NL + "\t\treturn new ";
-  protected final String TEXT_45 = "();";
-  protected final String TEXT_46 = NL + "\t\treturn null;";
-  protected final String TEXT_47 = NL + "\t}";
-  protected final String TEXT_48 = NL + "}";
-  protected final String TEXT_49 = NL;
+  protected final String TEXT_30 = "();" + NL + "\t\tdecoration.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));" + NL + "\t\treturn decoration;";
+  protected final String TEXT_31 = NL + "\t\treturn new ";
+  protected final String TEXT_32 = "();";
+  protected final String TEXT_33 = NL + "\t\treturn null;";
+  protected final String TEXT_34 = NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected RotatableDecoration createTargetDecoration() {";
+  protected final String TEXT_35 = NL;
+  protected final String TEXT_36 = NL + "\t\treturn null;";
+  protected final String TEXT_37 = NL + "\t\t";
+  protected final String TEXT_38 = " decoration = new ";
+  protected final String TEXT_39 = "();" + NL + "\t\tdecoration.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));" + NL + "\t\treturn decoration;";
+  protected final String TEXT_40 = NL + "\t\treturn new ";
+  protected final String TEXT_41 = "();";
+  protected final String TEXT_42 = NL + "\t\treturn null;";
+  protected final String TEXT_43 = NL + "\t}";
+  protected final String TEXT_44 = NL + "}";
+  protected final String TEXT_45 = NL;
 
   public String generate(Object argument)
   {
@@ -168,7 +164,6 @@ if (linkDecoration == null) {
     
 } else if (linkDecoration.getFigureQualifiedClassName() != null && linkDecoration.getFigureQualifiedClassName().trim().length() > 0) {
 	String decorationClassName = importManager.getImportedName(linkDecoration.getFigureQualifiedClassName());
-	String mapModeClassName = importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapModeUtil");
 	if (SCALABLE_DECORATIONS.contains(linkDecoration.getFigureQualifiedClassName())) {
 		// XXX use smth like ScaleableAtttributes?
 
@@ -177,56 +172,47 @@ if (linkDecoration == null) {
     stringBuffer.append(TEXT_29);
     stringBuffer.append(decorationClassName);
     stringBuffer.append(TEXT_30);
-    stringBuffer.append(mapModeClassName);
-    stringBuffer.append(TEXT_31);
-    stringBuffer.append(mapModeClassName);
-    stringBuffer.append(TEXT_32);
     	} else {
-    stringBuffer.append(TEXT_33);
+    stringBuffer.append(TEXT_31);
     stringBuffer.append(decorationClassName);
-    stringBuffer.append(TEXT_34);
+    stringBuffer.append(TEXT_32);
     	}
 } else {
-    stringBuffer.append(TEXT_35);
+    stringBuffer.append(TEXT_33);
     }
-    stringBuffer.append(TEXT_36);
+    stringBuffer.append(TEXT_34);
     
 linkDecoration = viewmap.getTarget();
 
-    stringBuffer.append(TEXT_37);
+    stringBuffer.append(TEXT_35);
     
 if (linkDecoration == null) {
 
-    stringBuffer.append(TEXT_38);
+    stringBuffer.append(TEXT_36);
     
 } else if (linkDecoration.getFigureQualifiedClassName() != null && linkDecoration.getFigureQualifiedClassName().trim().length() > 0) {
 	String decorationClassName = importManager.getImportedName(linkDecoration.getFigureQualifiedClassName());
-	String mapModeClassName = importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapModeUtil");
 	if (SCALABLE_DECORATIONS.contains(linkDecoration.getFigureQualifiedClassName())) {
 		// XXX use smth like ScaleableAtttributes?
 
-    stringBuffer.append(TEXT_39);
+    stringBuffer.append(TEXT_37);
     stringBuffer.append(decorationClassName);
+    stringBuffer.append(TEXT_38);
+    stringBuffer.append(decorationClassName);
+    stringBuffer.append(TEXT_39);
+    	} else {
     stringBuffer.append(TEXT_40);
     stringBuffer.append(decorationClassName);
     stringBuffer.append(TEXT_41);
-    stringBuffer.append(mapModeClassName);
-    stringBuffer.append(TEXT_42);
-    stringBuffer.append(mapModeClassName);
-    stringBuffer.append(TEXT_43);
-    	} else {
-    stringBuffer.append(TEXT_44);
-    stringBuffer.append(decorationClassName);
-    stringBuffer.append(TEXT_45);
     	}
 } else {
-    stringBuffer.append(TEXT_46);
+    stringBuffer.append(TEXT_42);
     }
-    stringBuffer.append(TEXT_47);
+    stringBuffer.append(TEXT_43);
     }
-    stringBuffer.append(TEXT_48);
+    stringBuffer.append(TEXT_44);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_49);
+    stringBuffer.append(TEXT_45);
     return stringBuffer.toString();
   }
 }

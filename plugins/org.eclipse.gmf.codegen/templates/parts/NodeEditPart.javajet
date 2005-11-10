@@ -15,7 +15,6 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
-import org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapModeUtil;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
@@ -86,7 +85,7 @@ for (Iterator it = genNode.getViewmap().getAttributes().iterator(); it.hasNext()
 	if (next instanceof DefaultSizeAttributes) {
 		DefaultSizeAttributes attrs = (DefaultSizeAttributes) next;
 %>
-		node.setDefaultSize(MapModeUtil.getMapMode().DPtoLP(<%=attrs.getWidth()%>), MapModeUtil.getMapMode().DPtoLP(<%=attrs.getHeight()%>));
+		node.setDefaultSize(getMapMode().DPtoLP(<%=attrs.getWidth()%>), getMapMode().DPtoLP(<%=attrs.getHeight()%>));
 <%
 	}
 }
@@ -102,7 +101,7 @@ for (Iterator it = genNode.getViewmap().getAttributes().iterator(); it.hasNext()
 	protected IFigure createContentPane() {
 		IFigure plate = new Figure();
 		ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
-		layout.setSpacing(MapModeUtil.getMapMode().DPtoLP(5));
+		layout.setSpacing(getMapMode().DPtoLP(5));
 		plate.setLayoutManager(layout);
 		return plate;
 	}
