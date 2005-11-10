@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: GMF Dev Hook
+Bundle-SymbolicName: org.eclipse.gmf.dev.hook; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.eclipse.gmf.dev.hook.DevHookPlugin
+Bundle-Vendor: eclipse.org
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.eclipse.draw2d,
+ org.eclipse.gef
+Eclipse-AutoStart: true
+Export-Package: org.eclipse.gmf.dev.hook

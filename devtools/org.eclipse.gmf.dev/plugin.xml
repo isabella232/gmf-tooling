@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="GMF Dev"
+            id="org.eclipse.gmf.dev">
+      </category>
+      <view
+            name="GEF Console"
+            category="org.eclipse.gmf.dev"
+            class="org.eclipse.gef.ui.console.DebugGEF"
+            id="org.eclipse.gmf.dev.DebugGEF">
+      </view>
+      <view
+            name="Command Stack"
+            category="org.eclipse.gmf.dev"
+            class="org.eclipse.gef.ui.stackview.CommandStackInspector"
+            id="org.eclipse.gmf.dev.CommandStackInspector">
+      </view>
+      <view
+            name="Edit Parts Tracer"
+            category="org.eclipse.gmf.dev"
+            class="org.eclipse.gmf.dev.EditPartTraceView"
+            id="org.eclipse.gmf.dev.EditPartTraceView">
+      </view>
+      <view
+            name="Workbench Parts Tracker"
+            category="org.eclipse.gmf.dev"
+            class="org.eclipse.gmf.dev.PartTrackerView"
+            id="org.eclipse.gmf.dev.PartTrackerView">
+      </view>
+   </extension>
+
+</plugin>
