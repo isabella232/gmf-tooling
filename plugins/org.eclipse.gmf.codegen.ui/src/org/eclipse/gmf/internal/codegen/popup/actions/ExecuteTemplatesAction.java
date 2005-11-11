@@ -17,10 +17,12 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.util.Generator;
 import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
@@ -51,49 +53,52 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 	private IWorkbenchPart myPart;
 
 	private IStatus myRunStatus;
+	private GenDiagram myGenModel;
 
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
 		myPart = targetPart;
 	}
 
+	// TODO Jobs
 	public void run(IAction action) {
 		try {
+			loadGenModel();
+			assert getGenModel() != null;
+			IStatus isGenModelValid = validateGenModel();
+			if (!isGenModelValid.isOK()) {
+				if (!MessageDialog.openConfirm(getShell(), action.getText(), formatMessage("generatecode.badsrc", isGenModelValid))) {
+					return;
+				}
+			}
+			
 			myRunStatus = Status.CANCEL_STATUS;
-			new ProgressMonitorDialog(myPart.getSite().getShell()).run(true, true, this);
+			new ProgressMonitorDialog(getShell()).run(true, true, this);
 
 			if (getRunStatus().isOK()) {
 				if (!MessageDialogWithToggle.ALWAYS.equals(getPreferences().getString(ASK_OK))) {
-					MessageDialogWithToggle.openInformation(getShell(), getStatusDialogTitle(), CodeGenUIPlugin.getBundleString("generatecode.ok"), CodeGenUIPlugin.getBundleString("generatecode.neveragain"), false, getPreferences(), ASK_OK);
+					MessageDialogWithToggle.openInformation(getShell(), action.getText(), CodeGenUIPlugin.getBundleString("generatecode.ok"), CodeGenUIPlugin.getBundleString("generatecode.neveragain"), false, getPreferences(), ASK_OK);
 				}
-			} else if ((myRunStatus.getSeverity() & IStatus.ERROR) != 0) {
+			} else if (myRunStatus.matches(IStatus.ERROR)) {
 				CodeGenUIPlugin.getDefault().getLog().log(getRunStatus());
-				MessageDialog.openError(getShell(), getStatusDialogTitle(), formatMessage("generatecode.err", getRunStatus()));
-			} else if ((myRunStatus.getSeverity() & IStatus.WARNING) != 0) {
-				MessageDialog.openWarning(getShell(), getStatusDialogTitle(), formatMessage("generatecode.warn", getRunStatus()));
-			} else if ((myRunStatus.getSeverity() & IStatus.INFO) != 0) {
+				MessageDialog.openError(getShell(), action.getText(), formatMessage("generatecode.err", getRunStatus()));
+			} else if (myRunStatus.matches(IStatus.WARNING)) {
+				MessageDialog.openWarning(getShell(), action.getText(), formatMessage("generatecode.warn", getRunStatus()));
+			} else if (myRunStatus.matches(IStatus.INFO)) {
 				if (!MessageDialogWithToggle.ALWAYS.equals(getPreferences().getString(ASK_INFO))) {
-					MessageDialogWithToggle.openInformation(getShell(), getStatusDialogTitle(), formatMessage("generatecode.info", getRunStatus()), CodeGenUIPlugin.getBundleString("generatecode.neveragain"), false, getPreferences(), ASK_INFO);
+					MessageDialogWithToggle.openInformation(getShell(), action.getText(), formatMessage("generatecode.info", getRunStatus()), CodeGenUIPlugin.getBundleString("generatecode.neveragain"), false, getPreferences(), ASK_INFO);
 				}
 			}
 		} catch (InvocationTargetException ex) {
-
 		} catch (InterruptedException ex) {
+		} finally {
+			unloadGenModel();
 		}
 	}
 
 	public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-		URI selected = URI.createPlatformResourceURI(mySelection.getFullPath().toString());
-		ResourceSet srcResSet = new ResourceSetImpl();
-		Resource srcRes = srcResSet.getResource(selected, true);
-		GenDiagram gd = (GenDiagram) srcRes.getContents().get(0);
-		gd.getEMFGenModel().reconcile();
-		Generator g = new Generator(gd);
+		Generator g = new Generator(getGenModel());
 		g.run(monitor);
 		myRunStatus = g.getRunStatus();
-	}
-
-	private String getStatusDialogTitle() {
-		return CodeGenUIPlugin.getBundleString("generatecode.status.title");
 	}
 
 	public void selectionChanged(IAction action, ISelection selection) {
@@ -106,32 +111,42 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 		action.setEnabled(true);
 	}
 
-	private String formatMessage(String bundleStringKey, IStatus status) {
-		if (status.isMultiStatus()) {
-			IStatus[] children = status.getChildren();
-			StringBuffer sb = new StringBuffer();
-			// don't care about too nested statuses just because will switch to
-			// jobs soon, with
-			// required support already in place
-			for (int i = 0; i < children.length; i++) {
-				sb.append(children[i].getMessage());
-				sb.append('\n');
-			}
-			return CodeGenUIPlugin.getBundleString(bundleStringKey, new Object[] { sb.toString() });
-		} else {
-			return CodeGenUIPlugin.getBundleString(bundleStringKey, new Object[] { status.getMessage() });
-		}
+	private static String formatMessage(String bundleStringKey, IStatus status) {
+		return CodeGenUIPlugin.formatMessage(bundleStringKey, status);
 	}
 
 	private IStatus getRunStatus() {
 		return myRunStatus;
 	}
 
-	private static IPreferenceStore getPreferences() {
-		return CodeGenUIPlugin.getDefault().getPreferenceStore();
+	private GenDiagram getGenModel() {
+		return myGenModel;
+	}
+
+	private void loadGenModel() {
+		URI selected = URI.createPlatformResourceURI(mySelection.getFullPath().toString());
+		ResourceSet srcResSet = new ResourceSetImpl();
+		Resource srcRes = srcResSet.getResource(selected, true);
+		myGenModel = (GenDiagram) srcRes.getContents().get(0);
+		myGenModel.getEMFGenModel().reconcile();
+	}
+
+	private void unloadGenModel() {
+		if (myGenModel != null && myGenModel.eResource() != null) {
+			myGenModel.eResource().unload();
+		}
+		myGenModel = null;
+	}
+
+	private IStatus validateGenModel() {
+		return BasicDiagnostic.toIStatus(Diagnostician.INSTANCE.validate(getGenModel()));
 	}
 
 	private Shell getShell() {
 		return myPart.getSite().getShell();
+	}
+
+	private static IPreferenceStore getPreferences() {
+		return CodeGenUIPlugin.getDefault().getPreferenceStore();
 	}
 }
