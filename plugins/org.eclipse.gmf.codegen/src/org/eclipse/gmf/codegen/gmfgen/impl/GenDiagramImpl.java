@@ -589,6 +589,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	protected String pluginClassName = PLUGIN_CLASS_NAME_EDEFAULT;
 
+	private static final String DIAGRAM_EDITOR_TOKEN = "gmf.editor";
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -882,7 +884,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getPluginID() {
 		String value = getPluginIDGen();
 		if (value == null || value.length() == 0) {
-			return getEMFGenModel().getModelPluginID() + ".gmf.editor";
+			return getEMFGenModel().getModelPluginID() + '.' + DIAGRAM_EDITOR_TOKEN;
 		}
 		return value;
 	}
@@ -940,7 +942,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getEditorPackageName() {
 		String value = getEditorPackageNameGen();
 		if (value == null || value.length() == 0) {
-			return getPackageNamePrefix() + ".editor";
+			return getPackageNamePrefix() + ".part";
 		}
 		return value;
 	}
@@ -2035,8 +2037,16 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		return getDomainDiagramElement().getInterfaceName() + "_" + getVisualID();
 	}
 
+	/**
+	 * @see org.eclipse.emf.codegen.ecore.genmodel.impl.GenPackageImpl#getQualifiedPackageName()
+	 */
 	private String getPackageNamePrefix() {
-		return toLowerCase(getDomainMetaModel().getEcorePackage().getName());
+		String prefix = CodeGenUtil.safeName(getDomainMetaModel().getPackageName());
+		String basePackage = getDomainMetaModel().getBasePackage();
+		if (basePackage != null && basePackage.length() > 0) {
+			prefix = basePackage + '.' + prefix;
+		}
+		return prefix + '.' + DIAGRAM_EDITOR_TOKEN;
 	}
 
 	private String getDomainPackageCapName() {
@@ -2047,13 +2057,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		return Character.toUpperCase(name.charAt(0)) + name.substring(1);
 	}
 
-	private static String toLowerCase(String s) {
-		if (s == null) {
-			return "";
-		}
-		return s.toLowerCase();
-	}
-	
 	private Set getExpressionsRequiredPluginIDs() {
 		Set requiredIDs = new HashSet();
 		for (Iterator it = getNodes().iterator(); it.hasNext();) {
