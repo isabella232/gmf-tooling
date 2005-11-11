@@ -21,16 +21,16 @@
 	</target>
 
 	<target name="installEMF" unless="emfExists">
+<!-- 
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfFeatureId}" />
 			<property name="version" value="${emfVersion}" />
 			<property name="updateSite" value="${emfUpdateSite}" />
 		</ant>
-<!--		
+-->
 		<available file="${baseLocationRoot}/${emfZipName}" property="emfZipExists" />
 		<antcall target="getEMF"/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfZipName}" />
--->		
 	</target>
 	
 	<target name="getEMF" unless="emfZipExists">
@@ -55,16 +55,16 @@
 	</target>
 
 	<target name="installUML2" unless="uml2Exists">
+<!--
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${uml2FeatureId}" />
 			<property name="version" value="${uml2Version}" />
 			<property name="updateSite" value="${uml2UpdateSite}" />
 		</ant>
-<!--
+-->
 		<available file="${baseLocationRoot}/${uml2ZipName}" property="uml2ZipExists" />
 		<antcall target="getUML2"/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${uml2ZipName}" />
--->		
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${uml2ZipName}" />	
 	</target>
 			
 	<target name="getUML2" unless="uml2ZipExists">
