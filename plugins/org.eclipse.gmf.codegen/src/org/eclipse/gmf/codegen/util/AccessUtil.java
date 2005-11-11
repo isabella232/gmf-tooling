@@ -71,10 +71,6 @@ public class AccessUtil {
 		return label.getMetaFeature().getUpperName() + "_TEXT"; //$NON-NLS-1$
 	}
 
-	public static String getSemanticHintsClassName(GenCommonBase genElement) {
-		return genElement.getClassNamePrefix() + genElement.getClassNameSuffux() + "SemanticHints"; //$NON-NLS-1$
-	}
-
 	// model access
 	
 	public static List getAllChildNodes(GenNode node) {

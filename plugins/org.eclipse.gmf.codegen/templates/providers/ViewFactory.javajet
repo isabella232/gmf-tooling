@@ -61,13 +61,12 @@ if (genElement instanceof GenNode) {
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities")%>.colorToInteger(<%=importManager.getImportedName("org.eclipse.draw2d.ColorConstants")%>.<%=colorAttrs.getBackgroundColor()%>));
 <%
 	}
-	String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
-	String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
+	String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 	if (!(genNode instanceof GenChildNode)) {
 		List labels = genNode.getLabels();
 		for (int j = 0; j < labels.size(); j++) {
 			GenNodeLabel label = (GenNodeLabel) labels.get(j);
-			String labelTextViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelTextId(label);
+			String labelTextViewId = semanticHintsClassName + '.' + genNode.getUniqueIdentifier() + "Labels." + AccessUtil.getLabelTextId(label);
 %>
 		getViewService().createNode(semanticAdapter, view, <%=labelTextViewId%>,
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, persisted, getPreferencesHint());
@@ -77,7 +76,7 @@ if (genElement instanceof GenNode) {
 	List genChildContainers = genNode.getCompartments();
 	for (int j = 0; j < genChildContainers.size(); j++) {
 		GenCompartment genChildContainer = (GenCompartment) genChildContainers.get(j);
-		String compartmentId = semanticHintsClassName + ".Compartments." + AccessUtil.getCompartmentId(genChildContainer);
+		String compartmentId = semanticHintsClassName + '.' + genNode.getUniqueIdentifier() + "Compartments." + AccessUtil.getCompartmentId(genChildContainer);
 %>
 		getViewService().createNode(semanticAdapter, view, <%=compartmentId%>,
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, persisted, getPreferencesHint());
@@ -85,19 +84,18 @@ if (genElement instanceof GenNode) {
 	}
 } else if (genElement instanceof GenLink) {
 	GenLink genLink = (GenLink) genElement;
-	String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genLink);
-	String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
+	String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 	List labels = genLink.getLabels();
 	for (int j = 0; j < labels.size(); j++) {
 		GenLinkLabel label = (GenLinkLabel) labels.get(j);
-		String labelViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelId(label);
+		String labelViewId = semanticHintsClassName + '.' + genLink.getUniqueIdentifier() + "Labels." + AccessUtil.getLabelId(label);
 %>
 		getViewService().createNode(semanticAdapter, view, <%=labelViewId%>,
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, persisted, getPreferencesHint());
 <%	}
 	if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 %>
-		view.setType(<%=AccessUtil.getSemanticHintsClassName(genLink)%>.VIEW_TYPE);
+		view.setType(<%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>);
 <%
 	}
 }

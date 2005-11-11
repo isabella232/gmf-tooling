@@ -100,6 +100,7 @@ public class Generator implements Runnable {
 			initializeEditorProject();
 
 			// edit parts, edit policies and providers
+			generateSemanticHints();
 			generateStructuralFeatureParser();
 			generateBaseItemSemanticEditPolicy();
 			generateReferenceConnectionEditPolicy();
@@ -111,7 +112,6 @@ public class Generator implements Runnable {
 			for (Iterator it = myDiagram.getLinks().iterator(); it.hasNext();) {
 				final GenLink next = (GenLink) it.next();
 				generateViewFactory(next);
-				generateSemanticHints(next);
 				generateLinkEditPart(next);
 				generateLinkItemSemanticEditPolicy(next);
 				for (Iterator labels = next.getLabels().iterator(); labels.hasNext();) {
@@ -192,7 +192,6 @@ public class Generator implements Runnable {
 			GenCompartment compartment = (GenCompartment) compartments.next();
 			generateCompartment(compartment);
 		}
-		generateSemanticHints(node);
 		generateChildContainer(node);
 		generateNodeItemSemanticEditPolicy(node);
 	}
@@ -345,12 +344,13 @@ public class Generator implements Runnable {
 		);
 	}
 
-	private void generateSemanticHints(GenCommonBase genElement) throws JETException, InterruptedException {
+	private void generateSemanticHints() throws JETException, InterruptedException {
+		String fqn = myDiagram.getSemanticHintsQualifiedClassName();
 		generate(
 			EmitterFactory.getSemanticHintsEmitter(),
 			myDiagram.getProvidersPackageName(),
-			AccessUtil.getSemanticHintsClassName(genElement),
-			genElement
+			fqn.substring(fqn.lastIndexOf('.') + 1),
+			myDiagram
 		);
 	}
 

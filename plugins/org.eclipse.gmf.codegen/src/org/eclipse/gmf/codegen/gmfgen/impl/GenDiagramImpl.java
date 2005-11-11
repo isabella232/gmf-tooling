@@ -1426,6 +1426,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public String getSemanticHintsQualifiedClassName() {
+		return getProvidersPackageName() + '.' + "SemanticHints";
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public String[] getRequiredPluginIDs() {
 		ArrayList requiredPlugins = new ArrayList();
 		if (usesSVGShapes()) {

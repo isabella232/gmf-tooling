@@ -2026,6 +2026,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getReferenceConnectionEditPolicyQualifiedClassName");
 
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getSemanticHintsQualifiedClassName");
+
 		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getViewProviderQualifiedClassName");
 
 		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getEditPartProviderQualifiedClassName");

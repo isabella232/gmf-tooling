@@ -104,7 +104,6 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 		}
 	}
 }
-
 for (Iterator links = genLinks.iterator(); links.hasNext();) {
 	GenLink link = (GenLink) links.next();
 
@@ -114,14 +113,13 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
     stringBuffer.append(link.getEditPartClassName());
     stringBuffer.append(TEXT_21);
     
-	String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(link);
 	for (Iterator linkLabels = link.getLabels().iterator(); linkLabels.hasNext();) {
 // [++] Just to remove unnecessary imports we are doing this import insode a loop
-		String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
+		String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 		String semanticPackageInterfaceName = importManager.getImportedName(genDiagram.getDomainMetaModel().getQualifiedPackageInterfaceName());
 // [--]		
 		GenLinkLabel linkLabel = (GenLinkLabel) linkLabels.next();
-		String labelViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelId(linkLabel);
+		String labelViewId = semanticHintsClassName + '.' + link.getUniqueIdentifier() + "Labels." + AccessUtil.getLabelId(linkLabel);
 		String semanticLinkInterfaceName;
 		if (link.getModelFacet() instanceof TypeLinkModelFacet) {
 			TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) link.getModelFacet();
@@ -130,7 +128,6 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 			FeatureModelFacet modelFacet = (FeatureModelFacet) link.getModelFacet();
 			semanticLinkInterfaceName = modelFacet.getMetaFeature().getGenClass().getClassifierAccessorName();
 		}
-
 
     stringBuffer.append(TEXT_22);
     stringBuffer.append(linkLabel.getVisualID());

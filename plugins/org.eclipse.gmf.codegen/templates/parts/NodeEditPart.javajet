@@ -118,15 +118,14 @@ for (Iterator it = genNode.getViewmap().getAttributes().iterator(); it.hasNext()
 <%
 if (!genNode.getLabels().isEmpty()) {
 	GenNodeLabel primaryLabel = (GenNodeLabel) genNode.getLabels().get(0);
-	String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(genNode);
-	String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
+	String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 %>
 
 	/**
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(<%=semanticHintsClassName%>.Labels.<%=AccessUtil.getLabelTextId(primaryLabel)%>);
+		return getChildBySemanticHint(<%=semanticHintsClassName%>.<%=genNode.getUniqueIdentifier()%>Labels.<%=AccessUtil.getLabelTextId(primaryLabel)%>);
 	}
 	
 <%

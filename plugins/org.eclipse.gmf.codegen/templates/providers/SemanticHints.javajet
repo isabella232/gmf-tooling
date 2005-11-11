@@ -1,75 +1,79 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="SemanticHintsGenerator"
 	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
-<%GenCommonBase genElement = (GenCommonBase) argument;%>
-<%GenDiagram genDiagram = genElement.getDiagram();%>
+<%GenDiagram genDiagram = (GenDiagram) argument;%>
 package <%=genDiagram.getProvidersPackageName()%>;
+
+<%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
+<%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
-public class <%=AccessUtil.getSemanticHintsClassName(genElement)%> {
+public class <%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%> {
 
 	/**
 	 * @generated
 	 */
-	private <%=AccessUtil.getSemanticHintsClassName(genElement)%>() {}
+	private <%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%>() {}
 <%
-if (genElement instanceof GenLink && ((GenLink) genElement).getModelFacet() instanceof FeatureModelFacet) {
-	FeatureModelFacet modelFacet = (FeatureModelFacet) ((GenLink) genElement).getModelFacet();
+for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
+	Object next = contents.next();
+	if (next instanceof GenLink && ((GenLink) next).getModelFacet() instanceof FeatureModelFacet) {
+		FeatureModelFacet modelFacet = (FeatureModelFacet) ((GenLink) next).getModelFacet();
 %>
 
 	/**
 	 * @generated
 	 */
-	public static final String VIEW_TYPE = "<%=modelFacet.getMetaFeature().getName()%>Link";
+	public static final String <%=((GenLink) next).getUniqueIdentifier()%> = "<%=modelFacet.getMetaFeature().getName()%>Link";
 <%
-}
-if (genElement instanceof GenNode) {
-	GenNode genNode = (GenNode) genElement;
-	List labels = genNode.getLabels();
-	if (!labels.isEmpty()) {
+	}
+	if (next instanceof GenNode) {
+		GenNode genNode = (GenNode) next;
+		List labels = genNode.getLabels();
+		if (!labels.isEmpty()) {
 %>
 
 	/**
 	 * @generated
 	 */
-	public static class Labels {
+	public static class <%=genNode.getUniqueIdentifier()%>Labels {
 
 		/**
 		 * @generated
 		 */
-		private Labels() {}
+		private <%=genNode.getUniqueIdentifier()%>Labels() {}
 <%
-		for (int i = 0; i < labels.size(); i++) {
-			GenNodeLabel label = (GenNodeLabel) labels.get(i);
+			for (int i = 0; i < labels.size(); i++) {
+				GenNodeLabel label = (GenNodeLabel) labels.get(i);
 %>
 
 		/**
 		 * @generated
 		 */
 		public static final String <%=AccessUtil.getLabelTextId(label)%> = "<%=label.getMetaFeature().getName()%>Text";
-<%		}%>
+<%			}%>
 	}
 <%
-	}
-	List compartments = genNode.getCompartments();
-	if (!compartments.isEmpty()) {
+		}
+		List compartments = genNode.getCompartments();
+		if (!compartments.isEmpty()) {
 %>
 
 	/**
 	 * @generated
 	 */
-	public static class Compartments {
+	public static class <%=genNode.getUniqueIdentifier()%>Compartments {
 
 		/**
 		 * @generated
 		 */
-		private Compartments() {}
+		private <%=genNode.getUniqueIdentifier()%>Compartments() {}
 <%
-		for (int i = 0; i < compartments.size(); i++) {
-			GenCompartment compartment = (GenCompartment) compartments.get(i);
-			String id = AccessUtil.getCompartmentId(compartment);
-			if (id != null && id.length() > 0) {
+			for (int i = 0; i < compartments.size(); i++) {
+				GenCompartment compartment = (GenCompartment) compartments.get(i);
+				String id = AccessUtil.getCompartmentId(compartment);
+				if (id != null && id.length() > 0) {
 %>
 
 		/**
@@ -77,30 +81,30 @@ if (genElement instanceof GenNode) {
 		 */
 		public static final String <%=id%> = "<%=compartment.getTitle()%>";
 <%
+				}
 			}
-		}
 %>
 	}
 <%
-	}
-} else if (genElement instanceof GenLink) {
-	GenLink genLink = (GenLink) genElement;
-	List labels = genLink.getLabels();
-	if (!labels.isEmpty()) {
+		}
+	} else if (next instanceof GenLink) {
+		GenLink genLink = (GenLink) next;
+		List labels = genLink.getLabels();
+		if (!labels.isEmpty()) {
 %>
 
 	/**
 	 * @generated
 	 */
-	public static class Labels {
+	public static class <%=genLink.getUniqueIdentifier()%>Labels {
 
 		/**
 		 * @generated
 		 */
-		private Labels() {}
+		private <%=genLink.getUniqueIdentifier()%>Labels() {}
 <%
-		for (int i = 0; i < labels.size(); i++) {
-			GenLinkLabel label = (GenLinkLabel) labels.get(i);
+			for (int i = 0; i < labels.size(); i++) {
+				GenLinkLabel label = (GenLinkLabel) labels.get(i);
 %>
 
 		/**
@@ -112,10 +116,12 @@ if (genElement instanceof GenNode) {
 		 * @generated
 		 */
 		public static final String <%=AccessUtil.getLabelTextId(label)%> = "<%=label.getMetaFeature().getName()%>Text";
-<%		}%>
+<%			}%>
 	}
 <%
+		}
 	}
 }
 %>
 }
+<%importManager.emitSortedImports();%>

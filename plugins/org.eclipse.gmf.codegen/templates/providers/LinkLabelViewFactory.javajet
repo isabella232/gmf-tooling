@@ -4,12 +4,14 @@
 <%GenDiagram diagram = label.getDiagram();%>
 package <%=diagram.getProvidersPackageName()%>;
 
+<%ImportUtil importManager = new ImportUtil(diagram.getProvidersPackageName());%>
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory;
 import org.eclipse.gmf.runtime.notation.View;
+<%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
@@ -25,7 +27,8 @@ public class <%=label.getNotationViewFactoryClassName()%> extends AbstractLabelV
 <%GenCommonBase genElement = label;%>
 <%@ include file="createVIDAnnotation.jetinc"%>
 		getViewService().createNode(semanticAdapter, view,
-			<%=AccessUtil.getSemanticHintsClassName(label.getLink())%>.Labels.<%=AccessUtil.getLabelTextId(label)%>,
+			<%=importManager.getImportedName(diagram.getSemanticHintsQualifiedClassName())%>.<%=label.getLink().getUniqueIdentifier()%>Labels.<%=AccessUtil.getLabelTextId(label)%>,
 			ViewUtil.APPEND, persisted, getPreferencesHint());
 	}
 }
+<%importManager.emitSortedImports();%>

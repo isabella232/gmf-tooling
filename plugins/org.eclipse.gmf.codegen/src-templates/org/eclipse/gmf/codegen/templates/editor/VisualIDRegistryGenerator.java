@@ -201,12 +201,10 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
     
 	if (nextContainer instanceof GenNode) {
 		GenNode node = (GenNode) nextContainer;
-		String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(node);
-			
+		String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
-			String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 			GenNodeLabel label = (GenNodeLabel) labels.next();
-			String labelTextViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelTextId(label);
+			String labelTextViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Labels." + AccessUtil.getLabelTextId(label);
 
     stringBuffer.append(TEXT_23);
     stringBuffer.append(labelTextViewId);
@@ -215,11 +213,9 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
     stringBuffer.append(TEXT_25);
     			
 		}
-		
 		for (Iterator compartments = node.getCompartments().iterator(); compartments.hasNext();) {
-			String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 			GenCompartment compartment = (GenCompartment) compartments.next();
-			String compartmentId = semanticHintsClassName + ".Compartments." + AccessUtil.getCompartmentId(compartment);
+			String compartmentId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Compartments." + AccessUtil.getCompartmentId(compartment);
 
     stringBuffer.append(TEXT_26);
     stringBuffer.append(compartmentId);
@@ -258,19 +254,17 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
     stringBuffer.append(TEXT_38);
     
 }
-
 for (Iterator links = genLinks.iterator(); links.hasNext();) {
 	GenLink link = (GenLink) links.next();
-	String semanticHintsQualifiedClassName = genDiagram.getProvidersPackageName() + '.' + AccessUtil.getSemanticHintsClassName(link);
+	String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 
     stringBuffer.append(TEXT_39);
     stringBuffer.append(link.getVisualID());
     stringBuffer.append(TEXT_40);
     
 	for (Iterator linkLabels = link.getLabels().iterator(); linkLabels.hasNext();) {
-		String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 		GenLinkLabel linkLabel = (GenLinkLabel) linkLabels.next();
-		String labelViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelId(linkLabel);
+		String labelViewId = semanticHintsClassName + '.' + link.getUniqueIdentifier() + "Labels." + AccessUtil.getLabelId(linkLabel);
 
     stringBuffer.append(TEXT_41);
     stringBuffer.append(labelViewId);
@@ -285,9 +279,8 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
     stringBuffer.append(TEXT_45);
     
 	for (Iterator linkLabels = link.getLabels().iterator(); linkLabels.hasNext();) {
-		String semanticHintsClassName = importManager.getImportedName(semanticHintsQualifiedClassName);
 		GenLinkLabel linkLabel = (GenLinkLabel) linkLabels.next();
-		String labelTextViewId = semanticHintsClassName + ".Labels." + AccessUtil.getLabelTextId(linkLabel);
+		String labelTextViewId = semanticHintsClassName + '.' + link.getUniqueIdentifier() + "Labels." + AccessUtil.getLabelTextId(linkLabel);
 
     stringBuffer.append(TEXT_46);
     stringBuffer.append(linkLabel.getVisualID());
