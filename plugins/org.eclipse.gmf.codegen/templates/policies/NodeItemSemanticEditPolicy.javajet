@@ -24,9 +24,7 @@ if (genNode.getChildNodes().size() > 0) {
 %>
 
 <%@ include file="childContainerCreateCommand.jetinc"%>
-<%
-}
-%>
+<%}%>
 
 	/**
 	 * @generated
@@ -221,6 +219,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		}
 	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+		int upperBound = metaFeature.getEcoreFeature().getUpperBound();
 		GenClass outgoingClass = metaFeature.getGenClass();
 		GenClass incomingClass = metaFeature.getTypeGenClass();
 		if (nodeMetaClass.equals(outgoingClass)) {
@@ -231,6 +230,16 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
+<%			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY%>
+		<%=outgoingClass.getName()%> element = (<%=outgoingClass.getName()%>) getSemanticElement();
+<%				if (upperBound == 1) {%>
+		if (element.get<%=metaFeature.getAccessorName()%>() != null) {
+<%				} else {%>
+		if (element.get<%=metaFeature.getAccessorName()%>().size() >= <%=upperBound%>) {
+<%				}%>
+			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+		}
+<%			}%>
 		return new Command() {
 		};
 	}
@@ -242,6 +251,20 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		if (!(req.getSource() instanceof <%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
+<%			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY%>
+		<%=outgoingClass.getName()%> element = (<%=outgoingClass.getName()%>) getSemanticElement();
+<%				if (upperBound == 1) {%>
+		if (element.get<%=metaFeature.getAccessorName()%>() != null) {
+<%				} else {%>
+		if (element.get<%=metaFeature.getAccessorName()%>().size() >= <%=upperBound%>
+<%					if (metaFeature.getEcoreFeature().isUnique()) {%>
+			|| element.get<%=metaFeature.getAccessorName()%>().contains(req.getSource())
+<%					}%>
+				) {
+<%				}%>
+			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+		}
+<%			}%>
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest")%> setReq = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest")%>(req.getTarget(),
 			<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>(), req.getSource());
 		return getMSLWrapper(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand")%>(setReq));
@@ -266,6 +289,20 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		if (!(req.getSource() instanceof <%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
+<%			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY%>
+		<%=outgoingClass.getName()%> element = (<%=outgoingClass.getName()%>) req.getSource();
+<%				if (upperBound == 1) {%>
+		if (element.get<%=metaFeature.getAccessorName()%>() != null) {
+<%				} else {%>
+		if (element.get<%=metaFeature.getAccessorName()%>().size() >= <%=upperBound%>
+<%					if (metaFeature.getEcoreFeature().isUnique()) {%>
+			|| element.get<%=metaFeature.getAccessorName()%>().contains(req.getTarget())
+<%					}%>
+				) {
+<%				}%>
+			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+		}
+<%			}%>
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest")%> setReq = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest")%>(req.getSource(),
 			<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>(), req.getTarget());
 		return getMSLWrapper(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand")%>(setReq));
