@@ -87,23 +87,23 @@
 		 	<!--  Insert url for supported eclipse drop-->
 			<replacefilter token="@eclipseVersion@" value="${eclipseVersion}"/>
 			<replacefilter token="@eclipseBuildId@" value="${eclipseBuildId}"/>
-			<replacefilter token="@eclipseBaseURL@" value="${eclipseBaseURL}"/>			
+			<replacefilter token="@eclipseBaseURL@" value="${eclipseBaseURL}"/>
+			<replacefilter token="@eclipseDownloadPage@" value="${eclipseDownloadPage}"/>	
 
 		 	<!--  Insert url for supported EMF -->
 			<replacefilter token="@emfVersion@" value="${emfVersion}"/>
-			<replacefilter token="@emfUpdateSite@" value="${emfUpdateSite}"/>		
+			<replacefilter token="@emfUpdateSite@" value="${emfUpdateSite}"/>	
+			<replacefilter token="@emfDownloadPage@" value="${emfDownloadPage}"/>
 
 		 	<!--  Insert url for supported GEF -->
 			<replacefilter token="@gefVersion@" value="${gefVersion}"/>
 			<replacefilter token="@gefUpdateSite@" value="${gefUpdateSite}"/>
-			
-			<!--  Insert url for supported WST -->
-			<replacefilter token="@wstVersion@" value="${wstVersion}"/>
-			<replacefilter token="@wstUpdateSite@" value="${wstUpdateSite}"/>
+			<replacefilter token="@gefDownloadPage@" value="${gefDownloadPage}"/>
 			
 			<!--  Insert url for supported UML2 -->
 			<replacefilter token="@uml2Version@" value="${uml2Version}"/>
 			<replacefilter token="@uml2UpdateSite@" value="${uml2UpdateSite}"/>
+			<replacefilter token="@uml2DownloadPage@" value="${uml2DownloadPage}"/>
 		</replace>
 	
 		<!-- Replace the base variables to be nothing for bld-index, and the full reroute url for the main index file. -->
