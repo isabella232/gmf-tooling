@@ -102,6 +102,9 @@
 	<target name="postFetch">
 		<!-- TODO: use this workaround if it is decided to have optional source builds -->
 		<!-- <antcall target="generateSources"/> -->
+		<replace dir="${buildDirectory}/plugins" value="${buildId}" token="@buildId@">
+			<include name="**/about.mappings" />
+		</replace>
 	</target>
 	
 	<!-- ===================================================================== -->

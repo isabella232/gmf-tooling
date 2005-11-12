@@ -101,6 +101,9 @@
 	<!-- Steps to do after fetching the build elements -->
 	<!-- ===================================================================== -->
 	<target name="postFetch">
+		<replace dir="${buildDirectory}/plugins" value="${buildId}" token="@buildId@">
+			<include name="**/about.mappings" />
+		</replace>
 	</target>
 
 	<!-- ===================================================================== -->
