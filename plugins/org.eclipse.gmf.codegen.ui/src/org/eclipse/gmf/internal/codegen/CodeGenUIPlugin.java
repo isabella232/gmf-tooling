@@ -84,9 +84,12 @@ public class CodeGenUIPlugin extends AbstractUIPlugin {
 			// don't care about too nested statuses just because will switch to
 			// jobs soon, with
 			// required support already in place
-			for (int i = 0; i < children.length; i++) {
+			for (int i = 0; i < children.length && i < 10; i++) {
 				sb.append(children[i].getMessage());
 				sb.append('\n');
+			}
+			if (children.length > 10) {
+				sb.append("...");
 			}
 			return CodeGenUIPlugin.getBundleString(bundleStringKey, new Object[] { sb.toString() });
 		} else {
