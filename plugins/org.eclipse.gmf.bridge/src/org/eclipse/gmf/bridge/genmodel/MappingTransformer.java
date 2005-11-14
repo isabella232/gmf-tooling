@@ -22,7 +22,7 @@ import org.eclipse.gmf.mappings.NodeMapping;
  * Encapsulates iteration over diagram definition.
  * @author artem
  */
-public abstract class MappingTransofrmer {
+public abstract class MappingTransformer {
 
 	public void transform(Mapping m) {
 		process(m.getDiagram());

@@ -31,7 +31,7 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
  * attributes/features of diagram.
  * @author artem
  */
-public class DiagramRunTimeModelTransformer extends MappingTransofrmer {
+public class DiagramRunTimeModelTransformer extends MappingTransformer {
 	private final EPackage myPackage;
 
 	public DiagramRunTimeModelTransformer(String modelName, String modelNsURI) {

@@ -70,7 +70,7 @@ import org.eclipse.gmf.mappings.NodeMapping;
  * Creates generation model from diagram definition.
  * @author artem
  */
-public class DiagramGenModelTransformer extends MappingTransofrmer {
+public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private static final int CANVAS_COUNT_BASE = 79;
 	private static final int NODE_COUNT_BASE = 1000;
@@ -99,7 +99,7 @@ public class DiagramGenModelTransformer extends MappingTransofrmer {
 
 	/**
 	 * Optionally set GenModel to match ECore elements against. 
-	 * Should be invoked prior to {@link MappingTransofrmer#transform(Mapping)}, otherwise has no effect.
+	 * Should be invoked prior to {@link MappingTransformer#transform(Mapping)}, otherwise has no effect.
 	 * Useful for tests (and other cases) when GenModel is not known to EMF 
 	 * (and thus can't be obtained using EMF techniques).
 	 * @param emfGenModel EMF GenModel for domain model
