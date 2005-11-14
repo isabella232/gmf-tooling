@@ -115,7 +115,7 @@ public class TransformToGenModel implements IObjectActionDelegate {
 			{
 				//setUser(true); // waiting for regression #115873 to be fixed
 				setPriority(SHORT);
-				setRule(rule);
+				//setRule(rule);
 			}
 
 			protected IStatus run(IProgressMonitor monitor) {
