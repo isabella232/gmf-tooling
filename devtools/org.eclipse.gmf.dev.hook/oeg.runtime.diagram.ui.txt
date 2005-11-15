@@ -1,19 +1,11 @@
 Index: META-INF/MANIFEST.MF
 ===================================================================
 RCS file: /cvsroot/technology/org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui/META-INF/MANIFEST.MF,v
-retrieving revision 1.5
-diff -u -r1.5 MANIFEST.MF
---- META-INF/MANIFEST.MF	8 Sep 2005 18:58:40 -0000	1.5
-+++ META-INF/MANIFEST.MF	10 Nov 2005 15:13:06 -0000
-@@ -42,7 +42,6 @@
-  org.eclipse.gmf.runtime.diagram.ui.internal.tools,
-  org.eclipse.gmf.runtime.diagram.ui.internal.type,
-  org.eclipse.gmf.runtime.diagram.ui.internal.util,
-- org.eclipse.gmf.runtime.diagram.ui.internal.view,
-  org.eclipse.gmf.runtime.diagram.ui.internal.view.factories,
-  org.eclipse.gmf.runtime.diagram.ui.l10n,
-  org.eclipse.gmf.runtime.diagram.ui.menus,
-@@ -75,5 +74,6 @@
+retrieving revision 1.6
+diff -u -r1.6 MANIFEST.MF
+--- META-INF/MANIFEST.MF	11 Nov 2005 16:28:07 -0000	1.6
++++ META-INF/MANIFEST.MF	15 Nov 2005 09:14:56 -0000
+@@ -74,5 +74,6 @@
   org.eclipse.gmf.runtime.notation;visibility:=reexport,
   org.eclipse.emf.common,
   org.eclipse.emf.ecore,
@@ -21,69 +13,85 @@ diff -u -r1.5 MANIFEST.MF
 + org.eclipse.gmf.runtime.diagram.core;visibility:=reexport,
 + org.eclipse.gmf.dev.hook
  Eclipse-AutoStart: true
-Index: src/org/eclipse/gmf/runtime/diagram/ui/editpolicies/SemanticEditPolicy.java
+Index: src/org/eclipse/gmf/runtime/diagram/ui/editparts/ConnectionEditPart.java
 ===================================================================
-RCS file: /cvsroot/technology/org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui/src/org/eclipse/gmf/runtime/diagram/ui/editpolicies/SemanticEditPolicy.java,v
-retrieving revision 1.4
-diff -u -r1.4 SemanticEditPolicy.java
---- src/org/eclipse/gmf/runtime/diagram/ui/editpolicies/SemanticEditPolicy.java	2 Nov 2005 23:30:16 -0000	1.4
-+++ src/org/eclipse/gmf/runtime/diagram/ui/editpolicies/SemanticEditPolicy.java	10 Nov 2005 15:13:10 -0000
-@@ -11,6 +11,8 @@
+RCS file: /cvsroot/technology/org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui/src/org/eclipse/gmf/runtime/diagram/ui/editparts/ConnectionEditPart.java,v
+retrieving revision 1.14
+diff -u -r1.14 ConnectionEditPart.java
+--- src/org/eclipse/gmf/runtime/diagram/ui/editparts/ConnectionEditPart.java	8 Nov 2005 18:50:25 -0000	1.14
++++ src/org/eclipse/gmf/runtime/diagram/ui/editparts/ConnectionEditPart.java	15 Nov 2005 09:14:57 -0000
+@@ -17,6 +17,7 @@
+ import java.util.Dictionary;
+ import java.util.HashMap;
+ import java.util.Hashtable;
++import java.util.IdentityHashMap;
+ import java.util.Iterator;
+ import java.util.List;
+ import java.util.ListIterator;
+@@ -51,6 +52,7 @@
+ import org.eclipse.gef.editparts.AbstractConnectionEditPart;
+ import org.eclipse.gef.editpolicies.SnapFeedbackPolicy;
+ import org.eclipse.gef.rulers.RulerProvider;
++import org.eclipse.gmf.dev.hook.EditPartTracer;
+ import org.eclipse.gmf.runtime.common.ui.services.action.filter.ActionFilterService;
+ import org.eclipse.gmf.runtime.diagram.core.internal.util.MEditingDomainGetter;
+ import org.eclipse.gmf.runtime.diagram.core.listener.DiagramEventBroker;
+@@ -507,17 +509,46 @@
+ 			return UnexecutableCommand.INSTANCE;
+ 		}
  
- package org.eclipse.gmf.runtime.diagram.ui.editpolicies;
- 
-+import java.util.Map;
++		Command cmd = null;
++		final Map sources = new IdentityHashMap();
++		_request.getExtendedData().put("org.eclipse.gmf.dev.sources", sources);
++		traceCommandRequested(_request);
 +
- import org.eclipse.emf.ecore.EObject;
- import org.eclipse.gef.EditPart;
- import org.eclipse.gef.Request;
-@@ -68,9 +70,25 @@
- 	 * @see org.eclipse.gef.EditPolicy#getCommand(Request)
- 	 */
- 	public Command getCommand(Request request) {
-+		Command cmd = getCommandX(request);
-+		Map sources = (Map) request.getExtendedData().get("org.eclipse.gmf.dev.sources");
-+		if (cmd != null && sources != null) {
-+			sources.put(cmd, this);
++		try {
+ 		final Request request = _request;
+-		Command cmd = (Command) MEditingDomainGetter.getMEditingDomain(
++		cmd = (Command) MEditingDomainGetter.getMEditingDomain(
+ 			(View) getModel()).runAsRead(new MRunnable() {
+ 
+ 			public Object run() {
+-				return ConnectionEditPart.super.getCommand(request);
++				//return ConnectionEditPart.super.getCommand(request);
++				return EditPartTracer.Insider.getCommand(
++						getEditPolicyIterator(), request, sources);
+ 			}
+ 		});
++		} finally {
++			traceCommandCreated(_request, cmd, sources);
 +		}
-+		return cmd;
++
+ 		return cmd;
+ 	}
+ 
++	protected final void traceCommandRequested(Request request) {
++		EditPartTracer tracer = EditPartTracer.getInstance(getViewer());
++		if (tracer == null) {
++			return;
++		}
++		tracer.fireCommandRequested(this, request);
 +	}
 +
-+	/**
-+	 * @see org.eclipse.gef.EditPolicy#getCommand(Request)
-+	 */
-+	public Command getCommandX(Request request) {
-+		Map sources = (Map) request.getExtendedData().get("org.eclipse.gmf.dev.sources");
- 		if (RequestConstants.REQ_SEMANTIC_WRAPPER.equals(request.getType())) {
--			return getSemanticCommand(((EditCommandRequestWrapper) request)
--				.getEditCommandRequest());
-+			IEditCommandRequest semRequest = ((EditCommandRequestWrapper) request).getEditCommandRequest();
-+			if (sources != null) {
-+				semRequest.setParameter("org.eclipse.gmf.dev.sources", sources);
-+			}
-+			return getSemanticCommand(semRequest);
- 		} else if (REQ_RECONNECT_SOURCE.equals(request.getType())
- 			&& relationshipSourceHasChanged((ReconnectRequest) request)) {
- 			EditPart connectionEP = ((ReconnectRequest) request)
-@@ -128,7 +146,11 @@
- 	 */
- 	protected Command getSemanticCommand(IEditCommandRequest request) {
- 
-+		Map sources = (Map) request.getParameter("org.eclipse.gmf.dev.sources");
- 		IEditCommandRequest completedRequest = completeRequest(request);
-+		if (sources != null) {
-+			completedRequest.setParameter("org.eclipse.gmf.dev.sources", sources);
++	protected final void traceCommandCreated(Request request, Command command,
++			Map sources) {
++		EditPartTracer tracer = EditPartTracer.getInstance(getViewer());
++		if (tracer == null) {
++			return;
 +		}
- 		
- 		IElementType elementType = ElementTypeRegistry.getInstance()
- 			.getElementType(completedRequest.getEditHelperContext());
++		tracer.fireCommandCreated(this, request, command, sources);
++	}
++
+ 	/**
+ 	 * Convenience method returning the editpart's Diagram, the Diagam that owns
+ 	 * the edit part
 Index: src/org/eclipse/gmf/runtime/diagram/ui/editparts/GraphicalEditPart.java
 ===================================================================
 RCS file: /cvsroot/technology/org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui/src/org/eclipse/gmf/runtime/diagram/ui/editparts/GraphicalEditPart.java,v
 retrieving revision 1.17
 diff -u -r1.17 GraphicalEditPart.java
 --- src/org/eclipse/gmf/runtime/diagram/ui/editparts/GraphicalEditPart.java	8 Nov 2005 19:38:16 -0000	1.17
-+++ src/org/eclipse/gmf/runtime/diagram/ui/editparts/GraphicalEditPart.java	10 Nov 2005 15:13:10 -0000
++++ src/org/eclipse/gmf/runtime/diagram/ui/editparts/GraphicalEditPart.java	15 Nov 2005 09:14:57 -0000
 @@ -17,6 +17,7 @@
  import java.util.HashMap;
  import java.util.HashSet;
@@ -167,75 +175,59 @@ diff -u -r1.17 GraphicalEditPart.java
  	}
  	
  	/**
-Index: src/org/eclipse/gmf/runtime/diagram/ui/editparts/ConnectionEditPart.java
+Index: src/org/eclipse/gmf/runtime/diagram/ui/editpolicies/SemanticEditPolicy.java
 ===================================================================
-RCS file: /cvsroot/technology/org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui/src/org/eclipse/gmf/runtime/diagram/ui/editparts/ConnectionEditPart.java,v
-retrieving revision 1.14
-diff -u -r1.14 ConnectionEditPart.java
---- src/org/eclipse/gmf/runtime/diagram/ui/editparts/ConnectionEditPart.java	8 Nov 2005 18:50:25 -0000	1.14
-+++ src/org/eclipse/gmf/runtime/diagram/ui/editparts/ConnectionEditPart.java	10 Nov 2005 15:13:09 -0000
-@@ -17,6 +17,7 @@
- import java.util.Dictionary;
- import java.util.HashMap;
- import java.util.Hashtable;
-+import java.util.IdentityHashMap;
- import java.util.Iterator;
- import java.util.List;
- import java.util.ListIterator;
-@@ -51,6 +52,7 @@
- import org.eclipse.gef.editparts.AbstractConnectionEditPart;
- import org.eclipse.gef.editpolicies.SnapFeedbackPolicy;
- import org.eclipse.gef.rulers.RulerProvider;
-+import org.eclipse.gmf.dev.hook.EditPartTracer;
- import org.eclipse.gmf.runtime.common.ui.services.action.filter.ActionFilterService;
- import org.eclipse.gmf.runtime.diagram.core.internal.util.MEditingDomainGetter;
- import org.eclipse.gmf.runtime.diagram.core.listener.DiagramEventBroker;
-@@ -507,17 +509,46 @@
- 			return UnexecutableCommand.INSTANCE;
- 		}
+RCS file: /cvsroot/technology/org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui/src/org/eclipse/gmf/runtime/diagram/ui/editpolicies/SemanticEditPolicy.java,v
+retrieving revision 1.4
+diff -u -r1.4 SemanticEditPolicy.java
+--- src/org/eclipse/gmf/runtime/diagram/ui/editpolicies/SemanticEditPolicy.java	2 Nov 2005 23:30:16 -0000	1.4
++++ src/org/eclipse/gmf/runtime/diagram/ui/editpolicies/SemanticEditPolicy.java	15 Nov 2005 09:14:57 -0000
+@@ -11,6 +11,8 @@
  
-+		Command cmd = null;
-+		final Map sources = new IdentityHashMap();
-+		_request.getExtendedData().put("org.eclipse.gmf.dev.sources", sources);
-+		traceCommandRequested(_request);
+ package org.eclipse.gmf.runtime.diagram.ui.editpolicies;
+ 
++import java.util.Map;
 +
-+		try {
- 		final Request request = _request;
--		Command cmd = (Command) MEditingDomainGetter.getMEditingDomain(
-+		cmd = (Command) MEditingDomainGetter.getMEditingDomain(
- 			(View) getModel()).runAsRead(new MRunnable() {
- 
- 			public Object run() {
--				return ConnectionEditPart.super.getCommand(request);
-+				//return ConnectionEditPart.super.getCommand(request);
-+				return EditPartTracer.Insider.getCommand(
-+						getEditPolicyIterator(), request, sources);
- 			}
- 		});
-+		} finally {
-+			traceCommandCreated(_request, cmd, sources);
+ import org.eclipse.emf.ecore.EObject;
+ import org.eclipse.gef.EditPart;
+ import org.eclipse.gef.Request;
+@@ -68,9 +70,25 @@
+ 	 * @see org.eclipse.gef.EditPolicy#getCommand(Request)
+ 	 */
+ 	public Command getCommand(Request request) {
++		Command cmd = getCommandX(request);
++		Map sources = (Map) request.getExtendedData().get("org.eclipse.gmf.dev.sources");
++		if (cmd != null && sources != null) {
++			sources.put(cmd, this);
 +		}
-+
- 		return cmd;
- 	}
- 
-+	protected final void traceCommandRequested(Request request) {
-+		EditPartTracer tracer = EditPartTracer.getInstance(getViewer());
-+		if (tracer == null) {
-+			return;
-+		}
-+		tracer.fireCommandRequested(this, request);
++		return cmd;
 +	}
 +
-+	protected final void traceCommandCreated(Request request, Command command,
-+			Map sources) {
-+		EditPartTracer tracer = EditPartTracer.getInstance(getViewer());
-+		if (tracer == null) {
-+			return;
++	/**
++	 * @see org.eclipse.gef.EditPolicy#getCommand(Request)
++	 */
++	public Command getCommandX(Request request) {
++		Map sources = (Map) request.getExtendedData().get("org.eclipse.gmf.dev.sources");
+ 		if (RequestConstants.REQ_SEMANTIC_WRAPPER.equals(request.getType())) {
+-			return getSemanticCommand(((EditCommandRequestWrapper) request)
+-				.getEditCommandRequest());
++			IEditCommandRequest semRequest = ((EditCommandRequestWrapper) request).getEditCommandRequest();
++			if (sources != null) {
++				semRequest.setParameter("org.eclipse.gmf.dev.sources", sources);
++			}
++			return getSemanticCommand(semRequest);
+ 		} else if (REQ_RECONNECT_SOURCE.equals(request.getType())
+ 			&& relationshipSourceHasChanged((ReconnectRequest) request)) {
+ 			EditPart connectionEP = ((ReconnectRequest) request)
+@@ -128,7 +146,11 @@
+ 	 */
+ 	protected Command getSemanticCommand(IEditCommandRequest request) {
+ 
++		Map sources = (Map) request.getParameter("org.eclipse.gmf.dev.sources");
+ 		IEditCommandRequest completedRequest = completeRequest(request);
++		if (sources != null) {
++			completedRequest.setParameter("org.eclipse.gmf.dev.sources", sources);
 +		}
-+		tracer.fireCommandCreated(this, request, command, sources);
-+	}
-+
- 	/**
- 	 * Convenience method returning the editpart's Diagram, the Diagam that owns
- 	 * the edit part
+ 		
+ 		IElementType elementType = ElementTypeRegistry.getInstance()
+ 			.getElementType(completedRequest.getEditHelperContext());
