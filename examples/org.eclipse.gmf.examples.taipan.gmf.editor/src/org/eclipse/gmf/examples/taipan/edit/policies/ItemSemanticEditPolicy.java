@@ -11,10 +11,12 @@
  */
 package org.eclipse.gmf.examples.taipan.edit.policies;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
+import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy;
 import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeModelCommand;
@@ -175,5 +177,12 @@ public class ItemSemanticEditPolicy extends SemanticEditPolicy {
 		CompositeModelCommand modelCmd = new CompositeModelCommand(cmd.getLabel());
 		modelCmd.compose(cmd);
 		return new EtoolsProxyCommand(modelCmd);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected EObject getSemanticElement() {
+		return ViewUtil.resolveSemanticElement((View) getHost().getModel());
 	}
 }

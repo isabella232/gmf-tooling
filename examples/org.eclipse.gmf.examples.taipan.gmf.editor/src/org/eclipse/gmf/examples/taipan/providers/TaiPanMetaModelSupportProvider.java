@@ -22,7 +22,7 @@ import org.eclipse.gmf.runtime.emf.core.services.metamodel.GetMetamodelSupportOp
 import org.eclipse.gmf.runtime.emf.core.services.metamodel.IMetamodelSupport;
 import org.eclipse.gmf.runtime.emf.core.services.metamodel.IMetamodelSupportProvider;
 import org.eclipse.gmf.runtime.notation.providers.internal.semproc.NotationSemProc;
-import org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl;
+import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 /**
  * @generated
@@ -49,7 +49,7 @@ public class TaiPanMetaModelSupportProvider extends AbstractProvider implements 
 	 */
 	public boolean provides(IOperation operation) {
 		if (operation instanceof GetMetamodelSupportOperation) {
-			return TaiPanPackageImpl.eINSTANCE == ((GetMetamodelSupportOperation) operation).getEPackage();
+			return TaiPanPackage.eINSTANCE == ((GetMetamodelSupportOperation) operation).getEPackage();
 		}
 		return false;
 	}

@@ -12,22 +12,22 @@
 package org.eclipse.gmf.examples.taipan.editor;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.util.IDEEditorFileCreator;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.EditorFileCreator;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 
 /**
  * @generated
  */
-public class DiagramFileCreator extends IDEEditorFileCreator {
+public class DiagramFileCreatorBis extends IDEEditorFileCreator {
 
 	/**
 	 * @generated
 	 */
-	private static DiagramFileCreator INSTANCE = new DiagramFileCreator();
+	private static DiagramFileCreatorBis INSTANCE = new DiagramFileCreatorBis();
 
 	/**
 	 * @generated
 	 */
-	public static EditorFileCreator getInstance() {
+	public static DiagramFileCreator getInstance() {
 		return INSTANCE;
 	}
 

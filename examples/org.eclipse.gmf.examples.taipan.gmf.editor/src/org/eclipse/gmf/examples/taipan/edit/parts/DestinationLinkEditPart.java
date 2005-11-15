@@ -26,8 +26,6 @@ import org.eclipse.gmf.examples.taipan.edit.policies.ShipDestinationLinkItemSema
 
 import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
 
-import org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapMode;
-
 /**
  * @generated
  */
@@ -81,7 +79,7 @@ public class DestinationLinkEditPart extends ConnectionNodeEditPart {
 	protected RotatableDecoration createTargetDecoration() {
 
 		PolylineDecoration decoration = new PolylineDecoration();
-		decoration.setScale(MapMode.DPtoLP(7), MapMode.DPtoLP(3));
+		decoration.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));
 		return decoration;
 	}
 }

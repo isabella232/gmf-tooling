@@ -26,13 +26,16 @@ public class ShipNodeNotationViewFactory extends AbstractShapeViewFactory {
 	/**
 	 * @generated
 	 */
-	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
+	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index,
+			boolean persisted) {
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
 		EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
 		annotation.setSource("VisualID");
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("value", "1002");
-		getViewService().createNode(semanticAdapter, view, ShipNodeSemanticHints.Labels.NAME_TEXT, ViewUtil.APPEND, persisted, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, ShipNodeSemanticHints.Compartments.CARGO, ViewUtil.APPEND, persisted, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, SemanticHints.Ship_1002Labels.NAME_TEXT, ViewUtil.APPEND, persisted,
+				getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, SemanticHints.Ship_1002Compartments.CARGO, ViewUtil.APPEND,
+				persisted, getPreferencesHint());
 	}
 }

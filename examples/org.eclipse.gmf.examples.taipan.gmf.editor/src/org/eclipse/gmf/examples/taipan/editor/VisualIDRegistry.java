@@ -23,9 +23,7 @@ import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
-import org.eclipse.gmf.examples.taipan.providers.ItemChildNodeSemanticHints;
-import org.eclipse.gmf.examples.taipan.providers.PortNodeSemanticHints;
-import org.eclipse.gmf.examples.taipan.providers.ShipNodeSemanticHints;
+import org.eclipse.gmf.examples.taipan.providers.SemanticHints;
 
 /**
  * This registry is used to determine which type of visual object should be
@@ -53,7 +51,8 @@ public class VisualIDRegistry {
 	 * @generated
 	 */
 	public int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getAquatory().equals(domainElementMetaclass) && (domainElement != null ? isDiagramAquatory_79((Aquatory) domainElement) : true)) {
+		if (TaiPanPackage.eINSTANCE.getAquatory().equals(domainElementMetaclass)
+				&& (domainElement != null ? isDiagramAquatory_79((Aquatory) domainElement) : true)) {
 			return 79;
 		}
 		return getUnrecognizedDiagramID(domainElement);
@@ -77,15 +76,17 @@ public class VisualIDRegistry {
 		int containerVisualID = getVisualID(containerView);
 		switch (containerVisualID) {
 		case 79:
-			if (TaiPanPackage.eINSTANCE.getPort().equals(domainElementMetaclass) && (domainElement != null ? isNodePort_1001((Port) domainElement) : true)) {
+			if (TaiPanPackage.eINSTANCE.getPort().equals(domainElementMetaclass)
+					&& (domainElement != null ? isNodePort_1001((Port) domainElement) : true)) {
 				return 1001;
 			}
-			if (TaiPanPackage.eINSTANCE.getShip().equals(domainElementMetaclass) && (domainElement != null ? isNodeShip_1002((Ship) domainElement) : true)) {
+			if (TaiPanPackage.eINSTANCE.getShip().equals(domainElementMetaclass)
+					&& (domainElement != null ? isNodeShip_1002((Ship) domainElement) : true)) {
 				return 1002;
 			}
 			return getUnrecognizedDiagramChildID(domainElement);
 		case 1001:
-			if (PortNodeSemanticHints.Labels.LOCATION_TEXT.equals(semanticHint)) {
+			if (SemanticHints.Port_1001Labels.LOCATION_TEXT.equals(semanticHint)) {
 				return 4001;
 			}
 			if (!"".equals(semanticHint)) {
@@ -93,10 +94,10 @@ public class VisualIDRegistry {
 			}
 			return getUnrecognizedPort_1001ChildNodeID(domainElement);
 		case 1002:
-			if (ShipNodeSemanticHints.Labels.NAME_TEXT.equals(semanticHint)) {
+			if (SemanticHints.Ship_1002Labels.NAME_TEXT.equals(semanticHint)) {
 				return 4002;
 			}
-			if (ShipNodeSemanticHints.Compartments.CARGO.equals(semanticHint)) {
+			if (SemanticHints.Ship_1002Compartments.CARGO.equals(semanticHint)) {
 				return 5001;
 			}
 			if (!"".equals(semanticHint)) {
@@ -107,12 +108,13 @@ public class VisualIDRegistry {
 			if (!"".equals(semanticHint)) {
 				return getUnrecognizedcargo_5001ChildNodeID(semanticHint);
 			}
-			if (TaiPanPackage.eINSTANCE.getItem().equals(domainElementMetaclass) && (domainElement != null ? isChildNodeItem_2001((Item) domainElement) : true)) {
+			if (TaiPanPackage.eINSTANCE.getItem().equals(domainElementMetaclass)
+					&& (domainElement != null ? isChildNodeItem_2001((Item) domainElement) : true)) {
 				return 2001;
 			}
 			return getUnrecognizedcargo_5001ChildNodeID(domainElement);
 		case 2001:
-			if (ItemChildNodeSemanticHints.Labels.ARTICLE_TEXT.equals(semanticHint)) {
+			if (SemanticHints.Item_2001Labels.ARTICLE_TEXT.equals(semanticHint)) {
 				return 4003;
 			}
 			if (!"".equals(semanticHint)) {
@@ -268,9 +270,11 @@ public class VisualIDRegistry {
 	 * @generated
 	 */
 	public int getNodeVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getPort().equals(domainElementMetaclass) && (domainElement != null ? isNodePort_1001((Port) domainElement) : true)) {
+		if (TaiPanPackage.eINSTANCE.getPort().equals(domainElementMetaclass)
+				&& (domainElement != null ? isNodePort_1001((Port) domainElement) : true)) {
 			return 1001;
-		} else if (TaiPanPackage.eINSTANCE.getShip().equals(domainElementMetaclass) && (domainElement != null ? isNodeShip_1002((Ship) domainElement) : true)) {
+		} else if (TaiPanPackage.eINSTANCE.getShip().equals(domainElementMetaclass)
+				&& (domainElement != null ? isNodeShip_1002((Ship) domainElement) : true)) {
 			return 1002;
 		} else {
 			return getUnrecognizedNodeID(domainElement);
@@ -299,7 +303,8 @@ public class VisualIDRegistry {
 	 * @generated
 	 */
 	public int getChildNodeVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getItem().equals(domainElementMetaclass) && (domainElement != null ? isChildNodeItem_2001((Item) domainElement) : true)) {
+		if (TaiPanPackage.eINSTANCE.getItem().equals(domainElementMetaclass)
+				&& (domainElement != null ? isChildNodeItem_2001((Item) domainElement) : true)) {
 			return 2001;
 		} else {
 			return getUnrecognizedChildNodeID(domainElement);

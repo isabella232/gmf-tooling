@@ -68,7 +68,8 @@ public class ElementTypes {
 			element = ((EStructuralFeature) element).getEContainingClass();
 		}
 		if (element instanceof EClass) {
-			return TaiPanDiagramEditorPlugin.getInstance().getItemImageDescriptor(TaiPanFactory.eINSTANCE.create((EClass) element));
+			return TaiPanDiagramEditorPlugin.getInstance().getItemImageDescriptor(
+					TaiPanFactory.eINSTANCE.create((EClass) element));
 		}
 		// TODO : support structural features
 		return null;
@@ -153,37 +154,42 @@ public class ElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Aquatory_79 = new MetamodelType("Aquatory_79", null, "Aquatory_79", TaiPanPackage.eINSTANCE.getAquatory(), new NullEditHelper());
+	public static final IMetamodelType Aquatory_79 = new MetamodelType("Aquatory_79", null, "Aquatory_79",
+			TaiPanPackage.eINSTANCE.getAquatory(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Port_1001 = new MetamodelType("Port_1001", null, "Port_1001", TaiPanPackage.eINSTANCE.getPort(), new NullEditHelper());
+	public static final IMetamodelType Port_1001 = new MetamodelType("Port_1001", null, "Port_1001", TaiPanPackage.eINSTANCE
+			.getPort(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Ship_1002 = new MetamodelType("Ship_1002", null, "Ship_1002", TaiPanPackage.eINSTANCE.getShip(), new NullEditHelper());
+	public static final IMetamodelType Ship_1002 = new MetamodelType("Ship_1002", null, "Ship_1002", TaiPanPackage.eINSTANCE
+			.getShip(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Item_2001 = new MetamodelType("Item_2001", null, "Item_2001", TaiPanPackage.eINSTANCE.getItem(), new NullEditHelper());
+	public static final IMetamodelType Item_2001 = new MetamodelType("Item_2001", null, "Item_2001", TaiPanPackage.eINSTANCE
+			.getItem(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType ShipDestination_3001 = new MetamodelType("ShipDestination_3001", null, "ShipDestination_3001", null, new NullEditHelper());
+	public static final IMetamodelType ShipDestination_3001 = new MetamodelType("ShipDestination_3001", null,
+			"ShipDestination_3001", null, new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
 	public static void register() {
-		ElementTypeRegistry.getInstance().register(ShipDestination_3001);
 		ElementTypeRegistry.getInstance().register(Aquatory_79);
 		ElementTypeRegistry.getInstance().register(Port_1001);
 		ElementTypeRegistry.getInstance().register(Ship_1002);
 		ElementTypeRegistry.getInstance().register(Item_2001);
+		ElementTypeRegistry.getInstance().register(ShipDestination_3001);
 	}
 
 	/**

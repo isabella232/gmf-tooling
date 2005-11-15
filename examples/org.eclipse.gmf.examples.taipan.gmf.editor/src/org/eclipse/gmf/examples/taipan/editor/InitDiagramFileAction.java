@@ -135,7 +135,9 @@ public class InitDiagramFileAction implements IObjectActionDelegate, IInputValid
 	 * @generated
 	 */
 	public void run(IAction action) {
-		final InputDialog outputFileNameDialog = new InputDialog(getShell(), "Diagram file name", "Please provide diagram file name", mySelection.getProjectRelativePath().removeFileExtension().addFileExtension(FILE_EXT).lastSegment(), this);
+		final InputDialog outputFileNameDialog = new InputDialog(getShell(), "Diagram file name",
+				"Please provide diagram file name", mySelection.getProjectRelativePath().removeFileExtension()
+						.addFileExtension(FILE_EXT).lastSegment(), this);
 		if (outputFileNameDialog.open() != InputDialog.OK) {
 			return;
 		}
@@ -217,7 +219,8 @@ public class InitDiagramFileAction implements IObjectActionDelegate, IInputValid
 				storeLinkWithClass(nextChild);
 				continue;
 			}
-			Node nextNode = DiagramUtil.createNode(diagram, nextChild, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+			Node nextNode = DiagramUtil
+					.createNode(diagram, nextChild, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 			myEObject2NodeMap.put(nextChild, nextNode);
 			switch (nodeVID) {
 			case 1001:
@@ -249,7 +252,8 @@ public class InitDiagramFileAction implements IObjectActionDelegate, IInputValid
 				container = node;
 				break;
 			}
-			Node nextNode = DiagramUtil.createNode(container, nextChild, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+			Node nextNode = DiagramUtil.createNode(container, nextChild, null,
+					TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 			myEObject2NodeMap.put(nextChild, nextNode);
 		}
 	}
@@ -276,7 +280,8 @@ public class InitDiagramFileAction implements IObjectActionDelegate, IInputValid
 				container = node;
 				break;
 			}
-			Node nextNode = DiagramUtil.createNode(container, nextChild, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+			Node nextNode = DiagramUtil.createNode(container, nextChild, null,
+					TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 			myEObject2NodeMap.put(nextChild, nextNode);
 		}
 	}

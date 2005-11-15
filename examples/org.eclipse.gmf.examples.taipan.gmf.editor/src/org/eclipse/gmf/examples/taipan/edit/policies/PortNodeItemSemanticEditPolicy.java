@@ -43,7 +43,8 @@ public class PortNodeItemSemanticEditPolicy extends ItemSemanticEditPolicy {
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
 		if (ElementTypes.ShipDestination_3001 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartIncomingShip_Destination3001Command(req) : getCreateCompleteIncomingShip_Destination3001Command(req);
+			return req.getTarget() == null ? getCreateStartIncomingShip_Destination3001Command(req)
+					: getCreateCompleteIncomingShip_Destination3001Command(req);
 		}
 		return super.getCreateRelationshipCommand(req);
 	}
@@ -61,6 +62,10 @@ public class PortNodeItemSemanticEditPolicy extends ItemSemanticEditPolicy {
 	 */
 	protected Command getCreateCompleteIncomingShip_Destination3001Command(CreateRelationshipRequest req) {
 		if (!(req.getSource() instanceof Ship)) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		Ship element = (Ship) req.getSource();
+		if (element.getDestination() != null) {
 			return UnexecutableCommand.INSTANCE;
 		}
 		SetRequest setReq = new SetRequest(req.getSource(), TaiPanPackage.eINSTANCE.getShip_Destination(), req.getTarget());

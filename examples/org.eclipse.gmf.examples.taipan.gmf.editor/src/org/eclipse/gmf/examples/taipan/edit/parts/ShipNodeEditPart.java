@@ -19,12 +19,11 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
-import org.eclipse.gmf.runtime.draw2d.ui.mapmode.MapMode;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.examples.taipan.edit.policies.ShipNodeItemSemanticEditPolicy;
 
-import org.eclipse.gmf.examples.taipan.providers.ShipNodeSemanticHints;
+import org.eclipse.gmf.examples.taipan.providers.SemanticHints;
 
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 
@@ -76,7 +75,7 @@ public class ShipNodeEditPart extends ShapeNodeEditPart {
 	protected IFigure createContentPane() {
 		IFigure plate = new Figure();
 		ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
-		layout.setSpacing(MapMode.DPtoLP(5));
+		layout.setSpacing(getMapMode().DPtoLP(5));
 		plate.setLayoutManager(layout);
 		return plate;
 	}
@@ -95,6 +94,7 @@ public class ShipNodeEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(ShipNodeSemanticHints.Labels.NAME_TEXT);
+		return getChildBySemanticHint(SemanticHints.Ship_1002Labels.NAME_TEXT);
 	}
+
 }

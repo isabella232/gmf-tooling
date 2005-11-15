@@ -37,7 +37,8 @@ public class CreationWizard extends EditorCreationWizard {
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		super.init(workbench, selection);
 		setWindowTitle("New TaiPan Diagram"); //$NON-NLS-1$
-		setDefaultPageImageDescriptor(org.eclipse.gmf.examples.taipan.editor.TaiPanDiagramEditorPlugin.getImageDescriptor("icons/full/wizban/NewTaiPan.gif")); //$NON-NLS-1$
+		setDefaultPageImageDescriptor(org.eclipse.gmf.examples.taipan.editor.TaiPanDiagramEditorPlugin
+				.getImageDescriptor("icons/full/wizban/NewTaiPan.gif")); //$NON-NLS-1$
 		setNeedsProgressMonitor(true);
 	}
 }

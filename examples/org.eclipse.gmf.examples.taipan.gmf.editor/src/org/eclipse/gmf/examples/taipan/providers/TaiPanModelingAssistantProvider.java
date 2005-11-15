@@ -36,8 +36,7 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 			children.add(ElementTypes.Port_1001);
 			children.add(ElementTypes.Ship_1002);
 			return children;
-		}
-		if (editPart instanceof ShipNodeEditPart) {
+		} else if (editPart instanceof ShipNodeEditPart) {
 			List children = new ArrayList();
 			children.add(ElementTypes.Item_2001);
 			return children;

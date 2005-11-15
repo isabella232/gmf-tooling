@@ -14,23 +14,40 @@ package org.eclipse.gmf.examples.taipan.providers;
 /**
  * @generated
  */
-public class ShipNodeSemanticHints {
+public class SemanticHints {
 
 	/**
 	 * @generated
 	 */
-	private ShipNodeSemanticHints() {
+	private SemanticHints() {
 	}
 
 	/**
 	 * @generated
 	 */
-	public static class Labels {
+	public static class Port_1001Labels {
 
 		/**
 		 * @generated
 		 */
-		private Labels() {
+		private Port_1001Labels() {
+		}
+
+		/**
+		 * @generated
+		 */
+		public static final String LOCATION_TEXT = "locationText";
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class Ship_1002Labels {
+
+		/**
+		 * @generated
+		 */
+		private Ship_1002Labels() {
 		}
 
 		/**
@@ -42,12 +59,12 @@ public class ShipNodeSemanticHints {
 	/**
 	 * @generated
 	 */
-	public static class Compartments {
+	public static class Ship_1002Compartments {
 
 		/**
 		 * @generated
 		 */
-		private Compartments() {
+		private Ship_1002Compartments() {
 		}
 
 		/**
@@ -55,4 +72,26 @@ public class ShipNodeSemanticHints {
 		 */
 		public static final String CARGO = "cargo";
 	}
+
+	/**
+	 * @generated
+	 */
+	public static class Item_2001Labels {
+
+		/**
+		 * @generated
+		 */
+		private Item_2001Labels() {
+		}
+
+		/**
+		 * @generated
+		 */
+		public static final String ARTICLE_TEXT = "articleText";
+	}
+
+	/**
+	 * @generated
+	 */
+	public static final String ShipDestination_3001 = "destinationLink";
 }

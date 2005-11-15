@@ -17,7 +17,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.wizards.EditorWizardPage;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.EditorFileCreator;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -39,8 +39,10 @@ public class CreationWizardPage extends EditorWizardPage {
 	/**
 	 * @generated
 	 */
-	public IFile createAndOpenDiagram(IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow dWindow, IProgressMonitor progressMonitor, boolean saveDiagram) {
-		return DiagramEditorUtil.createAndOpenDiagram(getDiagramFileCreator(), containerPath, fileName, initialContents, kind, dWindow, progressMonitor, isOpenNewlyCreatedDiagramEditor(), saveDiagram);
+	public IFile createAndOpenDiagram(IPath containerPath, String fileName, InputStream initialContents, String kind,
+			IWorkbenchWindow dWindow, IProgressMonitor progressMonitor, boolean saveDiagram) {
+		return DiagramEditorUtil.createAndOpenDiagram(getDiagramFileCreator(), containerPath, fileName, initialContents, kind,
+				dWindow, progressMonitor, isOpenNewlyCreatedDiagramEditor(), saveDiagram);
 	}
 
 	/**
@@ -53,8 +55,8 @@ public class CreationWizardPage extends EditorWizardPage {
 	/**
 	 * @generated
 	 */
-	public EditorFileCreator getDiagramFileCreator() {
-		return DiagramFileCreator.getInstance();
+	public DiagramFileCreator getDiagramFileCreator() {
+		return DiagramFileCreatorBis.getInstance();
 	}
 
 	/**

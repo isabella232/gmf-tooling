@@ -15,8 +15,10 @@ import org.eclipse.gmf.examples.taipan.providers.ElementTypes;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gmf.runtime.emf.commands.core.commands.DuplicateEObjectsCommand;
 import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
@@ -103,6 +105,26 @@ public class AquatoryDiagramItemSemanticEditPolicy extends ItemSemanticEditPolic
 				container = ((View) container).getElement();
 			}
 			return container;
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getDuplicateCommand(DuplicateElementsRequest req) {
+		return getMSLWrapper(new DuplicateAnythingCommand(req));
+	}
+
+	/**
+	 * @generated
+	 */
+	private static class DuplicateAnythingCommand extends DuplicateEObjectsCommand {
+
+		/**
+		 * @generated
+		 */
+		public DuplicateAnythingCommand(DuplicateElementsRequest req) {
+			super(req.getLabel(), req.getElementsToBeDuplicated(), req.getAllDuplicatedElementsMap());
 		}
 	}
 }

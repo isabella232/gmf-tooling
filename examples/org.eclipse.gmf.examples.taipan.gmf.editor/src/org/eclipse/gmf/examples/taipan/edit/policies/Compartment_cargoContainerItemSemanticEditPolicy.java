@@ -11,16 +11,18 @@
  */
 package org.eclipse.gmf.examples.taipan.edit.policies;
 
-import org.eclipse.gef.commands.Command;
-import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+
+import org.eclipse.gef.commands.Command;
 
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 import org.eclipse.gmf.examples.taipan.providers.ElementTypes;
 
 import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateElementCommand;
+
+import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 
 import org.eclipse.gmf.runtime.notation.View;
 
@@ -72,4 +74,5 @@ public class Compartment_cargoContainerItemSemanticEditPolicy extends ItemSemant
 			return container;
 		}
 	}
+
 }
