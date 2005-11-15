@@ -3,7 +3,7 @@
 <%GenDiagram diagram = (GenDiagram) argument;%>
 package <%=diagram.getEditorPackageName()%>;
 
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.parts.DiagramDocumentEditorMatchingStrategy;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditorMatchingStrategy;
 import org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain;
 
 /**
