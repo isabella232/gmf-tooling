@@ -19,6 +19,12 @@
    <feature url="features/org.eclipse.gmf.doc_1.0.0.jar" id="org.eclipse.gmf.doc" version="1.0.0">
       <category name="GMF 1.0.0"/>
    </feature>
+   <feature url="features/org.eclipse.gmf.source_1.0.0.jar" id="org.eclipse.gmf.source" version="1.0.0">
+      <category name="GMF 1.0.0"/>
+   </feature>
+   <feature url="features/org.eclipse.gmf.sdk.source_1.0.0.jar" id="org.eclipse.gmf.sdk.source" version="1.0.0">
+      <category name="GMF 1.0.0"/>
+   </feature>
    <category-def name="GMF 1.0.0" label="Graphical Modeling Framework">
       <description>
          A generative framework and runtime for developing graphical applications which leverage both the Eclipse Modeling Framework (EMF) and Graphical Editing Framework (GEF).
