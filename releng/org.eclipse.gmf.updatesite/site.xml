@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<site>
+<site
+      mirrorsURL="http://www.eclipse.org/downloads/download.php?file=/technology/gmf/update-site/&amp;amp;format=xml">
+   <description url="http://download.eclipse.org/technology/gmf/update-site/">
+      A generative framework and runtime for developing graphical applications which leverage both the Eclipse Modeling Framework (EMF) and Graphical Editing Framework (GEF).
+   </description>
    <feature url="features/org.eclipse.gmf.sdk_1.0.0.jar" id="org.eclipse.gmf.sdk" version="1.0.0">
       <category name="GMF 1.0.0"/>
    </feature>
