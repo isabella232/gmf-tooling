@@ -437,11 +437,14 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_96);
     stringBuffer.append(namePart);
     stringBuffer.append(TEXT_97);
-    			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
+    
+			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
+				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
+
     stringBuffer.append(TEXT_98);
-    stringBuffer.append(outgoingClass.getName());
+    stringBuffer.append(outgoingClassName);
     stringBuffer.append(TEXT_99);
-    stringBuffer.append(outgoingClass.getName());
+    stringBuffer.append(outgoingClassName);
     stringBuffer.append(TEXT_100);
     				if (upperBound == 1) {
     stringBuffer.append(TEXT_101);
@@ -465,11 +468,14 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_110);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
     stringBuffer.append(TEXT_111);
-    			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
+    
+			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
+				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
+
     stringBuffer.append(TEXT_112);
-    stringBuffer.append(outgoingClass.getName());
+    stringBuffer.append(outgoingClassName);
     stringBuffer.append(TEXT_113);
-    stringBuffer.append(outgoingClass.getName());
+    stringBuffer.append(outgoingClassName);
     stringBuffer.append(TEXT_114);
     				if (upperBound == 1) {
     stringBuffer.append(TEXT_115);
@@ -515,11 +521,14 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_133);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
     stringBuffer.append(TEXT_134);
-    			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
+    
+			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
+				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
+
     stringBuffer.append(TEXT_135);
-    stringBuffer.append(outgoingClass.getName());
+    stringBuffer.append(outgoingClassName);
     stringBuffer.append(TEXT_136);
-    stringBuffer.append(outgoingClass.getName());
+    stringBuffer.append(outgoingClassName);
     stringBuffer.append(TEXT_137);
     				if (upperBound == 1) {
     stringBuffer.append(TEXT_138);

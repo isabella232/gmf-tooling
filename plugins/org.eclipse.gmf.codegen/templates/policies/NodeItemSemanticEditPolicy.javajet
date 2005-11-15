@@ -230,8 +230,11 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
-<%			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY%>
-		<%=outgoingClass.getName()%> element = (<%=outgoingClass.getName()%>) getSemanticElement();
+<%
+			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
+				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
+%>
+		<%=outgoingClassName%> element = (<%=outgoingClassName%>) getSemanticElement();
 <%				if (upperBound == 1) {%>
 		if (element.get<%=metaFeature.getAccessorName()%>() != null) {
 <%				} else {%>
@@ -251,8 +254,11 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		if (!(req.getSource() instanceof <%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
-<%			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY%>
-		<%=outgoingClass.getName()%> element = (<%=outgoingClass.getName()%>) getSemanticElement();
+<%
+			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
+				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
+%>
+		<%=outgoingClassName%> element = (<%=outgoingClassName%>) getSemanticElement();
 <%				if (upperBound == 1) {%>
 		if (element.get<%=metaFeature.getAccessorName()%>() != null) {
 <%				} else {%>
@@ -289,8 +295,11 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		if (!(req.getSource() instanceof <%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
-<%			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY%>
-		<%=outgoingClass.getName()%> element = (<%=outgoingClass.getName()%>) req.getSource();
+<%
+			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
+				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
+%>
+		<%=outgoingClassName%> element = (<%=outgoingClassName%>) req.getSource();
 <%				if (upperBound == 1) {%>
 		if (element.get<%=metaFeature.getAccessorName()%>() != null) {
 <%				} else {%>
