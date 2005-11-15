@@ -133,6 +133,10 @@
 	<!-- Steps to do after generating the build scripts. -->
 	<!-- ===================================================================== -->
 	<target name="postGenerate">
+		<!-- Replace in generated plug-ins -->
+		<replace dir="${buildDirectory}/plugins" value="${buildId}" token="@buildId@">
+			<include name="**/about.mappings" />
+		</replace>
 	</target>
 
 	<!-- ===================================================================== -->
