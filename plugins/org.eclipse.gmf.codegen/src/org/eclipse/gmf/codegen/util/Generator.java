@@ -473,7 +473,7 @@ public class Generator implements Runnable {
 		generate(
 			EmitterFactory.getDiagramFileCreatorEmitter(),
 			myDiagram.getEditorPackageName(),
-			"DiagramFileCreator", //$NON-NLS-1$
+			"DiagramFileCreatorBis", //$NON-NLS-1$
 			myDiagram
 		);
 	}

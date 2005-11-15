@@ -10,7 +10,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.wizards.EditorWizardPage;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.internal.util.EditorFileCreator;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -46,8 +46,8 @@ public class CreationWizardPage extends EditorWizardPage {
 	/**
 	 * @generated
 	 */
-	public EditorFileCreator getDiagramFileCreator() {
-		return DiagramFileCreator.getInstance();
+	public DiagramFileCreator getDiagramFileCreator() {
+		return DiagramFileCreatorBis.getInstance();
 	}
 
 	/**
