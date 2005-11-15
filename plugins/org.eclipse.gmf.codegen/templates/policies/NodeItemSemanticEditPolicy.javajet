@@ -82,6 +82,8 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
 		GenClass outgoingClass = modelFacet.getContainmentMetaFeature().getGenClass();
 		GenClass incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
+		GenFeature containmentFeature = modelFacet.getContainmentMetaFeature();
+		int upperBound = containmentFeature.getEcoreFeature().getUpperBound();
 		if (nodeMetaClass.equals(outgoingClass)) {
 			namePart = OUTGOING_TOKEN + modelFacet.getMetaClass().getName() + genLink.getVisualID();
 %>
@@ -90,6 +92,21 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
+<% // check that containment feature is not set / has capacity for the new element %>
+<%
+			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
+				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
+%>
+		<%=outgoingClassName%> element = (<%=outgoingClassName%>) getSemanticElement();
+<%				if (upperBound == 1) {%>
+		if (element.get<%=containmentFeature.getAccessorName()%>() != null) {
+<%				} else {%>
+		if (element.get<%=containmentFeature.getAccessorName()%>().size() >= <%=upperBound%>) {
+<%				}%>
+			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+		}
+<%			}%>
+<% // create always executable command %>
 		return new Command() {
 		};
 	}
@@ -98,9 +115,25 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	protected Command getCreateComplete<%=namePart%>Command(CreateRelationshipRequest req) {
+<% // check that source is valid %>
 		if (!(req.getSource() instanceof <%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
+<% // check that containment feature is not set / has capacity for the new element %>
+<%
+			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
+				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
+%>
+		<%=outgoingClassName%> element = (<%=outgoingClassName%>) getSemanticElement();
+<%				if (upperBound == 1) {%>
+		if (element.get<%=containmentFeature.getAccessorName()%>() != null) {
+<%				} else {%>
+		if (element.get<%=containmentFeature.getAccessorName()%>().size() >= <%=upperBound%>) {
+<%				}%>
+			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+		}
+<%			}%>
+<% // create semantic command %>
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
 		}
@@ -157,6 +190,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
+<% // no feasible restrictions here %>
 		return new Command() {
 		};
 	}
@@ -165,9 +199,25 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	protected Command getCreateComplete<%=namePart%>Command(CreateRelationshipRequest req) {
+<% // check that source is valid %>
 		if (!(req.getSource() instanceof <%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
+<% // check that containment feature is not set / has capacity for the new element %>
+<%
+			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
+				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
+%>
+		<%=outgoingClassName%> element = (<%=outgoingClassName%>) req.getSource();
+<%				if (upperBound == 1) {%>
+		if (element.get<%=containmentFeature.getAccessorName()%>() != null) {
+<%				} else {%>
+		if (element.get<%=containmentFeature.getAccessorName()%>().size() >= <%=upperBound%>) {
+<%				}%>
+			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+		}
+<%			}%>
+<% // create semantic command %>
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
 		}
@@ -230,6 +280,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
+<% // check that feature is not set / has capacity for the new value %>
 <%
 			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
 				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
@@ -243,6 +294,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%			}%>
+<% // create always executable command %>
 		return new Command() {
 		};
 	}
@@ -251,9 +303,11 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	protected Command getCreateComplete<%=namePart%>Command(CreateRelationshipRequest req) {
+<% // check that source is valid %>
 		if (!(req.getSource() instanceof <%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
+<% // check that feature is not set / has capacity for the new value %>
 <%
 			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
 				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
@@ -271,6 +325,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%			}%>
+<% // create semantic command %>
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest")%> setReq = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest")%>(req.getTarget(),
 			<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>(), req.getSource());
 		return getMSLWrapper(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand")%>(setReq));
@@ -284,6 +339,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
+<% // no feasible restrictions here %>
 		return new Command() {
 		};
 	}
@@ -292,9 +348,11 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	protected Command getCreateComplete<%=namePart%>Command(CreateRelationshipRequest req) {
+<% // check that source is valid %>
 		if (!(req.getSource() instanceof <%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
+<% // check that feature is not set / has capacity for the new value %>
 <%
 			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
 				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
@@ -312,6 +370,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%			}%>
+<% // create semantic command %>
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest")%> setReq = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest")%>(req.getSource(),
 			<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>(), req.getTarget());
 		return getMSLWrapper(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand")%>(setReq));
