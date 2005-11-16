@@ -107,6 +107,7 @@ public class HandcodedImplTest extends TestCase {
 		checkClassName(state, "GenDiagram:EditPartProvider", genDiagram.getEditPartProviderClassName(), genDiagram.getEditPartProviderQualifiedClassName());
 		checkClassName(state, "GenDiagram:MetamodelSupportProvider", genDiagram.getMetamodelSupportProviderClassName(), genDiagram.getMetamodelSupportProviderQualifiedClassName());
 		checkClassName(state, "GenDiagram:ModelingAssistantProvider", genDiagram.getModelingAssistantProviderClassName(), genDiagram.getModelingAssistantProviderQualifiedClassName());
+		checkClassName(state, "GenDiagram:PropertyProvider", genDiagram.getPropertyProviderClassName(), genDiagram.getPropertyProviderQualifiedClassName());
 		checkClassName(state, "GenDiagram:IconProvider", genDiagram.getIconProviderClassName(), genDiagram.getIconProviderQualifiedClassName());
 		checkClassName(state, "GenDiagram:StructuralFeatureParser", genDiagram.getStructuralFeatureParserClassName(), genDiagram.getStructuralFeatureParserQualifiedClassName());
 		checkClassName(state, "GenDiagram:ActionBarContributor", genDiagram.getActionBarContributorClassName(), genDiagram.getActionBarContributorQualifiedClassName());
