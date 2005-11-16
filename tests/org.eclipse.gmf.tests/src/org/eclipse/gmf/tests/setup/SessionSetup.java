@@ -9,14 +9,8 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.tests;
+package org.eclipse.gmf.tests.setup;
 
-import org.eclipse.gmf.tests.setup.DiaGenSetup;
-import org.eclipse.gmf.tests.setup.DiaGenSource;
-import org.eclipse.gmf.tests.setup.DomainModelSetup;
-import org.eclipse.gmf.tests.setup.DomainModelSource;
-import org.eclipse.gmf.tests.setup.GenProjectSetup;
-import org.eclipse.gmf.tests.setup.RuntimeWorkspaceSetup;
 
 /**
  * @author artem

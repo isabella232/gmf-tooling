@@ -25,9 +25,9 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.tests.Plugin;
-import org.eclipse.gmf.tests.SessionSetup;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.GenProjectBaseSetup;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 
 public class CompilationTest extends TestCase {
 

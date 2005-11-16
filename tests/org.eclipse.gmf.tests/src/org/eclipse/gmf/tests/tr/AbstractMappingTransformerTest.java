@@ -20,9 +20,9 @@ import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
-import org.eclipse.gmf.tests.SessionSetup;
 import org.eclipse.gmf.tests.setup.DiaDefSetup;
 import org.eclipse.gmf.tests.setup.MapSetup;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 
 public abstract class AbstractMappingTransformerTest extends TestCase implements DiaDefSetup.Config {
 	private MapSetup myMapDef;

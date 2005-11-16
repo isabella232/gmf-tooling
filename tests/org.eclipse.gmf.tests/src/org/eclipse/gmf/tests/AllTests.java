@@ -18,6 +18,7 @@ import junit.framework.TestSuite;
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.gen.CompilationTest;
 import org.eclipse.gmf.tests.gen.HandcodedImplTest;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.TestSetupTest;
 import org.eclipse.gmf.tests.tr.EPNamingStrategyTest;
 import org.eclipse.gmf.tests.tr.GenModelTransformerBasicRTTest;

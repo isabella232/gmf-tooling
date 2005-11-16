@@ -31,7 +31,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
-import org.eclipse.gmf.tests.SessionSetup;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.jdt.core.JavaConventions;
 
 /**
