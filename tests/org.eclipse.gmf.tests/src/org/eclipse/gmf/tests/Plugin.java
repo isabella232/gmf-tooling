@@ -1,10 +1,26 @@
+/*
+ * Copyright (c) 2005 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
 package org.eclipse.gmf.tests;
 
+import java.io.IOException;
+import java.net.URL;
+
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.util.URI;
 import org.osgi.framework.BundleContext;
 
-
 public class Plugin extends org.eclipse.core.runtime.Plugin {
+
 	private static Plugin ourInstance;
 	private BundleContext myContext;
 
@@ -22,6 +38,12 @@ public class Plugin extends org.eclipse.core.runtime.Plugin {
 		ourInstance = null;
 		myContext = null;
 		super.stop(context);
+	}
+
+	public static URI createURI(String bundledFileName) throws IOException {
+		URL url = getInstance().getBundle().getEntry(bundledFileName);
+		String filePath = Platform.asLocalURL(url).toExternalForm();
+		return URI.createURI(filePath);
 	}
 
 	public static Plugin getInstance() {
