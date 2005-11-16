@@ -50,6 +50,7 @@ import org.eclipse.gmf.codegen.templates.providers.IconProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.LinkLabelViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.MetamodelSupportProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGenerator;
+import org.eclipse.gmf.codegen.templates.providers.PropertyProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.SemanticHintsGenerator;
 import org.eclipse.gmf.codegen.templates.providers.StructuralFeatureParserGenerator;
 import org.eclipse.gmf.codegen.templates.providers.TextLabelViewFactoryGenerator;
@@ -174,6 +175,10 @@ public class EmitterFactory {
 
 	public static JETEmitter getModelingAssistantProviderEmitter() throws JETException {
 		return initializeEmitter("/templates/providers/ModelingAssistantProvider.javajet", ModelingAssistantProviderGenerator.class);
+	}
+
+	public static JETEmitter getPropertyProviderEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/PropertyProvider.javajet", PropertyProviderGenerator.class);
 	}
 
 	public static JETEmitter getIconProviderEmitter() throws JETException {

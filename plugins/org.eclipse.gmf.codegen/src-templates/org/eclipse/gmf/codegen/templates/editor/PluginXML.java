@@ -21,7 +21,7 @@ public class PluginXML
   protected final String TEXT_3 = "\"" + NL + "    version=\"1.0.0\"" + NL + "    class=\"";
   protected final String TEXT_4 = "\"" + NL + "    provider-name = \"";
   protected final String TEXT_5 = "\">" + NL + "" + NL + "  <requires>" + NL + "    <import plugin=\"org.eclipse.core.runtime\"/>" + NL + "    <import plugin=\"org.eclipse.core.resources\"/>" + NL + "    <import plugin=\"org.eclipse.jface\"/>" + NL + "    <import plugin=\"org.eclipse.ui.ide\"/>" + NL + "    <import plugin=\"org.eclipse.ui.views\"/>" + NL + "    <import plugin=\"org.eclipse.ui.workbench\"/>" + NL + "    <import plugin=\"org.eclipse.emf.ecore\"/>";
-  protected final String TEXT_6 = NL + "    <import plugin=\"org.eclipse.emf.edit.ui\"/>" + NL + "    <import plugin=\"org.eclipse.gef\" export=\"true\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.emf.commands.core\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.diagram.ui\"/>";
+  protected final String TEXT_6 = NL + "    <import plugin=\"org.eclipse.emf.edit.ui\"/>" + NL + "    <import plugin=\"org.eclipse.gef\" export=\"true\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.emf.commands.core\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.emf.ui.properties\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.diagram.ui\"/>";
   protected final String TEXT_7 = NL + "    <import plugin=\"org.eclipse.gmf.runtime.diagram.ui.printing\"/>";
   protected final String TEXT_8 = NL + "    <import plugin=\"org.eclipse.gmf.runtime.diagram.ui.providers\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.diagram.ui.providers.ide\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.diagram.ui.render\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.diagram.ui.resources.editor\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide\"/>" + NL + "    <import plugin=\"org.eclipse.gmf.runtime.notation.providers\"/>";
   protected final String TEXT_9 = NL + "    <import plugin=\"";
@@ -61,9 +61,10 @@ public class PluginXML
   protected final String TEXT_43 = "\"/>" + NL + "         <context viewClass=\"org.eclipse.gmf.runtime.notation.Node\" semanticHints=\"\"/>" + NL + "         <context viewClass=\"org.eclipse.gmf.runtime.notation.Edge\" semanticHints=\"\"/>" + NL + "      </viewProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.diagram.ui.editpartProviders\">" + NL + "      <editpartProvider class=\"";
   protected final String TEXT_44 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </editpartProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.emf.core.MetaModelProviders\">" + NL + "      <MetaModelProvider class=\"";
   protected final String TEXT_45 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </MetaModelProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders\">" + NL + "      <modelingAssistantProvider class=\"";
-  protected final String TEXT_46 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </modelingAssistantProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.common.ui.services.iconProviders\">" + NL + "      <IconProvider class=\"";
-  protected final String TEXT_47 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </IconProvider>" + NL + "   </extension>" + NL + "" + NL + "</plugin>";
-  protected final String TEXT_48 = NL;
+  protected final String TEXT_46 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </modelingAssistantProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.common.ui.services.properties.propertiesProviders\">" + NL + "      <PropertiesProvider" + NL + "            verifyPluginLoaded=\"false\"" + NL + "            class=\"";
+  protected final String TEXT_47 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </PropertiesProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.common.ui.services.iconProviders\">" + NL + "      <IconProvider class=\"";
+  protected final String TEXT_48 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </IconProvider>" + NL + "   </extension>" + NL + "" + NL + "</plugin>";
+  protected final String TEXT_49 = NL;
 
   public String generate(Object argument)
   {
@@ -182,9 +183,11 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_45);
     stringBuffer.append(genDiagram.getModelingAssistantProviderQualifiedClassName());
     stringBuffer.append(TEXT_46);
-    stringBuffer.append(genDiagram.getIconProviderQualifiedClassName());
+    stringBuffer.append(genDiagram.getPropertyProviderQualifiedClassName());
     stringBuffer.append(TEXT_47);
+    stringBuffer.append(genDiagram.getIconProviderQualifiedClassName());
     stringBuffer.append(TEXT_48);
+    stringBuffer.append(TEXT_49);
     return stringBuffer.toString();
   }
 }

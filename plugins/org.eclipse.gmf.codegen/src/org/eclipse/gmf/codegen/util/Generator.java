@@ -128,6 +128,7 @@ public class Generator implements Runnable {
 			generateEditPartProvider();
 			generateMetamodelSupportProvider();
 			generateModelingAssistantProvider();
+			generatePropertyProvider();
 			generateIconProvider();
 
 			// editor
@@ -427,6 +428,14 @@ public class Generator implements Runnable {
 			EmitterFactory.getModelingAssistantProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getModelingAssistantProviderClassName(),
+			myDiagram);
+	}
+
+	private void generatePropertyProvider() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getPropertyProviderEmitter(),
+			myDiagram.getProvidersPackageName(),
+			myDiagram.getPropertyProviderClassName(),
 			myDiagram);
 	}
 

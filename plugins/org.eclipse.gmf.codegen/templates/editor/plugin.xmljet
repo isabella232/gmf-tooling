@@ -26,6 +26,7 @@
     <import plugin="org.eclipse.emf.edit.ui"/>
     <import plugin="org.eclipse.gef" export="true"/>
     <import plugin="org.eclipse.gmf.runtime.emf.commands.core"/>
+    <import plugin="org.eclipse.gmf.runtime.emf.ui.properties"/>
     <import plugin="org.eclipse.gmf.runtime.diagram.ui"/>
 <%if (genDiagram.isPrintingEnabled()) {%>
     <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing"/>
@@ -199,6 +200,14 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {%>
       <modelingAssistantProvider class="<%=genDiagram.getModelingAssistantProviderQualifiedClassName()%>">
          <Priority name="Medium"/>
       </modelingAssistantProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.properties.propertiesProviders">
+      <PropertiesProvider
+            verifyPluginLoaded="false"
+            class="<%=genDiagram.getPropertyProviderQualifiedClassName()%>">
+         <Priority name="Medium"/>
+      </PropertiesProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
