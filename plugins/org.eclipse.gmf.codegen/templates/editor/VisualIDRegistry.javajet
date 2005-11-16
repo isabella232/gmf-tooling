@@ -4,14 +4,19 @@
 GenDiagram genDiagram = (GenDiagram) argument;
 List genNodes = genDiagram.getNodes();
 List genLinks = genDiagram.getLinks();
+Collection allContainers = AccessUtil.getAllContainers(genDiagram);
 %>
 package <%=genDiagram.getEditorPackageName()%>;
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());%>
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.gmf.runtime.notation.View;
-<%importManager.markImportLocation(stringBuffer);%>
+<%
+ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());
+
+importManager.addImport("org.eclipse.emf.ecore.EClass");
+importManager.addImport("org.eclipse.emf.ecore.EObject");
+importManager.addImport("org.eclipse.gmf.runtime.notation.View");
+
+importManager.markImportLocation(stringBuffer);
+%>
 	
 /**
  * This registry is used to determine which type of visual object should be
@@ -56,19 +61,16 @@ String semanticPackageInterfaceName = importManager.getImportedName(genPackage.g
 	}
 
 	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
 	 * @generated
 	 */
-	private int getUnrecognizedDiagramID(EObject domainElement) {
-		return -1;
+	public int getNodeVisualID(View containerView, EObject domainElement, String semanticHint) {
+		if (domainElement == null) {
+			return -1;
+		}
+		EClass domainElementMetaclass = domainElement.eClass();
+		return getNodeVisualID(containerView, domainElement, domainElementMetaclass, semanticHint);
 	}
-
-//================================================================================================================
-<%
-Collection allContainers = AccessUtil.getAllContainers(genDiagram);
-%>
+	
 	/**
 	 * @generated
 	 */
@@ -171,154 +173,6 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 		return -1;
 	}
 	
-<%@ include file="getVisualID.jetinc" %>
-
-	/**
-	 * @generated
-	 */	
-	private int getUnrecognizedDiagramChildID(EObject domainElement) {
-		return -1;
-	}
-	
-<%
-for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
-	GenChildContainer nextContainer = (GenChildContainer) containers.next();
-%>
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */	
-	private int getUnrecognized<%=nextContainer.getUniqueIdentifier()%>ChildNodeID(EObject domainElement) {
-		return -1;
-	}
-	
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */	
-	private int getUnrecognized<%=nextContainer.getUniqueIdentifier()%>ChildNodeID(String semanticHint) {
-		return -1;
-	}
-	
-<%
-}
-
-for (Iterator links = genLinks.iterator(); links.hasNext();) {
-	GenLink link = (GenLink) links.next();
-%>
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */	
-	private int getUnrecognized<%=link.getUniqueIdentifier()%>LinkLabelID(String semanticHint) {
-		return -1;
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */	
-	private int getUnrecognized<%=link.getUniqueIdentifier()%>LinkLabelTextID(String semanticHint) {
-		return -1;
-	}
-<%
-}
-%>
-	
-//================================================================================================================
-
-	/**
-	 * @deprecated
-	 * @generated
-	 */
-	public int getNodeVisualID(EObject domainElement) {
-		EClass domainElementMetaclass = domainElement.eClass();
-		return getNodeVisualID(domainElement, domainElementMetaclass);
-	}
-
-
-	/**
-	 * @deprecated
-	 * @generated
-	 */
-	public int getNodeVisualID(EObject domainElement, EClass domainElementMetaclass) {
-<%
-for (int i = 0; i < genNodes.size(); i++) {
-	GenNode genNode = (GenNode) genNodes.get(i);
-	String semanticNodeInterfaceName = genNode.getDomainMetaClass().getClassifierAccessorName();
-	String qualifiedInterfaceName = genNode.getDomainMetaClass().getQualifiedInterfaceName();
-%>
-		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticNodeInterfaceName%>().equals(domainElementMetaclass) && (domainElement != null ? isNode<%=genNode.getUniqueIdentifier()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) domainElement) : true)) {
-			return <%=genNode.getVisualID()%>;
-		} else
-<%
-}
-%>
-		{
-			return getUnrecognizedNodeID(domainElement);
-		}
-	}
-		
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private int getUnrecognizedNodeID(EObject domainElement) {
-		return -1;
-	}
-
-	/**
-	 * @generated
-	 */
-	public int getChildNodeVisualID(EObject domainElement) {
-		EClass domainElementMetaclass = domainElement.eClass();
-		return getChildNodeVisualID(domainElement, domainElementMetaclass);
-	}
-	
-	/**
-	 * @generated
-	 */
-	public int getChildNodeVisualID(EObject domainElement, EClass domainElementMetaclass) {
-<%
-for (int i = 0; i < genNodes.size(); i++) {
-	GenNode genNode = (GenNode) genNodes.get(i);
-	List genChildNodes = AccessUtil.getAllChildNodes(genNode);
-	for (int j = 0; j < genChildNodes.size(); j++) {
-		GenChildNode genChildNode = (GenChildNode) genChildNodes.get(j);
-		String semanticChildNodeInterfaceName = genChildNode.getDomainMetaClass().getClassifierAccessorName();
-		String qualifiedInterfaceName = genChildNode.getDomainMetaClass().getQualifiedInterfaceName();
-%>
-		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticChildNodeInterfaceName%>().equals(domainElementMetaclass) && (domainElement != null ? isChildNode<%=genChildNode.getUniqueIdentifier()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) domainElement) : true)) {
-			return <%=genChildNode.getVisualID()%>;
-		} else 
-<%	}
-}
-%>
-		{
-			return getUnrecognizedChildNodeID(domainElement);
-		}
-	}
-		
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private int getUnrecognizedChildNodeID(EObject domainElement) {
-		return -1;
-	}
-
 	/**
 	 * @generated
 	 */
@@ -349,27 +203,27 @@ for (int i = 0; i < genLinks.size(); i++) {
 		{
 			return getUnrecognizedLinkWithClassID(domainElement);
 		}
-	}
-		
+	}	
+	
 	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private int getUnrecognizedLinkWithClassID(EObject domainElement) {
-		return -1;
-	}
-		
-	/**
-	 * User can change implementation of this method to check some additional conditions here.
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
 	 *
 	 * @generated
 	 */
 	private boolean isDiagram<%=genDiagram.getUniqueIdentifier()%>(<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%> element) {
 		return true;
 	}
-		
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private int getUnrecognizedDiagramID(EObject domainElement) {
+		return -1;
+	}
 <%
 String acceptAllMatcherAccessor = "acceptAllMatcher()"; //$NON-NLS-1$
 for (int i = 0; i < genNodes.size(); i++) {
@@ -377,15 +231,16 @@ for (int i = 0; i < genNodes.size(); i++) {
 	String qualifiedNodeInterfaceName = genNode.getDomainMetaClass().getQualifiedInterfaceName();
 	String nodeSelector = genNode.getModelFacet() != null && genNode.getModelFacet().getModelElementSelector() != null ? genNode.getUniqueIdentifier() : acceptAllMatcherAccessor;
 %>
+
 	/**
-	 * User can change implementation of this method to check some additional conditions here.
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
 	 *
 	 * @generated
 	 */
 	private boolean isNode<%=genNode.getUniqueIdentifier()%>(<%=importManager.getImportedName(qualifiedNodeInterfaceName)%> element) {
 		return ElementSelectors.<%=nodeSelector%>.matches(element);
 	}
-
 <%
 	List genChildNodes = AccessUtil.getAllChildNodes(genNode);
 	for (int j = 0; j < genChildNodes.size(); j++) {
@@ -393,8 +248,10 @@ for (int i = 0; i < genNodes.size(); i++) {
 		String qualifiedChildNodeInterfaceName = genChildNode.getDomainMetaClass().getQualifiedInterfaceName();
 		String childNodeSelector = genChildNode.getModelFacet() != null && genChildNode.getModelFacet().getModelElementSelector() != null ? genChildNode.getUniqueIdentifier() : acceptAllMatcherAccessor;
 %>
+
 	/**
-	 * User can change implementation of this method to check some additional conditions here.
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
 	 *
 	 * @generated
 	 */
@@ -405,7 +262,83 @@ for (int i = 0; i < genNodes.size(); i++) {
 <%	}
 }
 %>
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */	
+	private int getUnrecognizedDiagramChildID(EObject domainElement) {
+		return -1;
+	}
+<%
+for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
+	GenChildContainer nextContainer = (GenChildContainer) containers.next();
+%>
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */	
+	private int getUnrecognized<%=nextContainer.getUniqueIdentifier()%>ChildNodeID(EObject domainElement) {
+		return -1;
+	}
 	
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */	
+	private int getUnrecognized<%=nextContainer.getUniqueIdentifier()%>ChildNodeID(String semanticHint) {
+		return -1;
+	}
+<%
+}
+
+for (Iterator links = genLinks.iterator(); links.hasNext();) {
+	GenLink link = (GenLink) links.next();
+%>
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */	
+	private int getUnrecognized<%=link.getUniqueIdentifier()%>LinkLabelID(String semanticHint) {
+		return -1;
+	}
+<%
+	if (link.getLabels().size() > 0) {
+%>
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */	
+	private int getUnrecognized<%=link.getUniqueIdentifier()%>LinkLabelTextID(String semanticHint) {
+		return -1;
+	}
+<%
+	}
+}
+%>
+		
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private int getUnrecognizedLinkWithClassID(EObject domainElement) {
+		return -1;
+	}
 <%
 for (int i = 0; i < genLinks.size(); i++) {
 	GenLink genLink = (GenLink) genLinks.get(i);
@@ -414,8 +347,10 @@ for (int i = 0; i < genLinks.size(); i++) {
 		String qualifiedInterfaceName = modelFacet.getMetaClass().getQualifiedInterfaceName();
 		String linkSelector = modelFacet.getModelElementSelector() != null ? genLink.getUniqueIdentifier() : acceptAllMatcherAccessor;		
 %>
+
 	/**
-	 * User can change implementation of this method to check some additional conditions here.
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
 	 *
 	 * @generated
 	 */
@@ -426,6 +361,8 @@ for (int i = 0; i < genLinks.size(); i++) {
 	}
 }
 %>
+
+<%@ include file="getVisualID.jetinc" %>
 
 	/**
 	 * @generated
