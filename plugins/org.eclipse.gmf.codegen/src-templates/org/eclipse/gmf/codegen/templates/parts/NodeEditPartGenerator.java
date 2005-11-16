@@ -55,31 +55,30 @@ public class NodeEditPartGenerator
   protected final String TEXT_36 = " modelElement = (";
   protected final String TEXT_37 = ") ((View) getHost().getModel()).getElement();" + NL + "\t\t\tList result = new ";
   protected final String TEXT_38 = "();" + NL;
-  protected final String TEXT_39 = NL + "\t\t\tresult.";
-  protected final String TEXT_40 = "(((";
-  protected final String TEXT_41 = ") modelElement).";
-  protected final String TEXT_42 = "());";
+  protected final String TEXT_39 = NL + "\t\t\tresult.addAll(modelElement.";
+  protected final String TEXT_40 = "());";
+  protected final String TEXT_41 = NL + "\t\t\tObject featureValue = modelElement.";
+  protected final String TEXT_42 = "();" + NL + "\t\t\tif (featureValue != null) {" + NL + "\t\t\t\tresult.add(featureValue);" + NL + "\t\t\t}";
   protected final String TEXT_43 = NL + "\t\t\t";
-  protected final String TEXT_44 = " featureValues = ((";
-  protected final String TEXT_45 = ") modelElement).";
-  protected final String TEXT_46 = "();" + NL + "\t\t\tfor (";
-  protected final String TEXT_47 = " it = featureValues.iterator(); it.hasNext();) {" + NL + "\t\t\t\t";
-  protected final String TEXT_48 = " nextValue = (";
-  protected final String TEXT_49 = ") it.next();";
-  protected final String TEXT_50 = NL + "\t\t\t";
-  protected final String TEXT_51 = " nextValue = (";
-  protected final String TEXT_52 = ") ((";
-  protected final String TEXT_53 = ") modelElement).";
-  protected final String TEXT_54 = "();";
-  protected final String TEXT_55 = NL + "\t\t\t";
-  protected final String TEXT_56 = " nextEClass = nextValue.eClass();";
-  protected final String TEXT_57 = NL + "\t\t\tif (";
-  protected final String TEXT_58 = ".eINSTANCE.get";
-  protected final String TEXT_59 = "().equals(nextEClass)) {" + NL + "\t\t\t\tresult.add(nextValue);" + NL + "\t\t\t} ";
-  protected final String TEXT_60 = NL + "\t\t\t}";
-  protected final String TEXT_61 = NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t}\t";
-  protected final String TEXT_62 = NL + "}";
-  protected final String TEXT_63 = NL;
+  protected final String TEXT_44 = " featureValues = modelElement.";
+  protected final String TEXT_45 = "();" + NL + "\t\t\tfor (";
+  protected final String TEXT_46 = " it = featureValues.iterator(); it.hasNext();) {" + NL + "\t\t\t\t";
+  protected final String TEXT_47 = " nextValue = (";
+  protected final String TEXT_48 = ") it.next();";
+  protected final String TEXT_49 = NL + "\t\t\t";
+  protected final String TEXT_50 = " nextValue = (";
+  protected final String TEXT_51 = ") modelElement.";
+  protected final String TEXT_52 = "();";
+  protected final String TEXT_53 = NL + "\t\t\tif (nextValue != null) {" + NL + "\t\t\t\t";
+  protected final String TEXT_54 = " nextEClass = nextValue.eClass();";
+  protected final String TEXT_55 = NL + "\t\t\t\tif (";
+  protected final String TEXT_56 = ".eINSTANCE.get";
+  protected final String TEXT_57 = "().equals(nextEClass)) {" + NL + "\t\t\t\t\tresult.add(nextValue);" + NL + "\t\t\t\t} ";
+  protected final String TEXT_58 = NL + "\t\t\t}";
+  protected final String TEXT_59 = NL + "\t\t\t}";
+  protected final String TEXT_60 = NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t}\t";
+  protected final String TEXT_61 = NL + "}";
+  protected final String TEXT_62 = NL;
 
   public String generate(Object argument)
   {
@@ -205,6 +204,14 @@ String modelElementInterfaceName = importManager.getImportedName(containerNode.g
     stringBuffer.append(importManager.getImportedName("java.util.LinkedList"));
     stringBuffer.append(TEXT_38);
     
+/*
+	Since there could e several child nodes with the same childMetaFeatures, but different domainMetaClasses
+specified, we are creating a Map{GenFeature -> Collection{GenChildNodes}}. If GenChildNode without specified 
+domainMetaClass found, all the rest of GenChildNodes with the same childMetaFeature will be ignored because
+all the elements from this childMetaFeature will be treated as "this" type of GenChildNodes (without specified 
+domainMetaClass).
+*/
+
 Map childFeature2NodesMap = new HashMap();
 for (Iterator it = childContainer.getChildNodes().iterator(); it.hasNext();) {
 	GenChildNode nextChildNode = (GenChildNode) it.next();
@@ -228,83 +235,90 @@ for (Iterator it = childContainer.getChildNodes().iterator(); it.hasNext();) {
 	genChildNodes.add(nextChildNode);
 }
 		
+// For each childMetaFeature:
 for (Iterator it = childFeature2NodesMap.entrySet().iterator(); it.hasNext();) {
 	Map.Entry nextEntry = (Map.Entry) it.next();
 	GenFeature nextFeature = (GenFeature) nextEntry.getKey();
 	List childNodes = (List) nextEntry.getValue();
 	if (childNodes.size() == 1 && ((GenChildNode) childNodes.get(0)).getDomainMetaClass() == null) {
+// GenChildNode without specified domainMetaClass found:
+		if (nextFeature.isListType()) {
 
     stringBuffer.append(TEXT_39);
-    stringBuffer.append(nextFeature.isListType() ? "addAll" : "add");
+    stringBuffer.append(nextFeature.getGetAccessor());
     stringBuffer.append(TEXT_40);
-    stringBuffer.append(modelElementInterfaceName);
+    
+		} else {
+
     stringBuffer.append(TEXT_41);
     stringBuffer.append(nextFeature.getGetAccessor());
     stringBuffer.append(TEXT_42);
     
+		}
+// Continue with the next entry in the Map
 		continue;
 	}
-			
+
+// GenChildNodes with specified domainMetaClass found:			
 	if (nextFeature.isListType()) {
 
     stringBuffer.append(TEXT_43);
     stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_44);
-    stringBuffer.append(modelElementInterfaceName);
-    stringBuffer.append(TEXT_45);
     stringBuffer.append(nextFeature.getGetAccessor());
-    stringBuffer.append(TEXT_46);
+    stringBuffer.append(TEXT_45);
     stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(TEXT_46);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_47);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_48);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
-    stringBuffer.append(TEXT_49);
     
 	} else {
 
+    stringBuffer.append(TEXT_49);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_50);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_51);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
-    stringBuffer.append(TEXT_52);
-    stringBuffer.append(modelElementInterfaceName);
-    stringBuffer.append(TEXT_53);
     stringBuffer.append(nextFeature.getGetAccessor());
-    stringBuffer.append(TEXT_54);
+    stringBuffer.append(TEXT_52);
     
 	}
 
-    stringBuffer.append(TEXT_55);
+    stringBuffer.append(TEXT_53);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClass"));
-    stringBuffer.append(TEXT_56);
+    stringBuffer.append(TEXT_54);
     			
 	for (Iterator childNodesIterator = childNodes.iterator(); childNodesIterator.hasNext();) {
 		GenChildNode nextChildNode = (GenChildNode) childNodesIterator.next();
 		GenClass domainMetaclass = nextChildNode.getDomainMetaClass();
 
-    stringBuffer.append(TEXT_57);
+    stringBuffer.append(TEXT_55);
     stringBuffer.append(importManager.getImportedName(domainMetaclass.getGenPackage().getQualifiedPackageInterfaceName()));
-    stringBuffer.append(TEXT_58);
+    stringBuffer.append(TEXT_56);
     stringBuffer.append(domainMetaclass.getClassifierAccessorName());
-    stringBuffer.append(TEXT_59);
+    stringBuffer.append(TEXT_57);
     stringBuffer.append(childNodesIterator.hasNext() ? "else" : "");
     
 	}
 	if (nextFeature.isListType()) {
 
-    stringBuffer.append(TEXT_60);
+    stringBuffer.append(TEXT_58);
     
 	}
+
+    stringBuffer.append(TEXT_59);
+    
+}
+
+    stringBuffer.append(TEXT_60);
+    
 }
 
     stringBuffer.append(TEXT_61);
-    
-}
-
-    stringBuffer.append(TEXT_62);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_63);
+    stringBuffer.append(TEXT_62);
     return stringBuffer.toString();
   }
 }

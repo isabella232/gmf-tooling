@@ -14,6 +14,14 @@ String modelElementInterfaceName = importManager.getImportedName(containerNode.g
 			List result = new <%=importManager.getImportedName("java.util.LinkedList")%>();
 
 <%
+/*
+	Since there could e several child nodes with the same childMetaFeatures, but different domainMetaClasses
+specified, we are creating a Map{GenFeature -> Collection{GenChildNodes}}. If GenChildNode without specified 
+domainMetaClass found, all the rest of GenChildNodes with the same childMetaFeature will be ignored because
+all the elements from this childMetaFeature will be treated as "this" type of GenChildNodes (without specified 
+domainMetaClass).
+*/
+
 Map childFeature2NodesMap = new HashMap();
 for (Iterator it = childContainer.getChildNodes().iterator(); it.hasNext();) {
 	GenChildNode nextChildNode = (GenChildNode) it.next();
@@ -37,38 +45,52 @@ for (Iterator it = childContainer.getChildNodes().iterator(); it.hasNext();) {
 	genChildNodes.add(nextChildNode);
 }
 		
+// For each childMetaFeature:
 for (Iterator it = childFeature2NodesMap.entrySet().iterator(); it.hasNext();) {
 	Map.Entry nextEntry = (Map.Entry) it.next();
 	GenFeature nextFeature = (GenFeature) nextEntry.getKey();
 	List childNodes = (List) nextEntry.getValue();
 	if (childNodes.size() == 1 && ((GenChildNode) childNodes.get(0)).getDomainMetaClass() == null) {
+// GenChildNode without specified domainMetaClass found:
+		if (nextFeature.isListType()) {
 %>
-			result.<%=nextFeature.isListType() ? "addAll" : "add"%>(((<%=modelElementInterfaceName%>) modelElement).<%=nextFeature.getGetAccessor()%>());
+			result.addAll(modelElement.<%=nextFeature.getGetAccessor()%>());
 <%
+		} else {
+%>
+			Object featureValue = modelElement.<%=nextFeature.getGetAccessor()%>();
+			if (featureValue != null) {
+				result.add(featureValue);
+			}
+<%
+		}
+// Continue with the next entry in the Map
 		continue;
 	}
-			
+
+// GenChildNodes with specified domainMetaClass found:			
 	if (nextFeature.isListType()) {
 %>
-			<%=importManager.getImportedName("java.util.Collection")%> featureValues = ((<%=modelElementInterfaceName%>) modelElement).<%=nextFeature.getGetAccessor()%>();
+			<%=importManager.getImportedName("java.util.Collection")%> featureValues = modelElement.<%=nextFeature.getGetAccessor()%>();
 			for (<%=importManager.getImportedName("java.util.Iterator")%> it = featureValues.iterator(); it.hasNext();) {
 				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextValue = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) it.next();
 <%
 	} else {
 %>
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextValue = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) ((<%=modelElementInterfaceName%>) modelElement).<%=nextFeature.getGetAccessor()%>();
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextValue = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) modelElement.<%=nextFeature.getGetAccessor()%>();
 <%
 	}
 %>
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> nextEClass = nextValue.eClass();
+			if (nextValue != null) {
+				<%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> nextEClass = nextValue.eClass();
 <%			
 	for (Iterator childNodesIterator = childNodes.iterator(); childNodesIterator.hasNext();) {
 		GenChildNode nextChildNode = (GenChildNode) childNodesIterator.next();
 		GenClass domainMetaclass = nextChildNode.getDomainMetaClass();
 %>
-			if (<%=importManager.getImportedName(domainMetaclass.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=domainMetaclass.getClassifierAccessorName()%>().equals(nextEClass)) {
-				result.add(nextValue);
-			} <%=childNodesIterator.hasNext() ? "else" : ""%>
+				if (<%=importManager.getImportedName(domainMetaclass.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=domainMetaclass.getClassifierAccessorName()%>().equals(nextEClass)) {
+					result.add(nextValue);
+				} <%=childNodesIterator.hasNext() ? "else" : ""%>
 <%
 	}
 	if (nextFeature.isListType()) {
@@ -76,6 +98,9 @@ for (Iterator it = childFeature2NodesMap.entrySet().iterator(); it.hasNext();) {
 			}
 <%
 	}
+%>
+			}
+<%
 }
 %>
 			return result;

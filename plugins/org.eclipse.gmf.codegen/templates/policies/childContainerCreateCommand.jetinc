@@ -7,8 +7,31 @@ GenPackage genPackage = genDiagram.getDomainMetaModel();
 for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext(); ) {
 	GenNode genChildNode = (GenNode) nodes.next();
 	TypeModelFacet modelFacet = genChildNode.getModelFacet();
+	GenFeature containmentMetaFeature = modelFacet.getContainmentMetaFeature();
+	int upperBound = containmentMetaFeature.getEcoreFeature().getUpperBound();
 %>
 		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genChildNode.getUniqueIdentifier()%> == req.getElementType()) {
+<%
+	if (upperBound > 0) {
+		String containerInterfaceName = importManager.getImportedName(containerNode.getModelFacet().getMetaClass().getQualifiedInterfaceName());
+%>		
+			<%=containerInterfaceName%> container = (<%=containerInterfaceName%>) req.getContainer();
+<%
+		if (upperBound == 1) {
+%>
+			if (container.<%=containmentMetaFeature.getGetAccessor()%>() != null) {
+<%
+		} else {
+%>
+			if (container.<%=containmentMetaFeature.getGetAccessor()%>().size() >= <%=upperBound%>) {
+<%
+		}
+%>
+				return super.getCreateCommand(req);
+			}
+<%
+	}
+%>
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
 			}
