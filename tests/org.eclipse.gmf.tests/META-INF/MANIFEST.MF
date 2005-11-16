@@ -11,10 +11,9 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.bridge,
  org.eclipse.pde.core,
  org.eclipse.pde.ui,
- org.eclipse.jdt.ui,
  org.eclipse.jface,
  org.eclipse.gef,
  org.eclipse.gmf.runtime.diagram.ui,
  org.eclipse.gmf.runtime.emf.commands.core
 Bundle-Activator: org.eclipse.gmf.tests.Plugin
-Eclipse-AutoStart: true
+Eclipse-LazyStart: true
