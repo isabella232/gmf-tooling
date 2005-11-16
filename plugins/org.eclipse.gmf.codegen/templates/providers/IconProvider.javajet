@@ -1,8 +1,9 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="IconProviderGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.*"%>
-<%GenDiagram diagram = (GenDiagram) argument;%>
-package <%=diagram.getProvidersPackageName()%>;
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+<%GenDiagram genDiagram = (GenDiagram) argument;%>
+package <%=genDiagram.getProvidersPackageName()%>;
 
+<%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
@@ -10,17 +11,18 @@ import org.eclipse.gmf.runtime.common.ui.services.icon.GetIconOperation;
 import org.eclipse.gmf.runtime.common.ui.services.icon.IIconProvider;
 import org.eclipse.gmf.runtime.common.ui.services.icon.IconOptions;
 import org.eclipse.swt.graphics.Image;
+<%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
-public class <%=diagram.getIconProviderClassName()%> extends AbstractProvider implements IIconProvider {
+public class <%=genDiagram.getIconProviderClassName()%> extends AbstractProvider implements IIconProvider {
 
 	/**
 	 * @generated
 	 */
 	public Image getIcon(IAdaptable hint, int flags) {
-		return ElementTypes.getImage(hint);
+		return <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.getImage(hint);
 	}
 
 	/**
@@ -34,3 +36,4 @@ public class <%=diagram.getIconProviderClassName()%> extends AbstractProvider im
 		return false;
 	}
 }
+<%importManager.emitSortedImports();%>

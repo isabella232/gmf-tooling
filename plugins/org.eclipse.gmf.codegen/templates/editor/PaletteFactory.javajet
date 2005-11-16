@@ -20,7 +20,6 @@ import org.eclipse.gmf.runtime.diagram.ui.tools.ConnectionCreationTool;
 import org.eclipse.gmf.runtime.diagram.ui.tools.CreationTool;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.jface.resource.ImageDescriptor;
-import <%=genDiagram.getProvidersPackageName()%>.ElementTypes;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -132,12 +131,13 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	 * @generated
 	 */
 	private void create<%=AccessUtil.getPaletteEntryId(nodeCreationTool)%>CreationTool(PaletteContainer paletteContainer) {
-		ImageDescriptor image = ElementTypes.getImageDescriptor(ElementTypes.<%=genNode.getUniqueIdentifier()%>);
+		ImageDescriptor image = <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.getImageDescriptor(
+			<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genNode.getUniqueIdentifier()%>);
 		paletteContainer.add(new ToolEntry("<%=nodeCreationTool.getTitleKey()%>",
 			"<%=nodeCreationTool.getDescriptionKey()%>", image, image) {
 
 			public Tool createTool() {
-				Tool tool = new CreationTool(ElementTypes.<%=genNode.getUniqueIdentifier()%>);
+				Tool tool = new CreationTool(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genNode.getUniqueIdentifier()%>);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
@@ -155,12 +155,13 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	 * @generated
 	 */
 	private void create<%=AccessUtil.getPaletteEntryId(linkCreationTool)%>CreationTool(PaletteContainer paletteContainer) {
-		ImageDescriptor image = ElementTypes.getImageDescriptor(ElementTypes.<%=genLink.getUniqueIdentifier()%>);
+		ImageDescriptor image = <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.getImageDescriptor(
+			<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>);
 		paletteContainer.add(new ToolEntry("<%=linkCreationTool.getTitleKey()%>",
 			"<%=linkCreationTool.getDescriptionKey()%>", image, image) {
 
 			public Tool createTool() {
-				Tool tool = new ConnectionCreationTool(ElementTypes.<%=genLink.getUniqueIdentifier()%>);
+				Tool tool = new ConnectionCreationTool(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}

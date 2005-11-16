@@ -123,7 +123,7 @@ List genLinks = genDiagram.getLinks();
     stringBuffer.append(TEXT_13);
     }
     stringBuffer.append(TEXT_14);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_15);
     
 for (Iterator it = genLinks.iterator(); it.hasNext();) {
@@ -140,7 +140,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_19);
     stringBuffer.append(importManager.getImportedName(genDiagram.getPluginQualifiedClassName()));
     stringBuffer.append(TEXT_20);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_21);
     stringBuffer.append(importManager.getImportedName(genDiagram.getPluginQualifiedClassName()));
     stringBuffer.append(TEXT_22);
@@ -164,7 +164,7 @@ for (Iterator genNodesIt = genNodes.iterator(); genNodesIt.hasNext();) {
     stringBuffer.append(TEXT_27);
     stringBuffer.append(nextGenNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_28);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_29);
     
 	for (Iterator childGenNodesIt = AccessUtil.getAllChildNodes(nextGenNode).iterator(); childGenNodesIt.hasNext();) {
@@ -198,7 +198,7 @@ for (Iterator genNodesIt = genNodes.iterator(); genNodesIt.hasNext();) {
 }
 
     stringBuffer.append(TEXT_38);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_39);
     
 for (Iterator it = genLinks.iterator(); it.hasNext();) {
@@ -276,7 +276,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_61);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType"));
     stringBuffer.append(TEXT_62);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
     stringBuffer.append(TEXT_63);
     stringBuffer.append(nextLink.getUniqueIdentifier());
     stringBuffer.append(TEXT_64);

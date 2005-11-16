@@ -250,10 +250,10 @@ public class Generator implements Runnable {
 	
 	private void generateCompartmentEditPart(GenCompartment genCompartment) throws JETException, InterruptedException {
 		generate(
-				EmitterFactory.getCompartmentEditPartEmitter(),
-				myDiagram.getEditPartsPackageName(),
-				genCompartment.getEditPartClassName(),
-				genCompartment
+			EmitterFactory.getCompartmentEditPartEmitter(),
+			myDiagram.getEditPartsPackageName(),
+			genCompartment.getEditPartClassName(),
+			genCompartment
 		);
 	}
 
@@ -278,21 +278,19 @@ public class Generator implements Runnable {
 	// edit policies
 
 	private void generateBaseItemSemanticEditPolicy() throws JETException, InterruptedException {
-		String fqn = myDiagram.getBaseItemSemanticEditPolicyQualifiedClassName();
 		generate(
 			EmitterFactory.getBaseItemSemanticEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
-			fqn.substring(fqn.lastIndexOf('.') + 1),
+			myDiagram.getBaseItemSemanticEditPolicyClassName(),
 			myDiagram
 		);
 	}
 
 	private void generateReferenceConnectionEditPolicy() throws JETException, InterruptedException {
-		String fqn = myDiagram.getReferenceConnectionEditPolicyQualifiedClassName();
 		generate(
 			EmitterFactory.getReferenceConnectionEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
-			fqn.substring(fqn.lastIndexOf('.') + 1),
+			myDiagram.getReferenceConnectionEditPolicyClassName(),
 			myDiagram
 		);
 	}
@@ -339,17 +337,16 @@ public class Generator implements Runnable {
 		generate(
 			EmitterFactory.getStructuralFeatureParserEmitter(),
 			myDiagram.getProvidersPackageName(),
-			"StructuralFeatureParser", //$NON-NLS-1$
+			myDiagram.getStructuralFeatureParserClassName(),
 			myDiagram
 		);
 	}
 
 	private void generateSemanticHints() throws JETException, InterruptedException {
-		String fqn = myDiagram.getSemanticHintsQualifiedClassName();
 		generate(
 			EmitterFactory.getSemanticHintsEmitter(),
 			myDiagram.getProvidersPackageName(),
-			fqn.substring(fqn.lastIndexOf('.') + 1),
+			myDiagram.getSemanticHintsClassName(),
 			myDiagram
 		);
 	}
@@ -374,19 +371,19 @@ public class Generator implements Runnable {
 	
 	private void generateTextLinkLabelViewFactory(GenLinkLabel label) throws JETException, InterruptedException {
 		generate(
-				EmitterFactory.getTextLabelViewFactoryEmitter(),
-				myDiagram.getProvidersPackageName(),
-				label.getTextNotationViewFactoryClassName(),
-				label
+			EmitterFactory.getTextLabelViewFactoryEmitter(),
+			myDiagram.getProvidersPackageName(),
+			label.getTextNotationViewFactoryClassName(),
+			label
 		);
 	}
 	
 	private void generateTextLabelViewFactory(GenNodeLabel label) throws JETException, InterruptedException {
 		generate(
-				EmitterFactory.getTextLabelViewFactoryEmitter(),
-				myDiagram.getProvidersPackageName(),
-				label.getNotationViewFactoryClassName(),
-				label
+			EmitterFactory.getTextLabelViewFactoryEmitter(),
+			myDiagram.getProvidersPackageName(),
+			label.getNotationViewFactoryClassName(),
+			label
 		);
 	}
 
@@ -394,7 +391,7 @@ public class Generator implements Runnable {
 		generate(
 			EmitterFactory.getElementTypesEmitter(),
 			myDiagram.getProvidersPackageName(),
-			"ElementTypes", //$NON-NLS-1$
+			myDiagram.getElementTypesClassName(),
 			myDiagram
 		);
 	}
@@ -464,7 +461,7 @@ public class Generator implements Runnable {
 		generate(
 			EmitterFactory.getDiagramEditorUtilEmitter(),
 			myDiagram.getEditorPackageName(),
-			"DiagramEditorUtil", //$NON-NLS-1$
+			myDiagram.getDiagramEditorUtilClassName(),
 			myDiagram
 		);
 	}
@@ -473,25 +470,25 @@ public class Generator implements Runnable {
 		generate(
 			EmitterFactory.getDiagramFileCreatorEmitter(),
 			myDiagram.getEditorPackageName(),
-			"DiagramFileCreatorBis", //$NON-NLS-1$
+			myDiagram.getDiagramFileCreatorClassName(),
 			myDiagram
 		);
 	}
 	
 	private void generateVisualIDRegistry() throws JETException, InterruptedException {
 		generate(
-				EmitterFactory.getVisualIDRegistryEmitter(),
-				myDiagram.getEditorPackageName(),
-				"VisualIDRegistry", //$NON-NLS-1$
-				myDiagram
-			);
+			EmitterFactory.getVisualIDRegistryEmitter(),
+			myDiagram.getEditorPackageName(),
+			myDiagram.getVisualIDRegistryClassName(),
+			myDiagram
+		);
 	}
 
 	private void generateCreationWizard() throws JETException, InterruptedException {
 		generate(
 			EmitterFactory.getCreationWizardEmitter(),
 			myDiagram.getEditorPackageName(),
-			"CreationWizard", //$NON-NLS-1$
+			myDiagram.getCreationWizardClassName(),
 			myDiagram
 		);
 	}
@@ -500,7 +497,7 @@ public class Generator implements Runnable {
 		generate(
 			EmitterFactory.getCreationWizardPageEmitter(),
 			myDiagram.getEditorPackageName(),
-			"CreationWizardPage", //$NON-NLS-1$
+			myDiagram.getCreationWizardPageClassName(),
 			myDiagram
 		);
 	}
@@ -516,11 +513,11 @@ public class Generator implements Runnable {
 	
 	private void generateDocumentProvider() throws JETException, InterruptedException {
 		generate(
-				EmitterFactory.getDocumentProviderEmitter(),
-				myDiagram.getEditorPackageName(),
-				myDiagram.getDocumentProviderClassName(),
-				myDiagram
-			);
+			EmitterFactory.getDocumentProviderEmitter(),
+			myDiagram.getEditorPackageName(),
+			myDiagram.getDocumentProviderClassName(),
+			myDiagram
+		);
 	}
 
 	private void generateActionBarContributor() throws JETException, InterruptedException {
@@ -545,7 +542,7 @@ public class Generator implements Runnable {
 		generate(
 			EmitterFactory.getPreferencesInitializerEmitter(),
 			myDiagram.getEditorPackageName(),
-			"PreferencesInitializer", //$NON-NLS-1$
+			myDiagram.getPreferenceInitializerClassName(),
 			myDiagram
 		);
 	}

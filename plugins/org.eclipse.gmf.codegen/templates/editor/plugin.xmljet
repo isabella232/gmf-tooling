@@ -66,7 +66,7 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {%>
   </runtime>
 
    <extension point="org.eclipse.core.runtime.preferences">
-      <initializer class="<%=genDiagram.getEditorPackageName()%>.PreferencesInitializer"/>
+      <initializer class="<%=genDiagram.getPreferenceInitializerQualifiedClassName()%>"/>
    </extension>
 
   <extension point="org.eclipse.team.core.fileTypes">
@@ -101,8 +101,8 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {%>
   	     name="<%=genModel.getModelName()%> Diagram"
   	     icon="icons/full/obj16/<%=genModel.getModelName()%>ModelFile.gif"
   	     category="org.eclipse.ui.Examples"
-  	     class="<%=genDiagram.getEditorPackageName()%>.CreationWizard"
-  	     id="<%=genDiagram.getEditorPackageName()%>.CreationWizardID">
+  	     class="<%=genDiagram.getCreationWizardQualifiedClassName()%>"
+  	     id="<%=genDiagram.getCreationWizardQualifiedClassName()%>ID">
   	  	 <description>
   	  		Creates <%=genModel.getModelName()%> diagram.
   	  	 </description>  
@@ -119,7 +119,7 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {%>
                class="<%=genDiagram.getInitDiagramFileActionQualifiedClassName()%>"
                menubarPath="additions"
                enablesFor="1"
-               id="<%=genDiagram.getPluginID()%>.ui.InitDiagramFileAction">
+               id="<%=genDiagram.getInitDiagramFileActionQualifiedClassName()%>ID">
          </action>
       </objectContribution>            
   </extension>

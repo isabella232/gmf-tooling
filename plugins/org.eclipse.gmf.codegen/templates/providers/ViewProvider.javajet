@@ -27,7 +27,7 @@ public class <%=genDiagram.getViewProviderClassName()%> extends AbstractViewProv
 	 */
 	protected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		if ("<%=genModel.getModelName()%>".equals(diagramKind) && <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getDiagramVisualID(semanticElement) != -1) { //$NON-NLS-1$
+		if ("<%=genModel.getModelName()%>".equals(diagramKind) && <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getDiagramVisualID(semanticElement) != -1) { //$NON-NLS-1$
 			return <%=genDiagram.getNotationViewFactoryClassName()%>.class;
 		}
 		return null;
@@ -46,7 +46,7 @@ public class <%=genDiagram.getViewProviderClassName()%> extends AbstractViewProv
 		
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		int nodeVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
+		int nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
 
 		switch (nodeVID) {
 <%
@@ -107,7 +107,7 @@ for (int i = 0; i < genLinks.size(); i++) {
 	GenLink genLink = (GenLink) genLinks.get(i);
 	if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 %>
-		if (ElementTypes.<%=genLink.getUniqueIdentifier()%>.equals(elementType)) {
+		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>.equals(elementType)) {
 			return <%=genLink.getNotationViewFactoryClassName()%>.class;
 		}
 <%
@@ -118,7 +118,7 @@ for (int i = 0; i < genLinks.size(); i++) {
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
 
-		int linkVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getLinkWithClassVisualID(semanticElement, semanticType);
+		int linkVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getLinkWithClassVisualID(semanticElement, semanticType);
 		
 		switch (linkVID) {
 <%

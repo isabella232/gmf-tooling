@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Palette extends EObject {
+public interface Palette extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Diagram</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPalette <em>Palette</em>}'.
@@ -146,7 +146,6 @@ public interface Palette extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Factory Class Name</b></em>' attribute.
-	 * The default value is <code>"PaletteFactory"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Factory Class Name</em>' attribute isn't clear,
@@ -156,7 +155,7 @@ public interface Palette extends EObject {
 	 * @return the value of the '<em>Factory Class Name</em>' attribute.
 	 * @see #setFactoryClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getPalette_FactoryClassName()
-	 * @model default="PaletteFactory"
+	 * @model
 	 * @generated
 	 */
 	String getFactoryClassName();

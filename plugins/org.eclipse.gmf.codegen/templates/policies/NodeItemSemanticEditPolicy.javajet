@@ -65,7 +65,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	if (namePart != null) {
 		namePart += genLink.getVisualID();
 %>
-		if (<%=importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes")%>.<%=genLink.getUniqueIdentifier()%> == req.getElementType()) {
+		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%> == req.getElementType()) {
 			return req.getTarget() == null ? getCreateStart<%=namePart%>Command(req) : getCreateComplete<%=namePart%>Command(req);
 		}
 <%
@@ -175,7 +175,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			if (newElement != null) {
 				newElement.set<%=modelFacet.getTargetMetaFeature().getAccessorName()%>((<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) getSource());
 <%			if (modelFacet.getModelElementInitializer() != null) { %>
-				<%=importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes")%>.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
+				<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
 <%}%>
 			}
 			return newElement;
@@ -259,7 +259,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			if (newElement != null) {
 				newElement.set<%=modelFacet.getTargetMetaFeature().getAccessorName()%>((<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) getTarget());
 <%			if (modelFacet.getModelElementInitializer() != null) { %>
-				<%=importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes")%>.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
+				<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
 <%}%>
 			}
 			return newElement;

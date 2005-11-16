@@ -187,7 +187,7 @@ public class <%=genDiagram.getInitDiagramFileActionClassName()%> implements IObj
      * @generated
      */
 	private EObject create(EObject diagramModel) {
-		int diagramVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getDiagramVisualID(diagramModel);
+		int diagramVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getDiagramVisualID(diagramModel);
 		if (diagramVID == -1) {
 			return null;
 		}
@@ -217,7 +217,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 		for (Iterator it = diagramObject.eContents().iterator(); it.hasNext();) {
 			EObject nextChild = (EObject) it.next();
 			storeLinkReferenceOnly(nextChild);
-			int nodeVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getNodeVisualID(nextChild);
+			int nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(nextChild);
 			if (nodeVID == -1) {
 				storeLinkWithClass(nextChild);
 				continue;
@@ -250,7 +250,7 @@ for (Iterator genNodesIt = genNodes.iterator(); genNodesIt.hasNext();) {
 		for (Iterator it = nodeObject.eContents().iterator(); it.hasNext();) {
 			EObject nextChild = (EObject) it.next();
 			storeLinkReferenceOnly(nextChild);
-			int nodeVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getChildNodeVisualID(nextChild);
+			int nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getChildNodeVisualID(nextChild);
 			if (nodeVID == -1) {
 				storeLinkWithClass(nextChild);
 				continue;
@@ -308,7 +308,7 @@ for (Iterator genNodesIt = genNodes.iterator(); genNodesIt.hasNext();) {
      * @generated
      */
 	private void storeLinkWithClass(EObject link) {
-		int linkVID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getLinkWithClassVisualID(link);
+		int linkVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getLinkWithClassVisualID(link);
 		if (linkVID == -1) {
 			return;
 		}
@@ -401,7 +401,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 					<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%> edge = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.internal.services.view.ViewService")%>.getInstance().createEdge(new <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>() {
 						public Object getAdapter(Class adapter) {
 							if (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>.class.equals(adapter)) {
-								return <%=importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes")%>.<%=nextLink.getUniqueIdentifier()%>;
+								return <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=nextLink.getUniqueIdentifier()%>;
 							}
 							return null;
 						}

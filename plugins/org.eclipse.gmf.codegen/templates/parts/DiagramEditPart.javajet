@@ -81,7 +81,7 @@ for (Iterator it = containmentFeatures.iterator(); it.hasNext();) {
 				EObject nextDiagramElement = (EObject) diagramElements.next();
 				for (Iterator childElements = nextDiagramElement.eContents().iterator(); childElements.hasNext();) {
 					EObject nextChild = (EObject) childElements.next();
-					if (<%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getLinkWithClassVisualID(nextChild) != -1) {
+					if (<%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getLinkWithClassVisualID(nextChild) != -1) {
 						result.add(nextChild);
 					}
 				}
@@ -100,7 +100,7 @@ for (Iterator it = containmentFeatures.iterator(); it.hasNext();) {
 		 * @generated
 		 */
 		protected EObject getTargetElement(EObject relationship) {
-			int vID = <%=importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry")%>.INSTANCE.getLinkWithClassVisualID(relationship);
+			int vID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getLinkWithClassVisualID(relationship);
 			switch (vID) {
 <%
 for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {

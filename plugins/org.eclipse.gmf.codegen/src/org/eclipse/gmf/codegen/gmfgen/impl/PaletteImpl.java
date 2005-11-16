@@ -120,7 +120,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String FACTORY_CLASS_NAME_EDEFAULT = "PaletteFactory";
+	protected static final String FACTORY_CLASS_NAME_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getFactoryClassName() <em>Factory Class Name</em>}' attribute.
@@ -248,8 +248,16 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getFactoryClassName() {
+	public String getFactoryClassNameGen() {
 		return factoryClassName;
+	}
+
+	public String getFactoryClassName() {
+		String name = getFactoryClassNameGen();
+		if (name == null) {
+			return ((GenDiagramImpl) getDiagram()).getDomainPackageCapName() + "PaletteFactory"; //$NON-NLS-1$
+		}
+		return name;
 	}
 
 	/**

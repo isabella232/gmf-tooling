@@ -6,7 +6,6 @@ GenDiagram genDiagram = (GenDiagram) argument;
 package <%=genDiagram.getEditPoliciesPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPoliciesPackageName());%>
-import <%=genDiagram.getProvidersPackageName()%>.ElementTypes;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
@@ -35,7 +34,7 @@ for (Iterator nodes = genDiagram.getNodes().iterator(); nodes.hasNext(); ) {
 	GenNode genNode = (GenNode) nodes.next();
 	TypeModelFacet modelFacet = genNode.getModelFacet();
 %>
-		if (ElementTypes.<%=genNode.getUniqueIdentifier()%> == req.getElementType()) {
+		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genNode.getUniqueIdentifier()%> == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
 			}
@@ -88,7 +87,7 @@ for (Iterator nodes = genDiagram.getNodes().iterator(); nodes.hasNext(); ) {
 <%		String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
 			<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
 			if (newElement != null) {
-				ElementTypes.Initializers.<%=genNode.getUniqueIdentifier()%>.init(newElement);
+				<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.Initializers.<%=genNode.getUniqueIdentifier()%>.init(newElement);
 			}
 			return newElement;
 		}

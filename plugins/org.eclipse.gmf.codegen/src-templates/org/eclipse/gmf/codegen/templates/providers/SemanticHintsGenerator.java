@@ -60,9 +60,9 @@ public class SemanticHintsGenerator
     ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());
     importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName()));
+    stringBuffer.append(genDiagram.getSemanticHintsClassName());
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName()));
+    stringBuffer.append(genDiagram.getSemanticHintsClassName());
     stringBuffer.append(TEXT_5);
     
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {

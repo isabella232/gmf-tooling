@@ -98,9 +98,9 @@ for (Iterator it = containmentFeatures.iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_17);
     stringBuffer.append(modelElementInterfaceName);
     stringBuffer.append(TEXT_18);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_19);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorPackageName() + ".VisualIDRegistry"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_20);
     
 for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {

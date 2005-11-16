@@ -248,7 +248,7 @@ for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext()
 	TypeModelFacet modelFacet = genChildNode.getModelFacet();
 
     stringBuffer.append(TEXT_12);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
     stringBuffer.append(TEXT_13);
     stringBuffer.append(genChildNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_14);
@@ -298,7 +298,7 @@ for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext()
     stringBuffer.append(TEXT_33);
     stringBuffer.append(metaClassName);
     stringBuffer.append(TEXT_34);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
     stringBuffer.append(TEXT_35);
     stringBuffer.append(genChildNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_36);
@@ -337,7 +337,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		namePart += genLink.getVisualID();
 
     stringBuffer.append(TEXT_40);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
     stringBuffer.append(TEXT_41);
     stringBuffer.append(genLink.getUniqueIdentifier());
     stringBuffer.append(TEXT_42);
@@ -462,7 +462,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_89);
     			if (modelFacet.getModelElementInitializer() != null) { 
     stringBuffer.append(TEXT_90);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
     stringBuffer.append(TEXT_91);
     stringBuffer.append(genLink.getUniqueIdentifier());
     stringBuffer.append(TEXT_92);
@@ -546,7 +546,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_127);
     			if (modelFacet.getModelElementInitializer() != null) { 
     stringBuffer.append(TEXT_128);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
     stringBuffer.append(TEXT_129);
     stringBuffer.append(genLink.getUniqueIdentifier());
     stringBuffer.append(TEXT_130);

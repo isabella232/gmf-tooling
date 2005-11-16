@@ -87,7 +87,7 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 
 						public <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParser")%> getParser() {
 							if (parser == null) {
-								parser = new <%=importManager.getImportedName(genDiagram.getProvidersPackageName() + ".StructuralFeatureParser")%>(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().getEStructuralFeature("<%=linkLabel.getMetaFeature().getName()%>"));
+								parser = new <%=importManager.getImportedName(genDiagram.getStructuralFeatureParserQualifiedClassName())%>(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().getEStructuralFeature("<%=linkLabel.getMetaFeature().getName()%>"));
 							}
 							return parser;
 						}

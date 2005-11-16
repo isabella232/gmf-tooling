@@ -23,7 +23,12 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class ElementTypes {
+public class <%=genDiagram.getElementTypesClassName()%> {
+
+	/**
+	 * @generated
+	 */
+	private <%=genDiagram.getElementTypesClassName()%>() {}
 
 	/**
 	 * @generated

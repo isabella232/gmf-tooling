@@ -33,7 +33,7 @@ public class ItemSemanticEditPolicyGenerator
     stringBuffer.append(TEXT_3);
     importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(importManager.getImportedName(diagram.getBaseItemSemanticEditPolicyQualifiedClassName()));
+    stringBuffer.append(diagram.getBaseItemSemanticEditPolicyClassName());
     stringBuffer.append(TEXT_5);
     importManager.emitSortedImports();
     stringBuffer.append(TEXT_6);

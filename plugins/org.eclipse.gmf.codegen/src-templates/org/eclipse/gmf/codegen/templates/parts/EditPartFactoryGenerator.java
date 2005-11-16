@@ -144,7 +144,7 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
     stringBuffer.append(TEXT_28);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParser"));
     stringBuffer.append(TEXT_29);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getProvidersPackageName() + ".StructuralFeatureParser"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getStructuralFeatureParserQualifiedClassName()));
     stringBuffer.append(TEXT_30);
     stringBuffer.append(semanticPackageInterfaceName);
     stringBuffer.append(TEXT_31);

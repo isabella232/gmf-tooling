@@ -9,7 +9,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 /**
  * @generated
  */
-public class PreferencesInitializer extends DiagramPreferenceInitializer {
+public class <%=genDiagram.getPreferenceInitializerClassName()%> extends DiagramPreferenceInitializer {
 
 	/**
 	 * @generated

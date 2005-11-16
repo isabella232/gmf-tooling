@@ -9,12 +9,12 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreat
 /**
  * @generated
  */
-public class DiagramFileCreatorBis extends IDEEditorFileCreator {
+public class <%=genDiagram.getDiagramFileCreatorClassName()%> extends IDEEditorFileCreator {
 
 	/**
 	 * @generated
 	 */
-	private static DiagramFileCreatorBis INSTANCE = new DiagramFileCreatorBis();
+	private static <%=genDiagram.getDiagramFileCreatorClassName()%> INSTANCE = new <%=genDiagram.getDiagramFileCreatorClassName()%>();
 
 	/**
 	 * @generated

@@ -36,17 +36,28 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isHasDomainModel <em>Has Domain Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditPartFactoryClassName <em>Edit Part Factory Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getBaseItemSemanticEditPolicyClassName <em>Base Item Semantic Edit Policy Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getReferenceConnectionEditPolicyClassName <em>Reference Connection Edit Policy Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getElementTypesClassName <em>Element Types Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getSemanticHintsClassName <em>Semantic Hints Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getViewProviderClassName <em>View Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditPartProviderClassName <em>Edit Part Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getMetamodelSupportProviderClassName <em>Metamodel Support Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getModelingAssistantProviderClassName <em>Modeling Assistant Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getIconProviderClassName <em>Icon Provider Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getInitDiagramFileActionClassName <em>Init Diagram File Action Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditorClassName <em>Editor Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDocumentProviderClassName <em>Document Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getStructuralFeatureParserClassName <em>Structural Feature Parser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getActionBarContributorClassName <em>Action Bar Contributor Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCreationWizardClassName <em>Creation Wizard Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCreationWizardPageClassName <em>Creation Wizard Page Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDiagramEditorUtilClassName <em>Diagram Editor Util Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDiagramFileCreatorClassName <em>Diagram File Creator Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDocumentProviderClassName <em>Document Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditorClassName <em>Editor Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getInitDiagramFileActionClassName <em>Init Diagram File Action Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getMatchingStrategyClassName <em>Matching Strategy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPluginClassName <em>Plugin Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPreferenceInitializerClassName <em>Preference Initializer Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getVisualIDRegistryClassName <em>Visual ID Registry Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -330,6 +341,58 @@ public interface GenDiagram extends GenCommonBase{
 	void setPluginClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Preference Initializer Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Preference Initializer Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Preference Initializer Class Name</em>' attribute.
+	 * @see #setPreferenceInitializerClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_PreferenceInitializerClassName()
+	 * @model
+	 * @generated
+	 */
+	String getPreferenceInitializerClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPreferenceInitializerClassName <em>Preference Initializer Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Preference Initializer Class Name</em>' attribute.
+	 * @see #getPreferenceInitializerClassName()
+	 * @generated
+	 */
+	void setPreferenceInitializerClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Visual ID Registry Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Visual ID Registry Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Visual ID Registry Class Name</em>' attribute.
+	 * @see #setVisualIDRegistryClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_VisualIDRegistryClassName()
+	 * @model
+	 * @generated
+	 */
+	String getVisualIDRegistryClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getVisualIDRegistryClassName <em>Visual ID Registry Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Visual ID Registry Class Name</em>' attribute.
+	 * @see #getVisualIDRegistryClassName()
+	 * @generated
+	 */
+	void setVisualIDRegistryClassName(String value);
+
+	/**
 	 * Returns the value of the '<em><b>Editor Package Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -383,7 +446,6 @@ public interface GenDiagram extends GenCommonBase{
 
 	/**
 	 * Returns the value of the '<em><b>Editor Class Name</b></em>' attribute.
-	 * The default value is <code>"DiagramEditor"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Editor Class Name</em>' attribute isn't clear,
@@ -393,7 +455,7 @@ public interface GenDiagram extends GenCommonBase{
 	 * @return the value of the '<em>Editor Class Name</em>' attribute.
 	 * @see #setEditorClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_EditorClassName()
-	 * @model default="DiagramEditor"
+	 * @model
 	 * @generated
 	 */
 	String getEditorClassName();
@@ -410,7 +472,6 @@ public interface GenDiagram extends GenCommonBase{
 
 	/**
 	 * Returns the value of the '<em><b>Document Provider Class Name</b></em>' attribute.
-	 * The default value is <code>"DocumentProvider"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Document Provider Class Name</em>' attribute isn't clear,
@@ -420,7 +481,7 @@ public interface GenDiagram extends GenCommonBase{
 	 * @return the value of the '<em>Document Provider Class Name</em>' attribute.
 	 * @see #setDocumentProviderClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_DocumentProviderClassName()
-	 * @model default="DocumentProvider"
+	 * @model
 	 * @generated
 	 */
 	String getDocumentProviderClassName();
@@ -437,7 +498,6 @@ public interface GenDiagram extends GenCommonBase{
 
 	/**
 	 * Returns the value of the '<em><b>Edit Part Factory Class Name</b></em>' attribute.
-	 * The default value is <code>"EditPartFactoryImpl"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Edit Part Factory Class Name</em>' attribute isn't clear,
@@ -447,7 +507,7 @@ public interface GenDiagram extends GenCommonBase{
 	 * @return the value of the '<em>Edit Part Factory Class Name</em>' attribute.
 	 * @see #setEditPartFactoryClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_EditPartFactoryClassName()
-	 * @model default="EditPartFactoryImpl"
+	 * @model
 	 * @generated
 	 */
 	String getEditPartFactoryClassName();
@@ -461,6 +521,110 @@ public interface GenDiagram extends GenCommonBase{
 	 * @generated
 	 */
 	void setEditPartFactoryClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Base Item Semantic Edit Policy Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Base Item Semantic Edit Policy Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Base Item Semantic Edit Policy Class Name</em>' attribute.
+	 * @see #setBaseItemSemanticEditPolicyClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_BaseItemSemanticEditPolicyClassName()
+	 * @model
+	 * @generated
+	 */
+	String getBaseItemSemanticEditPolicyClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getBaseItemSemanticEditPolicyClassName <em>Base Item Semantic Edit Policy Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Base Item Semantic Edit Policy Class Name</em>' attribute.
+	 * @see #getBaseItemSemanticEditPolicyClassName()
+	 * @generated
+	 */
+	void setBaseItemSemanticEditPolicyClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Reference Connection Edit Policy Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Reference Connection Edit Policy Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Reference Connection Edit Policy Class Name</em>' attribute.
+	 * @see #setReferenceConnectionEditPolicyClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_ReferenceConnectionEditPolicyClassName()
+	 * @model
+	 * @generated
+	 */
+	String getReferenceConnectionEditPolicyClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getReferenceConnectionEditPolicyClassName <em>Reference Connection Edit Policy Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Reference Connection Edit Policy Class Name</em>' attribute.
+	 * @see #getReferenceConnectionEditPolicyClassName()
+	 * @generated
+	 */
+	void setReferenceConnectionEditPolicyClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Element Types Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Element Types Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Element Types Class Name</em>' attribute.
+	 * @see #setElementTypesClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_ElementTypesClassName()
+	 * @model
+	 * @generated
+	 */
+	String getElementTypesClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getElementTypesClassName <em>Element Types Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Element Types Class Name</em>' attribute.
+	 * @see #getElementTypesClassName()
+	 * @generated
+	 */
+	void setElementTypesClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Semantic Hints Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Semantic Hints Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Semantic Hints Class Name</em>' attribute.
+	 * @see #setSemanticHintsClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_SemanticHintsClassName()
+	 * @model
+	 * @generated
+	 */
+	String getSemanticHintsClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getSemanticHintsClassName <em>Semantic Hints Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Semantic Hints Class Name</em>' attribute.
+	 * @see #getSemanticHintsClassName()
+	 * @generated
+	 */
+	void setSemanticHintsClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Has Domain Model</b></em>' attribute.
@@ -567,7 +731,6 @@ public interface GenDiagram extends GenCommonBase{
 
 	/**
 	 * Returns the value of the '<em><b>Init Diagram File Action Class Name</b></em>' attribute.
-	 * The default value is <code>"InitDiagramFileAction"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Init Diagram File Action Class Name</em>' attribute isn't clear,
@@ -577,7 +740,7 @@ public interface GenDiagram extends GenCommonBase{
 	 * @return the value of the '<em>Init Diagram File Action Class Name</em>' attribute.
 	 * @see #setInitDiagramFileActionClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_InitDiagramFileActionClassName()
-	 * @model default="InitDiagramFileAction"
+	 * @model
 	 * @generated
 	 */
 	String getInitDiagramFileActionClassName();
@@ -617,6 +780,110 @@ public interface GenDiagram extends GenCommonBase{
 	 * @generated
 	 */
 	void setActionBarContributorClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Creation Wizard Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Creation Wizard Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Creation Wizard Class Name</em>' attribute.
+	 * @see #setCreationWizardClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_CreationWizardClassName()
+	 * @model
+	 * @generated
+	 */
+	String getCreationWizardClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCreationWizardClassName <em>Creation Wizard Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Creation Wizard Class Name</em>' attribute.
+	 * @see #getCreationWizardClassName()
+	 * @generated
+	 */
+	void setCreationWizardClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Creation Wizard Page Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Creation Wizard Page Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Creation Wizard Page Class Name</em>' attribute.
+	 * @see #setCreationWizardPageClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_CreationWizardPageClassName()
+	 * @model
+	 * @generated
+	 */
+	String getCreationWizardPageClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCreationWizardPageClassName <em>Creation Wizard Page Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Creation Wizard Page Class Name</em>' attribute.
+	 * @see #getCreationWizardPageClassName()
+	 * @generated
+	 */
+	void setCreationWizardPageClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Diagram Editor Util Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Diagram Editor Util Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Diagram Editor Util Class Name</em>' attribute.
+	 * @see #setDiagramEditorUtilClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_DiagramEditorUtilClassName()
+	 * @model
+	 * @generated
+	 */
+	String getDiagramEditorUtilClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDiagramEditorUtilClassName <em>Diagram Editor Util Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Diagram Editor Util Class Name</em>' attribute.
+	 * @see #getDiagramEditorUtilClassName()
+	 * @generated
+	 */
+	void setDiagramEditorUtilClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Diagram File Creator Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Diagram File Creator Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Diagram File Creator Class Name</em>' attribute.
+	 * @see #setDiagramFileCreatorClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_DiagramFileCreatorClassName()
+	 * @model
+	 * @generated
+	 */
+	String getDiagramFileCreatorClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDiagramFileCreatorClassName <em>Diagram File Creator Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Diagram File Creator Class Name</em>' attribute.
+	 * @see #getDiagramFileCreatorClassName()
+	 * @generated
+	 */
+	void setDiagramFileCreatorClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Matching Strategy Class Name</b></em>' attribute.
@@ -775,6 +1042,32 @@ public interface GenDiagram extends GenCommonBase{
 	void setIconProviderClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Structural Feature Parser Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Structural Feature Parser Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Structural Feature Parser Class Name</em>' attribute.
+	 * @see #setStructuralFeatureParserClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_StructuralFeatureParserClassName()
+	 * @model
+	 * @generated
+	 */
+	String getStructuralFeatureParserClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getStructuralFeatureParserClassName <em>Structural Feature Parser Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Structural Feature Parser Class Name</em>' attribute.
+	 * @see #getStructuralFeatureParserClassName()
+	 * @generated
+	 */
+	void setStructuralFeatureParserClassName(String value);
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -792,6 +1085,22 @@ public interface GenDiagram extends GenCommonBase{
 	 * @generated
 	 */
 	String getPluginQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getPreferenceInitializerQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getVisualIDRegistryQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -831,6 +1140,14 @@ public interface GenDiagram extends GenCommonBase{
 	 * @model kind="operation"
 	 * @generated
 	 */
+	String getElementTypesQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
 	String getSemanticHintsQualifiedClassName();
 
 	/**
@@ -847,9 +1164,6 @@ public interface GenDiagram extends GenCommonBase{
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Need this for customizing Init Diagram Action class name
-	 * <!-- end-model-doc -->
 	 * @model kind="operation"
 	 * @generated
 	 */
@@ -923,7 +1237,55 @@ public interface GenDiagram extends GenCommonBase{
 	 * @model kind="operation"
 	 * @generated
 	 */
+	String getStructuralFeatureParserQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
 	String getActionBarContributorQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getCreationWizardQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getCreationWizardPageQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getDiagramEditorUtilQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getDiagramFileCreatorQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getDocumentProviderQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

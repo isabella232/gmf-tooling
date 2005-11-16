@@ -11,7 +11,7 @@ import org.eclipse.ui.IWorkbench;
 /**
  * @generated
  */
-public class CreationWizard extends EditorCreationWizard {
+public class <%=genDiagram.getCreationWizardClassName()%> extends EditorCreationWizard {
 
 	/**
 	 * @generated
@@ -19,7 +19,7 @@ public class CreationWizard extends EditorCreationWizard {
 	public void addPages() {
 		super.addPages();
 		if (page == null) {
-			page = new CreationWizardPage(getWorkbench(), getSelection());
+			page = new <%=genDiagram.getCreationWizardPageClassName()%>(getWorkbench(), getSelection());
 		}
 		addPage(page);
 	}

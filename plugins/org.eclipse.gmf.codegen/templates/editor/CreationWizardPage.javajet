@@ -18,12 +18,12 @@ import org.eclipse.ui.IWorkbenchWindow;
 /**
  * @generated
  */
-public class CreationWizardPage extends EditorWizardPage {
+public class <%=genDiagram.getCreationWizardPageClassName()%> extends EditorWizardPage {
 
 	/**
 	 * @generated
 	 */
-	public CreationWizardPage(IWorkbench workbench, IStructuredSelection selection) {
+	public <%=genDiagram.getCreationWizardPageClassName()%>(IWorkbench workbench, IStructuredSelection selection) {
 		super("CreationWizardPage", workbench, selection); //$NON-NLS-1$
 		setTitle("Create <%=genModel.getModelName()%> Diagram"); //$NON-NLS-1$
 		setDescription("Create a new <%=genModel.getModelName()%> diagram."); //$NON-NLS-1$
@@ -33,7 +33,7 @@ public class CreationWizardPage extends EditorWizardPage {
 	 * @generated
 	 */
 	public IFile createAndOpenDiagram(IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow dWindow, IProgressMonitor progressMonitor, boolean saveDiagram) {
-		return DiagramEditorUtil.createAndOpenDiagram(getDiagramFileCreator(), containerPath, fileName, initialContents, kind, dWindow, progressMonitor, isOpenNewlyCreatedDiagramEditor(), saveDiagram);
+		return <%=genDiagram.getDiagramEditorUtilClassName()%>.createAndOpenDiagram(getDiagramFileCreator(), containerPath, fileName, initialContents, kind, dWindow, progressMonitor, isOpenNewlyCreatedDiagramEditor(), saveDiagram);
 	}
 
 	/**
@@ -47,7 +47,7 @@ public class CreationWizardPage extends EditorWizardPage {
 	 * @generated
 	 */
 	public DiagramFileCreator getDiagramFileCreator() {
-		return DiagramFileCreatorBis.getInstance();
+		return <%=genDiagram.getDiagramFileCreatorClassName()%>.getInstance();
 	}
 
 	/**

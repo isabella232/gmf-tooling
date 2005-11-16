@@ -27,7 +27,7 @@ public class PluginXML
   protected final String TEXT_9 = NL + "    <import plugin=\"";
   protected final String TEXT_10 = "\" export=\"true\"/>";
   protected final String TEXT_11 = NL + "  </requires>" + NL + "" + NL + "  <runtime>" + NL + "    <library name=\"plugin.jar\">" + NL + "      <export name=\"*\"/>" + NL + "    </library>" + NL + "  </runtime>" + NL + "" + NL + "   <extension point=\"org.eclipse.core.runtime.preferences\">" + NL + "      <initializer class=\"";
-  protected final String TEXT_12 = ".PreferencesInitializer\"/>" + NL + "   </extension>" + NL + "" + NL + "  <extension point=\"org.eclipse.team.core.fileTypes\">" + NL + "      <fileTypes" + NL + "         type=\"text\"" + NL + "         extension=\"";
+  protected final String TEXT_12 = "\"/>" + NL + "   </extension>" + NL + "" + NL + "  <extension point=\"org.eclipse.team.core.fileTypes\">" + NL + "      <fileTypes" + NL + "         type=\"text\"" + NL + "         extension=\"";
   protected final String TEXT_13 = "\">" + NL + "      </fileTypes>" + NL + "  </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.emf.ecore.extension_parser\">" + NL + "      <parser" + NL + "         type=\"";
   protected final String TEXT_14 = "\"" + NL + "         class=\"org.eclipse.gmf.runtime.emf.core.resources.MResourceFactory\">" + NL + "      </parser>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.editors\">" + NL + "     <editor" + NL + "        id=\"";
   protected final String TEXT_15 = "ID\"" + NL + "        name=\"";
@@ -39,14 +39,14 @@ public class PluginXML
   protected final String TEXT_21 = "\">" + NL + "     </editor>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.newWizards\">" + NL + "  \t  <wizard" + NL + "  \t     name=\"";
   protected final String TEXT_22 = " Diagram\"" + NL + "  \t     icon=\"icons/full/obj16/";
   protected final String TEXT_23 = "ModelFile.gif\"" + NL + "  \t     category=\"org.eclipse.ui.Examples\"" + NL + "  \t     class=\"";
-  protected final String TEXT_24 = ".CreationWizard\"" + NL + "  \t     id=\"";
-  protected final String TEXT_25 = ".CreationWizardID\">" + NL + "  \t  \t <description>" + NL + "  \t  \t\tCreates ";
+  protected final String TEXT_24 = "\"" + NL + "  \t     id=\"";
+  protected final String TEXT_25 = "ID\">" + NL + "  \t  \t <description>" + NL + "  \t  \t\tCreates ";
   protected final String TEXT_26 = " diagram." + NL + "  \t  \t </description>  " + NL + "      </wizard>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.popupMenus\">" + NL + "      <objectContribution" + NL + "            id=\"";
   protected final String TEXT_27 = ".ui.objectContribution.IFile1\"" + NL + "            nameFilter=\"*.";
   protected final String TEXT_28 = "\"" + NL + "            objectClass=\"org.eclipse.core.resources.IFile\">" + NL + "         <action" + NL + "               label=\"Initialize ";
   protected final String TEXT_29 = " diagram file\"" + NL + "               class=\"";
   protected final String TEXT_30 = "\"" + NL + "               menubarPath=\"additions\"" + NL + "               enablesFor=\"1\"" + NL + "               id=\"";
-  protected final String TEXT_31 = ".ui.InitDiagramFileAction\">" + NL + "         </action>" + NL + "      </objectContribution>            " + NL + "  </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders\">" + NL + "      <GlobalActionHandlerProvider" + NL + "         class=\"org.eclipse.gmf.runtime.diagram.ui.providers.PresentationGlobalActionHandlerProvider\"" + NL + "         id=\"";
+  protected final String TEXT_31 = "ID\">" + NL + "         </action>" + NL + "      </objectContribution>            " + NL + "  </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders\">" + NL + "      <GlobalActionHandlerProvider" + NL + "         class=\"org.eclipse.gmf.runtime.diagram.ui.providers.PresentationGlobalActionHandlerProvider\"" + NL + "         id=\"";
   protected final String TEXT_32 = "Presentation\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "         <ViewId id=\"";
   protected final String TEXT_33 = "ID\">" + NL + "            <ElementType class=\"org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart\">" + NL + "               <GlobalActionId actionId=\"delete\"/>" + NL + "            </ElementType>" + NL + "            <ElementType class=\"org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart\">" + NL + "               <GlobalActionId actionId=\"save\"/>" + NL + "            </ElementType>" + NL + "         </ViewId>" + NL + "      </GlobalActionHandlerProvider>";
   protected final String TEXT_34 = NL + "      <GlobalActionHandlerProvider" + NL + "         class=\"org.eclipse.gmf.runtime.diagram.ui.printing.internal.providers.PresentationWithPrintGlobalActionHandlerProvider\"" + NL + "         id=\"";
@@ -112,7 +112,7 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_10);
     }
     stringBuffer.append(TEXT_11);
-    stringBuffer.append(genDiagram.getEditorPackageName());
+    stringBuffer.append(genDiagram.getPreferenceInitializerQualifiedClassName());
     stringBuffer.append(TEXT_12);
     stringBuffer.append(genDiagram.getDiagramFileExtension());
     stringBuffer.append(TEXT_13);
@@ -136,9 +136,9 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_22);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_23);
-    stringBuffer.append(genDiagram.getEditorPackageName());
+    stringBuffer.append(genDiagram.getCreationWizardQualifiedClassName());
     stringBuffer.append(TEXT_24);
-    stringBuffer.append(genDiagram.getEditorPackageName());
+    stringBuffer.append(genDiagram.getCreationWizardQualifiedClassName());
     stringBuffer.append(TEXT_25);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_26);
@@ -150,7 +150,7 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_29);
     stringBuffer.append(genDiagram.getInitDiagramFileActionQualifiedClassName());
     stringBuffer.append(TEXT_30);
-    stringBuffer.append(genDiagram.getPluginID());
+    stringBuffer.append(genDiagram.getInitDiagramFileActionQualifiedClassName());
     stringBuffer.append(TEXT_31);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_32);

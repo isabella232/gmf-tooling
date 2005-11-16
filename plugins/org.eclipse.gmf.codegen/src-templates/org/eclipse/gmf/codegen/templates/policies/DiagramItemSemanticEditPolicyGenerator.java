@@ -19,13 +19,13 @@ public class DiagramItemSemanticEditPolicyGenerator
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "package ";
   protected final String TEXT_2 = ";" + NL;
-  protected final String TEXT_3 = NL + "import ";
-  protected final String TEXT_4 = ".ElementTypes;" + NL + "import org.eclipse.emf.ecore.EClass;" + NL + "import org.eclipse.emf.ecore.EObject;" + NL + "import org.eclipse.gef.commands.Command;" + NL + "import org.eclipse.gmf.runtime.emf.commands.core.commands.DuplicateEObjectsCommand;" + NL + "import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateElementCommand;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
-  protected final String TEXT_5 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_6 = " extends ";
-  protected final String TEXT_7 = " {";
-  protected final String TEXT_8 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getCreateCommand(CreateElementRequest req) {";
-  protected final String TEXT_9 = NL + "\t\tif (ElementTypes.";
+  protected final String TEXT_3 = NL + "import org.eclipse.emf.ecore.EClass;" + NL + "import org.eclipse.emf.ecore.EObject;" + NL + "import org.eclipse.gef.commands.Command;" + NL + "import org.eclipse.gmf.runtime.emf.commands.core.commands.DuplicateEObjectsCommand;" + NL + "import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateElementCommand;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
+  protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
+  protected final String TEXT_5 = " extends ";
+  protected final String TEXT_6 = " {";
+  protected final String TEXT_7 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getCreateCommand(CreateElementRequest req) {";
+  protected final String TEXT_8 = NL + "\t\tif (";
+  protected final String TEXT_9 = ".";
   protected final String TEXT_10 = " == req.getElementType()) {" + NL + "\t\t\tif (req.getContainmentFeature() == null) {" + NL + "\t\t\t\treq.setContainmentFeature(";
   protected final String TEXT_11 = ".eINSTANCE.get";
   protected final String TEXT_12 = "());" + NL + "\t\t\t}" + NL + "\t\t\treturn getMSLWrapper(new Create";
@@ -39,11 +39,12 @@ public class DiagramItemSemanticEditPolicyGenerator
   protected final String TEXT_20 = NL + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected EObject doDefaultElementCreation() {";
   protected final String TEXT_21 = NL + "\t\t\t";
   protected final String TEXT_22 = " newElement = (";
-  protected final String TEXT_23 = ") super.doDefaultElementCreation();" + NL + "\t\t\tif (newElement != null) {" + NL + "\t\t\t\tElementTypes.Initializers.";
-  protected final String TEXT_24 = ".init(newElement);" + NL + "\t\t\t}" + NL + "\t\t\treturn newElement;" + NL + "\t\t}";
-  protected final String TEXT_25 = NL + "\t}";
-  protected final String TEXT_26 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getDuplicateCommand(DuplicateElementsRequest req) {" + NL + "\t\treturn getMSLWrapper(new DuplicateAnythingCommand(req));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class DuplicateAnythingCommand extends DuplicateEObjectsCommand {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic DuplicateAnythingCommand(DuplicateElementsRequest req) {" + NL + "\t\t\tsuper(req.getLabel(), req.getElementsToBeDuplicated(), req.getAllDuplicatedElementsMap());" + NL + "\t\t}" + NL + "\t}" + NL + "}";
-  protected final String TEXT_27 = NL;
+  protected final String TEXT_23 = ") super.doDefaultElementCreation();" + NL + "\t\t\tif (newElement != null) {" + NL + "\t\t\t\t";
+  protected final String TEXT_24 = ".Initializers.";
+  protected final String TEXT_25 = ".init(newElement);" + NL + "\t\t\t}" + NL + "\t\t\treturn newElement;" + NL + "\t\t}";
+  protected final String TEXT_26 = NL + "\t}";
+  protected final String TEXT_27 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getDuplicateCommand(DuplicateElementsRequest req) {" + NL + "\t\treturn getMSLWrapper(new DuplicateAnythingCommand(req));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class DuplicateAnythingCommand extends DuplicateEObjectsCommand {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic DuplicateAnythingCommand(DuplicateElementsRequest req) {" + NL + "\t\t\tsuper(req.getLabel(), req.getElementsToBeDuplicated(), req.getAllDuplicatedElementsMap());" + NL + "\t\t}" + NL + "\t}" + NL + "}";
+  protected final String TEXT_28 = NL;
 
   public String generate(Object argument)
   {
@@ -56,24 +57,24 @@ GenDiagram genDiagram = (GenDiagram) argument;
     stringBuffer.append(TEXT_2);
     ImportUtil importManager = new ImportUtil(genDiagram.getEditPoliciesPackageName());
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(genDiagram.getProvidersPackageName());
-    stringBuffer.append(TEXT_4);
     importManager.markImportLocation(stringBuffer);
-    stringBuffer.append(TEXT_5);
+    stringBuffer.append(TEXT_4);
     stringBuffer.append(genDiagram.getItemSemanticEditPolicyClassName());
-    stringBuffer.append(TEXT_6);
+    stringBuffer.append(TEXT_5);
     stringBuffer.append(importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName()));
-    stringBuffer.append(TEXT_7);
+    stringBuffer.append(TEXT_6);
     
 GenPackage genPackage = genDiagram.getDomainMetaModel();
 String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 
-    stringBuffer.append(TEXT_8);
+    stringBuffer.append(TEXT_7);
     
 for (Iterator nodes = genDiagram.getNodes().iterator(); nodes.hasNext(); ) {
 	GenNode genNode = (GenNode) nodes.next();
 	TypeModelFacet modelFacet = genNode.getModelFacet();
 
+    stringBuffer.append(TEXT_8);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
     stringBuffer.append(TEXT_9);
     stringBuffer.append(genNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_10);
@@ -107,14 +108,16 @@ for (Iterator nodes = genDiagram.getNodes().iterator(); nodes.hasNext(); ) {
     stringBuffer.append(TEXT_22);
     stringBuffer.append(metaClassName);
     stringBuffer.append(TEXT_23);
-    stringBuffer.append(genNode.getUniqueIdentifier());
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
     stringBuffer.append(TEXT_24);
-    	}
+    stringBuffer.append(genNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_25);
-    }
+    	}
     stringBuffer.append(TEXT_26);
-    importManager.emitSortedImports();
+    }
     stringBuffer.append(TEXT_27);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_28);
     return stringBuffer.toString();
   }
 }

@@ -9,12 +9,12 @@ package <%=genDiagram.getProvidersPackageName()%>;
 /**
  * @generated
  */
-public class <%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%> {
+public class <%=genDiagram.getSemanticHintsClassName()%> {
 
 	/**
 	 * @generated
 	 */
-	private <%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%>() {}
+	private <%=genDiagram.getSemanticHintsClassName()%>() {}
 <%
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();

@@ -8,7 +8,7 @@ for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext()
 	GenNode genChildNode = (GenNode) nodes.next();
 	TypeModelFacet modelFacet = genChildNode.getModelFacet();
 %>
-		if (<%=importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes")%>.<%=genChildNode.getUniqueIdentifier()%> == req.getElementType()) {
+		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genChildNode.getUniqueIdentifier()%> == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
 			}
@@ -63,7 +63,7 @@ for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext()
 <%		String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
 			<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
 			if (newElement != null) {
-				<%=importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes")%>.Initializers.<%=genChildNode.getUniqueIdentifier()%>.init(newElement);
+				<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.Initializers.<%=genChildNode.getUniqueIdentifier()%>.init(newElement);
 			}
 			return newElement;
 		}

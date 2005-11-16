@@ -93,7 +93,7 @@ for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext()
 	TypeModelFacet modelFacet = genChildNode.getModelFacet();
 
     stringBuffer.append(TEXT_11);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
     stringBuffer.append(TEXT_12);
     stringBuffer.append(genChildNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_13);
@@ -143,7 +143,7 @@ for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext()
     stringBuffer.append(TEXT_32);
     stringBuffer.append(metaClassName);
     stringBuffer.append(TEXT_33);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getProvidersPackageName() + ".ElementTypes"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
     stringBuffer.append(TEXT_34);
     stringBuffer.append(genChildNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_35);

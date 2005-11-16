@@ -15,7 +15,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.ListItemEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
-import <%=genDiagram.getProvidersPackageName()%>.StructuralFeatureParser;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -41,7 +40,7 @@ GenNodeLabel label = (GenNodeLabel) genChildNode.getLabels().get(0);
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			parser = new StructuralFeatureParser(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticChildNodeInterfaceName%>().getEStructuralFeature("<%=label.getMetaFeature().getName()%>"));
+			parser = new <%=importManager.getImportedName(genDiagram.getStructuralFeatureParserQualifiedClassName())%>(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticChildNodeInterfaceName%>().getEStructuralFeature("<%=label.getMetaFeature().getName()%>"));
 		}
 		return parser;
 	}

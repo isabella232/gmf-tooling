@@ -32,7 +32,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class <%=importManager.getImportedName(diagram.getBaseItemSemanticEditPolicyQualifiedClassName())%> extends SemanticEditPolicy {
+public class <%=diagram.getBaseItemSemanticEditPolicyClassName()%> extends SemanticEditPolicy {
 
 	/**
 	 * @generated

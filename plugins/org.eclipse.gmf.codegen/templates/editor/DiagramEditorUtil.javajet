@@ -32,7 +32,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 /**
  * @generated
  */
-public class DiagramEditorUtil extends IDEEditorUtil {
+public class <%=genDiagram.getDiagramEditorUtilClassName()%> extends IDEEditorUtil {
 
 	/**
 	 * @generated
@@ -41,7 +41,7 @@ public class DiagramEditorUtil extends IDEEditorUtil {
 		IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow window,
 		IProgressMonitor progressMonitor, boolean openEditor, boolean saveDiagram) {
 
-		IFile diagramFile = DiagramEditorUtil.createNewDiagramFile(diagramFileCreator,
+		IFile diagramFile = <%=genDiagram.getDiagramEditorUtilClassName()%>.createNewDiagramFile(diagramFileCreator,
 			containerPath, fileName, initialContents, kind, window.getShell(), progressMonitor);
 		if (diagramFile != null && openEditor) {
 			IDEEditorUtil.openDiagram(diagramFile, window, saveDiagram, progressMonitor);
