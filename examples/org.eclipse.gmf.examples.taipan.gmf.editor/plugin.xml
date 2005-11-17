@@ -2,8 +2,8 @@
 <?eclipse version="3.0"?>
 <plugin>
 
-    <extension point="org.eclipse.core.runtime.preferences">
-      <initializer class="org.eclipse.gmf.examples.taipan.editor.PreferencesInitializer"/>
+   <extension point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramPreferenceInitializer"/>
    </extension>
 
   <extension point="org.eclipse.team.core.fileTypes">
@@ -22,14 +22,14 @@
 
    <extension point="org.eclipse.ui.editors">
      <editor
-        id="org.eclipse.gmf.examples.taipan.editor.DiagramEditorID"
+        id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID"
         name="TaiPan Diagram Editor"
         icon="icons/full/obj16/TaiPanModelFile.gif"
         extensions="taipan_diagram"
         default="true"
-        class="org.eclipse.gmf.examples.taipan.editor.DiagramEditor"
-        matchingStrategy="org.eclipse.gmf.examples.taipan.editor.TaiPanMatchingStrategy"
-        contributorClass="org.eclipse.gmf.examples.taipan.editor.TaiPanActionBarContributor">
+        class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditor"
+        matchingStrategy="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanMatchingStrategy"
+        contributorClass="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramActionBarContributor">
      </editor>
    </extension>
 
@@ -38,8 +38,8 @@
   	     name="TaiPan Diagram"
   	     icon="icons/full/obj16/TaiPanModelFile.gif"
   	     category="org.eclipse.ui.Examples"
-  	     class="org.eclipse.gmf.examples.taipan.editor.CreationWizard"
-  	     id="org.eclipse.gmf.examples.taipan.editor.CreationWizardID">
+  	     class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreationWizard"
+  	     id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreationWizardID">
   	  	 <description>
   	  		Creates TaiPan diagram.
   	  	 </description>  
@@ -53,10 +53,10 @@
             objectClass="org.eclipse.core.resources.IFile">
          <action
                label="Initialize taipan_diagram diagram file"
-               class="org.eclipse.gmf.examples.taipan.editor.InitDiagramFileAction"
+               class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanInitDiagramFileAction"
                menubarPath="additions"
                enablesFor="1"
-               id="org.eclipse.gmf.examples.taipan.gmf.editor.ui.InitDiagramFileAction">
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanInitDiagramFileActionID">
          </action>
       </objectContribution>            
   </extension>
@@ -66,7 +66,7 @@
          class="org.eclipse.gmf.runtime.diagram.ui.providers.PresentationGlobalActionHandlerProvider"
          id="TaiPanPresentation">
          <Priority name="Medium"/>
-         <ViewId id="org.eclipse.gmf.examples.taipan.editor.DiagramEditorID">
+         <ViewId id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="delete"/>
             </ElementType>
@@ -79,7 +79,7 @@
          class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
          id="TaiPanPresentationIDE">
          <Priority name="Medium"/>
-         <ViewId id="org.eclipse.gmf.examples.taipan.editor.DiagramEditorID">
+         <ViewId id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="bookmark"/>
             </ElementType>
@@ -89,7 +89,7 @@
             class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
             id="TaiPanRender">
          <Priority name="Medium"/>
-         <ViewId id="org.eclipse.gmf.examples.taipan.editor.DiagramEditorID">
+         <ViewId id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="cut"/>
                <GlobalActionId actionId="copy"/>
@@ -100,7 +100,7 @@
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
-      <viewProvider class="org.eclipse.gmf.examples.taipan.providers.TaiPanViewProvider">
+      <viewProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanViewProvider">
          <Priority name="Medium"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="TaiPan"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
@@ -109,25 +109,33 @@
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
-      <editpartProvider class="org.eclipse.gmf.examples.taipan.providers.TaiPanEditPartProvider">
+      <editpartProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanEditPartProvider">
          <Priority name="Medium"/>
       </editpartProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.core.MetaModelProviders">
-      <MetaModelProvider class="org.eclipse.gmf.examples.taipan.providers.TaiPanMetaModelSupportProvider">
+      <MetaModelProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanMetaModelSupportProvider">
          <Priority name="Medium"/>
       </MetaModelProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
-      <modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.providers.TaiPanModelingAssistantProvider">
+      <modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanModelingAssistantProvider">
          <Priority name="Medium"/>
       </modelingAssistantProvider>
    </extension>
 
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.properties.propertiesProviders">
+      <PropertiesProvider
+            verifyPluginLoaded="false"
+            class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanPropertyProvider">
+         <Priority name="Medium"/>
+      </PropertiesProvider>
+   </extension>
+
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
-      <IconProvider class="org.eclipse.gmf.examples.taipan.providers.TaiPanIconProvider">
+      <IconProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanIconProvider">
          <Priority name="Medium"/>
       </IconProvider>
    </extension>
