@@ -2,9 +2,9 @@
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
 <%GenLinkLabel label = (GenLinkLabel) argument;%>
 <%GenDiagram diagram = label.getDiagram();%>
-package <%=diagram.getProvidersPackageName()%>;
+package <%=diagram.getNotationViewFactoriesPackageName()%>;
 
-<%ImportUtil importManager = new ImportUtil(diagram.getProvidersPackageName());%>
+<%ImportUtil importManager = new ImportUtil(diagram.getNotationViewFactoriesPackageName());%>
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;

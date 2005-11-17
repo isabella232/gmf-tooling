@@ -67,6 +67,7 @@ public class GenDiagramItemProvider
 			addEditPoliciesPackageNamePropertyDescriptor(object);
 			addEditorPackageNamePropertyDescriptor(object);
 			addProvidersPackageNamePropertyDescriptor(object);
+			addNotationViewFactoriesPackageNamePropertyDescriptor(object);
 			addPluginIDPropertyDescriptor(object);
 			addPluginNamePropertyDescriptor(object);
 			addProviderNamePropertyDescriptor(object);
@@ -79,7 +80,7 @@ public class GenDiagramItemProvider
 			addReferenceConnectionEditPolicyClassNamePropertyDescriptor(object);
 			addElementTypesClassNamePropertyDescriptor(object);
 			addSemanticHintsClassNamePropertyDescriptor(object);
-			addViewProviderClassNamePropertyDescriptor(object);
+			addNotationViewProviderClassNamePropertyDescriptor(object);
 			addEditPartProviderClassNamePropertyDescriptor(object);
 			addMetamodelSupportProviderClassNamePropertyDescriptor(object);
 			addModelingAssistantProviderClassNamePropertyDescriptor(object);
@@ -343,6 +344,26 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Notation View Factories Package Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNotationViewFactoriesPackageNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_notationViewFactoriesPackageName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_notationViewFactoriesPackageName_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_NotationViewFactoriesPackageName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Editor Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -476,6 +497,26 @@ public class GenDiagramItemProvider
 				 getString("_UI_GenDiagram_semanticHintsClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_semanticHintsClassName_feature", "_UI_GenDiagram_type"),
 				 GMFGenPackage.eINSTANCE.getGenDiagram_SemanticHintsClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Notation View Provider Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNotationViewProviderClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_notationViewProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_notationViewProviderClassName_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_NotationViewProviderClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -703,26 +744,6 @@ public class GenDiagramItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the View Provider Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addViewProviderClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenDiagram_viewProviderClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_viewProviderClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_ViewProviderClassName(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Edit Part Provider Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -910,6 +931,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
@@ -922,7 +944,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__VIEW_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:

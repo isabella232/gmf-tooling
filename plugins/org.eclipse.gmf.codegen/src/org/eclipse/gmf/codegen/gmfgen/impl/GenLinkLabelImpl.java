@@ -183,7 +183,7 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	 * @generated NOT
 	 */
 	public String getTextNotationViewFactoryQualifiedClassName() {
-		return getDiagram().getProvidersPackageName() + '.' + getTextNotationViewFactoryClassName();
+		return getDiagram().getNotationViewFactoriesPackageName() + '.' + getTextNotationViewFactoryClassName();
 	}
 
 	/**

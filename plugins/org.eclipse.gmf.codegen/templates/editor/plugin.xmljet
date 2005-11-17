@@ -176,7 +176,7 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {%>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
-      <viewProvider class="<%=genDiagram.getViewProviderQualifiedClassName()%>">
+      <viewProvider class="<%=genDiagram.getNotationViewProviderQualifiedClassName()%>">
          <Priority name="Medium"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="<%=genModel.getModelName()%>"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>

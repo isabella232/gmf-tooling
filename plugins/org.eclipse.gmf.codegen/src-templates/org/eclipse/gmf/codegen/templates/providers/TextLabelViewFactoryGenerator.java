@@ -28,7 +28,7 @@ public class TextLabelViewFactoryGenerator
     GenLabel label = (GenLabel) argument;
     GenDiagram diagram = label.getDiagram();
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(diagram.getProvidersPackageName());
+    stringBuffer.append(diagram.getNotationViewFactoriesPackageName());
     stringBuffer.append(TEXT_2);
     stringBuffer.append(label instanceof GenLinkLabel ? ((GenLinkLabel) label).getTextNotationViewFactoryClassName() : label.getNotationViewFactoryClassName());
     stringBuffer.append(TEXT_3);

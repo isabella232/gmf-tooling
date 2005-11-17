@@ -54,6 +54,7 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPoliciesPackageName <em>Edit Policies Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditorPackageName <em>Editor Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getProvidersPackageName <em>Providers Package Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getNotationViewFactoriesPackageName <em>Notation View Factories Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPluginID <em>Plugin ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPluginName <em>Plugin Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getProviderName <em>Provider Name</em>}</li>
@@ -66,7 +67,7 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getReferenceConnectionEditPolicyClassName <em>Reference Connection Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getElementTypesClassName <em>Element Types Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getSemanticHintsClassName <em>Semantic Hints Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getViewProviderClassName <em>View Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getNotationViewProviderClassName <em>Notation View Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartProviderClassName <em>Edit Part Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMetamodelSupportProviderClassName <em>Metamodel Support Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getModelingAssistantProviderClassName <em>Modeling Assistant Provider Class Name</em>}</li>
@@ -221,6 +222,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String providersPackageName = PROVIDERS_PACKAGE_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getNotationViewFactoriesPackageName() <em>Notation View Factories Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNotationViewFactoriesPackageName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NOTATION_VIEW_FACTORIES_PACKAGE_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getNotationViewFactoriesPackageName() <em>Notation View Factories Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNotationViewFactoriesPackageName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String notationViewFactoriesPackageName = NOTATION_VIEW_FACTORIES_PACKAGE_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPluginID() <em>Plugin ID</em>}' attribute.
@@ -463,24 +484,24 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected String semanticHintsClassName = SEMANTIC_HINTS_CLASS_NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getViewProviderClassName() <em>View Provider Class Name</em>}' attribute.
+	 * The default value of the '{@link #getNotationViewProviderClassName() <em>Notation View Provider Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getViewProviderClassName()
+	 * @see #getNotationViewProviderClassName()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String VIEW_PROVIDER_CLASS_NAME_EDEFAULT = null;
+	protected static final String NOTATION_VIEW_PROVIDER_CLASS_NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getViewProviderClassName() <em>View Provider Class Name</em>}' attribute.
+	 * The cached value of the '{@link #getNotationViewProviderClassName() <em>Notation View Provider Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getViewProviderClassName()
+	 * @see #getNotationViewProviderClassName()
 	 * @generated
 	 * @ordered
 	 */
-	protected String viewProviderClassName = VIEW_PROVIDER_CLASS_NAME_EDEFAULT;
+	protected String notationViewProviderClassName = NOTATION_VIEW_PROVIDER_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getEditPartProviderClassName() <em>Edit Part Provider Class Name</em>}' attribute.
@@ -1304,6 +1325,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getNotationViewFactoriesPackageNameGen() {
+		return notationViewFactoriesPackageName;
+	}
+
+	public String getNotationViewFactoriesPackageName() {
+		String value = getNotationViewFactoriesPackageNameGen();
+		if (value == null || value.length() == 0) {
+			return getPackageNamePrefix() + ".view.factories";
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNotationViewFactoriesPackageName(String newNotationViewFactoriesPackageName) {
+		String oldNotationViewFactoriesPackageName = notationViewFactoriesPackageName;
+		notationViewFactoriesPackageName = newNotationViewFactoriesPackageName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME, oldNotationViewFactoriesPackageName, notationViewFactoriesPackageName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getEditorClassNameGen() {
 		return editorClassName;
 	}
@@ -1500,6 +1550,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		semanticHintsClassName = newSemanticHintsClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME, oldSemanticHintsClassName, semanticHintsClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getNotationViewProviderClassNameGen() {
+		return notationViewProviderClassName;
+	}
+
+	public String getNotationViewProviderClassName() {
+		String name = getNotationViewProviderClassNameGen();
+		if (name == null) {
+			return getDomainPackageCapName() + "ViewProvider"; //$NON-NLS-1$
+		}
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNotationViewProviderClassName(String newNotationViewProviderClassName) {
+		String oldNotationViewProviderClassName = notationViewProviderClassName;
+		notationViewProviderClassName = newNotationViewProviderClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME, oldNotationViewProviderClassName, notationViewProviderClassName));
 	}
 
 	/**
@@ -1802,35 +1881,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getViewProviderClassNameGen() {
-		return viewProviderClassName;
-	}
-
-	public String getViewProviderClassName() {
-		String name = getViewProviderClassNameGen();
-		if (name == null) {
-			return getDomainPackageCapName() + "ViewProvider"; //$NON-NLS-1$
-		}
-		return name;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setViewProviderClassName(String newViewProviderClassName) {
-		String oldViewProviderClassName = viewProviderClassName;
-		viewProviderClassName = newViewProviderClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__VIEW_PROVIDER_CLASS_NAME, oldViewProviderClassName, viewProviderClassName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getEditPartProviderClassNameGen() {
 		return editPartProviderClassName;
 	}
@@ -2095,6 +2145,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public String getNotationViewProviderQualifiedClassName() {
+		return getProvidersPackageName() + '.' + getNotationViewProviderClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public String[] getRequiredPluginIDs() {
 		ArrayList requiredPlugins = new ArrayList();
 		if (usesSVGShapes()) {
@@ -2112,15 +2171,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public String getInitDiagramFileActionQualifiedClassName() {
 		return getEditorPackageName() + '.' + getInitDiagramFileActionClassName();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public String getViewProviderQualifiedClassName() {
-		return getProvidersPackageName() + '.' + getViewProviderClassName();
 	}
 
 	/**
@@ -2357,6 +2407,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getEditorPackageName();
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
 				return getProvidersPackageName();
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME:
+				return getNotationViewFactoriesPackageName();
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
 				return getPluginID();
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
@@ -2381,8 +2433,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getElementTypesClassName();
 			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
 				return getSemanticHintsClassName();
-			case GMFGenPackage.GEN_DIAGRAM__VIEW_PROVIDER_CLASS_NAME:
-				return getViewProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
+				return getNotationViewProviderClassName();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
 				return getEditPartProviderClassName();
 			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
@@ -2477,6 +2529,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
 				setProvidersPackageName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME:
+				setNotationViewFactoriesPackageName((String)newValue);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
 				setPluginID((String)newValue);
 				return;
@@ -2513,8 +2568,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
 				setSemanticHintsClassName((String)newValue);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__VIEW_PROVIDER_CLASS_NAME:
-				setViewProviderClassName((String)newValue);
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
+				setNotationViewProviderClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
 				setEditPartProviderClassName((String)newValue);
@@ -2626,6 +2681,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
 				setProvidersPackageName(PROVIDERS_PACKAGE_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME:
+				setNotationViewFactoriesPackageName(NOTATION_VIEW_FACTORIES_PACKAGE_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
 				setPluginID(PLUGIN_ID_EDEFAULT);
 				return;
@@ -2662,8 +2720,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
 				setSemanticHintsClassName(SEMANTIC_HINTS_CLASS_NAME_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__VIEW_PROVIDER_CLASS_NAME:
-				setViewProviderClassName(VIEW_PROVIDER_CLASS_NAME_EDEFAULT);
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
+				setNotationViewProviderClassName(NOTATION_VIEW_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
 				setEditPartProviderClassName(EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT);
@@ -2760,6 +2818,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return EDITOR_PACKAGE_NAME_EDEFAULT == null ? editorPackageName != null : !EDITOR_PACKAGE_NAME_EDEFAULT.equals(editorPackageName);
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
 				return PROVIDERS_PACKAGE_NAME_EDEFAULT == null ? providersPackageName != null : !PROVIDERS_PACKAGE_NAME_EDEFAULT.equals(providersPackageName);
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME:
+				return NOTATION_VIEW_FACTORIES_PACKAGE_NAME_EDEFAULT == null ? notationViewFactoriesPackageName != null : !NOTATION_VIEW_FACTORIES_PACKAGE_NAME_EDEFAULT.equals(notationViewFactoriesPackageName);
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
 				return PLUGIN_ID_EDEFAULT == null ? pluginID != null : !PLUGIN_ID_EDEFAULT.equals(pluginID);
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
@@ -2784,8 +2844,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return ELEMENT_TYPES_CLASS_NAME_EDEFAULT == null ? elementTypesClassName != null : !ELEMENT_TYPES_CLASS_NAME_EDEFAULT.equals(elementTypesClassName);
 			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
 				return SEMANTIC_HINTS_CLASS_NAME_EDEFAULT == null ? semanticHintsClassName != null : !SEMANTIC_HINTS_CLASS_NAME_EDEFAULT.equals(semanticHintsClassName);
-			case GMFGenPackage.GEN_DIAGRAM__VIEW_PROVIDER_CLASS_NAME:
-				return VIEW_PROVIDER_CLASS_NAME_EDEFAULT == null ? viewProviderClassName != null : !VIEW_PROVIDER_CLASS_NAME_EDEFAULT.equals(viewProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
+				return NOTATION_VIEW_PROVIDER_CLASS_NAME_EDEFAULT == null ? notationViewProviderClassName != null : !NOTATION_VIEW_PROVIDER_CLASS_NAME_EDEFAULT.equals(notationViewProviderClassName);
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
 				return EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT == null ? editPartProviderClassName != null : !EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT.equals(editPartProviderClassName);
 			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
@@ -2843,6 +2903,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(editorPackageName);
 		result.append(", providersPackageName: ");
 		result.append(providersPackageName);
+		result.append(", notationViewFactoriesPackageName: ");
+		result.append(notationViewFactoriesPackageName);
 		result.append(", pluginID: ");
 		result.append(pluginID);
 		result.append(", pluginName: ");
@@ -2867,8 +2929,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(elementTypesClassName);
 		result.append(", semanticHintsClassName: ");
 		result.append(semanticHintsClassName);
-		result.append(", viewProviderClassName: ");
-		result.append(viewProviderClassName);
+		result.append(", notationViewProviderClassName: ");
+		result.append(notationViewProviderClassName);
 		result.append(", editPartProviderClassName: ");
 		result.append(editPartProviderClassName);
 		result.append(", metamodelSupportProviderClassName: ");

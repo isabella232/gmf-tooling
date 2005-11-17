@@ -409,7 +409,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * @generated NOT
 	 */
 	public String getNotationViewFactoryQualifiedClassName() {
-		return getDiagram().getProvidersPackageName() + '.' + getNotationViewFactoryClassName();
+		return getDiagram().getNotationViewFactoriesPackageName() + '.' + getNotationViewFactoryClassName();
 	}
 
 	/**

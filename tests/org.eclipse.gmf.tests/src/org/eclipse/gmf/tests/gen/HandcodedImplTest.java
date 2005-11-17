@@ -93,6 +93,26 @@ public class HandcodedImplTest extends TestCase {
 		assertTrue(s.getMessage(), s.getSeverity() != IStatus.ERROR);
 	}
 
+	public void testPackageNames() {
+		GenDiagram genDiagram = myGenModel;
+		Set state = new HashSet();
+
+		// package names check
+		checkPackageName(state, "GenDiagram:editParts", genDiagram.getEditPartsPackageName());
+		checkPackageName(state, "GenDiagram:editPolicies", genDiagram.getEditPoliciesPackageName());
+		checkPackageName(state, "GenDiagram:editor", genDiagram.getEditorPackageName());
+		checkPackageName(state, "GenDiagram:providers", genDiagram.getProvidersPackageName());
+		checkPackageName(state, "GenDiagram:notationViewFactories", genDiagram.getNotationViewFactoriesPackageName());
+
+		// coverage check
+		for (Iterator classifiers = GMFGenPackage.eINSTANCE.getEClassifiers().iterator(); classifiers.hasNext();) {
+			Object next = classifiers.next();
+			if (next instanceof EClass) {
+				checkPackageNamesCoverage(state, (EClass) next);
+			}
+		}
+	}
+
 	public void testClassNames() {
 		GenDiagram genDiagram = myGenModel;
 		Set state = new HashSet();
@@ -103,7 +123,7 @@ public class HandcodedImplTest extends TestCase {
 		checkClassName(state, "GenDiagram:ReferenceConnectionEditPolicy", genDiagram.getReferenceConnectionEditPolicyClassName(), genDiagram.getReferenceConnectionEditPolicyQualifiedClassName());
 		checkClassName(state, "GenDiagram:ElementTypes", genDiagram.getElementTypesClassName(), genDiagram.getElementTypesQualifiedClassName());
 		checkClassName(state, "GenDiagram:SemanticHints", genDiagram.getSemanticHintsClassName(), genDiagram.getSemanticHintsQualifiedClassName());
-		checkClassName(state, "GenDiagram:ViewProvider", genDiagram.getViewProviderClassName(), genDiagram.getViewProviderQualifiedClassName());
+		checkClassName(state, "GenDiagram:NotationViewProvider", genDiagram.getNotationViewProviderClassName(), genDiagram.getNotationViewProviderQualifiedClassName());
 		checkClassName(state, "GenDiagram:EditPartProvider", genDiagram.getEditPartProviderClassName(), genDiagram.getEditPartProviderQualifiedClassName());
 		checkClassName(state, "GenDiagram:MetamodelSupportProvider", genDiagram.getMetamodelSupportProviderClassName(), genDiagram.getMetamodelSupportProviderQualifiedClassName());
 		checkClassName(state, "GenDiagram:ModelingAssistantProvider", genDiagram.getModelingAssistantProviderClassName(), genDiagram.getModelingAssistantProviderQualifiedClassName());
@@ -148,23 +168,44 @@ public class HandcodedImplTest extends TestCase {
 		for (Iterator classifiers = GMFGenPackage.eINSTANCE.getEClassifiers().iterator(); classifiers.hasNext();) {
 			Object next = classifiers.next();
 			if (next instanceof EClass) {
-				checkCoverage(state, (EClass) next);
+				checkClassNamesCoverage(state, (EClass) next);
 			}
 		}
 	}
 
-	protected void checkClassName(Set state, String className, String simpleClassName, String qualifiedClassName) {
-		IStatus s = JavaConventions.validateJavaTypeName(simpleClassName);
-		assertTrue(className + " simple class name is not valid : " + s.getMessage(), s.getSeverity() != IStatus.ERROR);
-		s = JavaConventions.validateJavaTypeName(qualifiedClassName);
-		assertTrue(className + " qualified class name is not valid : " + s.getMessage(), s.getSeverity() != IStatus.ERROR);
-		assertTrue(className + " simple class name does not match the qualified one : '" + simpleClassName + "', '" + qualifiedClassName + "'", qualifiedClassName.endsWith('.' + simpleClassName));
-		assertFalse(qualifiedClassName + " is not unique", state.contains(qualifiedClassName));
-		state.add(qualifiedClassName); // for unique class name check
-		state.add(className); // for coverage check
+	protected void checkPackageName(Set state, String id, String packageName) {
+		IStatus s = JavaConventions.validatePackageName(packageName);
+		assertTrue(id + " package name is not valid : " + s.getMessage(), s.getSeverity() != IStatus.ERROR);
+		state.add(packageName); // for unique package name check
+		state.add(id); // for coverage check
 	}
 
-	protected void checkCoverage(Set state, EClass eClass) {
+	protected void checkClassName(Set state, String id, String simpleClassName, String qualifiedClassName) {
+		IStatus s = JavaConventions.validateJavaTypeName(simpleClassName);
+		assertTrue(id + " simple class name is not valid : " + s.getMessage(), s.getSeverity() != IStatus.ERROR);
+		s = JavaConventions.validateJavaTypeName(qualifiedClassName);
+		assertTrue(id + " qualified class name is not valid : " + s.getMessage(), s.getSeverity() != IStatus.ERROR);
+		assertTrue(id + " simple class name does not match the qualified one : '" + simpleClassName + "', '" + qualifiedClassName + "'", qualifiedClassName.endsWith('.' + simpleClassName));
+		assertFalse(qualifiedClassName + " is not unique", state.contains(qualifiedClassName));
+		state.add(qualifiedClassName); // for unique class name check
+		state.add(id); // for coverage check
+	}
+
+	protected void checkPackageNamesCoverage(Set state, EClass eClass) {
+		final String PN = "PackageName";
+		for (Iterator attributes = eClass.getEAttributes().iterator(); attributes.hasNext();) {
+			EAttribute attribute = (EAttribute) attributes.next();
+			if (attribute.getName().endsWith(PN) && attribute.getName().length() > PN.length()) {
+				String packageName = attribute.getName();
+				packageName = packageName.substring(0, packageName.length() - PN.length());
+				String id = eClass.getName() + ':' + packageName;
+				//System.err.println("check " + id);
+				assertTrue(id + " package name is not checked", state.contains(id));
+			}
+		}
+	}
+
+	protected void checkClassNamesCoverage(Set state, EClass eClass) {
 		final String CN = "ClassName";
 		final String QCN = "QualifiedClassName";
 		final String GET = "get";

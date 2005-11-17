@@ -352,42 +352,6 @@ public class Generator implements Runnable {
 		);
 	}
 
-	private void generateViewFactory(GenCommonBase genElement) throws JETException, InterruptedException {
-		generate(
-			EmitterFactory.getViewFactoryEmitter(),
-			myDiagram.getProvidersPackageName(),
-			genElement.getNotationViewFactoryClassName(),
-			genElement
-		);
-	}
-
-	private void generateLinkLabelViewFactory(GenLinkLabel label) throws JETException, InterruptedException {
-		generate(
-			EmitterFactory.getLinkLabelViewFactoryEmitter(),
-			myDiagram.getProvidersPackageName(),
-			label.getNotationViewFactoryClassName(),
-			label
-		);
-	}
-	
-	private void generateTextLinkLabelViewFactory(GenLinkLabel label) throws JETException, InterruptedException {
-		generate(
-			EmitterFactory.getTextLabelViewFactoryEmitter(),
-			myDiagram.getProvidersPackageName(),
-			label.getTextNotationViewFactoryClassName(),
-			label
-		);
-	}
-	
-	private void generateTextLabelViewFactory(GenNodeLabel label) throws JETException, InterruptedException {
-		generate(
-			EmitterFactory.getTextLabelViewFactoryEmitter(),
-			myDiagram.getProvidersPackageName(),
-			label.getNotationViewFactoryClassName(),
-			label
-		);
-	}
-
 	private void generateElementTypes() throws JETException, InterruptedException {
 		generate(
 			EmitterFactory.getElementTypesEmitter(),
@@ -401,7 +365,7 @@ public class Generator implements Runnable {
 		generate(
 			EmitterFactory.getViewProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
-			myDiagram.getViewProviderClassName(),
+			myDiagram.getNotationViewProviderClassName(),
 			myDiagram
 		);
 	}
@@ -445,6 +409,44 @@ public class Generator implements Runnable {
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getIconProviderClassName(),
 			myDiagram);
+	}
+
+	// notation view factories
+
+	private void generateViewFactory(GenCommonBase genElement) throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getViewFactoryEmitter(),
+			myDiagram.getNotationViewFactoriesPackageName(),
+			genElement.getNotationViewFactoryClassName(),
+			genElement
+		);
+	}
+
+	private void generateLinkLabelViewFactory(GenLinkLabel label) throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getLinkLabelViewFactoryEmitter(),
+			myDiagram.getNotationViewFactoriesPackageName(),
+			label.getNotationViewFactoryClassName(),
+			label
+		);
+	}
+
+	private void generateTextLinkLabelViewFactory(GenLinkLabel label) throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getTextLabelViewFactoryEmitter(),
+			myDiagram.getNotationViewFactoriesPackageName(),
+			label.getTextNotationViewFactoryClassName(),
+			label
+		);
+	}
+
+	private void generateTextLabelViewFactory(GenNodeLabel label) throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getTextLabelViewFactoryEmitter(),
+			myDiagram.getNotationViewFactoriesPackageName(),
+			label.getNotationViewFactoryClassName(),
+			label
+		);
 	}
 
 	// editor

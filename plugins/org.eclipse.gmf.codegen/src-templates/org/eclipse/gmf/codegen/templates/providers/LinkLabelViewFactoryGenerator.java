@@ -34,9 +34,9 @@ public class LinkLabelViewFactoryGenerator
     GenLinkLabel label = (GenLinkLabel) argument;
     GenDiagram diagram = label.getDiagram();
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(diagram.getProvidersPackageName());
+    stringBuffer.append(diagram.getNotationViewFactoriesPackageName());
     stringBuffer.append(TEXT_2);
-    ImportUtil importManager = new ImportUtil(diagram.getProvidersPackageName());
+    ImportUtil importManager = new ImportUtil(diagram.getNotationViewFactoriesPackageName());
     stringBuffer.append(TEXT_3);
     importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_4);

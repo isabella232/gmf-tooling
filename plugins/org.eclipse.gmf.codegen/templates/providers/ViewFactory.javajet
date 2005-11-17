@@ -2,9 +2,9 @@
 	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
 <%GenCommonBase genElement = (GenCommonBase) argument;%>
 <%GenDiagram genDiagram = genElement.getDiagram();%>
-package <%=genDiagram.getProvidersPackageName()%>;
+package <%=genDiagram.getNotationViewFactoriesPackageName()%>;
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
+<%ImportUtil importManager = new ImportUtil(genDiagram.getNotationViewFactoriesPackageName());%>
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;

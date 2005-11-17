@@ -173,7 +173,7 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_40);
     stringBuffer.append(genDiagram.getEditorQualifiedClassName());
     stringBuffer.append(TEXT_41);
-    stringBuffer.append(genDiagram.getViewProviderQualifiedClassName());
+    stringBuffer.append(genDiagram.getNotationViewProviderQualifiedClassName());
     stringBuffer.append(TEXT_42);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_43);

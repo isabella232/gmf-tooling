@@ -22,7 +22,7 @@ public class ViewProviderGenerator
   protected final String TEXT_3 = NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.emf.ecore.EClass;" + NL + "import org.eclipse.emf.ecore.EObject;" + NL + "import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.IElementType;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
   protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_5 = " extends AbstractViewProvider {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {" + NL + "\t\tEObject semanticElement = getSemanticElement(semanticAdapter);" + NL + "\t\tif (\"";
-  protected final String TEXT_6 = "\".equals(diagramKind) && ";
+  protected final String TEXT_6 = "\".equals(diagramKind)" + NL + "\t\t\t\t&& ";
   protected final String TEXT_7 = ".INSTANCE.getDiagramVisualID(semanticElement) != -1) { //$NON-NLS-1$" + NL + "\t\t\treturn ";
   protected final String TEXT_8 = ".class;" + NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Class getNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {" + NL + "\t\tif (containerView == null) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\tif (!\"";
   protected final String TEXT_9 = "\".equals(containerView.getDiagram().getType())) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\tEClass semanticType = getSemanticEClass(semanticAdapter);" + NL + "\t\tEObject semanticElement = getSemanticElement(semanticAdapter);" + NL + "\t\tint nodeVID = ";
@@ -67,13 +67,13 @@ Collection allContainers = AccessUtil.getAllContainers(genDiagram);
     stringBuffer.append(TEXT_3);
     importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(genDiagram.getViewProviderClassName());
+    stringBuffer.append(genDiagram.getNotationViewProviderClassName());
     stringBuffer.append(TEXT_5);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_6);
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_7);
-    stringBuffer.append(genDiagram.getNotationViewFactoryClassName());
+    stringBuffer.append(importManager.getImportedName(genDiagram.getNotationViewFactoryQualifiedClassName()));
     stringBuffer.append(TEXT_8);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_9);
@@ -135,7 +135,7 @@ for (int i = 0; i < genLinks.size(); i++) {
     stringBuffer.append(TEXT_24);
     stringBuffer.append(genLink.getUniqueIdentifier());
     stringBuffer.append(TEXT_25);
-    stringBuffer.append(genLink.getNotationViewFactoryClassName());
+    stringBuffer.append(importManager.getImportedName(genLink.getNotationViewFactoryQualifiedClassName()));
     stringBuffer.append(TEXT_26);
     
 	}
@@ -152,7 +152,7 @@ for (int i = 0; i < genLinks.size(); i++) {
     stringBuffer.append(TEXT_29);
     stringBuffer.append(genLink.getVisualID());
     stringBuffer.append(TEXT_30);
-    stringBuffer.append(genLink.getNotationViewFactoryClassName());
+    stringBuffer.append(importManager.getImportedName(genLink.getNotationViewFactoryQualifiedClassName()));
     stringBuffer.append(TEXT_31);
     
 	}

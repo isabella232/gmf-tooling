@@ -2,7 +2,7 @@
 	imports="org.eclipse.gmf.codegen.gmfgen.*"%>
 <%GenLabel label = (GenLabel) argument;%>
 <%GenDiagram diagram = label.getDiagram();%>
-package <%=diagram.getProvidersPackageName()%>;
+package <%=diagram.getNotationViewFactoriesPackageName()%>;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;

@@ -20,15 +20,16 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class <%=genDiagram.getViewProviderClassName()%> extends AbstractViewProvider {
+public class <%=genDiagram.getNotationViewProviderClassName()%> extends AbstractViewProvider {
 
 	/**
 	 * @generated
 	 */
 	protected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		if ("<%=genModel.getModelName()%>".equals(diagramKind) && <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getDiagramVisualID(semanticElement) != -1) { //$NON-NLS-1$
-			return <%=genDiagram.getNotationViewFactoryClassName()%>.class;
+		if ("<%=genModel.getModelName()%>".equals(diagramKind)
+				&& <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getDiagramVisualID(semanticElement) != -1) { //$NON-NLS-1$
+			return <%=importManager.getImportedName(genDiagram.getNotationViewFactoryQualifiedClassName())%>.class;
 		}
 		return null;
 	}
@@ -108,7 +109,7 @@ for (int i = 0; i < genLinks.size(); i++) {
 	if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 %>
 		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>.equals(elementType)) {
-			return <%=genLink.getNotationViewFactoryClassName()%>.class;
+			return <%=importManager.getImportedName(genLink.getNotationViewFactoryQualifiedClassName())%>.class;
 		}
 <%
 	}
@@ -127,7 +128,7 @@ for (int i = 0; i < genLinks.size(); i++) {
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 %>
 		case <%=genLink.getVisualID()%>:
-			return <%=genLink.getNotationViewFactoryClassName()%>.class;
+			return <%=importManager.getImportedName(genLink.getNotationViewFactoryQualifiedClassName())%>.class;
 <%
 	}
 }

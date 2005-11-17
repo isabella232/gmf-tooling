@@ -65,9 +65,9 @@ public class ViewFactoryGenerator
     GenCommonBase genElement = (GenCommonBase) argument;
     GenDiagram genDiagram = genElement.getDiagram();
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(genDiagram.getProvidersPackageName());
+    stringBuffer.append(genDiagram.getNotationViewFactoriesPackageName());
     stringBuffer.append(TEXT_2);
-    ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());
+    ImportUtil importManager = new ImportUtil(genDiagram.getNotationViewFactoriesPackageName());
     stringBuffer.append(TEXT_3);
     importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_4);

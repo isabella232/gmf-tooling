@@ -28,6 +28,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditPoliciesPackageName <em>Edit Policies Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditorPackageName <em>Editor Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getProvidersPackageName <em>Providers Package Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getNotationViewFactoriesPackageName <em>Notation View Factories Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPluginID <em>Plugin ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPluginName <em>Plugin Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getProviderName <em>Provider Name</em>}</li>
@@ -40,7 +41,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getReferenceConnectionEditPolicyClassName <em>Reference Connection Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getElementTypesClassName <em>Element Types Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getSemanticHintsClassName <em>Semantic Hints Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getViewProviderClassName <em>View Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getNotationViewProviderClassName <em>Notation View Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditPartProviderClassName <em>Edit Part Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getMetamodelSupportProviderClassName <em>Metamodel Support Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getModelingAssistantProviderClassName <em>Modeling Assistant Provider Class Name</em>}</li>
@@ -446,6 +447,32 @@ public interface GenDiagram extends GenCommonBase{
 	void setProvidersPackageName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Notation View Factories Package Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Notation View Factories Package Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Notation View Factories Package Name</em>' attribute.
+	 * @see #setNotationViewFactoriesPackageName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_NotationViewFactoriesPackageName()
+	 * @model
+	 * @generated
+	 */
+	String getNotationViewFactoriesPackageName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getNotationViewFactoriesPackageName <em>Notation View Factories Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Notation View Factories Package Name</em>' attribute.
+	 * @see #getNotationViewFactoriesPackageName()
+	 * @generated
+	 */
+	void setNotationViewFactoriesPackageName(String value);
+
+	/**
 	 * Returns the value of the '<em><b>Editor Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -626,6 +653,32 @@ public interface GenDiagram extends GenCommonBase{
 	 * @generated
 	 */
 	void setSemanticHintsClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Notation View Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Notation View Provider Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Notation View Provider Class Name</em>' attribute.
+	 * @see #setNotationViewProviderClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_NotationViewProviderClassName()
+	 * @model
+	 * @generated
+	 */
+	String getNotationViewProviderClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getNotationViewProviderClassName <em>Notation View Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Notation View Provider Class Name</em>' attribute.
+	 * @see #getNotationViewProviderClassName()
+	 * @generated
+	 */
+	void setNotationViewProviderClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Has Domain Model</b></em>' attribute.
@@ -913,32 +966,6 @@ public interface GenDiagram extends GenCommonBase{
 	void setMatchingStrategyClassName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>View Provider Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>View Provider Class Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>View Provider Class Name</em>' attribute.
-	 * @see #setViewProviderClassName(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_ViewProviderClassName()
-	 * @model
-	 * @generated
-	 */
-	String getViewProviderClassName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getViewProviderClassName <em>View Provider Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>View Provider Class Name</em>' attribute.
-	 * @see #getViewProviderClassName()
-	 * @generated
-	 */
-	void setViewProviderClassName(String value);
-
-	/**
 	 * Returns the value of the '<em><b>Edit Part Provider Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -1180,6 +1207,14 @@ public interface GenDiagram extends GenCommonBase{
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getNotationViewProviderQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Need this one for NewDiagramAction. Takes first diagramRunTimeClass and it's package's namespace. Perhaps, should just reference appropriate genModel instead
 	 * <!-- end-model-doc -->
@@ -1217,14 +1252,6 @@ public interface GenDiagram extends GenCommonBase{
 	 * @generated
 	 */
 	String getElementInitializersPackageName();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	String getViewProviderQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->
