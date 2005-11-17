@@ -54,6 +54,13 @@ plugin@org.apache.batik=I20051111-1800,:pserver:anonymous@dev.eclipse.org:/cvsro
 
 !*** TODO: remove when moved to EMFT (install as usual with dependencies) ***
 plugin@org.eclipse.emf.validation=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation
+plugin@org.eclipse.emf.validation.ocl=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation.ocl
+plugin@org.eclipse.emf.validation.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation.ui
+plugin@org.eclipse.emf.validation.ui.ide=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/validation/plugins/org.eclipse.emf.validation.ui.ide
+plugin@antlr=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/ocl/plugins/antlr
+plugin@org.eclipse.emf.ocl=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/ocl/plugins/org.eclipse.emf.ocl
+plugin@org.eclipse.emf.query=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/query/plugins/org.eclipse.emf.query
+plugin@org.eclipse.emf.query.ocl=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/query/plugins/org.eclipse.emf.query.ocl
 
 !*** TODO: remove when moved to Platform ***
 plugin@org.eclipse.wst.common.ui.properties=v20051102_0220,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,wst/components/common/plugins/org.eclipse.wst.common.ui.properties

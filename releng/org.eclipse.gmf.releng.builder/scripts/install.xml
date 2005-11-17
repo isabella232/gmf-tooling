@@ -106,4 +106,20 @@
 		<echo message="Installing GMF Examples for testing from zip file..." />
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-examples-${buildId}.zip" />
 	</target>
+	
+	<target name="getAntlr" depends="checkLocalAntlr" unless="skipAntlr">
+		<get src="${antlrURL}" dest="${baseLocationRoot}/${antlrZipName}" verbose="true" usetimestamp="true" />
+	</target>
+
+	<target name="checkLocalAntlr">
+		<available file="${baseLocationRoot}/${antlrZipName}" property="skipAntlr" />
+	</target>
+
+	<target name="installAntlr" unless="antlrExists">
+		<unzip dest="${baseLocation}/plugins/antlr/lib" overwrite="true" src="${baseLocationRoot}/${eclipseZipName}">
+			<patternset>
+		        <include name="**/antlr.jar"/>
+		    </patternset>
+		</unzip>			
+	</target>
 </project>
