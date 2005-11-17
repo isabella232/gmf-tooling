@@ -23,7 +23,6 @@ import org.eclipse.gmf.diadef.Node;
 
 /**
  * @author artem
- *
  */
 public class TestSetupTest extends TestCase {
 
@@ -36,7 +35,7 @@ public class TestSetupTest extends TestCase {
 		doDiaDefTests(s);
 	}
 
-	public void testDiaDefSetupWithConfig() {
+	public void testDiaDefGenerateSetupWithConfig() {
 		final boolean[] setupCanvasDef = {false};
 		final boolean[] setupLinkDef = {false};
 		final boolean[] setupNodeDef = {false};
@@ -51,14 +50,14 @@ public class TestSetupTest extends TestCase {
 				setupNodeDef[0] = true;
 			}
 		}).init();
-		assertTrue("DiaDefSetup.Config.setupNodeDef()", setupNodeDef[0]);
-		assertTrue("DiaDefSetup.Config.setupLinkDef()", setupLinkDef[0]);
-		assertTrue("DiaDefSetup.Config.setupCanvasDef()", setupCanvasDef[0]);
+		assertTrue("DiaDefGenerateSetup.Config.setupNodeDef()", setupNodeDef[0]);
+		assertTrue("DiaDefGenerateSetup.Config.setupLinkDef()", setupLinkDef[0]);
+		assertTrue("DiaDefGenerateSetup.Config.setupCanvasDef()", setupCanvasDef[0]);
 		doDiaDefTests(s);
 	}
 
 	public void testDomainModelSetup() {
-		DomainModelSource s = new DomainModelSetup().init();
+		DomainModelSetup s = new DomainModelSetup().init();
 		doAssert(Diagnostician.INSTANCE.validate(s.getDiagramElement()));
 		doAssert(Diagnostician.INSTANCE.validate(s.getNode().getEClass()));
 		doAssert(Diagnostician.INSTANCE.validate(s.getLinkAsRef()));

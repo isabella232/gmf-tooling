@@ -16,8 +16,10 @@ import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.tests.setup.DomainModelSetup;
 
 public class MapSetup implements MapDefSource {
+
 	private Mapping myMap;
 
 	public MapSetup() {
@@ -26,7 +28,7 @@ public class MapSetup implements MapDefSource {
 	/**
 	 * @return <code>this</code> for convenience
 	 */
-	public MapSetup init(DiaDefSource ddSource, DomainModelSource domainSource) {
+	public MapSetup init(DiaDefSetup ddSource, DomainModelSetup domainSource) {
 		Mapping m = GMFMapFactory.eINSTANCE.createMapping();
 		CanvasMapping cme = GMFMapFactory.eINSTANCE.createCanvasMapping();
 		cme.setDiagramCanvas(ddSource.getCanvasDef());

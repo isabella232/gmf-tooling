@@ -58,7 +58,7 @@ public class DiaGenSetup implements DiaGenSource {
 	/**
 	 * @return <code>this</code> for convenience
 	 */
-	public DiaGenSetup init(DomainModelSource domainSource) {
+	public DiaGenSetup init(DomainModelSetup domainSource) {
 		final GenModel runtimeModel = getRuntimeGenModel();
 		final String pluginID = Utils.createUniquePluginID();
 		assert runtimeModel != null;
@@ -98,7 +98,7 @@ public class DiaGenSetup implements DiaGenSource {
 		return this;
 	}
 
-	private TypeModelFacet createNodeModelFacet(GenModelMatcher gmm, DomainModelSource.NodeData node) {
+	private TypeModelFacet createNodeModelFacet(GenModelMatcher gmm, DomainModelSetup.NodeData node) {
 		TypeModelFacet mf = GMFGenFactory.eINSTANCE.createTypeModelFacet();
 		mf.setMetaClass(gmm.findGenClass(node.getEClass()));
 		mf.setContainmentMetaFeature(gmm.findGenFeature(node.getContainment()));
@@ -106,7 +106,7 @@ public class DiaGenSetup implements DiaGenSource {
 		return mf;
 	}
 
-	private TypeLinkModelFacet createLinkModelFacet(final GenModelMatcher gmm, DomainModelSource.LinkData link) {
+	private TypeLinkModelFacet createLinkModelFacet(final GenModelMatcher gmm, DomainModelSetup.LinkData link) {
 		TypeLinkModelFacet mf = GMFGenFactory.eINSTANCE.createTypeLinkModelFacet();
 		mf.setMetaClass(gmm.findGenClass(link.getEClass()));
 		mf.setContainmentMetaFeature(gmm.findGenFeature(link.getContainment()));

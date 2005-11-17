@@ -11,18 +11,17 @@
  */
 package org.eclipse.gmf.tests.setup;
 
-
 /**
  * @author artem
- *
  */
 public class SessionSetup {
-	private static DomainModelSource myDomainModel;
+
+	private static DomainModelSetup myDomainModel;
 	private static DiaGenSource myGenModel;
 	private static GenProjectSetup myProject;
 	private static RuntimeWorkspaceSetup myRuntimeWorkspaceSetup;
 
-	public static DomainModelSource getDomainModel() {
+	public static DomainModelSetup getDomainModel() {
 		if (myDomainModel == null) {
 			myDomainModel = new DomainModelSetup().init();
 		}
