@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="org.eclipse.gmf.dev.insider"
+   name="Insider"
+   version="1.0.0"
+   provider-name="Dmitri Stadnik"
+   class="org.eclipse.gmf.dev.insider.internal.InsiderPlugin">
+
+   <runtime>
+      <library name="insider.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.draw2d"/>
+      <import plugin="org.eclipse.gef"/>
+   </requires>
+
+   <extension-point id="contentBuilders" name="Content Builders" schema="schema/contentBuilders.exsd"/>
+
+   <extension
+         point="org.eclipse.gmf.dev.insider.contentBuilders">
+      <contentBuilder
+            id="context.figures"
+            description="Figure from context"
+            class="org.eclipse.gmf.dev.insider.internal.ContextFigureContentBuilder">
+      </contentBuilder>
+      <contentBuilder
+            id="figures"
+            description="Figures"
+            class="org.eclipse.gmf.dev.insider.internal.FigureContentBuilder">
+      </contentBuilder>
+      <contentBuilder
+            id="context.editParts"
+            description="Edit part from context"
+            class="org.eclipse.gmf.dev.insider.internal.ContextEditPartContentBuilder">
+      </contentBuilder>
+      <contentBuilder
+            id="editParts"
+            description="Edit parts"
+            class="org.eclipse.gmf.dev.insider.internal.EditPartContentBuilder">
+      </contentBuilder>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="Insider"
+            icon="icons/insider.gif"
+            category="org.eclipse.ui"
+            class="org.eclipse.gmf.dev.insider.internal.ui.InsiderView"
+            id="org.eclipse.gmf.dev.insider.InsiderView">
+      </view>
+      <view
+            name="Insider Presentation"
+            icon="icons/insider.gif"
+            category="org.eclipse.ui"
+            class="org.eclipse.gmf.dev.insider.internal.ui.PresentationView"
+            id="org.eclipse.gmf.dev.insider.PresentationView">
+      </view>
+   </extension>
+
+</plugin>
