@@ -94,7 +94,8 @@
 		<available file="${baseLocation}/features/org.eclipse.gmf.sdk_${gmfVersion}/feature.xml" property="gmfExists" />
 		<ant antfile="${scripts}/install.xml" target="installGMF" />
 		<available file="${baseLocation}/features/org.eclipse.gmf.examples_${gmfVersion}/feature.xml" property="examplesExists" />
-		<ant antfile="${scripts}/install.xml" target="installExamples" />	
+		<ant antfile="${scripts}/install.xml" target="installExamples" />
+		<copy file="${baseLocationRoot}/antlr.jar" todir="${baseLocation}/plugins/antlr_2.7.2/lib"/>
 	</target>
 	
 	<!-- ===================================================================== -->

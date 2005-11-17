@@ -109,17 +109,21 @@
 	
 	<target name="getAntlr" depends="checkLocalAntlr" unless="skipAntlr">
 		<get src="${antlrURL}" dest="${baseLocationRoot}/${antlrZipName}" verbose="true" usetimestamp="true" />
-	</target>
-
-	<target name="checkLocalAntlr">
-		<available file="${baseLocationRoot}/${antlrZipName}" property="skipAntlr" />
-	</target>
-
-	<target name="installAntlr" unless="antlrExists">
-		<unzip dest="${baseLocation}/plugins/antlr/lib" overwrite="true" src="${baseLocationRoot}/${eclipseZipName}">
+		<unzip dest="${baseLocationRoot}" overwrite="true" src="${baseLocationRoot}/${antlrZipName}">
 			<patternset>
 		        <include name="**/antlr.jar"/>
 		    </patternset>
-		</unzip>			
+		</unzip>
+		<move file="${baseLocationRoot}/antlr-2.7.2/antlr.jar" todir="${baseLocationRoot}"/>
+		<delete dir="${baseLocationRoot}/antlr-2.7.2"/>
+	</target>
+
+	<target name="checkLocalAntlr">
+		<available file="${baseLocationRoot}/antlr.jar" property="skipAntlr" />
+	</target>
+
+	<target name="installAntlr" unless="antlrExists">
+		<antcall target="getAntlr"/>
+		<copy file="${baseLocationRoot}/antlr.jar" todir="${buildDirectory}/plugins/antlr/lib"/>
 	</target>
 </project>

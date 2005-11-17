@@ -143,6 +143,9 @@
 	<!-- Steps to do before running the build.xmls for the elements being built. -->
 	<!-- ===================================================================== -->
 	<target name="preProcess">
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
+		<available file="${buildDirectory}/plugins/antlr/lib/antlr.jar" property="antlrExists" />
+		<ant antfile="${scripts}/install.xml" target="installAntlr" />
 	</target>
 
 	<!-- ===================================================================== -->
@@ -155,6 +158,9 @@
 	<!-- Steps to do before running assemble. -->
 	<!-- ===================================================================== -->
 	<target name="preAssemble">
+		<delete>
+	    	<fileset dir="${buildDirectory}/plugins" includes="**/antlr.jar"/>
+	  	</delete>
 	</target>
 
 	<!-- ===================================================================== -->
