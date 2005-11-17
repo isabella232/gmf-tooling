@@ -116,7 +116,7 @@ public class RuntimeWorkspaceSetup {
 			p.build(IncrementalProjectBuilder.FULL_BUILD, new NullProgressMonitor());
 			IMarker[] compileErrors = getJavaErrors(p);
 			if (compileErrors.length > 0) {
-				String errorsMsg = formatErrors(new StringBuilder("UNEXPECTED: Compilation errors in imported plugin " + pluginIDs[i] + ":\n"), compileErrors);
+				String errorsMsg = formatErrors(new StringBuffer("UNEXPECTED: Compilation errors in imported plugin " + pluginIDs[i] + ":\n"), compileErrors);
 				Plugin.logError(errorsMsg);
 				throw new AssertionFailedError(errorsMsg);
 			}
@@ -155,7 +155,7 @@ public class RuntimeWorkspaceSetup {
 		return (IMarker[]) rv.toArray(new IMarker[rv.size()]);
 	}
 
-	private String formatErrors(StringBuilder sb, IMarker[] compileErrors) {
+	private String formatErrors(StringBuffer sb, IMarker[] compileErrors) {
 		for (int i = 0; i < compileErrors.length; i++) {
 			try {
 				sb.append(compileErrors[i].getAttribute(IMarker.MESSAGE));

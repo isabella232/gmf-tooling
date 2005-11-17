@@ -34,7 +34,7 @@ public class CompileUtil {
 			project.build(IncrementalProjectBuilder.FULL_BUILD, new NullProgressMonitor());
 			IMarker[] compileErrors = getJavaErrors(project);
 			if (compileErrors.length > 0) {
-				StringBuilder sb = new StringBuilder();
+				StringBuffer sb = new StringBuffer();
 				sb.append(project.getName()).append(" has compilation problems:\n");
 				String errorsMsg = formatErrors(sb, compileErrors);
 				return new Status(Status.ERROR, Plugin.getPluginID(), 0, errorsMsg, null);
@@ -65,7 +65,7 @@ public class CompileUtil {
 		return (IMarker[]) rv.toArray(new IMarker[rv.size()]);
 	}
 
-	private String formatErrors(StringBuilder sb, IMarker[] compileErrors) {
+	private String formatErrors(StringBuffer sb, IMarker[] compileErrors) {
 		for (int i = 0; i < compileErrors.length; i++) {
 			try {
 				sb.append(compileErrors[i].getResource().getName());
