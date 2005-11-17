@@ -50,14 +50,19 @@ public class <%=genCompartment.getEditPartClassName()%> extends ListCompartmentE
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genCompartment.getItemSemanticEditPolicyQualifiedClassName())%>());
+<%
+if (genCompartment.getChildNodes().size() > 0) {
+%>
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=genCompartment.getEditPartClassName()%>CanonicalEditPolicy());
-		//installEditPolicy(EditPolicy.NODE_ROLE, null);
+<%
+}
+%>
 	}
 	
 <%
-{
+if (genCompartment.getChildNodes().size() > 0) {
 	GenChildContainer childContainer = genCompartment;
 	GenNode containerNode = genCompartment.getNode();
 %>

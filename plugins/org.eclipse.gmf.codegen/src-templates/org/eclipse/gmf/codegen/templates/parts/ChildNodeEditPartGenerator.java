@@ -27,10 +27,8 @@ public class ChildNodeEditPartGenerator
   protected final String TEXT_9 = ".eINSTANCE.get";
   protected final String TEXT_10 = "().getEStructuralFeature(\"";
   protected final String TEXT_11 = "\"));" + NL + "\t\t}" + NL + "\t\treturn parser;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void createDefaultEditPolicies() {" + NL + "\t\tsuper.createDefaultEditPolicies();" + NL + "\t\tinstallEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ";
-  protected final String TEXT_12 = "());" + NL + "\t\tinstallEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ";
-  protected final String TEXT_13 = "CanonicalEditPolicy());" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate class ";
-  protected final String TEXT_14 = "CanonicalEditPolicy extends CanonicalEditPolicy {" + NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected List getSemanticChildrenList() {" + NL + "\t\t\treturn Collections.EMPTY_LIST;" + NL + "\t\t}" + NL + "\t" + NL + "\t}" + NL + "\t" + NL + "}";
-  protected final String TEXT_15 = NL;
+  protected final String TEXT_12 = "());" + NL + "\t}" + NL + "\t" + NL + "}";
+  protected final String TEXT_13 = NL;
 
   public String generate(Object argument)
   {
@@ -67,12 +65,8 @@ GenNodeLabel label = (GenNodeLabel) genChildNode.getLabels().get(0);
     stringBuffer.append(TEXT_11);
     stringBuffer.append(importManager.getImportedName(genChildNode.getItemSemanticEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_12);
-    stringBuffer.append(genChildNode.getEditPartClassName());
-    stringBuffer.append(TEXT_13);
-    stringBuffer.append(genChildNode.getEditPartClassName());
-    stringBuffer.append(TEXT_14);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_15);
+    stringBuffer.append(TEXT_13);
     return stringBuffer.toString();
   }
 }

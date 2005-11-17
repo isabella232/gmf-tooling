@@ -216,7 +216,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 <%
 if (genNodes.size() > 0) {
 %>
-		Object featureValue;
+		EObject nextValue;
 <%
 }
 
@@ -224,17 +224,14 @@ for (Iterator diagramNodes = genNodes.iterator(); diagramNodes.hasNext();) {
 	GenNode nextNode = (GenNode) diagramNodes.next();
 	TypeModelFacet typeModelFacet = nextNode.getModelFacet();
 	GenFeature childMetaFeature = typeModelFacet.getChildMetaFeature();	
-%>	
-		featureValue = <%=getFeatureValueGetter("diagramModel", childMetaFeature, true, importManager)%>;
-<%
 	if (childMetaFeature.isListType()) {
 %>		
-		for (<%=importManager.getImportedName("java.util.Iterator")%> values = ((<%=importManager.getImportedName("java.util.Collection")%>) featureValue).iterator(); values.hasNext();) {
-			EObject nextValue = ((EObject) values.next());
+		for (<%=importManager.getImportedName("java.util.Iterator")%> values = <%=getFeatureValueGetter("diagramModel", childMetaFeature, true, importManager)%>.iterator(); values.hasNext();) {
+			nextValue = (EObject) values.next();
 <%
 	} else {
 %>
-		EObject nextValue = (EObject) featureValue;
+		nextValue = <%=getFeatureValueGetter("diagramModel", childMetaFeature, true, importManager)%>;
 <%		
 	}
 %>
@@ -265,7 +262,7 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 <%
 	if (nextContainer.getChildNodes().size() > 0) {
 %>
-		Object featureValue;
+		EObject nextValue;
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> nextNode;
 <%
 	} else if (nextContainer instanceof GenNode && ((GenNode) nextContainer).getCompartments().size() > 0) {
@@ -278,18 +275,16 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 		GenChildNode nextChild = (GenChildNode) children.next();
 		TypeModelFacet typeModelFacet = nextChild.getModelFacet();
 		GenFeature childMetaFeature = typeModelFacet.getChildMetaFeature();
-%>
-		featureValue = <%=getFeatureValueGetter("modelObject", childMetaFeature, true, importManager)%>;
-<%
 		if (childMetaFeature.isListType()) {
-%>		
-		for (<%=importManager.getImportedName("java.util.Iterator")%> values = ((<%=importManager.getImportedName("java.util.Collection")%>) featureValue).iterator(); values.hasNext();) {
-			EObject nextValue = ((EObject) values.next());
+%>
+		for (<%=importManager.getImportedName("java.util.Iterator")%> values = <%=getFeatureValueGetter("modelObject", childMetaFeature, true, importManager)%>.iterator(); values.hasNext();) {
+			nextValue = (EObject) values.next();
+
 <%
 		} else {
 %>
-		EObject nextValue = (EObject) featureValue;
-<%		
+		nextValue = <%=getFeatureValueGetter("modelObject", childMetaFeature, true, importManager)%>;
+<%
 		}
 %>
 		int nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(viewObject, nextValue, "");

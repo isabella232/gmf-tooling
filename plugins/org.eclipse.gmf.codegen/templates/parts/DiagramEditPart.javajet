@@ -46,30 +46,15 @@ public class <%=genDiagram.getEditPartClassName()%> extends DiagramEditPart {
 	 */
 	private class <%=genDiagram.getEditPartClassName()%>CanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	
-		/**
-		 * @generated
-		 */
-		protected List getSemanticChildrenList() {
 <%
 String modelElementInterfaceName = importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName());
+{
+	Collection genNodes = genDiagram.getNodes();
 %>
-			<%=modelElementInterfaceName%> modelElement = (<%=modelElementInterfaceName%>) ((View) getHost().getModel()).getElement();
-			List result = new LinkedList();
-<%
-Set containmentFeatures = new LinkedHashSet();
-for (Iterator it = genDiagram.getNodes().iterator(); it.hasNext();) {
-	GenNode nextGenNode = (GenNode) it.next();
-	containmentFeatures.add(nextGenNode.getModelFacet().getContainmentMetaFeature());
-}
-for (Iterator it = containmentFeatures.iterator(); it.hasNext();) {
-	GenFeature nextFeature = (GenFeature) it.next();	
-%>
-			result.<%=nextFeature.isListType() ? "addAll" : "add"%>(<%=getFeatureValueGetter("modelElement", nextFeature, false, importManager)%>);
+<%@ include file="getSemanticChildrenList.jetinc"%>
 <%
 }
 %>
-			return result;
-		}
 		
 		/**
 		 * @generated

@@ -49,36 +49,29 @@ public class NodeEditPartGenerator {
   protected final String TEXT_30 = NL;
   protected final String TEXT_31 = "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate class ";
   protected final String TEXT_32 = "CanonicalEditPolicy extends ";
-  protected final String TEXT_33 = " {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
-  protected final String TEXT_34 = " getSemanticChildrenList() {\t";
-  protected final String TEXT_35 = "\t\t" + NL + "\t\t\t";
-  protected final String TEXT_36 = " modelElement = (";
-  protected final String TEXT_37 = ") ((View) getHost().getModel()).getElement();" + NL + "\t\t\tList result = new ";
-  protected final String TEXT_38 = "();" + NL;
-  protected final String TEXT_39 = NL + "\t\t\tresult.addAll(";
-  protected final String TEXT_40 = ");";
-  protected final String TEXT_41 = NL + "\t\t\t";
-  protected final String TEXT_42 = " featureValue = ";
-  protected final String TEXT_43 = ";" + NL + "\t\t\tif (featureValue != null) {" + NL + "\t\t\t\tresult.add(featureValue);" + NL + "\t\t\t}";
-  protected final String TEXT_44 = NL + "\t\t\t";
-  protected final String TEXT_45 = " featureValues = ";
-  protected final String TEXT_46 = ";" + NL + "\t\t\tfor (";
-  protected final String TEXT_47 = " it = featureValues.iterator(); it.hasNext();) {" + NL + "\t\t\t\t";
-  protected final String TEXT_48 = " nextValue = (";
-  protected final String TEXT_49 = ") it.next();";
-  protected final String TEXT_50 = NL + "\t\t\t";
-  protected final String TEXT_51 = " nextValue = ";
-  protected final String TEXT_52 = ";";
-  protected final String TEXT_53 = NL + "\t\t\tif (nextValue != null) {" + NL + "\t\t\t\t";
-  protected final String TEXT_54 = " nextEClass = nextValue.eClass();";
-  protected final String TEXT_55 = NL + "\t\t\t\tif (";
-  protected final String TEXT_56 = ".eINSTANCE.get";
-  protected final String TEXT_57 = "().equals(nextEClass)) {" + NL + "\t\t\t\t\tresult.add(nextValue);" + NL + "\t\t\t\t} ";
-  protected final String TEXT_58 = NL + "\t\t\t}";
-  protected final String TEXT_59 = NL + "\t\t\t}";
-  protected final String TEXT_60 = NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t}\t";
-  protected final String TEXT_61 = NL + "}";
-  protected final String TEXT_62 = NL;
+  protected final String TEXT_33 = " {" + NL + "\t";
+  protected final String TEXT_34 = NL;
+  protected final String TEXT_35 = "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
+  protected final String TEXT_36 = " getSemanticChildrenList() {\t" + NL + "\t\t\t";
+  protected final String TEXT_37 = " modelElement = (";
+  protected final String TEXT_38 = ") ((View) getHost().getModel()).getElement();" + NL + "\t\t\tList result = new ";
+  protected final String TEXT_39 = "();" + NL + "\t\t\t";
+  protected final String TEXT_40 = " nextValue;";
+  protected final String TEXT_41 = "\t" + NL + "\t\t\tfor (";
+  protected final String TEXT_42 = " it = ";
+  protected final String TEXT_43 = ".iterator(); it.hasNext();) {" + NL + "\t\t\t\tnextValue = (";
+  protected final String TEXT_44 = ") it.next();";
+  protected final String TEXT_45 = NL + "\t\t\tnextValue = ";
+  protected final String TEXT_46 = ";";
+  protected final String TEXT_47 = NL + "\t\t\tint nodeVID = ";
+  protected final String TEXT_48 = ".INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, \"\");" + NL + "\t\t\tif (";
+  protected final String TEXT_49 = " == nodeVID) {" + NL + "\t\t\t\tresult.add(nextValue);" + NL + "\t\t\t}";
+  protected final String TEXT_50 = NL + "\t\t\t}";
+  protected final String TEXT_51 = "\t\t\t" + NL + "\t\t\treturn result;" + NL + "\t\t}";
+  protected final String TEXT_52 = NL + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected String getFactoryHint(";
+  protected final String TEXT_53 = " elementAdapter) {" + NL + "\t\t\treturn \"\";" + NL + "\t\t}" + NL + "" + NL + "\t}\t";
+  protected final String TEXT_54 = NL + "}";
+  protected final String TEXT_55 = NL;
 
 	private String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
 		StringBuffer result = new StringBuffer();
@@ -272,134 +265,72 @@ if (genNode.getChildNodes().size() > 0) {
     stringBuffer.append(TEXT_32);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy"));
     stringBuffer.append(TEXT_33);
-    stringBuffer.append(importManager.getImportedName("java.util.List"));
-    stringBuffer.append(TEXT_34);
     
-String modelElementInterfaceName = importManager.getImportedName(containerNode.getModelFacet().getMetaClass().getQualifiedInterfaceName());
+{
+	String modelElementInterfaceName = importManager.getImportedName(containerNode.getModelFacet().getMetaClass().getQualifiedInterfaceName());
+	Collection genNodes = childContainer.getChildNodes();
 
+    stringBuffer.append(TEXT_34);
     stringBuffer.append(TEXT_35);
-    stringBuffer.append(modelElementInterfaceName);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
     stringBuffer.append(TEXT_36);
     stringBuffer.append(modelElementInterfaceName);
     stringBuffer.append(TEXT_37);
-    stringBuffer.append(importManager.getImportedName("java.util.LinkedList"));
+    stringBuffer.append(modelElementInterfaceName);
     stringBuffer.append(TEXT_38);
-    
-/*
-	Since there could e several child nodes with the same childMetaFeatures, but different domainMetaClasses
-specified, we are creating a Map{GenFeature -> Collection{GenChildNodes}}. If GenChildNode without specified 
-domainMetaClass found, all the rest of GenChildNodes with the same childMetaFeature will be ignored because
-all the elements from this childMetaFeature will be treated as "this" type of GenChildNodes (without specified 
-domainMetaClass).
-*/
-
-Map childFeature2NodesMap = new HashMap();
-for (Iterator it = childContainer.getChildNodes().iterator(); it.hasNext();) {
-	GenChildNode nextChildNode = (GenChildNode) it.next();
-	GenFeature genFeature = nextChildNode.getModelFacet().getChildMetaFeature();
-	List genChildNodes; 
-	if (!childFeature2NodesMap.containsKey(genFeature)) {
-		genChildNodes = new ArrayList();
-		childFeature2NodesMap.put(genFeature, genChildNodes);
-	} else {
-		genChildNodes = (List) childFeature2NodesMap.get(genFeature);
-	}
-
-	if (nextChildNode.getDomainMetaClass() == null) {
-		genChildNodes.clear();
-		genChildNodes.add(nextChildNode);
-		continue;
-	}
-	if (genChildNodes.size() == 1 && ((GenChildNode) genChildNodes.get(0)).getDomainMetaClass() == null) {
-		continue;
-	}
-	genChildNodes.add(nextChildNode);
-}
-		
-// For each childMetaFeature:
-for (Iterator it = childFeature2NodesMap.entrySet().iterator(); it.hasNext();) {
-	Map.Entry nextEntry = (Map.Entry) it.next();
-	GenFeature nextFeature = (GenFeature) nextEntry.getKey();
-	List childNodes = (List) nextEntry.getValue();
-	if (childNodes.size() == 1 && ((GenChildNode) childNodes.get(0)).getDomainMetaClass() == null) {
-// GenChildNode without specified domainMetaClass found:
-		if (nextFeature.isListType()) {
-
+    stringBuffer.append(importManager.getImportedName("java.util.LinkedList"));
     stringBuffer.append(TEXT_39);
-    stringBuffer.append(getFeatureValueGetter("modelElement", nextFeature, false, importManager));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_40);
     
-		} else {
+for (Iterator it = genNodes.iterator(); it.hasNext();) {
+	GenNode nextNode = (GenNode) it.next();
+	TypeModelFacet typeModelFacet = nextNode.getModelFacet();
+	GenFeature childMetaFeature = typeModelFacet.getChildMetaFeature();
+	if (childMetaFeature.isListType()) {
 
     stringBuffer.append(TEXT_41);
-    stringBuffer.append(importManager.getImportedName(nextFeature.getTypeGenClass().getQualifiedInterfaceName()));
-    stringBuffer.append(TEXT_42);
-    stringBuffer.append(getFeatureValueGetter("modelElement", nextFeature, false, importManager));
-    stringBuffer.append(TEXT_43);
-    
-		}
-// Continue with the next entry in the Map
-		continue;
-	}
-
-// GenChildNodes with specified domainMetaClass found:			
-	if (nextFeature.isListType()) {
-
-    stringBuffer.append(TEXT_44);
-    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
-    stringBuffer.append(TEXT_45);
-    stringBuffer.append(getFeatureValueGetter("modelElement", nextFeature, false, importManager));
-    stringBuffer.append(TEXT_46);
     stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
-    stringBuffer.append(TEXT_47);
+    stringBuffer.append(TEXT_42);
+    stringBuffer.append(getFeatureValueGetter("modelElement", childMetaFeature, false, importManager));
+    stringBuffer.append(TEXT_43);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
-    stringBuffer.append(TEXT_48);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
-    stringBuffer.append(TEXT_49);
+    stringBuffer.append(TEXT_44);
     
 	} else {
 
+    stringBuffer.append(TEXT_45);
+    stringBuffer.append(getFeatureValueGetter("modelElement", childMetaFeature, false, importManager));
+    stringBuffer.append(TEXT_46);
+    
+	}
+
+    stringBuffer.append(TEXT_47);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(TEXT_48);
+    stringBuffer.append(nextNode.getVisualID());
+    stringBuffer.append(TEXT_49);
+    
+	if (childMetaFeature.isListType()) {
+
     stringBuffer.append(TEXT_50);
-    stringBuffer.append(importManager.getImportedName(nextFeature.getTypeGenClass().getQualifiedInterfaceName()));
+    
+	}
+}
+
     stringBuffer.append(TEXT_51);
-    stringBuffer.append(getFeatureValueGetter("modelElement", nextFeature, false, importManager));
+    
+}
+
     stringBuffer.append(TEXT_52);
-    
-	}
-
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
     stringBuffer.append(TEXT_53);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClass"));
+    
+}
+
     stringBuffer.append(TEXT_54);
-    			
-	for (Iterator childNodesIterator = childNodes.iterator(); childNodesIterator.hasNext();) {
-		GenChildNode nextChildNode = (GenChildNode) childNodesIterator.next();
-		GenClass domainMetaclass = nextChildNode.getDomainMetaClass();
-
-    stringBuffer.append(TEXT_55);
-    stringBuffer.append(importManager.getImportedName(domainMetaclass.getGenPackage().getQualifiedPackageInterfaceName()));
-    stringBuffer.append(TEXT_56);
-    stringBuffer.append(domainMetaclass.getClassifierAccessorName());
-    stringBuffer.append(TEXT_57);
-    stringBuffer.append(childNodesIterator.hasNext() ? "else" : "");
-    
-	}
-	if (nextFeature.isListType()) {
-
-    stringBuffer.append(TEXT_58);
-    
-	}
-
-    stringBuffer.append(TEXT_59);
-    
-}
-
-    stringBuffer.append(TEXT_60);
-    
-}
-
-    stringBuffer.append(TEXT_61);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_62);
+    stringBuffer.append(TEXT_55);
     return stringBuffer.toString();
   }
 }
