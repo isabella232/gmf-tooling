@@ -13,4 +13,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.codegen;visibility:=reexport,
  org.eclipse.gmf.runtime.notation;visibility:=reexport
 Export-Package: org.eclipse.gmf.bridge.genmodel
-Eclipse-LazyStart: false
+Eclipse-AutoStart: false

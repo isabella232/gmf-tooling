@@ -32,4 +32,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.runtime.notation.providers,
  org.eclipse.gmf.examples.taipan;visibility:=reexport,
  org.eclipse.gmf.examples.taipan.edit;visibility:=reexport
-Eclipse-LazyStart: true
+Eclipse-AutoStart: true

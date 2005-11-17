@@ -16,4 +16,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.edit.ui;visibility:=reexport,
  org.eclipse.ui.ide;visibility:=reexport,
  org.eclipse.emf.codegen.ecore.ui
-Eclipse-LazyStart: true
+Eclipse-AutoStart: true
