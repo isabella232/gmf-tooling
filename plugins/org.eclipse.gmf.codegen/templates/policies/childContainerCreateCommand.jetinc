@@ -19,11 +19,11 @@ for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext()
 <%
 		if (upperBound == 1) {
 %>
-			if (container.<%=containmentMetaFeature.getGetAccessor()%>() != null) {
+			if (<%=getFeatureValueGetter("container", containmentMetaFeature, false, importManager)%> != null) {
 <%
 		} else {
 %>
-			if (container.<%=containmentMetaFeature.getGetAccessor()%>().size() >= <%=upperBound%>) {
+			if (<%=getFeatureValueGetter("container", containmentMetaFeature, false, importManager)%>.size() >= <%=upperBound%>) {
 <%
 		}
 %>

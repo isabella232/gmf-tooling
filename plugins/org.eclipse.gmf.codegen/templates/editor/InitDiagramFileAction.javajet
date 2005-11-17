@@ -1,5 +1,6 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="InitDiagramFileActionGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.ImportUtil"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.ImportUtil"
+	skeleton="../common.skeleton"%>
 <%
 GenDiagram genDiagram = (GenDiagram) argument;
 List genNodes = genDiagram.getNodes();
@@ -224,19 +225,18 @@ for (Iterator diagramNodes = genNodes.iterator(); diagramNodes.hasNext();) {
 	TypeModelFacet typeModelFacet = nextNode.getModelFacet();
 	GenFeature childMetaFeature = typeModelFacet.getChildMetaFeature();	
 %>	
-		featureValue = ((<%=importManager.getImportedName(childMetaFeature.getGenClass().getQualifiedInterfaceName())%>) diagramModel).<%=childMetaFeature.getGetAccessor()%>();
+		featureValue = <%=getFeatureValueGetter("diagramModel", childMetaFeature, true, importManager)%>;
 <%
 	if (childMetaFeature.isListType()) {
 %>		
 		for (<%=importManager.getImportedName("java.util.Iterator")%> values = ((<%=importManager.getImportedName("java.util.Collection")%>) featureValue).iterator(); values.hasNext();) {
 			EObject nextValue = ((EObject) values.next());
 <%
-	} else if (!childMetaFeature.isPrimitiveType()) {
+	} else {
 %>
 		EObject nextValue = (EObject) featureValue;
 <%		
 	}
-	if (childMetaFeature.isListType() || !childMetaFeature.isPrimitiveType()) {
 %>
 		int nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(diagram, nextValue, "");
 		if (<%=nextNode.getVisualID()%> == nodeVID) {
@@ -245,7 +245,6 @@ for (Iterator diagramNodes = genNodes.iterator(); diagramNodes.hasNext();) {
 			create<%=nextNode.getUniqueIdentifier()%>Children(nextNode, nextValue);
 		}
 <%
-	}
 	if (childMetaFeature.isListType()) {
 %>
 		}
@@ -280,19 +279,18 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 		TypeModelFacet typeModelFacet = nextChild.getModelFacet();
 		GenFeature childMetaFeature = typeModelFacet.getChildMetaFeature();
 %>
-		featureValue = ((<%=importManager.getImportedName(childMetaFeature.getGenClass().getQualifiedInterfaceName())%>) modelObject).<%=childMetaFeature.getGetAccessor()%>();
+		featureValue = <%=getFeatureValueGetter("modelObject", childMetaFeature, true, importManager)%>;
 <%
 		if (childMetaFeature.isListType()) {
 %>		
 		for (<%=importManager.getImportedName("java.util.Iterator")%> values = ((<%=importManager.getImportedName("java.util.Collection")%>) featureValue).iterator(); values.hasNext();) {
 			EObject nextValue = ((EObject) values.next());
 <%
-		} else if (!childMetaFeature.isPrimitiveType()) {
+		} else {
 %>
 		EObject nextValue = (EObject) featureValue;
 <%		
 		}
-		if (childMetaFeature.isListType() || !childMetaFeature.isPrimitiveType()) {
 %>
 		int nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 		if (<%=nextChild.getVisualID()%> == nodeVID) {
@@ -301,7 +299,6 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 			create<%=nextChild.getUniqueIdentifier()%>Children(nextNode, nextValue);
 		}
 <%
-		}
 		if (childMetaFeature.isListType()) {
 %>
 		}
@@ -370,26 +367,24 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 		GenFeature childMetaFeature = typeLinkModelFacet.getChildMetaFeature();
 %>		
 		if (-1 != containerMetaclass.getFeatureID(<%=importManager.getImportedName(childMetaFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=childMetaFeature.getFeatureAccessorName()%>())) {
-			Object featureValue = ((<%=importManager.getImportedName(childMetaFeature.getGenClass().getQualifiedInterfaceName())%>) container).<%=childMetaFeature.getGetAccessor()%>();
+			Object featureValue = <%=getFeatureValueGetter("container", childMetaFeature, true, importManager)%>;
 <%
 		if (childMetaFeature.isListType()) {
 %>		
 			for (<%=importManager.getImportedName("java.util.Iterator")%> values = ((<%=importManager.getImportedName("java.util.Collection")%>) featureValue).iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());
 <%
-		} else if (!childMetaFeature.isPrimitiveType()) {
+		} else {
 %>
 			EObject nextValue = (EObject) featureValue;
 <%		
 		}
-		if (childMetaFeature.isListType() || !childMetaFeature.isPrimitiveType()) {
 %>
 			int linkVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getLinkWithClassVisualID(nextValue);
 			if (<%=nextLink.getVisualID()%> == linkVID) {
 				((<%=importManager.getImportedName("java.util.Collection")%>) myLinkVID2EObjectMap.get(new Integer(<%=nextLink.getVisualID()%>))).add(nextValue);
 			}
 <%
-		}
 		if (childMetaFeature.isListType()) {
 %>
 			}
@@ -457,8 +452,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 			if (srcNode == null) {
 				continue;
 			}
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%> structuralFeature = <%=importManager.getImportedName(domainLinkTargetGenFeature.getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=domainLinkTargetGenFeature.getFeatureAccessorName()%>();
-			Object structuralFeatureResult = linkElement.eGet(structuralFeature);
+			Object structuralFeatureResult = <%=getFeatureValueGetter("linkElement", domainLinkTargetGenFeature, true, importManager)%>;
 <%
 	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
 %>

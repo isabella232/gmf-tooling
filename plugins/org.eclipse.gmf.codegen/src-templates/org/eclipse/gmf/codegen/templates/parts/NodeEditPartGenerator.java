@@ -5,8 +5,8 @@ import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.codegen.util.*;
 import java.util.*;
 
-public class NodeEditPartGenerator
-{
+public class NodeEditPartGenerator {
+ 
   protected static String nl;
   public static synchronized NodeEditPartGenerator create(String lineSeparator)
   {
@@ -55,20 +55,20 @@ public class NodeEditPartGenerator
   protected final String TEXT_36 = " modelElement = (";
   protected final String TEXT_37 = ") ((View) getHost().getModel()).getElement();" + NL + "\t\t\tList result = new ";
   protected final String TEXT_38 = "();" + NL;
-  protected final String TEXT_39 = NL + "\t\t\tresult.addAll(modelElement.";
-  protected final String TEXT_40 = "());";
-  protected final String TEXT_41 = NL + "\t\t\tObject featureValue = modelElement.";
-  protected final String TEXT_42 = "();" + NL + "\t\t\tif (featureValue != null) {" + NL + "\t\t\t\tresult.add(featureValue);" + NL + "\t\t\t}";
-  protected final String TEXT_43 = NL + "\t\t\t";
-  protected final String TEXT_44 = " featureValues = modelElement.";
-  protected final String TEXT_45 = "();" + NL + "\t\t\tfor (";
-  protected final String TEXT_46 = " it = featureValues.iterator(); it.hasNext();) {" + NL + "\t\t\t\t";
-  protected final String TEXT_47 = " nextValue = (";
-  protected final String TEXT_48 = ") it.next();";
-  protected final String TEXT_49 = NL + "\t\t\t";
-  protected final String TEXT_50 = " nextValue = (";
-  protected final String TEXT_51 = ") modelElement.";
-  protected final String TEXT_52 = "();";
+  protected final String TEXT_39 = NL + "\t\t\tresult.addAll(";
+  protected final String TEXT_40 = ");";
+  protected final String TEXT_41 = NL + "\t\t\t";
+  protected final String TEXT_42 = " featureValue = ";
+  protected final String TEXT_43 = ";" + NL + "\t\t\tif (featureValue != null) {" + NL + "\t\t\t\tresult.add(featureValue);" + NL + "\t\t\t}";
+  protected final String TEXT_44 = NL + "\t\t\t";
+  protected final String TEXT_45 = " featureValues = ";
+  protected final String TEXT_46 = ";" + NL + "\t\t\tfor (";
+  protected final String TEXT_47 = " it = featureValues.iterator(); it.hasNext();) {" + NL + "\t\t\t\t";
+  protected final String TEXT_48 = " nextValue = (";
+  protected final String TEXT_49 = ") it.next();";
+  protected final String TEXT_50 = NL + "\t\t\t";
+  protected final String TEXT_51 = " nextValue = ";
+  protected final String TEXT_52 = ";";
   protected final String TEXT_53 = NL + "\t\t\tif (nextValue != null) {" + NL + "\t\t\t\t";
   protected final String TEXT_54 = " nextEClass = nextValue.eClass();";
   protected final String TEXT_55 = NL + "\t\t\t\tif (";
@@ -80,7 +80,88 @@ public class NodeEditPartGenerator
   protected final String TEXT_61 = NL + "}";
   protected final String TEXT_62 = NL;
 
-  public String generate(Object argument)
+	private String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
+		StringBuffer result = new StringBuffer();
+		if (feature.getGenClass().isExternalInterface()) {
+// Using EMF reflective method to access feature value
+			result.append("((");
+			if (feature.isListType()) {
+				result.append(importManager.getImportedName("java.util.Collection"));
+			} else {
+				result.append(importManager.getImportedName(feature.getTypeGenClass().getQualifiedInterfaceName()));
+			}
+			result.append(")");
+			if (!isContainerEObject) {
+// Casting container to EObject - ExternalIntarfce could be not an instance of EObject
+				result.append("((");
+				result.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+				result.append(")");
+			}
+			result.append(containerName);
+			if (!isContainerEObject) {
+				result.append(")");
+			}
+			result.append(".eGet(");
+			result.append(importManager.getImportedName(feature.getGenPackage().getQualifiedPackageInterfaceName()));
+			result.append(".eINSTANCE.get");
+			result.append(feature.getFeatureAccessorName());
+			result.append("()))");
+		} else {
+			if (isContainerEObject) {
+// Casting container to the typed interface
+				result.append("((");
+				result.append(importManager.getImportedName(feature.getGenClass().getQualifiedInterfaceName()));
+				result.append(")");
+			}
+			result.append(containerName);
+			if (isContainerEObject) {
+				result.append(")");
+			}
+			result.append(".");
+			result.append(feature.getGetAccessor());
+			result.append("()");
+		}
+		return result.toString();
+	}
+	
+	private String getFeatureValueSetterPrefix(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
+		StringBuffer result = new StringBuffer();
+		if (feature.getGenClass().isExternalInterface()) {
+// Using EMF reflective method to access feature value
+			if (!isContainerEObject) {
+// Casting container to EObject - ExternalIntarfce could be not an instance of EObject
+				result.append("((");
+				result.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+				result.append(")");
+			}
+			result.append(containerName);
+			if (!isContainerEObject) {
+				result.append(")");
+			}
+			result.append(".eSet(");
+			result.append(importManager.getImportedName(feature.getGenPackage().getQualifiedPackageInterfaceName()));
+			result.append(".eINSTANCE.get");
+			result.append(feature.getFeatureAccessorName());
+			result.append("(), ");
+		} else {
+			if (isContainerEObject) {
+// Casting container to the typed interface
+				result.append("((");
+				result.append(importManager.getImportedName(feature.getGenClass().getQualifiedInterfaceName()));
+				result.append(")");
+			}
+			result.append(containerName);
+			if (isContainerEObject) {
+				result.append(")");
+			}
+			result.append(".set");
+			result.append(feature.getAccessorName());
+			result.append("(");
+		}
+		return result.toString();
+	}
+ 
+	public String generate(Object argument)
   {
     StringBuffer stringBuffer = new StringBuffer();
     
@@ -245,14 +326,16 @@ for (Iterator it = childFeature2NodesMap.entrySet().iterator(); it.hasNext();) {
 		if (nextFeature.isListType()) {
 
     stringBuffer.append(TEXT_39);
-    stringBuffer.append(nextFeature.getGetAccessor());
+    stringBuffer.append(getFeatureValueGetter("modelElement", nextFeature, false, importManager));
     stringBuffer.append(TEXT_40);
     
 		} else {
 
     stringBuffer.append(TEXT_41);
-    stringBuffer.append(nextFeature.getGetAccessor());
+    stringBuffer.append(importManager.getImportedName(nextFeature.getTypeGenClass().getQualifiedInterfaceName()));
     stringBuffer.append(TEXT_42);
+    stringBuffer.append(getFeatureValueGetter("modelElement", nextFeature, false, importManager));
+    stringBuffer.append(TEXT_43);
     
 		}
 // Continue with the next entry in the Map
@@ -262,26 +345,24 @@ for (Iterator it = childFeature2NodesMap.entrySet().iterator(); it.hasNext();) {
 // GenChildNodes with specified domainMetaClass found:			
 	if (nextFeature.isListType()) {
 
-    stringBuffer.append(TEXT_43);
-    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_44);
-    stringBuffer.append(nextFeature.getGetAccessor());
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
     stringBuffer.append(TEXT_45);
-    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
+    stringBuffer.append(getFeatureValueGetter("modelElement", nextFeature, false, importManager));
     stringBuffer.append(TEXT_46);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
     stringBuffer.append(TEXT_47);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_48);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_49);
     
 	} else {
 
-    stringBuffer.append(TEXT_49);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_50);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(importManager.getImportedName(nextFeature.getTypeGenClass().getQualifiedInterfaceName()));
     stringBuffer.append(TEXT_51);
-    stringBuffer.append(nextFeature.getGetAccessor());
+    stringBuffer.append(getFeatureValueGetter("modelElement", nextFeature, false, importManager));
     stringBuffer.append(TEXT_52);
     
 	}

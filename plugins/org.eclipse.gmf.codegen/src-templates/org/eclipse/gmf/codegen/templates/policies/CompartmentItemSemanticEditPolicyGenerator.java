@@ -5,8 +5,8 @@ import org.eclipse.emf.codegen.ecore.genmodel.*;
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.codegen.util.*;
 
-public class CompartmentItemSemanticEditPolicyGenerator
-{
+public class CompartmentItemSemanticEditPolicyGenerator {
+ 
   protected static String nl;
   public static synchronized CompartmentItemSemanticEditPolicyGenerator create(String lineSeparator)
   {
@@ -33,10 +33,10 @@ public class CompartmentItemSemanticEditPolicyGenerator
   protected final String TEXT_14 = "\t\t" + NL + "\t\t\t";
   protected final String TEXT_15 = " container = (";
   protected final String TEXT_16 = ") req.getContainer();";
-  protected final String TEXT_17 = NL + "\t\t\tif (container.";
-  protected final String TEXT_18 = "() != null) {";
-  protected final String TEXT_19 = NL + "\t\t\tif (container.";
-  protected final String TEXT_20 = "().size() >= ";
+  protected final String TEXT_17 = NL + "\t\t\tif (";
+  protected final String TEXT_18 = " != null) {";
+  protected final String TEXT_19 = NL + "\t\t\tif (";
+  protected final String TEXT_20 = ".size() >= ";
   protected final String TEXT_21 = ") {";
   protected final String TEXT_22 = NL + "\t\t\t\treturn super.getCreateCommand(req);" + NL + "\t\t\t}";
   protected final String TEXT_23 = NL + "\t\t\tif (req.getContainmentFeature() == null) {" + NL + "\t\t\t\treq.setContainmentFeature(";
@@ -66,7 +66,88 @@ public class CompartmentItemSemanticEditPolicyGenerator
   protected final String TEXT_47 = NL + NL + "}";
   protected final String TEXT_48 = NL;
 
-  public String generate(Object argument)
+	private String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
+		StringBuffer result = new StringBuffer();
+		if (feature.getGenClass().isExternalInterface()) {
+// Using EMF reflective method to access feature value
+			result.append("((");
+			if (feature.isListType()) {
+				result.append(importManager.getImportedName("java.util.Collection"));
+			} else {
+				result.append(importManager.getImportedName(feature.getTypeGenClass().getQualifiedInterfaceName()));
+			}
+			result.append(")");
+			if (!isContainerEObject) {
+// Casting container to EObject - ExternalIntarfce could be not an instance of EObject
+				result.append("((");
+				result.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+				result.append(")");
+			}
+			result.append(containerName);
+			if (!isContainerEObject) {
+				result.append(")");
+			}
+			result.append(".eGet(");
+			result.append(importManager.getImportedName(feature.getGenPackage().getQualifiedPackageInterfaceName()));
+			result.append(".eINSTANCE.get");
+			result.append(feature.getFeatureAccessorName());
+			result.append("()))");
+		} else {
+			if (isContainerEObject) {
+// Casting container to the typed interface
+				result.append("((");
+				result.append(importManager.getImportedName(feature.getGenClass().getQualifiedInterfaceName()));
+				result.append(")");
+			}
+			result.append(containerName);
+			if (isContainerEObject) {
+				result.append(")");
+			}
+			result.append(".");
+			result.append(feature.getGetAccessor());
+			result.append("()");
+		}
+		return result.toString();
+	}
+	
+	private String getFeatureValueSetterPrefix(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
+		StringBuffer result = new StringBuffer();
+		if (feature.getGenClass().isExternalInterface()) {
+// Using EMF reflective method to access feature value
+			if (!isContainerEObject) {
+// Casting container to EObject - ExternalIntarfce could be not an instance of EObject
+				result.append("((");
+				result.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+				result.append(")");
+			}
+			result.append(containerName);
+			if (!isContainerEObject) {
+				result.append(")");
+			}
+			result.append(".eSet(");
+			result.append(importManager.getImportedName(feature.getGenPackage().getQualifiedPackageInterfaceName()));
+			result.append(".eINSTANCE.get");
+			result.append(feature.getFeatureAccessorName());
+			result.append("(), ");
+		} else {
+			if (isContainerEObject) {
+// Casting container to the typed interface
+				result.append("((");
+				result.append(importManager.getImportedName(feature.getGenClass().getQualifiedInterfaceName()));
+				result.append(")");
+			}
+			result.append(containerName);
+			if (isContainerEObject) {
+				result.append(")");
+			}
+			result.append(".set");
+			result.append(feature.getAccessorName());
+			result.append("(");
+		}
+		return result.toString();
+	}
+ 
+	public String generate(Object argument)
   {
     StringBuffer stringBuffer = new StringBuffer();
     
@@ -122,13 +203,13 @@ for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext()
 		if (upperBound == 1) {
 
     stringBuffer.append(TEXT_17);
-    stringBuffer.append(containmentMetaFeature.getGetAccessor());
+    stringBuffer.append(getFeatureValueGetter("container", containmentMetaFeature, false, importManager));
     stringBuffer.append(TEXT_18);
     
 		} else {
 
     stringBuffer.append(TEXT_19);
-    stringBuffer.append(containmentMetaFeature.getGetAccessor());
+    stringBuffer.append(getFeatureValueGetter("container", containmentMetaFeature, false, importManager));
     stringBuffer.append(TEXT_20);
     stringBuffer.append(upperBound);
     stringBuffer.append(TEXT_21);

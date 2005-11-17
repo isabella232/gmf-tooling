@@ -1,5 +1,6 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="DiagramEditPartGenerator"
-	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.util.*"%>
+	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.util.*"
+	skeleton="../common.skeleton"%>
 <%
 GenDiagram genDiagram = (GenDiagram) argument;
 %>
@@ -63,7 +64,7 @@ for (Iterator it = genDiagram.getNodes().iterator(); it.hasNext();) {
 for (Iterator it = containmentFeatures.iterator(); it.hasNext();) {
 	GenFeature nextFeature = (GenFeature) it.next();	
 %>
-			result.<%=nextFeature.isListType() ? "addAll" : "add"%>(modelElement.<%=nextFeature.getGetAccessor()%>());
+			result.<%=nextFeature.isListType() ? "addAll" : "add"%>(<%=getFeatureValueGetter("modelElement", nextFeature, false, importManager)%>);
 <%
 }
 %>
@@ -110,7 +111,7 @@ for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
 		GenFeature nextLinkTargetFeature = typeLinkFacet.getTargetMetaFeature();
 %>
 				case <%=nextGenLink.getVisualID()%>:
-					((<%=importManager.getImportedName(typeLinkFacet.getMetaClass().getQualifiedInterfaceName())%>) relationship).<%=nextLinkTargetFeature.getGetAccessor()%>()<%=nextLinkTargetFeature.isListType() ? ".get(0)" : ""%>;
+					return <%=getFeatureValueGetter("relationship", nextLinkTargetFeature, true, importManager)%><%=nextLinkTargetFeature.isListType() ? ".get(0)" : ""%>;
 <%
 	}
 }

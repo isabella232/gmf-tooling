@@ -54,11 +54,11 @@ for (Iterator it = childFeature2NodesMap.entrySet().iterator(); it.hasNext();) {
 // GenChildNode without specified domainMetaClass found:
 		if (nextFeature.isListType()) {
 %>
-			result.addAll(modelElement.<%=nextFeature.getGetAccessor()%>());
+			result.addAll(<%=getFeatureValueGetter("modelElement", nextFeature, false, importManager)%>);
 <%
 		} else {
 %>
-			Object featureValue = modelElement.<%=nextFeature.getGetAccessor()%>();
+			<%=importManager.getImportedName(nextFeature.getTypeGenClass().getQualifiedInterfaceName())%> featureValue = <%=getFeatureValueGetter("modelElement", nextFeature, false, importManager)%>;
 			if (featureValue != null) {
 				result.add(featureValue);
 			}
@@ -71,13 +71,13 @@ for (Iterator it = childFeature2NodesMap.entrySet().iterator(); it.hasNext();) {
 // GenChildNodes with specified domainMetaClass found:			
 	if (nextFeature.isListType()) {
 %>
-			<%=importManager.getImportedName("java.util.Collection")%> featureValues = modelElement.<%=nextFeature.getGetAccessor()%>();
+			<%=importManager.getImportedName("java.util.Collection")%> featureValues = <%=getFeatureValueGetter("modelElement", nextFeature, false, importManager)%>;
 			for (<%=importManager.getImportedName("java.util.Iterator")%> it = featureValues.iterator(); it.hasNext();) {
 				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextValue = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) it.next();
 <%
 	} else {
 %>
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextValue = (<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%>) modelElement.<%=nextFeature.getGetAccessor()%>();
+			<%=importManager.getImportedName(nextFeature.getTypeGenClass().getQualifiedInterfaceName())%> nextValue = <%=getFeatureValueGetter("modelElement", nextFeature, false, importManager)%>;
 <%
 	}
 %>
