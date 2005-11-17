@@ -1187,7 +1187,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getPluginClassName() {
 		String value = getPluginClassNameGen();
 		if (value == null || value.length() == 0) {
-			return CodeGenUtil.validJavaIdentifier(getEMFGenModel().getModelName()) + "DiagramEditorPlugin";
+			return getDomainPackageCapName() + "DiagramEditorPlugin";
 		}
 		return value;
 	}
@@ -2988,7 +2988,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	String getDomainPackageCapName() {
-		String name = getDomainMetaModel().getEcorePackage().getName();
+		String name = CodeGenUtil.validJavaIdentifier(getEMFGenModel().getModelName());
 		if (name.length() < 2) {
 			return name.toUpperCase();
 		}
