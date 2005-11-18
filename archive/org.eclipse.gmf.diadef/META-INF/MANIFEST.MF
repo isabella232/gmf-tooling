@@ -10,3 +10,4 @@ Export-Package: org.eclipse.gmf.diadef,
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport
 Eclipse-AutoStart: false
+Bundle-Localization: plugin
