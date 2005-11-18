@@ -16,7 +16,7 @@ plugin@org.eclipse.gmf.examples.runtime.ui.pde=I20051111-1800,:pserver:anonymous
 plugin@org.eclipse.gmf.examples.runtime.emf=I20051111-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.emf
 plugin@org.eclipse.gmf.examples.runtime.emf.clipboard=I20051111-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/examples/org.eclipse.gmf.examples.runtime.emf.clipboard
 
-!*** TODO: remove when moved to EMFT (install as usual with dependencies)
-plugin@org.eclipse.emf.examples.library=I20051111-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/contributions/emft/org.eclipse.emf.examples.library
-plugin@org.eclipse.emf.examples.library.edit=I20051111-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/contributions/emft/org.eclipse.emf.examples.library.edit
-plugin@org.eclipse.emf.examples.library.editor=I20051111-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/contributions/emft/org.eclipse.emf.examples.library.editor
+!*** TODO: remove when moved to EMFT, if not before
+plugin@org.eclipse.emf.examples.library=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/tools,,org.eclipse.emf/examples/org.eclipse.emf.examples.library
+plugin@org.eclipse.emf.examples.library.edit=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/tools,,org.eclipse.emf/examples/org.eclipse.emf.examples.library.edit
+plugin@org.eclipse.emf.examples.library.editor=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/tools,,org.eclipse.emf/examples/org.eclipse.emf.examples.library.editor
