@@ -1149,13 +1149,31 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_LINK__LABELS = GEN_COMMON_BASE_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Outgoing Creation Allowed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK__OUTGOING_CREATION_ALLOWED = GEN_COMMON_BASE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Incoming Creation Allowed</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK__INCOMING_CREATION_ALLOWED = GEN_COMMON_BASE_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the the '<em>Gen Link</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LINK_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 3;
+	int GEN_LINK_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLabelImpl <em>Gen Label</em>}' class.
@@ -3529,6 +3547,28 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getGenLink_Labels();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isOutgoingCreationAllowed <em>Outgoing Creation Allowed</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Outgoing Creation Allowed</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLink#isOutgoingCreationAllowed()
+	 * @see #getGenLink()
+	 * @generated
+	 */
+	EAttribute getGenLink_OutgoingCreationAllowed();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isIncomingCreationAllowed <em>Incoming Creation Allowed</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Incoming Creation Allowed</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLink#isIncomingCreationAllowed()
+	 * @see #getGenLink()
+	 * @generated
+	 */
+	EAttribute getGenLink_IncomingCreationAllowed();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenLabel <em>Gen Label</em>}'.

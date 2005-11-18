@@ -47,13 +47,18 @@ final String INCOMING_TOKEN = "Incoming";
 <%
 for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	GenLink genLink = (GenLink) links.next();
+	if (!genLink.isOutgoingCreationAllowed() && !genLink.isIncomingCreationAllowed()) {
+		continue;
+	}
 	String namePart = null;
+	boolean outgoing = true;
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
 		if (nodeMetaClass.equals(modelFacet.getContainmentMetaFeature().getGenClass())) {
 			namePart = OUTGOING_TOKEN + modelFacet.getMetaClass().getName();
 		} else if (nodeMetaClass.equals(modelFacet.getTargetMetaFeature().getTypeGenClass())) {
 			namePart = INCOMING_TOKEN + modelFacet.getMetaClass().getName();
+			outgoing = false;
 		}
 	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
@@ -61,13 +66,25 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			namePart = OUTGOING_TOKEN + metaFeature.getFeatureAccessorName();
 		} else if (nodeMetaClass.equals(metaFeature.getTypeGenClass())) {
 			namePart = INCOMING_TOKEN + metaFeature.getFeatureAccessorName();
+			outgoing = false;
 		}
 	}
 	if (namePart != null) {
 		namePart += genLink.getVisualID();
 %>
 		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%> == req.getElementType()) {
+<%		if (genLink.isOutgoingCreationAllowed() && genLink.isIncomingCreationAllowed()) {%>
 			return req.getTarget() == null ? getCreateStart<%=namePart%>Command(req) : getCreateComplete<%=namePart%>Command(req);
+<%
+		} else {
+			if (outgoing ? genLink.isOutgoingCreationAllowed() : genLink.isIncomingCreationAllowed()) {
+%>
+			return req.getTarget() == null ? getCreateStart<%=namePart%>Command(req) : null;
+<%			} else {%>
+			return req.getTarget() == null ? null : getCreateComplete<%=namePart%>Command(req);
+<%			}
+		}
+%>
 		}
 <%
 	}
@@ -80,6 +97,15 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	GenLink genLink = (GenLink) links.next();
 	String namePart = null;
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+//
+//
+//
+////////////////////////
+// Type Link Commands //
+////////////////////////
+//
+//
+//
 		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
 		GenClass outgoingClass = modelFacet.getContainmentMetaFeature().getGenClass();
 		GenClass incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
@@ -87,6 +113,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		int upperBound = containmentFeature.getEcoreFeature().getUpperBound();
 		if (nodeMetaClass.equals(outgoingClass)) {
 			namePart = OUTGOING_TOKEN + modelFacet.getMetaClass().getName() + genLink.getVisualID();
+			if (genLink.isOutgoingCreationAllowed()) {
 %>
 
 	/**
@@ -111,6 +138,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		return new Command() {
 		};
 	}
+<%
+			}
+			if (genLink.isIncomingCreationAllowed()) {
+%>
 
 	/**
 	 * @generated
@@ -183,8 +214,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		}
 	}
 <%
+			}
 		} else if (nodeMetaClass.equals(incomingClass)) {
 			namePart = INCOMING_TOKEN + modelFacet.getMetaClass().getName() + genLink.getVisualID();
+			if (genLink.isIncomingCreationAllowed()) {
 %>
 
 	/**
@@ -195,6 +228,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		return new Command() {
 		};
 	}
+<%
+			}
+			if (genLink.isOutgoingCreationAllowed()) {
+%>
 
 	/**
 	 * @generated
@@ -267,14 +304,25 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		}
 	}
 <%
+			}
 		}
 	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+//
+//
+//
+////////////////////////
+// Feat Link Commands //
+////////////////////////
+//
+//
+//
 		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
 		int upperBound = metaFeature.getEcoreFeature().getUpperBound();
 		GenClass outgoingClass = metaFeature.getGenClass();
 		GenClass incomingClass = metaFeature.getTypeGenClass();
 		if (nodeMetaClass.equals(outgoingClass)) {
 			namePart = OUTGOING_TOKEN + metaFeature.getFeatureAccessorName() + genLink.getVisualID();
+			if (genLink.isOutgoingCreationAllowed()) {
 %>
 
 	/**
@@ -299,6 +347,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		return new Command() {
 		};
 	}
+<%
+			}
+			if (genLink.isIncomingCreationAllowed()) {
+%>
 
 	/**
 	 * @generated
@@ -332,8 +384,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		return getMSLWrapper(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand")%>(setReq));
 	}
 <%
+			}
 		} else if (nodeMetaClass.equals(incomingClass)) {
 			namePart = INCOMING_TOKEN + metaFeature.getFeatureAccessorName() + genLink.getVisualID();
+			if (genLink.isIncomingCreationAllowed()) {
 %>
 
 	/**
@@ -344,6 +398,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		return new Command() {
 		};
 	}
+<%
+			}
+			if (genLink.isOutgoingCreationAllowed()) {
+%>
 
 	/**
 	 * @generated
@@ -377,6 +435,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		return getMSLWrapper(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand")%>(setReq));
 	}
 <%
+			}
 		}
 	}
 }

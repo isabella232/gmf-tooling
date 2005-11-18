@@ -38,6 +38,8 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getModelFacet <em>Model Facet</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getLabels <em>Labels</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#isOutgoingCreationAllowed <em>Outgoing Creation Allowed</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#isIncomingCreationAllowed <em>Incoming Creation Allowed</em>}</li>
  * </ul>
  * </p>
  *
@@ -63,6 +65,46 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * @ordered
 	 */
 	protected EList labels = null;
+
+	/**
+	 * The default value of the '{@link #isOutgoingCreationAllowed() <em>Outgoing Creation Allowed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOutgoingCreationAllowed()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean OUTGOING_CREATION_ALLOWED_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isOutgoingCreationAllowed() <em>Outgoing Creation Allowed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isOutgoingCreationAllowed()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean outgoingCreationAllowed = OUTGOING_CREATION_ALLOWED_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isIncomingCreationAllowed() <em>Incoming Creation Allowed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIncomingCreationAllowed()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean INCOMING_CREATION_ALLOWED_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isIncomingCreationAllowed() <em>Incoming Creation Allowed</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isIncomingCreationAllowed()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean incomingCreationAllowed = INCOMING_CREATION_ALLOWED_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -145,6 +187,48 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			labels = new EObjectContainmentWithInverseEList(GenLinkLabel.class, this, GMFGenPackage.GEN_LINK__LABELS, GMFGenPackage.GEN_LINK_LABEL__LINK);
 		}
 		return labels;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isOutgoingCreationAllowed() {
+		return outgoingCreationAllowed;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setOutgoingCreationAllowed(boolean newOutgoingCreationAllowed) {
+		boolean oldOutgoingCreationAllowed = outgoingCreationAllowed;
+		outgoingCreationAllowed = newOutgoingCreationAllowed;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__OUTGOING_CREATION_ALLOWED, oldOutgoingCreationAllowed, outgoingCreationAllowed));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isIncomingCreationAllowed() {
+		return incomingCreationAllowed;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIncomingCreationAllowed(boolean newIncomingCreationAllowed) {
+		boolean oldIncomingCreationAllowed = incomingCreationAllowed;
+		incomingCreationAllowed = newIncomingCreationAllowed;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__INCOMING_CREATION_ALLOWED, oldIncomingCreationAllowed, incomingCreationAllowed));
 	}
 
 	/**
@@ -236,6 +320,10 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				return getModelFacet();
 			case GMFGenPackage.GEN_LINK__LABELS:
 				return getLabels();
+			case GMFGenPackage.GEN_LINK__OUTGOING_CREATION_ALLOWED:
+				return isOutgoingCreationAllowed() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_LINK__INCOMING_CREATION_ALLOWED:
+				return isIncomingCreationAllowed() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -272,6 +360,12 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				getLabels().clear();
 				getLabels().addAll((Collection)newValue);
 				return;
+			case GMFGenPackage.GEN_LINK__OUTGOING_CREATION_ALLOWED:
+				setOutgoingCreationAllowed(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGenPackage.GEN_LINK__INCOMING_CREATION_ALLOWED:
+				setIncomingCreationAllowed(((Boolean)newValue).booleanValue());
+				return;
 		}
 		eDynamicSet(eFeature, newValue);
 	}
@@ -307,6 +401,12 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			case GMFGenPackage.GEN_LINK__LABELS:
 				getLabels().clear();
 				return;
+			case GMFGenPackage.GEN_LINK__OUTGOING_CREATION_ALLOWED:
+				setOutgoingCreationAllowed(OUTGOING_CREATION_ALLOWED_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_LINK__INCOMING_CREATION_ALLOWED:
+				setIncomingCreationAllowed(INCOMING_CREATION_ALLOWED_EDEFAULT);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -336,8 +436,29 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				return modelFacet != null;
 			case GMFGenPackage.GEN_LINK__LABELS:
 				return labels != null && !labels.isEmpty();
+			case GMFGenPackage.GEN_LINK__OUTGOING_CREATION_ALLOWED:
+				return outgoingCreationAllowed != OUTGOING_CREATION_ALLOWED_EDEFAULT;
+			case GMFGenPackage.GEN_LINK__INCOMING_CREATION_ALLOWED:
+				return incomingCreationAllowed != INCOMING_CREATION_ALLOWED_EDEFAULT;
 		}
 		return eDynamicIsSet(eFeature);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (outgoingCreationAllowed: ");
+		result.append(outgoingCreationAllowed);
+		result.append(", incomingCreationAllowed: ");
+		result.append(incomingCreationAllowed);
+		result.append(')');
+		return result.toString();
 	}
 
 	public String getClassNamePrefix() {
