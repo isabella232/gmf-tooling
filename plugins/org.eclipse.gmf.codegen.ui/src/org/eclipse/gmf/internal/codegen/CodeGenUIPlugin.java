@@ -16,8 +16,6 @@ import java.text.MessageFormat;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -26,17 +24,6 @@ public class CodeGenUIPlugin extends AbstractUIPlugin {
 
 	public CodeGenUIPlugin() {
 		plugin = this;
-	}
-
-	public void start(BundleContext context) throws Exception {
-		super.start(context);
-		if (null == EPackage.Registry.INSTANCE.getEPackage(GMFGenPackage.eNS_URI)) {
-			EPackage.Registry.INSTANCE.put(GMFGenPackage.eNS_URI, new EPackage.Descriptor() {
-				public EPackage getEPackage() {
-					return GMFGenPackage.eINSTANCE;
-				}
-			});
-		}
 	}
 
 	public void stop(BundleContext context) throws Exception {
