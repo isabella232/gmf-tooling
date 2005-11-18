@@ -10,8 +10,6 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.diadef.*;
-
 import org.eclipse.gmf.diadef.Canvas;
 import org.eclipse.gmf.diadef.CommonBase;
 import org.eclipse.gmf.diadef.Compartment;

@@ -10,8 +10,6 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.diadef.*;
-
 import org.eclipse.gmf.diadef.Canvas;
 import org.eclipse.gmf.diadef.CommonBase;
 import org.eclipse.gmf.diadef.Compartment;

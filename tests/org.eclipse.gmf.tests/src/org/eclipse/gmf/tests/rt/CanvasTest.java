@@ -11,13 +11,7 @@
  */
 package org.eclipse.gmf.tests.rt;
 
-import java.util.Arrays;
-
 import junit.framework.TestCase;
-
-import org.eclipse.gmf.runtime.notation.Diagram;
-import org.eclipse.gmf.runtime.notation.NotationFactory;
-import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @author artem
