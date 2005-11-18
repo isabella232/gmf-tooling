@@ -2,76 +2,85 @@
 <project default="main" basedir=".">
 
 	<target name="init">
-		<delete file="label.properties"/>
+		<delete file="label.properties" />
 		<ant antfile="build.xml" target="create.label.properties" />
 	</target>
-	
-	<target name="main" depends="init">		
-		<echo message="Building runtime..."/>
-	     <ant antfile="build.xml" target="main">
-	           <property name="component" value="runtime"/>
-	           <property name="cleanBase" value="true"/> 
-	           <property name="wipe" value="true" />
-	     </ant>
-	     <echo message="Building sdk..."/>		 
-	     <ant antfile="build.xml" target="main">
-	           <property name="component" value="sdk"/>
-	           <property name="wipe" value="true" />
-	     	   <property name="copyRuntime" value="true" />
-	     </ant> 
-	     <echo message="Building examples..."/>
-	     <ant antfile="build.xml" target="main">
-	           <property name="component" value="examples"/>
-	           <property name="wipe" value="true" />
-	     </ant>
-	     <echo message="Building tests..."/>
-	     <ant antfile="build.xml" target="main">
-	           <property name="component" value="tests"/>
-	           <property name="cleanBase" value="true"/>
-	           <property name="wipe" value="true" />
-	     </ant>
+
+	<target name="main" depends="init">
+		<echo message="Building runtime..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="runtime" />
+			<property name="cleanBase" value="true" />
+			<property name="wipe" value="true" />
+			<property name="mapsCheckoutTag" value="M3_10" />
+		</ant>
+		<echo message="Building sdk..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="sdk" />
+			<property name="wipe" value="true" />
+			<property name="copyRuntime" value="true" />
+			<property name="mapsCheckoutTag" value="M3_10" />
+		</ant>
+		<echo message="Building examples..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="examples" />
+			<property name="wipe" value="true" />
+			<property name="mapsCheckoutTag" value="M3_10" />
+		</ant>
+		<echo message="Building tests..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="tests" />
+			<property name="cleanBase" value="true" />
+			<property name="wipe" value="true" />
+			<property name="mapsCheckoutTag" value="M3_10" />
+		</ant>
 	</target>
-	
+
 	<target name="nightly" depends="init">
-		<echo message="Building runtime..."/>
-	     <ant antfile="build.xml" target="main">
-	           <property name="component" value="runtime"/>
-	           <property name="cleanBase" value="true"/> 
-	           <property name="wipe" value="true" />
-	     </ant>
-	     <echo message="Building sdk..."/>
-	     <ant antfile="build.xml" target="main">
-	           <property name="component" value="sdk"/>
-	           <property name="wipe" value="true" />
-	           <property name="copyRuntime" value="true" />
-	     </ant> 
-	     <echo message="Building examples..."/>
-	     <ant antfile="build.xml" target="main">
-	           <property name="component" value="examples"/>
-	           <property name="wipe" value="true" />
-	     </ant>
-	     <echo message="Building tests..."/>
-	     <ant antfile="build.xml" target="main">
-	           <property name="component" value="tests"/>
-	           <property name="cleanBase" value="true"/>
-	           <property name="wipe" value="true" />
-	     </ant>
-	     <echo message="Building documentation..."/>
-	     <ant antfile="build.xml" target="main">
-	           <property name="component" value="doc"/>
-	           <property name="wipe" value="true" />
-	     </ant>
-	     <antcall target="publish"/>
-		 <property file="build.properties" />
-		 <antcall target="statCVS"/>
+		<echo message="Building runtime..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="runtime" />
+			<property name="cleanBase" value="true" />
+			<property name="wipe" value="true" />
+			<property name="mapsCheckoutTag" value="M3_10" />
+		</ant>
+		<echo message="Building sdk..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="sdk" />
+			<property name="wipe" value="true" />
+			<property name="copyRuntime" value="true" />
+			<property name="mapsCheckoutTag" value="M3_10" />
+		</ant>
+		<echo message="Building examples..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="examples" />
+			<property name="wipe" value="true" />
+			<property name="mapsCheckoutTag" value="M3_10" />
+		</ant>
+		<echo message="Building tests..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="tests" />
+			<property name="cleanBase" value="true" />
+			<property name="wipe" value="true" />
+			<property name="mapsCheckoutTag" value="M3_10" />
+		</ant>
+		<echo message="Building documentation..." />
+		<ant antfile="build.xml" target="main">
+			<property name="component" value="doc" />
+			<property name="wipe" value="true" />
+			<property name="mapsCheckoutTag" value="M3_10" />
+		</ant>
+		<antcall target="publish" />
+		<property file="build.properties" />
+		<antcall target="statCVS" />
 	</target>
-	
+
 	<target name="publish" depends="">
 		<!-- Fake a component, use sdk -->
-		<property name="component" value="sdk"/>
+		<property name="component" value="sdk" />
 		<property file="build.properties" />
-		<property file="label.properties" />		
-		<property file="${buildRoot}/sdk/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
+		<property file="label.properties" />
+		<property file="${buildRoot}/sdk/maps/org.eclipse.gmf.releng/maps/build.cfg" />
 		<property name="publish.xml" value="../../org.eclipse.releng.basebuilder/plugins/org.eclipse.build.tools/scripts/publish.xml" />
 
 		<property name="indexFileName" value="index.php" />
@@ -83,52 +92,52 @@
 		</ant>
 
 		<!-- Copy the directory.txt file to destination for download page -->
-		<copy file="${buildRoot}/sdk/directory.txt" todir="${artifacts}/${buildLabel}"/>
+		<copy file="${buildRoot}/sdk/directory.txt" todir="${artifacts}/${buildLabel}" />
 
 		<replace file="${result}/${indexFileName}">
-		 	<!--  Insert url for supported eclipse drop-->
-			<replacefilter token="@eclipseVersion@" value="${eclipseVersion}"/>
-			<replacefilter token="@eclipseBuildId@" value="${eclipseBuildId}"/>
-			<replacefilter token="@eclipseBaseURL@" value="${eclipseBaseURL}"/>
-			<replacefilter token="@eclipseDownloadPage@" value="${eclipseDownloadPage}"/>	
+			<!--  Insert url for supported eclipse drop-->
+			<replacefilter token="@eclipseVersion@" value="${eclipseVersion}" />
+			<replacefilter token="@eclipseBuildId@" value="${eclipseBuildId}" />
+			<replacefilter token="@eclipseBaseURL@" value="${eclipseBaseURL}" />
+			<replacefilter token="@eclipseDownloadPage@" value="${eclipseDownloadPage}" />
 
-		 	<!--  Insert url for supported EMF -->
-			<replacefilter token="@emfVersion@" value="${emfVersion}"/>
-			<replacefilter token="@emfUpdateSite@" value="${emfUpdateSite}"/>	
-			<replacefilter token="@emfDownloadPage@" value="${emfDownloadPage}"/>
+			<!--  Insert url for supported EMF -->
+			<replacefilter token="@emfVersion@" value="${emfVersion}" />
+			<replacefilter token="@emfUpdateSite@" value="${emfUpdateSite}" />
+			<replacefilter token="@emfDownloadPage@" value="${emfDownloadPage}" />
 
-		 	<!--  Insert url for supported GEF -->
-			<replacefilter token="@gefVersion@" value="${gefVersion}"/>
-			<replacefilter token="@gefUpdateSite@" value="${gefUpdateSite}"/>
-			<replacefilter token="@gefDownloadPage@" value="${gefDownloadPage}"/>
-			
+			<!--  Insert url for supported GEF -->
+			<replacefilter token="@gefVersion@" value="${gefVersion}" />
+			<replacefilter token="@gefUpdateSite@" value="${gefUpdateSite}" />
+			<replacefilter token="@gefDownloadPage@" value="${gefDownloadPage}" />
+
 			<!--  Insert url for supported UML2 -->
-			<replacefilter token="@uml2Version@" value="${uml2Version}"/>
-			<replacefilter token="@uml2UpdateSite@" value="${uml2UpdateSite}"/>
-			<replacefilter token="@uml2DownloadPage@" value="${uml2DownloadPage}"/>
+			<replacefilter token="@uml2Version@" value="${uml2Version}" />
+			<replacefilter token="@uml2UpdateSite@" value="${uml2UpdateSite}" />
+			<replacefilter token="@uml2DownloadPage@" value="${uml2DownloadPage}" />
+
+			<!--  Insert url for supported ANTLR -->
+			<replacefilter token="@antlrURL@" value="${antlrURL}" />
 		</replace>
-	
+
 		<!-- Replace the base variables to be nothing for bld-index, and the full reroute url for the main index file. -->
-		<replace file="${result}/${indexFileName}" token="@base@" value="http://www.eclipse.org/downloads/download.php?file=/technology/gmf/downloads/drops/${buildLabel}/"/>
+		<replace file="${result}/${indexFileName}" token="@base@" value="http://www.eclipse.org/downloads/download.php?file=/technology/gmf/downloads/drops/${buildLabel}/" />
 		<!-- Copy update jars as well -->
 		<copy todir="${buildRoot}/artifacts/updates/${buildLabel}/features">
-		    <fileset dir="${buildUpdateSitePath}/features"/>
-		  </copy>
+			<fileset dir="${buildUpdateSitePath}/features" />
+		</copy>
 		<copy todir="${buildRoot}/artifacts/updates/${buildLabel}/plugins">
-		    <fileset dir="${buildUpdateSitePath}/plugins"/>
-		  </copy>
+			<fileset dir="${buildUpdateSitePath}/plugins" />
+		</copy>
 	</target>
-	
+
 	<target name="statCVS" if="statCVShome">
-		<cvs dest="${checkoutDirectory}/org.eclipse.gmf" command="log" output="${checkoutDirectory}/logfile.log"/>
-		<java jar="${statCVShome}/statcvs.jar" dir="${statCVSpublish}"
-              fork="true"
-              failonerror="true"
-              maxmemory="1024m">
-            <arg value="${checkoutDirectory}/logfile.log"/>
-			<arg value="${checkoutDirectory}/org.eclipse.gmf"/>
-        </java>
-		<copy file="${scripts}/css/statcvs.css" todir="${statCVSpublish}" overwrite="true"/>
+		<cvs dest="${checkoutDirectory}/org.eclipse.gmf" command="log" output="${checkoutDirectory}/logfile.log" />
+		<java jar="${statCVShome}/statcvs.jar" dir="${statCVSpublish}" fork="true" failonerror="true" maxmemory="1024m">
+			<arg value="${checkoutDirectory}/logfile.log" />
+			<arg value="${checkoutDirectory}/org.eclipse.gmf" />
+		</java>
+		<copy file="${scripts}/css/statcvs.css" todir="${statCVSpublish}" overwrite="true" />
 	</target>
-	
+
 </project>
