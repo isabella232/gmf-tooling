@@ -78,24 +78,9 @@
 	<target name="postSetup">
 		<!-- Load build.cfg properties -->
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
-		<antcall target="getBaseComponents" />
+		<ant antfile="${scripts}/install.xml" target="getBaseComponents" />
 		<available file="${baseLocation}/configuration/config.ini" property="baseExists" />
-		<antcall target="installBase" />		
-	</target>
-	
-	<!-- ===================================================================== -->
-	<!-- Retrieve and install Eclipse base and dependencies. -->
-	<!-- ===================================================================== -->
-	<target name="getBaseComponents" depends="checkLocalBase" unless="skipBase">
-		<get src="${eclipseBaseURL}" dest="${baseLocationRoot}/eclipse-SDK-${eclipseVersion}-${baseos}.zip" verbose="true" usetimestamp="true"/>
-	</target>
-
-	<target name="checkLocalBase">
-		<available file="${baseLocationRoot}/eclipse-SDK-${eclipseVersion}-${baseos}.zip" property="skipBase" />
-	</target>
-	
-	<target name="installBase" unless="baseExists">
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/eclipse-SDK-${eclipseVersion}-${baseos}.zip" />
+		<ant antfile="${scripts}/install.xml" target="installBase" />	
 	</target>
 
 	<!-- ===================================================================== -->
