@@ -11,4 +11,4 @@ Export-Package: org.eclipse.gmf.examples.taipan,
  org.eclipse.gmf.examples.taipan.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport
-Eclipse-AutoStart: false
+Eclipse-AutoStart: true
