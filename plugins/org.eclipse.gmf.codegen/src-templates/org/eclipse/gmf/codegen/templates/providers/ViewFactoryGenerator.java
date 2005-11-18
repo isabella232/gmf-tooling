@@ -70,23 +70,30 @@ public class ViewFactoryGenerator
     ImportUtil importManager = new ImportUtil(genDiagram.getNotationViewFactoriesPackageName());
     stringBuffer.append(TEXT_3);
     importManager.markImportLocation(stringBuffer);
+    
+boolean isLink = genElement instanceof GenLink;
+boolean isDiagram = genElement instanceof GenDiagram;
+boolean isCompartment = genElement instanceof GenCompartment;
+boolean isLeaf = genElement instanceof GenChildNode &&  ((GenChildNode) genElement).isListContainerEntry();
+boolean isNode = !isLink && !isDiagram && !isCompartment;
+
     stringBuffer.append(TEXT_4);
     stringBuffer.append(genElement.getNotationViewFactoryClassName());
     stringBuffer.append(TEXT_5);
-    if (genElement instanceof GenLink) {
+    if (isLink) {
     stringBuffer.append(TEXT_6);
-    } else if (genElement instanceof GenChildNode) {
+    } else if (isLeaf) {
     stringBuffer.append(TEXT_7);
-    } else if (genElement instanceof GenCompartment) {
+    } else if (isCompartment) {
     stringBuffer.append(TEXT_8);
-    } else if (genElement instanceof GenDiagram) {
+    } else if (isDiagram) {
     stringBuffer.append(TEXT_9);
     } else {
     stringBuffer.append(TEXT_10);
     }
     stringBuffer.append(TEXT_11);
     
-if (genElement instanceof GenDiagram) {
+if (isDiagram) {
 
     stringBuffer.append(TEXT_12);
     
@@ -116,7 +123,7 @@ if (colorAttrs != null && colorAttrs.getForegroundColor() != null && colorAttrs.
     stringBuffer.append(TEXT_22);
     
 }
-if (genElement instanceof GenNode) {
+if (isNode) {
 	GenNode genNode = (GenNode) genElement;
 	if (colorAttrs != null && colorAttrs.getBackgroundColor() != null && colorAttrs.getBackgroundColor().trim().length() > 0) {
     stringBuffer.append(TEXT_23);
@@ -133,7 +140,7 @@ if (genElement instanceof GenNode) {
     
 	}
 	String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
-	if (!(genNode instanceof GenChildNode)) {
+	if (!isLeaf) {
 		List labels = genNode.getLabels();
 		for (int j = 0; j < labels.size(); j++) {
 			GenNodeLabel label = (GenNodeLabel) labels.get(j);
@@ -159,7 +166,7 @@ if (genElement instanceof GenNode) {
     stringBuffer.append(TEXT_34);
     
 	}
-} else if (genElement instanceof GenLink) {
+} else if (isLink) {
 	GenLink genLink = (GenLink) genElement;
 	String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 	List labels = genLink.getLabels();

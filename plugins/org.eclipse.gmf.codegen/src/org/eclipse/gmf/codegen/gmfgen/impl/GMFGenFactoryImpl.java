@@ -105,21 +105,12 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 */
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case GMFGenPackage.COMPARTMENT_PLACEMENT_KIND: {
-				CompartmentPlacementKind result = CompartmentPlacementKind.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case GMFGenPackage.COMPARTMENT_LAYOUT_KIND: {
-				CompartmentLayoutKind result = CompartmentLayoutKind.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case GMFGenPackage.LINK_LABEL_ALIGNMENT: {
-				LinkLabelAlignment result = LinkLabelAlignment.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
+			case GMFGenPackage.COMPARTMENT_PLACEMENT_KIND:
+				return createCompartmentPlacementKindFromString(eDataType, initialValue);
+			case GMFGenPackage.COMPARTMENT_LAYOUT_KIND:
+				return createCompartmentLayoutKindFromString(eDataType, initialValue);
+			case GMFGenPackage.LINK_LABEL_ALIGNMENT:
+				return createLinkLabelAlignmentFromString(eDataType, initialValue);
 			case GMFGenPackage.STRING_ARRAY:
 				return createStringArrayFromString(eDataType, initialValue);
 			default:
@@ -135,11 +126,11 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
 			case GMFGenPackage.COMPARTMENT_PLACEMENT_KIND:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertCompartmentPlacementKindToString(eDataType, instanceValue);
 			case GMFGenPackage.COMPARTMENT_LAYOUT_KIND:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertCompartmentLayoutKindToString(eDataType, instanceValue);
 			case GMFGenPackage.LINK_LABEL_ALIGNMENT:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertLinkLabelAlignmentToString(eDataType, instanceValue);
 			case GMFGenPackage.STRING_ARRAY:
 				return convertStringArrayToString(eDataType, instanceValue);
 			default:
@@ -415,6 +406,66 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenFeatureValueSpec createGenFeatureValueSpec() {
 		GenFeatureValueSpecImpl genFeatureValueSpec = new GenFeatureValueSpecImpl();
 		return genFeatureValueSpec;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CompartmentPlacementKind createCompartmentPlacementKindFromString(EDataType eDataType, String initialValue) {
+		CompartmentPlacementKind result = CompartmentPlacementKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertCompartmentPlacementKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CompartmentLayoutKind createCompartmentLayoutKindFromString(EDataType eDataType, String initialValue) {
+		CompartmentLayoutKind result = CompartmentLayoutKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertCompartmentLayoutKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LinkLabelAlignment createLinkLabelAlignmentFromString(EDataType eDataType, String initialValue) {
+		LinkLabelAlignment result = LinkLabelAlignment.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertLinkLabelAlignmentToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

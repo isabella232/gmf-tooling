@@ -133,6 +133,7 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenChildNode">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildNode/container"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenChildNode/isListContainerEntry"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenLink">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/diagram"/>

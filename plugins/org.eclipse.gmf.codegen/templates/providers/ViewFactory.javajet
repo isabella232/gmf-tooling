@@ -11,18 +11,25 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.*;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
+<%
+boolean isLink = genElement instanceof GenLink;
+boolean isDiagram = genElement instanceof GenDiagram;
+boolean isCompartment = genElement instanceof GenCompartment;
+boolean isLeaf = genElement instanceof GenChildNode &&  ((GenChildNode) genElement).isListContainerEntry();
+boolean isNode = !isLink && !isDiagram && !isCompartment;
+%>
 
 /**
  * @generated
  */
 public class <%=genElement.getNotationViewFactoryClassName()%> extends 
-<%if (genElement instanceof GenLink) {%>
+<%if (isLink) {%>
 	ConnectionViewFactory
-<%} else if (genElement instanceof GenChildNode) {%>
+<%} else if (isLeaf) {%>
 	AbstractLabelViewFactory
-<%} else if (genElement instanceof GenCompartment) {%>
+<%} else if (isCompartment) {%>
     ListCompartmentViewFactory
-<%} else if (genElement instanceof GenDiagram) {%>    
+<%} else if (isDiagram) {%>    
 	DiagramViewFactory
 <%} else {%>
 	AbstractShapeViewFactory
@@ -33,7 +40,7 @@ public class <%=genElement.getNotationViewFactoryClassName()%> extends
 	 * @generated
 	 */
 <%
-if (genElement instanceof GenDiagram) {
+if (isDiagram) {
 %>
 	protected void decorateView(View view, IAdaptable semanticAdapter, String diagramKind){
 		super.decorateView(view, semanticAdapter, diagramKind);
@@ -54,7 +61,7 @@ if (colorAttrs != null && colorAttrs.getForegroundColor() != null && colorAttrs.
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities")%>.colorToInteger(<%=importManager.getImportedName("org.eclipse.draw2d.ColorConstants")%>.<%=colorAttrs.getForegroundColor()%>));
 <%
 }
-if (genElement instanceof GenNode) {
+if (isNode) {
 	GenNode genNode = (GenNode) genElement;
 	if (colorAttrs != null && colorAttrs.getBackgroundColor() != null && colorAttrs.getBackgroundColor().trim().length() > 0) {%>
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.setStructuralFeatureValue(view, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getFillStyle_FillColor(),
@@ -62,7 +69,7 @@ if (genElement instanceof GenNode) {
 <%
 	}
 	String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
-	if (!(genNode instanceof GenChildNode)) {
+	if (!isLeaf) {
 		List labels = genNode.getLabels();
 		for (int j = 0; j < labels.size(); j++) {
 			GenNodeLabel label = (GenNodeLabel) labels.get(j);
@@ -82,7 +89,7 @@ if (genElement instanceof GenNode) {
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, persisted, getPreferencesHint());
 <%
 	}
-} else if (genElement instanceof GenLink) {
+} else if (isLink) {
 	GenLink genLink = (GenLink) genElement;
 	String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 	List labels = genLink.getLabels();

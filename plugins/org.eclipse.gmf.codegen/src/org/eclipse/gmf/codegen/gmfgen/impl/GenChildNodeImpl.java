@@ -14,11 +14,14 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
@@ -62,6 +65,21 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	public GenChildContainer getContainer() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_CHILD_NODE__CONTAINER) return null;
 		return (GenChildContainer)eContainer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean isListContainerEntry() {
+		if (getContainer() instanceof GenNode) {
+			return ((GenNode) getContainer()).getChildContainersPlacement() == CompartmentPlacementKind.TOOLBAR_LITERAL;
+		}
+		if (getContainer() instanceof GenCompartment) {
+			return ((GenCompartment) getContainer()).getLayoutKind() == CompartmentLayoutKind.TOOLBAR_LITERAL;
+		}
+		return false;
 	}
 
 	/**
@@ -179,97 +197,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return getContainer();
 		}
 		return eDynamicGet(eFeature, resolve);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM_RUN_TIME_CLASS:
-				setDiagramRunTimeClass((GenClass)newValue);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__VISUAL_ID:
-				setVisualID(((Integer)newValue).intValue());
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__EDIT_PART_CLASS_NAME:
-				setEditPartClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				setItemSemanticEditPolicyClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				setNotationViewFactoryClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__VIEWMAP:
-				setViewmap((Viewmap)newValue);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__CHILD_NODES:
-				getChildNodes().clear();
-				getChildNodes().addAll((Collection)newValue);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__MODEL_FACET:
-				setModelFacet((TypeModelFacet)newValue);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__LABELS:
-				getLabels().clear();
-				getLabels().addAll((Collection)newValue);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__COMPARTMENTS:
-				getCompartments().clear();
-				getCompartments().addAll((Collection)newValue);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS_PLACEMENT:
-				setChildContainersPlacement((CompartmentPlacementKind)newValue);
-				return;
-		}
-		eDynamicSet(eFeature, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM_RUN_TIME_CLASS:
-				setDiagramRunTimeClass((GenClass)null);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__VISUAL_ID:
-				setVisualID(VISUAL_ID_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__EDIT_PART_CLASS_NAME:
-				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				setItemSemanticEditPolicyClassName(ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__VIEWMAP:
-				setViewmap((Viewmap)null);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__CHILD_NODES:
-				getChildNodes().clear();
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__MODEL_FACET:
-				setModelFacet((TypeModelFacet)null);
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__LABELS:
-				getLabels().clear();
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__COMPARTMENTS:
-				getCompartments().clear();
-				return;
-			case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS_PLACEMENT:
-				setChildContainersPlacement(CHILD_CONTAINERS_PLACEMENT_EDEFAULT);
-				return;
-		}
-		eDynamicUnset(eFeature);
 	}
 
 	/**

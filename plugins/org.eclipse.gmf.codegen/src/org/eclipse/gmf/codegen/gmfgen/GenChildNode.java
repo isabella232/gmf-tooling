@@ -41,4 +41,12 @@ public interface GenChildNode extends GenNode{
 	 */
 	GenChildContainer getContainer();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	boolean isListContainerEntry();
+
 } // GenChildNode

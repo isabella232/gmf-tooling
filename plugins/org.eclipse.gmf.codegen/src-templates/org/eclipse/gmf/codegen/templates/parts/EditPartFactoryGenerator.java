@@ -90,7 +90,7 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
     stringBuffer.append(container.getEditPartClassName());
     stringBuffer.append(TEXT_15);
     
-	if (container instanceof GenNode) {
+	if (container instanceof GenChildNode ? !((GenChildNode) container).isListContainerEntry() : container instanceof GenNode) {
 		GenNode node = (GenNode) container;
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();

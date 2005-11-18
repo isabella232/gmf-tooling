@@ -175,15 +175,6 @@ public class Generator implements Runnable {
 
 	private void generateNode(GenNode node) throws JETException, InterruptedException {
 		generateNodeEditPart(node);
-		generateCommonNode(node);
-	}
-
-	private void generateChildnode(GenChildNode child) throws JETException, InterruptedException {
-		generateChildNodeEditPart(child);
-		generateCommonNode(child);
-	}
-	
-	private void generateCommonNode(GenNode node) throws JETException, InterruptedException {
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
 			generateNodeLabelEditPart(label);
@@ -193,8 +184,14 @@ public class Generator implements Runnable {
 			GenCompartment compartment = (GenCompartment) compartments.next();
 			generateCompartment(compartment);
 		}
-		generateChildContainer(node);
 		generateNodeItemSemanticEditPolicy(node);
+		generateChildContainer(node);
+	}
+
+	private void generateListContainerNode(GenChildNode child) throws JETException, InterruptedException {
+		generateChildNodeEditPart(child);
+		generateNodeItemSemanticEditPolicy(child);
+		generateViewFactory(child);
 	}
 	
 	private void generateCompartment(GenCompartment compartment) throws JETException, InterruptedException {
@@ -207,7 +204,11 @@ public class Generator implements Runnable {
 		generateViewFactory(childContainer);
 		for (Iterator childNodes = childContainer.getChildNodes().iterator(); childNodes.hasNext();) {
 			GenChildNode childNode = (GenChildNode) childNodes.next();
-			generateChildnode(childNode);
+			if (childNode.isListContainerEntry()) {
+				generateListContainerNode(childNode);
+			} else {
+				generateNode(childNode);
+			}
 		}
 	}
 

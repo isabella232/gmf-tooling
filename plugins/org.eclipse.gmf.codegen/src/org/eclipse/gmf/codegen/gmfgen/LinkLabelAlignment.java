@@ -78,7 +78,7 @@ public final class LinkLabelAlignment extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final LinkLabelAlignment MIDDLE_LITERAL = new LinkLabelAlignment(MIDDLE, "MIDDLE");
+	public static final LinkLabelAlignment MIDDLE_LITERAL = new LinkLabelAlignment(MIDDLE, "MIDDLE", "MIDDLE");
 
 	/**
 	 * The '<em><b>TARGET</b></em>' literal object.
@@ -88,7 +88,7 @@ public final class LinkLabelAlignment extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final LinkLabelAlignment TARGET_LITERAL = new LinkLabelAlignment(TARGET, "TARGET");
+	public static final LinkLabelAlignment TARGET_LITERAL = new LinkLabelAlignment(TARGET, "TARGET", "TARGET");
 
 	/**
 	 * The '<em><b>SOURCE</b></em>' literal object.
@@ -98,7 +98,7 @@ public final class LinkLabelAlignment extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final LinkLabelAlignment SOURCE_LITERAL = new LinkLabelAlignment(SOURCE, "SOURCE");
+	public static final LinkLabelAlignment SOURCE_LITERAL = new LinkLabelAlignment(SOURCE, "SOURCE", "SOURCE");
 
 	/**
 	 * An array of all the '<em><b>Link Label Alignment</b></em>' enumerators.
@@ -122,15 +122,15 @@ public final class LinkLabelAlignment extends AbstractEnumerator {
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Link Label Alignment</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Link Label Alignment</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static LinkLabelAlignment get(String name) {
+	public static LinkLabelAlignment get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			LinkLabelAlignment result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -138,7 +138,23 @@ public final class LinkLabelAlignment extends AbstractEnumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Link Label Alignment</b></em>' literal with the specified value.
+	 * Returns the '<em><b>Link Label Alignment</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static LinkLabelAlignment getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			LinkLabelAlignment result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Link Label Alignment</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -158,8 +174,8 @@ public final class LinkLabelAlignment extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private LinkLabelAlignment(int value, String name) {
-		super(value, name);
+	private LinkLabelAlignment(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //LinkLabelAlignment

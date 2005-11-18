@@ -57,7 +57,7 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 		case <%=container.getVisualID()%>:
 			 return <%=importManager.getImportedName(container.getNotationViewFactoryQualifiedClassName())%>.class;
 <%
-	if (container instanceof GenNode) {
+	if (container instanceof GenChildNode ? !((GenChildNode) container).isListContainerEntry() : container instanceof GenNode) {
 		GenNode node = (GenNode) container;
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();

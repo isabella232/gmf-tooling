@@ -229,6 +229,7 @@
     <eLiterals name="XY" value="4"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenChildNode" eSuperTypes="#//GenNode">
+    <eOperations name="isListContainerEntry" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="container" lowerBound="1"
         eType="#//GenChildContainer" changeable="false" eOpposite="#//GenChildContainer/childNodes"/>
   </eClassifiers>

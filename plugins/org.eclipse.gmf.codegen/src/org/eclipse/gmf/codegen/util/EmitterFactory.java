@@ -112,15 +112,15 @@ public class EmitterFactory {
 	// policies
 
 	public static JETEmitter getBaseItemSemanticEditPolicyEmitter() throws JETException {
-		return initializeEmitter("/templates/providers/ItemSemanticEditPolicy.javajet", ItemSemanticEditPolicyGenerator.class);
+		return initializeEmitter("/templates/policies/ItemSemanticEditPolicy.javajet", ItemSemanticEditPolicyGenerator.class);
 	}
 
 	public static JETEmitter getReferenceConnectionEditPolicyEmitter() throws JETException {
-		return initializeEmitter("/templates/providers/ReferenceConnectionEditPolicy.javajet", ReferenceConnectionEditPolicyGenerator.class);
+		return initializeEmitter("/templates/policies/ReferenceConnectionEditPolicy.javajet", ReferenceConnectionEditPolicyGenerator.class);
 	}
 
 	public static JETEmitter getDiagramItemSemanticEditPolicyEmitter() throws JETException {
-		return initializeEmitter("/templates/providers/DiagramItemSemanticEditPolicy.javajet", DiagramItemSemanticEditPolicyGenerator.class);
+		return initializeEmitter("/templates/policies/DiagramItemSemanticEditPolicy.javajet", DiagramItemSemanticEditPolicyGenerator.class);
 	}
 
 	public static JETEmitter getCompartmentItemSemanticEditPolicyEmitter() throws JETException {
@@ -128,11 +128,11 @@ public class EmitterFactory {
 	}
 
 	public static JETEmitter getNodeItemSemanticEditPolicyEmitter() throws JETException {
-		return initializeEmitter("/templates/providers/NodeItemSemanticEditPolicy.javajet", NodeItemSemanticEditPolicyGenerator.class);
+		return initializeEmitter("/templates/policies/NodeItemSemanticEditPolicy.javajet", NodeItemSemanticEditPolicyGenerator.class);
 	}
 
 	public static JETEmitter getLinkItemSemanticEditPolicyEmitter() throws JETException {
-		return initializeEmitter("/templates/providers/LinkItemSemanticEditPolicy.javajet", LinkItemSemanticEditPolicyGenerator.class);
+		return initializeEmitter("/templates/policies/LinkItemSemanticEditPolicy.javajet", LinkItemSemanticEditPolicyGenerator.class);
 	}
 	
 	// providers
@@ -192,7 +192,7 @@ public class EmitterFactory {
 	}
 
 	public static JETEmitter getPaletteEmitter() throws JETException {
-		return initializeEmitter("/templates/editor/Palette.javajet", PaletteFactoryGenerator.class);
+		return initializeEmitter("/templates/editor/PaletteFactory.javajet", PaletteFactoryGenerator.class);
 	}
 
 	public static JETEmitter getDiagramEditorUtilEmitter() throws JETException {
@@ -232,7 +232,7 @@ public class EmitterFactory {
 	}
 
 	public static JETEmitter getPreferencesInitializerEmitter() throws JETException {
-		return initializeEmitter("/templates/editor/PreferencesInitializer.javajet", PreferencesInitializerGenerator.class);
+		return initializeEmitter("/templates/editor/PreferenceInitializer.javajet", PreferencesInitializerGenerator.class);
 	}
 
 	public static JETEmitter getPluginClassEmitter() throws JETException {

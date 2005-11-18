@@ -126,7 +126,7 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_COMMON_BASE__VIEWMAP = 5;
 
 	/**
-	 * The number of structural features of the the '<em>Gen Common Base</em>' class.
+	 * The number of structural features of the '<em>Gen Common Base</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -568,7 +568,7 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 40;
 
 	/**
-	 * The number of structural features of the the '<em>Gen Diagram</em>' class.
+	 * The number of structural features of the '<em>Gen Diagram</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -680,7 +680,7 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_CHILD_CONTAINER__CHILD_NODES = GEN_COMMON_BASE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Gen Child Container</em>' class.
+	 * The number of structural features of the '<em>Gen Child Container</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -797,7 +797,7 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_NODE__CHILD_CONTAINERS_PLACEMENT = GEN_CHILD_CONTAINER_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the the '<em>Gen Node</em>' class.
+	 * The number of structural features of the '<em>Gen Node</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -923,7 +923,7 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_COMPARTMENT__NODE = GEN_CHILD_CONTAINER_FEATURE_COUNT + 5;
 
 	/**
-	 * The number of structural features of the the '<em>Gen Compartment</em>' class.
+	 * The number of structural features of the '<em>Gen Compartment</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1049,7 +1049,7 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_CHILD_NODE__CONTAINER = GEN_NODE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Gen Child Node</em>' class.
+	 * The number of structural features of the '<em>Gen Child Node</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1167,7 +1167,7 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_LINK__INCOMING_CREATION_ALLOWED = GEN_COMMON_BASE_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the the '<em>Gen Link</em>' class.
+	 * The number of structural features of the '<em>Gen Link</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1258,7 +1258,7 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_LABEL__MODEL_FACET = GEN_COMMON_BASE_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Gen Label</em>' class.
+	 * The number of structural features of the '<em>Gen Label</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1358,7 +1358,7 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_NODE_LABEL__NODE = GEN_LABEL_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Gen Node Label</em>' class.
+	 * The number of structural features of the '<em>Gen Node Label</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1476,7 +1476,7 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_LINK_LABEL__TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME = GEN_LABEL_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the the '<em>Gen Link Label</em>' class.
+	 * The number of structural features of the '<em>Gen Link Label</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1495,7 +1495,7 @@ public interface GMFGenPackage extends EPackage{
 	int MODEL_FACET = 10;
 
 	/**
-	 * The number of structural features of the the '<em>Model Facet</em>' class.
+	 * The number of structural features of the '<em>Model Facet</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1514,7 +1514,7 @@ public interface GMFGenPackage extends EPackage{
 	int LINK_MODEL_FACET = 11;
 
 	/**
-	 * The number of structural features of the the '<em>Link Model Facet</em>' class.
+	 * The number of structural features of the '<em>Link Model Facet</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1578,7 +1578,7 @@ public interface GMFGenPackage extends EPackage{
 	int TYPE_MODEL_FACET__MODEL_ELEMENT_INITIALIZER = MODEL_FACET_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the the '<em>Type Model Facet</em>' class.
+	 * The number of structural features of the '<em>Type Model Facet</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1606,7 +1606,7 @@ public interface GMFGenPackage extends EPackage{
 	int FEATURE_MODEL_FACET__META_FEATURE = MODEL_FACET_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Feature Model Facet</em>' class.
+	 * The number of structural features of the '<em>Feature Model Facet</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1688,7 +1688,7 @@ public interface GMFGenPackage extends EPackage{
 	int TYPE_LINK_MODEL_FACET__TARGET_META_FEATURE = TYPE_MODEL_FACET_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Type Link Model Facet</em>' class.
+	 * The number of structural features of the '<em>Type Link Model Facet</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1717,7 +1717,7 @@ public interface GMFGenPackage extends EPackage{
 	int ATTRIBUTES = 15;
 
 	/**
-	 * The number of structural features of the the '<em>Attributes</em>' class.
+	 * The number of structural features of the '<em>Attributes</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1754,7 +1754,7 @@ public interface GMFGenPackage extends EPackage{
 	int COLOR_ATTRIBUTES__BACKGROUND_COLOR = ATTRIBUTES_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Color Attributes</em>' class.
+	 * The number of structural features of the '<em>Color Attributes</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1791,7 +1791,7 @@ public interface GMFGenPackage extends EPackage{
 	int SHAPE_ATTRIBUTES__LINE_STYLE = ATTRIBUTES_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Shape Attributes</em>' class.
+	 * The number of structural features of the '<em>Shape Attributes</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1828,7 +1828,7 @@ public interface GMFGenPackage extends EPackage{
 	int DEFAULT_SIZE_ATTRIBUTES__HEIGHT = ATTRIBUTES_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Default Size Attributes</em>' class.
+	 * The number of structural features of the '<em>Default Size Attributes</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1846,7 +1846,7 @@ public interface GMFGenPackage extends EPackage{
 	int VIEWMAP__ATTRIBUTES = 0;
 
 	/**
-	 * The number of structural features of the the '<em>Viewmap</em>' class.
+	 * The number of structural features of the '<em>Viewmap</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1865,7 +1865,7 @@ public interface GMFGenPackage extends EPackage{
 	int FIGURE_VIEWMAP = 20;
 
 	/**
-	 * The number of structural features of the the '<em>Figure Viewmap</em>' class.
+	 * The number of structural features of the '<em>Figure Viewmap</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1902,7 +1902,7 @@ public interface GMFGenPackage extends EPackage{
 	int BASIC_NODE_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME = VIEWMAP_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Basic Node Viewmap</em>' class.
+	 * The number of structural features of the '<em>Basic Node Viewmap</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1957,7 +1957,7 @@ public interface GMFGenPackage extends EPackage{
 	int DECORATED_CONNECTION_VIEWMAP__TARGET = VIEWMAP_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the the '<em>Decorated Connection Viewmap</em>' class.
+	 * The number of structural features of the '<em>Decorated Connection Viewmap</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1985,7 +1985,7 @@ public interface GMFGenPackage extends EPackage{
 	int LINK_DECORATION__FIGURE_QUALIFIED_CLASS_NAME = 0;
 
 	/**
-	 * The number of structural features of the the '<em>Link Decoration</em>' class.
+	 * The number of structural features of the '<em>Link Decoration</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2013,7 +2013,7 @@ public interface GMFGenPackage extends EPackage{
 	int DIAGRAM_VIEWMAP__ATTRIBUTES = VIEWMAP__ATTRIBUTES;
 
 	/**
-	 * The number of structural features of the the '<em>Diagram Viewmap</em>' class.
+	 * The number of structural features of the '<em>Diagram Viewmap</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2041,7 +2041,7 @@ public interface GMFGenPackage extends EPackage{
 	int COMPARTMENT_VIEWMAP__ATTRIBUTES = VIEWMAP__ATTRIBUTES;
 
 	/**
-	 * The number of structural features of the the '<em>Compartment Viewmap</em>' class.
+	 * The number of structural features of the '<em>Compartment Viewmap</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2069,7 +2069,7 @@ public interface GMFGenPackage extends EPackage{
 	int LABEL_VIEWMAP__ATTRIBUTES = VIEWMAP__ATTRIBUTES;
 
 	/**
-	 * The number of structural features of the the '<em>Label Viewmap</em>' class.
+	 * The number of structural features of the '<em>Label Viewmap</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2166,7 +2166,7 @@ public interface GMFGenPackage extends EPackage{
 	int VALUE_EXPRESSION__LANGUAGE = 1;
 
 	/**
-	 * The number of structural features of the the '<em>Value Expression</em>' class.
+	 * The number of structural features of the '<em>Value Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2203,7 +2203,7 @@ public interface GMFGenPackage extends EPackage{
 	int MODEL_ELEMENT_SELECTOR__LANGUAGE = VALUE_EXPRESSION__LANGUAGE;
 
 	/**
-	 * The number of structural features of the the '<em>Model Element Selector</em>' class.
+	 * The number of structural features of the '<em>Model Element Selector</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2266,7 +2266,7 @@ public interface GMFGenPackage extends EPackage{
 	int PALETTE__FACTORY_CLASS_NAME = 5;
 
 	/**
-	 * The number of structural features of the the '<em>Palette</em>' class.
+	 * The number of structural features of the '<em>Palette</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2320,7 +2320,7 @@ public interface GMFGenPackage extends EPackage{
 	int ENTRY_BASE__SMALL_ICON_PATH = 4;
 
 	/**
-	 * The number of structural features of the the '<em>Entry Base</em>' class.
+	 * The number of structural features of the '<em>Entry Base</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2383,7 +2383,7 @@ public interface GMFGenPackage extends EPackage{
 	int TOOL_ENTRY__DEFAULT = ENTRY_BASE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Tool Entry</em>' class.
+	 * The number of structural features of the '<em>Tool Entry</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2464,7 +2464,7 @@ public interface GMFGenPackage extends EPackage{
 	int NODE_ENTRY__GROUP = TOOL_ENTRY_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Node Entry</em>' class.
+	 * The number of structural features of the '<em>Node Entry</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2545,7 +2545,7 @@ public interface GMFGenPackage extends EPackage{
 	int LINK_ENTRY__GROUP = TOOL_ENTRY_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Link Entry</em>' class.
+	 * The number of structural features of the '<em>Link Entry</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2626,7 +2626,7 @@ public interface GMFGenPackage extends EPackage{
 	int TOOL_GROUP__PALETTE = ENTRY_BASE_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the the '<em>Tool Group</em>' class.
+	 * The number of structural features of the '<em>Tool Group</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2654,7 +2654,7 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_ELEMENT_INITIALIZER__TYPE_MODEL_FACET = 0;
 
 	/**
-	 * The number of structural features of the the '<em>Gen Element Initializer</em>' class.
+	 * The number of structural features of the '<em>Gen Element Initializer</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2691,7 +2691,7 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS = GEN_ELEMENT_INITIALIZER_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Gen Feature Seq Initializer</em>' class.
+	 * The number of structural features of the '<em>Gen Feature Seq Initializer</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2737,7 +2737,7 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_FEATURE_VALUE_SPEC__FEATURE = VALUE_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Gen Feature Value Spec</em>' class.
+	 * The number of structural features of the '<em>Gen Feature Value Spec</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated

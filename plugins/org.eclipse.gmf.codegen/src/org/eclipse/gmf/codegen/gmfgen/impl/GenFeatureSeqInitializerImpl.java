@@ -125,27 +125,6 @@ public class GenFeatureSeqInitializerImpl extends GenElementInitializerImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__TYPE_MODEL_FACET:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__TYPE_MODEL_FACET, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
@@ -158,23 +137,6 @@ public class GenFeatureSeqInitializerImpl extends GenElementInitializerImpl impl
 			}
 		}
 		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__TYPE_MODEL_FACET:
-					return eContainer.eInverseRemove(this, GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_INITIALIZER, TypeModelFacet.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
 	}
 
 	/**

@@ -11,17 +11,18 @@ package <%=genDiagram.getEditPartsPackageName()%>;
 ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());
 importManager.markImportLocation(stringBuffer);
 importManager.addImport("org.eclipse.emf.common.notify.Notification");
-importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart");
 importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy");
 importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy");
 importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles");
 importManager.addImport("org.eclipse.gmf.runtime.notation.View");
+
+boolean isListLayout = genCompartment.getLayoutKind() == CompartmentLayoutKind.TOOLBAR_LITERAL;
 %>
 
 /**
  * @generated
  */
-public class <%=genCompartment.getEditPartClassName()%> extends ListCompartmentEditPart {
+public class <%=genCompartment.getEditPartClassName()%> extends <%=isListLayout ? importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart") : importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeCompartmentEditPart")%> {
 
 	/**
 	 * @generated
@@ -29,13 +30,19 @@ public class <%=genCompartment.getEditPartClassName()%> extends ListCompartmentE
 	public <%=genCompartment.getEditPartClassName()%>(View view) {
 		super(view);
 	}
-	
+<%
+if (isListLayout) {
+%>
+
 	/**
 	 * @generated
 	 */
 	protected boolean hasModelChildrenChanged(Notification evt) {
 		return false;
 	}
+<%
+}
+%>
 	
 	/**
 	 * @generated
