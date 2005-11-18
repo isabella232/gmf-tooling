@@ -21,9 +21,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
@@ -108,14 +106,14 @@ public class TransformToGenModel implements IObjectActionDelegate {
 			drtModelHelper = new BasicDiagramRunTimeModelHelper();
 		}
 
-		final ISchedulingRule rule = MultiRule.combine(myMapFile, myDestFile);
+		//final ISchedulingRule rule = MultiRule.combine(myMapFile, myDestFile);
 		final DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, new EditPartNamingStrategy(), new NotationViewFactoryNamingStrategy());
 
 		new Job(action.getText()) {
 			{
 				//setUser(true); // waiting for regression #115873 to be fixed
 				setPriority(SHORT);
-				//setRule(rule);
+				//setRule(rule); //  <crmcsi$8mi$1@www.eclipse.org>
 			}
 
 			protected IStatus run(IProgressMonitor monitor) {

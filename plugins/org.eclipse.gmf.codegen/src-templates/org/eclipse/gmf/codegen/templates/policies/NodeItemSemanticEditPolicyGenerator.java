@@ -231,7 +231,7 @@ public class NodeItemSemanticEditPolicyGenerator {
   protected final String TEXT_212 = NL + "}";
   protected final String TEXT_213 = NL;
 
-	private String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
+	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
 		StringBuffer result = new StringBuffer();
 		if (feature.getGenClass().isExternalInterface()) {
 // Using EMF reflective method to access feature value
@@ -275,7 +275,7 @@ public class NodeItemSemanticEditPolicyGenerator {
 		return result.toString();
 	}
 	
-	private String getFeatureValueSetterPrefix(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
+	protected final String getFeatureValueSetterPrefix(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
 		StringBuffer result = new StringBuffer();
 		if (feature.getGenClass().isExternalInterface()) {
 // Using EMF reflective method to access feature value

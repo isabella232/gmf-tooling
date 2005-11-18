@@ -55,7 +55,7 @@ public class DiagramEditPartGenerator {
   protected final String TEXT_36 = NL + "\t\t\t}" + NL + "" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t/**" + NL + "\t\t * For now we are skipping links which was generated based on \"GenLinkReferenceOnly\" classes" + NL + "\t\t * since they do not handle any domain model objects inside, so we can not process them using" + NL + "\t\t * CanonicalConnectionEditPolicy class" + NL + "\t\t *" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected boolean shouldIncludeConnection(Edge connector, List children) {" + NL + "\t\t\treturn super.shouldIncludeConnection(connector, children) && connector.getElement() != null;" + NL + "\t\t}" + NL + "\t" + NL + "\t}" + NL + "\t" + NL + "}";
   protected final String TEXT_37 = NL;
 
-	private String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
+	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
 		StringBuffer result = new StringBuffer();
 		if (feature.getGenClass().isExternalInterface()) {
 // Using EMF reflective method to access feature value
@@ -99,7 +99,7 @@ public class DiagramEditPartGenerator {
 		return result.toString();
 	}
 	
-	private String getFeatureValueSetterPrefix(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
+	protected final String getFeatureValueSetterPrefix(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
 		StringBuffer result = new StringBuffer();
 		if (feature.getGenClass().isExternalInterface()) {
 // Using EMF reflective method to access feature value
