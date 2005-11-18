@@ -46,7 +46,7 @@ public interface GenCommonBase extends EObject{
 	 * @return the value of the '<em>Diagram Run Time Class</em>' reference.
 	 * @see #setDiagramRunTimeClass(GenClass)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCommonBase_DiagramRunTimeClass()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	GenClass getDiagramRunTimeClass();
