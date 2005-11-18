@@ -54,7 +54,7 @@
     </tr>
     <tr>
       <td>ANTLR:</td>
-      <td>(<a href="@antlrURL@">antlr-2.7.2.zip</> (<b>Note</b>: Place the antlr.jar from this distribution in the antlr plug-in 'lib' folder. This is a temporary dependency.)</td>
+      <td>(<a href="@antlrURL@">antlr-2.7.2.zip</a>) (Note: Place the antlr.jar from this distribution in the antlr plug-in 'lib' folder. This is a temporary dependency.)</td>
     </tr>
   </tbody>
 </table>
