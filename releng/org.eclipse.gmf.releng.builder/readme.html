@@ -714,6 +714,7 @@
 			<li>If you are running a build and get the message that 'plug-in
 			org.*_X_X_X' cannot be found, check that you have declared/installed
 			the necessary dependencies for the plug-in.</li>
+			<li>If you are building a feature that contains a generate.* option in its build.properties file, and you are getting '.../build.xml file does not exist' messages, check that your plug-ins do not contain any cyclic dependencies. Specifically, look at any fragments you may have to see if they have their host plug-in listed as a dependency.</li>
 		</ul>
 		</td>
 	</tr>
