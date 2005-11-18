@@ -11,23 +11,24 @@
 	     <ant antfile="build.xml" target="main">
 	           <property name="component" value="runtime"/>
 	           <property name="cleanBase" value="true"/> 
-	           <property name="clean" value="true" />
+	           <property name="wipe" value="true" />
 	     </ant>
-	     <echo message="Building sdk..."/>
+	     <echo message="Building sdk..."/>		 
 	     <ant antfile="build.xml" target="main">
 	           <property name="component" value="sdk"/>
-	           <property name="clean" value="true" />
+	           <property name="wipe" value="true" />
+	     	   <property name="copyRuntime" value="true" />
 	     </ant> 
 	     <echo message="Building examples..."/>
 	     <ant antfile="build.xml" target="main">
 	           <property name="component" value="examples"/>
-	           <property name="clean" value="true" />
+	           <property name="wipe" value="true" />
 	     </ant>
 	     <echo message="Building tests..."/>
 	     <ant antfile="build.xml" target="main">
 	           <property name="component" value="tests"/>
 	           <property name="cleanBase" value="true"/>
-	           <property name="clean" value="true" />
+	           <property name="wipe" value="true" />
 	     </ant>
 	</target>
 	
@@ -36,28 +37,29 @@
 	     <ant antfile="build.xml" target="main">
 	           <property name="component" value="runtime"/>
 	           <property name="cleanBase" value="true"/> 
-	           <property name="clean" value="true"/>
+	           <property name="wipe" value="true" />
 	     </ant>
 	     <echo message="Building sdk..."/>
 	     <ant antfile="build.xml" target="main">
 	           <property name="component" value="sdk"/>
-	           <property name="clean" value="true"/>
+	           <property name="wipe" value="true" />
+	           <property name="copyRuntime" value="true" />
 	     </ant> 
 	     <echo message="Building examples..."/>
 	     <ant antfile="build.xml" target="main">
 	           <property name="component" value="examples"/>
-	           <property name="clean" value="true"/>
+	           <property name="wipe" value="true" />
 	     </ant>
 	     <echo message="Building tests..."/>
 	     <ant antfile="build.xml" target="main">
 	           <property name="component" value="tests"/>
 	           <property name="cleanBase" value="true"/>
-	           <property name="clean" value="true"/>
+	           <property name="wipe" value="true" />
 	     </ant>
 	     <echo message="Building documentation..."/>
 	     <ant antfile="build.xml" target="main">
 	           <property name="component" value="doc"/>
-	           <property name="clean" value="true"/>
+	           <property name="wipe" value="true" />
 	     </ant>
 	     <antcall target="publish"/>
 		 <property file="build.properties" />

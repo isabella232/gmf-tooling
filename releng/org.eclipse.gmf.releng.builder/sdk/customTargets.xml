@@ -93,7 +93,11 @@
 	<!-- ===================================================================== -->
 	<!-- Steps to do before fetching the build elements -->
 	<!-- ===================================================================== -->
-	<target name="preFetch">
+	<target name="preFetch" if="copyRuntime">
+		<!-- Avoid repeated download of runtime... -->
+		<copy todir="${buildDirectory}/plugins">
+		    <fileset dir="${buildDirectory}/../runtime/plugins"/>
+		</copy>
 	</target>
 
 	<!-- ===================================================================== -->

@@ -3,7 +3,7 @@
 	<property file="build.properties" />
 	
 	<target name="init">
-		<antcall target="clean"/>
+		<antcall target="wipe"/>
 		<mkdir dir="${buildDirectory}" />
 		<touch file="${user.home}/.cvspass" />
 		<available file="label.properties" property="label.properties.present"/>
@@ -60,10 +60,7 @@
 			<property name="date" value="${DSTAMP}" />
 			<property name="time" value="${TSTAMP}" />
 			<property name="timestamp" value="${date}${time}" />
-			<property name="buildType" value="N" />
-<!--		
-			<property name="fetchTag" value="HEAD" />
--->			
+			<property name="buildType" value="N" />	
 			<property name="buildId" value="${buildType}${date}" />
 
 			<!--this naming convention used by php scripts on download server-->
@@ -76,11 +73,6 @@
 			<echo file="label.properties" append="true" >
 			buildId=${buildId}
 			</echo>
-<!--
-			<echo file="label.properties" append="true" >
-				fetchTag=${fetchTag}
-			</echo>
--->
 			<echo file="label.properties" append="true" >
 			timestamp=${timestamp}
 			</echo>
@@ -89,7 +81,7 @@
 			</echo>
 		</target>
 	
-	<target name="clean" if="clean">
+	<target name="wipe" if="wipe">
 		<delete dir="${buildDirectory}"/>
 	</target>
 	
