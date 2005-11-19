@@ -51,7 +51,7 @@
 	<project name="continuous" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
-				file="${logs}/gmf/buildstatus.txt" />
+				file="${logs}/continuous/buildstatus.txt" />
 		</listeners>
 
 		<!-- Bootstrappers are run every time the build runs, 
@@ -75,14 +75,14 @@
 		</schedule>
 
 		<!-- directory to write build logs to -->
-		<log dir="${logs}/gmf">
+		<log dir="${logs}/continuous">
 			<merge dir="${artifacts}/cc" />
 		</log>
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail subjectprefix="[continuous]" buildresultsurl="${reporting.url}/buildresults/gmf"
-			logdir="${logs}/gmf">
+			<htmlemail subjectprefix="[continuous]" buildresultsurl="${reporting.url}/buildresults/continuous"
+			logdir="${logs}/continuous">
 				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/cc"
@@ -128,7 +128,7 @@
 				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/cc"
-				dest="${cc.publish}/nightly/" />
+				dest="${cc.publish}/gmf/" />
 		</publishers>
 	</project>
 	
@@ -170,7 +170,7 @@
 				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/cc"
-				dest="${cc.publish}/integration/" />
+				dest="${cc.publish}/gmf/" />
 		</publishers>
 	</project>
 

@@ -48,7 +48,10 @@ ext=${ext}
 		<echo file="${basedir}/cc.properties" append="true">
 cc.publish=${cc.publish}
 		</echo>
-		<mkdir dir="${logs}/gmf"/>
+		<mkdir dir="${logs}/continuous"/>
+		<mkdir dir="${logs}/integration"/>
+		<mkdir dir="${logs}/nightly"/>
+		<mkdir dir="${logs}/checkout"/>
 		<mkdir dir="${cc.publish}/gmf"/>
 		<mkdir dir="${artifacts}/cc"/>
 		<available file="${buildRoot}/checkout/org.eclipse.gmf/features/org.eclipse.gmf.sdk-feature/build.properties" property="skipCheckout" />
