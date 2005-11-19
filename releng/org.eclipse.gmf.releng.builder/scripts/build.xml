@@ -93,7 +93,7 @@
 		<echo message="  -DbuildRoot=location of the build (component appended to form buildDirectory)"/>
 		<echo message="  -DbaseLocation=the location of the eclipse install to build against"/>
 		<echo message="  -Dclean=true will force an update of all sources"/>
-		<echo message="  -DbuildType=[N|I|S|R|M] will set the type of build"/>
+		<echo message="  -DbuildType=[N|I|S|R] will set the type of build"/>
 	</target>
 
 </project>

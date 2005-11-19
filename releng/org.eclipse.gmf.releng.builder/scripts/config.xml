@@ -48,7 +48,7 @@
 
 	</project>
 	
-	<project name="gmf" buildafterfailed="true">
+	<project name="continuous" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
 				file="${logs}/gmf/buildstatus.txt" />
@@ -93,7 +93,7 @@
 	<project name="nightly" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
-				file="${logs}/gmf/buildstatus.txt" />
+				file="${logs}/nightly/buildstatus.txt" />
 		</listeners>
 
 		<!-- Bootstrappers are run every time the build runs, 
@@ -117,18 +117,60 @@
 		</schedule>
 
 		<!-- directory to write build logs to -->
-		<log dir="${logs}/gmf">
+		<log dir="${logs}/nightly">
 			<merge dir="${artifacts}/cc" />
 		</log>
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail subjectprefix="[nightly]" buildresultsurl="${reporting.url}/buildresults/gmf"
-			logdir="${logs}/gmf">
+			<htmlemail subjectprefix="[nightly]" buildresultsurl="${reporting.url}/buildresults/nightly"
+			logdir="${logs}/nightly">
 				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/cc"
-				dest="${cc.publish}/gmf/" />
+				dest="${cc.publish}/nightly/" />
+		</publishers>
+	</project>
+	
+	<project name="integration" buildafterfailed="true">
+		<listeners>
+			<currentbuildstatuslistener
+				file="${logs}/integration/buildstatus.txt" />
+		</listeners>
+
+		<!-- Bootstrappers are run every time the build runs, 
+			*before* the modification checks -->
+		<bootstrappers></bootstrappers>
+
+		<!-- Defines where cruise looks for changes, to decide
+			whether to run the build -->
+		<modificationset>
+			<alwaysbuild /> 
+		</modificationset>
+
+		<!-- Configures the actual build loop, how often and which
+			build file/target -->
+		<schedule>
+			<ant time="0400" antscript="build.${ext}" buildfile="buildAll.xml"
+				target="nightly" uselogger="true" usedebug="false" usequiet="true">
+				<property name="buildType" value="I" />
+				<property name="fetchTag" value="HEAD" />
+			</ant>
+		</schedule>
+
+		<!-- directory to write build logs to -->
+		<log dir="${logs}/integration">
+			<merge dir="${artifacts}/cc" />
+		</log>
+
+		<!-- Publishers are run *after* a build completes -->
+		<publishers>
+			<htmlemail subjectprefix="[integration]" buildresultsurl="${reporting.url}/buildresults/integration"
+			logdir="${logs}/integration">
+				<always address="${always.email}" />
+			</htmlemail>
+			<artifactspublisher dir="${artifacts}/cc"
+				dest="${cc.publish}/integration/" />
 		</publishers>
 	</project>
 
