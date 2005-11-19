@@ -50,6 +50,7 @@ cc.publish=${cc.publish}
 		</echo>
 		<mkdir dir="${logs}/gmf"/>
 		<mkdir dir="${cc.publish}/gmf"/>
+		<mkdir dir="${artifacts}/cc"/>
 		<available file="${buildRoot}/checkout/org.eclipse.gmf/features/org.eclipse.gmf.sdk-feature/build.properties" property="skipCheckout" />
 		<antcall target="checkout"/>
 	</target>
