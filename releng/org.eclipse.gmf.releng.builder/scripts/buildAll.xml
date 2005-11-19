@@ -5,7 +5,7 @@
 		<delete file="label.properties" />
 		<ant antfile="build.xml" target="create.label.properties" />
 		<!-- The tags.properties file contains tags for map files containing 'stable' and 'integration' config -->
-		<properties file="tags.properties"/>
+		<property file="tags.properties"/>
 	</target>
 	
 	<target name="checkArgs" unless="stable">
