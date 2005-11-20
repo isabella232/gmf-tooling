@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <project name="Automated Testing for GMF" default="all" basedir=".">
 
 	<!-- TODO: modify to allow for testing to be run standalone (not only as part of the build) -->

@@ -169,7 +169,7 @@
 		<!-- Replace the base variables to be nothing for bld-index, and the full reroute url for the main index file. -->
 		<replace file="${result}/${indexFileName}" token="@base@" value="http://www.eclipse.org/downloads/download.php?file=/technology/gmf/downloads/drops/${buildLabel}/" />
 		<!-- Correct the slashes for the compilation logs on Windows -->
-		<replace file="testResults.php" token="\" value="/" />
+		<replace file="${result}/testResults.php" token="\" value="/" />
 		<!-- Copy update jars as well -->
 		<copy todir="${buildRoot}/artifacts/updates/${buildLabel}/features">
 			<fileset dir="${buildUpdateSitePath}/features" />

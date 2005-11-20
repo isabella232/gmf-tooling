@@ -1,7 +1,4 @@
-<!-- As the generated fetch scripts use the CVS 'export' command, create a checkout
-     directory for use with CruiseControl. -->
-<!-- TODO: generate this from map feature.xml, along with map file. -->
-
+<?xml version="1.0"?>
 <project default="all">
 	<property file="build.properties" />
 	
