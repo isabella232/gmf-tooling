@@ -3,7 +3,10 @@
 
 	<!-- TODO: modify to allow for testing to be run standalone (not only as part of the build) -->
 	<target name="runtests" depends="" description="Executes the junit tests for a specified plug-in.">
-		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="true">
+		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="true" timeout="600000">
+			<assertions>
+				<enable/>
+			</assertions>
 			<arg value="-application" />
 			<arg value="org.eclipse.ant.core.antRunner" />
 			<arg value="-file" />
@@ -16,8 +19,7 @@
 			<arg value="-DtestPlugin=${testPlugin}" />
 			<arg value="-Dreport=${testPlugin}" />
 			<arg value="-Declipse-home=${baseLocation}" />
-			<arg value="-DlibraryFile=${baseLocation}/plugins/org.eclipse.test_${testPluginVersion}/library.xml" />
-			<jvmarg value="-ea"/>
+			<arg value="-DlibraryFile=${baseLocation}/plugins/org.eclipse.test_${testPluginVersion}/library.xml" />			
 		</java>
 		<move file="${baseLocation}/${testPlugin}.xml" tofile="${artifacts}/${buildLabel}/testresults/xml/${testPlugin}.xml" failonerror="false"/>
 	</target>
