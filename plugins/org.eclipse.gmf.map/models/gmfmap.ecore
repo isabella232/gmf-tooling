@@ -6,6 +6,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="MappingEntry" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2004/EmfaticAnnotationMap">
       <details key="constraints" value="http://www.eclipse.org/gmf/2005/constraints"/>
+      <details key="constraintsMeta" value="http://www.eclipse.org/gmf/2005/constraints/meta"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NodeMapping" eSuperTypes="#//MappingEntry">
@@ -18,7 +19,8 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Specializes further the domain meta element EClass associated with this mapping and should be evaluated in this EClass context"/>
       </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/def/context">
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="context"/>
         <details key="ocl" value="domainMetaElement"/>
       </eAnnotations>
     </eStructuralFeatures>
@@ -30,7 +32,8 @@
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
         <details key="ocl" value="let i : FeatureSeqInitializer = domainInitializer.oclAsType( FeatureSeqInitializer) in i.oclIsUndefined() or i.initializers.feature.eContainingClass->forAll(c|c.isSuperTypeOf(domainMetaElement)) "/>
       </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/def/context">
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="context"/>
         <details key="ocl" value="domainMetaElement"/>
       </eAnnotations>
     </eStructuralFeatures>
@@ -73,7 +76,8 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Specializes further the domain meta element EClass associated with this mapping and should be evaluated in this EClass context"/>
       </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/def/context">
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="context"/>
         <details key="ocl" value="if domainMetaElement.oclIsUndefined() then domainChildrenFeature.eContainingClass else domainMetaElement endif "/>
       </eAnnotations>
     </eStructuralFeatures>
@@ -85,7 +89,8 @@
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
         <details key="ocl" value="let i : FeatureSeqInitializer = domainInitializer.oclAsType( FeatureSeqInitializer) in i.oclIsUndefined() or i.initializers.feature.eContainingClass->forAll(c|c.isSuperTypeOf(domainMetaElement)) "/>
       </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/def/context">
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="context"/>
         <details key="ocl" value="if domainMetaElement.oclIsUndefined() then domainChildrenFeature.eContainingClass else domainMetaElement endif "/>
       </eAnnotations>
     </eStructuralFeatures>
@@ -101,7 +106,8 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Specializes further the domain meta element EClass associated with this mapping and should be evaluated in this EClass context"/>
       </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/def/context">
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="context"/>
         <details key="ocl" value="if domainMetaElement.oclIsUndefined() then linkMetaFeature.eContainingClass else domainMetaElement endif "/>
       </eAnnotations>
     </eStructuralFeatures>
@@ -113,7 +119,8 @@
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
         <details key="ocl" value="let i : FeatureSeqInitializer = domainInitializer.oclAsType( FeatureSeqInitializer) in i.oclIsUndefined() or i.initializers.feature.eContainingClass->forAll(c|c.isSuperTypeOf(domainMetaElement)) "/>
       </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/def/context">
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="context"/>
         <details key="ocl" value="if domainMetaElement.oclIsUndefined() then linkMetaFeature.eContainingClass else domainMetaElement endif "/>
       </eAnnotations>
     </eStructuralFeatures>
@@ -160,10 +167,14 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Boolean type value expression which is to be evaluated in a context"/>
     </eAnnotations>
-    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/def/Constraint"/>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+      <details key="def" value="Constraint"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ValueExpression">
-    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/def/ValueSpec"/>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+      <details key="def" value="ValueSpec"/>
+    </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Expression as a textual statement which results in a value when evaluated in a context"/>
     </eAnnotations>
@@ -171,14 +182,18 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The text of the expression"/>
       </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/def/body"/>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="body"/>
+      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="language" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral="ocl">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Specifies the language in which the expression is stated"/>
       </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/def/lang"/>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="lang"/>
+      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ElementInitializer" interface="true">
@@ -201,13 +216,16 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Value specification associated with a specific feature"/>
     </eAnnotations>
-    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/def/type">
-      <details key="ocl" value="if feature.oclIsKindOf(ecore::EAttribute) then feature.oclAsType(ecore::EAttribute).eAttributeType else feature.oclAsType(ecore::EReference).eReferenceType endif"/>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+      <details key="def" value="ValueSpec"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="feature" lowerBound="1"
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStructuralFeature">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Denotes the feature for which this value expression is specified. Its containing EClass is the context for evaluation."/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="type"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
