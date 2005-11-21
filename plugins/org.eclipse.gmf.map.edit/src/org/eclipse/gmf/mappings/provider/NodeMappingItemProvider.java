@@ -8,19 +8,20 @@ package org.eclipse.gmf.mappings.provider;
 
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
@@ -112,11 +113,11 @@ public class NodeMappingItemProvider
 	 * This adds a property descriptor for the Containment Feature feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addContainmentFeaturePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_NodeMapping_containmentFeature_feature"),
@@ -125,18 +126,28 @@ public class NodeMappingItemProvider
 				 true,
 				 null,
 				 null,
-				 null));
+				 null) {
+				protected Collection getComboBoxObjects(Object object) {
+					if (object instanceof NodeMapping) {
+						NodeMapping nm = (NodeMapping) object;
+						if (nm.getDomainMetaElement() != null) {
+							return nm.getDomainMetaElement().getEAllContainments();
+						}
+					}
+					return Collections.EMPTY_LIST;
+				}
+		});
 	}
 
 	/**
 	 * This adds a property descriptor for the Edit Feature feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	protected void addEditFeaturePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
+			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
 				 getString("_UI_NodeMapping_editFeature_feature"),
@@ -145,7 +156,17 @@ public class NodeMappingItemProvider
 				 true,
 				 null,
 				 null,
-				 null));
+				 null) {
+				protected Collection getComboBoxObjects(Object object) {
+					if (object instanceof NodeMapping) {
+						NodeMapping nm = (NodeMapping) object;
+						if (nm.getDomainMetaElement() != null) {
+							return nm.getDomainMetaElement().getEAllAttributes();
+						}
+					}
+					return Collections.EMPTY_LIST;
+				}
+			});
 	}
 
 	/**
