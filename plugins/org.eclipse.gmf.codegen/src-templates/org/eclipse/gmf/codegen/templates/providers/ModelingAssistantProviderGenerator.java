@@ -64,13 +64,13 @@ for (int i = 0; i < children.size(); i++) {
     
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();
-	if (next instanceof GenNode) {
-		GenNode genNode = (GenNode) next;
-		children = AccessUtil.getAllChildNodes(genNode);
+	if (next instanceof GenChildContainer) {
+		GenChildContainer genContainer = (GenChildContainer) next;
+		children = genContainer.getChildNodes();
 		if (!children.isEmpty()) {
 
     stringBuffer.append(TEXT_11);
-    stringBuffer.append(importManager.getImportedName(genNode.getEditPartQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genContainer.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_12);
     			for (int i = 0; i < children.size(); i++) {
     stringBuffer.append(TEXT_13);
