@@ -152,7 +152,7 @@
 			build file/target -->
 		<schedule>
 			<ant time="0400" antscript="build.${ext}" buildfile="buildAll.xml"
-				target="nightly" uselogger="true" usedebug="false" usequiet="true">
+				target="integration" uselogger="true" usedebug="false" usequiet="true">
 				<property name="buildType" value="I" />
 				<property name="fetchTag" value="HEAD" />
 			</ant>
