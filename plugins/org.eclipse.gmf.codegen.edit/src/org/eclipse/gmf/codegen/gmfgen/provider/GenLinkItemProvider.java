@@ -65,6 +65,7 @@ public class GenLinkItemProvider
 
 			addOutgoingCreationAllowedPropertyDescriptor(object);
 			addIncomingCreationAllowedPropertyDescriptor(object);
+			addViewDirectionAlignedWithModelPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -103,6 +104,26 @@ public class GenLinkItemProvider
 				 getString("_UI_GenLink_incomingCreationAllowed_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenLink_incomingCreationAllowed_feature", "_UI_GenLink_type"),
 				 GMFGenPackage.eINSTANCE.getGenLink_IncomingCreationAllowed(),
+				 true,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the View Direction Aligned With Model feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addViewDirectionAlignedWithModelPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenLink_viewDirectionAlignedWithModel_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenLink_viewDirectionAlignedWithModel_feature", "_UI_GenLink_type"),
+				 GMFGenPackage.eINSTANCE.getGenLink_ViewDirectionAlignedWithModel(),
 				 true,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
@@ -164,6 +185,7 @@ public class GenLinkItemProvider
 		switch (notification.getFeatureID(GenLink.class)) {
 			case GMFGenPackage.GEN_LINK__OUTGOING_CREATION_ALLOWED:
 			case GMFGenPackage.GEN_LINK__INCOMING_CREATION_ALLOWED:
+			case GMFGenPackage.GEN_LINK__VIEW_DIRECTION_ALIGNED_WITH_MODEL:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:

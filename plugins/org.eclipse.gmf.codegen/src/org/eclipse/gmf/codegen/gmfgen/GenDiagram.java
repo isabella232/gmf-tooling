@@ -24,6 +24,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getNodes <em>Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getLinks <em>Links</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPalette <em>Palette</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditCommandsPackageName <em>Edit Commands Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditPartsPackageName <em>Edit Parts Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditPoliciesPackageName <em>Edit Policies Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditorPackageName <em>Editor Package Name</em>}</li>
@@ -36,8 +37,10 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isPrintingEnabled <em>Printing Enabled</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isHasDomainModel <em>Has Domain Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getReorientConnectionViewCommandClassName <em>Reorient Connection View Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditPartFactoryClassName <em>Edit Part Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getBaseItemSemanticEditPolicyClassName <em>Base Item Semantic Edit Policy Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getBaseGraphicalNodeEditPolicyClassName <em>Base Graphical Node Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getReferenceConnectionEditPolicyClassName <em>Reference Connection Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getElementTypesClassName <em>Element Types Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getSemanticHintsClassName <em>Semantic Hints Class Name</em>}</li>
@@ -184,6 +187,32 @@ public interface GenDiagram extends GenCommonBase{
 	 * @generated
 	 */
 	void setPalette(Palette value);
+
+	/**
+	 * Returns the value of the '<em><b>Edit Commands Package Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Edit Commands Package Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Edit Commands Package Name</em>' attribute.
+	 * @see #setEditCommandsPackageName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_EditCommandsPackageName()
+	 * @model
+	 * @generated
+	 */
+	String getEditCommandsPackageName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditCommandsPackageName <em>Edit Commands Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Edit Commands Package Name</em>' attribute.
+	 * @see #getEditCommandsPackageName()
+	 * @generated
+	 */
+	void setEditCommandsPackageName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Edit Parts Package Name</b></em>' attribute.
@@ -577,6 +606,32 @@ public interface GenDiagram extends GenCommonBase{
 	void setBaseItemSemanticEditPolicyClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Base Graphical Node Edit Policy Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Base Graphical Node Edit Policy Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Base Graphical Node Edit Policy Class Name</em>' attribute.
+	 * @see #setBaseGraphicalNodeEditPolicyClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_BaseGraphicalNodeEditPolicyClassName()
+	 * @model
+	 * @generated
+	 */
+	String getBaseGraphicalNodeEditPolicyClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getBaseGraphicalNodeEditPolicyClassName <em>Base Graphical Node Edit Policy Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Base Graphical Node Edit Policy Class Name</em>' attribute.
+	 * @see #getBaseGraphicalNodeEditPolicyClassName()
+	 * @generated
+	 */
+	void setBaseGraphicalNodeEditPolicyClassName(String value);
+
+	/**
 	 * Returns the value of the '<em><b>Reference Connection Edit Policy Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -731,6 +786,32 @@ public interface GenDiagram extends GenCommonBase{
 	 * @generated
 	 */
 	void setDiagramFileExtension(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Reorient Connection View Command Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Reorient Connection View Command Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Reorient Connection View Command Class Name</em>' attribute.
+	 * @see #setReorientConnectionViewCommandClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_ReorientConnectionViewCommandClassName()
+	 * @model
+	 * @generated
+	 */
+	String getReorientConnectionViewCommandClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getReorientConnectionViewCommandClassName <em>Reorient Connection View Command Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Reorient Connection View Command Class Name</em>' attribute.
+	 * @see #getReorientConnectionViewCommandClassName()
+	 * @generated
+	 */
+	void setReorientConnectionViewCommandClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Same File For Diagram And Model</b></em>' attribute.
@@ -1186,6 +1267,14 @@ public interface GenDiagram extends GenCommonBase{
 	 * @model kind="operation"
 	 * @generated
 	 */
+	String getBaseGraphicalNodeEditPolicyQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
 	String getReferenceConnectionEditPolicyQualifiedClassName();
 
 	/**
@@ -1252,6 +1341,14 @@ public interface GenDiagram extends GenCommonBase{
 	 * @generated
 	 */
 	String getElementInitializersPackageName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getReorientConnectionViewCommandQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

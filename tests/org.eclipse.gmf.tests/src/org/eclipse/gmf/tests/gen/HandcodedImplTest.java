@@ -30,6 +30,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.jdt.core.JavaConventions;
@@ -98,6 +99,7 @@ public class HandcodedImplTest extends TestCase {
 		Set state = new HashSet();
 
 		// package names check
+		checkPackageName(state, "GenDiagram:editCommands", genDiagram.getEditCommandsPackageName());
 		checkPackageName(state, "GenDiagram:editParts", genDiagram.getEditPartsPackageName());
 		checkPackageName(state, "GenDiagram:editPolicies", genDiagram.getEditPoliciesPackageName());
 		checkPackageName(state, "GenDiagram:editor", genDiagram.getEditorPackageName());
@@ -118,8 +120,10 @@ public class HandcodedImplTest extends TestCase {
 		Set state = new HashSet();
 
 		// class names check
+		checkClassName(state, "GenDiagram:ReorientConnectionViewCommand", genDiagram.getReorientConnectionViewCommandClassName(), genDiagram.getReorientConnectionViewCommandQualifiedClassName());
 		checkClassName(state, "GenDiagram:EditPartFactory", genDiagram.getEditPartFactoryClassName(), genDiagram.getEditPartFactoryQualifiedClassName());
 		checkClassName(state, "GenDiagram:BaseItemSemanticEditPolicy", genDiagram.getBaseItemSemanticEditPolicyClassName(), genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName());
+		checkClassName(state, "GenDiagram:BaseGraphicalNodeEditPolicy", genDiagram.getBaseGraphicalNodeEditPolicyClassName(), genDiagram.getBaseGraphicalNodeEditPolicyQualifiedClassName());
 		checkClassName(state, "GenDiagram:ReferenceConnectionEditPolicy", genDiagram.getReferenceConnectionEditPolicyClassName(), genDiagram.getReferenceConnectionEditPolicyQualifiedClassName());
 		checkClassName(state, "GenDiagram:ElementTypes", genDiagram.getElementTypesClassName(), genDiagram.getElementTypesQualifiedClassName());
 		checkClassName(state, "GenDiagram:SemanticHints", genDiagram.getSemanticHintsClassName(), genDiagram.getSemanticHintsQualifiedClassName());
@@ -154,6 +158,9 @@ public class HandcodedImplTest extends TestCase {
 					GenLinkLabel nextLabel = (GenLinkLabel) labels.next();
 					checkClassName(state, "GenLinkLabel:TextNotationViewFactory", nextLabel.getTextNotationViewFactoryClassName(), nextLabel.getTextNotationViewFactoryQualifiedClassName());
 				}
+			} else if (nextEntity instanceof GenNode) {
+				GenNode genNode = (GenNode) nextEntity;
+				checkClassName(state, "GenNode:GraphicalNodeEditPolicy", genNode.getGraphicalNodeEditPolicyClassName(), genNode.getGraphicalNodeEditPolicyQualifiedClassName());
 			}
 		}
 		// test model may not contain them
@@ -161,6 +168,7 @@ public class HandcodedImplTest extends TestCase {
 		state.add("GenCommonBase:ItemSemanticEditPolicy");
 		state.add("GenCommonBase:NotationViewFactory");
 		state.add("GenLinkLabel:TextNotationViewFactory");
+		state.add("GenNode:GraphicalNodeEditPolicy");
 		// disable explicitly
 		state.add("FigureViewmap:Figure");
 

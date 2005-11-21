@@ -62,6 +62,7 @@ public class GenNodeItemProvider
 			super.getPropertyDescriptors(object);
 
 			addChildContainersPlacementPropertyDescriptor(object);
+			addGraphicalNodeEditPolicyClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -80,6 +81,26 @@ public class GenNodeItemProvider
 				 getString("_UI_GenNode_childContainersPlacement_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenNode_childContainersPlacement_feature", "_UI_GenNode_type"),
 				 GMFGenPackage.eINSTANCE.getGenNode_ChildContainersPlacement(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Graphical Node Edit Policy Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addGraphicalNodeEditPolicyClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenNode_graphicalNodeEditPolicyClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenNode_graphicalNodeEditPolicyClassName_feature", "_UI_GenNode_type"),
+				 GMFGenPackage.eINSTANCE.getGenNode_GraphicalNodeEditPolicyClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -151,6 +172,7 @@ public class GenNodeItemProvider
 
 		switch (notification.getFeatureID(GenNode.class)) {
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
+			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_NODE__MODEL_FACET:

@@ -60,7 +60,7 @@ public final class CompartmentPlacementKind extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final CompartmentPlacementKind FLOW_LITERAL = new CompartmentPlacementKind(FLOW, "FLOW", "FLOW");
+	public static final CompartmentPlacementKind FLOW_LITERAL = new CompartmentPlacementKind(FLOW, "FLOW");
 
 	/**
 	 * The '<em><b>TOOLBAR</b></em>' literal object.
@@ -70,7 +70,7 @@ public final class CompartmentPlacementKind extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final CompartmentPlacementKind TOOLBAR_LITERAL = new CompartmentPlacementKind(TOOLBAR, "TOOLBAR", "TOOLBAR");
+	public static final CompartmentPlacementKind TOOLBAR_LITERAL = new CompartmentPlacementKind(TOOLBAR, "TOOLBAR");
 
 	/**
 	 * An array of all the '<em><b>Compartment Placement Kind</b></em>' enumerators.
@@ -93,31 +93,15 @@ public final class CompartmentPlacementKind extends AbstractEnumerator {
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Compartment Placement Kind</b></em>' literal with the specified literal value.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public static CompartmentPlacementKind get(String literal) {
-		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-			CompartmentPlacementKind result = VALUES_ARRAY[i];
-			if (result.toString().equals(literal)) {
-				return result;
-			}
-		}
-		return null;
-	}
-
-	/**
 	 * Returns the '<em><b>Compartment Placement Kind</b></em>' literal with the specified name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static CompartmentPlacementKind getByName(String name) {
+	public static CompartmentPlacementKind get(String name) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			CompartmentPlacementKind result = VALUES_ARRAY[i];
-			if (result.getName().equals(name)) {
+			if (result.toString().equals(name)) {
 				return result;
 			}
 		}
@@ -125,7 +109,7 @@ public final class CompartmentPlacementKind extends AbstractEnumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Compartment Placement Kind</b></em>' literal with the specified integer value.
+	 * Returns the '<em><b>Compartment Placement Kind</b></em>' literal with the specified value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -144,8 +128,8 @@ public final class CompartmentPlacementKind extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private CompartmentPlacementKind(int value, String name, String literal) {
-		super(value, name, literal);
+	private CompartmentPlacementKind(int value, String name) {
+		super(value, name);
 	}
 
 } //CompartmentPlacementKind

@@ -39,6 +39,7 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getLabels <em>Labels</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getChildContainersPlacement <em>Child Containers Placement</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getGraphicalNodeEditPolicyClassName <em>Graphical Node Edit Policy Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -96,6 +97,26 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 	protected CompartmentPlacementKind childContainersPlacement = CHILD_CONTAINERS_PLACEMENT_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getGraphicalNodeEditPolicyClassName() <em>Graphical Node Edit Policy Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getGraphicalNodeEditPolicyClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getGraphicalNodeEditPolicyClassName() <em>Graphical Node Edit Policy Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getGraphicalNodeEditPolicyClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String graphicalNodeEditPolicyClassName = GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -130,6 +151,15 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 	 */
 	public GenClass getDomainMetaClass() {
 		return getModelFacet().getMetaClass();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getGraphicalNodeEditPolicyQualifiedClassName() {
+		return getDiagram().getEditPoliciesPackageName() + '.' + getGraphicalNodeEditPolicyClassName();
 	}
 
 	/**
@@ -175,6 +205,35 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 		childContainersPlacement = newChildContainersPlacement == null ? CHILD_CONTAINERS_PLACEMENT_EDEFAULT : newChildContainersPlacement;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT, oldChildContainersPlacement, childContainersPlacement));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getGraphicalNodeEditPolicyClassNameGen() {
+		return graphicalNodeEditPolicyClassName;
+	}
+
+	public String getGraphicalNodeEditPolicyClassName() {
+		String name = getGraphicalNodeEditPolicyClassNameGen();
+		if (name == null || name.length() == 0) {
+			return getClassNamePrefix() + getClassNameSuffux() + "GraphicalNodeEditPolicy"; //$NON-NLS-1$
+		}
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setGraphicalNodeEditPolicyClassName(String newGraphicalNodeEditPolicyClassName) {
+		String oldGraphicalNodeEditPolicyClassName = graphicalNodeEditPolicyClassName;
+		graphicalNodeEditPolicyClassName = newGraphicalNodeEditPolicyClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME, oldGraphicalNodeEditPolicyClassName, graphicalNodeEditPolicyClassName));
 	}
 
 	/**
@@ -323,6 +382,8 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 				return getCompartments();
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
 				return getChildContainersPlacement();
+			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
+				return getGraphicalNodeEditPolicyClassName();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -370,6 +431,9 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
 				setChildContainersPlacement((CompartmentPlacementKind)newValue);
 				return;
+			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
+				setGraphicalNodeEditPolicyClassName((String)newValue);
+				return;
 		}
 		eDynamicSet(eFeature, newValue);
 	}
@@ -414,6 +478,9 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
 				setChildContainersPlacement(CHILD_CONTAINERS_PLACEMENT_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
+				setGraphicalNodeEditPolicyClassName(GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -449,6 +516,8 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 				return compartments != null && !compartments.isEmpty();
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
 				return childContainersPlacement != CHILD_CONTAINERS_PLACEMENT_EDEFAULT;
+			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
+				return GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? graphicalNodeEditPolicyClassName != null : !GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(graphicalNodeEditPolicyClassName);
 		}
 		return eDynamicIsSet(eFeature);
 	}
@@ -464,6 +533,8 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (childContainersPlacement: ");
 		result.append(childContainersPlacement);
+		result.append(", graphicalNodeEditPolicyClassName: ");
+		result.append(graphicalNodeEditPolicyClassName);
 		result.append(')');
 		return result.toString();
 	}

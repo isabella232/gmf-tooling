@@ -40,6 +40,7 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getLabels <em>Labels</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#isOutgoingCreationAllowed <em>Outgoing Creation Allowed</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#isIncomingCreationAllowed <em>Incoming Creation Allowed</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#isViewDirectionAlignedWithModel <em>View Direction Aligned With Model</em>}</li>
  * </ul>
  * </p>
  *
@@ -105,6 +106,26 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * @ordered
 	 */
 	protected boolean incomingCreationAllowed = INCOMING_CREATION_ALLOWED_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isViewDirectionAlignedWithModel() <em>View Direction Aligned With Model</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isViewDirectionAlignedWithModel()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean VIEW_DIRECTION_ALIGNED_WITH_MODEL_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isViewDirectionAlignedWithModel() <em>View Direction Aligned With Model</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isViewDirectionAlignedWithModel()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean viewDirectionAlignedWithModel = VIEW_DIRECTION_ALIGNED_WITH_MODEL_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -236,6 +257,27 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isViewDirectionAlignedWithModel() {
+		return viewDirectionAlignedWithModel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setViewDirectionAlignedWithModel(boolean newViewDirectionAlignedWithModel) {
+		boolean oldViewDirectionAlignedWithModel = viewDirectionAlignedWithModel;
+		viewDirectionAlignedWithModel = newViewDirectionAlignedWithModel;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__VIEW_DIRECTION_ALIGNED_WITH_MODEL, oldViewDirectionAlignedWithModel, viewDirectionAlignedWithModel));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
@@ -324,6 +366,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				return isOutgoingCreationAllowed() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_LINK__INCOMING_CREATION_ALLOWED:
 				return isIncomingCreationAllowed() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_LINK__VIEW_DIRECTION_ALIGNED_WITH_MODEL:
+				return isViewDirectionAlignedWithModel() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -366,6 +410,9 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			case GMFGenPackage.GEN_LINK__INCOMING_CREATION_ALLOWED:
 				setIncomingCreationAllowed(((Boolean)newValue).booleanValue());
 				return;
+			case GMFGenPackage.GEN_LINK__VIEW_DIRECTION_ALIGNED_WITH_MODEL:
+				setViewDirectionAlignedWithModel(((Boolean)newValue).booleanValue());
+				return;
 		}
 		eDynamicSet(eFeature, newValue);
 	}
@@ -407,6 +454,9 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			case GMFGenPackage.GEN_LINK__INCOMING_CREATION_ALLOWED:
 				setIncomingCreationAllowed(INCOMING_CREATION_ALLOWED_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_LINK__VIEW_DIRECTION_ALIGNED_WITH_MODEL:
+				setViewDirectionAlignedWithModel(VIEW_DIRECTION_ALIGNED_WITH_MODEL_EDEFAULT);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -440,6 +490,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				return outgoingCreationAllowed != OUTGOING_CREATION_ALLOWED_EDEFAULT;
 			case GMFGenPackage.GEN_LINK__INCOMING_CREATION_ALLOWED:
 				return incomingCreationAllowed != INCOMING_CREATION_ALLOWED_EDEFAULT;
+			case GMFGenPackage.GEN_LINK__VIEW_DIRECTION_ALIGNED_WITH_MODEL:
+				return viewDirectionAlignedWithModel != VIEW_DIRECTION_ALIGNED_WITH_MODEL_EDEFAULT;
 		}
 		return eDynamicIsSet(eFeature);
 	}
@@ -457,6 +509,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 		result.append(outgoingCreationAllowed);
 		result.append(", incomingCreationAllowed: ");
 		result.append(incomingCreationAllowed);
+		result.append(", viewDirectionAlignedWithModel: ");
+		result.append(viewDirectionAlignedWithModel);
 		result.append(')');
 		return result.toString();
 	}

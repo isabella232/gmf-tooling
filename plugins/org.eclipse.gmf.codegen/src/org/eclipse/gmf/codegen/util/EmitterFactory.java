@@ -17,6 +17,7 @@ import java.net.URL;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
+import org.eclipse.gmf.codegen.templates.commands.ReorientConnectionViewCommandGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ActionBarContributorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardPageGenerator;
@@ -40,8 +41,10 @@ import org.eclipse.gmf.codegen.templates.parts.NodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.NodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.policies.CompartmentItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.DiagramItemSemanticEditPolicyGenerator;
+import org.eclipse.gmf.codegen.templates.policies.GraphicalNodeEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.LinkItemSemanticEditPolicyGenerator;
+import org.eclipse.gmf.codegen.templates.policies.NodeGraphicalNodeEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.NodeItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ReferenceConnectionEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
@@ -77,6 +80,12 @@ public class EmitterFactory {
 
 	private static boolean usePrecompiledTemplates() {
 		return true;
+	}
+
+	// commands
+
+	public static JETEmitter getReorientConnectionViewCommandEmitter() throws JETException {
+		return initializeEmitter("/templates/commands/ReorientConnectionViewCommand.javajet", ReorientConnectionViewCommandGenerator.class);
 	}
 
 	// parts
@@ -115,6 +124,10 @@ public class EmitterFactory {
 		return initializeEmitter("/templates/policies/ItemSemanticEditPolicy.javajet", ItemSemanticEditPolicyGenerator.class);
 	}
 
+	public static JETEmitter getBaseGraphicalNodeEditPolicyEmitter() throws JETException {
+		return initializeEmitter("/templates/policies/GraphicalNodeEditPolicy.javajet", GraphicalNodeEditPolicyGenerator.class);
+	}
+
 	public static JETEmitter getReferenceConnectionEditPolicyEmitter() throws JETException {
 		return initializeEmitter("/templates/policies/ReferenceConnectionEditPolicy.javajet", ReferenceConnectionEditPolicyGenerator.class);
 	}
@@ -124,7 +137,11 @@ public class EmitterFactory {
 	}
 
 	public static JETEmitter getCompartmentItemSemanticEditPolicyEmitter() throws JETException {
-		return initializeEmitter("/templates/providers/CompartmentItemSemanticEditPolicy.javajet", CompartmentItemSemanticEditPolicyGenerator.class);
+		return initializeEmitter("/templates/policies/CompartmentItemSemanticEditPolicy.javajet", CompartmentItemSemanticEditPolicyGenerator.class);
+	}
+
+	public static JETEmitter getNodeGraphicalNodeEditPolicyEmitter() throws JETException {
+		return initializeEmitter("/templates/policies/NodeGraphicalNodeEditPolicy.javajet", NodeGraphicalNodeEditPolicyGenerator.class);
 	}
 
 	public static JETEmitter getNodeItemSemanticEditPolicyEmitter() throws JETException {

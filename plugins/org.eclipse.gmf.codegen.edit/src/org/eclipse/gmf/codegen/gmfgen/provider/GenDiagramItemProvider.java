@@ -63,6 +63,7 @@ public class GenDiagramItemProvider
 
 			addDomainMetaModelPropertyDescriptor(object);
 			addDomainDiagramElementPropertyDescriptor(object);
+			addEditCommandsPackageNamePropertyDescriptor(object);
 			addEditPartsPackageNamePropertyDescriptor(object);
 			addEditPoliciesPackageNamePropertyDescriptor(object);
 			addEditorPackageNamePropertyDescriptor(object);
@@ -75,8 +76,10 @@ public class GenDiagramItemProvider
 			addPrintingEnabledPropertyDescriptor(object);
 			addHasDomainModelPropertyDescriptor(object);
 			addDiagramFileExtensionPropertyDescriptor(object);
+			addReorientConnectionViewCommandClassNamePropertyDescriptor(object);
 			addEditPartFactoryClassNamePropertyDescriptor(object);
 			addBaseItemSemanticEditPolicyClassNamePropertyDescriptor(object);
+			addBaseGraphicalNodeEditPolicyClassNamePropertyDescriptor(object);
 			addReferenceConnectionEditPolicyClassNamePropertyDescriptor(object);
 			addElementTypesClassNamePropertyDescriptor(object);
 			addSemanticHintsClassNamePropertyDescriptor(object);
@@ -139,6 +142,26 @@ public class GenDiagramItemProvider
 				 GMFGenPackage.eINSTANCE.getGenDiagram_DomainDiagramElement(),
 				 true,
 				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Edit Commands Package Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEditCommandsPackageNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_editCommandsPackageName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_editCommandsPackageName_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_EditCommandsPackageName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -444,6 +467,26 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Base Graphical Node Edit Policy Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addBaseGraphicalNodeEditPolicyClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_baseGraphicalNodeEditPolicyClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_baseGraphicalNodeEditPolicyClassName_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_BaseGraphicalNodeEditPolicyClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Reference Connection Edit Policy Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -557,6 +600,26 @@ public class GenDiagramItemProvider
 				 getString("_UI_GenDiagram_diagramFileExtension_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_diagramFileExtension_feature", "_UI_GenDiagram_type"),
 				 GMFGenPackage.eINSTANCE.getGenDiagram_DiagramFileExtension(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Reorient Connection View Command Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addReorientConnectionViewCommandClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_reorientConnectionViewCommandClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_reorientConnectionViewCommandClassName_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_ReorientConnectionViewCommandClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -927,6 +990,7 @@ public class GenDiagramItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenDiagram.class)) {
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
@@ -939,8 +1003,10 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
 			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
+			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:

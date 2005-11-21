@@ -26,6 +26,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getLabels <em>Labels</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getChildContainersPlacement <em>Child Containers Placement</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getGraphicalNodeEditPolicyClassName <em>Graphical Node Edit Policy Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -66,6 +67,14 @@ public interface GenNode extends GenChildContainer{
 	 * @generated
 	 */
 	GenClass getDomainMetaClass();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getGraphicalNodeEditPolicyQualifiedClassName();
 
 	/**
 	 * Returns the value of the '<em><b>Labels</b></em>' containment reference list.
@@ -131,6 +140,32 @@ public interface GenNode extends GenChildContainer{
 	 * @generated
 	 */
 	void setChildContainersPlacement(CompartmentPlacementKind value);
+
+	/**
+	 * Returns the value of the '<em><b>Graphical Node Edit Policy Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Graphical Node Edit Policy Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Graphical Node Edit Policy Class Name</em>' attribute.
+	 * @see #setGraphicalNodeEditPolicyClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_GraphicalNodeEditPolicyClassName()
+	 * @model
+	 * @generated
+	 */
+	String getGraphicalNodeEditPolicyClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getGraphicalNodeEditPolicyClassName <em>Graphical Node Edit Policy Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Graphical Node Edit Policy Class Name</em>' attribute.
+	 * @see #getGraphicalNodeEditPolicyClassName()
+	 * @generated
+	 */
+	void setGraphicalNodeEditPolicyClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Model Facet</b></em>' containment reference.

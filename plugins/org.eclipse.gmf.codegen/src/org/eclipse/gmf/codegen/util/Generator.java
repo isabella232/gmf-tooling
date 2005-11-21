@@ -99,10 +99,14 @@ public class Generator implements Runnable {
 			myExceptions = new LinkedList/*<IStatus>*/();
 			initializeEditorProject();
 
+			// commands
+			generateReorientConnectionViewCommand();
+
 			// edit parts, edit policies and providers
 			generateSemanticHints();
 			generateStructuralFeatureParser();
 			generateBaseItemSemanticEditPolicy();
+			generateBaseGraphicalNodeEditPolicy();
 			generateReferenceConnectionEditPolicy();
 			generateDiagramItemSemanticEditPolicy();
 			for (Iterator nodes = myDiagram.getNodes().iterator(); nodes.hasNext();) {
@@ -184,8 +188,9 @@ public class Generator implements Runnable {
 			GenCompartment compartment = (GenCompartment) compartments.next();
 			generateCompartment(compartment);
 		}
-		generateNodeItemSemanticEditPolicy(node);
 		generateChildContainer(node);
+		generateNodeGraphicalNodeEditPolicy(node);
+		generateNodeItemSemanticEditPolicy(node);
 	}
 
 	private void generateListContainerNode(GenChildNode child) throws JETException, InterruptedException {
@@ -210,6 +215,17 @@ public class Generator implements Runnable {
 				generateNode(childNode);
 			}
 		}
+	}
+
+	// commands
+
+	private void generateReorientConnectionViewCommand() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getReorientConnectionViewCommandEmitter(),
+			myDiagram.getEditCommandsPackageName(),
+			myDiagram.getReorientConnectionViewCommandClassName(),
+			myDiagram
+		);
 	}
 
 	// parts
@@ -288,6 +304,15 @@ public class Generator implements Runnable {
 		);
 	}
 
+	private void generateBaseGraphicalNodeEditPolicy() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getBaseGraphicalNodeEditPolicyEmitter(),
+			myDiagram.getEditPoliciesPackageName(),
+			myDiagram.getBaseGraphicalNodeEditPolicyClassName(),
+			myDiagram
+		);
+	}
+
 	private void generateReferenceConnectionEditPolicy() throws JETException, InterruptedException {
 		generate(
 			EmitterFactory.getReferenceConnectionEditPolicyEmitter(),
@@ -312,6 +337,15 @@ public class Generator implements Runnable {
 			myDiagram.getEditPoliciesPackageName(),
 			genCompartment.getItemSemanticEditPolicyClassName(),
 			genCompartment
+		);
+	}
+
+	private void generateNodeGraphicalNodeEditPolicy(GenNode genNode) throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getNodeGraphicalNodeEditPolicyEmitter(),
+			myDiagram.getEditPoliciesPackageName(),
+			genNode.getGraphicalNodeEditPolicyClassName(),
+			genNode
 		);
 	}
 

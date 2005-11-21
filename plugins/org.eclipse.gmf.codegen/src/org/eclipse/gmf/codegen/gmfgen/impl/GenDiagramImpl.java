@@ -50,6 +50,7 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getNodes <em>Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getLinks <em>Links</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPalette <em>Palette</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditCommandsPackageName <em>Edit Commands Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartsPackageName <em>Edit Parts Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPoliciesPackageName <em>Edit Policies Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditorPackageName <em>Editor Package Name</em>}</li>
@@ -62,8 +63,10 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isPrintingEnabled <em>Printing Enabled</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isHasDomainModel <em>Has Domain Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getReorientConnectionViewCommandClassName <em>Reorient Connection View Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartFactoryClassName <em>Edit Part Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getBaseItemSemanticEditPolicyClassName <em>Base Item Semantic Edit Policy Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getBaseGraphicalNodeEditPolicyClassName <em>Base Graphical Node Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getReferenceConnectionEditPolicyClassName <em>Reference Connection Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getElementTypesClassName <em>Element Types Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getSemanticHintsClassName <em>Semantic Hints Class Name</em>}</li>
@@ -142,6 +145,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected Palette palette = null;
+
+	/**
+	 * The default value of the '{@link #getEditCommandsPackageName() <em>Edit Commands Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditCommandsPackageName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String EDIT_COMMANDS_PACKAGE_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getEditCommandsPackageName() <em>Edit Commands Package Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditCommandsPackageName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String editCommandsPackageName = EDIT_COMMANDS_PACKAGE_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getEditPartsPackageName() <em>Edit Parts Package Name</em>}' attribute.
@@ -384,6 +407,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected String diagramFileExtension = DIAGRAM_FILE_EXTENSION_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getReorientConnectionViewCommandClassName() <em>Reorient Connection View Command Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getReorientConnectionViewCommandClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getReorientConnectionViewCommandClassName() <em>Reorient Connection View Command Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getReorientConnectionViewCommandClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String reorientConnectionViewCommandClassName = REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getEditPartFactoryClassName() <em>Edit Part Factory Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -422,6 +465,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String baseItemSemanticEditPolicyClassName = BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getBaseGraphicalNodeEditPolicyClassName() <em>Base Graphical Node Edit Policy Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBaseGraphicalNodeEditPolicyClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getBaseGraphicalNodeEditPolicyClassName() <em>Base Graphical Node Edit Policy Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBaseGraphicalNodeEditPolicyClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String baseGraphicalNodeEditPolicyClassName = BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getReferenceConnectionEditPolicyClassName() <em>Reference Connection Edit Policy Class Name</em>}' attribute.
@@ -1031,6 +1094,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getEditCommandsPackageNameGen() {
+		return editCommandsPackageName;
+	}
+
+	public String getEditCommandsPackageName() {
+		String value = getEditCommandsPackageNameGen();
+		if (value == null || value.length() == 0) {
+			return getPackageNamePrefix() + ".edit.commands";
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditCommandsPackageName(String newEditCommandsPackageName) {
+		String oldEditCommandsPackageName = editCommandsPackageName;
+		editCommandsPackageName = newEditCommandsPackageName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME, oldEditCommandsPackageName, editCommandsPackageName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getEditPartsPackageNameGen() {
 		return editPartsPackageName;
 	}
@@ -1244,7 +1336,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getVisualIDRegistryClassName() {
 		String name = getVisualIDRegistryClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "VisualIDRegistry"; //$NON-NLS-1$
 		}
 		return name;
@@ -1360,7 +1452,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getEditorClassName() {
 		String name = getEditorClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "DiagramEditor"; //$NON-NLS-1$
 		}
 		return name;
@@ -1389,7 +1481,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getDocumentProviderClassName() {
 		String name = getDocumentProviderClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "DocumentProvider"; //$NON-NLS-1$
 		}
 		return name;
@@ -1418,7 +1510,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getEditPartFactoryClassName() {
 		String name = getEditPartFactoryClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "EditPartFactory"; //$NON-NLS-1$
 		}
 		return name;
@@ -1447,7 +1539,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getBaseItemSemanticEditPolicyClassName() {
 		String name = getBaseItemSemanticEditPolicyClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "ItemSemanticEditPolicy"; //$NON-NLS-1$
 		}
 		return name;
@@ -1470,13 +1562,42 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getBaseGraphicalNodeEditPolicyClassNameGen() {
+		return baseGraphicalNodeEditPolicyClassName;
+	}
+
+	public String getBaseGraphicalNodeEditPolicyClassName() {
+		String name = getBaseGraphicalNodeEditPolicyClassNameGen();
+		if (name == null || name.length() == 0) {
+			return getDomainPackageCapName() + "GraphicalNodeEditPolicy"; //$NON-NLS-1$
+		}
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBaseGraphicalNodeEditPolicyClassName(String newBaseGraphicalNodeEditPolicyClassName) {
+		String oldBaseGraphicalNodeEditPolicyClassName = baseGraphicalNodeEditPolicyClassName;
+		baseGraphicalNodeEditPolicyClassName = newBaseGraphicalNodeEditPolicyClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME, oldBaseGraphicalNodeEditPolicyClassName, baseGraphicalNodeEditPolicyClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getReferenceConnectionEditPolicyClassNameGen() {
 		return referenceConnectionEditPolicyClassName;
 	}
 
 	public String getReferenceConnectionEditPolicyClassName() {
 		String name = getReferenceConnectionEditPolicyClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "ReferenceConnectionEditPolicy"; //$NON-NLS-1$
 		}
 		return name;
@@ -1505,7 +1626,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getElementTypesClassName() {
 		String name = getElementTypesClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "ElementTypes"; //$NON-NLS-1$
 		}
 		return name;
@@ -1534,7 +1655,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getSemanticHintsClassName() {
 		String name = getSemanticHintsClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "SemanticHints"; //$NON-NLS-1$
 		}
 		return name;
@@ -1563,7 +1684,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getNotationViewProviderClassName() {
 		String name = getNotationViewProviderClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "ViewProvider"; //$NON-NLS-1$
 		}
 		return name;
@@ -1613,7 +1734,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getDiagramFileExtension() {
 		String value = getDiagramFileExtensionGen();
-		if (value == null || value.trim().length() == 0) {
+		if (value == null || value.length() == 0) {
 			return getEMFGenModel().getModelName().toLowerCase() + "_diagram";
 		}
 		return value;
@@ -1629,6 +1750,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		diagramFileExtension = newDiagramFileExtension;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION, oldDiagramFileExtension, diagramFileExtension));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getReorientConnectionViewCommandClassNameGen() {
+		return reorientConnectionViewCommandClassName;
+	}
+
+	public String getReorientConnectionViewCommandClassName() {
+		String name = getReorientConnectionViewCommandClassNameGen();
+		if (name == null || name.length() == 0) {
+			return getDomainPackageCapName() + "ReorientConnectionViewCommand"; //$NON-NLS-1$
+		}
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setReorientConnectionViewCommandClassName(String newReorientConnectionViewCommandClassName) {
+		String oldReorientConnectionViewCommandClassName = reorientConnectionViewCommandClassName;
+		reorientConnectionViewCommandClassName = newReorientConnectionViewCommandClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME, oldReorientConnectionViewCommandClassName, reorientConnectionViewCommandClassName));
 	}
 
 	/**
@@ -1684,7 +1834,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getInitDiagramFileActionClassName() {
 		String name = getInitDiagramFileActionClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "InitDiagramFileAction"; //$NON-NLS-1$
 		}
 		return name;
@@ -1713,7 +1863,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getActionBarContributorClassName() {
 		String name = getActionBarContributorClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "DiagramActionBarContributor"; //$NON-NLS-1$
 		}
 		return name;
@@ -1742,7 +1892,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getCreationWizardClassName() {
 		String name = getCreationWizardClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "CreationWizard"; //$NON-NLS-1$
 		}
 		return name;
@@ -1771,7 +1921,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getCreationWizardPageClassName() {
 		String name = getCreationWizardPageClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "CreationWizardPage"; //$NON-NLS-1$
 		}
 		return name;
@@ -1800,7 +1950,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getDiagramEditorUtilClassName() {
 		String name = getDiagramEditorUtilClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "DiagramEditorUtil"; //$NON-NLS-1$
 		}
 		return name;
@@ -1829,7 +1979,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getDiagramFileCreatorClassName() {
 		String name = getDiagramFileCreatorClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "DiagramFileCreator"; //$NON-NLS-1$
 		}
 		return name;
@@ -1858,7 +2008,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getMatchingStrategyClassName() {
 		String name = getMatchingStrategyClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "MatchingStrategy"; //$NON-NLS-1$
 		}
 		return name;
@@ -1887,7 +2037,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getEditPartProviderClassName() {
 		String name = getEditPartProviderClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "EditPartProvider"; //$NON-NLS-1$
 		}
 		return name;
@@ -1916,7 +2066,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getMetamodelSupportProviderClassName() {
 		String name = getMetamodelSupportProviderClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "MetaModelSupportProvider"; //$NON-NLS-1$
 		}
 		return name;
@@ -1945,7 +2095,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getModelingAssistantProviderClassName() {
 		String name = getModelingAssistantProviderClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "ModelingAssistantProvider"; //$NON-NLS-1$
 		}
 		return name;
@@ -1974,7 +2124,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getPropertyProviderClassName() {
 		String name = getPropertyProviderClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "PropertyProvider"; //$NON-NLS-1$
 		}
 		return name;
@@ -2003,7 +2153,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getIconProviderClassName() {
 		String name = getIconProviderClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "IconProvider"; //$NON-NLS-1$
 		}
 		return name;
@@ -2032,7 +2182,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getStructuralFeatureParserClassName() {
 		String name = getStructuralFeatureParserClassNameGen();
-		if (name == null) {
+		if (name == null || name.length() == 0) {
 			return getDomainPackageCapName() + "StructuralFeatureParser"; //$NON-NLS-1$
 		}
 		return name;
@@ -2094,6 +2244,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getEditorQualifiedClassName() {
 		return getEditorPackageName() + '.' + getEditorClassName();
 	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getReorientConnectionViewCommandQualifiedClassName() {
+		return getEditCommandsPackageName() + '.' + getReorientConnectionViewCommandClassName();
+	}
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2111,6 +2270,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public String getBaseItemSemanticEditPolicyQualifiedClassName() {
 		return getEditPoliciesPackageName() + '.' + getBaseItemSemanticEditPolicyClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getBaseGraphicalNodeEditPolicyQualifiedClassName() {
+		return getEditPoliciesPackageName() + '.' + getBaseGraphicalNodeEditPolicyClassName();
 	}
 
 	/**
@@ -2307,7 +2475,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getElementInitializersPackageName() {
 		return getProvidersPackageName();
 	}
-	
+
 	private boolean usesSVGShapes() {
 /* couldn't tell now
 		for (Iterator it = getNodes().iterator(); it.hasNext();) {
@@ -2399,6 +2567,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getLinks();
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				return getPalette();
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
+				return getEditCommandsPackageName();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 				return getEditPartsPackageName();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
@@ -2423,10 +2593,14 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return isHasDomainModel() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 				return getDiagramFileExtension();
+			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
+				return getReorientConnectionViewCommandClassName();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				return getEditPartFactoryClassName();
 			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
 				return getBaseItemSemanticEditPolicyClassName();
+			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
+				return getBaseGraphicalNodeEditPolicyClassName();
 			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
 				return getReferenceConnectionEditPolicyClassName();
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
@@ -2517,6 +2691,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				setPalette((Palette)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
+				setEditCommandsPackageName((String)newValue);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 				setEditPartsPackageName((String)newValue);
 				return;
@@ -2553,11 +2730,17 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 				setDiagramFileExtension((String)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
+				setReorientConnectionViewCommandClassName((String)newValue);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				setEditPartFactoryClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
 				setBaseItemSemanticEditPolicyClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
+				setBaseGraphicalNodeEditPolicyClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
 				setReferenceConnectionEditPolicyClassName((String)newValue);
@@ -2669,6 +2852,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				setPalette((Palette)null);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
+				setEditCommandsPackageName(EDIT_COMMANDS_PACKAGE_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 				setEditPartsPackageName(EDIT_PARTS_PACKAGE_NAME_EDEFAULT);
 				return;
@@ -2705,11 +2891,17 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 				setDiagramFileExtension(DIAGRAM_FILE_EXTENSION_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
+				setReorientConnectionViewCommandClassName(REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				setEditPartFactoryClassName(EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
 				setBaseItemSemanticEditPolicyClassName(BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
+				setBaseGraphicalNodeEditPolicyClassName(BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
 				setReferenceConnectionEditPolicyClassName(REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT);
@@ -2810,6 +3002,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return links != null && !links.isEmpty();
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				return palette != null;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
+				return EDIT_COMMANDS_PACKAGE_NAME_EDEFAULT == null ? editCommandsPackageName != null : !EDIT_COMMANDS_PACKAGE_NAME_EDEFAULT.equals(editCommandsPackageName);
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 				return EDIT_PARTS_PACKAGE_NAME_EDEFAULT == null ? editPartsPackageName != null : !EDIT_PARTS_PACKAGE_NAME_EDEFAULT.equals(editPartsPackageName);
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
@@ -2834,10 +3028,14 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return hasDomainModel != HAS_DOMAIN_MODEL_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 				return DIAGRAM_FILE_EXTENSION_EDEFAULT == null ? diagramFileExtension != null : !DIAGRAM_FILE_EXTENSION_EDEFAULT.equals(diagramFileExtension);
+			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
+				return REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT == null ? reorientConnectionViewCommandClassName != null : !REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT.equals(reorientConnectionViewCommandClassName);
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				return EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT == null ? editPartFactoryClassName != null : !EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT.equals(editPartFactoryClassName);
 			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
 				return BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? baseItemSemanticEditPolicyClassName != null : !BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(baseItemSemanticEditPolicyClassName);
+			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
+				return BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? baseGraphicalNodeEditPolicyClassName != null : !BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(baseGraphicalNodeEditPolicyClassName);
 			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
 				return REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? referenceConnectionEditPolicyClassName != null : !REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(referenceConnectionEditPolicyClassName);
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
@@ -2895,7 +3093,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (editPartsPackageName: ");
+		result.append(" (editCommandsPackageName: ");
+		result.append(editCommandsPackageName);
+		result.append(", editPartsPackageName: ");
 		result.append(editPartsPackageName);
 		result.append(", editPoliciesPackageName: ");
 		result.append(editPoliciesPackageName);
@@ -2919,10 +3119,14 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(hasDomainModel);
 		result.append(", diagramFileExtension: ");
 		result.append(diagramFileExtension);
+		result.append(", reorientConnectionViewCommandClassName: ");
+		result.append(reorientConnectionViewCommandClassName);
 		result.append(", editPartFactoryClassName: ");
 		result.append(editPartFactoryClassName);
 		result.append(", baseItemSemanticEditPolicyClassName: ");
 		result.append(baseItemSemanticEditPolicyClassName);
+		result.append(", baseGraphicalNodeEditPolicyClassName: ");
+		result.append(baseGraphicalNodeEditPolicyClassName);
 		result.append(", referenceConnectionEditPolicyClassName: ");
 		result.append(referenceConnectionEditPolicyClassName);
 		result.append(", elementTypesClassName: ");

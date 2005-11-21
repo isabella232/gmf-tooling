@@ -25,6 +25,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getLabels <em>Labels</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isOutgoingCreationAllowed <em>Outgoing Creation Allowed</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isIncomingCreationAllowed <em>Incoming Creation Allowed</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isViewDirectionAlignedWithModel <em>View Direction Aligned With Model</em>}</li>
  * </ul>
  * </p>
  *
@@ -145,5 +146,31 @@ public interface GenLink extends GenCommonBase{
 	 * @generated
 	 */
 	void setIncomingCreationAllowed(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>View Direction Aligned With Model</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * View (Edge) will always be directed from model source to model target
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>View Direction Aligned With Model</em>' attribute.
+	 * @see #setViewDirectionAlignedWithModel(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink_ViewDirectionAlignedWithModel()
+	 * @model default="true"
+	 * @generated
+	 */
+	boolean isViewDirectionAlignedWithModel();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isViewDirectionAlignedWithModel <em>View Direction Aligned With Model</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>View Direction Aligned With Model</em>' attribute.
+	 * @see #isViewDirectionAlignedWithModel()
+	 * @generated
+	 */
+	void setViewDirectionAlignedWithModel(boolean value);
 
 } // GenLink

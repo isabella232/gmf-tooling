@@ -47,4 +47,76 @@ public class DiagramViewmapImpl extends ViewmapImpl implements DiagramViewmap {
 		return GMFGenPackage.eINSTANCE.getDiagramViewmap();
 	}
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
+		if (featureID >= 0) {
+			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case GMFGenPackage.DIAGRAM_VIEWMAP__ATTRIBUTES:
+					return ((InternalEList)getAttributes()).basicRemove(otherEnd, msgs);
+				default:
+					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
+			}
+		}
+		return eBasicSetContainer(null, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
+		switch (eDerivedStructuralFeatureID(eFeature)) {
+			case GMFGenPackage.DIAGRAM_VIEWMAP__ATTRIBUTES:
+				return getAttributes();
+		}
+		return eDynamicGet(eFeature, resolve);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eSet(EStructuralFeature eFeature, Object newValue) {
+		switch (eDerivedStructuralFeatureID(eFeature)) {
+			case GMFGenPackage.DIAGRAM_VIEWMAP__ATTRIBUTES:
+				getAttributes().clear();
+				getAttributes().addAll((Collection)newValue);
+				return;
+		}
+		eDynamicSet(eFeature, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eUnset(EStructuralFeature eFeature) {
+		switch (eDerivedStructuralFeatureID(eFeature)) {
+			case GMFGenPackage.DIAGRAM_VIEWMAP__ATTRIBUTES:
+				getAttributes().clear();
+				return;
+		}
+		eDynamicUnset(eFeature);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(EStructuralFeature eFeature) {
+		switch (eDerivedStructuralFeatureID(eFeature)) {
+			case GMFGenPackage.DIAGRAM_VIEWMAP__ATTRIBUTES:
+				return attributes != null && !attributes.isEmpty();
+		}
+		return eDynamicIsSet(eFeature);
+	}
+
 } //DiagramViewmapImpl

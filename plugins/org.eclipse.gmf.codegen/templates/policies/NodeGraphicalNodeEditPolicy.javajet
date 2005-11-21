@@ -1,0 +1,54 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.policies" class="NodeGraphicalNodeEditPolicyGenerator"
+	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+<%
+GenNode genNode = (GenNode) argument;
+GenDiagram genDiagram = genNode.getDiagram();
+%>
+package <%=genDiagram.getEditPoliciesPackageName()%>;
+
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPoliciesPackageName());%>
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genNode.getGraphicalNodeEditPolicyClassName()%> extends <%=importManager.getImportedName(genDiagram.getBaseGraphicalNodeEditPolicyQualifiedClassName())%> {
+<%
+GenClass nodeMetaClass = genNode.getModelFacet().getMetaClass();
+Set ids = new HashSet();
+for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
+	GenLink genLink = (GenLink) links.next();
+	if (!genLink.isViewDirectionAlignedWithModel()) {
+		continue;
+	}
+	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+		if (nodeMetaClass.equals(modelFacet.getTargetMetaFeature().getTypeGenClass())) {
+			ids.add(genLink.getUniqueIdentifier());
+		}
+	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+		if (nodeMetaClass.equals(metaFeature.getTypeGenClass())) {
+			ids.add(genLink.getUniqueIdentifier());
+		}
+	}
+}
+if (!ids.isEmpty()) {
+%>
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getConnectionCreateCommand(
+			<%=importManager.getImportedName("org.eclipse.gef.requests.CreateConnectionRequest")%> request) {
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%> elementType = getElementType(request);
+<%	for (Iterator it = ids.iterator(); it.hasNext();) {%>
+		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=(String) it.next()%> == elementType) {
+			return getConnectionWithReorientedViewCreateCommand(request);
+		}
+<%	}%>
+		return super.getConnectionCreateCommand(request);
+	}
+<%}%>
+}
+<%importManager.emitSortedImports();%>
