@@ -78,8 +78,15 @@
 			<property name="mapsCheckoutTag" value="${stable}" />
 		</ant>
 		<antcall target="publish" />
-		<!-- TODO: add check here for successful publish, then push to download server -->
-		
+		<!-- Check for successful publish, then push to download server -->
+		<condition property="upload">
+			<and>
+				<available file="${buildRoot}/artifacts/${buildLabel}/testResults.php"/>
+				<isset property="ftpUser"/>
+				<isset property="ftpPassword"/>
+			</and>
+		</condition>
+		<antcall target="push" />
 		<property file="build.properties" />
 		<antcall target="statCVS" />
 	</target>
@@ -177,6 +184,47 @@
 		<copy todir="${buildRoot}/artifacts/updates/${buildLabel}/plugins">
 			<fileset dir="${buildUpdateSitePath}/plugins" />
 		</copy>
+	</target>
+	
+	<target name="push" if="upload">
+		<property name="remoteDirectory" value="/home/data/users/${ftpUser}/downloads/technology/gmf"/>
+		<echo message="SCP to: ${remoteDirectory}/downloads/drops/${buildLabel}"/>	
+	
+		<zip destfile="${buildRoot}/artifacts/${buildLabel}/logs.zip">
+	    	<zipfileset dir="${buildRoot}/artifacts/${buildLabel}/compilelogs" prefix="compilelogs"/>
+	    	<zipfileset dir="${buildRoot}/artifacts/${buildLabel}/buildnotes" prefix="buildnotes"/>
+	    	<zipfileset dir="${buildRoot}/artifacts/${buildLabel}/testresults" prefix="testresults"/>
+	  	</zip>
+   
+		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="mkdir ${remoteDirectory}/downloads/drops/${buildLabel}"/>
+
+		<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/downloads/drops/${buildLabel}">
+	    <fileset dir="${buildRoot}/artifacts/${buildLabel}">
+	    	<include name="*.php"/>
+	    	<include name="*.gif"/>
+	    	<include name="files.count"/>
+	    	<include name="*.txt"/>
+	    	<include name="*.zip"/>
+	    </fileset>
+	  	</scp>
+  
+	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="unzip ${remoteDirectory}/downloads/drops/${buildLabel}/logs.zip -d ${remoteDirectory}/downloads/drops/${buildLabel}"/>
+	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm ${remoteDirectory}/downloads/drops/${buildLabel}/logs.zip"/>
+		  
+		<echo message="Updating update site..."/>
+	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/features/*.jar"/>
+	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm -f ${remoteDirectory}/update-site/plugins/*.jar"/>
+  
+	  	<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/features">
+	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/features">
+	    		<include name="*.jar"/>
+	    	</fileset>
+	  	</scp>
+	  	<scp trust="yes" todir="${ftpUser}:${ftpPassword}@download1.eclipse.org:${remoteDirectory}/update-site/plugins">
+	    	<fileset dir="${buildRoot}/artifacts/updates/${buildLabel}/plugins">
+	    		<include name="*.jar"/>
+	    	</fileset>
+	  	</scp>
 	</target>
 
 	<target name="statCVS" if="statCVShome">
