@@ -25,7 +25,6 @@ import org.osgi.framework.BundleContext;
 public class DevPlugin extends AbstractUIPlugin {
 
 	public static final String TRACE_OPTION = "/debug/trace";
-	public static final String IGNORED_REQUESTS_OPTION = "/debug/requests/ignored";
 
 	public static final String COMMAND_IMAGE = "/icons/command.gif";
 	public static final String COMMANDX_IMAGE = "/icons/commandx.gif";

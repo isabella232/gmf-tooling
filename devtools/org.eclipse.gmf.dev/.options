@@ -1,3 +1,2 @@
 org.eclipse.gmf.dev/debug=false
 org.eclipse.gmf.dev/debug/trace=false
-org.eclipse.gmf.dev/debug/requests/ignored=insert_semantic,property_change,autosize
