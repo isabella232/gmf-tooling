@@ -81,7 +81,7 @@
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail subjectprefix="[continuous]" buildresultsurl="${reporting.url}/buildresults/continuous"
+			<htmlemail buildresultsurl="${reporting.url}/buildresults/continuous"
 			logdir="${logs}/continuous">
 				<always address="${always.email}" />
 			</htmlemail>
@@ -109,7 +109,7 @@
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
 		<schedule>
-			<ant time="0300" antscript="build.${ext}" buildfile="buildAll.xml"
+			<ant time="0200" antscript="build.${ext}" buildfile="buildAll.xml"
 				target="nightly" uselogger="true" usedebug="false" usequiet="true">
 				<property name="buildType" value="N" />
 				<property name="fetchTag" value="HEAD" />
@@ -123,7 +123,7 @@
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail subjectprefix="[nightly]" buildresultsurl="${reporting.url}/buildresults/nightly"
+			<htmlemail buildresultsurl="${reporting.url}/buildresults/nightly"
 			logdir="${logs}/nightly">
 				<always address="${always.email}" />
 			</htmlemail>
@@ -151,7 +151,7 @@
 		<!-- Configures the actual build loop, how often and which
 			build file/target -->
 		<schedule>
-			<ant time="0400" antscript="build.${ext}" buildfile="buildAll.xml"
+			<ant time="0300" antscript="build.${ext}" buildfile="buildAll.xml"
 				target="integration" uselogger="true" usedebug="false" usequiet="true">
 				<property name="buildType" value="I" />
 				<property name="fetchTag" value="HEAD" />
@@ -165,7 +165,7 @@
 
 		<!-- Publishers are run *after* a build completes -->
 		<publishers>
-			<htmlemail subjectprefix="[integration]" buildresultsurl="${reporting.url}/buildresults/integration"
+			<htmlemail buildresultsurl="${reporting.url}/buildresults/integration"
 			logdir="${logs}/integration">
 				<always address="${always.email}" />
 			</htmlemail>
