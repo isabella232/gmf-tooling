@@ -31,6 +31,7 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkLabelImpl#getLink <em>Link</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkLabelImpl#getAlignment <em>Alignment</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkLabelImpl#getTextEditPartClassName <em>Text Edit Part Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkLabelImpl#getTextNotationViewFactoryClassName <em>Text Notation View Factory Class Name</em>}</li>
  * </ul>
  * </p>
@@ -57,6 +58,26 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	 * @ordered
 	 */
 	protected LinkLabelAlignment alignment = ALIGNMENT_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getTextEditPartClassName() <em>Text Edit Part Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTextEditPartClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TEXT_EDIT_PART_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getTextEditPartClassName() <em>Text Edit Part Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTextEditPartClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String textEditPartClassName = TEXT_EDIT_PART_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getTextNotationViewFactoryClassName() <em>Text Notation View Factory Class Name</em>}' attribute.
@@ -153,6 +174,35 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getTextEditPartClassNameGen() {
+		return textEditPartClassName;
+	}
+
+	public String getTextEditPartClassName() {
+		String name = getTextEditPartClassNameGen();
+		if (name == null || name.trim().length() == 0) {
+			name = getClassNamePrefix() + "TextEditPart"; //$NON-NLS-1$
+		}
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTextEditPartClassName(String newTextEditPartClassName) {
+		String oldTextEditPartClassName = textEditPartClassName;
+		textEditPartClassName = newTextEditPartClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK_LABEL__TEXT_EDIT_PART_CLASS_NAME, oldTextEditPartClassName, textEditPartClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getTextNotationViewFactoryClassNameGen() {
 		return textNotationViewFactoryClassName;
 	}
@@ -175,6 +225,15 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 		textNotationViewFactoryClassName = newTextNotationViewFactoryClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK_LABEL__TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME, oldTextNotationViewFactoryClassName, textNotationViewFactoryClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getTextEditPartQualifiedClassName() {
+		return getDiagram().getEditPartsPackageName() + '.' + getTextEditPartClassName();
 	}
 
 	/**
@@ -273,6 +332,8 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 				return getLink();
 			case GMFGenPackage.GEN_LINK_LABEL__ALIGNMENT:
 				return getAlignment();
+			case GMFGenPackage.GEN_LINK_LABEL__TEXT_EDIT_PART_CLASS_NAME:
+				return getTextEditPartClassName();
 			case GMFGenPackage.GEN_LINK_LABEL__TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return getTextNotationViewFactoryClassName();
 		}
@@ -315,6 +376,9 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 				return;
 			case GMFGenPackage.GEN_LINK_LABEL__ALIGNMENT:
 				setAlignment((LinkLabelAlignment)newValue);
+				return;
+			case GMFGenPackage.GEN_LINK_LABEL__TEXT_EDIT_PART_CLASS_NAME:
+				setTextEditPartClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_LABEL__TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setTextNotationViewFactoryClassName((String)newValue);
@@ -360,6 +424,9 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 			case GMFGenPackage.GEN_LINK_LABEL__ALIGNMENT:
 				setAlignment(ALIGNMENT_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_LINK_LABEL__TEXT_EDIT_PART_CLASS_NAME:
+				setTextEditPartClassName(TEXT_EDIT_PART_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_LINK_LABEL__TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME:
 				setTextNotationViewFactoryClassName(TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
 				return;
@@ -394,6 +461,8 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 				return getLink() != null;
 			case GMFGenPackage.GEN_LINK_LABEL__ALIGNMENT:
 				return alignment != ALIGNMENT_EDEFAULT;
+			case GMFGenPackage.GEN_LINK_LABEL__TEXT_EDIT_PART_CLASS_NAME:
+				return TEXT_EDIT_PART_CLASS_NAME_EDEFAULT == null ? textEditPartClassName != null : !TEXT_EDIT_PART_CLASS_NAME_EDEFAULT.equals(textEditPartClassName);
 			case GMFGenPackage.GEN_LINK_LABEL__TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? textNotationViewFactoryClassName != null : !TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(textNotationViewFactoryClassName);
 		}
@@ -411,6 +480,8 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (alignment: ");
 		result.append(alignment);
+		result.append(", textEditPartClassName: ");
+		result.append(textEditPartClassName);
 		result.append(", textNotationViewFactoryClassName: ");
 		result.append(textNotationViewFactoryClassName);
 		result.append(')');

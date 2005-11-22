@@ -156,6 +156,7 @@ public class HandcodedImplTest extends TestCase {
 			if (nextEntity instanceof GenLink) {
 				for (Iterator labels = ((GenLink) nextEntity).getLabels().iterator(); labels.hasNext();) {
 					GenLinkLabel nextLabel = (GenLinkLabel) labels.next();
+					checkClassName(state, "GenLinkLabel:TextEditPart", nextLabel.getTextEditPartClassName(), nextLabel.getTextEditPartQualifiedClassName());
 					checkClassName(state, "GenLinkLabel:TextNotationViewFactory", nextLabel.getTextNotationViewFactoryClassName(), nextLabel.getTextNotationViewFactoryQualifiedClassName());
 				}
 			} else if (nextEntity instanceof GenNode) {
@@ -167,6 +168,7 @@ public class HandcodedImplTest extends TestCase {
 		state.add("GenCommonBase:EditPart");
 		state.add("GenCommonBase:ItemSemanticEditPolicy");
 		state.add("GenCommonBase:NotationViewFactory");
+		state.add("GenLinkLabel:TextEditPart");
 		state.add("GenLinkLabel:TextNotationViewFactory");
 		state.add("GenNode:GraphicalNodeEditPolicy");
 		// disable explicitly

@@ -1,0 +1,50 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="LinkLabelTextEditPartGenerator"
+	imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+<%
+GenLinkLabel genLabel = (GenLinkLabel) argument;
+GenDiagram genDiagram = genLabel.getDiagram();
+%>
+package <%=genDiagram.getEditPartsPackageName()%>;
+
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
+import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart;
+import org.eclipse.gmf.runtime.notation.View;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genLabel.getTextEditPartClassName()%> extends TextCompartmentEditPart {
+
+	/**
+	 * @generated
+	 */
+	public <%=genLabel.getTextEditPartClassName()%>(View view) {
+		super(view);
+	}
+<%
+GenPackage genPackage = genDiagram.getDomainMetaModel();
+String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
+String semanticLinkInterfaceName;
+if (genLabel.getLink().getModelFacet() instanceof TypeLinkModelFacet) {
+	TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLabel.getLink().getModelFacet();
+	semanticLinkInterfaceName = modelFacet.getMetaClass().getClassifierAccessorName();
+} else {
+	FeatureModelFacet modelFacet = (FeatureModelFacet) genLabel.getLink().getModelFacet();
+	semanticLinkInterfaceName = modelFacet.getMetaFeature().getGenClass().getClassifierAccessorName();
+}
+%>
+
+	/**
+	 * @generated
+	 */
+	public IParser getParser() {
+		if (parser == null) {
+			parser = new <%=importManager.getImportedName(genDiagram.getStructuralFeatureParserQualifiedClassName())%>(
+					<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().getEStructuralFeature("<%=genLabel.getMetaFeature().getName()%>"));
+		}
+		return parser;
+	}
+}
+<%importManager.emitSortedImports();%>

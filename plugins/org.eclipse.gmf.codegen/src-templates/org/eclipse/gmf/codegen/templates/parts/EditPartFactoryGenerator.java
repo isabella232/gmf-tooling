@@ -40,17 +40,10 @@ public class EditPartFactoryGenerator
   protected final String TEXT_22 = NL + "\t\t\tcase ";
   protected final String TEXT_23 = ":" + NL + "\t\t\t\tif (";
   protected final String TEXT_24 = ".equals(view.getType())) {" + NL + "\t\t\t\t\treturn new ";
-  protected final String TEXT_25 = "(view) {" + NL + "\t\t\t\t\t" + NL + "\t\t\t\t\t\tpublic int getKeyPoint() {" + NL + "\t\t\t\t\t\t\treturn ";
-  protected final String TEXT_26 = ".";
-  protected final String TEXT_27 = ";" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t};" + NL + "\t\t\t\t} else {" + NL + "\t\t\t\t\treturn new ";
-  protected final String TEXT_28 = "(view) {" + NL + "" + NL + "\t\t\t\t\t\tpublic ";
-  protected final String TEXT_29 = " getParser() {" + NL + "\t\t\t\t\t\t\tif (parser == null) {" + NL + "\t\t\t\t\t\t\t\tparser = new ";
-  protected final String TEXT_30 = "(";
-  protected final String TEXT_31 = ".eINSTANCE.get";
-  protected final String TEXT_32 = "().getEStructuralFeature(\"";
-  protected final String TEXT_33 = "\"));" + NL + "\t\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\t\treturn parser;" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t};" + NL + "\t\t\t\t}";
-  protected final String TEXT_34 = "\t\t" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn createUnrecognizedEditPart(context, model);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private EditPart createUnrecognizedEditPart(EditPart context, Object model) {" + NL + "\t \t// Handle creation of unrecognized child node EditParts here" + NL + "\t \treturn null;" + NL + "\t }" + NL + "" + NL + "}";
-  protected final String TEXT_35 = NL;
+  protected final String TEXT_25 = "(view);" + NL + "\t\t\t\t} else {" + NL + "\t\t\t\t\treturn new ";
+  protected final String TEXT_26 = "(view);" + NL + "\t\t\t\t}";
+  protected final String TEXT_27 = NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn createUnrecognizedEditPart(context, model);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private EditPart createUnrecognizedEditPart(EditPart context, Object model) {" + NL + "\t \t// Handle creation of unrecognized child node EditParts here" + NL + "\t \treturn null;" + NL + "\t }" + NL + "" + NL + "}";
+  protected final String TEXT_28 = NL;
 
   public String generate(Object argument)
   {
@@ -116,49 +109,26 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 	for (Iterator linkLabels = link.getLabels().iterator(); linkLabels.hasNext();) {
 // [++] Just to remove unnecessary imports we are doing this import insode a loop
 		String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
-		String semanticPackageInterfaceName = importManager.getImportedName(genDiagram.getDomainMetaModel().getQualifiedPackageInterfaceName());
-// [--]		
+// [--]
 		GenLinkLabel linkLabel = (GenLinkLabel) linkLabels.next();
 		String labelViewId = semanticHintsClassName + '.' + link.getUniqueIdentifier() + "Labels." + AccessUtil.getLabelId(linkLabel);
-		String semanticLinkInterfaceName;
-		if (link.getModelFacet() instanceof TypeLinkModelFacet) {
-			TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) link.getModelFacet();
-			semanticLinkInterfaceName = modelFacet.getMetaClass().getClassifierAccessorName();
-		} else {
-			FeatureModelFacet modelFacet = (FeatureModelFacet) link.getModelFacet();
-			semanticLinkInterfaceName = modelFacet.getMetaFeature().getGenClass().getClassifierAccessorName();
-		}
 
     stringBuffer.append(TEXT_22);
     stringBuffer.append(linkLabel.getVisualID());
     stringBuffer.append(TEXT_23);
     stringBuffer.append(labelViewId);
     stringBuffer.append(TEXT_24);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart"));
+    stringBuffer.append(linkLabel.getEditPartClassName());
     stringBuffer.append(TEXT_25);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.ConnectionLocator"));
+    stringBuffer.append(linkLabel.getTextEditPartClassName());
     stringBuffer.append(TEXT_26);
-    stringBuffer.append(linkLabel.getAlignment());
-    stringBuffer.append(TEXT_27);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart"));
-    stringBuffer.append(TEXT_28);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParser"));
-    stringBuffer.append(TEXT_29);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getStructuralFeatureParserQualifiedClassName()));
-    stringBuffer.append(TEXT_30);
-    stringBuffer.append(semanticPackageInterfaceName);
-    stringBuffer.append(TEXT_31);
-    stringBuffer.append(semanticLinkInterfaceName);
-    stringBuffer.append(TEXT_32);
-    stringBuffer.append(linkLabel.getMetaFeature().getName());
-    stringBuffer.append(TEXT_33);
     
 	}
 }
 
-    stringBuffer.append(TEXT_34);
+    stringBuffer.append(TEXT_27);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_35);
+    stringBuffer.append(TEXT_28);
     return stringBuffer.toString();
   }
 }

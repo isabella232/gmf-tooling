@@ -120,6 +120,8 @@ public class Generator implements Runnable {
 				generateLinkItemSemanticEditPolicy(next);
 				for (Iterator labels = next.getLabels().iterator(); labels.hasNext();) {
 					GenLinkLabel label = (GenLinkLabel) labels.next();
+					generateLinkLabelEditPart(label);
+					generateLinkLabelTextEditPart(label);
 					generateLinkLabelViewFactory(label);
 					generateTextLinkLabelViewFactory(label);
 				}
@@ -281,6 +283,24 @@ public class Generator implements Runnable {
 			myDiagram.getEditPartsPackageName(),
 			genLink.getEditPartClassName(),
 			genLink
+		);
+	}
+
+	private void generateLinkLabelEditPart(GenLinkLabel label) throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getLinkLabelEditPartEmitter(),
+			myDiagram.getEditPartsPackageName(),
+			label.getEditPartClassName(),
+			label
+		);
+	}
+
+	private void generateLinkLabelTextEditPart(GenLinkLabel label) throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getLinkLabelTextEditPartEmitter(),
+			myDiagram.getEditPartsPackageName(),
+			label.getTextEditPartClassName(),
+			label
 		);
 	}
 

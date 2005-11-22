@@ -37,6 +37,8 @@ import org.eclipse.gmf.codegen.templates.parts.CompartmentEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.DiagramEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.EditPartFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.parts.LinkEditPartGenerator;
+import org.eclipse.gmf.codegen.templates.parts.LinkLabelEditPartGenerator;
+import org.eclipse.gmf.codegen.templates.parts.LinkLabelTextEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.NodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.NodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.policies.CompartmentItemSemanticEditPolicyGenerator;
@@ -112,6 +114,14 @@ public class EmitterFactory {
 	
 	public static JETEmitter getLinkEditPartEmitter() throws JETException {
 		return initializeEmitter("/templates/parts/LinkEditPart.javajet", LinkEditPartGenerator.class);
+	}
+
+	public static JETEmitter getLinkLabelEditPartEmitter() throws JETException {
+		return initializeEmitter("/templates/parts/LinkLabelEditPart.javajet", LinkLabelEditPartGenerator.class);
+	}
+
+	public static JETEmitter getLinkLabelTextEditPartEmitter() throws JETException {
+		return initializeEmitter("/templates/parts/LinkLabelTextEditPart.javajet", LinkLabelTextEditPartGenerator.class);
 	}
 
 	public static JETEmitter getEditPartFactoryEmitter() throws JETException {

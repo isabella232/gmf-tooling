@@ -1,0 +1,34 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="LinkLabelEditPartGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+<%
+GenLinkLabel genLabel = (GenLinkLabel) argument;
+GenDiagram genDiagram = genLabel.getDiagram();
+%>
+package <%=genDiagram.getEditPartsPackageName()%>;
+
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
+import org.eclipse.draw2d.ConnectionLocator;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart;
+import org.eclipse.gmf.runtime.notation.View;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genLabel.getEditPartClassName()%> extends LabelEditPart {
+
+	/**
+	 * @generated
+	 */
+	public <%=genLabel.getEditPartClassName()%>(View view) {
+		super(view);
+	}
+
+	/**
+	 * @generated
+	 */
+	public int getKeyPoint() {
+		return ConnectionLocator.<%=genLabel.getAlignment()%>;
+	}
+}
+<%importManager.emitSortedImports();%>

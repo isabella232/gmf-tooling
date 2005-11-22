@@ -21,6 +21,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getLink <em>Link</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getAlignment <em>Alignment</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getTextEditPartClassName <em>Text Edit Part Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getTextNotationViewFactoryClassName <em>Text Notation View Factory Class Name</em>}</li>
  * </ul>
  * </p>
@@ -89,6 +90,32 @@ public interface GenLinkLabel extends GenLabel{
 	void setAlignment(LinkLabelAlignment value);
 
 	/**
+	 * Returns the value of the '<em><b>Text Edit Part Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Text Edit Part Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Text Edit Part Class Name</em>' attribute.
+	 * @see #setTextEditPartClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLinkLabel_TextEditPartClassName()
+	 * @model
+	 * @generated
+	 */
+	String getTextEditPartClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getTextEditPartClassName <em>Text Edit Part Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Text Edit Part Class Name</em>' attribute.
+	 * @see #getTextEditPartClassName()
+	 * @generated
+	 */
+	void setTextEditPartClassName(String value);
+
+	/**
 	 * Returns the value of the '<em><b>Text Notation View Factory Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -113,6 +140,14 @@ public interface GenLinkLabel extends GenLabel{
 	 * @generated
 	 */
 	void setTextNotationViewFactoryClassName(String value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getTextEditPartQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->
