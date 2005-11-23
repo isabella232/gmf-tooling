@@ -1,4 +1,5 @@
 <project name="Build specific targets and properties" default="noDefault">
+
 	
 	<!-- ===================================================================== -->
 	<!-- Run a given ${target} on all elements being built -->
@@ -29,7 +30,9 @@
 	<!-- ===================================================================== -->
 	<target name="getMapFiles" depends="checkLocalMaps" unless="skipMaps">
 		<property name="mapsCheckoutTag" value="HEAD" />
-		<cvs command="checkout -d org.eclipse.gmf.releng" cvsRoot="${mapsRepo}" package="${mapsRoot}" dest="${buildDirectory}/maps" tag="${mapsCheckoutTag}" />
+		<cvs command="checkout -d org.eclipse.gmf.releng" cvsRoot="${mapsRepo}" package="${mapsRoot}" dest="${buildDirectory}/maps" 
+
+tag="${mapsCheckoutTag}" />
 	</target>
 
 	<target name="checkLocalMaps">
@@ -142,12 +145,14 @@
 	<!-- Steps to do before running assemble. -->
 	<!-- ===================================================================== -->
 	<target name="preAssemble">
+		
 	</target>
 
 	<!-- ===================================================================== -->
 	<!-- Steps to do after  running assemble. -->
 	<!-- ===================================================================== -->
 	<target name="postAssemble">
+
 	</target>
 
 	<!-- ===================================================================== -->
@@ -160,6 +165,13 @@
 	<!-- Steps to do after  running package. -->
 	<!-- ===================================================================== -->
 	<target name="postPackage">
+		<!-- HACK: Copy the test.xml files from where they are assembled under 
+		     source plugin to packaging area (need to fix source gen script) -->
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
+		<zip destfile="${buildDirectory}/${buildLabel}/GMF-tests-${buildId}.zip" update="true">
+			<zipfileset dir="${buildDirectory}/plugins/org.eclipse.gmf.tests.source" includes="**/test.xml"	
+prefix="eclipse/plugins/eclipse.org.gmf.tests.source_${gmfVersion}"/>
+		</zip>
 	</target>
 
 	<!-- ===================================================================== -->
@@ -202,6 +214,13 @@
 			<param name="genericTargets" value="${builder}/customTargets.xml"/>
 			<param name="target" value="updateSiteExport"/>
 	  	</antcall>
+
+		<!-- HACK: Copy the test.xml files from where they are assembled under 
+		     source plugin to packaging area (need to fix source gen script) -->
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
+		<zip destfile="${buildUpdateSitePath}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}.jar" update="true">
+			<zipfileset dir="${buildDirectory}/plugins/org.eclipse.gmf.tests.source" includes="**/test.xml"	prefix=""/>
+		</zip>
 	</target>
 	
 	<target name="updateSiteExport">

@@ -10,7 +10,9 @@
 			<arg value="-application" />
 			<arg value="org.eclipse.ant.core.antRunner" />
 			<arg value="-file" />
-			<arg value="${baseLocation}/plugins/${testPlugin}_${gmfVersion}/test.xml" />
+			<arg 
+
+value="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}/src/${testPlugin}_${gmfVersion}/test.xml" />
 			<arg value="-logger" />
 			<arg value="org.apache.tools.ant.DefaultLogger" />
 			<arg value="-Dos=${baseos}" />
@@ -21,7 +23,9 @@
 			<arg value="-Declipse-home=${baseLocation}" />
 			<arg value="-DlibraryFile=${baseLocation}/plugins/org.eclipse.test_${testPluginVersion}/library.xml" />			
 		</java>
-		<move file="${baseLocation}/${testPlugin}.xml" tofile="${artifacts}/${buildLabel}/testresults/xml/${testPlugin}.xml" failonerror="false"/>
+		<move file="${baseLocation}/${testPlugin}.xml" tofile="${artifacts}/${buildLabel}/testresults/xml/${testPlugin}.xml" 
+
+failonerror="false"/>
 	</target>
 
 	<target name="all" description="Runs the test.xml of the test plugins">
@@ -71,6 +75,8 @@
 	</target>
 
 	<target name="genHtml" description="Generates HTML results with provided JUNIT.XSL provided">
-		<style style="${scripts}/templateFiles/JUNIT.XSL" basedir="${artifacts}/${buildLabel}/testresults/xml/" destdir="${artifacts}/${buildLabel}/testresults/html/" />
+		<style style="${scripts}/templateFiles/JUNIT.XSL" basedir="${artifacts}/${buildLabel}/testresults/xml/" 
+
+destdir="${artifacts}/${buildLabel}/testresults/html/" />
 	</target>
 </project>
