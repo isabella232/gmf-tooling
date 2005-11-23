@@ -12,11 +12,9 @@
 package org.eclipse.gmf.tests.gen;
 
 import java.io.IOException;
-import java.net.URL;
 
 import junit.framework.TestCase;
 
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -44,10 +42,7 @@ public class CompilationTest extends TestCase {
 
 	public void testCodeCompilation() {
 		try {
-			URL gmfgenURL = Plugin.getInstance().getBundle().getEntry("/models/library/library.gmfgen");
-			assertNotNull("No sample model to run tests against", gmfgenURL);
-			String filePath = Platform.asLocalURL(gmfgenURL).toExternalForm();
-			URI selected = URI.createURI(filePath);
+			URI selected = createURI();
 			ResourceSet srcResSet = new ResourceSetImpl();
 	 		Resource srcRes = srcResSet.getResource(selected, true);
 			GenDiagram gd = (GenDiagram) srcRes.getContents().get(0);
@@ -60,6 +55,11 @@ public class CompilationTest extends TestCase {
 			Plugin.logError("Unexpected exception:", ex);
 			fail("Hm, looks like unexpected..." + ex.getMessage());
 		}
+	}
+
+	private URI createURI() throws IOException {
+		final String p = "/models/library/library.gmfgen";
+		return URI.createURI("platform:/plugin/" + Plugin.getPluginID() + p);
 	}
 
 	protected void tearDown() throws Exception {
