@@ -48,6 +48,9 @@ ext=${ext}
 		<echo file="${basedir}/cc.properties" append="true">
 cc.publish=${cc.publish}
 		</echo>
+		<echo file="${basedir}/cc.properties" append="true">
+scripts=${scripts}
+		</echo>
 		<mkdir dir="${logs}/continuous"/>
 		<mkdir dir="${logs}/integration"/>
 		<mkdir dir="${logs}/nightly"/>

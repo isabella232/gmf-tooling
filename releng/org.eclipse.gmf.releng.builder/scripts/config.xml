@@ -5,6 +5,8 @@
 
 	<plugin name="htmlemail" mailhost="${mailhost}" skipusers="true"
 		returnaddress="${buildmaster.email}" returnname="Buildmaster"
+		css="${scripts}/css/cruisecontrol.css"
+		xsldir="${scripts}/xsl"
 	/>
 
 	<project name="checkout" buildafterfailed="true">

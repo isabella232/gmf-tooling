@@ -35,65 +35,46 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ********************************************************************************-->
+
 <xsl:stylesheet
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"
     xmlns:lxslt="http://xml.apache.org/xslt">
 
     <xsl:output method="html"/>
+    <xsl:variable name="tasklist" select="/cruisecontrol/build//target/task"/>
+    <xsl:variable name="jar.tasklist" select="$tasklist[@name='Jar']/message[@priority='info'] | $tasklist[@name='jar']/message[@priority='info']"/>
+    <xsl:variable name="war.tasklist" select="$tasklist[@name='War']/message[@priority='info'] | $tasklist[@name='war']/message[@priority='info']"/>
+    <xsl:variable name="ejbjar.tasklist" select="$tasklist[@name='ejbjar']/message[@priority='info']"/>
+    <xsl:variable name="ear.tasklist" select="$tasklist[@name='ear']/message[@priority='info']"/>
+    <xsl:variable name="dist.count" select="count($jar.tasklist) + count($war.tasklist) + count($ejbjar.tasklist) + count($ear.tasklist)"/>
 
-    <xsl:template match="/" mode="header">
-        <xsl:variable name="modification.list" select="cruisecontrol/modifications/modification"/>
+    <xsl:template match="/" mode="distributables">
+        <table align="center" cellpadding="2" cellspacing="0" border="0" width="98%">
 
-        <table align="center" cellpadding="2" cellspacing="0" border="0" class="header" width="98%">
-
-            <xsl:if test="cruisecontrol/build/@error">
-                <tr><th class="big" colspan="2">BUILD FAILED</th></tr>
+            <xsl:if test="$dist.count > 0">
                 <tr>
-                    <th>Ant Error Message:</th>
-                    <td><xsl:value-of select="cruisecontrol/build/@error"/></td>
+                    <td class="distributables-sectionheader">
+                        &#160;Deployments by this build:&#160;(<xsl:value-of select="$dist.count"/>)
+                    </td>
                 </tr>
+                <xsl:apply-templates select="$jar.tasklist | $war.tasklist | $ejbjar.tasklist | $ear.tasklist" mode="distributables"/>
             </xsl:if>
 
-            <xsl:if test="not (cruisecontrol/build/@error)">
-                <tr><th class="big" colspan="2">BUILD COMPLETE&#160;-&#160;
-                    <xsl:value-of select="cruisecontrol/info/property[@name='label']/@value"/>
-                </th></tr>
-            </xsl:if>
-
-            <tr>
-                <th>Date of build:</th>
-                <!-- A quick hack to include the timezone on reported build date -->
-                <td><xsl:value-of select="cruisecontrol/info/property[@name='builddate']/@value"/> timezone: <a 
-
-href="http://www.timeanddate.com/worldclock/"><xsl:value-of select="translate(translate(string(system-property('user.timezone')), '/', ','), 
-
-'_',' ')"/></a></td>
-            </tr>
-            <tr>
-                <th>Time to build:</th>
-                <td><xsl:value-of select="cruisecontrol/build/@time"/></td>
-            </tr>
-            <xsl:apply-templates select="$modification.list" mode="header">
-                <xsl:sort select="date" order="descending" data-type="text" />
-            </xsl:apply-templates>
         </table>
     </xsl:template>
 
-    <!-- Last Modification template -->
-    <xsl:template match="modification" mode="header">
-        <xsl:if test="position() = 1">
-            <tr>
-                <th>Last changed:</th>
-                <td><xsl:value-of select="date"/></td>
-            </tr>
-            <tr>
-                <th>Last log entry:</th>
-                <td><xsl:value-of select="comment"/></td>
-            </tr>
-        </xsl:if>
+    <xsl:template match="task[@name='Jar']/message[@priority='info'] | task[@name='War']/message[@priority='info'] | task[@name='jar']/message[@priority='info'] | task[@name='war']/message[@priority='info'] | task[@name='ejbjar']/message[@priority='info'] | task[@name='ear']/message[@priority='info']" mode="distributables">
+        <tr>
+            <xsl:if test="position() mod 2 = 0">
+                <xsl:attribute name="class">distributables-oddrow</xsl:attribute>
+            </xsl:if>
+            <td class="distributables-data">
+                <xsl:value-of select="text()"/>
+            </td>
+        </tr>
     </xsl:template>
 
     <xsl:template match="/">
-        <xsl:apply-templates select="." mode="header"/>
+        <xsl:apply-templates select="." mode="distributables"/>
     </xsl:template>
 </xsl:stylesheet>

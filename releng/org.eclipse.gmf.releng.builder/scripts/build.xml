@@ -18,7 +18,15 @@
 				<isset property="useMirror"/>
 			</and>
 		</condition>
-	</target>
+		<antcall target="initCC"/>
+		</target>
+		
+		<target name="initCC">
+			<copy todir="${ccwebapplocation}">
+			    <fileset dir="${scripts}/css"/>
+			    <fileset dir="${scripts}/xsl"/>
+			</copy>
+		</target>
 	
 	<target name="main" depends="checkArgs,init">
 		<ant antfile="build.xml" dir="${pde.build.scripts}">
