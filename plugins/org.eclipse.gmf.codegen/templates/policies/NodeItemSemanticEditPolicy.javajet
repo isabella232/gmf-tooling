@@ -110,7 +110,11 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		GenClass outgoingClass = modelFacet.getContainmentMetaFeature().getGenClass();
 		GenClass incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
 		GenFeature containmentFeature = modelFacet.getContainmentMetaFeature();
-		int upperBound = containmentFeature.getEcoreFeature().getUpperBound();
+		GenFeature childFeature = modelFacet.getContainmentMetaFeature();
+		int upperContainmentBound = containmentFeature.getEcoreFeature().getUpperBound();
+		int upperChildBound = childFeature.getEcoreFeature().getUpperBound();
+		boolean processChildFeature = !childFeature.isDerived() && !childFeature.equals(containmentFeature);
+		boolean checkChildFeatureUpperBound = !childFeature.equals(containmentFeature) && upperChildBound > 0;
 		if (nodeMetaClass.equals(outgoingClass)) {
 			namePart = OUTGOING_TOKEN + modelFacet.getMetaClass().getName() + genLink.getVisualID();
 			if (genLink.isOutgoingCreationAllowed()) {
@@ -122,18 +126,43 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
 <% // check that containment feature is not set / has capacity for the new element %>
 <%
-			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
+			if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
 				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
 %>
 		<%=outgoingClassName%> element = (<%=outgoingClassName%>) getSemanticElement();
-<%				if (upperBound == 1) {%>
+<%
+				if (upperContainmentBound > 0) {
+					if (upperContainmentBound == 1) {
+%>
 		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%> != null) {
-<%				} else {%>
-		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%>.size() >= <%=upperBound%>) {
-<%				}%>
+<%
+					} else {
+%>
+		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%>.size() >= <%=upperContainmentBound%>) {
+<%				
+					}
+%>
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
-<%			}%>
+<%
+				}
+				if (checkChildFeatureUpperBound) {
+					if (upperChildBound == 1) {
+%>
+		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%> != null) {
+<%
+					} else {
+%>
+		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%>.size() >= <%=upperChildBound%>) {
+<%
+					}
+%>
+			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+		}
+<%
+				}
+			}
+%>
 <% // create always executable command %>
 		return new Command() {
 		};
@@ -153,18 +182,43 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		}
 <% // check that containment feature is not set / has capacity for the new element %>
 <%
-			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
+			if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
 				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
 %>
 		<%=outgoingClassName%> element = (<%=outgoingClassName%>) getSemanticElement();
-<%				if (upperBound == 1) {%>
+<%
+				if (upperContainmentBound > 0) {
+					if (upperContainmentBound == 1) {
+%>
 		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%> != null) {
-<%				} else {%>
-		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%>.size() >= <%=upperBound%>) {
-<%				}%>
+<%
+					} else {
+%>
+		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%>.size() >= <%=upperContainmentBound%>) {
+<%				
+					}
+%>
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
-<%			}%>
+<%
+				}
+				if (checkChildFeatureUpperBound) {
+					if (upperChildBound == 1) {
+%>
+		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%> != null) {
+<%
+					} else {
+%>
+		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%>.size() >= <%=upperChildBound%>) {
+<%
+					}
+%>
+			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+		}
+<%
+				}
+			}
+%>
 <% // create semantic command %>
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
@@ -202,13 +256,40 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		 * @generated
 		 */
 		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> doDefaultElementCreation() {
-<%			String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
+<%
+			String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());
+			String containerMetaClass = importManager.getImportedName(childFeature.getGenClass().getQualifiedInterfaceName());
+%>
 			<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
 			if (newElement != null) {
 				<%=getFeatureValueSetterPrefix("newElement", modelFacet.getTargetMetaFeature(), false, importManager)%>(<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) getSource());
-<%			if (modelFacet.getModelElementInitializer() != null) { %>
+<%
+			if (processChildFeature) {
+%>
+				<%=containerMetaClass%> container = (<%=containerMetaClass%>) getElementToEdit();
+				if (container != null) {
+<%
+				if (childFeature.isListType()) {
+%>
+					<%=importManager.getImportedName("java.util.Collection")%> featureValues = container.<%=childFeature.getGetAccessor()%>();
+					featureValues.add(newElement);
+<%
+				} else {
+%>
+				 	<%=getFeatureValueSetterPrefix("container", childFeature, false, importManager)%>newElement);
+<%
+				}
+%>
+				}
+<%
+			}
+
+			if (modelFacet.getModelElementInitializer() != null) { 
+%>
 				<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
-<%}%>
+<%
+			}
+%>
 			}
 			return newElement;
 		}
@@ -243,18 +324,43 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		}
 <% // check that containment feature is not set / has capacity for the new element %>
 <%
-			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
+			if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
 				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
 %>
 		<%=outgoingClassName%> element = (<%=outgoingClassName%>) req.getSource();
-<%				if (upperBound == 1) {%>
+<%
+				if (upperContainmentBound > 0) {
+					if (upperContainmentBound == 1) {
+%>
 		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%> != null) {
-<%				} else {%>
-		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%>.size() >= <%=upperBound%>) {
-<%				}%>
+<%
+					} else {
+%>
+		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%>.size() >= <%=upperContainmentBound%>) {
+<%				
+					}
+%>
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
-<%			}%>
+<%
+				}
+				if (checkChildFeatureUpperBound) {
+					if (upperChildBound == 1) {
+%>
+		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%> != null) {
+<%
+					} else {
+%>
+		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%>.size() >= <%=upperChildBound%>) {
+<%
+					}
+%>
+			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+		}
+<%
+				}
+			}
+%>
 <% // create semantic command %>
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
@@ -292,13 +398,40 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		 * @generated
 		 */
 		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> doDefaultElementCreation() {
-<%			String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
+<%
+			String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());
+			String containerMetaClass = importManager.getImportedName(childFeature.getGenClass().getQualifiedInterfaceName());
+%>
 			<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
 			if (newElement != null) {
 				<%=getFeatureValueSetterPrefix("newElement", modelFacet.getTargetMetaFeature(), false, importManager)%>(<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) getTarget());
-<%			if (modelFacet.getModelElementInitializer() != null) { %>
+<%
+			if (processChildFeature) {
+%>
+				<%=containerMetaClass%> container = (<%=containerMetaClass%>) getElementToEdit();
+				if (container != null) {
+<%
+				if (childFeature.isListType()) {
+%>
+					<%=importManager.getImportedName("java.util.Collection")%> featureValues = container.<%=childFeature.getGetAccessor()%>();
+					featureValues.add(newElement);
+<%
+				} else {
+%>
+				 	<%=getFeatureValueSetterPrefix("container", childFeature, false, importManager)%>newElement);
+<%
+				}
+%>
+				}
+<%
+			}
+
+			if (modelFacet.getModelElementInitializer() != null) { 
+%>
 				<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
-<%}%>
+<%
+			}
+%>
 			}
 			return newElement;
 		}

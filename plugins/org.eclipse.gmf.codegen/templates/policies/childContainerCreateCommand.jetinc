@@ -8,28 +8,49 @@ for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext()
 	GenNode genChildNode = (GenNode) nodes.next();
 	TypeModelFacet modelFacet = genChildNode.getModelFacet();
 	GenFeature containmentMetaFeature = modelFacet.getContainmentMetaFeature();
-	int upperBound = containmentMetaFeature.getEcoreFeature().getUpperBound();
+	GenFeature childMetaFeature = modelFacet.getChildMetaFeature();
+	int upperContainmentBound = containmentMetaFeature.getEcoreFeature().getUpperBound();
+	int upperChildBound = childMetaFeature.getEcoreFeature().getUpperBound();
+	boolean processChildMetafeature = !childMetaFeature.equals(containmentMetaFeature) && upperChildBound > 0;
 %>
 		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genChildNode.getUniqueIdentifier()%> == req.getElementType()) {
 <%
-	if (upperBound > 0) {
+	if (upperContainmentBound > 0 || processChildMetafeature) {
 		String containerInterfaceName = importManager.getImportedName(containerNode.getModelFacet().getMetaClass().getQualifiedInterfaceName());
 %>		
 			<%=containerInterfaceName%> container = (<%=containerInterfaceName%>) req.getContainer();
 <%
-		if (upperBound == 1) {
+		if (upperContainmentBound > 0) {
+			if (upperContainmentBound == 1) {
 %>
 			if (<%=getFeatureValueGetter("container", containmentMetaFeature, false, importManager)%> != null) {
 <%
-		} else {
+			} else {
 %>
-			if (<%=getFeatureValueGetter("container", containmentMetaFeature, false, importManager)%>.size() >= <%=upperBound%>) {
+			if (<%=getFeatureValueGetter("container", containmentMetaFeature, false, importManager)%>.size() >= <%=upperContainmentBound%>) {
 <%
-		}
+			}
 %>
 				return super.getCreateCommand(req);
 			}
 <%
+		}
+		
+		if (processChildMetafeature) {
+			if (upperChildBound == 1) {
+%>
+			if (<%=getFeatureValueGetter("container", childMetaFeature, false, importManager)%> != null) {
+<%
+			} else {
+%>
+			if (<%=getFeatureValueGetter("container", childMetaFeature, false, importManager)%>.size() >= <%=upperChildBound%>) {
+<%
+			}
+%>
+				return super.getCreateCommand(req);
+			}
+<%
+		}
 	}
 %>
 			if (req.getContainmentFeature() == null) {
@@ -77,19 +98,50 @@ for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext()
 			}
 			return container;
 		}
-<%	if (modelFacet.getModelElementInitializer() != null) { %>
+<%
+	boolean processChildMetafeature = !modelFacet.getChildMetaFeature().isDerived() && !modelFacet.getChildMetaFeature().equals(modelFacet.getContainmentMetaFeature());
+	if (modelFacet.getModelElementInitializer() != null || processChildMetafeature) { 
+		String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());
+%>
 
 		/**
 		 * @generated
 		 */
 		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> doDefaultElementCreation() {
-<%		String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
 			<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
 			if (newElement != null) {
+<%
+		if (processChildMetafeature) {
+			String containerMetaClass = importManager.getImportedName(modelFacet.getChildMetaFeature().getGenClass().getQualifiedInterfaceName());
+%>
+				 <%=containerMetaClass%> container = (<%=containerMetaClass%>) getElementToEdit();
+				 if (container != null) {
+<%
+			if (modelFacet.getChildMetaFeature().isListType()) {
+%>
+					<%=importManager.getImportedName("java.util.Collection")%> featureValues = container.<%=modelFacet.getChildMetaFeature().getGetAccessor()%>();
+					featureValues.add(newElement);
+<%
+			} else {
+%>
+				 	<%=getFeatureValueSetterPrefix("container", modelFacet.getChildMetaFeature(), false, importManager)%>newElement);
+<%
+			}
+%>
+				 }
+<%
+		}
+		if (modelFacet.getModelElementInitializer() != null) {
+%>		
 				<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.Initializers.<%=genChildNode.getUniqueIdentifier()%>.init(newElement);
+<%
+		}
+%>
 			}
 			return newElement;
 		}
-<%	}%>
+<%
+	}
+%>
 	}
 <%}%>
