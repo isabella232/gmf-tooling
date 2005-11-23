@@ -98,6 +98,7 @@ public interface NodeMapping extends MappingEntry{
 	 * @see #setDomainSpecialization(Constraint)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getNodeMapping_DomainSpecialization()
 	 * @model containment="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='domainMetaElement'"
 	 * @generated
 	 */
 	Constraint getDomainSpecialization();
@@ -123,6 +124,8 @@ public interface NodeMapping extends MappingEntry{
 	 * @see #setDomainInitializer(ElementInitializer)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getNodeMapping_DomainInitializer()
 	 * @model containment="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let i : FeatureSeqInitializer = domainInitializer.oclAsType( FeatureSeqInitializer) in i.oclIsUndefined() or i.initializers.feature.eContainingClass->forAll(c|c.isSuperTypeOf(domainMetaElement)) '"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='domainMetaElement'"
 	 * @generated
 	 */
 	ElementInitializer getDomainInitializer();
@@ -148,7 +151,7 @@ public interface NodeMapping extends MappingEntry{
 	 * @return the value of the '<em>Containment Feature</em>' reference.
 	 * @see #setContainmentFeature(EReference)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getNodeMapping_ContainmentFeature()
-	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='oclIsUndefined(containmentFeature) or domainMetaElement.eAllReferences->includes(containmentFeature)'"
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='containmentFeature.oclIsUndefined() or containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement) '"
 	 * @generated
 	 */
 	EReference getContainmentFeature();
@@ -174,7 +177,7 @@ public interface NodeMapping extends MappingEntry{
 	 * @return the value of the '<em>Edit Feature</em>' reference.
 	 * @see #setEditFeature(EAttribute)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getNodeMapping_EditFeature()
-	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='oclIsUndefined(editFeature) or domainMetaElement.eAllAttributes->includes(editFeature)'"
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='editFeature.oclIsUndefined() or domainMetaElement.eAllAttributes->includes(editFeature)'"
 	 * @generated
 	 */
 	EAttribute getEditFeature();
@@ -192,6 +195,7 @@ public interface NodeMapping extends MappingEntry{
 	/**
 	 * Returns the value of the '<em><b>Child Mappings</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.mappings.ChildNodeMapping}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.ChildNodeMapping#getParentNode <em>Parent Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Child Mappings</em>' containment reference list isn't clear,
@@ -200,7 +204,8 @@ public interface NodeMapping extends MappingEntry{
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Child Mappings</em>' containment reference list.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getNodeMapping_ChildMappings()
-	 * @model type="org.eclipse.gmf.mappings.ChildNodeMapping" containment="true"
+	 * @see org.eclipse.gmf.mappings.ChildNodeMapping#getParentNode
+	 * @model type="org.eclipse.gmf.mappings.ChildNodeMapping" opposite="parentNode" containment="true"
 	 * @generated
 	 */
 	EList getChildMappings();

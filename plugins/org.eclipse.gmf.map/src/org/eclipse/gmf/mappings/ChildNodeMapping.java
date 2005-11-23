@@ -28,6 +28,7 @@ import org.eclipse.gmf.diadef.Node;
  *   <li>{@link org.eclipse.gmf.mappings.ChildNodeMapping#getDomainMetaElement <em>Domain Meta Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.ChildNodeMapping#getDomainSpecialization <em>Domain Specialization</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.ChildNodeMapping#getDomainInitializer <em>Domain Initializer</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.ChildNodeMapping#getParentNode <em>Parent Node</em>}</li>
  * </ul>
  * </p>
  *
@@ -48,7 +49,7 @@ public interface ChildNodeMapping extends EObject{
 	 * @see #setCompartment(Compartment)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getChildNodeMapping_Compartment()
 	 * @model required="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='eContainer.diagramNode.compartments->includes(self.compartment)'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='parentNode.diagramNode.oclAsType(diadef::Node).compartments->includes(self.compartment)'"
 	 * @generated
 	 */
 	Compartment getCompartment();
@@ -101,7 +102,7 @@ public interface ChildNodeMapping extends EObject{
 	 * @see #setDomainChildrenFeature(EStructuralFeature)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getChildNodeMapping_DomainChildrenFeature()
 	 * @model required="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='eContainer.domainMetaElement.eAllAttributes->includes(domainChildrenFeature)'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='domainChildrenFeature.eContainingClass.isSuperTypeOf(parentNode.domainMetaElement)'"
 	 * @generated
 	 */
 	EStructuralFeature getDomainChildrenFeature();
@@ -127,7 +128,7 @@ public interface ChildNodeMapping extends EObject{
 	 * @return the value of the '<em>Edit Feature</em>' reference.
 	 * @see #setEditFeature(EAttribute)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getChildNodeMapping_EditFeature()
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='editFeature.oclIsUndefined() or (not domainMetaElement.oclIsUndefined()  and editFeature.eContainingClass.isSuperTypeOf(domainMetaElement)) or domainChildrenFeature.eType.oclAsType(ecore::EClass).eAllAttributes->includes(editFeature)'"
 	 * @generated
 	 */
 	EAttribute getEditFeature();
@@ -179,6 +180,7 @@ public interface ChildNodeMapping extends EObject{
 	 * @see #setDomainSpecialization(Constraint)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getChildNodeMapping_DomainSpecialization()
 	 * @model containment="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='if domainMetaElement.oclIsUndefined() then domainChildrenFeature.eContainingClass else domainMetaElement endif '"
 	 * @generated
 	 */
 	Constraint getDomainSpecialization();
@@ -204,6 +206,8 @@ public interface ChildNodeMapping extends EObject{
 	 * @see #setDomainInitializer(ElementInitializer)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getChildNodeMapping_DomainInitializer()
 	 * @model containment="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let i : FeatureSeqInitializer = domainInitializer.oclAsType( FeatureSeqInitializer) in i.oclIsUndefined() or i.initializers.feature.eContainingClass->forAll(c|c.isSuperTypeOf(domainMetaElement)) '"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='if domainMetaElement.oclIsUndefined() then domainChildrenFeature.eContainingClass else domainMetaElement endif '"
 	 * @generated
 	 */
 	ElementInitializer getDomainInitializer();
@@ -217,5 +221,22 @@ public interface ChildNodeMapping extends EObject{
 	 * @generated
 	 */
 	void setDomainInitializer(ElementInitializer value);
+
+	/**
+	 * Returns the value of the '<em><b>Parent Node</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.NodeMapping#getChildMappings <em>Child Mappings</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Parent Node</em>' container reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Parent Node</em>' container reference.
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getChildNodeMapping_ParentNode()
+	 * @see org.eclipse.gmf.mappings.NodeMapping#getChildMappings
+	 * @model opposite="childMappings" required="true" changeable="false"
+	 * @generated
+	 */
+	NodeMapping getParentNode();
 
 } // ChildNodeMapping

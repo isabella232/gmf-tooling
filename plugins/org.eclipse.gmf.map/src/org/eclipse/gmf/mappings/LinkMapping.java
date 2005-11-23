@@ -99,6 +99,7 @@ public interface LinkMapping extends MappingEntry{
 	 * @see #setDomainSpecialization(Constraint)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping_DomainSpecialization()
 	 * @model containment="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='if domainMetaElement.oclIsUndefined() then linkMetaFeature.eContainingClass else domainMetaElement endif '"
 	 * @generated
 	 */
 	Constraint getDomainSpecialization();
@@ -128,6 +129,8 @@ public interface LinkMapping extends MappingEntry{
 	 * @see #setDomainInitializer(ElementInitializer)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping_DomainInitializer()
 	 * @model containment="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let i : FeatureSeqInitializer = domainInitializer.oclAsType( FeatureSeqInitializer) in i.oclIsUndefined() or i.initializers.feature.eContainingClass->forAll(c|c.isSuperTypeOf(domainMetaElement)) '"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='if domainMetaElement.oclIsUndefined() then linkMetaFeature.eContainingClass else domainMetaElement endif '"
 	 * @generated
 	 */
 	ElementInitializer getDomainInitializer();
@@ -153,7 +156,7 @@ public interface LinkMapping extends MappingEntry{
 	 * @return the value of the '<em>Containment Feature</em>' reference.
 	 * @see #setContainmentFeature(EReference)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping_ContainmentFeature()
-	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='oclIsUndefined(containmentFeature) or (not oclIsUndefined(domainMetaElement) and domainMetaElement.eAllReferences->includes(containmentFeature))'"
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='containmentFeature.oclIsUndefined() or containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement)'"
 	 * @generated
 	 */
 	EReference getContainmentFeature();
@@ -179,7 +182,7 @@ public interface LinkMapping extends MappingEntry{
 	 * @return the value of the '<em>Label Edit Feature</em>' reference.
 	 * @see #setLabelEditFeature(EAttribute)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping_LabelEditFeature()
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='labelEditFeature.oclIsUndefined() or labelEditFeature.eContainingClass.isSuperTypeOf(domainMetaElement)'"
 	 * @generated
 	 */
 	EAttribute getLabelEditFeature();
@@ -208,7 +211,7 @@ public interface LinkMapping extends MappingEntry{
 	 * @return the value of the '<em>Label Display Feature</em>' reference.
 	 * @see #setLabelDisplayFeature(EAttribute)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping_LabelDisplayFeature()
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='labelDisplayFeature.oclIsUndefined() or labelDisplayFeature.eContainingClass.isSuperTypeOf(domainMetaElement)'"
 	 * @generated
 	 */
 	EAttribute getLabelDisplayFeature();
@@ -235,6 +238,7 @@ public interface LinkMapping extends MappingEntry{
 	 * @see #setLinkMetaFeature(EStructuralFeature)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping_LinkMetaFeature()
 	 * @model required="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='domainMetaElement.oclIsUndefined() or linkMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)'"
 	 * @generated
 	 */
 	EStructuralFeature getLinkMetaFeature();

@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
  * </p>
  *
  * @see org.eclipse.gmf.mappings.GMFMapPackage#getFeatureValueSpec()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='ValueSpec'"
  * @generated
  */
 public interface FeatureValueSpec extends ValueExpression{
@@ -38,12 +38,13 @@ public interface FeatureValueSpec extends ValueExpression{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Denotes the feature for which this value expression is specified. Its containing eClass is the context for evaluation.
+	 * Denotes the feature for which this value expression is specified. Its containing EClass is the context for evaluation.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Feature</em>' reference.
 	 * @see #setFeature(EStructuralFeature)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getFeatureValueSpec_Feature()
 	 * @model required="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='type'"
 	 * @generated
 	 */
 	EStructuralFeature getFeature();

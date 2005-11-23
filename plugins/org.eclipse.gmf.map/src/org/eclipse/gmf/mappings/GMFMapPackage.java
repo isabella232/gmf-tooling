@@ -234,13 +234,22 @@ public interface GMFMapPackage extends EPackage{
 	int CHILD_NODE_MAPPING__DOMAIN_INITIALIZER = 6;
 
 	/**
+	 * The feature id for the '<em><b>Parent Node</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_NODE_MAPPING__PARENT_NODE = 7;
+
+	/**
 	 * The number of structural features of the the '<em>Child Node Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CHILD_NODE_MAPPING_FEATURE_COUNT = 7;
+	int CHILD_NODE_MAPPING_FEATURE_COUNT = 8;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl <em>Link Mapping</em>}' class.
@@ -778,6 +787,17 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getChildNodeMapping_DomainInitializer();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.ChildNodeMapping#getParentNode <em>Parent Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Parent Node</em>'.
+	 * @see org.eclipse.gmf.mappings.ChildNodeMapping#getParentNode()
+	 * @see #getChildNodeMapping()
+	 * @generated
+	 */
+	EReference getChildNodeMapping_ParentNode();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.LinkMapping <em>Link Mapping</em>}'.

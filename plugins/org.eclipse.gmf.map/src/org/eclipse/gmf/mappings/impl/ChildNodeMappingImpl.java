@@ -22,6 +22,8 @@ import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 
+import org.eclipse.gmf.mappings.NodeMapping;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Child Node Mapping</b></em>'.
@@ -36,6 +38,7 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
  *   <li>{@link org.eclipse.gmf.mappings.impl.ChildNodeMappingImpl#getDomainMetaElement <em>Domain Meta Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.ChildNodeMappingImpl#getDomainSpecialization <em>Domain Specialization</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.ChildNodeMappingImpl#getDomainInitializer <em>Domain Initializer</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.ChildNodeMappingImpl#getParentNode <em>Parent Node</em>}</li>
  * </ul>
  * </p>
  *
@@ -411,6 +414,37 @@ public class ChildNodeMappingImpl extends EObjectImpl implements ChildNodeMappin
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NodeMapping getParentNode() {
+		if (eContainerFeatureID != GMFMapPackage.CHILD_NODE_MAPPING__PARENT_NODE) return null;
+		return (NodeMapping)eContainer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
+		if (featureID >= 0) {
+			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case GMFMapPackage.CHILD_NODE_MAPPING__PARENT_NODE:
+					if (eContainer != null)
+						msgs = eBasicRemoveFromContainer(msgs);
+					return eBasicSetContainer(otherEnd, GMFMapPackage.CHILD_NODE_MAPPING__PARENT_NODE, msgs);
+				default:
+					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
+			}
+		}
+		if (eContainer != null)
+			msgs = eBasicRemoveFromContainer(msgs);
+		return eBasicSetContainer(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
@@ -418,11 +452,30 @@ public class ChildNodeMappingImpl extends EObjectImpl implements ChildNodeMappin
 					return basicSetDomainSpecialization(null, msgs);
 				case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_INITIALIZER:
 					return basicSetDomainInitializer(null, msgs);
+				case GMFMapPackage.CHILD_NODE_MAPPING__PARENT_NODE:
+					return eBasicSetContainer(null, GMFMapPackage.CHILD_NODE_MAPPING__PARENT_NODE, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
 		}
 		return eBasicSetContainer(null, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
+		if (eContainerFeatureID >= 0) {
+			switch (eContainerFeatureID) {
+				case GMFMapPackage.CHILD_NODE_MAPPING__PARENT_NODE:
+					return eContainer.eInverseRemove(this, GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS, NodeMapping.class, msgs);
+				default:
+					return eDynamicBasicRemoveFromContainer(msgs);
+			}
+		}
+		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
 	}
 
 	/**
@@ -451,6 +504,8 @@ public class ChildNodeMappingImpl extends EObjectImpl implements ChildNodeMappin
 				return getDomainSpecialization();
 			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_INITIALIZER:
 				return getDomainInitializer();
+			case GMFMapPackage.CHILD_NODE_MAPPING__PARENT_NODE:
+				return getParentNode();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -540,6 +595,8 @@ public class ChildNodeMappingImpl extends EObjectImpl implements ChildNodeMappin
 				return domainSpecialization != null;
 			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_INITIALIZER:
 				return domainInitializer != null;
+			case GMFMapPackage.CHILD_NODE_MAPPING__PARENT_NODE:
+				return getParentNode() != null;
 		}
 		return eDynamicIsSet(eFeature);
 	}

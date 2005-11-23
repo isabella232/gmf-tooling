@@ -26,10 +26,10 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see org.eclipse.gmf.mappings.GMFMapPackage#getValueExpression()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='ValueSpec'"
  * @generated
  */
-public interface ValueExpression extends EObject {
+public interface ValueExpression extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Body</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -41,6 +41,7 @@ public interface ValueExpression extends EObject {
 	 * @see #setBody(String)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getValueExpression_Body()
 	 * @model required="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='body'"
 	 * @generated
 	 */
 	String getBody();
@@ -67,6 +68,7 @@ public interface ValueExpression extends EObject {
 	 * @see #setLanguage(String)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getValueExpression_Language()
 	 * @model default="ocl"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='lang'"
 	 * @generated
 	 */
 	String getLanguage();

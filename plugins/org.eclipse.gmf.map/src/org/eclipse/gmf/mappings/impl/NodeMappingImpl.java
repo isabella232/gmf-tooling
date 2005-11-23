@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.diadef.Node;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
@@ -379,9 +379,28 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 */
 	public EList getChildMappings() {
 		if (childMappings == null) {
-			childMappings = new EObjectContainmentEList(ChildNodeMapping.class, this, GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS);
+			childMappings = new EObjectContainmentWithInverseEList(ChildNodeMapping.class, this, GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS, GMFMapPackage.CHILD_NODE_MAPPING__PARENT_NODE);
 		}
 		return childMappings;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
+		if (featureID >= 0) {
+			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS:
+					return ((InternalEList)getChildMappings()).basicAdd(otherEnd, msgs);
+				default:
+					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
+			}
+		}
+		if (eContainer != null)
+			msgs = eBasicRemoveFromContainer(msgs);
+		return eBasicSetContainer(otherEnd, featureID, msgs);
 	}
 
 	/**
