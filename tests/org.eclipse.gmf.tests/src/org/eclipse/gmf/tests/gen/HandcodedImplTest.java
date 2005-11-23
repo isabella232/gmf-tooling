@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -125,6 +126,7 @@ public class HandcodedImplTest extends TestCase {
 		checkClassName(state, "GenDiagram:BaseItemSemanticEditPolicy", genDiagram.getBaseItemSemanticEditPolicyClassName(), genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName());
 		checkClassName(state, "GenDiagram:BaseGraphicalNodeEditPolicy", genDiagram.getBaseGraphicalNodeEditPolicyClassName(), genDiagram.getBaseGraphicalNodeEditPolicyQualifiedClassName());
 		checkClassName(state, "GenDiagram:ReferenceConnectionEditPolicy", genDiagram.getReferenceConnectionEditPolicyClassName(), genDiagram.getReferenceConnectionEditPolicyQualifiedClassName());
+		checkClassName(state, "GenDiagram:CanonicalEditPolicy", genDiagram.getCanonicalEditPolicyClassName(), genDiagram.getCanonicalEditPolicyQualifiedClassName());
 		checkClassName(state, "GenDiagram:ElementTypes", genDiagram.getElementTypesClassName(), genDiagram.getElementTypesQualifiedClassName());
 		checkClassName(state, "GenDiagram:SemanticHints", genDiagram.getSemanticHintsClassName(), genDiagram.getSemanticHintsQualifiedClassName());
 		checkClassName(state, "GenDiagram:NotationViewProvider", genDiagram.getNotationViewProviderClassName(), genDiagram.getNotationViewProviderQualifiedClassName());
@@ -153,6 +155,10 @@ public class HandcodedImplTest extends TestCase {
 			checkClassName(state, "GenCommonBase:EditPart", nextEntity.getEditPartClassName(), nextEntity.getEditPartQualifiedClassName());
 			checkClassName(state, "GenCommonBase:ItemSemanticEditPolicy", nextEntity.getItemSemanticEditPolicyClassName(), nextEntity.getItemSemanticEditPolicyQualifiedClassName());
 			checkClassName(state, "GenCommonBase:NotationViewFactory", nextEntity.getNotationViewFactoryClassName(), nextEntity.getNotationViewFactoryQualifiedClassName());
+			if (nextEntity instanceof GenChildContainer) {
+				GenChildContainer genContainer = (GenChildContainer) nextEntity;
+				checkClassName(state, "GenChildContainer:CanonicalEditPolicy", genContainer.getCanonicalEditPolicyClassName(), genContainer.getCanonicalEditPolicyQualifiedClassName());
+			}
 			if (nextEntity instanceof GenLink) {
 				for (Iterator labels = ((GenLink) nextEntity).getLabels().iterator(); labels.hasNext();) {
 					GenLinkLabel nextLabel = (GenLinkLabel) labels.next();
@@ -168,6 +174,7 @@ public class HandcodedImplTest extends TestCase {
 		state.add("GenCommonBase:EditPart");
 		state.add("GenCommonBase:ItemSemanticEditPolicy");
 		state.add("GenCommonBase:NotationViewFactory");
+		state.add("GenContainer:CanonicalEditPolicy");
 		state.add("GenLinkLabel:TextEditPart");
 		state.add("GenLinkLabel:TextNotationViewFactory");
 		state.add("GenNode:GraphicalNodeEditPolicy");
