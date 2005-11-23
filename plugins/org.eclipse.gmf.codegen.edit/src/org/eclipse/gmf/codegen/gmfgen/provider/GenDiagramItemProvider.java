@@ -81,6 +81,7 @@ public class GenDiagramItemProvider
 			addBaseItemSemanticEditPolicyClassNamePropertyDescriptor(object);
 			addBaseGraphicalNodeEditPolicyClassNamePropertyDescriptor(object);
 			addReferenceConnectionEditPolicyClassNamePropertyDescriptor(object);
+			addCanonicalEditPolicyClassNamePropertyDescriptor(object);
 			addElementTypesClassNamePropertyDescriptor(object);
 			addSemanticHintsClassNamePropertyDescriptor(object);
 			addNotationViewProviderClassNamePropertyDescriptor(object);
@@ -500,6 +501,26 @@ public class GenDiagramItemProvider
 				 getString("_UI_GenDiagram_referenceConnectionEditPolicyClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_referenceConnectionEditPolicyClassName_feature", "_UI_GenDiagram_type"),
 				 GMFGenPackage.eINSTANCE.getGenDiagram_ReferenceConnectionEditPolicyClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Canonical Edit Policy Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCanonicalEditPolicyClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_canonicalEditPolicyClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_canonicalEditPolicyClassName_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_CanonicalEditPolicyClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -1008,6 +1029,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:

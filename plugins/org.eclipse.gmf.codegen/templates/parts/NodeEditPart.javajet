@@ -45,10 +45,10 @@ public class <%=genNode.getEditPartClassName()%> extends ShapeNodeEditPart {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genNode.getItemSemanticEditPolicyQualifiedClassName())%>());
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new <%=importManager.getImportedName(genNode.getGraphicalNodeEditPolicyQualifiedClassName())%>());
-<%if (genNode.getChildNodes().size() > 0) {%>		
+<%if (!genNode.getChildNodes().isEmpty()) {%>
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy")%>());
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy")%>());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=genNode.getEditPartClassName()%>CanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=importManager.getImportedName(genNode.getCanonicalEditPolicyQualifiedClassName())%>());
 <%}%>
 	}
 
@@ -126,17 +126,6 @@ if (!genNode.getLabels().isEmpty()) {
 	public EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(<%=semanticHintsClassName%>.<%=genNode.getUniqueIdentifier()%>Labels.<%=AccessUtil.getLabelTextId(primaryLabel)%>);
 	}
-	
-<%
-}
-
-if (genNode.getChildNodes().size() > 0) {
-	GenChildContainer childContainer = genNode;
-	GenNode containerNode = genNode;
-%>
-<%@ include file="childContainerCanonicalEditPolicy.jetinc" %>	
-<%
-}
-%>
+<%}%>
 }
 <%importManager.emitSortedImports();%>

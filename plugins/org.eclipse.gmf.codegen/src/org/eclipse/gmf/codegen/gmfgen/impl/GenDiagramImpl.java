@@ -68,6 +68,7 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getBaseItemSemanticEditPolicyClassName <em>Base Item Semantic Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getBaseGraphicalNodeEditPolicyClassName <em>Base Graphical Node Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getReferenceConnectionEditPolicyClassName <em>Reference Connection Edit Policy Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCanonicalEditPolicyClassName <em>Canonical Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getElementTypesClassName <em>Element Types Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getSemanticHintsClassName <em>Semantic Hints Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getNotationViewProviderClassName <em>Notation View Provider Class Name</em>}</li>
@@ -505,6 +506,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String referenceConnectionEditPolicyClassName = REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getCanonicalEditPolicyClassName() <em>Canonical Edit Policy Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCanonicalEditPolicyClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCanonicalEditPolicyClassName() <em>Canonical Edit Policy Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCanonicalEditPolicyClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String canonicalEditPolicyClassName = CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getElementTypesClassName() <em>Element Types Class Name</em>}' attribute.
@@ -1620,6 +1641,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getCanonicalEditPolicyClassNameGen() {
+		return canonicalEditPolicyClassName;
+	}
+
+	public String getCanonicalEditPolicyClassName() {
+		String name = getCanonicalEditPolicyClassNameGen();
+		if (name == null || name.length() == 0) {
+			return getClassNamePrefix() + getClassNameSuffux() + "CanonicalEditPolicy"; //$NON-NLS-1$
+		}
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCanonicalEditPolicyClassName(String newCanonicalEditPolicyClassName) {
+		String oldCanonicalEditPolicyClassName = canonicalEditPolicyClassName;
+		canonicalEditPolicyClassName = newCanonicalEditPolicyClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME, oldCanonicalEditPolicyClassName, canonicalEditPolicyClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getElementTypesClassNameGen() {
 		return elementTypesClassName;
 	}
@@ -2295,6 +2345,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public String getCanonicalEditPolicyQualifiedClassName() {
+		return getEditPoliciesPackageName() + '.' + getCanonicalEditPolicyClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public String getElementTypesQualifiedClassName() {
 		return getProvidersPackageName() + '.' + getElementTypesClassName();
 	}
@@ -2603,6 +2662,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getBaseGraphicalNodeEditPolicyClassName();
 			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
 				return getReferenceConnectionEditPolicyClassName();
+			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				return getCanonicalEditPolicyClassName();
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
 				return getElementTypesClassName();
 			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
@@ -2744,6 +2805,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
 				setReferenceConnectionEditPolicyClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				setCanonicalEditPolicyClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
 				setElementTypesClassName((String)newValue);
@@ -2906,6 +2970,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
 				setReferenceConnectionEditPolicyClassName(REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				setCanonicalEditPolicyClassName(CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
 				setElementTypesClassName(ELEMENT_TYPES_CLASS_NAME_EDEFAULT);
 				return;
@@ -3038,6 +3105,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? baseGraphicalNodeEditPolicyClassName != null : !BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(baseGraphicalNodeEditPolicyClassName);
 			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
 				return REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? referenceConnectionEditPolicyClassName != null : !REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(referenceConnectionEditPolicyClassName);
+			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				return CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? canonicalEditPolicyClassName != null : !CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(canonicalEditPolicyClassName);
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
 				return ELEMENT_TYPES_CLASS_NAME_EDEFAULT == null ? elementTypesClassName != null : !ELEMENT_TYPES_CLASS_NAME_EDEFAULT.equals(elementTypesClassName);
 			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
@@ -3129,6 +3198,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(baseGraphicalNodeEditPolicyClassName);
 		result.append(", referenceConnectionEditPolicyClassName: ");
 		result.append(referenceConnectionEditPolicyClassName);
+		result.append(", canonicalEditPolicyClassName: ");
+		result.append(canonicalEditPolicyClassName);
 		result.append(", elementTypesClassName: ");
 		result.append(elementTypesClassName);
 		result.append(", semanticHintsClassName: ");

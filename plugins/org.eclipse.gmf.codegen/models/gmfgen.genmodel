@@ -50,6 +50,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/baseItemSemanticEditPolicyClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/baseGraphicalNodeEditPolicyClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/referenceConnectionEditPolicyClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/canonicalEditPolicyClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/elementTypesClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/semanticHintsClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/notationViewProviderClassName"/>
@@ -80,6 +81,7 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getBaseItemSemanticEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getBaseGraphicalNodeEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getReferenceConnectionEditPolicyQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getCanonicalEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getElementTypesQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getSemanticHintsQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getNotationViewProviderQualifiedClassName"/>
@@ -119,6 +121,8 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenChildContainer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildContainer/childNodes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/canonicalEditPolicyClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenChildContainer/getCanonicalEditPolicyQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenNode">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/diagram"/>

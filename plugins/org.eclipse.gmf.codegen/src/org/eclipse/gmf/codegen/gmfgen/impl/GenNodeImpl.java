@@ -372,6 +372,8 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 				return getViewmap();
 			case GMFGenPackage.GEN_NODE__CHILD_NODES:
 				return getChildNodes();
+			case GMFGenPackage.GEN_NODE__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				return getCanonicalEditPolicyClassName();
 			case GMFGenPackage.GEN_NODE__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.GEN_NODE__MODEL_FACET:
@@ -416,6 +418,9 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__CHILD_NODES:
 				getChildNodes().clear();
 				getChildNodes().addAll((Collection)newValue);
+				return;
+			case GMFGenPackage.GEN_NODE__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				setCanonicalEditPolicyClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_NODE__MODEL_FACET:
 				setModelFacet((TypeModelFacet)newValue);
@@ -466,6 +471,9 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__CHILD_NODES:
 				getChildNodes().clear();
 				return;
+			case GMFGenPackage.GEN_NODE__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				setCanonicalEditPolicyClassName(CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_NODE__MODEL_FACET:
 				setModelFacet((TypeModelFacet)null);
 				return;
@@ -506,6 +514,8 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 				return viewmap != null;
 			case GMFGenPackage.GEN_NODE__CHILD_NODES:
 				return childNodes != null && !childNodes.isEmpty();
+			case GMFGenPackage.GEN_NODE__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				return CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? canonicalEditPolicyClassName != null : !CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(canonicalEditPolicyClassName);
 			case GMFGenPackage.GEN_NODE__DIAGRAM:
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_NODE__MODEL_FACET:

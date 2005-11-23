@@ -108,6 +108,7 @@ public class Generator implements Runnable {
 			generateBaseItemSemanticEditPolicy();
 			generateBaseGraphicalNodeEditPolicy();
 			generateReferenceConnectionEditPolicy();
+			generateDiagramCanonicalEditPolicy();
 			generateDiagramItemSemanticEditPolicy();
 			for (Iterator nodes = myDiagram.getNodes().iterator(); nodes.hasNext();) {
 				GenNode node = (GenNode) nodes.next();
@@ -209,6 +210,9 @@ public class Generator implements Runnable {
 	
 	private void generateChildContainer(GenChildContainer childContainer) throws JETException, InterruptedException {
 		generateViewFactory(childContainer);
+		if (!childContainer.getChildNodes().isEmpty()) {
+			generateChildContainerCanonicalEditPolicy(childContainer);
+		}
 		for (Iterator childNodes = childContainer.getChildNodes().iterator(); childNodes.hasNext();) {
 			GenChildNode childNode = (GenChildNode) childNodes.next();
 			if (childNode.isListContainerEntry()) {
@@ -339,6 +343,24 @@ public class Generator implements Runnable {
 			myDiagram.getEditPoliciesPackageName(),
 			myDiagram.getReferenceConnectionEditPolicyClassName(),
 			myDiagram
+		);
+	}
+
+	private void generateDiagramCanonicalEditPolicy() throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getDiagramCanonicalEditPolicyEmitter(),
+			myDiagram.getEditPoliciesPackageName(),
+			myDiagram.getCanonicalEditPolicyClassName(),
+			myDiagram
+		);
+	}
+
+	private void generateChildContainerCanonicalEditPolicy(GenChildContainer genContainer) throws JETException, InterruptedException {
+		generate(
+			EmitterFactory.getChildContainerCanonicalEditPolicyEmitter(),
+			myDiagram.getEditPoliciesPackageName(),
+			genContainer.getCanonicalEditPolicyClassName(),
+			genContainer
 		);
 	}
 

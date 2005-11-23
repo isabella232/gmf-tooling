@@ -363,6 +363,8 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 				return getViewmap();
 			case GMFGenPackage.GEN_COMPARTMENT__CHILD_NODES:
 				return getChildNodes();
+			case GMFGenPackage.GEN_COMPARTMENT__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				return getCanonicalEditPolicyClassName();
 			case GMFGenPackage.GEN_COMPARTMENT__TITLE:
 				return getTitle();
 			case GMFGenPackage.GEN_COMPARTMENT__CAN_COLLAPSE:
@@ -407,6 +409,9 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 			case GMFGenPackage.GEN_COMPARTMENT__CHILD_NODES:
 				getChildNodes().clear();
 				getChildNodes().addAll((Collection)newValue);
+				return;
+			case GMFGenPackage.GEN_COMPARTMENT__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				setCanonicalEditPolicyClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_COMPARTMENT__TITLE:
 				setTitle((String)newValue);
@@ -455,6 +460,9 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 			case GMFGenPackage.GEN_COMPARTMENT__CHILD_NODES:
 				getChildNodes().clear();
 				return;
+			case GMFGenPackage.GEN_COMPARTMENT__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				setCanonicalEditPolicyClassName(CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_COMPARTMENT__TITLE:
 				setTitle(TITLE_EDEFAULT);
 				return;
@@ -495,6 +503,8 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 				return viewmap != null;
 			case GMFGenPackage.GEN_COMPARTMENT__CHILD_NODES:
 				return childNodes != null && !childNodes.isEmpty();
+			case GMFGenPackage.GEN_COMPARTMENT__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				return CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? canonicalEditPolicyClassName != null : !CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(canonicalEditPolicyClassName);
 			case GMFGenPackage.GEN_COMPARTMENT__TITLE:
 				return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
 			case GMFGenPackage.GEN_COMPARTMENT__CAN_COLLAPSE:
@@ -541,9 +551,10 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 		char[] chars = getTitle().toCharArray();
 		for (int i = 0; i < chars.length; i++) {
 			if (i == 0) {
-				if (!Character.isJavaIdentifierStart(chars[i])) {
-					chars[i] = '_';
+				if (!Character.isJavaIdentifierStart(chars[0])) {
+					chars[0] = '_';
 				}
+				chars[0] = Character.toUpperCase(chars[0]);
 			} else {
 				if (!Character.isJavaIdentifierPart(chars[i])) {
 					chars[i] = '_';

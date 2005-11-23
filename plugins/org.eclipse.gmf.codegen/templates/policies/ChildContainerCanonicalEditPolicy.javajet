@@ -1,0 +1,43 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.policies" class="ChildContainerCanonicalEditPolicyGenerator"
+	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"
+	skeleton="../common.skeleton"%>
+<%
+GenChildContainer genContainer = (GenChildContainer) argument;
+GenDiagram genDiagram = genContainer.getDiagram();
+%>
+package <%=genDiagram.getEditPoliciesPackageName()%>;
+
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPoliciesPackageName());%>
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
+import org.eclipse.gmf.runtime.notation.View;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genContainer.getCanonicalEditPolicyClassName()%> extends CanonicalEditPolicy {
+<%
+{
+	Collection genNodes = genContainer.getChildNodes();
+	GenNode containerNode;
+	if (genContainer instanceof GenCompartment) {
+		containerNode = ((GenCompartment) genContainer).getNode();
+	} else if (genContainer instanceof GenNode) {
+		containerNode = (GenNode) genContainer;
+	} else {
+		throw new IllegalArgumentException(String.valueOf(genContainer));
+	}
+	String modelElementInterfaceName = importManager.getImportedName(containerNode.getModelFacet().getMetaClass().getQualifiedInterfaceName());
+%>
+<%@ include file="getSemanticChildrenList.jetinc"%>
+<%}%>
+
+	/**
+	 * @generated
+	 */
+	protected String getFactoryHint(IAdaptable elementAdapter) {
+		return "";
+	}
+}
+<%importManager.emitSortedImports();%>

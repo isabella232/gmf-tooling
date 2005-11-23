@@ -7,12 +7,8 @@ GenDiagram genDiagram = genChildNode.getDiagram();
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
-import java.util.Collections;
-import java.util.List;
-
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListItemEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
@@ -44,7 +40,7 @@ GenNodeLabel label = (GenNodeLabel) genChildNode.getLabels().get(0);
 		}
 		return parser;
 	}
-	
+
 	/**
 	 * @generated
 	 */
@@ -52,6 +48,5 @@ GenNodeLabel label = (GenNodeLabel) genChildNode.getLabels().get(0);
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genChildNode.getItemSemanticEditPolicyQualifiedClassName())%>());
 	}
-	
 }
 <%importManager.emitSortedImports();%>

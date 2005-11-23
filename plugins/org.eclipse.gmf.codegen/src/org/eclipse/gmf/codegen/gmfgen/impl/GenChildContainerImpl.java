@@ -9,12 +9,15 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -32,6 +35,7 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl#getChildNodes <em>Child Nodes</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl#getCanonicalEditPolicyClassName <em>Canonical Edit Policy Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -47,6 +51,26 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 * @ordered
 	 */
 	protected EList childNodes = null;
+
+	/**
+	 * The default value of the '{@link #getCanonicalEditPolicyClassName() <em>Canonical Edit Policy Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCanonicalEditPolicyClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCanonicalEditPolicyClassName() <em>Canonical Edit Policy Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCanonicalEditPolicyClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String canonicalEditPolicyClassName = CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -76,6 +100,44 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 			childNodes = new EObjectContainmentWithInverseEList(GenChildNode.class, this, GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES, GMFGenPackage.GEN_CHILD_NODE__CONTAINER);
 		}
 		return childNodes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getCanonicalEditPolicyClassNameGen() {
+		return canonicalEditPolicyClassName;
+	}
+
+	public String getCanonicalEditPolicyClassName() {
+		String name = getCanonicalEditPolicyClassNameGen();
+		if (name == null || name.length() == 0) {
+			return getClassNamePrefix() + getClassNameSuffux() + "CanonicalEditPolicy"; //$NON-NLS-1$
+		}
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCanonicalEditPolicyClassName(String newCanonicalEditPolicyClassName) {
+		String oldCanonicalEditPolicyClassName = canonicalEditPolicyClassName;
+		canonicalEditPolicyClassName = newCanonicalEditPolicyClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME, oldCanonicalEditPolicyClassName, canonicalEditPolicyClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getCanonicalEditPolicyQualifiedClassName() {
+		return getDiagram().getEditPoliciesPackageName() + '.' + getCanonicalEditPolicyClassName();
 	}
 
 	/**
@@ -138,6 +200,8 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 				return getViewmap();
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
 				return getChildNodes();
+			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				return getCanonicalEditPolicyClassName();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -171,6 +235,9 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 				getChildNodes().clear();
 				getChildNodes().addAll((Collection)newValue);
 				return;
+			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				setCanonicalEditPolicyClassName((String)newValue);
+				return;
 		}
 		eDynamicSet(eFeature, newValue);
 	}
@@ -203,6 +270,9 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
 				getChildNodes().clear();
 				return;
+			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				setCanonicalEditPolicyClassName(CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -228,8 +298,25 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 				return viewmap != null;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
 				return childNodes != null && !childNodes.isEmpty();
+			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				return CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? canonicalEditPolicyClassName != null : !CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(canonicalEditPolicyClassName);
 		}
 		return eDynamicIsSet(eFeature);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (canonicalEditPolicyClassName: ");
+		result.append(canonicalEditPolicyClassName);
+		result.append(')');
+		return result.toString();
 	}
 
 } //GenChildContainerImpl

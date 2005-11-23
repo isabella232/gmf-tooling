@@ -41,7 +41,9 @@ import org.eclipse.gmf.codegen.templates.parts.LinkLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.LinkLabelTextEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.NodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.NodeLabelEditPartGenerator;
+import org.eclipse.gmf.codegen.templates.policies.ChildContainerCanonicalEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.CompartmentItemSemanticEditPolicyGenerator;
+import org.eclipse.gmf.codegen.templates.policies.DiagramCanonicalEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.DiagramItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.GraphicalNodeEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ItemSemanticEditPolicyGenerator;
@@ -140,6 +142,14 @@ public class EmitterFactory {
 
 	public static JETEmitter getReferenceConnectionEditPolicyEmitter() throws JETException {
 		return initializeEmitter("/templates/policies/ReferenceConnectionEditPolicy.javajet", ReferenceConnectionEditPolicyGenerator.class);
+	}
+
+	public static JETEmitter getDiagramCanonicalEditPolicyEmitter() throws JETException {
+		return initializeEmitter("/templates/policies/DiagramCanonicalEditPolicy.javajet", DiagramCanonicalEditPolicyGenerator.class);
+	}
+
+	public static JETEmitter getChildContainerCanonicalEditPolicyEmitter() throws JETException {
+		return initializeEmitter("/templates/policies/ChildContainerCanonicalEditPolicy.javajet", ChildContainerCanonicalEditPolicyGenerator.class);
 	}
 
 	public static JETEmitter getDiagramItemSemanticEditPolicyEmitter() throws JETException {

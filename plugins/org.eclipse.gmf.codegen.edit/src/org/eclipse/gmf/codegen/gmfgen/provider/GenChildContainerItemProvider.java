@@ -61,8 +61,29 @@ public class GenChildContainerItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addCanonicalEditPolicyClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Canonical Edit Policy Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCanonicalEditPolicyClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenChildContainer_canonicalEditPolicyClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenChildContainer_canonicalEditPolicyClassName_feature", "_UI_GenChildContainer_type"),
+				 GMFGenPackage.eINSTANCE.getGenChildContainer_CanonicalEditPolicyClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -115,6 +136,9 @@ public class GenChildContainerItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenChildContainer.class)) {
+			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
