@@ -40,8 +40,7 @@ public class TaiPanElementTypes {
 	/**
 	 * @generated
 	 */
-	private TaiPanElementTypes() {
-	}
+	private TaiPanElementTypes() {}
 
 	/**
 	 * @generated

@@ -67,8 +67,6 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 				return new ShipNode_cargoCompartmentEditPart(view);
 			case 2001:
 				return new ItemNodeChildNodeEditPart(view);
-			case 4003:
-				return new ItemArticleNodeLabelEditPart(view);
 			case 3001:
 				return new DestinationLinkEditPart(view);
 			}

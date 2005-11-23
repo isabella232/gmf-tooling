@@ -53,8 +53,7 @@ public class PortNodeItemSemanticEditPolicy extends TaiPanItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getCreateStartIncomingShip_Destination3001Command(CreateRelationshipRequest req) {
-		return new Command() {
-		};
+		return new Command() {};
 	}
 
 	/**

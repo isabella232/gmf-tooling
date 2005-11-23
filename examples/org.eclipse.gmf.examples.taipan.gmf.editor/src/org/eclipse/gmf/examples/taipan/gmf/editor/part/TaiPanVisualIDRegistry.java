@@ -106,13 +106,13 @@ public class TaiPanVisualIDRegistry {
 			return getUnrecognizedShip_1002ChildNodeID(domainElement);
 		case 5001:
 			if (!"".equals(semanticHint)) {
-				return getUnrecognizedcargo_5001ChildNodeID(semanticHint);
+				return getUnrecognizedCargo_5001ChildNodeID(semanticHint);
 			}
 			if (TaiPanPackage.eINSTANCE.getItem().equals(domainElementMetaclass)
 					&& (domainElement != null ? isChildNodeItem_2001((Item) domainElement) : true)) {
 				return 2001;
 			}
-			return getUnrecognizedcargo_5001ChildNodeID(domainElement);
+			return getUnrecognizedCargo_5001ChildNodeID(domainElement);
 		case 2001:
 			if (TaiPanSemanticHints.Item_2001Labels.ARTICLE_TEXT.equals(semanticHint)) {
 				return 4003;
@@ -250,7 +250,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedcargo_5001ChildNodeID(EObject domainElement) {
+	private int getUnrecognizedCargo_5001ChildNodeID(EObject domainElement) {
 		return -1;
 	}
 
@@ -260,7 +260,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedcargo_5001ChildNodeID(String semanticHint) {
+	private int getUnrecognizedCargo_5001ChildNodeID(String semanticHint) {
 		return -1;
 	}
 
@@ -332,8 +332,7 @@ public class TaiPanVisualIDRegistry {
 		/**
 		 * @generated
 		 */
-		private ElementSelectors() {
-		}
+		private ElementSelectors() {}
 
 		/**
 		 * @generated

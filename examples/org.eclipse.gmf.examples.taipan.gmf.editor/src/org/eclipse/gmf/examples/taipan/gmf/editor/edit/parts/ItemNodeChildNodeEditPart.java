@@ -11,12 +11,8 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListItemEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
@@ -53,21 +49,5 @@ public class ItemNodeChildNodeEditPart extends ListItemEditPart {
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ItemChildNodeItemSemanticEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ItemNodeChildNodeEditPartCanonicalEditPolicy());
 	}
-
-	/**
-	 * @generated
-	 */
-	private class ItemNodeChildNodeEditPartCanonicalEditPolicy extends CanonicalEditPolicy {
-
-		/**
-		 * @generated
-		 */
-		protected List getSemanticChildrenList() {
-			return Collections.EMPTY_LIST;
-		}
-
-	}
-
 }

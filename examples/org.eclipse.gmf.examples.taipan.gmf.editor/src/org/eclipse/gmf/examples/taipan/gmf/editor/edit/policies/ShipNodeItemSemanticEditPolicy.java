@@ -58,8 +58,7 @@ public class ShipNodeItemSemanticEditPolicy extends TaiPanItemSemanticEditPolicy
 		if (element.getDestination() != null) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		return new Command() {
-		};
+		return new Command() {};
 	}
 
 	/**

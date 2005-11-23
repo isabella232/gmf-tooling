@@ -22,7 +22,6 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.AquatoryViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.DestinationLinkNotationViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ItemNodeNotationViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ItemNode_articleNotationViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.PortNodeNotationViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.PortNode_locationNotationViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipNodeNotationViewFactory;
@@ -74,8 +73,6 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 			return ShipNode_cargoNotationViewFactory.class;
 		case 2001:
 			return ItemNodeNotationViewFactory.class;
-		case 4003:
-			return ItemNode_articleNotationViewFactory.class;
 		}
 		return getUnrecognizedNodeViewClass(semanticAdapter, containerView, semanticHint);
 	}

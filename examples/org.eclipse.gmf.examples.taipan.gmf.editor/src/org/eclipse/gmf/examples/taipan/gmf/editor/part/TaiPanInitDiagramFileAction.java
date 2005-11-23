@@ -30,7 +30,6 @@ import org.eclipse.core.runtime.Path;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.emf.ecore.resource.Resource;
 
@@ -223,10 +222,9 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	 * @generated
 	 */
 	private void createDiagramChildren(Diagram diagram, EObject diagramModel) {
-		Object featureValue;
-		featureValue = ((Aquatory) diagramModel).getPorts();
-		for (Iterator values = ((Collection) featureValue).iterator(); values.hasNext();) {
-			EObject nextValue = ((EObject) values.next());
+		EObject nextValue;
+		for (Iterator values = ((Aquatory) diagramModel).getPorts().iterator(); values.hasNext();) {
+			nextValue = (EObject) values.next();
 			int nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(diagram, nextValue, "");
 			if (1001 == nodeVID) {
 				Node nextNode = DiagramUtil.createNode(diagram, nextValue, null,
@@ -235,9 +233,8 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 				createPort_1001Children(nextNode, nextValue);
 			}
 		}
-		featureValue = ((Aquatory) diagramModel).getShips();
-		for (Iterator values = ((Collection) featureValue).iterator(); values.hasNext();) {
-			EObject nextValue = ((EObject) values.next());
+		for (Iterator values = ((Aquatory) diagramModel).getShips().iterator(); values.hasNext();) {
+			nextValue = (EObject) values.next();
 			int nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(diagram, nextValue, "");
 			if (1002 == nodeVID) {
 				Node nextNode = DiagramUtil.createNode(diagram, nextValue, null,
@@ -262,7 +259,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 		Node nextNode;
 		nextNode = getCompartment(viewObject, "cargo");
 		if (nextNode != null) {
-			createcargo_5001Children(nextNode, modelObject);
+			createCargo_5001Children(nextNode, modelObject);
 		}
 		storeLinks(modelObject);
 	}
@@ -270,12 +267,12 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	/**
 	 * @generated
 	 */
-	private void createcargo_5001Children(Node viewObject, EObject modelObject) {
-		Object featureValue;
+	private void createCargo_5001Children(Node viewObject, EObject modelObject) {
+		EObject nextValue;
 		Node nextNode;
-		featureValue = ((Ship) modelObject).getCargo();
-		for (Iterator values = ((Collection) featureValue).iterator(); values.hasNext();) {
-			EObject nextValue = ((EObject) values.next());
+		for (Iterator values = ((Ship) modelObject).getCargo().iterator(); values.hasNext();) {
+			nextValue = (EObject) values.next();
+
 			int nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (2001 == nodeVID) {
 				nextNode = DiagramUtil.createNode(viewObject, nextValue, null,
@@ -318,8 +315,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	/**
 	 * @generated
 	 */
-	private void storeTypeModelFacetLinks(EObject container, EClass containerMetaclass) {
-	}
+	private void storeTypeModelFacetLinks(EObject container, EClass containerMetaclass) {}
 
 	/**
 	 *@generated
@@ -343,8 +339,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 			if (srcNode == null) {
 				continue;
 			}
-			EStructuralFeature structuralFeature = TaiPanPackage.eINSTANCE.getShip_Destination();
-			Object structuralFeatureResult = linkElement.eGet(structuralFeature);
+			Object structuralFeatureResult = ((Ship) linkElement).getDestination();
 			if (structuralFeatureResult instanceof Collection == false) {
 				continue;
 			}

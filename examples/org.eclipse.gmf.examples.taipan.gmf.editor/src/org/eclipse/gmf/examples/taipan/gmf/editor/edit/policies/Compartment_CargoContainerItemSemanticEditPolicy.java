@@ -29,7 +29,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class Compartment_cargoContainerItemSemanticEditPolicy extends TaiPanItemSemanticEditPolicy {
+public class Compartment_CargoContainerItemSemanticEditPolicy extends TaiPanItemSemanticEditPolicy {
 
 	/**
 	 * @generated

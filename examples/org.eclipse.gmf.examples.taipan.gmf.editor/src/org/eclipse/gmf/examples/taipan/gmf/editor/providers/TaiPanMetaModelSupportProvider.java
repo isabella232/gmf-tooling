@@ -83,7 +83,6 @@ public class TaiPanMetaModelSupportProvider extends AbstractProvider implements 
 		/**
 		 * @generated
 		 */
-		public void postProcess(EObject root) {
-		}
+		public void postProcess(EObject root) {}
 	}
 }
