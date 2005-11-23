@@ -12,9 +12,7 @@
 package org.eclipse.gmf.tests;
 
 import java.io.IOException;
-import java.net.URL;
 
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.osgi.framework.BundleContext;
@@ -41,9 +39,8 @@ public class Plugin extends org.eclipse.core.runtime.Plugin {
 	}
 
 	public static URI createURI(String bundledFileName) throws IOException {
-		URL url = getInstance().getBundle().getEntry(bundledFileName);
-		String filePath = Platform.asLocalURL(url).toExternalForm();
-		return URI.createURI(filePath);
+		assert bundledFileName.charAt(0) == '/';
+		return URI.createURI("platform:/plugin/" + getPluginID() + bundledFileName);
 	}
 
 	public static Plugin getInstance() {

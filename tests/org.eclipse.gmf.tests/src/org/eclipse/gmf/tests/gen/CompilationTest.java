@@ -42,7 +42,7 @@ public class CompilationTest extends TestCase {
 
 	public void testCodeCompilation() {
 		try {
-			URI selected = createURI();
+			URI selected = Plugin.createURI("/models/library/library.gmfgen");
 			ResourceSet srcResSet = new ResourceSetImpl();
 	 		Resource srcRes = srcResSet.getResource(selected, true);
 			GenDiagram gd = (GenDiagram) srcRes.getContents().get(0);
@@ -55,11 +55,6 @@ public class CompilationTest extends TestCase {
 			Plugin.logError("Unexpected exception:", ex);
 			fail("Hm, looks like unexpected..." + ex.getMessage());
 		}
-	}
-
-	private URI createURI() throws IOException {
-		final String p = "/models/library/library.gmfgen";
-		return URI.createURI("platform:/plugin/" + Plugin.getPluginID() + p);
 	}
 
 	protected void tearDown() throws Exception {
