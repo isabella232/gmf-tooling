@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.tests.setup;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Calendar;
 
 import org.eclipse.emf.common.util.Diagnostic;
@@ -24,8 +22,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.util.Diagnostician;
 
 /**
@@ -116,12 +113,8 @@ public class DomainModelSetup implements DomainModelSource {
 
 		System.err.println(Diagnostician.INSTANCE.validate(p));
 
-		try {
-			Resource r = new ResourceSetImpl().createResource(URI.createFileURI(new File("aaa.ecore").getCanonicalPath()));
-			r.getContents().add(p);
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		}
+		confineInResource(p);
+
 		Diagnostic d = Diagnostician.INSTANCE.validate(p);
 		System.err.println(d);
 
@@ -131,6 +124,10 @@ public class DomainModelSetup implements DomainModelSource {
 		myLinkAsRef = linkToB;
 		myDiagramElement = containmentNode;
 		return this;
+	}
+
+	private void confineInResource(Object p) {
+		new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/DomainModelSetup")).getContents().add(p);
 	}
 
 	public final EPackage getModel() {
