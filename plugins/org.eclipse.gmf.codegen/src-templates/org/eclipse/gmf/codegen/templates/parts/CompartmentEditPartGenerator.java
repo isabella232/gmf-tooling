@@ -29,33 +29,35 @@ public class CompartmentEditPartGenerator {
   protected final String TEXT_10 = "());";
   protected final String TEXT_11 = NL + "\t\tinstallEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());" + NL + "\t\tinstallEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());" + NL + "\t\tinstallEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ";
   protected final String TEXT_12 = "CanonicalEditPolicy());";
-  protected final String TEXT_13 = NL + "\t}" + NL + "\t";
-  protected final String TEXT_14 = NL;
-  protected final String TEXT_15 = "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate class ";
-  protected final String TEXT_16 = "CanonicalEditPolicy extends ";
-  protected final String TEXT_17 = " {" + NL + "\t";
-  protected final String TEXT_18 = NL;
-  protected final String TEXT_19 = "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
-  protected final String TEXT_20 = " getSemanticChildrenList() {\t" + NL + "\t\t\t";
-  protected final String TEXT_21 = " modelElement = (";
-  protected final String TEXT_22 = ") ((View) getHost().getModel()).getElement();" + NL + "\t\t\tList result = new ";
-  protected final String TEXT_23 = "();" + NL + "\t\t\t";
-  protected final String TEXT_24 = " nextValue;";
-  protected final String TEXT_25 = "\t" + NL + "\t\t\tfor (";
-  protected final String TEXT_26 = " it = ";
-  protected final String TEXT_27 = ".iterator(); it.hasNext();) {" + NL + "\t\t\t\tnextValue = (";
-  protected final String TEXT_28 = ") it.next();";
-  protected final String TEXT_29 = NL + "\t\t\tnextValue = ";
-  protected final String TEXT_30 = ";";
-  protected final String TEXT_31 = NL + "\t\t\tint nodeVID = ";
-  protected final String TEXT_32 = ".INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, \"\");" + NL + "\t\t\tif (";
-  protected final String TEXT_33 = " == nodeVID) {" + NL + "\t\t\t\tresult.add(nextValue);" + NL + "\t\t\t}";
-  protected final String TEXT_34 = NL + "\t\t\t}";
-  protected final String TEXT_35 = "\t\t\t" + NL + "\t\t\treturn result;" + NL + "\t\t}";
-  protected final String TEXT_36 = NL + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected String getFactoryHint(";
-  protected final String TEXT_37 = " elementAdapter) {" + NL + "\t\t\treturn \"\";" + NL + "\t\t}" + NL + "" + NL + "\t}";
-  protected final String TEXT_38 = NL + "}";
-  protected final String TEXT_39 = NL;
+  protected final String TEXT_13 = NL + "\t\tinstallEditPolicy(EditPolicyRoles.POPUPBAR_ROLE, new ";
+  protected final String TEXT_14 = "());";
+  protected final String TEXT_15 = NL + "\t}" + NL + "\t";
+  protected final String TEXT_16 = NL;
+  protected final String TEXT_17 = "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate class ";
+  protected final String TEXT_18 = "CanonicalEditPolicy extends ";
+  protected final String TEXT_19 = " {" + NL + "\t";
+  protected final String TEXT_20 = NL;
+  protected final String TEXT_21 = "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
+  protected final String TEXT_22 = " getSemanticChildrenList() {\t" + NL + "\t\t\t";
+  protected final String TEXT_23 = " modelElement = (";
+  protected final String TEXT_24 = ") ((View) getHost().getModel()).getElement();" + NL + "\t\t\tList result = new ";
+  protected final String TEXT_25 = "();" + NL + "\t\t\t";
+  protected final String TEXT_26 = " nextValue;";
+  protected final String TEXT_27 = "\t" + NL + "\t\t\tfor (";
+  protected final String TEXT_28 = " it = ";
+  protected final String TEXT_29 = ".iterator(); it.hasNext();) {" + NL + "\t\t\t\tnextValue = (";
+  protected final String TEXT_30 = ") it.next();";
+  protected final String TEXT_31 = NL + "\t\t\tnextValue = ";
+  protected final String TEXT_32 = ";";
+  protected final String TEXT_33 = NL + "\t\t\tint nodeVID = ";
+  protected final String TEXT_34 = ".INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, \"\");" + NL + "\t\t\tif (";
+  protected final String TEXT_35 = " == nodeVID) {" + NL + "\t\t\t\tresult.add(nextValue);" + NL + "\t\t\t}";
+  protected final String TEXT_36 = NL + "\t\t\t}";
+  protected final String TEXT_37 = "\t\t\t" + NL + "\t\t\treturn result;" + NL + "\t\t}";
+  protected final String TEXT_38 = NL + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected String getFactoryHint(";
+  protected final String TEXT_39 = " elementAdapter) {" + NL + "\t\t\treturn \"\";" + NL + "\t\t}" + NL + "" + NL + "\t}";
+  protected final String TEXT_40 = NL + "}";
+  protected final String TEXT_41 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
 		StringBuffer result = new StringBuffer();
@@ -186,36 +188,41 @@ if (genCompartment.getChildNodes().size() > 0) {
     stringBuffer.append(TEXT_12);
     
 }
+if (isListLayout) {
 
     stringBuffer.append(TEXT_13);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.PopupBarEditPolicy"));
+    stringBuffer.append(TEXT_14);
+    }
+    stringBuffer.append(TEXT_15);
     
 if (genCompartment.getChildNodes().size() > 0) {
 	GenChildContainer childContainer = genCompartment;
 	GenNode containerNode = genCompartment.getNode();
 
-    stringBuffer.append(TEXT_14);
-    stringBuffer.append(TEXT_15);
-    stringBuffer.append(childContainer.getEditPartClassName());
     stringBuffer.append(TEXT_16);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy"));
     stringBuffer.append(TEXT_17);
+    stringBuffer.append(childContainer.getEditPartClassName());
+    stringBuffer.append(TEXT_18);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalEditPolicy"));
+    stringBuffer.append(TEXT_19);
     
 {
 	String modelElementInterfaceName = importManager.getImportedName(containerNode.getModelFacet().getMetaClass().getQualifiedInterfaceName());
 	Collection genNodes = childContainer.getChildNodes();
 
-    stringBuffer.append(TEXT_18);
-    stringBuffer.append(TEXT_19);
-    stringBuffer.append(importManager.getImportedName("java.util.List"));
     stringBuffer.append(TEXT_20);
-    stringBuffer.append(modelElementInterfaceName);
     stringBuffer.append(TEXT_21);
-    stringBuffer.append(modelElementInterfaceName);
+    stringBuffer.append(importManager.getImportedName("java.util.List"));
     stringBuffer.append(TEXT_22);
-    stringBuffer.append(importManager.getImportedName("java.util.LinkedList"));
+    stringBuffer.append(modelElementInterfaceName);
     stringBuffer.append(TEXT_23);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(modelElementInterfaceName);
     stringBuffer.append(TEXT_24);
+    stringBuffer.append(importManager.getImportedName("java.util.LinkedList"));
+    stringBuffer.append(TEXT_25);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_26);
     
 for (Iterator it = genNodes.iterator(); it.hasNext();) {
 	GenNode nextNode = (GenNode) it.next();
@@ -223,48 +230,48 @@ for (Iterator it = genNodes.iterator(); it.hasNext();) {
 	GenFeature childMetaFeature = typeModelFacet.getChildMetaFeature();
 	if (childMetaFeature.isListType()) {
 
-    stringBuffer.append(TEXT_25);
-    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
-    stringBuffer.append(TEXT_26);
-    stringBuffer.append(getFeatureValueGetter("modelElement", childMetaFeature, false, importManager));
     stringBuffer.append(TEXT_27);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
     stringBuffer.append(TEXT_28);
+    stringBuffer.append(getFeatureValueGetter("modelElement", childMetaFeature, false, importManager));
+    stringBuffer.append(TEXT_29);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_30);
     
 	} else {
 
-    stringBuffer.append(TEXT_29);
+    stringBuffer.append(TEXT_31);
     stringBuffer.append(getFeatureValueGetter("modelElement", childMetaFeature, false, importManager));
-    stringBuffer.append(TEXT_30);
+    stringBuffer.append(TEXT_32);
     
 	}
 
-    stringBuffer.append(TEXT_31);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
-    stringBuffer.append(TEXT_32);
-    stringBuffer.append(nextNode.getVisualID());
     stringBuffer.append(TEXT_33);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
+    stringBuffer.append(TEXT_34);
+    stringBuffer.append(nextNode.getVisualID());
+    stringBuffer.append(TEXT_35);
     
 	if (childMetaFeature.isListType()) {
 
-    stringBuffer.append(TEXT_34);
+    stringBuffer.append(TEXT_36);
     
 	}
 }
 
-    stringBuffer.append(TEXT_35);
-    
-}
-
-    stringBuffer.append(TEXT_36);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
     stringBuffer.append(TEXT_37);
     
 }
 
     stringBuffer.append(TEXT_38);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
     stringBuffer.append(TEXT_39);
+    
+}
+
+    stringBuffer.append(TEXT_40);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_41);
     return stringBuffer.toString();
   }
 }

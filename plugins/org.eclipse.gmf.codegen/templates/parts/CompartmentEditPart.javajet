@@ -65,7 +65,10 @@ if (genCompartment.getChildNodes().size() > 0) {
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=genCompartment.getEditPartClassName()%>CanonicalEditPolicy());
 <%
 }
+if (isListLayout) {
 %>
+		installEditPolicy(EditPolicyRoles.POPUPBAR_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.PopupBarEditPolicy")%>());
+<%}%>
 	}
 	
 <%
