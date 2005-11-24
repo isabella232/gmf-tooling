@@ -65,10 +65,16 @@ if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length()
 		RotatableDecoration sourceDecoration = createSourceDecoration();
 		if (sourceDecoration != null) {
 			shape.setSourceDecoration(sourceDecoration);
+			if (sourceDecoration instanceof <%=importManager.getImportedName("org.eclipse.draw2d.Shape")%>) {
+				((<%=importManager.getImportedName("org.eclipse.draw2d.Shape")%>) sourceDecoration).setLineWidth(shape.getLineWidth());
+			}
 		}
 		RotatableDecoration targetDecoration = createTargetDecoration();
 		if (targetDecoration != null) {
 			shape.setTargetDecoration(targetDecoration);
+			if (targetDecoration instanceof <%=importManager.getImportedName("org.eclipse.draw2d.Shape")%>) {
+				((<%=importManager.getImportedName("org.eclipse.draw2d.Shape")%>) targetDecoration).setLineWidth(shape.getLineWidth());
+			}
 		}
 <%}%>
 	}

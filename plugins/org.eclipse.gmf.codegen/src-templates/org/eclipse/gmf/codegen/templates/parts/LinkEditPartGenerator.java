@@ -35,27 +35,31 @@ public class LinkEditPartGenerator
   protected final String TEXT_17 = ");";
   protected final String TEXT_18 = NL + "\tshape.setLineWidth(";
   protected final String TEXT_19 = ");";
-  protected final String TEXT_20 = NL + "\t\tRotatableDecoration sourceDecoration = createSourceDecoration();" + NL + "\t\tif (sourceDecoration != null) {" + NL + "\t\t\tshape.setSourceDecoration(sourceDecoration);" + NL + "\t\t}" + NL + "\t\tRotatableDecoration targetDecoration = createTargetDecoration();" + NL + "\t\tif (targetDecoration != null) {" + NL + "\t\t\tshape.setTargetDecoration(targetDecoration);" + NL + "\t\t}";
-  protected final String TEXT_21 = NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * Creates figure for this edit part." + NL + "\t * " + NL + "\t * Body of this method does not depend on settings in generation model" + NL + "\t * so you may safely remove <i>generated</i> tag and modify it." + NL + "\t * " + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Connection createConnectionFigure() {" + NL + "\t\tPolylineConnection shape = createConnectionShape();" + NL + "\t\tdecorateConnectionShape(shape);" + NL + "\t\treturn shape;" + NL + "\t}" + NL;
-  protected final String TEXT_22 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected RotatableDecoration createSourceDecoration() {";
-  protected final String TEXT_23 = NL;
-  protected final String TEXT_24 = NL + "\t";
-  protected final String TEXT_25 = " decoration = new ";
-  protected final String TEXT_26 = "();" + NL + "\tdecoration.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));" + NL + "\treturn decoration;";
-  protected final String TEXT_27 = NL + "\treturn new ";
-  protected final String TEXT_28 = "();";
-  protected final String TEXT_29 = NL + "\treturn null;";
-  protected final String TEXT_30 = NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected RotatableDecoration createTargetDecoration() {";
-  protected final String TEXT_31 = NL;
-  protected final String TEXT_32 = NL + "\t";
-  protected final String TEXT_33 = " decoration = new ";
-  protected final String TEXT_34 = "();" + NL + "\tdecoration.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));" + NL + "\treturn decoration;";
-  protected final String TEXT_35 = NL + "\treturn new ";
-  protected final String TEXT_36 = "();";
-  protected final String TEXT_37 = NL + "\treturn null;";
-  protected final String TEXT_38 = NL + "\t}";
-  protected final String TEXT_39 = NL + "}";
-  protected final String TEXT_40 = NL;
+  protected final String TEXT_20 = NL + "\t\tRotatableDecoration sourceDecoration = createSourceDecoration();" + NL + "\t\tif (sourceDecoration != null) {" + NL + "\t\t\tshape.setSourceDecoration(sourceDecoration);" + NL + "\t\t\tif (sourceDecoration instanceof ";
+  protected final String TEXT_21 = ") {" + NL + "\t\t\t\t((";
+  protected final String TEXT_22 = ") sourceDecoration).setLineWidth(shape.getLineWidth());" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\tRotatableDecoration targetDecoration = createTargetDecoration();" + NL + "\t\tif (targetDecoration != null) {" + NL + "\t\t\tshape.setTargetDecoration(targetDecoration);" + NL + "\t\t\tif (targetDecoration instanceof ";
+  protected final String TEXT_23 = ") {" + NL + "\t\t\t\t((";
+  protected final String TEXT_24 = ") targetDecoration).setLineWidth(shape.getLineWidth());" + NL + "\t\t\t}" + NL + "\t\t}";
+  protected final String TEXT_25 = NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * Creates figure for this edit part." + NL + "\t * " + NL + "\t * Body of this method does not depend on settings in generation model" + NL + "\t * so you may safely remove <i>generated</i> tag and modify it." + NL + "\t * " + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Connection createConnectionFigure() {" + NL + "\t\tPolylineConnection shape = createConnectionShape();" + NL + "\t\tdecorateConnectionShape(shape);" + NL + "\t\treturn shape;" + NL + "\t}" + NL;
+  protected final String TEXT_26 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected RotatableDecoration createSourceDecoration() {";
+  protected final String TEXT_27 = NL;
+  protected final String TEXT_28 = NL + "\t";
+  protected final String TEXT_29 = " decoration = new ";
+  protected final String TEXT_30 = "();" + NL + "\tdecoration.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));" + NL + "\treturn decoration;";
+  protected final String TEXT_31 = NL + "\treturn new ";
+  protected final String TEXT_32 = "();";
+  protected final String TEXT_33 = NL + "\treturn null;";
+  protected final String TEXT_34 = NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected RotatableDecoration createTargetDecoration() {";
+  protected final String TEXT_35 = NL;
+  protected final String TEXT_36 = NL + "\t";
+  protected final String TEXT_37 = " decoration = new ";
+  protected final String TEXT_38 = "();" + NL + "\tdecoration.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));" + NL + "\treturn decoration;";
+  protected final String TEXT_39 = NL + "\treturn new ";
+  protected final String TEXT_40 = "();";
+  protected final String TEXT_41 = NL + "\treturn null;";
+  protected final String TEXT_42 = NL + "\t}";
+  protected final String TEXT_43 = NL + "}";
+  protected final String TEXT_44 = NL;
 
   public String generate(Object argument)
   {
@@ -133,52 +137,20 @@ if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length()
 
     if (viewmap instanceof DecoratedConnectionViewmap) {
     stringBuffer.append(TEXT_20);
-    }
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.Shape"));
     stringBuffer.append(TEXT_21);
-    if (viewmap instanceof DecoratedConnectionViewmap) {
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.Shape"));
     stringBuffer.append(TEXT_22);
-    	LinkDecoration linkDecoration = ((DecoratedConnectionViewmap) viewmap).getSource();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.Shape"));
     stringBuffer.append(TEXT_23);
-    
-// Body of a method that returns link decoration figure.
-//
-// Parameters:
-//
-// importManager - ImportUtil ref in code
-// linkDecoration - LinkDecoration ref in code
-//
-{ // private namespace
-	if (linkDecoration != null && linkDecoration.getFigureQualifiedClassName() != null && linkDecoration.getFigureQualifiedClassName().trim().length() > 0) {
-		String decorationClassName = importManager.getImportedName(linkDecoration.getFigureQualifiedClassName());
-		Set SCALABLE_DECORATIONS = new HashSet();
-		SCALABLE_DECORATIONS.add("org.eclipse.draw2d.PolylineDecoration");
-		SCALABLE_DECORATIONS.add("org.eclipse.draw2d.PolygonDecoration");
-		SCALABLE_DECORATIONS.add("org.eclipse.gmf.draw2d.RhombDecoration");
-		SCALABLE_DECORATIONS.add("org.eclipse.gmf.draw2d.FilledRhombDecoration");
-		if (SCALABLE_DECORATIONS.contains(linkDecoration.getFigureQualifiedClassName())) {
-			// XXX use smth like ScaleableAtttributes?
-
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.Shape"));
     stringBuffer.append(TEXT_24);
-    stringBuffer.append(decorationClassName);
+    }
     stringBuffer.append(TEXT_25);
-    stringBuffer.append(decorationClassName);
+    if (viewmap instanceof DecoratedConnectionViewmap) {
     stringBuffer.append(TEXT_26);
-    		} else {
+    	LinkDecoration linkDecoration = ((DecoratedConnectionViewmap) viewmap).getSource();
     stringBuffer.append(TEXT_27);
-    stringBuffer.append(decorationClassName);
-    stringBuffer.append(TEXT_28);
-    
-		}
-	} else {
-
-    stringBuffer.append(TEXT_29);
-    
-	}
-} // private namespace
-
-    stringBuffer.append(TEXT_30);
-    	linkDecoration = ((DecoratedConnectionViewmap) viewmap).getTarget();
-    stringBuffer.append(TEXT_31);
     
 // Body of a method that returns link decoration figure.
 //
@@ -198,29 +170,69 @@ if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length()
 		if (SCALABLE_DECORATIONS.contains(linkDecoration.getFigureQualifiedClassName())) {
 			// XXX use smth like ScaleableAtttributes?
 
-    stringBuffer.append(TEXT_32);
+    stringBuffer.append(TEXT_28);
     stringBuffer.append(decorationClassName);
-    stringBuffer.append(TEXT_33);
+    stringBuffer.append(TEXT_29);
     stringBuffer.append(decorationClassName);
-    stringBuffer.append(TEXT_34);
+    stringBuffer.append(TEXT_30);
     		} else {
-    stringBuffer.append(TEXT_35);
+    stringBuffer.append(TEXT_31);
     stringBuffer.append(decorationClassName);
-    stringBuffer.append(TEXT_36);
+    stringBuffer.append(TEXT_32);
     
 		}
 	} else {
 
-    stringBuffer.append(TEXT_37);
+    stringBuffer.append(TEXT_33);
     
 	}
 } // private namespace
 
+    stringBuffer.append(TEXT_34);
+    	linkDecoration = ((DecoratedConnectionViewmap) viewmap).getTarget();
+    stringBuffer.append(TEXT_35);
+    
+// Body of a method that returns link decoration figure.
+//
+// Parameters:
+//
+// importManager - ImportUtil ref in code
+// linkDecoration - LinkDecoration ref in code
+//
+{ // private namespace
+	if (linkDecoration != null && linkDecoration.getFigureQualifiedClassName() != null && linkDecoration.getFigureQualifiedClassName().trim().length() > 0) {
+		String decorationClassName = importManager.getImportedName(linkDecoration.getFigureQualifiedClassName());
+		Set SCALABLE_DECORATIONS = new HashSet();
+		SCALABLE_DECORATIONS.add("org.eclipse.draw2d.PolylineDecoration");
+		SCALABLE_DECORATIONS.add("org.eclipse.draw2d.PolygonDecoration");
+		SCALABLE_DECORATIONS.add("org.eclipse.gmf.draw2d.RhombDecoration");
+		SCALABLE_DECORATIONS.add("org.eclipse.gmf.draw2d.FilledRhombDecoration");
+		if (SCALABLE_DECORATIONS.contains(linkDecoration.getFigureQualifiedClassName())) {
+			// XXX use smth like ScaleableAtttributes?
+
+    stringBuffer.append(TEXT_36);
+    stringBuffer.append(decorationClassName);
+    stringBuffer.append(TEXT_37);
+    stringBuffer.append(decorationClassName);
     stringBuffer.append(TEXT_38);
-    }
+    		} else {
     stringBuffer.append(TEXT_39);
-    importManager.emitSortedImports();
+    stringBuffer.append(decorationClassName);
     stringBuffer.append(TEXT_40);
+    
+		}
+	} else {
+
+    stringBuffer.append(TEXT_41);
+    
+	}
+} // private namespace
+
+    stringBuffer.append(TEXT_42);
+    }
+    stringBuffer.append(TEXT_43);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_44);
     return stringBuffer.toString();
   }
 }
