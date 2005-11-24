@@ -1,7 +1,14 @@
 <?xml version="1.0"?>
 <project name="Automated Testing for GMF" default="all" basedir=".">
+	<!-- Adjust these properties as appropriate before executing tests. During the automated build,
+	     these are set based on the build configuration settings. -->
+	<property name="baseLocation" value="${basedir}/../.."/>
+	<property name="gmfVersion" value="1.0.0"/>
+	<property name="baseos" value="win32"/>
+	<property name="basews" value="win32"/>
+	<property name="basearch" value="x86"/>
+	<property name="testPluginVersion" value="3.1.0"/>
 
-	<!-- TODO: modify to allow for testing to be run standalone (not only as part of the build) -->
 	<target name="runtests" depends="" description="Executes the junit tests for a specified plug-in.">
 		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="true" timeout="600000">
 			<assertions>
@@ -10,9 +17,7 @@
 			<arg value="-application" />
 			<arg value="org.eclipse.ant.core.antRunner" />
 			<arg value="-file" />
-			<arg 
-
-value="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}/src/${testPlugin}_${gmfVersion}/test.xml" />
+			<arg value="${basedir}/src/${testPlugin}_${gmfVersion}/test.xml" />
 			<arg value="-logger" />
 			<arg value="org.apache.tools.ant.DefaultLogger" />
 			<arg value="-Dos=${baseos}" />
@@ -23,9 +28,7 @@ value="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}/src/${
 			<arg value="-Declipse-home=${baseLocation}" />
 			<arg value="-DlibraryFile=${baseLocation}/plugins/org.eclipse.test_${testPluginVersion}/library.xml" />			
 		</java>
-		<move file="${baseLocation}/${testPlugin}.xml" tofile="${artifacts}/${buildLabel}/testresults/xml/${testPlugin}.xml" 
-
-failonerror="false"/>
+		<move file="${baseLocation}/${testPlugin}.xml" tofile="${basedir}/testresults/xml/${testPlugin}.xml" />
 	</target>
 
 	<target name="all" description="Runs the test.xml of the test plugins">
@@ -75,8 +78,6 @@ failonerror="false"/>
 	</target>
 
 	<target name="genHtml" description="Generates HTML results with provided JUNIT.XSL provided">
-		<style style="${scripts}/templateFiles/JUNIT.XSL" basedir="${artifacts}/${buildLabel}/testresults/xml/" 
-
-destdir="${artifacts}/${buildLabel}/testresults/html/" />
+		<style style="${basedir}/JUNIT.XSL" basedir="${basedir}/testresults/xml" destdir="${basedir}/testresults/html/" />
 	</target>
 </project>

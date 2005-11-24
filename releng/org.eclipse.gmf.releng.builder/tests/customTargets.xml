@@ -1,5 +1,5 @@
 <project name="Build specific targets and properties" default="noDefault">
-
+	<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
 	
 	<!-- ===================================================================== -->
 	<!-- Run a given ${target} on all elements being built -->
@@ -78,8 +78,6 @@ tag="${mapsCheckoutTag}" />
 	<!-- Steps to do after setup but before starting the build proper -->
 	<!-- ===================================================================== -->
 	<target name="postSetup">
-		<!-- Load build.cfg properties -->
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
 		<ant antfile="${scripts}/install.xml" target="getBaseComponents" />
 		<available file="${baseLocation}/configuration/config.ini" property="baseExists" />
 		<ant antfile="${scripts}/install.xml" target="installBase" />
@@ -165,20 +163,12 @@ tag="${mapsCheckoutTag}" />
 	<!-- Steps to do after  running package. -->
 	<!-- ===================================================================== -->
 	<target name="postPackage">
-		<!-- HACK: Copy the test.xml files from where they are assembled under 
-		     source plugin to packaging area (need to fix source gen script) -->
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
-		<zip destfile="${buildDirectory}/${buildLabel}/GMF-tests-${buildId}.zip" update="true">
-			<zipfileset dir="${buildDirectory}/plugins/org.eclipse.gmf.tests.source" includes="**/test.xml"	
-prefix="eclipse/plugins/eclipse.org.gmf.tests.source_${gmfVersion}"/>
-		</zip>
 	</target>
 
 	<!-- ===================================================================== -->
 	<!-- Steps to do after the build is done. -->
 	<!-- ===================================================================== -->
-	<target name="postBuild">
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>		
+	<target name="postBuild">	
 		<antcall target="gatherLogs" />
 		<!-- A temporary directory leftover? -->
 		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>	
@@ -214,13 +204,6 @@ prefix="eclipse/plugins/eclipse.org.gmf.tests.source_${gmfVersion}"/>
 			<param name="genericTargets" value="${builder}/customTargets.xml"/>
 			<param name="target" value="updateSiteExport"/>
 	  	</antcall>
-
-		<!-- HACK: Copy the test.xml files from where they are assembled under 
-		     source plugin to packaging area (need to fix source gen script) -->
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
-		<zip destfile="${buildUpdateSitePath}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}.jar" update="true">
-			<zipfileset dir="${buildDirectory}/plugins/org.eclipse.gmf.tests.source" includes="**/test.xml"	prefix=""/>
-		</zip>
 	</target>
 	
 	<target name="updateSiteExport">
@@ -239,8 +222,7 @@ prefix="eclipse/plugins/eclipse.org.gmf.tests.source_${gmfVersion}"/>
 	<!-- ===================================================================== -->
 	<target name="test" unless="skipTests">
 		<antcall target="installTests"/>
-	  	<ant antfile="${scripts}/test.xml"/>		
-		<antcall target="uninstallTests"/>
+	  	<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}/test.xml"/>		
 	</target>
 	
 	<target name="installTests" unless="testsExist">		
@@ -257,7 +239,6 @@ prefix="eclipse/plugins/eclipse.org.gmf.tests.source_${gmfVersion}"/>
 		<copy todir="${localUpdateSitePath}/plugins">
 			<fileset dir="${buildUpdateSitePath}/plugins"/>
 		</copy>
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${product}" />
 			<property name="version" value="${gmfVersion}" />
@@ -267,16 +248,6 @@ prefix="eclipse/plugins/eclipse.org.gmf.tests.source_${gmfVersion}"/>
 	<target name="installTestsFromZip" unless="usingMirror">
 		<echo message="Installing GMF tests from zip file..."/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-tests-${buildId}.zip" />
-	</target>
-	
-	<!-- TODO: easy to uninstall if installed via update manager... need to add removal if installed from zips
-			   (for now, just use cleanBase option to uninstall ;) -->
-	<target name="uninstallTests">
-		<echo message="Uninstalling tests from base ..."/>
-		<ant antfile="${scripts}/update.xml" target="uninstall">
-			<property name="featureId" value="${product}" />
-			<property name="version" value="${gmfVersion}" />
-		</ant>
 	</target>
 
 	<!-- ===================================================================== -->

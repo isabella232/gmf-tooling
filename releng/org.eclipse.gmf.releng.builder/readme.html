@@ -31,6 +31,7 @@
 		<a href="#cruise">Using CruiseControl</a><br />
 		<a href="#antbuildproperties">Ant build.properties</a><br />
 		<a href="#structure">Project structure</a><br />
+		<a href="#tests">Executing the tests</a><br />
 		<a href="#developers">Developer information</a><br />
 		<a href="#gotchas">Gotchas</a><br />
 		</TD>
@@ -496,14 +497,16 @@
 			instructions to install the cruisecontrol.war and modify the web.xml
 			file to point at the build's log and artifact locations. These will
 			be specified in the CC config.xml file and are by default /build/logs
-			and /build/ccpublish, respectively. The installation is as
-			simple as copying the cc/reporting/jsp/dist/cruisecontrol.war file
-			into the tomcat/webapps directory.</li>
+			and /build/ccpublish, respectively. The installation is as simple as
+			copying the cc/reporting/jsp/dist/cruisecontrol.war file into the
+			tomcat/webapps directory.</li>
 			<li>You may want to adjust the maximum memory setting for Tomcat, and
 			copy the xalan.jar provided with CruiseControl into the WEB-INF/lib
 			directory of the exploded cruisecontrol webapp to avoid problems
 			rendering larger reports.</li>
-			<li>To run CruiseControl as a service on Windows, follow the instructions provided <a href="http://confluence.public.thoughtworks.org/display/CC/RunningCruiseControlAsaWindowsService">here</a>.</li>
+			<li>To run CruiseControl as a service on Windows, follow the
+			instructions provided <a
+				href="http://confluence.public.thoughtworks.org/display/CC/RunningCruiseControlAsaWindowsService">here</a>.</li>
 		</ul>
 		<p>To invoke CruiseControl, follow the instructions below:</p>
 		<ul>
@@ -665,6 +668,38 @@
 <table width="100%" border="0">
 	<tr>
 		<td bgcolor="#999999"><b><font face="Arial,Helvetica" color="#FFFFFF">
+		<a name="tests"></a>Executing the tests</font></b></td>
+	</tr>
+	<tr>
+		<td>This section describes the process for executing the unit tests
+		packaged in the GMF test component. The tests are normally installed
+		and executed as part of the build process, while these instructions
+		are intended for those who wish to invoke the tests after installed in
+		their local environment.
+		<ul>
+			<li><b>Install the prerequisites</b>: The GMF unit tests require a
+			few dependencies to be installed prior to execution. These are all
+			available or listed on the GMF download page. Presently, you will
+			need to install the GMF SDK and Examples, along with the UML2 project
+			runtime component, in addition to their dependencies.</li>
+			<li><b>Setting the test properties</b>: Modify the properties found
+			at the top of the main test.xml file to match your configuration.
+			This file is found in the org.eclipse.gmf.tests.source_X.X.X folder
+			under the plugins directory of your Eclipse installation.</li>
+			<li><b>Running the tests</b>: From the
+			org.eclipse.gmf.tests.source_X.X.X folder in the plugins directory of
+			your Eclipse installation, you will need to invoke Ant and pass in
+			the test.xml as the build script file (-f option). When complete, a
+			/testresults/html folder will contain the test output.</li>
+		</ul>
+		</td>
+	</tr>
+
+</table>
+
+<table width="100%" border="0">
+	<tr>
+		<td bgcolor="#999999"><b><font face="Arial,Helvetica" color="#FFFFFF">
 		<a name="developers"></a>Developer information</font></b></td>
 	</tr>
 	<tr>
@@ -688,9 +723,9 @@
 			file. Information on what these mean is found in the <a
 				href="ftp://download.eclipse.org/R-3.0.2-200503110845/testframework.html">readme</a>
 			for the testing framework. Finally, each test plug-in is listed for
-			execution in the test.xml file found in the scripts directory of the
-			org.eclipse.gmf.releng.builder plug-in. You will need to add your new
-			test plug-in to this list.</li>
+			execution in the test.xml file found in the sourceTemplatePlugin
+			directory of org.eclipse.gmf.tests-feature. You will need to add your
+			new test plug-in to this list.</li>
 		</ul>
 		</td>
 	</tr>
@@ -714,7 +749,11 @@
 			<li>If you are running a build and get the message that 'plug-in
 			org.*_X_X_X' cannot be found, check that you have declared/installed
 			the necessary dependencies for the plug-in.</li>
-			<li>If you are building a feature that contains a generate.* option in its build.properties file, and you are getting '.../build.xml file does not exist' messages, check that your plug-ins do not contain any cyclic dependencies. Specifically, look at any fragments you may have to see if they have their host plug-in listed as a dependency.</li>
+			<li>If you are building a feature that contains a generate.* option
+			in its build.properties file, and you are getting '.../build.xml file
+			does not exist' messages, check that your plug-ins do not contain any
+			cyclic dependencies. Specifically, look at any fragments you may have
+			to see if they have their host plug-in listed as a dependency.</li>
 		</ul>
 		</td>
 	</tr>
