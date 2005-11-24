@@ -135,13 +135,9 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 					if (upperContainmentBound == 1) {
 %>
 		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%> != null) {
-<%
-					} else {
-%>
+<%					} else {%>
 		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%>.size() >= <%=upperContainmentBound%>) {
-<%				
-					}
-%>
+<%					}%>
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%
@@ -150,13 +146,9 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 					if (upperChildBound == 1) {
 %>
 		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%> != null) {
-<%
-					} else {
-%>
+<%					} else {%>
 		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%>.size() >= <%=upperChildBound%>) {
-<%
-					}
-%>
+<%					}%>
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%
@@ -191,13 +183,9 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 					if (upperContainmentBound == 1) {
 %>
 		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%> != null) {
-<%
-					} else {
-%>
+<%					} else {%>
 		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%>.size() >= <%=upperContainmentBound%>) {
-<%				
-					}
-%>
+<%					}%>
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%
@@ -206,13 +194,9 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 					if (upperChildBound == 1) {
 %>
 		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%> != null) {
-<%
-					} else {
-%>
+<%					} else {%>
 		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%>.size() >= <%=upperChildBound%>) {
-<%
-					}
-%>
+<%					}%>
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%
@@ -263,33 +247,22 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
 			if (newElement != null) {
 				<%=getFeatureValueSetterPrefix("newElement", modelFacet.getTargetMetaFeature(), false, importManager)%>(<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) getSource());
-<%
-			if (processChildFeature) {
-%>
+<%			if (processChildFeature) {%>
 				<%=containerMetaClass%> container = (<%=containerMetaClass%>) getElementToEdit();
 				if (container != null) {
-<%
-				if (childFeature.isListType()) {
-%>
+<%				if (childFeature.isListType()) {%>
 					<%=importManager.getImportedName("java.util.Collection")%> featureValues = container.<%=childFeature.getGetAccessor()%>();
 					featureValues.add(newElement);
-<%
-				} else {
-%>
+<%				} else {%>
 				 	<%=getFeatureValueSetterPrefix("container", childFeature, false, importManager)%>newElement);
-<%
-				}
-%>
+<%				}%>
 				}
 <%
 			}
-
 			if (modelFacet.getModelElementInitializer() != null) { 
 %>
 				<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
-<%
-			}
-%>
+<%			}%>
 			}
 			return newElement;
 		}
@@ -324,42 +297,34 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		}
 <% // check that containment feature is not set / has capacity for the new element %>
 <%
-			if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
-				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
+				if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
+					String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
 %>
 		<%=outgoingClassName%> element = (<%=outgoingClassName%>) req.getSource();
 <%
-				if (upperContainmentBound > 0) {
-					if (upperContainmentBound == 1) {
+					if (upperContainmentBound > 0) {
+						if (upperContainmentBound == 1) {
 %>
 		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%> != null) {
-<%
-					} else {
-%>
+<%						} else {%>
 		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%>.size() >= <%=upperContainmentBound%>) {
-<%				
-					}
-%>
+<%						}%>
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%
-				}
-				if (checkChildFeatureUpperBound) {
-					if (upperChildBound == 1) {
+					}
+					if (checkChildFeatureUpperBound) {
+						if (upperChildBound == 1) {
 %>
 		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%> != null) {
-<%
-					} else {
-%>
+<%						} else {%>
 		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%>.size() >= <%=upperChildBound%>) {
-<%
-					}
-%>
+<%						}%>
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%
+					}
 				}
-			}
 %>
 <% // create semantic command %>
 		if (req.getContainmentFeature() == null) {
@@ -405,33 +370,22 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
 			if (newElement != null) {
 				<%=getFeatureValueSetterPrefix("newElement", modelFacet.getTargetMetaFeature(), false, importManager)%>(<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) getTarget());
-<%
-			if (processChildFeature) {
-%>
+<%			if (processChildFeature) {%>
 				<%=containerMetaClass%> container = (<%=containerMetaClass%>) getElementToEdit();
 				if (container != null) {
-<%
-				if (childFeature.isListType()) {
-%>
+<%				if (childFeature.isListType()) {%>
 					<%=importManager.getImportedName("java.util.Collection")%> featureValues = container.<%=childFeature.getGetAccessor()%>();
 					featureValues.add(newElement);
-<%
-				} else {
-%>
+<%				} else {%>
 				 	<%=getFeatureValueSetterPrefix("container", childFeature, false, importManager)%>newElement);
-<%
-				}
-%>
+<%				}%>
 				}
 <%
 			}
-
 			if (modelFacet.getModelElementInitializer() != null) { 
 %>
 				<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
-<%
-			}
-%>
+<%			}%>
 			}
 			return newElement;
 		}
@@ -493,7 +447,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		if (!(req.getSource() instanceof <%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
-<% // check that feature is not set / has capacity for the new value %>
+<% // check that feature is not set / has capacity for the new value / is unique %>
 <%
 			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
 				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
@@ -508,6 +462,14 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 <%					}%>
 				) {
 <%				}%>
+			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+		}
+<%
+			} else if (metaFeature.getEcoreFeature().isUnique()) {
+				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
+%>
+		<%=outgoingClassName%> element = (<%=outgoingClassName%>) getSemanticElement();
+		if (<%=getFeatureValueGetter("element", metaFeature, false, importManager)%>.contains(req.getSource())) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%			}%>
@@ -544,7 +506,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		if (!(req.getSource() instanceof <%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
-<% // check that feature is not set / has capacity for the new value %>
+<% // check that feature is not set / has capacity for the new value / is unique %>
 <%
 			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
 				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
@@ -559,6 +521,14 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 <%					}%>
 				) {
 <%				}%>
+			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
+		}
+<%
+			} else if (metaFeature.getEcoreFeature().isUnique()) {
+				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
+%>
+		<%=outgoingClassName%> element = (<%=outgoingClassName%>) req.getSource();
+		if (<%=getFeatureValueGetter("element", metaFeature, false, importManager)%>.contains(req.getTarget())) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%			}%>
