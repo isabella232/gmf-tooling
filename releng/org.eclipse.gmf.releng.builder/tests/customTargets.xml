@@ -218,11 +218,12 @@ tag="${mapsCheckoutTag}" />
 
 	<!-- ===================================================================== -->
 	<!-- Steps to do to test the build results -->
-	<!-- TODO: improve packaging for easier standalone testing? -->
 	<!-- ===================================================================== -->
 	<target name="test" unless="skipTests">
 		<antcall target="installTests"/>
-	  	<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}/test.xml"/>		
+	  	<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}/test.xml"
+	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}" />
+		<move file="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}/testresults" todir="${artifacts}/${buildLabel}" failonerror="false"/>
 	</target>
 	
 	<target name="installTests" unless="testsExist">		
