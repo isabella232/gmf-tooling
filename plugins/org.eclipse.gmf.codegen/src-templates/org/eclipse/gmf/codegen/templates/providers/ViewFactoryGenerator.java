@@ -138,11 +138,11 @@ if (isNode) {
     stringBuffer.append(colorAttrs.getBackgroundColor());
     stringBuffer.append(TEXT_28);
     
-	}
-	String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
+	}	
 	if (!isLeaf) {
 		List labels = genNode.getLabels();
 		for (int j = 0; j < labels.size(); j++) {
+			String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 			GenNodeLabel label = (GenNodeLabel) labels.get(j);
 			String labelTextViewId = semanticHintsClassName + '.' + genNode.getUniqueIdentifier() + "Labels." + AccessUtil.getLabelTextId(label);
 
@@ -156,6 +156,7 @@ if (isNode) {
 	}
 	List genChildContainers = genNode.getCompartments();
 	for (int j = 0; j < genChildContainers.size(); j++) {
+		String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 		GenCompartment genChildContainer = (GenCompartment) genChildContainers.get(j);
 		String compartmentId = semanticHintsClassName + '.' + genNode.getUniqueIdentifier() + "Compartments." + AccessUtil.getCompartmentId(genChildContainer);
 
@@ -168,9 +169,9 @@ if (isNode) {
 	}
 } else if (isLink) {
 	GenLink genLink = (GenLink) genElement;
-	String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 	List labels = genLink.getLabels();
 	for (int j = 0; j < labels.size(); j++) {
+		String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 		GenLinkLabel label = (GenLinkLabel) labels.get(j);
 		String labelViewId = semanticHintsClassName + '.' + genLink.getUniqueIdentifier() + "Labels." + AccessUtil.getLabelId(label);
 
