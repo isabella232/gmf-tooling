@@ -88,7 +88,7 @@
 				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/cc"
-				dest="${cc.publish}/gmf/" />
+				dest="${cc.publish}/continuous/" />
 		</publishers>
 	</project>
 	
@@ -130,7 +130,7 @@
 				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/cc"
-				dest="${cc.publish}/gmf/" />
+				dest="${cc.publish}/nightly/" />
 		</publishers>
 	</project>
 	
@@ -172,7 +172,7 @@
 				<always address="${always.email}" />
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/cc"
-				dest="${cc.publish}/gmf/" />
+				dest="${cc.publish}/integration/" />
 		</publishers>
 	</project>
 
