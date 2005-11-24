@@ -5,7 +5,6 @@ package <%=palette.getPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(palette.getPackageName());%>
 import org.eclipse.gef.Tool;
-import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.MarqueeToolEntry;
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteDrawer;
@@ -14,8 +13,6 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.PaletteSeparator;
 import org.eclipse.gef.palette.PanningSelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
-import org.eclipse.gef.ui.actions.ZoomInAction;
-import org.eclipse.gmf.runtime.diagram.ui.internal.tools.ZoomTool;
 import org.eclipse.gmf.runtime.diagram.ui.tools.ConnectionCreationTool;
 import org.eclipse.gmf.runtime.diagram.ui.tools.CreationTool;
 import org.eclipse.gmf.runtime.notation.Diagram;
@@ -30,12 +27,7 @@ public class <%=palette.getFactoryClassName()%> {
 	/**
 	 * @generated
 	 */
-	private final PaletteRoot root = new PaletteRoot();
-
-	/**
-	 * @generated
-	 */
-	private final Diagram diagram;
+	private Diagram diagram;
 
 	/**
 	 * @generated
@@ -47,49 +39,69 @@ public class <%=palette.getFactoryClassName()%> {
 	/**
 	 * @generated
 	 */
-	public static PaletteRoot createPalette(Diagram diagram) {
-		<%=palette.getFactoryClassName()%> factory = new <%=palette.getFactoryClassName()%>(diagram);
-		factory.createCommonTools();
-<%
-List toolGroups = palette.getGroups();
-for (int i = 0; i < toolGroups.size(); i++) {
-	ToolGroup toolGroup = (ToolGroup) toolGroups.get(i);
-%>
-		factory.create<%=AccessUtil.getPaletteEntryId(toolGroup)%>Group();
-<%}%>
-		return factory.root;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Diagram getDiagram() {
+	protected final Diagram getDiagram() {
 		return diagram;
 	}
 
 	/**
 	 * @generated
 	 */
-	private void createCommonTools() {
-		PaletteGroup common = new PaletteGroup("Common");
-		ToolEntry selectionTool = new PanningSelectionToolEntry();
-		common.add(selectionTool);
-		common.add(new MarqueeToolEntry());
-<%if (palette.isNeedZoomTools()) {%>
-		common.add(new ToolEntry("Zoom", null, getZoomToolImage(), getZoomToolImage(), ZoomTool.class) {});
-<%}%>
-		root.add(common);
-		root.setDefaultEntry(selectionTool);
+	public static PaletteRoot createPalette(Diagram diagram) {
+		PaletteRoot paletteRoot = new PaletteRoot();
+		<%=palette.getFactoryClassName()%> factory = new <%=palette.getFactoryClassName()%>(diagram);
+		PaletteContainer commonTools = factory.createCommonTools();
+		paletteRoot.add(commonTools);
+		paletteRoot.setDefaultEntry((ToolEntry) commonTools.getChildren().get(0));
+		factory.fillPalette(paletteRoot);
+		return paletteRoot;
 	}
 
 	/**
 	 * @generated
 	 */
+	public static void fillPalette(PaletteRoot paletteRoot, Diagram diagram) {
+		<%=palette.getFactoryClassName()%> factory = new <%=palette.getFactoryClassName()%>(diagram);
+		factory.fillPalette(paletteRoot);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void fillPalette(PaletteRoot paletteRoot) {
+<%
+List toolGroups = palette.getGroups();
+for (int i = 0; i < toolGroups.size(); i++) {
+	ToolGroup toolGroup = (ToolGroup) toolGroups.get(i);
+%>
+		paletteRoot.add(create<%=AccessUtil.getPaletteEntryId(toolGroup)%>Group());
+<%}%>
+	}
+
+	/**
+	 * @generated
+	 */
+	private PaletteContainer createCommonTools() {
+		PaletteGroup common = new PaletteGroup("Common");
+		ToolEntry selectionTool = new PanningSelectionToolEntry();
+		common.add(selectionTool);
+		common.add(new MarqueeToolEntry());
+<%if (palette.isNeedZoomTools()) {%>
+		common.add(new ToolEntry("Zoom", null, getZoomToolImage(), getZoomToolImage(),
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.internal.tools.ZoomTool")%>.class) {});
+<%}%>
+		return common;
+	}
+<%if (palette.isNeedZoomTools()) {%>
+
+	/**
+	 * @generated
+	 */
 	private ImageDescriptor getZoomToolImage() {
-		ZoomInAction action = new ZoomInAction(new ZoomManager(null, null));
+		<%=importManager.getImportedName("org.eclipse.gef.ui.actions.ZoomInAction")%> action = new <%=importManager.getImportedName("org.eclipse.gef.ui.actions.ZoomInAction")%>(new <%=importManager.getImportedName("org.eclipse.gef.editparts.ZoomManager")%>(null, null));
 		return action.getImageDescriptor();
 	}
 <%
+}
 for (int i = 0; i < toolGroups.size(); i++) {
 	ToolGroup toolGroup = (ToolGroup) toolGroups.get(i);
 %>
@@ -97,14 +109,14 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	/**
 	 * @generated
 	 */
-	private void create<%=AccessUtil.getPaletteEntryId(toolGroup)%>Group() {
+	private PaletteContainer create<%=AccessUtil.getPaletteEntryId(toolGroup)%>Group() {
 		PaletteContainer paletteContainer = createContainer("<%=toolGroup.getTitleKey()%>");
 <%
 	List nodeCreationTools = toolGroup.getNodeTools();
 	for (int j = 0; j < nodeCreationTools.size(); j++) {
 		NodeEntry nodeCreationTool = (NodeEntry) nodeCreationTools.get(j);
 %>
-		create<%=AccessUtil.getPaletteEntryId(nodeCreationTool)%>CreationTool(paletteContainer);
+		paletteContainer.add(create<%=AccessUtil.getPaletteEntryId(nodeCreationTool)%>CreationTool());
 <%	}
 	List linkCreationTools = toolGroup.getLinkTools();
 	for (int j = 0; j < linkCreationTools.size(); j++) {
@@ -113,9 +125,9 @@ for (int i = 0; i < toolGroups.size(); i++) {
 %>
 		paletteContainer.add(new PaletteSeparator());
 <%		}%>
-		create<%=AccessUtil.getPaletteEntryId(linkCreationTool)%>CreationTool(paletteContainer);
+		paletteContainer.add(create<%=AccessUtil.getPaletteEntryId(linkCreationTool)%>CreationTool());
 <%	}%>
-		root.add(paletteContainer);
+		return paletteContainer;
 	}
 <%
 }
@@ -130,18 +142,17 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	/**
 	 * @generated
 	 */
-	private void create<%=AccessUtil.getPaletteEntryId(nodeCreationTool)%>CreationTool(PaletteContainer paletteContainer) {
+	private ToolEntry create<%=AccessUtil.getPaletteEntryId(nodeCreationTool)%>CreationTool() {
 		ImageDescriptor image = <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.getImageDescriptor(
 			<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genNode.getUniqueIdentifier()%>);
-		paletteContainer.add(new ToolEntry("<%=nodeCreationTool.getTitleKey()%>",
-			"<%=nodeCreationTool.getDescriptionKey()%>", image, image) {
+		return new ToolEntry("<%=nodeCreationTool.getTitleKey()%>", "<%=nodeCreationTool.getDescriptionKey()%>", image, image) {
 
 			public Tool createTool() {
 				Tool tool = new CreationTool(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genNode.getUniqueIdentifier()%>);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
-		});
+		};
 	}
 <%
 	}
@@ -154,18 +165,17 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	/**
 	 * @generated
 	 */
-	private void create<%=AccessUtil.getPaletteEntryId(linkCreationTool)%>CreationTool(PaletteContainer paletteContainer) {
+	private ToolEntry create<%=AccessUtil.getPaletteEntryId(linkCreationTool)%>CreationTool() {
 		ImageDescriptor image = <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.getImageDescriptor(
 			<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>);
-		paletteContainer.add(new ToolEntry("<%=linkCreationTool.getTitleKey()%>",
-			"<%=linkCreationTool.getDescriptionKey()%>", image, image) {
+		return new ToolEntry("<%=linkCreationTool.getTitleKey()%>", "<%=linkCreationTool.getDescriptionKey()%>", image, image) {
 
 			public Tool createTool() {
 				Tool tool = new ConnectionCreationTool(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
-		});
+		};
 	}
 <%
 	}

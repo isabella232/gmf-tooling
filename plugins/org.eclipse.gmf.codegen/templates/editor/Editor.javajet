@@ -18,18 +18,16 @@ public class <%=genDiagram.getEditorClassName()%> extends FileDiagramEditorWithF
 	 * @generated
 	 */
 	protected PaletteRoot createPaletteRoot(PaletteRoot existingPaletteRoot) {
-		if (existingPaletteRoot != null) {
-			return existingPaletteRoot;
-		}
-		return <%=importManager.getImportedName(genDiagram.getPalette().getFactoryQualifiedClassName())%>.createPalette(getDiagram());
+		existingPaletteRoot = super.createPaletteRoot(existingPaletteRoot);
+		<%=importManager.getImportedName(genDiagram.getPalette().getFactoryQualifiedClassName())%>.fillPalette(existingPaletteRoot, getDiagram());
+		return existingPaletteRoot;
 	}
-	
+
 	/**
 	 * @generated
 	 */
 	protected void setDocumentProvider(IEditorInput input) {
 		setDocumentProvider(new <%=genDiagram.getDocumentProviderClassName()%>());
 	}
-	
 }
 <%importManager.emitSortedImports();%>
