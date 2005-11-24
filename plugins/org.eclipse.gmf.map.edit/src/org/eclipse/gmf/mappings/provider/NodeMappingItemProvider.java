@@ -9,11 +9,15 @@ package org.eclipse.gmf.mappings.provider;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -131,7 +135,17 @@ public class NodeMappingItemProvider
 					if (object instanceof NodeMapping) {
 						NodeMapping nm = (NodeMapping) object;
 						if (nm.getDomainMetaElement() != null) {
-							return nm.getDomainMetaElement().getEAllContainments();
+							Set features = new HashSet();
+							for (Iterator it = nm.getDomainMetaElement().getEPackage().eAllContents(); it.hasNext(); ) {
+								Object next = it.next();
+								if (next instanceof EReference) {
+									EReference ref = (EReference) next;
+									if (ref.isContainment() && nm.getDomainMetaElement().equals(ref.getEType())) {
+										features.add(ref);
+									}
+								}
+							}
+							return features;
 						}
 					}
 					return Collections.EMPTY_LIST;
