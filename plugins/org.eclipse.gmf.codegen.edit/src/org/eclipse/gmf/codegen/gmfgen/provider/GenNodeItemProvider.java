@@ -62,6 +62,7 @@ public class GenNodeItemProvider
 			super.getPropertyDescriptors(object);
 
 			addChildContainersPlacementPropertyDescriptor(object);
+			addExplicitContentPanePropertyDescriptor(object);
 			addGraphicalNodeEditPolicyClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -83,6 +84,26 @@ public class GenNodeItemProvider
 				 GMFGenPackage.eINSTANCE.getGenNode_ChildContainersPlacement(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Explicit Content Pane feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addExplicitContentPanePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenNode_explicitContentPane_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenNode_explicitContentPane_feature", "_UI_GenNode_type"),
+				 GMFGenPackage.eINSTANCE.getGenNode_ExplicitContentPane(),
+				 true,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -172,6 +193,7 @@ public class GenNodeItemProvider
 
 		switch (notification.getFeatureID(GenNode.class)) {
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
+			case GMFGenPackage.GEN_NODE__EXPLICIT_CONTENT_PANE:
 			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="NodeEditPartGenerator"
-	imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.* java.util.*"
+	imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"
 	skeleton="../common.skeleton"%>
 <%
 GenNode genNode = (GenNode) argument;
@@ -8,15 +8,15 @@ GenDiagram genDiagram = genNode.getDiagram();
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
-import org.eclipse.draw2d.Figure;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.StackLayout;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
+import org.eclipse.gmf.runtime.draw2d.ui.figures.RectangularDropShadowLineBorder;
+import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
@@ -29,7 +29,7 @@ public class <%=genNode.getEditPartClassName()%> extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	private IFigure contentPane;
+	protected IFigure contentPane;
 
 	/**
 	 * @generated
@@ -55,54 +55,78 @@ public class <%=genNode.getEditPartClassName()%> extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	protected NodeFigure createNodeFigure() {
+	protected IFigure createNodeShape() {
 <%
-String figureClassName;
-if (genNode.getViewmap() instanceof FigureViewmap) {
-	figureClassName = importManager.getImportedName(((FigureViewmap) genNode.getViewmap()).getFigureQualifiedClassName());
-} else {
-	figureClassName = importManager.getImportedName("org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure");
+Viewmap viewmap = genNode.getViewmap();
+String figureQualifiedClassName = null;
+if (viewmap instanceof FigureViewmap) {
+	figureQualifiedClassName = ((FigureViewmap) viewmap).getFigureQualifiedClassName();
 }
-%> 
-		<%=figureClassName%> node = new <%=figureClassName%>() {
-
-			protected void paintFigure(Graphics graphics) {
-				super.paintFigure(graphics);
-				graphics.fillRectangle(getClientArea());
-				graphics.drawRectangle(getClientArea());
-			}
-		};
-<%
-for (Iterator it = genNode.getViewmap().getAttributes().iterator(); it.hasNext();) {
-	Attributes next = (Attributes) it.next();
-	if (next instanceof ShapeAttributes) {
-		String figureVarName = "node";
-		ShapeAttributes attrs = (ShapeAttributes) next;
-%>
-<%@ include file="shapeattrs.jetinc" %>
-<%	}
-	if (next instanceof DefaultSizeAttributes) {
-		DefaultSizeAttributes attrs = (DefaultSizeAttributes) next;
-%>
-		node.setDefaultSize(getMapMode().DPtoLP(<%=attrs.getWidth()%>), getMapMode().DPtoLP(<%=attrs.getHeight()%>));
-<%
-	}
+if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length() == 0) {
+	figureQualifiedClassName = "org.eclipse.draw2d.RectangleFigure";
 }
 %>
-		node.setLayoutManager(new StackLayout());
-		node.add(contentPane = createContentPane());
-		return node;
+		return new <%=importManager.getImportedName(figureQualifiedClassName)%>();
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IFigure createContentPane() {
-		IFigure plate = new Figure();
+	protected void decorateNodeShape(Shape shape) {
+<%@ include file="shapeattrs.jetinc"%>
+	}
+
+	/**
+	 * @generated
+	 */
+	protected NodeFigure createNodePlate() {
+<%
+int width = 40;
+int height = 40;
+DefaultSizeAttributes defSizeAttrs = (DefaultSizeAttributes) genNode.getViewmap().find(DefaultSizeAttributes.class);
+if (defSizeAttrs != null) {
+	width = defSizeAttrs.getWidth();
+	height = defSizeAttrs.getHeight();
+}
+%>
+		return new DefaultSizeNodeFigure(getMapMode().DPtoLP(<%=width%>), getMapMode().DPtoLP(<%=height%>));
+	}
+
+	/**
+	 * Creates figure for this edit part.
+	 * 
+	 * Body of this method does not depend on settings in generation model
+	 * so you may safely remove <i>generated</i> tag and modify it.
+	 * 
+	 * @generated
+	 */
+	protected NodeFigure createNodeFigure() {
+		NodeFigure figure = createNodePlate();
+		figure.setBorder(new RectangularDropShadowLineBorder(0));
+		figure.setLayoutManager(new StackLayout());
+		IFigure shape = createNodeShape();
+		if (shape instanceof Shape) {
+			decorateNodeShape((Shape) shape);
+		}
+		figure.add(shape);
+		addContentPane(shape);
+		return figure;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addContentPane(IFigure shape) {
+<%if (genNode.isExplicitContentPane()) {%>
+		contentPane = new <%=importManager.getImportedName("org.eclipse.draw2d.Figure")%>();
+		shape.setLayoutManager(new StackLayout());
+		shape.add(contentPane);
+<%} else {%>
+		contentPane = shape;
+<%}%>
 		ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
 		layout.setSpacing(getMapMode().DPtoLP(5));
-		plate.setLayoutManager(layout);
-		return plate;
+		contentPane.setLayoutManager(layout);
 	}
 
 	/**
@@ -123,7 +147,7 @@ if (!genNode.getLabels().isEmpty()) {
 	/**
 	 * @generated
 	 */
-	public EditPart getPrimaryChildEditPart() {
+	public <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> getPrimaryChildEditPart() {
 		return getChildBySemanticHint(<%=semanticHintsClassName%>.<%=genNode.getUniqueIdentifier()%>Labels.<%=AccessUtil.getLabelTextId(primaryLabel)%>);
 	}
 <%}%>

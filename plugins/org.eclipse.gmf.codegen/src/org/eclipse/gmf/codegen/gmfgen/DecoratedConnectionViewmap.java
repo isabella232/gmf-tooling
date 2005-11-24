@@ -25,19 +25,18 @@ package org.eclipse.gmf.codegen.gmfgen;
  * @model
  * @generated
  */
-public interface DecoratedConnectionViewmap extends Viewmap, FigureViewmap {
+public interface DecoratedConnectionViewmap extends Viewmap, FigureViewmap{
 	/**
 	 * Returns the value of the '<em><b>Figure Qualified Class Name</b></em>' attribute.
-	 * The default value is <code>"org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Shall be instance of {@link org.eclipse.draw2d.PolylineConnection}
+	 * Shall be an instance of {@link org.eclipse.draw2d.PolylineConnection}
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Figure Qualified Class Name</em>' attribute.
 	 * @see #setFigureQualifiedClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getDecoratedConnectionViewmap_FigureQualifiedClassName()
-	 * @model default="org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx"
+	 * @model
 	 * @generated
 	 */
 	String getFigureQualifiedClassName();

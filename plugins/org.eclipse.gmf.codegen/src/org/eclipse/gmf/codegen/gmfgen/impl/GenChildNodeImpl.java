@@ -195,6 +195,8 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return getCompartments();
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS_PLACEMENT:
 				return getChildContainersPlacement();
+			case GMFGenPackage.GEN_CHILD_NODE__EXPLICIT_CONTENT_PANE:
+				return isExplicitContentPane() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_CHILD_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				return getGraphicalNodeEditPolicyClassName();
 			case GMFGenPackage.GEN_CHILD_NODE__CONTAINER:
@@ -249,6 +251,9 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS_PLACEMENT:
 				setChildContainersPlacement((CompartmentPlacementKind)newValue);
 				return;
+			case GMFGenPackage.GEN_CHILD_NODE__EXPLICIT_CONTENT_PANE:
+				setExplicitContentPane(((Boolean)newValue).booleanValue());
+				return;
 			case GMFGenPackage.GEN_CHILD_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				setGraphicalNodeEditPolicyClassName((String)newValue);
 				return;
@@ -299,6 +304,9 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS_PLACEMENT:
 				setChildContainersPlacement(CHILD_CONTAINERS_PLACEMENT_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_CHILD_NODE__EXPLICIT_CONTENT_PANE:
+				setExplicitContentPane(EXPLICIT_CONTENT_PANE_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_CHILD_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				setGraphicalNodeEditPolicyClassName(GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT);
 				return;
@@ -339,6 +347,8 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 				return compartments != null && !compartments.isEmpty();
 			case GMFGenPackage.GEN_CHILD_NODE__CHILD_CONTAINERS_PLACEMENT:
 				return childContainersPlacement != CHILD_CONTAINERS_PLACEMENT_EDEFAULT;
+			case GMFGenPackage.GEN_CHILD_NODE__EXPLICIT_CONTENT_PANE:
+				return explicitContentPane != EXPLICIT_CONTENT_PANE_EDEFAULT;
 			case GMFGenPackage.GEN_CHILD_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				return GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? graphicalNodeEditPolicyClassName != null : !GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(graphicalNodeEditPolicyClassName);
 			case GMFGenPackage.GEN_CHILD_NODE__CONTAINER:

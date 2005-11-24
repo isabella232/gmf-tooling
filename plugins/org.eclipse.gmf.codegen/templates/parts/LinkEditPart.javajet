@@ -9,6 +9,7 @@ package <%=genDiagram.getEditPartsPackageName()%>;
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
@@ -41,46 +42,68 @@ public class <%=genLink.getEditPartClassName()%> extends ConnectionNodeEditPart 
 	/**
 	 * @generated
 	 */
-	protected Connection createConnectionFigure() {
+	protected PolylineConnection createConnectionShape() {
 <%
-if (false == genLink.getViewmap() instanceof FigureViewmap) {
-%>
-		return null;
-<%
+Viewmap viewmap = genLink.getViewmap();
+String figureQualifiedClassName = null;
+if (viewmap instanceof FigureViewmap) {
+	figureQualifiedClassName = ((FigureViewmap) viewmap).getFigureQualifiedClassName();
 }
-String connClassName = importManager.getImportedName(((FigureViewmap) genLink.getViewmap()).getFigureQualifiedClassName());
+if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length() == 0) {
+	figureQualifiedClassName = "org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx";
+}
 %>
-		<%=connClassName%> connection = new <%=connClassName%>();
-<%
-if (genLink.getViewmap() instanceof DecoratedConnectionViewmap) {
-%>
+		return new <%=importManager.getImportedName(figureQualifiedClassName)%>();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void decorateConnectionShape(PolylineConnection shape) {
+<%@ include file="shapeattrs.jetinc"%>
+<%if (viewmap instanceof DecoratedConnectionViewmap) {%>
 		RotatableDecoration sourceDecoration = createSourceDecoration();
 		if (sourceDecoration != null) {
-			connection.setSourceDecoration(sourceDecoration);
+			shape.setSourceDecoration(sourceDecoration);
 		}
 		RotatableDecoration targetDecoration = createTargetDecoration();
 		if (targetDecoration != null) {
-			connection.setTargetDecoration(targetDecoration);
+			shape.setTargetDecoration(targetDecoration);
 		}
-<%
-}
-for (Iterator it = genLink.getViewmap().getAttributes().iterator(); it.hasNext(); ) {
-	Attributes next = (Attributes) it.next();
-	if (next instanceof ShapeAttributes) {
-		String figureVarName = "connection";
-		ShapeAttributes attrs = (ShapeAttributes) next;
-%>
-<%@ include file="shapeattrs.jetinc" %>
-<%
-	}
-	// put additional Attributes support here 
-} // for
-%>
-		return connection;
+<%}%>
 	}
 
-<%if (genLink.getViewmap() instanceof DecoratedConnectionViewmap) {%>
-<%@include file="decoratedconn.jetinc"%>
+	/**
+	 * Creates figure for this edit part.
+	 * 
+	 * Body of this method does not depend on settings in generation model
+	 * so you may safely remove <i>generated</i> tag and modify it.
+	 * 
+	 * @generated
+	 */
+	protected Connection createConnectionFigure() {
+		PolylineConnection shape = createConnectionShape();
+		decorateConnectionShape(shape);
+		return shape;
+	}
+
+<%if (viewmap instanceof DecoratedConnectionViewmap) {%>
+
+	/**
+	 * @generated
+	 */
+	protected RotatableDecoration createSourceDecoration() {
+<%	LinkDecoration linkDecoration = ((DecoratedConnectionViewmap) viewmap).getSource();%>
+<%@ include file="linkdecoration.jetinc" %>
+	}
+
+	/**
+	 * @generated
+	 */
+	protected RotatableDecoration createTargetDecoration() {
+<%	linkDecoration = ((DecoratedConnectionViewmap) viewmap).getTarget();%>
+<%@ include file="linkdecoration.jetinc" %>
+	}
 <%}%>
 }
 <%importManager.emitSortedImports();%>

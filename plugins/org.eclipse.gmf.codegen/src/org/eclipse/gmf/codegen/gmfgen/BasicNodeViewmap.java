@@ -23,10 +23,9 @@ package org.eclipse.gmf.codegen.gmfgen;
  * @model
  * @generated
  */
-public interface BasicNodeViewmap extends Viewmap, FigureViewmap {
+public interface BasicNodeViewmap extends Viewmap, FigureViewmap{
 	/**
 	 * Returns the value of the '<em><b>Figure Qualified Class Name</b></em>' attribute.
-	 * The default value is <code>"org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Figure Qualified Class Name</em>' attribute isn't clear,
@@ -36,7 +35,7 @@ public interface BasicNodeViewmap extends Viewmap, FigureViewmap {
 	 * @return the value of the '<em>Figure Qualified Class Name</em>' attribute.
 	 * @see #setFigureQualifiedClassName(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getBasicNodeViewmap_FigureQualifiedClassName()
-	 * @model default="org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure"
+	 * @model
 	 * @generated
 	 */
 	String getFigureQualifiedClassName();

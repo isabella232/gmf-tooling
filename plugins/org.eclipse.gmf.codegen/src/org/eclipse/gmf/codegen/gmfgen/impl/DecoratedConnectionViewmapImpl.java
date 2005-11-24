@@ -43,7 +43,7 @@ public class DecoratedConnectionViewmapImpl extends ViewmapImpl implements Decor
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT = "org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx";
+	protected static final String FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getFigureQualifiedClassName() <em>Figure Qualified Class Name</em>}' attribute.

@@ -30,7 +30,7 @@ public interface LinkDecoration extends EObject{
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Implementation of {@link org.eclipse.draw2d.RotatableDecoration}
+	 * Shall be an instance of {@link org.eclipse.draw2d.RotatableDecoration}
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Figure Qualified Class Name</em>' attribute.
 	 * @see #setFigureQualifiedClassName(String)

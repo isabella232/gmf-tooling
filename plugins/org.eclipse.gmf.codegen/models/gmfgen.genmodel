@@ -130,6 +130,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/labels"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/compartments"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNode/childContainersPlacement"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNode/explicitContentPane"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNode/graphicalNodeEditPolicyClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNode/getDomainMetaClass"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNode/getGraphicalNodeEditPolicyQualifiedClassName"/>

@@ -1,19 +1,33 @@
 <%
-if (linkDecoration == null) {
+// Body of a method that returns link decoration figure.
+//
+// Parameters:
+//
+// importManager - ImportUtil ref in code
+// linkDecoration - LinkDecoration ref in code
+//
+{ // private namespace
+	if (linkDecoration != null && linkDecoration.getFigureQualifiedClassName() != null && linkDecoration.getFigureQualifiedClassName().trim().length() > 0) {
+		String decorationClassName = importManager.getImportedName(linkDecoration.getFigureQualifiedClassName());
+		Set SCALABLE_DECORATIONS = new HashSet();
+		SCALABLE_DECORATIONS.add("org.eclipse.draw2d.PolylineDecoration");
+		SCALABLE_DECORATIONS.add("org.eclipse.draw2d.PolygonDecoration");
+		SCALABLE_DECORATIONS.add("org.eclipse.gmf.draw2d.RhombDecoration");
+		SCALABLE_DECORATIONS.add("org.eclipse.gmf.draw2d.FilledRhombDecoration");
+		if (SCALABLE_DECORATIONS.contains(linkDecoration.getFigureQualifiedClassName())) {
+			// XXX use smth like ScaleableAtttributes?
 %>
-		return null;
+	<%=decorationClassName%> decoration = new <%=decorationClassName%>();
+	decoration.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));
+	return decoration;
+<%		} else {%>
+	return new <%=decorationClassName%>();
 <%
-} else if (linkDecoration.getFigureQualifiedClassName() != null && linkDecoration.getFigureQualifiedClassName().trim().length() > 0) {
-	String decorationClassName = importManager.getImportedName(linkDecoration.getFigureQualifiedClassName());
-	if (SCALABLE_DECORATIONS.contains(linkDecoration.getFigureQualifiedClassName())) {
-		// XXX use smth like ScaleableAtttributes?
+		}
+	} else {
 %>
-		<%=decorationClassName%> decoration = new <%=decorationClassName%>();
-		decoration.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));
-		return decoration;
-<%	} else {%>
-		return new <%=decorationClassName%>();
-<%	}
-} else {%>
-		return null;
-<%}%>
+	return null;
+<%
+	}
+} // private namespace
+%>

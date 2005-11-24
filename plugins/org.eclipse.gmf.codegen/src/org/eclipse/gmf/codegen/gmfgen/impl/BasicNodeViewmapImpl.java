@@ -40,7 +40,7 @@ public class BasicNodeViewmapImpl extends ViewmapImpl implements BasicNodeViewma
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT = "org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure";
+	protected static final String FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getFigureQualifiedClassName() <em>Figure Qualified Class Name</em>}' attribute.
