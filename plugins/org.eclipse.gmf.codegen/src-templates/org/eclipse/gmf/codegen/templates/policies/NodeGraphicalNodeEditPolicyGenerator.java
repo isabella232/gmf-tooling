@@ -60,12 +60,12 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	}
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
-		if (nodeMetaClass.equals(modelFacet.getTargetMetaFeature().getTypeGenClass())) {
+		if (nodeMetaClass.equals(modelFacet.getTargetMetaFeature().getTypeGenClass()) && !nodeMetaClass.equals(modelFacet.getContainmentMetaFeature().getGenClass())) {
 			ids.add(genLink.getUniqueIdentifier());
 		}
 	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
-		if (nodeMetaClass.equals(metaFeature.getTypeGenClass())) {
+		if (nodeMetaClass.equals(metaFeature.getTypeGenClass()) && !nodeMetaClass.equals(metaFeature.getGenClass())) {
 			ids.add(genLink.getUniqueIdentifier());
 		}
 	}
