@@ -61,7 +61,6 @@
       <metaClass href="library.genmodel#//library/Opinion"/>
       <containmentMetaFeature href="library.genmodel#//library/Writer/opinions"/>
       <childMetaFeature href="library.genmodel#//library/Writer/opinions"/>
-      <sourceMetaFeature href="library.genmodel#//library/Writer/opinions"/>
       <targetMetaFeature href="library.genmodel#//library/Opinion/book"/>
     </modelFacet>
     <labels visualID="4004">
