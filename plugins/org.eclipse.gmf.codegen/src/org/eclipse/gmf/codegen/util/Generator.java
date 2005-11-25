@@ -743,8 +743,10 @@ public class Generator implements Runnable {
 			pf.createCompilationUnit(cu.getElementName(), formatCode(genText), true, new SubProgressMonitor(pm, 1));
 		} catch (NullPointerException ex) {
 			myExceptions.add(new Status(IStatus.ERROR, "org.eclipse.gmf.codegen", 0, ex.getMessage(), ex));
-		} catch (CoreException ex) {
+		} catch (JETException ex) {
 			myExceptions.add(ex.getStatus());
+		} catch (CoreException ex) {
+			myExceptions.add(ex.getStatus());		
 		} finally {
 			pm.done();
 		}
