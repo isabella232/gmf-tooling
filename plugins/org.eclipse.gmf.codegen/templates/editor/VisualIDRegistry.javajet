@@ -242,11 +242,14 @@ for (int i = 0; i < genNodes.size(); i++) {
 		return ElementSelectors.<%=nodeSelector%>.matches(element);
 	}
 <%
-	List genChildNodes = AccessUtil.getAllChildNodes(genNode);
-	for (int j = 0; j < genChildNodes.size(); j++) {
-		GenChildNode genChildNode = (GenChildNode) genChildNodes.get(j);
-		String qualifiedChildNodeInterfaceName = genChildNode.getDomainMetaClass().getQualifiedInterfaceName();
-		String childNodeSelector = genChildNode.getModelFacet() != null && genChildNode.getModelFacet().getModelElementSelector() != null ? genChildNode.getUniqueIdentifier() : acceptAllMatcherAccessor;
+}
+
+for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
+	GenChildContainer nextContainer = (GenChildContainer) containers.next();
+	for (Iterator childNodes = nextContainer.getChildNodes().iterator(); childNodes.hasNext();) {
+		GenChildNode nextChildNode = (GenChildNode) childNodes.next();
+		String qualifiedChildNodeInterfaceName = nextChildNode.getDomainMetaClass().getQualifiedInterfaceName();
+		String childNodeSelector = nextChildNode.getModelFacet() != null && nextChildNode.getModelFacet().getModelElementSelector() != null ? nextChildNode.getUniqueIdentifier() : acceptAllMatcherAccessor;
 %>
 
 	/**
@@ -255,11 +258,11 @@ for (int i = 0; i < genNodes.size(); i++) {
 	 *
 	 * @generated
 	 */
-	private boolean isChildNode<%=genChildNode.getUniqueIdentifier()%>(<%=importManager.getImportedName(qualifiedChildNodeInterfaceName)%> element) {
+	private boolean isChildNode<%=nextChildNode.getUniqueIdentifier()%>(<%=importManager.getImportedName(qualifiedChildNodeInterfaceName)%> element) {
 		return ElementSelectors.<%=childNodeSelector%>.matches(element);
+	}	
+<%
 	}
-
-<%	}
 }
 %>
 

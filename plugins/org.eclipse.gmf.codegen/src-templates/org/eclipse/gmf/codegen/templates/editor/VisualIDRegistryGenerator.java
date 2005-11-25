@@ -85,7 +85,7 @@ public class VisualIDRegistryGenerator
   protected final String TEXT_66 = NL + NL + "\t/**" + NL + "\t * User can change implementation of this method to check some additional " + NL + "\t * conditions here." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isChildNode";
   protected final String TEXT_67 = "(";
   protected final String TEXT_68 = " element) {" + NL + "\t\treturn ElementSelectors.";
-  protected final String TEXT_69 = ".matches(element);" + NL + "\t}" + NL;
+  protected final String TEXT_69 = ".matches(element);" + NL + "\t}\t";
   protected final String TEXT_70 = NL + NL + "\t/**" + NL + "\t * User can change implementation of this method to handle some specific" + NL + "\t * situations not covered by default logic." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate int getUnrecognizedDiagramChildID(EObject domainElement) {" + NL + "\t\treturn -1;" + NL + "\t}";
   protected final String TEXT_71 = NL + NL + "\t/**" + NL + "\t * User can change implementation of this method to handle some specific" + NL + "\t * situations not covered by default logic." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate int getUnrecognized";
   protected final String TEXT_72 = "ChildNodeID(EObject domainElement) {" + NL + "\t\treturn -1;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * User can change implementation of this method to handle some specific" + NL + "\t * situations not covered by default logic." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate int getUnrecognized";
@@ -336,20 +336,24 @@ for (int i = 0; i < genNodes.size(); i++) {
     stringBuffer.append(nodeSelector);
     stringBuffer.append(TEXT_65);
     
-	List genChildNodes = AccessUtil.getAllChildNodes(genNode);
-	for (int j = 0; j < genChildNodes.size(); j++) {
-		GenChildNode genChildNode = (GenChildNode) genChildNodes.get(j);
-		String qualifiedChildNodeInterfaceName = genChildNode.getDomainMetaClass().getQualifiedInterfaceName();
-		String childNodeSelector = genChildNode.getModelFacet() != null && genChildNode.getModelFacet().getModelElementSelector() != null ? genChildNode.getUniqueIdentifier() : acceptAllMatcherAccessor;
+}
+
+for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
+	GenChildContainer nextContainer = (GenChildContainer) containers.next();
+	for (Iterator childNodes = nextContainer.getChildNodes().iterator(); childNodes.hasNext();) {
+		GenChildNode nextChildNode = (GenChildNode) childNodes.next();
+		String qualifiedChildNodeInterfaceName = nextChildNode.getDomainMetaClass().getQualifiedInterfaceName();
+		String childNodeSelector = nextChildNode.getModelFacet() != null && nextChildNode.getModelFacet().getModelElementSelector() != null ? nextChildNode.getUniqueIdentifier() : acceptAllMatcherAccessor;
 
     stringBuffer.append(TEXT_66);
-    stringBuffer.append(genChildNode.getUniqueIdentifier());
+    stringBuffer.append(nextChildNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_67);
     stringBuffer.append(importManager.getImportedName(qualifiedChildNodeInterfaceName));
     stringBuffer.append(TEXT_68);
     stringBuffer.append(childNodeSelector);
     stringBuffer.append(TEXT_69);
-    	}
+    
+	}
 }
 
     stringBuffer.append(TEXT_70);
