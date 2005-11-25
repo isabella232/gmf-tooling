@@ -4,17 +4,8 @@
 package <%=diagram.getEditorPackageName()%>;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditorMatchingStrategy;
-import org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain;
 
 /**
  * @generated
  */
-public class <%=diagram.getMatchingStrategyClassName()%> extends DiagramDocumentEditorMatchingStrategy {
-
-	/**
-	 * @generated
-	 */
-	public MEditingDomain getDefaultDomain() {
-		return MEditingDomain.INSTANCE;
-	}
-}
+public class <%=diagram.getMatchingStrategyClassName()%> extends DiagramDocumentEditorMatchingStrategy {}
