@@ -84,9 +84,9 @@ public class NodeMappingItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_NodeMapping_diagramNode_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_NodeMapping_diagramNode_feature", "_UI_NodeMapping_type"),
-				 GMFMapPackage.eINSTANCE.getNodeMapping_DiagramNode(),
+				 getString("_UI_AbstractNodeMapping_diagramNode_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AbstractNodeMapping_diagramNode_feature", "_UI_AbstractNodeMapping_type"),
+				 GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DiagramNode(),
 				 true,
 				 null,
 				 null,
@@ -104,9 +104,9 @@ public class NodeMappingItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_NodeMapping_domainMetaElement_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_NodeMapping_domainMetaElement_feature", "_UI_NodeMapping_type"),
-				 GMFMapPackage.eINSTANCE.getNodeMapping_DomainMetaElement(),
+				 getString("_UI_AbstractNodeMapping_domainMetaElement_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AbstractNodeMapping_domainMetaElement_feature", "_UI_AbstractNodeMapping_type"),
+				 GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainMetaElement(),
 				 true,
 				 null,
 				 null,
@@ -194,9 +194,9 @@ public class NodeMappingItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getNodeMapping_DomainSpecialization());
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getNodeMapping_DomainInitializer());
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getNodeMapping_ChildMappings());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainSpecialization());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainInitializer());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_ChildMappings());
 		}
 		return childrenFeatures;
 	}
@@ -265,17 +265,17 @@ public class NodeMappingItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getNodeMapping_DomainSpecialization(),
+				(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainSpecialization(),
 				 GMFMapFactory.eINSTANCE.createConstraint()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getNodeMapping_DomainInitializer(),
+				(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainInitializer(),
 				 GMFMapFactory.eINSTANCE.createFeatureSeqInitializer()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getNodeMapping_ChildMappings(),
+				(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_ChildMappings(),
 				 GMFMapFactory.eINSTANCE.createChildNodeMapping()));
 	}
 

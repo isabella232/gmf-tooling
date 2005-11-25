@@ -8,16 +8,13 @@ package org.eclipse.gmf.mappings.provider;
 
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.ecore.EReference;
+
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
@@ -26,22 +23,21 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 
-import org.eclipse.gmf.mappings.LinkMapping;
-
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.LinkMapping} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.AbstractNodeMapping} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class LinkMappingItemProvider
-	extends MappingEntryItemProvider
+public class AbstractNodeMappingItemProvider
+	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -54,7 +50,7 @@ public class LinkMappingItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public LinkMappingItemProvider(AdapterFactory adapterFactory) {
+	public AbstractNodeMappingItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -68,30 +64,28 @@ public class LinkMappingItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDiagramLinkPropertyDescriptor(object);
+			addDiagramNodePropertyDescriptor(object);
 			addDomainMetaElementPropertyDescriptor(object);
 			addContainmentFeaturePropertyDescriptor(object);
-			addLabelEditFeaturePropertyDescriptor(object);
-			addLabelDisplayFeaturePropertyDescriptor(object);
-			addLinkMetaFeaturePropertyDescriptor(object);
+			addEditFeaturePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Diagram Link feature.
+	 * This adds a property descriptor for the Diagram Node feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addDiagramLinkPropertyDescriptor(Object object) {
+	protected void addDiagramNodePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_LinkMapping_diagramLink_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LinkMapping_diagramLink_feature", "_UI_LinkMapping_type"),
-				 GMFMapPackage.eINSTANCE.getLinkMapping_DiagramLink(),
+				 getString("_UI_AbstractNodeMapping_diagramNode_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AbstractNodeMapping_diagramNode_feature", "_UI_AbstractNodeMapping_type"),
+				 GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DiagramNode(),
 				 true,
 				 null,
 				 null,
@@ -109,9 +103,9 @@ public class LinkMappingItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_LinkMapping_domainMetaElement_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LinkMapping_domainMetaElement_feature", "_UI_LinkMapping_type"),
-				 GMFMapPackage.eINSTANCE.getLinkMapping_DomainMetaElement(),
+				 getString("_UI_AbstractNodeMapping_domainMetaElement_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AbstractNodeMapping_domainMetaElement_feature", "_UI_AbstractNodeMapping_type"),
+				 GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainMetaElement(),
 				 true,
 				 null,
 				 null,
@@ -122,86 +116,16 @@ public class LinkMappingItemProvider
 	 * This adds a property descriptor for the Containment Feature feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	protected void addContainmentFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(new ItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_LinkMapping_containmentFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LinkMapping_containmentFeature_feature", "_UI_LinkMapping_type"),
-				 GMFMapPackage.eINSTANCE.getLinkMapping_ContainmentFeature(),
-				 true,
-				 null,
-				 null,
-				 null) {
-						protected Collection getComboBoxObjects(Object object) {
-							if (object instanceof LinkMapping) {
-								LinkMapping nm = (LinkMapping) object;
-								if (nm.getDomainMetaElement() != null) {
-									Set features = new HashSet();
-									for (Iterator it = nm.getDomainMetaElement().getEPackage().eAllContents(); it.hasNext(); ) {
-										Object next = it.next();
-										if (next instanceof EReference) {
-											EReference ref = (EReference) next;
-											if (ref.isContainment() && nm.getDomainMetaElement().equals(ref.getEType())) {
-												features.add(ref);
-											}
-										}
-									}
-									return features;
-								}
-							}
-							return Collections.EMPTY_LIST;
-						}
-				});
-	}
-
-	/**
-	 * This adds a property descriptor for the Label Edit Feature feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	protected void addLabelEditFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(new ItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_LinkMapping_labelEditFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LinkMapping_labelEditFeature_feature", "_UI_LinkMapping_type"),
-				 GMFMapPackage.eINSTANCE.getLinkMapping_LabelEditFeature(),
-				 true,
-				 null,
-				 null,
-				 null) {
-						protected Collection getComboBoxObjects(Object object) {
-							if (object instanceof LinkMapping) {
-								LinkMapping nm = (LinkMapping) object;
-								if (nm.getDomainMetaElement() != null) {
-									return nm.getDomainMetaElement().getEAllAttributes();
-								}
-							}
-							return Collections.EMPTY_LIST;
-						}
-					});
-	}
-
-	/**
-	 * This adds a property descriptor for the Label Display Feature feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addLabelDisplayFeaturePropertyDescriptor(Object object) {
+	protected void addContainmentFeaturePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_LinkMapping_labelDisplayFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LinkMapping_labelDisplayFeature_feature", "_UI_LinkMapping_type"),
-				 GMFMapPackage.eINSTANCE.getLinkMapping_LabelDisplayFeature(),
+				 getString("_UI_AbstractNodeMapping_containmentFeature_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AbstractNodeMapping_containmentFeature_feature", "_UI_AbstractNodeMapping_type"),
+				 GMFMapPackage.eINSTANCE.getAbstractNodeMapping_ContainmentFeature(),
 				 true,
 				 null,
 				 null,
@@ -209,19 +133,19 @@ public class LinkMappingItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Link Meta Feature feature.
+	 * This adds a property descriptor for the Edit Feature feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addLinkMetaFeaturePropertyDescriptor(Object object) {
+	protected void addEditFeaturePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_LinkMapping_linkMetaFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LinkMapping_linkMetaFeature_feature", "_UI_LinkMapping_type"),
-				 GMFMapPackage.eINSTANCE.getLinkMapping_LinkMetaFeature(),
+				 getString("_UI_AbstractNodeMapping_editFeature_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AbstractNodeMapping_editFeature_feature", "_UI_AbstractNodeMapping_type"),
+				 GMFMapPackage.eINSTANCE.getAbstractNodeMapping_EditFeature(),
 				 true,
 				 null,
 				 null,
@@ -239,8 +163,9 @@ public class LinkMappingItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getLinkMapping_DomainSpecialization());
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getLinkMapping_DomainInitializer());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainSpecialization());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainInitializer());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_ChildMappings());
 		}
 		return childrenFeatures;
 	}
@@ -258,23 +183,13 @@ public class LinkMappingItemProvider
 	}
 
 	/**
-	 * This returns LinkMapping.gif.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/LinkMapping");
-	}
-
-	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public String getText(Object object) {
-		return getString("_UI_LinkMapping_type");
+		return getString("_UI_AbstractNodeMapping_type");
 	}
 
 	/**
@@ -287,9 +202,10 @@ public class LinkMappingItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(LinkMapping.class)) {
-			case GMFMapPackage.LINK_MAPPING__DOMAIN_SPECIALIZATION:
-			case GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER:
+		switch (notification.getFeatureID(AbstractNodeMapping.class)) {
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -308,13 +224,18 @@ public class LinkMappingItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getLinkMapping_DomainSpecialization(),
+				(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainSpecialization(),
 				 GMFMapFactory.eINSTANCE.createConstraint()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getLinkMapping_DomainInitializer(),
+				(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainInitializer(),
 				 GMFMapFactory.eINSTANCE.createFeatureSeqInitializer()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_ChildMappings(),
+				 GMFMapFactory.eINSTANCE.createChildNodeMapping()));
 	}
 
 	/**

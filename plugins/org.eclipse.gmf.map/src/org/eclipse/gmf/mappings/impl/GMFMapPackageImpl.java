@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.gmf.diadef.DiagramDefinitionPackage;
 import org.eclipse.gmf.diadef.impl.DiagramDefinitionPackageImpl;
+import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.Constraint;
@@ -35,6 +36,13 @@ import org.eclipse.gmf.mappings.ValueExpression;
  * @generated
  */
 public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass abstractNodeMappingEClass = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -188,6 +196,78 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getAbstractNodeMapping() {
+		return abstractNodeMappingEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractNodeMapping_DiagramNode() {
+		return (EReference)abstractNodeMappingEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractNodeMapping_DomainMetaElement() {
+		return (EReference)abstractNodeMappingEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractNodeMapping_DomainSpecialization() {
+		return (EReference)abstractNodeMappingEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractNodeMapping_DomainInitializer() {
+		return (EReference)abstractNodeMappingEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractNodeMapping_ContainmentFeature() {
+		return (EReference)abstractNodeMappingEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractNodeMapping_EditFeature() {
+		return (EReference)abstractNodeMappingEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAbstractNodeMapping_ChildMappings() {
+		return (EReference)abstractNodeMappingEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getMappingEntry() {
 		return mappingEntryEClass;
 	}
@@ -199,69 +279,6 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 */
 	public EClass getNodeMapping() {
 		return nodeMappingEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getNodeMapping_DiagramNode() {
-		return (EReference)nodeMappingEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getNodeMapping_DomainMetaElement() {
-		return (EReference)nodeMappingEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getNodeMapping_DomainSpecialization() {
-		return (EReference)nodeMappingEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getNodeMapping_DomainInitializer() {
-		return (EReference)nodeMappingEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getNodeMapping_ContainmentFeature() {
-		return (EReference)nodeMappingEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getNodeMapping_EditFeature() {
-		return (EReference)nodeMappingEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getNodeMapping_ChildMappings() {
-		return (EReference)nodeMappingEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -287,62 +304,8 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getChildNodeMapping_DiagramNode() {
-		return (EReference)childNodeMappingEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getChildNodeMapping_DomainChildrenFeature() {
-		return (EReference)childNodeMappingEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getChildNodeMapping_EditFeature() {
-		return (EReference)childNodeMappingEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getChildNodeMapping_DomainMetaElement() {
-		return (EReference)childNodeMappingEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getChildNodeMapping_DomainSpecialization() {
-		return (EReference)childNodeMappingEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getChildNodeMapping_DomainInitializer() {
-		return (EReference)childNodeMappingEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getChildNodeMapping_ParentNode() {
-		return (EReference)childNodeMappingEClass.getEStructuralFeatures().get(7);
+		return (EReference)childNodeMappingEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -607,25 +570,21 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		isCreated = true;
 
 		// Create classes and their features
+		abstractNodeMappingEClass = createEClass(ABSTRACT_NODE_MAPPING);
+		createEReference(abstractNodeMappingEClass, ABSTRACT_NODE_MAPPING__DIAGRAM_NODE);
+		createEReference(abstractNodeMappingEClass, ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT);
+		createEReference(abstractNodeMappingEClass, ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION);
+		createEReference(abstractNodeMappingEClass, ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER);
+		createEReference(abstractNodeMappingEClass, ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE);
+		createEReference(abstractNodeMappingEClass, ABSTRACT_NODE_MAPPING__EDIT_FEATURE);
+		createEReference(abstractNodeMappingEClass, ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS);
+
 		mappingEntryEClass = createEClass(MAPPING_ENTRY);
 
 		nodeMappingEClass = createEClass(NODE_MAPPING);
-		createEReference(nodeMappingEClass, NODE_MAPPING__DIAGRAM_NODE);
-		createEReference(nodeMappingEClass, NODE_MAPPING__DOMAIN_META_ELEMENT);
-		createEReference(nodeMappingEClass, NODE_MAPPING__DOMAIN_SPECIALIZATION);
-		createEReference(nodeMappingEClass, NODE_MAPPING__DOMAIN_INITIALIZER);
-		createEReference(nodeMappingEClass, NODE_MAPPING__CONTAINMENT_FEATURE);
-		createEReference(nodeMappingEClass, NODE_MAPPING__EDIT_FEATURE);
-		createEReference(nodeMappingEClass, NODE_MAPPING__CHILD_MAPPINGS);
 
 		childNodeMappingEClass = createEClass(CHILD_NODE_MAPPING);
 		createEReference(childNodeMappingEClass, CHILD_NODE_MAPPING__COMPARTMENT);
-		createEReference(childNodeMappingEClass, CHILD_NODE_MAPPING__DIAGRAM_NODE);
-		createEReference(childNodeMappingEClass, CHILD_NODE_MAPPING__DOMAIN_CHILDREN_FEATURE);
-		createEReference(childNodeMappingEClass, CHILD_NODE_MAPPING__EDIT_FEATURE);
-		createEReference(childNodeMappingEClass, CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT);
-		createEReference(childNodeMappingEClass, CHILD_NODE_MAPPING__DOMAIN_SPECIALIZATION);
-		createEReference(childNodeMappingEClass, CHILD_NODE_MAPPING__DOMAIN_INITIALIZER);
 		createEReference(childNodeMappingEClass, CHILD_NODE_MAPPING__PARENT_NODE);
 
 		linkMappingEClass = createEClass(LINK_MAPPING);
@@ -691,6 +650,8 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 
 		// Add supertypes to classes
 		nodeMappingEClass.getESuperTypes().add(this.getMappingEntry());
+		nodeMappingEClass.getESuperTypes().add(this.getAbstractNodeMapping());
+		childNodeMappingEClass.getESuperTypes().add(this.getAbstractNodeMapping());
 		linkMappingEClass.getESuperTypes().add(this.getMappingEntry());
 		canvasMappingEClass.getESuperTypes().add(this.getMappingEntry());
 		constraintEClass.getESuperTypes().add(this.getValueExpression());
@@ -698,26 +659,22 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		featureValueSpecEClass.getESuperTypes().add(this.getValueExpression());
 
 		// Initialize classes and features; add operations and parameters
+		initEClass(abstractNodeMappingEClass, AbstractNodeMapping.class, "AbstractNodeMapping", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAbstractNodeMapping_DiagramNode(), theDiagramDefinitionPackage.getNode(), null, "diagramNode", null, 1, 1, AbstractNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbstractNodeMapping_DomainMetaElement(), ecorePackage.getEClass(), null, "domainMetaElement", null, 1, 1, AbstractNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbstractNodeMapping_DomainSpecialization(), this.getConstraint(), null, "domainSpecialization", null, 0, 1, AbstractNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbstractNodeMapping_DomainInitializer(), this.getElementInitializer(), null, "domainInitializer", null, 0, 1, AbstractNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbstractNodeMapping_ContainmentFeature(), ecorePackage.getEReference(), null, "containmentFeature", null, 0, 1, AbstractNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbstractNodeMapping_EditFeature(), ecorePackage.getEAttribute(), null, "editFeature", null, 0, 1, AbstractNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAbstractNodeMapping_ChildMappings(), this.getChildNodeMapping(), this.getChildNodeMapping_ParentNode(), "childMappings", null, 0, -1, AbstractNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(mappingEntryEClass, MappingEntry.class, "MappingEntry", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(nodeMappingEClass, NodeMapping.class, "NodeMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getNodeMapping_DiagramNode(), theDiagramDefinitionPackage.getNode(), null, "diagramNode", null, 1, 1, NodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getNodeMapping_DomainMetaElement(), ecorePackage.getEClass(), null, "domainMetaElement", null, 1, 1, NodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getNodeMapping_DomainSpecialization(), this.getConstraint(), null, "domainSpecialization", null, 0, 1, NodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getNodeMapping_DomainInitializer(), this.getElementInitializer(), null, "domainInitializer", null, 0, 1, NodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getNodeMapping_ContainmentFeature(), ecorePackage.getEReference(), null, "containmentFeature", null, 0, 1, NodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getNodeMapping_EditFeature(), ecorePackage.getEAttribute(), null, "editFeature", null, 0, 1, NodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getNodeMapping_ChildMappings(), this.getChildNodeMapping(), this.getChildNodeMapping_ParentNode(), "childMappings", null, 0, -1, NodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(childNodeMappingEClass, ChildNodeMapping.class, "ChildNodeMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getChildNodeMapping_Compartment(), theDiagramDefinitionPackage.getCompartment(), null, "compartment", null, 1, 1, ChildNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getChildNodeMapping_DiagramNode(), theDiagramDefinitionPackage.getNode(), null, "diagramNode", null, 1, 1, ChildNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getChildNodeMapping_DomainChildrenFeature(), ecorePackage.getEStructuralFeature(), null, "domainChildrenFeature", null, 1, 1, ChildNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getChildNodeMapping_EditFeature(), ecorePackage.getEAttribute(), null, "editFeature", null, 0, 1, ChildNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getChildNodeMapping_DomainMetaElement(), ecorePackage.getEClass(), null, "domainMetaElement", null, 0, 1, ChildNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getChildNodeMapping_DomainSpecialization(), this.getConstraint(), null, "domainSpecialization", null, 0, 1, ChildNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getChildNodeMapping_DomainInitializer(), this.getElementInitializer(), null, "domainInitializer", null, 0, 1, ChildNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getChildNodeMapping_ParentNode(), this.getNodeMapping(), this.getNodeMapping_ChildMappings(), "parentNode", null, 1, 1, ChildNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getChildNodeMapping_ParentNode(), this.getAbstractNodeMapping(), this.getAbstractNodeMapping_ChildMappings(), "parentNode", null, 1, 1, ChildNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(linkMappingEClass, LinkMapping.class, "LinkMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLinkMapping_DiagramLink(), theDiagramDefinitionPackage.getConnection(), null, "diagramLink", null, 1, 1, LinkMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -774,12 +731,12 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	protected void createEmfaticAnnotationMapAnnotations() {
 		String source = "http://www.eclipse.org/emf/2004/EmfaticAnnotationMap";		
 		addAnnotation
-		  (mappingEntryEClass, 
+		  (abstractNodeMappingEClass, 
 		   source, 
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																								
+		   });																																		
 	}
 
 	/**
@@ -791,33 +748,19 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	protected void createMetaAnnotations() {
 		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";				
 		addAnnotation
-		  (getNodeMapping_DomainSpecialization(), 
+		  (getAbstractNodeMapping_DomainSpecialization(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
-			 "ocl", "domainMetaElement"
+			 "ocl", "if domainMetaElement.oclIsUndefined() then containmentFeature.eContainingClass else domainMetaElement endif"
 		   });				
 		addAnnotation
-		  (getNodeMapping_DomainInitializer(), 
+		  (getAbstractNodeMapping_DomainInitializer(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
-			 "ocl", "domainMetaElement"
-		   });								
-		addAnnotation
-		  (getChildNodeMapping_DomainSpecialization(), 
-		   source, 
-		   new String[] {
-			 "def", "context",
-			 "ocl", "if domainMetaElement.oclIsUndefined() then domainChildrenFeature.eContainingClass else domainMetaElement endif "
-		   });				
-		addAnnotation
-		  (getChildNodeMapping_DomainInitializer(), 
-		   source, 
-		   new String[] {
-			 "def", "context",
-			 "ocl", "if domainMetaElement.oclIsUndefined() then domainChildrenFeature.eContainingClass else domainMetaElement endif "
-		   });			
+			 "ocl", "if domainMetaElement.oclIsUndefined() then containmentFeature.eContainingClass else domainMetaElement endif"
+		   });							
 		addAnnotation
 		  (getLinkMapping_DomainSpecialization(), 
 		   source, 
@@ -879,47 +822,35 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	protected void createConstraintsAnnotations() {
 		String source = "http://www.eclipse.org/gmf/2005/constraints";						
 		addAnnotation
-		  (getNodeMapping_DomainInitializer(), 
+		  (getAbstractNodeMapping_DomainInitializer(), 
 		   source, 
 		   new String[] {
-			 "ocl", "let i : FeatureSeqInitializer = domainInitializer.oclAsType( FeatureSeqInitializer) in i.oclIsUndefined() or i.initializers.feature.eContainingClass->forAll(c|c.isSuperTypeOf(domainMetaElement)) "
+			 "ocl", "let i : FeatureSeqInitializer = domainInitializer.oclAsType( FeatureSeqInitializer) in i.oclIsUndefined() or i.initializers.feature.eContainingClass->forAll(c|c.isSuperTypeOf(domainMetaElement))"
 		   });			
 		addAnnotation
-		  (getNodeMapping_ContainmentFeature(), 
+		  (getAbstractNodeMapping_ContainmentFeature(), 
 		   source, 
 		   new String[] {
-			 "ocl", "containmentFeature.oclIsUndefined() or containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement) "
+			 "ocl", "containmentFeature.containment"
 		   });		
 		addAnnotation
-		  (getNodeMapping_EditFeature(), 
+		  (getAbstractNodeMapping_ContainmentFeature(), 
 		   source, 
 		   new String[] {
-			 "ocl", "editFeature.oclIsUndefined() or domainMetaElement.eAllAttributes->includes(editFeature)"
+			 "ocl", "domainMetaElement.oclIsUndefined() or containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement)"
+		   });		
+		addAnnotation
+		  (getAbstractNodeMapping_EditFeature(), 
+		   source, 
+		   new String[] {
+			 "ocl", "editFeature.oclIsUndefined() or (not domainMetaElement.oclIsUndefined() and editFeature.eContainingClass.isSuperTypeOf(domainMetaElement)) or containmentFeature.eType.oclAsType(ecore::EClass).eAllAttributes->includes(editFeature)"
 		   });		
 		addAnnotation
 		  (getChildNodeMapping_Compartment(), 
 		   source, 
 		   new String[] {
 			 "ocl", "parentNode.diagramNode.oclAsType(diadef::Node).compartments->includes(self.compartment)"
-		   });		
-		addAnnotation
-		  (getChildNodeMapping_DomainChildrenFeature(), 
-		   source, 
-		   new String[] {
-			 "ocl", "domainChildrenFeature.eContainingClass.isSuperTypeOf(parentNode.domainMetaElement)"
-		   });		
-		addAnnotation
-		  (getChildNodeMapping_EditFeature(), 
-		   source, 
-		   new String[] {
-			 "ocl", "editFeature.oclIsUndefined() or (not domainMetaElement.oclIsUndefined()  and editFeature.eContainingClass.isSuperTypeOf(domainMetaElement)) or domainChildrenFeature.eType.oclAsType(ecore::EClass).eAllAttributes->includes(editFeature)"
 		   });					
-		addAnnotation
-		  (getChildNodeMapping_DomainInitializer(), 
-		   source, 
-		   new String[] {
-			 "ocl", "let i : FeatureSeqInitializer = domainInitializer.oclAsType( FeatureSeqInitializer) in i.oclIsUndefined() or i.initializers.feature.eContainingClass->forAll(c|c.isSuperTypeOf(domainMetaElement)) "
-		   });						
 		addAnnotation
 		  (getLinkMapping_DomainInitializer(), 
 		   source, 

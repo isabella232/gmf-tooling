@@ -60,6 +60,88 @@ public interface GMFMapPackage extends EPackage{
 	GMFMapPackage eINSTANCE = org.eclipse.gmf.mappings.impl.GMFMapPackageImpl.init();
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl <em>Abstract Node Mapping</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAbstractNodeMapping()
+	 * @generated
+	 */
+	int ABSTRACT_NODE_MAPPING = 0;
+
+	/**
+	 * The feature id for the '<em><b>Diagram Node</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_NODE_MAPPING__DIAGRAM_NODE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Domain Meta Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT = 1;
+
+	/**
+	 * The feature id for the '<em><b>Domain Specialization</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION = 2;
+
+	/**
+	 * The feature id for the '<em><b>Domain Initializer</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER = 3;
+
+	/**
+	 * The feature id for the '<em><b>Containment Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE = 4;
+
+	/**
+	 * The feature id for the '<em><b>Edit Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_NODE_MAPPING__EDIT_FEATURE = 5;
+
+	/**
+	 * The feature id for the '<em><b>Child Mappings</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS = 6;
+
+	/**
+	 * The number of structural features of the the '<em>Abstract Node Mapping</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_NODE_MAPPING_FEATURE_COUNT = 7;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.MappingEntryImpl <em>Mapping Entry</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,7 +149,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMappingEntry()
 	 * @generated
 	 */
-	int MAPPING_ENTRY = 0;
+	int MAPPING_ENTRY = 1;
 
 	/**
 	 * The number of structural features of the the '<em>Mapping Entry</em>' class.
@@ -86,7 +168,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getNodeMapping()
 	 * @generated
 	 */
-	int NODE_MAPPING = 1;
+	int NODE_MAPPING = 2;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Node</b></em>' reference.
@@ -168,16 +250,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getChildNodeMapping()
 	 * @generated
 	 */
-	int CHILD_NODE_MAPPING = 2;
-
-	/**
-	 * The feature id for the '<em><b>Compartment</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CHILD_NODE_MAPPING__COMPARTMENT = 0;
+	int CHILD_NODE_MAPPING = 3;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Node</b></em>' reference.
@@ -186,25 +259,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CHILD_NODE_MAPPING__DIAGRAM_NODE = 1;
-
-	/**
-	 * The feature id for the '<em><b>Domain Children Feature</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CHILD_NODE_MAPPING__DOMAIN_CHILDREN_FEATURE = 2;
-
-	/**
-	 * The feature id for the '<em><b>Edit Feature</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CHILD_NODE_MAPPING__EDIT_FEATURE = 3;
+	int CHILD_NODE_MAPPING__DIAGRAM_NODE = ABSTRACT_NODE_MAPPING__DIAGRAM_NODE;
 
 	/**
 	 * The feature id for the '<em><b>Domain Meta Element</b></em>' reference.
@@ -213,7 +268,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT = 4;
+	int CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT = ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Domain Specialization</b></em>' containment reference.
@@ -222,7 +277,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CHILD_NODE_MAPPING__DOMAIN_SPECIALIZATION = 5;
+	int CHILD_NODE_MAPPING__DOMAIN_SPECIALIZATION = ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION;
 
 	/**
 	 * The feature id for the '<em><b>Domain Initializer</b></em>' containment reference.
@@ -231,7 +286,43 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CHILD_NODE_MAPPING__DOMAIN_INITIALIZER = 6;
+	int CHILD_NODE_MAPPING__DOMAIN_INITIALIZER = ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER;
+
+	/**
+	 * The feature id for the '<em><b>Containment Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_NODE_MAPPING__CONTAINMENT_FEATURE = ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Edit Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_NODE_MAPPING__EDIT_FEATURE = ABSTRACT_NODE_MAPPING__EDIT_FEATURE;
+
+	/**
+	 * The feature id for the '<em><b>Child Mappings</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_NODE_MAPPING__CHILD_MAPPINGS = ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS;
+
+	/**
+	 * The feature id for the '<em><b>Compartment</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_NODE_MAPPING__COMPARTMENT = ABSTRACT_NODE_MAPPING_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Parent Node</b></em>' container reference.
@@ -240,7 +331,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CHILD_NODE_MAPPING__PARENT_NODE = 7;
+	int CHILD_NODE_MAPPING__PARENT_NODE = ABSTRACT_NODE_MAPPING_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the the '<em>Child Node Mapping</em>' class.
@@ -249,7 +340,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CHILD_NODE_MAPPING_FEATURE_COUNT = 8;
+	int CHILD_NODE_MAPPING_FEATURE_COUNT = ABSTRACT_NODE_MAPPING_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl <em>Link Mapping</em>}' class.
@@ -259,7 +350,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLinkMapping()
 	 * @generated
 	 */
-	int LINK_MAPPING = 3;
+	int LINK_MAPPING = 4;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Link</b></em>' reference.
@@ -350,7 +441,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getCanvasMapping()
 	 * @generated
 	 */
-	int CANVAS_MAPPING = 4;
+	int CANVAS_MAPPING = 5;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Canvas</b></em>' reference.
@@ -396,7 +487,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMapping()
 	 * @generated
 	 */
-	int MAPPING = 5;
+	int MAPPING = 6;
 
 	/**
 	 * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
@@ -443,7 +534,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getValueExpression()
 	 * @generated
 	 */
-	int VALUE_EXPRESSION = 7;
+	int VALUE_EXPRESSION = 8;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -480,7 +571,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getConstraint()
 	 * @generated
 	 */
-	int CONSTRAINT = 6;
+	int CONSTRAINT = 7;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -518,7 +609,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getElementInitializer()
 	 * @generated
 	 */
-	int ELEMENT_INITIALIZER = 8;
+	int ELEMENT_INITIALIZER = 9;
 
 	/**
 	 * The number of structural features of the the '<em>Element Initializer</em>' class.
@@ -537,7 +628,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getFeatureSeqInitializer()
 	 * @generated
 	 */
-	int FEATURE_SEQ_INITIALIZER = 9;
+	int FEATURE_SEQ_INITIALIZER = 10;
 
 	/**
 	 * The feature id for the '<em><b>Initializers</b></em>' containment reference list.
@@ -565,7 +656,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getFeatureValueSpec()
 	 * @generated
 	 */
-	int FEATURE_VALUE_SPEC = 10;
+	int FEATURE_VALUE_SPEC = 11;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -605,6 +696,93 @@ public interface GMFMapPackage extends EPackage{
 
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.AbstractNodeMapping <em>Abstract Node Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Abstract Node Mapping</em>'.
+	 * @see org.eclipse.gmf.mappings.AbstractNodeMapping
+	 * @generated
+	 */
+	EClass getAbstractNodeMapping();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getDiagramNode <em>Diagram Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Diagram Node</em>'.
+	 * @see org.eclipse.gmf.mappings.AbstractNodeMapping#getDiagramNode()
+	 * @see #getAbstractNodeMapping()
+	 * @generated
+	 */
+	EReference getAbstractNodeMapping_DiagramNode();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getDomainMetaElement <em>Domain Meta Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Domain Meta Element</em>'.
+	 * @see org.eclipse.gmf.mappings.AbstractNodeMapping#getDomainMetaElement()
+	 * @see #getAbstractNodeMapping()
+	 * @generated
+	 */
+	EReference getAbstractNodeMapping_DomainMetaElement();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getDomainSpecialization <em>Domain Specialization</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Domain Specialization</em>'.
+	 * @see org.eclipse.gmf.mappings.AbstractNodeMapping#getDomainSpecialization()
+	 * @see #getAbstractNodeMapping()
+	 * @generated
+	 */
+	EReference getAbstractNodeMapping_DomainSpecialization();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getDomainInitializer <em>Domain Initializer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Domain Initializer</em>'.
+	 * @see org.eclipse.gmf.mappings.AbstractNodeMapping#getDomainInitializer()
+	 * @see #getAbstractNodeMapping()
+	 * @generated
+	 */
+	EReference getAbstractNodeMapping_DomainInitializer();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getContainmentFeature <em>Containment Feature</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Containment Feature</em>'.
+	 * @see org.eclipse.gmf.mappings.AbstractNodeMapping#getContainmentFeature()
+	 * @see #getAbstractNodeMapping()
+	 * @generated
+	 */
+	EReference getAbstractNodeMapping_ContainmentFeature();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getEditFeature <em>Edit Feature</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Edit Feature</em>'.
+	 * @see org.eclipse.gmf.mappings.AbstractNodeMapping#getEditFeature()
+	 * @see #getAbstractNodeMapping()
+	 * @generated
+	 */
+	EReference getAbstractNodeMapping_EditFeature();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getChildMappings <em>Child Mappings</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Child Mappings</em>'.
+	 * @see org.eclipse.gmf.mappings.AbstractNodeMapping#getChildMappings()
+	 * @see #getAbstractNodeMapping()
+	 * @generated
+	 */
+	EReference getAbstractNodeMapping_ChildMappings();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.MappingEntry <em>Mapping Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -623,83 +801,6 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 */
 	EClass getNodeMapping();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.NodeMapping#getDiagramNode <em>Diagram Node</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Diagram Node</em>'.
-	 * @see org.eclipse.gmf.mappings.NodeMapping#getDiagramNode()
-	 * @see #getNodeMapping()
-	 * @generated
-	 */
-	EReference getNodeMapping_DiagramNode();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.NodeMapping#getDomainMetaElement <em>Domain Meta Element</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Domain Meta Element</em>'.
-	 * @see org.eclipse.gmf.mappings.NodeMapping#getDomainMetaElement()
-	 * @see #getNodeMapping()
-	 * @generated
-	 */
-	EReference getNodeMapping_DomainMetaElement();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.NodeMapping#getDomainSpecialization <em>Domain Specialization</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Domain Specialization</em>'.
-	 * @see org.eclipse.gmf.mappings.NodeMapping#getDomainSpecialization()
-	 * @see #getNodeMapping()
-	 * @generated
-	 */
-	EReference getNodeMapping_DomainSpecialization();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.NodeMapping#getDomainInitializer <em>Domain Initializer</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Domain Initializer</em>'.
-	 * @see org.eclipse.gmf.mappings.NodeMapping#getDomainInitializer()
-	 * @see #getNodeMapping()
-	 * @generated
-	 */
-	EReference getNodeMapping_DomainInitializer();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.NodeMapping#getContainmentFeature <em>Containment Feature</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Containment Feature</em>'.
-	 * @see org.eclipse.gmf.mappings.NodeMapping#getContainmentFeature()
-	 * @see #getNodeMapping()
-	 * @generated
-	 */
-	EReference getNodeMapping_ContainmentFeature();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.NodeMapping#getEditFeature <em>Edit Feature</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Edit Feature</em>'.
-	 * @see org.eclipse.gmf.mappings.NodeMapping#getEditFeature()
-	 * @see #getNodeMapping()
-	 * @generated
-	 */
-	EReference getNodeMapping_EditFeature();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.mappings.NodeMapping#getChildMappings <em>Child Mappings</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Child Mappings</em>'.
-	 * @see org.eclipse.gmf.mappings.NodeMapping#getChildMappings()
-	 * @see #getNodeMapping()
-	 * @generated
-	 */
-	EReference getNodeMapping_ChildMappings();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.ChildNodeMapping <em>Child Node Mapping</em>}'.
@@ -721,72 +822,6 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getChildNodeMapping_Compartment();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.ChildNodeMapping#getDiagramNode <em>Diagram Node</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Diagram Node</em>'.
-	 * @see org.eclipse.gmf.mappings.ChildNodeMapping#getDiagramNode()
-	 * @see #getChildNodeMapping()
-	 * @generated
-	 */
-	EReference getChildNodeMapping_DiagramNode();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.ChildNodeMapping#getDomainChildrenFeature <em>Domain Children Feature</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Domain Children Feature</em>'.
-	 * @see org.eclipse.gmf.mappings.ChildNodeMapping#getDomainChildrenFeature()
-	 * @see #getChildNodeMapping()
-	 * @generated
-	 */
-	EReference getChildNodeMapping_DomainChildrenFeature();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.ChildNodeMapping#getEditFeature <em>Edit Feature</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Edit Feature</em>'.
-	 * @see org.eclipse.gmf.mappings.ChildNodeMapping#getEditFeature()
-	 * @see #getChildNodeMapping()
-	 * @generated
-	 */
-	EReference getChildNodeMapping_EditFeature();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.ChildNodeMapping#getDomainMetaElement <em>Domain Meta Element</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Domain Meta Element</em>'.
-	 * @see org.eclipse.gmf.mappings.ChildNodeMapping#getDomainMetaElement()
-	 * @see #getChildNodeMapping()
-	 * @generated
-	 */
-	EReference getChildNodeMapping_DomainMetaElement();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.ChildNodeMapping#getDomainSpecialization <em>Domain Specialization</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Domain Specialization</em>'.
-	 * @see org.eclipse.gmf.mappings.ChildNodeMapping#getDomainSpecialization()
-	 * @see #getChildNodeMapping()
-	 * @generated
-	 */
-	EReference getChildNodeMapping_DomainSpecialization();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.ChildNodeMapping#getDomainInitializer <em>Domain Initializer</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Domain Initializer</em>'.
-	 * @see org.eclipse.gmf.mappings.ChildNodeMapping#getDomainInitializer()
-	 * @see #getChildNodeMapping()
-	 * @generated
-	 */
-	EReference getChildNodeMapping_DomainInitializer();
 
 	/**
 	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.ChildNodeMapping#getParentNode <em>Parent Node</em>}'.

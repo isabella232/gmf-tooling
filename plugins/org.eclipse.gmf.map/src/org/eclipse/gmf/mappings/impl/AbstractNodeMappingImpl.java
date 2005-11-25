@@ -10,43 +10,49 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.eclipse.gmf.diadef.Node;
+
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.GMFMapPackage;
-import org.eclipse.gmf.mappings.NodeMapping;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Node Mapping</b></em>'.
+ * An implementation of the model object '<em><b>Abstract Node Mapping</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.mappings.impl.NodeMappingImpl#getDiagramNode <em>Diagram Node</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.NodeMappingImpl#getDomainMetaElement <em>Domain Meta Element</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.NodeMappingImpl#getDomainSpecialization <em>Domain Specialization</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.NodeMappingImpl#getDomainInitializer <em>Domain Initializer</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.NodeMappingImpl#getContainmentFeature <em>Containment Feature</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.NodeMappingImpl#getEditFeature <em>Edit Feature</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.NodeMappingImpl#getChildMappings <em>Child Mappings</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getDiagramNode <em>Diagram Node</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getDomainMetaElement <em>Domain Meta Element</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getDomainSpecialization <em>Domain Specialization</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getDomainInitializer <em>Domain Initializer</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getContainmentFeature <em>Containment Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getEditFeature <em>Edit Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getChildMappings <em>Child Mappings</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
+public abstract class AbstractNodeMappingImpl extends EObjectImpl implements AbstractNodeMapping {
 	/**
 	 * The cached value of the '{@link #getDiagramNode() <em>Diagram Node</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -122,7 +128,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected NodeMappingImpl() {
+	protected AbstractNodeMappingImpl() {
 		super();
 	}
 
@@ -132,7 +138,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return GMFMapPackage.eINSTANCE.getNodeMapping();
+		return GMFMapPackage.eINSTANCE.getAbstractNodeMapping();
 	}
 
 	/**
@@ -146,7 +152,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 			diagramNode = (Node)eResolveProxy((InternalEObject)diagramNode);
 			if (diagramNode != oldDiagramNode) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE, oldDiagramNode, diagramNode));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.ABSTRACT_NODE_MAPPING__DIAGRAM_NODE, oldDiagramNode, diagramNode));
 			}
 		}
 		return diagramNode;
@@ -170,7 +176,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 		Node oldDiagramNode = diagramNode;
 		diagramNode = newDiagramNode;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE, oldDiagramNode, diagramNode));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__DIAGRAM_NODE, oldDiagramNode, diagramNode));
 	}
 
 	/**
@@ -184,7 +190,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 			domainMetaElement = (EClass)eResolveProxy((InternalEObject)domainMetaElement);
 			if (domainMetaElement != oldDomainMetaElement) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.NODE_MAPPING__DOMAIN_META_ELEMENT, oldDomainMetaElement, domainMetaElement));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT, oldDomainMetaElement, domainMetaElement));
 			}
 		}
 		return domainMetaElement;
@@ -208,7 +214,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 		EClass oldDomainMetaElement = domainMetaElement;
 		domainMetaElement = newDomainMetaElement;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.NODE_MAPPING__DOMAIN_META_ELEMENT, oldDomainMetaElement, domainMetaElement));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT, oldDomainMetaElement, domainMetaElement));
 	}
 
 	/**
@@ -229,7 +235,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 		Constraint oldDomainSpecialization = domainSpecialization;
 		domainSpecialization = newDomainSpecialization;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFMapPackage.NODE_MAPPING__DOMAIN_SPECIALIZATION, oldDomainSpecialization, newDomainSpecialization);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION, oldDomainSpecialization, newDomainSpecialization);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -244,14 +250,14 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 		if (newDomainSpecialization != domainSpecialization) {
 			NotificationChain msgs = null;
 			if (domainSpecialization != null)
-				msgs = ((InternalEObject)domainSpecialization).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.NODE_MAPPING__DOMAIN_SPECIALIZATION, null, msgs);
+				msgs = ((InternalEObject)domainSpecialization).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION, null, msgs);
 			if (newDomainSpecialization != null)
-				msgs = ((InternalEObject)newDomainSpecialization).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.NODE_MAPPING__DOMAIN_SPECIALIZATION, null, msgs);
+				msgs = ((InternalEObject)newDomainSpecialization).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION, null, msgs);
 			msgs = basicSetDomainSpecialization(newDomainSpecialization, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.NODE_MAPPING__DOMAIN_SPECIALIZATION, newDomainSpecialization, newDomainSpecialization));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION, newDomainSpecialization, newDomainSpecialization));
 	}
 
 	/**
@@ -272,7 +278,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 		ElementInitializer oldDomainInitializer = domainInitializer;
 		domainInitializer = newDomainInitializer;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFMapPackage.NODE_MAPPING__DOMAIN_INITIALIZER, oldDomainInitializer, newDomainInitializer);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER, oldDomainInitializer, newDomainInitializer);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -287,14 +293,14 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 		if (newDomainInitializer != domainInitializer) {
 			NotificationChain msgs = null;
 			if (domainInitializer != null)
-				msgs = ((InternalEObject)domainInitializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.NODE_MAPPING__DOMAIN_INITIALIZER, null, msgs);
+				msgs = ((InternalEObject)domainInitializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER, null, msgs);
 			if (newDomainInitializer != null)
-				msgs = ((InternalEObject)newDomainInitializer).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.NODE_MAPPING__DOMAIN_INITIALIZER, null, msgs);
+				msgs = ((InternalEObject)newDomainInitializer).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER, null, msgs);
 			msgs = basicSetDomainInitializer(newDomainInitializer, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.NODE_MAPPING__DOMAIN_INITIALIZER, newDomainInitializer, newDomainInitializer));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER, newDomainInitializer, newDomainInitializer));
 	}
 
 	/**
@@ -308,7 +314,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 			containmentFeature = (EReference)eResolveProxy((InternalEObject)containmentFeature);
 			if (containmentFeature != oldContainmentFeature) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.NODE_MAPPING__CONTAINMENT_FEATURE, oldContainmentFeature, containmentFeature));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE, oldContainmentFeature, containmentFeature));
 			}
 		}
 		return containmentFeature;
@@ -332,7 +338,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 		EReference oldContainmentFeature = containmentFeature;
 		containmentFeature = newContainmentFeature;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.NODE_MAPPING__CONTAINMENT_FEATURE, oldContainmentFeature, containmentFeature));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE, oldContainmentFeature, containmentFeature));
 	}
 
 	/**
@@ -346,7 +352,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 			editFeature = (EAttribute)eResolveProxy((InternalEObject)editFeature);
 			if (editFeature != oldEditFeature) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.NODE_MAPPING__EDIT_FEATURE, oldEditFeature, editFeature));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.ABSTRACT_NODE_MAPPING__EDIT_FEATURE, oldEditFeature, editFeature));
 			}
 		}
 		return editFeature;
@@ -370,7 +376,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 		EAttribute oldEditFeature = editFeature;
 		editFeature = newEditFeature;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.NODE_MAPPING__EDIT_FEATURE, oldEditFeature, editFeature));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__EDIT_FEATURE, oldEditFeature, editFeature));
 	}
 
 	/**
@@ -380,7 +386,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 */
 	public EList getChildMappings() {
 		if (childMappings == null) {
-			childMappings = new EObjectContainmentWithInverseEList(ChildNodeMapping.class, this, GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS, GMFMapPackage.CHILD_NODE_MAPPING__PARENT_NODE);
+			childMappings = new EObjectContainmentWithInverseEList(ChildNodeMapping.class, this, GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS, GMFMapPackage.CHILD_NODE_MAPPING__PARENT_NODE);
 		}
 		return childMappings;
 	}
@@ -393,7 +399,7 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS:
+				case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 					return ((InternalEList)getChildMappings()).basicAdd(otherEnd, msgs);
 				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
@@ -412,11 +418,11 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFMapPackage.NODE_MAPPING__DOMAIN_SPECIALIZATION:
+				case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION:
 					return basicSetDomainSpecialization(null, msgs);
-				case GMFMapPackage.NODE_MAPPING__DOMAIN_INITIALIZER:
+				case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER:
 					return basicSetDomainInitializer(null, msgs);
-				case GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS:
+				case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 					return ((InternalEList)getChildMappings()).basicRemove(otherEnd, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
@@ -432,23 +438,23 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DIAGRAM_NODE:
 				if (resolve) return getDiagramNode();
 				return basicGetDiagramNode();
-			case GMFMapPackage.NODE_MAPPING__DOMAIN_META_ELEMENT:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				if (resolve) return getDomainMetaElement();
 				return basicGetDomainMetaElement();
-			case GMFMapPackage.NODE_MAPPING__DOMAIN_SPECIALIZATION:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION:
 				return getDomainSpecialization();
-			case GMFMapPackage.NODE_MAPPING__DOMAIN_INITIALIZER:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER:
 				return getDomainInitializer();
-			case GMFMapPackage.NODE_MAPPING__CONTAINMENT_FEATURE:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE:
 				if (resolve) return getContainmentFeature();
 				return basicGetContainmentFeature();
-			case GMFMapPackage.NODE_MAPPING__EDIT_FEATURE:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__EDIT_FEATURE:
 				if (resolve) return getEditFeature();
 				return basicGetEditFeature();
-			case GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				return getChildMappings();
 		}
 		return eDynamicGet(eFeature, resolve);
@@ -461,25 +467,25 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DIAGRAM_NODE:
 				setDiagramNode((Node)newValue);
 				return;
-			case GMFMapPackage.NODE_MAPPING__DOMAIN_META_ELEMENT:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				setDomainMetaElement((EClass)newValue);
 				return;
-			case GMFMapPackage.NODE_MAPPING__DOMAIN_SPECIALIZATION:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION:
 				setDomainSpecialization((Constraint)newValue);
 				return;
-			case GMFMapPackage.NODE_MAPPING__DOMAIN_INITIALIZER:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER:
 				setDomainInitializer((ElementInitializer)newValue);
 				return;
-			case GMFMapPackage.NODE_MAPPING__CONTAINMENT_FEATURE:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE:
 				setContainmentFeature((EReference)newValue);
 				return;
-			case GMFMapPackage.NODE_MAPPING__EDIT_FEATURE:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__EDIT_FEATURE:
 				setEditFeature((EAttribute)newValue);
 				return;
-			case GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				getChildMappings().clear();
 				getChildMappings().addAll((Collection)newValue);
 				return;
@@ -494,25 +500,25 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DIAGRAM_NODE:
 				setDiagramNode((Node)null);
 				return;
-			case GMFMapPackage.NODE_MAPPING__DOMAIN_META_ELEMENT:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				setDomainMetaElement((EClass)null);
 				return;
-			case GMFMapPackage.NODE_MAPPING__DOMAIN_SPECIALIZATION:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION:
 				setDomainSpecialization((Constraint)null);
 				return;
-			case GMFMapPackage.NODE_MAPPING__DOMAIN_INITIALIZER:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER:
 				setDomainInitializer((ElementInitializer)null);
 				return;
-			case GMFMapPackage.NODE_MAPPING__CONTAINMENT_FEATURE:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE:
 				setContainmentFeature((EReference)null);
 				return;
-			case GMFMapPackage.NODE_MAPPING__EDIT_FEATURE:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__EDIT_FEATURE:
 				setEditFeature((EAttribute)null);
 				return;
-			case GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				getChildMappings().clear();
 				return;
 		}
@@ -526,64 +532,22 @@ public class NodeMappingImpl extends MappingEntryImpl implements NodeMapping {
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DIAGRAM_NODE:
 				return diagramNode != null;
-			case GMFMapPackage.NODE_MAPPING__DOMAIN_META_ELEMENT:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				return domainMetaElement != null;
-			case GMFMapPackage.NODE_MAPPING__DOMAIN_SPECIALIZATION:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION:
 				return domainSpecialization != null;
-			case GMFMapPackage.NODE_MAPPING__DOMAIN_INITIALIZER:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER:
 				return domainInitializer != null;
-			case GMFMapPackage.NODE_MAPPING__CONTAINMENT_FEATURE:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE:
 				return containmentFeature != null;
-			case GMFMapPackage.NODE_MAPPING__EDIT_FEATURE:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__EDIT_FEATURE:
 				return editFeature != null;
-			case GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				return childMappings != null && !childMappings.isEmpty();
 		}
 		return eDynamicIsSet(eFeature);
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
-		if (baseClass == AbstractNodeMapping.class) {
-			switch (derivedFeatureID) {
-				case GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE: return GMFMapPackage.ABSTRACT_NODE_MAPPING__DIAGRAM_NODE;
-				case GMFMapPackage.NODE_MAPPING__DOMAIN_META_ELEMENT: return GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT;
-				case GMFMapPackage.NODE_MAPPING__DOMAIN_SPECIALIZATION: return GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION;
-				case GMFMapPackage.NODE_MAPPING__DOMAIN_INITIALIZER: return GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER;
-				case GMFMapPackage.NODE_MAPPING__CONTAINMENT_FEATURE: return GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE;
-				case GMFMapPackage.NODE_MAPPING__EDIT_FEATURE: return GMFMapPackage.ABSTRACT_NODE_MAPPING__EDIT_FEATURE;
-				case GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS: return GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS;
-				default: return -1;
-			}
-		}
-		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
-		if (baseClass == AbstractNodeMapping.class) {
-			switch (baseFeatureID) {
-				case GMFMapPackage.ABSTRACT_NODE_MAPPING__DIAGRAM_NODE: return GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE;
-				case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT: return GMFMapPackage.NODE_MAPPING__DOMAIN_META_ELEMENT;
-				case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION: return GMFMapPackage.NODE_MAPPING__DOMAIN_SPECIALIZATION;
-				case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER: return GMFMapPackage.NODE_MAPPING__DOMAIN_INITIALIZER;
-				case GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE: return GMFMapPackage.NODE_MAPPING__CONTAINMENT_FEATURE;
-				case GMFMapPackage.ABSTRACT_NODE_MAPPING__EDIT_FEATURE: return GMFMapPackage.NODE_MAPPING__EDIT_FEATURE;
-				case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS: return GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS;
-				default: return -1;
-			}
-		}
-		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-	}
-
-} //NodeMappingImpl
+} //AbstractNodeMappingImpl

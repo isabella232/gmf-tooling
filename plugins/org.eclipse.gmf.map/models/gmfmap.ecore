@@ -3,13 +3,11 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="mappings"
     nsURI="http://www.eclipse.org/gmf/2005/mappings" nsPrefix="gmfmap">
-  <eClassifiers xsi:type="ecore:EClass" name="MappingEntry" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractNodeMapping" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2004/EmfaticAnnotationMap">
       <details key="constraints" value="http://www.eclipse.org/gmf/2005/constraints"/>
       <details key="constraintsMeta" value="http://www.eclipse.org/gmf/2005/constraints/meta"/>
     </eAnnotations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NodeMapping" eSuperTypes="#//MappingEntry">
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramNode" lowerBound="1"
         eType="ecore:EClass ../../org.eclipse.gmf.diadef/models/diadef.ecore#//Node"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainMetaElement" lowerBound="1"
@@ -21,7 +19,7 @@
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
         <details key="def" value="context"/>
-        <details key="ocl" value="domainMetaElement"/>
+        <details key="ocl" value="if domainMetaElement.oclIsUndefined() then containmentFeature.eContainingClass else domainMetaElement endif"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainInitializer" eType="#//ElementInitializer"
@@ -30,72 +28,40 @@
         <details key="documentation" value="Initializer for the domain model element associated with mapping"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="let i : FeatureSeqInitializer = domainInitializer.oclAsType( FeatureSeqInitializer) in i.oclIsUndefined() or i.initializers.feature.eContainingClass->forAll(c|c.isSuperTypeOf(domainMetaElement)) "/>
+        <details key="ocl" value="let i : FeatureSeqInitializer = domainInitializer.oclAsType( FeatureSeqInitializer) in i.oclIsUndefined() or i.initializers.feature.eContainingClass->forAll(c|c.isSuperTypeOf(domainMetaElement))"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
         <details key="def" value="context"/>
-        <details key="ocl" value="domainMetaElement"/>
+        <details key="ocl" value="if domainMetaElement.oclIsUndefined() then containmentFeature.eContainingClass else domainMetaElement endif"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="containmentFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EReference">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="containmentFeature.oclIsUndefined() or containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement) "/>
+        <details key="ocl" value="containmentFeature.containment"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="domainMetaElement.oclIsUndefined() or containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement)"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="editFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EAttribute">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="editFeature.oclIsUndefined() or domainMetaElement.eAllAttributes->includes(editFeature)"/>
+        <details key="ocl" value="editFeature.oclIsUndefined() or (not domainMetaElement.oclIsUndefined() and editFeature.eContainingClass.isSuperTypeOf(domainMetaElement)) or containmentFeature.eType.oclAsType(ecore::EClass).eAllAttributes->includes(editFeature)"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="childMappings" upperBound="-1"
         eType="#//ChildNodeMapping" containment="true" eOpposite="#//ChildNodeMapping/parentNode"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ChildNodeMapping">
+  <eClassifiers xsi:type="ecore:EClass" name="MappingEntry" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NodeMapping" eSuperTypes="#//MappingEntry #//AbstractNodeMapping"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ChildNodeMapping" eSuperTypes="#//AbstractNodeMapping">
     <eStructuralFeatures xsi:type="ecore:EReference" name="compartment" lowerBound="1"
         eType="ecore:EClass ../../org.eclipse.gmf.diadef/models/diadef.ecore#//Compartment">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
         <details key="ocl" value="parentNode.diagramNode.oclAsType(diadef::Node).compartments->includes(self.compartment)"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="diagramNode" lowerBound="1"
-        eType="ecore:EClass ../../org.eclipse.gmf.diadef/models/diadef.ecore#//Node"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="domainChildrenFeature"
-        lowerBound="1" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStructuralFeature">
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="domainChildrenFeature.eContainingClass.isSuperTypeOf(parentNode.domainMetaElement)"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="editFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EAttribute">
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="editFeature.oclIsUndefined() or (not domainMetaElement.oclIsUndefined()  and editFeature.eContainingClass.isSuperTypeOf(domainMetaElement)) or domainChildrenFeature.eType.oclAsType(ecore::EClass).eAllAttributes->includes(editFeature)"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="domainMetaElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="domainSpecialization" eType="#//Constraint"
-        containment="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Specializes further the domain meta element EClass associated with this mapping and should be evaluated in this EClass context"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
-        <details key="def" value="context"/>
-        <details key="ocl" value="if domainMetaElement.oclIsUndefined() then domainChildrenFeature.eContainingClass else domainMetaElement endif "/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="domainInitializer" eType="#//ElementInitializer"
-        containment="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Initializer for the domain model element associated with mapping"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="let i : FeatureSeqInitializer = domainInitializer.oclAsType( FeatureSeqInitializer) in i.oclIsUndefined() or i.initializers.feature.eContainingClass->forAll(c|c.isSuperTypeOf(domainMetaElement)) "/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
-        <details key="def" value="context"/>
-        <details key="ocl" value="if domainMetaElement.oclIsUndefined() then domainChildrenFeature.eContainingClass else domainMetaElement endif "/>
-      </eAnnotations>
-    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentNode" lowerBound="1"
-        eType="#//NodeMapping" changeable="false" eOpposite="#//NodeMapping/childMappings"/>
+        eType="#//AbstractNodeMapping" changeable="false" eOpposite="#//AbstractNodeMapping/childMappings"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LinkMapping" eSuperTypes="#//MappingEntry">
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramLink" lowerBound="1"

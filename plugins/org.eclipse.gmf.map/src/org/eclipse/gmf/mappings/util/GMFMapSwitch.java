@@ -94,6 +94,12 @@ public class GMFMapSwitch {
 	 */
 	protected Object doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING: {
+				AbstractNodeMapping abstractNodeMapping = (AbstractNodeMapping)theEObject;
+				Object result = caseAbstractNodeMapping(abstractNodeMapping);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFMapPackage.MAPPING_ENTRY: {
 				MappingEntry mappingEntry = (MappingEntry)theEObject;
 				Object result = caseMappingEntry(mappingEntry);
@@ -104,12 +110,14 @@ public class GMFMapSwitch {
 				NodeMapping nodeMapping = (NodeMapping)theEObject;
 				Object result = caseNodeMapping(nodeMapping);
 				if (result == null) result = caseMappingEntry(nodeMapping);
+				if (result == null) result = caseAbstractNodeMapping(nodeMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.CHILD_NODE_MAPPING: {
 				ChildNodeMapping childNodeMapping = (ChildNodeMapping)theEObject;
 				Object result = caseChildNodeMapping(childNodeMapping);
+				if (result == null) result = caseAbstractNodeMapping(childNodeMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -168,6 +176,21 @@ public class GMFMapSwitch {
 			}
 			default: return defaultCase(theEObject);
 		}
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Abstract Node Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Abstract Node Mapping</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseAbstractNodeMapping(AbstractNodeMapping object) {
+		return null;
 	}
 
 	/**

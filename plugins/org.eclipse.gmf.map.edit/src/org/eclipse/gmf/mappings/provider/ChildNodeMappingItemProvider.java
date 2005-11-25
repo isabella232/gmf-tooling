@@ -35,7 +35,7 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
  * @generated
  */
 public class ChildNodeMappingItemProvider
-	extends ItemProviderAdapter
+	extends AbstractNodeMappingItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -63,10 +63,6 @@ public class ChildNodeMappingItemProvider
 			super.getPropertyDescriptors(object);
 
 			addCompartmentPropertyDescriptor(object);
-			addDiagramNodePropertyDescriptor(object);
-			addDomainChildrenFeaturePropertyDescriptor(object);
-			addEditFeaturePropertyDescriptor(object);
-			addDomainMetaElementPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -89,115 +85,6 @@ public class ChildNodeMappingItemProvider
 				 null,
 				 null,
 				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Diagram Node feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDiagramNodePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ChildNodeMapping_diagramNode_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ChildNodeMapping_diagramNode_feature", "_UI_ChildNodeMapping_type"),
-				 GMFMapPackage.eINSTANCE.getChildNodeMapping_DiagramNode(),
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Domain Children Feature feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDomainChildrenFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ChildNodeMapping_domainChildrenFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ChildNodeMapping_domainChildrenFeature_feature", "_UI_ChildNodeMapping_type"),
-				 GMFMapPackage.eINSTANCE.getChildNodeMapping_DomainChildrenFeature(),
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Edit Feature feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addEditFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ChildNodeMapping_editFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ChildNodeMapping_editFeature_feature", "_UI_ChildNodeMapping_type"),
-				 GMFMapPackage.eINSTANCE.getChildNodeMapping_EditFeature(),
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Domain Meta Element feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDomainMetaElementPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ChildNodeMapping_domainMetaElement_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ChildNodeMapping_domainMetaElement_feature", "_UI_ChildNodeMapping_type"),
-				 GMFMapPackage.eINSTANCE.getChildNodeMapping_DomainMetaElement(),
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Collection getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getChildNodeMapping_DomainSpecialization());
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getChildNodeMapping_DomainInitializer());
-		}
-		return childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
 	}
 
 	/**
@@ -229,13 +116,6 @@ public class ChildNodeMappingItemProvider
 	 */
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(ChildNodeMapping.class)) {
-			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_SPECIALIZATION:
-			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_INITIALIZER:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-				return;
-		}
 		super.notifyChanged(notification);
 	}
 
@@ -248,16 +128,6 @@ public class ChildNodeMappingItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getChildNodeMapping_DomainSpecialization(),
-				 GMFMapFactory.eINSTANCE.createConstraint()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getChildNodeMapping_DomainInitializer(),
-				 GMFMapFactory.eINSTANCE.createFeatureSeqInitializer()));
 	}
 
 	/**
