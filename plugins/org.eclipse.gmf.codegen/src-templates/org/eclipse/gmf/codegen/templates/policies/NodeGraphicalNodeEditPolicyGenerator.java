@@ -60,7 +60,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	}
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
-		if (nodeMetaClass.equals(modelFacet.getTargetMetaFeature().getTypeGenClass()) && !nodeMetaClass.equals(modelFacet.getContainmentMetaFeature().getGenClass())) {
+		GenClass outgoingClass = modelFacet.getSourceMetaFeature() == null
+			? modelFacet.getContainmentMetaFeature().getGenClass()
+			: modelFacet.getSourceMetaFeature().getTypeGenClass();
+		if (nodeMetaClass.equals(modelFacet.getTargetMetaFeature().getTypeGenClass()) && !nodeMetaClass.equals(outgoingClass)) {
 			ids.add(genLink.getUniqueIdentifier());
 		}
 	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {

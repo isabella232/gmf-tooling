@@ -112,7 +112,6 @@ public class DiaGenSetup implements DiaGenSource {
 		mf.setContainmentMetaFeature(gmm.findGenFeature(link.getContainment()));
 		mf.setChildMetaFeature(mf.getContainmentMetaFeature());
 		mf.setTargetMetaFeature(gmm.findGenFeature(link.getTargetFeature()));
-		mf.setSourceMetaFeature(gmm.findGenFeature(link.getContainment()));
 		return mf;
 	}
 

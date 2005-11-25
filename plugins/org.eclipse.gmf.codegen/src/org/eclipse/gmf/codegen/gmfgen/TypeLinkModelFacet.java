@@ -29,7 +29,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  * @model
  * @generated
  */
-public interface TypeLinkModelFacet extends TypeModelFacet, LinkModelFacet {
+public interface TypeLinkModelFacet extends TypeModelFacet, LinkModelFacet{
 	/**
 	 * Returns the value of the '<em><b>Source Meta Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -38,10 +38,13 @@ public interface TypeLinkModelFacet extends TypeModelFacet, LinkModelFacet {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If source feature is not specified then link container is a link source
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Source Meta Feature</em>' reference.
 	 * @see #setSourceMetaFeature(GenFeature)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeLinkModelFacet_SourceMetaFeature()
-	 * @model required="true"
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='sourceMetaFeature.eContainingClass \'equals to\' or \'superclass of\' super.metaClass'"
 	 * @generated
 	 */
 	GenFeature getSourceMetaFeature();

@@ -99,202 +99,228 @@ public class NodeItemSemanticEditPolicyGenerator {
   protected final String TEXT_80 = NL + "\t\t";
   protected final String TEXT_81 = " element = (";
   protected final String TEXT_82 = ") getSemanticElement();";
-  protected final String TEXT_83 = NL + "\t\tif (";
-  protected final String TEXT_84 = " != null) {";
-  protected final String TEXT_85 = NL + "\t\tif (";
-  protected final String TEXT_86 = ".size() >= ";
-  protected final String TEXT_87 = ") {";
-  protected final String TEXT_88 = NL + "\t\t\treturn ";
-  protected final String TEXT_89 = ".INSTANCE;" + NL + "\t\t}";
-  protected final String TEXT_90 = NL + "\t\tif (";
-  protected final String TEXT_91 = " != null) {";
-  protected final String TEXT_92 = NL + "\t\tif (";
-  protected final String TEXT_93 = ".size() >= ";
-  protected final String TEXT_94 = ") {";
-  protected final String TEXT_95 = NL + "\t\t\treturn ";
-  protected final String TEXT_96 = ".INSTANCE;" + NL + "\t\t}";
-  protected final String TEXT_97 = NL + "\t\treturn new Command() {" + NL + "\t\t};" + NL + "\t}";
-  protected final String TEXT_98 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getCreateComplete";
-  protected final String TEXT_99 = "Command(CreateRelationshipRequest req) {";
-  protected final String TEXT_100 = NL + "\t\tif (!(req.getSource() instanceof ";
-  protected final String TEXT_101 = ")) {" + NL + "\t\t\treturn ";
+  protected final String TEXT_83 = NL + "\t\t";
+  protected final String TEXT_84 = " element = (";
+  protected final String TEXT_85 = ") getRelationshipContainer(getSemanticElement()," + NL + "\t\t\t";
+  protected final String TEXT_86 = ".eINSTANCE.get";
+  protected final String TEXT_87 = "(), req.getElementType());" + NL + "\t\tif (element == null) {" + NL + "\t\t\treturn ";
+  protected final String TEXT_88 = ".INSTANCE;" + NL + "\t\t}";
+  protected final String TEXT_89 = NL + "\t\tif (";
+  protected final String TEXT_90 = " != null) {";
+  protected final String TEXT_91 = NL + "\t\tif (";
+  protected final String TEXT_92 = ".size() >= ";
+  protected final String TEXT_93 = ") {";
+  protected final String TEXT_94 = NL + "\t\t\treturn ";
+  protected final String TEXT_95 = ".INSTANCE;" + NL + "\t\t}";
+  protected final String TEXT_96 = NL + "\t\tif (";
+  protected final String TEXT_97 = " != null) {";
+  protected final String TEXT_98 = NL + "\t\tif (";
+  protected final String TEXT_99 = ".size() >= ";
+  protected final String TEXT_100 = ") {";
+  protected final String TEXT_101 = NL + "\t\t\treturn ";
   protected final String TEXT_102 = ".INSTANCE;" + NL + "\t\t}";
-  protected final String TEXT_103 = NL + "\t\t";
-  protected final String TEXT_104 = " element = (";
-  protected final String TEXT_105 = ") getSemanticElement();";
-  protected final String TEXT_106 = NL + "\t\tif (";
-  protected final String TEXT_107 = " != null) {";
-  protected final String TEXT_108 = NL + "\t\tif (";
-  protected final String TEXT_109 = ".size() >= ";
-  protected final String TEXT_110 = ") {";
-  protected final String TEXT_111 = NL + "\t\t\treturn ";
-  protected final String TEXT_112 = ".INSTANCE;" + NL + "\t\t}";
-  protected final String TEXT_113 = NL + "\t\tif (";
-  protected final String TEXT_114 = " != null) {";
-  protected final String TEXT_115 = NL + "\t\tif (";
-  protected final String TEXT_116 = ".size() >= ";
-  protected final String TEXT_117 = ") {";
-  protected final String TEXT_118 = NL + "\t\t\treturn ";
-  protected final String TEXT_119 = ".INSTANCE;" + NL + "\t\t}";
-  protected final String TEXT_120 = NL + "\t\tif (req.getContainmentFeature() == null) {" + NL + "\t\t\treq.setContainmentFeature(";
-  protected final String TEXT_121 = ".eINSTANCE.get";
-  protected final String TEXT_122 = "());" + NL + "\t\t}" + NL + "\t\treturn getMSLWrapper(new Create";
-  protected final String TEXT_123 = "Command(req));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class Create";
-  protected final String TEXT_124 = "Command extends ";
-  protected final String TEXT_125 = " {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic Create";
-  protected final String TEXT_126 = "Command(CreateRelationshipRequest req) {" + NL + "\t\t\tsuper(req);" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
-  protected final String TEXT_127 = " getEClassToEdit() {" + NL + "\t\t\treturn ";
-  protected final String TEXT_128 = ".eINSTANCE.get";
-  protected final String TEXT_129 = "();" + NL + "\t\t};" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
-  protected final String TEXT_130 = " getElementToEdit() {" + NL + "\t\t\treturn getTarget();" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
-  protected final String TEXT_131 = " doDefaultElementCreation() {";
-  protected final String TEXT_132 = NL + "\t\t\t";
-  protected final String TEXT_133 = " newElement = (";
-  protected final String TEXT_134 = ") super.doDefaultElementCreation();" + NL + "\t\t\tif (newElement != null) {" + NL + "\t\t\t\t";
-  protected final String TEXT_135 = "(";
-  protected final String TEXT_136 = ") getSource());";
-  protected final String TEXT_137 = NL + "\t\t\t\t";
-  protected final String TEXT_138 = " container = (";
-  protected final String TEXT_139 = ") getElementToEdit();" + NL + "\t\t\t\tif (container != null) {";
-  protected final String TEXT_140 = NL + "\t\t\t\t\t";
-  protected final String TEXT_141 = " featureValues = container.";
-  protected final String TEXT_142 = "();" + NL + "\t\t\t\t\tfeatureValues.add(newElement);";
-  protected final String TEXT_143 = NL + "\t\t\t\t \t";
-  protected final String TEXT_144 = "newElement);";
-  protected final String TEXT_145 = NL + "\t\t\t\t}";
-  protected final String TEXT_146 = NL + "\t\t\t\t";
-  protected final String TEXT_147 = ".Initializers.";
-  protected final String TEXT_148 = ".init(newElement);";
-  protected final String TEXT_149 = NL + "\t\t\t}" + NL + "\t\t\treturn newElement;" + NL + "\t\t}" + NL + "\t}";
-  protected final String TEXT_150 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getCreateStart";
-  protected final String TEXT_151 = "Command(CreateRelationshipRequest req) {";
-  protected final String TEXT_152 = NL + "\t\treturn new Command() {" + NL + "\t\t};" + NL + "\t}";
-  protected final String TEXT_153 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getCreateComplete";
-  protected final String TEXT_154 = "Command(CreateRelationshipRequest req) {";
-  protected final String TEXT_155 = NL + "\t\tif (!(req.getSource() instanceof ";
-  protected final String TEXT_156 = ")) {" + NL + "\t\t\treturn ";
-  protected final String TEXT_157 = ".INSTANCE;" + NL + "\t\t}";
-  protected final String TEXT_158 = NL + "\t\t";
-  protected final String TEXT_159 = " element = (";
-  protected final String TEXT_160 = ") req.getSource();";
-  protected final String TEXT_161 = NL + "\t\tif (";
-  protected final String TEXT_162 = " != null) {";
-  protected final String TEXT_163 = NL + "\t\tif (";
-  protected final String TEXT_164 = ".size() >= ";
-  protected final String TEXT_165 = ") {";
-  protected final String TEXT_166 = NL + "\t\t\treturn ";
-  protected final String TEXT_167 = ".INSTANCE;" + NL + "\t\t}";
-  protected final String TEXT_168 = NL + "\t\tif (";
-  protected final String TEXT_169 = " != null) {";
-  protected final String TEXT_170 = NL + "\t\tif (";
-  protected final String TEXT_171 = ".size() >= ";
-  protected final String TEXT_172 = ") {";
-  protected final String TEXT_173 = NL + "\t\t\treturn ";
-  protected final String TEXT_174 = ".INSTANCE;" + NL + "\t\t}";
-  protected final String TEXT_175 = NL + "\t\tif (req.getContainmentFeature() == null) {" + NL + "\t\t\treq.setContainmentFeature(";
-  protected final String TEXT_176 = ".eINSTANCE.get";
-  protected final String TEXT_177 = "());" + NL + "\t\t}" + NL + "\t\treturn getMSLWrapper(new Create";
-  protected final String TEXT_178 = "Command(req));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class Create";
-  protected final String TEXT_179 = "Command extends ";
-  protected final String TEXT_180 = " {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic Create";
-  protected final String TEXT_181 = "Command(CreateRelationshipRequest req) {" + NL + "\t\t\tsuper(req);" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
-  protected final String TEXT_182 = " getEClassToEdit() {" + NL + "\t\t\treturn ";
-  protected final String TEXT_183 = ".eINSTANCE.get";
-  protected final String TEXT_184 = "();" + NL + "\t\t};" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
-  protected final String TEXT_185 = " getElementToEdit() {" + NL + "\t\t\treturn getSource();" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
-  protected final String TEXT_186 = " doDefaultElementCreation() {";
-  protected final String TEXT_187 = NL + "\t\t\t";
-  protected final String TEXT_188 = " newElement = (";
-  protected final String TEXT_189 = ") super.doDefaultElementCreation();" + NL + "\t\t\tif (newElement != null) {" + NL + "\t\t\t\t";
-  protected final String TEXT_190 = "(";
-  protected final String TEXT_191 = ") getTarget());";
-  protected final String TEXT_192 = NL + "\t\t\t\t";
-  protected final String TEXT_193 = " container = (";
-  protected final String TEXT_194 = ") getElementToEdit();" + NL + "\t\t\t\tif (container != null) {";
-  protected final String TEXT_195 = NL + "\t\t\t\t\t";
-  protected final String TEXT_196 = " featureValues = container.";
-  protected final String TEXT_197 = "();" + NL + "\t\t\t\t\tfeatureValues.add(newElement);";
-  protected final String TEXT_198 = NL + "\t\t\t\t \t";
-  protected final String TEXT_199 = "newElement);";
-  protected final String TEXT_200 = NL + "\t\t\t\t}";
-  protected final String TEXT_201 = NL + "\t\t\t\t";
-  protected final String TEXT_202 = ".Initializers.";
-  protected final String TEXT_203 = ".init(newElement);";
-  protected final String TEXT_204 = NL + "\t\t\t}" + NL + "\t\t\treturn newElement;" + NL + "\t\t}" + NL + "\t}";
-  protected final String TEXT_205 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getCreateStart";
-  protected final String TEXT_206 = "Command(CreateRelationshipRequest req) {";
-  protected final String TEXT_207 = NL + "\t\t";
-  protected final String TEXT_208 = " element = (";
-  protected final String TEXT_209 = ") getSemanticElement();";
-  protected final String TEXT_210 = NL + "\t\tif (";
-  protected final String TEXT_211 = " != null) {";
-  protected final String TEXT_212 = NL + "\t\tif (";
-  protected final String TEXT_213 = ".size() >= ";
-  protected final String TEXT_214 = ") {";
-  protected final String TEXT_215 = NL + "\t\t\treturn ";
-  protected final String TEXT_216 = ".INSTANCE;" + NL + "\t\t}";
-  protected final String TEXT_217 = NL + "\t\treturn new Command() {" + NL + "\t\t};" + NL + "\t}";
-  protected final String TEXT_218 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getCreateComplete";
-  protected final String TEXT_219 = "Command(CreateRelationshipRequest req) {";
-  protected final String TEXT_220 = NL + "\t\tif (!(req.getSource() instanceof ";
-  protected final String TEXT_221 = ")) {" + NL + "\t\t\treturn ";
-  protected final String TEXT_222 = ".INSTANCE;" + NL + "\t\t}";
-  protected final String TEXT_223 = NL + "\t\t";
-  protected final String TEXT_224 = " element = (";
-  protected final String TEXT_225 = ") getSemanticElement();";
-  protected final String TEXT_226 = NL + "\t\tif (";
-  protected final String TEXT_227 = " != null) {";
-  protected final String TEXT_228 = NL + "\t\tif (";
-  protected final String TEXT_229 = ".size() >= ";
-  protected final String TEXT_230 = NL + "\t\t\t|| ";
-  protected final String TEXT_231 = ".contains(req.getSource())";
-  protected final String TEXT_232 = NL + "\t\t\t\t) {";
-  protected final String TEXT_233 = NL + "\t\t\treturn ";
-  protected final String TEXT_234 = ".INSTANCE;" + NL + "\t\t}";
-  protected final String TEXT_235 = NL + "\t\t";
-  protected final String TEXT_236 = " element = (";
-  protected final String TEXT_237 = ") getSemanticElement();" + NL + "\t\tif (";
-  protected final String TEXT_238 = ".contains(req.getSource())) {" + NL + "\t\t\treturn ";
-  protected final String TEXT_239 = ".INSTANCE;" + NL + "\t\t}";
-  protected final String TEXT_240 = NL + "\t\t";
-  protected final String TEXT_241 = " setReq = new ";
-  protected final String TEXT_242 = "(req.getTarget()," + NL + "\t\t\t";
-  protected final String TEXT_243 = ".eINSTANCE.get";
-  protected final String TEXT_244 = "(), req.getSource());" + NL + "\t\treturn getMSLWrapper(new ";
-  protected final String TEXT_245 = "(setReq));" + NL + "\t}";
-  protected final String TEXT_246 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getCreateStart";
-  protected final String TEXT_247 = "Command(CreateRelationshipRequest req) {";
-  protected final String TEXT_248 = NL + "\t\treturn new Command() {" + NL + "\t\t};" + NL + "\t}";
-  protected final String TEXT_249 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getCreateComplete";
-  protected final String TEXT_250 = "Command(CreateRelationshipRequest req) {";
-  protected final String TEXT_251 = NL + "\t\tif (!(req.getSource() instanceof ";
-  protected final String TEXT_252 = ")) {" + NL + "\t\t\treturn ";
-  protected final String TEXT_253 = ".INSTANCE;" + NL + "\t\t}";
-  protected final String TEXT_254 = NL + "\t\t";
-  protected final String TEXT_255 = " element = (";
-  protected final String TEXT_256 = ") req.getSource();";
-  protected final String TEXT_257 = NL + "\t\tif (";
-  protected final String TEXT_258 = " != null) {";
-  protected final String TEXT_259 = NL + "\t\tif (";
-  protected final String TEXT_260 = ".size() >= ";
-  protected final String TEXT_261 = NL + "\t\t\t|| ";
-  protected final String TEXT_262 = ".contains(req.getTarget())";
-  protected final String TEXT_263 = NL + "\t\t\t\t) {";
-  protected final String TEXT_264 = NL + "\t\t\treturn ";
+  protected final String TEXT_103 = NL + "\t\treturn new Command() {" + NL + "\t\t};" + NL + "\t}";
+  protected final String TEXT_104 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getCreateComplete";
+  protected final String TEXT_105 = "Command(CreateRelationshipRequest req) {";
+  protected final String TEXT_106 = NL + "\t\tif (!(req.getSource() instanceof ";
+  protected final String TEXT_107 = ")) {" + NL + "\t\t\treturn ";
+  protected final String TEXT_108 = ".INSTANCE;" + NL + "\t\t}";
+  protected final String TEXT_109 = NL + "\t\tfinal ";
+  protected final String TEXT_110 = " element = (";
+  protected final String TEXT_111 = ") getSemanticElement();";
+  protected final String TEXT_112 = NL + "\t\tfinal ";
+  protected final String TEXT_113 = " element = (";
+  protected final String TEXT_114 = ") getRelationshipContainer(getSemanticElement()," + NL + "\t\t\t";
+  protected final String TEXT_115 = ".eINSTANCE.get";
+  protected final String TEXT_116 = "(), req.getElementType());" + NL + "\t\tif (element == null) {" + NL + "\t\t\treturn ";
+  protected final String TEXT_117 = ".INSTANCE;" + NL + "\t\t}";
+  protected final String TEXT_118 = NL + "\t\tif (";
+  protected final String TEXT_119 = " != null) {";
+  protected final String TEXT_120 = NL + "\t\tif (";
+  protected final String TEXT_121 = ".size() >= ";
+  protected final String TEXT_122 = ") {";
+  protected final String TEXT_123 = NL + "\t\t\treturn ";
+  protected final String TEXT_124 = ".INSTANCE;" + NL + "\t\t}";
+  protected final String TEXT_125 = NL + "\t\tif (";
+  protected final String TEXT_126 = " != null) {";
+  protected final String TEXT_127 = NL + "\t\tif (";
+  protected final String TEXT_128 = ".size() >= ";
+  protected final String TEXT_129 = ") {";
+  protected final String TEXT_130 = NL + "\t\t\treturn ";
+  protected final String TEXT_131 = ".INSTANCE;" + NL + "\t\t}";
+  protected final String TEXT_132 = NL + "\t\tif (req.getContainmentFeature() == null) {" + NL + "\t\t\treq.setContainmentFeature(";
+  protected final String TEXT_133 = ".eINSTANCE.get";
+  protected final String TEXT_134 = "());" + NL + "\t\t}" + NL + "\t\treturn getMSLWrapper(new Create";
+  protected final String TEXT_135 = "Command(req) {" + NL + "" + NL + "\t\t\t/**" + NL + "\t\t\t * @generated" + NL + "\t\t\t */" + NL + "\t\t\tprotected ";
+  protected final String TEXT_136 = " getElementToEdit() {" + NL + "\t\t\t\treturn element;" + NL + "\t\t\t}" + NL + "\t\t});" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class Create";
+  protected final String TEXT_137 = "Command extends ";
+  protected final String TEXT_138 = " {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic Create";
+  protected final String TEXT_139 = "Command(CreateRelationshipRequest req) {" + NL + "\t\t\tsuper(req);" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
+  protected final String TEXT_140 = " getEClassToEdit() {" + NL + "\t\t\treturn ";
+  protected final String TEXT_141 = ".eINSTANCE.get";
+  protected final String TEXT_142 = "();" + NL + "\t\t};" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected void setElementToEdit(";
+  protected final String TEXT_143 = " element) {" + NL + "\t\t\tthrow new UnsupportedOperationException();" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
+  protected final String TEXT_144 = " doDefaultElementCreation() {";
+  protected final String TEXT_145 = NL + "\t\t\t";
+  protected final String TEXT_146 = " newElement = (";
+  protected final String TEXT_147 = ") super.doDefaultElementCreation();" + NL + "\t\t\tif (newElement != null) {" + NL + "\t\t\t\t";
+  protected final String TEXT_148 = "(";
+  protected final String TEXT_149 = ") getSource());";
+  protected final String TEXT_150 = NL + "\t\t\t\t";
+  protected final String TEXT_151 = "(";
+  protected final String TEXT_152 = ") getTarget());";
+  protected final String TEXT_153 = NL + "\t\t\t\t";
+  protected final String TEXT_154 = " container = (";
+  protected final String TEXT_155 = ") getElementToEdit();" + NL + "\t\t\t\tif (container != null) {";
+  protected final String TEXT_156 = NL + "\t\t\t\t\t";
+  protected final String TEXT_157 = " featureValues = container.";
+  protected final String TEXT_158 = "();" + NL + "\t\t\t\t\tfeatureValues.add(newElement);";
+  protected final String TEXT_159 = NL + "\t\t\t\t \t";
+  protected final String TEXT_160 = "newElement);";
+  protected final String TEXT_161 = NL + "\t\t\t\t}";
+  protected final String TEXT_162 = NL + "\t\t\t\t";
+  protected final String TEXT_163 = ".Initializers.";
+  protected final String TEXT_164 = ".init(newElement);";
+  protected final String TEXT_165 = NL + "\t\t\t}" + NL + "\t\t\treturn newElement;" + NL + "\t\t}" + NL + "\t}";
+  protected final String TEXT_166 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getCreateStart";
+  protected final String TEXT_167 = "Command(CreateRelationshipRequest req) {";
+  protected final String TEXT_168 = NL + "\t\treturn new Command() {" + NL + "\t\t};" + NL + "\t}";
+  protected final String TEXT_169 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getCreateComplete";
+  protected final String TEXT_170 = "Command(CreateRelationshipRequest req) {";
+  protected final String TEXT_171 = NL + "\t\tif (!(req.getSource() instanceof ";
+  protected final String TEXT_172 = ")) {" + NL + "\t\t\treturn ";
+  protected final String TEXT_173 = ".INSTANCE;" + NL + "\t\t}";
+  protected final String TEXT_174 = NL + "\t\tfinal ";
+  protected final String TEXT_175 = " element = (";
+  protected final String TEXT_176 = ") req.getSource();";
+  protected final String TEXT_177 = NL + "\t\tfinal ";
+  protected final String TEXT_178 = " element = (";
+  protected final String TEXT_179 = ") getRelationshipContainer(req.getSource()," + NL + "\t\t\t";
+  protected final String TEXT_180 = ".eINSTANCE.get";
+  protected final String TEXT_181 = "(), req.getElementType());" + NL + "\t\tif (element == null) {" + NL + "\t\t\treturn ";
+  protected final String TEXT_182 = ".INSTANCE;" + NL + "\t\t}";
+  protected final String TEXT_183 = NL + "\t\tif (";
+  protected final String TEXT_184 = " != null) {";
+  protected final String TEXT_185 = NL + "\t\tif (";
+  protected final String TEXT_186 = ".size() >= ";
+  protected final String TEXT_187 = ") {";
+  protected final String TEXT_188 = NL + "\t\t\treturn ";
+  protected final String TEXT_189 = ".INSTANCE;" + NL + "\t\t}";
+  protected final String TEXT_190 = NL + "\t\tif (";
+  protected final String TEXT_191 = " != null) {";
+  protected final String TEXT_192 = NL + "\t\tif (";
+  protected final String TEXT_193 = ".size() >= ";
+  protected final String TEXT_194 = ") {";
+  protected final String TEXT_195 = NL + "\t\t\treturn ";
+  protected final String TEXT_196 = ".INSTANCE;" + NL + "\t\t}";
+  protected final String TEXT_197 = NL + "\t\tif (req.getContainmentFeature() == null) {" + NL + "\t\t\treq.setContainmentFeature(";
+  protected final String TEXT_198 = ".eINSTANCE.get";
+  protected final String TEXT_199 = "());" + NL + "\t\t}" + NL + "\t\treturn getMSLWrapper(new Create";
+  protected final String TEXT_200 = "Command(req) {" + NL + "" + NL + "\t\t\t/**" + NL + "\t\t\t * @generated" + NL + "\t\t\t */" + NL + "\t\t\tprotected ";
+  protected final String TEXT_201 = " getElementToEdit() {" + NL + "\t\t\t\treturn element;" + NL + "\t\t\t}" + NL + "\t\t});" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class Create";
+  protected final String TEXT_202 = "Command extends ";
+  protected final String TEXT_203 = " {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic Create";
+  protected final String TEXT_204 = "Command(CreateRelationshipRequest req) {" + NL + "\t\t\tsuper(req);" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
+  protected final String TEXT_205 = " getEClassToEdit() {" + NL + "\t\t\treturn ";
+  protected final String TEXT_206 = ".eINSTANCE.get";
+  protected final String TEXT_207 = "();" + NL + "\t\t};" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected void setElementToEdit(";
+  protected final String TEXT_208 = " element) {" + NL + "\t\t\tthrow new UnsupportedOperationException();" + NL + "\t\t}" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
+  protected final String TEXT_209 = " doDefaultElementCreation() {";
+  protected final String TEXT_210 = NL + "\t\t\t";
+  protected final String TEXT_211 = " newElement = (";
+  protected final String TEXT_212 = ") super.doDefaultElementCreation();" + NL + "\t\t\tif (newElement != null) {" + NL + "\t\t\t\t";
+  protected final String TEXT_213 = "(";
+  protected final String TEXT_214 = ") getTarget());";
+  protected final String TEXT_215 = NL + "\t\t\t\t";
+  protected final String TEXT_216 = "(";
+  protected final String TEXT_217 = ") getSource());";
+  protected final String TEXT_218 = NL + "\t\t\t\t";
+  protected final String TEXT_219 = " container = (";
+  protected final String TEXT_220 = ") getElementToEdit();" + NL + "\t\t\t\tif (container != null) {";
+  protected final String TEXT_221 = NL + "\t\t\t\t\t";
+  protected final String TEXT_222 = " featureValues = container.";
+  protected final String TEXT_223 = "();" + NL + "\t\t\t\t\tfeatureValues.add(newElement);";
+  protected final String TEXT_224 = NL + "\t\t\t\t \t";
+  protected final String TEXT_225 = "newElement);";
+  protected final String TEXT_226 = NL + "\t\t\t\t}";
+  protected final String TEXT_227 = NL + "\t\t\t\t";
+  protected final String TEXT_228 = ".Initializers.";
+  protected final String TEXT_229 = ".init(newElement);";
+  protected final String TEXT_230 = NL + "\t\t\t}" + NL + "\t\t\treturn newElement;" + NL + "\t\t}" + NL + "\t}";
+  protected final String TEXT_231 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getCreateStart";
+  protected final String TEXT_232 = "Command(CreateRelationshipRequest req) {";
+  protected final String TEXT_233 = NL + "\t\t";
+  protected final String TEXT_234 = " element = (";
+  protected final String TEXT_235 = ") getSemanticElement();";
+  protected final String TEXT_236 = NL + "\t\tif (";
+  protected final String TEXT_237 = " != null) {";
+  protected final String TEXT_238 = NL + "\t\tif (";
+  protected final String TEXT_239 = ".size() >= ";
+  protected final String TEXT_240 = ") {";
+  protected final String TEXT_241 = NL + "\t\t\treturn ";
+  protected final String TEXT_242 = ".INSTANCE;" + NL + "\t\t}";
+  protected final String TEXT_243 = NL + "\t\treturn new Command() {" + NL + "\t\t};" + NL + "\t}";
+  protected final String TEXT_244 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getCreateComplete";
+  protected final String TEXT_245 = "Command(CreateRelationshipRequest req) {";
+  protected final String TEXT_246 = NL + "\t\tif (!(req.getSource() instanceof ";
+  protected final String TEXT_247 = ")) {" + NL + "\t\t\treturn ";
+  protected final String TEXT_248 = ".INSTANCE;" + NL + "\t\t}";
+  protected final String TEXT_249 = NL + "\t\t";
+  protected final String TEXT_250 = " element = (";
+  protected final String TEXT_251 = ") getSemanticElement();";
+  protected final String TEXT_252 = NL + "\t\tif (";
+  protected final String TEXT_253 = " != null) {";
+  protected final String TEXT_254 = NL + "\t\tif (";
+  protected final String TEXT_255 = ".size() >= ";
+  protected final String TEXT_256 = NL + "\t\t\t|| ";
+  protected final String TEXT_257 = ".contains(req.getSource())";
+  protected final String TEXT_258 = NL + "\t\t\t\t) {";
+  protected final String TEXT_259 = NL + "\t\t\treturn ";
+  protected final String TEXT_260 = ".INSTANCE;" + NL + "\t\t}";
+  protected final String TEXT_261 = NL + "\t\t";
+  protected final String TEXT_262 = " element = (";
+  protected final String TEXT_263 = ") getSemanticElement();" + NL + "\t\tif (";
+  protected final String TEXT_264 = ".contains(req.getSource())) {" + NL + "\t\t\treturn ";
   protected final String TEXT_265 = ".INSTANCE;" + NL + "\t\t}";
   protected final String TEXT_266 = NL + "\t\t";
-  protected final String TEXT_267 = " element = (";
-  protected final String TEXT_268 = ") req.getSource();" + NL + "\t\tif (";
-  protected final String TEXT_269 = ".contains(req.getTarget())) {" + NL + "\t\t\treturn ";
-  protected final String TEXT_270 = ".INSTANCE;" + NL + "\t\t}";
-  protected final String TEXT_271 = NL + "\t\t";
-  protected final String TEXT_272 = " setReq = new ";
-  protected final String TEXT_273 = "(req.getSource()," + NL + "\t\t\t";
-  protected final String TEXT_274 = ".eINSTANCE.get";
-  protected final String TEXT_275 = "(), req.getTarget());" + NL + "\t\treturn getMSLWrapper(new ";
-  protected final String TEXT_276 = "(setReq));" + NL + "\t}";
-  protected final String TEXT_277 = NL + "}";
-  protected final String TEXT_278 = NL;
+  protected final String TEXT_267 = " setReq = new ";
+  protected final String TEXT_268 = "(req.getTarget()," + NL + "\t\t\t";
+  protected final String TEXT_269 = ".eINSTANCE.get";
+  protected final String TEXT_270 = "(), req.getSource());" + NL + "\t\treturn getMSLWrapper(new ";
+  protected final String TEXT_271 = "(setReq));" + NL + "\t}";
+  protected final String TEXT_272 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getCreateStart";
+  protected final String TEXT_273 = "Command(CreateRelationshipRequest req) {";
+  protected final String TEXT_274 = NL + "\t\treturn new Command() {" + NL + "\t\t};" + NL + "\t}";
+  protected final String TEXT_275 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getCreateComplete";
+  protected final String TEXT_276 = "Command(CreateRelationshipRequest req) {";
+  protected final String TEXT_277 = NL + "\t\tif (!(req.getSource() instanceof ";
+  protected final String TEXT_278 = ")) {" + NL + "\t\t\treturn ";
+  protected final String TEXT_279 = ".INSTANCE;" + NL + "\t\t}";
+  protected final String TEXT_280 = NL + "\t\t";
+  protected final String TEXT_281 = " element = (";
+  protected final String TEXT_282 = ") req.getSource();";
+  protected final String TEXT_283 = NL + "\t\tif (";
+  protected final String TEXT_284 = " != null) {";
+  protected final String TEXT_285 = NL + "\t\tif (";
+  protected final String TEXT_286 = ".size() >= ";
+  protected final String TEXT_287 = NL + "\t\t\t|| ";
+  protected final String TEXT_288 = ".contains(req.getTarget())";
+  protected final String TEXT_289 = NL + "\t\t\t\t) {";
+  protected final String TEXT_290 = NL + "\t\t\treturn ";
+  protected final String TEXT_291 = ".INSTANCE;" + NL + "\t\t}";
+  protected final String TEXT_292 = NL + "\t\t";
+  protected final String TEXT_293 = " element = (";
+  protected final String TEXT_294 = ") req.getSource();" + NL + "\t\tif (";
+  protected final String TEXT_295 = ".contains(req.getTarget())) {" + NL + "\t\t\treturn ";
+  protected final String TEXT_296 = ".INSTANCE;" + NL + "\t\t}";
+  protected final String TEXT_297 = NL + "\t\t";
+  protected final String TEXT_298 = " setReq = new ";
+  protected final String TEXT_299 = "(req.getSource()," + NL + "\t\t\t";
+  protected final String TEXT_300 = ".eINSTANCE.get";
+  protected final String TEXT_301 = "(), req.getTarget());" + NL + "\t\treturn getMSLWrapper(new ";
+  protected final String TEXT_302 = "(setReq));" + NL + "\t}";
+  protected final String TEXT_303 = NL + "}";
+  protected final String TEXT_304 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
 		StringBuffer result = new StringBuffer();
@@ -589,7 +615,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	boolean outgoing = true;
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
-		if (nodeMetaClass.equals(modelFacet.getContainmentMetaFeature().getGenClass())) {
+		GenClass outgoingClass = modelFacet.getSourceMetaFeature() == null
+			? modelFacet.getContainmentMetaFeature().getGenClass()
+			: modelFacet.getSourceMetaFeature().getTypeGenClass();
+		if (nodeMetaClass.equals(outgoingClass)) {
 			namePart = OUTGOING_TOKEN + modelFacet.getMetaClass().getName();
 		} else if (nodeMetaClass.equals(modelFacet.getTargetMetaFeature().getTypeGenClass())) {
 			namePart = INCOMING_TOKEN + modelFacet.getMetaClass().getName();
@@ -629,7 +658,8 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_74);
     stringBuffer.append(namePart);
     stringBuffer.append(TEXT_75);
-    			}
+    
+			}
 		}
 
     stringBuffer.append(TEXT_76);
@@ -653,10 +683,12 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 //
 //
 		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
-		GenClass outgoingClass = modelFacet.getContainmentMetaFeature().getGenClass();
+		GenClass outgoingClass = modelFacet.getSourceMetaFeature() == null
+			? modelFacet.getContainmentMetaFeature().getGenClass()
+			: modelFacet.getSourceMetaFeature().getTypeGenClass();
 		GenClass incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
 		GenFeature containmentFeature = modelFacet.getContainmentMetaFeature();
-		GenFeature childFeature = modelFacet.getContainmentMetaFeature();
+		GenFeature childFeature = modelFacet.getChildMetaFeature();
 		int upperContainmentBound = containmentFeature.getEcoreFeature().getUpperBound();
 		int upperChildBound = childFeature.getEcoreFeature().getUpperBound();
 		boolean processChildFeature = !childFeature.isDerived() && !childFeature.equals(containmentFeature);
@@ -670,322 +702,380 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_79);
      // check that containment feature is not set / has capacity for the new element 
     
-			if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
-				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
+				if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
+					String containerClassName = importManager.getImportedName(containmentFeature.getGenClass().getQualifiedInterfaceName());
+					if (modelFacet.getSourceMetaFeature() == null) {
 
     stringBuffer.append(TEXT_80);
-    stringBuffer.append(outgoingClassName);
+    stringBuffer.append(containerClassName);
     stringBuffer.append(TEXT_81);
-    stringBuffer.append(outgoingClassName);
+    stringBuffer.append(containerClassName);
     stringBuffer.append(TEXT_82);
-    
-				if (upperContainmentBound > 0) {
-					if (upperContainmentBound == 1) {
-
+    					} else {
     stringBuffer.append(TEXT_83);
-    stringBuffer.append(getFeatureValueGetter("element", containmentFeature, false, importManager));
+    stringBuffer.append(containerClassName);
     stringBuffer.append(TEXT_84);
-    					} else {
+    stringBuffer.append(containerClassName);
     stringBuffer.append(TEXT_85);
-    stringBuffer.append(getFeatureValueGetter("element", containmentFeature, false, importManager));
+    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
     stringBuffer.append(TEXT_86);
-    stringBuffer.append(upperContainmentBound);
+    stringBuffer.append(containmentFeature.getGenClass().getClassifierAccessorName());
     stringBuffer.append(TEXT_87);
-    					}
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
     stringBuffer.append(TEXT_88);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
-    stringBuffer.append(TEXT_89);
     
-				}
-				if (checkChildFeatureUpperBound) {
-					if (upperChildBound == 1) {
+					}
+					if (upperContainmentBound > 0) {
+						if (upperContainmentBound == 1) {
 
+    stringBuffer.append(TEXT_89);
+    stringBuffer.append(getFeatureValueGetter("element", containmentFeature, false, importManager));
     stringBuffer.append(TEXT_90);
-    stringBuffer.append(getFeatureValueGetter("element", childFeature, false, importManager));
+    						} else {
     stringBuffer.append(TEXT_91);
-    					} else {
+    stringBuffer.append(getFeatureValueGetter("element", containmentFeature, false, importManager));
     stringBuffer.append(TEXT_92);
-    stringBuffer.append(getFeatureValueGetter("element", childFeature, false, importManager));
+    stringBuffer.append(upperContainmentBound);
     stringBuffer.append(TEXT_93);
-    stringBuffer.append(upperChildBound);
+    						}
     stringBuffer.append(TEXT_94);
-    					}
-    stringBuffer.append(TEXT_95);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
-    stringBuffer.append(TEXT_96);
+    stringBuffer.append(TEXT_95);
     
+					}
+					if (checkChildFeatureUpperBound) {
+						if (upperChildBound == 1) {
+
+    stringBuffer.append(TEXT_96);
+    stringBuffer.append(getFeatureValueGetter("element", childFeature, false, importManager));
+    stringBuffer.append(TEXT_97);
+    						} else {
+    stringBuffer.append(TEXT_98);
+    stringBuffer.append(getFeatureValueGetter("element", childFeature, false, importManager));
+    stringBuffer.append(TEXT_99);
+    stringBuffer.append(upperChildBound);
+    stringBuffer.append(TEXT_100);
+    						}
+    stringBuffer.append(TEXT_101);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
+    stringBuffer.append(TEXT_102);
+    
+					}
 				}
-			}
 
      // create always executable command 
-    stringBuffer.append(TEXT_97);
+    stringBuffer.append(TEXT_103);
     
 			}
 			if (genLink.isIncomingCreationAllowed()) {
 
-    stringBuffer.append(TEXT_98);
+    stringBuffer.append(TEXT_104);
     stringBuffer.append(namePart);
-    stringBuffer.append(TEXT_99);
+    stringBuffer.append(TEXT_105);
      // check that source is valid 
-    stringBuffer.append(TEXT_100);
+    stringBuffer.append(TEXT_106);
     stringBuffer.append(importManager.getImportedName(incomingClass.getQualifiedInterfaceName()));
-    stringBuffer.append(TEXT_101);
+    stringBuffer.append(TEXT_107);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
-    stringBuffer.append(TEXT_102);
+    stringBuffer.append(TEXT_108);
+    
+				String containerClassName = importManager.getImportedName(containmentFeature.getGenClass().getQualifiedInterfaceName());
+				if (modelFacet.getSourceMetaFeature() == null) {
+
+    stringBuffer.append(TEXT_109);
+    stringBuffer.append(containerClassName);
+    stringBuffer.append(TEXT_110);
+    stringBuffer.append(containerClassName);
+    stringBuffer.append(TEXT_111);
+    				} else {
+    stringBuffer.append(TEXT_112);
+    stringBuffer.append(containerClassName);
+    stringBuffer.append(TEXT_113);
+    stringBuffer.append(containerClassName);
+    stringBuffer.append(TEXT_114);
+    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
+    stringBuffer.append(TEXT_115);
+    stringBuffer.append(containmentFeature.getGenClass().getClassifierAccessorName());
+    stringBuffer.append(TEXT_116);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
+    stringBuffer.append(TEXT_117);
+    				}
      // check that containment feature is not set / has capacity for the new element 
     
-			if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
-				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
+				if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
+					if (upperContainmentBound > 0) {
+						if (upperContainmentBound == 1) {
 
-    stringBuffer.append(TEXT_103);
-    stringBuffer.append(outgoingClassName);
-    stringBuffer.append(TEXT_104);
-    stringBuffer.append(outgoingClassName);
-    stringBuffer.append(TEXT_105);
-    
-				if (upperContainmentBound > 0) {
-					if (upperContainmentBound == 1) {
-
-    stringBuffer.append(TEXT_106);
-    stringBuffer.append(getFeatureValueGetter("element", containmentFeature, false, importManager));
-    stringBuffer.append(TEXT_107);
-    					} else {
-    stringBuffer.append(TEXT_108);
-    stringBuffer.append(getFeatureValueGetter("element", containmentFeature, false, importManager));
-    stringBuffer.append(TEXT_109);
-    stringBuffer.append(upperContainmentBound);
-    stringBuffer.append(TEXT_110);
-    					}
-    stringBuffer.append(TEXT_111);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
-    stringBuffer.append(TEXT_112);
-    
-				}
-				if (checkChildFeatureUpperBound) {
-					if (upperChildBound == 1) {
-
-    stringBuffer.append(TEXT_113);
-    stringBuffer.append(getFeatureValueGetter("element", childFeature, false, importManager));
-    stringBuffer.append(TEXT_114);
-    					} else {
-    stringBuffer.append(TEXT_115);
-    stringBuffer.append(getFeatureValueGetter("element", childFeature, false, importManager));
-    stringBuffer.append(TEXT_116);
-    stringBuffer.append(upperChildBound);
-    stringBuffer.append(TEXT_117);
-    					}
     stringBuffer.append(TEXT_118);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
+    stringBuffer.append(getFeatureValueGetter("element", containmentFeature, false, importManager));
     stringBuffer.append(TEXT_119);
-    
-				}
-			}
-
-     // create semantic command 
+    						} else {
     stringBuffer.append(TEXT_120);
-    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
+    stringBuffer.append(getFeatureValueGetter("element", containmentFeature, false, importManager));
     stringBuffer.append(TEXT_121);
-    stringBuffer.append(modelFacet.getContainmentMetaFeature().getFeatureAccessorName());
+    stringBuffer.append(upperContainmentBound);
     stringBuffer.append(TEXT_122);
-    stringBuffer.append(namePart);
+    						}
     stringBuffer.append(TEXT_123);
-    stringBuffer.append(namePart);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
     stringBuffer.append(TEXT_124);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateRelationshipCommand"));
+    
+					}
+					if (checkChildFeatureUpperBound) {
+						if (upperChildBound == 1) {
+
     stringBuffer.append(TEXT_125);
-    stringBuffer.append(namePart);
+    stringBuffer.append(getFeatureValueGetter("element", childFeature, false, importManager));
     stringBuffer.append(TEXT_126);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClass"));
+    						} else {
     stringBuffer.append(TEXT_127);
-    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
+    stringBuffer.append(getFeatureValueGetter("element", childFeature, false, importManager));
     stringBuffer.append(TEXT_128);
-    stringBuffer.append(outgoingClass.getClassifierAccessorName());
+    stringBuffer.append(upperChildBound);
     stringBuffer.append(TEXT_129);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    						}
     stringBuffer.append(TEXT_130);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
     stringBuffer.append(TEXT_131);
     
-			String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());
-			String containerMetaClass = importManager.getImportedName(childFeature.getGenClass().getQualifiedInterfaceName());
+					}
+				}
 
+     // create semantic command 
     stringBuffer.append(TEXT_132);
-    stringBuffer.append(metaClassName);
+    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
     stringBuffer.append(TEXT_133);
-    stringBuffer.append(metaClassName);
+    stringBuffer.append(containmentFeature.getFeatureAccessorName());
     stringBuffer.append(TEXT_134);
-    stringBuffer.append(getFeatureValueSetterPrefix("newElement", modelFacet.getTargetMetaFeature(), false, importManager));
+    stringBuffer.append(namePart);
     stringBuffer.append(TEXT_135);
-    stringBuffer.append(importManager.getImportedName(incomingClass.getQualifiedInterfaceName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_136);
-    			if (processChildFeature) {
+    stringBuffer.append(namePart);
     stringBuffer.append(TEXT_137);
-    stringBuffer.append(containerMetaClass);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateRelationshipCommand"));
     stringBuffer.append(TEXT_138);
-    stringBuffer.append(containerMetaClass);
+    stringBuffer.append(namePart);
     stringBuffer.append(TEXT_139);
-    				if (childFeature.isListType()) {
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClass"));
     stringBuffer.append(TEXT_140);
-    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
     stringBuffer.append(TEXT_141);
-    stringBuffer.append(childFeature.getGetAccessor());
+    stringBuffer.append(containmentFeature.getGenClass().getClassifierAccessorName());
     stringBuffer.append(TEXT_142);
-    				} else {
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_143);
-    stringBuffer.append(getFeatureValueSetterPrefix("container", childFeature, false, importManager));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_144);
-    				}
+    				String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());
     stringBuffer.append(TEXT_145);
-    
-			}
-			if (modelFacet.getModelElementInitializer() != null) { 
-
+    stringBuffer.append(metaClassName);
     stringBuffer.append(TEXT_146);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
+    stringBuffer.append(metaClassName);
     stringBuffer.append(TEXT_147);
-    stringBuffer.append(genLink.getUniqueIdentifier());
+    stringBuffer.append(getFeatureValueSetterPrefix("newElement", modelFacet.getTargetMetaFeature(), false, importManager));
     stringBuffer.append(TEXT_148);
-    			}
+    stringBuffer.append(importManager.getImportedName(incomingClass.getQualifiedInterfaceName()));
     stringBuffer.append(TEXT_149);
+    				if (modelFacet.getSourceMetaFeature() != null) {
+    stringBuffer.append(TEXT_150);
+    stringBuffer.append(getFeatureValueSetterPrefix("newElement", modelFacet.getSourceMetaFeature(), false, importManager));
+    stringBuffer.append(TEXT_151);
+    stringBuffer.append(importManager.getImportedName(outgoingClass.getQualifiedInterfaceName()));
+    stringBuffer.append(TEXT_152);
+    
+				}
+				if (processChildFeature) {
+
+    stringBuffer.append(TEXT_153);
+    stringBuffer.append(containerClassName);
+    stringBuffer.append(TEXT_154);
+    stringBuffer.append(containerClassName);
+    stringBuffer.append(TEXT_155);
+    					if (childFeature.isListType()) {
+    stringBuffer.append(TEXT_156);
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(TEXT_157);
+    stringBuffer.append(childFeature.getGetAccessor());
+    stringBuffer.append(TEXT_158);
+    					} else {
+    stringBuffer.append(TEXT_159);
+    stringBuffer.append(getFeatureValueSetterPrefix("container", childFeature, false, importManager));
+    stringBuffer.append(TEXT_160);
+    					}
+    stringBuffer.append(TEXT_161);
+    
+				}
+				if (modelFacet.getModelElementInitializer() != null) { 
+
+    stringBuffer.append(TEXT_162);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
+    stringBuffer.append(TEXT_163);
+    stringBuffer.append(genLink.getUniqueIdentifier());
+    stringBuffer.append(TEXT_164);
+    				}
+    stringBuffer.append(TEXT_165);
     
 			}
 		} else if (nodeMetaClass.equals(incomingClass)) {
 			namePart = INCOMING_TOKEN + modelFacet.getMetaClass().getName() + genLink.getVisualID();
 			if (genLink.isIncomingCreationAllowed()) {
 
-    stringBuffer.append(TEXT_150);
+    stringBuffer.append(TEXT_166);
     stringBuffer.append(namePart);
-    stringBuffer.append(TEXT_151);
+    stringBuffer.append(TEXT_167);
      // no feasible restrictions here 
-    stringBuffer.append(TEXT_152);
+    stringBuffer.append(TEXT_168);
     
 			}
 			if (genLink.isOutgoingCreationAllowed()) {
 
-    stringBuffer.append(TEXT_153);
+    stringBuffer.append(TEXT_169);
     stringBuffer.append(namePart);
-    stringBuffer.append(TEXT_154);
+    stringBuffer.append(TEXT_170);
      // check that source is valid 
-    stringBuffer.append(TEXT_155);
+    stringBuffer.append(TEXT_171);
     stringBuffer.append(importManager.getImportedName(outgoingClass.getQualifiedInterfaceName()));
-    stringBuffer.append(TEXT_156);
+    stringBuffer.append(TEXT_172);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
-    stringBuffer.append(TEXT_157);
+    stringBuffer.append(TEXT_173);
+    
+				String containerClassName = importManager.getImportedName(containmentFeature.getGenClass().getQualifiedInterfaceName());
+				if (modelFacet.getSourceMetaFeature() == null) {
+
+    stringBuffer.append(TEXT_174);
+    stringBuffer.append(containerClassName);
+    stringBuffer.append(TEXT_175);
+    stringBuffer.append(containerClassName);
+    stringBuffer.append(TEXT_176);
+    				} else {
+    stringBuffer.append(TEXT_177);
+    stringBuffer.append(containerClassName);
+    stringBuffer.append(TEXT_178);
+    stringBuffer.append(containerClassName);
+    stringBuffer.append(TEXT_179);
+    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
+    stringBuffer.append(TEXT_180);
+    stringBuffer.append(containmentFeature.getGenClass().getClassifierAccessorName());
+    stringBuffer.append(TEXT_181);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
+    stringBuffer.append(TEXT_182);
+    				}
      // check that containment feature is not set / has capacity for the new element 
     
 				if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
-					String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
-
-    stringBuffer.append(TEXT_158);
-    stringBuffer.append(outgoingClassName);
-    stringBuffer.append(TEXT_159);
-    stringBuffer.append(outgoingClassName);
-    stringBuffer.append(TEXT_160);
-    
 					if (upperContainmentBound > 0) {
 						if (upperContainmentBound == 1) {
 
-    stringBuffer.append(TEXT_161);
+    stringBuffer.append(TEXT_183);
     stringBuffer.append(getFeatureValueGetter("element", containmentFeature, false, importManager));
-    stringBuffer.append(TEXT_162);
+    stringBuffer.append(TEXT_184);
     						} else {
-    stringBuffer.append(TEXT_163);
+    stringBuffer.append(TEXT_185);
     stringBuffer.append(getFeatureValueGetter("element", containmentFeature, false, importManager));
-    stringBuffer.append(TEXT_164);
+    stringBuffer.append(TEXT_186);
     stringBuffer.append(upperContainmentBound);
-    stringBuffer.append(TEXT_165);
+    stringBuffer.append(TEXT_187);
     						}
-    stringBuffer.append(TEXT_166);
+    stringBuffer.append(TEXT_188);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
-    stringBuffer.append(TEXT_167);
+    stringBuffer.append(TEXT_189);
     
 					}
 					if (checkChildFeatureUpperBound) {
 						if (upperChildBound == 1) {
 
-    stringBuffer.append(TEXT_168);
+    stringBuffer.append(TEXT_190);
     stringBuffer.append(getFeatureValueGetter("element", childFeature, false, importManager));
-    stringBuffer.append(TEXT_169);
+    stringBuffer.append(TEXT_191);
     						} else {
-    stringBuffer.append(TEXT_170);
+    stringBuffer.append(TEXT_192);
     stringBuffer.append(getFeatureValueGetter("element", childFeature, false, importManager));
-    stringBuffer.append(TEXT_171);
+    stringBuffer.append(TEXT_193);
     stringBuffer.append(upperChildBound);
-    stringBuffer.append(TEXT_172);
+    stringBuffer.append(TEXT_194);
     						}
-    stringBuffer.append(TEXT_173);
+    stringBuffer.append(TEXT_195);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
-    stringBuffer.append(TEXT_174);
+    stringBuffer.append(TEXT_196);
     
 					}
 				}
 
      // create semantic command 
-    stringBuffer.append(TEXT_175);
-    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
-    stringBuffer.append(TEXT_176);
-    stringBuffer.append(modelFacet.getContainmentMetaFeature().getFeatureAccessorName());
-    stringBuffer.append(TEXT_177);
-    stringBuffer.append(namePart);
-    stringBuffer.append(TEXT_178);
-    stringBuffer.append(namePart);
-    stringBuffer.append(TEXT_179);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateRelationshipCommand"));
-    stringBuffer.append(TEXT_180);
-    stringBuffer.append(namePart);
-    stringBuffer.append(TEXT_181);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClass"));
-    stringBuffer.append(TEXT_182);
-    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
-    stringBuffer.append(TEXT_183);
-    stringBuffer.append(outgoingClass.getClassifierAccessorName());
-    stringBuffer.append(TEXT_184);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
-    stringBuffer.append(TEXT_185);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
-    stringBuffer.append(TEXT_186);
-    
-			String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());
-			String containerMetaClass = importManager.getImportedName(childFeature.getGenClass().getQualifiedInterfaceName());
-
-    stringBuffer.append(TEXT_187);
-    stringBuffer.append(metaClassName);
-    stringBuffer.append(TEXT_188);
-    stringBuffer.append(metaClassName);
-    stringBuffer.append(TEXT_189);
-    stringBuffer.append(getFeatureValueSetterPrefix("newElement", modelFacet.getTargetMetaFeature(), false, importManager));
-    stringBuffer.append(TEXT_190);
-    stringBuffer.append(importManager.getImportedName(incomingClass.getQualifiedInterfaceName()));
-    stringBuffer.append(TEXT_191);
-    			if (processChildFeature) {
-    stringBuffer.append(TEXT_192);
-    stringBuffer.append(containerMetaClass);
-    stringBuffer.append(TEXT_193);
-    stringBuffer.append(containerMetaClass);
-    stringBuffer.append(TEXT_194);
-    				if (childFeature.isListType()) {
-    stringBuffer.append(TEXT_195);
-    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
-    stringBuffer.append(TEXT_196);
-    stringBuffer.append(childFeature.getGetAccessor());
     stringBuffer.append(TEXT_197);
-    				} else {
+    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
     stringBuffer.append(TEXT_198);
-    stringBuffer.append(getFeatureValueSetterPrefix("container", childFeature, false, importManager));
+    stringBuffer.append(modelFacet.getContainmentMetaFeature().getFeatureAccessorName());
     stringBuffer.append(TEXT_199);
-    				}
+    stringBuffer.append(namePart);
     stringBuffer.append(TEXT_200);
-    
-			}
-			if (modelFacet.getModelElementInitializer() != null) { 
-
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_201);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
+    stringBuffer.append(namePart);
     stringBuffer.append(TEXT_202);
-    stringBuffer.append(genLink.getUniqueIdentifier());
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateRelationshipCommand"));
     stringBuffer.append(TEXT_203);
-    			}
+    stringBuffer.append(namePart);
     stringBuffer.append(TEXT_204);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClass"));
+    stringBuffer.append(TEXT_205);
+    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
+    stringBuffer.append(TEXT_206);
+    stringBuffer.append(containmentFeature.getGenClass().getClassifierAccessorName());
+    stringBuffer.append(TEXT_207);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_208);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_209);
+    				String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());
+    stringBuffer.append(TEXT_210);
+    stringBuffer.append(metaClassName);
+    stringBuffer.append(TEXT_211);
+    stringBuffer.append(metaClassName);
+    stringBuffer.append(TEXT_212);
+    stringBuffer.append(getFeatureValueSetterPrefix("newElement", modelFacet.getTargetMetaFeature(), false, importManager));
+    stringBuffer.append(TEXT_213);
+    stringBuffer.append(importManager.getImportedName(incomingClass.getQualifiedInterfaceName()));
+    stringBuffer.append(TEXT_214);
+    				if (modelFacet.getSourceMetaFeature() != null) {
+    stringBuffer.append(TEXT_215);
+    stringBuffer.append(getFeatureValueSetterPrefix("newElement", modelFacet.getSourceMetaFeature(), false, importManager));
+    stringBuffer.append(TEXT_216);
+    stringBuffer.append(importManager.getImportedName(outgoingClass.getQualifiedInterfaceName()));
+    stringBuffer.append(TEXT_217);
+    
+				}
+				if (processChildFeature) {
+
+    stringBuffer.append(TEXT_218);
+    stringBuffer.append(containerClassName);
+    stringBuffer.append(TEXT_219);
+    stringBuffer.append(containerClassName);
+    stringBuffer.append(TEXT_220);
+    					if (childFeature.isListType()) {
+    stringBuffer.append(TEXT_221);
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(TEXT_222);
+    stringBuffer.append(childFeature.getGetAccessor());
+    stringBuffer.append(TEXT_223);
+    					} else {
+    stringBuffer.append(TEXT_224);
+    stringBuffer.append(getFeatureValueSetterPrefix("container", childFeature, false, importManager));
+    stringBuffer.append(TEXT_225);
+    					}
+    stringBuffer.append(TEXT_226);
+    
+				}
+				if (modelFacet.getModelElementInitializer() != null) { 
+
+    stringBuffer.append(TEXT_227);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
+    stringBuffer.append(TEXT_228);
+    stringBuffer.append(genLink.getUniqueIdentifier());
+    stringBuffer.append(TEXT_229);
+    				}
+    stringBuffer.append(TEXT_230);
     
 			}
 		}
@@ -1007,192 +1097,192 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			namePart = OUTGOING_TOKEN + metaFeature.getFeatureAccessorName() + genLink.getVisualID();
 			if (genLink.isOutgoingCreationAllowed()) {
 
-    stringBuffer.append(TEXT_205);
+    stringBuffer.append(TEXT_231);
     stringBuffer.append(namePart);
-    stringBuffer.append(TEXT_206);
+    stringBuffer.append(TEXT_232);
      // check that feature is not set / has capacity for the new value 
     
 			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
 				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
 
-    stringBuffer.append(TEXT_207);
+    stringBuffer.append(TEXT_233);
     stringBuffer.append(outgoingClassName);
-    stringBuffer.append(TEXT_208);
+    stringBuffer.append(TEXT_234);
     stringBuffer.append(outgoingClassName);
-    stringBuffer.append(TEXT_209);
+    stringBuffer.append(TEXT_235);
     				if (upperBound == 1) {
-    stringBuffer.append(TEXT_210);
+    stringBuffer.append(TEXT_236);
     stringBuffer.append(getFeatureValueGetter("element", metaFeature, false, importManager));
-    stringBuffer.append(TEXT_211);
+    stringBuffer.append(TEXT_237);
     				} else {
-    stringBuffer.append(TEXT_212);
+    stringBuffer.append(TEXT_238);
     stringBuffer.append(getFeatureValueGetter("element", metaFeature, false, importManager));
-    stringBuffer.append(TEXT_213);
+    stringBuffer.append(TEXT_239);
     stringBuffer.append(upperBound);
-    stringBuffer.append(TEXT_214);
+    stringBuffer.append(TEXT_240);
     				}
-    stringBuffer.append(TEXT_215);
+    stringBuffer.append(TEXT_241);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
-    stringBuffer.append(TEXT_216);
+    stringBuffer.append(TEXT_242);
     			}
      // create always executable command 
-    stringBuffer.append(TEXT_217);
+    stringBuffer.append(TEXT_243);
     
 			}
 			if (genLink.isIncomingCreationAllowed()) {
 
-    stringBuffer.append(TEXT_218);
+    stringBuffer.append(TEXT_244);
     stringBuffer.append(namePart);
-    stringBuffer.append(TEXT_219);
+    stringBuffer.append(TEXT_245);
      // check that source is valid 
-    stringBuffer.append(TEXT_220);
+    stringBuffer.append(TEXT_246);
     stringBuffer.append(importManager.getImportedName(incomingClass.getQualifiedInterfaceName()));
-    stringBuffer.append(TEXT_221);
+    stringBuffer.append(TEXT_247);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
-    stringBuffer.append(TEXT_222);
+    stringBuffer.append(TEXT_248);
      // check that feature is not set / has capacity for the new value / is unique 
     
 			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
 				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
 
-    stringBuffer.append(TEXT_223);
+    stringBuffer.append(TEXT_249);
     stringBuffer.append(outgoingClassName);
-    stringBuffer.append(TEXT_224);
+    stringBuffer.append(TEXT_250);
     stringBuffer.append(outgoingClassName);
-    stringBuffer.append(TEXT_225);
+    stringBuffer.append(TEXT_251);
     				if (upperBound == 1) {
-    stringBuffer.append(TEXT_226);
+    stringBuffer.append(TEXT_252);
     stringBuffer.append(getFeatureValueGetter("element", metaFeature, false, importManager));
-    stringBuffer.append(TEXT_227);
+    stringBuffer.append(TEXT_253);
     				} else {
-    stringBuffer.append(TEXT_228);
+    stringBuffer.append(TEXT_254);
     stringBuffer.append(getFeatureValueGetter("element", metaFeature, false, importManager));
-    stringBuffer.append(TEXT_229);
+    stringBuffer.append(TEXT_255);
     stringBuffer.append(upperBound);
     					if (metaFeature.getEcoreFeature().isUnique()) {
-    stringBuffer.append(TEXT_230);
+    stringBuffer.append(TEXT_256);
     stringBuffer.append(getFeatureValueGetter("element", metaFeature, false, importManager));
-    stringBuffer.append(TEXT_231);
+    stringBuffer.append(TEXT_257);
     					}
-    stringBuffer.append(TEXT_232);
+    stringBuffer.append(TEXT_258);
     				}
-    stringBuffer.append(TEXT_233);
+    stringBuffer.append(TEXT_259);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
-    stringBuffer.append(TEXT_234);
+    stringBuffer.append(TEXT_260);
     
 			} else if (metaFeature.getEcoreFeature().isUnique()) {
 				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
 
-    stringBuffer.append(TEXT_235);
+    stringBuffer.append(TEXT_261);
     stringBuffer.append(outgoingClassName);
-    stringBuffer.append(TEXT_236);
+    stringBuffer.append(TEXT_262);
     stringBuffer.append(outgoingClassName);
-    stringBuffer.append(TEXT_237);
+    stringBuffer.append(TEXT_263);
     stringBuffer.append(getFeatureValueGetter("element", metaFeature, false, importManager));
-    stringBuffer.append(TEXT_238);
+    stringBuffer.append(TEXT_264);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
-    stringBuffer.append(TEXT_239);
+    stringBuffer.append(TEXT_265);
     			}
      // create semantic command 
-    stringBuffer.append(TEXT_240);
+    stringBuffer.append(TEXT_266);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest"));
-    stringBuffer.append(TEXT_241);
+    stringBuffer.append(TEXT_267);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest"));
-    stringBuffer.append(TEXT_242);
+    stringBuffer.append(TEXT_268);
     stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
-    stringBuffer.append(TEXT_243);
+    stringBuffer.append(TEXT_269);
     stringBuffer.append(metaFeature.getFeatureAccessorName());
-    stringBuffer.append(TEXT_244);
+    stringBuffer.append(TEXT_270);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand"));
-    stringBuffer.append(TEXT_245);
+    stringBuffer.append(TEXT_271);
     
 			}
 		} else if (nodeMetaClass.equals(incomingClass)) {
 			namePart = INCOMING_TOKEN + metaFeature.getFeatureAccessorName() + genLink.getVisualID();
 			if (genLink.isIncomingCreationAllowed()) {
 
-    stringBuffer.append(TEXT_246);
+    stringBuffer.append(TEXT_272);
     stringBuffer.append(namePart);
-    stringBuffer.append(TEXT_247);
+    stringBuffer.append(TEXT_273);
      // no feasible restrictions here 
-    stringBuffer.append(TEXT_248);
+    stringBuffer.append(TEXT_274);
     
 			}
 			if (genLink.isOutgoingCreationAllowed()) {
 
-    stringBuffer.append(TEXT_249);
+    stringBuffer.append(TEXT_275);
     stringBuffer.append(namePart);
-    stringBuffer.append(TEXT_250);
+    stringBuffer.append(TEXT_276);
      // check that source is valid 
-    stringBuffer.append(TEXT_251);
+    stringBuffer.append(TEXT_277);
     stringBuffer.append(importManager.getImportedName(outgoingClass.getQualifiedInterfaceName()));
-    stringBuffer.append(TEXT_252);
+    stringBuffer.append(TEXT_278);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
-    stringBuffer.append(TEXT_253);
+    stringBuffer.append(TEXT_279);
      // check that feature is not set / has capacity for the new value / is unique 
     
 			if (upperBound > 0) { // consider UNBOUNDED_MULTIPLICITY and UNSPECIFIED_MULTIPLICITY
 				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
 
-    stringBuffer.append(TEXT_254);
+    stringBuffer.append(TEXT_280);
     stringBuffer.append(outgoingClassName);
-    stringBuffer.append(TEXT_255);
+    stringBuffer.append(TEXT_281);
     stringBuffer.append(outgoingClassName);
-    stringBuffer.append(TEXT_256);
+    stringBuffer.append(TEXT_282);
     				if (upperBound == 1) {
-    stringBuffer.append(TEXT_257);
+    stringBuffer.append(TEXT_283);
     stringBuffer.append(getFeatureValueGetter("element", metaFeature, false, importManager));
-    stringBuffer.append(TEXT_258);
+    stringBuffer.append(TEXT_284);
     				} else {
-    stringBuffer.append(TEXT_259);
+    stringBuffer.append(TEXT_285);
     stringBuffer.append(getFeatureValueGetter("element", metaFeature, false, importManager));
-    stringBuffer.append(TEXT_260);
+    stringBuffer.append(TEXT_286);
     stringBuffer.append(upperBound);
     					if (metaFeature.getEcoreFeature().isUnique()) {
-    stringBuffer.append(TEXT_261);
+    stringBuffer.append(TEXT_287);
     stringBuffer.append(getFeatureValueGetter("element", metaFeature, false, importManager));
-    stringBuffer.append(TEXT_262);
+    stringBuffer.append(TEXT_288);
     					}
-    stringBuffer.append(TEXT_263);
+    stringBuffer.append(TEXT_289);
     				}
-    stringBuffer.append(TEXT_264);
+    stringBuffer.append(TEXT_290);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
-    stringBuffer.append(TEXT_265);
+    stringBuffer.append(TEXT_291);
     
 			} else if (metaFeature.getEcoreFeature().isUnique()) {
 				String outgoingClassName = importManager.getImportedName(outgoingClass.getQualifiedInterfaceName());
 
-    stringBuffer.append(TEXT_266);
+    stringBuffer.append(TEXT_292);
     stringBuffer.append(outgoingClassName);
-    stringBuffer.append(TEXT_267);
+    stringBuffer.append(TEXT_293);
     stringBuffer.append(outgoingClassName);
-    stringBuffer.append(TEXT_268);
+    stringBuffer.append(TEXT_294);
     stringBuffer.append(getFeatureValueGetter("element", metaFeature, false, importManager));
-    stringBuffer.append(TEXT_269);
+    stringBuffer.append(TEXT_295);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
-    stringBuffer.append(TEXT_270);
+    stringBuffer.append(TEXT_296);
     			}
      // create semantic command 
-    stringBuffer.append(TEXT_271);
+    stringBuffer.append(TEXT_297);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest"));
-    stringBuffer.append(TEXT_272);
+    stringBuffer.append(TEXT_298);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest"));
-    stringBuffer.append(TEXT_273);
+    stringBuffer.append(TEXT_299);
     stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
-    stringBuffer.append(TEXT_274);
+    stringBuffer.append(TEXT_300);
     stringBuffer.append(metaFeature.getFeatureAccessorName());
-    stringBuffer.append(TEXT_275);
+    stringBuffer.append(TEXT_301);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand"));
-    stringBuffer.append(TEXT_276);
+    stringBuffer.append(TEXT_302);
     
 			}
 		}
 	}
 }
 
-    stringBuffer.append(TEXT_277);
+    stringBuffer.append(TEXT_303);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_278);
+    stringBuffer.append(TEXT_304);
     return stringBuffer.toString();
   }
 }
