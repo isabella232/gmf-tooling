@@ -48,7 +48,7 @@ public class ImportUtil {
 			importsBuf.append(NL + "import " + importName + ";");
 		}
 
-		importStringBuffer.insert(importInsertionPoint, importsBuf);
+		importStringBuffer.insert(importInsertionPoint, importsBuf.toString());
 	}
 
 	// one from GenModelImpl
