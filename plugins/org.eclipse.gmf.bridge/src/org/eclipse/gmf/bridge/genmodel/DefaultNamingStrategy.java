@@ -14,128 +14,152 @@ package org.eclipse.gmf.bridge.genmodel;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.codegen.util.CodeGenUtil;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.diadef.Compartment;
-import org.eclipse.gmf.diadef.Node;
+import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
-import org.eclipse.jdt.core.JavaConventions;
 
 /**
  * In most cases it should be sufficient to override <code>getXXXSuffix()</code>
  * methods to get nice and valid class names.
  * Implementation keeps track of produced names and tries to create unique name 
- * appending numerical suffix to it. Use {@link #clearUniqueNameCache()} to clean 
- * names cache in case you reuse the instance. 
+ * appending numerical suffix to it. Use {@link #clearNamesCache()} to clean 
+ * names cache in case you reuse the instance.
  * 
  * @author artem
  */
 public class DefaultNamingStrategy extends NamingStrategy {
-	private final Set/* <String> */myNamesCache = new HashSet();
 
-	public String createClassName(CanvasMapping mapping) {
-		return translateNameToJavaIdentifier(mapping.getDiagramCanvas().getName() + getCanvasSuffix());
-	}
-	
-	public String createClassName(NodeMapping nme) {
-		return translateNameToJavaIdentifier(nme.getDiagramNode().getName() + getNodeSuffix());
+	protected Set/* <String> */myNamesCache;
+
+	public DefaultNamingStrategy() {
+		myNamesCache = new HashSet();
 	}
 
-	public String createLableTextClassName(NodeMapping nme) {
-		return translateNameToJavaIdentifier(nme.getDiagramNode().getName() + " " + (nme.getEditFeature() != null ? nme.getEditFeature().getName() : "LabelText" + nme.hashCode()) + getNodeLabelSuffix());
-	}
-	
-	public String createClassName(ChildNodeMapping chnme) {
-		return translateNameToJavaIdentifier(chnme.getDiagramNode().getName() + getChildNodeSuffix());
-	}
-	
-	public String createLableTextClassName(ChildNodeMapping chnme) {
-		return translateNameToJavaIdentifier(chnme.getDiagramNode().getName() + " " + (chnme.getEditFeature() != null ? chnme.getEditFeature().getName() : "LabelText" + chnme.hashCode()) + getChildNodeLabelSuffix());
+	public DefaultNamingStrategy(Set namesCache) {
+		myNamesCache = namesCache;
+		if (myNamesCache == null) {
+			myNamesCache = new HashSet();
+		}
 	}
 
-	public String createClassName(LinkMapping lme) {
-		return translateNameToJavaIdentifier(lme.getDiagramLink().getName() + getLinkSuffix());
-	}
-
-	public String createLableClassName(LinkMapping lme) {
-		return translateNameToJavaIdentifier(lme.getDiagramLink().getName() + " " + (lme.getLabelEditFeature() != null ? lme.getLabelEditFeature().getName() : "Label" + lme.hashCode()) + getLinkLabelSuffix());
-	}
-
-	public String createLableTextClassName(LinkMapping lme) {
-		return translateNameToJavaIdentifier(lme.getDiagramLink().getName() + " " + (lme.getLabelEditFeature() != null ? lme.getLabelEditFeature().getName() : "LabelText" + lme.hashCode()) + getLinkLabelTextSuffix());
-	}
-	
-	public String createClassName(Compartment compartment) {
-		return translateNameToJavaIdentifier(((Node) compartment.eContainer()).getName() + " " + compartment.getName() + getCompartmentSuffix());
-	}
-	
-	protected String getNodeLabelSuffix() {
-		return "";
-	}
-	
-	protected String getLinkLabelSuffix() {
-		return "";
-	}
-	
-	protected String getLinkLabelTextSuffix() {
-		return "Text" + getLinkLabelSuffix();
-	}
-
-	protected String getCompartmentSuffix() {
-		return "";
-	}
-
-	protected String getLinkSuffix() {
-		return "";
-	}
-
-	protected String getNodeSuffix() {
-		return "";
-	}
-
-	protected String getCanvasSuffix() {
-		return "";
-	}
-
-	protected String getChildNodeSuffix() {
-		return "";
-	}
-	
-	protected String getChildNodeLabelSuffix() {
-		return "";
-	}
-
-	public void clearUniqueNameCache() {
+	public void reset() {
 		myNamesCache.clear();
 	}
 
-	protected String ensureUnique(String name) {
-		int i = 2;
-		while (myNamesCache.contains(name)) {
-			name = name + String.valueOf(i++); 
+	public String createCanvasClassName(CanvasMapping mapping, String suffix) {
+		if (mapping.getDomainMetaElement() == null) {
+			return null;
 		}
-		return name;
+		return createClassName(mapping.getDomainMetaElement().getName(), getCanvasSuffix(suffix));
 	}
 
-	protected String translateNameToJavaIdentifier(String name) {
-		name = name.trim();
-		IStatus s = JavaConventions.validateJavaTypeName(name);
-		if (s.getSeverity() != IStatus.ERROR) {
-			return name;
+	public String createNodeClassName(NodeMapping mapping, String suffix) {
+		if (mapping.getDomainMetaElement() == null) {
+			return null;
 		}
-		StringBuffer sb = new StringBuffer(name.length());
-		if (!Character.isJavaIdentifierStart(name.charAt(0)) && Character.isJavaIdentifierPart(name.charAt(0))) {
-			sb.append('_');
+		return createClassName(mapping.getDomainMetaElement().getName(), getNodeSuffix(suffix));
+	}
+
+	public String createChildNodeClassName(ChildNodeMapping mapping, String suffix) {
+		if (mapping.getDomainMetaElement() == null) {
+			return null;
 		}
-		for (int i = 0; i < name.length(); i++) {
-			if (Character.isJavaIdentifierPart(name.charAt(i))) {
-				sb.append(name.charAt(i));
-			} else {
-				sb.append('_');
-			}
+		return createClassName(mapping.getDomainMetaElement().getName(), getChildNodeSuffix(suffix));
+	}
+
+	public String createCompartmentClassName(AbstractNodeMapping mapping, Compartment compartment, String suffix) {
+		if (mapping.getDomainMetaElement() == null) {
+			return null;
 		}
-		return ensureUnique(sb.toString());
+		return createClassName(mapping.getDomainMetaElement().getName() + '_' + compartment.getName(), getCompartmentSuffix(suffix));
+	}
+
+	public String createNodeLabelClassName(AbstractNodeMapping mapping, EStructuralFeature labelFeature, String suffix) {
+		if (mapping.getDomainMetaElement() == null) {
+			return null;
+		}
+		return createClassName(mapping.getDomainMetaElement().getName() + '_' + labelFeature.getName(), getCompartmentSuffix(suffix));
+	}
+
+	public String createLinkClassName(LinkMapping mapping, String suffix) {
+		if (mapping.getDomainMetaElement() != null) {
+			return createClassName(mapping.getDomainMetaElement().getName(), getLinkSuffix(suffix));
+		} else if (mapping.getLinkMetaFeature() != null) {
+			return createClassName(mapping.getLinkMetaFeature().getName(), getLinkSuffix(suffix));
+		}
+		return null;
+	}
+
+	public String createLinkLabelClassName(LinkMapping mapping, EStructuralFeature labelFeature, String suffix) {
+		if (mapping.getDomainMetaElement() != null) {
+			return createClassName(mapping.getDomainMetaElement().getName() + '_' + labelFeature.getName(), getLinkSuffix(suffix));
+		} else if (mapping.getLinkMetaFeature() != null) {
+			return createClassName(mapping.getLinkMetaFeature().getName() + '_' + labelFeature.getName(), getLinkSuffix(suffix));
+		}
+		return null;
+	}
+
+	/**
+	 * Returns specific class suffix instead of the specified default suffix.
+	 * Returned value should be valid java class name suffix.
+	 */
+	protected String getCanvasSuffix(String suffix) {
+		return suffix;
+	}
+
+	/**
+	 * Returns specific class suffix instead of the specified default suffix.
+	 * Returned value should be valid java class name suffix.
+	 */
+	protected String getNodeSuffix(String suffix) {
+		return suffix;
+	}
+
+	/**
+	 * Returns specific class suffix instead of the specified default suffix.
+	 * Returned value should be valid java class name suffix.
+	 */
+	protected String getChildNodeSuffix(String suffix) {
+		return suffix;
+	}
+
+	/**
+	 * Returns specific class suffix instead of the specified default suffix.
+	 * Returned value should be valid java class name suffix.
+	 */
+	protected String getCompartmentSuffix(String suffix) {
+		return suffix;
+	}
+
+	/**
+	 * Returns specific class suffix instead of the specified default suffix.
+	 * Returned value should be valid java class name suffix.
+	 */
+	protected String getLinkSuffix(String suffix) {
+		return suffix;
+	}
+
+	protected String createClassName(String name, String suffix) {
+		name = CodeGenUtil.validJavaIdentifier(name);
+		if (name.length() > 0) {
+			name = Character.toUpperCase(name.charAt(0)) + name.substring(1);
+		}
+		String fullName = ensureUnique(name, suffix);
+		myNamesCache.add(fullName);
+		return fullName;
+	}
+
+	protected String ensureUnique(String name, String suffix) {
+		int i = 2;
+		String uniqueName = name;
+		while (myNamesCache.contains(uniqueName + suffix)) {
+			uniqueName = name + i++;
+		}
+		return uniqueName + suffix;
 	}
 }

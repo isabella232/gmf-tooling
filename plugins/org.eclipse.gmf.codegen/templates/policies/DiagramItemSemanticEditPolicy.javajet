@@ -38,7 +38,7 @@ for (Iterator nodes = genDiagram.getNodes().iterator(); nodes.hasNext(); ) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
 			}
-			return getMSLWrapper(new Create<%=modelFacet.getMetaClass().getName()%>Command(req));
+			return getMSLWrapper(new Create<%=genNode.getUniqueIdentifier()%>Command(req));
 		}
 <%}%>
 		return super.getCreateCommand(req);
@@ -52,12 +52,12 @@ for (Iterator nodes = genDiagram.getNodes().iterator(); nodes.hasNext(); ) {
 	/**
 	 * @generated
 	 */
-	private static class Create<%=modelFacet.getMetaClass().getName()%>Command extends MSLCreateElementCommand {
+	private static class Create<%=genNode.getUniqueIdentifier()%>Command extends MSLCreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public Create<%=modelFacet.getMetaClass().getName()%>Command(CreateElementRequest req) {
+		public Create<%=genNode.getUniqueIdentifier()%>Command(CreateElementRequest req) {
 			super(req);
 		}
 

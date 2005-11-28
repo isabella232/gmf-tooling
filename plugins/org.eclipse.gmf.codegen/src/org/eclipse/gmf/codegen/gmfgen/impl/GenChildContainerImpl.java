@@ -112,11 +112,11 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	}
 
 	public String getCanonicalEditPolicyClassName() {
-		String name = getCanonicalEditPolicyClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getClassNamePrefix() + getClassNameSuffux() + "CanonicalEditPolicy"; //$NON-NLS-1$
+		String value = getCanonicalEditPolicyClassNameGen();
+		if (isEmpty(value)) {
+			value = getClassNamePart() + CANONICAL_EDIT_POLICY_SUFFIX;
 		}
-		return name;
+		return value;
 	}
 
 	/**

@@ -259,11 +259,11 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 	}
 
 	public String getGraphicalNodeEditPolicyClassName() {
-		String name = getGraphicalNodeEditPolicyClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getClassNamePrefix() + getClassNameSuffux() + "GraphicalNodeEditPolicy"; //$NON-NLS-1$
+		String value = getGraphicalNodeEditPolicyClassNameGen();
+		if (isEmpty(value)) {
+			value = getClassNamePart() + GRAPHICAL_NODE_EDIT_POLICY_SUFFIX;
 		}
-		return name;
+		return value;
 	}
 
 	/**

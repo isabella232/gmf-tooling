@@ -56,7 +56,7 @@ for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext()
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
 			}
-			return getMSLWrapper(new Create<%=modelFacet.getMetaClass().getName()%>Command(req));
+			return getMSLWrapper(new Create<%=genChildNode.getUniqueIdentifier()%>Command(req));
 		}
 <%
 }
@@ -72,12 +72,12 @@ for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext()
 	/**
 	 * @generated
 	 */
-	private static class Create<%=modelFacet.getMetaClass().getName()%>Command extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateElementCommand")%> {
+	private static class Create<%=genChildNode.getUniqueIdentifier()%>Command extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateElementCommand")%> {
 
 		/**
 		 * @generated
 		 */
-		public Create<%=modelFacet.getMetaClass().getName()%>Command(CreateElementRequest req) {
+		public Create<%=genChildNode.getUniqueIdentifier()%>Command(CreateElementRequest req) {
 			super(req);
 		}
 

@@ -22,15 +22,15 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.gmf.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.BasicGenModelAccess;
+import org.eclipse.gmf.bridge.genmodel.DefaultNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
-import org.eclipse.gmf.bridge.genmodel.EditPartNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.GenModelMatcher;
 import org.eclipse.gmf.bridge.genmodel.NamingStrategy;
-import org.eclipse.gmf.bridge.genmodel.NotationViewFactoryNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.RuntimeGenModelAccess;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
@@ -123,16 +123,17 @@ public class DiaGenSetup implements DiaGenSource {
 
 	public DiaGenSetup init(MapDefSource mapSource) {
 		final DiagramRunTimeModelHelper drth = new BasicDiagramRunTimeModelHelper();
-		final NamingStrategy epns = new EditPartNamingStrategy();
-		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, epns, new NotationViewFactoryNamingStrategy());
+		final NamingStrategy epns = new DefaultNamingStrategy();
+		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, epns);
 		BasicGenModelAccess gma = new BasicGenModelAccess(mapSource.getCanvasMapping().getDomainModel());
 		IStatus gmaStatus = gma.createDummy();
 		Assert.assertTrue("Need (fake) genModel for transformation to work", gmaStatus.isOK());
 		t.setEMFGenModel(gma.model());
 		t.transform(mapSource.getMapping());
 		myGenDiagram = t.getResult();
-		final String nodeEPName = epns.createClassName(mapSource.getNodeMapping());
-		final String linkEPName = epns.createClassName(mapSource.getLinkMapping());
+		epns.reset();
+		final String nodeEPName = epns.createNodeClassName(mapSource.getNodeMapping(), GenCommonBase.EDIT_PART_SUFFIX);
+		final String linkEPName = epns.createLinkClassName(mapSource.getLinkMapping(), GenCommonBase.EDIT_PART_SUFFIX);
 		for (Iterator it = myGenDiagram.getNodes().iterator(); it.hasNext();) {
 			GenNode n = (GenNode) it.next();
 			if (n.getEditPartClassName().equals(nodeEPName)) {

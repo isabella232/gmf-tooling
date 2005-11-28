@@ -105,6 +105,8 @@ public interface GenLinkLabel extends GenLabel{
 	 */
 	String getTextEditPartClassName();
 
+	public static final String TEXT_EDIT_PART_SUFFIX = "TextEditPart";
+
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getTextEditPartClassName <em>Text Edit Part Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -130,6 +132,8 @@ public interface GenLinkLabel extends GenLabel{
 	 * @generated
 	 */
 	String getTextNotationViewFactoryClassName();
+
+	public static final String TEXT_NOTATION_VIEW_FACTORY_SUFFIX = "TextViewFactory";
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getTextNotationViewFactoryClassName <em>Text Notation View Factory Class Name</em>}' attribute.

@@ -179,11 +179,11 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	}
 
 	public String getTextEditPartClassName() {
-		String name = getTextEditPartClassNameGen();
-		if (name == null || name.trim().length() == 0) {
-			name = getClassNamePrefix() + "TextEditPart"; //$NON-NLS-1$
+		String value = getTextEditPartClassNameGen();
+		if (isEmpty(value)) {
+			value = getClassNamePart() + TEXT_EDIT_PART_SUFFIX;
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -208,13 +208,13 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	}
 
 	public String getTextNotationViewFactoryClassName() {
-		String name = getTextNotationViewFactoryClassNameGen();
-		if (name == null || name.trim().length() == 0) {
-			name = getClassNamePrefix() + "TextViewFactory"; //$NON-NLS-1$
+		String value = getTextNotationViewFactoryClassNameGen();
+		if (isEmpty(value)) {
+			value = getClassNamePart() + TEXT_NOTATION_VIEW_FACTORY_SUFFIX;
 		}
-		return name;
+		return value;
 	}
-	
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

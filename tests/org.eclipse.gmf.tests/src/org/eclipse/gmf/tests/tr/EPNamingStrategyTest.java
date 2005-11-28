@@ -12,8 +12,9 @@
 package org.eclipse.gmf.tests.tr;
 
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.gmf.bridge.genmodel.EditPartNamingStrategy;
+import org.eclipse.gmf.bridge.genmodel.DefaultNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.NamingStrategy;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.jdt.core.JavaConventions;
 
 public class EPNamingStrategyTest extends AbstractMappingTransformerTest {
@@ -27,7 +28,7 @@ public class EPNamingStrategyTest extends AbstractMappingTransformerTest {
 	}
 
 	public void testDefaultEPNamingStrategy() {
-		doTest(new EditPartNamingStrategy());
+		doTest(new DefaultNamingStrategy());
 	}
 
 /*  XXX template
@@ -38,9 +39,9 @@ public class EPNamingStrategyTest extends AbstractMappingTransformerTest {
  */
 
 	private void doTest(NamingStrategy strategy) {
-		final String diagramEPName = strategy.createClassName(getCanvasMapping());
-		final String nodeEPName = strategy.createClassName(getNodeMapping());
-		final String linkEPName = strategy.createClassName(getLinkMapping());
+		final String diagramEPName = strategy.createCanvasClassName(getCanvasMapping(), GenCommonBase.EDIT_PART_SUFFIX);
+		final String nodeEPName = strategy.createNodeClassName(getNodeMapping(), GenCommonBase.EDIT_PART_SUFFIX);
+		final String linkEPName = strategy.createLinkClassName(getLinkMapping(), GenCommonBase.EDIT_PART_SUFFIX);
 
 		assertStatus("Invalid Java class name '" + diagramEPName + " for diagram", JavaConventions.validateJavaTypeName(diagramEPName));
 		assertStatus("Invalid Java class name '" + nodeEPName + " for node", JavaConventions.validateJavaTypeName(nodeEPName));

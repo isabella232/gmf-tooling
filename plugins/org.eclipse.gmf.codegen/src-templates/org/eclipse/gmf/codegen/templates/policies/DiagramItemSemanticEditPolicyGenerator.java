@@ -82,7 +82,7 @@ for (Iterator nodes = genDiagram.getNodes().iterator(); nodes.hasNext(); ) {
     stringBuffer.append(TEXT_11);
     stringBuffer.append(modelFacet.getContainmentMetaFeature().getFeatureAccessorName());
     stringBuffer.append(TEXT_12);
-    stringBuffer.append(modelFacet.getMetaClass().getName());
+    stringBuffer.append(genNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_13);
     }
     stringBuffer.append(TEXT_14);
@@ -92,9 +92,9 @@ for (Iterator nodes = genDiagram.getNodes().iterator(); nodes.hasNext(); ) {
 	TypeModelFacet modelFacet = genNode.getModelFacet();
 
     stringBuffer.append(TEXT_15);
-    stringBuffer.append(modelFacet.getMetaClass().getName());
+    stringBuffer.append(genNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_16);
-    stringBuffer.append(modelFacet.getMetaClass().getName());
+    stringBuffer.append(genNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_17);
     stringBuffer.append(semanticPackageInterfaceName);
     stringBuffer.append(TEXT_18);

@@ -11,7 +11,9 @@
  */
 package org.eclipse.gmf.bridge.genmodel;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.diadef.Compartment;
+import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
@@ -19,48 +21,43 @@ import org.eclipse.gmf.mappings.NodeMapping;
 
 /**
  * Means to provide your own names for classes being generated from genmodel. 
- * Return values (class names) are not expected to be fully-qualified names.
- * <code>null</code> return value means use default naming scheme handcoded in genmodel impl.
- * Instances of this class could be used as-is in case you are ok with naming scheme coded in genmodel 
+ * Returned values (class names) are not expected to be fully qualified names.
+ * <code>null</code> return value means that default naming scheme handcoded
+ * in genmodel impl should be used. Instances of this class could be used as is
+ * in case you are ok with naming scheme provided by genmodel.
+ * 
  * @author artem
  */
 public class NamingStrategy {
 
-	public String createClassName(NodeMapping nme) {
-		return null;
-	}
-	
-	public String createLableTextClassName(NodeMapping nme) {
+	public String createCanvasClassName(CanvasMapping mapping, String suffix) {
 		return null;
 	}
 
-	public String createClassName(ChildNodeMapping chnme) {
-		return null;
-	}
-	
-	public String createLableTextClassName(ChildNodeMapping chnme) {
+	public String createNodeClassName(NodeMapping mapping, String suffix) {
 		return null;
 	}
 
-	public String createClassName(LinkMapping lme) {
+	public String createChildNodeClassName(ChildNodeMapping mapping, String suffix) {
 		return null;
 	}
 
-	public String createLableClassName(LinkMapping lme) {
+	public String createCompartmentClassName(AbstractNodeMapping mapping, Compartment compartment, String suffix) {
 		return null;
 	}
 
-	public String createLableTextClassName(LinkMapping lme) {
+	public String createNodeLabelClassName(AbstractNodeMapping mapping, EStructuralFeature labelFeature, String suffix) {
 		return null;
 	}
 
-	
-	public String createClassName(CanvasMapping mapping) {
+	public String createLinkClassName(LinkMapping mapping, String suffix) {
 		return null;
 	}
-	
-	public String createClassName(Compartment compartment) {
+
+	public String createLinkLabelClassName(LinkMapping mapping, EStructuralFeature labelFeature, String suffix) {
 		return null;
 	}
-	
+
+	public void reset() {
+	};
 }

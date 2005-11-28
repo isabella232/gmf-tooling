@@ -225,8 +225,8 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 
 	public String getPackageName() {
 		String value = getPackageNameGen();
-		if (value == null || value.length() == 0) {
-			return getDiagram().getEditorPackageName();
+		if (GenCommonBaseImpl.isEmpty(value)) {
+			value = getDiagram().getEditorPackageName();
 		}
 		return value;
 	}
@@ -253,11 +253,11 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	}
 
 	public String getFactoryClassName() {
-		String name = getFactoryClassNameGen();
-		if (name == null) {
-			return ((GenDiagramImpl) getDiagram()).getDomainPackageCapName() + "PaletteFactory"; //$NON-NLS-1$
+		String value = getFactoryClassNameGen();
+		if (GenCommonBaseImpl.isEmpty(value)) {
+			value = ((GenDiagramImpl) getDiagram()).getDomainPackageCapName() + "PaletteFactory"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**

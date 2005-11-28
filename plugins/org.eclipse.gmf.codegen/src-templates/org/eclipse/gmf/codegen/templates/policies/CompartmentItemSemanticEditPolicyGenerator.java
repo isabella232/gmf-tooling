@@ -267,7 +267,7 @@ for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext()
     stringBuffer.append(TEXT_30);
     stringBuffer.append(modelFacet.getContainmentMetaFeature().getFeatureAccessorName());
     stringBuffer.append(TEXT_31);
-    stringBuffer.append(modelFacet.getMetaClass().getName());
+    stringBuffer.append(genChildNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_32);
     
 }
@@ -279,11 +279,11 @@ for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext()
 	TypeModelFacet modelFacet = genChildNode.getModelFacet();
 
     stringBuffer.append(TEXT_34);
-    stringBuffer.append(modelFacet.getMetaClass().getName());
+    stringBuffer.append(genChildNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_35);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateElementCommand"));
     stringBuffer.append(TEXT_36);
-    stringBuffer.append(modelFacet.getMetaClass().getName());
+    stringBuffer.append(genChildNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_37);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClass"));
     stringBuffer.append(TEXT_38);

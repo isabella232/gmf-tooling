@@ -14,11 +14,10 @@ package org.eclipse.gmf.tests.tr;
 import java.util.Iterator;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.gmf.bridge.genmodel.DefaultNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
-import org.eclipse.gmf.bridge.genmodel.EditPartNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.NamingStrategy;
-import org.eclipse.gmf.bridge.genmodel.NotationViewFactoryNamingStrategy;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
@@ -34,7 +33,7 @@ import org.eclipse.gmf.tests.Utils;
 
 public abstract class GenModelTransformerTest extends AbstractMappingTransformerTest {
 
-	private NamingStrategy myEditPartNamingStrategy;
+	private NamingStrategy myNamingStrategy;
 
 	public GenModelTransformerTest(String name) {
 		super(name);
@@ -49,19 +48,20 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 		final DiagramRunTimeModelHelper drtModelHelper = getRTHelper();
 		final Mapping m = getMapping();
 
-		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, getEditPartNamingStrategy(), new NotationViewFactoryNamingStrategy());
+		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, getNamingStrategy());
 		t.setEMFGenModel(Utils.createGenModel(m.getDiagram().getDomainModel(), Utils.createUniquePluginID()));
 		t.transform(m);
+		getNamingStrategy().reset();
 		GenDiagram genDiagram = t.getResult();
 		assertNotNull("GenDiagram is expected as result of mapping transformation", genDiagram);
 		assertNotNull("Diagram filename extension not set", genDiagram.getDiagramFileExtension());
 		// FIXME add more
 
-		GenNode genNode = (GenNode) findGenBaseElement(genDiagram.getNodes(), getEditPartNamingStrategy().createClassName(getNodeMapping()));
+		GenNode genNode = (GenNode) findGenBaseElement(genDiagram.getNodes(), getNamingStrategy().createNodeClassName(getNodeMapping(), GenCommonBase.EDIT_PART_SUFFIX));
 		assertNotNull("Result model contains no GenNode for nodeMapping", genNode);
 		// FIXME add more
 
-		GenLink genLink = (GenLink) findGenBaseElement(genDiagram.getLinks(), getEditPartNamingStrategy().createClassName(getLinkMapping()));
+		GenLink genLink = (GenLink) findGenBaseElement(genDiagram.getLinks(), getNamingStrategy().createLinkClassName(getLinkMapping(), GenCommonBase.EDIT_PART_SUFFIX));
 		assertNotNull("Result model contains no GenLink for linkMapping", genLink);
 		// FIXME add more
 	}
@@ -69,9 +69,10 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 	public void testCreatedPalette() {
 		final DiagramRunTimeModelHelper drtModelHelper = getRTHelper();
 		final Mapping m = getMapping();
-		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, getEditPartNamingStrategy(), new NotationViewFactoryNamingStrategy());
+		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, getNamingStrategy());
 		t.setEMFGenModel(Utils.createGenModel(m.getDiagram().getDomainModel(), Utils.createUniquePluginID()));
 		t.transform(m);
+		getNamingStrategy().reset();
 		GenDiagram genDiagram = t.getResult();
 		Palette palette = genDiagram.getPalette();
 		for (Iterator itN = m.getNodes().iterator(); itN.hasNext();) {
@@ -97,7 +98,7 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 
 	private int countUses(NodeMapping mappingEntry, Palette palette) {
 		int uses = 0;
-		final String epName = getEditPartNamingStrategy().createClassName(mappingEntry);
+		final String epName = getNamingStrategy().createNodeClassName(mappingEntry, GenCommonBase.EDIT_PART_SUFFIX);
 		for (Iterator itG = palette.getGroups().iterator(); itG.hasNext();) {
 			ToolGroup nextGroup = (ToolGroup) (itG.next());
 			for (Iterator itE = nextGroup.getNodeTools().iterator(); itE.hasNext();) {
@@ -112,7 +113,7 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 
 	private int countUses(LinkMapping mappingEntry, Palette palette) {
 		int uses = 0;
-		final String epName = getEditPartNamingStrategy().createClassName(mappingEntry);
+		final String epName = getNamingStrategy().createLinkClassName(mappingEntry, GenCommonBase.EDIT_PART_SUFFIX);
 		for (Iterator itG = palette.getGroups().iterator(); itG.hasNext();) {
 			ToolGroup nextGroup = (ToolGroup) (itG.next());
 			for (Iterator itE = nextGroup.getLinkTools().iterator(); itE.hasNext();) {
@@ -127,14 +128,14 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 
 	protected abstract DiagramRunTimeModelHelper getRTHelper();
 
-	protected final NamingStrategy getEditPartNamingStrategy() {
-		if (myEditPartNamingStrategy == null) {
-			myEditPartNamingStrategy = createEditPartNamingStrategy();
+	protected final NamingStrategy getNamingStrategy() {
+		if (myNamingStrategy == null) {
+			myNamingStrategy = createNamingStrategy();
 		}
-		return myEditPartNamingStrategy;
+		return myNamingStrategy;
 	}
 
-	protected NamingStrategy createEditPartNamingStrategy() {
-		return new EditPartNamingStrategy();
+	protected NamingStrategy createNamingStrategy() {
+		return new DefaultNamingStrategy();
 	}
 }

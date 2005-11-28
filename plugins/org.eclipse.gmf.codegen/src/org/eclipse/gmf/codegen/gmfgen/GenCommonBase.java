@@ -102,6 +102,8 @@ public interface GenCommonBase extends EObject{
 	 */
 	String getEditPartClassName();
 
+	public static final String EDIT_PART_SUFFIX = "EditPart";
+
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getEditPartClassName <em>Edit Part Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -128,6 +130,8 @@ public interface GenCommonBase extends EObject{
 	 */
 	String getItemSemanticEditPolicyClassName();
 
+	public static final String ITEM_SEMANTIC_EDIT_POLICY_SUFFIX = "ItemSemanticEditPolicy";
+
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getItemSemanticEditPolicyClassName <em>Item Semantic Edit Policy Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -153,6 +157,8 @@ public interface GenCommonBase extends EObject{
 	 * @generated
 	 */
 	String getNotationViewFactoryClassName();
+
+	public static final String NOTATION_VIEW_FACTORY_SUFFIX = "ViewFactory";
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase#getNotationViewFactoryClassName <em>Notation View Factory Class Name</em>}' attribute.

@@ -183,6 +183,8 @@ public interface GenNode extends GenChildContainer{
 	 */
 	String getGraphicalNodeEditPolicyClassName();
 
+	public static final String GRAPHICAL_NODE_EDIT_POLICY_SUFFIX = "GraphicalNodeEditPolicy";
+
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getGraphicalNodeEditPolicyClassName <em>Graphical Node Edit Policy Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->

@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
@@ -1121,8 +1122,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getEditCommandsPackageName() {
 		String value = getEditCommandsPackageNameGen();
-		if (value == null || value.length() == 0) {
-			return getPackageNamePrefix() + ".edit.commands";
+		if (isEmpty(value)) {
+			value = getPackageNamePrefix() + ".edit.commands";
 		}
 		return value;
 	}
@@ -1150,8 +1151,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getEditPartsPackageName() {
 		String value = getEditPartsPackageNameGen();
-		if (value == null || value.length() == 0) {
-			return getPackageNamePrefix() + ".edit.parts";
+		if (isEmpty(value)) {
+			value = getPackageNamePrefix() + ".edit.parts";
 		}
 		return value;
 	}
@@ -1179,8 +1180,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getEditPoliciesPackageName() {
 		String value = getEditPoliciesPackageNameGen();
-		if (value == null || value.length() == 0) {
-			return getPackageNamePrefix() + ".edit.policies";
+		if (isEmpty(value)) {
+			value = getPackageNamePrefix() + ".edit.policies";
 		}
 		return value;
 	}
@@ -1299,8 +1300,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getPluginClassName() {
 		String value = getPluginClassNameGen();
-		if (value == null || value.length() == 0) {
-			return getDomainPackageCapName() + "DiagramEditorPlugin";
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "DiagramEditorPlugin";
 		}
 		return value;
 	}
@@ -1327,11 +1328,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getPreferenceInitializerClassName() {
-		String name = getPreferenceInitializerClassNameGen();
-		if (name == null) {
-			return getDomainPackageCapName() + "DiagramPreferenceInitializer"; //$NON-NLS-1$
+		String value = getPreferenceInitializerClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "DiagramPreferenceInitializer"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -1356,11 +1357,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getVisualIDRegistryClassName() {
-		String name = getVisualIDRegistryClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "VisualIDRegistry"; //$NON-NLS-1$
+		String value = getVisualIDRegistryClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "VisualIDRegistry"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -1386,8 +1387,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getEditorPackageName() {
 		String value = getEditorPackageNameGen();
-		if (value == null || value.length() == 0) {
-			return getPackageNamePrefix() + ".part";
+		if (isEmpty(value)) {
+			value = getPackageNamePrefix() + ".part";
 		}
 		return value;
 	}
@@ -1415,8 +1416,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getProvidersPackageName() {
 		String value = getProvidersPackageNameGen();
-		if (value == null || value.length() == 0) {
-			return getPackageNamePrefix() + ".providers";
+		if (isEmpty(value)) {
+			value = getPackageNamePrefix() + ".providers";
 		}
 		return value;
 	}
@@ -1444,8 +1445,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getNotationViewFactoriesPackageName() {
 		String value = getNotationViewFactoriesPackageNameGen();
-		if (value == null || value.length() == 0) {
-			return getPackageNamePrefix() + ".view.factories";
+		if (isEmpty(value)) {
+			value = getPackageNamePrefix() + ".view.factories";
 		}
 		return value;
 	}
@@ -1472,11 +1473,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getEditorClassName() {
-		String name = getEditorClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "DiagramEditor"; //$NON-NLS-1$
+		String value = getEditorClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "DiagramEditor"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -1501,11 +1502,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getDocumentProviderClassName() {
-		String name = getDocumentProviderClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "DocumentProvider"; //$NON-NLS-1$
+		String value = getDocumentProviderClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "DocumentProvider"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -1530,11 +1531,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getEditPartFactoryClassName() {
-		String name = getEditPartFactoryClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "EditPartFactory"; //$NON-NLS-1$
+		String value = getEditPartFactoryClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "EditPartFactory"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -1559,11 +1560,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getBaseItemSemanticEditPolicyClassName() {
-		String name = getBaseItemSemanticEditPolicyClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "ItemSemanticEditPolicy"; //$NON-NLS-1$
+		String value = getBaseItemSemanticEditPolicyClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "ItemSemanticEditPolicy"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -1588,11 +1589,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getBaseGraphicalNodeEditPolicyClassName() {
-		String name = getBaseGraphicalNodeEditPolicyClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "GraphicalNodeEditPolicy"; //$NON-NLS-1$
+		String value = getBaseGraphicalNodeEditPolicyClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "GraphicalNodeEditPolicy"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -1617,11 +1618,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getReferenceConnectionEditPolicyClassName() {
-		String name = getReferenceConnectionEditPolicyClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "ReferenceConnectionEditPolicy"; //$NON-NLS-1$
+		String value = getReferenceConnectionEditPolicyClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "ReferenceConnectionEditPolicy"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -1646,11 +1647,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getCanonicalEditPolicyClassName() {
-		String name = getCanonicalEditPolicyClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getClassNamePrefix() + getClassNameSuffux() + "CanonicalEditPolicy"; //$NON-NLS-1$
+		String value = getCanonicalEditPolicyClassNameGen();
+		if (isEmpty(value)) {
+			value = getClassNamePart() + GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX;
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -1675,11 +1676,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getElementTypesClassName() {
-		String name = getElementTypesClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "ElementTypes"; //$NON-NLS-1$
+		String value = getElementTypesClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "ElementTypes"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -1704,11 +1705,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getSemanticHintsClassName() {
-		String name = getSemanticHintsClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "SemanticHints"; //$NON-NLS-1$
+		String value = getSemanticHintsClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "SemanticHints"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -1733,11 +1734,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getNotationViewProviderClassName() {
-		String name = getNotationViewProviderClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "ViewProvider"; //$NON-NLS-1$
+		String value = getNotationViewProviderClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "ViewProvider"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -1812,11 +1813,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getReorientConnectionViewCommandClassName() {
-		String name = getReorientConnectionViewCommandClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "ReorientConnectionViewCommand"; //$NON-NLS-1$
+		String value = getReorientConnectionViewCommandClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "ReorientConnectionViewCommand"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -1883,11 +1884,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getInitDiagramFileActionClassName() {
-		String name = getInitDiagramFileActionClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "InitDiagramFileAction"; //$NON-NLS-1$
+		String value = getInitDiagramFileActionClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "InitDiagramFileAction"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -1912,11 +1913,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getActionBarContributorClassName() {
-		String name = getActionBarContributorClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "DiagramActionBarContributor"; //$NON-NLS-1$
+		String value = getActionBarContributorClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "DiagramActionBarContributor"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -1941,11 +1942,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getCreationWizardClassName() {
-		String name = getCreationWizardClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "CreationWizard"; //$NON-NLS-1$
+		String value = getCreationWizardClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "CreationWizard"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -1970,11 +1971,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getCreationWizardPageClassName() {
-		String name = getCreationWizardPageClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "CreationWizardPage"; //$NON-NLS-1$
+		String value = getCreationWizardPageClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "CreationWizardPage"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -1999,11 +2000,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getDiagramEditorUtilClassName() {
-		String name = getDiagramEditorUtilClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "DiagramEditorUtil"; //$NON-NLS-1$
+		String value = getDiagramEditorUtilClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "DiagramEditorUtil"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -2028,11 +2029,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getDiagramFileCreatorClassName() {
-		String name = getDiagramFileCreatorClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "DiagramFileCreator"; //$NON-NLS-1$
+		String value = getDiagramFileCreatorClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "DiagramFileCreator"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -2057,11 +2058,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getMatchingStrategyClassName() {
-		String name = getMatchingStrategyClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "MatchingStrategy"; //$NON-NLS-1$
+		String value = getMatchingStrategyClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "MatchingStrategy"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -2086,11 +2087,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getEditPartProviderClassName() {
-		String name = getEditPartProviderClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "EditPartProvider"; //$NON-NLS-1$
+		String value = getEditPartProviderClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "EditPartProvider"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -2115,11 +2116,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getMetamodelSupportProviderClassName() {
-		String name = getMetamodelSupportProviderClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "MetaModelSupportProvider"; //$NON-NLS-1$
+		String value = getMetamodelSupportProviderClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "MetaModelSupportProvider"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -2144,11 +2145,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getModelingAssistantProviderClassName() {
-		String name = getModelingAssistantProviderClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "ModelingAssistantProvider"; //$NON-NLS-1$
+		String value = getModelingAssistantProviderClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "ModelingAssistantProvider"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -2173,11 +2174,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getPropertyProviderClassName() {
-		String name = getPropertyProviderClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "PropertyProvider"; //$NON-NLS-1$
+		String value = getPropertyProviderClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "PropertyProvider"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -2202,11 +2203,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getIconProviderClassName() {
-		String name = getIconProviderClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "IconProvider"; //$NON-NLS-1$
+		String value = getIconProviderClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "IconProvider"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -2231,11 +2232,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getStructuralFeatureParserClassName() {
-		String name = getStructuralFeatureParserClassNameGen();
-		if (name == null || name.length() == 0) {
-			return getDomainPackageCapName() + "StructuralFeatureParser"; //$NON-NLS-1$
+		String value = getStructuralFeatureParserClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "StructuralFeatureParser"; //$NON-NLS-1$
 		}
-		return name;
+		return value;
 	}
 
 	/**

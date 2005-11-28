@@ -228,8 +228,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 
 	public String getEditPartClassName() {
 		String value = getEditPartClassNameGen();
-		if (value == null || value.length() == 0) {
-			return getClassNamePrefix() + getClassNameSuffux() + "EditPart";
+		if (isEmpty(value)) {
+			value = getClassNamePart() + EDIT_PART_SUFFIX;
 		}
 		return value;
 	}
@@ -257,8 +257,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 
 	public String getItemSemanticEditPolicyClassName() {
 		String value = getItemSemanticEditPolicyClassNameGen();
-		if (value == null || value.length() == 0) {
-			return getClassNamePrefix() + getClassNameSuffux() + "ItemSemanticEditPolicy";
+		if (isEmpty(value)) {
+			value = getClassNamePart() + ITEM_SEMANTIC_EDIT_POLICY_SUFFIX;
 		}
 		return value;
 	}
@@ -285,11 +285,11 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	}
 
 	public String getNotationViewFactoryClassName() {
-		String name = getNotationViewFactoryClassNameGen();
-		if (name == null || name.trim().length() == 0) {
-			name = getClassNamePrefix() + "ViewFactory"; //$NON-NLS-1$
+		String value = getNotationViewFactoryClassNameGen();
+		if (isEmpty(value)) {
+			value = getClassNamePart() + NOTATION_VIEW_FACTORY_SUFFIX;
 		}
-		return name;
+		return value;
 	}
 
 	/**
@@ -347,6 +347,10 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_COMMON_BASE__VIEWMAP, newViewmap, newViewmap));
 	}
 
+	static boolean isEmpty(String s) {
+		return s == null || s.length() == 0;
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -360,6 +364,15 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * @generated NOT
 	 */
 	public abstract String getClassNameSuffux();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getClassNamePart() {
+		return getClassNamePrefix() + getClassNameSuffux();
+	}
 
 	/**
 	 * <!-- begin-user-doc -->

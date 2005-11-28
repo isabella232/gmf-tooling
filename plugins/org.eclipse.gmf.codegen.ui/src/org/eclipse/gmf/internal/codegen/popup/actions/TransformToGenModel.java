@@ -31,10 +31,9 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.gmf.bridge.genmodel.BasicDiagramRunTimeModelHelper;
+import org.eclipse.gmf.bridge.genmodel.DefaultNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
-import org.eclipse.gmf.bridge.genmodel.EditPartNamingStrategy;
-import org.eclipse.gmf.bridge.genmodel.NotationViewFactoryNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.SpecificDiagramRunTimeModelHelper;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
@@ -107,7 +106,7 @@ public class TransformToGenModel implements IObjectActionDelegate {
 		}
 
 		//final ISchedulingRule rule = MultiRule.combine(myMapFile, myDestFile);
-		final DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, new EditPartNamingStrategy(), new NotationViewFactoryNamingStrategy());
+		final DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, new DefaultNamingStrategy());
 
 		new Job(action.getText()) {
 			{
