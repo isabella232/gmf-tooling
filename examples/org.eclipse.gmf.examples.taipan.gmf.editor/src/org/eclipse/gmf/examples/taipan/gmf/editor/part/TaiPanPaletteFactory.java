@@ -12,7 +12,6 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import org.eclipse.gef.Tool;
-import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.MarqueeToolEntry;
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteDrawer;
@@ -21,8 +20,6 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.PaletteSeparator;
 import org.eclipse.gef.palette.PanningSelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
-import org.eclipse.gef.ui.actions.ZoomInAction;
-import org.eclipse.gmf.runtime.diagram.ui.internal.tools.ZoomTool;
 import org.eclipse.gmf.runtime.diagram.ui.tools.ConnectionCreationTool;
 import org.eclipse.gmf.runtime.diagram.ui.tools.CreationTool;
 import org.eclipse.gmf.runtime.notation.Diagram;
@@ -37,12 +34,7 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private final PaletteRoot root = new PaletteRoot();
-
-	/**
-	 * @generated
-	 */
-	private final Diagram diagram;
+	private Diagram diagram;
 
 	/**
 	 * @generated
@@ -54,111 +46,120 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	public static PaletteRoot createPalette(Diagram diagram) {
-		TaiPanPaletteFactory factory = new TaiPanPaletteFactory(diagram);
-		factory.createCommonTools();
-		factory.createTAIPANGroup();
-		return factory.root;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Diagram getDiagram() {
+	protected final Diagram getDiagram() {
 		return diagram;
 	}
 
 	/**
 	 * @generated
 	 */
-	private void createCommonTools() {
+	public static PaletteRoot createPalette(Diagram diagram) {
+		PaletteRoot paletteRoot = new PaletteRoot();
+		TaiPanPaletteFactory factory = new TaiPanPaletteFactory(diagram);
+		PaletteContainer commonTools = factory.createCommonTools();
+		paletteRoot.add(commonTools);
+		paletteRoot.setDefaultEntry((ToolEntry) commonTools.getChildren().get(0));
+		factory.fillPalette(paletteRoot);
+		return paletteRoot;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static void fillPalette(PaletteRoot paletteRoot, Diagram diagram) {
+		TaiPanPaletteFactory factory = new TaiPanPaletteFactory(diagram);
+		factory.fillPalette(paletteRoot);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void fillPalette(PaletteRoot paletteRoot) {
+		paletteRoot.add(createTAIPANGroup());
+	}
+
+	/**
+	 * @generated
+	 */
+	private PaletteContainer createCommonTools() {
 		PaletteGroup common = new PaletteGroup("Common");
 		ToolEntry selectionTool = new PanningSelectionToolEntry();
 		common.add(selectionTool);
 		common.add(new MarqueeToolEntry());
-		root.add(common);
-		root.setDefaultEntry(selectionTool);
+		return common;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ImageDescriptor getZoomToolImage() {
-		ZoomInAction action = new ZoomInAction(new ZoomManager(null, null));
-		return action.getImageDescriptor();
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createTAIPANGroup() {
+	private PaletteContainer createTAIPANGroup() {
 		PaletteContainer paletteContainer = createContainer("TaiPan");
-		createPORTNODECreationTool(paletteContainer);
-		createSHIPNODECreationTool(paletteContainer);
-		createITEMNODECreationTool(paletteContainer);
+		paletteContainer.add(createPORTNODECreationTool());
+		paletteContainer.add(createSHIPNODECreationTool());
+		paletteContainer.add(createITEMNODECreationTool());
 		paletteContainer.add(new PaletteSeparator());
-		createDESTINATIONLINKCreationTool(paletteContainer);
-		root.add(paletteContainer);
+		paletteContainer.add(createDESTINATIONLINKCreationTool());
+		return paletteContainer;
 	}
 
 	/**
 	 * @generated
 	 */
-	private void createPORTNODECreationTool(PaletteContainer paletteContainer) {
+	private ToolEntry createPORTNODECreationTool() {
 		ImageDescriptor image = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Port_1001);
-		paletteContainer.add(new ToolEntry("PortNode", "PortNode", image, image) {
+		return new ToolEntry("PortNode", "PortNode", image, image) {
 
 			public Tool createTool() {
 				Tool tool = new CreationTool(TaiPanElementTypes.Port_1001);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
-		});
+		};
 	}
 
 	/**
 	 * @generated
 	 */
-	private void createSHIPNODECreationTool(PaletteContainer paletteContainer) {
+	private ToolEntry createSHIPNODECreationTool() {
 		ImageDescriptor image = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Ship_1002);
-		paletteContainer.add(new ToolEntry("ShipNode", "ShipNode", image, image) {
+		return new ToolEntry("ShipNode", "ShipNode", image, image) {
 
 			public Tool createTool() {
 				Tool tool = new CreationTool(TaiPanElementTypes.Ship_1002);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
-		});
+		};
 	}
 
 	/**
 	 * @generated
 	 */
-	private void createITEMNODECreationTool(PaletteContainer paletteContainer) {
+	private ToolEntry createITEMNODECreationTool() {
 		ImageDescriptor image = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Item_2001);
-		paletteContainer.add(new ToolEntry("ItemNode", "ItemNode", image, image) {
+		return new ToolEntry("ItemNode", "ItemNode", image, image) {
 
 			public Tool createTool() {
 				Tool tool = new CreationTool(TaiPanElementTypes.Item_2001);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
-		});
+		};
 	}
 
 	/**
 	 * @generated
 	 */
-	private void createDESTINATIONLINKCreationTool(PaletteContainer paletteContainer) {
+	private ToolEntry createDESTINATIONLINKCreationTool() {
 		ImageDescriptor image = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.ShipDestination_3001);
-		paletteContainer.add(new ToolEntry("DestinationLink", "DestinationLink", image, image) {
+		return new ToolEntry("DestinationLink", "DestinationLink", image, image) {
 
 			public Tool createTool() {
 				Tool tool = new ConnectionCreationTool(TaiPanElementTypes.ShipDestination_3001);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
-		});
+		};
 	}
 
 	/**

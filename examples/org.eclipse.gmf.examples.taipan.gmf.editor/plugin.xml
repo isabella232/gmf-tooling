@@ -63,7 +63,7 @@
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
       <GlobalActionHandlerProvider
-         class="org.eclipse.gmf.runtime.diagram.ui.providers.PresentationGlobalActionHandlerProvider"
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
          id="TaiPanPresentation">
          <Priority name="Medium"/>
          <ViewId id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">

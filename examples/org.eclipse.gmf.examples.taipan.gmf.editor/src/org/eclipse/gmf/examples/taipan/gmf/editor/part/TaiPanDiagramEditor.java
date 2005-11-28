@@ -24,10 +24,9 @@ public class TaiPanDiagramEditor extends FileDiagramEditorWithFlyoutPalette {
 	 * @generated
 	 */
 	protected PaletteRoot createPaletteRoot(PaletteRoot existingPaletteRoot) {
-		if (existingPaletteRoot != null) {
-			return existingPaletteRoot;
-		}
-		return TaiPanPaletteFactory.createPalette(getDiagram());
+		existingPaletteRoot = super.createPaletteRoot(existingPaletteRoot);
+		TaiPanPaletteFactory.fillPalette(existingPaletteRoot, getDiagram());
+		return existingPaletteRoot;
 	}
 
 	/**
@@ -36,5 +35,4 @@ public class TaiPanDiagramEditor extends FileDiagramEditorWithFlyoutPalette {
 	protected void setDocumentProvider(IEditorInput input) {
 		setDocumentProvider(new TaiPanDocumentProvider());
 	}
-
 }

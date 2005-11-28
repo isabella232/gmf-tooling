@@ -13,11 +13,13 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.draw2d.PolylineDecoration;
+import org.eclipse.draw2d.Shape;
 
 import org.eclipse.gef.EditPolicy;
 
@@ -50,19 +52,44 @@ public class DestinationLinkEditPart extends ConnectionNodeEditPart {
 	/**
 	 * @generated
 	 */
-	protected Connection createConnectionFigure() {
-		PolylineConnectionEx connection = new PolylineConnectionEx();
+	protected PolylineConnection createConnectionShape() {
+		return new PolylineConnectionEx();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void decorateConnectionShape(PolylineConnection shape) {
+
+		shape.setLineStyle(Graphics.LINE_SOLID);
 		RotatableDecoration sourceDecoration = createSourceDecoration();
 		if (sourceDecoration != null) {
-			connection.setSourceDecoration(sourceDecoration);
+			shape.setSourceDecoration(sourceDecoration);
+			if (sourceDecoration instanceof Shape) {
+				((Shape) sourceDecoration).setLineWidth(shape.getLineWidth());
+			}
 		}
 		RotatableDecoration targetDecoration = createTargetDecoration();
 		if (targetDecoration != null) {
-			connection.setTargetDecoration(targetDecoration);
+			shape.setTargetDecoration(targetDecoration);
+			if (targetDecoration instanceof Shape) {
+				((Shape) targetDecoration).setLineWidth(shape.getLineWidth());
+			}
 		}
+	}
 
-		connection.setLineStyle(Graphics.LINE_SOLID);
-		return connection;
+	/**
+	 * Creates figure for this edit part.
+	 * 
+	 * Body of this method does not depend on settings in generation model
+	 * so you may safely remove <i>generated</i> tag and modify it.
+	 * 
+	 * @generated
+	 */
+	protected Connection createConnectionFigure() {
+		PolylineConnection shape = createConnectionShape();
+		decorateConnectionShape(shape);
+		return shape;
 	}
 
 	/**

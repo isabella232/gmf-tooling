@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.UnexecutableCommand;
@@ -20,6 +21,7 @@ import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.SemanticEditPolicy;
 import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeModelCommand;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.type.core.requests.ConfigureRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
@@ -184,5 +186,22 @@ public class TaiPanItemSemanticEditPolicy extends SemanticEditPolicy {
 	 */
 	protected EObject getSemanticElement() {
 		return ViewUtil.resolveSemanticElement((View) getHost().getModel());
+	}
+
+	/**
+	 * Finds container element for the new relationship of the specified type.
+	 * Default implementation goes up by containment hierarchy starting from
+	 * the specified element and returns the first element that is instance of
+	 * the specified container class.
+	 * 
+	 * @generated
+	 */
+	protected EObject getRelationshipContainer(EObject element, EClass containerClass, IElementType relationshipType) {
+		for (; element != null; element = element.eContainer()) {
+			if (containerClass.isSuperTypeOf(element.eClass())) {
+				return element;
+			}
+		}
+		return null;
 	}
 }

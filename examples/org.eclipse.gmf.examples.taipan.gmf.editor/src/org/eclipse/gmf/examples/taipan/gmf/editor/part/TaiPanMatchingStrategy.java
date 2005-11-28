@@ -12,17 +12,8 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditorMatchingStrategy;
-import org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain;
 
 /**
  * @generated
  */
-public class TaiPanMatchingStrategy extends DiagramDocumentEditorMatchingStrategy {
-
-	/**
-	 * @generated
-	 */
-	public MEditingDomain getDefaultDomain() {
-		return MEditingDomain.INSTANCE;
-	}
-}
+public class TaiPanMatchingStrategy extends DiagramDocumentEditorMatchingStrategy {}
