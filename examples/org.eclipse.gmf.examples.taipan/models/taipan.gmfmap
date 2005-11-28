@@ -12,11 +12,11 @@
     <containmentFeature href="taipan.ecore#//Aquatory/ships"/>
     <editFeature href="taipan.ecore#//Ship/name"/>
     <childMappings>
-      <compartment href="taipan.diadef#cargo"/>
       <diagramNode href="taipan.diadef#ItemNode"/>
-      <domainChildrenFeature xsi:type="ecore:EReference" href="taipan.ecore#//Ship/cargo"/>
-      <editFeature href="taipan.ecore#//Item/article"/>
       <domainMetaElement href="taipan.ecore#//Item"/>
+      <containmentFeature href="taipan.ecore#//Ship/cargo"/>
+      <editFeature href="taipan.ecore#//Item/article"/>
+      <compartment href="taipan.diadef#cargo"/>
     </childMappings>
   </nodes>
   <links>
