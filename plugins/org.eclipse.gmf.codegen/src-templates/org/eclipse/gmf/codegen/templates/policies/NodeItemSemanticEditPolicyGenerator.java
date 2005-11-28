@@ -507,7 +507,7 @@ for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext()
     stringBuffer.append(TEXT_31);
     stringBuffer.append(modelFacet.getContainmentMetaFeature().getFeatureAccessorName());
     stringBuffer.append(TEXT_32);
-    stringBuffer.append(genChildNode.getUniqueIdentifier());
+    stringBuffer.append(modelFacet.getMetaClass().getName());
     stringBuffer.append(TEXT_33);
     
 }
@@ -519,11 +519,11 @@ for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext()
 	TypeModelFacet modelFacet = genChildNode.getModelFacet();
 
     stringBuffer.append(TEXT_35);
-    stringBuffer.append(genChildNode.getUniqueIdentifier());
+    stringBuffer.append(modelFacet.getMetaClass().getName());
     stringBuffer.append(TEXT_36);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateElementCommand"));
     stringBuffer.append(TEXT_37);
-    stringBuffer.append(genChildNode.getUniqueIdentifier());
+    stringBuffer.append(modelFacet.getMetaClass().getName());
     stringBuffer.append(TEXT_38);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClass"));
     stringBuffer.append(TEXT_39);
@@ -618,17 +618,17 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		GenClass outgoingClass = modelFacet.getSourceMetaFeature() == null
 			? modelFacet.getContainmentMetaFeature().getGenClass()
 			: modelFacet.getSourceMetaFeature().getTypeGenClass();
-		if (nodeMetaClass.equals(outgoingClass)) {
+		if (outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass())) {
 			namePart = OUTGOING_TOKEN + modelFacet.getMetaClass().getName();
-		} else if (nodeMetaClass.equals(modelFacet.getTargetMetaFeature().getTypeGenClass())) {
+		} else if (modelFacet.getTargetMetaFeature().getTypeGenClass().getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass())) {
 			namePart = INCOMING_TOKEN + modelFacet.getMetaClass().getName();
 			outgoing = false;
 		}
 	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
-		if (nodeMetaClass.equals(metaFeature.getGenClass())) {
+		if (metaFeature.getGenClass().getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass())) {
 			namePart = OUTGOING_TOKEN + metaFeature.getFeatureAccessorName();
-		} else if (nodeMetaClass.equals(metaFeature.getTypeGenClass())) {
+		} else if (metaFeature.getTypeGenClass().getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass())) {
 			namePart = INCOMING_TOKEN + metaFeature.getFeatureAccessorName();
 			outgoing = false;
 		}
@@ -693,7 +693,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		int upperChildBound = childFeature.getEcoreFeature().getUpperBound();
 		boolean processChildFeature = !childFeature.isDerived() && !childFeature.equals(containmentFeature);
 		boolean checkChildFeatureUpperBound = !childFeature.equals(containmentFeature) && upperChildBound > 0;
-		if (nodeMetaClass.equals(outgoingClass)) {
+		if (outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass())) {
 			namePart = OUTGOING_TOKEN + modelFacet.getMetaClass().getName() + genLink.getVisualID();
 			if (genLink.isOutgoingCreationAllowed()) {
 
@@ -917,7 +917,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_165);
     
 			}
-		} else if (nodeMetaClass.equals(incomingClass)) {
+		} else if (incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass())) {
 			namePart = INCOMING_TOKEN + modelFacet.getMetaClass().getName() + genLink.getVisualID();
 			if (genLink.isIncomingCreationAllowed()) {
 
@@ -1093,7 +1093,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		int upperBound = metaFeature.getEcoreFeature().getUpperBound();
 		GenClass outgoingClass = metaFeature.getGenClass();
 		GenClass incomingClass = metaFeature.getTypeGenClass();
-		if (nodeMetaClass.equals(outgoingClass)) {
+		if (outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass())) {
 			namePart = OUTGOING_TOKEN + metaFeature.getFeatureAccessorName() + genLink.getVisualID();
 			if (genLink.isOutgoingCreationAllowed()) {
 
@@ -1197,7 +1197,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_271);
     
 			}
-		} else if (nodeMetaClass.equals(incomingClass)) {
+		} else if (incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass())) {
 			namePart = INCOMING_TOKEN + metaFeature.getFeatureAccessorName() + genLink.getVisualID();
 			if (genLink.isIncomingCreationAllowed()) {
 
