@@ -29,7 +29,7 @@
     <import plugin="org.eclipse.gmf.runtime.emf.ui.properties"/>
     <import plugin="org.eclipse.gmf.runtime.diagram.ui"/>
 <%if (genDiagram.isPrintingEnabled()) {%>
-    <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing"/>
+    <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing.render"/>
 <%}%>
     <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers"/>
     <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers.ide"/>
@@ -127,7 +127,7 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {%>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
       <GlobalActionHandlerProvider
-         class="org.eclipse.gmf.runtime.diagram.ui.providers.PresentationGlobalActionHandlerProvider"
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
          id="<%=genModel.getModelName()%>Presentation">
          <Priority name="Medium"/>
          <ViewId id="<%=genDiagram.getEditorQualifiedClassName()%>ID">
@@ -141,7 +141,7 @@ for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {%>
       </GlobalActionHandlerProvider>
 <%if (genDiagram.isPrintingEnabled()) {%>
       <GlobalActionHandlerProvider
-         class="org.eclipse.gmf.runtime.diagram.ui.printing.internal.providers.PresentationWithPrintGlobalActionHandlerProvider"
+         class="org.eclipse.gmf.runtime.diagram.ui.printing.render.providers.DiagramWithPrintGlobalActionHandlerProvider"
          id="<%=genModel.getModelName()%>PresentationPrint">
          <Priority name="Medium"/>
          <ViewId id="<%=genDiagram.getEditorQualifiedClassName()%>ID">
