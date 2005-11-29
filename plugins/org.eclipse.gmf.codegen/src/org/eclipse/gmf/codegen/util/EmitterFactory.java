@@ -26,9 +26,11 @@ import org.eclipse.gmf.codegen.templates.editor.DiagramFileCreatorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.DocumentProviderGenerator;
 import org.eclipse.gmf.codegen.templates.editor.EditorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.InitDiagramFileActionGenerator;
+import org.eclipse.gmf.codegen.templates.editor.ManifestGenerator;
 import org.eclipse.gmf.codegen.templates.editor.MatchingStrategyGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PaletteFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginGenerator;
+import org.eclipse.gmf.codegen.templates.editor.PluginPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PluginXML;
 import org.eclipse.gmf.codegen.templates.editor.PreferencesInitializerGenerator;
 import org.eclipse.gmf.codegen.templates.editor.VisualIDRegistryGenerator;
@@ -278,6 +280,14 @@ public class EmitterFactory {
 
 	public static JETEmitter getPluginXmlEmitter() throws JETException {
 		return initializeEmitter("/templates/editor/plugin.xmljet", PluginXML.class);
+	}
+
+	public static JETEmitter getPluginPropertiesEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/plugin.propertiesjet", PluginPropertiesGenerator.class);
+	}
+
+	public static JETEmitter getBundleManifestEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/manifest.mfjet", ManifestGenerator.class);
 	}
 
 	private static JETEmitter initializeEmitter(String relativeTemplatePath, Class precompiledTemplate) throws JETException {

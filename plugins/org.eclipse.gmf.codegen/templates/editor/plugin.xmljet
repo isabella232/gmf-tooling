@@ -1,70 +1,12 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="PluginXML"
-    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.*"%>
-<%GenDiagram genDiagram = (GenDiagram) argument;%>
-<%GenModel genModel = genDiagram.getEMFGenModel();%>
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.*"%>
+<%
+final GenDiagram genDiagram = (GenDiagram) argument;
+final GenModel genModel = genDiagram.getEMFGenModel();
+%>
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
-<plugin
-    name="<%=genDiagram.getPluginName()%>"
-    id="<%=genDiagram.getPluginID()%>"
-    version="1.0.0"
-    class="<%=genDiagram.getPluginQualifiedClassName()%>"
-    provider-name = "<%=genDiagram.getProviderName()%>">
-
-  <requires>
-    <import plugin="org.eclipse.core.runtime"/>
-    <import plugin="org.eclipse.core.resources"/>
-    <import plugin="org.eclipse.jface"/>
-    <import plugin="org.eclipse.ui.ide"/>
-    <import plugin="org.eclipse.ui.views"/>
-    <import plugin="org.eclipse.ui.workbench"/>
-    <import plugin="org.eclipse.emf.ecore"/>
-<%
-	// XXX org.eclipse.emf.edit.ui is for ExtendedImageRegistry. 
-	// FIXME move image registry to plugin class code
-%>
-    <import plugin="org.eclipse.emf.edit.ui"/>
-    <import plugin="org.eclipse.gef" export="true"/>
-    <import plugin="org.eclipse.gmf.runtime.emf.commands.core"/>
-    <import plugin="org.eclipse.gmf.runtime.emf.ui.properties"/>
-    <import plugin="org.eclipse.gmf.runtime.diagram.ui"/>
-<%if (genDiagram.isPrintingEnabled()) {%>
-    <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing.render"/>
-<%}%>
-    <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers"/>
-    <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers.ide"/>
-    <import plugin="org.eclipse.gmf.runtime.diagram.ui.render"/>
-    <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor"/>
-    <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide"/>
-    <import plugin="org.eclipse.gmf.runtime.notation.providers"/>
-<%
-Set requiredPluginIDs = new LinkedHashSet();
-requiredPluginIDs.add(genModel.getModelPluginID());
-requiredPluginIDs.add(genModel.getEditPluginID());
-
-for (Iterator it = genModel.getAllUsedGenPackagesWithClassifiers().iterator(); it.hasNext();) {
-	GenModel nextGenModel = ((GenPackage) it.next()).getGenModel();
-	if (nextGenModel.hasEditSupport()) {
-		requiredPluginIDs.add(nextGenModel.getEditPluginID());
-	}
-}
-
-String[] requiredPlugins = genDiagram.getRequiredPluginIDs();
-if (requiredPlugins == null) {
-	requiredPlugins = new String[0];
-}
-requiredPluginIDs.addAll(Arrays.asList(requiredPlugins));
-
-for (Iterator it = requiredPluginIDs.iterator(); it.hasNext();) {%>
-    <import plugin="<%=it.next()%>" export="true"/>
-<%}%>
-  </requires>
-
-  <runtime>
-    <library name="plugin.jar">
-      <export name="*"/>
-    </library>
-  </runtime>
+<plugin>
 
    <extension point="org.eclipse.core.runtime.preferences">
       <initializer class="<%=genDiagram.getPreferenceInitializerQualifiedClassName()%>"/>

@@ -1,0 +1,54 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="ManifestGenerator"
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.*"%>
+<%
+final GenDiagram genDiagram = (GenDiagram) argument;
+final GenModel genModel = genDiagram.getEMFGenModel();
+final Set requiredPluginIDs = new LinkedHashSet();
+requiredPluginIDs.add(genModel.getModelPluginID());
+requiredPluginIDs.add(genModel.getEditPluginID());
+
+for (Iterator it = genModel.getAllUsedGenPackagesWithClassifiers().iterator(); it.hasNext();) {
+	GenModel nextGenModel = ((GenPackage) it.next()).getGenModel();
+	if (nextGenModel.hasEditSupport()) {
+		requiredPluginIDs.add(nextGenModel.getEditPluginID());
+	}
+}
+
+String[] requiredPlugins = genDiagram.getRequiredPluginIDs();
+if (requiredPlugins == null) {
+	requiredPlugins = new String[0];
+}
+requiredPluginIDs.addAll(Arrays.asList(requiredPlugins));
+Iterator requiredBundleIterator = requiredPluginIDs.iterator();
+%>
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: <%=genDiagram.getPluginID()%>; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-ClassPath: .
+Bundle-Activator: <%=genDiagram.getPluginQualifiedClassName()%>
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: <%=genDiagram.getEditorPackageName()%>
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.jface,
+ org.eclipse.ui.ide,
+ org.eclipse.ui.views,
+ org.eclipse.ui.workbench,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.edit.ui,
+ org.eclipse.gef;visibility:=reexport,
+ org.eclipse.gmf.runtime.emf.commands.core,
+ org.eclipse.gmf.runtime.emf.ui.properties,
+ org.eclipse.gmf.runtime.diagram.ui,
+ <%if (genDiagram.isPrintingEnabled()) {%>org.eclipse.gmf.runtime.diagram.ui.printing.render,<%}%>
+ org.eclipse.gmf.runtime.diagram.ui.providers,
+ org.eclipse.gmf.runtime.diagram.ui.providers.ide,
+ org.eclipse.gmf.runtime.diagram.ui.render,
+ org.eclipse.gmf.runtime.diagram.ui.resources.editor,
+ org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide,
+ org.eclipse.gmf.runtime.notation.providers<%while(requiredBundleIterator.hasNext()) {%>,
+ <%=requiredBundleIterator.next()%>;visibility:=reexport<%}%>
+Eclipse-LazyStart: true

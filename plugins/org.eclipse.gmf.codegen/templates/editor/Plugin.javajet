@@ -137,6 +137,10 @@ for (int i = 0; i < genPackages.size(); i++) {
 	public ImageDescriptor getItemImageDescriptor(Object item) {
 		IItemLabelProvider labelProvider = (IItemLabelProvider) adapterFactory.adapt(item, IItemLabelProvider.class);
 		if (labelProvider != null) {
+<%
+			// XXX dependency org.eclipse.emf.edit.ui is for ExtendedImageRegistry only. 
+			// FIXME move image registry to plugin class code
+%>
 			return ExtendedImageRegistry.getInstance().getImageDescriptor(labelProvider.getImage(item));
 		}
 		return null;
