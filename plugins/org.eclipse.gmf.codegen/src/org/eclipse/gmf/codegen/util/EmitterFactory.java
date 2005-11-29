@@ -19,6 +19,7 @@ import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.gmf.codegen.templates.commands.ReorientConnectionViewCommandGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ActionBarContributorGenerator;
+import org.eclipse.gmf.codegen.templates.editor.BuildPropertiesGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardPageGenerator;
 import org.eclipse.gmf.codegen.templates.editor.DiagramEditorUtilGenerator;
@@ -288,6 +289,10 @@ public class EmitterFactory {
 
 	public static JETEmitter getBundleManifestEmitter() throws JETException {
 		return initializeEmitter("/templates/editor/manifest.mfjet", ManifestGenerator.class);
+	}
+
+	public static JETEmitter getBuildPropertiesEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/build.propertiesjet", BuildPropertiesGenerator.class);
 	}
 
 	private static JETEmitter initializeEmitter(String relativeTemplatePath, Class precompiledTemplate) throws JETException {

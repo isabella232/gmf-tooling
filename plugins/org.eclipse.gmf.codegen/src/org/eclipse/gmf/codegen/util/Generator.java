@@ -157,6 +157,7 @@ public class Generator implements Runnable {
 			generateBundleManifest();
 			generatePluginProperties();
 			generatePluginXml();
+			generateBuildProperties();
 
 			if (myExceptions.isEmpty()) {
 				myRunStatus = Status.OK_STATUS;
@@ -659,6 +660,10 @@ public class Generator implements Runnable {
 
 	private void generateBundleManifest() throws JETException, InterruptedException {
 		doGenerateFile(EmitterFactory.getBundleManifestEmitter(), new Path("META-INF/MANIFEST.MF"));
+	}
+
+	private void generateBuildProperties() throws JETException, InterruptedException {
+		doGenerateFile(EmitterFactory.getBuildPropertiesEmitter(), new Path("build.properties"));
 	}
 
 	/**
