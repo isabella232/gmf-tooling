@@ -38,7 +38,7 @@ import org.eclipse.gmf.diadef.Node;
  *        annotation="http://www.eclipse.org/emf/2004/EmfaticAnnotationMap constraints='http://www.eclipse.org/gmf/2005/constraints' constraintsMeta='http://www.eclipse.org/gmf/2005/constraints/meta'"
  * @generated
  */
-public interface AbstractNodeMapping extends EObject {
+public interface AbstractNodeMapping extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Diagram Node</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -76,7 +76,7 @@ public interface AbstractNodeMapping extends EObject {
 	 * @return the value of the '<em>Domain Meta Element</em>' reference.
 	 * @see #setDomainMetaElement(EClass)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getAbstractNodeMapping_DomainMetaElement()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	EClass getDomainMetaElement();
