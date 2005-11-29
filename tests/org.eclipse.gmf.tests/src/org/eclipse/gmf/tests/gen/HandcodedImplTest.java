@@ -148,6 +148,7 @@ public class HandcodedImplTest extends TestCase {
 		checkClassName(state, "GenDiagram:Plugin", genDiagram.getPluginClassName(), genDiagram.getPluginQualifiedClassName());
 		checkClassName(state, "GenDiagram:PreferenceInitializer", genDiagram.getPreferenceInitializerClassName(), genDiagram.getPreferenceInitializerQualifiedClassName());
 		checkClassName(state, "GenDiagram:VisualIDRegistry", genDiagram.getVisualIDRegistryClassName(), genDiagram.getVisualIDRegistryQualifiedClassName());
+		checkClassName(state, "GenDiagram:LinkCreationConstraints", genDiagram.getLinkCreationConstraintsClassName(), genDiagram.getLinkCreationConstraintsQualifiedClassName());
 		Palette palette = genDiagram.getPalette();
 		checkClassName(state, "Palette:Factory", palette.getFactoryClassName(), palette.getFactoryQualifiedClassName());
 		for (GenCommonBaseIterator entities = new GenCommonBaseIterator(genDiagram); entities.hasNext();) {
