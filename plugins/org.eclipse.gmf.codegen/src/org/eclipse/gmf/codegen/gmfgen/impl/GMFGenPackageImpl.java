@@ -41,6 +41,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
@@ -333,6 +334,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass genFeatureValueSpecEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genLinkConstraintsEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1159,6 +1167,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getGenLink_CreationConstraints() {
+		return (EReference)genLinkEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenLabel() {
 		return genLabelEClass;
 	}
@@ -1897,6 +1914,42 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getGenLinkConstraints() {
+		return genLinkConstraintsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenLinkConstraints_Link() {
+		return (EReference)genLinkConstraintsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenLinkConstraints_SourceEnd() {
+		return (EReference)genLinkConstraintsEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenLinkConstraints_TargetEnd() {
+		return (EReference)genLinkConstraintsEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getCompartmentPlacementKind() {
 		return compartmentPlacementKindEEnum;
 	}
@@ -2042,6 +2095,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genLinkEClass, GEN_LINK__OUTGOING_CREATION_ALLOWED);
 		createEAttribute(genLinkEClass, GEN_LINK__INCOMING_CREATION_ALLOWED);
 		createEAttribute(genLinkEClass, GEN_LINK__VIEW_DIRECTION_ALIGNED_WITH_MODEL);
+		createEReference(genLinkEClass, GEN_LINK__CREATION_CONSTRAINTS);
 
 		genLabelEClass = createEClass(GEN_LABEL);
 		createEAttribute(genLabelEClass, GEN_LABEL__READ_ONLY);
@@ -2155,6 +2209,11 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		genFeatureValueSpecEClass = createEClass(GEN_FEATURE_VALUE_SPEC);
 		createEReference(genFeatureValueSpecEClass, GEN_FEATURE_VALUE_SPEC__FEATURE);
+
+		genLinkConstraintsEClass = createEClass(GEN_LINK_CONSTRAINTS);
+		createEReference(genLinkConstraintsEClass, GEN_LINK_CONSTRAINTS__LINK);
+		createEReference(genLinkConstraintsEClass, GEN_LINK_CONSTRAINTS__SOURCE_END);
+		createEReference(genLinkConstraintsEClass, GEN_LINK_CONSTRAINTS__TARGET_END);
 
 		// Create enums
 		compartmentPlacementKindEEnum = createEEnum(COMPARTMENT_PLACEMENT_KIND);
@@ -2293,6 +2352,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getCanonicalEditPolicyQualifiedClassName");
 
+		addEOperation(genDiagramEClass, ecorePackage.getEBoolean(), "hasLinkCreationConstraints");
+
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getLinkCreationConstraintsClassName");
+
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getLinkCreationConstraintsQualifiedClassName");
+
 		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getElementTypesQualifiedClassName");
 
 		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getSemanticHintsQualifiedClassName");
@@ -2396,6 +2461,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenLink_OutgoingCreationAllowed(), ecorePackage.getEBoolean(), "outgoingCreationAllowed", "true", 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenLink_IncomingCreationAllowed(), ecorePackage.getEBoolean(), "incomingCreationAllowed", "true", 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenLink_ViewDirectionAlignedWithModel(), ecorePackage.getEBoolean(), "viewDirectionAlignedWithModel", "true", 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenLink_CreationConstraints(), this.getGenLinkConstraints(), this.getGenLinkConstraints_Link(), "creationConstraints", null, 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genLabelEClass, GenLabel.class, "GenLabel", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenLabel_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", null, 0, 1, GenLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2535,6 +2601,19 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genFeatureValueSpecEClass, ecorePackage.getEString(), "getFeatureQualifiedPackageInterfaceName");
 
+		initEClass(genLinkConstraintsEClass, GenLinkConstraints.class, "GenLinkConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenLinkConstraints_Link(), this.getGenLink(), this.getGenLink_CreationConstraints(), "link", null, 1, 1, GenLinkConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenLinkConstraints_SourceEnd(), this.getValueExpression(), null, "sourceEnd", null, 0, 1, GenLinkConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenLinkConstraints_TargetEnd(), this.getValueExpression(), null, "targetEnd", null, 0, 1, GenLinkConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(genLinkConstraintsEClass, theGenModelPackage.getGenClass(), "getLinkClass");
+
+		addEOperation(genLinkConstraintsEClass, theGenModelPackage.getGenClass(), "getSourceEndContextClass");
+
+		addEOperation(genLinkConstraintsEClass, theGenModelPackage.getGenClass(), "getTargetEndContextClass");
+
+		addEOperation(genLinkConstraintsEClass, ecorePackage.getEString(), "getConstraintsInstanceFieldName");
+
 		// Initialize enums and add enum literals
 		initEEnum(compartmentPlacementKindEEnum, CompartmentPlacementKind.class, "CompartmentPlacementKind");
 		addEEnumLiteral(compartmentPlacementKindEEnum, CompartmentPlacementKind.FLOW_LITERAL);
@@ -2578,7 +2657,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints"
-		   });																																																														
+		   });																																																																										
 	}
 
 	/**
@@ -2594,7 +2673,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "nodes->forAll(n : GenNode | self.links->forAll(l : GenLink | l.domainMetaClass <> n.domainMetaClass))"
-		   });											
+		   });														
 		addAnnotation
 		  (genNodeEClass, 
 		   source, 
@@ -2606,7 +2685,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "diagramRunTimeClass.eCoreClass.eAllSuperTypes->includes(diagramrt.DiagramNode)"
-		   });																		
+		   });																			
 		addAnnotation
 		  (getTypeModelFacet_ContainmentMetaFeature(), 
 		   source, 
@@ -2636,7 +2715,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "self.feature.ecoreFeature.eType = self.body->evaluate().eType"
-		   });		
+		   });										
 	}
 
 } //GMFGenPackageImpl

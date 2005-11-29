@@ -10,7 +10,6 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
@@ -18,8 +17,6 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.diadef.Compartment;
 import org.eclipse.gmf.diadef.Node;
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
@@ -27,8 +24,6 @@ import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.GMFMapPackage;
-
-import org.eclipse.gmf.mappings.NodeMapping;
 
 /**
  * <!-- begin-user-doc -->

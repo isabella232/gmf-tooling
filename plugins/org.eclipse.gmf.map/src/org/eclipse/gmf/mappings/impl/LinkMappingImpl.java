@@ -19,6 +19,7 @@ import org.eclipse.gmf.diadef.Connection;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 
 /**
@@ -36,6 +37,7 @@ import org.eclipse.gmf.mappings.LinkMapping;
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getLabelEditFeature <em>Label Edit Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getLabelDisplayFeature <em>Label Display Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getLinkMetaFeature <em>Link Meta Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getCreationConstraints <em>Creation Constraints</em>}</li>
  * </ul>
  * </p>
  *
@@ -121,6 +123,16 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * @ordered
 	 */
 	protected EStructuralFeature linkMetaFeature = null;
+
+	/**
+	 * The cached value of the '{@link #getCreationConstraints() <em>Creation Constraints</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreationConstraints()
+	 * @generated
+	 * @ordered
+	 */
+	protected LinkConstraints creationConstraints = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -467,6 +479,70 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public LinkConstraints getCreationConstraints() {
+		return creationConstraints;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetCreationConstraints(LinkConstraints newCreationConstraints, NotificationChain msgs) {
+		LinkConstraints oldCreationConstraints = creationConstraints;
+		creationConstraints = newCreationConstraints;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS, oldCreationConstraints, newCreationConstraints);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCreationConstraints(LinkConstraints newCreationConstraints) {
+		if (newCreationConstraints != creationConstraints) {
+			NotificationChain msgs = null;
+			if (creationConstraints != null)
+				msgs = ((InternalEObject)creationConstraints).eInverseRemove(this, GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING, LinkConstraints.class, msgs);
+			if (newCreationConstraints != null)
+				msgs = ((InternalEObject)newCreationConstraints).eInverseAdd(this, GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING, LinkConstraints.class, msgs);
+			msgs = basicSetCreationConstraints(newCreationConstraints, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS, newCreationConstraints, newCreationConstraints));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
+		if (featureID >= 0) {
+			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
+				case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
+					if (creationConstraints != null)
+						msgs = ((InternalEObject)creationConstraints).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS, null, msgs);
+					return basicSetCreationConstraints((LinkConstraints)otherEnd, msgs);
+				default:
+					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
+			}
+		}
+		if (eContainer != null)
+			msgs = eBasicRemoveFromContainer(msgs);
+		return eBasicSetContainer(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
@@ -474,6 +550,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 					return basicSetDomainSpecialization(null, msgs);
 				case GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER:
 					return basicSetDomainInitializer(null, msgs);
+				case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
+					return basicSetCreationConstraints(null, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
@@ -510,6 +588,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 			case GMFMapPackage.LINK_MAPPING__LINK_META_FEATURE:
 				if (resolve) return getLinkMetaFeature();
 				return basicGetLinkMetaFeature();
+			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
+				return getCreationConstraints();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -544,6 +624,9 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 				return;
 			case GMFMapPackage.LINK_MAPPING__LINK_META_FEATURE:
 				setLinkMetaFeature((EStructuralFeature)newValue);
+				return;
+			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
+				setCreationConstraints((LinkConstraints)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -580,6 +663,9 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 			case GMFMapPackage.LINK_MAPPING__LINK_META_FEATURE:
 				setLinkMetaFeature((EStructuralFeature)null);
 				return;
+			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
+				setCreationConstraints((LinkConstraints)null);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -607,6 +693,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 				return labelDisplayFeature != null;
 			case GMFMapPackage.LINK_MAPPING__LINK_META_FEATURE:
 				return linkMetaFeature != null;
+			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
+				return creationConstraints != null;
 		}
 		return eDynamicIsSet(eFeature);
 	}

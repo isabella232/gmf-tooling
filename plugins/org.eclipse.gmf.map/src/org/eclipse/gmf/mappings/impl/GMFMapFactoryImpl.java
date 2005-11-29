@@ -49,6 +49,7 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 			case GMFMapPackage.CANVAS_MAPPING: return createCanvasMapping();
 			case GMFMapPackage.MAPPING: return createMapping();
 			case GMFMapPackage.CONSTRAINT: return createConstraint();
+			case GMFMapPackage.LINK_CONSTRAINTS: return createLinkConstraints();
 			case GMFMapPackage.VALUE_EXPRESSION: return createValueExpression();
 			case GMFMapPackage.FEATURE_SEQ_INITIALIZER: return createFeatureSeqInitializer();
 			case GMFMapPackage.FEATURE_VALUE_SPEC: return createFeatureValueSpec();
@@ -115,6 +116,16 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	public Constraint createConstraint() {
 		ConstraintImpl constraint = new ConstraintImpl();
 		return constraint;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LinkConstraints createLinkConstraints() {
+		LinkConstraintsImpl linkConstraints = new LinkConstraintsImpl();
+		return linkConstraints;
 	}
 
 	/**

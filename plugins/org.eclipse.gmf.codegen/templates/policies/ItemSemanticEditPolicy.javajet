@@ -1,5 +1,6 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.policies" class="ItemSemanticEditPolicyGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.*"
+	skeleton="../common.skeleton" %>
 <%GenDiagram diagram = (GenDiagram) argument;%>
 package <%=diagram.getEditPoliciesPackageName()%>;
 
@@ -198,5 +199,167 @@ public class <%=diagram.getBaseItemSemanticEditPolicyClassName()%> extends Seman
 		}
 		return null;
 	}
+
+<%
+if(diagram.hasLinkCreationConstraints()) {
+%>
+	/**
+	 * @generated 
+	 */
+	protected static class <%=diagram.getLinkCreationConstraintsClassName()%> {
+<%
+	for (Iterator it = diagram.getLinks().iterator(); it.hasNext();) {
+		GenLink nextLink = (GenLink) it.next();
+		GenLinkConstraints linkConstraints = nextLink.getCreationConstraints();
+		if(linkConstraints != null) {						
+			String srcConstraint = linkConstraints.getSourceEnd() != null ? linkConstraints.getSourceEnd().getBody() : null;
+			String targetConstraint = linkConstraints.getTargetEnd() != null ? linkConstraints.getTargetEnd().getBody(): null;
+			GenClass srcContext = linkConstraints.getSourceEndContextClass();
+			GenClass targetContext = linkConstraints.getTargetEndContextClass();
+			GenClass linkClass = linkConstraints.getLinkClass();
+%>
+		/**
+		 * @generated 
+		 */
+		public static final <%=diagram.getLinkCreationConstraintsClassName()%> <%=linkConstraints.getConstraintsInstanceFieldName()%> = new <%=diagram.getLinkCreationConstraintsClassName()%>(
+			new LinkEndConstraint(
+				<%=srcConstraint != null ? "\"" + srcConstraint + "\"" : null%>, //$NON-NLS-1$
+				<%=(srcContext!=null) ? getMetaClassAccessor(srcContext, importManager) : null%>),
+			new LinkEndConstraint(
+				<%=targetConstraint != null ? "\"" + targetConstraint + "\"" : null%>, //$NON-NLS-1$
+				<%=(targetContext!=null) ? getMetaClassAccessor(targetContext, importManager) : null%>),
+				<%=(linkClass!=null) ? getMetaClassAccessor(linkClass, importManager) : null%>);
+<%
+		} // end of LinkConstraints if
+	} // end of link iteration
+%>
+		/**
+		 * @generated 
+		 */	
+		private static final String OPPOSITE_END_VAR = "oppositeEnd"; //$NON-NLS-1$
+		/**
+		 * @generated 
+		 */	
+		private static final String LINK_VAR = "link"; //$NON-NLS-1$	
+		/**
+		 * @generated 
+		 */	
+		private <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> varOppositeEndToSource;
+		/**
+		 * @generated 
+		 */	
+		private <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> varOppositeEndToTarget;
+		/**
+		 * @generated 
+		 */	
+		private <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> varLinkObject;
+		/**
+		 * @generated 
+		 */	
+		private <%=importManager.getImportedName("org.eclipse.emf.ocl.query.Query")%> srcEndInv;
+		/**
+		 * @generated 
+		 */	
+		private <%=importManager.getImportedName("org.eclipse.emf.ocl.query.Query")%> targetEndInv;
+		/**
+		 * @generated 
+		 */		
+		public <%=diagram.getLinkCreationConstraintsClassName()%>(LinkEndConstraint sourceEnd, LinkEndConstraint targetEnd, <%=importManager.getImportedName("org.eclipse.emf.ecore.EClassifier")%> linkClass) {
+			if(linkClass != null) {
+				this.varLinkObject = createVar(LINK_VAR, linkClass);
+			}
+			
+			if(sourceEnd != null && sourceEnd.context != null && sourceEnd.body != null) {				
+				if(targetEnd != null && targetEnd.context != null) {
+					this.varOppositeEndToTarget = createVar(OPPOSITE_END_VAR, targetEnd.context);			
+				}
+				this.srcEndInv = createQuery(sourceEnd, varOppositeEndToTarget);
+			}
+			
+			if(targetEnd != null && targetEnd.context != null && targetEnd.body != null) {
+				if(sourceEnd != null && sourceEnd.context != null) {
+					this.varOppositeEndToSource = createVar(OPPOSITE_END_VAR, sourceEnd.context);				
+				}
+				this.targetEndInv = createQuery(targetEnd, varOppositeEndToSource);			
+			}
+		}
+		
+		/**
+		 * @generated 
+		 */	
+		public boolean canCreateLink(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest")%> req, boolean isBackDirected) {
+			Object source = req.getSource();
+			Object target = req.getTarget();
+			Object link = req.getNewElement(); 
+			Query sourceConstraint = isBackDirected ? targetEndInv : srcEndInv;
+			Query targetConstraint = null;
+			if(req.getTarget() != null) {
+				targetConstraint = isBackDirected ? srcEndInv : targetEndInv;
+			}
+			boolean isSourceAccepted = sourceConstraint != null ? evaluate(sourceConstraint, source, target, link, false) : true;
+			if(isSourceAccepted && targetConstraint != null) {
+				return evaluate(targetConstraint, target, source, link, true);
+			}
+			return isSourceAccepted;
+		}
+		
+		/**
+		 * @generated 
+		 */	
+		private Query createQuery(LinkEndConstraint constraint, <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> oppositeEndDecl) {
+			try {
+				<%=importManager.getImportedName("org.eclipse.emf.ocl.parser.Environment")%> env = <%=importManager.getImportedName("org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory")%>.ECORE_INSTANCE.createClassifierContext(constraint.context);
+				if(oppositeEndDecl != null) env.addElement(oppositeEndDecl.getName(), oppositeEndDecl, true);
+				if(varLinkObject != null) env.addElement(LINK_VAR, varLinkObject, true);			
+
+				return <%=importManager.getImportedName("org.eclipse.emf.ocl.query.QueryFactory")%>.eINSTANCE.createQuery(
+					<%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.util.ExpressionsUtil")%>.createInvariant(env, constraint.body, true));
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+	
+		/**
+		 * @generated 
+		 */		
+		private static boolean evaluate(<%=importManager.getImportedName("org.eclipse.emf.ocl.query.Query")%> query, Object sourceEnd, Object oppositeEnd, Object link, boolean clearEnv) {
+			<%=importManager.getImportedName("org.eclipse.emf.ocl.parser.EvaluationEnvironment")%> evalEnv = query.getEvaluationEnvironment();
+			evalEnv.replace(OPPOSITE_END_VAR, oppositeEnd);
+			evalEnv.replace(LINK_VAR, link);		
+			try {
+				Object val = query.evaluate(sourceEnd);			
+				return (val instanceof Boolean) ? ((Boolean)val).booleanValue() : false;
+			} catch(Exception e) {		
+				e.printStackTrace();			
+				if(evalEnv != null) evalEnv.clear();			
+				return false;
+			} finally {
+				if(clearEnv) evalEnv.clear();
+			}
+		}
+	
+		/**
+		 * @generated 
+		 */		
+		private static <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> createVar(String name, <%=importManager.getImportedName("org.eclipse.emf.ecore.EClassifier")%> type) {
+			<%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> var = <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.ExpressionsFactory")%>.eINSTANCE.createVariableDeclaration();
+			var.setName(name);
+			var.setType(<%=importManager.getImportedName("org.eclipse.emf.ocl.parser.EcoreEnvironment")%>.getOclType(type));		
+			return var;
+		}	
+	}
+	/**
+	 * @generated 
+	 */	
+	static class LinkEndConstraint {
+		final <%=importManager.getImportedName("org.eclipse.emf.ecore.EClassifier")%> context;
+		final String body;
+		LinkEndConstraint(String body, <%=importManager.getImportedName("org.eclipse.emf.ecore.EClassifier")%> context) {
+			this.context = context;
+			this.body = body;
+		}
+	}
+<%} //end of LinkConstraints %>	
 }
 <%importManager.emitSortedImports();%>

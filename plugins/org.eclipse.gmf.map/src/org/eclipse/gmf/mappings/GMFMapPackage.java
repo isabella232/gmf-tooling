@@ -425,13 +425,22 @@ public interface GMFMapPackage extends EPackage{
 	int LINK_MAPPING__LINK_META_FEATURE = MAPPING_ENTRY_FEATURE_COUNT + 7;
 
 	/**
+	 * The feature id for the '<em><b>Creation Constraints</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_MAPPING__CREATION_CONSTRAINTS = MAPPING_ENTRY_FEATURE_COUNT + 8;
+
+	/**
 	 * The number of structural features of the the '<em>Link Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_MAPPING_FEATURE_COUNT = MAPPING_ENTRY_FEATURE_COUNT + 8;
+	int LINK_MAPPING_FEATURE_COUNT = MAPPING_ENTRY_FEATURE_COUNT + 9;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.CanvasMappingImpl <em>Canvas Mapping</em>}' class.
@@ -534,7 +543,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getValueExpression()
 	 * @generated
 	 */
-	int VALUE_EXPRESSION = 8;
+	int VALUE_EXPRESSION = 9;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -602,6 +611,52 @@ public interface GMFMapPackage extends EPackage{
 
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.LinkConstraintsImpl <em>Link Constraints</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.LinkConstraintsImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLinkConstraints()
+	 * @generated
+	 */
+	int LINK_CONSTRAINTS = 8;
+
+	/**
+	 * The feature id for the '<em><b>Link Mapping</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_CONSTRAINTS__LINK_MAPPING = 0;
+
+	/**
+	 * The feature id for the '<em><b>Source End</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_CONSTRAINTS__SOURCE_END = 1;
+
+	/**
+	 * The feature id for the '<em><b>Target End</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_CONSTRAINTS__TARGET_END = 2;
+
+	/**
+	 * The number of structural features of the the '<em>Link Constraints</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_CONSTRAINTS_FEATURE_COUNT = 3;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.ElementInitializer <em>Element Initializer</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -609,7 +664,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getElementInitializer()
 	 * @generated
 	 */
-	int ELEMENT_INITIALIZER = 9;
+	int ELEMENT_INITIALIZER = 10;
 
 	/**
 	 * The number of structural features of the the '<em>Element Initializer</em>' class.
@@ -628,7 +683,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getFeatureSeqInitializer()
 	 * @generated
 	 */
-	int FEATURE_SEQ_INITIALIZER = 10;
+	int FEATURE_SEQ_INITIALIZER = 11;
 
 	/**
 	 * The feature id for the '<em><b>Initializers</b></em>' containment reference list.
@@ -656,7 +711,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getFeatureValueSpec()
 	 * @generated
 	 */
-	int FEATURE_VALUE_SPEC = 11;
+	int FEATURE_VALUE_SPEC = 12;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -933,6 +988,17 @@ public interface GMFMapPackage extends EPackage{
 	EReference getLinkMapping_LinkMetaFeature();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.LinkMapping#getCreationConstraints <em>Creation Constraints</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Creation Constraints</em>'.
+	 * @see org.eclipse.gmf.mappings.LinkMapping#getCreationConstraints()
+	 * @see #getLinkMapping()
+	 * @generated
+	 */
+	EReference getLinkMapping_CreationConstraints();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.CanvasMapping <em>Canvas Mapping</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1027,6 +1093,49 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 */
 	EClass getConstraint();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.LinkConstraints <em>Link Constraints</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Link Constraints</em>'.
+	 * @see org.eclipse.gmf.mappings.LinkConstraints
+	 * @generated
+	 */
+	EClass getLinkConstraints();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.LinkConstraints#getLinkMapping <em>Link Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Link Mapping</em>'.
+	 * @see org.eclipse.gmf.mappings.LinkConstraints#getLinkMapping()
+	 * @see #getLinkConstraints()
+	 * @generated
+	 */
+	EReference getLinkConstraints_LinkMapping();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.LinkConstraints#getSourceEnd <em>Source End</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Source End</em>'.
+	 * @see org.eclipse.gmf.mappings.LinkConstraints#getSourceEnd()
+	 * @see #getLinkConstraints()
+	 * @generated
+	 */
+	EReference getLinkConstraints_SourceEnd();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.LinkConstraints#getTargetEnd <em>Target End</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Target End</em>'.
+	 * @see org.eclipse.gmf.mappings.LinkConstraints#getTargetEnd()
+	 * @see #getLinkConstraints()
+	 * @generated
+	 */
+	EReference getLinkConstraints_TargetEnd();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.ValueExpression <em>Value Expression</em>}'.

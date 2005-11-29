@@ -114,6 +114,12 @@
         <details key="ocl" value="domainMetaElement.oclIsUndefined() or linkMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="creationConstraints" eType="#//LinkConstraints"
+        containment="true" eOpposite="#//LinkConstraints/linkMapping">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Specifies additional restrictions on link creation"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CanvasMapping" eSuperTypes="#//MappingEntry">
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramCanvas" lowerBound="1"
@@ -136,6 +142,29 @@
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
       <details key="def" value="Constraint"/>
     </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LinkConstraints">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Groups constraints on the link source and target end"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="linkMapping" lowerBound="1"
+        eType="#//LinkMapping" changeable="false" eOpposite="#//LinkMapping/creationConstraints">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="References the link mapping restricted by these constraints"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceEnd" eType="#//Constraint"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Restriction enforced by the the source end, may reference variables 'oppositeEnd' pointing to targetEnd and 'link' denoting the link domainmetaElement instance if available."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetEnd" eType="#//Constraint"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Restriction enforced by the the target end, may reference variables 'oppositeEnd' pointing to sourceEnd and 'link' denoting the link domainmetaElement instance if available."/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ValueExpression">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">

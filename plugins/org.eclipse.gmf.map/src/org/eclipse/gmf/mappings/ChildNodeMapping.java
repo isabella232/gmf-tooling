@@ -6,12 +6,7 @@
  */
 package org.eclipse.gmf.mappings;
 
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.diadef.Compartment;
-import org.eclipse.gmf.diadef.Node;
 
 /**
  * <!-- begin-user-doc -->

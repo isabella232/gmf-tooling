@@ -80,6 +80,15 @@ public interface GMFMapFactory extends EFactory{
 	Constraint createConstraint();
 
 	/**
+	 * Returns a new object of class '<em>Link Constraints</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Link Constraints</em>'.
+	 * @generated
+	 */
+	LinkConstraints createLinkConstraints();
+
+	/**
 	 * Returns a new object of class '<em>Value Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

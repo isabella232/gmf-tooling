@@ -225,6 +225,15 @@ public class InitDiagramFileActionGenerator {
 		return result.toString();
 	}
  
+	protected final String getMetaClassAccessor(GenClass genClass, ImportUtil importManager) {
+		StringBuffer buf = new StringBuffer();
+		buf.append(importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()))
+			.append(".eINSTANCE.get") //$NON-NLS-1$
+			.append(genClass.getName())
+			.append("()"); //$NON-NLS-1$
+		return buf.toString();
+	} 
+ 
 	public String generate(Object argument)
   {
     StringBuffer stringBuffer = new StringBuffer();

@@ -82,6 +82,9 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getBaseGraphicalNodeEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getReferenceConnectionEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getCanonicalEditPolicyQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/hasLinkCreationConstraints"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getLinkCreationConstraintsClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getLinkCreationConstraintsQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getElementTypesQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getSemanticHintsQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getNotationViewProviderQualifiedClassName"/>
@@ -154,6 +157,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/outgoingCreationAllowed"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/incomingCreationAllowed"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLink/viewDirectionAlignedWithModel"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/creationConstraints"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenLabel">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLabel/readOnly"/>
@@ -275,6 +279,15 @@
     <genClasses ecoreClass="gmfgen.ecore#//GenFeatureValueSpec">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureValueSpec/feature"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureValueSpec/getFeatureQualifiedPackageInterfaceName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenLinkConstraints">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkConstraints/link"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkConstraints/sourceEnd"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkConstraints/targetEnd"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenLinkConstraints/getLinkClass"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenLinkConstraints/getSourceEndContextClass"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenLinkConstraints/getTargetEndContextClass"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenLinkConstraints/getConstraintsInstanceFieldName"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

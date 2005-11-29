@@ -206,6 +206,28 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.LinkConstraints} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LinkConstraintsItemProvider linkConstraintsItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.LinkConstraints}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createLinkConstraintsAdapter() {
+		if (linkConstraintsItemProvider == null) {
+			linkConstraintsItemProvider = new LinkConstraintsItemProvider(this);
+		}
+
+		return linkConstraintsItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.ValueExpression} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -373,6 +395,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 		if (canvasMappingItemProvider != null) canvasMappingItemProvider.dispose();
 		if (mappingItemProvider != null) mappingItemProvider.dispose();
 		if (constraintItemProvider != null) constraintItemProvider.dispose();
+		if (linkConstraintsItemProvider != null) linkConstraintsItemProvider.dispose();
 		if (valueExpressionItemProvider != null) valueExpressionItemProvider.dispose();
 		if (featureSeqInitializerItemProvider != null) featureSeqInitializerItemProvider.dispose();
 		if (featureValueSpecItemProvider != null) featureValueSpecItemProvider.dispose();

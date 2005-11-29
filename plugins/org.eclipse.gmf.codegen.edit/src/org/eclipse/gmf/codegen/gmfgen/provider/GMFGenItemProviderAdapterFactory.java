@@ -624,6 +624,28 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenLinkConstraintsItemProvider genLinkConstraintsItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenLinkConstraintsAdapter() {
+		if (genLinkConstraintsItemProvider == null) {
+			genLinkConstraintsItemProvider = new GenLinkConstraintsItemProvider(this);
+		}
+
+		return genLinkConstraintsItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ValueExpression} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -790,6 +812,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (toolGroupItemProvider != null) toolGroupItemProvider.dispose();
 		if (genFeatureSeqInitializerItemProvider != null) genFeatureSeqInitializerItemProvider.dispose();
 		if (genFeatureValueSpecItemProvider != null) genFeatureValueSpecItemProvider.dispose();
+		if (genLinkConstraintsItemProvider != null) genLinkConstraintsItemProvider.dispose();
 	}
 
 }

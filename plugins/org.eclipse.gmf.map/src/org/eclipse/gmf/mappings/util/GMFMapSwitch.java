@@ -148,6 +148,12 @@ public class GMFMapSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFMapPackage.LINK_CONSTRAINTS: {
+				LinkConstraints linkConstraints = (LinkConstraints)theEObject;
+				Object result = caseLinkConstraints(linkConstraints);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFMapPackage.VALUE_EXPRESSION: {
 				ValueExpression valueExpression = (ValueExpression)theEObject;
 				Object result = caseValueExpression(valueExpression);
@@ -295,6 +301,21 @@ public class GMFMapSwitch {
 	 * @generated
 	 */
 	public Object caseConstraint(Constraint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Link Constraints</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Link Constraints</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseLinkConstraints(LinkConstraints object) {
 		return null;
 	}
 

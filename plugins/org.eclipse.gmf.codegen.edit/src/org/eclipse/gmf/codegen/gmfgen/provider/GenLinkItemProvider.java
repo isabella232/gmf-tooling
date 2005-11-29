@@ -14,7 +14,6 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -23,7 +22,6 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
@@ -143,6 +141,7 @@ public class GenLinkItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenLink_ModelFacet());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenLink_Labels());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenLink_CreationConstraints());
 		}
 		return childrenFeatures;
 	}
@@ -190,6 +189,7 @@ public class GenLinkItemProvider
 				return;
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
 			case GMFGenPackage.GEN_LINK__LABELS:
+			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -220,6 +220,11 @@ public class GenLinkItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenLink_Labels(),
 				 GMFGenFactory.eINSTANCE.createGenLinkLabel()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenLink_CreationConstraints(),
+				 GMFGenFactory.eINSTANCE.createGenLinkConstraints()));
 	}
 
 	/**

@@ -1284,13 +1284,22 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_LINK__VIEW_DIRECTION_ALIGNED_WITH_MODEL = GEN_COMMON_BASE_FEATURE_COUNT + 5;
 
 	/**
+	 * The feature id for the '<em><b>Creation Constraints</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK__CREATION_CONSTRAINTS = GEN_COMMON_BASE_FEATURE_COUNT + 6;
+
+	/**
 	 * The number of structural features of the the '<em>Gen Link</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_LINK_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 6;
+	int GEN_LINK_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLabelImpl <em>Gen Label</em>}' class.
@@ -2872,6 +2881,52 @@ public interface GMFGenPackage extends EPackage{
 	int GEN_FEATURE_VALUE_SPEC_FEATURE_COUNT = VALUE_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkConstraintsImpl <em>Gen Link Constraints</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenLinkConstraintsImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenLinkConstraints()
+	 * @generated
+	 */
+	int GEN_LINK_CONSTRAINTS = 38;
+
+	/**
+	 * The feature id for the '<em><b>Link</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK_CONSTRAINTS__LINK = 0;
+
+	/**
+	 * The feature id for the '<em><b>Source End</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK_CONSTRAINTS__SOURCE_END = 1;
+
+	/**
+	 * The feature id for the '<em><b>Target End</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK_CONSTRAINTS__TARGET_END = 2;
+
+	/**
+	 * The number of structural features of the the '<em>Gen Link Constraints</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_LINK_CONSTRAINTS_FEATURE_COUNT = 3;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind <em>Compartment Placement Kind</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2879,7 +2934,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getCompartmentPlacementKind()
 	 * @generated
 	 */
-	int COMPARTMENT_PLACEMENT_KIND = 38;
+	int COMPARTMENT_PLACEMENT_KIND = 39;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind <em>Compartment Layout Kind</em>}' enum.
@@ -2889,7 +2944,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getCompartmentLayoutKind()
 	 * @generated
 	 */
-	int COMPARTMENT_LAYOUT_KIND = 39;
+	int COMPARTMENT_LAYOUT_KIND = 40;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment <em>Link Label Alignment</em>}' enum.
@@ -2899,7 +2954,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkLabelAlignment()
 	 * @generated
 	 */
-	int LINK_LABEL_ALIGNMENT = 40;
+	int LINK_LABEL_ALIGNMENT = 41;
 
 	/**
 	 * The meta object id for the '<em>String Array</em>' data type.
@@ -2908,7 +2963,7 @@ public interface GMFGenPackage extends EPackage{
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getStringArray()
 	 * @generated
 	 */
-	int STRING_ARRAY = 41;
+	int STRING_ARRAY = 42;
 
 
 	/**
@@ -3785,6 +3840,17 @@ public interface GMFGenPackage extends EPackage{
 	EAttribute getGenLink_ViewDirectionAlignedWithModel();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getCreationConstraints <em>Creation Constraints</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Creation Constraints</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLink#getCreationConstraints()
+	 * @see #getGenLink()
+	 * @generated
+	 */
+	EReference getGenLink_CreationConstraints();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenLabel <em>Gen Label</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4654,6 +4720,49 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getGenFeatureValueSpec_Feature();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints <em>Gen Link Constraints</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Link Constraints</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints
+	 * @generated
+	 */
+	EClass getGenLinkConstraints();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints#getLink <em>Link</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Link</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints#getLink()
+	 * @see #getGenLinkConstraints()
+	 * @generated
+	 */
+	EReference getGenLinkConstraints_Link();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints#getSourceEnd <em>Source End</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Source End</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints#getSourceEnd()
+	 * @see #getGenLinkConstraints()
+	 * @generated
+	 */
+	EReference getGenLinkConstraints_SourceEnd();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints#getTargetEnd <em>Target End</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Target End</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints#getTargetEnd()
+	 * @see #getGenLinkConstraints()
+	 * @generated
+	 */
+	EReference getGenLinkConstraints_TargetEnd();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind <em>Compartment Placement Kind</em>}'.

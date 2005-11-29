@@ -1267,6 +1267,39 @@ public interface GenDiagram extends GenCommonBase{
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Indicates whether this diagram contains link creation constraints or not
+	 * <!-- end-model-doc -->
+	 * @model required="true"
+	 * @generated
+	 */
+	boolean hasLinkCreationConstraints();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Gets the name of the constraints holder class
+	 * <!-- end-model-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	String getLinkCreationConstraintsClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Gets the qualified name of the constraints holder class
+	 * <!-- end-model-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	String getLinkCreationConstraintsQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @model kind="operation"
 	 * @generated
 	 */

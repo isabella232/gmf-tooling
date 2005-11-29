@@ -2292,6 +2292,43 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public boolean hasLinkCreationConstraints() {
+		for (Iterator it = getLinks().iterator(); it.hasNext();) {
+			GenLink nextLink = (GenLink) it.next();
+			if(nextLink.getCreationConstraints() != null) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getLinkCreationConstraintsClassName() {
+		return "LinkConstraints"; //$NON-NLS-1$		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getLinkCreationConstraintsQualifiedClassName() {
+		String owningClass = getBaseItemSemanticEditPolicyQualifiedClassName();
+		if(owningClass != null) {
+			return owningClass + "." + getLinkCreationConstraintsClassName(); //$NON-NLS-1$
+		}
+		return getLinkCreationConstraintsClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public String getEditorQualifiedClassName() {
 		return getEditorPackageName() + '.' + getEditorClassName();
 	}
@@ -3308,6 +3345,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				}
 			}
 		}		
+		if(hasLinkCreationConstraints()) {
+			requiredIDs.add("org.eclipse.emf.ocl"); //$NON-NLS-1$			
+			requiredIDs.add("org.eclipse.emf.query.ocl"); //$NON-NLS-1$			
+		}
 		return requiredIDs;
 	}
 } //GenDiagramImpl

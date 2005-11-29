@@ -23,6 +23,7 @@ import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
@@ -41,6 +42,7 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#isOutgoingCreationAllowed <em>Outgoing Creation Allowed</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#isIncomingCreationAllowed <em>Incoming Creation Allowed</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#isViewDirectionAlignedWithModel <em>View Direction Aligned With Model</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl#getCreationConstraints <em>Creation Constraints</em>}</li>
  * </ul>
  * </p>
  *
@@ -126,6 +128,16 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * @ordered
 	 */
 	protected boolean viewDirectionAlignedWithModel = VIEW_DIRECTION_ALIGNED_WITH_MODEL_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getCreationConstraints() <em>Creation Constraints</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreationConstraints()
+	 * @generated
+	 * @ordered
+	 */
+	protected GenLinkConstraints creationConstraints = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -278,6 +290,49 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GenLinkConstraints getCreationConstraints() {
+		return creationConstraints;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetCreationConstraints(GenLinkConstraints newCreationConstraints, NotificationChain msgs) {
+		GenLinkConstraints oldCreationConstraints = creationConstraints;
+		creationConstraints = newCreationConstraints;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS, oldCreationConstraints, newCreationConstraints);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCreationConstraints(GenLinkConstraints newCreationConstraints) {
+		if (newCreationConstraints != creationConstraints) {
+			NotificationChain msgs = null;
+			if (creationConstraints != null)
+				msgs = ((InternalEObject)creationConstraints).eInverseRemove(this, GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK, GenLinkConstraints.class, msgs);
+			if (newCreationConstraints != null)
+				msgs = ((InternalEObject)newCreationConstraints).eInverseAdd(this, GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK, GenLinkConstraints.class, msgs);
+			msgs = basicSetCreationConstraints(newCreationConstraints, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS, newCreationConstraints, newCreationConstraints));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
@@ -287,6 +342,10 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 					return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_LINK__DIAGRAM, msgs);
 				case GMFGenPackage.GEN_LINK__LABELS:
 					return ((InternalEList)getLabels()).basicAdd(otherEnd, msgs);
+				case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
+					if (creationConstraints != null)
+						msgs = ((InternalEObject)creationConstraints).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS, null, msgs);
+					return basicSetCreationConstraints((GenLinkConstraints)otherEnd, msgs);
 				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
@@ -312,6 +371,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 					return basicSetModelFacet(null, msgs);
 				case GMFGenPackage.GEN_LINK__LABELS:
 					return ((InternalEList)getLabels()).basicRemove(otherEnd, msgs);
+				case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
+					return basicSetCreationConstraints(null, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
@@ -368,6 +429,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				return isIncomingCreationAllowed() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_LINK__VIEW_DIRECTION_ALIGNED_WITH_MODEL:
 				return isViewDirectionAlignedWithModel() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
+				return getCreationConstraints();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -413,6 +476,9 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			case GMFGenPackage.GEN_LINK__VIEW_DIRECTION_ALIGNED_WITH_MODEL:
 				setViewDirectionAlignedWithModel(((Boolean)newValue).booleanValue());
 				return;
+			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
+				setCreationConstraints((GenLinkConstraints)newValue);
+				return;
 		}
 		eDynamicSet(eFeature, newValue);
 	}
@@ -457,6 +523,9 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			case GMFGenPackage.GEN_LINK__VIEW_DIRECTION_ALIGNED_WITH_MODEL:
 				setViewDirectionAlignedWithModel(VIEW_DIRECTION_ALIGNED_WITH_MODEL_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
+				setCreationConstraints((GenLinkConstraints)null);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -492,6 +561,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				return incomingCreationAllowed != INCOMING_CREATION_ALLOWED_EDEFAULT;
 			case GMFGenPackage.GEN_LINK__VIEW_DIRECTION_ALIGNED_WITH_MODEL:
 				return viewDirectionAlignedWithModel != VIEW_DIRECTION_ALIGNED_WITH_MODEL_EDEFAULT;
+			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
+				return creationConstraints != null;
 		}
 		return eDynamicIsSet(eFeature);
 	}

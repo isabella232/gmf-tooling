@@ -26,6 +26,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isOutgoingCreationAllowed <em>Outgoing Creation Allowed</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isIncomingCreationAllowed <em>Incoming Creation Allowed</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#isViewDirectionAlignedWithModel <em>View Direction Aligned With Model</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getCreationConstraints <em>Creation Constraints</em>}</li>
  * </ul>
  * </p>
  *
@@ -172,5 +173,32 @@ public interface GenLink extends GenCommonBase{
 	 * @generated
 	 */
 	void setViewDirectionAlignedWithModel(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Creation Constraints</b></em>' containment reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints#getLink <em>Link</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specifies additional restrictions on link creation
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Creation Constraints</em>' containment reference.
+	 * @see #setCreationConstraints(GenLinkConstraints)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink_CreationConstraints()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints#getLink
+	 * @model opposite="link" containment="true"
+	 * @generated
+	 */
+	GenLinkConstraints getCreationConstraints();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getCreationConstraints <em>Creation Constraints</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Creation Constraints</em>' containment reference.
+	 * @see #getCreationConstraints()
+	 * @generated
+	 */
+	void setCreationConstraints(GenLinkConstraints value);
 
 } // GenLink

@@ -38,6 +38,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
@@ -52,6 +53,7 @@ import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.diadef.AdornmentKind;
 import org.eclipse.gmf.diadef.Compartment;
 import org.eclipse.gmf.diadef.DiagramElement;
@@ -64,6 +66,7 @@ import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
+import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
@@ -342,6 +345,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			}
 			gl.getViewmap().getAttributes().add(attrs);
 		}
+		
+		if(lme.getCreationConstraints() != null) {
+			gl.setCreationConstraints(createLinkCreationConstraints(lme.getCreationConstraints()));
+		}
 	}
 
 	private void initViewmap(LinkMapping lme, GenLink gl) {
@@ -484,6 +491,23 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 	}
 
+	private GenLinkConstraints createLinkCreationConstraints(LinkConstraints constraints) {
+		LinkMapping lme = constraints.getLinkMapping();
+		if(lme == null) {
+			return null;
+		}				
+		GenLinkConstraints genConstraints = GMFGenFactory.eINSTANCE.createGenLinkConstraints();
+		Constraint sourceConstraint = constraints.getSourceEnd();
+		if(sourceConstraint != null) {
+			genConstraints.setSourceEnd(createExpression(sourceConstraint.getBody(), sourceConstraint.getLanguage()));
+		}
+		Constraint targetConstraint = constraints.getTargetEnd();
+		if(targetConstraint != null) {
+			genConstraints.setTargetEnd(createExpression(targetConstraint.getBody(), targetConstraint.getLanguage()));
+		}		
+		return genConstraints; 
+	}
+
 	private TypeModelFacet setupModelFacet(EClass domainMetaElement, EStructuralFeature containmentFeature, EStructuralFeature childFeature) {
 		TypeModelFacet mf = GMFGenFactory.eINSTANCE.createTypeModelFacet();
 		mf.setMetaClass(findGenClass(domainMetaElement));
@@ -524,7 +548,17 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			return fSeqInitializer;
 		}
 		return null;
-	}	
+	}
+	
+	private ValueExpression createExpression(String body, String lang) {
+		if(body == null) {
+			return null;
+		}
+		ValueExpression valueExpression = GMFGenFactory.eINSTANCE.createValueExpression();
+		valueExpression.setBody(body);
+		valueExpression.setLanguage(lang);
+		return valueExpression;
+	}
 	
 	private static ModelElementSelector createModelElementSelector(Constraint metaElementConstraint) {
 		ModelElementSelector modelElementSelector = GMFGenFactory.eINSTANCE.createModelElementSelector();

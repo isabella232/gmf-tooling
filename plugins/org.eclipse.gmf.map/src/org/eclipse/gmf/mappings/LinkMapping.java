@@ -28,6 +28,7 @@ import org.eclipse.gmf.diadef.Connection;
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getLabelEditFeature <em>Label Edit Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getLabelDisplayFeature <em>Label Display Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getLinkMetaFeature <em>Link Meta Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getCreationConstraints <em>Creation Constraints</em>}</li>
  * </ul>
  * </p>
  *
@@ -252,5 +253,32 @@ public interface LinkMapping extends MappingEntry{
 	 * @generated
 	 */
 	void setLinkMetaFeature(EStructuralFeature value);
+
+	/**
+	 * Returns the value of the '<em><b>Creation Constraints</b></em>' containment reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.LinkConstraints#getLinkMapping <em>Link Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specifies additional restrictions on link creation
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Creation Constraints</em>' containment reference.
+	 * @see #setCreationConstraints(LinkConstraints)
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping_CreationConstraints()
+	 * @see org.eclipse.gmf.mappings.LinkConstraints#getLinkMapping
+	 * @model opposite="linkMapping" containment="true"
+	 * @generated
+	 */
+	LinkConstraints getCreationConstraints();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.mappings.LinkMapping#getCreationConstraints <em>Creation Constraints</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Creation Constraints</em>' containment reference.
+	 * @see #getCreationConstraints()
+	 * @generated
+	 */
+	void setCreationConstraints(LinkConstraints value);
 
 } // LinkMapping

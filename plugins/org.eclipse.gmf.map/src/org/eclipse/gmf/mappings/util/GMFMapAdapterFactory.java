@@ -99,6 +99,9 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 			public Object caseConstraint(Constraint object) {
 				return createConstraintAdapter();
 			}
+			public Object caseLinkConstraints(LinkConstraints object) {
+				return createLinkConstraintsAdapter();
+			}
 			public Object caseValueExpression(ValueExpression object) {
 				return createValueExpressionAdapter();
 			}
@@ -238,6 +241,20 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createConstraintAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.LinkConstraints <em>Link Constraints</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.LinkConstraints
+	 * @generated
+	 */
+	public Adapter createLinkConstraintsAdapter() {
 		return null;
 	}
 

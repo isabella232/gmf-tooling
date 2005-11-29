@@ -93,6 +93,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.TOOL_GROUP: return createToolGroup();
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER: return createGenFeatureSeqInitializer();
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC: return createGenFeatureValueSpec();
+			case GMFGenPackage.GEN_LINK_CONSTRAINTS: return createGenLinkConstraints();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -415,6 +416,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenFeatureValueSpec createGenFeatureValueSpec() {
 		GenFeatureValueSpecImpl genFeatureValueSpec = new GenFeatureValueSpecImpl();
 		return genFeatureValueSpec;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenLinkConstraints createGenLinkConstraints() {
+		GenLinkConstraintsImpl genLinkConstraints = new GenLinkConstraintsImpl();
+		return genLinkConstraints;
 	}
 
 	/**
