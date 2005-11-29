@@ -29,19 +29,20 @@ public class ChildContainerCanonicalEditPolicyGenerator {
   protected final String TEXT_10 = ") ((View) getHost().getModel()).getElement();" + NL + "\t\t\tList result = new ";
   protected final String TEXT_11 = "();" + NL + "\t\t\t";
   protected final String TEXT_12 = " nextValue;";
-  protected final String TEXT_13 = "\t" + NL + "\t\t\tfor (";
-  protected final String TEXT_14 = " it = ";
-  protected final String TEXT_15 = ".iterator(); it.hasNext();) {" + NL + "\t\t\t\tnextValue = (";
-  protected final String TEXT_16 = ") it.next();";
-  protected final String TEXT_17 = NL + "\t\t\tnextValue = ";
-  protected final String TEXT_18 = ";";
-  protected final String TEXT_19 = NL + "\t\t\tint nodeVID = ";
-  protected final String TEXT_20 = ".INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, \"\");" + NL + "\t\t\tif (";
-  protected final String TEXT_21 = " == nodeVID) {" + NL + "\t\t\t\tresult.add(nextValue);" + NL + "\t\t\t}";
-  protected final String TEXT_22 = NL + "\t\t\t}";
-  protected final String TEXT_23 = "\t\t\t" + NL + "\t\t\treturn result;" + NL + "\t\t}";
-  protected final String TEXT_24 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getFactoryHint(IAdaptable elementAdapter) {" + NL + "\t\treturn \"\";" + NL + "\t}" + NL + "}";
-  protected final String TEXT_25 = NL;
+  protected final String TEXT_13 = NL + "\t\t\tint nodeVID;";
+  protected final String TEXT_14 = "\t" + NL + "\t\t\tfor (";
+  protected final String TEXT_15 = " it = ";
+  protected final String TEXT_16 = ".iterator(); it.hasNext();) {" + NL + "\t\t\t\tnextValue = (";
+  protected final String TEXT_17 = ") it.next();";
+  protected final String TEXT_18 = NL + "\t\t\tnextValue = ";
+  protected final String TEXT_19 = ";";
+  protected final String TEXT_20 = NL + "\t\t\tnodeVID = ";
+  protected final String TEXT_21 = ".INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, \"\");" + NL + "\t\t\tif (";
+  protected final String TEXT_22 = " == nodeVID) {" + NL + "\t\t\t\tresult.add(nextValue);" + NL + "\t\t\t}";
+  protected final String TEXT_23 = NL + "\t\t\t}";
+  protected final String TEXT_24 = "\t\t\t" + NL + "\t\t\treturn result;" + NL + "\t\t}";
+  protected final String TEXT_25 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getFactoryHint(IAdaptable elementAdapter) {" + NL + "\t\treturn \"\";" + NL + "\t}" + NL + "}";
+  protected final String TEXT_26 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
 		StringBuffer result = new StringBuffer();
@@ -166,46 +167,53 @@ GenDiagram genDiagram = genContainer.getDiagram();
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_12);
     
+if (genNodes.size() > 0) {
+
+    stringBuffer.append(TEXT_13);
+    
+}
+
+    
 for (Iterator it = genNodes.iterator(); it.hasNext();) {
 	GenNode nextNode = (GenNode) it.next();
 	TypeModelFacet typeModelFacet = nextNode.getModelFacet();
 	GenFeature childMetaFeature = typeModelFacet.getChildMetaFeature();
 	if (childMetaFeature.isListType()) {
 
-    stringBuffer.append(TEXT_13);
-    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
     stringBuffer.append(TEXT_14);
-    stringBuffer.append(getFeatureValueGetter("modelElement", childMetaFeature, false, importManager));
+    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
     stringBuffer.append(TEXT_15);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(getFeatureValueGetter("modelElement", childMetaFeature, false, importManager));
     stringBuffer.append(TEXT_16);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_17);
     
 	} else {
 
-    stringBuffer.append(TEXT_17);
-    stringBuffer.append(getFeatureValueGetter("modelElement", childMetaFeature, false, importManager));
     stringBuffer.append(TEXT_18);
+    stringBuffer.append(getFeatureValueGetter("modelElement", childMetaFeature, false, importManager));
+    stringBuffer.append(TEXT_19);
     
 	}
 
-    stringBuffer.append(TEXT_19);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_20);
-    stringBuffer.append(nextNode.getVisualID());
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_21);
+    stringBuffer.append(nextNode.getVisualID());
+    stringBuffer.append(TEXT_22);
     
 	if (childMetaFeature.isListType()) {
 
-    stringBuffer.append(TEXT_22);
+    stringBuffer.append(TEXT_23);
     
 	}
 }
 
-    stringBuffer.append(TEXT_23);
-    }
     stringBuffer.append(TEXT_24);
-    importManager.emitSortedImports();
+    }
     stringBuffer.append(TEXT_25);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_26);
     return stringBuffer.toString();
   }
 }

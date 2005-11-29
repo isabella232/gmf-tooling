@@ -220,6 +220,12 @@ if (genNodes.size() > 0) {
 <%
 }
 
+if (genNodes.size() > 0) {
+%>
+		int nodeVID;
+<%
+}
+
 for (Iterator diagramNodes = genNodes.iterator(); diagramNodes.hasNext();) {
 	GenNode nextNode = (GenNode) diagramNodes.next();
 	TypeModelFacet typeModelFacet = nextNode.getModelFacet();
@@ -235,7 +241,7 @@ for (Iterator diagramNodes = genNodes.iterator(); diagramNodes.hasNext();) {
 <%		
 	}
 %>
-		int nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(diagram, nextValue, "");
+		nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(diagram, nextValue, "");
 		if (<%=nextNode.getVisualID()%> == nodeVID) {
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> nextNode = DiagramUtil.createNode(diagram, nextValue, null, <%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
 			myEObject2NodeMap.put(nextValue, nextNode);
