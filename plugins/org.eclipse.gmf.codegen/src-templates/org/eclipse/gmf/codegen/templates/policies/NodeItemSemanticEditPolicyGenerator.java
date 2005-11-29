@@ -654,8 +654,8 @@ final String INCOMING_TOKEN = "Incoming";
     
 for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	GenLink genLink = (GenLink) links.next();
-	GenLinkConstraints linkConstraints = genLink.getCreationConstraints();
-	String constraintsInstance = linkConstraints != null ? importManager.getImportedName(genDiagram.getLinkCreationConstraintsQualifiedClassName())+"."+linkConstraints.getConstraintsInstanceFieldName() : null;
+	//GenLinkConstraints linkConstraints = genLink.getCreationConstraints();
+	//String constraintsInstance = linkConstraints != null ? importManager.getImportedName(genDiagram.getLinkCreationConstraintsQualifiedClassName())+"."+linkConstraints.getConstraintsInstanceFieldName() : null;
 	
 	if (!genLink.isOutgoingCreationAllowed() && !genLink.isIncomingCreationAllowed()) {
 		continue;
