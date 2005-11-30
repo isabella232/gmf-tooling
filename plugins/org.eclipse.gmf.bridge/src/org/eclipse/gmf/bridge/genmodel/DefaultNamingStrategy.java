@@ -59,36 +59,36 @@ public class DefaultNamingStrategy extends NamingStrategy {
 	}
 
 	public String createNodeClassName(NodeMapping mapping, String suffix) {
-		if (mapping.getDomainMetaElement() == null) {
+		if (mapping.getDomainMetaClass() == null) {
 			return null;
 		}
-		return createClassName(mapping.getDomainMetaElement().getName(), getNodeSuffix(suffix));
+		return createClassName(mapping.getDomainMetaClass().getName(), getNodeSuffix(suffix));
 	}
 
 	public String createChildNodeClassName(ChildNodeMapping mapping, String suffix) {
-		if (mapping.getDomainMetaElement() == null) {
+		if (mapping.getDomainMetaClass() == null) {
 			return null;
 		}
-		return createClassName(mapping.getDomainMetaElement().getName(), getChildNodeSuffix(suffix));
+		return createClassName(mapping.getDomainMetaClass().getName(), getChildNodeSuffix(suffix));
 	}
 
 	public String createCompartmentClassName(AbstractNodeMapping mapping, Compartment compartment, String suffix) {
-		if (mapping.getDomainMetaElement() == null) {
+		if (mapping.getDomainMetaClass() == null) {
 			return null;
 		}
-		return createClassName(mapping.getDomainMetaElement().getName() + '_' + compartment.getName(), getCompartmentSuffix(suffix));
+		return createClassName(mapping.getDomainMetaClass().getName() + '_' + compartment.getName(), getCompartmentSuffix(suffix));
 	}
 
 	public String createNodeLabelClassName(AbstractNodeMapping mapping, EStructuralFeature labelFeature, String suffix) {
-		if (mapping.getDomainMetaElement() == null) {
+		if (mapping.getDomainMetaClass() == null) {
 			return null;
 		}
-		return createClassName(mapping.getDomainMetaElement().getName() + '_' + labelFeature.getName(), getCompartmentSuffix(suffix));
+		return createClassName(mapping.getDomainMetaClass().getName() + '_' + labelFeature.getName(), getCompartmentSuffix(suffix));
 	}
 
 	public String createLinkClassName(LinkMapping mapping, String suffix) {
-		if (mapping.getDomainMetaElement() != null) {
-			return createClassName(mapping.getDomainMetaElement().getName(), getLinkSuffix(suffix));
+		if (mapping.getDomainMetaClass() != null) {
+			return createClassName(mapping.getDomainMetaClass().getName(), getLinkSuffix(suffix));
 		} else if (mapping.getLinkMetaFeature() != null) {
 			return createClassName(mapping.getLinkMetaFeature().getName(), getLinkSuffix(suffix));
 		}
@@ -96,8 +96,8 @@ public class DefaultNamingStrategy extends NamingStrategy {
 	}
 
 	public String createLinkLabelClassName(LinkMapping mapping, EStructuralFeature labelFeature, String suffix) {
-		if (mapping.getDomainMetaElement() != null) {
-			return createClassName(mapping.getDomainMetaElement().getName() + '_' + labelFeature.getName(), getLinkSuffix(suffix));
+		if (mapping.getDomainMetaClass() != null) {
+			return createClassName(mapping.getDomainMetaClass().getName() + '_' + labelFeature.getName(), getLinkSuffix(suffix));
 		} else if (mapping.getLinkMetaFeature() != null) {
 			return createClassName(mapping.getLinkMetaFeature().getName() + '_' + labelFeature.getName(), getLinkSuffix(suffix));
 		}

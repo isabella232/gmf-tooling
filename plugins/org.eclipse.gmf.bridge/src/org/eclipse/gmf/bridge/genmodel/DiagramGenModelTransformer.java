@@ -151,11 +151,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	protected void process(NodeMapping nme) {
-		assert nme.getDomainMetaElement() != null;
-		assert nme.getDiagramNode() != null;
-		assert checkDirectEditAttrValidity(nme);
-// TODO: add this assertion?
-//		assert nme.getContainmentFeature().getEType() instanceof EClass;
+		assertAbstractNodeMapping(nme);
+		
 		GenNode genNode = GMFGenFactory.eINSTANCE.createGenNode();
 		getGenDiagram().getNodes().add(genNode);
 		genNode.setDiagramRunTimeClass(findRunTimeClass(nme));
@@ -198,17 +195,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 	
 	private void process(ChildNodeMapping childNodeMapping, GenChildContainer container) {
+		assertAbstractNodeMapping(childNodeMapping);
+
 		GenChildNode childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
-		assert childNodeMapping.getContainmentFeature().getEType() instanceof EClass;
-		assert childNodeMapping.getDiagramNode() != null;
-//		TODO: add one mode assertion?
-//		assert checkDirectEditAttrValidity(nme);
-		
-		if (childNodeMapping.getDomainMetaElement() != null) {
-			childNode.setModelFacet(createModelFacet(childNodeMapping));
-		} else {
-			childNode.setModelFacet(setupModelFacet((EClass) childNodeMapping.getContainmentFeature().getEType(), childNodeMapping.getContainmentFeature(), null));
-		}
+		childNode.setModelFacet(createModelFacet(childNodeMapping));
 		
 		childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
 		childNode.setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap());
@@ -449,13 +439,19 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		tg.setTitleKey(id);
 		return tg;
 	}
+	
+	private void assertAbstractNodeMapping(AbstractNodeMapping mapping) {
+		assert mapping.getDomainMetaClass() != null;
+		assert mapping.getDiagramNode() != null;
+		assert checkDirectEditAttrValidity(mapping);
+	}
 
-	private boolean checkDirectEditAttrValidity(NodeMapping nme) {
+	private boolean checkDirectEditAttrValidity(AbstractNodeMapping nme) {
 		if (nme.getEditFeature() == null) {
 			return true;
 		}
 		EClassifier attrContainer = nme.getEditFeature().getEContainingClass();
-		return attrContainer == nme.getDomainMetaElement() || nme.getDomainMetaElement().getEAllSuperTypes().contains(attrContainer);
+		return attrContainer == nme.getDomainMetaClass() || nme.getDomainMetaClass().getEAllSuperTypes().contains(attrContainer);
 	}
 
 	private GenPackage findGenPackage(EPackage ePackage) {
@@ -471,14 +467,14 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 	
 	private TypeModelFacet createModelFacet(AbstractNodeMapping anm) {
-		TypeModelFacet typeModelFacet = setupModelFacet(anm.getDomainMetaElement(), anm.getContainmentFeature(), null);
+		TypeModelFacet typeModelFacet = setupModelFacet(anm.getDomainMetaClass(), anm.getContainmentFeature(), null);
 		return setupAux(typeModelFacet, anm.getDomainSpecialization(), anm.getDomainInitializer());
 	}
 
 	private LinkModelFacet createModelFacet(LinkMapping lme) {
-		if (lme.getDomainMetaElement() != null) {
+		if (lme.getDomainMetaClass() != null) {
 			TypeLinkModelFacet mf = GMFGenFactory.eINSTANCE.createTypeLinkModelFacet();
-			mf.setMetaClass(findGenClass(lme.getDomainMetaElement()));
+			mf.setMetaClass(findGenClass(lme.getDomainMetaClass()));
 			mf.setContainmentMetaFeature(findGenFeature(lme.getContainmentFeature()));
 			mf.setChildMetaFeature(mf.getContainmentMetaFeature());
 			mf.setTargetMetaFeature(findGenFeature(lme.getLinkMetaFeature()));
