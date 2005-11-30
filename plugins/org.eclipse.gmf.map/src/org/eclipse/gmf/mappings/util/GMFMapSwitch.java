@@ -109,8 +109,8 @@ public class GMFMapSwitch {
 			case GMFMapPackage.NODE_MAPPING: {
 				NodeMapping nodeMapping = (NodeMapping)theEObject;
 				Object result = caseNodeMapping(nodeMapping);
-				if (result == null) result = caseMappingEntry(nodeMapping);
 				if (result == null) result = caseAbstractNodeMapping(nodeMapping);
+				if (result == null) result = caseMappingEntry(nodeMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

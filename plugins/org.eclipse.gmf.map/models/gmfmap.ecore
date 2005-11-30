@@ -8,6 +8,7 @@
       <details key="constraints" value="http://www.eclipse.org/gmf/2005/constraints"/>
       <details key="constraintsMeta" value="http://www.eclipse.org/gmf/2005/constraints/meta"/>
     </eAnnotations>
+    <eOperations name="getDomainMetaClass" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramNode" lowerBound="1"
         eType="ecore:EClass ../../org.eclipse.gmf.diadef/models/diadef.ecore#//Node"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainMetaElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
@@ -51,7 +52,7 @@
         eType="#//ChildNodeMapping" containment="true" eOpposite="#//ChildNodeMapping/parentNode"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MappingEntry" abstract="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="NodeMapping" eSuperTypes="#//MappingEntry #//AbstractNodeMapping"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NodeMapping" eSuperTypes="#//AbstractNodeMapping #//MappingEntry"/>
   <eClassifiers xsi:type="ecore:EClass" name="ChildNodeMapping" eSuperTypes="#//AbstractNodeMapping">
     <eStructuralFeatures xsi:type="ecore:EReference" name="compartment" lowerBound="1"
         eType="ecore:EClass ../../org.eclipse.gmf.diadef/models/diadef.ecore#//Compartment">

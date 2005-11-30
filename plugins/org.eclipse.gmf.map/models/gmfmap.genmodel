@@ -16,6 +16,7 @@
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/containmentFeature"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/editFeature"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/childMappings"/>
+      <genOperations ecoreOperation="gmfmap.ecore#//AbstractNodeMapping/getDomainMetaClass"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfmap.ecore#//MappingEntry"/>
     <genClasses ecoreClass="gmfmap.ecore#//NodeMapping"/>

@@ -393,6 +393,20 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * This method was created to simplify transtofmation code.
+	 * @return getDomainMetaElement() if specified or getContainmentFeature().getEReferenceType()
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EClass getDomainMetaClass() {
+		if (getDomainMetaElement() == null) {
+			return getContainmentFeature().getEReferenceType();
+		}
+		return getDomainMetaElement();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */

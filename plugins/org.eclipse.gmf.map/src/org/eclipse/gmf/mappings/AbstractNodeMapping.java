@@ -215,4 +215,12 @@ public interface AbstractNodeMapping extends EObject{
 	 */
 	EList getChildMappings();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	EClass getDomainMetaClass();
+
 } // AbstractNodeMapping

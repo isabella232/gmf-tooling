@@ -708,8 +708,8 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		DiagramDefinitionPackageImpl theDiagramDefinitionPackage = (DiagramDefinitionPackageImpl)EPackage.Registry.INSTANCE.getEPackage(DiagramDefinitionPackage.eNS_URI);
 
 		// Add supertypes to classes
-		nodeMappingEClass.getESuperTypes().add(this.getMappingEntry());
 		nodeMappingEClass.getESuperTypes().add(this.getAbstractNodeMapping());
+		nodeMappingEClass.getESuperTypes().add(this.getMappingEntry());
 		childNodeMappingEClass.getESuperTypes().add(this.getAbstractNodeMapping());
 		linkMappingEClass.getESuperTypes().add(this.getMappingEntry());
 		canvasMappingEClass.getESuperTypes().add(this.getMappingEntry());
@@ -726,6 +726,8 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEReference(getAbstractNodeMapping_ContainmentFeature(), ecorePackage.getEReference(), null, "containmentFeature", null, 0, 1, AbstractNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAbstractNodeMapping_EditFeature(), ecorePackage.getEAttribute(), null, "editFeature", null, 0, 1, AbstractNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAbstractNodeMapping_ChildMappings(), this.getChildNodeMapping(), this.getChildNodeMapping_ParentNode(), "childMappings", null, 0, -1, AbstractNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(abstractNodeMappingEClass, ecorePackage.getEClass(), "getDomainMetaClass");
 
 		initEClass(mappingEntryEClass, MappingEntry.class, "MappingEntry", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

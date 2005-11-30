@@ -17,5 +17,5 @@ package org.eclipse.gmf.mappings;
  * @model
  * @generated
  */
-public interface NodeMapping extends MappingEntry, AbstractNodeMapping {
+public interface NodeMapping extends AbstractNodeMapping, MappingEntry {
 } // NodeMapping

@@ -177,7 +177,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_MAPPING__DIAGRAM_NODE = MAPPING_ENTRY_FEATURE_COUNT + 0;
+	int NODE_MAPPING__DIAGRAM_NODE = ABSTRACT_NODE_MAPPING__DIAGRAM_NODE;
 
 	/**
 	 * The feature id for the '<em><b>Domain Meta Element</b></em>' reference.
@@ -186,7 +186,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_MAPPING__DOMAIN_META_ELEMENT = MAPPING_ENTRY_FEATURE_COUNT + 1;
+	int NODE_MAPPING__DOMAIN_META_ELEMENT = ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Domain Specialization</b></em>' containment reference.
@@ -195,7 +195,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_MAPPING__DOMAIN_SPECIALIZATION = MAPPING_ENTRY_FEATURE_COUNT + 2;
+	int NODE_MAPPING__DOMAIN_SPECIALIZATION = ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION;
 
 	/**
 	 * The feature id for the '<em><b>Domain Initializer</b></em>' containment reference.
@@ -204,7 +204,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_MAPPING__DOMAIN_INITIALIZER = MAPPING_ENTRY_FEATURE_COUNT + 3;
+	int NODE_MAPPING__DOMAIN_INITIALIZER = ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER;
 
 	/**
 	 * The feature id for the '<em><b>Containment Feature</b></em>' reference.
@@ -213,7 +213,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_MAPPING__CONTAINMENT_FEATURE = MAPPING_ENTRY_FEATURE_COUNT + 4;
+	int NODE_MAPPING__CONTAINMENT_FEATURE = ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE;
 
 	/**
 	 * The feature id for the '<em><b>Edit Feature</b></em>' reference.
@@ -222,7 +222,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_MAPPING__EDIT_FEATURE = MAPPING_ENTRY_FEATURE_COUNT + 5;
+	int NODE_MAPPING__EDIT_FEATURE = ABSTRACT_NODE_MAPPING__EDIT_FEATURE;
 
 	/**
 	 * The feature id for the '<em><b>Child Mappings</b></em>' containment reference list.
@@ -231,7 +231,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_MAPPING__CHILD_MAPPINGS = MAPPING_ENTRY_FEATURE_COUNT + 6;
+	int NODE_MAPPING__CHILD_MAPPINGS = ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS;
 
 	/**
 	 * The number of structural features of the the '<em>Node Mapping</em>' class.
@@ -240,7 +240,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_MAPPING_FEATURE_COUNT = MAPPING_ENTRY_FEATURE_COUNT + 7;
+	int NODE_MAPPING_FEATURE_COUNT = ABSTRACT_NODE_MAPPING_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.ChildNodeMappingImpl <em>Child Node Mapping</em>}' class.
