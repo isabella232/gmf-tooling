@@ -34,6 +34,7 @@
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/labelDisplayFeature"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/linkMetaFeature"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/creationConstraints"/>
+      <genOperations ecoreOperation="gmfmap.ecore#//LinkMapping/getDomainMetaClass"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//CanvasMapping">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//CanvasMapping/diagramCanvas"/>

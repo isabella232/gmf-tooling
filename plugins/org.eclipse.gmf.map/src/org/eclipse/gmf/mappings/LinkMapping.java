@@ -281,4 +281,12 @@ public interface LinkMapping extends MappingEntry{
 	 */
 	void setCreationConstraints(LinkConstraints value);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	EClass getDomainMetaClass();
+
 } // LinkMapping

@@ -64,6 +64,7 @@
         eType="#//AbstractNodeMapping" changeable="false" eOpposite="#//AbstractNodeMapping/childMappings"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LinkMapping" eSuperTypes="#//MappingEntry">
+    <eOperations name="getDomainMetaClass" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramLink" lowerBound="1"
         eType="ecore:EClass ../../org.eclipse.gmf.diadef/models/diadef.ecore#//Connection"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainMetaElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>

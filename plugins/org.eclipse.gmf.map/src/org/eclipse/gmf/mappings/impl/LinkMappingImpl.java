@@ -519,6 +519,24 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * This method was created to simplify transtofmation code.
+	 * @return getDomainMetaElement() if specified or getContainmentFeature().getEReferenceType() 
+	 * if containment feature was specified or null in case of "Reference only" link mapping
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EClass getDomainMetaClass() {
+		if (getDomainMetaElement() != null) {
+			return getDomainMetaElement();
+		}
+		if (getContainmentFeature() != null) {
+			return getContainmentFeature().getEReferenceType();
+		}
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
