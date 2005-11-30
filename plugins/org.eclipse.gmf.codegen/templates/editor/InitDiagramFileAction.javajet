@@ -164,7 +164,19 @@ public class <%=genDiagram.getInitDiagramFileActionClassName()%> implements IObj
 		}
 		return null;
 <%} else {%>
-		Resource modelResource = ResourceUtil.load(mySelection.getLocation().toOSString());
+		String resourcePath = mySelection.getLocation().toOSString();
+		Resource modelResource = ResourceUtil.findResource(resourcePath);
+		if (modelResource == null) {
+			modelResource = ResourceUtil.create(resourcePath);
+		}
+		if (!modelResource.isLoaded()) {
+			try {
+				ResourceUtil.load(modelResource);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
 		return (EObject) modelResource.getContents().get(0);
 <%}%>
 	}
