@@ -53,59 +53,50 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	if (!genLink.isOutgoingCreationAllowed() && !genLink.isIncomingCreationAllowed()) {
 		continue;
 	}
-	String namePart = null;
-	boolean outgoing = true;
+	
+	String namePartSuffix = null;
+	boolean canBeSource = false;
+	boolean canBeTarget = false;
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
 		GenClass outgoingClass = modelFacet.getSourceMetaFeature() == null
 			? modelFacet.getContainmentMetaFeature().getGenClass()
 			: modelFacet.getSourceMetaFeature().getTypeGenClass();
-		if (outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass())) {
-			namePart = OUTGOING_TOKEN + modelFacet.getMetaClass().getName();
-		} else if (modelFacet.getTargetMetaFeature().getTypeGenClass().getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass())) {
-			namePart = INCOMING_TOKEN + modelFacet.getMetaClass().getName();
-			outgoing = false;
-		}
+		GenClass incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
+		namePartSuffix = modelFacet.getMetaClass().getName();
+		canBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
+		canBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
 	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
-		if (metaFeature.getGenClass().getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass())) {
-			namePart = OUTGOING_TOKEN + metaFeature.getFeatureAccessorName();
-		} else if (metaFeature.getTypeGenClass().getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass())) {
-			namePart = INCOMING_TOKEN + metaFeature.getFeatureAccessorName();
-			outgoing = false;
-		}
+		namePartSuffix = metaFeature.getFeatureAccessorName();
+		canBeSource = metaFeature.getGenClass().getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
+		canBeTarget = metaFeature.getTypeGenClass().getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
 	}
-	if (namePart != null) {
-		namePart += genLink.getVisualID();
+	
+	if (!canBeSource && !canBeTarget) {
+		continue;
+	}
+
+	namePartSuffix += genLink.getVisualID();
+	
+	String startCommandGetter = genLink.isOutgoingCreationAllowed() ? "getCreateStart" + (canBeSource ? OUTGOING_TOKEN : INCOMING_TOKEN) + namePartSuffix + "Command(req)" : "null";
+	String endCommandGetter = genLink.isIncomingCreationAllowed() ? "getCreateComplete" + (canBeTarget ? INCOMING_TOKEN : OUTGOING_TOKEN) + namePartSuffix + "Command(req)" : "null";
 %>
 		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%> == req.getElementType()) {
-<%		if (genLink.isOutgoingCreationAllowed() && genLink.isIncomingCreationAllowed()) {%>
-			return req.getTarget() == null ? getCreateStart<%=namePart%>Command(req) : getCreateComplete<%=namePart%>Command(req);
-<%
-		} else {
-			if (outgoing ? genLink.isOutgoingCreationAllowed() : genLink.isIncomingCreationAllowed()) {
-%>
-			return req.getTarget() == null ? getCreateStart<%=namePart%>Command(req) : null;
-<%			} else {%>
-			return req.getTarget() == null ? null : getCreateComplete<%=namePart%>Command(req);
-<%
-			}
-		}
-%>
+			return req.getTarget() == null ? <%=startCommandGetter%> : <%=endCommandGetter%>;
 		}
 <%
-	}
 }
 %>
 		return super.getCreateRelationshipCommand(req);
 	}
 <%
+
 for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	GenLink genLink = (GenLink) links.next();
 	GenLinkConstraints linkConstraints = genLink.getCreationConstraints();
 	String constraintsInstance = linkConstraints != null ? importManager.getImportedName(genDiagram.getLinkCreationConstraintsQualifiedClassName())+"."+linkConstraints.getConstraintsInstanceFieldName() : null;
 
-	String namePart = null;
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 //
 //
@@ -128,10 +119,40 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		int upperChildBound = childFeature.getEcoreFeature().getUpperBound();
 		boolean processChildFeature = !childFeature.isDerived() && !childFeature.equals(containmentFeature);
 		boolean checkChildFeatureUpperBound = !childFeature.equals(containmentFeature) && upperChildBound > 0;
-		if (outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass())) {
+
+/**
+ * Model element could be source of the link or target of the link. It can be both source and 
+ * target only in case of selfLink.
+ **/
+		boolean couldBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
+		boolean couldBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());		
+		boolean selfLink = couldBeSource && couldBeTarget;
+		
+/**
+ * Start  		start of link creation. 
+ *				User click to this editpart and start dragging with link tool.
+ * Complete 	end of the command
+ *				User points to this editpart as a link target and release mouse button.
+ *
+ * Outgoing 	the node is link source
+ *				This element could be a source for this type of link.
+ * Incoming		the node is link destination
+ *				This element could be a target for this type of link.
+ *
+ **/
+		boolean generateStartOutgoingCommand = couldBeSource && genLink.isOutgoingCreationAllowed();
+		boolean generateCompleteOutgoingCommand = couldBeSource && genLink.isIncomingCreationAllowed() && !selfLink;
+		boolean generateStartIncomingCommand = couldBeTarget && genLink.isIncomingCreationAllowed() && !selfLink;
+		boolean generateCompleteIncomingCommand = couldBeTarget && genLink.isOutgoingCreationAllowed();
+		
+		String namePartSuffix = modelFacet.getMetaClass().getName() + genLink.getVisualID();
+		
+		
+// 1. StartOutgoingCommand
+
+		if (generateStartOutgoingCommand) {
 			outgoing = true;
-			namePart = OUTGOING_TOKEN + modelFacet.getMetaClass().getName() + genLink.getVisualID();
-			if (genLink.isOutgoingCreationAllowed()) {
+			String namePart = OUTGOING_TOKEN + namePartSuffix;
 %>
 
 	/**
@@ -140,55 +161,61 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
 <% // check that containment feature is not set / has capacity for the new element %>
 <%
-				if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
-					String containerClassName = importManager.getImportedName(containmentFeature.getGenClass().getQualifiedInterfaceName());
-					if (modelFacet.getSourceMetaFeature() == null) {
+			if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
+				String containerClassName = importManager.getImportedName(containmentFeature.getGenClass().getQualifiedInterfaceName());
+				if (modelFacet.getSourceMetaFeature() == null) {
 %>
 		<%=containerClassName%> element = (<%=containerClassName%>) getSemanticElement();
-<%					} else {%>
+<%				} else {%>
 		<%=containerClassName%> element = (<%=containerClassName%>) getRelationshipContainer(getSemanticElement(),
 			<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getGenClass().getClassifierAccessorName()%>(), req.getElementType());
 		if (element == null) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%
-					}
-					if (upperContainmentBound > 0) {
-						if (upperContainmentBound == 1) {
+				}
+				if (upperContainmentBound > 0) {
+					if (upperContainmentBound == 1) {
 %>
 		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%> != null) {
-<%						} else {%>
+<%					} else {%>
 		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%>.size() >= <%=upperContainmentBound%>) {
-<%						}%>
+<%					}%>
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%
-					}
-					if (checkChildFeatureUpperBound) {
-						if (upperChildBound == 1) {
+				}
+				if (checkChildFeatureUpperBound) {
+					if (upperChildBound == 1) {
 %>
 		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%> != null) {
-<%						} else {%>
+<%					} else {%>
 		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%>.size() >= <%=upperChildBound%>) {
-<%						}%>
+<%					}%>
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%
-					}
 				}
+			}
 %>
-<%				if(linkConstraints != null) { %>
+<%			if(linkConstraints != null) { %>
 		if(!<%=constraintsInstance%>.canCreateLink(req, <%=outgoing ? "false" : "true"%>)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
-<%				} // end of link constraints %>
+<%			} // end of link constraints %>
 <% // create always executable command %>
 		return new Command() {
 		};
 	}
 <%
-			}
-			if (genLink.isIncomingCreationAllowed()) {
+		}
+		
+		
+// 2. CompleteOutgoingCommand
+
+		if (generateCompleteOutgoingCommand) {
+			outgoing = true;
+			String namePart = OUTGOING_TOKEN + namePartSuffix;
 %>
 
 	/**
@@ -200,54 +227,54 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%
-				String containerClassName = importManager.getImportedName(containmentFeature.getGenClass().getQualifiedInterfaceName());
-				if (modelFacet.getSourceMetaFeature() == null) {
+			String containerClassName = importManager.getImportedName(containmentFeature.getGenClass().getQualifiedInterfaceName());
+			if (modelFacet.getSourceMetaFeature() == null) {
 %>
 		final <%=containerClassName%> element = (<%=containerClassName%>) getSemanticElement();
-<%				} else {%>
+<%			} else {%>
 		final <%=containerClassName%> element = (<%=containerClassName%>) getRelationshipContainer(getSemanticElement(),
 			<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getGenClass().getClassifierAccessorName()%>(), req.getElementType());
 		if (element == null) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
-<%				}%>
+<%			}%>
 <% // check that containment feature is not set / has capacity for the new element %>
 <%
-				if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
-					if (upperContainmentBound > 0) {
-						if (upperContainmentBound == 1) {
+			if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
+				if (upperContainmentBound > 0) {
+					if (upperContainmentBound == 1) {
 %>
 		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%> != null) {
-<%						} else {%>
+<%					} else {%>
 		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%>.size() >= <%=upperContainmentBound%>) {
-<%						}%>
+<%					}%>
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%
-					}
-					if (checkChildFeatureUpperBound) {
-						if (upperChildBound == 1) {
+				}
+				if (checkChildFeatureUpperBound) {
+					if (upperChildBound == 1) {
 %>
 		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%> != null) {
-<%						} else {%>
+<%					} else {%>
 		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%>.size() >= <%=upperChildBound%>) {
-<%						}%>
+<%					}%>
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%
-					}
 				}
+			}
 %>
 <% // create semantic command %>
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containmentFeature.getFeatureAccessorName()%>());
 		}
 		
-<%				if(linkConstraints != null) { %>
+<%			if(linkConstraints != null) { %>
 		if(!<%=constraintsInstance%>.canCreateLink(req, <%=outgoing ? "true" : "false"%>)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
-<%				} // end of link constraints %>				
+<%			} // end of link constraints %>				
 		return getMSLWrapper(new Create<%=namePart%>Command(req) {
 
 			/**
@@ -289,41 +316,44 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		 * @generated
 		 */
 		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> doDefaultElementCreation() {
-<%				String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
+<%			String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
 			<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
 			if (newElement != null) {
 				<%=getFeatureValueSetterPrefix("newElement", modelFacet.getTargetMetaFeature(), false, importManager)%>(<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) getSource());
-<%				if (modelFacet.getSourceMetaFeature() != null) {%>
+<%			if (modelFacet.getSourceMetaFeature() != null) {%>
 				<%=getFeatureValueSetterPrefix("newElement", modelFacet.getSourceMetaFeature(), false, importManager)%>(<%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>) getTarget());
 <%
-				}
-				if (processChildFeature) {
+			}
+			if (processChildFeature) {
 %>
 				<%=containerClassName%> container = (<%=containerClassName%>) getElementToEdit();
 				if (container != null) {
-<%					if (childFeature.isListType()) {%>
+<%				if (childFeature.isListType()) {%>
 					<%=importManager.getImportedName("java.util.Collection")%> featureValues = container.<%=childFeature.getGetAccessor()%>();
 					featureValues.add(newElement);
-<%					} else {%>
+<%				} else {%>
 				 	<%=getFeatureValueSetterPrefix("container", childFeature, false, importManager)%>newElement);
-<%					}%>
+<%				}%>
 				}
 <%
-				}
-				if (modelFacet.getModelElementInitializer() != null) { 
+			}
+			if (modelFacet.getModelElementInitializer() != null) { 
 %>
 				<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
-<%				}%>
+<%			}%>
 			}
 			return newElement;
 		}
 	}
 <%
-			}
-		} else if (incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass())) {
+		}
+			
+			
+// 3. StartIncomingCommand
+			
+		if (generateStartIncomingCommand) {
 			outgoing = false;
-			namePart = INCOMING_TOKEN + modelFacet.getMetaClass().getName() + genLink.getVisualID();
-			if (genLink.isIncomingCreationAllowed()) {
+			String namePart = INCOMING_TOKEN + namePartSuffix;
 %>
 
 	/**
@@ -340,8 +370,14 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		};
 	}
 <%
-			}
-			if (genLink.isOutgoingCreationAllowed()) {
+		}
+		
+		
+// 4. CompleteIncomingCommand
+		
+		if (generateCompleteIncomingCommand) {	
+			outgoing = false;
+			String namePart = INCOMING_TOKEN + namePartSuffix;
 %>
 
 	/**
@@ -353,8 +389,8 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%
-				String containerClassName = importManager.getImportedName(containmentFeature.getGenClass().getQualifiedInterfaceName());
-				if (modelFacet.getSourceMetaFeature() == null) {
+			String containerClassName = importManager.getImportedName(containmentFeature.getGenClass().getQualifiedInterfaceName());
+			if (modelFacet.getSourceMetaFeature() == null) {
 %>
 		final <%=containerClassName%> element = (<%=containerClassName%>) req.getSource();
 <%				} else {%>
@@ -363,39 +399,39 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		if (element == null) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
-<%				}%>
+<%			}%>
 <% // check that containment feature is not set / has capacity for the new element %>
 <%
-				if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
-					if (upperContainmentBound > 0) {
-						if (upperContainmentBound == 1) {
+			if (upperContainmentBound > 0 || checkChildFeatureUpperBound) {
+				if (upperContainmentBound > 0) {
+					if (upperContainmentBound == 1) {
 %>
 		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%> != null) {
-<%						} else {%>
+<%					} else {%>
 		if (<%=getFeatureValueGetter("element", containmentFeature, false, importManager)%>.size() >= <%=upperContainmentBound%>) {
-<%						}%>
+<%					}%>
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%
-					}
-					if (checkChildFeatureUpperBound) {
-						if (upperChildBound == 1) {
+				}
+				if (checkChildFeatureUpperBound) {
+					if (upperChildBound == 1) {
 %>
 		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%> != null) {
-<%						} else {%>
+<%					} else {%>
 		if (<%=getFeatureValueGetter("element", childFeature, false, importManager)%>.size() >= <%=upperChildBound%>) {
-<%						}%>
+<%					}%>
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%
-					}
 				}
+			}
 %>
-<%				if(linkConstraints != null) { %>
+<%			if(linkConstraints != null) { %>
 		if(!<%=constraintsInstance%>.canCreateLink(req, <%=outgoing ? "true" : "false"%>)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
-<%				} // end of constraints %>		
+<%			} // end of constraints %>		
 <% // create semantic command %>
 		if (req.getContainmentFeature() == null) {
 			req.setContainmentFeature(<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
@@ -441,38 +477,42 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		 * @generated
 		 */
 		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> doDefaultElementCreation() {
-<%				String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
+<%			String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());%>
 			<%=metaClassName%> newElement = (<%=metaClassName%>) super.doDefaultElementCreation();
 			if (newElement != null) {
 				<%=getFeatureValueSetterPrefix("newElement", modelFacet.getTargetMetaFeature(), false, importManager)%>(<%=importManager.getImportedName(incomingClass.getQualifiedInterfaceName())%>) getTarget());
-<%				if (modelFacet.getSourceMetaFeature() != null) {%>
+<%			if (modelFacet.getSourceMetaFeature() != null) {%>
 				<%=getFeatureValueSetterPrefix("newElement", modelFacet.getSourceMetaFeature(), false, importManager)%>(<%=importManager.getImportedName(outgoingClass.getQualifiedInterfaceName())%>) getSource());
 <%
-				}
-				if (processChildFeature) {
+			}
+			if (processChildFeature) {
 %>
 				<%=containerClassName%> container = (<%=containerClassName%>) getElementToEdit();
 				if (container != null) {
-<%					if (childFeature.isListType()) {%>
+<%				if (childFeature.isListType()) {%>
 					<%=importManager.getImportedName("java.util.Collection")%> featureValues = container.<%=childFeature.getGetAccessor()%>();
 					featureValues.add(newElement);
-<%					} else {%>
+<%				} else {%>
 				 	<%=getFeatureValueSetterPrefix("container", childFeature, false, importManager)%>newElement);
-<%					}%>
+<%				}%>
 				}
 <%
-				}
+			}
 				if (modelFacet.getModelElementInitializer() != null) { 
 %>
 				<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.Initializers.<%=genLink.getUniqueIdentifier()%>.init(newElement);
-<%				}%>
+<%			}%>
 			}
 			return newElement;
 		}
 	}
 <%
-			}
 		}
+
+		
+		
+		
+		
 	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 //
 //
@@ -488,10 +528,40 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		int upperBound = metaFeature.getEcoreFeature().getUpperBound();
 		GenClass outgoingClass = metaFeature.getGenClass();
 		GenClass incomingClass = metaFeature.getTypeGenClass();
-		if (outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass())) {
+		
+/**
+ * Model element could be source of the link or target of the link. It can be both source and 
+ * target only in case of selfLink.
+ **/
+		boolean couldBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
+		boolean couldBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());		
+		boolean selfLink = couldBeSource && couldBeTarget;
+		
+/**
+ * Start  		start of link creation. 
+ *				User click to this editpart and start dragging with link tool.
+ * Complete 	end of the command
+ *				User points to this editpart as a link target and release mouse button.
+ *
+ * Outgoing 	the node is link source
+ *				This element could be a source for this type of link.
+ * Incoming		the node is link destination
+ *				This element could be a target for this type of link.
+ *
+ **/
+		boolean generateStartOutgoingCommand = couldBeSource && genLink.isOutgoingCreationAllowed();
+		boolean generateCompleteOutgoingCommand = couldBeSource && genLink.isIncomingCreationAllowed() && !selfLink;
+		boolean generateStartIncomingCommand = couldBeTarget && genLink.isIncomingCreationAllowed() && !selfLink;
+		boolean generateCompleteIncomingCommand = couldBeTarget && genLink.isOutgoingCreationAllowed();
+		
+		String namePartSuffix = metaFeature.getFeatureAccessorName() + genLink.getVisualID();
+		
+		
+// 1. StartOutgoingCommand
+		
+		if (generateStartOutgoingCommand) {
 			outgoing = true;
-			namePart = OUTGOING_TOKEN + metaFeature.getFeatureAccessorName() + genLink.getVisualID();
-			if (genLink.isOutgoingCreationAllowed()) {
+			String namePart = OUTGOING_TOKEN + namePartSuffix;
 %>
 
 	/**
@@ -523,8 +593,14 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		};
 	}
 <%
-			}
-			if (genLink.isIncomingCreationAllowed()) {
+		}
+		
+		
+// 2. CompleteOutgoingCommand
+
+		if (generateCompleteOutgoingCommand) {
+			outgoing = true;
+			String namePart = OUTGOING_TOKEN + namePartSuffix;
 %>
 
 	/**
@@ -547,9 +623,9 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		if (<%=getFeatureValueGetter("element", metaFeature, false, importManager)%>.size() >= <%=upperBound%>
 <%					if (metaFeature.getEcoreFeature().isUnique()) {%>
 			|| <%=getFeatureValueGetter("element", metaFeature, false, importManager)%>.contains(req.getSource())
-<%					}%>
-				) {
 <%				}%>
+				) {
+<%			}%>
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;
 		}
 <%
@@ -572,11 +648,14 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		return getMSLWrapper(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand")%>(setReq));
 	}
 <%
-			}
-		} else if (incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass())) {
+		}
+		
+		
+// 3. StartIncomingCommand
+		
+		if (generateStartIncomingCommand) {
 			outgoing = false;
-			namePart = INCOMING_TOKEN + metaFeature.getFeatureAccessorName() + genLink.getVisualID();
-			if (genLink.isIncomingCreationAllowed()) {
+			String namePart = INCOMING_TOKEN + namePartSuffix;
 %>
 
 	/**
@@ -593,8 +672,15 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		};
 	}
 <%
-			}
-			if (genLink.isOutgoingCreationAllowed()) {
+		}
+		
+		
+// 4. CompleteIncomingCommand
+
+		if (generateCompleteIncomingCommand) {
+			outgoing = false;
+			String namePart = INCOMING_TOKEN + namePartSuffix;
+
 %>
 
 	/**
@@ -642,7 +728,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		return getMSLWrapper(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand")%>(setReq));
 	}
 <%
-			}
 		}
 	}
 }
