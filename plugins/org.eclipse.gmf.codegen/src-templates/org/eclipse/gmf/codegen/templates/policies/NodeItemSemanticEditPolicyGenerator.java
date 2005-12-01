@@ -1197,10 +1197,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     
 		}
 
-		
-		
-		
-		
 	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 //
 //
@@ -1408,7 +1404,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		if (generateCompleteIncomingCommand) {
 			outgoing = false;
 			String namePart = INCOMING_TOKEN + namePartSuffix;
-
 
     stringBuffer.append(TEXT_302);
     stringBuffer.append(namePart);
