@@ -262,6 +262,7 @@
   
 	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="unzip ${remoteDirectory}/downloads/drops/${buildLabel}/logs.zip -d ${remoteDirectory}/downloads/drops/${buildLabel}"/>
 	  	<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="rm ${remoteDirectory}/downloads/drops/${buildLabel}/logs.zip"/>
+		<sshexec trust="yes" host="download1.eclipse.org" username="${ftpUser}" password="${ftpPassword}" command="chmod -R 775 ${remoteDirectory}/downloads/drops/${buildLabel}"/>
 	</target>
 
 	<target name="pushUpdates" if="upload">
