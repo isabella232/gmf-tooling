@@ -55,23 +55,26 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	}
 	
 	String namePartSuffix = null;
-	boolean canBeSource = false;
-	boolean canBeTarget = false;
+	GenClass outgoingClass;
+	GenClass incomingClass;
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
-		GenClass outgoingClass = modelFacet.getSourceMetaFeature() == null
+		outgoingClass = modelFacet.getSourceMetaFeature() == null
 			? modelFacet.getContainmentMetaFeature().getGenClass()
 			: modelFacet.getSourceMetaFeature().getTypeGenClass();
-		GenClass incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
+		incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
 		namePartSuffix = modelFacet.getMetaClass().getName();
-		canBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
-		canBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
 	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
+		outgoingClass = metaFeature.getGenClass();
+		incomingClass = metaFeature.getTypeGenClass();
 		namePartSuffix = metaFeature.getFeatureAccessorName();
-		canBeSource = metaFeature.getGenClass().getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
-		canBeTarget = metaFeature.getTypeGenClass().getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
+	} else {
+// Should not be here!
+		continue;
 	}
+	boolean canBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
+	boolean canBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
 	
 	if (!canBeSource && !canBeTarget) {
 		continue;
@@ -79,6 +82,11 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 
 	namePartSuffix += genLink.getVisualID();
 	
+/**
+ * In case this node can be both Source and Target of this link, this link is a link to self,
+ * so for start request we should call "Outgoing" method, for complete = "Incomming" since
+ * we should not invert link in this case.
+ **/
 	String startCommandGetter = genLink.isOutgoingCreationAllowed() ? "getCreateStart" + (canBeSource ? OUTGOING_TOKEN : INCOMING_TOKEN) + namePartSuffix + "Command(req)" : "null";
 	String endCommandGetter = genLink.isIncomingCreationAllowed() ? "getCreateComplete" + (canBeTarget ? INCOMING_TOKEN : OUTGOING_TOKEN) + namePartSuffix + "Command(req)" : "null";
 %>
@@ -107,7 +115,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 //
 //
 //
-		boolean outgoing = true;
 		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
 		GenClass outgoingClass = modelFacet.getSourceMetaFeature() == null
 			? modelFacet.getContainmentMetaFeature().getGenClass()
@@ -151,7 +158,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 // 1. StartOutgoingCommand
 
 		if (generateStartOutgoingCommand) {
-			outgoing = true;
 			String namePart = OUTGOING_TOKEN + namePartSuffix;
 %>
 
@@ -199,7 +205,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			}
 %>
 <%			if(linkConstraints != null) { %>
-		if(!<%=constraintsInstance%>.canCreateLink(req, <%=outgoing ? "false" : "true"%>)) {
+		if(!<%=constraintsInstance%>.canCreateLink(req, false)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <%			} // end of link constraints %>
@@ -214,7 +220,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 // 2. CompleteOutgoingCommand
 
 		if (generateCompleteOutgoingCommand) {
-			outgoing = true;
 			String namePart = OUTGOING_TOKEN + namePartSuffix;
 %>
 
@@ -271,7 +276,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		}
 		
 <%			if(linkConstraints != null) { %>
-		if(!<%=constraintsInstance%>.canCreateLink(req, <%=outgoing ? "true" : "false"%>)) {
+		if(!<%=constraintsInstance%>.canCreateLink(req, true)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <%			} // end of link constraints %>				
@@ -352,7 +357,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 // 3. StartIncomingCommand
 			
 		if (generateStartIncomingCommand) {
-			outgoing = false;
 			String namePart = INCOMING_TOKEN + namePartSuffix;
 %>
 
@@ -361,7 +365,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 */
 	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
 <%			if(linkConstraints != null) { %>
-		if(!<%=constraintsInstance%>.canCreateLink(req, <%=outgoing ? "false" : "true"%>)) {
+		if(!<%=constraintsInstance%>.canCreateLink(req, true)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <%			} // end of link constraints %>	
@@ -376,7 +380,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 // 4. CompleteIncomingCommand
 		
 		if (generateCompleteIncomingCommand) {	
-			outgoing = false;
 			String namePart = INCOMING_TOKEN + namePartSuffix;
 %>
 
@@ -428,7 +431,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			}
 %>
 <%			if(linkConstraints != null) { %>
-		if(!<%=constraintsInstance%>.canCreateLink(req, <%=outgoing ? "true" : "false"%>)) {
+		if(!<%=constraintsInstance%>.canCreateLink(req, false)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <%			} // end of constraints %>		
@@ -519,7 +522,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 //
 //
 //
-		boolean outgoing = true;
 		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
 		int upperBound = metaFeature.getEcoreFeature().getUpperBound();
 		GenClass outgoingClass = metaFeature.getGenClass();
@@ -556,7 +558,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 // 1. StartOutgoingCommand
 		
 		if (generateStartOutgoingCommand) {
-			outgoing = true;
 			String namePart = OUTGOING_TOKEN + namePartSuffix;
 %>
 
@@ -579,7 +580,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		}
 <%			}%>
 <%			if(linkConstraints != null) { %>
-		if(!<%=constraintsInstance%>.canCreateLink(req, <%=outgoing ? "false" : "true"%>)) {
+		if(!<%=constraintsInstance%>.canCreateLink(req, false)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <%			} // end of link constraints %>
@@ -595,7 +596,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 // 2. CompleteOutgoingCommand
 
 		if (generateCompleteOutgoingCommand) {
-			outgoing = true;
 			String namePart = OUTGOING_TOKEN + namePartSuffix;
 %>
 
@@ -634,7 +634,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		}
 <%			}%>
 <%			if(linkConstraints != null) { %>
-		if(!<%=constraintsInstance%>.canCreateLink(req, <%=outgoing ? "true" : "false"%>)) {
+		if(!<%=constraintsInstance%>.canCreateLink(req, true)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <%			} // end of constraints %>		
@@ -650,7 +650,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 // 3. StartIncomingCommand
 		
 		if (generateStartIncomingCommand) {
-			outgoing = false;
 			String namePart = INCOMING_TOKEN + namePartSuffix;
 %>
 
@@ -659,7 +658,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 */
 	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
 <%			if(genLink.getCreationConstraints() != null) { %>
-		if(!<%=constraintsInstance%>.canCreateLink(req, <%=outgoing ? "false" : "true"%>)) {
+		if(!<%=constraintsInstance%>.canCreateLink(req, true)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <%			} // end of link constraints %>
@@ -674,7 +673,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 // 4. CompleteIncomingCommand
 
 		if (generateCompleteIncomingCommand) {
-			outgoing = false;
 			String namePart = INCOMING_TOKEN + namePartSuffix;
 %>
 
@@ -713,7 +711,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		}
 <%			}%>
 <%			if(linkConstraints != null) { %>
-		if(!<%=constraintsInstance%>.canCreateLink(req, <%=outgoing ? "true" : "false"%>)) {
+		if(!<%=constraintsInstance%>.canCreateLink(req, false)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <%			} // end of constraints %>
