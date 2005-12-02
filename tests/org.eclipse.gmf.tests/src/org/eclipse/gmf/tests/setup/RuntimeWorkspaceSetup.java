@@ -110,9 +110,6 @@ public class RuntimeWorkspaceSetup {
 		ResourcesPlugin.getWorkspace().run(op, new NullProgressMonitor());
 		for (int i = 0; i < pluginIDs.length; i++) {
 			IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginIDs[i]);
-			if (i == 13){
-				IFolder fold = p.getFolder("bin");
-			}
 			p.build(IncrementalProjectBuilder.FULL_BUILD, new NullProgressMonitor());
 			IMarker[] compileErrors = getJavaErrors(p);
 			if (compileErrors.length > 0) {
