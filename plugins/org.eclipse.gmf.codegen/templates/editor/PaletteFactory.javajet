@@ -10,10 +10,8 @@ import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteGroup;
 import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gef.palette.PaletteSeparator;
 import org.eclipse.gef.palette.PanningSelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
-import org.eclipse.gmf.runtime.diagram.ui.tools.ConnectionCreationTool;
 import org.eclipse.gmf.runtime.diagram.ui.tools.CreationTool;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -123,7 +121,7 @@ for (int i = 0; i < toolGroups.size(); i++) {
 		LinkEntry linkCreationTool = (LinkEntry) linkCreationTools.get(j);
 		if (j == 0) {
 %>
-		paletteContainer.add(new PaletteSeparator());
+		paletteContainer.add(new <%=importManager.getImportedName("org.eclipse.gef.palette.PaletteSeparator")%>());
 <%		}%>
 		paletteContainer.add(create<%=AccessUtil.getPaletteEntryId(linkCreationTool)%>CreationTool());
 <%	}%>
@@ -171,7 +169,7 @@ for (int i = 0; i < toolGroups.size(); i++) {
 		return new ToolEntry("<%=linkCreationTool.getTitleKey()%>", "<%=linkCreationTool.getDescriptionKey()%>", image, image) {
 
 			public Tool createTool() {
-				Tool tool = new ConnectionCreationTool(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>);
+				Tool tool = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.ConnectionCreationTool")%>(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
