@@ -1,7 +1,7 @@
 !*** Graphical Modeling Framework (GMF) runtime map *****************************************
 
 !*** GMF features ***************************************************************************
-feature@org.eclipse.gmf=M3_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.runtime-feature
+feature@org.eclipse.gmf=I20051201-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/features/org.eclipse.gmf.runtime-feature
 
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf=M3_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf
@@ -17,28 +17,28 @@ plugin@org.eclipse.gmf.runtime.common.ui.services.action=I20051124-2000,:pserver
 plugin@org.eclipse.gmf.runtime.common.ui.services.dnd=M3_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.services.dnd
 plugin@org.eclipse.gmf.runtime.common.ui.services.dnd.ide=M3_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.services.dnd.ide
 plugin@org.eclipse.gmf.runtime.common.ui.services.properties=M3_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.services.properties
-plugin@org.eclipse.gmf.runtime.diagram.core=I20051124-2000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.core
+plugin@org.eclipse.gmf.runtime.diagram.core=I20051201-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.core
 plugin@org.eclipse.gmf.runtime.notation=M3_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.notation
 plugin@org.eclipse.gmf.runtime.notation.edit=M3_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.notation.edit
 plugin@org.eclipse.gmf.runtime.notation.providers=M3_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.notation.providers
-plugin@org.eclipse.gmf.runtime.diagram.ui=I20051124-2000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui
-plugin@org.eclipse.gmf.runtime.diagram.ui.actions=I20051124-2000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.actions
-plugin@org.eclipse.gmf.runtime.diagram.ui.dnd=M3_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.dnd
-plugin@org.eclipse.gmf.runtime.diagram.ui.geoshapes=I20051124-2000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.geoshapes
-plugin@org.eclipse.gmf.runtime.diagram.ui.printing=I20051124-2000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.printing
-plugin@org.eclipse.gmf.runtime.diagram.ui.printing.render=M3_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.printing.render
-plugin@org.eclipse.gmf.runtime.diagram.ui.properties=I20051124-2000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.properties
-plugin@org.eclipse.gmf.runtime.diagram.ui.providers=I20051124-2000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.providers
+plugin@org.eclipse.gmf.runtime.diagram.ui=I20051201-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui
+plugin@org.eclipse.gmf.runtime.diagram.ui.actions=I20051201-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.actions
+plugin@org.eclipse.gmf.runtime.diagram.ui.dnd=I20051201-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.dnd
+plugin@org.eclipse.gmf.runtime.diagram.ui.geoshapes=I20051201-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.geoshapes
+plugin@org.eclipse.gmf.runtime.diagram.ui.printing=I20051201-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.printing
+plugin@org.eclipse.gmf.runtime.diagram.ui.printing.render=I20051201-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.printing.render
+plugin@org.eclipse.gmf.runtime.diagram.ui.properties=I20051201-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.properties
+plugin@org.eclipse.gmf.runtime.diagram.ui.providers=I20051201-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.providers
 plugin@org.eclipse.gmf.runtime.diagram.ui.providers.ide=M3_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.providers.ide
-plugin@org.eclipse.gmf.runtime.diagram.ui.render=I20051124-2000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.render
-plugin@org.eclipse.gmf.runtime.diagram.ui.resources.editor=I20051124-2000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.resources.editor
-plugin@org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide=I20051124-2000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide
-plugin@org.eclipse.gmf.runtime.draw2d.ui=I20051124-2000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.draw2d.ui
-plugin@org.eclipse.gmf.runtime.draw2d.ui.render=I20051124-2000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.draw2d.ui.render
-plugin@org.eclipse.gmf.runtime.gef.ui=M3_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.gef.ui
+plugin@org.eclipse.gmf.runtime.diagram.ui.render=I20051201-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.render
+plugin@org.eclipse.gmf.runtime.diagram.ui.resources.editor=I20051201-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.resources.editor
+plugin@org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide=I20051201-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide
+plugin@org.eclipse.gmf.runtime.draw2d.ui=I20051201-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.draw2d.ui
+plugin@org.eclipse.gmf.runtime.draw2d.ui.render=I20051201-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.draw2d.ui.render
+plugin@org.eclipse.gmf.runtime.gef.ui=I20051201-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.gef.ui
 plugin@org.eclipse.gmf.runtime.emf.commands.core=M3_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.commands.core
-plugin@org.eclipse.gmf.runtime.emf.core=I20051124-2000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.core
-plugin@org.eclipse.gmf.runtime.emf.ui=I20051124-2000,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.ui
+plugin@org.eclipse.gmf.runtime.emf.core=I20051201-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.core
+plugin@org.eclipse.gmf.runtime.emf.ui=I20051201-1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.ui
 plugin@org.eclipse.gmf.runtime.emf.ui.properties=M3_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.ui.properties
 plugin@org.eclipse.gmf.runtime.emf.type.core=M3_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.type.core
 plugin@org.eclipse.gmf.runtime.emf.type.ui=M3_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.type.ui
