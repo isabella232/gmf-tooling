@@ -34,8 +34,8 @@ public class <%=genDiagram.getBaseGraphicalNodeEditPolicyClassName()%> extends G
 	/**
 	 * @generated
 	 */
-	protected Command getConnectionWithReorientedViewCreateCommand(CreateConnectionRequest request) {
-		EtoolsProxyCommand c = (EtoolsProxyCommand) super.getConnectionCreateCommand(request);
+	protected Command getConnectionWithReorientedViewCompleteCommand(CreateConnectionRequest request) {
+		EtoolsProxyCommand c = (EtoolsProxyCommand) super.getConnectionCompleteCommand(request);
 		CompositeCommand cc = (CompositeCommand) c.getICommand();
 		<%=importManager.getImportedName(genDiagram.getReorientConnectionViewCommandQualifiedClassName())%> rcvCommand =
 			new <%=importManager.getImportedName(genDiagram.getReorientConnectionViewCommandQualifiedClassName())%>(null);

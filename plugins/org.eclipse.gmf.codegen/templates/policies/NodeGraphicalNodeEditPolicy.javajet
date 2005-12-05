@@ -18,22 +18,48 @@ GenClass nodeMetaClass = genNode.getModelFacet().getMetaClass();
 Set ids = new HashSet();
 for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	GenLink genLink = (GenLink) links.next();
+/**
+ * Do not perform any rotation of links in notation model if this property was not specified in 
+ * .gmfgen model
+ **/	
 	if (!genLink.isViewDirectionAlignedWithModel()) {
 		continue;
 	}
+	GenClass incomingClass;
+	GenClass outgoingClass;
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
-		GenClass outgoingClass = modelFacet.getSourceMetaFeature() == null
+		outgoingClass = modelFacet.getSourceMetaFeature() == null
 			? modelFacet.getContainmentMetaFeature().getGenClass()
 			: modelFacet.getSourceMetaFeature().getTypeGenClass();
-		if (nodeMetaClass.equals(modelFacet.getTargetMetaFeature().getTypeGenClass()) && !nodeMetaClass.equals(outgoingClass)) {
-			ids.add(genLink.getUniqueIdentifier());
-		}
+		incomingClass = modelFacet.getTargetMetaFeature().getTypeGenClass();
 	} else if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 		GenFeature metaFeature = ((FeatureModelFacet) genLink.getModelFacet()).getMetaFeature();
-		if (nodeMetaClass.equals(metaFeature.getTypeGenClass()) && !nodeMetaClass.equals(metaFeature.getGenClass())) {
-			ids.add(genLink.getUniqueIdentifier());
-		}
+		outgoingClass = metaFeature.getGenClass();
+		incomingClass = metaFeature.getTypeGenClass();
+	} else {
+// Should not be here!
+		continue;
+	}
+	boolean canBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
+	boolean canBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
+/**
+ * This logic is currently alligned with the logic in NodeItemSemanticEditPolicy.javajet i.e.:
+ * 
+ * - we do not perform link rotation if this link could be drawn from instance of this EP 
+ *   to the instance of this EP.
+ *
+ * - if link could be created in "opposite" direction (genLink.isIncomingCreationAllowed() == true)
+ *   and this EP could be only a source of the link then we should reverse link at the end of link 
+ *   creation
+ *
+ **/	
+	if (canBeSource && canBeTarget) {
+		continue;
+	}
+	
+	if (genLink.isIncomingCreationAllowed() && canBeSource) {
+		ids.add(genLink.getUniqueIdentifier());
 	}
 }
 if (!ids.isEmpty()) {
@@ -42,15 +68,15 @@ if (!ids.isEmpty()) {
 	/**
 	 * @generated
 	 */
-	protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getConnectionCreateCommand(
+	protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getConnectionCompleteCommand(
 			<%=importManager.getImportedName("org.eclipse.gef.requests.CreateConnectionRequest")%> request) {
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%> elementType = getElementType(request);
 <%	for (Iterator it = ids.iterator(); it.hasNext();) {%>
 		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=(String) it.next()%> == elementType) {
-			return getConnectionWithReorientedViewCreateCommand(request);
+			return getConnectionWithReorientedViewCompleteCommand(request);
 		}
 <%	}%>
-		return super.getConnectionCreateCommand(request);
+		return super.getConnectionCompleteCommand(request);
 	}
 <%}%>
 }
