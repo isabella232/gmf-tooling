@@ -20,7 +20,7 @@ public class CreationWizardGenerator
   protected final String TEXT_3 = " extends EditorCreationWizard {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void addPages() {" + NL + "\t\tsuper.addPages();" + NL + "\t\tif (page == null) {" + NL + "\t\t\tpage = new ";
   protected final String TEXT_4 = "(getWorkbench(), getSelection());" + NL + "\t\t}" + NL + "\t\taddPage(page);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void init(IWorkbench workbench, IStructuredSelection selection) {" + NL + "\t\tsuper.init(workbench, selection);" + NL + "\t\tsetWindowTitle(\"New ";
   protected final String TEXT_5 = " Diagram\"); //$NON-NLS-1$" + NL + "\t\tsetDefaultPageImageDescriptor(";
-  protected final String TEXT_6 = ".getImageDescriptor(" + NL + "\t\t\t\"icons/full/wizban/New";
+  protected final String TEXT_6 = ".getBundledImageDescriptor(" + NL + "\t\t\t\"icons/full/wizban/New";
   protected final String TEXT_7 = ".gif\")); //$NON-NLS-1$" + NL + "\t\tsetNeedsProgressMonitor(true);" + NL + "\t}" + NL + "}";
   protected final String TEXT_8 = NL;
 

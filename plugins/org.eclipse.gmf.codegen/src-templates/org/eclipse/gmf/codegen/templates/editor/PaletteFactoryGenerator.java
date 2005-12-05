@@ -47,26 +47,46 @@ public class PaletteFactoryGenerator
   protected final String TEXT_29 = "CreationTool());";
   protected final String TEXT_30 = NL + "\t\treturn paletteContainer;" + NL + "\t}";
   protected final String TEXT_31 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ToolEntry create";
-  protected final String TEXT_32 = "CreationTool() {" + NL + "\t\tImageDescriptor image = ";
-  protected final String TEXT_33 = ".getImageDescriptor(" + NL + "\t\t\t";
-  protected final String TEXT_34 = ".";
-  protected final String TEXT_35 = ");" + NL + "\t\treturn new ToolEntry(\"";
-  protected final String TEXT_36 = "\", \"";
-  protected final String TEXT_37 = "\", image, image) {" + NL + "" + NL + "\t\t\tpublic Tool createTool() {" + NL + "\t\t\t\tTool tool = new CreationTool(";
+  protected final String TEXT_32 = "CreationTool() {" + NL + "\t\tImageDescriptor smallImage;" + NL + "\t\tImageDescriptor largeImage;" + NL + "\t\t";
+  protected final String TEXT_33 = NL + "\t\tsmallImage = ";
+  protected final String TEXT_34 = ".getBundledImageDescriptor(\"";
+  protected final String TEXT_35 = "\");" + NL + "\t\t";
+  protected final String TEXT_36 = NL + "\t\tsmallImage = ";
+  protected final String TEXT_37 = ".getImageDescriptor(";
   protected final String TEXT_38 = ".";
-  protected final String TEXT_39 = ");" + NL + "\t\t\t\ttool.setProperties(getToolProperties());" + NL + "\t\t\t\treturn tool;" + NL + "\t\t\t}" + NL + "\t\t};" + NL + "\t}";
-  protected final String TEXT_40 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ToolEntry create";
-  protected final String TEXT_41 = "CreationTool() {" + NL + "\t\tImageDescriptor image = ";
-  protected final String TEXT_42 = ".getImageDescriptor(" + NL + "\t\t\t";
-  protected final String TEXT_43 = ".";
-  protected final String TEXT_44 = ");" + NL + "\t\treturn new ToolEntry(\"";
-  protected final String TEXT_45 = "\", \"";
-  protected final String TEXT_46 = "\", image, image) {" + NL + "" + NL + "\t\t\tpublic Tool createTool() {" + NL + "\t\t\t\tTool tool = new ";
-  protected final String TEXT_47 = "(";
+  protected final String TEXT_39 = "); " + NL + "\t\t";
+  protected final String TEXT_40 = NL + "\t\t";
+  protected final String TEXT_41 = NL + "\t\tlargeImage = ";
+  protected final String TEXT_42 = ".getBundledImageDescriptor(\"";
+  protected final String TEXT_43 = "\");" + NL + "\t\t";
+  protected final String TEXT_44 = NL + "\t\tlargeImage = smallImage;" + NL + "\t\t";
+  protected final String TEXT_45 = NL + "\t\treturn new ToolEntry(\"";
+  protected final String TEXT_46 = "\", \"";
+  protected final String TEXT_47 = "\", smallImage, largeImage) {" + NL + "" + NL + "\t\t\tpublic Tool createTool() {" + NL + "\t\t\t\tTool tool = new CreationTool(";
   protected final String TEXT_48 = ".";
   protected final String TEXT_49 = ");" + NL + "\t\t\t\ttool.setProperties(getToolProperties());" + NL + "\t\t\t\treturn tool;" + NL + "\t\t\t}" + NL + "\t\t};" + NL + "\t}";
-  protected final String TEXT_50 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate PaletteContainer createContainer(String title) {" + NL + "\t\treturn new PaletteDrawer(title);" + NL + "\t}" + NL + "}";
-  protected final String TEXT_51 = NL;
+  protected final String TEXT_50 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ToolEntry create";
+  protected final String TEXT_51 = "CreationTool() {" + NL + "\t\tImageDescriptor smallImage;" + NL + "\t\tImageDescriptor largeImage;" + NL + "\t\t";
+  protected final String TEXT_52 = NL + "\t\tsmallImage = ";
+  protected final String TEXT_53 = ".getBundledImageDescriptor(\"";
+  protected final String TEXT_54 = "\");" + NL + "\t\t";
+  protected final String TEXT_55 = NL + "\t\tsmallImage = ";
+  protected final String TEXT_56 = ".getImageDescriptor(";
+  protected final String TEXT_57 = ".";
+  protected final String TEXT_58 = "); " + NL + "\t\t";
+  protected final String TEXT_59 = NL + "\t\t";
+  protected final String TEXT_60 = NL + "\t\tlargeImage = ";
+  protected final String TEXT_61 = ".getBundledImageDescriptor(\"";
+  protected final String TEXT_62 = "\");" + NL + "\t\t";
+  protected final String TEXT_63 = NL + "\t\tlargeImage = smallImage;" + NL + "\t\t";
+  protected final String TEXT_64 = NL + "\t\treturn new ToolEntry(\"";
+  protected final String TEXT_65 = "\", \"";
+  protected final String TEXT_66 = "\", smallImage, largeImage) {" + NL + "" + NL + "\t\t\tpublic Tool createTool() {" + NL + "\t\t\t\tTool tool = new ";
+  protected final String TEXT_67 = "(";
+  protected final String TEXT_68 = ".";
+  protected final String TEXT_69 = ");" + NL + "\t\t\t\ttool.setProperties(getToolProperties());" + NL + "\t\t\t\treturn tool;" + NL + "\t\t\t}" + NL + "\t\t};" + NL + "\t}";
+  protected final String TEXT_70 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate PaletteContainer createContainer(String title) {" + NL + "\t\treturn new PaletteDrawer(title);" + NL + "\t}" + NL + "}";
+  protected final String TEXT_71 = NL;
 
   public String generate(Object argument)
   {
@@ -150,6 +170,8 @@ for (int i = 0; i < toolGroups.size(); i++) {
     stringBuffer.append(TEXT_30);
     
 }
+final String importedElementTypesClassName = importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName());
+final String importedPluginClassName = importManager.getImportedName(genDiagram.getPluginQualifiedClassName());
 for (int i = 0; i < toolGroups.size(); i++) {
 	ToolGroup toolGroup = (ToolGroup) toolGroups.get(i);
 	List nodeCreationTools = toolGroup.getNodeTools();
@@ -160,53 +182,94 @@ for (int i = 0; i < toolGroups.size(); i++) {
     stringBuffer.append(TEXT_31);
     stringBuffer.append(AccessUtil.getPaletteEntryId(nodeCreationTool));
     stringBuffer.append(TEXT_32);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
+    if (nodeCreationTool.getSmallIconPath() != null) {
     stringBuffer.append(TEXT_33);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
+    stringBuffer.append(importedPluginClassName);
     stringBuffer.append(TEXT_34);
-    stringBuffer.append(genNode.getUniqueIdentifier());
+    stringBuffer.append(nodeCreationTool.getSmallIconPath());
     stringBuffer.append(TEXT_35);
-    stringBuffer.append(nodeCreationTool.getTitleKey());
+    } else {
     stringBuffer.append(TEXT_36);
-    stringBuffer.append(nodeCreationTool.getDescriptionKey());
+    stringBuffer.append(importedElementTypesClassName);
     stringBuffer.append(TEXT_37);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
+    stringBuffer.append(importedElementTypesClassName);
     stringBuffer.append(TEXT_38);
     stringBuffer.append(genNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_39);
+    }
+    stringBuffer.append(TEXT_40);
+    if (nodeCreationTool.getLargeIconPath() != null) {
+    stringBuffer.append(TEXT_41);
+    stringBuffer.append(importedPluginClassName);
+    stringBuffer.append(TEXT_42);
+    stringBuffer.append(nodeCreationTool.getLargeIconPath());
+    stringBuffer.append(TEXT_43);
+    } else {
+    stringBuffer.append(TEXT_44);
+    }
+    stringBuffer.append(TEXT_45);
+    stringBuffer.append(nodeCreationTool.getTitleKey());
+    stringBuffer.append(TEXT_46);
+    stringBuffer.append(nodeCreationTool.getDescriptionKey());
+    stringBuffer.append(TEXT_47);
+    stringBuffer.append(importedElementTypesClassName);
+    stringBuffer.append(TEXT_48);
+    stringBuffer.append(genNode.getUniqueIdentifier());
+    stringBuffer.append(TEXT_49);
     
 	}
 	List linkCreationTools = toolGroup.getLinkTools();
+	final String connToolClassName = importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.ConnectionCreationTool");
 	for (int j = 0; j < linkCreationTools.size(); j++) {
 		LinkEntry linkCreationTool = (LinkEntry) linkCreationTools.get(j);
 		GenLink genLink = linkCreationTool.getGenLink();
 
-    stringBuffer.append(TEXT_40);
+    stringBuffer.append(TEXT_50);
     stringBuffer.append(AccessUtil.getPaletteEntryId(linkCreationTool));
-    stringBuffer.append(TEXT_41);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
-    stringBuffer.append(TEXT_42);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
-    stringBuffer.append(TEXT_43);
+    stringBuffer.append(TEXT_51);
+    if (linkCreationTool.getSmallIconPath() != null) {
+    stringBuffer.append(TEXT_52);
+    stringBuffer.append(importedPluginClassName);
+    stringBuffer.append(TEXT_53);
+    stringBuffer.append(linkCreationTool.getSmallIconPath());
+    stringBuffer.append(TEXT_54);
+    } else {
+    stringBuffer.append(TEXT_55);
+    stringBuffer.append(importedElementTypesClassName);
+    stringBuffer.append(TEXT_56);
+    stringBuffer.append(importedElementTypesClassName);
+    stringBuffer.append(TEXT_57);
     stringBuffer.append(genLink.getUniqueIdentifier());
-    stringBuffer.append(TEXT_44);
+    stringBuffer.append(TEXT_58);
+    }
+    stringBuffer.append(TEXT_59);
+    if (linkCreationTool.getLargeIconPath() != null) {
+    stringBuffer.append(TEXT_60);
+    stringBuffer.append(importedPluginClassName);
+    stringBuffer.append(TEXT_61);
+    stringBuffer.append(linkCreationTool.getLargeIconPath());
+    stringBuffer.append(TEXT_62);
+    } else {
+    stringBuffer.append(TEXT_63);
+    }
+    stringBuffer.append(TEXT_64);
     stringBuffer.append(linkCreationTool.getTitleKey());
-    stringBuffer.append(TEXT_45);
+    stringBuffer.append(TEXT_65);
     stringBuffer.append(linkCreationTool.getDescriptionKey());
-    stringBuffer.append(TEXT_46);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.ConnectionCreationTool"));
-    stringBuffer.append(TEXT_47);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
-    stringBuffer.append(TEXT_48);
+    stringBuffer.append(TEXT_66);
+    stringBuffer.append(connToolClassName);
+    stringBuffer.append(TEXT_67);
+    stringBuffer.append(importedElementTypesClassName);
+    stringBuffer.append(TEXT_68);
     stringBuffer.append(genLink.getUniqueIdentifier());
-    stringBuffer.append(TEXT_49);
+    stringBuffer.append(TEXT_69);
     
 	}
 }
 
-    stringBuffer.append(TEXT_50);
+    stringBuffer.append(TEXT_70);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_51);
+    stringBuffer.append(TEXT_71);
     return stringBuffer.toString();
   }
 }

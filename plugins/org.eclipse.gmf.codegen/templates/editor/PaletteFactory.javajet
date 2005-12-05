@@ -129,6 +129,8 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	}
 <%
 }
+final String importedElementTypesClassName = importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName());
+final String importedPluginClassName = importManager.getImportedName(genDiagram.getPluginQualifiedClassName());
 for (int i = 0; i < toolGroups.size(); i++) {
 	ToolGroup toolGroup = (ToolGroup) toolGroups.get(i);
 	List nodeCreationTools = toolGroup.getNodeTools();
@@ -141,12 +143,22 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	 * @generated
 	 */
 	private ToolEntry create<%=AccessUtil.getPaletteEntryId(nodeCreationTool)%>CreationTool() {
-		ImageDescriptor image = <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.getImageDescriptor(
-			<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genNode.getUniqueIdentifier()%>);
-		return new ToolEntry("<%=nodeCreationTool.getTitleKey()%>", "<%=nodeCreationTool.getDescriptionKey()%>", image, image) {
+		ImageDescriptor smallImage;
+		ImageDescriptor largeImage;
+		<%if (nodeCreationTool.getSmallIconPath() != null) {%>
+		smallImage = <%=importedPluginClassName%>.getBundledImageDescriptor("<%=nodeCreationTool.getSmallIconPath()%>");
+		<%} else {%>
+		smallImage = <%=importedElementTypesClassName%>.getImageDescriptor(<%=importedElementTypesClassName%>.<%=genNode.getUniqueIdentifier()%>); 
+		<%}%>
+		<%if (nodeCreationTool.getLargeIconPath() != null) {%>
+		largeImage = <%=importedPluginClassName%>.getBundledImageDescriptor("<%=nodeCreationTool.getLargeIconPath()%>");
+		<%} else {%>
+		largeImage = smallImage;
+		<%}%>
+		return new ToolEntry("<%=nodeCreationTool.getTitleKey()%>", "<%=nodeCreationTool.getDescriptionKey()%>", smallImage, largeImage) {
 
 			public Tool createTool() {
-				Tool tool = new CreationTool(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genNode.getUniqueIdentifier()%>);
+				Tool tool = new CreationTool(<%=importedElementTypesClassName%>.<%=genNode.getUniqueIdentifier()%>);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
@@ -155,6 +167,7 @@ for (int i = 0; i < toolGroups.size(); i++) {
 <%
 	}
 	List linkCreationTools = toolGroup.getLinkTools();
+	final String connToolClassName = importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.ConnectionCreationTool");
 	for (int j = 0; j < linkCreationTools.size(); j++) {
 		LinkEntry linkCreationTool = (LinkEntry) linkCreationTools.get(j);
 		GenLink genLink = linkCreationTool.getGenLink();
@@ -164,12 +177,22 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	 * @generated
 	 */
 	private ToolEntry create<%=AccessUtil.getPaletteEntryId(linkCreationTool)%>CreationTool() {
-		ImageDescriptor image = <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.getImageDescriptor(
-			<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>);
-		return new ToolEntry("<%=linkCreationTool.getTitleKey()%>", "<%=linkCreationTool.getDescriptionKey()%>", image, image) {
+		ImageDescriptor smallImage;
+		ImageDescriptor largeImage;
+		<%if (linkCreationTool.getSmallIconPath() != null) {%>
+		smallImage = <%=importedPluginClassName%>.getBundledImageDescriptor("<%=linkCreationTool.getSmallIconPath()%>");
+		<%} else {%>
+		smallImage = <%=importedElementTypesClassName%>.getImageDescriptor(<%=importedElementTypesClassName%>.<%=genLink.getUniqueIdentifier()%>); 
+		<%}%>
+		<%if (linkCreationTool.getLargeIconPath() != null) {%>
+		largeImage = <%=importedPluginClassName%>.getBundledImageDescriptor("<%=linkCreationTool.getLargeIconPath()%>");
+		<%} else {%>
+		largeImage = smallImage;
+		<%}%>
+		return new ToolEntry("<%=linkCreationTool.getTitleKey()%>", "<%=linkCreationTool.getDescriptionKey()%>", smallImage, largeImage) {
 
 			public Tool createTool() {
-				Tool tool = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.ConnectionCreationTool")%>(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>);
+				Tool tool = new <%=connToolClassName%>(<%=importedElementTypesClassName%>.<%=genLink.getUniqueIdentifier()%>);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
