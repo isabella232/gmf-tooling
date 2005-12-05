@@ -17,8 +17,8 @@ importManager.markImportLocation(stringBuffer);
  */
 public class <%=genCompartment.getItemSemanticEditPolicyClassName()%> extends <%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())%> {
 <%
-GenChildContainer childContainer = genCompartment;
-GenNode containerNode = genCompartment.getNode();
+Collection childNodes = genCompartment.getChildNodes();
+GenClass containerGenClass = genCompartment.getNode().getModelFacet().getMetaClass();
 %>
 
 <%@ include file="childContainerCreateCommand.jetinc"%>

@@ -4,7 +4,7 @@
 	protected <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getCreateCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest")%> req) {
 <%
 GenPackage genPackage = genDiagram.getDomainMetaModel();
-for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext(); ) {
+for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 	GenNode genChildNode = (GenNode) nodes.next();
 	TypeModelFacet modelFacet = genChildNode.getModelFacet();
 	GenFeature containmentMetaFeature = modelFacet.getContainmentMetaFeature();
@@ -16,9 +16,9 @@ for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext()
 		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genChildNode.getUniqueIdentifier()%> == req.getElementType()) {
 <%
 	if (upperContainmentBound > 0 || processChildMetafeature) {
-		String containerInterfaceName = importManager.getImportedName(containerNode.getModelFacet().getMetaClass().getQualifiedInterfaceName());
+		String containerInterfaceName = importManager.getImportedName(containerGenClass.getQualifiedInterfaceName());
 %>		
-			<%=containerInterfaceName%> container = (<%=containerInterfaceName%>) req.getContainer();
+			<%=containerInterfaceName%> container = (<%=containerInterfaceName%>) (req.getContainer() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> ? ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) req.getContainer()).getElement() : req.getContainer());
 <%
 		if (upperContainmentBound > 0) {
 			if (upperContainmentBound == 1) {
@@ -64,7 +64,7 @@ for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext()
 		return super.getCreateCommand(req);
 	}
 <%
-for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext(); ) {
+for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 	GenNode genChildNode = (GenNode) nodes.next();
 	TypeModelFacet modelFacet = genChildNode.getModelFacet();
 %>
@@ -85,7 +85,7 @@ for (Iterator nodes = childContainer.getChildNodes().iterator(); nodes.hasNext()
 		 * @generated
 		 */
 		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> getEClassToEdit() {
-			return <%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containerNode.getModelFacet().getMetaClass().getClassifierAccessorName()%>();
+			return <%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=containerGenClass.getClassifierAccessorName()%>();
 		};
 
 		/**
