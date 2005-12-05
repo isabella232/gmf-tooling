@@ -124,7 +124,7 @@ public interface GenLink extends GenCommonBase{
 
 	/**
 	 * Returns the value of the '<em><b>Incoming Creation Allowed</b></em>' attribute.
-	 * The default value is <code>"true"</code>.
+	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -133,7 +133,7 @@ public interface GenLink extends GenCommonBase{
 	 * @return the value of the '<em>Incoming Creation Allowed</em>' attribute.
 	 * @see #setIncomingCreationAllowed(boolean)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink_IncomingCreationAllowed()
-	 * @model default="true"
+	 * @model default="false"
 	 * @generated
 	 */
 	boolean isIncomingCreationAllowed();

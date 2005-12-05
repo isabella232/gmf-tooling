@@ -97,7 +97,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean INCOMING_CREATION_ALLOWED_EDEFAULT = true;
+	protected static final boolean INCOMING_CREATION_ALLOWED_EDEFAULT = false;
 
 	/**
 	 * The cached value of the '{@link #isIncomingCreationAllowed() <em>Incoming Creation Allowed</em>}' attribute.
