@@ -8,7 +8,6 @@ package org.eclipse.gmf.mappings.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 

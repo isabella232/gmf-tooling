@@ -10,28 +10,22 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.eclipse.gmf.diadef.Node;
-
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.Tool;
 
 /**
  * <!-- begin-user-doc -->
@@ -40,29 +34,19 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getDiagramNode <em>Diagram Node</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getDomainMetaElement <em>Domain Meta Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getDomainSpecialization <em>Domain Specialization</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getDomainInitializer <em>Domain Initializer</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getContainmentFeature <em>Containment Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getEditFeature <em>Edit Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getChildMappings <em>Child Mappings</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getTool <em>Tool</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public abstract class AbstractNodeMappingImpl extends EObjectImpl implements AbstractNodeMapping {
-	/**
-	 * The cached value of the '{@link #getDiagramNode() <em>Diagram Node</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDiagramNode()
-	 * @generated
-	 * @ordered
-	 */
-	protected Node diagramNode = null;
-
 	/**
 	 * The cached value of the '{@link #getDomainMetaElement() <em>Domain Meta Element</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -124,6 +108,16 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	protected EList childMappings = null;
 
 	/**
+	 * The cached value of the '{@link #getTool() <em>Tool</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTool()
+	 * @generated
+	 * @ordered
+	 */
+	protected Tool tool = null;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -139,44 +133,6 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 */
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getAbstractNodeMapping();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Node getDiagramNode() {
-		if (diagramNode != null && diagramNode.eIsProxy()) {
-			Node oldDiagramNode = diagramNode;
-			diagramNode = (Node)eResolveProxy((InternalEObject)diagramNode);
-			if (diagramNode != oldDiagramNode) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.ABSTRACT_NODE_MAPPING__DIAGRAM_NODE, oldDiagramNode, diagramNode));
-			}
-		}
-		return diagramNode;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Node basicGetDiagramNode() {
-		return diagramNode;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDiagramNode(Node newDiagramNode) {
-		Node oldDiagramNode = diagramNode;
-		diagramNode = newDiagramNode;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__DIAGRAM_NODE, oldDiagramNode, diagramNode));
 	}
 
 	/**
@@ -393,6 +349,49 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Tool getTool() {
+		return tool;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetTool(Tool newTool, NotificationChain msgs) {
+		Tool oldTool = tool;
+		tool = newTool;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL, oldTool, newTool);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTool(Tool newTool) {
+		if (newTool != tool) {
+			NotificationChain msgs = null;
+			if (tool != null)
+				msgs = ((InternalEObject)tool).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL, null, msgs);
+			if (newTool != null)
+				msgs = ((InternalEObject)newTool).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL, null, msgs);
+			msgs = basicSetTool(newTool, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL, newTool, newTool));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
 	 * This method was created to simplify transtofmation code.
 	 * @return getDomainMetaElement() if specified or getContainmentFeature().getEReferenceType()
 	 * <!-- end-user-doc -->
@@ -438,6 +437,8 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 					return basicSetDomainInitializer(null, msgs);
 				case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 					return ((InternalEList)getChildMappings()).basicRemove(otherEnd, msgs);
+				case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
+					return basicSetTool(null, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
@@ -452,9 +453,6 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DIAGRAM_NODE:
-				if (resolve) return getDiagramNode();
-				return basicGetDiagramNode();
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				if (resolve) return getDomainMetaElement();
 				return basicGetDomainMetaElement();
@@ -470,6 +468,8 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 				return basicGetEditFeature();
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				return getChildMappings();
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
+				return getTool();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -481,9 +481,6 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DIAGRAM_NODE:
-				setDiagramNode((Node)newValue);
-				return;
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				setDomainMetaElement((EClass)newValue);
 				return;
@@ -503,6 +500,9 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 				getChildMappings().clear();
 				getChildMappings().addAll((Collection)newValue);
 				return;
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
+				setTool((Tool)newValue);
+				return;
 		}
 		eDynamicSet(eFeature, newValue);
 	}
@@ -514,9 +514,6 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DIAGRAM_NODE:
-				setDiagramNode((Node)null);
-				return;
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				setDomainMetaElement((EClass)null);
 				return;
@@ -535,6 +532,9 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				getChildMappings().clear();
 				return;
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
+				setTool((Tool)null);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -546,8 +546,6 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DIAGRAM_NODE:
-				return diagramNode != null;
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				return domainMetaElement != null;
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION:
@@ -560,6 +558,8 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 				return editFeature != null;
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				return childMappings != null && !childMappings.isEmpty();
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
+				return tool != null;
 		}
 		return eDynamicIsSet(eFeature);
 	}

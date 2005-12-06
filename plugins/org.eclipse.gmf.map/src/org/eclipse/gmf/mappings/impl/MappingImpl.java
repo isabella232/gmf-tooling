@@ -23,6 +23,7 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.ToolGroup;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,6 +35,7 @@ import org.eclipse.gmf.mappings.NodeMapping;
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingImpl#getNodes <em>Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingImpl#getLinks <em>Links</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingImpl#getDiagram <em>Diagram</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.MappingImpl#getToolGroups <em>Tool Groups</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,6 +71,16 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * @ordered
 	 */
 	protected CanvasMapping diagram = null;
+
+	/**
+	 * The cached value of the '{@link #getToolGroups() <em>Tool Groups</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getToolGroups()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList toolGroups = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -160,6 +172,18 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList getToolGroups() {
+		if (toolGroups == null) {
+			toolGroups = new EObjectContainmentEList(ToolGroup.class, this, GMFMapPackage.MAPPING__TOOL_GROUPS);
+		}
+		return toolGroups;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
@@ -169,6 +193,8 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 					return ((InternalEList)getLinks()).basicRemove(otherEnd, msgs);
 				case GMFMapPackage.MAPPING__DIAGRAM:
 					return basicSetDiagram(null, msgs);
+				case GMFMapPackage.MAPPING__TOOL_GROUPS:
+					return ((InternalEList)getToolGroups()).basicRemove(otherEnd, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
@@ -189,6 +215,8 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 				return getLinks();
 			case GMFMapPackage.MAPPING__DIAGRAM:
 				return getDiagram();
+			case GMFMapPackage.MAPPING__TOOL_GROUPS:
+				return getToolGroups();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -211,6 +239,10 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 			case GMFMapPackage.MAPPING__DIAGRAM:
 				setDiagram((CanvasMapping)newValue);
 				return;
+			case GMFMapPackage.MAPPING__TOOL_GROUPS:
+				getToolGroups().clear();
+				getToolGroups().addAll((Collection)newValue);
+				return;
 		}
 		eDynamicSet(eFeature, newValue);
 	}
@@ -231,6 +263,9 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 			case GMFMapPackage.MAPPING__DIAGRAM:
 				setDiagram((CanvasMapping)null);
 				return;
+			case GMFMapPackage.MAPPING__TOOL_GROUPS:
+				getToolGroups().clear();
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -248,6 +283,8 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 				return links != null && !links.isEmpty();
 			case GMFMapPackage.MAPPING__DIAGRAM:
 				return diagram != null;
+			case GMFMapPackage.MAPPING__TOOL_GROUPS:
+				return toolGroups != null && !toolGroups.isEmpty();
 		}
 		return eDynamicIsSet(eFeature);
 	}

@@ -17,13 +17,14 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.gmf.diadef.Compartment;
-import org.eclipse.gmf.diadef.Node;
+import org.eclipse.gmf.gmfgraph.Child;
+import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.Tool;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,6 +33,7 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.ChildNodeMappingImpl#getDiagramNode <em>Diagram Node</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.ChildNodeMappingImpl#getCompartment <em>Compartment</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.ChildNodeMappingImpl#getParentNode <em>Parent Node</em>}</li>
  * </ul>
@@ -40,6 +42,16 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
  * @generated
  */
 public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements ChildNodeMapping {
+	/**
+	 * The cached value of the '{@link #getDiagramNode() <em>Diagram Node</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDiagramNode()
+	 * @generated
+	 * @ordered
+	 */
+	protected Child diagramNode = null;
+
 	/**
 	 * The cached value of the '{@link #getCompartment() <em>Compartment</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -66,6 +78,44 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 	 */
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getChildNodeMapping();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Child getDiagramNode() {
+		if (diagramNode != null && diagramNode.eIsProxy()) {
+			Child oldDiagramNode = diagramNode;
+			diagramNode = (Child)eResolveProxy((InternalEObject)diagramNode);
+			if (diagramNode != oldDiagramNode) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.CHILD_NODE_MAPPING__DIAGRAM_NODE, oldDiagramNode, diagramNode));
+			}
+		}
+		return diagramNode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Child basicGetDiagramNode() {
+		return diagramNode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDiagramNode(Child newDiagramNode) {
+		Child oldDiagramNode = diagramNode;
+		diagramNode = newDiagramNode;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.CHILD_NODE_MAPPING__DIAGRAM_NODE, oldDiagramNode, diagramNode));
 	}
 
 	/**
@@ -153,6 +203,8 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 					return basicSetDomainInitializer(null, msgs);
 				case GMFMapPackage.CHILD_NODE_MAPPING__CHILD_MAPPINGS:
 					return ((InternalEList)getChildMappings()).basicRemove(otherEnd, msgs);
+				case GMFMapPackage.CHILD_NODE_MAPPING__TOOL:
+					return basicSetTool(null, msgs);
 				case GMFMapPackage.CHILD_NODE_MAPPING__PARENT_NODE:
 					return eBasicSetContainer(null, GMFMapPackage.CHILD_NODE_MAPPING__PARENT_NODE, msgs);
 				default:
@@ -186,9 +238,6 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFMapPackage.CHILD_NODE_MAPPING__DIAGRAM_NODE:
-				if (resolve) return getDiagramNode();
-				return basicGetDiagramNode();
 			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				if (resolve) return getDomainMetaElement();
 				return basicGetDomainMetaElement();
@@ -204,6 +253,11 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 				return basicGetEditFeature();
 			case GMFMapPackage.CHILD_NODE_MAPPING__CHILD_MAPPINGS:
 				return getChildMappings();
+			case GMFMapPackage.CHILD_NODE_MAPPING__TOOL:
+				return getTool();
+			case GMFMapPackage.CHILD_NODE_MAPPING__DIAGRAM_NODE:
+				if (resolve) return getDiagramNode();
+				return basicGetDiagramNode();
 			case GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT:
 				if (resolve) return getCompartment();
 				return basicGetCompartment();
@@ -220,9 +274,6 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 	 */
 	public void eSet(EStructuralFeature eFeature, Object newValue) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFMapPackage.CHILD_NODE_MAPPING__DIAGRAM_NODE:
-				setDiagramNode((Node)newValue);
-				return;
 			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				setDomainMetaElement((EClass)newValue);
 				return;
@@ -242,6 +293,12 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 				getChildMappings().clear();
 				getChildMappings().addAll((Collection)newValue);
 				return;
+			case GMFMapPackage.CHILD_NODE_MAPPING__TOOL:
+				setTool((Tool)newValue);
+				return;
+			case GMFMapPackage.CHILD_NODE_MAPPING__DIAGRAM_NODE:
+				setDiagramNode((Child)newValue);
+				return;
 			case GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT:
 				setCompartment((Compartment)newValue);
 				return;
@@ -256,9 +313,6 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 	 */
 	public void eUnset(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFMapPackage.CHILD_NODE_MAPPING__DIAGRAM_NODE:
-				setDiagramNode((Node)null);
-				return;
 			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				setDomainMetaElement((EClass)null);
 				return;
@@ -277,6 +331,12 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 			case GMFMapPackage.CHILD_NODE_MAPPING__CHILD_MAPPINGS:
 				getChildMappings().clear();
 				return;
+			case GMFMapPackage.CHILD_NODE_MAPPING__TOOL:
+				setTool((Tool)null);
+				return;
+			case GMFMapPackage.CHILD_NODE_MAPPING__DIAGRAM_NODE:
+				setDiagramNode((Child)null);
+				return;
 			case GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT:
 				setCompartment((Compartment)null);
 				return;
@@ -291,8 +351,6 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 	 */
 	public boolean eIsSet(EStructuralFeature eFeature) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFMapPackage.CHILD_NODE_MAPPING__DIAGRAM_NODE:
-				return diagramNode != null;
 			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				return domainMetaElement != null;
 			case GMFMapPackage.CHILD_NODE_MAPPING__DOMAIN_SPECIALIZATION:
@@ -305,6 +363,10 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 				return editFeature != null;
 			case GMFMapPackage.CHILD_NODE_MAPPING__CHILD_MAPPINGS:
 				return childMappings != null && !childMappings.isEmpty();
+			case GMFMapPackage.CHILD_NODE_MAPPING__TOOL:
+				return tool != null;
+			case GMFMapPackage.CHILD_NODE_MAPPING__DIAGRAM_NODE:
+				return diagramNode != null;
 			case GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT:
 				return compartment != null;
 			case GMFMapPackage.CHILD_NODE_MAPPING__PARENT_NODE:

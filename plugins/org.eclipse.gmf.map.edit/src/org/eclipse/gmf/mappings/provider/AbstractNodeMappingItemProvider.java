@@ -66,32 +66,11 @@ public class AbstractNodeMappingItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDiagramNodePropertyDescriptor(object);
 			addDomainMetaElementPropertyDescriptor(object);
 			addContainmentFeaturePropertyDescriptor(object);
 			addEditFeaturePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Diagram Node feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDiagramNodePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_AbstractNodeMapping_diagramNode_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_AbstractNodeMapping_diagramNode_feature", "_UI_AbstractNodeMapping_type"),
-				 GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DiagramNode(),
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**
@@ -198,6 +177,7 @@ public class AbstractNodeMappingItemProvider
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainSpecialization());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainInitializer());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_ChildMappings());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_Tool());
 		}
 		return childrenFeatures;
 	}
@@ -238,6 +218,7 @@ public class AbstractNodeMappingItemProvider
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION:
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER:
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -268,6 +249,16 @@ public class AbstractNodeMappingItemProvider
 			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_ChildMappings(),
 				 GMFMapFactory.eINSTANCE.createChildNodeMapping()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_Tool(),
+				 GMFMapFactory.eINSTANCE.createCreationTool()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_Tool(),
+				 GMFMapFactory.eINSTANCE.createNewActionTool()));
 	}
 
 	/**

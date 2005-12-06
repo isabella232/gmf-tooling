@@ -8,19 +8,19 @@ package org.eclipse.gmf.mappings.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.gmf.diadef.Connection;
+import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
+import org.eclipse.gmf.mappings.Tool;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,6 +38,7 @@ import org.eclipse.gmf.mappings.LinkMapping;
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getLabelDisplayFeature <em>Label Display Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getLinkMetaFeature <em>Link Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getCreationConstraints <em>Creation Constraints</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getTool <em>Tool</em>}</li>
  * </ul>
  * </p>
  *
@@ -133,6 +134,16 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * @ordered
 	 */
 	protected LinkConstraints creationConstraints = null;
+
+	/**
+	 * The cached value of the '{@link #getTool() <em>Tool</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTool()
+	 * @generated
+	 * @ordered
+	 */
+	protected Tool tool = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -519,6 +530,49 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 
 	/**
 	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Tool getTool() {
+		return tool;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetTool(Tool newTool, NotificationChain msgs) {
+		Tool oldTool = tool;
+		tool = newTool;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__TOOL, oldTool, newTool);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTool(Tool newTool) {
+		if (newTool != tool) {
+			NotificationChain msgs = null;
+			if (tool != null)
+				msgs = ((InternalEObject)tool).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.LINK_MAPPING__TOOL, null, msgs);
+			if (newTool != null)
+				msgs = ((InternalEObject)newTool).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.LINK_MAPPING__TOOL, null, msgs);
+			msgs = basicSetTool(newTool, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__TOOL, newTool, newTool));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
 	 * This method was created to simplify transtofmation code.
 	 * @return getDomainMetaElement() if specified or getContainmentFeature().getEReferenceType() 
 	 * if containment feature was specified or null in case of "Reference only" link mapping
@@ -570,6 +624,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 					return basicSetDomainInitializer(null, msgs);
 				case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
 					return basicSetCreationConstraints(null, msgs);
+				case GMFMapPackage.LINK_MAPPING__TOOL:
+					return basicSetTool(null, msgs);
 				default:
 					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
 			}
@@ -608,6 +664,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 				return basicGetLinkMetaFeature();
 			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
 				return getCreationConstraints();
+			case GMFMapPackage.LINK_MAPPING__TOOL:
+				return getTool();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -645,6 +703,9 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 				return;
 			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
 				setCreationConstraints((LinkConstraints)newValue);
+				return;
+			case GMFMapPackage.LINK_MAPPING__TOOL:
+				setTool((Tool)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -684,6 +745,9 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
 				setCreationConstraints((LinkConstraints)null);
 				return;
+			case GMFMapPackage.LINK_MAPPING__TOOL:
+				setTool((Tool)null);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -713,6 +777,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 				return linkMetaFeature != null;
 			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
 				return creationConstraints != null;
+			case GMFMapPackage.LINK_MAPPING__TOOL:
+				return tool != null;
 		}
 		return eDynamicIsSet(eFeature);
 	}

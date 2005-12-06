@@ -12,7 +12,7 @@
 package org.eclipse.gmf.bridge.genmodel;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.diadef.Compartment;
+import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;

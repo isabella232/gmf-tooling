@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.diadef.Connection;
+import org.eclipse.gmf.gmfgraph.Connection;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,6 +29,7 @@ import org.eclipse.gmf.diadef.Connection;
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getLabelDisplayFeature <em>Label Display Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getLinkMetaFeature <em>Link Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getCreationConstraints <em>Creation Constraints</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getTool <em>Tool</em>}</li>
  * </ul>
  * </p>
  *
@@ -280,6 +281,31 @@ public interface LinkMapping extends MappingEntry{
 	 * @generated
 	 */
 	void setCreationConstraints(LinkConstraints value);
+
+	/**
+	 * Returns the value of the '<em><b>Tool</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Way to create the link
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Tool</em>' containment reference.
+	 * @see #setTool(Tool)
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping_Tool()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Tool getTool();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.mappings.LinkMapping#getTool <em>Tool</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Tool</em>' containment reference.
+	 * @see #getTool()
+	 * @generated
+	 */
+	void setTool(Tool value);
 
 	/**
 	 * <!-- begin-user-doc -->

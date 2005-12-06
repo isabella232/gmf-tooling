@@ -184,6 +184,72 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.ToolGroup} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ToolGroupItemProvider toolGroupItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.ToolGroup}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createToolGroupAdapter() {
+		if (toolGroupItemProvider == null) {
+			toolGroupItemProvider = new ToolGroupItemProvider(this);
+		}
+
+		return toolGroupItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.CreationTool} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CreationToolItemProvider creationToolItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.CreationTool}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createCreationToolAdapter() {
+		if (creationToolItemProvider == null) {
+			creationToolItemProvider = new CreationToolItemProvider(this);
+		}
+
+		return creationToolItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.NewActionTool} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected NewActionToolItemProvider newActionToolItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.NewActionTool}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createNewActionToolAdapter() {
+		if (newActionToolItemProvider == null) {
+			newActionToolItemProvider = new NewActionToolItemProvider(this);
+		}
+
+		return newActionToolItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.Constraint} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -394,6 +460,9 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 		if (linkMappingItemProvider != null) linkMappingItemProvider.dispose();
 		if (canvasMappingItemProvider != null) canvasMappingItemProvider.dispose();
 		if (mappingItemProvider != null) mappingItemProvider.dispose();
+		if (toolGroupItemProvider != null) toolGroupItemProvider.dispose();
+		if (creationToolItemProvider != null) creationToolItemProvider.dispose();
+		if (newActionToolItemProvider != null) newActionToolItemProvider.dispose();
 		if (constraintItemProvider != null) constraintItemProvider.dispose();
 		if (linkConstraintsItemProvider != null) linkConstraintsItemProvider.dispose();
 		if (valueExpressionItemProvider != null) valueExpressionItemProvider.dispose();

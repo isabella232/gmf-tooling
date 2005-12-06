@@ -7,13 +7,10 @@
 package org.eclipse.gmf.mappings;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-
-import org.eclipse.gmf.diadef.Node;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,13 +20,13 @@ import org.eclipse.gmf.diadef.Node;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getDiagramNode <em>Diagram Node</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getDomainMetaElement <em>Domain Meta Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getDomainSpecialization <em>Domain Specialization</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getDomainInitializer <em>Domain Initializer</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getContainmentFeature <em>Containment Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getEditFeature <em>Edit Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getChildMappings <em>Child Mappings</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getTool <em>Tool</em>}</li>
  * </ul>
  * </p>
  *
@@ -39,32 +36,6 @@ import org.eclipse.gmf.diadef.Node;
  * @generated
  */
 public interface AbstractNodeMapping extends EObject{
-	/**
-	 * Returns the value of the '<em><b>Diagram Node</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Diagram Node</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Diagram Node</em>' reference.
-	 * @see #setDiagramNode(Node)
-	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getAbstractNodeMapping_DiagramNode()
-	 * @model required="true"
-	 * @generated
-	 */
-	Node getDiagramNode();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getDiagramNode <em>Diagram Node</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Diagram Node</em>' reference.
-	 * @see #getDiagramNode()
-	 * @generated
-	 */
-	void setDiagramNode(Node value);
-
 	/**
 	 * Returns the value of the '<em><b>Domain Meta Element</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -214,6 +185,31 @@ public interface AbstractNodeMapping extends EObject{
 	 * @generated
 	 */
 	EList getChildMappings();
+
+	/**
+	 * Returns the value of the '<em><b>Tool</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Way to create the node
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Tool</em>' containment reference.
+	 * @see #setTool(Tool)
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getAbstractNodeMapping_Tool()
+	 * @model containment="true"
+	 * @generated
+	 */
+	Tool getTool();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getTool <em>Tool</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Tool</em>' containment reference.
+	 * @see #getTool()
+	 * @generated
+	 */
+	void setTool(Tool value);
 
 	/**
 	 * <!-- begin-user-doc -->

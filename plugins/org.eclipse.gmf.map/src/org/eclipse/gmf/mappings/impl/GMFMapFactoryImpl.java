@@ -9,15 +9,21 @@ package org.eclipse.gmf.mappings.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-import org.eclipse.gmf.mappings.*;
-
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
+import org.eclipse.gmf.mappings.Constraint;
+import org.eclipse.gmf.mappings.CreationTool;
+import org.eclipse.gmf.mappings.FeatureSeqInitializer;
+import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
+import org.eclipse.gmf.mappings.NewActionTool;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.ToolGroup;
+import org.eclipse.gmf.mappings.ValueExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -48,6 +54,9 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 			case GMFMapPackage.LINK_MAPPING: return createLinkMapping();
 			case GMFMapPackage.CANVAS_MAPPING: return createCanvasMapping();
 			case GMFMapPackage.MAPPING: return createMapping();
+			case GMFMapPackage.TOOL_GROUP: return createToolGroup();
+			case GMFMapPackage.CREATION_TOOL: return createCreationTool();
+			case GMFMapPackage.NEW_ACTION_TOOL: return createNewActionTool();
 			case GMFMapPackage.CONSTRAINT: return createConstraint();
 			case GMFMapPackage.LINK_CONSTRAINTS: return createLinkConstraints();
 			case GMFMapPackage.VALUE_EXPRESSION: return createValueExpression();
@@ -106,6 +115,36 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	public Mapping createMapping() {
 		MappingImpl mapping = new MappingImpl();
 		return mapping;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ToolGroup createToolGroup() {
+		ToolGroupImpl toolGroup = new ToolGroupImpl();
+		return toolGroup;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CreationTool createCreationTool() {
+		CreationToolImpl creationTool = new CreationToolImpl();
+		return creationTool;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NewActionTool createNewActionTool() {
+		NewActionToolImpl newActionTool = new NewActionToolImpl();
+		return newActionTool;
 	}
 
 	/**

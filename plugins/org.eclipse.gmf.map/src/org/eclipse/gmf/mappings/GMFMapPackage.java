@@ -70,22 +70,13 @@ public interface GMFMapPackage extends EPackage{
 	int ABSTRACT_NODE_MAPPING = 0;
 
 	/**
-	 * The feature id for the '<em><b>Diagram Node</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_NODE_MAPPING__DIAGRAM_NODE = 0;
-
-	/**
 	 * The feature id for the '<em><b>Domain Meta Element</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT = 1;
+	int ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT = 0;
 
 	/**
 	 * The feature id for the '<em><b>Domain Specialization</b></em>' containment reference.
@@ -94,7 +85,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION = 2;
+	int ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION = 1;
 
 	/**
 	 * The feature id for the '<em><b>Domain Initializer</b></em>' containment reference.
@@ -103,7 +94,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER = 3;
+	int ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER = 2;
 
 	/**
 	 * The feature id for the '<em><b>Containment Feature</b></em>' reference.
@@ -112,7 +103,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE = 4;
+	int ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE = 3;
 
 	/**
 	 * The feature id for the '<em><b>Edit Feature</b></em>' reference.
@@ -121,7 +112,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_NODE_MAPPING__EDIT_FEATURE = 5;
+	int ABSTRACT_NODE_MAPPING__EDIT_FEATURE = 4;
 
 	/**
 	 * The feature id for the '<em><b>Child Mappings</b></em>' containment reference list.
@@ -130,7 +121,16 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS = 6;
+	int ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS = 5;
+
+	/**
+	 * The feature id for the '<em><b>Tool</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_NODE_MAPPING__TOOL = 6;
 
 	/**
 	 * The number of structural features of the the '<em>Abstract Node Mapping</em>' class.
@@ -169,15 +169,6 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 */
 	int NODE_MAPPING = 2;
-
-	/**
-	 * The feature id for the '<em><b>Diagram Node</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NODE_MAPPING__DIAGRAM_NODE = ABSTRACT_NODE_MAPPING__DIAGRAM_NODE;
 
 	/**
 	 * The feature id for the '<em><b>Domain Meta Element</b></em>' reference.
@@ -234,13 +225,31 @@ public interface GMFMapPackage extends EPackage{
 	int NODE_MAPPING__CHILD_MAPPINGS = ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS;
 
 	/**
+	 * The feature id for the '<em><b>Tool</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE_MAPPING__TOOL = ABSTRACT_NODE_MAPPING__TOOL;
+
+	/**
+	 * The feature id for the '<em><b>Diagram Node</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE_MAPPING__DIAGRAM_NODE = ABSTRACT_NODE_MAPPING_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the the '<em>Node Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int NODE_MAPPING_FEATURE_COUNT = ABSTRACT_NODE_MAPPING_FEATURE_COUNT + 0;
+	int NODE_MAPPING_FEATURE_COUNT = ABSTRACT_NODE_MAPPING_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.ChildNodeMappingImpl <em>Child Node Mapping</em>}' class.
@@ -251,15 +260,6 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 */
 	int CHILD_NODE_MAPPING = 3;
-
-	/**
-	 * The feature id for the '<em><b>Diagram Node</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CHILD_NODE_MAPPING__DIAGRAM_NODE = ABSTRACT_NODE_MAPPING__DIAGRAM_NODE;
 
 	/**
 	 * The feature id for the '<em><b>Domain Meta Element</b></em>' reference.
@@ -316,13 +316,31 @@ public interface GMFMapPackage extends EPackage{
 	int CHILD_NODE_MAPPING__CHILD_MAPPINGS = ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS;
 
 	/**
+	 * The feature id for the '<em><b>Tool</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_NODE_MAPPING__TOOL = ABSTRACT_NODE_MAPPING__TOOL;
+
+	/**
+	 * The feature id for the '<em><b>Diagram Node</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CHILD_NODE_MAPPING__DIAGRAM_NODE = ABSTRACT_NODE_MAPPING_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Compartment</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CHILD_NODE_MAPPING__COMPARTMENT = ABSTRACT_NODE_MAPPING_FEATURE_COUNT + 0;
+	int CHILD_NODE_MAPPING__COMPARTMENT = ABSTRACT_NODE_MAPPING_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Parent Node</b></em>' container reference.
@@ -331,7 +349,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CHILD_NODE_MAPPING__PARENT_NODE = ABSTRACT_NODE_MAPPING_FEATURE_COUNT + 1;
+	int CHILD_NODE_MAPPING__PARENT_NODE = ABSTRACT_NODE_MAPPING_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the the '<em>Child Node Mapping</em>' class.
@@ -340,7 +358,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int CHILD_NODE_MAPPING_FEATURE_COUNT = ABSTRACT_NODE_MAPPING_FEATURE_COUNT + 2;
+	int CHILD_NODE_MAPPING_FEATURE_COUNT = ABSTRACT_NODE_MAPPING_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl <em>Link Mapping</em>}' class.
@@ -434,13 +452,22 @@ public interface GMFMapPackage extends EPackage{
 	int LINK_MAPPING__CREATION_CONSTRAINTS = MAPPING_ENTRY_FEATURE_COUNT + 8;
 
 	/**
+	 * The feature id for the '<em><b>Tool</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_MAPPING__TOOL = MAPPING_ENTRY_FEATURE_COUNT + 9;
+
+	/**
 	 * The number of structural features of the the '<em>Link Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_MAPPING_FEATURE_COUNT = MAPPING_ENTRY_FEATURE_COUNT + 9;
+	int LINK_MAPPING_FEATURE_COUNT = MAPPING_ENTRY_FEATURE_COUNT + 10;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.CanvasMappingImpl <em>Canvas Mapping</em>}' class.
@@ -526,14 +553,144 @@ public interface GMFMapPackage extends EPackage{
 	int MAPPING__DIAGRAM = 2;
 
 	/**
+	 * The feature id for the '<em><b>Tool Groups</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAPPING__TOOL_GROUPS = 3;
+
+	/**
 	 * The number of structural features of the the '<em>Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MAPPING_FEATURE_COUNT = 3;
+	int MAPPING_FEATURE_COUNT = 4;
 
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.ToolGroupImpl <em>Tool Group</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.ToolGroupImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getToolGroup()
+	 * @generated
+	 */
+	int TOOL_GROUP = 7;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOOL_GROUP__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Tools</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOOL_GROUP__TOOLS = 1;
+
+	/**
+	 * The number of structural features of the the '<em>Tool Group</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOOL_GROUP_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.Tool <em>Tool</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.Tool
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getTool()
+	 * @generated
+	 */
+	int TOOL = 8;
+
+	/**
+	 * The feature id for the '<em><b>Group</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOOL__GROUP = 0;
+
+	/**
+	 * The number of structural features of the the '<em>Tool</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOOL_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.CreationToolImpl <em>Creation Tool</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.CreationToolImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getCreationTool()
+	 * @generated
+	 */
+	int CREATION_TOOL = 9;
+
+	/**
+	 * The feature id for the '<em><b>Group</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATION_TOOL__GROUP = TOOL__GROUP;
+
+	/**
+	 * The number of structural features of the the '<em>Creation Tool</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATION_TOOL_FEATURE_COUNT = TOOL_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.NewActionToolImpl <em>New Action Tool</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.NewActionToolImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getNewActionTool()
+	 * @generated
+	 */
+	int NEW_ACTION_TOOL = 10;
+
+	/**
+	 * The feature id for the '<em><b>Group</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NEW_ACTION_TOOL__GROUP = TOOL__GROUP;
+
+	/**
+	 * The number of structural features of the the '<em>New Action Tool</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NEW_ACTION_TOOL_FEATURE_COUNT = TOOL_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.ValueExpressionImpl <em>Value Expression</em>}' class.
@@ -543,7 +700,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getValueExpression()
 	 * @generated
 	 */
-	int VALUE_EXPRESSION = 9;
+	int VALUE_EXPRESSION = 13;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -580,7 +737,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getConstraint()
 	 * @generated
 	 */
-	int CONSTRAINT = 7;
+	int CONSTRAINT = 11;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -618,7 +775,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getLinkConstraints()
 	 * @generated
 	 */
-	int LINK_CONSTRAINTS = 8;
+	int LINK_CONSTRAINTS = 12;
 
 	/**
 	 * The feature id for the '<em><b>Link Mapping</b></em>' container reference.
@@ -664,7 +821,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getElementInitializer()
 	 * @generated
 	 */
-	int ELEMENT_INITIALIZER = 10;
+	int ELEMENT_INITIALIZER = 14;
 
 	/**
 	 * The number of structural features of the the '<em>Element Initializer</em>' class.
@@ -683,7 +840,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getFeatureSeqInitializer()
 	 * @generated
 	 */
-	int FEATURE_SEQ_INITIALIZER = 11;
+	int FEATURE_SEQ_INITIALIZER = 15;
 
 	/**
 	 * The feature id for the '<em><b>Initializers</b></em>' containment reference list.
@@ -711,7 +868,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getFeatureValueSpec()
 	 * @generated
 	 */
-	int FEATURE_VALUE_SPEC = 12;
+	int FEATURE_VALUE_SPEC = 16;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -759,17 +916,6 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 */
 	EClass getAbstractNodeMapping();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getDiagramNode <em>Diagram Node</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Diagram Node</em>'.
-	 * @see org.eclipse.gmf.mappings.AbstractNodeMapping#getDiagramNode()
-	 * @see #getAbstractNodeMapping()
-	 * @generated
-	 */
-	EReference getAbstractNodeMapping_DiagramNode();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getDomainMetaElement <em>Domain Meta Element</em>}'.
@@ -838,6 +984,17 @@ public interface GMFMapPackage extends EPackage{
 	EReference getAbstractNodeMapping_ChildMappings();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getTool <em>Tool</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Tool</em>'.
+	 * @see org.eclipse.gmf.mappings.AbstractNodeMapping#getTool()
+	 * @see #getAbstractNodeMapping()
+	 * @generated
+	 */
+	EReference getAbstractNodeMapping_Tool();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.MappingEntry <em>Mapping Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -858,6 +1015,17 @@ public interface GMFMapPackage extends EPackage{
 	EClass getNodeMapping();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.NodeMapping#getDiagramNode <em>Diagram Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Diagram Node</em>'.
+	 * @see org.eclipse.gmf.mappings.NodeMapping#getDiagramNode()
+	 * @see #getNodeMapping()
+	 * @generated
+	 */
+	EReference getNodeMapping_DiagramNode();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.ChildNodeMapping <em>Child Node Mapping</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -866,6 +1034,17 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 */
 	EClass getChildNodeMapping();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.ChildNodeMapping#getDiagramNode <em>Diagram Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Diagram Node</em>'.
+	 * @see org.eclipse.gmf.mappings.ChildNodeMapping#getDiagramNode()
+	 * @see #getChildNodeMapping()
+	 * @generated
+	 */
+	EReference getChildNodeMapping_DiagramNode();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.ChildNodeMapping#getCompartment <em>Compartment</em>}'.
@@ -999,6 +1178,17 @@ public interface GMFMapPackage extends EPackage{
 	EReference getLinkMapping_CreationConstraints();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.LinkMapping#getTool <em>Tool</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Tool</em>'.
+	 * @see org.eclipse.gmf.mappings.LinkMapping#getTool()
+	 * @see #getLinkMapping()
+	 * @generated
+	 */
+	EReference getLinkMapping_Tool();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.CanvasMapping <em>Canvas Mapping</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1083,6 +1273,90 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getMapping_Diagram();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.mappings.Mapping#getToolGroups <em>Tool Groups</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Tool Groups</em>'.
+	 * @see org.eclipse.gmf.mappings.Mapping#getToolGroups()
+	 * @see #getMapping()
+	 * @generated
+	 */
+	EReference getMapping_ToolGroups();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.ToolGroup <em>Tool Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Tool Group</em>'.
+	 * @see org.eclipse.gmf.mappings.ToolGroup
+	 * @generated
+	 */
+	EClass getToolGroup();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.ToolGroup#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.gmf.mappings.ToolGroup#getName()
+	 * @see #getToolGroup()
+	 * @generated
+	 */
+	EAttribute getToolGroup_Name();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.mappings.ToolGroup#getTools <em>Tools</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Tools</em>'.
+	 * @see org.eclipse.gmf.mappings.ToolGroup#getTools()
+	 * @see #getToolGroup()
+	 * @generated
+	 */
+	EReference getToolGroup_Tools();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.Tool <em>Tool</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Tool</em>'.
+	 * @see org.eclipse.gmf.mappings.Tool
+	 * @generated
+	 */
+	EClass getTool();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.Tool#getGroup <em>Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Group</em>'.
+	 * @see org.eclipse.gmf.mappings.Tool#getGroup()
+	 * @see #getTool()
+	 * @generated
+	 */
+	EReference getTool_Group();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.CreationTool <em>Creation Tool</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Creation Tool</em>'.
+	 * @see org.eclipse.gmf.mappings.CreationTool
+	 * @generated
+	 */
+	EClass getCreationTool();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.NewActionTool <em>New Action Tool</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>New Action Tool</em>'.
+	 * @see org.eclipse.gmf.mappings.NewActionTool
+	 * @generated
+	 */
+	EClass getNewActionTool();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.Constraint <em>Constraint</em>}'.

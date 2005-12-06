@@ -11,9 +11,7 @@
  */
 package org.eclipse.gmf.bridge.genmodel;
 
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -24,6 +22,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap;
+import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind;
 import org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap;
@@ -54,15 +54,22 @@ import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
-import org.eclipse.gmf.diadef.AdornmentKind;
-import org.eclipse.gmf.diadef.Compartment;
-import org.eclipse.gmf.diadef.DiagramElement;
-import org.eclipse.gmf.diadef.LineKind;
-import org.eclipse.gmf.diadef.Node;
+import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+import org.eclipse.gmf.gmfgraph.Compartment;
+import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.ConnectionFigure;
+import org.eclipse.gmf.gmfgraph.CustomConnection;
+import org.eclipse.gmf.gmfgraph.DecorationFigure;
+import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.PolylineConnection;
+import org.eclipse.gmf.gmfgraph.Shape;
+import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
+import org.eclipse.gmf.gmfgraph.util.GMFGraphSwitch;
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.Constraint;
+import org.eclipse.gmf.mappings.CreationTool;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
@@ -70,6 +77,7 @@ import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.Tool;
 
 /**
  * Creates generation model from diagram definition.
@@ -88,6 +96,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private GenModelMatcher myGenModelMatch;
 	private final DiagramRunTimeModelHelper myDRTHelper;
 	private final NamingStrategy myNamingStrategy;
+
+	private final GMFGraphSwitch myFiqureQualifiedNamesSwitch = new FigureQualifiedNameSwitch();
 
 	private int myNodeCount = 0;
 	private int myLinkCount = 0;
@@ -152,6 +162,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	protected void process(NodeMapping nme) {
 		assertAbstractNodeMapping(nme);
+		assert nme.getDiagramNode() != null;
 		
 		GenNode genNode = GMFGenFactory.eINSTANCE.createGenNode();
 		getGenDiagram().getNodes().add(genNode);
@@ -175,14 +186,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			genNode.getLabels().add(label);
 		}
 		genNode.setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap());
-		// XXX nme.getDiagramNode.isSetDefaultWidth add DefaultSizeAttributes to viewmap
-		Node nodeToolDef = nme.getDiagramNode();
-		if (nodeToolDef.isNeedsTool()) {
-			NodeEntry ne = GMFGenFactory.eINSTANCE.createNodeEntry();
-			findToolGroup(nodeToolDef.getToolGroupID()).getNodeTools().add(ne);
-			ne.setGenNode(genNode);
-			setupCommonToolEntry(ne, nodeToolDef, myNamingStrategy.createNodeClassName(nme, ""));
-		}
+		handleNodeTool(nme, genNode);
 
 		// set class names
 		genNode.setNotationViewFactoryClassName(myNamingStrategy.createNodeClassName(nme, GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX));
@@ -193,9 +197,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		
 		processAbstractNode(nme, genNode);
 	}
-	
+
 	private void process(ChildNodeMapping childNodeMapping, GenChildContainer container) {
 		assertAbstractNodeMapping(childNodeMapping);
+		assert childNodeMapping.getDiagramNode() != null;
 
 		GenChildNode childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
 		childNode.setModelFacet(createModelFacet(childNodeMapping));
@@ -230,16 +235,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 
 		container.getChildNodes().add(childNode);
-		Node nodeToolDef = childNodeMapping.getDiagramNode();
-		if (nodeToolDef.isNeedsTool()) {
-			NodeEntry ne = GMFGenFactory.eINSTANCE.createNodeEntry();
-			findToolGroup(nodeToolDef.getToolGroupID()).getNodeTools().add(ne);
-			ne.setGenNode(childNode);
-			setupCommonToolEntry(ne, nodeToolDef, myNamingStrategy.createChildNodeClassName(childNodeMapping, ""));
-		}
+		handleNodeTool(childNodeMapping, childNode);
 		processAbstractNode(childNodeMapping, childNode);
 		
-		if (childNodeMapping.getDiagramNode().getCompartments().size() > 0 || childNodeMapping.getChildMappings().size() > 0) {
+		if (childNodeMapping.getChildMappings().size() > 0) {
+			// TODO just layout from childNodeMapping.getDiagramNode()
 			if (container instanceof GenNode) {
 				((GenNode) container).setChildContainersPlacement(CompartmentPlacementKind.FLOW_LITERAL);
 			} else if (container instanceof GenCompartment) {
@@ -249,39 +249,40 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 	
 	private void processAbstractNode(AbstractNodeMapping mapping, GenNode genNode) {
-		Map compartment2GenMap = new HashMap();
-		for (Iterator it = mapping.getDiagramNode().getCompartments().iterator(); it.hasNext();) {
-			Compartment compartment = (Compartment) it.next();
-			GenCompartment childCompartment = GMFGenFactory.eINSTANCE.createGenCompartment();
-			childCompartment.setVisualID(COMPARTMENT_COUNT_BASE + (++myCompartmentCount));
-			childCompartment.setDiagramRunTimeClass(getChildContainerRunTimeClass());
-			childCompartment.setViewmap(GMFGenFactory.eINSTANCE.createCompartmentViewmap());
-			childCompartment.setCanCollapse(compartment.isCollapsible());
-			childCompartment.setNeedsTitle(compartment.isNeedsTitle());
-			childCompartment.setLayoutKind(CompartmentLayoutKind.TOOLBAR_LITERAL);
-			childCompartment.setTitle(compartment.getName());
-
-			// set class names
-			childCompartment.setNotationViewFactoryClassName(myNamingStrategy.createCompartmentClassName(mapping, compartment, GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX));
-			childCompartment.setEditPartClassName(myNamingStrategy.createCompartmentClassName(mapping, compartment, GenCommonBase.EDIT_PART_SUFFIX));
-			childCompartment.setItemSemanticEditPolicyClassName(myNamingStrategy.createCompartmentClassName(mapping, compartment, GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX));
-			childCompartment.setCanonicalEditPolicyClassName(myNamingStrategy.createCompartmentClassName(mapping, compartment, GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX));
-
-			genNode.getCompartments().add(childCompartment);
-			compartment2GenMap.put(compartment, childCompartment);
-		}
-		
 		for (Iterator it = mapping.getChildMappings().iterator(); it.hasNext();) {
 			ChildNodeMapping childNodeMapping = (ChildNodeMapping) it.next();
-			Compartment parentCompartment = childNodeMapping.getCompartment();
-			GenChildContainer container;
-			if (parentCompartment == null || !compartment2GenMap.containsKey(parentCompartment)) {
-				container = genNode;
+			GenChildContainer genChildContainer = createGenCompartment(childNodeMapping);
+			if (genChildContainer != null) {
+				genNode.getCompartments().add(genChildContainer);
 			} else {
-				container = (GenChildContainer) compartment2GenMap.get(parentCompartment);
+				genChildContainer = genNode;
 			}
-			process(childNodeMapping, container);
+			process(childNodeMapping, genChildContainer);
 		}
+	}
+
+	private GenCompartment createGenCompartment(ChildNodeMapping mapping) {
+		Compartment compartment = mapping.getCompartment(); 
+		if (compartment == null) {
+			// how could this happen provided compartment is [1] ref?
+			return null;
+		}
+		GenCompartment childCompartment = GMFGenFactory.eINSTANCE.createGenCompartment();
+		childCompartment.setVisualID(COMPARTMENT_COUNT_BASE + (++myCompartmentCount));
+		childCompartment.setDiagramRunTimeClass(getChildContainerRunTimeClass());
+		childCompartment.setViewmap(GMFGenFactory.eINSTANCE.createCompartmentViewmap());
+		childCompartment.setCanCollapse(compartment.isCollapsible());
+		childCompartment.setNeedsTitle(compartment.isNeedsTitle());
+		childCompartment.setLayoutKind(CompartmentLayoutKind.TOOLBAR_LITERAL);
+		childCompartment.setTitle(compartment.getName());
+
+		// set class names
+		childCompartment.setNotationViewFactoryClassName(myNamingStrategy.createCompartmentClassName(mapping.getParentNode(), compartment, GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX));
+		childCompartment.setEditPartClassName(myNamingStrategy.createCompartmentClassName(mapping.getParentNode(), compartment, GenCommonBase.EDIT_PART_SUFFIX));
+		childCompartment.setItemSemanticEditPolicyClassName(myNamingStrategy.createCompartmentClassName(mapping.getParentNode(), compartment, GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX));
+		childCompartment.setCanonicalEditPolicyClassName(myNamingStrategy.createCompartmentClassName(mapping.getParentNode(), compartment, GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX));
+
+		return childCompartment;
 	}
 
 	protected void process(LinkMapping lme) {
@@ -290,11 +291,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		GenLink gl = GMFGenFactory.eINSTANCE.createGenLink();
 		getGenDiagram().getLinks().add(gl);
 		gl.setModelFacet(createModelFacet(lme));
-		if (lme.getDiagramLink().isNeedsTool()) {
+		if (lme.getTool() instanceof CreationTool) {
 			LinkEntry le = GMFGenFactory.eINSTANCE.createLinkEntry();
-			findToolGroup(lme.getDiagramLink().getToolGroupID()).getLinkTools().add(le);
+			findToolGroup(lme.getTool()).getLinkTools().add(le);
 			le.setGenLink(gl);
-			setupCommonToolEntry(le, lme.getDiagramLink(), myNamingStrategy.createLinkClassName(lme, ""));
+			setupCommonToolEntry(le, lme.getTool(), lme.getDomainMetaClass().getName());
 		}
 		EAttribute editFeature = lme.getLabelEditFeature();
 		if (editFeature != null) {
@@ -323,40 +324,59 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		gl.setEditPartClassName(myNamingStrategy.createLinkClassName(lme, GenCommonBase.EDIT_PART_SUFFIX));
 		gl.setItemSemanticEditPolicyClassName(myNamingStrategy.createLinkClassName(lme, GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX));
 
-		initViewmap(lme, gl);
+		gl.setViewmap(createViewmap(lme.getDiagramLink()));
 
-		LineKind lineKind = lme.getDiagramLink().getLineKind();
-		if (lineKind != null) {
-			ShapeAttributes attrs = GMFGenFactory.eINSTANCE.createShapeAttributes();
-			switch (lineKind.getValue()) {
-			case LineKind.SOLID : attrs.setLineStyle("LINE_SOLID"); break;
-			case LineKind.DOT : attrs.setLineStyle("LINE_DOT"); break;
-			case LineKind.DASH : attrs.setLineStyle("LINE_DASH"); break;
-			}
-			gl.getViewmap().getAttributes().add(attrs);
-		}
-		
 		if(lme.getCreationConstraints() != null) {
 			gl.setCreationConstraints(createLinkCreationConstraints(lme.getCreationConstraints()));
 		}
 	}
 
-	private void initViewmap(LinkMapping lme, GenLink gl) {
-		if (lme.getDiagramLink().getSourceAdornment() != null || lme.getDiagramLink().getTargetAdornment() != null) {
-			DecoratedConnectionViewmap viewmap = GMFGenFactory.eINSTANCE.createDecoratedConnectionViewmap();
-			LinkDecoration d = decorationFromAdornment(lme.getDiagramLink().getSourceAdornment());
-			if (d != null) {
-				viewmap.setSource(d);
+	private Viewmap createViewmap(Connection conn) {
+		assert conn.getFigure() instanceof ConnectionFigure;
+		Viewmap viewmap = null;
+		if (conn.getFigure() instanceof PolylineConnection) {
+			PolylineConnection pc = (PolylineConnection) conn.getFigure();
+			DecoratedConnectionViewmap v = GMFGenFactory.eINSTANCE.createDecoratedConnectionViewmap();
+			if (pc.getSourceDecoration() != null) {
+				v.setSource(from(pc.getSourceDecoration()));
 			}
-			d = decorationFromAdornment(lme.getDiagramLink().getTargetAdornment());
-			if (d != null) {
-				viewmap.setTarget(d);
+			if (pc.getTargetDecoration() != null) {
+				v.setTarget(from(pc.getTargetDecoration()));
 			}
-			gl.setViewmap(viewmap);
+			viewmap = v;
 		} else {
-			// XXX actually, another viewmap should be here
-			gl.setViewmap(GMFGenFactory.eINSTANCE.createDecoratedConnectionViewmap());
+			assert conn.getFigure() instanceof CustomConnection;
+			BasicNodeViewmap v = GMFGenFactory.eINSTANCE.createBasicNodeViewmap(); // FIXME rename BasicNodeV to just GenericV
+			v.setFigureQualifiedClassName(qualifiedFigureName(conn.getFigure()));
+			viewmap = v;
 		}
+		setupAttributes(conn.getFigure(), viewmap);
+		return viewmap;
+	}
+
+	private void setupAttributes(Figure figure, Viewmap v) {
+		if (figure.getColorStyle() != null) {
+			ColorAttributes attrs = GMFGenFactory.eINSTANCE.createColorAttributes();
+			attrs.setBackgroundColor(figure.getColorStyle().getBackgroundColor());
+			attrs.setForegroundColor(figure.getColorStyle().getForegroundColor());
+			v.getAttributes().add(attrs);
+		}
+		if (figure instanceof Shape) {
+			ShapeAttributes attrs = GMFGenFactory.eINSTANCE.createShapeAttributes();
+			attrs.setLineStyle(((Shape) figure).getLineKind().getLiteral());
+			attrs.setLineWidth(((Shape) figure).getLineWidth());
+			v.getAttributes().add(attrs);
+		}
+	}
+
+	private LinkDecoration from(DecorationFigure df) {
+		LinkDecoration ld = GMFGenFactory.eINSTANCE.createLinkDecoration();
+		ld.setFigureQualifiedClassName(qualifiedFigureName(df));
+		return ld;
+	}
+
+	private String qualifiedFigureName(Figure fig) {
+		return (String) myFiqureQualifiedNamesSwitch.doSwitch(fig);
 	}
 
 	private GenClass findRunTimeClass(NodeMapping nme) {
@@ -387,62 +407,44 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return myDRTHelper.getLinkLabelDefault();
 	}
 
-	private LinkDecoration decorationFromAdornment(AdornmentKind adornment) {
-		String figureClassName = figureClassFromAdornment(adornment);
-		if (figureClassName == null) {
-			return null;
+	private void handleNodeTool(AbstractNodeMapping nme, GenNode genNode) {
+		if (nme.getTool() != null && nme.getTool() instanceof CreationTool) {
+			// XXX handle other tool types (action, whatever)
+			NodeEntry ne = GMFGenFactory.eINSTANCE.createNodeEntry();
+			findToolGroup(nme.getTool()).getNodeTools().add(ne);
+			ne.setGenNode(genNode);
+			setupCommonToolEntry(ne, nme.getTool(), nme.getDomainMetaClass().getName());
 		}
-		LinkDecoration d = GMFGenFactory.eINSTANCE.createLinkDecoration();
-		d.setFigureQualifiedClassName(figureClassName);
-		return d;
 	}
 
-	private String figureClassFromAdornment(AdornmentKind adornment) {
-		if (adornment == null) {
-			return null;
-		}
-		switch (adornment.getValue()) {
-		case AdornmentKind.OPEN_TRIANGLE : return "org.eclipse.draw2d.PolylineDecoration";
-		case AdornmentKind.FILLED_TRIANGLE : return "org.eclipse.draw2d.PolygonDecoration";
-		case AdornmentKind.RHOMB : return "org.eclipse.gmf.draw2d.RhombDecoration";
-		case AdornmentKind.FILLED_RHOMB : return "org.eclipse.gmf.draw2d.FilledRhombDecoration";
-		}
-		return null;
-	}
-
-	private void setupCommonToolEntry(ToolEntry te, DiagramElement diagramElement, String elementName) {
-		if (diagramElement.getLargeIconPath() == null) {
-			te.setLargeIconPath("icons/large/" + elementName + ".gif");
-		} else {
-			te.setLargeIconPath(diagramElement.getLargeIconPath());
-		}
-		if (diagramElement.getSmallIconPath() == null) {
-			// XXX never gets here as long the same code is inside DiagramElementImpl.getSmallIconPath()
-			te.setSmallIconPath("icons/small/" + elementName + ".gif");
-		} else {
-			te.setSmallIconPath(diagramElement.getSmallIconPath());
-		}
+	private void setupCommonToolEntry(ToolEntry te, Tool tool, String elementName) {
+		// FIXME need to change this once better tooling definition is in place. 
+		te.setLargeIconPath(null);
+		te.setSmallIconPath(null);
 		te.setTitleKey(elementName);
 		te.setDescriptionKey(elementName);
 	}
 
-	private ToolGroup findToolGroup(String id) {
-		id = id == null ? "" : id;
+	/**
+	 * TODO initialize palette with set of groups known from Mapping. Perhaps, don't even 
+	 * create missed group in that case.
+	 */
+	private ToolGroup findToolGroup(Tool tool) {
+		String groupName = tool.getGroup().getName() == null ? "" : tool.getGroup().getName();
 		for (Iterator it = getGenPalette().getGroups().iterator(); it.hasNext();) {
 			ToolGroup next = (ToolGroup) it.next();
-			if (id.equals(next.getTitleKey())) {
+			if (groupName.equals(next.getTitleKey())) {
 				return next;
 			}
 		}
 		ToolGroup tg = GMFGenFactory.eINSTANCE.createToolGroup();
 		getGenPalette().getGroups().add(tg);
-		tg.setTitleKey(id);
+		tg.setTitleKey(groupName);
 		return tg;
 	}
 	
 	private void assertAbstractNodeMapping(AbstractNodeMapping mapping) {
 		assert mapping.getDomainMetaClass() != null;
-		assert mapping.getDiagramNode() != null;
 		assert checkDirectEditAttrValidity(mapping);
 	}
 

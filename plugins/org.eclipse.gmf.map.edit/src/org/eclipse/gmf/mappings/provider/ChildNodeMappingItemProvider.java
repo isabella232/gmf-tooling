@@ -55,9 +55,30 @@ public class ChildNodeMappingItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addDiagramNodePropertyDescriptor(object);
 			addCompartmentPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Diagram Node feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDiagramNodePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ChildNodeMapping_diagramNode_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ChildNodeMapping_diagramNode_feature", "_UI_ChildNodeMapping_type"),
+				 GMFMapPackage.eINSTANCE.getChildNodeMapping_DiagramNode(),
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**

@@ -11,15 +11,10 @@
  */
 package org.eclipse.gmf.bridge.genmodel;
 
-import java.util.Iterator;
-
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.gmf.diadef.CommonBase;
-import org.eclipse.gmf.diadef.RunTimeProperty;
+import org.eclipse.gmf.gmfgraph.Identity;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
@@ -57,16 +52,16 @@ public class DiagramRunTimeModelTransformer extends MappingTransformer {
 		addEClass(lme.getDiagramLink(), NotationPackage.eINSTANCE.getEdge());
 	}
 
-	private void addEClass(CommonBase diaDefElement, EClass superClass) {
+	private void addEClass(Identity diaDefElement, EClass superClass) {
 		EClass c = createEClass(diaDefElement.getName(), superClass);
 		myPackage.getEClassifiers().add(c);
-		for (Iterator it = diaDefElement.getProperties().iterator(); it.hasNext();) {
-			RunTimeProperty p = (RunTimeProperty) it.next();
-			EAttribute a = EcoreFactory.eINSTANCE.createEAttribute();
-			a.setName(p.getName());
-			a.setEType(EcorePackage.eINSTANCE.getEString());
-			c.getEStructuralFeatures().add(a);
-		}
+//		for (Iterator it = diaDefElement.getProperties().iterator(); it.hasNext();) {
+//			RunTimeProperty p = (RunTimeProperty) it.next();
+//			EAttribute a = EcoreFactory.eINSTANCE.createEAttribute();
+//			a.setName(p.getName());
+//			a.setEType(EcorePackage.eINSTANCE.getEString());
+//			c.getEStructuralFeatures().add(a);
+//		}
 	}
 
 	private EClass createEClass(String name, EClass superClass) {

@@ -19,16 +19,20 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.ToolGroup;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.NodeMapping} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.ToolGroup} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class NodeMappingItemProvider
-	extends AbstractNodeMappingItemProvider
+public class ToolGroupItemProvider
+	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -41,7 +45,7 @@ public class NodeMappingItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NodeMappingItemProvider(AdapterFactory adapterFactory) {
+	public ToolGroupItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -55,25 +59,46 @@ public class NodeMappingItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDiagramNodePropertyDescriptor(object);
+			addNamePropertyDescriptor(object);
+			addToolsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Diagram Node feature.
+	 * This adds a property descriptor for the Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addDiagramNodePropertyDescriptor(Object object) {
+	protected void addNamePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_NodeMapping_diagramNode_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_NodeMapping_diagramNode_feature", "_UI_NodeMapping_type"),
-				 GMFMapPackage.eINSTANCE.getNodeMapping_DiagramNode(),
+				 getString("_UI_ToolGroup_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ToolGroup_name_feature", "_UI_ToolGroup_type"),
+				 GMFMapPackage.eINSTANCE.getToolGroup_Name(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Tools feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addToolsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ToolGroup_tools_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ToolGroup_tools_feature", "_UI_ToolGroup_type"),
+				 GMFMapPackage.eINSTANCE.getToolGroup_Tools(),
 				 true,
 				 null,
 				 null,
@@ -81,13 +106,13 @@ public class NodeMappingItemProvider
 	}
 
 	/**
-	 * This returns NodeMapping.gif.
+	 * This returns ToolGroup.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/NodeMapping");
+		return getResourceLocator().getImage("full/obj16/ToolGroup");
 	}
 
 	/**
@@ -97,7 +122,10 @@ public class NodeMappingItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		return getString("_UI_NodeMapping_type");
+		String label = ((ToolGroup)object).getName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_ToolGroup_type") :
+			getString("_UI_ToolGroup_type") + " " + label;
 	}
 
 	/**
@@ -109,6 +137,12 @@ public class NodeMappingItemProvider
 	 */
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(ToolGroup.class)) {
+			case GMFMapPackage.TOOL_GROUP__NAME:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 

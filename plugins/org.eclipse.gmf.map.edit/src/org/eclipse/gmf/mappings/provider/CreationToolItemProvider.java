@@ -19,16 +19,17 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.NodeMapping} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.CreationTool} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class NodeMappingItemProvider
-	extends AbstractNodeMappingItemProvider
+public class CreationToolItemProvider
+	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -41,7 +42,7 @@ public class NodeMappingItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NodeMappingItemProvider(AdapterFactory adapterFactory) {
+	public CreationToolItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -55,25 +56,25 @@ public class NodeMappingItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDiagramNodePropertyDescriptor(object);
+			addGroupPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Diagram Node feature.
+	 * This adds a property descriptor for the Group feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addDiagramNodePropertyDescriptor(Object object) {
+	protected void addGroupPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_NodeMapping_diagramNode_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_NodeMapping_diagramNode_feature", "_UI_NodeMapping_type"),
-				 GMFMapPackage.eINSTANCE.getNodeMapping_DiagramNode(),
+				 getString("_UI_Tool_group_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Tool_group_feature", "_UI_Tool_type"),
+				 GMFMapPackage.eINSTANCE.getTool_Group(),
 				 true,
 				 null,
 				 null,
@@ -81,13 +82,13 @@ public class NodeMappingItemProvider
 	}
 
 	/**
-	 * This returns NodeMapping.gif.
+	 * This returns CreationTool.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/NodeMapping");
+		return getResourceLocator().getImage("full/obj16/CreationTool");
 	}
 
 	/**
@@ -97,7 +98,7 @@ public class NodeMappingItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		return getString("_UI_NodeMapping_type");
+		return getString("_UI_CreationTool_type");
 	}
 
 	/**

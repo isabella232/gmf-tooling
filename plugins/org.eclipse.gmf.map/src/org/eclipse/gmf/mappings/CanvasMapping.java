@@ -8,7 +8,7 @@ package org.eclipse.gmf.mappings;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.gmf.diadef.Canvas;
+import org.eclipse.gmf.gmfgraph.Canvas;
 
 /**
  * <!-- begin-user-doc -->

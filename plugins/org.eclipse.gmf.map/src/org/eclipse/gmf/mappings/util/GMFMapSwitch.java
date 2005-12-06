@@ -10,15 +10,24 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.mappings.*;
-
+import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
+import org.eclipse.gmf.mappings.Constraint;
+import org.eclipse.gmf.mappings.CreationTool;
+import org.eclipse.gmf.mappings.ElementInitializer;
+import org.eclipse.gmf.mappings.FeatureSeqInitializer;
+import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
+import org.eclipse.gmf.mappings.NewActionTool;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.Tool;
+import org.eclipse.gmf.mappings.ToolGroup;
+import org.eclipse.gmf.mappings.ValueExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -138,6 +147,32 @@ public class GMFMapSwitch {
 			case GMFMapPackage.MAPPING: {
 				Mapping mapping = (Mapping)theEObject;
 				Object result = caseMapping(mapping);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.TOOL_GROUP: {
+				ToolGroup toolGroup = (ToolGroup)theEObject;
+				Object result = caseToolGroup(toolGroup);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.TOOL: {
+				Tool tool = (Tool)theEObject;
+				Object result = caseTool(tool);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.CREATION_TOOL: {
+				CreationTool creationTool = (CreationTool)theEObject;
+				Object result = caseCreationTool(creationTool);
+				if (result == null) result = caseTool(creationTool);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.NEW_ACTION_TOOL: {
+				NewActionTool newActionTool = (NewActionTool)theEObject;
+				Object result = caseNewActionTool(newActionTool);
+				if (result == null) result = caseTool(newActionTool);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -286,6 +321,66 @@ public class GMFMapSwitch {
 	 * @generated
 	 */
 	public Object caseMapping(Mapping object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Tool Group</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Tool Group</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseToolGroup(ToolGroup object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Tool</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Tool</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseTool(Tool object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Creation Tool</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Creation Tool</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseCreationTool(CreationTool object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>New Action Tool</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>New Action Tool</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseNewActionTool(NewActionTool object) {
 		return null;
 	}
 

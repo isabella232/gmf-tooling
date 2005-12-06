@@ -77,6 +77,7 @@ public class MappingItemProvider
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMapping_Nodes());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMapping_Links());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMapping_Diagram());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMapping_ToolGroups());
 		}
 		return childrenFeatures;
 	}
@@ -127,6 +128,7 @@ public class MappingItemProvider
 			case GMFMapPackage.MAPPING__NODES:
 			case GMFMapPackage.MAPPING__LINKS:
 			case GMFMapPackage.MAPPING__DIAGRAM:
+			case GMFMapPackage.MAPPING__TOOL_GROUPS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -157,6 +159,11 @@ public class MappingItemProvider
 			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getMapping_Diagram(),
 				 GMFMapFactory.eINSTANCE.createCanvasMapping()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFMapPackage.eINSTANCE.getMapping_ToolGroups(),
+				 GMFMapFactory.eINSTANCE.createToolGroup()));
 	}
 
 	/**

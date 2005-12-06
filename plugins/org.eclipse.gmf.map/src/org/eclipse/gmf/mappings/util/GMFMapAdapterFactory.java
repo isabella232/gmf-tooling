@@ -10,15 +10,24 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.mappings.*;
-
+import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
+import org.eclipse.gmf.mappings.Constraint;
+import org.eclipse.gmf.mappings.CreationTool;
+import org.eclipse.gmf.mappings.ElementInitializer;
+import org.eclipse.gmf.mappings.FeatureSeqInitializer;
+import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
+import org.eclipse.gmf.mappings.NewActionTool;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.Tool;
+import org.eclipse.gmf.mappings.ToolGroup;
+import org.eclipse.gmf.mappings.ValueExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -95,6 +104,18 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseMapping(Mapping object) {
 				return createMappingAdapter();
+			}
+			public Object caseToolGroup(ToolGroup object) {
+				return createToolGroupAdapter();
+			}
+			public Object caseTool(Tool object) {
+				return createToolAdapter();
+			}
+			public Object caseCreationTool(CreationTool object) {
+				return createCreationToolAdapter();
+			}
+			public Object caseNewActionTool(NewActionTool object) {
+				return createNewActionToolAdapter();
 			}
 			public Object caseConstraint(Constraint object) {
 				return createConstraintAdapter();
@@ -227,6 +248,62 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createMappingAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.ToolGroup <em>Tool Group</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.ToolGroup
+	 * @generated
+	 */
+	public Adapter createToolGroupAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.Tool <em>Tool</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.Tool
+	 * @generated
+	 */
+	public Adapter createToolAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.CreationTool <em>Creation Tool</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.CreationTool
+	 * @generated
+	 */
+	public Adapter createCreationToolAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.NewActionTool <em>New Action Tool</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.NewActionTool
+	 * @generated
+	 */
+	public Adapter createNewActionToolAdapter() {
 		return null;
 	}
 

@@ -9,8 +9,6 @@
       <details key="constraintsMeta" value="http://www.eclipse.org/gmf/2005/constraints/meta"/>
     </eAnnotations>
     <eOperations name="getDomainMetaClass" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="diagramNode" lowerBound="1"
-        eType="ecore:EClass ../../org.eclipse.gmf.diadef/models/diadef.ecore#//Node"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainMetaElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainSpecialization" eType="#//Constraint"
         containment="true">
@@ -50,23 +48,29 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="childMappings" upperBound="-1"
         eType="#//ChildNodeMapping" containment="true" eOpposite="#//ChildNodeMapping/parentNode"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MappingEntry" abstract="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="NodeMapping" eSuperTypes="#//AbstractNodeMapping #//MappingEntry"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ChildNodeMapping" eSuperTypes="#//AbstractNodeMapping">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="compartment" lowerBound="1"
-        eType="ecore:EClass ../../org.eclipse.gmf.diadef/models/diadef.ecore#//Compartment">
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="parentNode.diagramNode.oclAsType(diadef::Node).compartments->includes(self.compartment)"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tool" eType="#//Tool" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Way to create the node"/>
       </eAnnotations>
     </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MappingEntry" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NodeMapping" eSuperTypes="#//AbstractNodeMapping #//MappingEntry">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="diagramNode" lowerBound="1"
+        eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Node"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ChildNodeMapping" eSuperTypes="#//AbstractNodeMapping">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="diagramNode" lowerBound="1"
+        eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Child"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="compartment" lowerBound="1"
+        eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Compartment"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentNode" lowerBound="1"
         eType="#//AbstractNodeMapping" changeable="false" eOpposite="#//AbstractNodeMapping/childMappings"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LinkMapping" eSuperTypes="#//MappingEntry">
     <eOperations name="getDomainMetaClass" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramLink" lowerBound="1"
-        eType="ecore:EClass ../../org.eclipse.gmf.diadef/models/diadef.ecore#//Connection"/>
+        eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Connection"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainMetaElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainSpecialization" eType="#//Constraint"
         containment="true">
@@ -121,10 +125,15 @@
         <details key="documentation" value="Specifies additional restrictions on link creation"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tool" eType="#//Tool" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Way to create the link"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CanvasMapping" eSuperTypes="#//MappingEntry">
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramCanvas" lowerBound="1"
-        eType="ecore:EClass ../../org.eclipse.gmf.diadef/models/diadef.ecore#//Canvas"/>
+        eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Canvas"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainModel" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EPackage"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainMetaElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
   </eClassifiers>
@@ -135,7 +144,21 @@
         eType="#//LinkMapping" containment="true" resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
         eType="#//CanvasMapping" containment="true" resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="toolGroups" upperBound="-1"
+        eType="#//ToolGroup" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ToolGroup">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tools" upperBound="-1"
+        eType="#//Tool" eOpposite="#//Tool/group"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Tool" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="group" eType="#//ToolGroup"
+        eOpposite="#//ToolGroup/tools"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CreationTool" eSuperTypes="#//Tool"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NewActionTool" eSuperTypes="#//Tool"/>
   <eClassifiers xsi:type="ecore:EClass" name="Constraint" eSuperTypes="#//ValueExpression">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Boolean type value expression which is to be evaluated in a context"/>

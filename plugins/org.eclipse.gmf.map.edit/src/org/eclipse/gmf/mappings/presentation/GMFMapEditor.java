@@ -54,7 +54,7 @@ import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
 import org.eclipse.emf.edit.ui.dnd.ViewerDragAdapter;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-import org.eclipse.gmf.diadef.provider.DiagramDefinitionItemProviderAdapterFactory;
+import org.eclipse.gmf.gmfgraph.provider.GMFGraphItemProviderAdapterFactory;
 import org.eclipse.gmf.mappings.provider.GMFMapEditPlugin;
 import org.eclipse.gmf.mappings.provider.GMFMapItemProviderAdapterFactory;
 import org.eclipse.jface.action.IMenuListener;
@@ -473,7 +473,7 @@ public class GMFMapEditor
 		List factories = new ArrayList();
 		factories.add(new ResourceItemProviderAdapterFactory());
 		factories.add(new GMFMapItemProviderAdapterFactory());
-		factories.add(new DiagramDefinitionItemProviderAdapterFactory());
+		factories.add(new GMFGraphItemProviderAdapterFactory());
 		factories.add(new ReflectiveItemProviderAdapterFactory());
 
 		adapterFactory = new ComposedAdapterFactory(factories);

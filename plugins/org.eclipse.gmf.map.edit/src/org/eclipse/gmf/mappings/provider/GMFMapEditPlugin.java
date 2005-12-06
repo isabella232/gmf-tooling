@@ -8,7 +8,7 @@ package org.eclipse.gmf.mappings.provider;
 
 import org.eclipse.emf.common.EMFPlugin;
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.gmf.diadef.provider.DiagramDefEditPlugin;
+import org.eclipse.gmf.gmfgraph.provider.GMFGraphEditPlugin;
 
 /**
  * This is the central singleton for the GMFMap editor plugin.
@@ -42,7 +42,7 @@ public final class GMFMapEditPlugin extends EMFPlugin {
 	public GMFMapEditPlugin() {
 		super
 		  (new ResourceLocator [] {
-		     DiagramDefEditPlugin.INSTANCE,
+		     GMFGraphEditPlugin.INSTANCE,
 		   });
 	}
 
