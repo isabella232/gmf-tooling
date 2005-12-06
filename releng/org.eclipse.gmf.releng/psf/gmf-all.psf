@@ -18,8 +18,8 @@
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen,org.eclipse.gmf.codegen"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.edit,org.eclipse.gmf.codegen.edit"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.ui,org.eclipse.gmf.codegen.ui"/>
-		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.diadef,org.eclipse.gmf.diadef"/>
-		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.diadef.edit,org.eclipse.gmf.diadef.edit"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef,org.eclipse.gmf.graphdef"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.edit,org.eclipse.gmf.graphdef.edit"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/doc/org.eclipse.gmf.doc,org.eclipse.gmf.doc"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/features/org.eclipse.gmf.doc-feature,org.eclipse.gmf.doc-feature"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/examples/org.eclipse.gmf.examples,org.eclipse.gmf.examples"/>
