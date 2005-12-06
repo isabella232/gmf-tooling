@@ -1,44 +1,32 @@
-<html><head>
-<link rel="stylesheet" href="http://www.eclipse.org/default_style.css">
-<title>GMF Project Downloads</title></head>
-<body>
+<?php  																														require_once($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/app.class.php");	require_once($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/nav.class.php"); 	require_once($_SERVER['DOCUMENT_ROOT'] . "/eclipse.org-common/system/menu.class.php"); 	$App 	= new App();	$Nav	= new Nav();	$Menu 	= new Menu();		include($App->getProjectCommon());    # All on the same line to unclutter the user's desktop'
 
-<table border=0 cellspacing=5 cellpadding=2 width="100%" >
-  <tr> 
-    <td align=left width="72%"> <font class=indextop>Graphical Modeling Framework <br/>Downloads</font> 
-      <br>
-      <font class=indexsub> an eclipse technology project</font><br>
-</td>
-    <td width="28%"><img src="http://www.eclipse.org/gmf/images/gmf_header.gif" height=134 width=347></td>
-  </tr>
 
-</table>
-<table border=0 cellspacing=5 cellpadding=2 width="100%" >
+	#*****************************************************************************
+	#
+	# index.php
+	#
+	# Author: 		Richard C. Gronback
+	# Date:			2005-12-01
+	#
+	# Description: 
+	#
+	#
+	#****************************************************************************
 	
-	<tr> 
-    <td align=LEFT valign=TOP colspan="2" bgcolor="#0080C0"><b><font color="#FFFFFF" face="Arial,Helvetica">Download Information</font></b></td>
-  </tr>
-  
-	<tr> <td> <p>On this
-page you can find the latest builds produced by
-the GMF project. To get started run the program and go through the
-user and developer documentation provided in the online help system. If you have
-problems downloading the drops, contact the <font face="arial,helvetica,geneva" size="-1"><a href="mailto:webmaster@eclipse.org">webmaster</a></font>.
-All downloads are provided under the terms and conditions of the <a href="http://www.eclipse.org/legal/notice.html">Eclipse.org
-Software User Agreement</a> unless otherwise specified. </p>
-<p> For information
-about different kinds of builds read our build <a href="build_types.html">types</a> page.</p>
-
-<p>Builds can also be installed via Update Manager, from an existing installation of Eclipse, by following these  
-<a href="http://download.eclipse.org/technology/gmf/update-site/index.html" target="_self">steps</a>.
-</p></td></tr>
+	#
+	# Begin: page-specific settings.  Change these. 
+	$pageTitle 		= "Graphical Modeling Framework Downloads";
+	$pageKeywords	= "eclipse,project,graphical,modeling,model-driven";
+	$pageAuthor		= "Richard C. Gronback";
 	
-  <tr> 
-    <td align=LEFT valign=TOP colspan="2" bgcolor="#0080C0"><b><font color="#FFFFFF" face="Arial,Helvetica">Latest 
-      Downloads</font></b></td>
-  </tr>
-  </table>
-  <?php
+	# Add page-specific Nav bars here
+	# Format is Link text, link URL (can be http://www.someothersite.com/), target (_self, _blank), level (1, 2 or 3)
+	# $Nav->addNavSeparator("My Page Links", 	"downloads.php");
+	# $Nav->addCustomNav("My Link", "mypage.php", "_self", 3);
+	# $Nav->addCustomNav("Google", "http://www.google.com/", "_blank", 3);
+
+	# End: page-specific settings
+	#
 	
 	$fileHandle = fopen("dlconfig.txt", "r");
 	while (!feof($fileHandle)) {
@@ -100,26 +88,12 @@ about different kinds of builds read our build <a href="build_types.html">types<
 			}
 		}
 	}
-	// $aDirectory.closedir();
- ?>
- 
-<table width="100%" cellspacing=0 cellpadding=3 align=center>
-
-
-<td align=left>
-<TABLE  width="100%" CELLSPACING=0 CELLPADDING=3>
-<tr>
-	<td width=\"30%\"><b>Build Type</b></td>
-	<td><b>Build Name</b></td>
-	<td><b>Build Date</b></td>
-</tr>
-
-<?php
+	
+	$latest = "";
 	foreach($dropType as $value) {
 		$prefix=$typeToPrefix[$value];
 		$fileName = $latestFile[$prefix];
-		echo "<tr>
-			<td width=\"30%\">$value</td>";
+		$latest .= "<tr><td width=\"30%\">$value</td>";
 		
 		$parts = explode("-", $fileName);
 		
@@ -127,23 +101,20 @@ about different kinds of builds read our build <a href="build_types.html">types<
 		// echo "<td><a href=license.php?license=drops/$fileName>$parts[1]</a></td>";
 		
 		// Comment the line below if we need click through licenses.
-		echo "<td><a href=\"drops/$fileName/index.php\">$parts[1]</a></td>";
+		$latest .= "<td><a href=\"drops/$fileName/index.php\">$parts[1]</a></td>";
 		
-		echo "<td>$timeStamps[$fileName]</td>";
-		echo "</tr>";
+		$latest .= "<td>$timeStamps[$fileName]</td>";
+		$latest .= "</tr>";
 	}
-?>
-</table>
-</table>
-&nbsp;
-<?php
+
+	$list = "";
 	foreach($dropType as $value) {
 		$prefix=$typeToPrefix[$value];
-		echo "
+		$list .="
 		<table width=\"100%\" cellspacing=0 cellpadding=3 align=center>
 		<tr bgcolor=\"#999999\">
 		<td align=left width=\"30%\"><b><a name=\"$value\"><font color=\"#FFFFFF\" face=\"Arial,Helvetica\">$value";
-		echo "s</font></b></a></td>
+		$list .= "s</font></b></a></td>
 		</TR>
 		<TR>
 		<td align=left>
@@ -158,21 +129,86 @@ about different kinds of builds read our build <a href="build_types.html">types<
 			rsort($aBucket);
 			foreach($aBucket as $innerValue) {
 				$parts = explode("-", $innerValue);
-				echo "<tr>";
+				$list .="<tr>";
 				
 					// Uncomment the line below if we need click through licenses.
 					// echo "<td><a href=\"license.php?license=drops/$innerValue\">$parts[1]</a></td>";
 					
 					// Comment the line below if we need click through licenses.
-					echo "<td><a href=\"drops/$innerValue/index.php\">$parts[1]</a></td>";
+					$list .=+ "<td><a href=\"drops/$innerValue/index.php\">$parts[1]</a></td>";
 
-					echo "<td>$timeStamps[$innerValue]</td>
+					$list .="<td>$timeStamps[$innerValue]</td>
 					</tr>";
 			}
 		}
-		echo "</table></table>&nbsp;";
+		$list .="</table></table>&nbsp;";
 	}
+	
+		
+	# Paste your HTML content between the EOHTML markers!	
+	$html = <<<EOHTML
+
+<div id="maincontent">
+	<div id="midcolumn"><br/>
+		<table border="0" cellpadding="2" cellspacing="0" width="100%">
+			<tbody>
+				<tr>
+					<td align="left"><h1>$pageTitle</h1></td>
+					<td align="right"><img align="right" src="http://www.eclipse.org/gmf/images/logo_banner.png" /></td>
+				</tr>
+			</tbody>
+		</table>
+
+<div class="homeitem3col"><h3>Download Information</h3>
+<table border=0 cellspacing=5 cellpadding=2 width="100%" >
+  
+	<tr> <td> <p>On this
+page you can find the latest builds produced by
+the GMF project. To get started run the program and go through the
+user and developer documentation provided in the online help system. If you have
+problems downloading the drops, contact the <a href="mailto:webmaster@eclipse.org">webmaster</a>.
+All downloads are provided under the terms and conditions of the <a href="http://www.eclipse.org/legal/notice.html">Eclipse.org
+Software User Agreement</a> unless otherwise specified. </p>
+<p> For information
+about different kinds of builds read our build <a href="build_types.html">types</a> page.</p>
+
+<p>Builds can also be installed via Update Manager, from an existing installation of Eclipse, by following these  
+<a href="http://download.eclipse.org/technology/gmf/update-site/index.html" target="_self">steps</a>.
+</p></td></tr>
+</table>
+</div>
+
+<div class="homeitem3col"><h3>Latest Downloads</h3>
+
+<table width="100%" cellspacing=0 cellpadding=3 align=center>
+
+
+<td align=left>
+<TABLE  width="100%" CELLSPACING=0 CELLPADDING=3>
+<tr>
+	<td width=\"30%\"><b>Build Type</b></td>
+	<td><b>Build Name</b></td>
+	<td><b>Build Date</b></td>
+</tr>
+
+$latest
+</table>
+</table>
+&nbsp;
+$list
+	</div>
+			</div>
+</div>
+
+
+EOHTML;
+
+
+	# Generate the web page
+	$App->generatePage($theme, $Menu, $Nav, $pageAuthor, $pageKeywords, $pageTitle, $html);
 ?>
 
-&nbsp;
-</body></html>
+ 
+
+
+
