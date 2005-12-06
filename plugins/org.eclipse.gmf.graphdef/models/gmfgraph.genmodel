@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.eclipse.gmf.graphdef/src"
+    editorDirectory="/org.eclipse.gmf.graphdef.edit/src" modelPluginID="org.eclipse.gmf.graphdef"
+    redirection="" modelName="GMFGraph" importerID="org.eclipse.emf.importer.ecore">
+  <foreignModel>gmfgraph.ecore</foreignModel>
+  <genPackages prefix="GMFGraph" basePackage="org.eclipse.gmf" disposableProviderFactory="true"
+      ecorePackage="gmfgraph.ecore#/">
+    <genEnums ecoreEnum="gmfgraph.ecore#//Direction">
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/NORTH"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/SOUTH"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/EAST"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/WEST"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/NORTH_WEST"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/NORTH_EAST"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/SOUTH_WEST"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/SOUTH_EAST"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/VERTICAL"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/HORIZONTAL"/>
+    </genEnums>
+    <genEnums ecoreEnum="gmfgraph.ecore#//LineKind">
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//LineKind/LINE_SOLID"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//LineKind/LINE_DASH"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//LineKind/LINE_DOT"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//LineKind/LINE_DASHDOT"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//LineKind/LINE_DASHDOTDOT"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//LineKind/LINE_CUSTOM"/>
+    </genEnums>
+    <genClasses ecoreClass="gmfgraph.ecore#//Canvas">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Canvas/figures"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Canvas/nodes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Canvas/connections"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Canvas/compartments"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Canvas/children"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//FigureGallery">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//FigureGallery/figures"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//FigureGallery/implBundles"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//Identity">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Identity/name"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="gmfgraph.ecore#//DiagramElement">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//DiagramElement/figure"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//DiagramElement/facets"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//Node">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Node/resizeConstraint"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//Connection"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//Compartment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Compartment/collapsible"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Compartment/needsTitle"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//Child"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//VisualFacet"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//GeneralFacet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//GeneralFacet/identifier"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//GeneralFacet/data"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//GradientFacet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//GradientFacet/direction"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//FigureMarker"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//Figure">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/children"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/parent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/colorStyle"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/sizeStyle"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/fontStyle"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/location"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/size"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Figure/layoutManager"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//FigureRef">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//FigureRef/figure"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//ConnectionFigure"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//DecorationFigure"/>
+    <genClasses image="false" ecoreClass="gmfgraph.ecore#//Shape">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Shape/outline"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Shape/fill"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Shape/lineWidth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Shape/lineKind"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//Label">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Label/text"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//LabeledContainer"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//Rectangle"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//RoundedRectangle">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//RoundedRectangle/cornerWidth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//RoundedRectangle/cornerHeight"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//Ellipse"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//Polyline">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Polyline/template"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//Polygon"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//PolylineConnection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//PolylineConnection/sourceDecoration"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//PolylineConnection/targetDecoration"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//PolylineDecoration"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//PolygonDecoration"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//CustomFigure">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//CustomFigure/qualifiedClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//CustomFigure/bundleName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//CustomDecoration"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//CustomConnection"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//ColorStyle">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//ColorStyle/foregroundColor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//ColorStyle/backgroundColor"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//SizeStyle">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//SizeStyle/maxSize"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//SizeStyle/minSize"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//SizeStyle/prefSize"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//FontStyle">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//FontStyle/faceName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//Point">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Point/x"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Point/y"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
