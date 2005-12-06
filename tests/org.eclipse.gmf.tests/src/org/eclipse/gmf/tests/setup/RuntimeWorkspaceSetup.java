@@ -94,6 +94,10 @@ public class RuntimeWorkspaceSetup {
 					"org.eclipse.gmf.runtime.diagram.ui.resources.editor",
 					"org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide",
 					"org.eclipse.gmf.runtime.notation.providers",
+					"antlr", //$NON-NLS-1$					
+					"org.eclipse.emf.ocl", //$NON-NLS-1$
+					"org.eclipse.emf.query", //$NON-NLS-1$	
+					"org.eclipse.emf.query.ocl", //$NON-NLS-1$
 			});
 		}
 		return this;
@@ -125,7 +129,11 @@ public class RuntimeWorkspaceSetup {
 		for (int i = 0; i < pluginIDs.length; i++) {
 			try {
 				Bundle b = Platform.getBundle(pluginIDs[i]);
-				urls.add(Platform.resolve(b.getEntry("/")));
+				if (b != null) {
+					urls.add(Platform.resolve(b.getEntry("/")));
+				} else {
+					System.err.println("Bundle " + pluginIDs[i] + " is missing, skipped.");
+				}
 			} catch (Exception ex) {
 				Plugin.logError("Error looking for " + pluginIDs[i] + " plug-in:", ex);
 				ex.printStackTrace();

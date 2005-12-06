@@ -13,9 +13,9 @@ package org.eclipse.gmf.tests.tr;
 
 import junit.framework.TestCase;
 
-import org.eclipse.gmf.diadef.Canvas;
-import org.eclipse.gmf.diadef.Connection;
-import org.eclipse.gmf.diadef.Node;
+import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;

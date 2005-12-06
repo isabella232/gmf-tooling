@@ -19,9 +19,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelTransformer;
-import org.eclipse.gmf.diadef.DiagramDefinitionFactory;
-import org.eclipse.gmf.diadef.Node;
-import org.eclipse.gmf.diadef.RunTimeProperty;
+import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 
 public class RunTimeModelTransformerTest extends AbstractMappingTransformerTest {
@@ -51,12 +49,12 @@ public class RunTimeModelTransformerTest extends AbstractMappingTransformerTest 
 
 	public void setupNodeDef(Node nodeDef) {
 		super.setupNodeDef(nodeDef);
-		RunTimeProperty rtp = DiagramDefinitionFactory.eINSTANCE.createRunTimeProperty();
-		rtp.setName("someProp");
-		nodeDef.getProperties().add(rtp);
-		rtp = DiagramDefinitionFactory.eINSTANCE.createRunTimeProperty();
-		rtp.setName("prop1");
-		nodeDef.getProperties().add(rtp);
+//		RunTimeProperty rtp = DiagramDefinitionFactory.eINSTANCE.createRunTimeProperty();
+//		rtp.setName("someProp");
+//		nodeDef.getProperties().add(rtp);
+//		rtp = DiagramDefinitionFactory.eINSTANCE.createRunTimeProperty();
+//		rtp.setName("prop1");
+//		nodeDef.getProperties().add(rtp);
 	}
 
 	private void doTestRunTimeModelPropertiesTransform(EClass nodeRTClass) {

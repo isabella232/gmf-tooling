@@ -16,6 +16,7 @@ import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.ToolGroup;
 import org.eclipse.gmf.tests.setup.DomainModelSetup;
 
 public class MapSetup implements MapDefSource {
@@ -30,6 +31,9 @@ public class MapSetup implements MapDefSource {
 	 */
 	public MapSetup init(DiaDefSetup ddSource, DomainModelSetup domainSource) {
 		Mapping m = GMFMapFactory.eINSTANCE.createMapping();
+		final ToolGroup toolGroup = GMFMapFactory.eINSTANCE.createToolGroup();
+		toolGroup.setName("tg1");
+		m.getToolGroups().add(toolGroup);
 		CanvasMapping cme = GMFMapFactory.eINSTANCE.createCanvasMapping();
 		cme.setDiagramCanvas(ddSource.getCanvasDef());
 		cme.setDomainMetaElement(domainSource.getDiagramElement());
@@ -41,6 +45,8 @@ public class MapSetup implements MapDefSource {
 		nme.setDomainMetaElement(domainSource.getNode().getEClass());
 		nme.setEditFeature(domainSource.getNode().getNameAttr());
 		nme.setContainmentFeature(domainSource.getNode().getContainment());
+		nme.setTool(GMFMapFactory.eINSTANCE.createCreationTool());
+		nme.getTool().setGroup(toolGroup);
 		setupNodeMapping(nme);
 
 		LinkMapping lme = GMFMapFactory.eINSTANCE.createLinkMapping();
@@ -48,6 +54,8 @@ public class MapSetup implements MapDefSource {
 		lme.setDomainMetaElement(domainSource.getLinkAsClass().getEClass());
 		lme.setLinkMetaFeature(domainSource.getLinkAsClass().getTargetFeature());
 		lme.setContainmentFeature(domainSource.getLinkAsClass().getContainment());
+		lme.setTool(GMFMapFactory.eINSTANCE.createCreationTool());
+		lme.getTool().setGroup(toolGroup);
 		setupLinkMapping(lme);
 
 		m.setDiagram(cme);

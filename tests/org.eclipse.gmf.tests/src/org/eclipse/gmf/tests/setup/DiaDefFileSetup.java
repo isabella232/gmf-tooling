@@ -17,9 +17,9 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.gmf.diadef.Canvas;
-import org.eclipse.gmf.diadef.Connection;
-import org.eclipse.gmf.diadef.Node;
+import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.Node;
 
 public class DiaDefFileSetup implements DiaDefSource {
 
@@ -32,7 +32,7 @@ public class DiaDefFileSetup implements DiaDefSource {
 		Resource srcRes = srcResSet.getResource(sourceURI, true);
 		myCanvasDef = (Canvas) srcRes.getContents().get(0);
 		myNodeDef = (Node) myCanvasDef.getNodes().get(0);
-		myLinkDef = (Connection) myCanvasDef.getLinks().get(0);
+		myLinkDef = (Connection) myCanvasDef.getConnections().get(0);
 		return this;
 	}
 

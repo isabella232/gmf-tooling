@@ -48,7 +48,11 @@ public class GenProjectBaseSetup {
 		projectsToInit.add(d.getEMFGenModel().getModelPluginID());
 		d.getEMFGenModel().generateEdit(new NullProgressMonitor());
 		projectsToInit.add(d.getEMFGenModel().getEditPluginID());
-		new Generator(d).run();
+		
+		Generator generator = new Generator(d);		
+		generator.run();
+		Assert.assertTrue("GMF editor generation failed", generator.getRunStatus().isOK()); //$NON-NLS-1$
+		
 		projectsToInit.add(d.getPluginID());
 		for (Iterator it = projectsToInit.iterator(); it.hasNext();) {
 			String pluginID = (String) it.next();

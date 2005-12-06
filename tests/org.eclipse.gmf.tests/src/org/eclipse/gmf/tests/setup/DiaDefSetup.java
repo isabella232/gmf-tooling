@@ -11,17 +11,20 @@
  */
 package org.eclipse.gmf.tests.setup;
 
-import org.eclipse.gmf.diadef.Canvas;
-import org.eclipse.gmf.diadef.Connection;
-import org.eclipse.gmf.diadef.DiagramDefinitionFactory;
-import org.eclipse.gmf.diadef.LineKind;
-import org.eclipse.gmf.diadef.Node;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
+import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
+import org.eclipse.gmf.gmfgraph.Node;
 
 public class DiaDefSetup implements DiaDefSource {
 	private Canvas myCanvasDef;
 	private Node myNodeDef;
 	private Connection myLinkDef;
 	private final Config myConfig;
+	private FigureGallery myFigureContainer;
 
 	/**
 	 * @param config could be <code>null</code>
@@ -34,13 +37,23 @@ public class DiaDefSetup implements DiaDefSource {
 	 * @return <code>this</code> for convenience
 	 */
 	public final DiaDefSetup init() {
-		myCanvasDef = DiagramDefinitionFactory.eINSTANCE.createCanvas();
-		myNodeDef = DiagramDefinitionFactory.eINSTANCE.createNode();
-		myLinkDef = DiagramDefinitionFactory.eINSTANCE.createConnection();
+		myCanvasDef = GMFGraphFactory.eINSTANCE.createCanvas();
+		myNodeDef = GMFGraphFactory.eINSTANCE.createNode();
+		myLinkDef = GMFGraphFactory.eINSTANCE.createConnection();
+		myFigureContainer = GMFGraphFactory.eINSTANCE.createFigureGallery();
+		myFigureContainer.setName("fc1");
+		myCanvasDef.getFigures().add(myFigureContainer);
+		myCanvasDef.getNodes().add(myNodeDef);
+		myCanvasDef.getConnections().add(myLinkDef);
 		setupCanvasDef(myCanvasDef);
 		setupNodeDef(myNodeDef);
 		setupLinkDef(myLinkDef);
+		confineInResource();
 		return this;
+	}
+
+	private void confineInResource() {
+		new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/GMFGraphSetup")).getContents().add(myCanvasDef);
 	}
 
 	protected void setupCanvasDef(Canvas canvasDef) {
@@ -52,6 +65,9 @@ public class DiaDefSetup implements DiaDefSource {
 
 	protected void setupNodeDef(Node nodeDef) {
 		nodeDef.setName("Test-dd-node");
+		nodeDef.setFigure(GMFGraphFactory.eINSTANCE.createRoundedRectangle());
+		nodeDef.getFigure().setName("nf1");
+		myFigureContainer.getFigures().add(nodeDef.getFigure());
 		if (myConfig != null) {
 			myConfig.setupNodeDef(nodeDef);
 		}
@@ -59,7 +75,9 @@ public class DiaDefSetup implements DiaDefSource {
 
 	protected void setupLinkDef(Connection linkDef) {
 		linkDef.setName("Test-dd-link");
-		linkDef.setLineKind(LineKind.DASH_LITERAL);
+		linkDef.setFigure(GMFGraphFactory.eINSTANCE.createPolylineConnection());
+		linkDef.getFigure().setName("lf1");
+		myFigureContainer.getFigures().add(linkDef.getFigure());
 		if (myConfig != null) {
 			myConfig.setupLinkDef(linkDef);
 		}
@@ -75,6 +93,10 @@ public class DiaDefSetup implements DiaDefSource {
 
 	public final Node getNodeDef() {
 		return myNodeDef;
+	}
+
+	public final FigureGallery getFigureContainer() {
+		return myFigureContainer;
 	}
 
 	public interface Config {

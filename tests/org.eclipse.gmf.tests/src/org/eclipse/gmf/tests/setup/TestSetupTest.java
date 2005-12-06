@@ -17,9 +17,9 @@ import junit.framework.TestCase;
 
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.util.Diagnostician;
-import org.eclipse.gmf.diadef.Canvas;
-import org.eclipse.gmf.diadef.Connection;
-import org.eclipse.gmf.diadef.Node;
+import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.Node;
 
 /**
  * @author artem
@@ -74,8 +74,6 @@ public class TestSetupTest extends TestCase {
 	}
 
 	private void doDiaDefTests(DiaDefSource s) {
-		doAssert(Diagnostician.INSTANCE.validate(s.getNodeDef()));
-		doAssert(Diagnostician.INSTANCE.validate(s.getLinkDef()));
 		doAssert(Diagnostician.INSTANCE.validate(s.getCanvasDef()));
 	}
 

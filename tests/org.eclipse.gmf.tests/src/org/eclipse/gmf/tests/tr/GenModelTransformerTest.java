@@ -77,11 +77,11 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 		Palette palette = genDiagram.getPalette();
 		for (Iterator itN = m.getNodes().iterator(); itN.hasNext();) {
 			NodeMapping nodeMapping = (NodeMapping) (itN.next());
-			assertEquals(nodeMapping.getDiagramNode().isNeedsTool() ? 1 : 0, countUses(nodeMapping, palette));
+			assertEquals(nodeMapping.getTool() != null ? 1 : 0, countUses(nodeMapping, palette));
 		}
 		for (Iterator itL = m.getLinks().iterator(); itL.hasNext();) {
 			LinkMapping linkMapping = (LinkMapping) (itL.next());
-			assertEquals(linkMapping.getDiagramLink().isNeedsTool() ? 1 : 0, countUses(linkMapping, palette));
+			assertEquals(linkMapping.getTool() != null ? 1 : 0, countUses(linkMapping, palette));
 		}
 		// TODO add grooping test
 	}

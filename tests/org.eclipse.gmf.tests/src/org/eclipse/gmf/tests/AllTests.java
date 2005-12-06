@@ -18,6 +18,7 @@ import junit.framework.TestSuite;
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.gen.CompilationTest;
 import org.eclipse.gmf.tests.gen.HandcodedImplTest;
+import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.TestSetupTest;
 import org.eclipse.gmf.tests.tr.EPNamingStrategyTest;
@@ -44,6 +45,8 @@ public class AllTests {
 //		suite.addTestSuite(PropertiesTest.class); #113965 
 //		suite.addTestSuite(CanvasTest.class); Nothing there yet
 //		suite.addTestSuite(SpecificRTPropertiesTest.class); #113965 
+		
+		suite.addTestSuite(LinkCreationConstraintsTest.class);
 		//$JUnit-END$
 		suite.addTest(new TestCase("testCleanup") {
 			protected void runTest() throws Throwable {
