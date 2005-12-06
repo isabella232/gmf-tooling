@@ -678,16 +678,22 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	if (!canBeSource && !canBeTarget) {
 		continue;
 	}
-
-	namePartSuffix += genLink.getVisualID();
+	boolean selfLink = canBeSource & canBeTarget;
 	
-/**
- * In case this node can be both Source and Target of this link, this link is a link to self,
- * so for start request we should call "Outgoing" method, for complete = "Incomming" since
- * we should not invert link in this case.
- **/
-	String startCommandGetter = genLink.isOutgoingCreationAllowed() ? "getCreateStart" + (canBeSource ? OUTGOING_TOKEN : INCOMING_TOKEN) + namePartSuffix + "Command(req)" : "null";
-	String endCommandGetter = genLink.isIncomingCreationAllowed() ? "getCreateComplete" + (canBeTarget ? INCOMING_TOKEN : OUTGOING_TOKEN) + namePartSuffix + "Command(req)" : "null";
+	namePartSuffix += genLink.getVisualID();
+	String startCommandGetter = "null";
+	if (canBeSource && genLink.isOutgoingCreationAllowed()) {
+		startCommandGetter = "getCreateStart" + OUTGOING_TOKEN + namePartSuffix + "Command(req)";
+	} else if (canBeTarget && genLink.isIncomingCreationAllowed() && !selfLink) {
+		startCommandGetter = "getCreateStart" + INCOMING_TOKEN + namePartSuffix + "Command(req)";
+	}
+
+	String endCommandGetter = "null";
+	if (canBeSource && genLink.isIncomingCreationAllowed() && !selfLink) {
+		endCommandGetter = "getCreateComplete" + OUTGOING_TOKEN + namePartSuffix + "Command(req)";
+	} else if (canBeTarget && genLink.isOutgoingCreationAllowed()) {
+		endCommandGetter = "getCreateComplete" + INCOMING_TOKEN + namePartSuffix + "Command(req)";
+	}
 
     stringBuffer.append(TEXT_68);
     stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
@@ -735,9 +741,9 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
  * Model element could be source of the link or target of the link. It can be both source and 
  * target only in case of selfLink.
  **/
-		boolean couldBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
-		boolean couldBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());		
-		boolean selfLink = couldBeSource && couldBeTarget;
+		boolean canBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
+		boolean canBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());		
+		boolean selfLink = canBeSource && canBeTarget;
 		
 /**
  * Start  		start of link creation. 
@@ -751,10 +757,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
  *				This element could be a target for this type of link.
  *
  **/
-		boolean generateStartOutgoingCommand = couldBeSource && genLink.isOutgoingCreationAllowed();
-		boolean generateCompleteOutgoingCommand = couldBeSource && genLink.isIncomingCreationAllowed() && !selfLink;
-		boolean generateStartIncomingCommand = couldBeTarget && genLink.isIncomingCreationAllowed() && !selfLink;
-		boolean generateCompleteIncomingCommand = couldBeTarget && genLink.isOutgoingCreationAllowed();
+		boolean generateStartOutgoingCommand = canBeSource && genLink.isOutgoingCreationAllowed();
+		boolean generateCompleteOutgoingCommand = canBeSource && genLink.isIncomingCreationAllowed() && !selfLink;
+		boolean generateStartIncomingCommand = canBeTarget && genLink.isIncomingCreationAllowed() && !selfLink;
+		boolean generateCompleteIncomingCommand = canBeTarget && genLink.isOutgoingCreationAllowed();
 		
 		String namePartSuffix = modelFacet.getMetaClass().getName() + genLink.getVisualID();
 		
@@ -1209,9 +1215,9 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
  * Model element could be source of the link or target of the link. It can be both source and 
  * target only in case of selfLink.
  **/
-		boolean couldBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
-		boolean couldBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());		
-		boolean selfLink = couldBeSource && couldBeTarget;
+		boolean canBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
+		boolean canBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());		
+		boolean selfLink = canBeSource && canBeTarget;
 		
 /**
  * Start  		start of link creation. 
@@ -1225,10 +1231,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
  *				This element could be a target for this type of link.
  *
  **/
-		boolean generateStartOutgoingCommand = couldBeSource && genLink.isOutgoingCreationAllowed();
-		boolean generateCompleteOutgoingCommand = couldBeSource && genLink.isIncomingCreationAllowed() && !selfLink;
-		boolean generateStartIncomingCommand = couldBeTarget && genLink.isIncomingCreationAllowed() && !selfLink;
-		boolean generateCompleteIncomingCommand = couldBeTarget && genLink.isOutgoingCreationAllowed();
+		boolean generateStartOutgoingCommand = canBeSource && genLink.isOutgoingCreationAllowed();
+		boolean generateCompleteOutgoingCommand = canBeSource && genLink.isIncomingCreationAllowed() && !selfLink;
+		boolean generateStartIncomingCommand = canBeTarget && genLink.isIncomingCreationAllowed() && !selfLink;
+		boolean generateCompleteIncomingCommand = canBeTarget && genLink.isOutgoingCreationAllowed();
 		
 		String namePartSuffix = metaFeature.getFeatureAccessorName() + genLink.getVisualID();
 		
