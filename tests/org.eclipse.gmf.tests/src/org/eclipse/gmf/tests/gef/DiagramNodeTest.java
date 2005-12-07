@@ -14,8 +14,6 @@ package org.eclipse.gmf.tests.gef;
 import java.util.Collections;
 import java.util.List;
 
-import junit.framework.TestCase;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.GraphicsSource;
 import org.eclipse.draw2d.IFigure;
@@ -48,9 +46,9 @@ import org.eclipse.gmf.runtime.notation.Location;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.Size;
+import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.gmf.tests.setup.RTSetup;
 import org.eclipse.gmf.tests.setup.RTSource;
-import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Composite;
@@ -58,7 +56,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.osgi.framework.Bundle;
 
-public class DiagramNodeTest extends TestCase {
+public class DiagramNodeTest extends ConfiguredTestCase {
 
 	private final Point myMoveDelta = new Point(10, 20);
 	private final Dimension mySizeDelta = new Dimension(100, 50);
@@ -81,13 +79,13 @@ public class DiagramNodeTest extends TestCase {
 	// TODO EditPartViewer[Source|Setup]
 	protected void setUp() throws Exception {
 		super.setUp();
-		Bundle b = SessionSetup.getGenProject().getBundle();
-		String epFactoryClassName = SessionSetup.getGenModel().getGenDiagram().getEditPartFactoryQualifiedClassName();
+		Bundle b = getSetup().getGenProject().getBundle();
+		String epFactoryClassName = getSetup().getGenModel().getGenDiagram().getEditPartFactoryQualifiedClassName();
 		Class epFactory = b.loadClass(epFactoryClassName);
 		assert EditPartFactory.class.isAssignableFrom(epFactory);
 		myViewer = createViewer();
 		myViewer.setEditPartFactory((EditPartFactory) epFactory.newInstance());
-		RTSource rtDiagram = new RTSetup().init(b, SessionSetup.getGenModel());
+		RTSource rtDiagram = new RTSetup().init(b, getSetup().getGenModel());
 
 		myViewer.setContents(rtDiagram.getCanvas());
 		myNodeEditPart = (EditPart) myViewer.getEditPartRegistry().get(rtDiagram.getNode());

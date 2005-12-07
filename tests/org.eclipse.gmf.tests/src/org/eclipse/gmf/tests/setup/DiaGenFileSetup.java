@@ -19,12 +19,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 
-/**
- * TODO another DiaGenSetup using DiagramGenModelTransformer 
- * to avoid errors in GMFGen initialization (like missed viewmaps)
- * @author artem
- */
-class DiaGenFileSetup implements DiaGenSource {
+public class DiaGenFileSetup implements DiaGenSource {
 
 	private GenDiagram myGenDiagram;
 	private GenNode myGenNode;
@@ -37,6 +32,9 @@ class DiaGenFileSetup implements DiaGenSource {
 		ResourceSet srcResSet = new ResourceSetImpl();
  		Resource srcRes = srcResSet.getResource(sourceURI, true);
  		myGenDiagram = (GenDiagram) srcRes.getContents().get(0);
+ 		// FIXME somehow select particular node and link
+ 		myGenNode = (GenNode) myGenDiagram.getNodes().get(0);
+ 		myGenLink = (GenLink) myGenDiagram.getLinks().get(0);
 		return this;
 	}
 

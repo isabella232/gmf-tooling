@@ -16,26 +16,27 @@ package org.eclipse.gmf.tests.setup;
  */
 public class SessionSetup {
 
-	private static DomainModelSetup myDomainModel;
-	private static DiaGenSource myGenModel;
-	private static GenProjectSetup myProject;
+	private DomainModelSetup myDomainModel;
+	private DiaGenSource myGenModel;
+	private GenProjectSetup myProject;
+	private int myUses;
 	private static RuntimeWorkspaceSetup myRuntimeWorkspaceSetup;
 
-	public static DomainModelSetup getDomainModel() {
+	public DomainModelSetup getDomainModel() {
 		if (myDomainModel == null) {
 			myDomainModel = new DomainModelSetup().init();
 		}
 		return myDomainModel;
 	}
 
-	public static DiaGenSource getGenModel() {
+	public DiaGenSource getGenModel() {
 		if (myGenModel == null) {
 			myGenModel = new DiaGenSetup().init(getDomainModel());
 		}
 		return myGenModel;
 	}
 
-	public static GenProjectSetup getGenProject() throws Exception {
+	public GenProjectSetup getGenProject() throws Exception {
 		if (myProject == null) {
 			myProject = new GenProjectSetup();
 			myProject.init(getRuntimeWorkspaceSetup(), getGenModel());
@@ -51,9 +52,19 @@ public class SessionSetup {
 		return myRuntimeWorkspaceSetup;
 	}
 
-	public static void cleanup() throws Exception {
+	public void cleanup() throws Exception {
+		System.err.println("SessionSetup:uses:" + myUses);
 		if (myProject != null) {
 			myProject.uninstall();
 		}
+	}
+
+	// FUTURE: automatically unload/cleanup when myUses goes to zero.
+	public void oneUp() {
+		myUses++;
+	}
+
+	public void oneDown() {
+		myUses--;
 	}	
 }

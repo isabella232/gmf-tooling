@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.tests.tr;
 
-import junit.framework.TestCase;
-
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.Node;
@@ -20,11 +18,11 @@ import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.gmf.tests.setup.DiaDefSetup;
 import org.eclipse.gmf.tests.setup.MapSetup;
-import org.eclipse.gmf.tests.setup.SessionSetup;
 
-public abstract class AbstractMappingTransformerTest extends TestCase implements DiaDefSetup.Config {
+public abstract class AbstractMappingTransformerTest extends ConfiguredTestCase implements DiaDefSetup.Config {
 	private MapSetup myMapDef;
 	private DiaDefSetup myDiaDef;
 
@@ -37,7 +35,7 @@ public abstract class AbstractMappingTransformerTest extends TestCase implements
 		myDiaDef = new DiaDefSetup(this);
 		myDiaDef.init();
 		myMapDef = new MapSetup();
-		myMapDef.init(myDiaDef, SessionSetup.getDomainModel());
+		myMapDef.init(myDiaDef, getSetup().getDomainModel());
 	}
 
 	protected final Canvas getCanvasDef() {

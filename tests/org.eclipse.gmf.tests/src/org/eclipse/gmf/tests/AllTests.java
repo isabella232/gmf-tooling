@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.tests;
 
+import java.util.Enumeration;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -26,20 +28,20 @@ import org.eclipse.gmf.tests.tr.GenModelTransformerBasicRTTest;
 
 public class AllTests {
 
-	public static void main(String[] args) {
-		junit.textui.TestRunner.run(AllTests.suite());
-	}
-
 	public static Test suite() {
 		TestSuite suite = new TestSuite("Tests for org.eclipse.gmf");
 		//$JUnit-BEGIN$
+		
+		final SessionSetup sessionSetup = new SessionSetup();
+		
+		
 		suite.addTestSuite(TestSetupTest.class); // first, check sources/setups we use for rest of the tests
-		suite.addTestSuite(HandcodedImplTest.class); // then, check handcoded implementations are in place
+		suite.addTest(feed(HandcodedImplTest.class, sessionSetup)); // then, check handcoded implementations are in place
 		suite.addTestSuite(CompilationTest.class);
 
-		suite.addTestSuite(DiagramNodeTest.class);
-		suite.addTestSuite(EPNamingStrategyTest.class);
-		suite.addTestSuite(GenModelTransformerBasicRTTest.class);
+		suite.addTest(feed(DiagramNodeTest.class, sessionSetup));
+		suite.addTest(feed(EPNamingStrategyTest.class, sessionSetup));
+		suite.addTest(feed(GenModelTransformerBasicRTTest.class, sessionSetup));
 
 //		suite.addTestSuite(RunTimeModelTransformerTest.class); #113966
 //		suite.addTestSuite(PropertiesTest.class); #113965 
@@ -51,7 +53,7 @@ public class AllTests {
 		suite.addTest(new TestCase("testCleanup") {
 			protected void runTest() throws Throwable {
 				try {
-					SessionSetup.cleanup();
+					sessionSetup.cleanup();
 				} catch (RuntimeException ex) {
 					throw ex;
 				} catch (Exception ex) {
@@ -60,7 +62,18 @@ public class AllTests {
 				}
 			}
 		});
+		
 		return suite;
 	}
 
+	private static TestSuite feed(Class theClass, SessionSetup setup) {
+		TestSuite suite = new TestSuite(theClass);
+		for (Enumeration en = suite.tests(); en.hasMoreElements(); ) {
+			Object nextTest = en.nextElement();
+			if (nextTest instanceof NeedsSetup) {
+				((NeedsSetup) nextTest).setSetup(setup);
+			}
+		}
+		return suite;
+	}
 }

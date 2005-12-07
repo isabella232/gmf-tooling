@@ -16,13 +16,8 @@ import java.io.IOException;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.tests.Plugin;
+import org.eclipse.gmf.tests.setup.DiaGenFileSetup;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.GenProjectBaseSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
@@ -43,10 +38,8 @@ public class CompilationTest extends TestCase {
 	public void testCodeCompilation() {
 		try {
 			URI selected = Plugin.createURI("/models/library/library.gmfgen");
-			ResourceSet srcResSet = new ResourceSetImpl();
-	 		Resource srcRes = srcResSet.getResource(selected, true);
-			GenDiagram gd = (GenDiagram) srcRes.getContents().get(0);
-			new GenProjectBaseSetup().generateAndCompile(SessionSetup.getRuntimeWorkspaceSetup(), new FakeDiaGenSource(gd, null, null));
+			DiaGenSource gmfGenSource =  new DiaGenFileSetup().init(selected);
+			new GenProjectBaseSetup().generateAndCompile(SessionSetup.getRuntimeWorkspaceSetup(), gmfGenSource);
 		} catch (IOException ex) {
 			fail(ex.getMessage());
 		} catch (RuntimeException ex) {
@@ -59,25 +52,5 @@ public class CompilationTest extends TestCase {
 
 	protected void tearDown() throws Exception {
 		super.tearDown();
-	}
-
-	private static class FakeDiaGenSource implements DiaGenSource {
-		private final GenDiagram genDiagram;
-		private final GenNode genNode;
-		private final GenLink genLink;
-		FakeDiaGenSource(GenDiagram gd, GenNode gn, GenLink gl) {
-			genDiagram = gd;
-			genNode = gn;
-			genLink = gl;
-		}
-		public GenDiagram getGenDiagram() {
-			return genDiagram;
-		}
-		public GenLink getGenLink() {
-			return genLink;
-		}
-		public GenNode getGenNode() {
-			return genNode;
-		}
 	}
 }

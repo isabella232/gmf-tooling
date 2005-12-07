@@ -17,8 +17,6 @@ import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import junit.framework.TestCase;
-
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -33,14 +31,14 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
-import org.eclipse.gmf.tests.setup.SessionSetup;
+import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.jdt.core.JavaConventions;
 
 /**
  * Tests for handcoded method implementations in GMFGen model
  * @author artem
  */
-public class HandcodedImplTest extends TestCase {
+public class HandcodedImplTest extends ConfiguredTestCase {
 	private GenDiagram myGenModel;
 
 	public HandcodedImplTest(String name) {
@@ -50,11 +48,7 @@ public class HandcodedImplTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		// FIXME need complex genmodel with a lot of nodes and links to make tests effective 
-		myGenModel = SessionSetup.getGenModel().getGenDiagram();
-	}
-
-	protected void tearDown() throws Exception {
-		super.tearDown();
+		myGenModel = getSetup().getGenModel().getGenDiagram();
 	}
 
 	public void testUniqueIdentifier_IsUnique() {

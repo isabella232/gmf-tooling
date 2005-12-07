@@ -9,20 +9,15 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.tests.setup;
+package org.eclipse.gmf.tests;
 
-import org.eclipse.gmf.mappings.CanvasMapping;
-import org.eclipse.gmf.mappings.LinkMapping;
-import org.eclipse.gmf.mappings.Mapping;
-import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.tests.setup.SessionSetup;
 
-public interface MapDefSource {
+/**
+ * @author artem
+ *
+ */
+public interface NeedsSetup {
 
-	Mapping getMapping();
-
-	CanvasMapping getCanvasMapping();
-
-	NodeMapping getNodeMapping();
-
-	LinkMapping getLinkMapping();
+	void setSetup(SessionSetup sessionSetup);
 }
