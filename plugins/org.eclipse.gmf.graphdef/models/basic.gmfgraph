@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="GenericSurface">
+  <figures name="GenericDiagramFigures">
+    <figures xsi:type="gmfgraph:Rectangle" name="NodeRectangle"/>
+    <figures xsi:type="gmfgraph:PolylineConnection" name="ConnectionLine"/>
+    <figures xsi:type="gmfgraph:LabeledContainer" name="ContainerFigure"/>
+    <figures xsi:type="gmfgraph:Label" name="LabelFigure"/>
+  </figures>
+  <nodes name="GenericNode" figure="NodeRectangle" resizeConstraint="HORIZONTAL"/>
+  <connections name="GenericLink" figure="ConnectionLine"/>
+  <compartments name="GenericCompartment" figure="ContainerFigure" collapsible="true" needsTitle="true"/>
+  <children name="GenericChild" figure="LabelFigure"/>
+</gmfgraph:Canvas>

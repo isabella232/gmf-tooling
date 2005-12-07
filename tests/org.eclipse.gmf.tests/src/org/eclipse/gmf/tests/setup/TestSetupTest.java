@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.tests.setup;
 
+import java.io.IOException;
 import java.util.Iterator;
 
 import junit.framework.TestCase;
@@ -20,6 +21,7 @@ import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.gmfgraph.util.Assistant;
 
 /**
  * @author artem
@@ -28,6 +30,15 @@ public class TestSetupTest extends TestCase {
 
 	public TestSetupTest(String name) {
 		super(name);
+	}
+
+	public void testBasicGraphDefModel() {
+		try {
+			DiaDefSource s = new DiaDefFileSetup().init(Assistant.getBasicGraphDef());
+			doDiaDefTests(s);
+		} catch (IOException ex) {
+			fail(ex.getMessage());
+		}
 	}
 
 	public void testDiaDefSetupNoConfig() {
