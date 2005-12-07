@@ -114,6 +114,8 @@ public class NodeMappingImpl extends AbstractNodeMappingImpl implements NodeMapp
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS:
 					return ((InternalEList)getChildMappings()).basicAdd(otherEnd, msgs);
+				case GMFMapPackage.NODE_MAPPING__COMPARTMENT_MAPPINGS:
+					return ((InternalEList)getCompartmentMappings()).basicAdd(otherEnd, msgs);
 				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
@@ -137,6 +139,8 @@ public class NodeMappingImpl extends AbstractNodeMappingImpl implements NodeMapp
 					return basicSetDomainInitializer(null, msgs);
 				case GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS:
 					return ((InternalEList)getChildMappings()).basicRemove(otherEnd, msgs);
+				case GMFMapPackage.NODE_MAPPING__COMPARTMENT_MAPPINGS:
+					return ((InternalEList)getCompartmentMappings()).basicRemove(otherEnd, msgs);
 				case GMFMapPackage.NODE_MAPPING__TOOL:
 					return basicSetTool(null, msgs);
 				default:
@@ -168,6 +172,8 @@ public class NodeMappingImpl extends AbstractNodeMappingImpl implements NodeMapp
 				return basicGetEditFeature();
 			case GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS:
 				return getChildMappings();
+			case GMFMapPackage.NODE_MAPPING__COMPARTMENT_MAPPINGS:
+				return getCompartmentMappings();
 			case GMFMapPackage.NODE_MAPPING__TOOL:
 				return getTool();
 			case GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE:
@@ -202,6 +208,10 @@ public class NodeMappingImpl extends AbstractNodeMappingImpl implements NodeMapp
 			case GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS:
 				getChildMappings().clear();
 				getChildMappings().addAll((Collection)newValue);
+				return;
+			case GMFMapPackage.NODE_MAPPING__COMPARTMENT_MAPPINGS:
+				getCompartmentMappings().clear();
+				getCompartmentMappings().addAll((Collection)newValue);
 				return;
 			case GMFMapPackage.NODE_MAPPING__TOOL:
 				setTool((Tool)newValue);
@@ -238,6 +248,9 @@ public class NodeMappingImpl extends AbstractNodeMappingImpl implements NodeMapp
 			case GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS:
 				getChildMappings().clear();
 				return;
+			case GMFMapPackage.NODE_MAPPING__COMPARTMENT_MAPPINGS:
+				getCompartmentMappings().clear();
+				return;
 			case GMFMapPackage.NODE_MAPPING__TOOL:
 				setTool((Tool)null);
 				return;
@@ -267,6 +280,8 @@ public class NodeMappingImpl extends AbstractNodeMappingImpl implements NodeMapp
 				return editFeature != null;
 			case GMFMapPackage.NODE_MAPPING__CHILD_MAPPINGS:
 				return childMappings != null && !childMappings.isEmpty();
+			case GMFMapPackage.NODE_MAPPING__COMPARTMENT_MAPPINGS:
+				return compartmentMappings != null && !compartmentMappings.isEmpty();
 			case GMFMapPackage.NODE_MAPPING__TOOL:
 				return tool != null;
 			case GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE:

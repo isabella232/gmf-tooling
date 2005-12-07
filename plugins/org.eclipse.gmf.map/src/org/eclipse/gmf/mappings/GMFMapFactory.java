@@ -44,6 +44,15 @@ public interface GMFMapFactory extends EFactory{
 	ChildNodeMapping createChildNodeMapping();
 
 	/**
+	 * Returns a new object of class '<em>Compartment Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Compartment Mapping</em>'.
+	 * @generated
+	 */
+	CompartmentMapping createCompartmentMapping();
+
+	/**
 	 * Returns a new object of class '<em>Link Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

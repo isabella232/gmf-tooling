@@ -7,7 +7,6 @@
 package org.eclipse.gmf.mappings;
 
 import org.eclipse.gmf.gmfgraph.Child;
-import org.eclipse.gmf.gmfgraph.Compartment;
 
 /**
  * <!-- begin-user-doc -->
@@ -56,6 +55,7 @@ public interface ChildNodeMapping extends AbstractNodeMapping{
 
 	/**
 	 * Returns the value of the '<em><b>Compartment</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.CompartmentMapping#getChildNodes <em>Child Nodes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Compartment</em>' reference isn't clear,
@@ -63,12 +63,13 @@ public interface ChildNodeMapping extends AbstractNodeMapping{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Compartment</em>' reference.
-	 * @see #setCompartment(Compartment)
+	 * @see #setCompartment(CompartmentMapping)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getChildNodeMapping_Compartment()
-	 * @model required="true"
+	 * @see org.eclipse.gmf.mappings.CompartmentMapping#getChildNodes
+	 * @model opposite="childNodes" required="true"
 	 * @generated
 	 */
-	Compartment getCompartment();
+	CompartmentMapping getCompartment();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.mappings.ChildNodeMapping#getCompartment <em>Compartment</em>}' reference.
@@ -78,7 +79,7 @@ public interface ChildNodeMapping extends AbstractNodeMapping{
 	 * @see #getCompartment()
 	 * @generated
 	 */
-	void setCompartment(Compartment value);
+	void setCompartment(CompartmentMapping value);
 
 	/**
 	 * Returns the value of the '<em><b>Parent Node</b></em>' container reference.

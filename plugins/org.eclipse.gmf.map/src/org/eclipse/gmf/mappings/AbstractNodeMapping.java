@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getContainmentFeature <em>Containment Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getEditFeature <em>Edit Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getChildMappings <em>Child Mappings</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getCompartmentMappings <em>Compartment Mappings</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getTool <em>Tool</em>}</li>
  * </ul>
  * </p>
@@ -185,6 +186,24 @@ public interface AbstractNodeMapping extends EObject{
 	 * @generated
 	 */
 	EList getChildMappings();
+
+	/**
+	 * Returns the value of the '<em><b>Compartment Mappings</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.mappings.CompartmentMapping}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.CompartmentMapping#getParentNodeMapping <em>Parent Node Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Compartment Mappings</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Compartment Mappings</em>' containment reference list.
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getAbstractNodeMapping_CompartmentMappings()
+	 * @see org.eclipse.gmf.mappings.CompartmentMapping#getParentNodeMapping
+	 * @model type="org.eclipse.gmf.mappings.CompartmentMapping" opposite="parentNodeMapping" containment="true"
+	 * @generated
+	 */
+	EList getCompartmentMappings();
 
 	/**
 	 * Returns the value of the '<em><b>Tool</b></em>' containment reference.

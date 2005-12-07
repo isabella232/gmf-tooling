@@ -48,6 +48,8 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="childMappings" upperBound="-1"
         eType="#//ChildNodeMapping" containment="true" eOpposite="#//ChildNodeMapping/parentNode"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="compartmentMappings" upperBound="-1"
+        eType="#//CompartmentMapping" containment="true" eOpposite="#//CompartmentMapping/parentNodeMapping"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tool" eType="#//Tool" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Way to create the node"/>
@@ -63,9 +65,17 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramNode" lowerBound="1"
         eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Child"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="compartment" lowerBound="1"
-        eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Compartment"/>
+        eType="#//CompartmentMapping" eOpposite="#//CompartmentMapping/childNodes"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentNode" lowerBound="1"
         eType="#//AbstractNodeMapping" changeable="false" eOpposite="#//AbstractNodeMapping/childMappings"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompartmentMapping">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parentNodeMapping" lowerBound="1"
+        eType="#//AbstractNodeMapping" changeable="false" eOpposite="#//AbstractNodeMapping/compartmentMappings"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="compartment" lowerBound="1"
+        eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Compartment"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="childNodes" upperBound="-1"
+        eType="#//ChildNodeMapping" eOpposite="#//ChildNodeMapping/compartment"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LinkMapping" eSuperTypes="#//MappingEntry">
     <eOperations name="getDomainMetaClass" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>

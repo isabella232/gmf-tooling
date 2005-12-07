@@ -118,6 +118,28 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.CompartmentMapping} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CompartmentMappingItemProvider compartmentMappingItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.CompartmentMapping}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createCompartmentMappingAdapter() {
+		if (compartmentMappingItemProvider == null) {
+			compartmentMappingItemProvider = new CompartmentMappingItemProvider(this);
+		}
+
+		return compartmentMappingItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.LinkMapping} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -457,6 +479,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	public void dispose() {
 		if (nodeMappingItemProvider != null) nodeMappingItemProvider.dispose();
 		if (childNodeMappingItemProvider != null) childNodeMappingItemProvider.dispose();
+		if (compartmentMappingItemProvider != null) compartmentMappingItemProvider.dispose();
 		if (linkMappingItemProvider != null) linkMappingItemProvider.dispose();
 		if (canvasMappingItemProvider != null) canvasMappingItemProvider.dispose();
 		if (mappingItemProvider != null) mappingItemProvider.dispose();

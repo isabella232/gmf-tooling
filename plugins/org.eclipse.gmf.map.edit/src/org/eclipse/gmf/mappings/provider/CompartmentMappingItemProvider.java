@@ -14,7 +14,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -22,18 +24,21 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
 import org.eclipse.gmf.mappings.ChildNodeMapping;
+import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.ChildNodeMapping} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.CompartmentMapping} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ChildNodeMappingItemProvider
-	extends AbstractNodeMappingItemProvider
+public class CompartmentMappingItemProvider
+	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -46,7 +51,7 @@ public class ChildNodeMappingItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ChildNodeMappingItemProvider(AdapterFactory adapterFactory) {
+	public CompartmentMappingItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -60,26 +65,26 @@ public class ChildNodeMappingItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDiagramNodePropertyDescriptor(object);
 			addCompartmentPropertyDescriptor(object);
+			addChildNodesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Diagram Node feature.
+	 * This adds a property descriptor for the Compartment feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addDiagramNodePropertyDescriptor(Object object) {
+	protected void addCompartmentPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ChildNodeMapping_diagramNode_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ChildNodeMapping_diagramNode_feature", "_UI_ChildNodeMapping_type"),
-				 GMFMapPackage.eINSTANCE.getChildNodeMapping_DiagramNode(),
+				 getString("_UI_CompartmentMapping_compartment_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CompartmentMapping_compartment_feature", "_UI_CompartmentMapping_type"),
+				 GMFMapPackage.eINSTANCE.getCompartmentMapping_Compartment(),
 				 true,
 				 null,
 				 null,
@@ -87,41 +92,41 @@ public class ChildNodeMappingItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Compartment feature.
+	 * This adds a property descriptor for the Child Nodes feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	protected void addCompartmentPropertyDescriptor(Object object) {
+	protected void addChildNodesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ChildNodeMapping_compartment_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ChildNodeMapping_compartment_feature", "_UI_ChildNodeMapping_type"),
-				 GMFMapPackage.eINSTANCE.getChildNodeMapping_Compartment(),
+				 getString("_UI_CompartmentMapping_childNodes_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CompartmentMapping_childNodes_feature", "_UI_CompartmentMapping_type"),
+				 GMFMapPackage.eINSTANCE.getCompartmentMapping_ChildNodes(),
 				 true,
 				 null,
 				 null,
 				 null) {
 				protected Collection getComboBoxObjects(Object object) {
-					if (object instanceof ChildNodeMapping) {
-						ChildNodeMapping mapping = (ChildNodeMapping) object;
-						return new HashSet(mapping.getParentNode().getCompartmentMappings());
+					if (object instanceof CompartmentMapping) {
+						CompartmentMapping mapping = (CompartmentMapping) object;
+						return new HashSet(mapping.getParentNodeMapping().getChildMappings());
 					}
 					return Collections.EMPTY_LIST;
 				}
-		});
+			});
 	}
 
 	/**
-	 * This returns ChildNodeMapping.gif.
+	 * This returns CompartmentMapping.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/ChildNodeMapping");
+		return getResourceLocator().getImage("full/obj16/CompartmentMapping");
 	}
 
 	/**
@@ -131,20 +136,16 @@ public class ChildNodeMappingItemProvider
 	 * @generated NOT
 	 */
 	public String getText(Object object) {
-		if (object instanceof ChildNodeMapping) {
-			ChildNodeMapping mapping = (ChildNodeMapping) object;
+		if (object instanceof CompartmentMapping) {
+			CompartmentMapping mapping = (CompartmentMapping) object;
 			String result = " <";
-			if (mapping.getContainmentFeature() != null) {
-				result += mapping.getContainmentFeature().getName();
-			}
-			result += "/";
-			if (mapping.getDiagramNode() != null) {
-				result += mapping.getDiagramNode().getName();
-			}
+			if (mapping.getCompartment() != null) {
+				result += mapping.getCompartment().getName();
+			}	
 			result += ">";
-			return getString("_UI_ChildNodeMapping_type") + result;
+			return getString("_UI_CompartmentMapping_type") + result;
 		}
-		return getString("_UI_ChildNodeMapping_type");
+		return getString("_UI_CompartmentMapping_type");
 	}
 
 	/**
@@ -155,9 +156,7 @@ public class ChildNodeMappingItemProvider
 	 * @generated NOT
 	 */
 	public void notifyChanged(Notification notification) {
-		switch (notification.getFeatureID(ChildNodeMapping.class)) {
-		case GMFMapPackage.CHILD_NODE_MAPPING__CONTAINMENT_FEATURE:
-		case GMFMapPackage.CHILD_NODE_MAPPING__DIAGRAM_NODE:
+		if (notification.getFeatureID(ChildNodeMapping.class) == GMFMapPackage.COMPARTMENT_MAPPING__COMPARTMENT) {
 			fireNotifyChanged(new ViewerNotification(notification, null));
 		}
 		updateChildren(notification);

@@ -18,9 +18,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.gmfgraph.Child;
-import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
+import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.GMFMapPackage;
@@ -60,7 +60,7 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 	 * @generated
 	 * @ordered
 	 */
-	protected Compartment compartment = null;
+	protected CompartmentMapping compartment = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -123,10 +123,10 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Compartment getCompartment() {
+	public CompartmentMapping getCompartment() {
 		if (compartment != null && compartment.eIsProxy()) {
-			Compartment oldCompartment = compartment;
-			compartment = (Compartment)eResolveProxy((InternalEObject)compartment);
+			CompartmentMapping oldCompartment = compartment;
+			compartment = (CompartmentMapping)eResolveProxy((InternalEObject)compartment);
 			if (compartment != oldCompartment) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT, oldCompartment, compartment));
@@ -140,7 +140,7 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Compartment basicGetCompartment() {
+	public CompartmentMapping basicGetCompartment() {
 		return compartment;
 	}
 
@@ -149,11 +149,33 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setCompartment(Compartment newCompartment) {
-		Compartment oldCompartment = compartment;
+	public NotificationChain basicSetCompartment(CompartmentMapping newCompartment, NotificationChain msgs) {
+		CompartmentMapping oldCompartment = compartment;
 		compartment = newCompartment;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT, oldCompartment, compartment));
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT, oldCompartment, newCompartment);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCompartment(CompartmentMapping newCompartment) {
+		if (newCompartment != compartment) {
+			NotificationChain msgs = null;
+			if (compartment != null)
+				msgs = ((InternalEObject)compartment).eInverseRemove(this, GMFMapPackage.COMPARTMENT_MAPPING__CHILD_NODES, CompartmentMapping.class, msgs);
+			if (newCompartment != null)
+				msgs = ((InternalEObject)newCompartment).eInverseAdd(this, GMFMapPackage.COMPARTMENT_MAPPING__CHILD_NODES, CompartmentMapping.class, msgs);
+			msgs = basicSetCompartment(newCompartment, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT, newCompartment, newCompartment));
 	}
 
 	/**
@@ -176,6 +198,12 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case GMFMapPackage.CHILD_NODE_MAPPING__CHILD_MAPPINGS:
 					return ((InternalEList)getChildMappings()).basicAdd(otherEnd, msgs);
+				case GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT_MAPPINGS:
+					return ((InternalEList)getCompartmentMappings()).basicAdd(otherEnd, msgs);
+				case GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT:
+					if (compartment != null)
+						msgs = ((InternalEObject)compartment).eInverseRemove(this, GMFMapPackage.COMPARTMENT_MAPPING__CHILD_NODES, CompartmentMapping.class, msgs);
+					return basicSetCompartment((CompartmentMapping)otherEnd, msgs);
 				case GMFMapPackage.CHILD_NODE_MAPPING__PARENT_NODE:
 					if (eContainer != null)
 						msgs = eBasicRemoveFromContainer(msgs);
@@ -203,8 +231,12 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 					return basicSetDomainInitializer(null, msgs);
 				case GMFMapPackage.CHILD_NODE_MAPPING__CHILD_MAPPINGS:
 					return ((InternalEList)getChildMappings()).basicRemove(otherEnd, msgs);
+				case GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT_MAPPINGS:
+					return ((InternalEList)getCompartmentMappings()).basicRemove(otherEnd, msgs);
 				case GMFMapPackage.CHILD_NODE_MAPPING__TOOL:
 					return basicSetTool(null, msgs);
+				case GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT:
+					return basicSetCompartment(null, msgs);
 				case GMFMapPackage.CHILD_NODE_MAPPING__PARENT_NODE:
 					return eBasicSetContainer(null, GMFMapPackage.CHILD_NODE_MAPPING__PARENT_NODE, msgs);
 				default:
@@ -253,6 +285,8 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 				return basicGetEditFeature();
 			case GMFMapPackage.CHILD_NODE_MAPPING__CHILD_MAPPINGS:
 				return getChildMappings();
+			case GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT_MAPPINGS:
+				return getCompartmentMappings();
 			case GMFMapPackage.CHILD_NODE_MAPPING__TOOL:
 				return getTool();
 			case GMFMapPackage.CHILD_NODE_MAPPING__DIAGRAM_NODE:
@@ -293,6 +327,10 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 				getChildMappings().clear();
 				getChildMappings().addAll((Collection)newValue);
 				return;
+			case GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT_MAPPINGS:
+				getCompartmentMappings().clear();
+				getCompartmentMappings().addAll((Collection)newValue);
+				return;
 			case GMFMapPackage.CHILD_NODE_MAPPING__TOOL:
 				setTool((Tool)newValue);
 				return;
@@ -300,7 +338,7 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 				setDiagramNode((Child)newValue);
 				return;
 			case GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT:
-				setCompartment((Compartment)newValue);
+				setCompartment((CompartmentMapping)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -331,6 +369,9 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 			case GMFMapPackage.CHILD_NODE_MAPPING__CHILD_MAPPINGS:
 				getChildMappings().clear();
 				return;
+			case GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT_MAPPINGS:
+				getCompartmentMappings().clear();
+				return;
 			case GMFMapPackage.CHILD_NODE_MAPPING__TOOL:
 				setTool((Tool)null);
 				return;
@@ -338,7 +379,7 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 				setDiagramNode((Child)null);
 				return;
 			case GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT:
-				setCompartment((Compartment)null);
+				setCompartment((CompartmentMapping)null);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -363,6 +404,8 @@ public class ChildNodeMappingImpl extends AbstractNodeMappingImpl implements Chi
 				return editFeature != null;
 			case GMFMapPackage.CHILD_NODE_MAPPING__CHILD_MAPPINGS:
 				return childMappings != null && !childMappings.isEmpty();
+			case GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT_MAPPINGS:
+				return compartmentMappings != null && !compartmentMappings.isEmpty();
 			case GMFMapPackage.CHILD_NODE_MAPPING__TOOL:
 				return tool != null;
 			case GMFMapPackage.CHILD_NODE_MAPPING__DIAGRAM_NODE:

@@ -10,6 +10,8 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.mappings.*;
+
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
@@ -95,6 +97,9 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseChildNodeMapping(ChildNodeMapping object) {
 				return createChildNodeMappingAdapter();
+			}
+			public Object caseCompartmentMapping(CompartmentMapping object) {
+				return createCompartmentMappingAdapter();
 			}
 			public Object caseLinkMapping(LinkMapping object) {
 				return createLinkMappingAdapter();
@@ -206,6 +211,20 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createChildNodeMappingAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.CompartmentMapping <em>Compartment Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.CompartmentMapping
+	 * @generated
+	 */
+	public Adapter createCompartmentMappingAdapter() {
 		return null;
 	}
 

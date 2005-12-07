@@ -15,6 +15,7 @@
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/containmentFeature"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/editFeature"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/childMappings"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/compartmentMappings"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/tool"/>
       <genOperations ecoreOperation="gmfmap.ecore#//AbstractNodeMapping/getDomainMetaClass"/>
     </genClasses>
@@ -26,6 +27,11 @@
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/diagramNode"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/compartment"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/parentNode"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//CompartmentMapping">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//CompartmentMapping/parentNodeMapping"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//CompartmentMapping/compartment"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//CompartmentMapping/childNodes"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//LinkMapping">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/diagramLink"/>

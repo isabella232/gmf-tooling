@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
+import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.GMFMapPackage;
@@ -40,6 +41,7 @@ import org.eclipse.gmf.mappings.Tool;
  *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getContainmentFeature <em>Containment Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getEditFeature <em>Edit Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getChildMappings <em>Child Mappings</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getCompartmentMappings <em>Compartment Mappings</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getTool <em>Tool</em>}</li>
  * </ul>
  * </p>
@@ -106,6 +108,16 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 * @ordered
 	 */
 	protected EList childMappings = null;
+
+	/**
+	 * The cached value of the '{@link #getCompartmentMappings() <em>Compartment Mappings</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCompartmentMappings()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList compartmentMappings = null;
 
 	/**
 	 * The cached value of the '{@link #getTool() <em>Tool</em>}' containment reference.
@@ -352,6 +364,18 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList getCompartmentMappings() {
+		if (compartmentMappings == null) {
+			compartmentMappings = new EObjectContainmentWithInverseEList(CompartmentMapping.class, this, GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS, GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE_MAPPING);
+		}
+		return compartmentMappings;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Tool getTool() {
 		return tool;
 	}
@@ -398,7 +422,7 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 * @generated NOT
 	 */
 	public EClass getDomainMetaClass() {
-		if (getDomainMetaElement() == null) {
+		if (getDomainMetaElement() == null && getContainmentFeature() != null) {
 			return getContainmentFeature().getEReferenceType();
 		}
 		return getDomainMetaElement();
@@ -414,6 +438,8 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
 				case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 					return ((InternalEList)getChildMappings()).basicAdd(otherEnd, msgs);
+				case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
+					return ((InternalEList)getCompartmentMappings()).basicAdd(otherEnd, msgs);
 				default:
 					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
 			}
@@ -437,6 +463,8 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 					return basicSetDomainInitializer(null, msgs);
 				case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 					return ((InternalEList)getChildMappings()).basicRemove(otherEnd, msgs);
+				case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
+					return ((InternalEList)getCompartmentMappings()).basicRemove(otherEnd, msgs);
 				case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
 					return basicSetTool(null, msgs);
 				default:
@@ -468,6 +496,8 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 				return basicGetEditFeature();
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				return getChildMappings();
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
+				return getCompartmentMappings();
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
 				return getTool();
 		}
@@ -499,6 +529,10 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				getChildMappings().clear();
 				getChildMappings().addAll((Collection)newValue);
+				return;
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
+				getCompartmentMappings().clear();
+				getCompartmentMappings().addAll((Collection)newValue);
 				return;
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
 				setTool((Tool)newValue);
@@ -532,6 +566,9 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				getChildMappings().clear();
 				return;
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
+				getCompartmentMappings().clear();
+				return;
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
 				setTool((Tool)null);
 				return;
@@ -558,6 +595,8 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 				return editFeature != null;
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				return childMappings != null && !childMappings.isEmpty();
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
+				return compartmentMappings != null && !compartmentMappings.isEmpty();
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
 				return tool != null;
 		}

@@ -11,7 +11,9 @@
  */
 package org.eclipse.gmf.bridge.genmodel;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
@@ -68,6 +70,7 @@ import org.eclipse.gmf.gmfgraph.util.GMFGraphSwitch;
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
+import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.CreationTool;
 import org.eclipse.gmf.mappings.ElementInitializer;
@@ -249,11 +252,21 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 	
 	private void processAbstractNode(AbstractNodeMapping mapping, GenNode genNode) {
+		Map compartments2GenCompartmentsMap = new HashMap();
+		for (Iterator it = mapping.getCompartmentMappings().iterator(); it.hasNext();) {
+			CompartmentMapping compartmentMapping = (CompartmentMapping) it.next();
+			GenCompartment compartmentGen = createGenCompartment(compartmentMapping);
+			genNode.getCompartments().add(compartmentGen);
+			compartments2GenCompartmentsMap.put(compartmentMapping, compartmentGen);
+		}
+
 		for (Iterator it = mapping.getChildMappings().iterator(); it.hasNext();) {
 			ChildNodeMapping childNodeMapping = (ChildNodeMapping) it.next();
-			GenChildContainer genChildContainer = createGenCompartment(childNodeMapping);
-			if (genChildContainer != null) {
-				genNode.getCompartments().add(genChildContainer);
+// Currently childNodeMapping should has compartment but we plan to make this reference optional
+			CompartmentMapping compartmentMapping = childNodeMapping.getCompartment();
+			GenChildContainer genChildContainer;
+			if (compartmentMapping != null && compartments2GenCompartmentsMap.containsKey(compartmentMapping)) {
+				genChildContainer = (GenChildContainer) compartments2GenCompartmentsMap.get(compartmentMapping);
 			} else {
 				genChildContainer = genNode;
 			}
@@ -261,12 +274,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 	}
 
-	private GenCompartment createGenCompartment(ChildNodeMapping mapping) {
+	private GenCompartment createGenCompartment(CompartmentMapping mapping) {
 		Compartment compartment = mapping.getCompartment(); 
-		if (compartment == null) {
-			// how could this happen provided compartment is [1] ref?
-			return null;
-		}
+		assert compartment != null;
 		GenCompartment childCompartment = GMFGenFactory.eINSTANCE.createGenCompartment();
 		childCompartment.setVisualID(COMPARTMENT_COUNT_BASE + (++myCompartmentCount));
 		childCompartment.setDiagramRunTimeClass(getChildContainerRunTimeClass());
@@ -277,10 +287,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		childCompartment.setTitle(compartment.getName());
 
 		// set class names
-		childCompartment.setNotationViewFactoryClassName(myNamingStrategy.createCompartmentClassName(mapping.getParentNode(), compartment, GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX));
-		childCompartment.setEditPartClassName(myNamingStrategy.createCompartmentClassName(mapping.getParentNode(), compartment, GenCommonBase.EDIT_PART_SUFFIX));
-		childCompartment.setItemSemanticEditPolicyClassName(myNamingStrategy.createCompartmentClassName(mapping.getParentNode(), compartment, GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX));
-		childCompartment.setCanonicalEditPolicyClassName(myNamingStrategy.createCompartmentClassName(mapping.getParentNode(), compartment, GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX));
+		childCompartment.setNotationViewFactoryClassName(myNamingStrategy.createCompartmentClassName(mapping.getParentNodeMapping(), compartment, GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX));
+		childCompartment.setEditPartClassName(myNamingStrategy.createCompartmentClassName(mapping.getParentNodeMapping(), compartment, GenCommonBase.EDIT_PART_SUFFIX));
+		childCompartment.setItemSemanticEditPolicyClassName(myNamingStrategy.createCompartmentClassName(mapping.getParentNodeMapping(), compartment, GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX));
+		childCompartment.setCanonicalEditPolicyClassName(myNamingStrategy.createCompartmentClassName(mapping.getParentNodeMapping(), compartment, GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX));
 
 		return childCompartment;
 	}

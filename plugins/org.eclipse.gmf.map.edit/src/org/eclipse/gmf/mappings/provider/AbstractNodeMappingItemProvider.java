@@ -120,7 +120,7 @@ public class AbstractNodeMappingItemProvider
 								Object next = it.next();
 								if (next instanceof EReference) {
 									EReference ref = (EReference) next;
-									if (ref.isContainment() && nm.getDomainMetaElement().equals(ref.getEType())) {
+									if (ref.isContainment() && ref.getEReferenceType().isSuperTypeOf(nm.getDomainMetaElement())) {
 										features.add(ref);
 									}
 								}
@@ -177,6 +177,7 @@ public class AbstractNodeMappingItemProvider
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainSpecialization());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainInitializer());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_ChildMappings());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_CompartmentMappings());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_Tool());
 		}
 		return childrenFeatures;
@@ -218,6 +219,7 @@ public class AbstractNodeMappingItemProvider
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION:
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER:
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -249,6 +251,11 @@ public class AbstractNodeMappingItemProvider
 			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_ChildMappings(),
 				 GMFMapFactory.eINSTANCE.createChildNodeMapping()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_CompartmentMappings(),
+				 GMFMapFactory.eINSTANCE.createCompartmentMapping()));
 
 		newChildDescriptors.add
 			(createChildParameter

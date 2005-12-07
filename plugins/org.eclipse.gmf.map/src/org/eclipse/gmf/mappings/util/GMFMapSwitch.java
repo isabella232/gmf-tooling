@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.mappings.*;
+
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
@@ -127,6 +129,12 @@ public class GMFMapSwitch {
 				ChildNodeMapping childNodeMapping = (ChildNodeMapping)theEObject;
 				Object result = caseChildNodeMapping(childNodeMapping);
 				if (result == null) result = caseAbstractNodeMapping(childNodeMapping);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.COMPARTMENT_MAPPING: {
+				CompartmentMapping compartmentMapping = (CompartmentMapping)theEObject;
+				Object result = caseCompartmentMapping(compartmentMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -276,6 +284,21 @@ public class GMFMapSwitch {
 	 * @generated
 	 */
 	public Object caseChildNodeMapping(ChildNodeMapping object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Compartment Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Compartment Mapping</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseCompartmentMapping(CompartmentMapping object) {
 		return null;
 	}
 

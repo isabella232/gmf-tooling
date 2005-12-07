@@ -9,6 +9,8 @@ package org.eclipse.gmf.mappings.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.gmf.mappings.*;
+
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.Constraint;
@@ -51,6 +53,7 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 		switch (eClass.getClassifierID()) {
 			case GMFMapPackage.NODE_MAPPING: return createNodeMapping();
 			case GMFMapPackage.CHILD_NODE_MAPPING: return createChildNodeMapping();
+			case GMFMapPackage.COMPARTMENT_MAPPING: return createCompartmentMapping();
 			case GMFMapPackage.LINK_MAPPING: return createLinkMapping();
 			case GMFMapPackage.CANVAS_MAPPING: return createCanvasMapping();
 			case GMFMapPackage.MAPPING: return createMapping();
@@ -85,6 +88,16 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	public ChildNodeMapping createChildNodeMapping() {
 		ChildNodeMappingImpl childNodeMapping = new ChildNodeMappingImpl();
 		return childNodeMapping;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CompartmentMapping createCompartmentMapping() {
+		CompartmentMappingImpl compartmentMapping = new CompartmentMappingImpl();
+		return compartmentMapping;
 	}
 
 	/**
