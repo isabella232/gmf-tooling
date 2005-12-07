@@ -14,7 +14,6 @@ import org.eclipse.draw2d.StackLayout;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.RectangularDropShadowLineBorder;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
@@ -123,10 +122,23 @@ if (defSizeAttrs != null) {
 		shape.add(contentPane);
 <%} else {%>
 		contentPane = shape;
-<%}%>
-		ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
+<%
+}
+
+//if (genNode.getChildContainersPlacement() == CompartmentPlacementKind.TOOLBAR_LITERAL) {
+	String layoutClassName = importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout");
+%>
+		<%=layoutClassName%> layout = new <%=layoutClassName%>();
 		layout.setSpacing(getMapMode().DPtoLP(5));
 		contentPane.setLayoutManager(layout);
+<%
+//} else {
+// Flow layout
+%>
+		contentPane.setLayoutManager(new <%=importManager.getImportedName("org.eclipse.draw2d.FreeformLayout")%>());
+<%
+//}
+%>
 	}
 
 	/**

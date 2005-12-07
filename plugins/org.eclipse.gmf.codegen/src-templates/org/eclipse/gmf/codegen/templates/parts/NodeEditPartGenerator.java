@@ -18,7 +18,7 @@ public class NodeEditPartGenerator {
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "package ";
   protected final String TEXT_2 = ";" + NL;
-  protected final String TEXT_3 = NL + "import org.eclipse.draw2d.IFigure;" + NL + "import org.eclipse.draw2d.Shape;" + NL + "import org.eclipse.draw2d.StackLayout;" + NL + "import org.eclipse.gef.EditPolicy;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;" + NL + "import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;" + NL + "import org.eclipse.gmf.runtime.draw2d.ui.figures.RectangularDropShadowLineBorder;" + NL + "import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;" + NL + "import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
+  protected final String TEXT_3 = NL + "import org.eclipse.draw2d.IFigure;" + NL + "import org.eclipse.draw2d.Shape;" + NL + "import org.eclipse.draw2d.StackLayout;" + NL + "import org.eclipse.gef.EditPolicy;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;" + NL + "import org.eclipse.gmf.runtime.draw2d.ui.figures.RectangularDropShadowLineBorder;" + NL + "import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;" + NL + "import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
   protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_5 = " extends ShapeNodeEditPart {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected IFigure contentPane;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
   protected final String TEXT_6 = "(View view) {" + NL + "\t\tsuper(view);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void createDefaultEditPolicies() {" + NL + "\t\tsuper.createDefaultEditPolicies();" + NL + "\t\tinstallEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ";
@@ -44,14 +44,19 @@ public class NodeEditPartGenerator {
   protected final String TEXT_26 = NL + "\t\tcontentPane = new ";
   protected final String TEXT_27 = "();" + NL + "\t\tshape.setLayoutManager(new StackLayout());" + NL + "\t\tshape.add(contentPane);";
   protected final String TEXT_28 = NL + "\t\tcontentPane = shape;";
-  protected final String TEXT_29 = NL + "\t\tConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();" + NL + "\t\tlayout.setSpacing(getMapMode().DPtoLP(5));" + NL + "\t\tcontentPane.setLayoutManager(layout);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic IFigure getContentPane() {" + NL + "\t\tif (contentPane != null) {" + NL + "\t\t\treturn contentPane;" + NL + "\t\t}" + NL + "\t\treturn super.getContentPane();" + NL + "\t}";
-  protected final String TEXT_30 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
-  protected final String TEXT_31 = " getPrimaryChildEditPart() {" + NL + "\t\treturn getChildBySemanticHint(";
-  protected final String TEXT_32 = ".";
-  protected final String TEXT_33 = "Labels.";
-  protected final String TEXT_34 = ");" + NL + "\t}";
-  protected final String TEXT_35 = NL + "}";
-  protected final String TEXT_36 = NL;
+  protected final String TEXT_29 = NL + "\t\t";
+  protected final String TEXT_30 = " layout = new ";
+  protected final String TEXT_31 = "();" + NL + "\t\tlayout.setSpacing(getMapMode().DPtoLP(5));" + NL + "\t\tcontentPane.setLayoutManager(layout);";
+  protected final String TEXT_32 = NL + "\t\tcontentPane.setLayoutManager(new ";
+  protected final String TEXT_33 = "());";
+  protected final String TEXT_34 = NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic IFigure getContentPane() {" + NL + "\t\tif (contentPane != null) {" + NL + "\t\t\treturn contentPane;" + NL + "\t\t}" + NL + "\t\treturn super.getContentPane();" + NL + "\t}";
+  protected final String TEXT_35 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
+  protected final String TEXT_36 = " getPrimaryChildEditPart() {" + NL + "\t\treturn getChildBySemanticHint(";
+  protected final String TEXT_37 = ".";
+  protected final String TEXT_38 = "Labels.";
+  protected final String TEXT_39 = ");" + NL + "\t}";
+  protected final String TEXT_40 = NL + "}";
+  protected final String TEXT_41 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
 		StringBuffer result = new StringBuffer();
@@ -242,26 +247,46 @@ if (defSizeAttrs != null) {
     stringBuffer.append(TEXT_27);
     } else {
     stringBuffer.append(TEXT_28);
-    }
+    
+}
+
+//if (genNode.getChildContainersPlacement() == CompartmentPlacementKind.TOOLBAR_LITERAL) {
+	String layoutClassName = importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout");
+
     stringBuffer.append(TEXT_29);
+    stringBuffer.append(layoutClassName);
+    stringBuffer.append(TEXT_30);
+    stringBuffer.append(layoutClassName);
+    stringBuffer.append(TEXT_31);
+    
+//} else {
+// Flow layout
+
+    stringBuffer.append(TEXT_32);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.FreeformLayout"));
+    stringBuffer.append(TEXT_33);
+    
+//}
+
+    stringBuffer.append(TEXT_34);
     
 if (!genNode.getLabels().isEmpty()) {
 	GenNodeLabel primaryLabel = (GenNodeLabel) genNode.getLabels().get(0);
 	String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 
-    stringBuffer.append(TEXT_30);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
-    stringBuffer.append(TEXT_31);
-    stringBuffer.append(semanticHintsClassName);
-    stringBuffer.append(TEXT_32);
-    stringBuffer.append(genNode.getUniqueIdentifier());
-    stringBuffer.append(TEXT_33);
-    stringBuffer.append(AccessUtil.getLabelTextId(primaryLabel));
-    stringBuffer.append(TEXT_34);
-    }
     stringBuffer.append(TEXT_35);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPart"));
     stringBuffer.append(TEXT_36);
+    stringBuffer.append(semanticHintsClassName);
+    stringBuffer.append(TEXT_37);
+    stringBuffer.append(genNode.getUniqueIdentifier());
+    stringBuffer.append(TEXT_38);
+    stringBuffer.append(AccessUtil.getLabelTextId(primaryLabel));
+    stringBuffer.append(TEXT_39);
+    }
+    stringBuffer.append(TEXT_40);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_41);
     return stringBuffer.toString();
   }
 }
