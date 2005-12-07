@@ -55,6 +55,7 @@ import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.ToolGroup;
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
@@ -413,6 +414,9 @@ public abstract class RuntimeDiagramTestBase extends TestCase {
 			canvasMapping.setDiagramCanvas(canvas);
 			canvasMapping.setDomainModel(domainModel);
 			canvasMapping.setDomainMetaElement((EClass) EPath.ECORE.lookup(domainModel, domainEClassQName));
+			ToolGroup tg = GMFMapFactory.eINSTANCE.createToolGroup();
+			tg.setName("tg1");
+			mapping.getToolGroups().add(tg);
 			mapping.setDiagram(canvasMapping);
 			return canvasMapping;
 		}
@@ -422,6 +426,8 @@ public abstract class RuntimeDiagramTestBase extends TestCase {
 			nodeMap.setDiagramNode((org.eclipse.gmf.gmfgraph.Node) EPath.GMFGRAPH.lookup(canvas, nodeName));
 			nodeMap.setDomainMetaElement((EClass) EPath.ECORE.lookup(domainModel, eClassQName));
 			nodeMap.setContainmentFeature((EReference) EPath.ECORE.lookup(domainModel, containmentFeature));
+			nodeMap.setTool(GMFMapFactory.eINSTANCE.createCreationTool());
+			nodeMap.getTool().setGroup((ToolGroup) mapping.getToolGroups().get(0));
 			mapping.getNodes().add(nodeMap);
 			return nodeMap;
 		}
