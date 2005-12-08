@@ -167,8 +167,8 @@ for (int i = 0; i < toolGroups.size(); i++) {
 <%
 	}
 	List linkCreationTools = toolGroup.getLinkTools();
-	final String connToolClassName = importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.ConnectionCreationTool");
 	for (int j = 0; j < linkCreationTools.size(); j++) {
+		final String connToolClassName = importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.ConnectionCreationTool");
 		LinkEntry linkCreationTool = (LinkEntry) linkCreationTools.get(j);
 		GenLink genLink = linkCreationTool.getGenLink();
 %>
