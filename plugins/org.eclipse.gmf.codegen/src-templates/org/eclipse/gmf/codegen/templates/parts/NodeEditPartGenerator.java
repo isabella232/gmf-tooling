@@ -47,7 +47,7 @@ public class NodeEditPartGenerator {
   protected final String TEXT_29 = NL + "\t\t";
   protected final String TEXT_30 = " layout = new ";
   protected final String TEXT_31 = "();" + NL + "\t\tlayout.setSpacing(getMapMode().DPtoLP(5));" + NL + "\t\tcontentPane.setLayoutManager(layout);";
-  protected final String TEXT_32 = NL + "\t\tcontentPane.setLayoutManager(new ";
+  protected final String TEXT_32 = NL + "//\t\tcontentPane.setLayoutManager(new ";
   protected final String TEXT_33 = "());";
   protected final String TEXT_34 = NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic IFigure getContentPane() {" + NL + "\t\tif (contentPane != null) {" + NL + "\t\t\treturn contentPane;" + NL + "\t\t}" + NL + "\t\treturn super.getContentPane();" + NL + "\t}";
   protected final String TEXT_35 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";

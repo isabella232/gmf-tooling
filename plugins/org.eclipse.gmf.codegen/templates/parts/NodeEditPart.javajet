@@ -135,7 +135,7 @@ if (defSizeAttrs != null) {
 //} else {
 // Flow layout
 %>
-		contentPane.setLayoutManager(new <%=importManager.getImportedName("org.eclipse.draw2d.FreeformLayout")%>());
+//		contentPane.setLayoutManager(new <%=importManager.getImportedName("org.eclipse.draw2d.FreeformLayout")%>());
 <%
 //}
 %>
