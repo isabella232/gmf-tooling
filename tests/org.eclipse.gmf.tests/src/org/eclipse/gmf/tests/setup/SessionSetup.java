@@ -21,6 +21,30 @@ public class SessionSetup {
 	private GenProjectSetup myProject;
 	private int myUses;
 	private static RuntimeWorkspaceSetup myRuntimeWorkspaceSetup;
+	private static boolean factoryClosed = false;
+
+	/**
+	 * Use factory method {@link #newInstance()} instead
+	 */
+	private SessionSetup() {
+	}
+
+	/**
+	 * When running as an all-tests suite, we won't li
+	 */
+	public static void disallowSingleTestCaseUse() {
+		factoryClosed = true;
+	}
+
+	/**
+	 * @return <code>null</code> if {@link #disallowSingleTestCaseUse()} was called
+	 */
+	public static SessionSetup newInstance() {
+		if (factoryClosed) {
+			return null;
+		}
+		return new SessionSetup();
+	}
 
 	public DomainModelSetup getDomainModel() {
 		if (myDomainModel == null) {

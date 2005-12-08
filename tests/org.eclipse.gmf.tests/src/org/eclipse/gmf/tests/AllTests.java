@@ -32,7 +32,8 @@ public class AllTests {
 		TestSuite suite = new TestSuite("Tests for org.eclipse.gmf");
 		//$JUnit-BEGIN$
 		
-		final SessionSetup sessionSetup = new SessionSetup();
+		final SessionSetup sessionSetup = SessionSetup.newInstance();
+		SessionSetup.disallowSingleTestCaseUse();
 		
 		
 		suite.addTestSuite(TestSetupTest.class); // first, check sources/setups we use for rest of the tests

@@ -28,6 +28,7 @@ public abstract class ConfiguredTestCase extends TestCase implements NeedsSetup 
 	}
 
 	public final void setSetup(SessionSetup sessionSetup) {
+		assertNotNull(sessionSetup);
 		mySessionSetup = sessionSetup;
 		mySessionSetup.oneUp();
 	}
@@ -38,7 +39,11 @@ public abstract class ConfiguredTestCase extends TestCase implements NeedsSetup 
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		assertNotNull("Tests " + getName() + " needs session setup", mySessionSetup);
+		if (mySessionSetup == null) {
+			// subject to enabled/disabled state dictated from AllTests 
+			mySessionSetup = SessionSetup.newInstance();
+		}
+		assertNotNull("Test " + getName() + " needs session setup", mySessionSetup);
 	}
 
 	protected void tearDown() throws Exception {
