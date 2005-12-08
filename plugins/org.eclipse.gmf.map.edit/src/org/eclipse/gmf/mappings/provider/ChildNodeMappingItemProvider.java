@@ -152,16 +152,20 @@ public class ChildNodeMappingItemProvider
 	 * children and by creating a viewer notification, which it passes to {@link #fireNotifyChanged}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
+	public void notifyChangedGen(Notification notification) {
+		updateChildren(notification);
+		super.notifyChanged(notification);
+	}
+
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(ChildNodeMapping.class)) {
 		case GMFMapPackage.CHILD_NODE_MAPPING__CONTAINMENT_FEATURE:
 		case GMFMapPackage.CHILD_NODE_MAPPING__DIAGRAM_NODE:
 			fireNotifyChanged(new ViewerNotification(notification, null));
 		}
-		updateChildren(notification);
-		super.notifyChanged(notification);
+		notifyChangedGen(notification);
 	}
 
 	/**
