@@ -76,7 +76,6 @@ public class RuntimeWorkspaceSetup {
 					"org.eclipse.gmf.runtime.emf.clipboard.core",
 					"org.eclipse.emf.validation",
 					"org.eclipse.gmf.runtime.emf.core",
-					"org.eclipse.gmf.runtime.common.ui.services",
 					"org.eclipse.gmf.runtime.common.ui.services.action",
 					"org.eclipse.gmf.runtime.common.ui.action",
 					"org.eclipse.gmf.runtime.common.ui.action.ide",
@@ -110,7 +109,7 @@ public class RuntimeWorkspaceSetup {
 				return YES;
 			}
 		};
-		PluginImportOperation op = new PluginImportOperation(pdeState.getModels(), PluginImportOperation.IMPORT_WITH_SOURCE, query, query, true);
+		PluginImportOperation op = new PluginImportOperation(pdeState.getModels(), PluginImportOperation.IMPORT_BINARY, query, query, true);
 		ResourcesPlugin.getWorkspace().run(op, new NullProgressMonitor());
 		for (int i = 0; i < pluginIDs.length; i++) {
 			IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginIDs[i]);
