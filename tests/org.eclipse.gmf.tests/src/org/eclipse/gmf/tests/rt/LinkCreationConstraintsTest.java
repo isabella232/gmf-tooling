@@ -10,106 +10,41 @@
  */
 package org.eclipse.gmf.tests.rt;
 
-import java.io.IOException;
-
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.gmf.mappings.Constraint;
-import org.eclipse.gmf.mappings.GMFMapFactory;
-import org.eclipse.gmf.mappings.LinkConstraints;
-import org.eclipse.gmf.mappings.LinkMapping;
-import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.tests.EPath;
-import org.eclipse.gmf.tests.Plugin;
-import org.eclipse.gmf.tests.setup.DiaDefSource;
-import org.eclipse.gmf.tests.setup.DomainModelFileSetup;
+import org.eclipse.gmf.tests.setup.DiaGenSource;
+import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 
 public class LinkCreationConstraintsTest extends RuntimeDiagramTestBase {
-	NodeMapping NODE_MAPPING;
-	NodeMapping CONTAINER_MAPPING;
-	LinkMapping LINK_MAPPING;
-	LinkMapping FIRST_CHILD_LINK_MAPPING;	
-	LinkMapping REFERENCE_LINK_MAPPING;	
-	LinkMapping MANY_REFERENCE_LINKS_MAPPING;	
-	
-	static class LinksDiadefSetup extends AbstractDiaDefs {	
-		protected void init() {
-			getCanvas().setName("LinksCanvas"); //$NON-NLS-1$
-			createNode("Node"); //$NON-NLS-1$
-			createNode("Container"); //$NON-NLS-1$
-			createConnection("ReferenceOnlyConnection"); //$NON-NLS-1$
-			createConnection("ManyReferencesOnlyConnection"); //$NON-NLS-1$			
-			createConnection("LinkConnection"); //$NON-NLS-1$
-			createConnection("FirstChildLinkConnection"); //$NON-NLS-1$			
-		}		
-	}
-		
-	class LinksMappings extends AbstractMappings {
-		public LinksMappings(EPackage domainModel, DiaDefSource diaDefSource) {
-			super(domainModel, diaDefSource);
-		}
-		
-		protected void init() {
-			mapCanvas("Root"); //$NON-NLS-1$
-			NODE_MAPPING = mapNode("Node", "Node", "Root::elements"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			CONTAINER_MAPPING = mapNode("Container", "Container", "Root::elements"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-			
-			LINK_MAPPING = mapClassLink("LinkConnection", "Link", "Container::childNodes", "Link::target"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-			addConstraints(LINK_MAPPING, 
-					null, //$NON-NLS-1$
-					"self.acceptLinkKind = oppositeEnd.acceptLinkKind"); //$NON-NLS-1$
-			
-			FIRST_CHILD_LINK_MAPPING = mapClassLink("FirstChildLinkConnection", "Link", "Container::firstChildNode", "Link::target"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-						
-			REFERENCE_LINK_MAPPING = mapRefLink("ReferenceOnlyConnection", "Container::referenceOnlyLink"); //$NON-NLS-1$ //$NON-NLS-2$
-			addConstraints(REFERENCE_LINK_MAPPING, 
-					"not self.acceptLinkKind.oclIsUndefined()", //$NON-NLS-1$
-					"self.acceptLinkKind = oppositeEnd.acceptLinkKind"); //$NON-NLS-1$
-			
-			MANY_REFERENCE_LINKS_MAPPING = mapRefLink("ManyReferencesOnlyConnection", "Container::manyReferenceOnlyLinks"); //$NON-NLS-1$ //$NON-NLS-2$			
-		}
-	}	
-
-	private EPackage domainMetaModel;
+	private LinksSessionSetup setup;
 	
 	public LinkCreationConstraintsTest(String name) {
 		super(name);
 	}
+	
+	protected DiaGenSource getGenModel() {
+		return setup.getDiaGenSource();
+	}
 
 	protected void setUp() throws Exception {
-		DomainModelFileSetup modelSetup = new DomainModelFileSetup();
-		try {
-			modelSetup.init(Plugin.createURI("/models/links/links.ecore")); //$NON-NLS-1$
-		} catch (IOException e) {
-			e.printStackTrace();
-			fail("Failed to setup the domain model. " + e.getLocalizedMessage()); //$NON-NLS-1$
-		}
-		this.domainMetaModel = modelSetup.getModel();
-		
-		super.setUp();		
+		setup = LinksSessionSetup.INSTANCE;
+		super.setUp();
 	}
 
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
-	
-	protected AbstractMappings getMappings() {		
-		return new LinksMappings(domainMetaModel, new LinksDiadefSetup());
-	}
-	
-	protected void customizeGenModelBeforeGeneration() {
-		super.customizeGenModelBeforeGeneration();
-	}
-	
-	
+		
 	public void testCreateConstrainedLinks() throws Exception {		
-		IMetamodelType nodeMetaType = getElementType(getGenElement(NODE_MAPPING));
-		IMetamodelType linkMetaType = getElementType(getGenElement(LINK_MAPPING));
-		IMetamodelType containerMetaType = getElementType(getGenElement(CONTAINER_MAPPING));
-		IMetamodelType referenceLinkMetaType = getElementType(getGenElement(REFERENCE_LINK_MAPPING));		
+		IMetamodelType nodeMetaType = getElementType(getTargetGenNode());
+		IMetamodelType linkMetaType = getElementType(getClassGenLink());
+		IMetamodelType containerMetaType = getElementType(getSourceGenNode());
+		IMetamodelType referenceLinkMetaType = getElementType(getRefGenLink());		
 						
 		Diagram diagram = (Diagram)getDiagramEditPart().getModel();		
 		Node sourceContainerNode = createNode(containerMetaType, diagram);
@@ -153,17 +88,21 @@ public class LinkCreationConstraintsTest extends RuntimeDiagramTestBase {
 		assertNotNull("Should create link for nodes with equal acceptLinkKind", //$NON-NLS-1$ 
 				createLink(linkMetaType, sourceContainerNode, targetNode));		
 	}
-	
-	static void addConstraints(LinkMapping linkMapping, String sourceConstraint, String endConstraint) {
-		LinkConstraints constraints = GMFMapFactory.eINSTANCE.createLinkConstraints();
-		Constraint source = GMFMapFactory.eINSTANCE.createConstraint();
-		source.setBody(sourceConstraint);
-		constraints.setSourceEnd(source);
-		
-		Constraint target = GMFMapFactory.eINSTANCE.createConstraint();
-		target.setBody(endConstraint);
-		constraints.setTargetEnd(target);
-		
-		linkMapping.setCreationConstraints(constraints);
-	}	
+
+	private GenLink getRefGenLink() {
+		return getGenModel().getLinkD();
+	}
+
+	private GenNode getSourceGenNode() {
+		return getGenModel().getNodeA();
+	}
+
+	private GenLink getClassGenLink() {
+		return getGenModel().getLinkC();
+	}
+
+	private GenNode getTargetGenNode() {
+		return getGenModel().getNodeB();
+	}
+
 }

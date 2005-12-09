@@ -43,14 +43,14 @@ import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.tests.Utils;
 
 /**
- * TODO another DiaGenSetup using DiagramGenModelTransformer 
- * to avoid errors in GMFGen initialization (like missed viewmaps)
  * @author artem
  */
 public class DiaGenSetup implements DiaGenSource {
 	private GenDiagram myGenDiagram;
-	private GenNode myGenNode;
-	private GenLink myGenLink;
+	private GenNode myNodeA;
+	private GenLink myLinkC;
+	private GenLink myLinkD;
+	private GenNode myNodeB;
 
 	public DiaGenSetup() {
 	}
@@ -71,29 +71,29 @@ public class DiaGenSetup implements DiaGenSource {
 		myGenDiagram.setViewmap(GMFGenFactory.eINSTANCE.createDiagramViewmap());
 		myGenDiagram.setVisualID(99);
 
-		myGenNode = GMFGenFactory.eINSTANCE.createGenNode();
-		myGenNode.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getNode()));
-		myGenNode.setModelFacet(createNodeModelFacet(gmm, domainSource.getNode()));
-		EAttribute editFeature = domainSource.getNode().getNameAttr();
+		myNodeA = GMFGenFactory.eINSTANCE.createGenNode();
+		myNodeA.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getNode()));
+		myNodeA.setModelFacet(createNodeModelFacet(gmm, domainSource.getNodeA()));
+		EAttribute editFeature = domainSource.getNodeA().getNameAttr();
 		if (editFeature != null) {
 			FeatureModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureModelFacet();
 			modelFacet.setMetaFeature(gmm.findGenFeature(editFeature));
 			GenNodeLabel label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
 			label.setModelFacet(modelFacet);
 			label.setVisualID(401);
-			myGenNode.getLabels().add(label);
+			myNodeA.getLabels().add(label);
 		}
-		myGenNode.setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap());
-		myGenNode.setVisualID(100);
+		myNodeA.setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap());
+		myNodeA.setVisualID(100);
 
-		myGenLink = GMFGenFactory.eINSTANCE.createGenLink();
-		myGenLink.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getEdge()));
-		myGenLink.setModelFacet(createLinkModelFacet(gmm, domainSource.getLinkAsClass()));
-		myGenLink.setViewmap(GMFGenFactory.eINSTANCE.createDecoratedConnectionViewmap());
-		myGenLink.setVisualID(200);
+		myLinkC = GMFGenFactory.eINSTANCE.createGenLink();
+		myLinkC.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getEdge()));
+		myLinkC.setModelFacet(createLinkModelFacet(gmm, domainSource.getLinkAsClass()));
+		myLinkC.setViewmap(GMFGenFactory.eINSTANCE.createDecoratedConnectionViewmap());
+		myLinkC.setVisualID(200);
 		// TODO add linkRefOnly
-		myGenDiagram.getNodes().add(myGenNode);
-		myGenDiagram.getLinks().add(myGenLink);
+		myGenDiagram.getNodes().add(myNodeA);
+		myGenDiagram.getLinks().add(myLinkC);
 		confineInResource();
 		return this;
 	}
@@ -125,40 +125,42 @@ public class DiaGenSetup implements DiaGenSource {
 		final DiagramRunTimeModelHelper drth = new BasicDiagramRunTimeModelHelper();
 		final NamingStrategy epns = new DefaultNamingStrategy();
 		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, epns);
-		BasicGenModelAccess gma = new BasicGenModelAccess(mapSource.getCanvasMapping().getDomainModel());
+		BasicGenModelAccess gma = new BasicGenModelAccess(mapSource.getCanvas().getDomainModel());
 		IStatus gmaStatus = gma.createDummy();
 		Assert.assertTrue("Need (fake) genModel for transformation to work", gmaStatus.isOK());
 		t.setEMFGenModel(gma.model());
 		t.transform(mapSource.getMapping());
 		myGenDiagram = t.getResult();
 		epns.reset();
-		final String nodeEPName = epns.createNodeClassName(mapSource.getNodeMapping(), GenCommonBase.EDIT_PART_SUFFIX);
-		final String linkEPName = epns.createLinkClassName(mapSource.getLinkMapping(), GenCommonBase.EDIT_PART_SUFFIX);
+		final String aNodeEPName = epns.createNodeClassName(mapSource.getNodeA(), GenCommonBase.EDIT_PART_SUFFIX);
+		final String bNodeEPName = mapSource.getNodeB() == null ? null : epns.createNodeClassName(mapSource.getNodeB(), GenCommonBase.EDIT_PART_SUFFIX);
+		final String cLinkEPName = epns.createLinkClassName(mapSource.getClassLink(), GenCommonBase.EDIT_PART_SUFFIX);
+		final String dLinkEPName = epns.createLinkClassName(mapSource.getReferenceLink(), GenCommonBase.EDIT_PART_SUFFIX);
 		for (Iterator it = myGenDiagram.getNodes().iterator(); it.hasNext();) {
 			GenNode n = (GenNode) it.next();
-			if (n.getEditPartClassName().equals(nodeEPName)) {
-				myGenNode = n;
-				break;
+			if (n.getEditPartClassName().equals(aNodeEPName)) {
+				myNodeA = n;
+			}
+			if (n.getEditPartClassName().equals(bNodeEPName)) {
+				myNodeB = n;
 			}
 		}
 		for (Iterator it = myGenDiagram.getLinks().iterator(); it.hasNext();) {
 			GenLink l = (GenLink) it.next();
-			if (l.getEditPartClassName().equals(linkEPName)) {
-				myGenLink = l;
-				break;
+			if (l.getEditPartClassName().equals(cLinkEPName)) {
+				myLinkC = l;
+			}
+			if (l.getEditPartClassName().equals(dLinkEPName)) {
+				myLinkD = l;
 			}
 		}
-		assert myGenNode != null;
-		assert myGenLink != null;
+		assert myNodeA != null;
+		assert myLinkC != null;
+		assert myLinkD != null;
 		confineInResource();
 		return this;
 	}
 
-	public DiaGenSetup init(GenDiagram genDiagram) {
-		myGenDiagram = genDiagram;
-		return this;
-	}
-	
 	private void confineInResource() {
 		new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/DiaGenSetup")).getContents().add(myGenDiagram);
 	}
@@ -166,12 +168,21 @@ public class DiaGenSetup implements DiaGenSource {
 	public final GenDiagram getGenDiagram() {
 		return myGenDiagram;
 	}
-	public final GenNode getGenNode() {
-		return myGenNode;
+
+	public final GenNode getNodeA() {
+		return myNodeA;
 	}
 
-	public final GenLink getGenLink() {
-		return myGenLink;
+	public final GenNode getNodeB() {
+		return myNodeB;
+	}
+
+	public final GenLink getLinkC() {
+		return myLinkC;
+	}
+
+	public GenLink getLinkD() {
+		return myLinkD;
 	}
 
 	// Empty palette, unless we'd like to test it

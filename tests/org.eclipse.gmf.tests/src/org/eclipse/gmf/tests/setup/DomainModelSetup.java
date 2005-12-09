@@ -13,17 +13,14 @@ package org.eclipse.gmf.tests.setup;
 
 import java.util.Calendar;
 
-import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
-import org.eclipse.emf.ecore.util.Diagnostician;
 
 /**
  * TODO:
@@ -38,6 +35,7 @@ public class DomainModelSetup implements DomainModelSource {
 	private LinkData myLinkA2C;
 	private EReference myLinkAsRef;
 	private EClass myDiagramElement;
+	private NodeData myNodeB;
 
 	public DomainModelSetup() {
 	}
@@ -111,16 +109,12 @@ public class DomainModelSetup implements DomainModelSource {
 		p.getEClassifiers().add(nodeC);
 		p.getEClassifiers().add(nodeLinkA2C);
 
-		System.err.println(Diagnostician.INSTANCE.validate(p));
-
 		confineInResource(p);
-
-		Diagnostic d = Diagnostician.INSTANCE.validate(p);
-		System.err.println(d);
 
 		myModelPackage = p;
 		myNodeA = new NodeData(nodeA, null/*FIXME a1*/, r0);
 		myLinkA2C = new LinkData(nodeLinkA2C, refCfromLink, linkToC);
+		myNodeB = new NodeData(nodeC, null, r0);
 		myLinkAsRef = linkToB;
 		myDiagramElement = containmentNode;
 		return this;
@@ -134,8 +128,12 @@ public class DomainModelSetup implements DomainModelSource {
 		return myModelPackage;
 	}
 
-	public final NodeData getNode() {
+	public final NodeData getNodeA() {
 		return myNodeA;
+	}
+
+	public NodeData getNodeB() {
+		return myNodeB;
 	}
 
 	public final LinkData getLinkAsClass() {
@@ -148,62 +146,5 @@ public class DomainModelSetup implements DomainModelSource {
 
 	public EClass getDiagramElement() {
 		return myDiagramElement;
-	}
-
-	public class NodeData {
-
-		private final EClass myClass;
-		private final EAttribute myNameAttr;
-		private final EReference myContainment;
-
-		public NodeData(EClass eClass, EAttribute nameAttr, EReference containment) {
-			assert eClass != null;
-			myClass = eClass;
-			myNameAttr = nameAttr;
-			myContainment = containment;
-		}
-
-		public EClass getEClass() {
-			return myClass;
-		}
-
-		public EReference getContainment() {
-			return myContainment;
-		}
-
-		public EAttribute getNameAttr() {
-			return myNameAttr;
-		}
-	}
-
-	public class LinkData {
-
-		private final EClass myClass;
-		private final EStructuralFeature myTargetFeature;
-		private final EReference myContainment;
-
-		/**
-		 * @param eClass may be <code>null</code>
-		 * @param targetFeature not <code>null</code>
-		 * @param containment may be <code>null</code>
-		 */
-		public LinkData(EClass eClass, EStructuralFeature targetFeature, EReference containment) {
-			assert targetFeature != null;
-			myClass = eClass;
-			myTargetFeature = targetFeature;
-			myContainment = containment;
-		}
-
-		public EClass getEClass() {
-			return myClass;
-		}
-
-		public EReference getContainment() {
-			return myContainment;
-		}
-
-		public EStructuralFeature getTargetFeature() {
-			return myTargetFeature;
-		}
 	}
 }

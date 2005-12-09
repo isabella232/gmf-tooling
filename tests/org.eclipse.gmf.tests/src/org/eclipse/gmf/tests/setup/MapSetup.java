@@ -11,82 +11,165 @@
  */
 package org.eclipse.gmf.tests.setup;
 
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.mappings.CanvasMapping;
+import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.GMFMapFactory;
+import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.ToolGroup;
-import org.eclipse.gmf.tests.setup.DomainModelSetup;
+import org.eclipse.gmf.tests.setup.DomainModelSource.LinkData;
+import org.eclipse.gmf.tests.setup.DomainModelSource.NodeData;
 
 public class MapSetup implements MapDefSource {
 
 	private Mapping myMap;
-
+	private NodeMapping myNodeA;
+	private NodeMapping myNodeB;
+	private LinkMapping myClassLink;
+	private LinkMapping myRefLink;
+	
 	public MapSetup() {
 	}
 
 	/**
 	 * @return <code>this</code> for convenience
 	 */
-	public MapSetup init(DiaDefSetup ddSource, DomainModelSetup domainSource) {
-		Mapping m = GMFMapFactory.eINSTANCE.createMapping();
-		final ToolGroup toolGroup = GMFMapFactory.eINSTANCE.createToolGroup();
-		toolGroup.setName("tg1");
-		m.getToolGroups().add(toolGroup);
-		CanvasMapping cme = GMFMapFactory.eINSTANCE.createCanvasMapping();
-		cme.setDiagramCanvas(ddSource.getCanvasDef());
-		cme.setDomainMetaElement(domainSource.getDiagramElement());
-		cme.setDomainModel(domainSource.getModel());
-		setupCanvasMapping(cme);
-
-		NodeMapping nme = GMFMapFactory.eINSTANCE.createNodeMapping();
-		nme.setDiagramNode(ddSource.getNodeDef());
-		nme.setDomainMetaElement(domainSource.getNode().getEClass());
-		nme.setEditFeature(domainSource.getNode().getNameAttr());
-		nme.setContainmentFeature(domainSource.getNode().getContainment());
-		nme.setTool(GMFMapFactory.eINSTANCE.createCreationTool());
-		nme.getTool().setGroup(toolGroup);
-		setupNodeMapping(nme);
-
-		LinkMapping lme = GMFMapFactory.eINSTANCE.createLinkMapping();
-		lme.setDiagramLink(ddSource.getLinkDef());
-		lme.setDomainMetaElement(domainSource.getLinkAsClass().getEClass());
-		lme.setLinkMetaFeature(domainSource.getLinkAsClass().getTargetFeature());
-		lme.setContainmentFeature(domainSource.getLinkAsClass().getContainment());
-		lme.setTool(GMFMapFactory.eINSTANCE.createCreationTool());
-		lme.getTool().setGroup(toolGroup);
-		setupLinkMapping(lme);
-
-		m.setDiagram(cme);
-		m.getNodes().add(nme);
-		m.getLinks().add(lme);
-		myMap = m;
+	public MapSetup init(DiaDefSource ddSource, DomainModelSource domainSource) {
+		initCanvasMappping(domainSource.getModel(), ddSource.getCanvasDef(), domainSource.getDiagramElement());
+		
+		myNodeA = createNodeMapping(ddSource.getNodeDef(), domainSource.getNodeA());
+		if (domainSource.getNodeB() != null) {
+			myNodeB = createNodeMapping(ddSource.getNodeDef(), domainSource.getNodeB());
+		}
+		
+		myClassLink = createLinkMapping(ddSource.getLinkDef(), domainSource.getLinkAsClass());
+		if (domainSource.getLinkAsRef() != null) {
+			myRefLink = createLinkMapping(ddSource.getLinkDef(), null, domainSource.getLinkAsRef(), null);
+		}
 		return this;
 	}
 
+	private void initCanvasMappping(EPackage domainModel, Canvas canvas, EClass diagramElement) {
+		Mapping m = GMFMapFactory.eINSTANCE.createMapping();		
+		final ToolGroup toolGroup = GMFMapFactory.eINSTANCE.createToolGroup();
+		toolGroup.setName("tg1"); //$NON-NLS-1$
+		m.getToolGroups().add(toolGroup);
+			
+		CanvasMapping cme = GMFMapFactory.eINSTANCE.createCanvasMapping();
+		cme.setDiagramCanvas(canvas);
+		cme.setDomainMetaElement(diagramElement);
+		cme.setDomainModel(domainModel);
+		setupCanvasMapping(cme);
+		m.setDiagram(cme);
+		myMap = m;
+	}
+
+	private LinkMapping createLinkMapping(Connection link, LinkData data) {
+		return createLinkMapping(link, data.getEClass(), data.getTargetFeature(), data.getContainment());
+	}
+
+	private LinkMapping createLinkMapping(Connection link, EClass domainMetaElement, EStructuralFeature linkMetafeature, EReference containmentFeature) {		
+		LinkMapping lme = GMFMapFactory.eINSTANCE.createLinkMapping();
+		lme.setDiagramLink(link);
+		lme.setDomainMetaElement(domainMetaElement);
+		lme.setLinkMetaFeature(linkMetafeature);
+		lme.setContainmentFeature(containmentFeature);
+		lme.setTool(GMFMapFactory.eINSTANCE.createCreationTool());
+		lme.getTool().setGroup((ToolGroup)myMap.getToolGroups().get(0));
+		if (domainMetaElement == null) {
+			setupReferenceLinkMapping(lme);
+		} else {
+			setupClassLinkMapping(lme);
+		}
+		myMap.getLinks().add(lme);
+		return lme;
+	}
+
+	private NodeMapping createNodeMapping(Node nodeDef, NodeData nodeData) {
+		return createNodeMapping(nodeDef, nodeData.getEClass(), nodeData.getNameAttr(), nodeData.getContainment());
+	}
+
+	private NodeMapping createNodeMapping(Node nodeDef, EClass domainMetaElement, EAttribute editFeature, EReference containmentFeature) {
+		NodeMapping nme = GMFMapFactory.eINSTANCE.createNodeMapping();
+		nme.setDiagramNode(nodeDef);
+		nme.setDomainMetaElement(domainMetaElement);
+		nme.setEditFeature(editFeature);
+		nme.setContainmentFeature(containmentFeature);
+		nme.setTool(GMFMapFactory.eINSTANCE.createCreationTool());
+		nme.getTool().setGroup((ToolGroup)myMap.getToolGroups().get(0));
+		setupNodeMapping(nme);
+		myMap.getNodes().add(nme);
+		return nme;	
+	}
+	
+	protected void addCreationConstraints(LinkMapping linkMapping, String sourceConstraint, String endConstraint) {
+		LinkConstraints constraints = GMFMapFactory.eINSTANCE.createLinkConstraints();
+		Constraint source = GMFMapFactory.eINSTANCE.createConstraint();
+		source.setBody(sourceConstraint);
+		constraints.setSourceEnd(source);
+		
+		Constraint target = GMFMapFactory.eINSTANCE.createConstraint();
+		target.setBody(endConstraint);
+		constraints.setTargetEnd(target);
+		
+		linkMapping.setCreationConstraints(constraints);
+	}		
+
+	/**
+	 * Allows for extra initialization code. Does nothing by default
+	 */
 	protected void setupCanvasMapping(CanvasMapping cme) {
 	}
 
+	/**
+	 * Allows for extra initialization code. Does nothing by default
+	 */
 	protected void setupNodeMapping(NodeMapping nme) {
 	}
 
-	protected void setupLinkMapping(LinkMapping lme) {
+	/**
+	 * Allows for extra initialization code. Does nothing by default
+	 */
+	protected void setupClassLinkMapping(LinkMapping lme) {
+	}
+
+	/**
+	 * Allows for extra initialization code. Does nothing by default
+	 */
+	protected void setupReferenceLinkMapping(LinkMapping lme) {
 	}
 
 	public final Mapping getMapping() {
 		return myMap;
 	}
 
-	public final CanvasMapping getCanvasMapping() {
+	public final CanvasMapping getCanvas() {
 		return getMapping().getDiagram();
 	}
 
-	public NodeMapping getNodeMapping() {
-		return (NodeMapping) getMapping().getNodes().get(0);
+	public NodeMapping getNodeA() {
+		return myNodeA;
 	}
 
-	public LinkMapping getLinkMapping() {
-		return (LinkMapping) getMapping().getLinks().get(0);
+	public NodeMapping getNodeB() {
+		return myNodeB;
+	}
+
+	public LinkMapping getClassLink() {
+		return myClassLink;
+	}
+
+	public LinkMapping getReferenceLink() {
+		return myRefLink;
 	}
 }

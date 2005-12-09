@@ -36,7 +36,7 @@ public class TestSetupTest extends TestCase {
 	public void testLibraryMap() {
 		try {
 			MapDefSource s = new MapDefFileSetup().init(Plugin.createURI("/models/library/library.gmfmap"));
-			doAssert(Diagnostician.INSTANCE.validate(s.getCanvasMapping()));
+			doAssert(Diagnostician.INSTANCE.validate(s.getCanvas()));
 		} catch (IOException ex) {
 			fail(ex.getMessage());
 		}
@@ -80,7 +80,7 @@ public class TestSetupTest extends TestCase {
 	public void testDomainModelSetup() {
 		DomainModelSetup s = new DomainModelSetup().init();
 		doAssert(Diagnostician.INSTANCE.validate(s.getDiagramElement()));
-		doAssert(Diagnostician.INSTANCE.validate(s.getNode().getEClass()));
+		doAssert(Diagnostician.INSTANCE.validate(s.getNodeA().getEClass()));
 		doAssert(Diagnostician.INSTANCE.validate(s.getLinkAsRef()));
 		doAssert(Diagnostician.INSTANCE.validate(s.getLinkAsClass().getEClass()));
 		doAssert(Diagnostician.INSTANCE.validate(s.getModel()));
@@ -99,9 +99,9 @@ public class TestSetupTest extends TestCase {
 	}
 
 	private void doDiaGenTests(DiaGenSource s) {
-		Diagnostic d = Diagnostician.INSTANCE.validate(s.getGenNode());
+		Diagnostic d = Diagnostician.INSTANCE.validate(s.getNodeA());
 		doAssert("GenNode", d);
-		d = Diagnostician.INSTANCE.validate(s.getGenLink());
+		d = Diagnostician.INSTANCE.validate(s.getLinkC());
 		doAssert("GenLink", d);
 		d = Diagnostician.INSTANCE.validate(s.getGenDiagram());
 		doAssert("GenDiagram", d);

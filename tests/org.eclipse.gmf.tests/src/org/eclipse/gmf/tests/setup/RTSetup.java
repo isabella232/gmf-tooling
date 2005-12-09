@@ -68,10 +68,10 @@ public class RTSetup implements RTSource {
 
 		EObject diagramElement = instanceProducer.createInstance(genSource.getGenDiagram().getDomainDiagramElement());
 		myCanvas.setElement(diagramElement);
-		EObject nodeElement = instanceProducer.createInstance(genSource.getGenNode().getDomainMetaClass());
+		EObject nodeElement = instanceProducer.createInstance(genSource.getNodeA().getDomainMetaClass());
 		myNode.setElement(nodeElement);
 		//myNode.setVisualID(genSource.getGenNode().getVisualID());
-		TypeLinkModelFacet mf = (TypeLinkModelFacet) genSource.getGenLink().getModelFacet();
+		TypeLinkModelFacet mf = (TypeLinkModelFacet) genSource.getLinkC().getModelFacet();
 		EObject linkElement = instanceProducer.createInstance(mf.getMetaClass());
 		myLink.setElement(linkElement);
 		//myLink.setVisualID(genSource.getGenLink().getVisualID());
@@ -85,8 +85,8 @@ public class RTSetup implements RTSource {
 		myCanvas.setType(genSource.getGenDiagram().getEMFGenModel().getModelName());
 
 		affixVisualID(myCanvas, genSource.getGenDiagram());
-		affixVisualID(myNode, genSource.getGenNode());
-		affixVisualID(myLink, genSource.getGenLink());
+		affixVisualID(myNode, genSource.getNodeA());
+		affixVisualID(myLink, genSource.getLinkC());
 
 		/*
 		Object nc = diagramElement.eGet(genSource.getGenNode().getContainmentMetaFeature().getEcoreFeature());

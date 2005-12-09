@@ -12,6 +12,7 @@
 package org.eclipse.gmf.tests.setup;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -25,11 +26,22 @@ import org.eclipse.gmf.mappings.NodeMapping;
 public class MapDefFileSetup implements MapDefSource {
 
 	private Mapping myMap;
+	private LinkMapping myClassLink;
+	private LinkMapping myRefLink;
 
 	public MapDefFileSetup init(URI sourceURI) throws IOException {
 		ResourceSet srcResSet = new ResourceSetImpl();
 		Resource srcRes = srcResSet.getResource(sourceURI, true);
 		myMap = (Mapping) srcRes.getContents().get(0);
+		for (Iterator it = getMapping().getLinks().iterator(); it.hasNext();) {
+			LinkMapping next = (LinkMapping) it.next();
+			if (myClassLink == null && next.getDomainMetaClass() != null) {
+				myClassLink = next;
+			}
+			if (myRefLink == null && next.getDomainMetaClass() == null) {
+				myRefLink = next;
+			}
+		}
 		return this;
 	}
 
@@ -37,15 +49,23 @@ public class MapDefFileSetup implements MapDefSource {
 		return myMap;
 	}
 
-	public final CanvasMapping getCanvasMapping() {
+	public final CanvasMapping getCanvas() {
 		return getMapping().getDiagram();
 	}
 
-	public NodeMapping getNodeMapping() {
+	public NodeMapping getNodeA() {
 		return (NodeMapping) getMapping().getNodes().get(0);
 	}
 
-	public LinkMapping getLinkMapping() {
-		return (LinkMapping) getMapping().getLinks().get(0);
+	public NodeMapping getNodeB() {
+		return (NodeMapping) getMapping().getNodes().get(1);
+	}
+
+	public LinkMapping getClassLink() {
+		return myClassLink;
+	}
+
+	public LinkMapping getReferenceLink() {
+		return myRefLink;
 	}
 }

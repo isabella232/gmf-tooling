@@ -11,15 +11,12 @@
 package org.eclipse.gmf.tests.rt;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.draw2d.GraphicsSource;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LightweightSystem;
@@ -29,33 +26,12 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gmf.bridge.genmodel.BasicDiagramRunTimeModelHelper;
-import org.eclipse.gmf.bridge.genmodel.BasicGenModelAccess;
-import org.eclipse.gmf.bridge.genmodel.DefaultNamingStrategy;
-import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
-import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.gmfgraph.Canvas;
-import org.eclipse.gmf.gmfgraph.Connection;
-import org.eclipse.gmf.gmfgraph.FigureGallery;
-import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
-import org.eclipse.gmf.mappings.CanvasMapping;
-import org.eclipse.gmf.mappings.GMFMapFactory;
-import org.eclipse.gmf.mappings.LinkMapping;
-import org.eclipse.gmf.mappings.Mapping;
-import org.eclipse.gmf.mappings.MappingEntry;
-import org.eclipse.gmf.mappings.NodeMapping;
-import org.eclipse.gmf.mappings.ToolGroup;
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
@@ -75,11 +51,8 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.tests.EPath;
-import org.eclipse.gmf.tests.setup.DiaDefSource;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.GenProjectSetup;
-import org.eclipse.gmf.tests.setup.MapDefSource;
 import org.eclipse.gmf.tests.setup.RTSetup;
 import org.eclipse.gmf.tests.setup.RTSource;
 import org.eclipse.gmf.tests.setup.SessionSetup;
@@ -93,18 +66,11 @@ import org.osgi.framework.Bundle;
  */
 public abstract class RuntimeDiagramTestBase extends TestCase {
 	protected Bundle gmfEditorBundle;
-
 	protected EditPart myDiagramEditPart;
-
 	protected EditPartViewer myViewer;
-
 	protected Composite myParentShell;
 
-	protected GenDiagram myGenDiagram;
-
-	protected Map transformationMap;
-
-	public RuntimeDiagramTestBase(String name) {
+	protected RuntimeDiagramTestBase(String name) {
 		super(name);
 	}
 
@@ -115,41 +81,28 @@ public abstract class RuntimeDiagramTestBase extends TestCase {
 	protected Diagram getDiagram() {
 		return myDiagramEditPart != null ? (Diagram) myDiagramEditPart.getModel() : null;
 	}
-
-	protected abstract AbstractMappings getMappings();
-
-	/**
-	 * Called before generation step. User should override this method and
-	 * customize genmodel with specific settings.
-	 * 
-	 * @see #getGenElement(MappingEntry)
-	 */
-	protected void customizeGenModelBeforeGeneration() {
-		// do nothing be default
-	}
-
+		
+	protected abstract DiaGenSource getGenModel();
+	
 	protected void setUp() throws Exception {
 		super.setUp();
 
-		DiaGenSetup diaGenSetup = new DiaGenSetup(getMappings());
-
-		this.myGenDiagram = diaGenSetup.getGenDiagram();
-		assertNotNull("GenDiagram not initialized", myGenDiagram); //$NON-NLS-1$
+		assertNotNull("GenDiagram not initialized", getGenModel().getGenDiagram()); //$NON-NLS-1$
 
 		GenProjectSetup genProject = new GenProjectSetup();
-		genProject.init(SessionSetup.getRuntimeWorkspaceSetup(), diaGenSetup);
+		genProject.init(SessionSetup.getRuntimeWorkspaceSetup(), getGenModel());
 
 		this.gmfEditorBundle = genProject.getBundle();
 		assertNotNull("GMF editor plugin bundle not initialized", gmfEditorBundle); //$NON-NLS-1$
 
-		String epFactoryClassName = diaGenSetup.getGenDiagram().getEditPartFactoryQualifiedClassName();
+		String epFactoryClassName = getGenModel().getGenDiagram().getEditPartFactoryQualifiedClassName();
 		Class epFactory = this.gmfEditorBundle.loadClass(epFactoryClassName);
 
 		assert EditPartFactory.class.isAssignableFrom(epFactory);
 		myViewer = createViewer();
 		myViewer.setEditPartFactory((EditPartFactory) epFactory.newInstance());
 
-		RTSource rtDiagram = new RTSetup().init(this.gmfEditorBundle, diaGenSetup);
+		RTSource rtDiagram = new RTSetup().init(this.gmfEditorBundle, getGenModel());
 
 		myViewer.setContents(rtDiagram.getCanvas());
 		myDiagramEditPart = (EditPart) myViewer.getEditPartRegistry().get(rtDiagram.getCanvas());
@@ -308,7 +261,7 @@ public abstract class RuntimeDiagramTestBase extends TestCase {
 	protected IMetamodelType getElementType(GenCommonBase genElement) {
 		Class clazz = null;
 		try {
-			clazz = gmfEditorBundle.loadClass(this.myGenDiagram.getElementTypesQualifiedClassName());
+			clazz = gmfEditorBundle.loadClass(getGenModel().getGenDiagram().getElementTypesQualifiedClassName());
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail("ElementTypes class not loaded. " + e.getLocalizedMessage()); //$NON-NLS-1$
@@ -326,240 +279,6 @@ public abstract class RuntimeDiagramTestBase extends TestCase {
 		}
 
 		return null;
-	}
-
-	protected GenCommonBase getGenElement(MappingEntry mappingEntry) {
-		assert transformationMap != null && !transformationMap.isEmpty() : "transformation map not initialized"; //$NON-NLS-1$		
-		Object genElement = transformationMap.get(mappingEntry);
-		assert genElement != null : "No genmodel element found for mapping entry"; //$NON-NLS-1$
-		assert genElement instanceof GenCommonBase : "Invalid genmodel element"; //$NON-NLS-1$
-		return (GenCommonBase) genElement;
-	}
-
-	protected abstract static class AbstractDiaDefs implements DiaDefSource {
-		private final Canvas canvas;
-		private final FigureGallery figureGallery;
-
-		protected AbstractDiaDefs() {
-			this.canvas = GMFGraphFactory.eINSTANCE.createCanvas();
-			figureGallery = GMFGraphFactory.eINSTANCE.createFigureGallery();
-			figureGallery.setName("fc1");
-			this.canvas.getFigures().add(figureGallery);
-			init();
-		}
-
-		protected abstract void init();
-
-		public Canvas getCanvas() {
-			return canvas;
-		}
-
-		public Canvas getCanvasDef() {
-			return canvas;
-		}
-
-		public Connection getLinkDef() {
-			return !canvas.getConnections().isEmpty() ? (Connection) canvas.getConnections().get(0) : null;
-		}
-
-		public org.eclipse.gmf.gmfgraph.Node getNodeDef() {
-			return !canvas.getNodes().isEmpty() ? (org.eclipse.gmf.gmfgraph.Node) canvas.getNodes().get(0) : null;
-		}
-
-		protected Connection createConnection(String name) {
-			Connection conn = GMFGraphFactory.eINSTANCE.createConnection();
-			conn.setName(name);
-			conn.setFigure(GMFGraphFactory.eINSTANCE.createPolylineConnection());
-			conn.getFigure().setName("lf1");
-			figureGallery.getFigures().add(conn.getFigure());
-			canvas.getConnections().add(conn);
-			return conn;
-		}
-
-		protected org.eclipse.gmf.gmfgraph.Node createNode(String name) {
-			org.eclipse.gmf.gmfgraph.Node node = GMFGraphFactory.eINSTANCE.createNode();
-			node.setName(name);
-			node.setFigure(GMFGraphFactory.eINSTANCE.createEllipse());
-			node.getFigure().setName("nf1");
-			figureGallery.getFigures().add(node.getFigure());
-			canvas.getNodes().add(node);
-			return node;
-		}
-	}
-
-	public static abstract class AbstractMappings implements MapDefSource {
-		private EPackage domainModel;
-
-		private Mapping mapping;
-
-		private Canvas canvas;
-
-		protected AbstractMappings(EPackage domainModel, DiaDefSource diaDefSource) {
-			this.domainModel = domainModel;
-			this.mapping = GMFMapFactory.eINSTANCE.createMapping();
-			this.canvas = diaDefSource.getCanvasDef();
-			assert canvas != null;
-
-			init();
-		}
-
-		public Canvas getMappedCanvas() {
-			return canvas;
-		}
-
-		protected abstract void init();
-
-		protected CanvasMapping mapCanvas(String domainEClassQName) {
-			CanvasMapping canvasMapping = GMFMapFactory.eINSTANCE.createCanvasMapping();
-			canvasMapping.setDiagramCanvas(canvas);
-			canvasMapping.setDomainModel(domainModel);
-			canvasMapping.setDomainMetaElement((EClass) EPath.ECORE.lookup(domainModel, domainEClassQName));
-			ToolGroup tg = GMFMapFactory.eINSTANCE.createToolGroup();
-			tg.setName("tg1");
-			mapping.getToolGroups().add(tg);
-			mapping.setDiagram(canvasMapping);
-			return canvasMapping;
-		}
-
-		protected NodeMapping mapNode(String nodeName, String eClassQName, String containmentFeature) {
-			NodeMapping nodeMap = GMFMapFactory.eINSTANCE.createNodeMapping();
-			nodeMap.setDiagramNode((org.eclipse.gmf.gmfgraph.Node) EPath.GMFGRAPH.lookup(canvas, nodeName));
-			nodeMap.setDomainMetaElement((EClass) EPath.ECORE.lookup(domainModel, eClassQName));
-			nodeMap.setContainmentFeature((EReference) EPath.ECORE.lookup(domainModel, containmentFeature));
-			nodeMap.setTool(GMFMapFactory.eINSTANCE.createCreationTool());
-			nodeMap.getTool().setGroup((ToolGroup) mapping.getToolGroups().get(0));
-			mapping.getNodes().add(nodeMap);
-			return nodeMap;
-		}
-
-		protected LinkMapping mapClassLink(String linkName, String domainEClassQName, String containmentMetaFeature, String linkMetaFeature) {
-			LinkMapping linkMap = GMFMapFactory.eINSTANCE.createLinkMapping();
-			linkMap.setDiagramLink((Connection) EPath.GMFGRAPH.lookup(canvas, linkName));
-			linkMap.setDomainMetaElement((EClass) EPath.ECORE.lookup(domainModel, domainEClassQName));
-			linkMap.setContainmentFeature((EReference) EPath.ECORE.lookup(domainModel, containmentMetaFeature));
-			linkMap.setLinkMetaFeature((EReference) EPath.ECORE.lookup(domainModel, linkMetaFeature));
-			mapping.getLinks().add(linkMap);
-			return linkMap;
-		}
-
-		protected LinkMapping mapRefLink(String linkName, String linkMetaFeature) {
-			LinkMapping linkMap = GMFMapFactory.eINSTANCE.createLinkMapping();
-			linkMap.setDiagramLink((Connection) EPath.GMFGRAPH.lookup(canvas, linkName));
-			linkMap.setLinkMetaFeature((EReference) EPath.ECORE.lookup(domainModel, linkMetaFeature));
-			mapping.getLinks().add(linkMap);
-			return linkMap;
-		}
-
-		public CanvasMapping getCanvasMapping() {
-			return mapping.getDiagram();
-		}
-
-		public LinkMapping getLinkMapping() {
-			return mapping.getLinks().isEmpty() ? null : (LinkMapping) mapping.getLinks().get(0);
-		}
-
-		public Mapping getMapping() {
-			return mapping;
-		}
-
-		public NodeMapping getNodeMapping() {
-			return mapping.getNodes().isEmpty() ? null : (NodeMapping) mapping.getNodes().get(0);
-		}
-	}
-
-	private class DiaGenSetup implements DiaGenSource {
-		private MapDefSource mapDefSource;
-
-		private GenDiagram genDiagram;
-
-		DiaGenSetup(AbstractMappings mappingSource) {
-			this.mapDefSource = mappingSource;
-
-			BasicGenModelAccess genModelAccess = new BasicGenModelAccess(mapDefSource.getCanvasMapping().getDomainModel());
-			IStatus status = genModelAccess.createDummy();
-			Assert.assertTrue("GenModel for transformation has error status", status.isOK()); //$NON-NLS-1$
-
-			Transformer transformer = new Transformer();
-			transformer.setEMFGenModel(genModelAccess.model());
-			transformer.transform(mapDefSource.getMapping());
-			this.genDiagram = transformer.getResult();
-
-			RuntimeDiagramTestBase.this.transformationMap = transformer.mapping2GenNode;
-			// call user genmodel customization
-			customizeGenModelBeforeGeneration();
-		}
-
-		public GenDiagram getGenDiagram() {
-			return genDiagram;
-		}
-
-		public GenLink getGenLink() {
-			return genDiagram.getLinks().isEmpty() ? null : (GenLink) genDiagram.getLinks().get(0);
-		}
-
-		public GenNode getGenNode() {
-			return genDiagram.getNodes().isEmpty() ? null : (GenNode) genDiagram.getNodes().get(0);
-		}
-
-		MapDefSource getMapping() {
-			return mapDefSource;
-		}
-	}
-
-	private static class Transformer extends DiagramGenModelTransformer {
-		GenDiagram diagram;
-
-		Adapter adapter;
-
-		Map mapping2GenNode = new HashMap();
-
-		MappingEntry currentMapping;
-
-		Transformer() {
-			super(new BasicDiagramRunTimeModelHelper(), new DefaultNamingStrategy());
-		}
-
-		public void transform(Mapping m) {
-			try {
-				super.transform(m);
-			} finally {
-				if (adapter != null) {
-					diagram.eAdapters().remove(adapter);
-				}
-			}
-		}
-
-		protected void process(CanvasMapping cme) {
-			super.process(cme);
-
-			this.diagram = getResult();
-			this.mapping2GenNode.put(diagram, cme);
-			AdapterImpl adapter = new AdapterImpl() {
-				public void notifyChanged(Notification msg) {
-					if (msg.getEventType() == Notification.ADD) {
-						Object newObj = msg.getNewValue();
-						if (newObj instanceof GenNode || newObj instanceof GenLink) {
-							mapping2GenNode.put(currentMapping, newObj);
-						}
-					}
-				}
-
-				public boolean isAdapterForType(Object type) {
-					return true;
-				}
-			};
-			diagram.eAdapters().add(adapter);
-		}
-
-		protected void process(LinkMapping lme) {
-			currentMapping = lme;
-			super.process(lme);
-		}
-
-		protected void process(NodeMapping nme) {
-			currentMapping = nme;
-			super.process(nme);
-		}
 	}
 
 	private static final class Viewer extends DiagramGraphicalViewer implements IDiagramGraphicalViewer {

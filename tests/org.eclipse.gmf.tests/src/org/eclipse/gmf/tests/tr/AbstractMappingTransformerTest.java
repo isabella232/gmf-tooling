@@ -55,15 +55,15 @@ public abstract class AbstractMappingTransformerTest extends ConfiguredTestCase 
 	}
 
 	protected final CanvasMapping getCanvasMapping() {
-		return myMapDef.getCanvasMapping();
+		return myMapDef.getCanvas();
 	}
 
 	protected NodeMapping getNodeMapping() {
-		return myMapDef.getNodeMapping();
+		return myMapDef.getNodeA();
 	}
 
 	protected LinkMapping getLinkMapping() {
-		return myMapDef.getLinkMapping();
+		return myMapDef.getClassLink();
 	}
 
 	// no-op

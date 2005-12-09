@@ -20,9 +20,17 @@ public interface MapDefSource {
 
 	Mapping getMapping();
 
-	CanvasMapping getCanvasMapping();
+	CanvasMapping getCanvas();
 
-	NodeMapping getNodeMapping();
+	NodeMapping getNodeA();
 
-	LinkMapping getLinkMapping();
+	/**
+	 * could be null
+	 * @return
+	 */
+	NodeMapping getNodeB();
+
+	LinkMapping getClassLink();
+
+	LinkMapping getReferenceLink();
 }
