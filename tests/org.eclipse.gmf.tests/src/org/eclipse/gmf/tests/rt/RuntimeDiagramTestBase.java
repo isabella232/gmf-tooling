@@ -11,7 +11,6 @@
 package org.eclipse.gmf.tests.rt;
 
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import junit.framework.Assert;
@@ -29,7 +28,6 @@ import org.eclipse.emf.common.notify.impl.AdapterImpl;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gef.EditPartViewer;
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
@@ -116,40 +114,8 @@ public abstract class RuntimeDiagramTestBase extends TestCase {
 		super.tearDown();
 	}
 
-	protected EditPart findEditPart(EditPart parentEditPart, View notationElement) {
-		if (parentEditPart.getModel() instanceof View) {
-			View view = (View) parentEditPart.getModel();
-			if (notationElement instanceof Node || notationElement instanceof Diagram) {
-				if (view == notationElement) {
-					return parentEditPart;
-				}
-			} else if (notationElement instanceof Edge) {
-				if (parentEditPart instanceof GraphicalEditPart) {
-					GraphicalEditPart gpart = (GraphicalEditPart) parentEditPart;
-					for (Iterator it = gpart.getSourceConnections().iterator(); it.hasNext();) {
-						EditPart nextPart = (EditPart) it.next();
-						if (nextPart.getModel() == notationElement) {
-							return nextPart;
-						}
-					}
-					for (Iterator it = gpart.getTargetConnections().iterator(); it.hasNext();) {
-						EditPart nextPart = (EditPart) it.next();
-						if (nextPart.getModel() == notationElement) {
-							return nextPart;
-						}
-					}
-				}
-			}
-		}
-
-		for (Iterator it = parentEditPart.getChildren().iterator(); it.hasNext();) {
-			EditPart childEditPart = (EditPart) it.next();
-			EditPart foundEPart = findEditPart(childEditPart, notationElement);
-			if (foundEPart != null) {
-				return foundEPart;
-			}
-		}
-		return null;
+	protected EditPart findEditPart(View notationElement) {
+		return (EditPart) myViewer.getEditPartRegistry().get(notationElement);
 	}
 
 	protected Node createNode(IMetamodelType metamodelType, View notationContainer) {
@@ -171,7 +137,7 @@ public abstract class RuntimeDiagramTestBase extends TestCase {
 
 		try {
 			CreateViewAndElementRequest req = new CreateViewAndElementRequest(metamodelType, notationContainer, PreferencesHint.USE_DEFAULTS);
-			Command cmd = findEditPart(getDiagramEditPart(), notationContainer).getCommand(req);
+			Command cmd = findEditPart(notationContainer).getCommand(req);
 			Assert.assertNotNull("No command is available for request", cmd); //$NON-NLS-1$		
 			cmd.execute();
 		} catch (Exception e) {
@@ -186,7 +152,7 @@ public abstract class RuntimeDiagramTestBase extends TestCase {
 	protected boolean canStartLinkFrom(IMetamodelType metamodelType, View source) {
 		CreateRelationshipRequest req = new CreateRelationshipRequest(source.getElement(), null, metamodelType);
 		EditCommandRequestWrapper wrapper = new EditCommandRequestWrapper(req);
-		Command cmd = findEditPart(getDiagramEditPart(), source).getCommand(wrapper);
+		Command cmd = findEditPart(source).getCommand(wrapper);
 		return cmd != null && cmd.canExecute();
 	}
 
@@ -219,7 +185,7 @@ public abstract class RuntimeDiagramTestBase extends TestCase {
 			CreateConnectionViewAndElementRequest req = new CreateConnectionViewAndElementRequest(desc);
 			req.setType(RequestConstants.REQ_CONNECTION_START);
 
-			EditPart sourceEditPart = findEditPart(getDiagramEditPart(), source);
+			EditPart sourceEditPart = findEditPart(source);
 			req.setSourceEditPart(sourceEditPart);
 			// Note: initializes the sourceCommand in the request
 			Command sourceCmd = sourceEditPart.getCommand(req);
@@ -227,7 +193,7 @@ public abstract class RuntimeDiagramTestBase extends TestCase {
 				return null;
 			}
 
-			EditPart targetEditPart = target != null ? findEditPart(getDiagramEditPart(), target) : null;
+			EditPart targetEditPart = target != null ? findEditPart(target) : null;
 			if (targetEditPart != null) {
 				req.setType(RequestConstants.REQ_CONNECTION_END);
 				req.setTargetEditPart(targetEditPart);

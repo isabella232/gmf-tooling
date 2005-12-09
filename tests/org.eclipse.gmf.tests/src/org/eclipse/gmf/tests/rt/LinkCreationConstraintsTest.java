@@ -51,7 +51,7 @@ public class LinkCreationConstraintsTest extends RuntimeDiagramTestBase {
 		EPath.setStructuralFeature(sourceContainerNode.getElement(), "acceptLinkKind", null); //$NON-NLS-1$		
 		
 		Node targetNode = createNode(nodeMetaType, diagram);		
-		assertNotNull(findEditPart(getDiagramEditPart(), targetNode));
+		assertNotNull(findEditPart(targetNode));
 		EPath.setStructuralFeature(sourceContainerNode.getElement(), "acceptLinkKind", null); //$NON-NLS-1$				
 		assertFalse("Can start link without acceptedLinkKind", //$NON-NLS-1$
 				canStartLinkFrom(referenceLinkMetaType, sourceContainerNode));
