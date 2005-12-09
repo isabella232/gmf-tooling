@@ -49,8 +49,10 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.GenProjectSetup;
+import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.RTSetup;
 import org.eclipse.gmf.tests.setup.RTSource;
 import org.eclipse.gmf.tests.setup.SessionSetup;
@@ -62,7 +64,7 @@ import org.osgi.framework.Bundle;
 /**
  * Unit testcase base class with support for runtime-diagram editing.
  */
-public abstract class RuntimeDiagramTestBase extends TestCase {
+public abstract class RuntimeDiagramTestBase extends ConfiguredTestCase {
 	protected Bundle gmfEditorBundle;
 	protected EditPart myDiagramEditPart;
 	protected EditPartViewer myViewer;
@@ -79,9 +81,15 @@ public abstract class RuntimeDiagramTestBase extends TestCase {
 	protected Diagram getDiagram() {
 		return myDiagramEditPart != null ? (Diagram) myDiagramEditPart.getModel() : null;
 	}
-		
-	protected abstract DiaGenSource getGenModel();
-	
+
+	protected DiaGenSource getGenModel() {
+		return getSetup().getGenModel();
+	}
+
+	protected SessionSetup createDefaultSetup() {
+		return LinksSessionSetup.newInstance();
+	}
+
 	protected void setUp() throws Exception {
 		super.setUp();
 

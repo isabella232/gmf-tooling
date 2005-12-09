@@ -21,22 +21,23 @@ import org.eclipse.gmf.tests.EPath;
 import org.eclipse.gmf.tests.Plugin;
 
 
-public class LinksSessionSetup {
-	public static String modelURI = "/models/links/links.ecore"; //$NON-NLS-1$
+public class LinksSessionSetup extends SessionSetup {
+	private static String modelURI = "/models/links/links.ecore"; //$NON-NLS-1$
 	
-	public static final LinksSessionSetup INSTANCE = new LinksSessionSetup();
 	private MapSetup mapDefSource;
-	private DomainModelFileSetup modelSetup;
-	private DiaGenSetup diaDefSource;	
-	
+
 	private LinksSessionSetup() {
 	}
 
-	private DomainModelSource getDomainModelSource() {
-		if(modelSetup != null) {
-			return modelSetup;
+	public static SessionSetup newInstance() {
+		if (factoryClosed) {
+			return null;
 		}
-		this.modelSetup = new DomainModelFileSetup() {
+		return new LinksSessionSetup();
+	}
+
+	protected DomainModelSource createDomainModel() {
+		DomainModelFileSetup modelSetup = new DomainModelFileSetup() {
 			public EClass getDiagramElement() {
 				return (EClass) EPath.ECORE.lookup(getModel(), "Root");
 			}
@@ -69,15 +70,13 @@ public class LinksSessionSetup {
 		return modelSetup;
 	}
 	
-	public DiaGenSource getDiaGenSource() {
-		if(diaDefSource != null) {
-			return diaDefSource;
-		}
-		diaDefSource = new DiaGenSetup();
-		diaDefSource.init(getMapDefSource());
-		return diaDefSource;
+	protected DiaGenSource createGenModel() {
+		return new DiaGenSetup().init(getMapDefSource());
 	}
-	
+
+	/**
+	 * XXX perhaps, just move to superclass for uniformity, override createMapDefSource here.
+	 */
 	public MapDefSource getMapDefSource() {
 		if(mapDefSource != null) {
 			return mapDefSource;
@@ -93,7 +92,7 @@ public class LinksSessionSetup {
 						"self.acceptLinkKind = oppositeEnd.acceptLinkKind"); //$NON-NLS-1$
 			}
 		};
-		this.mapDefSource.init(new DiaDefSetup(null).init(), getDomainModelSource());
+		this.mapDefSource.init(new DiaDefSetup(null).init(), getDomainModel());
 
 		// TODO - uncomment when multiple elements with the same domainMetaElement do not cause compilation problem		
 		//LinkMapping FIRST_CHILD_LINK_MAPPING = mapDefSource.mapClassLink("Link", "Container::firstChildNode", "Link::target"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$

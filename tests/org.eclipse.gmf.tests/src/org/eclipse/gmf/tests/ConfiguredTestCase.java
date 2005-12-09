@@ -41,9 +41,16 @@ public abstract class ConfiguredTestCase extends TestCase implements NeedsSetup 
 		super.setUp();
 		if (mySessionSetup == null) {
 			// subject to enabled/disabled state dictated from AllTests 
-			mySessionSetup = SessionSetup.newInstance();
+			mySessionSetup = createDefaultSetup();
 		}
 		assertNotNull("Test " + getName() + " needs session setup", mySessionSetup);
+	}
+
+	/**
+	 * Will be invoked when no setup set, usually in single test execution scenario.
+	 */
+	protected SessionSetup createDefaultSetup() {
+		return SessionSetup.newInstance();
 	}
 
 	protected void tearDown() throws Exception {

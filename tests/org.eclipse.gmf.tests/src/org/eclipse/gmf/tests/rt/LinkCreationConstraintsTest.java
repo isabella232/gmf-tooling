@@ -17,25 +17,13 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.tests.EPath;
-import org.eclipse.gmf.tests.setup.DiaGenSource;
-import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 
 public class LinkCreationConstraintsTest extends RuntimeDiagramTestBase {
-	private LinksSessionSetup setup;
-	
+
 	public LinkCreationConstraintsTest(String name) {
 		super(name);
 	}
 	
-	protected DiaGenSource getGenModel() {
-		return setup.getDiaGenSource();
-	}
-
-	protected void setUp() throws Exception {
-		setup = LinksSessionSetup.INSTANCE;
-		super.setUp();
-	}
-
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}

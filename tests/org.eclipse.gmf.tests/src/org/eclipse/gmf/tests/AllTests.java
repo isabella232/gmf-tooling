@@ -21,6 +21,7 @@ import org.eclipse.gmf.tests.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.gen.CompilationTest;
 import org.eclipse.gmf.tests.gen.HandcodedImplTest;
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
+import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.TestSetupTest;
 import org.eclipse.gmf.tests.tr.EPNamingStrategyTest;
@@ -33,6 +34,7 @@ public class AllTests {
 		//$JUnit-BEGIN$
 		
 		final SessionSetup sessionSetup = SessionSetup.newInstance();
+		final LinksSessionSetup sessionSetup2 = (LinksSessionSetup) LinksSessionSetup.newInstance();
 		SessionSetup.disallowSingleTestCaseUse();
 		
 		
@@ -49,7 +51,7 @@ public class AllTests {
 //		suite.addTestSuite(CanvasTest.class); Nothing there yet
 //		suite.addTestSuite(SpecificRTPropertiesTest.class); #113965 
 		
-		suite.addTestSuite(LinkCreationConstraintsTest.class);
+		suite.addTest(feed(LinkCreationConstraintsTest.class, sessionSetup2));
 		//$JUnit-END$
 		suite.addTest(new TestCase("testCleanup") {
 			protected void runTest() throws Throwable {

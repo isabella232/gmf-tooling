@@ -58,7 +58,7 @@ public class DiaGenSetup implements DiaGenSource {
 	/**
 	 * @return <code>this</code> for convenience
 	 */
-	public DiaGenSetup init(DomainModelSetup domainSource) {
+	public DiaGenSetup init(DomainModelSource domainSource) {
 		final GenModel runtimeModel = getRuntimeGenModel();
 		final String pluginID = Utils.createUniquePluginID();
 		assert runtimeModel != null;

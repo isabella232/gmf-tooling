@@ -11,22 +11,24 @@
  */
 package org.eclipse.gmf.tests.setup;
 
+import org.osgi.framework.BundleException;
+
 /**
  * @author artem
  */
 public class SessionSetup {
 
-	private DomainModelSetup myDomainModel;
+	private DomainModelSource myDomainModel;
 	private DiaGenSource myGenModel;
 	private GenProjectSetup myProject;
 	private int myUses;
 	private static RuntimeWorkspaceSetup myRuntimeWorkspaceSetup;
-	private static boolean factoryClosed = false;
+	protected static boolean factoryClosed = false;
 
 	/**
 	 * Use factory method {@link #newInstance()} instead
 	 */
-	private SessionSetup() {
+	protected SessionSetup() {
 	}
 
 	/**
@@ -46,26 +48,37 @@ public class SessionSetup {
 		return new SessionSetup();
 	}
 
-	public DomainModelSetup getDomainModel() {
+	public DomainModelSource getDomainModel() {
 		if (myDomainModel == null) {
-			myDomainModel = new DomainModelSetup().init();
+			myDomainModel = createDomainModel();
 		}
 		return myDomainModel;
 	}
 
+	protected DomainModelSource createDomainModel() {
+		return new DomainModelSetup().init();
+	}
+
 	public DiaGenSource getGenModel() {
 		if (myGenModel == null) {
-			myGenModel = new DiaGenSetup().init(getDomainModel());
+			myGenModel = createGenModel();
 		}
 		return myGenModel;
 	}
 
+	protected DiaGenSource createGenModel() {
+		return new DiaGenSetup().init(getDomainModel());
+	}
+
 	public GenProjectSetup getGenProject() throws Exception {
 		if (myProject == null) {
-			myProject = new GenProjectSetup();
-			myProject.init(getRuntimeWorkspaceSetup(), getGenModel());
+			myProject = createGenProject();
 		}
 		return myProject;
+	}
+
+	protected GenProjectSetup createGenProject() throws BundleException, Exception {
+		return new GenProjectSetup().init(getRuntimeWorkspaceSetup(), getGenModel());
 	}
 
 	public static RuntimeWorkspaceSetup getRuntimeWorkspaceSetup() throws Exception {
