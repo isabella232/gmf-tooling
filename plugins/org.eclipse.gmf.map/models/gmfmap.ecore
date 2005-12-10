@@ -64,8 +64,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="ChildNodeMapping" eSuperTypes="#//AbstractNodeMapping">
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramNode" lowerBound="1"
         eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Child"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="compartment" lowerBound="1"
-        eType="#//CompartmentMapping" eOpposite="#//CompartmentMapping/childNodes"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="compartment" eType="#//CompartmentMapping"
+        eOpposite="#//CompartmentMapping/childNodes"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentNode" lowerBound="1"
         eType="#//AbstractNodeMapping" changeable="false" eOpposite="#//AbstractNodeMapping/childMappings"/>
   </eClassifiers>

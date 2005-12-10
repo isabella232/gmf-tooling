@@ -26,26 +26,23 @@ public class ChildContainerCanonicalEditPolicyGenerator {
   protected final String TEXT_7 = NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
   protected final String TEXT_8 = " getSemanticChildrenList() {" + NL + "\t\t\t";
   protected final String TEXT_9 = " modelElement = (";
-  protected final String TEXT_10 = ") ((View) getHost().getModel()).getElement();";
-  protected final String TEXT_11 = NL + "\t\t\tList result = new ";
-  protected final String TEXT_12 = "();" + NL + "\t\t\tfor (";
-  protected final String TEXT_13 = " it = getViewChildren().iterator(); it.hasNext();) {" + NL + "\t\t\t\tView nextView = (View) it.next();" + NL + "\t\t\t\tif (nextView.getElement() == modelElement) {" + NL + "\t\t\t\t\tresult.add(modelElement);" + NL + "\t\t\t\t}" + NL + "\t\t\t}";
-  protected final String TEXT_14 = NL;
-  protected final String TEXT_15 = NL + "\t\t\t";
-  protected final String TEXT_16 = " nextValue;" + NL + "\t\t\tint nodeVID;";
-  protected final String TEXT_17 = "\t" + NL + "\t\t\tfor (";
-  protected final String TEXT_18 = " it = ";
-  protected final String TEXT_19 = ".iterator(); it.hasNext();) {" + NL + "\t\t\t\tnextValue = (";
-  protected final String TEXT_20 = ") it.next();";
-  protected final String TEXT_21 = NL + "\t\t\tnextValue = ";
-  protected final String TEXT_22 = ";";
-  protected final String TEXT_23 = NL + "\t\t\tnodeVID = ";
-  protected final String TEXT_24 = ".INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, \"\");" + NL + "\t\t\tif (";
-  protected final String TEXT_25 = " == nodeVID) {" + NL + "\t\t\t\tresult.add(nextValue);" + NL + "\t\t\t}";
-  protected final String TEXT_26 = NL + "\t\t\t}";
-  protected final String TEXT_27 = "\t\t\t" + NL + "\t\t\treturn result;" + NL + "\t\t}";
-  protected final String TEXT_28 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getFactoryHint(IAdaptable elementAdapter) {" + NL + "\t\treturn \"\";" + NL + "\t}" + NL + "}";
-  protected final String TEXT_29 = NL;
+  protected final String TEXT_10 = ") ((View) getHost().getModel()).getElement();" + NL + "\t\t\tList result = new ";
+  protected final String TEXT_11 = "();";
+  protected final String TEXT_12 = NL + "\t\t\t";
+  protected final String TEXT_13 = " nextValue;" + NL + "\t\t\tint nodeVID;";
+  protected final String TEXT_14 = "\t" + NL + "\t\t\tfor (";
+  protected final String TEXT_15 = " it = ";
+  protected final String TEXT_16 = ".iterator(); it.hasNext();) {" + NL + "\t\t\t\tnextValue = (";
+  protected final String TEXT_17 = ") it.next();";
+  protected final String TEXT_18 = NL + "\t\t\tnextValue = ";
+  protected final String TEXT_19 = ";";
+  protected final String TEXT_20 = NL + "\t\t\tnodeVID = ";
+  protected final String TEXT_21 = ".INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, \"\");" + NL + "\t\t\tif (";
+  protected final String TEXT_22 = " == nodeVID) {" + NL + "\t\t\t\tresult.add(nextValue);" + NL + "\t\t\t}";
+  protected final String TEXT_23 = NL + "\t\t\t}";
+  protected final String TEXT_24 = "\t\t\t" + NL + "\t\t\treturn result;" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected boolean shouldDeleteView(View view) {" + NL + "\t\t\treturn view.getElement() != ((View) getHost().getModel()).getElement();" + NL + "\t\t}";
+  protected final String TEXT_25 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getFactoryHint(IAdaptable elementAdapter) {" + NL + "\t\treturn \"\";" + NL + "\t}" + NL + "}";
+  protected final String TEXT_26 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
 		StringBuffer result = new StringBuffer();
@@ -174,31 +171,14 @@ GenDiagram genDiagram = genContainer.getDiagram();
     stringBuffer.append(TEXT_9);
     stringBuffer.append(modelElementInterfaceName);
     stringBuffer.append(TEXT_10);
-    
-/**
- * [++]
- * This code was added to sate visual element without underlying semanti one
- * see http://www.eclipse.org/newsportal/article.php?id=536&group=eclipse.technology.gmf#536
- * for the details
- */
-
-    stringBuffer.append(TEXT_11);
     stringBuffer.append(importManager.getImportedName("java.util.LinkedList"));
-    stringBuffer.append(TEXT_12);
-    stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
-    stringBuffer.append(TEXT_13);
-    
-/**
- * [--]
- */
-
-    stringBuffer.append(TEXT_14);
+    stringBuffer.append(TEXT_11);
     
 if (genNodes.size() > 0) {
 
-    stringBuffer.append(TEXT_15);
+    stringBuffer.append(TEXT_12);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
-    stringBuffer.append(TEXT_16);
+    stringBuffer.append(TEXT_13);
     
 }
 
@@ -209,40 +189,40 @@ for (Iterator it = genNodes.iterator(); it.hasNext();) {
 	GenFeature childMetaFeature = typeModelFacet.getChildMetaFeature();
 	if (childMetaFeature.isListType()) {
 
-    stringBuffer.append(TEXT_17);
+    stringBuffer.append(TEXT_14);
     stringBuffer.append(importManager.getImportedName("java.util.Iterator"));
-    stringBuffer.append(TEXT_18);
+    stringBuffer.append(TEXT_15);
     stringBuffer.append(getFeatureValueGetter("modelElement", childMetaFeature, false, importManager));
-    stringBuffer.append(TEXT_19);
+    stringBuffer.append(TEXT_16);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
-    stringBuffer.append(TEXT_20);
+    stringBuffer.append(TEXT_17);
     
 	} else {
 
-    stringBuffer.append(TEXT_21);
+    stringBuffer.append(TEXT_18);
     stringBuffer.append(getFeatureValueGetter("modelElement", childMetaFeature, false, importManager));
-    stringBuffer.append(TEXT_22);
+    stringBuffer.append(TEXT_19);
     
 	}
 
-    stringBuffer.append(TEXT_23);
+    stringBuffer.append(TEXT_20);
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
-    stringBuffer.append(TEXT_24);
+    stringBuffer.append(TEXT_21);
     stringBuffer.append(nextNode.getVisualID());
-    stringBuffer.append(TEXT_25);
+    stringBuffer.append(TEXT_22);
     
 	if (childMetaFeature.isListType()) {
 
-    stringBuffer.append(TEXT_26);
+    stringBuffer.append(TEXT_23);
     
 	}
 }
 
-    stringBuffer.append(TEXT_27);
+    stringBuffer.append(TEXT_24);
     }
-    stringBuffer.append(TEXT_28);
+    stringBuffer.append(TEXT_25);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_29);
+    stringBuffer.append(TEXT_26);
     return stringBuffer.toString();
   }
 }

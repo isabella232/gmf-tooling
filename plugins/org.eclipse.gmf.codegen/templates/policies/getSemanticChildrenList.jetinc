@@ -4,27 +4,7 @@
 		 */
 		protected <%=importManager.getImportedName("java.util.List")%> getSemanticChildrenList() {
 			<%=modelElementInterfaceName%> modelElement = (<%=modelElementInterfaceName%>) ((View) getHost().getModel()).getElement();
-<%
-/**
- * [++]
- * This code was added to sate visual element without underlying semanti one
- * see http://www.eclipse.org/newsportal/article.php?id=536&group=eclipse.technology.gmf#536
- * for the details
- */
-%>
 			List result = new <%=importManager.getImportedName("java.util.LinkedList")%>();
-			for (<%=importManager.getImportedName("java.util.Iterator")%> it = getViewChildren().iterator(); it.hasNext();) {
-				View nextView = (View) it.next();
-				if (nextView.getElement() == modelElement) {
-					result.add(modelElement);
-				}
-			}
-<%
-/**
- * [--]
- */
-%>
-
 <%
 if (genNodes.size() > 0) {
 %>
@@ -62,4 +42,11 @@ for (Iterator it = genNodes.iterator(); it.hasNext();) {
 }
 %>			
 			return result;
+		}
+		
+		/**
+		 * @generated
+		 */
+		protected boolean shouldDeleteView(View view) {
+			return view.getElement() != ((View) getHost().getModel()).getElement();
 		}

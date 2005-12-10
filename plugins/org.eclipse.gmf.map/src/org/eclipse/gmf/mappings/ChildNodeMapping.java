@@ -66,7 +66,7 @@ public interface ChildNodeMapping extends AbstractNodeMapping{
 	 * @see #setCompartment(CompartmentMapping)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getChildNodeMapping_Compartment()
 	 * @see org.eclipse.gmf.mappings.CompartmentMapping#getChildNodes
-	 * @model opposite="childNodes" required="true"
+	 * @model opposite="childNodes"
 	 * @generated
 	 */
 	CompartmentMapping getCompartment();

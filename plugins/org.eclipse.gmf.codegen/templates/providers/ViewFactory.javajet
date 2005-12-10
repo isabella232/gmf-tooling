@@ -17,6 +17,8 @@ boolean isDiagram = genElement instanceof GenDiagram;
 boolean isCompartment = genElement instanceof GenCompartment;
 boolean isLeaf = genElement instanceof GenChildNode &&  ((GenChildNode) genElement).isListContainerEntry();
 boolean isNode = !isLink && !isDiagram && !isCompartment;
+
+boolean isFlowLayout = isCompartment ? ((GenCompartment) genElement).getNode().getChildContainersPlacement() == CompartmentPlacementKind.FLOW_LITERAL : false;
 %>
 
 /**
@@ -109,5 +111,40 @@ if (isNode) {
 }
 %>
 	}
+<%	
+if (isFlowLayout) {
+%>
+
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("java.util.List")%> createStyles(View view) {
+		<%=importManager.getImportedName("java.util.List")%> styles = super.createStyles(view);
+		styles.add(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createShapeStyle());
+		return styles;
+	}
+	
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.LayoutConstraint")%> createLayoutConstraint() {
+		return <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationFactory")%>.eINSTANCE.createBounds();
+	}
+	
+	/**
+	 * @generated
+	 */
+	protected void initializeFromPreferences(View view) {
+		super.initializeFromPreferences(view);
+
+		<%=importManager.getImportedName("org.eclipse.jface.preference.IPreferenceStore")%> store = (<%=importManager.getImportedName("org.eclipse.jface.preference.IPreferenceStore")%>) getPreferencesHint().getPreferenceStore();
+
+		// fill color
+		<%=importManager.getImportedName("org.eclipse.swt.graphics.RGB")%> fillRGB = <%=importManager.getImportedName("org.eclipse.jface.preference.PreferenceConverter")%>.getColor(store, <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.preferences.IPreferenceConstants")%>.PREF_FILL_COLOR);
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.setStructuralFeatureValue(view, <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage")%>.eINSTANCE.getFillStyle_FillColor(), <%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities")%>.RGBToInteger(fillRGB));
+	}
+<%
+}
+%>
 }
 <%importManager.emitSortedImports();%>

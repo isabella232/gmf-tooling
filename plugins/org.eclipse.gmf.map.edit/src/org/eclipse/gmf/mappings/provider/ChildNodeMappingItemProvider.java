@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
@@ -107,7 +108,9 @@ public class ChildNodeMappingItemProvider
 				protected Collection getComboBoxObjects(Object object) {
 					if (object instanceof ChildNodeMapping) {
 						ChildNodeMapping mapping = (ChildNodeMapping) object;
-						return new HashSet(mapping.getParentNode().getCompartmentMappings());
+						Set compartments = new HashSet(mapping.getParentNode().getCompartmentMappings());
+						compartments.add(null);
+						return compartments;
 					}
 					return Collections.EMPTY_LIST;
 				}

@@ -13,14 +13,17 @@ package org.eclipse.gmf.tests.setup;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Collection;
 
 import junit.framework.Assert;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -69,6 +72,7 @@ public class RTSetup implements RTSource {
 		EObject diagramElement = instanceProducer.createInstance(genSource.getGenDiagram().getDomainDiagramElement());
 		myCanvas.setElement(diagramElement);
 		EObject nodeElement = instanceProducer.createInstance(genSource.getNodeA().getDomainMetaClass());
+		instanceProducer.setFeatureValue(diagramElement, nodeElement, genSource.getNodeA().getModelFacet().getContainmentMetaFeature());
 		myNode.setElement(nodeElement);
 		//myNode.setVisualID(genSource.getGenNode().getVisualID());
 		TypeLinkModelFacet mf = (TypeLinkModelFacet) genSource.getLinkC().getModelFacet();
@@ -133,10 +137,21 @@ public class RTSetup implements RTSource {
 
 	private interface DomainInstanceProducer {
 		EObject createInstance(GenClass genClass);
+		void setFeatureValue(EObject src, EObject value, GenFeature genFeature);
 	};
 	private static class NaiveDomainInstanceProducer implements DomainInstanceProducer {
 		public EObject createInstance(GenClass genClass) {
 			return createInstance(genClass.getEcoreClass());
+		}
+
+		public void setFeatureValue(EObject src, EObject value, GenFeature genFeature) {
+			EStructuralFeature feature = genFeature.getEcoreFeature();
+			if (genFeature.isListType()) {
+				Collection result = (Collection) src.eGet(feature);
+				result.add(value);
+			} else {
+				src.eSet(feature, value);
+			}
 		}
 
 		public EObject createInstance(EClass eClass) {
@@ -149,7 +164,7 @@ public class RTSetup implements RTSource {
 			try {
 				Class factoryClass = getFactoryClass(genClass);
 				Method m = factoryClass.getMethod("create" + genClass.getName(), new Class[0]);
-				return (EObject) m.invoke(getFactoryInstance(factoryClass), new Object[0]);
+				return (EObject) m.invoke(getInstance(factoryClass), new Object[0]);
 			} catch (NoSuchFieldException ex) {
 				Assert.fail(ex.getMessage());
 			} catch (NoSuchMethodException ex) {
@@ -164,14 +179,45 @@ public class RTSetup implements RTSource {
 			Assert.fail();
 			return null;
 		}
+		public void setFeatureValue(EObject src, EObject value, GenFeature genFeature) {
+			try {
+				Class packageClass = getPackageClass(genFeature);
+				Method featureAccessor = packageClass.getMethod("get" + genFeature.getFeatureAccessorName(), new Class[0]);
+				EStructuralFeature feature = (EStructuralFeature) featureAccessor.invoke(getInstance(packageClass), new Object[0]);
+				if (genFeature.isListType()) {
+					Collection result = (Collection) src.eGet(feature);
+					result.add(value);
+				} else {
+					src.eSet(feature, value);
+				}
+			} catch (ClassNotFoundException ex) {
+				Assert.fail(ex.getMessage());
+			} catch (SecurityException ex) {
+				Assert.fail(ex.getMessage());
+			} catch (NoSuchMethodException ex) {
+				Assert.fail(ex.getMessage());
+			} catch (IllegalArgumentException ex) {
+				Assert.fail(ex.getMessage());
+			} catch (IllegalAccessException ex) {
+				Assert.fail(ex.getMessage());
+			} catch (InvocationTargetException ex) {
+				Assert.fail(ex.getMessage());
+			} catch (NoSuchFieldException ex) {
+				Assert.fail(ex.getMessage());
+			}
+		}
 		private Class getFactoryClass(GenClass genClass) throws ClassNotFoundException {
 			return bundle.loadClass(genClass.getGenPackage().getQualifiedFactoryInterfaceName());
 		}
-		private Object getFactoryInstance(Class factoryClass) throws NoSuchFieldException, IllegalAccessException {
-			return factoryClass.getField("eINSTANCE").get(null);
+		private Object getInstance(Class interfaceClass) throws NoSuchFieldException, IllegalAccessException {
+			return interfaceClass.getField("eINSTANCE").get(null);
+		}
+		private Class getPackageClass(GenFeature genFeature) throws ClassNotFoundException {
+			return bundle.loadClass(genFeature.getGenPackage().getQualifiedPackageInterfaceName());
 		}
 		public CoolDomainInstanceProducer(Bundle b) {
 			bundle = b;
 		}
+
 	}
 }
