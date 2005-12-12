@@ -190,13 +190,13 @@ public interface GMFGraphPackage extends EPackage{
 	int FIGURE_GALLERY__FIGURES = IDENTITY_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Impl Bundles</b></em>' attribute list.
+	 * The feature id for the '<em><b>Implementation Bundle</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE_GALLERY__IMPL_BUNDLES = IDENTITY_FEATURE_COUNT + 1;
+	int FIGURE_GALLERY__IMPLEMENTATION_BUNDLE = IDENTITY_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the the '<em>Figure Gallery</em>' class.
@@ -659,13 +659,22 @@ public interface GMFGraphPackage extends EPackage{
 	int FIGURE__LAYOUT_MANAGER = FIGURE_MARKER_FEATURE_COUNT + 8;
 
 	/**
+	 * The feature id for the '<em><b>Resolved Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE__RESOLVED_CHILDREN = FIGURE_MARKER_FEATURE_COUNT + 9;
+
+	/**
 	 * The number of structural features of the the '<em>Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE_FEATURE_COUNT = FIGURE_MARKER_FEATURE_COUNT + 9;
+	int FIGURE_FEATURE_COUNT = FIGURE_MARKER_FEATURE_COUNT + 10;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.FigureRefImpl <em>Figure Ref</em>}' class.
@@ -787,6 +796,15 @@ public interface GMFGraphPackage extends EPackage{
 	int CONNECTION_FIGURE__LAYOUT_MANAGER = FIGURE__LAYOUT_MANAGER;
 
 	/**
+	 * The feature id for the '<em><b>Resolved Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FIGURE__RESOLVED_CHILDREN = FIGURE__RESOLVED_CHILDREN;
+
+	/**
 	 * The number of structural features of the the '<em>Connection Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -885,6 +903,15 @@ public interface GMFGraphPackage extends EPackage{
 	 * @ordered
 	 */
 	int DECORATION_FIGURE__LAYOUT_MANAGER = FIGURE__LAYOUT_MANAGER;
+
+	/**
+	 * The feature id for the '<em><b>Resolved Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECORATION_FIGURE__RESOLVED_CHILDREN = FIGURE__RESOLVED_CHILDREN;
 
 	/**
 	 * The number of structural features of the the '<em>Decoration Figure</em>' class.
@@ -987,6 +1014,15 @@ public interface GMFGraphPackage extends EPackage{
 	int SHAPE__LAYOUT_MANAGER = FIGURE__LAYOUT_MANAGER;
 
 	/**
+	 * The feature id for the '<em><b>Resolved Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE__RESOLVED_CHILDREN = FIGURE__RESOLVED_CHILDREN;
+
+	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1023,13 +1059,31 @@ public interface GMFGraphPackage extends EPackage{
 	int SHAPE__LINE_KIND = FIGURE_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Xor Fill</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE__XOR_FILL = FIGURE_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Xor Outline</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE__XOR_OUTLINE = FIGURE_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the the '<em>Shape</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SHAPE_FEATURE_COUNT = FIGURE_FEATURE_COUNT + 4;
+	int SHAPE_FEATURE_COUNT = FIGURE_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl <em>Label</em>}' class.
@@ -1121,6 +1175,15 @@ public interface GMFGraphPackage extends EPackage{
 	 * @ordered
 	 */
 	int LABEL__LAYOUT_MANAGER = FIGURE__LAYOUT_MANAGER;
+
+	/**
+	 * The feature id for the '<em><b>Resolved Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL__RESOLVED_CHILDREN = FIGURE__RESOLVED_CHILDREN;
 
 	/**
 	 * The feature id for the '<em><b>Text</b></em>' attribute.
@@ -1232,6 +1295,15 @@ public interface GMFGraphPackage extends EPackage{
 	int LABELED_CONTAINER__LAYOUT_MANAGER = FIGURE__LAYOUT_MANAGER;
 
 	/**
+	 * The feature id for the '<em><b>Resolved Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABELED_CONTAINER__RESOLVED_CHILDREN = FIGURE__RESOLVED_CHILDREN;
+
+	/**
 	 * The number of structural features of the the '<em>Labeled Container</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1332,6 +1404,15 @@ public interface GMFGraphPackage extends EPackage{
 	int RECTANGLE__LAYOUT_MANAGER = SHAPE__LAYOUT_MANAGER;
 
 	/**
+	 * The feature id for the '<em><b>Resolved Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGLE__RESOLVED_CHILDREN = SHAPE__RESOLVED_CHILDREN;
+
+	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1366,6 +1447,24 @@ public interface GMFGraphPackage extends EPackage{
 	 * @ordered
 	 */
 	int RECTANGLE__LINE_KIND = SHAPE__LINE_KIND;
+
+	/**
+	 * The feature id for the '<em><b>Xor Fill</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGLE__XOR_FILL = SHAPE__XOR_FILL;
+
+	/**
+	 * The feature id for the '<em><b>Xor Outline</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGLE__XOR_OUTLINE = SHAPE__XOR_OUTLINE;
 
 	/**
 	 * The number of structural features of the the '<em>Rectangle</em>' class.
@@ -1468,6 +1567,15 @@ public interface GMFGraphPackage extends EPackage{
 	int ROUNDED_RECTANGLE__LAYOUT_MANAGER = SHAPE__LAYOUT_MANAGER;
 
 	/**
+	 * The feature id for the '<em><b>Resolved Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROUNDED_RECTANGLE__RESOLVED_CHILDREN = SHAPE__RESOLVED_CHILDREN;
+
+	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1502,6 +1610,24 @@ public interface GMFGraphPackage extends EPackage{
 	 * @ordered
 	 */
 	int ROUNDED_RECTANGLE__LINE_KIND = SHAPE__LINE_KIND;
+
+	/**
+	 * The feature id for the '<em><b>Xor Fill</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROUNDED_RECTANGLE__XOR_FILL = SHAPE__XOR_FILL;
+
+	/**
+	 * The feature id for the '<em><b>Xor Outline</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROUNDED_RECTANGLE__XOR_OUTLINE = SHAPE__XOR_OUTLINE;
 
 	/**
 	 * The feature id for the '<em><b>Corner Width</b></em>' attribute.
@@ -1622,6 +1748,15 @@ public interface GMFGraphPackage extends EPackage{
 	int ELLIPSE__LAYOUT_MANAGER = SHAPE__LAYOUT_MANAGER;
 
 	/**
+	 * The feature id for the '<em><b>Resolved Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELLIPSE__RESOLVED_CHILDREN = SHAPE__RESOLVED_CHILDREN;
+
+	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1656,6 +1791,24 @@ public interface GMFGraphPackage extends EPackage{
 	 * @ordered
 	 */
 	int ELLIPSE__LINE_KIND = SHAPE__LINE_KIND;
+
+	/**
+	 * The feature id for the '<em><b>Xor Fill</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELLIPSE__XOR_FILL = SHAPE__XOR_FILL;
+
+	/**
+	 * The feature id for the '<em><b>Xor Outline</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELLIPSE__XOR_OUTLINE = SHAPE__XOR_OUTLINE;
 
 	/**
 	 * The number of structural features of the the '<em>Ellipse</em>' class.
@@ -1758,6 +1911,15 @@ public interface GMFGraphPackage extends EPackage{
 	int POLYLINE__LAYOUT_MANAGER = SHAPE__LAYOUT_MANAGER;
 
 	/**
+	 * The feature id for the '<em><b>Resolved Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE__RESOLVED_CHILDREN = SHAPE__RESOLVED_CHILDREN;
+
+	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1792,6 +1954,24 @@ public interface GMFGraphPackage extends EPackage{
 	 * @ordered
 	 */
 	int POLYLINE__LINE_KIND = SHAPE__LINE_KIND;
+
+	/**
+	 * The feature id for the '<em><b>Xor Fill</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE__XOR_FILL = SHAPE__XOR_FILL;
+
+	/**
+	 * The feature id for the '<em><b>Xor Outline</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE__XOR_OUTLINE = SHAPE__XOR_OUTLINE;
 
 	/**
 	 * The feature id for the '<em><b>Template</b></em>' containment reference list.
@@ -1903,6 +2083,15 @@ public interface GMFGraphPackage extends EPackage{
 	int POLYGON__LAYOUT_MANAGER = POLYLINE__LAYOUT_MANAGER;
 
 	/**
+	 * The feature id for the '<em><b>Resolved Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON__RESOLVED_CHILDREN = POLYLINE__RESOLVED_CHILDREN;
+
+	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1937,6 +2126,24 @@ public interface GMFGraphPackage extends EPackage{
 	 * @ordered
 	 */
 	int POLYGON__LINE_KIND = POLYLINE__LINE_KIND;
+
+	/**
+	 * The feature id for the '<em><b>Xor Fill</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON__XOR_FILL = POLYLINE__XOR_FILL;
+
+	/**
+	 * The feature id for the '<em><b>Xor Outline</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON__XOR_OUTLINE = POLYLINE__XOR_OUTLINE;
 
 	/**
 	 * The feature id for the '<em><b>Template</b></em>' containment reference list.
@@ -2048,6 +2255,15 @@ public interface GMFGraphPackage extends EPackage{
 	int POLYLINE_CONNECTION__LAYOUT_MANAGER = POLYLINE__LAYOUT_MANAGER;
 
 	/**
+	 * The feature id for the '<em><b>Resolved Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_CONNECTION__RESOLVED_CHILDREN = POLYLINE__RESOLVED_CHILDREN;
+
+	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2082,6 +2298,24 @@ public interface GMFGraphPackage extends EPackage{
 	 * @ordered
 	 */
 	int POLYLINE_CONNECTION__LINE_KIND = POLYLINE__LINE_KIND;
+
+	/**
+	 * The feature id for the '<em><b>Xor Fill</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_CONNECTION__XOR_FILL = POLYLINE__XOR_FILL;
+
+	/**
+	 * The feature id for the '<em><b>Xor Outline</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_CONNECTION__XOR_OUTLINE = POLYLINE__XOR_OUTLINE;
 
 	/**
 	 * The feature id for the '<em><b>Template</b></em>' containment reference list.
@@ -2211,6 +2445,15 @@ public interface GMFGraphPackage extends EPackage{
 	int POLYLINE_DECORATION__LAYOUT_MANAGER = POLYLINE__LAYOUT_MANAGER;
 
 	/**
+	 * The feature id for the '<em><b>Resolved Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_DECORATION__RESOLVED_CHILDREN = POLYLINE__RESOLVED_CHILDREN;
+
+	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2245,6 +2488,24 @@ public interface GMFGraphPackage extends EPackage{
 	 * @ordered
 	 */
 	int POLYLINE_DECORATION__LINE_KIND = POLYLINE__LINE_KIND;
+
+	/**
+	 * The feature id for the '<em><b>Xor Fill</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_DECORATION__XOR_FILL = POLYLINE__XOR_FILL;
+
+	/**
+	 * The feature id for the '<em><b>Xor Outline</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_DECORATION__XOR_OUTLINE = POLYLINE__XOR_OUTLINE;
 
 	/**
 	 * The feature id for the '<em><b>Template</b></em>' containment reference list.
@@ -2356,6 +2617,15 @@ public interface GMFGraphPackage extends EPackage{
 	int POLYGON_DECORATION__LAYOUT_MANAGER = POLYGON__LAYOUT_MANAGER;
 
 	/**
+	 * The feature id for the '<em><b>Resolved Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON_DECORATION__RESOLVED_CHILDREN = POLYGON__RESOLVED_CHILDREN;
+
+	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2390,6 +2660,24 @@ public interface GMFGraphPackage extends EPackage{
 	 * @ordered
 	 */
 	int POLYGON_DECORATION__LINE_KIND = POLYGON__LINE_KIND;
+
+	/**
+	 * The feature id for the '<em><b>Xor Fill</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON_DECORATION__XOR_FILL = POLYGON__XOR_FILL;
+
+	/**
+	 * The feature id for the '<em><b>Xor Outline</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON_DECORATION__XOR_OUTLINE = POLYGON__XOR_OUTLINE;
 
 	/**
 	 * The feature id for the '<em><b>Template</b></em>' containment reference list.
@@ -2499,6 +2787,15 @@ public interface GMFGraphPackage extends EPackage{
 	 * @ordered
 	 */
 	int CUSTOM_FIGURE__LAYOUT_MANAGER = FIGURE__LAYOUT_MANAGER;
+
+	/**
+	 * The feature id for the '<em><b>Resolved Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_FIGURE__RESOLVED_CHILDREN = FIGURE__RESOLVED_CHILDREN;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
@@ -2619,6 +2916,15 @@ public interface GMFGraphPackage extends EPackage{
 	int CUSTOM_DECORATION__LAYOUT_MANAGER = CUSTOM_FIGURE__LAYOUT_MANAGER;
 
 	/**
+	 * The feature id for the '<em><b>Resolved Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_DECORATION__RESOLVED_CHILDREN = CUSTOM_FIGURE__RESOLVED_CHILDREN;
+
+	/**
 	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2735,6 +3041,15 @@ public interface GMFGraphPackage extends EPackage{
 	 * @ordered
 	 */
 	int CUSTOM_CONNECTION__LAYOUT_MANAGER = CUSTOM_FIGURE__LAYOUT_MANAGER;
+
+	/**
+	 * The feature id for the '<em><b>Resolved Children</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CONNECTION__RESOLVED_CHILDREN = CUSTOM_FIGURE__RESOLVED_CHILDREN;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
@@ -3019,15 +3334,15 @@ public interface GMFGraphPackage extends EPackage{
 	EReference getFigureGallery_Figures();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link org.eclipse.gmf.gmfgraph.FigureGallery#getImplBundles <em>Impl Bundles</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.FigureGallery#getImplementationBundle <em>Implementation Bundle</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Impl Bundles</em>'.
-	 * @see org.eclipse.gmf.gmfgraph.FigureGallery#getImplBundles()
+	 * @return the meta object for the attribute '<em>Implementation Bundle</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.FigureGallery#getImplementationBundle()
 	 * @see #getFigureGallery()
 	 * @generated
 	 */
-	EAttribute getFigureGallery_ImplBundles();
+	EAttribute getFigureGallery_ImplementationBundle();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.Identity <em>Identity</em>}'.
@@ -3327,6 +3642,17 @@ public interface GMFGraphPackage extends EPackage{
 	EAttribute getFigure_LayoutManager();
 
 	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.gmfgraph.Figure#getResolvedChildren <em>Resolved Children</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Resolved Children</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Figure#getResolvedChildren()
+	 * @see #getFigure()
+	 * @generated
+	 */
+	EReference getFigure_ResolvedChildren();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.FigureRef <em>Figure Ref</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3420,6 +3746,28 @@ public interface GMFGraphPackage extends EPackage{
 	 * @generated
 	 */
 	EAttribute getShape_LineKind();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.Shape#isXorFill <em>Xor Fill</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Xor Fill</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Shape#isXorFill()
+	 * @see #getShape()
+	 * @generated
+	 */
+	EAttribute getShape_XorFill();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.Shape#isXorOutline <em>Xor Outline</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Xor Outline</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Shape#isXorOutline()
+	 * @see #getShape()
+	 * @generated
+	 */
+	EAttribute getShape_XorOutline();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.Label <em>Label</em>}'.

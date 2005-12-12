@@ -38,6 +38,9 @@ public interface Canvas extends Identity {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * containment here doesn't restrict nodes/connection from using figure galeries defined elsewhere. No assumption should be made whether or not node/connection figure is defined in the galery beloning to this canvas
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Figures</em>' containment reference list.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getCanvas_Figures()
 	 * @model type="org.eclipse.gmf.gmfgraph.FigureGallery" containment="true"

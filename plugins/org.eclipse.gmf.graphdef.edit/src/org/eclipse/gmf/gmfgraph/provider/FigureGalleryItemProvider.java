@@ -61,7 +61,7 @@ public class FigureGalleryItemProvider
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
-			addImplBundlesPropertyDescriptor(object);
+			addImplementationBundlePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -87,19 +87,19 @@ public class FigureGalleryItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Impl Bundles feature.
+	 * This adds a property descriptor for the Implementation Bundle feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addImplBundlesPropertyDescriptor(Object object) {
+	protected void addImplementationBundlePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FigureGallery_implBundles_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FigureGallery_implBundles_feature", "_UI_FigureGallery_type"),
-				 GMFGraphPackage.eINSTANCE.getFigureGallery_ImplBundles(),
+				 getString("_UI_FigureGallery_implementationBundle_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FigureGallery_implementationBundle_feature", "_UI_FigureGallery_type"),
+				 GMFGraphPackage.eINSTANCE.getFigureGallery_ImplementationBundle(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -157,7 +157,7 @@ public class FigureGalleryItemProvider
 
 		switch (notification.getFeatureID(FigureGallery.class)) {
 			case GMFGraphPackage.FIGURE_GALLERY__NAME:
-			case GMFGraphPackage.FIGURE_GALLERY__IMPL_BUNDLES:
+			case GMFGraphPackage.FIGURE_GALLERY__IMPLEMENTATION_BUNDLE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGraphPackage.FIGURE_GALLERY__FIGURES:

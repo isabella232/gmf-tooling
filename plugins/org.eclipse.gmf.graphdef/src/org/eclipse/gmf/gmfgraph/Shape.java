@@ -23,6 +23,8 @@ package org.eclipse.gmf.gmfgraph;
  *   <li>{@link org.eclipse.gmf.gmfgraph.Shape#isFill <em>Fill</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Shape#getLineWidth <em>Line Width</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Shape#getLineKind <em>Line Kind</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.Shape#isXorFill <em>Xor Fill</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.Shape#isXorOutline <em>Xor Outline</em>}</li>
  * </ul>
  * </p>
  *
@@ -138,5 +140,57 @@ public interface Shape extends Figure{
 	 * @generated
 	 */
 	void setLineKind(LineKind value);
+
+	/**
+	 * Returns the value of the '<em><b>Xor Fill</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Xor Fill</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Xor Fill</em>' attribute.
+	 * @see #setXorFill(boolean)
+	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getShape_XorFill()
+	 * @model
+	 * @generated
+	 */
+	boolean isXorFill();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.gmfgraph.Shape#isXorFill <em>Xor Fill</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Xor Fill</em>' attribute.
+	 * @see #isXorFill()
+	 * @generated
+	 */
+	void setXorFill(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Xor Outline</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Xor Outline</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Xor Outline</em>' attribute.
+	 * @see #setXorOutline(boolean)
+	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getShape_XorOutline()
+	 * @model
+	 * @generated
+	 */
+	boolean isXorOutline();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.gmfgraph.Shape#isXorOutline <em>Xor Outline</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Xor Outline</em>' attribute.
+	 * @see #isXorOutline()
+	 * @generated
+	 */
+	void setXorOutline(boolean value);
 
 } // Shape

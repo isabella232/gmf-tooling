@@ -67,6 +67,8 @@ public class ShapeItemProvider
 			addFillPropertyDescriptor(object);
 			addLineWidthPropertyDescriptor(object);
 			addLineKindPropertyDescriptor(object);
+			addXorFillPropertyDescriptor(object);
+			addXorOutlinePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -192,6 +194,46 @@ public class ShapeItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Xor Fill feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addXorFillPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Shape_xorFill_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Shape_xorFill_feature", "_UI_Shape_type"),
+				 GMFGraphPackage.eINSTANCE.getShape_XorFill(),
+				 true,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Xor Outline feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addXorOutlinePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Shape_xorOutline_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Shape_xorOutline_feature", "_UI_Shape_type"),
+				 GMFGraphPackage.eINSTANCE.getShape_XorOutline(),
+				 true,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -254,6 +296,8 @@ public class ShapeItemProvider
 			case GMFGraphPackage.SHAPE__FILL:
 			case GMFGraphPackage.SHAPE__LINE_WIDTH:
 			case GMFGraphPackage.SHAPE__LINE_KIND:
+			case GMFGraphPackage.SHAPE__XOR_FILL:
+			case GMFGraphPackage.SHAPE__XOR_OUTLINE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGraphPackage.SHAPE__CHILDREN:

@@ -144,6 +144,8 @@ public class PolygonImpl extends PolylineImpl implements Polygon {
 				return getSize();
 			case GMFGraphPackage.POLYGON__LAYOUT_MANAGER:
 				return getLayoutManager();
+			case GMFGraphPackage.POLYGON__RESOLVED_CHILDREN:
+				return getResolvedChildren();
 			case GMFGraphPackage.POLYGON__OUTLINE:
 				return isOutline() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.POLYGON__FILL:
@@ -152,6 +154,10 @@ public class PolygonImpl extends PolylineImpl implements Polygon {
 				return new Integer(getLineWidth());
 			case GMFGraphPackage.POLYGON__LINE_KIND:
 				return getLineKind();
+			case GMFGraphPackage.POLYGON__XOR_FILL:
+				return isXorFill() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGraphPackage.POLYGON__XOR_OUTLINE:
+				return isXorOutline() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.POLYGON__TEMPLATE:
 				return getTemplate();
 		}
@@ -201,6 +207,12 @@ public class PolygonImpl extends PolylineImpl implements Polygon {
 				return;
 			case GMFGraphPackage.POLYGON__LINE_KIND:
 				setLineKind((LineKind)newValue);
+				return;
+			case GMFGraphPackage.POLYGON__XOR_FILL:
+				setXorFill(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGraphPackage.POLYGON__XOR_OUTLINE:
+				setXorOutline(((Boolean)newValue).booleanValue());
 				return;
 			case GMFGraphPackage.POLYGON__TEMPLATE:
 				getTemplate().clear();
@@ -253,6 +265,12 @@ public class PolygonImpl extends PolylineImpl implements Polygon {
 			case GMFGraphPackage.POLYGON__LINE_KIND:
 				setLineKind(LINE_KIND_EDEFAULT);
 				return;
+			case GMFGraphPackage.POLYGON__XOR_FILL:
+				setXorFill(XOR_FILL_EDEFAULT);
+				return;
+			case GMFGraphPackage.POLYGON__XOR_OUTLINE:
+				setXorOutline(XOR_OUTLINE_EDEFAULT);
+				return;
 			case GMFGraphPackage.POLYGON__TEMPLATE:
 				getTemplate().clear();
 				return;
@@ -285,6 +303,8 @@ public class PolygonImpl extends PolylineImpl implements Polygon {
 				return size != null;
 			case GMFGraphPackage.POLYGON__LAYOUT_MANAGER:
 				return LAYOUT_MANAGER_EDEFAULT == null ? layoutManager != null : !LAYOUT_MANAGER_EDEFAULT.equals(layoutManager);
+			case GMFGraphPackage.POLYGON__RESOLVED_CHILDREN:
+				return !getResolvedChildren().isEmpty();
 			case GMFGraphPackage.POLYGON__OUTLINE:
 				return outline != OUTLINE_EDEFAULT;
 			case GMFGraphPackage.POLYGON__FILL:
@@ -293,6 +313,10 @@ public class PolygonImpl extends PolylineImpl implements Polygon {
 				return lineWidth != LINE_WIDTH_EDEFAULT;
 			case GMFGraphPackage.POLYGON__LINE_KIND:
 				return lineKind != LINE_KIND_EDEFAULT;
+			case GMFGraphPackage.POLYGON__XOR_FILL:
+				return xorFill != XOR_FILL_EDEFAULT;
+			case GMFGraphPackage.POLYGON__XOR_OUTLINE:
+				return xorOutline != XOR_OUTLINE_EDEFAULT;
 			case GMFGraphPackage.POLYGON__TEMPLATE:
 				return template != null && !template.isEmpty();
 		}

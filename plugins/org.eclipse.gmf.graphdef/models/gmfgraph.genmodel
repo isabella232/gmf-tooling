@@ -8,6 +8,7 @@
   <genPackages prefix="GMFGraph" basePackage="org.eclipse.gmf" disposableProviderFactory="true"
       ecorePackage="gmfgraph.ecore#/">
     <genEnums ecoreEnum="gmfgraph.ecore#//Direction">
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/NONE"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/NORTH"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/SOUTH"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/EAST"/>
@@ -36,7 +37,7 @@
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//FigureGallery">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//FigureGallery/figures"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//FigureGallery/implBundles"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//FigureGallery/implementationBundle"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//Identity">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Identity/name"/>
@@ -72,6 +73,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/location"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/size"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Figure/layoutManager"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/resolvedChildren"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//FigureRef">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//FigureRef/figure"/>
@@ -83,6 +85,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Shape/fill"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Shape/lineWidth"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Shape/lineKind"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Shape/xorFill"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Shape/xorOutline"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//Label">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Label/text"/>

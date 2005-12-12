@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.gmfgraph.ColorStyle;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
@@ -44,6 +45,7 @@ import org.eclipse.gmf.gmfgraph.SizeStyle;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getSize <em>Size</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getLayoutManager <em>Layout Manager</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getResolvedChildren <em>Resolved Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getQualifiedClassName <em>Qualified Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getBundleName <em>Bundle Name</em>}</li>
  * </ul>
@@ -494,6 +496,17 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList getResolvedChildren() {
+		// TODO: implement this method to return the 'Resolved Children' reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getQualifiedClassName() {
 		return qualifiedClassName;
 	}
@@ -623,6 +636,8 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 				return getSize();
 			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT_MANAGER:
 				return getLayoutManager();
+			case GMFGraphPackage.CUSTOM_FIGURE__RESOLVED_CHILDREN:
+				return getResolvedChildren();
 			case GMFGraphPackage.CUSTOM_FIGURE__QUALIFIED_CLASS_NAME:
 				return getQualifiedClassName();
 			case GMFGraphPackage.CUSTOM_FIGURE__BUNDLE_NAME:
@@ -739,6 +754,8 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 				return size != null;
 			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT_MANAGER:
 				return LAYOUT_MANAGER_EDEFAULT == null ? layoutManager != null : !LAYOUT_MANAGER_EDEFAULT.equals(layoutManager);
+			case GMFGraphPackage.CUSTOM_FIGURE__RESOLVED_CHILDREN:
+				return !getResolvedChildren().isEmpty();
 			case GMFGraphPackage.CUSTOM_FIGURE__QUALIFIED_CLASS_NAME:
 				return QUALIFIED_CLASS_NAME_EDEFAULT == null ? qualifiedClassName != null : !QUALIFIED_CLASS_NAME_EDEFAULT.equals(qualifiedClassName);
 			case GMFGraphPackage.CUSTOM_FIGURE__BUNDLE_NAME:

@@ -172,6 +172,8 @@ public class PolylineImpl extends ShapeImpl implements Polyline {
 				return getSize();
 			case GMFGraphPackage.POLYLINE__LAYOUT_MANAGER:
 				return getLayoutManager();
+			case GMFGraphPackage.POLYLINE__RESOLVED_CHILDREN:
+				return getResolvedChildren();
 			case GMFGraphPackage.POLYLINE__OUTLINE:
 				return isOutline() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.POLYLINE__FILL:
@@ -180,6 +182,10 @@ public class PolylineImpl extends ShapeImpl implements Polyline {
 				return new Integer(getLineWidth());
 			case GMFGraphPackage.POLYLINE__LINE_KIND:
 				return getLineKind();
+			case GMFGraphPackage.POLYLINE__XOR_FILL:
+				return isXorFill() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGraphPackage.POLYLINE__XOR_OUTLINE:
+				return isXorOutline() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.POLYLINE__TEMPLATE:
 				return getTemplate();
 		}
@@ -229,6 +235,12 @@ public class PolylineImpl extends ShapeImpl implements Polyline {
 				return;
 			case GMFGraphPackage.POLYLINE__LINE_KIND:
 				setLineKind((LineKind)newValue);
+				return;
+			case GMFGraphPackage.POLYLINE__XOR_FILL:
+				setXorFill(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGraphPackage.POLYLINE__XOR_OUTLINE:
+				setXorOutline(((Boolean)newValue).booleanValue());
 				return;
 			case GMFGraphPackage.POLYLINE__TEMPLATE:
 				getTemplate().clear();
@@ -281,6 +293,12 @@ public class PolylineImpl extends ShapeImpl implements Polyline {
 			case GMFGraphPackage.POLYLINE__LINE_KIND:
 				setLineKind(LINE_KIND_EDEFAULT);
 				return;
+			case GMFGraphPackage.POLYLINE__XOR_FILL:
+				setXorFill(XOR_FILL_EDEFAULT);
+				return;
+			case GMFGraphPackage.POLYLINE__XOR_OUTLINE:
+				setXorOutline(XOR_OUTLINE_EDEFAULT);
+				return;
 			case GMFGraphPackage.POLYLINE__TEMPLATE:
 				getTemplate().clear();
 				return;
@@ -313,6 +331,8 @@ public class PolylineImpl extends ShapeImpl implements Polyline {
 				return size != null;
 			case GMFGraphPackage.POLYLINE__LAYOUT_MANAGER:
 				return LAYOUT_MANAGER_EDEFAULT == null ? layoutManager != null : !LAYOUT_MANAGER_EDEFAULT.equals(layoutManager);
+			case GMFGraphPackage.POLYLINE__RESOLVED_CHILDREN:
+				return !getResolvedChildren().isEmpty();
 			case GMFGraphPackage.POLYLINE__OUTLINE:
 				return outline != OUTLINE_EDEFAULT;
 			case GMFGraphPackage.POLYLINE__FILL:
@@ -321,6 +341,10 @@ public class PolylineImpl extends ShapeImpl implements Polyline {
 				return lineWidth != LINE_WIDTH_EDEFAULT;
 			case GMFGraphPackage.POLYLINE__LINE_KIND:
 				return lineKind != LINE_KIND_EDEFAULT;
+			case GMFGraphPackage.POLYLINE__XOR_FILL:
+				return xorFill != XOR_FILL_EDEFAULT;
+			case GMFGraphPackage.POLYLINE__XOR_OUTLINE:
+				return xorOutline != XOR_OUTLINE_EDEFAULT;
 			case GMFGraphPackage.POLYLINE__TEMPLATE:
 				return template != null && !template.isEmpty();
 		}

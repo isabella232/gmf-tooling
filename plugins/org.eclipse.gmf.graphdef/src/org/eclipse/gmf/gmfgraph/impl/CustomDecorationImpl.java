@@ -141,6 +141,8 @@ public class CustomDecorationImpl extends CustomFigureImpl implements CustomDeco
 				return getSize();
 			case GMFGraphPackage.CUSTOM_DECORATION__LAYOUT_MANAGER:
 				return getLayoutManager();
+			case GMFGraphPackage.CUSTOM_DECORATION__RESOLVED_CHILDREN:
+				return getResolvedChildren();
 			case GMFGraphPackage.CUSTOM_DECORATION__QUALIFIED_CLASS_NAME:
 				return getQualifiedClassName();
 			case GMFGraphPackage.CUSTOM_DECORATION__BUNDLE_NAME:
@@ -257,6 +259,8 @@ public class CustomDecorationImpl extends CustomFigureImpl implements CustomDeco
 				return size != null;
 			case GMFGraphPackage.CUSTOM_DECORATION__LAYOUT_MANAGER:
 				return LAYOUT_MANAGER_EDEFAULT == null ? layoutManager != null : !LAYOUT_MANAGER_EDEFAULT.equals(layoutManager);
+			case GMFGraphPackage.CUSTOM_DECORATION__RESOLVED_CHILDREN:
+				return !getResolvedChildren().isEmpty();
 			case GMFGraphPackage.CUSTOM_DECORATION__QUALIFIED_CLASS_NAME:
 				return QUALIFIED_CLASS_NAME_EDEFAULT == null ? qualifiedClassName != null : !QUALIFIED_CLASS_NAME_EDEFAULT.equals(qualifiedClassName);
 			case GMFGraphPackage.CUSTOM_DECORATION__BUNDLE_NAME:

@@ -37,7 +37,7 @@ public class GradientFacetImpl extends EObjectImpl implements GradientFacet {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final Direction DIRECTION_EDEFAULT = Direction.NORTH_LITERAL;
+	protected static final Direction DIRECTION_EDEFAULT = Direction.NONE_LITERAL;
 
 	/**
 	 * The cached value of the '{@link #getDirection() <em>Direction</em>}' attribute.

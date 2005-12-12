@@ -32,7 +32,7 @@ import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
  * <ul>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.FigureGalleryImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.FigureGalleryImpl#getFigures <em>Figures</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.impl.FigureGalleryImpl#getImplBundles <em>Impl Bundles</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.FigureGalleryImpl#getImplementationBundle <em>Implementation Bundle</em>}</li>
  * </ul>
  * </p>
  *
@@ -70,14 +70,24 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 	protected EList figures = null;
 
 	/**
-	 * The cached value of the '{@link #getImplBundles() <em>Impl Bundles</em>}' attribute list.
+	 * The default value of the '{@link #getImplementationBundle() <em>Implementation Bundle</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getImplBundles()
+	 * @see #getImplementationBundle()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList implBundles = null;
+	protected static final String IMPLEMENTATION_BUNDLE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getImplementationBundle() <em>Implementation Bundle</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getImplementationBundle()
+	 * @generated
+	 * @ordered
+	 */
+	protected String implementationBundle = IMPLEMENTATION_BUNDLE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -135,11 +145,20 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getImplBundles() {
-		if (implBundles == null) {
-			implBundles = new EDataTypeUniqueEList(String.class, this, GMFGraphPackage.FIGURE_GALLERY__IMPL_BUNDLES);
-		}
-		return implBundles;
+	public String getImplementationBundle() {
+		return implementationBundle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setImplementationBundle(String newImplementationBundle) {
+		String oldImplementationBundle = implementationBundle;
+		implementationBundle = newImplementationBundle;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.FIGURE_GALLERY__IMPLEMENTATION_BUNDLE, oldImplementationBundle, implementationBundle));
 	}
 
 	/**
@@ -170,8 +189,8 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 				return getName();
 			case GMFGraphPackage.FIGURE_GALLERY__FIGURES:
 				return getFigures();
-			case GMFGraphPackage.FIGURE_GALLERY__IMPL_BUNDLES:
-				return getImplBundles();
+			case GMFGraphPackage.FIGURE_GALLERY__IMPLEMENTATION_BUNDLE:
+				return getImplementationBundle();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -190,9 +209,8 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 				getFigures().clear();
 				getFigures().addAll((Collection)newValue);
 				return;
-			case GMFGraphPackage.FIGURE_GALLERY__IMPL_BUNDLES:
-				getImplBundles().clear();
-				getImplBundles().addAll((Collection)newValue);
+			case GMFGraphPackage.FIGURE_GALLERY__IMPLEMENTATION_BUNDLE:
+				setImplementationBundle((String)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -211,8 +229,8 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 			case GMFGraphPackage.FIGURE_GALLERY__FIGURES:
 				getFigures().clear();
 				return;
-			case GMFGraphPackage.FIGURE_GALLERY__IMPL_BUNDLES:
-				getImplBundles().clear();
+			case GMFGraphPackage.FIGURE_GALLERY__IMPLEMENTATION_BUNDLE:
+				setImplementationBundle(IMPLEMENTATION_BUNDLE_EDEFAULT);
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -229,8 +247,8 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GMFGraphPackage.FIGURE_GALLERY__FIGURES:
 				return figures != null && !figures.isEmpty();
-			case GMFGraphPackage.FIGURE_GALLERY__IMPL_BUNDLES:
-				return implBundles != null && !implBundles.isEmpty();
+			case GMFGraphPackage.FIGURE_GALLERY__IMPLEMENTATION_BUNDLE:
+				return IMPLEMENTATION_BUNDLE_EDEFAULT == null ? implementationBundle != null : !IMPLEMENTATION_BUNDLE_EDEFAULT.equals(implementationBundle);
 		}
 		return eDynamicIsSet(eFeature);
 	}
@@ -246,8 +264,8 @@ public class FigureGalleryImpl extends EObjectImpl implements FigureGallery {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
-		result.append(", implBundles: ");
-		result.append(implBundles);
+		result.append(", implementationBundle: ");
+		result.append(implementationBundle);
 		result.append(')');
 		return result.toString();
 	}

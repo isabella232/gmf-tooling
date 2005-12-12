@@ -6,10 +6,13 @@
  */
 package org.eclipse.gmf.gmfgraph.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -17,10 +20,12 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.gmfgraph.ColorStyle;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureMarker;
+import org.eclipse.gmf.gmfgraph.FigureRef;
 import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Identity;
@@ -45,10 +50,13 @@ import org.eclipse.gmf.gmfgraph.SizeStyle;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getSize <em>Size</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getLayoutManager <em>Layout Manager</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getResolvedChildren <em>Resolved Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#isOutline <em>Outline</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#isFill <em>Fill</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getLineWidth <em>Line Width</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getLineKind <em>Line Kind</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#isXorFill <em>Xor Fill</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#isXorOutline <em>Xor Outline</em>}</li>
  * </ul>
  * </p>
  *
@@ -234,6 +242,46 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * @ordered
 	 */
 	protected LineKind lineKind = LINE_KIND_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isXorFill() <em>Xor Fill</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isXorFill()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean XOR_FILL_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isXorFill() <em>Xor Fill</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isXorFill()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean xorFill = XOR_FILL_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isXorOutline() <em>Xor Outline</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isXorOutline()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean XOR_OUTLINE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isXorOutline() <em>Xor Outline</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isXorOutline()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean xorOutline = XOR_OUTLINE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -535,6 +583,25 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList getResolvedChildren() {
+		ArrayList r = new ArrayList(getChildren().size());
+		for (Iterator it = getChildren().iterator(); it.hasNext();) {
+			FigureMarker next = (FigureMarker) it.next();
+			if (next instanceof FigureRef) {
+				r.add(((FigureRef) next).getFigure());
+			} else {
+				assert next instanceof Figure;
+				r.add(next);
+			}
+		}
+		return new BasicEList.UnmodifiableEList(r.size(), r.toArray());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public boolean isOutline() {
@@ -614,6 +681,48 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 		lineKind = newLineKind == null ? LINE_KIND_EDEFAULT : newLineKind;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.SHAPE__LINE_KIND, oldLineKind, lineKind));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isXorFill() {
+		return xorFill;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setXorFill(boolean newXorFill) {
+		boolean oldXorFill = xorFill;
+		xorFill = newXorFill;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.SHAPE__XOR_FILL, oldXorFill, xorFill));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isXorOutline() {
+		return xorOutline;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setXorOutline(boolean newXorOutline) {
+		boolean oldXorOutline = xorOutline;
+		xorOutline = newXorOutline;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.SHAPE__XOR_OUTLINE, oldXorOutline, xorOutline));
 	}
 
 	/**
@@ -708,6 +817,8 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return getSize();
 			case GMFGraphPackage.SHAPE__LAYOUT_MANAGER:
 				return getLayoutManager();
+			case GMFGraphPackage.SHAPE__RESOLVED_CHILDREN:
+				return getResolvedChildren();
 			case GMFGraphPackage.SHAPE__OUTLINE:
 				return isOutline() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.SHAPE__FILL:
@@ -716,6 +827,10 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return new Integer(getLineWidth());
 			case GMFGraphPackage.SHAPE__LINE_KIND:
 				return getLineKind();
+			case GMFGraphPackage.SHAPE__XOR_FILL:
+				return isXorFill() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGraphPackage.SHAPE__XOR_OUTLINE:
+				return isXorOutline() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -764,6 +879,12 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 			case GMFGraphPackage.SHAPE__LINE_KIND:
 				setLineKind((LineKind)newValue);
 				return;
+			case GMFGraphPackage.SHAPE__XOR_FILL:
+				setXorFill(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGraphPackage.SHAPE__XOR_OUTLINE:
+				setXorOutline(((Boolean)newValue).booleanValue());
+				return;
 		}
 		eDynamicSet(eFeature, newValue);
 	}
@@ -811,6 +932,12 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 			case GMFGraphPackage.SHAPE__LINE_KIND:
 				setLineKind(LINE_KIND_EDEFAULT);
 				return;
+			case GMFGraphPackage.SHAPE__XOR_FILL:
+				setXorFill(XOR_FILL_EDEFAULT);
+				return;
+			case GMFGraphPackage.SHAPE__XOR_OUTLINE:
+				setXorOutline(XOR_OUTLINE_EDEFAULT);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -840,6 +967,8 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return size != null;
 			case GMFGraphPackage.SHAPE__LAYOUT_MANAGER:
 				return LAYOUT_MANAGER_EDEFAULT == null ? layoutManager != null : !LAYOUT_MANAGER_EDEFAULT.equals(layoutManager);
+			case GMFGraphPackage.SHAPE__RESOLVED_CHILDREN:
+				return !getResolvedChildren().isEmpty();
 			case GMFGraphPackage.SHAPE__OUTLINE:
 				return outline != OUTLINE_EDEFAULT;
 			case GMFGraphPackage.SHAPE__FILL:
@@ -848,6 +977,10 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return lineWidth != LINE_WIDTH_EDEFAULT;
 			case GMFGraphPackage.SHAPE__LINE_KIND:
 				return lineKind != LINE_KIND_EDEFAULT;
+			case GMFGraphPackage.SHAPE__XOR_FILL:
+				return xorFill != XOR_FILL_EDEFAULT;
+			case GMFGraphPackage.SHAPE__XOR_OUTLINE:
+				return xorOutline != XOR_OUTLINE_EDEFAULT;
 		}
 		return eDynamicIsSet(eFeature);
 	}
@@ -903,6 +1036,10 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 		result.append(lineWidth);
 		result.append(", lineKind: ");
 		result.append(lineKind);
+		result.append(", xorFill: ");
+		result.append(xorFill);
+		result.append(", xorOutline: ");
+		result.append(xorOutline);
 		result.append(')');
 		return result.toString();
 	}

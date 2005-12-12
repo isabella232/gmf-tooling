@@ -142,6 +142,8 @@ public class EllipseImpl extends ShapeImpl implements Ellipse {
 				return getSize();
 			case GMFGraphPackage.ELLIPSE__LAYOUT_MANAGER:
 				return getLayoutManager();
+			case GMFGraphPackage.ELLIPSE__RESOLVED_CHILDREN:
+				return getResolvedChildren();
 			case GMFGraphPackage.ELLIPSE__OUTLINE:
 				return isOutline() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.ELLIPSE__FILL:
@@ -150,6 +152,10 @@ public class EllipseImpl extends ShapeImpl implements Ellipse {
 				return new Integer(getLineWidth());
 			case GMFGraphPackage.ELLIPSE__LINE_KIND:
 				return getLineKind();
+			case GMFGraphPackage.ELLIPSE__XOR_FILL:
+				return isXorFill() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGraphPackage.ELLIPSE__XOR_OUTLINE:
+				return isXorOutline() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -198,6 +204,12 @@ public class EllipseImpl extends ShapeImpl implements Ellipse {
 			case GMFGraphPackage.ELLIPSE__LINE_KIND:
 				setLineKind((LineKind)newValue);
 				return;
+			case GMFGraphPackage.ELLIPSE__XOR_FILL:
+				setXorFill(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGraphPackage.ELLIPSE__XOR_OUTLINE:
+				setXorOutline(((Boolean)newValue).booleanValue());
+				return;
 		}
 		eDynamicSet(eFeature, newValue);
 	}
@@ -245,6 +257,12 @@ public class EllipseImpl extends ShapeImpl implements Ellipse {
 			case GMFGraphPackage.ELLIPSE__LINE_KIND:
 				setLineKind(LINE_KIND_EDEFAULT);
 				return;
+			case GMFGraphPackage.ELLIPSE__XOR_FILL:
+				setXorFill(XOR_FILL_EDEFAULT);
+				return;
+			case GMFGraphPackage.ELLIPSE__XOR_OUTLINE:
+				setXorOutline(XOR_OUTLINE_EDEFAULT);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -274,6 +292,8 @@ public class EllipseImpl extends ShapeImpl implements Ellipse {
 				return size != null;
 			case GMFGraphPackage.ELLIPSE__LAYOUT_MANAGER:
 				return LAYOUT_MANAGER_EDEFAULT == null ? layoutManager != null : !LAYOUT_MANAGER_EDEFAULT.equals(layoutManager);
+			case GMFGraphPackage.ELLIPSE__RESOLVED_CHILDREN:
+				return !getResolvedChildren().isEmpty();
 			case GMFGraphPackage.ELLIPSE__OUTLINE:
 				return outline != OUTLINE_EDEFAULT;
 			case GMFGraphPackage.ELLIPSE__FILL:
@@ -282,6 +302,10 @@ public class EllipseImpl extends ShapeImpl implements Ellipse {
 				return lineWidth != LINE_WIDTH_EDEFAULT;
 			case GMFGraphPackage.ELLIPSE__LINE_KIND:
 				return lineKind != LINE_KIND_EDEFAULT;
+			case GMFGraphPackage.ELLIPSE__XOR_FILL:
+				return xorFill != XOR_FILL_EDEFAULT;
+			case GMFGraphPackage.ELLIPSE__XOR_OUTLINE:
+				return xorOutline != XOR_OUTLINE_EDEFAULT;
 		}
 		return eDynamicIsSet(eFeature);
 	}

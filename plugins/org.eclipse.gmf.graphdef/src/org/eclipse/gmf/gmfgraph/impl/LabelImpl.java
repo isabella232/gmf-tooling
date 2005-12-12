@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.gmfgraph.ColorStyle;
 import org.eclipse.gmf.gmfgraph.Figure;
@@ -44,6 +45,7 @@ import org.eclipse.gmf.gmfgraph.SizeStyle;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getSize <em>Size</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getLayoutManager <em>Layout Manager</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getResolvedChildren <em>Resolved Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getText <em>Text</em>}</li>
  * </ul>
  * </p>
@@ -473,6 +475,17 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList getResolvedChildren() {
+		// TODO: implement this method to return the 'Resolved Children' reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getText() {
 		return text;
 	}
@@ -581,6 +594,8 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return getSize();
 			case GMFGraphPackage.LABEL__LAYOUT_MANAGER:
 				return getLayoutManager();
+			case GMFGraphPackage.LABEL__RESOLVED_CHILDREN:
+				return getResolvedChildren();
 			case GMFGraphPackage.LABEL__TEXT:
 				return getText();
 		}
@@ -689,6 +704,8 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return size != null;
 			case GMFGraphPackage.LABEL__LAYOUT_MANAGER:
 				return LAYOUT_MANAGER_EDEFAULT == null ? layoutManager != null : !LAYOUT_MANAGER_EDEFAULT.equals(layoutManager);
+			case GMFGraphPackage.LABEL__RESOLVED_CHILDREN:
+				return !getResolvedChildren().isEmpty();
 			case GMFGraphPackage.LABEL__TEXT:
 				return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
 		}

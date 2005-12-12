@@ -23,6 +23,21 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  */
 public final class Direction extends AbstractEnumerator {
 	/**
+	 * The '<em><b>NONE</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>NONE</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #NONE_LITERAL
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int NONE = 0;
+
+	/**
 	 * The '<em><b>NORTH</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -173,6 +188,16 @@ public final class Direction extends AbstractEnumerator {
 	public static final int HORIZONTAL = 12;
 
 	/**
+	 * The '<em><b>NONE</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #NONE
+	 * @generated
+	 * @ordered
+	 */
+	public static final Direction NONE_LITERAL = new Direction(NONE, "NONE");
+
+	/**
 	 * The '<em><b>NORTH</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -280,6 +305,7 @@ public final class Direction extends AbstractEnumerator {
 	 */
 	private static final Direction[] VALUES_ARRAY =
 		new Direction[] {
+			NONE_LITERAL,
 			NORTH_LITERAL,
 			SOUTH_LITERAL,
 			EAST_LITERAL,
@@ -324,6 +350,7 @@ public final class Direction extends AbstractEnumerator {
 	 */
 	public static Direction get(int value) {
 		switch (value) {
+			case NONE: return NONE_LITERAL;
 			case NORTH: return NORTH_LITERAL;
 			case SOUTH: return SOUTH_LITERAL;
 			case EAST: return EAST_LITERAL;

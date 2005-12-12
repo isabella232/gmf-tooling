@@ -5,7 +5,11 @@
     nsURI="http://www.eclipse.org/gmf/2005/GraphicalDefinition" nsPrefix="gmfgraph">
   <eClassifiers xsi:type="ecore:EClass" name="Canvas" eSuperTypes="#//Identity">
     <eStructuralFeatures xsi:type="ecore:EReference" name="figures" upperBound="-1"
-        eType="#//FigureGallery" containment="true"/>
+        eType="#//FigureGallery" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="containment here doesn't restrict nodes/connection from using figure galeries defined elsewhere. No assumption should be made whether or not node/connection figure is defined in the galery beloning to this canvas"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
         eType="#//Node" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connections" upperBound="-1"
@@ -17,12 +21,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FigureGallery" eSuperTypes="#//Identity">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Kind of explicit figure library notion. Allows to specify plugin ids (allows importing it later from gmfgen code) in addition to figures"/>
+      <details key="documentation" value="Kind of explicit figure library notion. Bundle of figures. Allows to specify plugin id (allows importing it later from gmfgen code) in addition to figures"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="figures" upperBound="-1"
         eType="#//Figure" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="implBundles" upperBound="-1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="implementationBundle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Identity" interface="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -86,6 +89,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="size" eType="#//Point"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="layoutManager" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resolvedChildren" upperBound="-1"
+        eType="#//Figure" changeable="false" volatile="true" transient="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FigureRef" eSuperTypes="#//FigureMarker">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -109,6 +114,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineKind" eType="#//LineKind"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="xorFill" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="xorOutline" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Label" eSuperTypes="#//Figure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -206,6 +213,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="Direction">
+    <eLiterals name="NONE"/>
     <eLiterals name="NORTH" value="1"/>
     <eLiterals name="SOUTH" value="2"/>
     <eLiterals name="EAST" value="4"/>

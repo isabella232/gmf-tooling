@@ -231,6 +231,8 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 				return getSize();
 			case GMFGraphPackage.ROUNDED_RECTANGLE__LAYOUT_MANAGER:
 				return getLayoutManager();
+			case GMFGraphPackage.ROUNDED_RECTANGLE__RESOLVED_CHILDREN:
+				return getResolvedChildren();
 			case GMFGraphPackage.ROUNDED_RECTANGLE__OUTLINE:
 				return isOutline() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.ROUNDED_RECTANGLE__FILL:
@@ -239,6 +241,10 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 				return new Integer(getLineWidth());
 			case GMFGraphPackage.ROUNDED_RECTANGLE__LINE_KIND:
 				return getLineKind();
+			case GMFGraphPackage.ROUNDED_RECTANGLE__XOR_FILL:
+				return isXorFill() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGraphPackage.ROUNDED_RECTANGLE__XOR_OUTLINE:
+				return isXorOutline() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_WIDTH:
 				return new Integer(getCornerWidth());
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_HEIGHT:
@@ -290,6 +296,12 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 				return;
 			case GMFGraphPackage.ROUNDED_RECTANGLE__LINE_KIND:
 				setLineKind((LineKind)newValue);
+				return;
+			case GMFGraphPackage.ROUNDED_RECTANGLE__XOR_FILL:
+				setXorFill(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGraphPackage.ROUNDED_RECTANGLE__XOR_OUTLINE:
+				setXorOutline(((Boolean)newValue).booleanValue());
 				return;
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_WIDTH:
 				setCornerWidth(((Integer)newValue).intValue());
@@ -344,6 +356,12 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 			case GMFGraphPackage.ROUNDED_RECTANGLE__LINE_KIND:
 				setLineKind(LINE_KIND_EDEFAULT);
 				return;
+			case GMFGraphPackage.ROUNDED_RECTANGLE__XOR_FILL:
+				setXorFill(XOR_FILL_EDEFAULT);
+				return;
+			case GMFGraphPackage.ROUNDED_RECTANGLE__XOR_OUTLINE:
+				setXorOutline(XOR_OUTLINE_EDEFAULT);
+				return;
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_WIDTH:
 				setCornerWidth(CORNER_WIDTH_EDEFAULT);
 				return;
@@ -379,6 +397,8 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 				return size != null;
 			case GMFGraphPackage.ROUNDED_RECTANGLE__LAYOUT_MANAGER:
 				return LAYOUT_MANAGER_EDEFAULT == null ? layoutManager != null : !LAYOUT_MANAGER_EDEFAULT.equals(layoutManager);
+			case GMFGraphPackage.ROUNDED_RECTANGLE__RESOLVED_CHILDREN:
+				return !getResolvedChildren().isEmpty();
 			case GMFGraphPackage.ROUNDED_RECTANGLE__OUTLINE:
 				return outline != OUTLINE_EDEFAULT;
 			case GMFGraphPackage.ROUNDED_RECTANGLE__FILL:
@@ -387,6 +407,10 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 				return lineWidth != LINE_WIDTH_EDEFAULT;
 			case GMFGraphPackage.ROUNDED_RECTANGLE__LINE_KIND:
 				return lineKind != LINE_KIND_EDEFAULT;
+			case GMFGraphPackage.ROUNDED_RECTANGLE__XOR_FILL:
+				return xorFill != XOR_FILL_EDEFAULT;
+			case GMFGraphPackage.ROUNDED_RECTANGLE__XOR_OUTLINE:
+				return xorOutline != XOR_OUTLINE_EDEFAULT;
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_WIDTH:
 				return cornerWidth != CORNER_WIDTH_EDEFAULT;
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_HEIGHT:
