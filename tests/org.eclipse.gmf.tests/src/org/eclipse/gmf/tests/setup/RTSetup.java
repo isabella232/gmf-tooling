@@ -39,6 +39,9 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.osgi.framework.Bundle;
 
 /**
+ * TODO DomainModelInstanceSource to separate instantiation from diagram creation and
+ * to facilitate testing of domain model instance - not to miss containments and other
+ * potential problems in DomainModelSource
  * Simple implementation that creates simple diagram with few elements
  * @author artem
  */
