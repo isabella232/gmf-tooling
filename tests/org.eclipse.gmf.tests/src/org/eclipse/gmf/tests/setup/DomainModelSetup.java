@@ -95,6 +95,7 @@ public class DomainModelSetup implements DomainModelSource {
 		linkToC.setName("classLinkToC");
 		linkToC.setEType(nodeLinkA2C);
 		linkToC.setUpperBound(-1);
+		linkToC.setContainment(true);
 		nodeA.getEStructuralFeatures().add(linkToC);
 
 		EReference refCfromLink = EcoreFactory.eINSTANCE.createEReference();
