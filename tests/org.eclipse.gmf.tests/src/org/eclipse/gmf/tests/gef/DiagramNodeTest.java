@@ -92,9 +92,8 @@ public class DiagramNodeTest extends ConfiguredTestCase {
 	}
 
 	private EditPartViewer createViewer() {
-		System.err.println("Current display:" + Display.getCurrent());
-		System.err.println("Default display:" + Display.getDefault());
-		System.err.println("Current thread:" + Thread.currentThread());
+		// make sure there's display for current thread
+		Display.getDefault();
 
 		FakeViewer gv = new FakeViewer();
 		myParentShell = new Shell(SWT.NONE);
