@@ -231,8 +231,6 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 				return getSize();
 			case GMFGraphPackage.ROUNDED_RECTANGLE__LAYOUT_MANAGER:
 				return getLayoutManager();
-			case GMFGraphPackage.ROUNDED_RECTANGLE__RESOLVED_CHILDREN:
-				return getResolvedChildren();
 			case GMFGraphPackage.ROUNDED_RECTANGLE__OUTLINE:
 				return isOutline() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.ROUNDED_RECTANGLE__FILL:
@@ -245,6 +243,8 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 				return isXorFill() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.ROUNDED_RECTANGLE__XOR_OUTLINE:
 				return isXorOutline() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGraphPackage.ROUNDED_RECTANGLE__RESOLVED_CHILDREN:
+				return getResolvedChildren();
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_WIDTH:
 				return new Integer(getCornerWidth());
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_HEIGHT:
@@ -397,8 +397,6 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 				return size != null;
 			case GMFGraphPackage.ROUNDED_RECTANGLE__LAYOUT_MANAGER:
 				return LAYOUT_MANAGER_EDEFAULT == null ? layoutManager != null : !LAYOUT_MANAGER_EDEFAULT.equals(layoutManager);
-			case GMFGraphPackage.ROUNDED_RECTANGLE__RESOLVED_CHILDREN:
-				return !getResolvedChildren().isEmpty();
 			case GMFGraphPackage.ROUNDED_RECTANGLE__OUTLINE:
 				return outline != OUTLINE_EDEFAULT;
 			case GMFGraphPackage.ROUNDED_RECTANGLE__FILL:
@@ -411,6 +409,8 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 				return xorFill != XOR_FILL_EDEFAULT;
 			case GMFGraphPackage.ROUNDED_RECTANGLE__XOR_OUTLINE:
 				return xorOutline != XOR_OUTLINE_EDEFAULT;
+			case GMFGraphPackage.ROUNDED_RECTANGLE__RESOLVED_CHILDREN:
+				return !getResolvedChildren().isEmpty();
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_WIDTH:
 				return cornerWidth != CORNER_WIDTH_EDEFAULT;
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_HEIGHT:

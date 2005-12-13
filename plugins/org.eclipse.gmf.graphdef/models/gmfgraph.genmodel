@@ -73,7 +73,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/location"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/size"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Figure/layoutManager"/>
-      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/resolvedChildren"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//FigureRef">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//FigureRef/figure"/>
@@ -87,6 +86,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Shape/lineKind"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Shape/xorFill"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Shape/xorOutline"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//Shape/resolvedChildren"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//Label">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Label/text"/>

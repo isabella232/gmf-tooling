@@ -28,7 +28,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getSize <em>Size</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getLayoutManager <em>Layout Manager</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getResolvedChildren <em>Resolved Children</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,7 +35,7 @@ import org.eclipse.emf.common.util.EList;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface Figure extends FigureMarker, Identity {
+public interface Figure extends FigureMarker, Identity{
 	/**
 	 * Returns the value of the '<em><b>Children</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.gmfgraph.FigureMarker}.
@@ -225,21 +224,5 @@ public interface Figure extends FigureMarker, Identity {
 	 * @generated
 	 */
 	void setLayoutManager(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Resolved Children</b></em>' reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.gmfgraph.Figure}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Resolved Children</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Resolved Children</em>' reference list.
-	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getFigure_ResolvedChildren()
-	 * @model type="org.eclipse.gmf.gmfgraph.Figure" transient="true" changeable="false" volatile="true" derived="true"
-	 * @generated
-	 */
-	EList getResolvedChildren();
 
 } // Figure

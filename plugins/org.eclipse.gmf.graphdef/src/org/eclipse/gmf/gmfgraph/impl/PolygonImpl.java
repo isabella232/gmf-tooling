@@ -144,8 +144,6 @@ public class PolygonImpl extends PolylineImpl implements Polygon {
 				return getSize();
 			case GMFGraphPackage.POLYGON__LAYOUT_MANAGER:
 				return getLayoutManager();
-			case GMFGraphPackage.POLYGON__RESOLVED_CHILDREN:
-				return getResolvedChildren();
 			case GMFGraphPackage.POLYGON__OUTLINE:
 				return isOutline() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.POLYGON__FILL:
@@ -158,6 +156,8 @@ public class PolygonImpl extends PolylineImpl implements Polygon {
 				return isXorFill() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.POLYGON__XOR_OUTLINE:
 				return isXorOutline() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGraphPackage.POLYGON__RESOLVED_CHILDREN:
+				return getResolvedChildren();
 			case GMFGraphPackage.POLYGON__TEMPLATE:
 				return getTemplate();
 		}
@@ -303,8 +303,6 @@ public class PolygonImpl extends PolylineImpl implements Polygon {
 				return size != null;
 			case GMFGraphPackage.POLYGON__LAYOUT_MANAGER:
 				return LAYOUT_MANAGER_EDEFAULT == null ? layoutManager != null : !LAYOUT_MANAGER_EDEFAULT.equals(layoutManager);
-			case GMFGraphPackage.POLYGON__RESOLVED_CHILDREN:
-				return !getResolvedChildren().isEmpty();
 			case GMFGraphPackage.POLYGON__OUTLINE:
 				return outline != OUTLINE_EDEFAULT;
 			case GMFGraphPackage.POLYGON__FILL:
@@ -317,6 +315,8 @@ public class PolygonImpl extends PolylineImpl implements Polygon {
 				return xorFill != XOR_FILL_EDEFAULT;
 			case GMFGraphPackage.POLYGON__XOR_OUTLINE:
 				return xorOutline != XOR_OUTLINE_EDEFAULT;
+			case GMFGraphPackage.POLYGON__RESOLVED_CHILDREN:
+				return !getResolvedChildren().isEmpty();
 			case GMFGraphPackage.POLYGON__TEMPLATE:
 				return template != null && !template.isEmpty();
 		}

@@ -45,7 +45,6 @@ import org.eclipse.gmf.gmfgraph.SizeStyle;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getSize <em>Size</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getLayoutManager <em>Layout Manager</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getResolvedChildren <em>Resolved Children</em>}</li>
  * </ul>
  * </p>
  *
@@ -454,17 +453,6 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getResolvedChildren() {
-		// TODO: implement this method to return the 'Resolved Children' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
 		if (featureID >= 0) {
 			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
@@ -552,8 +540,6 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 				return getSize();
 			case GMFGraphPackage.LABELED_CONTAINER__LAYOUT_MANAGER:
 				return getLayoutManager();
-			case GMFGraphPackage.LABELED_CONTAINER__RESOLVED_CHILDREN:
-				return getResolvedChildren();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -654,8 +640,6 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 				return size != null;
 			case GMFGraphPackage.LABELED_CONTAINER__LAYOUT_MANAGER:
 				return LAYOUT_MANAGER_EDEFAULT == null ? layoutManager != null : !LAYOUT_MANAGER_EDEFAULT.equals(layoutManager);
-			case GMFGraphPackage.LABELED_CONTAINER__RESOLVED_CHILDREN:
-				return !getResolvedChildren().isEmpty();
 		}
 		return eDynamicIsSet(eFeature);
 	}

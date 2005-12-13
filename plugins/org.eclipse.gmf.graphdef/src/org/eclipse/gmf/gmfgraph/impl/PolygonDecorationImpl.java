@@ -144,8 +144,6 @@ public class PolygonDecorationImpl extends PolygonImpl implements PolygonDecorat
 				return getSize();
 			case GMFGraphPackage.POLYGON_DECORATION__LAYOUT_MANAGER:
 				return getLayoutManager();
-			case GMFGraphPackage.POLYGON_DECORATION__RESOLVED_CHILDREN:
-				return getResolvedChildren();
 			case GMFGraphPackage.POLYGON_DECORATION__OUTLINE:
 				return isOutline() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.POLYGON_DECORATION__FILL:
@@ -158,6 +156,8 @@ public class PolygonDecorationImpl extends PolygonImpl implements PolygonDecorat
 				return isXorFill() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.POLYGON_DECORATION__XOR_OUTLINE:
 				return isXorOutline() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGraphPackage.POLYGON_DECORATION__RESOLVED_CHILDREN:
+				return getResolvedChildren();
 			case GMFGraphPackage.POLYGON_DECORATION__TEMPLATE:
 				return getTemplate();
 		}
@@ -303,8 +303,6 @@ public class PolygonDecorationImpl extends PolygonImpl implements PolygonDecorat
 				return size != null;
 			case GMFGraphPackage.POLYGON_DECORATION__LAYOUT_MANAGER:
 				return LAYOUT_MANAGER_EDEFAULT == null ? layoutManager != null : !LAYOUT_MANAGER_EDEFAULT.equals(layoutManager);
-			case GMFGraphPackage.POLYGON_DECORATION__RESOLVED_CHILDREN:
-				return !getResolvedChildren().isEmpty();
 			case GMFGraphPackage.POLYGON_DECORATION__OUTLINE:
 				return outline != OUTLINE_EDEFAULT;
 			case GMFGraphPackage.POLYGON_DECORATION__FILL:
@@ -317,6 +315,8 @@ public class PolygonDecorationImpl extends PolygonImpl implements PolygonDecorat
 				return xorFill != XOR_FILL_EDEFAULT;
 			case GMFGraphPackage.POLYGON_DECORATION__XOR_OUTLINE:
 				return xorOutline != XOR_OUTLINE_EDEFAULT;
+			case GMFGraphPackage.POLYGON_DECORATION__RESOLVED_CHILDREN:
+				return !getResolvedChildren().isEmpty();
 			case GMFGraphPackage.POLYGON_DECORATION__TEMPLATE:
 				return template != null && !template.isEmpty();
 		}

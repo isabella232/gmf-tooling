@@ -262,8 +262,6 @@ public class PolylineConnectionImpl extends PolylineImpl implements PolylineConn
 				return getSize();
 			case GMFGraphPackage.POLYLINE_CONNECTION__LAYOUT_MANAGER:
 				return getLayoutManager();
-			case GMFGraphPackage.POLYLINE_CONNECTION__RESOLVED_CHILDREN:
-				return getResolvedChildren();
 			case GMFGraphPackage.POLYLINE_CONNECTION__OUTLINE:
 				return isOutline() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.POLYLINE_CONNECTION__FILL:
@@ -276,6 +274,8 @@ public class PolylineConnectionImpl extends PolylineImpl implements PolylineConn
 				return isXorFill() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.POLYLINE_CONNECTION__XOR_OUTLINE:
 				return isXorOutline() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGraphPackage.POLYLINE_CONNECTION__RESOLVED_CHILDREN:
+				return getResolvedChildren();
 			case GMFGraphPackage.POLYLINE_CONNECTION__TEMPLATE:
 				return getTemplate();
 			case GMFGraphPackage.POLYLINE_CONNECTION__SOURCE_DECORATION:
@@ -437,8 +437,6 @@ public class PolylineConnectionImpl extends PolylineImpl implements PolylineConn
 				return size != null;
 			case GMFGraphPackage.POLYLINE_CONNECTION__LAYOUT_MANAGER:
 				return LAYOUT_MANAGER_EDEFAULT == null ? layoutManager != null : !LAYOUT_MANAGER_EDEFAULT.equals(layoutManager);
-			case GMFGraphPackage.POLYLINE_CONNECTION__RESOLVED_CHILDREN:
-				return !getResolvedChildren().isEmpty();
 			case GMFGraphPackage.POLYLINE_CONNECTION__OUTLINE:
 				return outline != OUTLINE_EDEFAULT;
 			case GMFGraphPackage.POLYLINE_CONNECTION__FILL:
@@ -451,6 +449,8 @@ public class PolylineConnectionImpl extends PolylineImpl implements PolylineConn
 				return xorFill != XOR_FILL_EDEFAULT;
 			case GMFGraphPackage.POLYLINE_CONNECTION__XOR_OUTLINE:
 				return xorOutline != XOR_OUTLINE_EDEFAULT;
+			case GMFGraphPackage.POLYLINE_CONNECTION__RESOLVED_CHILDREN:
+				return !getResolvedChildren().isEmpty();
 			case GMFGraphPackage.POLYLINE_CONNECTION__TEMPLATE:
 				return template != null && !template.isEmpty();
 			case GMFGraphPackage.POLYLINE_CONNECTION__SOURCE_DECORATION:

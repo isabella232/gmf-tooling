@@ -7,6 +7,8 @@
 package org.eclipse.gmf.gmfgraph;
 
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Shape</b></em>'.
@@ -25,6 +27,7 @@ package org.eclipse.gmf.gmfgraph;
  *   <li>{@link org.eclipse.gmf.gmfgraph.Shape#getLineKind <em>Line Kind</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Shape#isXorFill <em>Xor Fill</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Shape#isXorOutline <em>Xor Outline</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.Shape#getResolvedChildren <em>Resolved Children</em>}</li>
  * </ul>
  * </p>
  *
@@ -192,5 +195,21 @@ public interface Shape extends Figure{
 	 * @generated
 	 */
 	void setXorOutline(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Resolved Children</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.gmfgraph.Figure}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Resolved Children</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Resolved Children</em>' reference list.
+	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getShape_ResolvedChildren()
+	 * @model type="org.eclipse.gmf.gmfgraph.Figure" transient="true" changeable="false" volatile="true" derived="true"
+	 * @generated
+	 */
+	EList getResolvedChildren();
 
 } // Shape

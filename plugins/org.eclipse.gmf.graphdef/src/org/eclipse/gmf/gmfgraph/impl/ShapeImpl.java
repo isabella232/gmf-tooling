@@ -50,13 +50,13 @@ import org.eclipse.gmf.gmfgraph.SizeStyle;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getSize <em>Size</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getLayoutManager <em>Layout Manager</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getResolvedChildren <em>Resolved Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#isOutline <em>Outline</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#isFill <em>Fill</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getLineWidth <em>Line Width</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getLineKind <em>Line Kind</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#isXorFill <em>Xor Fill</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#isXorOutline <em>Xor Outline</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getResolvedChildren <em>Resolved Children</em>}</li>
  * </ul>
  * </p>
  *
@@ -817,8 +817,6 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return getSize();
 			case GMFGraphPackage.SHAPE__LAYOUT_MANAGER:
 				return getLayoutManager();
-			case GMFGraphPackage.SHAPE__RESOLVED_CHILDREN:
-				return getResolvedChildren();
 			case GMFGraphPackage.SHAPE__OUTLINE:
 				return isOutline() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.SHAPE__FILL:
@@ -831,6 +829,8 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return isXorFill() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.SHAPE__XOR_OUTLINE:
 				return isXorOutline() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGraphPackage.SHAPE__RESOLVED_CHILDREN:
+				return getResolvedChildren();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -967,8 +967,6 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return size != null;
 			case GMFGraphPackage.SHAPE__LAYOUT_MANAGER:
 				return LAYOUT_MANAGER_EDEFAULT == null ? layoutManager != null : !LAYOUT_MANAGER_EDEFAULT.equals(layoutManager);
-			case GMFGraphPackage.SHAPE__RESOLVED_CHILDREN:
-				return !getResolvedChildren().isEmpty();
 			case GMFGraphPackage.SHAPE__OUTLINE:
 				return outline != OUTLINE_EDEFAULT;
 			case GMFGraphPackage.SHAPE__FILL:
@@ -981,6 +979,8 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return xorFill != XOR_FILL_EDEFAULT;
 			case GMFGraphPackage.SHAPE__XOR_OUTLINE:
 				return xorOutline != XOR_OUTLINE_EDEFAULT;
+			case GMFGraphPackage.SHAPE__RESOLVED_CHILDREN:
+				return !getResolvedChildren().isEmpty();
 		}
 		return eDynamicIsSet(eFeature);
 	}

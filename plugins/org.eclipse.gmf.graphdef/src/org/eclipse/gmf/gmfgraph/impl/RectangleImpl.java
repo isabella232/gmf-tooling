@@ -142,8 +142,6 @@ public class RectangleImpl extends ShapeImpl implements Rectangle {
 				return getSize();
 			case GMFGraphPackage.RECTANGLE__LAYOUT_MANAGER:
 				return getLayoutManager();
-			case GMFGraphPackage.RECTANGLE__RESOLVED_CHILDREN:
-				return getResolvedChildren();
 			case GMFGraphPackage.RECTANGLE__OUTLINE:
 				return isOutline() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.RECTANGLE__FILL:
@@ -156,6 +154,8 @@ public class RectangleImpl extends ShapeImpl implements Rectangle {
 				return isXorFill() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.RECTANGLE__XOR_OUTLINE:
 				return isXorOutline() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGraphPackage.RECTANGLE__RESOLVED_CHILDREN:
+				return getResolvedChildren();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -292,8 +292,6 @@ public class RectangleImpl extends ShapeImpl implements Rectangle {
 				return size != null;
 			case GMFGraphPackage.RECTANGLE__LAYOUT_MANAGER:
 				return LAYOUT_MANAGER_EDEFAULT == null ? layoutManager != null : !LAYOUT_MANAGER_EDEFAULT.equals(layoutManager);
-			case GMFGraphPackage.RECTANGLE__RESOLVED_CHILDREN:
-				return !getResolvedChildren().isEmpty();
 			case GMFGraphPackage.RECTANGLE__OUTLINE:
 				return outline != OUTLINE_EDEFAULT;
 			case GMFGraphPackage.RECTANGLE__FILL:
@@ -306,6 +304,8 @@ public class RectangleImpl extends ShapeImpl implements Rectangle {
 				return xorFill != XOR_FILL_EDEFAULT;
 			case GMFGraphPackage.RECTANGLE__XOR_OUTLINE:
 				return xorOutline != XOR_OUTLINE_EDEFAULT;
+			case GMFGraphPackage.RECTANGLE__RESOLVED_CHILDREN:
+				return !getResolvedChildren().isEmpty();
 		}
 		return eDynamicIsSet(eFeature);
 	}

@@ -69,6 +69,7 @@ public class ShapeItemProvider
 			addLineKindPropertyDescriptor(object);
 			addXorFillPropertyDescriptor(object);
 			addXorOutlinePropertyDescriptor(object);
+			addResolvedChildrenPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -229,6 +230,26 @@ public class ShapeItemProvider
 				 GMFGraphPackage.eINSTANCE.getShape_XorOutline(),
 				 true,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Resolved Children feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addResolvedChildrenPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Shape_resolvedChildren_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Shape_resolvedChildren_feature", "_UI_Shape_type"),
+				 GMFGraphPackage.eINSTANCE.getShape_ResolvedChildren(),
+				 false,
+				 null,
 				 null,
 				 null));
 	}

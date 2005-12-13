@@ -89,8 +89,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="size" eType="#//Point"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="layoutManager" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="resolvedChildren" upperBound="-1"
-        eType="#//Figure" changeable="false" volatile="true" transient="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FigureRef" eSuperTypes="#//FigureMarker">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -116,6 +114,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lineKind" eType="#//LineKind"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="xorFill" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="xorOutline" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="resolvedChildren" upperBound="-1"
+        eType="#//Figure" changeable="false" volatile="true" transient="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Label" eSuperTypes="#//Figure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
