@@ -65,6 +65,7 @@ public class EntryBaseItemProvider
 			addDescriptionKeyPropertyDescriptor(object);
 			addLargeIconPathPropertyDescriptor(object);
 			addSmallIconPathPropertyDescriptor(object);
+			addCreateMethodNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -170,14 +171,36 @@ public class EntryBaseItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Create Method Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCreateMethodNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EntryBase_createMethodName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EntryBase_createMethodName_feature", "_UI_EntryBase_type"),
+				 GMFGenPackage.eINSTANCE.getEntryBase_CreateMethodName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public String getText(Object object) {
-		EntryBase entryBase = (EntryBase)object;
-		return getString("_UI_EntryBase_type") + " " + entryBase.getOrder();
+		String label = ((EntryBase)object).getCreateMethodName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_EntryBase_type") :
+			getString("_UI_EntryBase_type") + " " + label;
 	}
 
 	/**
@@ -196,6 +219,7 @@ public class EntryBaseItemProvider
 			case GMFGenPackage.ENTRY_BASE__DESCRIPTION_KEY:
 			case GMFGenPackage.ENTRY_BASE__LARGE_ICON_PATH:
 			case GMFGenPackage.ENTRY_BASE__SMALL_ICON_PATH:
+			case GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

@@ -190,6 +190,7 @@ public class DiaGenSetup implements DiaGenSource {
 		Palette rv = GMFGenFactory.eINSTANCE.createPalette();
 		ToolGroup tg = GMFGenFactory.eINSTANCE.createToolGroup();
 		tg.setTitleKey("fake-group");
+		tg.setCreateMethodName("createFakeGroup");
 		rv.getGroups().add(tg); // to satisfy [+] restriction
 		return rv;
 	}

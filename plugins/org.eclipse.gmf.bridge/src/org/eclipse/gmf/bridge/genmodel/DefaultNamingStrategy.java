@@ -22,6 +22,7 @@ import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.ToolGroup;
 
 /**
  * In most cases it should be sufficient to override <code>getXXXSuffix()</code>
@@ -35,9 +36,12 @@ import org.eclipse.gmf.mappings.NodeMapping;
 public class DefaultNamingStrategy extends NamingStrategy {
 
 	protected Set/* <String> */myNamesCache;
+	
+	private Set/* <String> */myPaletteFactoryMethodNamesCache;
 
 	public DefaultNamingStrategy() {
 		myNamesCache = new HashSet();
+		myPaletteFactoryMethodNamesCache = new HashSet();
 	}
 
 	public DefaultNamingStrategy(Set namesCache) {
@@ -104,6 +108,18 @@ public class DefaultNamingStrategy extends NamingStrategy {
 		return null;
 	}
 
+	public String createToolCreationMethodName(AbstractNodeMapping nodeMapping) {
+		return getUniquePaletteFactoryMethodName("create" + nodeMapping.getDomainMetaClass().getName() + "NodeCreationTool");
+	}
+
+	public String createToolCreationMethodName(LinkMapping linkMapping) {
+		return getUniquePaletteFactoryMethodName("create" + (linkMapping.getDomainMetaClass() != null ? linkMapping.getDomainMetaClass().getName() : linkMapping.getLinkMetaFeature().getName()) + "LinkCreationTool");
+	}
+	
+	public String createToolGroupCreationMethodName(ToolGroup toolGroup) {
+		return getUniquePaletteFactoryMethodName("create" + (toolGroup.getName() != null ? toolGroup.getName() : "") + "Group");
+	}
+
 	/**
 	 * Returns specific class suffix instead of the specified default suffix.
 	 * Returned value should be valid java class name suffix.
@@ -161,5 +177,16 @@ public class DefaultNamingStrategy extends NamingStrategy {
 			uniqueName = name + i++;
 		}
 		return uniqueName + suffix;
+	}
+	
+	private String getUniquePaletteFactoryMethodName(String name) {
+		name = CodeGenUtil.validJavaIdentifier(name);
+		int i = 2;
+		String uniqueName = name;
+		while (myPaletteFactoryMethodNamesCache.contains(uniqueName)) {
+			uniqueName = name + i++;
+		}
+		myPaletteFactoryMethodNamesCache.add(uniqueName);
+		return uniqueName;
 	}
 }

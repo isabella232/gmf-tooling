@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ASCII"?>
-<gmfgen:GenDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel" visualID="79" editPartClassName="LibrarySurfaceEditPart" pluginName="library Plugin">
+<gmfgen:GenDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel" visualID="79" editPartClassName="LibraryEditPart" itemSemanticEditPolicyClassName="LibraryItemSemanticEditPolicy" notationViewFactoryClassName="LibraryViewFactory" pluginName="library Plugin" canonicalEditPolicyClassName="LibraryCanonicalEditPolicy">
   <diagramRunTimeClass href="../../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Diagram"/>
-  <viewmap xsi:type="gmfgen:BasicNodeViewmap"/>
+  <viewmap xsi:type="gmfgen:DiagramViewmap"/>
   <domainMetaModel href="library.genmodel#//library"/>
   <domainDiagramElement href="library.genmodel#//library/Library"/>
-  <nodes visualID="1001" editPartClassName="WriterNodeEditPart" notationViewFactoryClassName="WriterNodeNotationViewFactory">
+  <nodes visualID="1001" editPartClassName="WriterEditPart" itemSemanticEditPolicyClassName="WriterItemSemanticEditPolicy" notationViewFactoryClassName="WriterViewFactory" canonicalEditPolicyClassName="WriterCanonicalEditPolicy" graphicalNodeEditPolicyClassName="WriterGraphicalNodeEditPolicy">
     <diagramRunTimeClass href="../../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
     <viewmap xsi:type="gmfgen:BasicNodeViewmap"/>
     <modelFacet>
@@ -12,14 +12,15 @@
       <containmentMetaFeature href="library.genmodel#//library/Library/writers"/>
       <childMetaFeature href="library.genmodel#//library/Library/writers"/>
     </modelFacet>
-    <labels visualID="4001">
+    <labels visualID="4001" editPartClassName="Writer_nameEditPart" itemSemanticEditPolicyClassName="Writer_nameItemSemanticEditPolicy" notationViewFactoryClassName="Writer_nameViewFactory">
       <diagramRunTimeClass href="../../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:LabelViewmap"/>
       <modelFacet>
         <metaFeature href="library.genmodel#//library/Writer/name"/>
       </modelFacet>
     </labels>
   </nodes>
-  <nodes visualID="1002" editPartClassName="BookNodeEditPart" notationViewFactoryClassName="BookNodeNotationViewFactory">
+  <nodes visualID="1002" editPartClassName="BookEditPart" itemSemanticEditPolicyClassName="BookItemSemanticEditPolicy" notationViewFactoryClassName="BookViewFactory" canonicalEditPolicyClassName="BookCanonicalEditPolicy" graphicalNodeEditPolicyClassName="BookGraphicalNodeEditPolicy">
     <diagramRunTimeClass href="../../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
     <viewmap xsi:type="gmfgen:BasicNodeViewmap"/>
     <modelFacet>
@@ -27,23 +28,27 @@
       <containmentMetaFeature href="library.genmodel#//library/Writer/books"/>
       <childMetaFeature href="library.genmodel#//library/Writer/books"/>
     </modelFacet>
-    <labels visualID="4002">
+    <labels visualID="4002" editPartClassName="Book_titleEditPart" itemSemanticEditPolicyClassName="Book_titleItemSemanticEditPolicy" notationViewFactoryClassName="Book_titleViewFactory">
       <diagramRunTimeClass href="../../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:LabelViewmap"/>
       <modelFacet>
         <metaFeature href="library.genmodel#//library/Book/title"/>
       </modelFacet>
     </labels>
-    <compartments visualID="5001" title="reviews" layoutKind="TOOLBAR">
+    <compartments visualID="5001" editPartClassName="Book_CompartmentEditPart" itemSemanticEditPolicyClassName="Book_CompartmentItemSemanticEditPolicy" notationViewFactoryClassName="Book_CompartmentViewFactory" canonicalEditPolicyClassName="Book_CompartmentCanonicalEditPolicy" title="Compartment" layoutKind="TOOLBAR">
       <diagramRunTimeClass href="../../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
-      <childNodes visualID="2001" editPartClassName="ReviewNodeChildNodeEditPart" notationViewFactoryClassName="ReviewNodeNotationViewFactory">
+      <viewmap xsi:type="gmfgen:CompartmentViewmap"/>
+      <childNodes visualID="2001" editPartClassName="ReviewEditPart" itemSemanticEditPolicyClassName="ReviewItemSemanticEditPolicy" notationViewFactoryClassName="ReviewViewFactory" canonicalEditPolicyClassName="ReviewCanonicalEditPolicy" graphicalNodeEditPolicyClassName="ReviewGraphicalNodeEditPolicy">
         <diagramRunTimeClass href="../../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
+        <viewmap xsi:type="gmfgen:BasicNodeViewmap"/>
         <modelFacet>
           <metaClass href="library.genmodel#//library/Review"/>
           <containmentMetaFeature href="library.genmodel#//library/Book/reviews"/>
           <childMetaFeature href="library.genmodel#//library/Book/reviews"/>
         </modelFacet>
-        <labels visualID="4003">
+        <labels visualID="4003" editPartClassName="Review_titleEditPart" itemSemanticEditPolicyClassName="Review_titleItemSemanticEditPolicy" notationViewFactoryClassName="Review_titleViewFactory">
           <diagramRunTimeClass href="../../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
+          <viewmap xsi:type="gmfgen:LabelViewmap"/>
           <modelFacet>
             <metaFeature href="library.genmodel#//library/Review/title"/>
           </modelFacet>
@@ -51,11 +56,10 @@
       </childNodes>
     </compartments>
   </nodes>
-  <links visualID="3001" editPartClassName="OpinionLinkEditPart" notationViewFactoryClassName="OpinionLinkNotationViewFactory">
+  <links visualID="3001" editPartClassName="OpinionEditPart" itemSemanticEditPolicyClassName="OpinionItemSemanticEditPolicy" notationViewFactoryClassName="OpinionViewFactory">
     <diagramRunTimeClass href="../../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Edge"/>
     <viewmap xsi:type="gmfgen:DecoratedConnectionViewmap">
-      <attributes xsi:type="gmfgen:ShapeAttributes" lineStyle="LINE_DOT"/>
-      <target figureQualifiedClassName="org.eclipse.draw2d.PolylineDecoration"/>
+      <attributes xsi:type="gmfgen:ShapeAttributes" lineWidth="1"/>
     </viewmap>
     <modelFacet xsi:type="gmfgen:TypeLinkModelFacet">
       <metaClass href="library.genmodel#//library/Opinion"/>
@@ -63,29 +67,30 @@
       <childMetaFeature href="library.genmodel#//library/Writer/opinions"/>
       <targetMetaFeature href="library.genmodel#//library/Opinion/book"/>
     </modelFacet>
-    <labels visualID="4004">
+    <labels visualID="4004" editPartClassName="Opinion_textEditPart" itemSemanticEditPolicyClassName="Opinion_textItemSemanticEditPolicy" notationViewFactoryClassName="Opinion_textViewFactory" textEditPartClassName="Opinion_textTextEditPart" textNotationViewFactoryClassName="Opinion_textTextViewFactory">
       <diagramRunTimeClass href="../../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:LabelViewmap"/>
       <modelFacet>
         <metaFeature href="library.genmodel#//library/Opinion/text"/>
       </modelFacet>
     </labels>
   </links>
-  <links visualID="3002" editPartClassName="AuthorLinkEditPart" notationViewFactoryClassName="AuthorLinkNotationViewFactory">
+  <links visualID="3002" editPartClassName="Writer2EditPart" itemSemanticEditPolicyClassName="Writer2ItemSemanticEditPolicy" notationViewFactoryClassName="Writer2ViewFactory">
     <diagramRunTimeClass href="../../../../plugin/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel#//notation/Edge"/>
     <viewmap xsi:type="gmfgen:DecoratedConnectionViewmap">
-      <attributes xsi:type="gmfgen:ShapeAttributes"/>
+      <attributes xsi:type="gmfgen:ShapeAttributes" lineWidth="1"/>
     </viewmap>
     <modelFacet xsi:type="gmfgen:FeatureModelFacet">
       <metaFeature href="library.genmodel#//library/Book/author"/>
     </modelFacet>
   </links>
   <palette>
-    <groups titleKey="Library Tools">
-      <nodeTools titleKey="WriterNode" descriptionKey="WriterNode" largeIconPath="icons/large/WriterNode.gif" smallIconPath="icons/small/WriterNode.gif" genNode="//@nodes.0"/>
-      <nodeTools titleKey="BookNode" descriptionKey="BookNode" largeIconPath="icons/large/BookNode.gif" smallIconPath="icons/small/BookNode.gif" genNode="//@nodes.1"/>
-      <nodeTools titleKey="ReviewNode" descriptionKey="ReviewNode" largeIconPath="icons/large/ReviewNode.gif" smallIconPath="icons/small/ReviewNode.gif" genNode="//@nodes.1/@compartments.0/@childNodes.0"/>
-      <linkTools titleKey="OpinionLink" descriptionKey="OpinionLink" largeIconPath="icons/large/OpinionLink.gif" smallIconPath="icons/small/OpinionLink.gif" genLink="//@links.0"/>
-      <linkTools titleKey="AuthorLink" descriptionKey="AuthorLink" largeIconPath="icons/large/AuthorLink.gif" smallIconPath="icons/small/AuthorLink.gif" genLink="//@links.1"/>
+    <groups titleKey="Library Tools" createMethodName="createLibraryToolsGroup">
+      <nodeTools titleKey="Writer" descriptionKey="Writer" createMethodName="createWriterNodeCreationTool" genNode="//@nodes.0"/>
+      <nodeTools titleKey="Book" descriptionKey="Book" createMethodName="createBookNodeCreationTool" genNode="//@nodes.1"/>
+      <nodeTools titleKey="Review" descriptionKey="Review" createMethodName="createReviewNodeCreationTool" genNode="//@nodes.1/@compartments.0/@childNodes.0"/>
+      <linkTools titleKey="Opinion" descriptionKey="Opinion" createMethodName="createOpinionLinkCreationTool" genLink="//@links.0"/>
+      <linkTools titleKey="Writer" descriptionKey="Writer" createMethodName="createWriterLinkCreationTool" genLink="//@links.1"/>
     </groups>
   </palette>
 </gmfgen:GenDiagram>

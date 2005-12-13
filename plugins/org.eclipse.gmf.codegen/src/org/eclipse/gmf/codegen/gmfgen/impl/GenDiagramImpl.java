@@ -1562,7 +1562,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getBaseItemSemanticEditPolicyClassName() {
 		String value = getBaseItemSemanticEditPolicyClassNameGen();
 		if (isEmpty(value)) {
-			value = getDomainPackageCapName() + "ItemSemanticEditPolicy"; //$NON-NLS-1$
+			value = getDomainPackageCapName() + "BaseItemSemanticEditPolicy"; //$NON-NLS-1$
 		}
 		return value;
 	}

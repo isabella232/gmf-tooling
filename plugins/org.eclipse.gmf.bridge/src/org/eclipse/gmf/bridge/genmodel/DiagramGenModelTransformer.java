@@ -305,6 +305,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			LinkEntry le = GMFGenFactory.eINSTANCE.createLinkEntry();
 			findToolGroup(lme.getTool()).getLinkTools().add(le);
 			le.setGenLink(gl);
+			le.setCreateMethodName(myNamingStrategy.createToolCreationMethodName(lme));
 			setupCommonToolEntry(le, lme.getTool(), lme.getDomainMetaClass() != null ? lme.getDomainMetaClass().getName() : lme.getLinkMetaFeature().getName());
 		}
 		EAttribute editFeature = lme.getLabelEditFeature();
@@ -423,6 +424,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			NodeEntry ne = GMFGenFactory.eINSTANCE.createNodeEntry();
 			findToolGroup(nme.getTool()).getNodeTools().add(ne);
 			ne.setGenNode(genNode);
+			ne.setCreateMethodName(myNamingStrategy.createToolCreationMethodName(nme));
 			setupCommonToolEntry(ne, nme.getTool(), nme.getDomainMetaClass().getName());
 		}
 	}
@@ -440,6 +442,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	 * create missed group in that case.
 	 */
 	private ToolGroup findToolGroup(Tool tool) {
+		assert tool.getGroup() != null;
 		String groupName = tool.getGroup().getName() == null ? "" : tool.getGroup().getName();
 		for (Iterator it = getGenPalette().getGroups().iterator(); it.hasNext();) {
 			ToolGroup next = (ToolGroup) it.next();
@@ -450,6 +453,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		ToolGroup tg = GMFGenFactory.eINSTANCE.createToolGroup();
 		getGenPalette().getGroups().add(tg);
 		tg.setTitleKey(groupName);
+		tg.setCreateMethodName(myNamingStrategy.createToolGroupCreationMethodName(tool.getGroup()));
 		return tg;
 	}
 	
@@ -484,7 +488,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	private LinkModelFacet createModelFacet(LinkMapping lme) {
-		if (lme.getDomainMetaClass() != null) {
+		if (lme.getDomainMetaElement() != null) {
 			TypeLinkModelFacet mf = GMFGenFactory.eINSTANCE.createTypeLinkModelFacet();
 			mf.setMetaClass(findGenClass(lme.getDomainMetaClass()));
 			mf.setContainmentMetaFeature(findGenFeature(lme.getContainmentFeature()));

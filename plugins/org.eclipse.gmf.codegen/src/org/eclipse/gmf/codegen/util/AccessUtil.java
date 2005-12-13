@@ -16,7 +16,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
@@ -58,10 +57,6 @@ public class AccessUtil {
 		return asJavaConstantName(compartment.getTitle());
 	}
 
-	public static String getPaletteEntryId(EntryBase entry) {
-		return asJavaConstantName(entry.getTitleKey());
-	}
-
 	public static String getLabelId(GenLabel label) {
 		return label.getMetaFeature().getUpperName() + "_LABEL"; //$NON-NLS-1$
 	}
@@ -69,7 +64,7 @@ public class AccessUtil {
 	public static String getLabelTextId(GenLabel label) {
 		return label.getMetaFeature().getUpperName() + "_TEXT"; //$NON-NLS-1$
 	}
-
+	
 	// model access
 	
 	public static List getAllChildNodes(GenNode node) {

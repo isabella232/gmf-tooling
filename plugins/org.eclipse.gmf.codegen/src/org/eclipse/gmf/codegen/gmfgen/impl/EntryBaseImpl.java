@@ -26,6 +26,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getDescriptionKey <em>Description Key</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getLargeIconPath <em>Large Icon Path</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getSmallIconPath <em>Small Icon Path</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getCreateMethodName <em>Create Method Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -131,6 +132,26 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 	 * @ordered
 	 */
 	protected String smallIconPath = SMALL_ICON_PATH_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getCreateMethodName() <em>Create Method Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreateMethodName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CREATE_METHOD_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCreateMethodName() <em>Create Method Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreateMethodName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String createMethodName = CREATE_METHOD_NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -260,6 +281,27 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getCreateMethodName() {
+		return createMethodName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCreateMethodName(String newCreateMethodName) {
+		String oldCreateMethodName = createMethodName;
+		createMethodName = newCreateMethodName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME, oldCreateMethodName, createMethodName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
 		switch (eDerivedStructuralFeatureID(eFeature)) {
 			case GMFGenPackage.ENTRY_BASE__ORDER:
@@ -272,6 +314,8 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 				return getLargeIconPath();
 			case GMFGenPackage.ENTRY_BASE__SMALL_ICON_PATH:
 				return getSmallIconPath();
+			case GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME:
+				return getCreateMethodName();
 		}
 		return eDynamicGet(eFeature, resolve);
 	}
@@ -297,6 +341,9 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 				return;
 			case GMFGenPackage.ENTRY_BASE__SMALL_ICON_PATH:
 				setSmallIconPath((String)newValue);
+				return;
+			case GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME:
+				setCreateMethodName((String)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -324,6 +371,9 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 			case GMFGenPackage.ENTRY_BASE__SMALL_ICON_PATH:
 				setSmallIconPath(SMALL_ICON_PATH_EDEFAULT);
 				return;
+			case GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME:
+				setCreateMethodName(CREATE_METHOD_NAME_EDEFAULT);
+				return;
 		}
 		eDynamicUnset(eFeature);
 	}
@@ -345,6 +395,8 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 				return LARGE_ICON_PATH_EDEFAULT == null ? largeIconPath != null : !LARGE_ICON_PATH_EDEFAULT.equals(largeIconPath);
 			case GMFGenPackage.ENTRY_BASE__SMALL_ICON_PATH:
 				return SMALL_ICON_PATH_EDEFAULT == null ? smallIconPath != null : !SMALL_ICON_PATH_EDEFAULT.equals(smallIconPath);
+			case GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME:
+				return CREATE_METHOD_NAME_EDEFAULT == null ? createMethodName != null : !CREATE_METHOD_NAME_EDEFAULT.equals(createMethodName);
 		}
 		return eDynamicIsSet(eFeature);
 	}
@@ -368,6 +420,8 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 		result.append(largeIconPath);
 		result.append(", smallIconPath: ");
 		result.append(smallIconPath);
+		result.append(", createMethodName: ");
+		result.append(createMethodName);
 		result.append(')');
 		return result.toString();
 	}

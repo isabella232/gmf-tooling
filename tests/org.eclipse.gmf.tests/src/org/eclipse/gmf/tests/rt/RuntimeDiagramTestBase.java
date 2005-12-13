@@ -14,7 +14,6 @@ import java.util.Collections;
 import java.util.List;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 
 import org.eclipse.draw2d.GraphicsSource;
 import org.eclipse.draw2d.IFigure;

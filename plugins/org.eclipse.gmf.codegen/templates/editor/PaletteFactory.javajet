@@ -71,7 +71,7 @@ List toolGroups = palette.getGroups();
 for (int i = 0; i < toolGroups.size(); i++) {
 	ToolGroup toolGroup = (ToolGroup) toolGroups.get(i);
 %>
-		paletteRoot.add(create<%=AccessUtil.getPaletteEntryId(toolGroup)%>Group());
+		paletteRoot.add(<%=toolGroup.getCreateMethodName()%>());
 <%}%>
 	}
 
@@ -107,14 +107,14 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	/**
 	 * @generated
 	 */
-	private PaletteContainer create<%=AccessUtil.getPaletteEntryId(toolGroup)%>Group() {
+	private PaletteContainer <%=toolGroup.getCreateMethodName()%>() {
 		PaletteContainer paletteContainer = createContainer("<%=toolGroup.getTitleKey()%>");
 <%
 	List nodeCreationTools = toolGroup.getNodeTools();
 	for (int j = 0; j < nodeCreationTools.size(); j++) {
 		NodeEntry nodeCreationTool = (NodeEntry) nodeCreationTools.get(j);
 %>
-		paletteContainer.add(create<%=AccessUtil.getPaletteEntryId(nodeCreationTool)%>CreationTool());
+		paletteContainer.add(<%=nodeCreationTool.getCreateMethodName()%>());
 <%	}
 	List linkCreationTools = toolGroup.getLinkTools();
 	for (int j = 0; j < linkCreationTools.size(); j++) {
@@ -123,7 +123,7 @@ for (int i = 0; i < toolGroups.size(); i++) {
 %>
 		paletteContainer.add(new <%=importManager.getImportedName("org.eclipse.gef.palette.PaletteSeparator")%>());
 <%		}%>
-		paletteContainer.add(create<%=AccessUtil.getPaletteEntryId(linkCreationTool)%>CreationTool());
+		paletteContainer.add(<%=linkCreationTool.getCreateMethodName()%>());
 <%	}%>
 		return paletteContainer;
 	}
@@ -142,7 +142,7 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	/**
 	 * @generated
 	 */
-	private ToolEntry create<%=AccessUtil.getPaletteEntryId(nodeCreationTool)%>CreationTool() {
+	private ToolEntry <%=nodeCreationTool.getCreateMethodName()%>() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 		<%if (nodeCreationTool.getSmallIconPath() != null) {%>
@@ -176,7 +176,7 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	/**
 	 * @generated
 	 */
-	private ToolEntry create<%=AccessUtil.getPaletteEntryId(linkCreationTool)%>CreationTool() {
+	private ToolEntry <%=linkCreationTool.getCreateMethodName()%>() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 		<%if (linkCreationTool.getSmallIconPath() != null) {%>

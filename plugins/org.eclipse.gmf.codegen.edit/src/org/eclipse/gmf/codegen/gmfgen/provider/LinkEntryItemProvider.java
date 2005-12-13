@@ -99,8 +99,10 @@ public class LinkEntryItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		LinkEntry linkEntry = (LinkEntry)object;
-		return getString("_UI_LinkEntry_type") + " " + linkEntry.getOrder();
+		String label = ((LinkEntry)object).getCreateMethodName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_LinkEntry_type") :
+			getString("_UI_LinkEntry_type") + " " + label;
 	}
 
 	/**

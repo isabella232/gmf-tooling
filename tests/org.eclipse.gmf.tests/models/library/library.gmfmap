@@ -1,39 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gmfmap:Mapping xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:gmfmap="http://www.eclipse.org/gmf/2005/mappings">
   <nodes>
-    <diagramNode href="../../../org.eclipse.gmf.graphdef/models/basic.gmfgraph#GenericNode"/>
     <domainMetaElement href="library.ecore#//Writer"/>
     <containmentFeature href="library.ecore#//Library/writers"/>
     <editFeature href="library.ecore#//Writer/name"/>
+    <tool xsi:type="gmfmap:CreationTool" group="Library Tools"/>
+    <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Node"/>
   </nodes>
   <nodes>
-    <diagramNode href="../../../org.eclipse.gmf.graphdef/models/basic.gmfgraph#GenericNode"/>
     <domainMetaElement href="library.ecore#//Book"/>
     <containmentFeature href="library.ecore#//Writer/books"/>
     <editFeature href="library.ecore#//Book/title"/>
-    <childMappings>
-      <compartment href="../../../org.eclipse.gmf.graphdef/models/basic.gmfgraph#GenericCompartment"/>
-      <diagramNode href="../../../org.eclipse.gmf.graphdef/models/basic.gmfgraph#GenericNode"/>
-      <containmentFeature xsi:type="ecore:EReference" href="library.ecore#//Book/reviews"/>
-      <editFeature href="library.ecore#//Review/title"/>
+    <childMappings compartment="//@nodes.1/@compartmentMappings.0">
       <domainMetaElement href="library.ecore#//Review"/>
+      <containmentFeature href="library.ecore#//Book/reviews"/>
+      <editFeature href="library.ecore#//Review/title"/>
+      <tool xsi:type="gmfmap:CreationTool" group="Library Tools"/>
+      <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Child"/>
     </childMappings>
+    <compartmentMappings childNodes="//@nodes.1/@childMappings.0">
+      <compartment href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Compartment"/>
+    </compartmentMappings>
+    <tool xsi:type="gmfmap:CreationTool" group="Library Tools"/>
+    <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Node"/>
   </nodes>
   <links>
-    <diagramLink href="../../../org.eclipse.gmf.graphdef/models/basic.gmfgraph#GenericLink"/>
+    <diagramLink href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Link"/>
     <domainMetaElement href="library.ecore#//Opinion"/>
     <containmentFeature href="library.ecore#//Writer/opinions"/>
     <labelEditFeature href="library.ecore#//Opinion/text"/>
     <linkMetaFeature xsi:type="ecore:EReference" href="library.ecore#//Opinion/book"/>
+    <tool xsi:type="gmfmap:CreationTool" group="Library Tools"/>
   </links>
   <links>
-    <diagramLink href="../../../org.eclipse.gmf.graphdef/models/basic.gmfgraph#GenericLink"/>
+    <diagramLink href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Link"/>
     <containmentFeature href="library.ecore#//Book/author"/>
     <linkMetaFeature xsi:type="ecore:EReference" href="library.ecore#//Book/author"/>
+    <tool xsi:type="gmfmap:CreationTool" group="Library Tools"/>
   </links>
   <diagram>
-    <diagramCanvas href="../../../org.eclipse.gmf.graphdef/models/basic.gmfgraph#Surface"/>
+    <diagramCanvas href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Surface"/>
     <domainModel href="library.ecore#/"/>
     <domainMetaElement href="library.ecore#//Library"/>
   </diagram>
+  <toolGroups name="Library Tools" tools="//@nodes.0/@tool //@nodes.1/@tool //@nodes.1/@childMappings.0/@tool //@links.0/@tool //@links.1/@tool"/>
 </gmfmap:Mapping>

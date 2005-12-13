@@ -249,6 +249,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/descriptionKey"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/largeIconPath"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/smallIconPath"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EntryBase/createMethodName"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//ToolEntry">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ToolEntry/default"/>

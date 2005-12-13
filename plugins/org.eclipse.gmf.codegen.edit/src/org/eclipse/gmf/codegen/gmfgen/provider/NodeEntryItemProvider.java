@@ -99,8 +99,10 @@ public class NodeEntryItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		NodeEntry nodeEntry = (NodeEntry)object;
-		return getString("_UI_NodeEntry_type") + " " + nodeEntry.getOrder();
+		String label = ((NodeEntry)object).getCreateMethodName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_NodeEntry_type") :
+			getString("_UI_NodeEntry_type") + " " + label;
 	}
 
 	/**

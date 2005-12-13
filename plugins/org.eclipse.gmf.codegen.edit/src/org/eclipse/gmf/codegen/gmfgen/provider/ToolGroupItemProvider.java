@@ -109,8 +109,10 @@ public class ToolGroupItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		ToolGroup toolGroup = (ToolGroup)object;
-		return getString("_UI_ToolGroup_type") + " " + toolGroup.getOrder();
+		String label = ((ToolGroup)object).getCreateMethodName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_ToolGroup_type") :
+			getString("_UI_ToolGroup_type") + " " + label;
 	}
 
 	/**

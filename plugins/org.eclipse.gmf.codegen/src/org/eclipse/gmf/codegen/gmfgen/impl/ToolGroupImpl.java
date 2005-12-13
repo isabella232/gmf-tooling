@@ -189,6 +189,8 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 				return getLargeIconPath();
 			case GMFGenPackage.TOOL_GROUP__SMALL_ICON_PATH:
 				return getSmallIconPath();
+			case GMFGenPackage.TOOL_GROUP__CREATE_METHOD_NAME:
+				return getCreateMethodName();
 			case GMFGenPackage.TOOL_GROUP__NODE_TOOLS:
 				return getNodeTools();
 			case GMFGenPackage.TOOL_GROUP__LINK_TOOLS:
@@ -220,6 +222,9 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 				return;
 			case GMFGenPackage.TOOL_GROUP__SMALL_ICON_PATH:
 				setSmallIconPath((String)newValue);
+				return;
+			case GMFGenPackage.TOOL_GROUP__CREATE_METHOD_NAME:
+				setCreateMethodName((String)newValue);
 				return;
 			case GMFGenPackage.TOOL_GROUP__NODE_TOOLS:
 				getNodeTools().clear();
@@ -255,6 +260,9 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 			case GMFGenPackage.TOOL_GROUP__SMALL_ICON_PATH:
 				setSmallIconPath(SMALL_ICON_PATH_EDEFAULT);
 				return;
+			case GMFGenPackage.TOOL_GROUP__CREATE_METHOD_NAME:
+				setCreateMethodName(CREATE_METHOD_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.TOOL_GROUP__NODE_TOOLS:
 				getNodeTools().clear();
 				return;
@@ -282,6 +290,8 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 				return LARGE_ICON_PATH_EDEFAULT == null ? largeIconPath != null : !LARGE_ICON_PATH_EDEFAULT.equals(largeIconPath);
 			case GMFGenPackage.TOOL_GROUP__SMALL_ICON_PATH:
 				return SMALL_ICON_PATH_EDEFAULT == null ? smallIconPath != null : !SMALL_ICON_PATH_EDEFAULT.equals(smallIconPath);
+			case GMFGenPackage.TOOL_GROUP__CREATE_METHOD_NAME:
+				return CREATE_METHOD_NAME_EDEFAULT == null ? createMethodName != null : !CREATE_METHOD_NAME_EDEFAULT.equals(createMethodName);
 			case GMFGenPackage.TOOL_GROUP__NODE_TOOLS:
 				return nodeTools != null && !nodeTools.isEmpty();
 			case GMFGenPackage.TOOL_GROUP__LINK_TOOLS:

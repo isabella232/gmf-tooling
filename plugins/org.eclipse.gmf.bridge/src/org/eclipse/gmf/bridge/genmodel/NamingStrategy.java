@@ -18,6 +18,7 @@ import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.ToolGroup;
 
 /**
  * Means to provide your own names for classes being generated from genmodel. 
@@ -57,7 +58,19 @@ public class NamingStrategy {
 	public String createLinkLabelClassName(LinkMapping mapping, EStructuralFeature labelFeature, String suffix) {
 		return null;
 	}
+	
+	public String createToolCreationMethodName(AbstractNodeMapping nodeMapping) {
+		return null;
+	}
 
+	public String createToolCreationMethodName(LinkMapping linkMapping) {
+		return null;
+	}
+	
+	public String createToolGroupCreationMethodName(ToolGroup toolGroup) {
+		return null;
+	}
+	
 	public void reset() {
 	};
 }

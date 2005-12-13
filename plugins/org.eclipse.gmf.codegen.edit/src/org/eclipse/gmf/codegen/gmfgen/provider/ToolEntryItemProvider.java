@@ -91,8 +91,10 @@ public class ToolEntryItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		ToolEntry toolEntry = (ToolEntry)object;
-		return getString("_UI_ToolEntry_type") + " " + toolEntry.getOrder();
+		String label = ((ToolEntry)object).getCreateMethodName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_ToolEntry_type") :
+			getString("_UI_ToolEntry_type") + " " + label;
 	}
 
 	/**

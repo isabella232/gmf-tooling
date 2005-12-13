@@ -16,4 +16,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.ide;visibility:=reexport,
  org.eclipse.gmf.map;visibility:=reexport,
  org.eclipse.gmf.graphdef.edit
-Eclipse-AutoStart: true
+Eclipse-LazyStart: true

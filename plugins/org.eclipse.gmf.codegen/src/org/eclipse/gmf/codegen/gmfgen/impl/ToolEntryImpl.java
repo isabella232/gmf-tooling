@@ -103,6 +103,8 @@ public abstract class ToolEntryImpl extends EntryBaseImpl implements ToolEntry {
 				return getLargeIconPath();
 			case GMFGenPackage.TOOL_ENTRY__SMALL_ICON_PATH:
 				return getSmallIconPath();
+			case GMFGenPackage.TOOL_ENTRY__CREATE_METHOD_NAME:
+				return getCreateMethodName();
 			case GMFGenPackage.TOOL_ENTRY__DEFAULT:
 				return isDefault() ? Boolean.TRUE : Boolean.FALSE;
 		}
@@ -130,6 +132,9 @@ public abstract class ToolEntryImpl extends EntryBaseImpl implements ToolEntry {
 				return;
 			case GMFGenPackage.TOOL_ENTRY__SMALL_ICON_PATH:
 				setSmallIconPath((String)newValue);
+				return;
+			case GMFGenPackage.TOOL_ENTRY__CREATE_METHOD_NAME:
+				setCreateMethodName((String)newValue);
 				return;
 			case GMFGenPackage.TOOL_ENTRY__DEFAULT:
 				setDefault(((Boolean)newValue).booleanValue());
@@ -160,6 +165,9 @@ public abstract class ToolEntryImpl extends EntryBaseImpl implements ToolEntry {
 			case GMFGenPackage.TOOL_ENTRY__SMALL_ICON_PATH:
 				setSmallIconPath(SMALL_ICON_PATH_EDEFAULT);
 				return;
+			case GMFGenPackage.TOOL_ENTRY__CREATE_METHOD_NAME:
+				setCreateMethodName(CREATE_METHOD_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.TOOL_ENTRY__DEFAULT:
 				setDefault(DEFAULT_EDEFAULT);
 				return;
@@ -184,6 +192,8 @@ public abstract class ToolEntryImpl extends EntryBaseImpl implements ToolEntry {
 				return LARGE_ICON_PATH_EDEFAULT == null ? largeIconPath != null : !LARGE_ICON_PATH_EDEFAULT.equals(largeIconPath);
 			case GMFGenPackage.TOOL_ENTRY__SMALL_ICON_PATH:
 				return SMALL_ICON_PATH_EDEFAULT == null ? smallIconPath != null : !SMALL_ICON_PATH_EDEFAULT.equals(smallIconPath);
+			case GMFGenPackage.TOOL_ENTRY__CREATE_METHOD_NAME:
+				return CREATE_METHOD_NAME_EDEFAULT == null ? createMethodName != null : !CREATE_METHOD_NAME_EDEFAULT.equals(createMethodName);
 			case GMFGenPackage.TOOL_ENTRY__DEFAULT:
 				return default_ != DEFAULT_EDEFAULT;
 		}

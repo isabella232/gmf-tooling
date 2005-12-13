@@ -2455,13 +2455,22 @@ public interface GMFGenPackage extends EPackage{
 	int ENTRY_BASE__SMALL_ICON_PATH = 4;
 
 	/**
+	 * The feature id for the '<em><b>Create Method Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ENTRY_BASE__CREATE_METHOD_NAME = 5;
+
+	/**
 	 * The number of structural features of the the '<em>Entry Base</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ENTRY_BASE_FEATURE_COUNT = 5;
+	int ENTRY_BASE_FEATURE_COUNT = 6;
 
 	/**
 	 * The feature id for the '<em><b>Order</b></em>' attribute.
@@ -2507,6 +2516,15 @@ public interface GMFGenPackage extends EPackage{
 	 * @ordered
 	 */
 	int TOOL_ENTRY__SMALL_ICON_PATH = ENTRY_BASE__SMALL_ICON_PATH;
+
+	/**
+	 * The feature id for the '<em><b>Create Method Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOOL_ENTRY__CREATE_METHOD_NAME = ENTRY_BASE__CREATE_METHOD_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Default</b></em>' attribute.
@@ -2570,6 +2588,15 @@ public interface GMFGenPackage extends EPackage{
 	 * @ordered
 	 */
 	int NODE_ENTRY__SMALL_ICON_PATH = TOOL_ENTRY__SMALL_ICON_PATH;
+
+	/**
+	 * The feature id for the '<em><b>Create Method Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE_ENTRY__CREATE_METHOD_NAME = TOOL_ENTRY__CREATE_METHOD_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Default</b></em>' attribute.
@@ -2653,6 +2680,15 @@ public interface GMFGenPackage extends EPackage{
 	int LINK_ENTRY__SMALL_ICON_PATH = TOOL_ENTRY__SMALL_ICON_PATH;
 
 	/**
+	 * The feature id for the '<em><b>Create Method Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_ENTRY__CREATE_METHOD_NAME = TOOL_ENTRY__CREATE_METHOD_NAME;
+
+	/**
 	 * The feature id for the '<em><b>Default</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2732,6 +2768,15 @@ public interface GMFGenPackage extends EPackage{
 	 * @ordered
 	 */
 	int TOOL_GROUP__SMALL_ICON_PATH = ENTRY_BASE__SMALL_ICON_PATH;
+
+	/**
+	 * The feature id for the '<em><b>Create Method Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TOOL_GROUP__CREATE_METHOD_NAME = ENTRY_BASE__CREATE_METHOD_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Node Tools</b></em>' containment reference list.
@@ -4529,6 +4574,17 @@ public interface GMFGenPackage extends EPackage{
 	 * @generated
 	 */
 	EAttribute getEntryBase_SmallIconPath();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getCreateMethodName <em>Create Method Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Create Method Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.EntryBase#getCreateMethodName()
+	 * @see #getEntryBase()
+	 * @generated
+	 */
+	EAttribute getEntryBase_CreateMethodName();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.ToolEntry <em>Tool Entry</em>}'.
