@@ -42,14 +42,14 @@ public class TestSetupTest extends TestCase {
 		}
 	}
 	
-	public void testLibraryGen() {
-		try {
-			DiaGenSource s = new DiaGenFileSetup().init(Plugin.createURI("/models/library/library.gmfgen"));
-			doAssert(Diagnostician.INSTANCE.validate(s.getGenDiagram()));
-		} catch (IOException ex) {
-			fail(ex.getMessage());
-		}
-	}
+//	public void testLibraryGen() {
+//		try {
+//			DiaGenSource s = new DiaGenFileSetup().init(Plugin.createURI("/models/library/library.gmfgen"));
+//			doAssert(Diagnostician.INSTANCE.validate(s.getGenDiagram()));
+//		} catch (IOException ex) {
+//			fail(ex.getMessage());
+//		}
+//	}
 
 	public void testBasicGraphDefModel() {
 		try {
