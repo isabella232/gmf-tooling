@@ -1032,7 +1032,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																								
+		   });																																												
 	}
 
 	/**
@@ -1076,7 +1076,37 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   source, 
 		   new String[] {
 			 "def", "Constraint"
-		   });						
+		   });					
+		addAnnotation
+		  (getLinkConstraints_SourceEnd(), 
+		   source, 
+		   new String[] {
+			 "def", "context",
+			 "ocl", "if linkMapping.domainMetaElement.oclIsUndefined() then linkMapping.linkMetaFeature.eContainingClass else linkMapping.containmentFeature.eContainingClass endif"
+		   });		
+		addAnnotation
+		  (getLinkConstraints_SourceEnd(), 
+		   source, 
+		   new String[] {
+			 "def", "variable",
+			 "name", "oppositeEnd",
+			 "type.ocl", "linkMapping.linkMetaFeature.eType"
+		   });			
+		addAnnotation
+		  (getLinkConstraints_TargetEnd(), 
+		   source, 
+		   new String[] {
+			 "def", "context",
+			 "ocl", "linkMapping.linkMetaFeature.eType.oclAsType(ecore::EClass)"
+		   });		
+		addAnnotation
+		  (getLinkConstraints_TargetEnd(), 
+		   source, 
+		   new String[] {
+			 "def", "variable",
+			 "name", "oppositeEnd",
+			 "type.ocl", "if linkMapping.domainMetaElement.oclIsUndefined() then linkMapping.linkMetaFeature.eContainingClass else linkMapping.containmentFeature.eContainingClass endif"
+		   });		
 		addAnnotation
 		  (valueExpressionEClass, 
 		   source, 
@@ -1170,7 +1200,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "domainMetaElement.oclIsUndefined() or linkMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)"
-		   });																					
+		   });																									
 	}
 
 } //GMFMapPackageImpl

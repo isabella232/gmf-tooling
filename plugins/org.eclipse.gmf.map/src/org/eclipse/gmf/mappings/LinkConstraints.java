@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface LinkConstraints extends EObject {
+public interface LinkConstraints extends EObject{
 	/**
 	 * Returns the value of the '<em><b>Link Mapping</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.LinkMapping#getCreationConstraints <em>Creation Constraints</em>}'.
@@ -52,12 +52,14 @@ public interface LinkConstraints extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Restriction enforced by the the source end, may reference variables 'oppositeEnd' pointing to targetEnd and 'link' denoting the link domainmetaElement instance if available.
+	 * Restriction enforced by the the source end, may reference variable 'oppositeEnd' pointing to targetEnd domainMetaElement instance if available.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Source End</em>' containment reference.
 	 * @see #setSourceEnd(Constraint)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkConstraints_SourceEnd()
 	 * @model containment="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='if linkMapping.domainMetaElement.oclIsUndefined() then linkMapping.linkMetaFeature.eContainingClass else linkMapping.containmentFeature.eContainingClass endif'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='variable' name='oppositeEnd' type.ocl='linkMapping.linkMetaFeature.eType'"
 	 * @generated
 	 */
 	Constraint getSourceEnd();
@@ -77,12 +79,14 @@ public interface LinkConstraints extends EObject {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Restriction enforced by the the target end, may reference variables 'oppositeEnd' pointing to sourceEnd and 'link' denoting the link domainmetaElement instance if available.
+	 * Restriction enforced by the the target end, may reference variable 'oppositeEnd' pointing to sourceEnd domainMetaElement instance.
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Target End</em>' containment reference.
 	 * @see #setTargetEnd(Constraint)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkConstraints_TargetEnd()
 	 * @model containment="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='linkMapping.linkMetaFeature.eType.oclAsType(ecore::EClass)'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='variable' name='oppositeEnd' type.ocl='if linkMapping.domainMetaElement.oclIsUndefined() then linkMapping.linkMetaFeature.eContainingClass else linkMapping.containmentFeature.eContainingClass endif'"
 	 * @generated
 	 */
 	Constraint getTargetEnd();
