@@ -27,7 +27,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 /**
  * @generated
  */
-public class CargoContainerCanonicalEditPolicy extends CanonicalEditPolicy {
+public class Ship_CargoCompartmentCanonicalEditPolicy extends CanonicalEditPolicy {
 
 	/**
 	 * @generated
@@ -36,14 +36,22 @@ public class CargoContainerCanonicalEditPolicy extends CanonicalEditPolicy {
 		Ship modelElement = (Ship) ((View) getHost().getModel()).getElement();
 		List result = new LinkedList();
 		EObject nextValue;
+		int nodeVID;
 		for (Iterator it = modelElement.getCargo().iterator(); it.hasNext();) {
 			nextValue = (EObject) it.next();
-			int nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, "");
+			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, "");
 			if (2001 == nodeVID) {
 				result.add(nextValue);
 			}
 		}
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean shouldDeleteView(View view) {
+		return view.getElement() != ((View) getHost().getModel()).getElement() && super.shouldDeleteView(view);
 	}
 
 	/**

@@ -19,7 +19,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 /**
  * @generated
  */
-public class ItemChildNodeItemSemanticEditPolicy extends TaiPanItemSemanticEditPolicy {
+public class ItemItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated

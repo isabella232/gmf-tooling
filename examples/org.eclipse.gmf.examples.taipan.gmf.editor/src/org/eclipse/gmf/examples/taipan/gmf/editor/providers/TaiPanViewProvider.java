@@ -15,18 +15,19 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.diagram.core.providers.AbstractViewProvider;
-import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.AquatoryViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.DestinationLinkNotationViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ItemNodeNotationViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.PortNodeNotationViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.PortNode_locationNotationViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipNodeNotationViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipNode_cargoNotationViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipNode_nameNotationViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.DestinationViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ItemViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.PortViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Port_locationViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Ship_CargoCompartmentViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Ship_nameViewFactory;
+
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
 /**
  * @generated
@@ -62,17 +63,17 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 
 		switch (nodeVID) {
 		case 1001:
-			return PortNodeNotationViewFactory.class;
+			return PortViewFactory.class;
 		case 4001:
-			return PortNode_locationNotationViewFactory.class;
+			return Port_locationViewFactory.class;
 		case 1002:
-			return ShipNodeNotationViewFactory.class;
+			return ShipViewFactory.class;
 		case 4002:
-			return ShipNode_nameNotationViewFactory.class;
+			return Ship_nameViewFactory.class;
 		case 5001:
-			return ShipNode_cargoNotationViewFactory.class;
+			return Ship_CargoCompartmentViewFactory.class;
 		case 2001:
-			return ItemNodeNotationViewFactory.class;
+			return ItemViewFactory.class;
 		}
 		return getUnrecognizedNodeViewClass(semanticAdapter, containerView, semanticHint);
 	}
@@ -91,7 +92,7 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
 		IElementType elementType = (IElementType) semanticAdapter.getAdapter(IElementType.class);
 		if (TaiPanElementTypes.ShipDestination_3001.equals(elementType)) {
-			return DestinationLinkNotationViewFactory.class;
+			return DestinationViewFactory.class;
 		}
 
 		EClass semanticType = getSemanticEClass(semanticAdapter);

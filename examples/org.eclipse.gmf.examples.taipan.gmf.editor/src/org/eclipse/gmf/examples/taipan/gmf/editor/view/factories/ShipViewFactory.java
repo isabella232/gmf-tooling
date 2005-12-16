@@ -16,11 +16,14 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.*;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
+
+import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 
 /**
  * @generated
  */
-public class ShipNode_cargoNotationViewFactory extends ListCompartmentViewFactory {
+public class ShipViewFactory extends AbstractShapeViewFactory {
 
 	/**
 	 * @generated
@@ -31,6 +34,10 @@ public class ShipNode_cargoNotationViewFactory extends ListCompartmentViewFactor
 		EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
 		annotation.setSource("VisualID");
 		view.getEAnnotations().add(annotation);
-		annotation.getDetails().put("value", "5001");
+		annotation.getDetails().put("value", "1002");
+		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Ship_1002Labels.NAME_TEXT, ViewUtil.APPEND,
+				persisted, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Ship_1002Compartments.CARGOCOMPARTMENT,
+				ViewUtil.APPEND, persisted, getPreferencesHint());
 	}
 }

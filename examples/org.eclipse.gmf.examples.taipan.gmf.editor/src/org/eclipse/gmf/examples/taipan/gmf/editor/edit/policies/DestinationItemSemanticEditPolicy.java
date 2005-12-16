@@ -19,7 +19,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest;
 /**
  * @generated
  */
-public class ShipDestinationLinkItemSemanticEditPolicy extends TaiPanItemSemanticEditPolicy {
+public class DestinationItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated

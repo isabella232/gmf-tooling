@@ -25,12 +25,12 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanStructuralFeat
 /**
  * @generated
  */
-public class ShipNameNodeLabelEditPart extends TextCompartmentEditPart {
+public class Ship_nameEditPart extends TextCompartmentEditPart {
 
 	/**
 	 * @generated
 	 */
-	public ShipNameNodeLabelEditPart(View view) {
+	public Ship_nameEditPart(View view) {
 		super(view);
 		setNumIcons(1);
 	}

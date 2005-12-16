@@ -17,7 +17,6 @@ import org.eclipse.draw2d.StackLayout;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.RectangularDropShadowLineBorder;
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
@@ -26,15 +25,17 @@ import org.eclipse.draw2d.RectangleFigure;
 
 import org.eclipse.gef.EditPart;
 
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipNodeGraphicalNodeEditPolicy;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipNodeItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortGraphicalNodeEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortItemSemanticEditPolicy;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
+
+import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 
 /**
  * @generated
  */
-public class ShipNodeEditPart extends ShapeNodeEditPart {
+public class PortEditPart extends ShapeNodeEditPart {
 
 	/**
 	 * @generated
@@ -44,7 +45,7 @@ public class ShipNodeEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public ShipNodeEditPart(View view) {
+	public PortEditPart(View view) {
 		super(view);
 	}
 
@@ -53,8 +54,8 @@ public class ShipNodeEditPart extends ShapeNodeEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ShipNodeItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new ShipNodeGraphicalNodeEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new PortItemSemanticEditPolicy());
+		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new PortGraphicalNodeEditPolicy());
 	}
 
 	/**
@@ -123,6 +124,6 @@ public class ShipNodeEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(TaiPanSemanticHints.Ship_1002Labels.NAME_TEXT);
+		return getChildBySemanticHint(TaiPanSemanticHints.Port_1001Labels.LOCATION_TEXT);
 	}
 }

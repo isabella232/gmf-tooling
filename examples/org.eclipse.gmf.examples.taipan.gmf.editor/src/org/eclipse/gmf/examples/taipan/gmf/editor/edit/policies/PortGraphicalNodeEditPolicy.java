@@ -14,4 +14,4 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 /**
  * @generated
  */
-public class ShipNodeGraphicalNodeEditPolicy extends TaiPanGraphicalNodeEditPolicy {}
+public class PortGraphicalNodeEditPolicy extends TaiPanGraphicalNodeEditPolicy {}

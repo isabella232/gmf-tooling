@@ -29,7 +29,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 /**
  * @generated
  */
-public class PortNodeItemSemanticEditPolicy extends TaiPanItemSemanticEditPolicy {
+public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
@@ -43,17 +43,9 @@ public class PortNodeItemSemanticEditPolicy extends TaiPanItemSemanticEditPolicy
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
 		if (TaiPanElementTypes.ShipDestination_3001 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartIncomingShip_Destination3001Command(req)
-					: getCreateCompleteIncomingShip_Destination3001Command(req);
+			return req.getTarget() == null ? null : getCreateCompleteIncomingShip_Destination3001Command(req);
 		}
 		return super.getCreateRelationshipCommand(req);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Command getCreateStartIncomingShip_Destination3001Command(CreateRelationshipRequest req) {
-		return new Command() {};
 	}
 
 	/**

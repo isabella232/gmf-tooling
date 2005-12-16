@@ -29,7 +29,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class Compartment_CargoContainerItemSemanticEditPolicy extends TaiPanItemSemanticEditPolicy {
+public class Ship_CargoCompartmentItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
@@ -39,7 +39,7 @@ public class Compartment_CargoContainerItemSemanticEditPolicy extends TaiPanItem
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getShip_Cargo());
 			}
-			return getMSLWrapper(new CreateItemCommand(req));
+			return getMSLWrapper(new CreateItem_2001Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -47,12 +47,12 @@ public class Compartment_CargoContainerItemSemanticEditPolicy extends TaiPanItem
 	/**
 	 * @generated
 	 */
-	private static class CreateItemCommand extends MSLCreateElementCommand {
+	private static class CreateItem_2001Command extends MSLCreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateItemCommand(CreateElementRequest req) {
+		public CreateItem_2001Command(CreateElementRequest req) {
 			super(req);
 		}
 

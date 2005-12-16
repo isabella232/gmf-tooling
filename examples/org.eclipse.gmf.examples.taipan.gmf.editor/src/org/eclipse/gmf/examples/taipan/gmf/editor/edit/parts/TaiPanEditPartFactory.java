@@ -54,21 +54,21 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 			int viewVisualID = getVisualID(view);
 			switch (viewVisualID) {
 			case 79:
-				return new AquatoryCanvasEditPart(view);
+				return new AquatoryEditPart(view);
 			case 1001:
-				return new PortNodeEditPart(view);
+				return new PortEditPart(view);
 			case 4001:
-				return new PortLocationNodeLabelEditPart(view);
+				return new Port_locationEditPart(view);
 			case 1002:
-				return new ShipNodeEditPart(view);
+				return new ShipEditPart(view);
 			case 4002:
-				return new ShipNameNodeLabelEditPart(view);
+				return new Ship_nameEditPart(view);
 			case 5001:
-				return new ShipNode_cargoCompartmentEditPart(view);
+				return new Ship_CargoCompartmentEditPart(view);
 			case 2001:
-				return new ItemNodeChildNodeEditPart(view);
+				return new ItemEditPart(view);
 			case 3001:
-				return new DestinationLinkEditPart(view);
+				return new DestinationEditPart(view);
 			}
 		}
 		return createUnrecognizedEditPart(context, model);

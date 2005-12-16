@@ -17,19 +17,19 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ItemChildNodeItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ItemItemSemanticEditPolicy;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanStructuralFeatureParser;
 
 /**
  * @generated
  */
-public class ItemNodeChildNodeEditPart extends ListItemEditPart {
+public class ItemEditPart extends ListItemEditPart {
 
 	/**
 	 * @generated
 	 */
-	public ItemNodeChildNodeEditPart(View view) {
+	public ItemEditPart(View view) {
 		super(view);
 	}
 
@@ -48,6 +48,6 @@ public class ItemNodeChildNodeEditPart extends ListItemEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ItemChildNodeItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ItemItemSemanticEditPolicy());
 	}
 }

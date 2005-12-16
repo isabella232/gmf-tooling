@@ -25,12 +25,12 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanStructuralFeat
 /**
  * @generated
  */
-public class PortLocationNodeLabelEditPart extends TextCompartmentEditPart {
+public class Port_locationEditPart extends TextCompartmentEditPart {
 
 	/**
 	 * @generated
 	 */
-	public PortLocationNodeLabelEditPart(View view) {
+	public Port_locationEditPart(View view) {
 		super(view);
 		setNumIcons(1);
 	}

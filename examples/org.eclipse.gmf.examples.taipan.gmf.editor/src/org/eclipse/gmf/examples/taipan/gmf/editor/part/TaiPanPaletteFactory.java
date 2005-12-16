@@ -17,14 +17,16 @@ import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteGroup;
 import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gef.palette.PaletteSeparator;
 import org.eclipse.gef.palette.PanningSelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
-import org.eclipse.gmf.runtime.diagram.ui.tools.ConnectionCreationTool;
 import org.eclipse.gmf.runtime.diagram.ui.tools.CreationTool;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.gef.palette.PaletteSeparator;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
+
+import org.eclipse.gmf.runtime.diagram.ui.tools.ConnectionCreationTool;
 
 /**
  * @generated
@@ -75,7 +77,7 @@ public class TaiPanPaletteFactory {
 	 * @generated
 	 */
 	private void fillPalette(PaletteRoot paletteRoot) {
-		paletteRoot.add(createTAIPANGroup());
+		paletteRoot.add(createTaiPanGroup());
 	}
 
 	/**
@@ -92,22 +94,28 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private PaletteContainer createTAIPANGroup() {
+	private PaletteContainer createTaiPanGroup() {
 		PaletteContainer paletteContainer = createContainer("TaiPan");
-		paletteContainer.add(createPORTNODECreationTool());
-		paletteContainer.add(createSHIPNODECreationTool());
-		paletteContainer.add(createITEMNODECreationTool());
+		paletteContainer.add(createPortNodeCreationTool());
+		paletteContainer.add(createShipNodeCreationTool());
+		paletteContainer.add(createItemNodeCreationTool());
 		paletteContainer.add(new PaletteSeparator());
-		paletteContainer.add(createDESTINATIONLINKCreationTool());
+		paletteContainer.add(createdestinationLinkCreationTool());
 		return paletteContainer;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createPORTNODECreationTool() {
-		ImageDescriptor image = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Port_1001);
-		return new ToolEntry("PortNode", "PortNode", image, image) {
+	private ToolEntry createPortNodeCreationTool() {
+		ImageDescriptor smallImage;
+		ImageDescriptor largeImage;
+
+		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Port_1001);
+
+		largeImage = smallImage;
+
+		return new ToolEntry("Port", "Port", smallImage, largeImage) {
 
 			public Tool createTool() {
 				Tool tool = new CreationTool(TaiPanElementTypes.Port_1001);
@@ -120,9 +128,15 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createSHIPNODECreationTool() {
-		ImageDescriptor image = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Ship_1002);
-		return new ToolEntry("ShipNode", "ShipNode", image, image) {
+	private ToolEntry createShipNodeCreationTool() {
+		ImageDescriptor smallImage;
+		ImageDescriptor largeImage;
+
+		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Ship_1002);
+
+		largeImage = smallImage;
+
+		return new ToolEntry("Ship", "Ship", smallImage, largeImage) {
 
 			public Tool createTool() {
 				Tool tool = new CreationTool(TaiPanElementTypes.Ship_1002);
@@ -135,9 +149,15 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createITEMNODECreationTool() {
-		ImageDescriptor image = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Item_2001);
-		return new ToolEntry("ItemNode", "ItemNode", image, image) {
+	private ToolEntry createItemNodeCreationTool() {
+		ImageDescriptor smallImage;
+		ImageDescriptor largeImage;
+
+		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Item_2001);
+
+		largeImage = smallImage;
+
+		return new ToolEntry("Item", "Item", smallImage, largeImage) {
 
 			public Tool createTool() {
 				Tool tool = new CreationTool(TaiPanElementTypes.Item_2001);
@@ -150,9 +170,15 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createDESTINATIONLINKCreationTool() {
-		ImageDescriptor image = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.ShipDestination_3001);
-		return new ToolEntry("DestinationLink", "DestinationLink", image, image) {
+	private ToolEntry createdestinationLinkCreationTool() {
+		ImageDescriptor smallImage;
+		ImageDescriptor largeImage;
+
+		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.ShipDestination_3001);
+
+		largeImage = smallImage;
+
+		return new ToolEntry("destination", "destination", smallImage, largeImage) {
 
 			public Tool createTool() {
 				Tool tool = new ConnectionCreationTool(TaiPanElementTypes.ShipDestination_3001);

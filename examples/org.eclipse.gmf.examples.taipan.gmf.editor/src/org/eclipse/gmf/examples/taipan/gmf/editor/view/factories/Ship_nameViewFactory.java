@@ -12,15 +12,18 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.view.factories;
 
 import org.eclipse.core.runtime.IAdaptable;
+
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
+
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory;
+
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
  */
-public class PortNode_locationNotationViewFactory extends BasicNodeViewFactory {
+public class Ship_nameViewFactory extends BasicNodeViewFactory {
 
 	/**
 	 * @generated
@@ -31,6 +34,6 @@ public class PortNode_locationNotationViewFactory extends BasicNodeViewFactory {
 		EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
 		annotation.setSource("VisualID");
 		view.getEAnnotations().add(annotation);
-		annotation.getDetails().put("value", "4001");
+		annotation.getDetails().put("value", "4002");
 	}
 }

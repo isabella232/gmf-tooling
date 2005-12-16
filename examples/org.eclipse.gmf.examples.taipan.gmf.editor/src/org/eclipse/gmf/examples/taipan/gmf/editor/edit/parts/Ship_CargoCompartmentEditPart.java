@@ -15,8 +15,8 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.CargoContainerCanonicalEditPolicy;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.Compartment_CargoContainerItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.Ship_CargoCompartmentCanonicalEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.Ship_CargoCompartmentItemSemanticEditPolicy;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
 
@@ -27,12 +27,12 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.PopupBarEditPolicy;
 /**
  * @generated
  */
-public class ShipNode_cargoCompartmentEditPart extends ListCompartmentEditPart {
+public class Ship_CargoCompartmentEditPart extends ListCompartmentEditPart {
 
 	/**
 	 * @generated
 	 */
-	public ShipNode_cargoCompartmentEditPart(View view) {
+	public Ship_CargoCompartmentEditPart(View view) {
 		super(view);
 	}
 
@@ -47,7 +47,7 @@ public class ShipNode_cargoCompartmentEditPart extends ListCompartmentEditPart {
 	 * @generated
 	 */
 	protected String getTitleName() {
-		return "cargo";
+		return "CargoCompartment";
 	}
 
 	/**
@@ -55,10 +55,10 @@ public class ShipNode_cargoCompartmentEditPart extends ListCompartmentEditPart {
 	 */
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new Compartment_CargoContainerItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new Ship_CargoCompartmentItemSemanticEditPolicy());
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy());
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new DragDropEditPolicy());
-		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new CargoContainerCanonicalEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new Ship_CargoCompartmentCanonicalEditPolicy());
 		installEditPolicy(EditPolicyRoles.POPUPBAR_ROLE, new PopupBarEditPolicy());
 	}
 }

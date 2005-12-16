@@ -16,11 +16,12 @@ import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.runtime.diagram.ui.view.factories.*;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
 
 /**
  * @generated
  */
-public class ItemNodeNotationViewFactory extends AbstractLabelViewFactory {
+public class DestinationViewFactory extends ConnectionViewFactory {
 
 	/**
 	 * @generated
@@ -31,6 +32,7 @@ public class ItemNodeNotationViewFactory extends AbstractLabelViewFactory {
 		EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
 		annotation.setSource("VisualID");
 		view.getEAnnotations().add(annotation);
-		annotation.getDetails().put("value", "2001");
+		annotation.getDetails().put("value", "3001");
+		view.setType(TaiPanSemanticHints.ShipDestination_3001);
 	}
 }

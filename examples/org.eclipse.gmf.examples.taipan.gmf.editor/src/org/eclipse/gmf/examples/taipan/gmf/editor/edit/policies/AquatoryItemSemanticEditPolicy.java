@@ -26,7 +26,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 /**
  * @generated
  */
-public class AquatoryDiagramItemSemanticEditPolicy extends TaiPanItemSemanticEditPolicy {
+public class AquatoryItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
@@ -36,13 +36,13 @@ public class AquatoryDiagramItemSemanticEditPolicy extends TaiPanItemSemanticEdi
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Ports());
 			}
-			return getMSLWrapper(new CreatePortCommand(req));
+			return getMSLWrapper(new CreatePort_1001Command(req));
 		}
 		if (TaiPanElementTypes.Ship_1002 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Ships());
 			}
-			return getMSLWrapper(new CreateShipCommand(req));
+			return getMSLWrapper(new CreateShip_1002Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -50,12 +50,12 @@ public class AquatoryDiagramItemSemanticEditPolicy extends TaiPanItemSemanticEdi
 	/**
 	 * @generated
 	 */
-	private static class CreatePortCommand extends MSLCreateElementCommand {
+	private static class CreatePort_1001Command extends MSLCreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreatePortCommand(CreateElementRequest req) {
+		public CreatePort_1001Command(CreateElementRequest req) {
 			super(req);
 		}
 
@@ -81,12 +81,12 @@ public class AquatoryDiagramItemSemanticEditPolicy extends TaiPanItemSemanticEdi
 	/**
 	 * @generated
 	 */
-	private static class CreateShipCommand extends MSLCreateElementCommand {
+	private static class CreateShip_1002Command extends MSLCreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateShipCommand(CreateElementRequest req) {
+		public CreateShip_1002Command(CreateElementRequest req) {
 			super(req);
 		}
 

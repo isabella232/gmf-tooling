@@ -1,31 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gmfmap:Mapping xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:gmfmap="http://www.eclipse.org/gmf/2005/mappings">
   <nodes>
-    <diagramNode href="taipan.diadef#PortNode"/>
     <domainMetaElement href="taipan.ecore#//Port"/>
     <containmentFeature href="taipan.ecore#//Aquatory/ports"/>
     <editFeature href="taipan.ecore#//Port/location"/>
+    <tool xsi:type="gmfmap:CreationTool" group="TaiPan"/>
+    <diagramNode href="taipan.gmfgraph#PortNode"/>
   </nodes>
   <nodes>
-    <diagramNode href="taipan.diadef#ShipNode"/>
     <domainMetaElement href="taipan.ecore#//Ship"/>
     <containmentFeature href="taipan.ecore#//Aquatory/ships"/>
     <editFeature href="taipan.ecore#//Ship/name"/>
-    <childMappings>
-      <diagramNode href="taipan.diadef#ItemNode"/>
+    <childMappings compartment="//@nodes.1/@compartmentMappings.0">
       <domainMetaElement href="taipan.ecore#//Item"/>
       <containmentFeature href="taipan.ecore#//Ship/cargo"/>
       <editFeature href="taipan.ecore#//Item/article"/>
-      <compartment href="taipan.diadef#cargo"/>
+      <tool xsi:type="gmfmap:CreationTool" group="TaiPan"/>
+      <diagramNode href="taipan.gmfgraph#ItemChild"/>
     </childMappings>
+    <compartmentMappings childNodes="//@nodes.1/@childMappings.0">
+      <compartment href="taipan.gmfgraph#CargoCompartment"/>
+    </compartmentMappings>
+    <tool xsi:type="gmfmap:CreationTool" group="TaiPan"/>
+    <diagramNode href="taipan.gmfgraph#ShipNode"/>
   </nodes>
   <links>
-    <diagramLink href="taipan.diadef#DestinationLink"/>
+    <diagramLink href="taipan.gmfgraph#DestinationLink"/>
     <linkMetaFeature xsi:type="ecore:EReference" href="taipan.ecore#//Ship/destination"/>
+    <tool xsi:type="gmfmap:CreationTool" group="TaiPan"/>
   </links>
   <diagram>
-    <diagramCanvas href="taipan.diadef#AquatoryCanvas"/>
+    <diagramCanvas href="taipan.gmfgraph#AquatoryDiagram"/>
     <domainModel href="taipan.ecore#/"/>
     <domainMetaElement href="taipan.ecore#//Aquatory"/>
   </diagram>
+  <toolGroups name="TaiPan" tools="//@nodes.0/@tool //@nodes.1/@tool //@nodes.1/@childMappings.0/@tool //@links.0/@tool"/>
 </gmfmap:Mapping>

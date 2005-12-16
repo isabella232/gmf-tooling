@@ -18,12 +18,11 @@ import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.draw2d.PolylineDecoration;
 import org.eclipse.draw2d.Shape;
 
 import org.eclipse.gef.EditPolicy;
 
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipDestinationLinkItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.DestinationItemSemanticEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanReferenceConnectionEditPolicy;
 
 import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
@@ -31,12 +30,12 @@ import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
 /**
  * @generated
  */
-public class DestinationLinkEditPart extends ConnectionNodeEditPart {
+public class DestinationEditPart extends ConnectionNodeEditPart {
 
 	/**
 	 * @generated
 	 */
-	public DestinationLinkEditPart(View view) {
+	public DestinationEditPart(View view) {
 		super(view);
 	}
 
@@ -46,7 +45,7 @@ public class DestinationLinkEditPart extends ConnectionNodeEditPart {
 	protected void createDefaultEditPolicies() {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicy.CONNECTION_ROLE, new TaiPanReferenceConnectionEditPolicy());
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ShipDestinationLinkItemSemanticEditPolicy());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new DestinationItemSemanticEditPolicy());
 	}
 
 	/**
@@ -62,6 +61,7 @@ public class DestinationLinkEditPart extends ConnectionNodeEditPart {
 	protected void decorateConnectionShape(PolylineConnection shape) {
 
 		shape.setLineStyle(Graphics.LINE_SOLID);
+		shape.setLineWidth(1);
 		RotatableDecoration sourceDecoration = createSourceDecoration();
 		if (sourceDecoration != null) {
 			shape.setSourceDecoration(sourceDecoration);
@@ -105,8 +105,6 @@ public class DestinationLinkEditPart extends ConnectionNodeEditPart {
 	 */
 	protected RotatableDecoration createTargetDecoration() {
 
-		PolylineDecoration decoration = new PolylineDecoration();
-		decoration.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));
-		return decoration;
+		return null;
 	}
 }

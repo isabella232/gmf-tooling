@@ -23,7 +23,7 @@ import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 /**
  * @generated
  */
-public class PortNodeNotationViewFactory extends AbstractShapeViewFactory {
+public class PortViewFactory extends AbstractShapeViewFactory {
 
 	/**
 	 * @generated

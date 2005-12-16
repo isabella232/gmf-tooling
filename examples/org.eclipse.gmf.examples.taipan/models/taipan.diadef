@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<diadef:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:diadef="http://www.eclipse.org/gmf/2005/DiagramDefinition" name="AquatoryCanvas">
-  <nodes name="PortNode" toolGroupID="TaiPan" defaultWidth="50" defaultHeight="50"/>
-  <nodes name="ShipNode" toolGroupID="TaiPan" defaultWidth="70" defaultHeight="30">
-    <compartments name="cargo" collapsible="true" needsTitle="true"/>
-  </nodes>
-  <nodes name="ItemNode" toolGroupID="TaiPan"/>
-  <links name="DestinationLink" toolGroupID="TaiPan" targetAdornment="OpenTriangle"/>
-</diadef:Canvas>

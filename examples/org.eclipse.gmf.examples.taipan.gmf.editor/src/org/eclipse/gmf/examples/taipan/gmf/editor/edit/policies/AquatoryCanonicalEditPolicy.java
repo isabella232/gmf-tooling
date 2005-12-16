@@ -26,7 +26,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 /**
  * @generated
  */
-public class AquatoryDiagramCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
+public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 
 	/**
 	 * @generated
@@ -35,21 +35,29 @@ public class AquatoryDiagramCanonicalEditPolicy extends CanonicalConnectionEditP
 		Aquatory modelElement = (Aquatory) ((View) getHost().getModel()).getElement();
 		List result = new LinkedList();
 		EObject nextValue;
+		int nodeVID;
 		for (Iterator it = modelElement.getPorts().iterator(); it.hasNext();) {
 			nextValue = (EObject) it.next();
-			int nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, "");
+			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, "");
 			if (1001 == nodeVID) {
 				result.add(nextValue);
 			}
 		}
 		for (Iterator it = modelElement.getShips().iterator(); it.hasNext();) {
 			nextValue = (EObject) it.next();
-			int nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, "");
+			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, "");
 			if (1002 == nodeVID) {
 				result.add(nextValue);
 			}
 		}
 		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean shouldDeleteView(View view) {
+		return view.getElement() != ((View) getHost().getModel()).getElement() && super.shouldDeleteView(view);
 	}
 
 	/**

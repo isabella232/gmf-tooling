@@ -17,20 +17,14 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 import org.eclipse.gef.commands.UnexecutableCommand;
 
-import org.eclipse.gmf.examples.taipan.Port;
 import org.eclipse.gmf.examples.taipan.Ship;
-import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
-
-import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
-
-import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 
 /**
  * @generated
  */
-public class ShipNodeItemSemanticEditPolicy extends TaiPanItemSemanticEditPolicy {
+public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy {
 
 	/**
 	 * @generated
@@ -44,8 +38,7 @@ public class ShipNodeItemSemanticEditPolicy extends TaiPanItemSemanticEditPolicy
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
 		if (TaiPanElementTypes.ShipDestination_3001 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingShip_Destination3001Command(req)
-					: getCreateCompleteOutgoingShip_Destination3001Command(req);
+			return req.getTarget() == null ? getCreateStartOutgoingShip_Destination3001Command(req) : null;
 		}
 		return super.getCreateRelationshipCommand(req);
 	}
@@ -58,21 +51,7 @@ public class ShipNodeItemSemanticEditPolicy extends TaiPanItemSemanticEditPolicy
 		if (element.getDestination() != null) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		return new Command() {};
-	}
 
-	/**
-	 * @generated
-	 */
-	protected Command getCreateCompleteOutgoingShip_Destination3001Command(CreateRelationshipRequest req) {
-		if (!(req.getSource() instanceof Port)) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		Ship element = (Ship) getSemanticElement();
-		if (element.getDestination() != null) {
-			return UnexecutableCommand.INSTANCE;
-		}
-		SetRequest setReq = new SetRequest(req.getTarget(), TaiPanPackage.eINSTANCE.getShip_Destination(), req.getSource());
-		return getMSLWrapper(new SetValueCommand(setReq));
+		return new Command() {};
 	}
 }

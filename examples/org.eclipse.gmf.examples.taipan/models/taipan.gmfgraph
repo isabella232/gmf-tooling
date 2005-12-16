@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="AquatoryDiagram">
+  <figures name="FG1">
+    <figures xsi:type="gmfgraph:Rectangle" name="box">
+      <children xsi:type="gmfgraph:Label" name="boxName" text=""/>
+    </figures>
+    <figures xsi:type="gmfgraph:PolylineConnection" name="line"/>
+    <figures xsi:type="gmfgraph:Label" name="innerLabel"/>
+  </figures>
+  <nodes name="PortNode" figure="box"/>
+  <nodes name="ShipNode" figure="box"/>
+  <connections name="DestinationLink" figure="line"/>
+  <compartments name="CargoCompartment" figure="box" collapsible="true" needsTitle="true"/>
+  <children name="ItemChild" figure="innerLabel"/>
+</gmfgraph:Canvas>

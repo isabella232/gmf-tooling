@@ -184,7 +184,19 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	 * @generated
 	 */
 	private EObject load() {
-		Resource modelResource = ResourceUtil.load(mySelection.getLocation().toOSString());
+		String resourcePath = mySelection.getLocation().toOSString();
+		Resource modelResource = ResourceUtil.findResource(resourcePath);
+		if (modelResource == null) {
+			modelResource = ResourceUtil.create(resourcePath);
+		}
+		if (!modelResource.isLoaded()) {
+			try {
+				ResourceUtil.load(modelResource);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
 		return (EObject) modelResource.getContents().get(0);
 	}
 
@@ -223,9 +235,10 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	 */
 	private void createDiagramChildren(Diagram diagram, EObject diagramModel) {
 		EObject nextValue;
+		int nodeVID;
 		for (Iterator values = ((Aquatory) diagramModel).getPorts().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			int nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(diagram, nextValue, "");
+			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(diagram, nextValue, "");
 			if (1001 == nodeVID) {
 				Node nextNode = DiagramUtil.createNode(diagram, nextValue, null,
 						TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
@@ -235,7 +248,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 		}
 		for (Iterator values = ((Aquatory) diagramModel).getShips().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
-			int nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(diagram, nextValue, "");
+			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(diagram, nextValue, "");
 			if (1002 == nodeVID) {
 				Node nextNode = DiagramUtil.createNode(diagram, nextValue, null,
 						TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
@@ -257,9 +270,9 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	 */
 	private void createShip_1002Children(Node viewObject, EObject modelObject) {
 		Node nextNode;
-		nextNode = getCompartment(viewObject, "cargo");
+		nextNode = getCompartment(viewObject, "CargoCompartment");
 		if (nextNode != null) {
-			createCargo_5001Children(nextNode, modelObject);
+			createCargoCompartment_5001Children(nextNode, modelObject);
 		}
 		storeLinks(modelObject);
 	}
@@ -267,7 +280,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	/**
 	 * @generated
 	 */
-	private void createCargo_5001Children(Node viewObject, EObject modelObject) {
+	private void createCargoCompartment_5001Children(Node viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
 		for (Iterator values = ((Ship) modelObject).getCargo().iterator(); values.hasNext();) {

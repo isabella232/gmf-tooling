@@ -66,7 +66,7 @@ public class TaiPanSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String CARGO = "cargo";
+		public static final String CARGOCOMPARTMENT = "CargoCompartment";
 	}
 
 	/**

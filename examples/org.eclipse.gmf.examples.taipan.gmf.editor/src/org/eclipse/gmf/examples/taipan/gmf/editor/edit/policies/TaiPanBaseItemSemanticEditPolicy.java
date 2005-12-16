@@ -40,7 +40,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class TaiPanItemSemanticEditPolicy extends SemanticEditPolicy {
+public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 
 	/**
 	 * @generated
@@ -204,4 +204,5 @@ public class TaiPanItemSemanticEditPolicy extends SemanticEditPolicy {
 		}
 		return null;
 	}
+
 }

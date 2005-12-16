@@ -12,18 +12,18 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.view.factories;
 
 import org.eclipse.core.runtime.IAdaptable;
+
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.gmf.runtime.diagram.ui.view.factories.*;
-import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
 
-import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+import org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory;
+
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
  */
-public class ShipNodeNotationViewFactory extends AbstractShapeViewFactory {
+public class Port_locationViewFactory extends BasicNodeViewFactory {
 
 	/**
 	 * @generated
@@ -34,10 +34,6 @@ public class ShipNodeNotationViewFactory extends AbstractShapeViewFactory {
 		EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
 		annotation.setSource("VisualID");
 		view.getEAnnotations().add(annotation);
-		annotation.getDetails().put("value", "1002");
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Ship_1002Labels.NAME_TEXT, ViewUtil.APPEND,
-				persisted, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Ship_1002Compartments.CARGO, ViewUtil.APPEND,
-				persisted, getPreferencesHint());
+		annotation.getDetails().put("value", "4001");
 	}
 }

@@ -41,8 +41,8 @@ public class TaiPanGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
 	/**
 	 * @generated
 	 */
-	protected Command getConnectionWithReorientedViewCreateCommand(CreateConnectionRequest request) {
-		EtoolsProxyCommand c = (EtoolsProxyCommand) super.getConnectionCreateCommand(request);
+	protected Command getConnectionWithReorientedViewCompleteCommand(CreateConnectionRequest request) {
+		EtoolsProxyCommand c = (EtoolsProxyCommand) super.getConnectionCompleteCommand(request);
 		CompositeCommand cc = (CompositeCommand) c.getICommand();
 		TaiPanReorientConnectionViewCommand rcvCommand = new TaiPanReorientConnectionViewCommand(null);
 		rcvCommand.setEdgeAdaptor(getViewAdapter());
