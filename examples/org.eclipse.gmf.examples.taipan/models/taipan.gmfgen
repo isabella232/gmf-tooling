@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
 <gmfgen:GenDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel" visualID="79" editPartClassName="AquatoryEditPart" itemSemanticEditPolicyClassName="AquatoryItemSemanticEditPolicy" notationViewFactoryClassName="AquatoryViewFactory" pluginName="taipan Plugin" canonicalEditPolicyClassName="AquatoryCanonicalEditPolicy">
-  <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
+  <diagramRunTimeClass href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
   <viewmap xsi:type="gmfgen:DiagramViewmap"/>
   <domainMetaModel href="taipan.genmodel#//taipan"/>
   <domainDiagramElement href="taipan.genmodel#//taipan/Aquatory"/>
   <nodes visualID="1001" editPartClassName="PortEditPart" itemSemanticEditPolicyClassName="PortItemSemanticEditPolicy" notationViewFactoryClassName="PortViewFactory" canonicalEditPolicyClassName="PortCanonicalEditPolicy" graphicalNodeEditPolicyClassName="PortGraphicalNodeEditPolicy">
-    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <diagramRunTimeClass href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
     <viewmap xsi:type="gmfgen:BasicNodeViewmap"/>
     <modelFacet>
       <metaClass href="taipan.genmodel#//taipan/Port"/>
@@ -13,7 +13,7 @@
       <childMetaFeature href="taipan.genmodel#//taipan/Aquatory/ports"/>
     </modelFacet>
     <labels visualID="4001" editPartClassName="Port_locationEditPart" itemSemanticEditPolicyClassName="Port_locationItemSemanticEditPolicy" notationViewFactoryClassName="Port_locationViewFactory">
-      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <diagramRunTimeClass href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:LabelViewmap"/>
       <modelFacet>
         <metaFeature href="taipan.genmodel#//taipan/Port/location"/>
@@ -21,7 +21,7 @@
     </labels>
   </nodes>
   <nodes visualID="1002" editPartClassName="ShipEditPart" itemSemanticEditPolicyClassName="ShipItemSemanticEditPolicy" notationViewFactoryClassName="ShipViewFactory" canonicalEditPolicyClassName="ShipCanonicalEditPolicy" graphicalNodeEditPolicyClassName="ShipGraphicalNodeEditPolicy">
-    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <diagramRunTimeClass href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
     <viewmap xsi:type="gmfgen:BasicNodeViewmap"/>
     <modelFacet>
       <metaClass href="taipan.genmodel#//taipan/Ship"/>
@@ -29,17 +29,17 @@
       <childMetaFeature href="taipan.genmodel#//taipan/Aquatory/ships"/>
     </modelFacet>
     <labels visualID="4002" editPartClassName="Ship_nameEditPart" itemSemanticEditPolicyClassName="Ship_nameItemSemanticEditPolicy" notationViewFactoryClassName="Ship_nameViewFactory">
-      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <diagramRunTimeClass href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:LabelViewmap"/>
       <modelFacet>
         <metaFeature href="taipan.genmodel#//taipan/Ship/name"/>
       </modelFacet>
     </labels>
     <compartments visualID="5001" editPartClassName="Ship_CargoCompartmentEditPart" itemSemanticEditPolicyClassName="Ship_CargoCompartmentItemSemanticEditPolicy" notationViewFactoryClassName="Ship_CargoCompartmentViewFactory" canonicalEditPolicyClassName="Ship_CargoCompartmentCanonicalEditPolicy" title="CargoCompartment" layoutKind="TOOLBAR">
-      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <diagramRunTimeClass href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:CompartmentViewmap"/>
       <childNodes visualID="2001" editPartClassName="ItemEditPart" itemSemanticEditPolicyClassName="ItemItemSemanticEditPolicy" notationViewFactoryClassName="ItemViewFactory" canonicalEditPolicyClassName="ItemCanonicalEditPolicy" graphicalNodeEditPolicyClassName="ItemGraphicalNodeEditPolicy">
-        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <diagramRunTimeClass href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
         <viewmap xsi:type="gmfgen:BasicNodeViewmap"/>
         <modelFacet>
           <metaClass href="taipan.genmodel#//taipan/Item"/>
@@ -47,7 +47,7 @@
           <childMetaFeature href="taipan.genmodel#//taipan/Ship/cargo"/>
         </modelFacet>
         <labels visualID="4003" editPartClassName="Item_articleEditPart" itemSemanticEditPolicyClassName="Item_articleItemSemanticEditPolicy" notationViewFactoryClassName="Item_articleViewFactory">
-          <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+          <diagramRunTimeClass href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
           <viewmap xsi:type="gmfgen:LabelViewmap"/>
           <modelFacet>
             <metaFeature href="taipan.genmodel#//taipan/Item/article"/>
@@ -57,7 +57,7 @@
     </compartments>
   </nodes>
   <links visualID="3001" editPartClassName="DestinationEditPart" itemSemanticEditPolicyClassName="DestinationItemSemanticEditPolicy" notationViewFactoryClassName="DestinationViewFactory">
-    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+    <diagramRunTimeClass href="platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
     <viewmap xsi:type="gmfgen:DecoratedConnectionViewmap">
       <attributes xsi:type="gmfgen:ShapeAttributes" lineWidth="1"/>
     </viewmap>
