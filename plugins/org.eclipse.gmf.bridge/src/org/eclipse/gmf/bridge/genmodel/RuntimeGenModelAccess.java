@@ -34,7 +34,7 @@ public class RuntimeGenModelAccess extends BasicGenModelAccess {
 		// uglier 
 		registerLocation(constructDefaultFromModel());
 		// the ugliest
-		IPath workspaceCopy = new Path("/org.eclipse.gmf.runtime.notation/src/model/notation.genmodel");
+		IPath workspaceCopy = new Path("/org.eclipse.gmf.runtime.notation/model/notation.genmodel");
 		if (ResourcesPlugin.getWorkspace().getRoot().getFile(workspaceCopy).exists()) {
 			registerLocation(URI.createPlatformResourceURI(workspaceCopy.toPortableString()));
 		}
