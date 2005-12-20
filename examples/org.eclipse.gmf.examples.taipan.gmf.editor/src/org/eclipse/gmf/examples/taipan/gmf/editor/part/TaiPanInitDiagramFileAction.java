@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 
 import org.eclipse.gmf.examples.taipan.Aquatory;
+import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
@@ -222,6 +223,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 			return null;
 		}
 		myLinkVID2EObjectMap.put(new Integer(3001), new LinkedList());
+		myLinkVID2EObjectMap.put(new Integer(3002), new LinkedList());
 		Diagram diagram = DiagramUtil.createDiagram(diagramModel, "TaiPan", TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 		createDiagramChildren(diagram, diagramModel);
 		createLinks();
@@ -328,7 +330,18 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	/**
 	 * @generated
 	 */
-	private void storeTypeModelFacetLinks(EObject container, EClass containerMetaclass) {}
+	private void storeTypeModelFacetLinks(EObject container, EClass containerMetaclass) {
+		if (-1 != containerMetaclass.getFeatureID(TaiPanPackage.eINSTANCE.getAquatory_Routes())) {
+			Object featureValue = ((Aquatory) container).getRoutes();
+			for (Iterator values = ((Collection) featureValue).iterator(); values.hasNext();) {
+				EObject nextValue = ((EObject) values.next());
+				int linkVID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(nextValue);
+				if (3002 == linkVID) {
+					((Collection) myLinkVID2EObjectMap.get(new Integer(3002))).add(nextValue);
+				}
+			}
+		}
+	}
 
 	/**
 	 *@generated
@@ -374,6 +387,24 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 						edge.setTarget(dstNode);
 					}
 				}
+			}
+		}
+		linkElements = (Collection) myLinkVID2EObjectMap.get(new Integer(3002));
+		for (Iterator it = linkElements.iterator(); it.hasNext();) {
+			EObject linkElement = (EObject) it.next();
+			EObject src = linkElement.eContainer();
+			Node srcNode = (Node) myEObject2NodeMap.get(src);
+			if (srcNode == null) {
+				continue;
+			}
+			Object structuralFeatureResult = ((Route) linkElement).getDestination();
+			if (structuralFeatureResult instanceof EObject == false) {
+				continue;
+			}
+			EObject dst = (EObject) structuralFeatureResult;
+			Node dstNode = (Node) myEObject2NodeMap.get(dst);
+			if (dstNode != null) {
+				DiagramUtil.createEdge(srcNode, dstNode, linkElement, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 			}
 		}
 	}

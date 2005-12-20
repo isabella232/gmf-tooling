@@ -29,17 +29,16 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
-import org.eclipse.gmf.examples.taipan.Ship;
-import org.eclipse.gmf.examples.taipan.TaiPanFactory;
+import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.examples.taipan.Ship} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.examples.taipan.Route} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ShipItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+public class RouteItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
 		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
 	/**
@@ -48,7 +47,7 @@ public class ShipItemProvider extends ItemProviderAdapter implements IEditingDom
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ShipItemProvider(AdapterFactory adapterFactory) {
+	public RouteItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -62,23 +61,25 @@ public class ShipItemProvider extends ItemProviderAdapter implements IEditingDom
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
+			addSourcePropertyDescriptor(object);
 			addDestinationPropertyDescriptor(object);
+			addDescriptionPropertyDescriptor(object);
+			addReliabilityPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Name feature.
+	 * This adds a property descriptor for the Source feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addNamePropertyDescriptor(Object object) {
+	protected void addSourcePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Ship_name_feature"), getString(
-				"_UI_PropertyDescriptor_description", "_UI_Ship_name_feature", "_UI_Ship_type"), TaiPanPackage.eINSTANCE
-				.getShip_Name(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Route_source_feature"), getString(
+				"_UI_PropertyDescriptor_description", "_UI_Route_source_feature", "_UI_Route_type"), TaiPanPackage.eINSTANCE
+				.getRoute_Source(), true, null, null, null));
 	}
 
 	/**
@@ -89,35 +90,45 @@ public class ShipItemProvider extends ItemProviderAdapter implements IEditingDom
 	 */
 	protected void addDestinationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Ship_destination_feature"), getString(
-				"_UI_PropertyDescriptor_description", "_UI_Ship_destination_feature", "_UI_Ship_type"), TaiPanPackage.eINSTANCE
-				.getShip_Destination(), true, null, null, null));
+				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Route_destination_feature"), getString(
+				"_UI_PropertyDescriptor_description", "_UI_Route_destination_feature", "_UI_Route_type"),
+				TaiPanPackage.eINSTANCE.getRoute_Destination(), true, null, null, null));
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * This adds a property descriptor for the Description feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Collection getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(TaiPanPackage.eINSTANCE.getShip_Cargo());
-		}
-		return childrenFeatures;
+	protected void addDescriptionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
+				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Route_description_feature"), getString(
+				"_UI_PropertyDescriptor_description", "_UI_Route_description_feature", "_UI_Route_type"),
+				TaiPanPackage.eINSTANCE.getRoute_Description(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
-	 * This returns Ship.gif.
+	 * This adds a property descriptor for the Reliability feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addReliabilityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
+				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Route_reliability_feature"), getString(
+				"_UI_PropertyDescriptor_description", "_UI_Route_reliability_feature", "_UI_Route_type"),
+				TaiPanPackage.eINSTANCE.getRoute_Reliability(), true, ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This returns Route.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/Ship");
+		return getResourceLocator().getImage("full/obj16/Route");
 	}
 
 	/**
@@ -127,8 +138,8 @@ public class ShipItemProvider extends ItemProviderAdapter implements IEditingDom
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((Ship) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Ship_type") : getString("_UI_Ship_type") + " " + label;
+		String label = ((Route) object).getDescription();
+		return label == null || label.length() == 0 ? getString("_UI_Route_type") : getString("_UI_Route_type") + " " + label;
 	}
 
 	/**
@@ -141,12 +152,10 @@ public class ShipItemProvider extends ItemProviderAdapter implements IEditingDom
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Ship.class)) {
-		case TaiPanPackage.SHIP__NAME:
+		switch (notification.getFeatureID(Route.class)) {
+		case TaiPanPackage.ROUTE__DESCRIPTION:
+		case TaiPanPackage.ROUTE__RELIABILITY:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
-		case TaiPanPackage.SHIP__CARGO:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -161,9 +170,6 @@ public class ShipItemProvider extends ItemProviderAdapter implements IEditingDom
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add(createChildParameter(TaiPanPackage.eINSTANCE.getShip_Cargo(), TaiPanFactory.eINSTANCE
-				.createItem()));
 	}
 
 	/**

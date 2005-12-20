@@ -23,6 +23,11 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.DestinationView
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ItemViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.PortViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Port_locationViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.RouteReliabilityLinkLabelTextViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.RouteReliabilityLinkLabelViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.RouteViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route_descriptionTextViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route_descriptionViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Ship_CargoCompartmentViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Ship_nameViewFactory;
@@ -74,6 +79,18 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 			return Ship_CargoCompartmentViewFactory.class;
 		case 2001:
 			return ItemViewFactory.class;
+		case 4004:
+			if (TaiPanSemanticHints.Route_3002Labels.DESCRIPTION_LABEL.equals(semanticHint)) {
+				return Route_descriptionViewFactory.class;
+			} else {
+				return Route_descriptionTextViewFactory.class;
+			}
+		case 4009:
+			if (TaiPanSemanticHints.Route_3002Labels.RELIABILITY_LABEL.equals(semanticHint)) {
+				return RouteReliabilityLinkLabelViewFactory.class;
+			} else {
+				return RouteReliabilityLinkLabelTextViewFactory.class;
+			}
 		}
 		return getUnrecognizedNodeViewClass(semanticAdapter, containerView, semanticHint);
 	}
@@ -101,6 +118,8 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 		int linkVID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(semanticElement, semanticType);
 
 		switch (linkVID) {
+		case 3002:
+			return RouteViewFactory.class;
 		}
 		return getUnrecognizedConnectorViewClass(semanticAdapter, containerView, semanticHint);
 	}

@@ -38,7 +38,8 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class PortItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class PortItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -72,8 +73,10 @@ public class PortItemProvider extends ItemProviderAdapter implements IEditingDom
 	 * @generated
 	 */
 	protected void addLocationPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Port_location_feature"), getString("_UI_PropertyDescriptor_description",
-				"_UI_Port_location_feature", "_UI_Port_type"), TaiPanPackage.eINSTANCE.getPort_Location(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
+				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Port_location_feature"), getString(
+				"_UI_PropertyDescriptor_description", "_UI_Port_location_feature", "_UI_Port_type"), TaiPanPackage.eINSTANCE
+				.getPort_Location(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**

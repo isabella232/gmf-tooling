@@ -21,6 +21,8 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.Aquatory;
 
+import org.eclipse.gmf.examples.taipan.Route;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
 /**
@@ -92,6 +94,8 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	protected EObject getTargetElement(EObject relationship) {
 		int vID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(relationship);
 		switch (vID) {
+		case 3002:
+			return ((Route) relationship).getDestination();
 		}
 		return null;
 	}

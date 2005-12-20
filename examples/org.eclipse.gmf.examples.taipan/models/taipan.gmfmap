@@ -29,10 +29,19 @@
     <linkMetaFeature xsi:type="ecore:EReference" href="taipan.ecore#//Ship/destination"/>
     <tool xsi:type="gmfmap:CreationTool" group="TaiPan"/>
   </links>
+  <links>
+    <diagramLink href="taipan.gmfgraph#RouteLink"/>
+    <domainMetaElement href="taipan.ecore#//Route"/>
+    <containmentFeature href="taipan.ecore#//Aquatory/routes"/>
+    <labelEditFeature href="taipan.ecore#//Route/description"/>
+    <labelDisplayFeature href="taipan.ecore#//Route/description"/>
+    <linkMetaFeature xsi:type="ecore:EReference" href="taipan.ecore#//Route/destination"/>
+    <tool xsi:type="gmfmap:CreationTool" group="TaiPan"/>
+  </links>
   <diagram>
     <diagramCanvas href="taipan.gmfgraph#AquatoryDiagram"/>
     <domainModel href="taipan.ecore#/"/>
     <domainMetaElement href="taipan.ecore#//Aquatory"/>
   </diagram>
-  <toolGroups name="TaiPan" tools="//@nodes.0/@tool //@nodes.1/@tool //@nodes.1/@childMappings.0/@tool //@links.0/@tool"/>
+  <toolGroups name="TaiPan" tools="//@nodes.0/@tool //@nodes.1/@tool //@nodes.1/@childMappings.0/@tool //@links.0/@tool //@links.1/@tool"/>
 </gmfmap:Mapping>

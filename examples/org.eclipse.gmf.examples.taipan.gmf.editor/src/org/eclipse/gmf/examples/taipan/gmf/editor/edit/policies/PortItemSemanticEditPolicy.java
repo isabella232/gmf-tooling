@@ -15,12 +15,20 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLDestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+
 import org.eclipse.gef.commands.UnexecutableCommand;
 
+import org.eclipse.gmf.examples.taipan.Aquatory;
+import org.eclipse.gmf.examples.taipan.Port;
+import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
+
+import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateRelationshipCommand;
 
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 
@@ -45,6 +53,10 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (TaiPanElementTypes.ShipDestination_3001 == req.getElementType()) {
 			return req.getTarget() == null ? null : getCreateCompleteIncomingShip_Destination3001Command(req);
 		}
+		if (TaiPanElementTypes.Route_3002 == req.getElementType()) {
+			return req.getTarget() == null ? getCreateStartOutgoingRoute3002Command(req)
+					: getCreateCompleteIncomingRoute3002Command(req);
+		}
 		return super.getCreateRelationshipCommand(req);
 	}
 
@@ -61,5 +73,77 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		}
 		SetRequest setReq = new SetRequest(req.getSource(), TaiPanPackage.eINSTANCE.getShip_Destination(), req.getTarget());
 		return getMSLWrapper(new SetValueCommand(setReq));
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateStartOutgoingRoute3002Command(CreateRelationshipRequest req) {
+		return new Command() {};
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateCompleteIncomingRoute3002Command(CreateRelationshipRequest req) {
+		if (!(req.getSource() instanceof Port)) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		final Aquatory element = (Aquatory) getRelationshipContainer(req.getSource(), TaiPanPackage.eINSTANCE.getAquatory(),
+				req.getElementType());
+		if (element == null) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		if (req.getContainmentFeature() == null) {
+			req.setContainmentFeature(TaiPanPackage.eINSTANCE.getAquatory_Routes());
+		}
+		return getMSLWrapper(new CreateIncomingRoute3002Command(req) {
+
+			/**
+			 * @generated
+			 */
+			protected EObject getElementToEdit() {
+				return element;
+			}
+		});
+	}
+
+	/**
+	 * @generated
+	 */
+	private static class CreateIncomingRoute3002Command extends MSLCreateRelationshipCommand {
+
+		/**
+		 * @generated
+		 */
+		public CreateIncomingRoute3002Command(CreateRelationshipRequest req) {
+			super(req);
+		}
+
+		/**
+		 * @generated
+		 */
+		protected EClass getEClassToEdit() {
+			return TaiPanPackage.eINSTANCE.getAquatory();
+		};
+
+		/**
+		 * @generated
+		 */
+		protected void setElementToEdit(EObject element) {
+			throw new UnsupportedOperationException();
+		}
+
+		/**
+		 * @generated
+		 */
+		protected EObject doDefaultElementCreation() {
+			Route newElement = (Route) super.doDefaultElementCreation();
+			if (newElement != null) {
+				newElement.setDestination((Port) getTarget());
+				newElement.setSource((Port) getSource());
+			}
+			return newElement;
+		}
 	}
 }

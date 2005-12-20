@@ -89,4 +89,35 @@ public class TaiPanSemanticHints {
 	 * @generated
 	 */
 	public static final String ShipDestination_3001 = "destinationLink";
+
+	/**
+	 * @generated
+	 */
+	public static class Route_3002Labels {
+
+		/**
+		 * @generated
+		 */
+		private Route_3002Labels() {}
+
+		/**
+		 * @generated
+		 */
+		public static final String DESCRIPTION_LABEL = "descriptionLabel";
+
+		/**
+		 * @generated
+		 */
+		public static final String DESCRIPTION_TEXT = "descriptionText";
+
+		/**
+		 * @generated
+		 */
+		public static final String RELIABILITY_LABEL = "reliabilityLabel";
+
+		/**
+		 * @generated
+		 */
+		public static final String RELIABILITY_TEXT = "reliabilityText";
+	}
 }

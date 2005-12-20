@@ -41,7 +41,8 @@ import org.eclipse.gmf.examples.taipan.util.TaiPanAdapterFactory;
  * <!-- end-user-doc -->
  * @generated
  */
-public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory implements ComposeableAdapterFactory, IChangeNotifier, IDisposable {
+public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory implements ComposeableAdapterFactory,
+		IChangeNotifier, IDisposable {
 
 	/**
 	 * This keeps track of the root adapter factory that delegates to this adapter factory.
@@ -170,6 +171,28 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.examples.taipan.Route} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RouteItemProvider routeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.examples.taipan.Route}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createRouteAdapter() {
+		if (routeItemProvider == null) {
+			routeItemProvider = new RouteItemProvider(this);
+		}
+
+		return routeItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -273,6 +296,8 @@ public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory imple
 			shipItemProvider.dispose();
 		if (itemItemProvider != null)
 			itemItemProvider.dispose();
+		if (routeItemProvider != null)
+			routeItemProvider.dispose();
 	}
 
 }

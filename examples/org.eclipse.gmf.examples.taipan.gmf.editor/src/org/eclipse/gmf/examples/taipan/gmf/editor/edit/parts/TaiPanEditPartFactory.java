@@ -16,6 +16,8 @@ import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.emf.ecore.EAnnotation;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
+
 /**
  * @generated
  */
@@ -69,6 +71,20 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 				return new ItemEditPart(view);
 			case 3001:
 				return new DestinationEditPart(view);
+			case 3002:
+				return new RouteEditPart(view);
+			case 4004:
+				if (TaiPanSemanticHints.Route_3002Labels.DESCRIPTION_LABEL.equals(view.getType())) {
+					return new Route_descriptionEditPart(view);
+				} else {
+					return new Route_descriptionTextEditPart(view);
+				}
+			case 4009:
+				if (TaiPanSemanticHints.Route_3002Labels.RELIABILITY_LABEL.equals(view.getType())) {
+					return new RouteReliabilityLinkLabelEditPart(view);
+				} else {
+					return new RouteReliabilityLinkLabelTextEditPart(view);
+				}
 			}
 		}
 		return createUnrecognizedEditPart(context, model);

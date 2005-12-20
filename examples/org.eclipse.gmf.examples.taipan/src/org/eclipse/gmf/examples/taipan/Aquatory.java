@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.gmf.examples.taipan.Aquatory#getPorts <em>Ports</em>}</li>
  *   <li>{@link org.eclipse.gmf.examples.taipan.Aquatory#getShips <em>Ships</em>}</li>
+ *   <li>{@link org.eclipse.gmf.examples.taipan.Aquatory#getRoutes <em>Routes</em>}</li>
  * </ul>
  * </p>
  *
@@ -65,5 +66,21 @@ public interface Aquatory extends EObject {
 	 * @generated
 	 */
 	EList getShips();
+
+	/**
+	 * Returns the value of the '<em><b>Routes</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.examples.taipan.Route}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Routes</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Routes</em>' containment reference list.
+	 * @see org.eclipse.gmf.examples.taipan.TaiPanPackage#getAquatory_Routes()
+	 * @model type="org.eclipse.gmf.examples.taipan.Route" containment="true"
+	 * @generated
+	 */
+	EList getRoutes();
 
 } // Aquatory

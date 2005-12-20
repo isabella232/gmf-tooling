@@ -140,7 +140,8 @@ public class ShipImpl extends EObjectImpl implements Ship {
 			destination = (Port) eResolveProxy((InternalEObject) destination);
 			if (destination != oldDestination) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TaiPanPackage.SHIP__DESTINATION, oldDestination, destination));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TaiPanPackage.SHIP__DESTINATION, oldDestination,
+							destination));
 			}
 		}
 		return destination;

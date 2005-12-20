@@ -10,6 +10,7 @@
     <genClasses ecoreClass="taipan.ecore#//Aquatory">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference taipan.ecore#//Aquatory/ports"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference taipan.ecore#//Aquatory/ships"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference taipan.ecore#//Aquatory/routes"/>
     </genClasses>
     <genClasses ecoreClass="taipan.ecore#//Port">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taipan.ecore#//Port/location"/>
@@ -22,6 +23,12 @@
     <genClasses ecoreClass="taipan.ecore#//Item">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taipan.ecore#//Item/article"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taipan.ecore#//Item/quantity"/>
+    </genClasses>
+    <genClasses ecoreClass="taipan.ecore#//Route">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference taipan.ecore#//Route/source"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference taipan.ecore#//Route/destination"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taipan.ecore#//Route/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute taipan.ecore#//Route/reliability"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

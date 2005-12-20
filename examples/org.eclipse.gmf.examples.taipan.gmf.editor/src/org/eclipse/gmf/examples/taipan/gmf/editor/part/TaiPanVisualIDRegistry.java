@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.Item;
 import org.eclipse.gmf.examples.taipan.Port;
+import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
@@ -123,6 +124,24 @@ public class TaiPanVisualIDRegistry {
 			return getUnrecognizedItem_2001ChildNodeID(domainElement);
 		case 3001:
 			return getUnrecognizedShipDestination_3001LinkLabelID(semanticHint);
+		case 3002:
+			if (TaiPanSemanticHints.Route_3002Labels.DESCRIPTION_LABEL.equals(semanticHint)) {
+				return 4004;
+			}
+			if (TaiPanSemanticHints.Route_3002Labels.RELIABILITY_LABEL.equals(semanticHint)) {
+				return 4009;
+			}
+			return getUnrecognizedRoute_3002LinkLabelID(semanticHint);
+		case 4004:
+			if (TaiPanSemanticHints.Route_3002Labels.DESCRIPTION_TEXT.equals(semanticHint)) {
+				return 4004;
+			}
+			return getUnrecognizedRoute_3002LinkLabelTextID(semanticHint);
+		case 4009:
+			if (TaiPanSemanticHints.Route_3002Labels.RELIABILITY_TEXT.equals(semanticHint)) {
+				return 4009;
+			}
+			return getUnrecognizedRoute_3002LinkLabelTextID(semanticHint);
 		}
 		return -1;
 	}
@@ -139,7 +158,10 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	public int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		{
+		if (TaiPanPackage.eINSTANCE.getRoute().equals(domainElementMetaclass)
+				&& (domainElement != null ? isLinkWithClassRoute_3002((Route) domainElement) : true)) {
+			return 3002;
+		} else {
 			return getUnrecognizedLinkWithClassID(domainElement);
 		}
 	}
@@ -300,8 +322,38 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
+	private int getUnrecognizedRoute_3002LinkLabelID(String semanticHint) {
+		return -1;
+	}
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private int getUnrecognizedRoute_3002LinkLabelTextID(String semanticHint) {
+		return -1;
+	}
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
 	private int getUnrecognizedLinkWithClassID(EObject domainElement) {
 		return -1;
+	}
+
+	/**
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
+	 *
+	 * @generated
+	 */
+	private boolean isLinkWithClassRoute_3002(Route element) {
+		return ElementSelectors.acceptAllMatcher().matches(element);
 	}
 
 	/**

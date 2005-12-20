@@ -151,6 +151,8 @@ public class TaiPanElementTypes {
 			return TaiPanPackage.eINSTANCE.getItem();
 		} else if (ShipDestination_3001 == type) {
 			return TaiPanPackage.eINSTANCE.getShip_Destination();
+		} else if (Route_3002 == type) {
+			return TaiPanPackage.eINSTANCE.getRoute();
 		}
 		return null;
 	}
@@ -188,12 +190,19 @@ public class TaiPanElementTypes {
 	/**
 	 * @generated
 	 */
+	public static final IMetamodelType Route_3002 = new MetamodelType("Route_3002", null, "Route_3002", TaiPanPackage.eINSTANCE
+			.getRoute(), new NullEditHelper());
+
+	/**
+	 * @generated
+	 */
 	public static void register() {
 		ElementTypeRegistry.getInstance().register(Aquatory_79);
 		ElementTypeRegistry.getInstance().register(Port_1001);
 		ElementTypeRegistry.getInstance().register(Ship_1002);
 		ElementTypeRegistry.getInstance().register(Item_2001);
 		ElementTypeRegistry.getInstance().register(ShipDestination_3001);
+		ElementTypeRegistry.getInstance().register(Route_3002);
 	}
 
 	/**

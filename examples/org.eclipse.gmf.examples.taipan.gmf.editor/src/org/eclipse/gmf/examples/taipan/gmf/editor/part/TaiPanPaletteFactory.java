@@ -101,6 +101,7 @@ public class TaiPanPaletteFactory {
 		paletteContainer.add(createItemNodeCreationTool());
 		paletteContainer.add(new PaletteSeparator());
 		paletteContainer.add(createdestinationLinkCreationTool());
+		paletteContainer.add(createRouteLinkCreationTool());
 		return paletteContainer;
 	}
 
@@ -182,6 +183,27 @@ public class TaiPanPaletteFactory {
 
 			public Tool createTool() {
 				Tool tool = new ConnectionCreationTool(TaiPanElementTypes.ShipDestination_3001);
+				tool.setProperties(getToolProperties());
+				return tool;
+			}
+		};
+	}
+
+	/**
+	 * @generated
+	 */
+	private ToolEntry createRouteLinkCreationTool() {
+		ImageDescriptor smallImage;
+		ImageDescriptor largeImage;
+
+		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Route_3002);
+
+		largeImage = smallImage;
+
+		return new ToolEntry("Route", "Route", smallImage, largeImage) {
+
+			public Tool createTool() {
+				Tool tool = new ConnectionCreationTool(TaiPanElementTypes.Route_3002);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
