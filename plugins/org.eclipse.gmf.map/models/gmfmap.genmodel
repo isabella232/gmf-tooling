@@ -9,47 +9,68 @@
   <genPackages prefix="GMFMap" basePackage="org.eclipse.gmf" disposableProviderFactory="true"
       ecorePackage="gmfmap.ecore#/">
     <genClasses image="false" ecoreClass="gmfmap.ecore#//AbstractNodeMapping">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/domainMetaElement"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/domainSpecialization"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/domainInitializer"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/containmentFeature"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/editFeature"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/domainMetaElement"/>
+      <genFeatures property="None" children="true" createChild="true" propertyCategory="Domain meta information"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/domainSpecialization"/>
+      <genFeatures property="None" children="true" createChild="true" propertyCategory="Domain meta information"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/domainInitializer"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/containmentFeature"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/editFeature"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/childMappings"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/compartmentMappings"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/tool"/>
+      <genFeatures property="None" children="true" createChild="true" propertyCategory="Visual representation"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/tool"/>
       <genOperations ecoreOperation="gmfmap.ecore#//AbstractNodeMapping/getDomainMetaClass"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfmap.ecore#//MappingEntry"/>
     <genClasses ecoreClass="gmfmap.ecore#//NodeMapping">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//NodeMapping/diagramNode"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Visual representation"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//NodeMapping/diagramNode"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//ChildNodeMapping">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/diagramNode"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Visual representation"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/diagramNode"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/compartment"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/parentNode"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//CompartmentMapping">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//CompartmentMapping/parentNodeMapping"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//CompartmentMapping/compartment"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Visual representation"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//CompartmentMapping/compartment"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//CompartmentMapping/childNodes"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//LinkMapping">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/diagramLink"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/domainMetaElement"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/domainSpecialization"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/domainInitializer"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/containmentFeature"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/labelEditFeature"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/labelDisplayFeature"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/linkMetaFeature"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Visual representation"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/diagramLink"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/domainMetaElement"/>
+      <genFeatures property="None" children="true" createChild="true" propertyCategory="Domain meta information"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/domainSpecialization"/>
+      <genFeatures property="None" children="true" createChild="true" propertyCategory="Domain meta information"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/domainInitializer"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/containmentFeature"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/labelEditFeature"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/labelDisplayFeature"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/linkMetaFeature"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/creationConstraints"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/tool"/>
+      <genFeatures property="None" children="true" createChild="true" propertyCategory="Visual representation"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/tool"/>
       <genOperations ecoreOperation="gmfmap.ecore#//LinkMapping/getDomainMetaClass"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//CanvasMapping">
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//CanvasMapping/diagramCanvas"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//CanvasMapping/domainModel"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//CanvasMapping/domainMetaElement"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Visual representation"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//CanvasMapping/diagramCanvas"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//CanvasMapping/domainModel"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//CanvasMapping/domainMetaElement"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//Mapping">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//Mapping/nodes"/>

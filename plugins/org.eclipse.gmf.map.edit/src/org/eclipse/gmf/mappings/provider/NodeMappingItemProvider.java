@@ -76,7 +76,7 @@ public class NodeMappingItemProvider
 				 GMFMapPackage.eINSTANCE.getNodeMapping_DiagramNode(),
 				 true,
 				 null,
-				 null,
+				 getString("_UI_VisualrepresentationPropertyCategory"),
 				 null));
 	}
 

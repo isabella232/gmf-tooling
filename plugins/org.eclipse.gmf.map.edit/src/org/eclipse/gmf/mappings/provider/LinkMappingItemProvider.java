@@ -91,7 +91,7 @@ public class LinkMappingItemProvider
 				 GMFMapPackage.eINSTANCE.getLinkMapping_DiagramLink(),
 				 true,
 				 null,
-				 null,
+				 getString("_UI_VisualrepresentationPropertyCategory"),
 				 null));
 	}
 
@@ -111,7 +111,7 @@ public class LinkMappingItemProvider
 				 GMFMapPackage.eINSTANCE.getLinkMapping_DomainMetaElement(),
 				 true,
 				 null,
-				 null,
+				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null));
 	}
 
@@ -131,7 +131,7 @@ public class LinkMappingItemProvider
 				 GMFMapPackage.eINSTANCE.getLinkMapping_ContainmentFeature(),
 				 true,
 				 null,
-				 null,
+				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null) {
 						protected Collection getComboBoxObjects(Object object) {
 							if (object instanceof LinkMapping) {
@@ -171,7 +171,7 @@ public class LinkMappingItemProvider
 				 GMFMapPackage.eINSTANCE.getLinkMapping_LabelEditFeature(),
 				 true,
 				 null,
-				 null,
+				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null) {
 						protected Collection getComboBoxObjects(Object object) {
 							if (object instanceof LinkMapping) {
@@ -201,7 +201,7 @@ public class LinkMappingItemProvider
 				 GMFMapPackage.eINSTANCE.getLinkMapping_LabelDisplayFeature(),
 				 true,
 				 null,
-				 null,
+				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null));
 	}
 
@@ -221,7 +221,7 @@ public class LinkMappingItemProvider
 				 GMFMapPackage.eINSTANCE.getLinkMapping_LinkMetaFeature(),
 				 true,
 				 null,
-				 null,
+				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null));
 	}
 

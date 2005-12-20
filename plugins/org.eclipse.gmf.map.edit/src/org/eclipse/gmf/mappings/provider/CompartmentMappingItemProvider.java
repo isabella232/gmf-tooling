@@ -87,7 +87,7 @@ public class CompartmentMappingItemProvider
 				 GMFMapPackage.eINSTANCE.getCompartmentMapping_Compartment(),
 				 true,
 				 null,
-				 null,
+				 getString("_UI_VisualrepresentationPropertyCategory"),
 				 null));
 	}
 

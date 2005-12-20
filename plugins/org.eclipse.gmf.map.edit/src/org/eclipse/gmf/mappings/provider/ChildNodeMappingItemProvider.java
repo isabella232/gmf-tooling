@@ -83,7 +83,7 @@ public class ChildNodeMappingItemProvider
 				 GMFMapPackage.eINSTANCE.getChildNodeMapping_DiagramNode(),
 				 true,
 				 null,
-				 null,
+				 getString("_UI_VisualrepresentationPropertyCategory"),
 				 null));
 	}
 

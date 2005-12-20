@@ -89,7 +89,7 @@ public class AbstractNodeMappingItemProvider
 				 GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainMetaElement(),
 				 true,
 				 null,
-				 null,
+				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null));
 	}
 
@@ -109,7 +109,7 @@ public class AbstractNodeMappingItemProvider
 				 GMFMapPackage.eINSTANCE.getAbstractNodeMapping_ContainmentFeature(),
 				 true,
 				 null,
-				 null,
+				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null) {
 				protected Collection getComboBoxObjects(Object object) {
 					if (object instanceof AbstractNodeMapping) {
@@ -149,7 +149,7 @@ public class AbstractNodeMappingItemProvider
 				 GMFMapPackage.eINSTANCE.getAbstractNodeMapping_EditFeature(),
 				 true,
 				 null,
-				 null,
+				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null) {
 				protected Collection getComboBoxObjects(Object object) {
 					if (object instanceof AbstractNodeMapping) {

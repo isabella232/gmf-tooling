@@ -78,7 +78,7 @@ public class CanvasMappingItemProvider
 				 GMFMapPackage.eINSTANCE.getCanvasMapping_DiagramCanvas(),
 				 true,
 				 null,
-				 null,
+				 getString("_UI_VisualrepresentationPropertyCategory"),
 				 null));
 	}
 
@@ -98,7 +98,7 @@ public class CanvasMappingItemProvider
 				 GMFMapPackage.eINSTANCE.getCanvasMapping_DomainModel(),
 				 true,
 				 null,
-				 null,
+				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null));
 	}
 
@@ -118,7 +118,7 @@ public class CanvasMappingItemProvider
 				 GMFMapPackage.eINSTANCE.getCanvasMapping_DomainMetaElement(),
 				 true,
 				 null,
-				 null,
+				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null));
 	}
 
