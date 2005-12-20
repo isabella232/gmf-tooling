@@ -13,6 +13,7 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
@@ -21,8 +22,9 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
-import org.eclipse.gmf.runtime.diagram.ui.DiagramUtil;
+import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.util.IDEEditorUtil;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 import org.eclipse.gmf.runtime.emf.core.edit.MRunnable;
@@ -34,7 +36,6 @@ import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 /**
  * @generated
@@ -111,7 +112,7 @@ public class TaiPanDiagramEditorUtil extends IDEEditorUtil {
 
 				public Object run() {
 					EObject model = EObjectUtil.create(TaiPanPackage.eINSTANCE.getAquatory());
-					Diagram diagram = DiagramUtil.createDiagram(model, kindParam, new PreferencesHint(
+					Diagram diagram = ViewService.createDiagram(model, kindParam, new PreferencesHint(
 							TaiPanDiagramEditorPlugin.EDITOR_ID));
 					if (diagram != null) {
 						notationModelParam.getContents().add(diagram);
