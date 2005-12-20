@@ -30,7 +30,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  * @model abstract="true"
  * @generated
  */
-public interface GenLabel extends GenCommonBase {
+public interface GenLabel extends GenCommonBase{
 	/**
 	 * Returns the value of the '<em><b>Read Only</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -90,5 +90,13 @@ public interface GenLabel extends GenCommonBase {
 	 * @generated
 	 */
 	GenFeature getMetaFeature();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getSemanticHintFieldName();
 
 } // GenLabel

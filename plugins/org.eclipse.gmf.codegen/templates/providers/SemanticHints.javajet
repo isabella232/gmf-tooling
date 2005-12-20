@@ -19,13 +19,13 @@ public class <%=genDiagram.getSemanticHintsClassName()%> {
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();
 	if (next instanceof GenLink && ((GenLink) next).getModelFacet() instanceof FeatureModelFacet) {
-		FeatureModelFacet modelFacet = (FeatureModelFacet) ((GenLink) next).getModelFacet();
+		GenLink nextLink = (GenLink) next;
 %>
 
 	/**
 	 * @generated
 	 */
-	public static final String <%=((GenLink) next).getUniqueIdentifier()%> = "<%=modelFacet.getMetaFeature().getName()%>Link";
+	public static final String <%=nextLink.getUniqueIdentifier()%> = "<%=nextLink.getUniqueIdentifier()%>Link";
 <%
 	}
 	if (next instanceof GenNode) {
@@ -51,7 +51,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 		/**
 		 * @generated
 		 */
-		public static final String <%=AccessUtil.getLabelTextId(label)%> = "<%=label.getMetaFeature().getName()%>Text";
+		public static final String <%=label.getSemanticHintFieldName()%> = "<%=label.getUniqueIdentifier()%>Text";
 <%			}%>
 	}
 <%
@@ -72,16 +72,13 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 <%
 			for (int i = 0; i < compartments.size(); i++) {
 				GenCompartment compartment = (GenCompartment) compartments.get(i);
-				String id = AccessUtil.getCompartmentId(compartment);
-				if (id != null && id.length() > 0) {
 %>
 
 		/**
 		 * @generated
 		 */
-		public static final String <%=id%> = "<%=compartment.getTitle()%>";
+		public static final String <%=compartment.getSemanticHintFieldName()%> = "<%=compartment.getUniqueIdentifier()%>";
 <%
-				}
 			}
 %>
 	}
@@ -110,12 +107,12 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 		/**
 		 * @generated
 		 */
-		public static final String <%=AccessUtil.getLabelId(label)%> = "<%=label.getMetaFeature().getName()%>Label";
+		public static final String <%=label.getSemanticHintLabelFieldName()%> = "<%=label.getUniqueIdentifier()%>Label";
 
 		/**
 		 * @generated
 		 */
-		public static final String <%=AccessUtil.getLabelTextId(label)%> = "<%=label.getMetaFeature().getName()%>Text";
+		public static final String <%=label.getSemanticHintFieldName()%> = "<%=label.getUniqueIdentifier()%>Text";
 <%			}%>
 	}
 <%

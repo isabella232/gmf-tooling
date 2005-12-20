@@ -20,7 +20,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 
 /**
@@ -31,39 +30,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 public class AccessUtil {
 
 	private AccessUtil() {}
-
-	private static String asJavaConstantName(String s) {
-		s = s.toUpperCase();
-		StringBuffer b = new StringBuffer();
-		for (int i = 0; i < s.length(); i++) {
-			char c = s.charAt(i);
-			if (i == 0) {
-				if (!Character.isJavaIdentifierStart(c)) {
-					c = '_';
-				}
-			} else {
-				if (!Character.isJavaIdentifierPart(c)) {
-					c = '_';
-				}
-			}
-			b.append(c);
-		}
-		return b.toString();
-	}
-
-	// naming patterns
-
-	public static String getCompartmentId(GenCompartment compartment) {
-		return asJavaConstantName(compartment.getTitle());
-	}
-
-	public static String getLabelId(GenLabel label) {
-		return label.getMetaFeature().getUpperName() + "_LABEL"; //$NON-NLS-1$
-	}
-
-	public static String getLabelTextId(GenLabel label) {
-		return label.getMetaFeature().getUpperName() + "_TEXT"; //$NON-NLS-1$
-	}
 	
 	// model access
 	

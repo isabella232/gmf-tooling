@@ -248,6 +248,15 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getSemanticHintLabelFieldName() {
+		return asJavaConstantName(getUniqueIdentifier()) + "_LABEL"; //$NON-NLS-1$
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {

@@ -27,7 +27,7 @@ public class <%=label.getNotationViewFactoryClassName()%> extends AbstractLabelV
 <%GenCommonBase genElement = label;%>
 <%@ include file="createVIDAnnotation.jetinc"%>
 		getViewService().createNode(semanticAdapter, view,
-			<%=importManager.getImportedName(diagram.getSemanticHintsQualifiedClassName())%>.<%=label.getLink().getUniqueIdentifier()%>Labels.<%=AccessUtil.getLabelTextId(label)%>,
+			<%=importManager.getImportedName(diagram.getSemanticHintsQualifiedClassName())%>.<%=label.getLink().getUniqueIdentifier()%>Labels.<%=label.getSemanticHintFieldName()%>,
 			ViewUtil.APPEND, persisted, getPreferencesHint());
 	}
 }

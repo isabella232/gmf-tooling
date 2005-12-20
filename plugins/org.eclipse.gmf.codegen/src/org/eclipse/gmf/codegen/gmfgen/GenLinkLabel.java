@@ -161,4 +161,12 @@ public interface GenLinkLabel extends GenLabel{
 	 */
 	String getTextNotationViewFactoryQualifiedClassName();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getSemanticHintLabelFieldName();
+
 } // GenLinkLabel

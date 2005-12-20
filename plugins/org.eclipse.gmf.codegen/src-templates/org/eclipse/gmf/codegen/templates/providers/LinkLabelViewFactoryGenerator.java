@@ -51,7 +51,7 @@ public class LinkLabelViewFactoryGenerator
     stringBuffer.append(TEXT_9);
     stringBuffer.append(label.getLink().getUniqueIdentifier());
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(AccessUtil.getLabelTextId(label));
+    stringBuffer.append(label.getSemanticHintFieldName());
     stringBuffer.append(TEXT_11);
     importManager.emitSortedImports();
     stringBuffer.append(TEXT_12);

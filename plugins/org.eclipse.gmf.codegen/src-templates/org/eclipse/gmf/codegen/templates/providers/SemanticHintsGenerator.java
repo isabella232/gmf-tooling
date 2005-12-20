@@ -68,12 +68,12 @@ public class SemanticHintsGenerator
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();
 	if (next instanceof GenLink && ((GenLink) next).getModelFacet() instanceof FeatureModelFacet) {
-		FeatureModelFacet modelFacet = (FeatureModelFacet) ((GenLink) next).getModelFacet();
+		GenLink nextLink = (GenLink) next;
 
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(((GenLink) next).getUniqueIdentifier());
+    stringBuffer.append(nextLink.getUniqueIdentifier());
     stringBuffer.append(TEXT_7);
-    stringBuffer.append(modelFacet.getMetaFeature().getName());
+    stringBuffer.append(nextLink.getUniqueIdentifier());
     stringBuffer.append(TEXT_8);
     
 	}
@@ -92,9 +92,9 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 				GenNodeLabel label = (GenNodeLabel) labels.get(i);
 
     stringBuffer.append(TEXT_12);
-    stringBuffer.append(AccessUtil.getLabelTextId(label));
+    stringBuffer.append(label.getSemanticHintFieldName());
     stringBuffer.append(TEXT_13);
-    stringBuffer.append(label.getMetaFeature().getName());
+    stringBuffer.append(label.getUniqueIdentifier());
     stringBuffer.append(TEXT_14);
     			}
     stringBuffer.append(TEXT_15);
@@ -111,16 +111,13 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
     
 			for (int i = 0; i < compartments.size(); i++) {
 				GenCompartment compartment = (GenCompartment) compartments.get(i);
-				String id = AccessUtil.getCompartmentId(compartment);
-				if (id != null && id.length() > 0) {
 
     stringBuffer.append(TEXT_19);
-    stringBuffer.append(id);
+    stringBuffer.append(compartment.getSemanticHintFieldName());
     stringBuffer.append(TEXT_20);
-    stringBuffer.append(compartment.getTitle());
+    stringBuffer.append(compartment.getUniqueIdentifier());
     stringBuffer.append(TEXT_21);
     
-				}
 			}
 
     stringBuffer.append(TEXT_22);
@@ -141,13 +138,13 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 				GenLinkLabel label = (GenLinkLabel) labels.get(i);
 
     stringBuffer.append(TEXT_26);
-    stringBuffer.append(AccessUtil.getLabelId(label));
+    stringBuffer.append(label.getSemanticHintLabelFieldName());
     stringBuffer.append(TEXT_27);
-    stringBuffer.append(label.getMetaFeature().getName());
+    stringBuffer.append(label.getUniqueIdentifier());
     stringBuffer.append(TEXT_28);
-    stringBuffer.append(AccessUtil.getLabelTextId(label));
+    stringBuffer.append(label.getSemanticHintFieldName());
     stringBuffer.append(TEXT_29);
-    stringBuffer.append(label.getMetaFeature().getName());
+    stringBuffer.append(label.getUniqueIdentifier());
     stringBuffer.append(TEXT_30);
     			}
     stringBuffer.append(TEXT_31);

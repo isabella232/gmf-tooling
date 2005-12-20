@@ -102,7 +102,7 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 		String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
-			String labelTextViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Labels." + AccessUtil.getLabelTextId(label);
+			String labelTextViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Labels." + label.getSemanticHintFieldName();
 %>
 			if (<%=labelTextViewId%>.equals(semanticHint)) {
 				return <%=label.getVisualID()%>;
@@ -111,7 +111,7 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 		}
 		for (Iterator compartments = node.getCompartments().iterator(); compartments.hasNext();) {
 			GenCompartment compartment = (GenCompartment) compartments.next();
-			String compartmentId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Compartments." + AccessUtil.getCompartmentId(compartment);
+			String compartmentId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Compartments." + compartment.getSemanticHintFieldName();
 %>
 			if (<%=compartmentId%>.equals(semanticHint)) {
 				return <%=compartment.getVisualID()%>;
@@ -146,7 +146,7 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 <%
 	for (Iterator linkLabels = link.getLabels().iterator(); linkLabels.hasNext();) {
 		GenLinkLabel linkLabel = (GenLinkLabel) linkLabels.next();
-		String labelViewId = semanticHintsClassName + '.' + link.getUniqueIdentifier() + "Labels." + AccessUtil.getLabelId(linkLabel);
+		String labelViewId = semanticHintsClassName + '.' + link.getUniqueIdentifier() + "Labels." + linkLabel.getSemanticHintLabelFieldName();
 %>
 			if (<%=labelViewId%>.equals(semanticHint)) {
 				return <%=linkLabel.getVisualID()%>;
@@ -158,7 +158,7 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 <%
 	for (Iterator linkLabels = link.getLabels().iterator(); linkLabels.hasNext();) {
 		GenLinkLabel linkLabel = (GenLinkLabel) linkLabels.next();
-		String labelTextViewId = semanticHintsClassName + '.' + link.getUniqueIdentifier() + "Labels." + AccessUtil.getLabelTextId(linkLabel);
+		String labelTextViewId = semanticHintsClassName + '.' + link.getUniqueIdentifier() + "Labels." + linkLabel.getSemanticHintFieldName();
 %>
 		case <%=linkLabel.getVisualID()%>:
 			if (<%=labelTextViewId%>.equals(semanticHint)) {

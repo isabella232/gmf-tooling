@@ -313,7 +313,7 @@ if (!genNode.getLabels().isEmpty()) {
     stringBuffer.append(TEXT_47);
     stringBuffer.append(genNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_48);
-    stringBuffer.append(AccessUtil.getLabelTextId(primaryLabel));
+    stringBuffer.append(primaryLabel.getSemanticHintFieldName());
     stringBuffer.append(TEXT_49);
     }
     stringBuffer.append(TEXT_50);

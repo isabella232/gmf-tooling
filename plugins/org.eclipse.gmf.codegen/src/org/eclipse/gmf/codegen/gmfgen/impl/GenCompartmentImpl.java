@@ -283,6 +283,15 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getSemanticHintFieldName() {
+		return asJavaConstantName(getUniqueIdentifier());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {

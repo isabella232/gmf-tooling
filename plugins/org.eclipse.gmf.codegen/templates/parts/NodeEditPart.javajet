@@ -191,7 +191,7 @@ if (!genNode.getLabels().isEmpty()) {
 	 * @generated
 	 */
 	public <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> getPrimaryChildEditPart() {
-		return getChildBySemanticHint(<%=semanticHintsClassName%>.<%=genNode.getUniqueIdentifier()%>Labels.<%=AccessUtil.getLabelTextId(primaryLabel)%>);
+		return getChildBySemanticHint(<%=semanticHintsClassName%>.<%=genNode.getUniqueIdentifier()%>Labels.<%=primaryLabel.getSemanticHintFieldName()%>);
 	}
 <%}%>
 }

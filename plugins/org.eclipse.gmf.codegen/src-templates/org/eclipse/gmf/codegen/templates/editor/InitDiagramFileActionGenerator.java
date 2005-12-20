@@ -628,7 +628,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_114);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge"));
     stringBuffer.append(TEXT_115);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.internal.services.view.ViewService"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.services.ViewService"));
     stringBuffer.append(TEXT_116);
     stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
     stringBuffer.append(TEXT_117);

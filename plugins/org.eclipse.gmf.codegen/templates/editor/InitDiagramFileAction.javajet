@@ -494,7 +494,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 <%
 	} else {
 %>
-					<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%> edge = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.internal.services.view.ViewService")%>.getInstance().createEdge(new <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>() {
+					<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%> edge = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge")%>) <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.services.ViewService")%>.getInstance().createEdge(new <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%>() {
 						public Object getAdapter(Class adapter) {
 							if (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>.class.equals(adapter)) {
 								return <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=nextLink.getUniqueIdentifier()%>;

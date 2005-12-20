@@ -384,6 +384,30 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String asJavaConstantName(String name) {
+		name = name.toUpperCase();
+		StringBuffer b = new StringBuffer();
+		for (int i = 0; i < name.length(); i++) {
+			char c = name.charAt(i);
+			if (i == 0) {
+				if (!Character.isJavaIdentifierStart(c)) {
+					c = '_';
+				}
+			} else {
+				if (!Character.isJavaIdentifierPart(c)) {
+					c = '_';
+				}
+			}
+			b.append(c);
+		}
+		return b.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {

@@ -158,6 +158,15 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getSemanticHintFieldName() {
+		return asJavaConstantName(getUniqueIdentifier()) + "_TEXT"; //$NON-NLS-1$
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
