@@ -36,7 +36,7 @@ public class InitDiagramFileActionGenerator {
   protected final String TEXT_16 = NL + "\t\tmyLinkVID2EObjectMap.put(new Integer(";
   protected final String TEXT_17 = "), new ";
   protected final String TEXT_18 = "());";
-  protected final String TEXT_19 = NL + "\t\tDiagram diagram = DiagramUtil.createDiagram(diagramModel, \"";
+  protected final String TEXT_19 = NL + "\t\tDiagram diagram = ViewService.createDiagram(diagramModel, \"";
   protected final String TEXT_20 = "\", ";
   protected final String TEXT_21 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\tcreateDiagramChildren(diagram, diagramModel);" + NL + "\t\tcreateLinks();" + NL + "\t\tmyLinkVID2EObjectMap.clear();" + NL + "\t\tmyEObject2NodeMap.clear();\t\t" + NL + "\t    return diagram;" + NL + "\t}" + NL + "\t" + NL + "    /**" + NL + "     * @generated" + NL + "     */" + NL + "\tprivate void createDiagramChildren(Diagram diagram, EObject diagramModel) {";
   protected final String TEXT_22 = NL + "\t\tEObject nextValue;";
@@ -49,7 +49,7 @@ public class InitDiagramFileActionGenerator {
   protected final String TEXT_29 = NL + "\t\tnodeVID = ";
   protected final String TEXT_30 = ".INSTANCE.getNodeVisualID(diagram, nextValue, \"\");" + NL + "\t\tif (";
   protected final String TEXT_31 = " == nodeVID) {" + NL + "\t\t\t";
-  protected final String TEXT_32 = " nextNode = DiagramUtil.createNode(diagram, nextValue, null, ";
+  protected final String TEXT_32 = " nextNode = ViewService.createNode(diagram, nextValue, null, ";
   protected final String TEXT_33 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\t\tmyEObject2NodeMap.put(nextValue, nextNode);" + NL + "\t\t\tcreate";
   protected final String TEXT_34 = "Children(nextNode, nextValue);" + NL + "\t\t}";
   protected final String TEXT_35 = NL + "\t\t}";
@@ -68,7 +68,7 @@ public class InitDiagramFileActionGenerator {
   protected final String TEXT_48 = ";";
   protected final String TEXT_49 = NL + "\t\tint nodeVID = ";
   protected final String TEXT_50 = ".INSTANCE.getNodeVisualID(viewObject, nextValue, \"\");" + NL + "\t\tif (";
-  protected final String TEXT_51 = " == nodeVID) {" + NL + "\t\t\tnextNode = DiagramUtil.createNode(viewObject, nextValue, null, ";
+  protected final String TEXT_51 = " == nodeVID) {" + NL + "\t\t\tnextNode = ViewService.createNode(viewObject, nextValue, null, ";
   protected final String TEXT_52 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\t\tmyEObject2NodeMap.put(nextValue, nextNode);" + NL + "\t\t\tcreate";
   protected final String TEXT_53 = "Children(nextNode, nextValue);" + NL + "\t\t}";
   protected final String TEXT_54 = NL + "\t\t}";
@@ -128,21 +128,20 @@ public class InitDiagramFileActionGenerator {
   protected final String TEXT_108 = NL + "\t\t\t";
   protected final String TEXT_109 = " dstNode = (";
   protected final String TEXT_110 = ") myEObject2NodeMap.get(dst);" + NL + "\t\t\tif (dstNode != null) {";
-  protected final String TEXT_111 = NL + "\t\t\t\tDiagramUtil.createEdge(srcNode, dstNode, linkElement, null, ";
+  protected final String TEXT_111 = NL + "\t\t\t\tViewService.createEdge(srcNode, dstNode, linkElement, null, ";
   protected final String TEXT_112 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\t\t}";
   protected final String TEXT_113 = NL + "\t\t\t\t\t";
   protected final String TEXT_114 = " edge = (";
-  protected final String TEXT_115 = ") ";
-  protected final String TEXT_116 = ".getInstance().createEdge(new ";
-  protected final String TEXT_117 = "() {" + NL + "\t\t\t\t\t\tpublic Object getAdapter(Class adapter) {" + NL + "\t\t\t\t\t\t\tif (";
-  protected final String TEXT_118 = ".class.equals(adapter)) {" + NL + "\t\t\t\t\t\t\t\treturn ";
-  protected final String TEXT_119 = ".";
-  protected final String TEXT_120 = ";" + NL + "\t\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\t\treturn null;" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t}, srcNode.getDiagram(), \"\", ";
-  protected final String TEXT_121 = ".APPEND, ";
-  protected final String TEXT_122 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\t\t\t\tif (edge != null) {" + NL + "\t\t\t\t\t\tedge.setSource(srcNode);" + NL + "\t\t\t\t\t\tedge.setTarget(dstNode);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t}";
-  protected final String TEXT_123 = NL + "\t\t}";
-  protected final String TEXT_124 = NL + "\t}" + NL + "\t" + NL + "}";
-  protected final String TEXT_125 = NL;
+  protected final String TEXT_115 = ") ViewService.getInstance().createEdge(new ";
+  protected final String TEXT_116 = "() {" + NL + "\t\t\t\t\t\tpublic Object getAdapter(Class adapter) {" + NL + "\t\t\t\t\t\t\tif (";
+  protected final String TEXT_117 = ".class.equals(adapter)) {" + NL + "\t\t\t\t\t\t\t\treturn ";
+  protected final String TEXT_118 = ".";
+  protected final String TEXT_119 = ";" + NL + "\t\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\t\treturn null;" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t}, srcNode.getDiagram(), \"\", ";
+  protected final String TEXT_120 = ".APPEND, ";
+  protected final String TEXT_121 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\t\t\t\tif (edge != null) {" + NL + "\t\t\t\t\t\tedge.setSource(srcNode);" + NL + "\t\t\t\t\t\tedge.setTarget(dstNode);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t}" + NL + "\t\t\t}";
+  protected final String TEXT_122 = NL + "\t\t}";
+  protected final String TEXT_123 = NL + "\t}" + NL + "\t" + NL + "}";
+  protected final String TEXT_124 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
 		StringBuffer result = new StringBuffer();
@@ -263,7 +262,6 @@ importManager.addImport("org.eclipse.core.runtime.Path");
 importManager.addImport("org.eclipse.emf.ecore.EClass");
 importManager.addImport("org.eclipse.emf.ecore.EObject");
 importManager.addImport("org.eclipse.emf.ecore.resource.Resource");
-importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.DiagramUtil");
 importManager.addImport("org.eclipse.gmf.runtime.emf.core.edit.MRunnable");
 importManager.addImport("org.eclipse.gmf.runtime.emf.core.util.OperationUtil");
 importManager.addImport("org.eclipse.gmf.runtime.emf.core.util.ResourceUtil");
@@ -279,6 +277,7 @@ importManager.addImport("org.eclipse.ui.IObjectActionDelegate");
 importManager.addImport("org.eclipse.ui.IWorkbenchPart");
 importManager.addImport("org.eclipse.ui.PartInitException");
 importManager.addImport("org.eclipse.ui.ide.IDE");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.core.services.ViewService");
 
 importManager.markImportLocation(stringBuffer);
 
@@ -628,30 +627,28 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_114);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Edge"));
     stringBuffer.append(TEXT_115);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.services.ViewService"));
-    stringBuffer.append(TEXT_116);
     stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IAdaptable"));
-    stringBuffer.append(TEXT_117);
+    stringBuffer.append(TEXT_116);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType"));
-    stringBuffer.append(TEXT_118);
+    stringBuffer.append(TEXT_117);
     stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
-    stringBuffer.append(TEXT_119);
+    stringBuffer.append(TEXT_118);
     stringBuffer.append(nextLink.getUniqueIdentifier());
-    stringBuffer.append(TEXT_120);
+    stringBuffer.append(TEXT_119);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil"));
-    stringBuffer.append(TEXT_121);
+    stringBuffer.append(TEXT_120);
     stringBuffer.append(importManager.getImportedName(genDiagram.getPluginQualifiedClassName()));
-    stringBuffer.append(TEXT_122);
+    stringBuffer.append(TEXT_121);
     	
 	}
 
-    stringBuffer.append(TEXT_123);
+    stringBuffer.append(TEXT_122);
     
 }
 
-    stringBuffer.append(TEXT_124);
+    stringBuffer.append(TEXT_123);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_125);
+    stringBuffer.append(TEXT_124);
     return stringBuffer.toString();
   }
 }

@@ -15,7 +15,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
-import org.eclipse.gmf.runtime.diagram.ui.DiagramUtil;
+import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.util.IDEEditorUtil;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 import org.eclipse.gmf.runtime.emf.core.edit.MRunnable;
@@ -110,7 +110,7 @@ GenPackage genPackage = genDiagram.getDomainMetaModel();
 String domainPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 %>
 					EObject model = EObjectUtil.create(<%=domainPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>());
-					Diagram diagram = DiagramUtil.createDiagram(model, kindParam, new PreferencesHint(<%=genDiagram.getPluginClassName()%>.EDITOR_ID));
+					Diagram diagram = ViewService.createDiagram(model, kindParam, new PreferencesHint(<%=genDiagram.getPluginClassName()%>.EDITOR_ID));
 					if (diagram != null) {
 						notationModelParam.getContents().add(diagram);
 <%if (genDiagram.isSameFileForDiagramAndModel()) {%>
