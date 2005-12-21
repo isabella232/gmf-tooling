@@ -44,7 +44,7 @@ public interface TypeLinkModelFacet extends TypeModelFacet, LinkModelFacet{
 	 * @return the value of the '<em>Source Meta Feature</em>' reference.
 	 * @see #setSourceMetaFeature(GenFeature)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeLinkModelFacet_SourceMetaFeature()
-	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='sourceMetaFeature.eContainingClass \'equals to\' or \'superclass of\' super.metaClass'"
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='sourceMetaFeature.oclIsUndefined() or sourceMetaFeature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(metaClass.ecoreClass)'"
 	 * @generated
 	 */
 	GenFeature getSourceMetaFeature();
@@ -71,7 +71,7 @@ public interface TypeLinkModelFacet extends TypeModelFacet, LinkModelFacet{
 	 * @see #setTargetMetaFeature(GenFeature)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeLinkModelFacet_TargetMetaFeature()
 	 * @model required="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='targetMetaFeature.eContainingClass \'equals to\' or \'superclass of\' super.metaClass'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='targetMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)'"
 	 * @generated
 	 */
 	GenFeature getTargetMetaFeature();

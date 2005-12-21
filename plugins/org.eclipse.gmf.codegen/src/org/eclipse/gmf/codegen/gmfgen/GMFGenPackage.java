@@ -4855,7 +4855,7 @@ public interface GMFGenPackage extends EPackage{
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for data type '<em>String Array</em>'.
-	 * @model instanceClass="String[]"
+	 * @model instanceClass="java.lang.String[]"
 	 * @generated
 	 */
 	EDataType getStringArray();

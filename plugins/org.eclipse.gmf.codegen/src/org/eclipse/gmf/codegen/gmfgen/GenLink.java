@@ -31,7 +31,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let c: ecore::EClass = diagramRunTimeClass.ecoreClass.oclAsType(ecore::EClass) in c = notation::Edge or c.eAllSuperTypes->includes(notation::Edge)'"
  * @generated
  */
 public interface GenLink extends GenCommonBase{

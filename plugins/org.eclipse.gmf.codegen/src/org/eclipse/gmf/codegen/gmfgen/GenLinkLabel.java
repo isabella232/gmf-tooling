@@ -27,7 +27,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLinkLabel()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let tl: TypeLinkModelFacet = link.modelFacet.oclAsType(TypeLinkModelFacet) in tl.oclIsUndefined() or modelFacet.metaFeature.ecoreFeature.eContainingClass.isSuperTypeOf(tl.metaClass.ecoreClass)'"
  * @generated
  */
 public interface GenLinkLabel extends GenLabel{

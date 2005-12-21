@@ -18,7 +18,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  *
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getModelElementSelector()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='Constraint'"
  * @generated
  */
 public interface ModelElementSelector extends ValueExpression{

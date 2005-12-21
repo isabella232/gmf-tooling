@@ -3,12 +3,16 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="gmfgen"
     nsURI="http://www.eclipse.org/gmf/2005/GenModel" nsPrefix="gmfgen">
+  <eAnnotations source="http://www.eclipse.org/emf/2004/EmfaticAnnotationMap">
+    <details key="constraints" value="http://www.eclipse.org/gmf/2005/constraints"/>
+    <details key="meta" value="http://www.eclipse.org/gmf/2005/constraints/meta"/>
+  </eAnnotations>
+  <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+    <details key="import" value="platform:/resource/org.eclipse.gmf.runtime.notation/model/notation.ecore"/>
+  </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="GenDiagram" eSuperTypes="#//GenCommonBase">
-    <eAnnotations source="http://www.eclipse.org/emf/2004/EmfaticAnnotationMap">
-      <details key="constraints" value="http://www.eclipse.org/gmf/2005/constraints"/>
-    </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-      <details key="ocl" value="nodes->forAll(n : GenNode | self.links->forAll(l : GenLink | l.domainMetaClass &lt;> n.domainMetaClass))"/>
+      <details key="ocl" value="nodes->forAll(n : GenNode | self.links->forAll(l : GenLink | l.oclAsType(TypeLinkModelFacet).metaClass &lt;> n.getDomainMetaClass()))"/>
     </eAnnotations>
     <eOperations name="getEMFGenModel" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenModel">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -157,7 +161,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visualIDRegistryClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EDataType" name="StringArray" instanceClassName="String[]"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="StringArray" instanceClassName="java.lang.String[]"/>
   <eClassifiers xsi:type="ecore:EClass" name="GenCommonBase" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="One that combines attributes that are essential for EditPart"/>
@@ -203,14 +207,11 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenNode" eSuperTypes="#//GenChildContainer">
-    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-      <details key="ocl" value="super.domainNameFeature.eClass == domainMetaClass"/>
-    </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="EClass mapped to Node"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-      <details key="ocl" value="diagramRunTimeClass.eCoreClass.eAllSuperTypes->includes(diagramrt.DiagramNode)"/>
+      <details key="ocl" value="let c: ecore::EClass = diagramRunTimeClass.ecoreClass.oclAsType(ecore::EClass) in c = notation::Node or c.eAllSuperTypes->includes(notation::Node)"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="super.diagramRunTimeClass - diagramrt.DiagramNode or its subclass"/>
@@ -279,6 +280,9 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="super.viewmap shall be {@link org.eclipse.draw2d.Connection} or subclass thereof"/>
     </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="let c: ecore::EClass = diagramRunTimeClass.ecoreClass.oclAsType(ecore::EClass) in c = notation::Edge or c.eAllSuperTypes->includes(notation::Edge)"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
         eType="#//GenDiagram" changeable="false" eOpposite="#//GenDiagram/links"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelFacet" lowerBound="1"
@@ -324,12 +328,18 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Label within node"/>
     </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="modelFacet.metaFeature.ecoreFeature.eContainingClass.isSuperTypeOf(node.getDomainMetaClass().ecoreClass)"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="node" lowerBound="1" eType="#//GenNode"
         eOpposite="#//GenNode/labels"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenLinkLabel" eSuperTypes="#//GenLabel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Label attached to link"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="let tl: TypeLinkModelFacet = link.modelFacet.oclAsType(TypeLinkModelFacet) in tl.oclIsUndefined() or modelFacet.metaFeature.ecoreFeature.eContainingClass.isSuperTypeOf(tl.metaClass.ecoreClass)"/>
     </eAnnotations>
     <eOperations name="getTextEditPartQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getTextNotationViewFactoryQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -370,7 +380,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="containmentMetaFeature"
         lowerBound="1" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="containmentMetaFeature.isContainment"/>
+        <details key="ocl" value="containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference).containment"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(metaClass.ecoreClass)"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="childMetaFeature" lowerBound="1"
@@ -383,6 +396,10 @@
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Selection criterion for domain model elements associated with this type model facet"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="context"/>
+        <details key="ocl" value="metaClass.ecoreClass"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelElementInitializer"
@@ -408,13 +425,13 @@
         <details key="documentation" value="If source feature is not specified then link container is a link source"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="sourceMetaFeature.eContainingClass 'equals to' or 'superclass of' super.metaClass"/>
+        <details key="ocl" value="sourceMetaFeature.oclIsUndefined() or sourceMetaFeature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(metaClass.ecoreClass)"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetMetaFeature" lowerBound="1"
         eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="targetMetaFeature.eContainingClass 'equals to' or 'superclass of' super.metaClass"/>
+        <details key="ocl" value="targetMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -494,9 +511,15 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Expression as a is textual statement which results in a value when evaluated in a context"/>
     </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+      <details key="def" value="ValueSpec"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="body" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The text of the expression"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="body"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="language" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
@@ -504,11 +527,17 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Specifies the language in which the expression is stated"/>
       </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="lang"/>
+      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModelElementSelector" eSuperTypes="#//ValueExpression">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents an boolean type expression which is criterion for model element match"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+      <details key="def" value="Constraint"/>
     </eAnnotations>
     <eOperations name="getRequiredPluginIDs" eType="#//StringArray"/>
   </eClassifiers>
@@ -576,9 +605,6 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Feature sequence initializer"/>
     </eAnnotations>
-    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-      <details key="ocl" value="initializers.feature.genClass.ecoreClass->asSet()->size() = 1 -- common ECore class"/>
-    </eAnnotations>
     <eOperations name="getRequiredPluginIDs" eType="#//StringArray">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Gets IDs of plugins required by this initializer"/>
@@ -599,14 +625,25 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Value specifications as initializers for individual features which should be initialized in the order given by this list"/>
       </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="context"/>
+        <details key="ocl" value="typeModelFacet.metaClass.ecoreClass"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="initializers.feature->forAll(f| f.ecoreFeature.eContainingClass.isSuperTypeOf(typeModelFacet.metaClass.ecoreClass))"/>
+      </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenFeatureValueSpec" eSuperTypes="#//ValueExpression">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Value specification associated with a specific feature"/>
     </eAnnotations>
-    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-      <details key="ocl" value="self.feature.ecoreFeature.eType = self.body->evaluate().eType"/>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+      <details key="def" value="ValueSpec"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+      <details key="def" value="type"/>
+      <details key="ocl" value="feature.ecoreFeature"/>
     </eAnnotations>
     <eOperations name="getFeatureQualifiedPackageInterfaceName" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -623,6 +660,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="GenLinkConstraints">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Groups constraints on the link source and target end"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="not sourceEnd.oclIsUndefined() or not targetEnd.oclIsUndefined()"/>
     </eAnnotations>
     <eOperations name="getLinkClass" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -655,11 +695,29 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Restriction enforced by the the source end, may reference variables 'oppositeEnd' pointing to targetEnd and 'link' denoting the link domainmetaElement instance if available."/>
       </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="context"/>
+        <details key="ocl" value="getSourceEndContextClass().ecoreClass"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="variable"/>
+        <details key="name" value="oppositeEnd"/>
+        <details key="type.ocl" value="getTargetEndContextClass().ecoreClass"/>
+      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetEnd" eType="#//ValueExpression"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Restriction enforced by the the target end, may reference variables 'oppositeEnd' pointing to sourceEnd and 'link' denoting the link domainmetaElement instance if available."/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="context"/>
+        <details key="ocl" value="getTargetEndContextClass().ecoreClass"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="variable"/>
+        <details key="name" value="oppositeEnd"/>
+        <details key="type.ocl" value="getSourceEndContextClass().ecoreClass"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>

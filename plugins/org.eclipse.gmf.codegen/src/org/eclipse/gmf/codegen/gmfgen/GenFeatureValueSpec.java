@@ -25,7 +25,8 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenFeatureValueSpec()
- * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='self.feature.ecoreFeature.eType = self.body->evaluate().eType'"
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='ValueSpec'"
+ *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='type' ocl='feature.ecoreFeature'"
  * @generated
  */
 public interface GenFeatureValueSpec extends ValueExpression{

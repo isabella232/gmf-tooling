@@ -32,8 +32,7 @@ import org.eclipse.emf.common.util.EList;
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode()
- * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='super.domainNameFeature.eClass == domainMetaClass'"
- *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='diagramRunTimeClass.eCoreClass.eAllSuperTypes->includes(diagramrt.DiagramNode)'"
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let c: ecore::EClass = diagramRunTimeClass.ecoreClass.oclAsType(ecore::EClass) in c = notation::Node or c.eAllSuperTypes->includes(notation::Node)'"
  * @generated
  */
 public interface GenNode extends GenChildContainer{

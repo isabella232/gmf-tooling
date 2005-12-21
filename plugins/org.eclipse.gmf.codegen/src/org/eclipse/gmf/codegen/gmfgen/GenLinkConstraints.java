@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLinkConstraints()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not sourceEnd.oclIsUndefined() or not targetEnd.oclIsUndefined()'"
  * @generated
  */
 public interface GenLinkConstraints extends EObject{
@@ -79,6 +79,8 @@ public interface GenLinkConstraints extends EObject{
 	 * @see #setSourceEnd(ValueExpression)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLinkConstraints_SourceEnd()
 	 * @model containment="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='getSourceEndContextClass().ecoreClass'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='variable' name='oppositeEnd' type.ocl='getTargetEndContextClass().ecoreClass'"
 	 * @generated
 	 */
 	ValueExpression getSourceEnd();
@@ -108,6 +110,8 @@ public interface GenLinkConstraints extends EObject{
 	 * @see #setTargetEnd(ValueExpression)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLinkConstraints_TargetEnd()
 	 * @model containment="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='getTargetEndContextClass().ecoreClass'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='variable' name='oppositeEnd' type.ocl='getSourceEndContextClass().ecoreClass'"
 	 * @generated
 	 */
 	ValueExpression getTargetEnd();

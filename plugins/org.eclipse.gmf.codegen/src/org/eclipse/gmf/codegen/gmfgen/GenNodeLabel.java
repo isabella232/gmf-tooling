@@ -24,10 +24,10 @@ package org.eclipse.gmf.codegen.gmfgen;
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNodeLabel()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='modelFacet.metaFeature.ecoreFeature.eContainingClass.isSuperTypeOf(node.getDomainMetaClass().ecoreClass)'"
  * @generated
  */
-public interface GenNodeLabel extends GenLabel {
+public interface GenNodeLabel extends GenLabel{
 	/**
 	 * Returns the value of the '<em><b>Node</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getLabels <em>Labels</em>}'.

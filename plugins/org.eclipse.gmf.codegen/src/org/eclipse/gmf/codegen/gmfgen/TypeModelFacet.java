@@ -72,7 +72,8 @@ public interface TypeModelFacet extends ModelFacet{
 	 * @see #setContainmentMetaFeature(GenFeature)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeModelFacet_ContainmentMetaFeature()
 	 * @model required="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='containmentMetaFeature.isContainment'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference).containment'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(metaClass.ecoreClass)'"
 	 * @generated
 	 */
 	GenFeature getContainmentMetaFeature();
@@ -123,6 +124,7 @@ public interface TypeModelFacet extends ModelFacet{
 	 * @see #setModelElementSelector(ModelElementSelector)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeModelFacet_ModelElementSelector()
 	 * @model containment="true"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='metaClass.ecoreClass'"
 	 * @generated
 	 */
 	ModelElementSelector getModelElementSelector();
