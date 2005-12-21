@@ -121,6 +121,9 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getClassNamePrefix"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getClassNameSuffux"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getUniqueIdentifier"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/asJavaConstantName">
+        <genParameters ecoreParameter="gmfgen.ecore#//GenCommonBase/asJavaConstantName/name"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenChildContainer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildContainer/childNodes"/>
@@ -145,6 +148,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCompartment/needsTitle"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenCompartment/layoutKind"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCompartment/node"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenCompartment/getSemanticHintFieldName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenChildNode">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildNode/container"/>
@@ -163,6 +167,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLabel/readOnly"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLabel/modelFacet"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLabel/getMetaFeature"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenLabel/getSemanticHintFieldName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenNodeLabel">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNodeLabel/node"/>
@@ -174,6 +179,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLinkLabel/textNotationViewFactoryClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLinkLabel/getTextEditPartQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLinkLabel/getTextNotationViewFactoryQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenLinkLabel/getSemanticHintLabelFieldName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//ModelFacet"/>
     <genClasses ecoreClass="gmfgen.ecore#//LinkModelFacet"/>

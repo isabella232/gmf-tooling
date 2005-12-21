@@ -173,6 +173,9 @@
         <details key="documentation" value="This unique string identifier could be used to construct unique identifiers in generated java code"/>
       </eAnnotations>
     </eOperations>
+    <eOperations name="asJavaConstantName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eParameters name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramRunTimeClass" lowerBound="1"
         eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visualID" lowerBound="1"
@@ -248,6 +251,7 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Child container within node. Compartment, iow."/>
     </eAnnotations>
+    <eOperations name="getSemanticHintFieldName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="canCollapse" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true"/>
@@ -311,6 +315,7 @@
       <details key="documentation" value="Label on diagram"/>
     </eAnnotations>
     <eOperations name="getMetaFeature" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature"/>
+    <eOperations name="getSemanticHintFieldName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="readOnly" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelFacet" lowerBound="1"
         eType="#//FeatureModelFacet" containment="true"/>
@@ -328,6 +333,7 @@
     </eAnnotations>
     <eOperations name="getTextEditPartQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eOperations name="getTextNotationViewFactoryQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getSemanticHintLabelFieldName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="link" lowerBound="1" eType="#//GenLink"
         eOpposite="#//GenLink/labels"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="alignment" eType="#//LinkLabelAlignment"
