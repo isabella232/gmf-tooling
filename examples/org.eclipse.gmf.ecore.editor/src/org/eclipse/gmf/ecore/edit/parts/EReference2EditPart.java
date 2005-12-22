@@ -2,17 +2,18 @@ package org.eclipse.gmf.ecore.edit.parts;
 
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.PolygonDecoration;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.RotatableDecoration;
+import org.eclipse.draw2d.Shape;
+import org.eclipse.draw2d.geometry.PointList;
+import org.eclipse.gmf.ecore.edit.policies.EReference2ItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.draw2d.PolylineDecoration;
-import org.eclipse.draw2d.Shape;
-
-import org.eclipse.gmf.ecore.edit.policies.EReference2ItemSemanticEditPolicy;
-
 import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
+import org.eclipse.gmf.runtime.notation.View;
+
+import org.eclipse.draw2d.PolylineDecoration;
 
 /**
  * @generated
@@ -79,11 +80,13 @@ public class EReference2EditPart extends ConnectionNodeEditPart {
 	}
 
 	/**
-	 * @generated
+	 * @generated NOT
 	 */
 	protected RotatableDecoration createSourceDecoration() {
 
-		PolylineDecoration decoration = new PolylineDecoration();
+		PolygonDecoration decoration = new PolygonDecoration();
+		PointList template = new PointList(new int[] { -2, 0, -1, 1, 0, 0, -1, -1, -2, 0 });
+		decoration.setTemplate(template);
 		decoration.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));
 		return decoration;
 	}
