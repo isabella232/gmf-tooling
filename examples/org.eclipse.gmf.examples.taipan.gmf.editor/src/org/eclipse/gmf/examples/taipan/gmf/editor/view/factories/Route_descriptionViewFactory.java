@@ -34,7 +34,7 @@ public class Route_descriptionViewFactory extends AbstractLabelViewFactory {
 		annotation.setSource("VisualID");
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("value", "4004");
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Route_3002Labels.DESCRIPTION_TEXT,
+		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4004_TEXT,
 				ViewUtil.APPEND, persisted, getPreferencesHint());
 	}
 }

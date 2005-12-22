@@ -124,6 +124,6 @@ public class PortEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(TaiPanSemanticHints.Port_1001Labels.LOCATION_TEXT);
+		return getChildBySemanticHint(TaiPanSemanticHints.Port_1001Labels.PORTLOCATION_4001_TEXT);
 	}
 }

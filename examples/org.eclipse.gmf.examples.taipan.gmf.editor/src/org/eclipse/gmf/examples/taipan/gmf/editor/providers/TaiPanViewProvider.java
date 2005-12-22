@@ -80,13 +80,13 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 		case 2001:
 			return ItemViewFactory.class;
 		case 4004:
-			if (TaiPanSemanticHints.Route_3002Labels.DESCRIPTION_LABEL.equals(semanticHint)) {
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4004_LABEL.equals(semanticHint)) {
 				return Route_descriptionViewFactory.class;
 			} else {
 				return Route_descriptionTextViewFactory.class;
 			}
 		case 4009:
-			if (TaiPanSemanticHints.Route_3002Labels.RELIABILITY_LABEL.equals(semanticHint)) {
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4009_LABEL.equals(semanticHint)) {
 				return RouteReliabilityLinkLabelViewFactory.class;
 			} else {
 				return RouteReliabilityLinkLabelTextViewFactory.class;

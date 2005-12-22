@@ -74,13 +74,13 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 			case 3002:
 				return new RouteEditPart(view);
 			case 4004:
-				if (TaiPanSemanticHints.Route_3002Labels.DESCRIPTION_LABEL.equals(view.getType())) {
+				if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4004_LABEL.equals(view.getType())) {
 					return new Route_descriptionEditPart(view);
 				} else {
 					return new Route_descriptionTextEditPart(view);
 				}
 			case 4009:
-				if (TaiPanSemanticHints.Route_3002Labels.RELIABILITY_LABEL.equals(view.getType())) {
+				if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4009_LABEL.equals(view.getType())) {
 					return new RouteReliabilityLinkLabelEditPart(view);
 				} else {
 					return new RouteReliabilityLinkLabelTextEditPart(view);

@@ -35,9 +35,9 @@ public class RouteViewFactory extends ConnectionViewFactory {
 		annotation.setSource("VisualID");
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("value", "3002");
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Route_3002Labels.DESCRIPTION_LABEL,
+		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4004_LABEL,
 				ViewUtil.APPEND, persisted, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Route_3002Labels.RELIABILITY_LABEL,
+		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4009_LABEL,
 				ViewUtil.APPEND, persisted, getPreferencesHint());
 	}
 }

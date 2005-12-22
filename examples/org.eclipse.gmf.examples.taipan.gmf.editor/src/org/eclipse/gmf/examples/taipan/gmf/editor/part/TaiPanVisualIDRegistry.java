@@ -87,7 +87,7 @@ public class TaiPanVisualIDRegistry {
 			}
 			return getUnrecognizedDiagramChildID(domainElement);
 		case 1001:
-			if (TaiPanSemanticHints.Port_1001Labels.LOCATION_TEXT.equals(semanticHint)) {
+			if (TaiPanSemanticHints.Port_1001Labels.PORTLOCATION_4001_TEXT.equals(semanticHint)) {
 				return 4001;
 			}
 			if (!"".equals(semanticHint)) {
@@ -95,10 +95,10 @@ public class TaiPanVisualIDRegistry {
 			}
 			return getUnrecognizedPort_1001ChildNodeID(domainElement);
 		case 1002:
-			if (TaiPanSemanticHints.Ship_1002Labels.NAME_TEXT.equals(semanticHint)) {
+			if (TaiPanSemanticHints.Ship_1002Labels.SHIPNAME_4002_TEXT.equals(semanticHint)) {
 				return 4002;
 			}
-			if (TaiPanSemanticHints.Ship_1002Compartments.CARGOCOMPARTMENT.equals(semanticHint)) {
+			if (TaiPanSemanticHints.Ship_1002Compartments.CARGOCOMPARTMENT_5001.equals(semanticHint)) {
 				return 5001;
 			}
 			if (!"".equals(semanticHint)) {
@@ -115,7 +115,7 @@ public class TaiPanVisualIDRegistry {
 			}
 			return getUnrecognizedCargoCompartment_5001ChildNodeID(domainElement);
 		case 2001:
-			if (TaiPanSemanticHints.Item_2001Labels.ARTICLE_TEXT.equals(semanticHint)) {
+			if (TaiPanSemanticHints.Item_2001Labels.ITEMARTICLE_4003_TEXT.equals(semanticHint)) {
 				return 4003;
 			}
 			if (!"".equals(semanticHint)) {
@@ -125,20 +125,20 @@ public class TaiPanVisualIDRegistry {
 		case 3001:
 			return getUnrecognizedShipDestination_3001LinkLabelID(semanticHint);
 		case 3002:
-			if (TaiPanSemanticHints.Route_3002Labels.DESCRIPTION_LABEL.equals(semanticHint)) {
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4004_LABEL.equals(semanticHint)) {
 				return 4004;
 			}
-			if (TaiPanSemanticHints.Route_3002Labels.RELIABILITY_LABEL.equals(semanticHint)) {
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4009_LABEL.equals(semanticHint)) {
 				return 4009;
 			}
 			return getUnrecognizedRoute_3002LinkLabelID(semanticHint);
 		case 4004:
-			if (TaiPanSemanticHints.Route_3002Labels.DESCRIPTION_TEXT.equals(semanticHint)) {
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4004_TEXT.equals(semanticHint)) {
 				return 4004;
 			}
 			return getUnrecognizedRoute_3002LinkLabelTextID(semanticHint);
 		case 4009:
-			if (TaiPanSemanticHints.Route_3002Labels.RELIABILITY_TEXT.equals(semanticHint)) {
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4009_TEXT.equals(semanticHint)) {
 				return 4009;
 			}
 			return getUnrecognizedRoute_3002LinkLabelTextID(semanticHint);

@@ -34,7 +34,7 @@ public class RouteReliabilityLinkLabelViewFactory extends AbstractLabelViewFacto
 		annotation.setSource("VisualID");
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("value", "4009");
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Route_3002Labels.RELIABILITY_TEXT,
+		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4009_TEXT,
 				ViewUtil.APPEND, persisted, getPreferencesHint());
 	}
 }

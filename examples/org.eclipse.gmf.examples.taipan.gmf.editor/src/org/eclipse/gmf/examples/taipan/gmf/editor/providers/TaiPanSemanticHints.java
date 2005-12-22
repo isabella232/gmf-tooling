@@ -34,7 +34,7 @@ public class TaiPanSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String LOCATION_TEXT = "locationText";
+		public static final String PORTLOCATION_4001_TEXT = "PortLocation_4001Text";
 	}
 
 	/**
@@ -50,7 +50,7 @@ public class TaiPanSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String NAME_TEXT = "nameText";
+		public static final String SHIPNAME_4002_TEXT = "ShipName_4002Text";
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class TaiPanSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String CARGOCOMPARTMENT = "CargoCompartment";
+		public static final String CARGOCOMPARTMENT_5001 = "CargoCompartment_5001";
 	}
 
 	/**
@@ -82,13 +82,13 @@ public class TaiPanSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String ARTICLE_TEXT = "articleText";
+		public static final String ITEMARTICLE_4003_TEXT = "ItemArticle_4003Text";
 	}
 
 	/**
 	 * @generated
 	 */
-	public static final String ShipDestination_3001 = "destinationLink";
+	public static final String ShipDestination_3001 = "ShipDestination_3001Link";
 
 	/**
 	 * @generated
@@ -103,21 +103,21 @@ public class TaiPanSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String DESCRIPTION_LABEL = "descriptionLabel";
+		public static final String ROUTEDESCRIPTION_4004_LABEL = "RouteDescription_4004Label";
 
 		/**
 		 * @generated
 		 */
-		public static final String DESCRIPTION_TEXT = "descriptionText";
+		public static final String ROUTEDESCRIPTION_4004_TEXT = "RouteDescription_4004Text";
 
 		/**
 		 * @generated
 		 */
-		public static final String RELIABILITY_LABEL = "reliabilityLabel";
+		public static final String ROUTERELIABILITY_4009_LABEL = "RouteReliability_4009Label";
 
 		/**
 		 * @generated
 		 */
-		public static final String RELIABILITY_TEXT = "reliabilityText";
+		public static final String ROUTERELIABILITY_4009_TEXT = "RouteReliability_4009Text";
 	}
 }
