@@ -6,7 +6,6 @@ feature@org.eclipse.gmf=I20051201-1800,:pserver:anonymous@dev.eclipse.org:/cvsro
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf=M3_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf
 plugin@org.eclipse.gmf.runtime.common.core=I20051217-0925,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.core
-plugin@org.eclipse.gmf.runtime.common.core.provider=I20051217-0925,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.core.provider
 plugin@org.eclipse.gmf.runtime.common.ui=I20051217-0925,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui
 plugin@org.eclipse.gmf.runtime.common.ui.action=I20051217-0925,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.action
 plugin@org.eclipse.gmf.runtime.common.ui.action.ide=I20051217-0925,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.action.ide
