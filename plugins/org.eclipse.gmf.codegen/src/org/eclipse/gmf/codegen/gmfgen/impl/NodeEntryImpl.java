@@ -6,12 +6,14 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
-import org.eclipse.emf.common.notify.Notification;
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
@@ -33,14 +35,14 @@ import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
  */
 public class NodeEntryImpl extends ToolEntryImpl implements NodeEntry {
 	/**
-	 * The cached value of the '{@link #getGenNode() <em>Gen Node</em>}' reference.
+	 * The cached value of the '{@link #getGenNode() <em>Gen Node</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getGenNode()
 	 * @generated
 	 * @ordered
 	 */
-	protected GenNode genNode = null;
+	protected EList genNode = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -65,37 +67,11 @@ public class NodeEntryImpl extends ToolEntryImpl implements NodeEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenNode getGenNode() {
-		if (genNode != null && genNode.eIsProxy()) {
-			GenNode oldGenNode = genNode;
-			genNode = (GenNode)eResolveProxy((InternalEObject)genNode);
-			if (genNode != oldGenNode) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.NODE_ENTRY__GEN_NODE, oldGenNode, genNode));
-			}
+	public EList getGenNode() {
+		if (genNode == null) {
+			genNode = new EObjectResolvingEList(GenNode.class, this, GMFGenPackage.NODE_ENTRY__GEN_NODE);
 		}
 		return genNode;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenNode basicGetGenNode() {
-		return genNode;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setGenNode(GenNode newGenNode) {
-		GenNode oldGenNode = genNode;
-		genNode = newGenNode;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.NODE_ENTRY__GEN_NODE, oldGenNode, genNode));
 	}
 
 	/**
@@ -185,8 +161,7 @@ public class NodeEntryImpl extends ToolEntryImpl implements NodeEntry {
 			case GMFGenPackage.NODE_ENTRY__DEFAULT:
 				return isDefault() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.NODE_ENTRY__GEN_NODE:
-				if (resolve) return getGenNode();
-				return basicGetGenNode();
+				return getGenNode();
 			case GMFGenPackage.NODE_ENTRY__GROUP:
 				return getGroup();
 		}
@@ -222,7 +197,8 @@ public class NodeEntryImpl extends ToolEntryImpl implements NodeEntry {
 				setDefault(((Boolean)newValue).booleanValue());
 				return;
 			case GMFGenPackage.NODE_ENTRY__GEN_NODE:
-				setGenNode((GenNode)newValue);
+				getGenNode().clear();
+				getGenNode().addAll((Collection)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -257,7 +233,7 @@ public class NodeEntryImpl extends ToolEntryImpl implements NodeEntry {
 				setDefault(DEFAULT_EDEFAULT);
 				return;
 			case GMFGenPackage.NODE_ENTRY__GEN_NODE:
-				setGenNode((GenNode)null);
+				getGenNode().clear();
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -285,7 +261,7 @@ public class NodeEntryImpl extends ToolEntryImpl implements NodeEntry {
 			case GMFGenPackage.NODE_ENTRY__DEFAULT:
 				return default_ != DEFAULT_EDEFAULT;
 			case GMFGenPackage.NODE_ENTRY__GEN_NODE:
-				return genNode != null;
+				return genNode != null && !genNode.isEmpty();
 			case GMFGenPackage.NODE_ENTRY__GROUP:
 				return getGroup() != null;
 		}

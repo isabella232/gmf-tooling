@@ -2608,7 +2608,7 @@ public interface GMFGenPackage extends EPackage{
 	int NODE_ENTRY__DEFAULT = TOOL_ENTRY__DEFAULT;
 
 	/**
-	 * The feature id for the '<em><b>Gen Node</b></em>' reference.
+	 * The feature id for the '<em><b>Gen Node</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2698,7 +2698,7 @@ public interface GMFGenPackage extends EPackage{
 	int LINK_ENTRY__DEFAULT = TOOL_ENTRY__DEFAULT;
 
 	/**
-	 * The feature id for the '<em><b>Gen Link</b></em>' reference.
+	 * The feature id for the '<em><b>Gen Link</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4618,10 +4618,10 @@ public interface GMFGenPackage extends EPackage{
 	EClass getNodeEntry();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.NodeEntry#getGenNode <em>Gen Node</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.NodeEntry#getGenNode <em>Gen Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Gen Node</em>'.
+	 * @return the meta object for the reference list '<em>Gen Node</em>'.
 	 * @see org.eclipse.gmf.codegen.gmfgen.NodeEntry#getGenNode()
 	 * @see #getNodeEntry()
 	 * @generated
@@ -4650,10 +4650,10 @@ public interface GMFGenPackage extends EPackage{
 	EClass getLinkEntry();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.LinkEntry#getGenLink <em>Gen Link</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.LinkEntry#getGenLink <em>Gen Link</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Gen Link</em>'.
+	 * @return the meta object for the reference list '<em>Gen Link</em>'.
 	 * @see org.eclipse.gmf.codegen.gmfgen.LinkEntry#getGenLink()
 	 * @see #getLinkEntry()
 	 * @generated

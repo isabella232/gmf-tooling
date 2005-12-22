@@ -7,6 +7,8 @@
 package org.eclipse.gmf.codegen.gmfgen;
 
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Link Entry</b></em>'.
@@ -24,32 +26,22 @@ package org.eclipse.gmf.codegen.gmfgen;
  * @model
  * @generated
  */
-public interface LinkEntry extends ToolEntry {
+public interface LinkEntry extends ToolEntry{
 	/**
-	 * Returns the value of the '<em><b>Gen Link</b></em>' reference.
+	 * Returns the value of the '<em><b>Gen Link</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenLink}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Gen Link</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Gen Link</em>' reference.
-	 * @see #setGenLink(GenLink)
+	 * @return the value of the '<em>Gen Link</em>' reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getLinkEntry_GenLink()
-	 * @model required="true"
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenLink" required="true"
 	 * @generated
 	 */
-	GenLink getGenLink();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.LinkEntry#getGenLink <em>Gen Link</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Gen Link</em>' reference.
-	 * @see #getGenLink()
-	 * @generated
-	 */
-	void setGenLink(GenLink value);
+	EList getGenLink();
 
 	/**
 	 * Returns the value of the '<em><b>Group</b></em>' container reference.

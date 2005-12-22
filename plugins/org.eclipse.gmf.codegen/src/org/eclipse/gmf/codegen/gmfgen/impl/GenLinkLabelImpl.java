@@ -251,7 +251,7 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	 * @generated NOT
 	 */
 	public String getSemanticHintLabelFieldName() {
-		return asJavaConstantName(getUniqueIdentifier()) + "_LABEL"; //$NON-NLS-1$
+		return GenCommonBaseImpl.asJavaConstantName(getUniqueIdentifier()) + "_LABEL"; //$NON-NLS-1$
 	}
 
 	/**

@@ -177,9 +177,6 @@
         <details key="documentation" value="This unique string identifier could be used to construct unique identifiers in generated java code"/>
       </eAnnotations>
     </eOperations>
-    <eOperations name="asJavaConstantName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eParameters name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramRunTimeClass" lowerBound="1"
         eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visualID" lowerBound="1"
@@ -566,13 +563,13 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NodeEntry" eSuperTypes="#//ToolEntry">
     <eStructuralFeatures xsi:type="ecore:EReference" name="genNode" lowerBound="1"
-        eType="#//GenNode"/>
+        upperBound="-1" eType="#//GenNode"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="group" eType="#//ToolGroup"
         changeable="false" transient="true" resolveProxies="false" eOpposite="#//ToolGroup/nodeTools"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LinkEntry" eSuperTypes="#//ToolEntry">
     <eStructuralFeatures xsi:type="ecore:EReference" name="genLink" lowerBound="1"
-        eType="#//GenLink"/>
+        upperBound="-1" eType="#//GenLink"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="group" eType="#//ToolGroup"
         changeable="false" transient="true" resolveProxies="false" eOpposite="#//ToolGroup/linkTools"/>
   </eClassifiers>

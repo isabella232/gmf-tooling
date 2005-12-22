@@ -121,9 +121,6 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getClassNamePrefix"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getClassNameSuffux"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/getUniqueIdentifier"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenCommonBase/asJavaConstantName">
-        <genParameters ecoreParameter="gmfgen.ecore#//GenCommonBase/asJavaConstantName/name"/>
-      </genOperations>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenChildContainer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildContainer/childNodes"/>

@@ -286,7 +286,7 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 * @generated NOT
 	 */
 	public String getSemanticHintFieldName() {
-		return asJavaConstantName(getUniqueIdentifier());
+		return GenCommonBaseImpl.asJavaConstantName(getUniqueIdentifier());
 	}
 
 	/**

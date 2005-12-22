@@ -103,8 +103,11 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 			ToolGroup nextGroup = (ToolGroup) (itG.next());
 			for (Iterator itE = nextGroup.getNodeTools().iterator(); itE.hasNext();) {
 				NodeEntry nodeEntry = (NodeEntry) (itE.next());
-				if (nodeEntry.getGenNode().getEditPartClassName().equals(epName)) {
-					uses++;
+				for (Iterator itN = nodeEntry.getGenNode().iterator(); itN.hasNext();) {
+					GenNode genNode = (GenNode) itN.next();
+					if (genNode.getEditPartClassName().equals(epName)) {
+						uses++;
+					}
 				}
 			}
 		}
@@ -118,8 +121,11 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 			ToolGroup nextGroup = (ToolGroup) (itG.next());
 			for (Iterator itE = nextGroup.getLinkTools().iterator(); itE.hasNext();) {
 				LinkEntry linkEntry = (LinkEntry) (itE.next());
-				if (linkEntry.getGenLink().getEditPartClassName().equals(epName)) {
-					uses++;
+				for (Iterator itL = linkEntry.getGenLink().iterator(); itL.hasNext();) {
+					GenLink genLink = (GenLink) itL.next();
+					if (genLink.getEditPartClassName().equals(epName)) {
+						uses++;
+					}
 				}
 			}
 		}

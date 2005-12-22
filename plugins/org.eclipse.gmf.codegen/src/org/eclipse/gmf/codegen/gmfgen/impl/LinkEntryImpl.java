@@ -6,12 +6,14 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
-import org.eclipse.emf.common.notify.Notification;
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
@@ -33,14 +35,14 @@ import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
  */
 public class LinkEntryImpl extends ToolEntryImpl implements LinkEntry {
 	/**
-	 * The cached value of the '{@link #getGenLink() <em>Gen Link</em>}' reference.
+	 * The cached value of the '{@link #getGenLink() <em>Gen Link</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getGenLink()
 	 * @generated
 	 * @ordered
 	 */
-	protected GenLink genLink = null;
+	protected EList genLink = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -65,37 +67,11 @@ public class LinkEntryImpl extends ToolEntryImpl implements LinkEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenLink getGenLink() {
-		if (genLink != null && genLink.eIsProxy()) {
-			GenLink oldGenLink = genLink;
-			genLink = (GenLink)eResolveProxy((InternalEObject)genLink);
-			if (genLink != oldGenLink) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.LINK_ENTRY__GEN_LINK, oldGenLink, genLink));
-			}
+	public EList getGenLink() {
+		if (genLink == null) {
+			genLink = new EObjectResolvingEList(GenLink.class, this, GMFGenPackage.LINK_ENTRY__GEN_LINK);
 		}
 		return genLink;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenLink basicGetGenLink() {
-		return genLink;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setGenLink(GenLink newGenLink) {
-		GenLink oldGenLink = genLink;
-		genLink = newGenLink;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.LINK_ENTRY__GEN_LINK, oldGenLink, genLink));
 	}
 
 	/**
@@ -185,8 +161,7 @@ public class LinkEntryImpl extends ToolEntryImpl implements LinkEntry {
 			case GMFGenPackage.LINK_ENTRY__DEFAULT:
 				return isDefault() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.LINK_ENTRY__GEN_LINK:
-				if (resolve) return getGenLink();
-				return basicGetGenLink();
+				return getGenLink();
 			case GMFGenPackage.LINK_ENTRY__GROUP:
 				return getGroup();
 		}
@@ -222,7 +197,8 @@ public class LinkEntryImpl extends ToolEntryImpl implements LinkEntry {
 				setDefault(((Boolean)newValue).booleanValue());
 				return;
 			case GMFGenPackage.LINK_ENTRY__GEN_LINK:
-				setGenLink((GenLink)newValue);
+				getGenLink().clear();
+				getGenLink().addAll((Collection)newValue);
 				return;
 		}
 		eDynamicSet(eFeature, newValue);
@@ -257,7 +233,7 @@ public class LinkEntryImpl extends ToolEntryImpl implements LinkEntry {
 				setDefault(DEFAULT_EDEFAULT);
 				return;
 			case GMFGenPackage.LINK_ENTRY__GEN_LINK:
-				setGenLink((GenLink)null);
+				getGenLink().clear();
 				return;
 		}
 		eDynamicUnset(eFeature);
@@ -285,7 +261,7 @@ public class LinkEntryImpl extends ToolEntryImpl implements LinkEntry {
 			case GMFGenPackage.LINK_ENTRY__DEFAULT:
 				return default_ != DEFAULT_EDEFAULT;
 			case GMFGenPackage.LINK_ENTRY__GEN_LINK:
-				return genLink != null;
+				return genLink != null && !genLink.isEmpty();
 			case GMFGenPackage.LINK_ENTRY__GROUP:
 				return getGroup() != null;
 		}

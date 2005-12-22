@@ -12,7 +12,6 @@ import org.eclipse.gef.palette.PaletteGroup;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.PanningSelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
-import org.eclipse.gmf.runtime.diagram.ui.tools.CreationTool;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.jface.resource.ImageDescriptor;
 <%importManager.markImportLocation(stringBuffer);%>
@@ -136,7 +135,8 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	List nodeCreationTools = toolGroup.getNodeTools();
 	for (int j = 0; j < nodeCreationTools.size(); j++) {
 		NodeEntry nodeCreationTool = (NodeEntry) nodeCreationTools.get(j);
-		GenNode genNode = nodeCreationTool.getGenNode(); 
+		List genNodes = nodeCreationTool.getGenNode();
+		GenNode firstGenNode = (GenNode) genNodes.get(0);
 %>
 
 	/**
@@ -148,17 +148,25 @@ for (int i = 0; i < toolGroups.size(); i++) {
 		<%if (nodeCreationTool.getSmallIconPath() != null) {%>
 		smallImage = <%=importedPluginClassName%>.getBundledImageDescriptor("<%=nodeCreationTool.getSmallIconPath()%>");
 		<%} else {%>
-		smallImage = <%=importedElementTypesClassName%>.getImageDescriptor(<%=importedElementTypesClassName%>.<%=genNode.getUniqueIdentifier()%>); 
+		smallImage = <%=importedElementTypesClassName%>.getImageDescriptor(<%=importedElementTypesClassName%>.<%=firstGenNode.getUniqueIdentifier()%>); 
 		<%}%>
 		<%if (nodeCreationTool.getLargeIconPath() != null) {%>
 		largeImage = <%=importedPluginClassName%>.getBundledImageDescriptor("<%=nodeCreationTool.getLargeIconPath()%>");
 		<%} else {%>
 		largeImage = smallImage;
 		<%}%>
+		final <%=importManager.getImportedName("java.util.List")%> elementTypes = new <%=importManager.getImportedName("java.util.ArrayList")%>();
+<%
+		for (Iterator genNodesIterator = genNodes.iterator(); genNodesIterator.hasNext();) {
+			GenNode nextNode = (GenNode) genNodesIterator.next();
+%>
+		elementTypes.add(<%=importedElementTypesClassName%>.<%=nextNode.getUniqueIdentifier()%>);
+<%
+		}
+%>		
 		return new ToolEntry("<%=nodeCreationTool.getTitleKey()%>", "<%=nodeCreationTool.getDescriptionKey()%>", smallImage, largeImage) {
-
 			public Tool createTool() {
-				Tool tool = new CreationTool(<%=importedElementTypesClassName%>.<%=genNode.getUniqueIdentifier()%>);
+				Tool tool = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeCreationTool")%>(elementTypes);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
@@ -168,9 +176,9 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	}
 	List linkCreationTools = toolGroup.getLinkTools();
 	for (int j = 0; j < linkCreationTools.size(); j++) {
-		final String connToolClassName = importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.ConnectionCreationTool");
 		LinkEntry linkCreationTool = (LinkEntry) linkCreationTools.get(j);
-		GenLink genLink = linkCreationTool.getGenLink();
+		List genLinks = linkCreationTool.getGenLink();
+		GenLink firstGenLink = (GenLink) genLinks.get(0);
 %>
 
 	/**
@@ -182,17 +190,26 @@ for (int i = 0; i < toolGroups.size(); i++) {
 		<%if (linkCreationTool.getSmallIconPath() != null) {%>
 		smallImage = <%=importedPluginClassName%>.getBundledImageDescriptor("<%=linkCreationTool.getSmallIconPath()%>");
 		<%} else {%>
-		smallImage = <%=importedElementTypesClassName%>.getImageDescriptor(<%=importedElementTypesClassName%>.<%=genLink.getUniqueIdentifier()%>); 
+		smallImage = <%=importedElementTypesClassName%>.getImageDescriptor(<%=importedElementTypesClassName%>.<%=firstGenLink.getUniqueIdentifier()%>); 
 		<%}%>
 		<%if (linkCreationTool.getLargeIconPath() != null) {%>
 		largeImage = <%=importedPluginClassName%>.getBundledImageDescriptor("<%=linkCreationTool.getLargeIconPath()%>");
 		<%} else {%>
 		largeImage = smallImage;
 		<%}%>
+		final <%=importManager.getImportedName("java.util.List")%> relationshipTypes = new <%=importManager.getImportedName("java.util.ArrayList")%>();
+<%
+		for (Iterator genLinksIterator = genLinks.iterator(); genLinksIterator.hasNext();) {
+			GenLink nextLink = (GenLink) genLinksIterator.next();
+%>
+		relationshipTypes.add(<%=importedElementTypesClassName%>.<%=nextLink.getUniqueIdentifier()%>);
+<%
+		}
+%>		
 		return new ToolEntry("<%=linkCreationTool.getTitleKey()%>", "<%=linkCreationTool.getDescriptionKey()%>", smallImage, largeImage) {
 
 			public Tool createTool() {
-				Tool tool = new <%=connToolClassName%>(<%=importedElementTypesClassName%>.<%=genLink.getUniqueIdentifier()%>);
+				Tool tool = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeConnectionTool")%>(relationshipTypes);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
@@ -209,5 +226,6 @@ for (int i = 0; i < toolGroups.size(); i++) {
 	private PaletteContainer createContainer(String title) {
 		return new PaletteDrawer(title);
 	}
+	
 }
 <%importManager.emitSortedImports();%>

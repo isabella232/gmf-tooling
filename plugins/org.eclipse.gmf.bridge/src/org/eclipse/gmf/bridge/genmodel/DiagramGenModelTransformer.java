@@ -304,7 +304,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if (lme.getTool() instanceof CreationTool) {
 			LinkEntry le = GMFGenFactory.eINSTANCE.createLinkEntry();
 			findToolGroup(lme.getTool()).getLinkTools().add(le);
-			le.setGenLink(gl);
+			le.getGenLink().add(gl);
 			le.setCreateMethodName(myNamingStrategy.createToolCreationMethodName(lme));
 			setupCommonToolEntry(le, lme.getTool(), lme.getDomainMetaClass() != null ? lme.getDomainMetaClass().getName() : lme.getLinkMetaFeature().getName());
 		}
@@ -423,7 +423,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			// XXX handle other tool types (action, whatever)
 			NodeEntry ne = GMFGenFactory.eINSTANCE.createNodeEntry();
 			findToolGroup(nme.getTool()).getNodeTools().add(ne);
-			ne.setGenNode(genNode);
+			ne.getGenNode().add(genNode);
 			ne.setCreateMethodName(myNamingStrategy.createToolCreationMethodName(nme));
 			setupCommonToolEntry(ne, nme.getTool(), nme.getDomainMetaClass().getName());
 		}
