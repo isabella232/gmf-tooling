@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <extension point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.eclipse.gmf.ecore.editor.EcoreDiagramPreferenceInitializer"/>
+   </extension>
+
+  <extension point="org.eclipse.team.core.fileTypes">
+      <fileTypes
+         type="text"
+         extension="ecore_diagram">
+      </fileTypes>
+  </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+         type="ecore_diagram"
+         class="org.eclipse.gmf.runtime.emf.core.resources.MResourceFactory">
+      </parser>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+     <editor
+        id="org.eclipse.gmf.ecore.editor.EcoreDiagramEditorID"
+        name="Ecore Diagram Editor"
+        icon="icons/full/obj16/EcoreModelFile.gif"
+        extensions="ecore_diagram"
+        default="true"
+        class="org.eclipse.gmf.ecore.editor.EcoreDiagramEditor"
+        matchingStrategy="org.eclipse.gmf.ecore.editor.EcoreMatchingStrategy"
+        contributorClass="org.eclipse.gmf.ecore.editor.EcoreDiagramActionBarContributor">
+     </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+  	  <wizard
+  	     name="Ecore Diagram"
+  	     icon="icons/full/obj16/EcoreModelFile.gif"
+  	     category="org.eclipse.ui.Examples"
+  	     class="org.eclipse.gmf.ecore.editor.EcoreCreationWizard"
+  	     id="org.eclipse.gmf.ecore.editor.EcoreCreationWizardID">
+  	  	 <description>
+  	  		Creates Ecore diagram.
+  	  	 </description>  
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="org.eclipse.gmf.ecore.editor.ui.objectContribution.IFile1"
+            nameFilter="*.ecore"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               label="Initialize ecore_diagram diagram file"
+               class="org.eclipse.gmf.ecore.editor.EcoreInitDiagramFileAction"
+               menubarPath="additions"
+               enablesFor="1"
+               id="org.eclipse.gmf.ecore.editor.EcoreInitDiagramFileActionID">
+         </action>
+      </objectContribution>            
+  </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
+         id="EcorePresentation">
+         <Priority name="Medium"/>
+         <ViewId id="org.eclipse.gmf.ecore.editor.EcoreDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="delete"/>
+            </ElementType>
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart">
+               <GlobalActionId actionId="save"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.printing.render.providers.DiagramWithPrintGlobalActionHandlerProvider"
+         id="EcorePresentationPrint">
+         <Priority name="Medium"/>
+         <ViewId id="org.eclipse.gmf.ecore.editor.EcoreDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="print"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
+         id="EcorePresentationIDE">
+         <Priority name="Medium"/>
+         <ViewId id="org.eclipse.gmf.ecore.editor.EcoreDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="bookmark"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+            class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
+            id="EcoreRender">
+         <Priority name="Medium"/>
+         <ViewId id="org.eclipse.gmf.ecore.editor.EcoreDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="cut"/>
+               <GlobalActionId actionId="copy"/>
+               <GlobalActionId actionId="paste"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
+      <viewProvider class="org.eclipse.gmf.ecore.edit.providers.EcoreViewProvider">
+         <Priority name="Medium"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Ecore"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints=""/>
+      </viewProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
+      <editpartProvider class="org.eclipse.gmf.ecore.edit.providers.EcoreEditPartProvider">
+         <Priority name="Medium"/>
+      </editpartProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.core.MetaModelProviders">
+      <MetaModelProvider class="org.eclipse.gmf.ecore.edit.providers.EcoreMetaModelSupportProvider">
+         <Priority name="Medium"/>
+      </MetaModelProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
+      <modelingAssistantProvider class="org.eclipse.gmf.ecore.edit.providers.EcoreModelingAssistantProvider">
+         <Priority name="Medium"/>
+      </modelingAssistantProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.properties.propertiesProviders">
+      <PropertiesProvider
+            verifyPluginLoaded="false"
+            class="org.eclipse.gmf.ecore.edit.providers.EcorePropertyProvider">
+         <Priority name="Medium"/>
+      </PropertiesProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
+      <IconProvider class="org.eclipse.gmf.ecore.edit.providers.EcoreIconProvider">
+         <Priority name="Medium"/>
+      </IconProvider>
+   </extension>
+
+</plugin>

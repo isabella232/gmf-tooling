@@ -1,0 +1,55 @@
+package org.eclipse.gmf.ecore.editor;
+
+import java.io.InputStream;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.wizards.EditorWizardPage;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchWindow;
+
+/**
+ * @generated
+ */
+public class EcoreCreationWizardPage extends EditorWizardPage {
+
+	/**
+	 * @generated
+	 */
+	public EcoreCreationWizardPage(IWorkbench workbench, IStructuredSelection selection) {
+		super("CreationWizardPage", workbench, selection); //$NON-NLS-1$
+		setTitle("Create Ecore Diagram"); //$NON-NLS-1$
+		setDescription("Create a new Ecore diagram."); //$NON-NLS-1$
+	}
+
+	/**
+	 * @generated
+	 */
+	public IFile createAndOpenDiagram(IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow dWindow, IProgressMonitor progressMonitor, boolean saveDiagram) {
+		return EcoreDiagramEditorUtil.createAndOpenDiagram(getDiagramFileCreator(), containerPath, fileName, initialContents, kind, dWindow, progressMonitor, isOpenNewlyCreatedDiagramEditor(), saveDiagram);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected String getDefaultFileName() {
+		return "default"; //$NON-NLS-1$
+	}
+
+	/**
+	 * @generated
+	 */
+	public DiagramFileCreator getDiagramFileCreator() {
+		return EcoreDiagramFileCreator.getInstance();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected String getDiagramKind() {
+		return "Ecore"; //$NON-NLS-1$
+	}
+}

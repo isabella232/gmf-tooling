@@ -1,0 +1,228 @@
+package org.eclipse.gmf.ecore.edit.policies;
+
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLDestroyElementCommand;
+import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
+import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
+
+import org.eclipse.gef.commands.UnexecutableCommand;
+
+import org.eclipse.gmf.ecore.edit.providers.EcoreElementTypes;
+
+import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateRelationshipCommand;
+
+import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
+
+import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
+
+/**
+ * @generated
+ */
+public class EClass2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolicy {
+
+	/**
+	 * @generated
+	 */
+	protected Command getDestroyElementCommand(DestroyElementRequest req) {
+		return getMSLWrapper(new MSLDestroyElementCommand(req));
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
+		if (EcoreElementTypes.EAnnotationReferences_3001 == req.getElementType()) {
+			return req.getTarget() == null ? null : getCreateCompleteIncomingEAnnotation_References3001Command(req);
+		}
+		if (EcoreElementTypes.EReference_3002 == req.getElementType()) {
+			return req.getTarget() == null ? getCreateStartOutgoingEReference3002Command(req) : getCreateCompleteIncomingEReference3002Command(req);
+		}
+		if (EcoreElementTypes.EReference_3003 == req.getElementType()) {
+			return req.getTarget() == null ? getCreateStartOutgoingEReference3003Command(req) : getCreateCompleteIncomingEReference3003Command(req);
+		}
+		if (EcoreElementTypes.EClassESuperTypes_3004 == req.getElementType()) {
+			return req.getTarget() == null ? getCreateStartOutgoingEClass_ESuperTypes3004Command(req) : getCreateCompleteIncomingEClass_ESuperTypes3004Command(req);
+		}
+		return super.getCreateRelationshipCommand(req);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateCompleteIncomingEAnnotation_References3001Command(CreateRelationshipRequest req) {
+		if (!(req.getSource() instanceof EAnnotation)) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		EAnnotation element = (EAnnotation) req.getSource();
+		if (element.getReferences().contains(req.getTarget())) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		SetRequest setReq = new SetRequest(req.getSource(), EcorePackage.eINSTANCE.getEAnnotation_References(), req.getTarget());
+		return getMSLWrapper(new SetValueCommand(setReq));
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateStartOutgoingEReference3002Command(CreateRelationshipRequest req) {
+		return new Command() {};
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateCompleteIncomingEReference3002Command(CreateRelationshipRequest req) {
+		if (!(req.getSource() instanceof EClass)) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		final EClass element = (EClass) req.getSource();
+		if (req.getContainmentFeature() == null) {
+			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
+		}
+		return getMSLWrapper(new CreateIncomingEReference3002Command(req) {
+
+			/**
+			 * @generated
+			 */
+			protected EObject getElementToEdit() {
+				return element;
+			}
+		});
+	}
+
+	/**
+	 * @generated
+	 */
+	private static class CreateIncomingEReference3002Command extends MSLCreateRelationshipCommand {
+
+		/**
+		 * @generated
+		 */
+		public CreateIncomingEReference3002Command(CreateRelationshipRequest req) {
+			super(req);
+		}
+
+		/**
+		 * @generated
+		 */
+		protected EClass getEClassToEdit() {
+			return EcorePackage.eINSTANCE.getEClass();
+		};
+
+		/**
+		 * @generated
+		 */
+		protected void setElementToEdit(EObject element) {
+			throw new UnsupportedOperationException();
+		}
+
+		/**
+		 * @generated
+		 */
+		protected EObject doDefaultElementCreation() {
+			EReference newElement = (EReference) super.doDefaultElementCreation();
+			if (newElement != null) {
+				newElement.setEType((EClassifier) getTarget());
+				EcoreElementTypes.Initializers.EReference_3002.init(newElement);
+			}
+			return newElement;
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateStartOutgoingEReference3003Command(CreateRelationshipRequest req) {
+		return new Command() {};
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateCompleteIncomingEReference3003Command(CreateRelationshipRequest req) {
+		if (!(req.getSource() instanceof EClass)) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		final EClass element = (EClass) req.getSource();
+		if (req.getContainmentFeature() == null) {
+			req.setContainmentFeature(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures());
+		}
+		return getMSLWrapper(new CreateIncomingEReference3003Command(req) {
+
+			/**
+			 * @generated
+			 */
+			protected EObject getElementToEdit() {
+				return element;
+			}
+		});
+	}
+
+	/**
+	 * @generated
+	 */
+	private static class CreateIncomingEReference3003Command extends MSLCreateRelationshipCommand {
+
+		/**
+		 * @generated
+		 */
+		public CreateIncomingEReference3003Command(CreateRelationshipRequest req) {
+			super(req);
+		}
+
+		/**
+		 * @generated
+		 */
+		protected EClass getEClassToEdit() {
+			return EcorePackage.eINSTANCE.getEClass();
+		};
+
+		/**
+		 * @generated
+		 */
+		protected void setElementToEdit(EObject element) {
+			throw new UnsupportedOperationException();
+		}
+
+		/**
+		 * @generated
+		 */
+		protected EObject doDefaultElementCreation() {
+			EReference newElement = (EReference) super.doDefaultElementCreation();
+			if (newElement != null) {
+				newElement.setEType((EClassifier) getTarget());
+				EcoreElementTypes.Initializers.EReference_3003.init(newElement);
+			}
+			return newElement;
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateStartOutgoingEClass_ESuperTypes3004Command(CreateRelationshipRequest req) {
+
+		return new Command() {};
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Command getCreateCompleteIncomingEClass_ESuperTypes3004Command(CreateRelationshipRequest req) {
+		if (!(req.getSource() instanceof EClass)) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		EClass element = (EClass) req.getSource();
+		if (element.getESuperTypes().contains(req.getTarget())) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		SetRequest setReq = new SetRequest(req.getSource(), EcorePackage.eINSTANCE.getEClass_ESuperTypes(), req.getTarget());
+		return getMSLWrapper(new SetValueCommand(setReq));
+	}
+}
