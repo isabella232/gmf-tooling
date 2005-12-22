@@ -106,7 +106,6 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="printingEnabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasDomainModel" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="diagramFileExtension" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="reorientConnectionViewCommandClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -565,13 +564,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="genNode" lowerBound="1"
         upperBound="-1" eType="#//GenNode"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="group" eType="#//ToolGroup"
-        changeable="false" transient="true" resolveProxies="false" eOpposite="#//ToolGroup/nodeTools"/>
+        changeable="false" eOpposite="#//ToolGroup/nodeTools"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LinkEntry" eSuperTypes="#//ToolEntry">
     <eStructuralFeatures xsi:type="ecore:EReference" name="genLink" lowerBound="1"
         upperBound="-1" eType="#//GenLink"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="group" eType="#//ToolGroup"
-        changeable="false" transient="true" resolveProxies="false" eOpposite="#//ToolGroup/linkTools"/>
+        changeable="false" eOpposite="#//ToolGroup/linkTools"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ToolGroup" eSuperTypes="#//EntryBase">
     <eStructuralFeatures xsi:type="ecore:EReference" name="nodeTools" upperBound="-1"
@@ -579,8 +578,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="linkTools" upperBound="-1"
         eType="#//LinkEntry" containment="true" eOpposite="#//LinkEntry/group"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="palette" lowerBound="1"
-        eType="#//Palette" changeable="false" transient="true" resolveProxies="false"
-        eOpposite="#//Palette/groups"/>
+        eType="#//Palette" changeable="false" eOpposite="#//Palette/groups"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenElementInitializer" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

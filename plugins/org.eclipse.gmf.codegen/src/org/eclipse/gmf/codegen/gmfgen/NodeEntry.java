@@ -55,7 +55,7 @@ public interface NodeEntry extends ToolEntry{
 	 * @return the value of the '<em>Group</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getNodeEntry_Group()
 	 * @see org.eclipse.gmf.codegen.gmfgen.ToolGroup#getNodeTools
-	 * @model opposite="nodeTools" resolveProxies="false" changeable="false"
+	 * @model opposite="nodeTools" changeable="false"
 	 * @generated
 	 */
 	ToolGroup getGroup();

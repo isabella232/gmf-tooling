@@ -55,7 +55,7 @@ public interface LinkEntry extends ToolEntry{
 	 * @return the value of the '<em>Group</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getLinkEntry_Group()
 	 * @see org.eclipse.gmf.codegen.gmfgen.ToolGroup#getLinkTools
-	 * @model opposite="linkTools" resolveProxies="false" changeable="false"
+	 * @model opposite="linkTools" changeable="false"
 	 * @generated
 	 */
 	ToolGroup getGroup();

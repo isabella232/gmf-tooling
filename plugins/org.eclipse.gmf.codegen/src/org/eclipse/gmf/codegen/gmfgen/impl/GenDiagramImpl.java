@@ -62,7 +62,6 @@ import org.eclipse.gmf.codegen.gmfgen.Viewmap;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getProviderName <em>Provider Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isPrintingEnabled <em>Printing Enabled</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isHasDomainModel <em>Has Domain Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getReorientConnectionViewCommandClassName <em>Reorient Connection View Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartFactoryClassName <em>Edit Part Factory Class Name</em>}</li>
@@ -367,26 +366,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected boolean printingEnabled = PRINTING_ENABLED_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #isHasDomainModel() <em>Has Domain Model</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isHasDomainModel()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean HAS_DOMAIN_MODEL_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isHasDomainModel() <em>Has Domain Model</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isHasDomainModel()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean hasDomainModel = HAS_DOMAIN_MODEL_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getDiagramFileExtension() <em>Diagram File Extension</em>}' attribute.
@@ -1758,27 +1737,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isHasDomainModel() {
-		return hasDomainModel;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setHasDomainModel(boolean newHasDomainModel) {
-		boolean oldHasDomainModel = hasDomainModel;
-		hasDomainModel = newHasDomainModel;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL, oldHasDomainModel, hasDomainModel));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getDiagramFileExtensionGen() {
 		return diagramFileExtension;
 	}
@@ -2686,8 +2644,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return isSameFileForDiagramAndModel() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
 				return isPrintingEnabled() ? Boolean.TRUE : Boolean.FALSE;
-			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
-				return isHasDomainModel() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 				return getDiagramFileExtension();
 			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
@@ -2822,9 +2778,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
 				setPrintingEnabled(((Boolean)newValue).booleanValue());
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
-				setHasDomainModel(((Boolean)newValue).booleanValue());
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 				setDiagramFileExtension((String)newValue);
@@ -2987,9 +2940,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
 				setPrintingEnabled(PRINTING_ENABLED_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
-				setHasDomainModel(HAS_DOMAIN_MODEL_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 				setDiagramFileExtension(DIAGRAM_FILE_EXTENSION_EDEFAULT);
 				return;
@@ -3129,8 +3079,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return sameFileForDiagramAndModel != SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
 				return printingEnabled != PRINTING_ENABLED_EDEFAULT;
-			case GMFGenPackage.GEN_DIAGRAM__HAS_DOMAIN_MODEL:
-				return hasDomainModel != HAS_DOMAIN_MODEL_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 				return DIAGRAM_FILE_EXTENSION_EDEFAULT == null ? diagramFileExtension != null : !DIAGRAM_FILE_EXTENSION_EDEFAULT.equals(diagramFileExtension);
 			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
@@ -3222,8 +3170,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(sameFileForDiagramAndModel);
 		result.append(", printingEnabled: ");
 		result.append(printingEnabled);
-		result.append(", hasDomainModel: ");
-		result.append(hasDomainModel);
 		result.append(", diagramFileExtension: ");
 		result.append(diagramFileExtension);
 		result.append(", reorientConnectionViewCommandClassName: ");

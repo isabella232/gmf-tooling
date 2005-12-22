@@ -26,7 +26,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface ToolGroup extends EntryBase {
+public interface ToolGroup extends EntryBase{
 	/**
 	 * Returns the value of the '<em><b>Node Tools</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.NodeEntry}.
@@ -75,7 +75,7 @@ public interface ToolGroup extends EntryBase {
 	 * @return the value of the '<em>Palette</em>' container reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getToolGroup_Palette()
 	 * @see org.eclipse.gmf.codegen.gmfgen.Palette#getGroups
-	 * @model opposite="groups" resolveProxies="false" required="true" changeable="false"
+	 * @model opposite="groups" required="true" changeable="false"
 	 * @generated
 	 */
 	Palette getPalette();
