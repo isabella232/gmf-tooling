@@ -35,6 +35,7 @@
     <containmentFeature href="taipan.ecore#//Aquatory/routes"/>
     <labelEditFeature href="taipan.ecore#//Route/description"/>
     <labelDisplayFeature href="taipan.ecore#//Route/description"/>
+    <sourceMetaFeature xsi:type="ecore:EReference" href="taipan.ecore#//Route/source"/>
     <linkMetaFeature xsi:type="ecore:EReference" href="taipan.ecore#//Route/destination"/>
     <tool xsi:type="gmfmap:CreationTool" group="TaiPan"/>
   </links>
