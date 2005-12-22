@@ -44,7 +44,6 @@ plugin@org.eclipse.gmf.runtime.emf.type.ui=I20051217-0925,:pserver:anonymous@dev
 plugin@org.eclipse.gmf.runtime.emf.clipboard.core=M3_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.clipboard.core
 
 !*** GMF fragments ***************************************************************************
-fragment@org.eclipse.gmf.runtime.emf.ui.transfer.providers=I20051217-0925,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.emf.ui.transfer.providers
 fragment@org.eclipse.gmf.runtime.common.ui.printing.win32=M3_10,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui.printing.win32
 
 !*** Third-party dependencies ***
