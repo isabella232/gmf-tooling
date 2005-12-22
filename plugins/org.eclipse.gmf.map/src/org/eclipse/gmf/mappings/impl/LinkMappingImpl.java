@@ -36,6 +36,7 @@ import org.eclipse.gmf.mappings.Tool;
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getContainmentFeature <em>Containment Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getLabelEditFeature <em>Label Edit Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getLabelDisplayFeature <em>Label Display Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getSourceMetaFeature <em>Source Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getLinkMetaFeature <em>Link Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getCreationConstraints <em>Creation Constraints</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getTool <em>Tool</em>}</li>
@@ -114,6 +115,16 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * @ordered
 	 */
 	protected EAttribute labelDisplayFeature = null;
+
+	/**
+	 * The cached value of the '{@link #getSourceMetaFeature() <em>Source Meta Feature</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSourceMetaFeature()
+	 * @generated
+	 * @ordered
+	 */
+	protected EStructuralFeature sourceMetaFeature = null;
 
 	/**
 	 * The cached value of the '{@link #getLinkMetaFeature() <em>Link Meta Feature</em>}' reference.
@@ -452,6 +463,44 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EStructuralFeature getSourceMetaFeature() {
+		if (sourceMetaFeature != null && sourceMetaFeature.eIsProxy()) {
+			EStructuralFeature oldSourceMetaFeature = sourceMetaFeature;
+			sourceMetaFeature = (EStructuralFeature)eResolveProxy((InternalEObject)sourceMetaFeature);
+			if (sourceMetaFeature != oldSourceMetaFeature) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.LINK_MAPPING__SOURCE_META_FEATURE, oldSourceMetaFeature, sourceMetaFeature));
+			}
+		}
+		return sourceMetaFeature;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EStructuralFeature basicGetSourceMetaFeature() {
+		return sourceMetaFeature;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSourceMetaFeature(EStructuralFeature newSourceMetaFeature) {
+		EStructuralFeature oldSourceMetaFeature = sourceMetaFeature;
+		sourceMetaFeature = newSourceMetaFeature;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__SOURCE_META_FEATURE, oldSourceMetaFeature, sourceMetaFeature));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EStructuralFeature getLinkMetaFeature() {
 		if (linkMetaFeature != null && linkMetaFeature.eIsProxy()) {
 			EStructuralFeature oldLinkMetaFeature = linkMetaFeature;
@@ -659,6 +708,9 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 			case GMFMapPackage.LINK_MAPPING__LABEL_DISPLAY_FEATURE:
 				if (resolve) return getLabelDisplayFeature();
 				return basicGetLabelDisplayFeature();
+			case GMFMapPackage.LINK_MAPPING__SOURCE_META_FEATURE:
+				if (resolve) return getSourceMetaFeature();
+				return basicGetSourceMetaFeature();
 			case GMFMapPackage.LINK_MAPPING__LINK_META_FEATURE:
 				if (resolve) return getLinkMetaFeature();
 				return basicGetLinkMetaFeature();
@@ -697,6 +749,9 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 				return;
 			case GMFMapPackage.LINK_MAPPING__LABEL_DISPLAY_FEATURE:
 				setLabelDisplayFeature((EAttribute)newValue);
+				return;
+			case GMFMapPackage.LINK_MAPPING__SOURCE_META_FEATURE:
+				setSourceMetaFeature((EStructuralFeature)newValue);
 				return;
 			case GMFMapPackage.LINK_MAPPING__LINK_META_FEATURE:
 				setLinkMetaFeature((EStructuralFeature)newValue);
@@ -739,6 +794,9 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 			case GMFMapPackage.LINK_MAPPING__LABEL_DISPLAY_FEATURE:
 				setLabelDisplayFeature((EAttribute)null);
 				return;
+			case GMFMapPackage.LINK_MAPPING__SOURCE_META_FEATURE:
+				setSourceMetaFeature((EStructuralFeature)null);
+				return;
 			case GMFMapPackage.LINK_MAPPING__LINK_META_FEATURE:
 				setLinkMetaFeature((EStructuralFeature)null);
 				return;
@@ -773,6 +831,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 				return labelEditFeature != null;
 			case GMFMapPackage.LINK_MAPPING__LABEL_DISPLAY_FEATURE:
 				return labelDisplayFeature != null;
+			case GMFMapPackage.LINK_MAPPING__SOURCE_META_FEATURE:
+				return sourceMetaFeature != null;
 			case GMFMapPackage.LINK_MAPPING__LINK_META_FEATURE:
 				return linkMetaFeature != null;
 			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:

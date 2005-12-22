@@ -495,7 +495,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getLinkMapping_LinkMetaFeature() {
+	public EReference getLinkMapping_SourceMetaFeature() {
 		return (EReference)linkMappingEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -504,7 +504,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getLinkMapping_CreationConstraints() {
+	public EReference getLinkMapping_LinkMetaFeature() {
 		return (EReference)linkMappingEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -513,8 +513,17 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getLinkMapping_Tool() {
+	public EReference getLinkMapping_CreationConstraints() {
 		return (EReference)linkMappingEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLinkMapping_Tool() {
+		return (EReference)linkMappingEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -839,6 +848,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		createEReference(linkMappingEClass, LINK_MAPPING__CONTAINMENT_FEATURE);
 		createEReference(linkMappingEClass, LINK_MAPPING__LABEL_EDIT_FEATURE);
 		createEReference(linkMappingEClass, LINK_MAPPING__LABEL_DISPLAY_FEATURE);
+		createEReference(linkMappingEClass, LINK_MAPPING__SOURCE_META_FEATURE);
 		createEReference(linkMappingEClass, LINK_MAPPING__LINK_META_FEATURE);
 		createEReference(linkMappingEClass, LINK_MAPPING__CREATION_CONSTRAINTS);
 		createEReference(linkMappingEClass, LINK_MAPPING__TOOL);
@@ -959,6 +969,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEReference(getLinkMapping_ContainmentFeature(), ecorePackage.getEReference(), null, "containmentFeature", null, 0, 1, LinkMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLinkMapping_LabelEditFeature(), ecorePackage.getEAttribute(), null, "labelEditFeature", null, 0, 1, LinkMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLinkMapping_LabelDisplayFeature(), ecorePackage.getEAttribute(), null, "labelDisplayFeature", null, 0, 1, LinkMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLinkMapping_SourceMetaFeature(), ecorePackage.getEStructuralFeature(), null, "sourceMetaFeature", null, 0, 1, LinkMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLinkMapping_LinkMetaFeature(), ecorePackage.getEStructuralFeature(), null, "linkMetaFeature", null, 1, 1, LinkMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLinkMapping_CreationConstraints(), this.getLinkConstraints(), this.getLinkConstraints_LinkMapping(), "creationConstraints", null, 0, 1, LinkMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLinkMapping_Tool(), this.getTool(), null, "tool", null, 0, 1, LinkMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1032,7 +1043,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																												
+		   });																																													
 	}
 
 	/**
@@ -1070,7 +1081,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "if domainMetaElement.oclIsUndefined() then linkMetaFeature.eContainingClass else domainMetaElement endif "
-		   });										
+		   });											
 		addAnnotation
 		  (constraintEClass, 
 		   source, 
@@ -1194,6 +1205,12 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "labelDisplayFeature.oclIsUndefined() or labelDisplayFeature.eContainingClass.isSuperTypeOf(domainMetaElement)"
+		   });		
+		addAnnotation
+		  (getLinkMapping_SourceMetaFeature(), 
+		   source, 
+		   new String[] {
+			 "ocl", "domainMetaElement.oclIsUndefined() or sourceMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)"
 		   });		
 		addAnnotation
 		  (getLinkMapping_LinkMetaFeature(), 

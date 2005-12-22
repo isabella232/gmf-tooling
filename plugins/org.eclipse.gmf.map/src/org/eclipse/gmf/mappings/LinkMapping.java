@@ -27,6 +27,7 @@ import org.eclipse.gmf.gmfgraph.Connection;
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getContainmentFeature <em>Containment Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getLabelEditFeature <em>Label Edit Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getLabelDisplayFeature <em>Label Display Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getSourceMetaFeature <em>Source Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getLinkMetaFeature <em>Link Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getCreationConstraints <em>Creation Constraints</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getTool <em>Tool</em>}</li>
@@ -227,6 +228,32 @@ public interface LinkMapping extends MappingEntry{
 	 * @generated
 	 */
 	void setLabelDisplayFeature(EAttribute value);
+
+	/**
+	 * Returns the value of the '<em><b>Source Meta Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Source Meta Feature</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Source Meta Feature</em>' reference.
+	 * @see #setSourceMetaFeature(EStructuralFeature)
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping_SourceMetaFeature()
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='domainMetaElement.oclIsUndefined() or sourceMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)'"
+	 * @generated
+	 */
+	EStructuralFeature getSourceMetaFeature();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.mappings.LinkMapping#getSourceMetaFeature <em>Source Meta Feature</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Source Meta Feature</em>' reference.
+	 * @see #getSourceMetaFeature()
+	 * @generated
+	 */
+	void setSourceMetaFeature(EStructuralFeature value);
 
 	/**
 	 * Returns the value of the '<em><b>Link Meta Feature</b></em>' reference.

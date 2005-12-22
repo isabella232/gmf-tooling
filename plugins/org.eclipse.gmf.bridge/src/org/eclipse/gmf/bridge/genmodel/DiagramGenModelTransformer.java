@@ -493,6 +493,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			mf.setMetaClass(findGenClass(lme.getDomainMetaClass()));
 			mf.setContainmentMetaFeature(findGenFeature(lme.getContainmentFeature()));
 			mf.setChildMetaFeature(mf.getContainmentMetaFeature());
+			mf.setSourceMetaFeature(findGenFeature(lme.getSourceMetaFeature()));
 			mf.setTargetMetaFeature(findGenFeature(lme.getLinkMetaFeature()));
 			setupAux(mf, lme.getDomainSpecialization(), lme.getDomainInitializer());
 			return mf;

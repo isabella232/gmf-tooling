@@ -70,6 +70,7 @@ public class LinkMappingItemProvider
 			addContainmentFeaturePropertyDescriptor(object);
 			addLabelEditFeaturePropertyDescriptor(object);
 			addLabelDisplayFeaturePropertyDescriptor(object);
+			addSourceMetaFeaturePropertyDescriptor(object);
 			addLinkMetaFeaturePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -199,6 +200,26 @@ public class LinkMappingItemProvider
 				 getString("_UI_LinkMapping_labelDisplayFeature_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_LinkMapping_labelDisplayFeature_feature", "_UI_LinkMapping_type"),
 				 GMFMapPackage.eINSTANCE.getLinkMapping_LabelDisplayFeature(),
+				 true,
+				 null,
+				 getString("_UI_DomainmetainformationPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Source Meta Feature feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSourceMetaFeaturePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_LinkMapping_sourceMetaFeature_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_LinkMapping_sourceMetaFeature_feature", "_UI_LinkMapping_type"),
+				 GMFMapPackage.eINSTANCE.getLinkMapping_SourceMetaFeature(),
 				 true,
 				 null,
 				 getString("_UI_DomainmetainformationPropertyCategory"),

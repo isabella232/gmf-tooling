@@ -58,6 +58,8 @@
       <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
           ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/labelDisplayFeature"/>
       <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
+          ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/sourceMetaFeature"/>
+      <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
           ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/linkMetaFeature"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/creationConstraints"/>
       <genFeatures property="None" children="true" createChild="true" propertyCategory="Visual representation"

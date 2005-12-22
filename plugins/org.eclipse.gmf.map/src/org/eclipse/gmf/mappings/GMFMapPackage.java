@@ -507,13 +507,22 @@ public interface GMFMapPackage extends EPackage{
 	int LINK_MAPPING__LABEL_DISPLAY_FEATURE = MAPPING_ENTRY_FEATURE_COUNT + 6;
 
 	/**
+	 * The feature id for the '<em><b>Source Meta Feature</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_MAPPING__SOURCE_META_FEATURE = MAPPING_ENTRY_FEATURE_COUNT + 7;
+
+	/**
 	 * The feature id for the '<em><b>Link Meta Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_MAPPING__LINK_META_FEATURE = MAPPING_ENTRY_FEATURE_COUNT + 7;
+	int LINK_MAPPING__LINK_META_FEATURE = MAPPING_ENTRY_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Creation Constraints</b></em>' containment reference.
@@ -522,7 +531,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_MAPPING__CREATION_CONSTRAINTS = MAPPING_ENTRY_FEATURE_COUNT + 8;
+	int LINK_MAPPING__CREATION_CONSTRAINTS = MAPPING_ENTRY_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Tool</b></em>' containment reference.
@@ -531,7 +540,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_MAPPING__TOOL = MAPPING_ENTRY_FEATURE_COUNT + 9;
+	int LINK_MAPPING__TOOL = MAPPING_ENTRY_FEATURE_COUNT + 10;
 
 	/**
 	 * The number of structural features of the the '<em>Link Mapping</em>' class.
@@ -540,7 +549,7 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int LINK_MAPPING_FEATURE_COUNT = MAPPING_ENTRY_FEATURE_COUNT + 10;
+	int LINK_MAPPING_FEATURE_COUNT = MAPPING_ENTRY_FEATURE_COUNT + 11;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.CanvasMappingImpl <em>Canvas Mapping</em>}' class.
@@ -1281,6 +1290,17 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getLinkMapping_LabelDisplayFeature();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.LinkMapping#getSourceMetaFeature <em>Source Meta Feature</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Source Meta Feature</em>'.
+	 * @see org.eclipse.gmf.mappings.LinkMapping#getSourceMetaFeature()
+	 * @see #getLinkMapping()
+	 * @generated
+	 */
+	EReference getLinkMapping_SourceMetaFeature();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.LinkMapping#getLinkMetaFeature <em>Link Meta Feature</em>}'.
