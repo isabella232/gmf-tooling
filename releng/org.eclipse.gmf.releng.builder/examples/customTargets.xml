@@ -86,7 +86,9 @@
 		<available file="${baseLocation}/plugins/org.eclipse.gef_${gefVersion}.jar" property="gefExists" />
 		<ant antfile="${scripts}/install.xml" target="installGEF" />
 		<available file="${baseLocation}/plugins/org.eclipse.emf_${emfVersion}.jar" property="emfExists" />
-		<ant antfile="${scripts}/install.xml" target="installEMF" />		
+		<ant antfile="${scripts}/install.xml" target="installEMF" />
+		<available file="${baseLocation}/plugins/org.eclipse.emf.examples.library_${emfVersion}.jar" property="emfExampleExists" />
+		<ant antfile="${scripts}/install.xml" target="installEMFExamples" />
 		<available file="${baseLocation}/features/org.eclipse.gmf.sdk_${gmfVersion}/feature.xml" property="gmfExists" />
 		<ant antfile="${scripts}/install.xml" target="installGMF" />	
 		<copy file="${baseLocationRoot}/antlr.jar" todir="${baseLocation}/plugins/antlr_2.7.2/lib"/>

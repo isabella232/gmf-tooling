@@ -37,6 +37,16 @@
 	<target name="getEMF" unless="emfZipExists">
 		<get src="${emfZipURL}" dest="${baseLocationRoot}/${emfZipName}" verbose="true" usetimestamp="true" />
 	</target>
+	
+	<target name="installEMFExamples" unless="emfExampleExists">
+		<available file="${baseLocationRoot}/${emfExamplesZipName}" property="emfExamplesZipExists" />
+		<antcall target="getEMFExamples"/>
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfExamplesZipName}" />
+	</target>
+	
+	<target name="getEMFExamples" unless="emfExamplesZipExists">
+		<get src="${emfExamplesZipURL}" dest="${baseLocationRoot}/${emfExamplesZipName}" verbose="true" usetimestamp="true" />
+	</target>
 
 	<target name="installGEF" unless="gefExists">
 <!-- GEF doesn't currently have interim builds available via the update manager, so use zip		

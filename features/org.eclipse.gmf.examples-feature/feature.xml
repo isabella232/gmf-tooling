@@ -59,6 +59,9 @@ http://www.eclipse.org/legal/epl-v10.html
       <import feature="org.eclipse.gmf.sdk" version="1.0.0"/>
       <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing"/>
       <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing.render"/>
+      <import plugin="org.eclipse.emf.examples.library"/>
+      <import plugin="org.eclipse.emf.examples.library.edit"/>
+      <import plugin="org.eclipse.emf.examples.library.editor"/>
    </requires>
 
    <plugin
@@ -108,24 +111,6 @@ http://www.eclipse.org/legal/epl-v10.html
          install-size="0"
          version="0.0.0"
          unpack="false"/>
-
-   <plugin
-         id="org.eclipse.emf.examples.library"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.eclipse.emf.examples.library.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.eclipse.emf.examples.library.editor"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
 
    <plugin
          id="org.eclipse.gmf.examples.runtime.diagram.geoshapes"

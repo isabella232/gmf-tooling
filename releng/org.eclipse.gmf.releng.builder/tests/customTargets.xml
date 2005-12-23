@@ -90,6 +90,8 @@ tag="${mapsCheckoutTag}" />
 		<ant antfile="${scripts}/install.xml" target="installGEF" />
 		<available file="${baseLocation}/plugins/org.eclipse.emf_${emfVersion}.jar" property="emfExists" />
 		<ant antfile="${scripts}/install.xml" target="installEMF" />	
+		<available file="${baseLocation}/plugins/org.eclipse.emf.examples.library_${emfVersion}.jar" property="emfExampleExists" />
+		<ant antfile="${scripts}/install.xml" target="installEMFExamples" />
 		<available file="${baseLocation}/plugins/org.eclipse.uml2_${uml2Version}.jar" property="uml2Exists" />
 		<ant antfile="${scripts}/install.xml" target="installUML2" />
 		<available file="${baseLocation}/features/org.eclipse.gmf.sdk_${gmfVersion}/feature.xml" property="gmfExists" />
