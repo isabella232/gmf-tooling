@@ -55,12 +55,15 @@ import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.RTSetup;
 import org.eclipse.gmf.tests.setup.RTSource;
 import org.eclipse.gmf.tests.setup.SessionSetup;
+import org.eclipse.jface.preference.PreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.osgi.framework.Bundle;
 
 /**
+ * FIXME Merge with DiagramNodeTest. What's the reason to have this copied from DNT. Why viewer's superclass
+ * is DiagramGraphicalViewer, not GraphicalViewerImpl?
  * Unit testcase base class with support for runtime-diagram editing.
  */
 public abstract class RuntimeDiagramTestBase extends ConfiguredTestCase {
@@ -255,7 +258,9 @@ public abstract class RuntimeDiagramTestBase extends ConfiguredTestCase {
 	}
 
 	private static final class Viewer extends DiagramGraphicalViewer implements IDiagramGraphicalViewer {
+		
 		private Viewer() {
+			super.hookWorkspacePreferenceStore(new PreferenceStore());
 		}
 
 		protected void createDefaultRoot() {
