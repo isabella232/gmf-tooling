@@ -17,7 +17,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
@@ -39,7 +38,6 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileDiag
 import org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain;
 import org.eclipse.gmf.runtime.emf.core.edit.MFilter;
 import org.eclipse.gmf.runtime.emf.core.edit.MListener;
-import org.eclipse.gmf.runtime.emf.core.resources.ILogicalResource;
 import org.eclipse.gmf.runtime.emf.core.util.ResourceUtil;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.ui.IFileEditorInput;
@@ -81,24 +79,17 @@ public class TaiPanDocumentProvider extends FileDiagramDocumentProvider {
 		if (diagramDocument != null) {
 			Diagram diagram = diagramDocument.getDiagram();
 			if (diagram != null) {
-				Resource resource = ((EObject) diagram).eResource();
 				Collection rules = new ArrayList();
-				if (resource instanceof ILogicalResource) {
-					Map resourcesMap = ((ILogicalResource) resource).getMappedResources();
-					for (Iterator it = resourcesMap.values().iterator(); it.hasNext();) {
-						Resource nextResource = (Resource) it.next();
-						IFile resourceFile = ResourceUtil.getFile(nextResource);
-						rules.add(computeSaveSchedulingRule(resourceFile));
-					}
-				} else {
-					rules.add(resource);
-				}
+
+				Resource resource = ((EObject) diagram).eResource();
+				IFile resourceFile = ResourceUtil.getFile(resource);
+				rules.add(computeSaveSchedulingRule(resourceFile));
 
 				Set externalResources = getReferencedResources(diagram);
 				for (Iterator it = externalResources.iterator(); it.hasNext();) {
 					Resource nextResource = (Resource) it.next();
-					IFile resourceFile = ResourceUtil.getFile(nextResource);
-					rules.add(computeSaveSchedulingRule(resourceFile));
+					IFile nextResourceFile = ResourceUtil.getFile(nextResource);
+					rules.add(computeSaveSchedulingRule(nextResourceFile));
 				}
 
 				return new MultiRule((ISchedulingRule[]) rules.toArray(new ISchedulingRule[rules.size()]));
@@ -170,7 +161,6 @@ public class TaiPanDocumentProvider extends FileDiagramDocumentProvider {
 			super(documentProviderParameter, documentParameter, inputParameter);
 			final DiagramDocument document = documentParameter;
 			MFilter diagramResourceSavedFilter = new MFilter() {
-
 				public boolean matches(Notification notification) {
 					Diagram diagram = document.getDiagram();
 					Object notifier = notification.getNotifier();

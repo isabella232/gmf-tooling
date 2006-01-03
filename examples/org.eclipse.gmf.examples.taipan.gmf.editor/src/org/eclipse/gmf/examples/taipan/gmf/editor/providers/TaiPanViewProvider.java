@@ -63,8 +63,7 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		int nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(containerView, semanticElement, semanticType,
-				semanticHint);
+		int nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
 
 		switch (nodeVID) {
 		case 1001:

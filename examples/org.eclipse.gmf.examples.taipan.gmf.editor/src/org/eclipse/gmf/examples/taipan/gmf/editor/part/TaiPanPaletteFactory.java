@@ -19,14 +19,17 @@ import org.eclipse.gef.palette.PaletteGroup;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.PanningSelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
-import org.eclipse.gmf.runtime.diagram.ui.tools.CreationTool;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.jface.resource.ImageDescriptor;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.gef.palette.PaletteSeparator;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 
-import org.eclipse.gmf.runtime.diagram.ui.tools.ConnectionCreationTool;
+import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeConnectionTool;
+import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeCreationTool;
 
 /**
  * @generated
@@ -116,10 +119,11 @@ public class TaiPanPaletteFactory {
 
 		largeImage = smallImage;
 
+		final List elementTypes = new ArrayList();
+		elementTypes.add(TaiPanElementTypes.Port_1001);
 		return new ToolEntry("Port", "Port", smallImage, largeImage) {
-
 			public Tool createTool() {
-				Tool tool = new CreationTool(TaiPanElementTypes.Port_1001);
+				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
@@ -137,10 +141,11 @@ public class TaiPanPaletteFactory {
 
 		largeImage = smallImage;
 
+		final List elementTypes = new ArrayList();
+		elementTypes.add(TaiPanElementTypes.Ship_1002);
 		return new ToolEntry("Ship", "Ship", smallImage, largeImage) {
-
 			public Tool createTool() {
-				Tool tool = new CreationTool(TaiPanElementTypes.Ship_1002);
+				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
@@ -158,10 +163,11 @@ public class TaiPanPaletteFactory {
 
 		largeImage = smallImage;
 
+		final List elementTypes = new ArrayList();
+		elementTypes.add(TaiPanElementTypes.Item_2001);
 		return new ToolEntry("Item", "Item", smallImage, largeImage) {
-
 			public Tool createTool() {
-				Tool tool = new CreationTool(TaiPanElementTypes.Item_2001);
+				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
@@ -179,10 +185,12 @@ public class TaiPanPaletteFactory {
 
 		largeImage = smallImage;
 
+		final List relationshipTypes = new ArrayList();
+		relationshipTypes.add(TaiPanElementTypes.ShipDestination_3001);
 		return new ToolEntry("destination", "destination", smallImage, largeImage) {
 
 			public Tool createTool() {
-				Tool tool = new ConnectionCreationTool(TaiPanElementTypes.ShipDestination_3001);
+				Tool tool = new UnspecifiedTypeConnectionTool(relationshipTypes);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
@@ -200,10 +208,12 @@ public class TaiPanPaletteFactory {
 
 		largeImage = smallImage;
 
+		final List relationshipTypes = new ArrayList();
+		relationshipTypes.add(TaiPanElementTypes.Route_3002);
 		return new ToolEntry("Route", "Route", smallImage, largeImage) {
 
 			public Tool createTool() {
-				Tool tool = new ConnectionCreationTool(TaiPanElementTypes.Route_3002);
+				Tool tool = new UnspecifiedTypeConnectionTool(relationshipTypes);
 				tool.setProperties(getToolProperties());
 				return tool;
 			}
@@ -216,4 +226,5 @@ public class TaiPanPaletteFactory {
 	private PaletteContainer createContainer(String title) {
 		return new PaletteDrawer(title);
 	}
+
 }

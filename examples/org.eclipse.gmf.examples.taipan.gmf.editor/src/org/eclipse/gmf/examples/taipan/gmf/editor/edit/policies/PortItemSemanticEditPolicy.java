@@ -89,8 +89,8 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 		if (!(req.getSource() instanceof Port)) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		final Aquatory element = (Aquatory) getRelationshipContainer(req.getSource(), TaiPanPackage.eINSTANCE.getAquatory(),
-				req.getElementType());
+		final Aquatory element = (Aquatory) getRelationshipContainer(req.getSource(), TaiPanPackage.eINSTANCE.getAquatory(), req
+				.getElementType());
 		if (element == null) {
 			return UnexecutableCommand.INSTANCE;
 		}
