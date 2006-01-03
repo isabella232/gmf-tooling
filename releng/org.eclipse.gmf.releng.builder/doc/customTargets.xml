@@ -78,8 +78,6 @@
 	<target name="postSetup">
 		<!-- Load build.cfg properties -->
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
-		<ant antfile="${scripts}/install.xml" target="getBaseComponents" />
-		<available file="${baseLocation}/configuration/config.ini" property="baseExists" />
 		<ant antfile="${scripts}/install.xml" target="installBase" />	
 	</target>
 

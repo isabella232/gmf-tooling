@@ -78,26 +78,15 @@ tag="${mapsCheckoutTag}" />
 	<!-- Steps to do after setup but before starting the build proper -->
 	<!-- ===================================================================== -->
 	<target name="postSetup">
-		<ant antfile="${scripts}/install.xml" target="getBaseComponents" />
-		<available file="${baseLocation}/configuration/config.ini" property="baseExists" />
 		<ant antfile="${scripts}/install.xml" target="installBase" />
-		<available file="${baseLocationRoot}/${testingFrameworkZipName}" property="testingFrameworkExists" />
-		<ant antfile="${scripts}/install.xml" target="getTestingFramework" />
 		<ant antfile="${scripts}/install.xml" target="installTestingFramework" />
-<!-- TODO: this is a poor way to check for an installation... the update manager
-     allows for querying an installation, but just returns a list that would require parsing. -->
-		<available file="${baseLocation}/plugins/org.eclipse.gef_${gefVersion}.jar" property="gefExists" />
 		<ant antfile="${scripts}/install.xml" target="installGEF" />
-		<available file="${baseLocation}/plugins/org.eclipse.emf_${emfVersion}.jar" property="emfExists" />
 		<ant antfile="${scripts}/install.xml" target="installEMF" />	
-		<available file="${baseLocation}/plugins/org.eclipse.emf.examples.library_${emfVersion}.jar" property="emfExampleExists" />
 		<ant antfile="${scripts}/install.xml" target="installEMFExamples" />
-		<available file="${baseLocation}/plugins/org.eclipse.uml2_${uml2Version}.jar" property="uml2Exists" />
 		<ant antfile="${scripts}/install.xml" target="installUML2" />
-		<available file="${baseLocation}/features/org.eclipse.gmf.sdk_${gmfVersion}/feature.xml" property="gmfExists" />
 		<ant antfile="${scripts}/install.xml" target="installGMF" />
-		<available file="${baseLocation}/features/org.eclipse.gmf.examples_${gmfVersion}/feature.xml" property="examplesExists" />
 		<ant antfile="${scripts}/install.xml" target="installExamples" />
+		<!-- TODO: Remove when dependency gone -->
 		<copy file="${baseLocationRoot}/antlr.jar" todir="${baseLocation}/plugins/antlr_2.7.2/lib"/>
 	</target>
 	

@@ -1,31 +1,39 @@
 <?xml version="1.0"?>
 <project name="Installation script for GMF and dependencies" default="" basedir=".">
 
-	<target name="getBaseComponents" depends="checkLocalBase" unless="skipBase">
+	<target name="getBaseComponents" unless="skipBaseDownload">
 		<get src="${eclipseBaseURL}" dest="${baseLocationRoot}/${eclipseZipName}" verbose="true" usetimestamp="true" />
 	</target>
 
-	<target name="checkLocalBase">
-		<available file="${baseLocationRoot}/${eclipseZipName}" property="skipBase" />
-	</target>
-
-	<target name="installBase" unless="baseExists">
+	<target name="installBase" unless="baseExists" depends="checkBaseInstalled">
+		<available file="${baseLocationRoot}/${eclipseZipName}" property="skipBaseDownload" />
+		<antcall target="getBaseComponents"/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${eclipseZipName}" />
 	</target>
-
+	
+	<target name="checkBaseInstalled">
+		<available file="${baseLocation}/configuration/config.ini" property="baseExists" />
+	</target>
+	
 	<target name="getTestingFramework" unless="testingFrameworkExists">
-		<get src="${testingFrameworkURL}" dest="${baseLocationRoot}/${testingFrameworkZipName}" verbose="true" usetimestamp="true" />
+		<get src="${testingFrameworkURL}" dest="${baseLocationRoot}/${testingFrameworkZipName}" verbose="true" usetimestamp="true" />		
 	</target>
 
 	<target name="installTestingFramework">
+		<available file="${baseLocationRoot}/${testingFrameworkZipName}" property="testingFrameworkExists" />
+		<antcall target="getTestingFramework"/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${testingFrameworkZipName}" />
 	</target>
+	
+	<target name="checkEMFInstalled">
+		<available file="${baseLocation}/plugins/org.eclipse.emf_${fullEmfVersion}.jar" property="emfExists" />
+	</target>
 
-	<target name="installEMF" unless="emfExists">
+	<target name="installEMF" unless="emfExists" depends="checkEMFInstalled">
 <!-- 
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfFeatureId}" />
-			<property name="version" value="${emfVersion}" />
+			<property name="version" value="${fullEmfVersion}" />
 			<property name="updateSite" value="${emfUpdateSite}" />
 		</ant>
 -->
@@ -38,7 +46,11 @@
 		<get src="${emfZipURL}" dest="${baseLocationRoot}/${emfZipName}" verbose="true" usetimestamp="true" />
 	</target>
 	
-	<target name="installEMFExamples" unless="emfExampleExists">
+	<target name="checkEMFExamplesInstalled">
+		<available file="${baseLocation}/plugins/org.eclipse.emf.examples.library_${fullEmfVersion}.jar" property="emfExampleExists" />
+	</target>
+	
+	<target name="installEMFExamples" unless="emfExampleExists" depends="checkEMFExamplesInstalled">
 		<available file="${baseLocationRoot}/${emfExamplesZipName}" property="emfExamplesZipExists" />
 		<antcall target="getEMFExamples"/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfExamplesZipName}" />
@@ -47,8 +59,12 @@
 	<target name="getEMFExamples" unless="emfExamplesZipExists">
 		<get src="${emfExamplesZipURL}" dest="${baseLocationRoot}/${emfExamplesZipName}" verbose="true" usetimestamp="true" />
 	</target>
+	
+	<target name="checkGEFInstalled">
+		<available file="${baseLocation}/plugins/org.eclipse.gef_${gefVersion}.jar" property="gefExists" />
+	</target>
 
-	<target name="installGEF" unless="gefExists">
+	<target name="installGEF" unless="gefExists" depends="checkGEFInstalled">
 <!-- GEF doesn't currently have interim builds available via the update manager, so use zip		
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${gefFeatureId}" />
@@ -64,8 +80,12 @@
 	<target name="getGEF" unless="gefZipExists">
 		<get src="${gefZipURL}" dest="${baseLocationRoot}/${gefZipName}" verbose="true" usetimestamp="true" />
 	</target>
+	
+	<target name="checkUML2Installed">
+		<available file="${baseLocation}/plugins/org.eclipse.uml2_${uml2Version}.jar" property="uml2Exists" />
+	</target>
 
-	<target name="installUML2" unless="uml2Exists">
+	<target name="installUML2" unless="uml2Exists" depends="checkUML2Installed">
 <!--
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${uml2FeatureId}" />
@@ -81,8 +101,12 @@
 	<target name="getUML2" unless="uml2ZipExists">
 		<get src="${uml2ZipURL}" dest="${baseLocationRoot}/${uml2ZipName}" verbose="true" usetimestamp="true" />
 	</target>
+	
+	<target name="checkGMFInstalled">
+		<available file="${baseLocation}/features/org.eclipse.gmf.sdk_${gmfVersion}/feature.xml" property="gmfExists" />
+	</target>
 
-	<target name="installGMF" unless="gmfExists">
+	<target name="installGMF" unless="gmfExists" depends="checkGMFInstalled">
 		<antcall target="installGMFfromMirror" />
 		<antcall target="installGMFfromZip" />
 	</target>
@@ -99,8 +123,12 @@
 		<echo message="Installing GMF for testing from zip file..." />
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-sdk-${buildId}.zip" />
 	</target>
+	
+	<target name="checkExamplesInstalled">
+		<available file="${baseLocation}/features/org.eclipse.gmf.examples_${gmfVersion}/feature.xml" property="examplesExists" />
+	</target>
 
-	<target name="installExamples" unless="examplesExists">
+	<target name="installExamples" unless="examplesExists" depends="checkExamplesInstalled">
 		<antcall target="installExamplesfromMirror" />
 		<antcall target="installExamplesfromZip" />
 	</target>
