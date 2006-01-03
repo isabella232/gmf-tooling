@@ -3,6 +3,7 @@ package org.eclipse.gmf.ecore.edit.policies;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Collection;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
@@ -118,7 +119,7 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 *
 	 * @generated
 	 */
-	protected boolean shouldIncludeConnection(Edge connector, List children) {
+	protected boolean shouldIncludeConnection(Edge connector, Collection children) {
 		return super.shouldIncludeConnection(connector, children) && connector.getElement() != null;
 	}
 }

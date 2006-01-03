@@ -19,7 +19,7 @@ public class DiagramCanonicalEditPolicyGenerator {
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "package ";
   protected final String TEXT_2 = ";" + NL;
-  protected final String TEXT_3 = NL + "import java.util.Iterator;" + NL + "import java.util.LinkedList;" + NL + "import java.util.List;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;" + NL + "import org.eclipse.gmf.runtime.notation.Diagram;" + NL + "import org.eclipse.gmf.runtime.notation.Edge;" + NL + "import org.eclipse.gmf.runtime.notation.View;" + NL + "import org.eclipse.emf.ecore.EObject;";
+  protected final String TEXT_3 = NL + "import java.util.Iterator;" + NL + "import java.util.LinkedList;" + NL + "import java.util.List;" + NL + "import java.util.Collection;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CanonicalConnectionEditPolicy;" + NL + "import org.eclipse.gmf.runtime.notation.Diagram;" + NL + "import org.eclipse.gmf.runtime.notation.Edge;" + NL + "import org.eclipse.gmf.runtime.notation.View;" + NL + "import org.eclipse.emf.ecore.EObject;";
   protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_5 = " extends CanonicalConnectionEditPolicy {";
   protected final String TEXT_6 = NL;
@@ -49,7 +49,7 @@ public class DiagramCanonicalEditPolicyGenerator {
   protected final String TEXT_30 = NL + "\t\tcase ";
   protected final String TEXT_31 = ":" + NL + "\t\t\treturn ";
   protected final String TEXT_32 = ";";
-  protected final String TEXT_33 = NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * For now we are skipping links which was generated based on \"GenLinkReferenceOnly\" classes" + NL + "\t * since they do not handle any domain model objects inside, so we can not process them using" + NL + "\t * CanonicalConnectionEditPolicy class" + NL + "\t *" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean shouldIncludeConnection(Edge connector, List children) {" + NL + "\t\treturn super.shouldIncludeConnection(connector, children) && connector.getElement() != null;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_33 = NL + "\t\t}" + NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * For now we are skipping links which was generated based on \"GenLinkReferenceOnly\" classes" + NL + "\t * since they do not handle any domain model objects inside, so we can not process them using" + NL + "\t * CanonicalConnectionEditPolicy class" + NL + "\t *" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean shouldIncludeConnection(Edge connector, Collection children) {" + NL + "\t\treturn super.shouldIncludeConnection(connector, children) && connector.getElement() != null;" + NL + "\t}" + NL + "}";
   protected final String TEXT_34 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
