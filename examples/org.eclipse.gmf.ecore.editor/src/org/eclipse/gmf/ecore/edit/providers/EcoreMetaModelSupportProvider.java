@@ -72,6 +72,7 @@ public class EcoreMetaModelSupportProvider extends AbstractProvider implements I
 		/**
 		 * @generated
 		 */
-		public void postProcess(EObject root) {}
+		public void postProcess(EObject root) {
+		}
 	}
 }

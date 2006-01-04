@@ -50,8 +50,7 @@ public class TaiPanDocumentProvider extends FileDiagramDocumentProvider {
 	/**
 	 * @generated
 	 */
-	protected void saveDocumentToFile(IDocument document, IFile file, boolean overwrite, IProgressMonitor monitor)
-			throws CoreException {
+	protected void saveDocumentToFile(IDocument document, IFile file, boolean overwrite, IProgressMonitor monitor) throws CoreException {
 		monitor.beginTask("", 100); //$NON-NLS-1$
 		super.saveDocumentToFile(document, file, overwrite, new SubProgressMonitor(monitor, 20));
 
@@ -156,8 +155,7 @@ public class TaiPanDocumentProvider extends FileDiagramDocumentProvider {
 		/**
 		 * @generated
 		 */
-		public CustomModificationListener(TaiPanDocumentProvider documentProviderParameter, DiagramDocument documentParameter,
-				IFileEditorInput inputParameter) {
+		public CustomModificationListener(TaiPanDocumentProvider documentProviderParameter, DiagramDocument documentParameter, IFileEditorInput inputParameter) {
 			super(documentProviderParameter, documentParameter, inputParameter);
 			final DiagramDocument document = documentParameter;
 			MFilter diagramResourceSavedFilter = new MFilter() {
@@ -170,8 +168,7 @@ public class TaiPanDocumentProvider extends FileDiagramDocumentProvider {
 						for (Iterator it = externalResources.iterator(); it.hasNext();) {
 							Resource nextResource = (Resource) it.next();
 							if (notifierResource == nextResource) {
-								return notification.getEventType() == Notification.SET
-										&& notification.getFeatureID(Resource.class) == Resource.RESOURCE__IS_MODIFIED
+								return notification.getEventType() == Notification.SET && notification.getFeatureID(Resource.class) == Resource.RESOURCE__IS_MODIFIED
 										&& notification.getNewBooleanValue() == true;
 							}
 						}

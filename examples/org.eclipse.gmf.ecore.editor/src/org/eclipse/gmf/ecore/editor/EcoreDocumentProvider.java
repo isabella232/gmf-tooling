@@ -157,7 +157,8 @@ public class EcoreDocumentProvider extends FileDiagramDocumentProvider {
 						for (Iterator it = externalResources.iterator(); it.hasNext();) {
 							Resource nextResource = (Resource) it.next();
 							if (notifierResource == nextResource) {
-								return notification.getEventType() == Notification.SET && notification.getFeatureID(Resource.class) == Resource.RESOURCE__IS_MODIFIED && notification.getNewBooleanValue() == true;
+								return notification.getEventType() == Notification.SET && notification.getFeatureID(Resource.class) == Resource.RESOURCE__IS_MODIFIED
+										&& notification.getNewBooleanValue() == true;
 							}
 						}
 					}

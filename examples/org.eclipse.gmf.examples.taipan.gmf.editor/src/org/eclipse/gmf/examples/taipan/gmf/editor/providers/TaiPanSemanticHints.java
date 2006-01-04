@@ -19,7 +19,8 @@ public class TaiPanSemanticHints {
 	/**
 	 * @generated
 	 */
-	private TaiPanSemanticHints() {}
+	private TaiPanSemanticHints() {
+	}
 
 	/**
 	 * @generated
@@ -29,7 +30,8 @@ public class TaiPanSemanticHints {
 		/**
 		 * @generated
 		 */
-		private Port_1001Labels() {}
+		private Port_1001Labels() {
+		}
 
 		/**
 		 * @generated
@@ -45,7 +47,8 @@ public class TaiPanSemanticHints {
 		/**
 		 * @generated
 		 */
-		private Ship_1002Labels() {}
+		private Ship_1002Labels() {
+		}
 
 		/**
 		 * @generated
@@ -61,7 +64,8 @@ public class TaiPanSemanticHints {
 		/**
 		 * @generated
 		 */
-		private Ship_1002Compartments() {}
+		private Ship_1002Compartments() {
+		}
 
 		/**
 		 * @generated
@@ -77,7 +81,8 @@ public class TaiPanSemanticHints {
 		/**
 		 * @generated
 		 */
-		private Item_2001Labels() {}
+		private Item_2001Labels() {
+		}
 
 		/**
 		 * @generated
@@ -98,7 +103,8 @@ public class TaiPanSemanticHints {
 		/**
 		 * @generated
 		 */
-		private Route_3002Labels() {}
+		private Route_3002Labels() {
+		}
 
 		/**
 		 * @generated

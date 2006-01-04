@@ -42,7 +42,8 @@ public class EAnnotationItemSemanticEditPolicy extends EcoreBaseItemSemanticEdit
 	 */
 	protected Command getCreateStartOutgoingEAnnotation_References3001Command(CreateRelationshipRequest req) {
 
-		return new Command() {};
+		return new Command() {
+		};
 	}
 
 	/**

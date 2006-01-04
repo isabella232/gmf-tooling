@@ -64,7 +64,8 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
-	public TaiPanDiagramEditorPlugin() {}
+	public TaiPanDiagramEditorPlugin() {
+	}
 
 	/**
 	 * @generated

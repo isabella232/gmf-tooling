@@ -33,8 +33,8 @@ public class EcoreDiagramEditorUtil extends IDEEditorUtil {
 	/**
 	 * @generated
 	 */
-	public static final IFile createAndOpenDiagram(DiagramFileCreator diagramFileCreator, IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow window, IProgressMonitor progressMonitor, boolean openEditor,
-			boolean saveDiagram) {
+	public static final IFile createAndOpenDiagram(DiagramFileCreator diagramFileCreator, IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow window,
+			IProgressMonitor progressMonitor, boolean openEditor, boolean saveDiagram) {
 
 		IFile diagramFile = EcoreDiagramEditorUtil.createNewDiagramFile(diagramFileCreator, containerPath, fileName, initialContents, kind, window.getShell(), progressMonitor);
 		if (diagramFile != null && openEditor) {
@@ -66,7 +66,8 @@ public class EcoreDiagramEditorUtil extends IDEEditorUtil {
 	 * @return the created file resource, or <code>null</code> if the file was
 	 *         not created
 	 */
-	public static final IFile createNewDiagramFile(DiagramFileCreator diagramFileCreator, IPath containerFullPath, String fileName, InputStream initialContents, String kind, Shell shell, IProgressMonitor progressMonitor) {
+	public static final IFile createNewDiagramFile(DiagramFileCreator diagramFileCreator, IPath containerFullPath, String fileName, InputStream initialContents, String kind, Shell shell,
+			IProgressMonitor progressMonitor) {
 
 		final IProgressMonitor progressMonitorParam = progressMonitor;
 		final IFile newDiagramFile = diagramFileCreator.createNewFile(containerFullPath, fileName, initialContents, shell, new IRunnableContext() {

@@ -44,12 +44,10 @@ public class TaiPanDiagramEditorUtil extends IDEEditorUtil {
 	/**
 	 * @generated
 	 */
-	public static final IFile createAndOpenDiagram(DiagramFileCreator diagramFileCreator, IPath containerPath, String fileName,
-			InputStream initialContents, String kind, IWorkbenchWindow window, IProgressMonitor progressMonitor,
-			boolean openEditor, boolean saveDiagram) {
+	public static final IFile createAndOpenDiagram(DiagramFileCreator diagramFileCreator, IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow window,
+			IProgressMonitor progressMonitor, boolean openEditor, boolean saveDiagram) {
 
-		IFile diagramFile = TaiPanDiagramEditorUtil.createNewDiagramFile(diagramFileCreator, containerPath, fileName,
-				initialContents, kind, window.getShell(), progressMonitor);
+		IFile diagramFile = TaiPanDiagramEditorUtil.createNewDiagramFile(diagramFileCreator, containerPath, fileName, initialContents, kind, window.getShell(), progressMonitor);
 		if (diagramFile != null && openEditor) {
 			IDEEditorUtil.openDiagram(diagramFile, window, saveDiagram, progressMonitor);
 		}
@@ -79,18 +77,16 @@ public class TaiPanDiagramEditorUtil extends IDEEditorUtil {
 	 * @return the created file resource, or <code>null</code> if the file was
 	 *         not created
 	 */
-	public static final IFile createNewDiagramFile(DiagramFileCreator diagramFileCreator, IPath containerFullPath,
-			String fileName, InputStream initialContents, String kind, Shell shell, IProgressMonitor progressMonitor) {
+	public static final IFile createNewDiagramFile(DiagramFileCreator diagramFileCreator, IPath containerFullPath, String fileName, InputStream initialContents, String kind, Shell shell,
+			IProgressMonitor progressMonitor) {
 
 		final IProgressMonitor progressMonitorParam = progressMonitor;
-		final IFile newDiagramFile = diagramFileCreator.createNewFile(containerFullPath, fileName, initialContents, shell,
-				new IRunnableContext() {
+		final IFile newDiagramFile = diagramFileCreator.createNewFile(containerFullPath, fileName, initialContents, shell, new IRunnableContext() {
 
-					public void run(boolean fork, boolean cancelable, IRunnableWithProgress runnable)
-							throws InvocationTargetException, InterruptedException {
-						runnable.run(progressMonitorParam);
-					}
-				});
+			public void run(boolean fork, boolean cancelable, IRunnableWithProgress runnable) throws InvocationTargetException, InterruptedException {
+				runnable.run(progressMonitorParam);
+			}
+		});
 		IPath modelFilePath = newDiagramFile.getLocation().removeFileExtension();
 		modelFilePath = modelFilePath.addFileExtension("taipan"); //$NON-NLS-1$
 		final Resource modelResource = ResourceUtil.create(modelFilePath.toOSString(), null);
@@ -111,8 +107,7 @@ public class TaiPanDiagramEditorUtil extends IDEEditorUtil {
 
 				public Object run() {
 					EObject model = EObjectUtil.create(TaiPanPackage.eINSTANCE.getAquatory());
-					Diagram diagram = ViewService.createDiagram(model, kindParam, new PreferencesHint(
-							TaiPanDiagramEditorPlugin.EDITOR_ID));
+					Diagram diagram = ViewService.createDiagram(model, kindParam, new PreferencesHint(TaiPanDiagramEditorPlugin.EDITOR_ID));
 					if (diagram != null) {
 						notationModelParam.getContents().add(diagram);
 						modelResource.getContents().add(model);

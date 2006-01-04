@@ -148,9 +148,8 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	 * @generated
 	 */
 	public void run(IAction action) {
-		final InputDialog outputFileNameDialog = new InputDialog(getShell(), "Diagram file name",
-				"Please provide diagram file name", mySelection.getProjectRelativePath().removeFileExtension().addFileExtension(
-						FILE_EXT).lastSegment(), this);
+		final InputDialog outputFileNameDialog = new InputDialog(getShell(), "Diagram file name", "Please provide diagram file name", mySelection.getProjectRelativePath().removeFileExtension()
+				.addFileExtension(FILE_EXT).lastSegment(), this);
 		if (outputFileNameDialog.open() != InputDialog.OK) {
 			return;
 		}
@@ -239,8 +238,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 			nextValue = (EObject) values.next();
 			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(diagram, nextValue, "");
 			if (1001 == nodeVID) {
-				Node nextNode = ViewService.createNode(diagram, nextValue, null,
-						TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				Node nextNode = ViewService.createNode(diagram, nextValue, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
 				createPort_1001Children(nextNode, nextValue);
 			}
@@ -249,8 +247,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 			nextValue = (EObject) values.next();
 			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(diagram, nextValue, "");
 			if (1002 == nodeVID) {
-				Node nextNode = ViewService.createNode(diagram, nextValue, null,
-						TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				Node nextNode = ViewService.createNode(diagram, nextValue, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
 				createShip_1002Children(nextNode, nextValue);
 			}
@@ -287,8 +284,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 
 			int nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (2001 == nodeVID) {
-				nextNode = ViewService
-						.createNode(viewObject, nextValue, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				nextNode = ViewService.createNode(viewObject, nextValue, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
 				createItem_2001Children(nextNode, nextValue);
 			}

@@ -53,7 +53,8 @@ public class EcoreDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
-	public EcoreDiagramEditorPlugin() {}
+	public EcoreDiagramEditorPlugin() {
+	}
 
 	/**
 	 * @generated

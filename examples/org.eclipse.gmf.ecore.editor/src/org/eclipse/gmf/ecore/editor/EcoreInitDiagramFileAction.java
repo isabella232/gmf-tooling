@@ -138,7 +138,8 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	 * @generated
 	 */
 	public void run(IAction action) {
-		final InputDialog outputFileNameDialog = new InputDialog(getShell(), "Diagram file name", "Please provide diagram file name", mySelection.getProjectRelativePath().removeFileExtension().addFileExtension(FILE_EXT).lastSegment(), this);
+		final InputDialog outputFileNameDialog = new InputDialog(getShell(), "Diagram file name", "Please provide diagram file name", mySelection.getProjectRelativePath().removeFileExtension()
+				.addFileExtension(FILE_EXT).lastSegment(), this);
 		if (outputFileNameDialog.open() != InputDialog.OK) {
 			return;
 		}

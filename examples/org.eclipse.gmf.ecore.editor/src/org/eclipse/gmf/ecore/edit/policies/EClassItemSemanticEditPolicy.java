@@ -71,7 +71,8 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 	 * @generated
 	 */
 	protected Command getCreateStartOutgoingEReference3002Command(CreateRelationshipRequest req) {
-		return new Command() {};
+		return new Command() {
+		};
 	}
 
 	/**
@@ -139,7 +140,8 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 	 * @generated
 	 */
 	protected Command getCreateStartOutgoingEReference3003Command(CreateRelationshipRequest req) {
-		return new Command() {};
+		return new Command() {
+		};
 	}
 
 	/**
@@ -208,7 +210,8 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 	 */
 	protected Command getCreateStartOutgoingEClass_ESuperTypes3004Command(CreateRelationshipRequest req) {
 
-		return new Command() {};
+		return new Command() {
+		};
 	}
 
 	/**

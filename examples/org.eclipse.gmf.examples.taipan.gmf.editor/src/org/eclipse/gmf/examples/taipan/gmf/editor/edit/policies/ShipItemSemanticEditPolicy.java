@@ -52,6 +52,7 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 			return UnexecutableCommand.INSTANCE;
 		}
 
-		return new Command() {};
+		return new Command() {
+		};
 	}
 }

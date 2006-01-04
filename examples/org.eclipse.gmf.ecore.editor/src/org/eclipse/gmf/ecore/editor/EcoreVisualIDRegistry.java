@@ -1317,7 +1317,8 @@ public class EcoreVisualIDRegistry {
 		/**
 		 * @generated
 		 */
-		private ElementSelectors() {}
+		private ElementSelectors() {
+		}
 
 		/**
 		 * @generated	

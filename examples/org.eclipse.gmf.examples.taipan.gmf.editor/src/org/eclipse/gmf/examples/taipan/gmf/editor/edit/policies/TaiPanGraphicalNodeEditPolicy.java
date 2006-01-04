@@ -31,8 +31,7 @@ public class TaiPanGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
 	 */
 	protected IElementType getElementType(CreateConnectionRequest request) {
 		if (request instanceof CreateConnectionViewAndElementRequest) {
-			CreateElementRequestAdapter requestAdapter = ((CreateConnectionViewAndElementRequest) request)
-					.getConnectionViewAndElementDescriptor().getCreateElementRequestAdapter();
+			CreateElementRequestAdapter requestAdapter = ((CreateConnectionViewAndElementRequest) request).getConnectionViewAndElementDescriptor().getCreateElementRequestAdapter();
 			return (IElementType) requestAdapter.getAdapter(IElementType.class);
 		}
 		return null;

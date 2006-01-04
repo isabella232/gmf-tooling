@@ -33,7 +33,8 @@ public class EcoreElementTypes {
 	/**
 	 * @generated
 	 */
-	private EcoreElementTypes() {}
+	private EcoreElementTypes() {
+	}
 
 	/**
 	 * @generated
@@ -244,7 +245,8 @@ public class EcoreElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EStringToStringMapEntry_2009 = new MetamodelType("EStringToStringMapEntry_2009", null, "EStringToStringMapEntry_2009", EcorePackage.eINSTANCE.getEStringToStringMapEntry(), new NullEditHelper());
+	public static final IMetamodelType EStringToStringMapEntry_2009 = new MetamodelType("EStringToStringMapEntry_2009", null, "EStringToStringMapEntry_2009", EcorePackage.eINSTANCE
+			.getEStringToStringMapEntry(), new NullEditHelper());
 
 	/**
 	 * @generated
@@ -359,7 +361,8 @@ public class EcoreElementTypes {
 		/** 
 		 * @generated
 		 */
-		private Initializers() {}
+		private Initializers() {
+		}
 
 		/** 
 		 * @generated

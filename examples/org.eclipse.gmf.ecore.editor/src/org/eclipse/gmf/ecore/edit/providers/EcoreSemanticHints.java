@@ -8,7 +8,8 @@ public class EcoreSemanticHints {
 	/**
 	 * @generated
 	 */
-	private EcoreSemanticHints() {}
+	private EcoreSemanticHints() {
+	}
 
 	/**
 	 * @generated
@@ -18,7 +19,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EClass_1001Labels() {}
+		private EClass_1001Labels() {
+		}
 
 		/**
 		 * @generated
@@ -34,7 +36,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EClass_1001Compartments() {}
+		private EClass_1001Compartments() {
+		}
 
 		/**
 		 * @generated
@@ -60,7 +63,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EAttribute_2001Labels() {}
+		private EAttribute_2001Labels() {
+		}
 
 		/**
 		 * @generated
@@ -76,7 +80,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EOperation_2002Labels() {}
+		private EOperation_2002Labels() {
+		}
 
 		/**
 		 * @generated
@@ -92,7 +97,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EAnnotation_2003Labels() {}
+		private EAnnotation_2003Labels() {
+		}
 
 		/**
 		 * @generated
@@ -108,7 +114,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EPackage_1002Labels() {}
+		private EPackage_1002Labels() {
+		}
 
 		/**
 		 * @generated
@@ -124,7 +131,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EPackage_1002Compartments() {}
+		private EPackage_1002Compartments() {
+		}
 
 		/**
 		 * @generated
@@ -160,7 +168,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EClass_2004Labels() {}
+		private EClass_2004Labels() {
+		}
 
 		/**
 		 * @generated
@@ -176,7 +185,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EPackage_2005Labels() {}
+		private EPackage_2005Labels() {
+		}
 
 		/**
 		 * @generated
@@ -192,7 +202,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EDataType_2006Labels() {}
+		private EDataType_2006Labels() {
+		}
 
 		/**
 		 * @generated
@@ -208,7 +219,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EEnum_2007Labels() {}
+		private EEnum_2007Labels() {
+		}
 
 		/**
 		 * @generated
@@ -224,7 +236,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EAnnotation_2008Labels() {}
+		private EAnnotation_2008Labels() {
+		}
 
 		/**
 		 * @generated
@@ -240,7 +253,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EAnnotation_1003Labels() {}
+		private EAnnotation_1003Labels() {
+		}
 
 		/**
 		 * @generated
@@ -256,7 +270,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EAnnotation_1003Compartments() {}
+		private EAnnotation_1003Compartments() {
+		}
 
 		/**
 		 * @generated
@@ -272,7 +287,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EStringToStringMapEntry_2009Labels() {}
+		private EStringToStringMapEntry_2009Labels() {
+		}
 
 		/**
 		 * @generated
@@ -288,7 +304,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EDataType_1004Labels() {}
+		private EDataType_1004Labels() {
+		}
 
 		/**
 		 * @generated
@@ -304,7 +321,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EDataType_1004Compartments() {}
+		private EDataType_1004Compartments() {
+		}
 
 		/**
 		 * @generated
@@ -320,7 +338,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EAnnotation_2010Labels() {}
+		private EAnnotation_2010Labels() {
+		}
 
 		/**
 		 * @generated
@@ -336,7 +355,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EEnum_1005Labels() {}
+		private EEnum_1005Labels() {
+		}
 
 		/**
 		 * @generated
@@ -352,7 +372,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EEnum_1005Compartments() {}
+		private EEnum_1005Compartments() {
+		}
 
 		/**
 		 * @generated
@@ -373,7 +394,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EEnumLiteral_2011Labels() {}
+		private EEnumLiteral_2011Labels() {
+		}
 
 		/**
 		 * @generated
@@ -389,7 +411,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EAnnotation_2012Labels() {}
+		private EAnnotation_2012Labels() {
+		}
 
 		/**
 		 * @generated
@@ -410,7 +433,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EReference_3002Labels() {}
+		private EReference_3002Labels() {
+		}
 
 		/**
 		 * @generated
@@ -431,7 +455,8 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		private EReference_3003Labels() {}
+		private EReference_3003Labels() {
+		}
 
 		/**
 		 * @generated

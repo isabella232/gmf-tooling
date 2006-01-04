@@ -52,8 +52,7 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	public int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getAquatory().equals(domainElementMetaclass)
-				&& (domainElement != null ? isDiagramAquatory_79((Aquatory) domainElement) : true)) {
+		if (TaiPanPackage.eINSTANCE.getAquatory().equals(domainElementMetaclass) && (domainElement != null ? isDiagramAquatory_79((Aquatory) domainElement) : true)) {
 			return 79;
 		}
 		return getUnrecognizedDiagramID(domainElement);
@@ -77,12 +76,10 @@ public class TaiPanVisualIDRegistry {
 		int containerVisualID = getVisualID(containerView);
 		switch (containerVisualID) {
 		case 79:
-			if (TaiPanPackage.eINSTANCE.getPort().equals(domainElementMetaclass)
-					&& (domainElement != null ? isNodePort_1001((Port) domainElement) : true)) {
+			if (TaiPanPackage.eINSTANCE.getPort().equals(domainElementMetaclass) && (domainElement != null ? isNodePort_1001((Port) domainElement) : true)) {
 				return 1001;
 			}
-			if (TaiPanPackage.eINSTANCE.getShip().equals(domainElementMetaclass)
-					&& (domainElement != null ? isNodeShip_1002((Ship) domainElement) : true)) {
+			if (TaiPanPackage.eINSTANCE.getShip().equals(domainElementMetaclass) && (domainElement != null ? isNodeShip_1002((Ship) domainElement) : true)) {
 				return 1002;
 			}
 			return getUnrecognizedDiagramChildID(domainElement);
@@ -109,8 +106,7 @@ public class TaiPanVisualIDRegistry {
 			if (!"".equals(semanticHint)) {
 				return getUnrecognizedCargoCompartment_5001ChildNodeID(semanticHint);
 			}
-			if (TaiPanPackage.eINSTANCE.getItem().equals(domainElementMetaclass)
-					&& (domainElement != null ? isChildNodeItem_2001((Item) domainElement) : true)) {
+			if (TaiPanPackage.eINSTANCE.getItem().equals(domainElementMetaclass) && (domainElement != null ? isChildNodeItem_2001((Item) domainElement) : true)) {
 				return 2001;
 			}
 			return getUnrecognizedCargoCompartment_5001ChildNodeID(domainElement);
@@ -158,8 +154,7 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	public int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getRoute().equals(domainElementMetaclass)
-				&& (domainElement != null ? isLinkWithClassRoute_3002((Route) domainElement) : true)) {
+		if (TaiPanPackage.eINSTANCE.getRoute().equals(domainElementMetaclass) && (domainElement != null ? isLinkWithClassRoute_3002((Route) domainElement) : true)) {
 			return 3002;
 		} else {
 			return getUnrecognizedLinkWithClassID(domainElement);
@@ -384,7 +379,8 @@ public class TaiPanVisualIDRegistry {
 		/**
 		 * @generated
 		 */
-		private ElementSelectors() {}
+		private ElementSelectors() {
+		}
 
 		/**
 		 * @generated

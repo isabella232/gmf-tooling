@@ -39,10 +39,9 @@ public class TaiPanCreationWizardPage extends EditorWizardPage {
 	/**
 	 * @generated
 	 */
-	public IFile createAndOpenDiagram(IPath containerPath, String fileName, InputStream initialContents, String kind,
-			IWorkbenchWindow dWindow, IProgressMonitor progressMonitor, boolean saveDiagram) {
-		return TaiPanDiagramEditorUtil.createAndOpenDiagram(getDiagramFileCreator(), containerPath, fileName, initialContents,
-				kind, dWindow, progressMonitor, isOpenNewlyCreatedDiagramEditor(), saveDiagram);
+	public IFile createAndOpenDiagram(IPath containerPath, String fileName, InputStream initialContents, String kind, IWorkbenchWindow dWindow, IProgressMonitor progressMonitor, boolean saveDiagram) {
+		return TaiPanDiagramEditorUtil.createAndOpenDiagram(getDiagramFileCreator(), containerPath, fileName, initialContents, kind, dWindow, progressMonitor, isOpenNewlyCreatedDiagramEditor(),
+				saveDiagram);
 	}
 
 	/**
