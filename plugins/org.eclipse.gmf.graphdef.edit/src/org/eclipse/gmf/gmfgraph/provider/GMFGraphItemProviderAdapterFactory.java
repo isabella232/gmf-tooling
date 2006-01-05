@@ -558,69 +558,69 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.ColorStyle} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.RGBColor} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ColorStyleItemProvider colorStyleItemProvider;
+	protected RGBColorItemProvider rgbColorItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.ColorStyle}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.RGBColor}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Adapter createColorStyleAdapter() {
-		if (colorStyleItemProvider == null) {
-			colorStyleItemProvider = new ColorStyleItemProvider(this);
+	public Adapter createRGBColorAdapter() {
+		if (rgbColorItemProvider == null) {
+			rgbColorItemProvider = new RGBColorItemProvider(this);
 		}
 
-		return colorStyleItemProvider;
+		return rgbColorItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.SizeStyle} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.ConstantColor} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected SizeStyleItemProvider sizeStyleItemProvider;
+	protected ConstantColorItemProvider constantColorItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.SizeStyle}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.ConstantColor}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Adapter createSizeStyleAdapter() {
-		if (sizeStyleItemProvider == null) {
-			sizeStyleItemProvider = new SizeStyleItemProvider(this);
+	public Adapter createConstantColorAdapter() {
+		if (constantColorItemProvider == null) {
+			constantColorItemProvider = new ConstantColorItemProvider(this);
 		}
 
-		return sizeStyleItemProvider;
+		return constantColorItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.FontStyle} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.BasicFont} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected FontStyleItemProvider fontStyleItemProvider;
+	protected BasicFontItemProvider basicFontItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.FontStyle}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.BasicFont}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Adapter createFontStyleAdapter() {
-		if (fontStyleItemProvider == null) {
-			fontStyleItemProvider = new FontStyleItemProvider(this);
+	public Adapter createBasicFontAdapter() {
+		if (basicFontItemProvider == null) {
+			basicFontItemProvider = new BasicFontItemProvider(this);
 		}
 
-		return fontStyleItemProvider;
+		return basicFontItemProvider;
 	}
 
 	/**
@@ -643,6 +643,138 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 		}
 
 		return pointItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.Dimension} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DimensionItemProvider dimensionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.Dimension}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createDimensionAdapter() {
+		if (dimensionItemProvider == null) {
+			dimensionItemProvider = new DimensionItemProvider(this);
+		}
+
+		return dimensionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.Insets} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected InsetsItemProvider insetsItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.Insets}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createInsetsAdapter() {
+		if (insetsItemProvider == null) {
+			insetsItemProvider = new InsetsItemProvider(this);
+		}
+
+		return insetsItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.LineBorder} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LineBorderItemProvider lineBorderItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.LineBorder}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createLineBorderAdapter() {
+		if (lineBorderItemProvider == null) {
+			lineBorderItemProvider = new LineBorderItemProvider(this);
+		}
+
+		return lineBorderItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.MarginBorder} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected MarginBorderItemProvider marginBorderItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.MarginBorder}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createMarginBorderAdapter() {
+		if (marginBorderItemProvider == null) {
+			marginBorderItemProvider = new MarginBorderItemProvider(this);
+		}
+
+		return marginBorderItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.CompoundBorder} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CompoundBorderItemProvider compoundBorderItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.CompoundBorder}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createCompoundBorderAdapter() {
+		if (compoundBorderItemProvider == null) {
+			compoundBorderItemProvider = new CompoundBorderItemProvider(this);
+		}
+
+		return compoundBorderItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.CustomBorder} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CustomBorderItemProvider customBorderItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.CustomBorder}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createCustomBorderAdapter() {
+		if (customBorderItemProvider == null) {
+			customBorderItemProvider = new CustomBorderItemProvider(this);
+		}
+
+		return customBorderItemProvider;
 	}
 
 	/**
@@ -763,10 +895,16 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 		if (customFigureItemProvider != null) customFigureItemProvider.dispose();
 		if (customDecorationItemProvider != null) customDecorationItemProvider.dispose();
 		if (customConnectionItemProvider != null) customConnectionItemProvider.dispose();
-		if (colorStyleItemProvider != null) colorStyleItemProvider.dispose();
-		if (sizeStyleItemProvider != null) sizeStyleItemProvider.dispose();
-		if (fontStyleItemProvider != null) fontStyleItemProvider.dispose();
+		if (rgbColorItemProvider != null) rgbColorItemProvider.dispose();
+		if (constantColorItemProvider != null) constantColorItemProvider.dispose();
+		if (basicFontItemProvider != null) basicFontItemProvider.dispose();
 		if (pointItemProvider != null) pointItemProvider.dispose();
+		if (dimensionItemProvider != null) dimensionItemProvider.dispose();
+		if (insetsItemProvider != null) insetsItemProvider.dispose();
+		if (lineBorderItemProvider != null) lineBorderItemProvider.dispose();
+		if (marginBorderItemProvider != null) marginBorderItemProvider.dispose();
+		if (compoundBorderItemProvider != null) compoundBorderItemProvider.dispose();
+		if (customBorderItemProvider != null) customBorderItemProvider.dispose();
 	}
 
 }

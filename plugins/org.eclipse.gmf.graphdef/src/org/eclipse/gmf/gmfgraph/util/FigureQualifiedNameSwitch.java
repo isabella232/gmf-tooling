@@ -11,7 +11,7 @@
  */
 package org.eclipse.gmf.gmfgraph.util;
 
-import org.eclipse.gmf.gmfgraph.CustomFigure;
+import org.eclipse.gmf.gmfgraph.CustomClass;
 import org.eclipse.gmf.gmfgraph.Ellipse;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.LabeledContainer;
@@ -29,7 +29,7 @@ import org.eclipse.gmf.gmfgraph.RoundedRectangle;
  */
 public class FigureQualifiedNameSwitch extends GMFGraphSwitch {
 
-	public Object caseCustomFigure(CustomFigure object) {
+	public Object caseCustomClass(CustomClass object) {
 		return object.getQualifiedClassName();
 	}
 

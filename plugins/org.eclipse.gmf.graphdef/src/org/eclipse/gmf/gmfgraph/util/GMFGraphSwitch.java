@@ -320,10 +320,17 @@ public class GMFGraphSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGraphPackage.CUSTOM_CLASS: {
+				CustomClass customClass = (CustomClass)theEObject;
+				Object result = caseCustomClass(customClass);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGraphPackage.CUSTOM_FIGURE: {
 				CustomFigure customFigure = (CustomFigure)theEObject;
 				Object result = caseCustomFigure(customFigure);
 				if (result == null) result = caseFigure(customFigure);
+				if (result == null) result = caseCustomClass(customFigure);
 				if (result == null) result = caseFigureMarker(customFigure);
 				if (result == null) result = caseIdentity(customFigure);
 				if (result == null) result = defaultCase(theEObject);
@@ -335,6 +342,7 @@ public class GMFGraphSwitch {
 				if (result == null) result = caseCustomFigure(customDecoration);
 				if (result == null) result = caseDecorationFigure(customDecoration);
 				if (result == null) result = caseFigure(customDecoration);
+				if (result == null) result = caseCustomClass(customDecoration);
 				if (result == null) result = caseFigureMarker(customDecoration);
 				if (result == null) result = caseIdentity(customDecoration);
 				if (result == null) result = defaultCase(theEObject);
@@ -346,32 +354,94 @@ public class GMFGraphSwitch {
 				if (result == null) result = caseCustomFigure(customConnection);
 				if (result == null) result = caseConnectionFigure(customConnection);
 				if (result == null) result = caseFigure(customConnection);
+				if (result == null) result = caseCustomClass(customConnection);
 				if (result == null) result = caseFigureMarker(customConnection);
 				if (result == null) result = caseIdentity(customConnection);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GMFGraphPackage.COLOR_STYLE: {
-				ColorStyle colorStyle = (ColorStyle)theEObject;
-				Object result = caseColorStyle(colorStyle);
+			case GMFGraphPackage.COLOR: {
+				Color color = (Color)theEObject;
+				Object result = caseColor(color);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GMFGraphPackage.SIZE_STYLE: {
-				SizeStyle sizeStyle = (SizeStyle)theEObject;
-				Object result = caseSizeStyle(sizeStyle);
+			case GMFGraphPackage.RGB_COLOR: {
+				RGBColor rgbColor = (RGBColor)theEObject;
+				Object result = caseRGBColor(rgbColor);
+				if (result == null) result = caseColor(rgbColor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GMFGraphPackage.FONT_STYLE: {
-				FontStyle fontStyle = (FontStyle)theEObject;
-				Object result = caseFontStyle(fontStyle);
+			case GMFGraphPackage.CONSTANT_COLOR: {
+				ConstantColor constantColor = (ConstantColor)theEObject;
+				Object result = caseConstantColor(constantColor);
+				if (result == null) result = caseColor(constantColor);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.FONT: {
+				Font font = (Font)theEObject;
+				Object result = caseFont(font);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.BASIC_FONT: {
+				BasicFont basicFont = (BasicFont)theEObject;
+				Object result = caseBasicFont(basicFont);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGraphPackage.POINT: {
 				Point point = (Point)theEObject;
 				Object result = casePoint(point);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.DIMENSION: {
+				Dimension dimension = (Dimension)theEObject;
+				Object result = caseDimension(dimension);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.INSETS: {
+				Insets insets = (Insets)theEObject;
+				Object result = caseInsets(insets);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.BORDER: {
+				Border border = (Border)theEObject;
+				Object result = caseBorder(border);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.LINE_BORDER: {
+				LineBorder lineBorder = (LineBorder)theEObject;
+				Object result = caseLineBorder(lineBorder);
+				if (result == null) result = caseBorder(lineBorder);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.MARGIN_BORDER: {
+				MarginBorder marginBorder = (MarginBorder)theEObject;
+				Object result = caseMarginBorder(marginBorder);
+				if (result == null) result = caseBorder(marginBorder);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.COMPOUND_BORDER: {
+				CompoundBorder compoundBorder = (CompoundBorder)theEObject;
+				Object result = caseCompoundBorder(compoundBorder);
+				if (result == null) result = caseBorder(compoundBorder);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.CUSTOM_BORDER: {
+				CustomBorder customBorder = (CustomBorder)theEObject;
+				Object result = caseCustomBorder(customBorder);
+				if (result == null) result = caseBorder(customBorder);
+				if (result == null) result = caseCustomClass(customBorder);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -785,6 +855,21 @@ public class GMFGraphSwitch {
 	}
 
 	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Custom Class</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Custom Class</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseCustomClass(CustomClass object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpretting the object as an instance of '<em>Custom Figure</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -830,47 +915,77 @@ public class GMFGraphSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Color Style</em>'.
+	 * Returns the result of interpretting the object as an instance of '<em>Color</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Color Style</em>'.
+	 * @return the result of interpretting the object as an instance of '<em>Color</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseColorStyle(ColorStyle object) {
+	public Object caseColor(Color object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Size Style</em>'.
+	 * Returns the result of interpretting the object as an instance of '<em>RGB Color</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Size Style</em>'.
+	 * @return the result of interpretting the object as an instance of '<em>RGB Color</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseSizeStyle(SizeStyle object) {
+	public Object caseRGBColor(RGBColor object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Font Style</em>'.
+	 * Returns the result of interpretting the object as an instance of '<em>Constant Color</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Font Style</em>'.
+	 * @return the result of interpretting the object as an instance of '<em>Constant Color</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseFontStyle(FontStyle object) {
+	public Object caseConstantColor(ConstantColor object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Font</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Font</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseFont(Font object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Basic Font</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Basic Font</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseBasicFont(BasicFont object) {
 		return null;
 	}
 
@@ -886,6 +1001,111 @@ public class GMFGraphSwitch {
 	 * @generated
 	 */
 	public Object casePoint(Point object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Dimension</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Dimension</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseDimension(Dimension object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Insets</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Insets</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseInsets(Insets object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Border</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Border</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseBorder(Border object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Line Border</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Line Border</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseLineBorder(LineBorder object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Margin Border</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Margin Border</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseMarginBorder(MarginBorder object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Compound Border</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Compound Border</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseCompoundBorder(CompoundBorder object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Custom Border</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Custom Border</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseCustomBorder(CustomBorder object) {
 		return null;
 	}
 

@@ -400,4 +400,14 @@ public class GMFGraphActionBarContributor
 		super.addGlobalActions(menuManager);
 	}
 
+	/**
+	 * This ensures that a delete action will clean up all references to deleted objects.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected boolean removeAllReferencesOnDelete() {
+		return true;
+	}
+
 }

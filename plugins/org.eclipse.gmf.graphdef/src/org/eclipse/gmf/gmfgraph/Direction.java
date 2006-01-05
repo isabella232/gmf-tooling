@@ -195,7 +195,7 @@ public final class Direction extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final Direction NONE_LITERAL = new Direction(NONE, "NONE");
+	public static final Direction NONE_LITERAL = new Direction(NONE, "NONE", "NONE");
 
 	/**
 	 * The '<em><b>NORTH</b></em>' literal object.
@@ -205,7 +205,7 @@ public final class Direction extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final Direction NORTH_LITERAL = new Direction(NORTH, "NORTH");
+	public static final Direction NORTH_LITERAL = new Direction(NORTH, "NORTH", "NORTH");
 
 	/**
 	 * The '<em><b>SOUTH</b></em>' literal object.
@@ -215,7 +215,7 @@ public final class Direction extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final Direction SOUTH_LITERAL = new Direction(SOUTH, "SOUTH");
+	public static final Direction SOUTH_LITERAL = new Direction(SOUTH, "SOUTH", "SOUTH");
 
 	/**
 	 * The '<em><b>EAST</b></em>' literal object.
@@ -225,7 +225,7 @@ public final class Direction extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final Direction EAST_LITERAL = new Direction(EAST, "EAST");
+	public static final Direction EAST_LITERAL = new Direction(EAST, "EAST", "EAST");
 
 	/**
 	 * The '<em><b>WEST</b></em>' literal object.
@@ -235,7 +235,7 @@ public final class Direction extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final Direction WEST_LITERAL = new Direction(WEST, "WEST");
+	public static final Direction WEST_LITERAL = new Direction(WEST, "WEST", "WEST");
 
 	/**
 	 * The '<em><b>NORTH WEST</b></em>' literal object.
@@ -245,7 +245,7 @@ public final class Direction extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final Direction NORTH_WEST_LITERAL = new Direction(NORTH_WEST, "NORTH_WEST");
+	public static final Direction NORTH_WEST_LITERAL = new Direction(NORTH_WEST, "NORTH_WEST", "NORTH_WEST");
 
 	/**
 	 * The '<em><b>NORTH EAST</b></em>' literal object.
@@ -255,7 +255,7 @@ public final class Direction extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final Direction NORTH_EAST_LITERAL = new Direction(NORTH_EAST, "NORTH_EAST");
+	public static final Direction NORTH_EAST_LITERAL = new Direction(NORTH_EAST, "NORTH_EAST", "NORTH_EAST");
 
 	/**
 	 * The '<em><b>SOUTH WEST</b></em>' literal object.
@@ -265,7 +265,7 @@ public final class Direction extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final Direction SOUTH_WEST_LITERAL = new Direction(SOUTH_WEST, "SOUTH_WEST");
+	public static final Direction SOUTH_WEST_LITERAL = new Direction(SOUTH_WEST, "SOUTH_WEST", "SOUTH_WEST");
 
 	/**
 	 * The '<em><b>SOUTH EAST</b></em>' literal object.
@@ -275,7 +275,7 @@ public final class Direction extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final Direction SOUTH_EAST_LITERAL = new Direction(SOUTH_EAST, "SOUTH_EAST");
+	public static final Direction SOUTH_EAST_LITERAL = new Direction(SOUTH_EAST, "SOUTH_EAST", "SOUTH_EAST");
 
 	/**
 	 * The '<em><b>VERTICAL</b></em>' literal object.
@@ -285,7 +285,7 @@ public final class Direction extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final Direction VERTICAL_LITERAL = new Direction(VERTICAL, "VERTICAL");
+	public static final Direction VERTICAL_LITERAL = new Direction(VERTICAL, "VERTICAL", "VERTICAL");
 
 	/**
 	 * The '<em><b>HORIZONTAL</b></em>' literal object.
@@ -295,7 +295,7 @@ public final class Direction extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final Direction HORIZONTAL_LITERAL = new Direction(HORIZONTAL, "HORIZONTAL");
+	public static final Direction HORIZONTAL_LITERAL = new Direction(HORIZONTAL, "HORIZONTAL", "HORIZONTAL");
 
 	/**
 	 * An array of all the '<em><b>Direction</b></em>' enumerators.
@@ -327,15 +327,15 @@ public final class Direction extends AbstractEnumerator {
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Direction</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Direction</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static Direction get(String name) {
+	public static Direction get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			Direction result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -343,7 +343,23 @@ public final class Direction extends AbstractEnumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Direction</b></em>' literal with the specified value.
+	 * Returns the '<em><b>Direction</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static Direction getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			Direction result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Direction</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -371,8 +387,8 @@ public final class Direction extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private Direction(int value, String name) {
-		super(value, name);
+	private Direction(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //Direction

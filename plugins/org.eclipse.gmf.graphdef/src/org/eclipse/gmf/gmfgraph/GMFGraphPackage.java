@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.EReference;
  * @model kind="package"
  * @generated
  */
-public interface GMFGraphPackage extends EPackage{
+public interface GMFGraphPackage extends EPackage {
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -80,7 +80,7 @@ public interface GMFGraphPackage extends EPackage{
 	int IDENTITY__NAME = 0;
 
 	/**
-	 * The number of structural features of the the '<em>Identity</em>' class.
+	 * The number of structural features of the '<em>Identity</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -153,7 +153,7 @@ public interface GMFGraphPackage extends EPackage{
 	int CANVAS__CHILDREN = IDENTITY_FEATURE_COUNT + 4;
 
 	/**
-	 * The number of structural features of the the '<em>Canvas</em>' class.
+	 * The number of structural features of the '<em>Canvas</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -199,7 +199,7 @@ public interface GMFGraphPackage extends EPackage{
 	int FIGURE_GALLERY__IMPLEMENTATION_BUNDLE = IDENTITY_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Figure Gallery</em>' class.
+	 * The number of structural features of the '<em>Figure Gallery</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -245,7 +245,7 @@ public interface GMFGraphPackage extends EPackage{
 	int DIAGRAM_ELEMENT__FACETS = IDENTITY_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Diagram Element</em>' class.
+	 * The number of structural features of the '<em>Diagram Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -300,7 +300,7 @@ public interface GMFGraphPackage extends EPackage{
 	int NODE__RESIZE_CONSTRAINT = DIAGRAM_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Node</em>' class.
+	 * The number of structural features of the '<em>Node</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -346,7 +346,7 @@ public interface GMFGraphPackage extends EPackage{
 	int CONNECTION__FACETS = DIAGRAM_ELEMENT__FACETS;
 
 	/**
-	 * The number of structural features of the the '<em>Connection</em>' class.
+	 * The number of structural features of the '<em>Connection</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -410,7 +410,7 @@ public interface GMFGraphPackage extends EPackage{
 	int COMPARTMENT__NEEDS_TITLE = DIAGRAM_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Compartment</em>' class.
+	 * The number of structural features of the '<em>Compartment</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -456,7 +456,7 @@ public interface GMFGraphPackage extends EPackage{
 	int CHILD__FACETS = DIAGRAM_ELEMENT__FACETS;
 
 	/**
-	 * The number of structural features of the the '<em>Child</em>' class.
+	 * The number of structural features of the '<em>Child</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -475,7 +475,7 @@ public interface GMFGraphPackage extends EPackage{
 	int VISUAL_FACET = 8;
 
 	/**
-	 * The number of structural features of the the '<em>Visual Facet</em>' class.
+	 * The number of structural features of the '<em>Visual Facet</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -512,7 +512,7 @@ public interface GMFGraphPackage extends EPackage{
 	int GENERAL_FACET__DATA = VISUAL_FACET_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>General Facet</em>' class.
+	 * The number of structural features of the '<em>General Facet</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -540,7 +540,7 @@ public interface GMFGraphPackage extends EPackage{
 	int GRADIENT_FACET__DIRECTION = VISUAL_FACET_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Gradient Facet</em>' class.
+	 * The number of structural features of the '<em>Gradient Facet</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -559,7 +559,7 @@ public interface GMFGraphPackage extends EPackage{
 	int FIGURE_MARKER = 11;
 
 	/**
-	 * The number of structural features of the the '<em>Figure Marker</em>' class.
+	 * The number of structural features of the '<em>Figure Marker</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -605,31 +605,76 @@ public interface GMFGraphPackage extends EPackage{
 	int FIGURE__PARENT = FIGURE_MARKER_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Color Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__COLOR_STYLE = FIGURE_MARKER_FEATURE_COUNT + 3;
+	int FIGURE__FOREGROUND_COLOR = FIGURE_MARKER_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Size Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__SIZE_STYLE = FIGURE_MARKER_FEATURE_COUNT + 4;
+	int FIGURE__BACKGROUND_COLOR = FIGURE_MARKER_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Font Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__FONT_STYLE = FIGURE_MARKER_FEATURE_COUNT + 5;
+	int FIGURE__MAXIMUM_SIZE = FIGURE_MARKER_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE__MINIMUM_SIZE = FIGURE_MARKER_FEATURE_COUNT + 6;
+
+	/**
+	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE__PREFERRED_SIZE = FIGURE_MARKER_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE__FONT = FIGURE_MARKER_FEATURE_COUNT + 8;
+
+	/**
+	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE__INSETS = FIGURE_MARKER_FEATURE_COUNT + 9;
+
+	/**
+	 * The feature id for the '<em><b>Border</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE__BORDER = FIGURE_MARKER_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -638,7 +683,7 @@ public interface GMFGraphPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__LOCATION = FIGURE_MARKER_FEATURE_COUNT + 6;
+	int FIGURE__LOCATION = FIGURE_MARKER_FEATURE_COUNT + 11;
 
 	/**
 	 * The feature id for the '<em><b>Size</b></em>' containment reference.
@@ -647,7 +692,7 @@ public interface GMFGraphPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__SIZE = FIGURE_MARKER_FEATURE_COUNT + 7;
+	int FIGURE__SIZE = FIGURE_MARKER_FEATURE_COUNT + 12;
 
 	/**
 	 * The feature id for the '<em><b>Layout Manager</b></em>' attribute.
@@ -656,16 +701,16 @@ public interface GMFGraphPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__LAYOUT_MANAGER = FIGURE_MARKER_FEATURE_COUNT + 8;
+	int FIGURE__LAYOUT_MANAGER = FIGURE_MARKER_FEATURE_COUNT + 13;
 
 	/**
-	 * The number of structural features of the the '<em>Figure</em>' class.
+	 * The number of structural features of the '<em>Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE_FEATURE_COUNT = FIGURE_MARKER_FEATURE_COUNT + 9;
+	int FIGURE_FEATURE_COUNT = FIGURE_MARKER_FEATURE_COUNT + 14;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.FigureRefImpl <em>Figure Ref</em>}' class.
@@ -687,7 +732,7 @@ public interface GMFGraphPackage extends EPackage{
 	int FIGURE_REF__FIGURE = FIGURE_MARKER_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Figure Ref</em>' class.
+	 * The number of structural features of the '<em>Figure Ref</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -733,31 +778,76 @@ public interface GMFGraphPackage extends EPackage{
 	int CONNECTION_FIGURE__PARENT = FIGURE__PARENT;
 
 	/**
-	 * The feature id for the '<em><b>Color Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_FIGURE__COLOR_STYLE = FIGURE__COLOR_STYLE;
+	int CONNECTION_FIGURE__FOREGROUND_COLOR = FIGURE__FOREGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Size Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_FIGURE__SIZE_STYLE = FIGURE__SIZE_STYLE;
+	int CONNECTION_FIGURE__BACKGROUND_COLOR = FIGURE__BACKGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Font Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_FIGURE__FONT_STYLE = FIGURE__FONT_STYLE;
+	int CONNECTION_FIGURE__MAXIMUM_SIZE = FIGURE__MAXIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FIGURE__MINIMUM_SIZE = FIGURE__MINIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FIGURE__PREFERRED_SIZE = FIGURE__PREFERRED_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FIGURE__FONT = FIGURE__FONT;
+
+	/**
+	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FIGURE__INSETS = FIGURE__INSETS;
+
+	/**
+	 * The feature id for the '<em><b>Border</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FIGURE__BORDER = FIGURE__BORDER;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -787,7 +877,7 @@ public interface GMFGraphPackage extends EPackage{
 	int CONNECTION_FIGURE__LAYOUT_MANAGER = FIGURE__LAYOUT_MANAGER;
 
 	/**
-	 * The number of structural features of the the '<em>Connection Figure</em>' class.
+	 * The number of structural features of the '<em>Connection Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -833,31 +923,76 @@ public interface GMFGraphPackage extends EPackage{
 	int DECORATION_FIGURE__PARENT = FIGURE__PARENT;
 
 	/**
-	 * The feature id for the '<em><b>Color Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DECORATION_FIGURE__COLOR_STYLE = FIGURE__COLOR_STYLE;
+	int DECORATION_FIGURE__FOREGROUND_COLOR = FIGURE__FOREGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Size Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DECORATION_FIGURE__SIZE_STYLE = FIGURE__SIZE_STYLE;
+	int DECORATION_FIGURE__BACKGROUND_COLOR = FIGURE__BACKGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Font Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int DECORATION_FIGURE__FONT_STYLE = FIGURE__FONT_STYLE;
+	int DECORATION_FIGURE__MAXIMUM_SIZE = FIGURE__MAXIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECORATION_FIGURE__MINIMUM_SIZE = FIGURE__MINIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECORATION_FIGURE__PREFERRED_SIZE = FIGURE__PREFERRED_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECORATION_FIGURE__FONT = FIGURE__FONT;
+
+	/**
+	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECORATION_FIGURE__INSETS = FIGURE__INSETS;
+
+	/**
+	 * The feature id for the '<em><b>Border</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECORATION_FIGURE__BORDER = FIGURE__BORDER;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -887,7 +1022,7 @@ public interface GMFGraphPackage extends EPackage{
 	int DECORATION_FIGURE__LAYOUT_MANAGER = FIGURE__LAYOUT_MANAGER;
 
 	/**
-	 * The number of structural features of the the '<em>Decoration Figure</em>' class.
+	 * The number of structural features of the '<em>Decoration Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -933,31 +1068,76 @@ public interface GMFGraphPackage extends EPackage{
 	int SHAPE__PARENT = FIGURE__PARENT;
 
 	/**
-	 * The feature id for the '<em><b>Color Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SHAPE__COLOR_STYLE = FIGURE__COLOR_STYLE;
+	int SHAPE__FOREGROUND_COLOR = FIGURE__FOREGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Size Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SHAPE__SIZE_STYLE = FIGURE__SIZE_STYLE;
+	int SHAPE__BACKGROUND_COLOR = FIGURE__BACKGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Font Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SHAPE__FONT_STYLE = FIGURE__FONT_STYLE;
+	int SHAPE__MAXIMUM_SIZE = FIGURE__MAXIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE__MINIMUM_SIZE = FIGURE__MINIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE__PREFERRED_SIZE = FIGURE__PREFERRED_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE__FONT = FIGURE__FONT;
+
+	/**
+	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE__INSETS = FIGURE__INSETS;
+
+	/**
+	 * The feature id for the '<em><b>Border</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE__BORDER = FIGURE__BORDER;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -1050,7 +1230,7 @@ public interface GMFGraphPackage extends EPackage{
 	int SHAPE__RESOLVED_CHILDREN = FIGURE_FEATURE_COUNT + 6;
 
 	/**
-	 * The number of structural features of the the '<em>Shape</em>' class.
+	 * The number of structural features of the '<em>Shape</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1096,31 +1276,76 @@ public interface GMFGraphPackage extends EPackage{
 	int LABEL__PARENT = FIGURE__PARENT;
 
 	/**
-	 * The feature id for the '<em><b>Color Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL__COLOR_STYLE = FIGURE__COLOR_STYLE;
+	int LABEL__FOREGROUND_COLOR = FIGURE__FOREGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Size Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL__SIZE_STYLE = FIGURE__SIZE_STYLE;
+	int LABEL__BACKGROUND_COLOR = FIGURE__BACKGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Font Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL__FONT_STYLE = FIGURE__FONT_STYLE;
+	int LABEL__MAXIMUM_SIZE = FIGURE__MAXIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL__MINIMUM_SIZE = FIGURE__MINIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL__PREFERRED_SIZE = FIGURE__PREFERRED_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL__FONT = FIGURE__FONT;
+
+	/**
+	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL__INSETS = FIGURE__INSETS;
+
+	/**
+	 * The feature id for the '<em><b>Border</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL__BORDER = FIGURE__BORDER;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -1159,7 +1384,7 @@ public interface GMFGraphPackage extends EPackage{
 	int LABEL__TEXT = FIGURE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Label</em>' class.
+	 * The number of structural features of the '<em>Label</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1205,31 +1430,76 @@ public interface GMFGraphPackage extends EPackage{
 	int LABELED_CONTAINER__PARENT = FIGURE__PARENT;
 
 	/**
-	 * The feature id for the '<em><b>Color Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LABELED_CONTAINER__COLOR_STYLE = FIGURE__COLOR_STYLE;
+	int LABELED_CONTAINER__FOREGROUND_COLOR = FIGURE__FOREGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Size Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LABELED_CONTAINER__SIZE_STYLE = FIGURE__SIZE_STYLE;
+	int LABELED_CONTAINER__BACKGROUND_COLOR = FIGURE__BACKGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Font Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LABELED_CONTAINER__FONT_STYLE = FIGURE__FONT_STYLE;
+	int LABELED_CONTAINER__MAXIMUM_SIZE = FIGURE__MAXIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABELED_CONTAINER__MINIMUM_SIZE = FIGURE__MINIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABELED_CONTAINER__PREFERRED_SIZE = FIGURE__PREFERRED_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABELED_CONTAINER__FONT = FIGURE__FONT;
+
+	/**
+	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABELED_CONTAINER__INSETS = FIGURE__INSETS;
+
+	/**
+	 * The feature id for the '<em><b>Border</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABELED_CONTAINER__BORDER = FIGURE__BORDER;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -1259,7 +1529,7 @@ public interface GMFGraphPackage extends EPackage{
 	int LABELED_CONTAINER__LAYOUT_MANAGER = FIGURE__LAYOUT_MANAGER;
 
 	/**
-	 * The number of structural features of the the '<em>Labeled Container</em>' class.
+	 * The number of structural features of the '<em>Labeled Container</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1305,31 +1575,76 @@ public interface GMFGraphPackage extends EPackage{
 	int RECTANGLE__PARENT = SHAPE__PARENT;
 
 	/**
-	 * The feature id for the '<em><b>Color Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECTANGLE__COLOR_STYLE = SHAPE__COLOR_STYLE;
+	int RECTANGLE__FOREGROUND_COLOR = SHAPE__FOREGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Size Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECTANGLE__SIZE_STYLE = SHAPE__SIZE_STYLE;
+	int RECTANGLE__BACKGROUND_COLOR = SHAPE__BACKGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Font Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RECTANGLE__FONT_STYLE = SHAPE__FONT_STYLE;
+	int RECTANGLE__MAXIMUM_SIZE = SHAPE__MAXIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGLE__MINIMUM_SIZE = SHAPE__MINIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGLE__PREFERRED_SIZE = SHAPE__PREFERRED_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGLE__FONT = SHAPE__FONT;
+
+	/**
+	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGLE__INSETS = SHAPE__INSETS;
+
+	/**
+	 * The feature id for the '<em><b>Border</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGLE__BORDER = SHAPE__BORDER;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -1422,7 +1737,7 @@ public interface GMFGraphPackage extends EPackage{
 	int RECTANGLE__RESOLVED_CHILDREN = SHAPE__RESOLVED_CHILDREN;
 
 	/**
-	 * The number of structural features of the the '<em>Rectangle</em>' class.
+	 * The number of structural features of the '<em>Rectangle</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1468,31 +1783,76 @@ public interface GMFGraphPackage extends EPackage{
 	int ROUNDED_RECTANGLE__PARENT = SHAPE__PARENT;
 
 	/**
-	 * The feature id for the '<em><b>Color Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ROUNDED_RECTANGLE__COLOR_STYLE = SHAPE__COLOR_STYLE;
+	int ROUNDED_RECTANGLE__FOREGROUND_COLOR = SHAPE__FOREGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Size Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ROUNDED_RECTANGLE__SIZE_STYLE = SHAPE__SIZE_STYLE;
+	int ROUNDED_RECTANGLE__BACKGROUND_COLOR = SHAPE__BACKGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Font Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ROUNDED_RECTANGLE__FONT_STYLE = SHAPE__FONT_STYLE;
+	int ROUNDED_RECTANGLE__MAXIMUM_SIZE = SHAPE__MAXIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROUNDED_RECTANGLE__MINIMUM_SIZE = SHAPE__MINIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROUNDED_RECTANGLE__PREFERRED_SIZE = SHAPE__PREFERRED_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROUNDED_RECTANGLE__FONT = SHAPE__FONT;
+
+	/**
+	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROUNDED_RECTANGLE__INSETS = SHAPE__INSETS;
+
+	/**
+	 * The feature id for the '<em><b>Border</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROUNDED_RECTANGLE__BORDER = SHAPE__BORDER;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -1603,7 +1963,7 @@ public interface GMFGraphPackage extends EPackage{
 	int ROUNDED_RECTANGLE__CORNER_HEIGHT = SHAPE_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Rounded Rectangle</em>' class.
+	 * The number of structural features of the '<em>Rounded Rectangle</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1649,31 +2009,76 @@ public interface GMFGraphPackage extends EPackage{
 	int ELLIPSE__PARENT = SHAPE__PARENT;
 
 	/**
-	 * The feature id for the '<em><b>Color Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ELLIPSE__COLOR_STYLE = SHAPE__COLOR_STYLE;
+	int ELLIPSE__FOREGROUND_COLOR = SHAPE__FOREGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Size Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ELLIPSE__SIZE_STYLE = SHAPE__SIZE_STYLE;
+	int ELLIPSE__BACKGROUND_COLOR = SHAPE__BACKGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Font Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ELLIPSE__FONT_STYLE = SHAPE__FONT_STYLE;
+	int ELLIPSE__MAXIMUM_SIZE = SHAPE__MAXIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELLIPSE__MINIMUM_SIZE = SHAPE__MINIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELLIPSE__PREFERRED_SIZE = SHAPE__PREFERRED_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELLIPSE__FONT = SHAPE__FONT;
+
+	/**
+	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELLIPSE__INSETS = SHAPE__INSETS;
+
+	/**
+	 * The feature id for the '<em><b>Border</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELLIPSE__BORDER = SHAPE__BORDER;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -1766,7 +2171,7 @@ public interface GMFGraphPackage extends EPackage{
 	int ELLIPSE__RESOLVED_CHILDREN = SHAPE__RESOLVED_CHILDREN;
 
 	/**
-	 * The number of structural features of the the '<em>Ellipse</em>' class.
+	 * The number of structural features of the '<em>Ellipse</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1812,31 +2217,76 @@ public interface GMFGraphPackage extends EPackage{
 	int POLYLINE__PARENT = SHAPE__PARENT;
 
 	/**
-	 * The feature id for the '<em><b>Color Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POLYLINE__COLOR_STYLE = SHAPE__COLOR_STYLE;
+	int POLYLINE__FOREGROUND_COLOR = SHAPE__FOREGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Size Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POLYLINE__SIZE_STYLE = SHAPE__SIZE_STYLE;
+	int POLYLINE__BACKGROUND_COLOR = SHAPE__BACKGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Font Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POLYLINE__FONT_STYLE = SHAPE__FONT_STYLE;
+	int POLYLINE__MAXIMUM_SIZE = SHAPE__MAXIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE__MINIMUM_SIZE = SHAPE__MINIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE__PREFERRED_SIZE = SHAPE__PREFERRED_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE__FONT = SHAPE__FONT;
+
+	/**
+	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE__INSETS = SHAPE__INSETS;
+
+	/**
+	 * The feature id for the '<em><b>Border</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE__BORDER = SHAPE__BORDER;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -1938,7 +2388,7 @@ public interface GMFGraphPackage extends EPackage{
 	int POLYLINE__TEMPLATE = SHAPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Polyline</em>' class.
+	 * The number of structural features of the '<em>Polyline</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1984,31 +2434,76 @@ public interface GMFGraphPackage extends EPackage{
 	int POLYGON__PARENT = POLYLINE__PARENT;
 
 	/**
-	 * The feature id for the '<em><b>Color Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POLYGON__COLOR_STYLE = POLYLINE__COLOR_STYLE;
+	int POLYGON__FOREGROUND_COLOR = POLYLINE__FOREGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Size Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POLYGON__SIZE_STYLE = POLYLINE__SIZE_STYLE;
+	int POLYGON__BACKGROUND_COLOR = POLYLINE__BACKGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Font Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POLYGON__FONT_STYLE = POLYLINE__FONT_STYLE;
+	int POLYGON__MAXIMUM_SIZE = POLYLINE__MAXIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON__MINIMUM_SIZE = POLYLINE__MINIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON__PREFERRED_SIZE = POLYLINE__PREFERRED_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON__FONT = POLYLINE__FONT;
+
+	/**
+	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON__INSETS = POLYLINE__INSETS;
+
+	/**
+	 * The feature id for the '<em><b>Border</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON__BORDER = POLYLINE__BORDER;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -2110,7 +2605,7 @@ public interface GMFGraphPackage extends EPackage{
 	int POLYGON__TEMPLATE = POLYLINE__TEMPLATE;
 
 	/**
-	 * The number of structural features of the the '<em>Polygon</em>' class.
+	 * The number of structural features of the '<em>Polygon</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2156,31 +2651,76 @@ public interface GMFGraphPackage extends EPackage{
 	int POLYLINE_CONNECTION__PARENT = POLYLINE__PARENT;
 
 	/**
-	 * The feature id for the '<em><b>Color Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POLYLINE_CONNECTION__COLOR_STYLE = POLYLINE__COLOR_STYLE;
+	int POLYLINE_CONNECTION__FOREGROUND_COLOR = POLYLINE__FOREGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Size Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POLYLINE_CONNECTION__SIZE_STYLE = POLYLINE__SIZE_STYLE;
+	int POLYLINE_CONNECTION__BACKGROUND_COLOR = POLYLINE__BACKGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Font Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POLYLINE_CONNECTION__FONT_STYLE = POLYLINE__FONT_STYLE;
+	int POLYLINE_CONNECTION__MAXIMUM_SIZE = POLYLINE__MAXIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_CONNECTION__MINIMUM_SIZE = POLYLINE__MINIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_CONNECTION__PREFERRED_SIZE = POLYLINE__PREFERRED_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_CONNECTION__FONT = POLYLINE__FONT;
+
+	/**
+	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_CONNECTION__INSETS = POLYLINE__INSETS;
+
+	/**
+	 * The feature id for the '<em><b>Border</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_CONNECTION__BORDER = POLYLINE__BORDER;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -2300,7 +2840,7 @@ public interface GMFGraphPackage extends EPackage{
 	int POLYLINE_CONNECTION__TARGET_DECORATION = POLYLINE_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Polyline Connection</em>' class.
+	 * The number of structural features of the '<em>Polyline Connection</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2346,31 +2886,76 @@ public interface GMFGraphPackage extends EPackage{
 	int POLYLINE_DECORATION__PARENT = POLYLINE__PARENT;
 
 	/**
-	 * The feature id for the '<em><b>Color Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POLYLINE_DECORATION__COLOR_STYLE = POLYLINE__COLOR_STYLE;
+	int POLYLINE_DECORATION__FOREGROUND_COLOR = POLYLINE__FOREGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Size Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POLYLINE_DECORATION__SIZE_STYLE = POLYLINE__SIZE_STYLE;
+	int POLYLINE_DECORATION__BACKGROUND_COLOR = POLYLINE__BACKGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Font Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POLYLINE_DECORATION__FONT_STYLE = POLYLINE__FONT_STYLE;
+	int POLYLINE_DECORATION__MAXIMUM_SIZE = POLYLINE__MAXIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_DECORATION__MINIMUM_SIZE = POLYLINE__MINIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_DECORATION__PREFERRED_SIZE = POLYLINE__PREFERRED_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_DECORATION__FONT = POLYLINE__FONT;
+
+	/**
+	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_DECORATION__INSETS = POLYLINE__INSETS;
+
+	/**
+	 * The feature id for the '<em><b>Border</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_DECORATION__BORDER = POLYLINE__BORDER;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -2472,7 +3057,7 @@ public interface GMFGraphPackage extends EPackage{
 	int POLYLINE_DECORATION__TEMPLATE = POLYLINE__TEMPLATE;
 
 	/**
-	 * The number of structural features of the the '<em>Polyline Decoration</em>' class.
+	 * The number of structural features of the '<em>Polyline Decoration</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2518,31 +3103,76 @@ public interface GMFGraphPackage extends EPackage{
 	int POLYGON_DECORATION__PARENT = POLYGON__PARENT;
 
 	/**
-	 * The feature id for the '<em><b>Color Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POLYGON_DECORATION__COLOR_STYLE = POLYGON__COLOR_STYLE;
+	int POLYGON_DECORATION__FOREGROUND_COLOR = POLYGON__FOREGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Size Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POLYGON_DECORATION__SIZE_STYLE = POLYGON__SIZE_STYLE;
+	int POLYGON_DECORATION__BACKGROUND_COLOR = POLYGON__BACKGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Font Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POLYGON_DECORATION__FONT_STYLE = POLYGON__FONT_STYLE;
+	int POLYGON_DECORATION__MAXIMUM_SIZE = POLYGON__MAXIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON_DECORATION__MINIMUM_SIZE = POLYGON__MINIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON_DECORATION__PREFERRED_SIZE = POLYGON__PREFERRED_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON_DECORATION__FONT = POLYGON__FONT;
+
+	/**
+	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON_DECORATION__INSETS = POLYGON__INSETS;
+
+	/**
+	 * The feature id for the '<em><b>Border</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON_DECORATION__BORDER = POLYGON__BORDER;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -2644,13 +3274,50 @@ public interface GMFGraphPackage extends EPackage{
 	int POLYGON_DECORATION__TEMPLATE = POLYGON__TEMPLATE;
 
 	/**
-	 * The number of structural features of the the '<em>Polygon Decoration</em>' class.
+	 * The number of structural features of the '<em>Polygon Decoration</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int POLYGON_DECORATION_FEATURE_COUNT = POLYGON_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.CustomClass <em>Custom Class</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.CustomClass
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomClass()
+	 * @generated
+	 */
+	int CUSTOM_CLASS = 27;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CLASS__QUALIFIED_CLASS_NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Bundle Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CLASS__BUNDLE_NAME = 1;
+
+	/**
+	 * The number of structural features of the '<em>Custom Class</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CLASS_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl <em>Custom Figure</em>}' class.
@@ -2660,7 +3327,7 @@ public interface GMFGraphPackage extends EPackage{
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomFigure()
 	 * @generated
 	 */
-	int CUSTOM_FIGURE = 27;
+	int CUSTOM_FIGURE = 28;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2690,31 +3357,76 @@ public interface GMFGraphPackage extends EPackage{
 	int CUSTOM_FIGURE__PARENT = FIGURE__PARENT;
 
 	/**
-	 * The feature id for the '<em><b>Color Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_FIGURE__COLOR_STYLE = FIGURE__COLOR_STYLE;
+	int CUSTOM_FIGURE__FOREGROUND_COLOR = FIGURE__FOREGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Size Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_FIGURE__SIZE_STYLE = FIGURE__SIZE_STYLE;
+	int CUSTOM_FIGURE__BACKGROUND_COLOR = FIGURE__BACKGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Font Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_FIGURE__FONT_STYLE = FIGURE__FONT_STYLE;
+	int CUSTOM_FIGURE__MAXIMUM_SIZE = FIGURE__MAXIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_FIGURE__MINIMUM_SIZE = FIGURE__MINIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_FIGURE__PREFERRED_SIZE = FIGURE__PREFERRED_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_FIGURE__FONT = FIGURE__FONT;
+
+	/**
+	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_FIGURE__INSETS = FIGURE__INSETS;
+
+	/**
+	 * The feature id for the '<em><b>Border</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_FIGURE__BORDER = FIGURE__BORDER;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -2762,7 +3474,7 @@ public interface GMFGraphPackage extends EPackage{
 	int CUSTOM_FIGURE__BUNDLE_NAME = FIGURE_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the the '<em>Custom Figure</em>' class.
+	 * The number of structural features of the '<em>Custom Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2778,7 +3490,7 @@ public interface GMFGraphPackage extends EPackage{
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomDecoration()
 	 * @generated
 	 */
-	int CUSTOM_DECORATION = 28;
+	int CUSTOM_DECORATION = 29;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2808,31 +3520,76 @@ public interface GMFGraphPackage extends EPackage{
 	int CUSTOM_DECORATION__PARENT = CUSTOM_FIGURE__PARENT;
 
 	/**
-	 * The feature id for the '<em><b>Color Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_DECORATION__COLOR_STYLE = CUSTOM_FIGURE__COLOR_STYLE;
+	int CUSTOM_DECORATION__FOREGROUND_COLOR = CUSTOM_FIGURE__FOREGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Size Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_DECORATION__SIZE_STYLE = CUSTOM_FIGURE__SIZE_STYLE;
+	int CUSTOM_DECORATION__BACKGROUND_COLOR = CUSTOM_FIGURE__BACKGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Font Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_DECORATION__FONT_STYLE = CUSTOM_FIGURE__FONT_STYLE;
+	int CUSTOM_DECORATION__MAXIMUM_SIZE = CUSTOM_FIGURE__MAXIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_DECORATION__MINIMUM_SIZE = CUSTOM_FIGURE__MINIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_DECORATION__PREFERRED_SIZE = CUSTOM_FIGURE__PREFERRED_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_DECORATION__FONT = CUSTOM_FIGURE__FONT;
+
+	/**
+	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_DECORATION__INSETS = CUSTOM_FIGURE__INSETS;
+
+	/**
+	 * The feature id for the '<em><b>Border</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_DECORATION__BORDER = CUSTOM_FIGURE__BORDER;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -2880,7 +3637,7 @@ public interface GMFGraphPackage extends EPackage{
 	int CUSTOM_DECORATION__BUNDLE_NAME = CUSTOM_FIGURE__BUNDLE_NAME;
 
 	/**
-	 * The number of structural features of the the '<em>Custom Decoration</em>' class.
+	 * The number of structural features of the '<em>Custom Decoration</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2896,7 +3653,7 @@ public interface GMFGraphPackage extends EPackage{
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomConnection()
 	 * @generated
 	 */
-	int CUSTOM_CONNECTION = 29;
+	int CUSTOM_CONNECTION = 30;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2926,31 +3683,76 @@ public interface GMFGraphPackage extends EPackage{
 	int CUSTOM_CONNECTION__PARENT = CUSTOM_FIGURE__PARENT;
 
 	/**
-	 * The feature id for the '<em><b>Color Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_CONNECTION__COLOR_STYLE = CUSTOM_FIGURE__COLOR_STYLE;
+	int CUSTOM_CONNECTION__FOREGROUND_COLOR = CUSTOM_FIGURE__FOREGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Size Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_CONNECTION__SIZE_STYLE = CUSTOM_FIGURE__SIZE_STYLE;
+	int CUSTOM_CONNECTION__BACKGROUND_COLOR = CUSTOM_FIGURE__BACKGROUND_COLOR;
 
 	/**
-	 * The feature id for the '<em><b>Font Style</b></em>' containment reference.
+	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_CONNECTION__FONT_STYLE = CUSTOM_FIGURE__FONT_STYLE;
+	int CUSTOM_CONNECTION__MAXIMUM_SIZE = CUSTOM_FIGURE__MAXIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CONNECTION__MINIMUM_SIZE = CUSTOM_FIGURE__MINIMUM_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CONNECTION__PREFERRED_SIZE = CUSTOM_FIGURE__PREFERRED_SIZE;
+
+	/**
+	 * The feature id for the '<em><b>Font</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CONNECTION__FONT = CUSTOM_FIGURE__FONT;
+
+	/**
+	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CONNECTION__INSETS = CUSTOM_FIGURE__INSETS;
+
+	/**
+	 * The feature id for the '<em><b>Border</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CONNECTION__BORDER = CUSTOM_FIGURE__BORDER;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -2998,7 +3800,7 @@ public interface GMFGraphPackage extends EPackage{
 	int CUSTOM_CONNECTION__BUNDLE_NAME = CUSTOM_FIGURE__BUNDLE_NAME;
 
 	/**
-	 * The number of structural features of the the '<em>Custom Connection</em>' class.
+	 * The number of structural features of the '<em>Custom Connection</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3007,97 +3809,126 @@ public interface GMFGraphPackage extends EPackage{
 	int CUSTOM_CONNECTION_FEATURE_COUNT = CUSTOM_FIGURE_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.ColorStyleImpl <em>Color Style</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Color <em>Color</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.gmfgraph.impl.ColorStyleImpl
-	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getColorStyle()
+	 * @see org.eclipse.gmf.gmfgraph.Color
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getColor()
 	 * @generated
 	 */
-	int COLOR_STYLE = 30;
+	int COLOR = 31;
 
 	/**
-	 * The feature id for the '<em><b>Foreground Color</b></em>' attribute.
+	 * The number of structural features of the '<em>Color</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLOR_STYLE__FOREGROUND_COLOR = 0;
+	int COLOR_FEATURE_COUNT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Background Color</b></em>' attribute.
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.RGBColorImpl <em>RGB Color</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.RGBColorImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getRGBColor()
+	 * @generated
+	 */
+	int RGB_COLOR = 32;
+
+	/**
+	 * The feature id for the '<em><b>Red</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLOR_STYLE__BACKGROUND_COLOR = 1;
+	int RGB_COLOR__RED = COLOR_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Color Style</em>' class.
+	 * The feature id for the '<em><b>Green</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLOR_STYLE_FEATURE_COUNT = 2;
+	int RGB_COLOR__GREEN = COLOR_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.SizeStyleImpl <em>Size Style</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.gmfgraph.impl.SizeStyleImpl
-	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getSizeStyle()
-	 * @generated
-	 */
-	int SIZE_STYLE = 31;
-
-	/**
-	 * The feature id for the '<em><b>Max Size</b></em>' containment reference.
+	 * The feature id for the '<em><b>Blue</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SIZE_STYLE__MAX_SIZE = 0;
+	int RGB_COLOR__BLUE = COLOR_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Min Size</b></em>' containment reference.
+	 * The number of structural features of the '<em>RGB Color</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SIZE_STYLE__MIN_SIZE = 1;
+	int RGB_COLOR_FEATURE_COUNT = COLOR_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Pref Size</b></em>' containment reference.
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.ConstantColorImpl <em>Constant Color</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.ConstantColorImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getConstantColor()
+	 * @generated
+	 */
+	int CONSTANT_COLOR = 33;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SIZE_STYLE__PREF_SIZE = 2;
+	int CONSTANT_COLOR__VALUE = COLOR_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Size Style</em>' class.
+	 * The number of structural features of the '<em>Constant Color</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SIZE_STYLE_FEATURE_COUNT = 3;
+	int CONSTANT_COLOR_FEATURE_COUNT = COLOR_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.FontStyleImpl <em>Font Style</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Font <em>Font</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.gmfgraph.impl.FontStyleImpl
-	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getFontStyle()
+	 * @see org.eclipse.gmf.gmfgraph.Font
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getFont()
 	 * @generated
 	 */
-	int FONT_STYLE = 32;
+	int FONT = 34;
+
+	/**
+	 * The number of structural features of the '<em>Font</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FONT_FEATURE_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.BasicFontImpl <em>Basic Font</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.BasicFontImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getBasicFont()
+	 * @generated
+	 */
+	int BASIC_FONT = 35;
 
 	/**
 	 * The feature id for the '<em><b>Face Name</b></em>' attribute.
@@ -3106,16 +3937,44 @@ public interface GMFGraphPackage extends EPackage{
 	 * @generated
 	 * @ordered
 	 */
-	int FONT_STYLE__FACE_NAME = 0;
+	int BASIC_FONT__FACE_NAME = 0;
 
 	/**
-	 * The number of structural features of the the '<em>Font Style</em>' class.
+	 * The feature id for the '<em><b>Height</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FONT_STYLE_FEATURE_COUNT = 1;
+	int BASIC_FONT__HEIGHT = 1;
+
+	/**
+	 * The feature id for the '<em><b>Style</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BASIC_FONT__STYLE = 2;
+
+	/**
+	 * The number of structural features of the '<em>Basic Font</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BASIC_FONT_FEATURE_COUNT = 3;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.FontStyle <em>Font Style</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.FontStyle
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getFontStyle()
+	 * @generated
+	 */
+	int FONT_STYLE = 45;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.PointImpl <em>Point</em>}' class.
@@ -3125,7 +3984,7 @@ public interface GMFGraphPackage extends EPackage{
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getPoint()
 	 * @generated
 	 */
-	int POINT = 33;
+	int POINT = 36;
 
 	/**
 	 * The feature id for the '<em><b>X</b></em>' attribute.
@@ -3146,13 +4005,273 @@ public interface GMFGraphPackage extends EPackage{
 	int POINT__Y = 1;
 
 	/**
-	 * The number of structural features of the the '<em>Point</em>' class.
+	 * The number of structural features of the '<em>Point</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int POINT_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.DimensionImpl <em>Dimension</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.DimensionImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getDimension()
+	 * @generated
+	 */
+	int DIMENSION = 37;
+
+	/**
+	 * The feature id for the '<em><b>Dx</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIMENSION__DX = 0;
+
+	/**
+	 * The feature id for the '<em><b>Dy</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIMENSION__DY = 1;
+
+	/**
+	 * The number of structural features of the '<em>Dimension</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIMENSION_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.InsetsImpl <em>Insets</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.InsetsImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getInsets()
+	 * @generated
+	 */
+	int INSETS = 38;
+
+	/**
+	 * The feature id for the '<em><b>Top</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSETS__TOP = 0;
+
+	/**
+	 * The feature id for the '<em><b>Left</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSETS__LEFT = 1;
+
+	/**
+	 * The feature id for the '<em><b>Bottom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSETS__BOTTOM = 2;
+
+	/**
+	 * The feature id for the '<em><b>Right</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSETS__RIGHT = 3;
+
+	/**
+	 * The number of structural features of the '<em>Insets</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSETS_FEATURE_COUNT = 4;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Border <em>Border</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.Border
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getBorder()
+	 * @generated
+	 */
+	int BORDER = 39;
+
+	/**
+	 * The number of structural features of the '<em>Border</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BORDER_FEATURE_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.LineBorderImpl <em>Line Border</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.LineBorderImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLineBorder()
+	 * @generated
+	 */
+	int LINE_BORDER = 40;
+
+	/**
+	 * The feature id for the '<em><b>Color</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINE_BORDER__COLOR = BORDER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Width</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINE_BORDER__WIDTH = BORDER_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Line Border</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINE_BORDER_FEATURE_COUNT = BORDER_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.MarginBorderImpl <em>Margin Border</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.MarginBorderImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getMarginBorder()
+	 * @generated
+	 */
+	int MARGIN_BORDER = 41;
+
+	/**
+	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MARGIN_BORDER__INSETS = BORDER_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Margin Border</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MARGIN_BORDER_FEATURE_COUNT = BORDER_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.CompoundBorderImpl <em>Compound Border</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.CompoundBorderImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCompoundBorder()
+	 * @generated
+	 */
+	int COMPOUND_BORDER = 42;
+
+	/**
+	 * The feature id for the '<em><b>Outer</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOUND_BORDER__OUTER = BORDER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Inner</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOUND_BORDER__INNER = BORDER_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Compound Border</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOUND_BORDER_FEATURE_COUNT = BORDER_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.CustomBorderImpl <em>Custom Border</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.CustomBorderImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomBorder()
+	 * @generated
+	 */
+	int CUSTOM_BORDER = 43;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_BORDER__QUALIFIED_CLASS_NAME = BORDER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Bundle Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_BORDER__BUNDLE_NAME = BORDER_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Custom Border</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_BORDER_FEATURE_COUNT = BORDER_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.ColorConstants <em>Color Constants</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.ColorConstants
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getColorConstants()
+	 * @generated
+	 */
+	int COLOR_CONSTANTS = 44;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Direction <em>Direction</em>}' enum.
@@ -3162,7 +4281,7 @@ public interface GMFGraphPackage extends EPackage{
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getDirection()
 	 * @generated
 	 */
-	int DIRECTION = 34;
+	int DIRECTION = 46;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.LineKind <em>Line Kind</em>}' enum.
@@ -3172,7 +4291,7 @@ public interface GMFGraphPackage extends EPackage{
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLineKind()
 	 * @generated
 	 */
-	int LINE_KIND = 35;
+	int LINE_KIND = 47;
 
 
 	/**
@@ -3504,37 +4623,92 @@ public interface GMFGraphPackage extends EPackage{
 	EReference getFigure_Parent();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.Figure#getColorStyle <em>Color Style</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.Figure#getForegroundColor <em>Foreground Color</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Color Style</em>'.
-	 * @see org.eclipse.gmf.gmfgraph.Figure#getColorStyle()
+	 * @return the meta object for the containment reference '<em>Foreground Color</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Figure#getForegroundColor()
 	 * @see #getFigure()
 	 * @generated
 	 */
-	EReference getFigure_ColorStyle();
+	EReference getFigure_ForegroundColor();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.Figure#getSizeStyle <em>Size Style</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.Figure#getBackgroundColor <em>Background Color</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Size Style</em>'.
-	 * @see org.eclipse.gmf.gmfgraph.Figure#getSizeStyle()
+	 * @return the meta object for the containment reference '<em>Background Color</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Figure#getBackgroundColor()
 	 * @see #getFigure()
 	 * @generated
 	 */
-	EReference getFigure_SizeStyle();
+	EReference getFigure_BackgroundColor();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.Figure#getFontStyle <em>Font Style</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.Figure#getMaximumSize <em>Maximum Size</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Font Style</em>'.
-	 * @see org.eclipse.gmf.gmfgraph.Figure#getFontStyle()
+	 * @return the meta object for the containment reference '<em>Maximum Size</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Figure#getMaximumSize()
 	 * @see #getFigure()
 	 * @generated
 	 */
-	EReference getFigure_FontStyle();
+	EReference getFigure_MaximumSize();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.Figure#getMinimumSize <em>Minimum Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Minimum Size</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Figure#getMinimumSize()
+	 * @see #getFigure()
+	 * @generated
+	 */
+	EReference getFigure_MinimumSize();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.Figure#getPreferredSize <em>Preferred Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Preferred Size</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Figure#getPreferredSize()
+	 * @see #getFigure()
+	 * @generated
+	 */
+	EReference getFigure_PreferredSize();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.Figure#getFont <em>Font</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Font</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Figure#getFont()
+	 * @see #getFigure()
+	 * @generated
+	 */
+	EReference getFigure_Font();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.Figure#getInsets <em>Insets</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Insets</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Figure#getInsets()
+	 * @see #getFigure()
+	 * @generated
+	 */
+	EReference getFigure_Insets();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.Figure#getBorder <em>Border</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Border</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Figure#getBorder()
+	 * @see #getFigure()
+	 * @generated
+	 */
+	EReference getFigure_Border();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.Figure#getLocation <em>Location</em>}'.
@@ -3864,6 +5038,38 @@ public interface GMFGraphPackage extends EPackage{
 	EClass getPolygonDecoration();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.CustomClass <em>Custom Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Custom Class</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.CustomClass
+	 * @generated
+	 */
+	EClass getCustomClass();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.CustomClass#getQualifiedClassName <em>Qualified Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Qualified Class Name</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.CustomClass#getQualifiedClassName()
+	 * @see #getCustomClass()
+	 * @generated
+	 */
+	EAttribute getCustomClass_QualifiedClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.CustomClass#getBundleName <em>Bundle Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Bundle Name</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.CustomClass#getBundleName()
+	 * @see #getCustomClass()
+	 * @generated
+	 */
+	EAttribute getCustomClass_BundleName();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.CustomFigure <em>Custom Figure</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3872,28 +5078,6 @@ public interface GMFGraphPackage extends EPackage{
 	 * @generated
 	 */
 	EClass getCustomFigure();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.CustomFigure#getQualifiedClassName <em>Qualified Class Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Qualified Class Name</em>'.
-	 * @see org.eclipse.gmf.gmfgraph.CustomFigure#getQualifiedClassName()
-	 * @see #getCustomFigure()
-	 * @generated
-	 */
-	EAttribute getCustomFigure_QualifiedClassName();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.CustomFigure#getBundleName <em>Bundle Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Bundle Name</em>'.
-	 * @see org.eclipse.gmf.gmfgraph.CustomFigure#getBundleName()
-	 * @see #getCustomFigure()
-	 * @generated
-	 */
-	EAttribute getCustomFigure_BundleName();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.CustomDecoration <em>Custom Decoration</em>}'.
@@ -3916,100 +5100,141 @@ public interface GMFGraphPackage extends EPackage{
 	EClass getCustomConnection();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.ColorStyle <em>Color Style</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.Color <em>Color</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Color Style</em>'.
-	 * @see org.eclipse.gmf.gmfgraph.ColorStyle
+	 * @return the meta object for class '<em>Color</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Color
 	 * @generated
 	 */
-	EClass getColorStyle();
+	EClass getColor();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.ColorStyle#getForegroundColor <em>Foreground Color</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.RGBColor <em>RGB Color</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Foreground Color</em>'.
-	 * @see org.eclipse.gmf.gmfgraph.ColorStyle#getForegroundColor()
-	 * @see #getColorStyle()
+	 * @return the meta object for class '<em>RGB Color</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.RGBColor
 	 * @generated
 	 */
-	EAttribute getColorStyle_ForegroundColor();
+	EClass getRGBColor();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.ColorStyle#getBackgroundColor <em>Background Color</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.RGBColor#getRed <em>Red</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Background Color</em>'.
-	 * @see org.eclipse.gmf.gmfgraph.ColorStyle#getBackgroundColor()
-	 * @see #getColorStyle()
+	 * @return the meta object for the attribute '<em>Red</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.RGBColor#getRed()
+	 * @see #getRGBColor()
 	 * @generated
 	 */
-	EAttribute getColorStyle_BackgroundColor();
+	EAttribute getRGBColor_Red();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.SizeStyle <em>Size Style</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.RGBColor#getGreen <em>Green</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Size Style</em>'.
-	 * @see org.eclipse.gmf.gmfgraph.SizeStyle
+	 * @return the meta object for the attribute '<em>Green</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.RGBColor#getGreen()
+	 * @see #getRGBColor()
 	 * @generated
 	 */
-	EClass getSizeStyle();
+	EAttribute getRGBColor_Green();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.SizeStyle#getMaxSize <em>Max Size</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.RGBColor#getBlue <em>Blue</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Max Size</em>'.
-	 * @see org.eclipse.gmf.gmfgraph.SizeStyle#getMaxSize()
-	 * @see #getSizeStyle()
+	 * @return the meta object for the attribute '<em>Blue</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.RGBColor#getBlue()
+	 * @see #getRGBColor()
 	 * @generated
 	 */
-	EReference getSizeStyle_MaxSize();
+	EAttribute getRGBColor_Blue();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.SizeStyle#getMinSize <em>Min Size</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.ConstantColor <em>Constant Color</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Min Size</em>'.
-	 * @see org.eclipse.gmf.gmfgraph.SizeStyle#getMinSize()
-	 * @see #getSizeStyle()
+	 * @return the meta object for class '<em>Constant Color</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.ConstantColor
 	 * @generated
 	 */
-	EReference getSizeStyle_MinSize();
+	EClass getConstantColor();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.SizeStyle#getPrefSize <em>Pref Size</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.ConstantColor#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Pref Size</em>'.
-	 * @see org.eclipse.gmf.gmfgraph.SizeStyle#getPrefSize()
-	 * @see #getSizeStyle()
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.ConstantColor#getValue()
+	 * @see #getConstantColor()
 	 * @generated
 	 */
-	EReference getSizeStyle_PrefSize();
+	EAttribute getConstantColor_Value();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.FontStyle <em>Font Style</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.Font <em>Font</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Font Style</em>'.
-	 * @see org.eclipse.gmf.gmfgraph.FontStyle
+	 * @return the meta object for class '<em>Font</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Font
 	 * @generated
 	 */
-	EClass getFontStyle();
+	EClass getFont();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.FontStyle#getFaceName <em>Face Name</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.BasicFont <em>Basic Font</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Basic Font</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.BasicFont
+	 * @generated
+	 */
+	EClass getBasicFont();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.BasicFont#getFaceName <em>Face Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Face Name</em>'.
-	 * @see org.eclipse.gmf.gmfgraph.FontStyle#getFaceName()
-	 * @see #getFontStyle()
+	 * @see org.eclipse.gmf.gmfgraph.BasicFont#getFaceName()
+	 * @see #getBasicFont()
 	 * @generated
 	 */
-	EAttribute getFontStyle_FaceName();
+	EAttribute getBasicFont_FaceName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.BasicFont#getHeight <em>Height</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Height</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.BasicFont#getHeight()
+	 * @see #getBasicFont()
+	 * @generated
+	 */
+	EAttribute getBasicFont_Height();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.BasicFont#getStyle <em>Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Style</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.BasicFont#getStyle()
+	 * @see #getBasicFont()
+	 * @generated
+	 */
+	EAttribute getBasicFont_Style();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.gmf.gmfgraph.FontStyle <em>Font Style</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Font Style</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.FontStyle
+	 * @generated
+	 */
+	EEnum getFontStyle();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.Point <em>Point</em>}'.
@@ -4042,6 +5267,207 @@ public interface GMFGraphPackage extends EPackage{
 	 * @generated
 	 */
 	EAttribute getPoint_Y();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.Dimension <em>Dimension</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Dimension</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Dimension
+	 * @generated
+	 */
+	EClass getDimension();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.Dimension#getDx <em>Dx</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Dx</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Dimension#getDx()
+	 * @see #getDimension()
+	 * @generated
+	 */
+	EAttribute getDimension_Dx();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.Dimension#getDy <em>Dy</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Dy</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Dimension#getDy()
+	 * @see #getDimension()
+	 * @generated
+	 */
+	EAttribute getDimension_Dy();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.Insets <em>Insets</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Insets</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Insets
+	 * @generated
+	 */
+	EClass getInsets();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.Insets#getTop <em>Top</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Top</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Insets#getTop()
+	 * @see #getInsets()
+	 * @generated
+	 */
+	EAttribute getInsets_Top();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.Insets#getLeft <em>Left</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Left</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Insets#getLeft()
+	 * @see #getInsets()
+	 * @generated
+	 */
+	EAttribute getInsets_Left();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.Insets#getBottom <em>Bottom</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Bottom</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Insets#getBottom()
+	 * @see #getInsets()
+	 * @generated
+	 */
+	EAttribute getInsets_Bottom();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.Insets#getRight <em>Right</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Right</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Insets#getRight()
+	 * @see #getInsets()
+	 * @generated
+	 */
+	EAttribute getInsets_Right();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.Border <em>Border</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Border</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Border
+	 * @generated
+	 */
+	EClass getBorder();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.LineBorder <em>Line Border</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Line Border</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.LineBorder
+	 * @generated
+	 */
+	EClass getLineBorder();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.LineBorder#getColor <em>Color</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Color</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.LineBorder#getColor()
+	 * @see #getLineBorder()
+	 * @generated
+	 */
+	EReference getLineBorder_Color();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.LineBorder#getWidth <em>Width</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Width</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.LineBorder#getWidth()
+	 * @see #getLineBorder()
+	 * @generated
+	 */
+	EAttribute getLineBorder_Width();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.MarginBorder <em>Margin Border</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Margin Border</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.MarginBorder
+	 * @generated
+	 */
+	EClass getMarginBorder();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.MarginBorder#getInsets <em>Insets</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Insets</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.MarginBorder#getInsets()
+	 * @see #getMarginBorder()
+	 * @generated
+	 */
+	EReference getMarginBorder_Insets();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.CompoundBorder <em>Compound Border</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Compound Border</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.CompoundBorder
+	 * @generated
+	 */
+	EClass getCompoundBorder();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.CompoundBorder#getOuter <em>Outer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Outer</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.CompoundBorder#getOuter()
+	 * @see #getCompoundBorder()
+	 * @generated
+	 */
+	EReference getCompoundBorder_Outer();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.CompoundBorder#getInner <em>Inner</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Inner</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.CompoundBorder#getInner()
+	 * @see #getCompoundBorder()
+	 * @generated
+	 */
+	EReference getCompoundBorder_Inner();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.CustomBorder <em>Custom Border</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Custom Border</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.CustomBorder
+	 * @generated
+	 */
+	EClass getCustomBorder();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.gmf.gmfgraph.ColorConstants <em>Color Constants</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Color Constants</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.ColorConstants
+	 * @generated
+	 */
+	EEnum getColorConstants();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.gmfgraph.Direction <em>Direction</em>}'.

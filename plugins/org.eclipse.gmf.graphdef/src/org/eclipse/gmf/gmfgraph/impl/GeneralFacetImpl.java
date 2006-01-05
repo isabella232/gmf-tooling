@@ -8,7 +8,6 @@ package org.eclipse.gmf.gmfgraph.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
@@ -134,14 +133,14 @@ public class GeneralFacetImpl extends EObjectImpl implements GeneralFacet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGraphPackage.GENERAL_FACET__IDENTIFIER:
 				return getIdentifier();
 			case GMFGraphPackage.GENERAL_FACET__DATA:
 				return getData();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -149,8 +148,8 @@ public class GeneralFacetImpl extends EObjectImpl implements GeneralFacet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGraphPackage.GENERAL_FACET__IDENTIFIER:
 				setIdentifier((String)newValue);
 				return;
@@ -158,7 +157,7 @@ public class GeneralFacetImpl extends EObjectImpl implements GeneralFacet {
 				setData((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -166,8 +165,8 @@ public class GeneralFacetImpl extends EObjectImpl implements GeneralFacet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGraphPackage.GENERAL_FACET__IDENTIFIER:
 				setIdentifier(IDENTIFIER_EDEFAULT);
 				return;
@@ -175,7 +174,7 @@ public class GeneralFacetImpl extends EObjectImpl implements GeneralFacet {
 				setData(DATA_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -183,14 +182,14 @@ public class GeneralFacetImpl extends EObjectImpl implements GeneralFacet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGraphPackage.GENERAL_FACET__IDENTIFIER:
 				return IDENTIFIER_EDEFAULT == null ? identifier != null : !IDENTIFIER_EDEFAULT.equals(identifier);
 			case GMFGraphPackage.GENERAL_FACET__DATA:
 				return DATA_EDEFAULT == null ? data != null : !DATA_EDEFAULT.equals(data);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

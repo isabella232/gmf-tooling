@@ -123,7 +123,7 @@ public final class LineKind extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final LineKind LINE_SOLID_LITERAL = new LineKind(LINE_SOLID, "LINE_SOLID");
+	public static final LineKind LINE_SOLID_LITERAL = new LineKind(LINE_SOLID, "LINE_SOLID", "LINE_SOLID");
 
 	/**
 	 * The '<em><b>LINE DASH</b></em>' literal object.
@@ -133,7 +133,7 @@ public final class LineKind extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final LineKind LINE_DASH_LITERAL = new LineKind(LINE_DASH, "LINE_DASH");
+	public static final LineKind LINE_DASH_LITERAL = new LineKind(LINE_DASH, "LINE_DASH", "LINE_DASH");
 
 	/**
 	 * The '<em><b>LINE DOT</b></em>' literal object.
@@ -143,7 +143,7 @@ public final class LineKind extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final LineKind LINE_DOT_LITERAL = new LineKind(LINE_DOT, "LINE_DOT");
+	public static final LineKind LINE_DOT_LITERAL = new LineKind(LINE_DOT, "LINE_DOT", "LINE_DOT");
 
 	/**
 	 * The '<em><b>LINE DASHDOT</b></em>' literal object.
@@ -153,7 +153,7 @@ public final class LineKind extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final LineKind LINE_DASHDOT_LITERAL = new LineKind(LINE_DASHDOT, "LINE_DASHDOT");
+	public static final LineKind LINE_DASHDOT_LITERAL = new LineKind(LINE_DASHDOT, "LINE_DASHDOT", "LINE_DASHDOT");
 
 	/**
 	 * The '<em><b>LINE DASHDOTDOT</b></em>' literal object.
@@ -163,7 +163,7 @@ public final class LineKind extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final LineKind LINE_DASHDOTDOT_LITERAL = new LineKind(LINE_DASHDOTDOT, "LINE_DASHDOTDOT");
+	public static final LineKind LINE_DASHDOTDOT_LITERAL = new LineKind(LINE_DASHDOTDOT, "LINE_DASHDOTDOT", "LINE_DASHDOTDOT");
 
 	/**
 	 * The '<em><b>LINE CUSTOM</b></em>' literal object.
@@ -173,7 +173,7 @@ public final class LineKind extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final LineKind LINE_CUSTOM_LITERAL = new LineKind(LINE_CUSTOM, "LINE_CUSTOM");
+	public static final LineKind LINE_CUSTOM_LITERAL = new LineKind(LINE_CUSTOM, "LINE_CUSTOM", "LINE_CUSTOM");
 
 	/**
 	 * An array of all the '<em><b>Line Kind</b></em>' enumerators.
@@ -200,15 +200,15 @@ public final class LineKind extends AbstractEnumerator {
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Line Kind</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Line Kind</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static LineKind get(String name) {
+	public static LineKind get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			LineKind result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -216,7 +216,23 @@ public final class LineKind extends AbstractEnumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Line Kind</b></em>' literal with the specified value.
+	 * Returns the '<em><b>Line Kind</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static LineKind getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			LineKind result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Line Kind</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -239,8 +255,8 @@ public final class LineKind extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private LineKind(int value, String name) {
-		super(value, name);
+	private LineKind(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //LineKind

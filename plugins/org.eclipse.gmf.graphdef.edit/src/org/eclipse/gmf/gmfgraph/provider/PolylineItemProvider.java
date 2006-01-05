@@ -145,6 +145,11 @@ public class PolylineItemProvider
 		Object childObject = child;
 
 		boolean qualify =
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_MaximumSize() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_MinimumSize() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_PreferredSize() ||
 			childFeature == GMFGraphPackage.eINSTANCE.getFigure_Location() ||
 			childFeature == GMFGraphPackage.eINSTANCE.getFigure_Size() ||
 			childFeature == GMFGraphPackage.eINSTANCE.getPolyline_Template();

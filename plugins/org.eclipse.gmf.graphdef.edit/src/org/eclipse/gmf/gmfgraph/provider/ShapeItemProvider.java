@@ -266,9 +266,14 @@ public class ShapeItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Children());
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_ColorStyle());
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_SizeStyle());
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_FontStyle());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_MaximumSize());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_MinimumSize());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_PreferredSize());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Font());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Insets());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Border());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Location());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Size());
 		}
@@ -322,9 +327,14 @@ public class ShapeItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGraphPackage.SHAPE__CHILDREN:
-			case GMFGraphPackage.SHAPE__COLOR_STYLE:
-			case GMFGraphPackage.SHAPE__SIZE_STYLE:
-			case GMFGraphPackage.SHAPE__FONT_STYLE:
+			case GMFGraphPackage.SHAPE__FOREGROUND_COLOR:
+			case GMFGraphPackage.SHAPE__BACKGROUND_COLOR:
+			case GMFGraphPackage.SHAPE__MAXIMUM_SIZE:
+			case GMFGraphPackage.SHAPE__MINIMUM_SIZE:
+			case GMFGraphPackage.SHAPE__PREFERRED_SIZE:
+			case GMFGraphPackage.SHAPE__FONT:
+			case GMFGraphPackage.SHAPE__INSETS:
+			case GMFGraphPackage.SHAPE__BORDER:
 			case GMFGraphPackage.SHAPE__LOCATION:
 			case GMFGraphPackage.SHAPE__SIZE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -415,18 +425,63 @@ public class ShapeItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_ColorStyle(),
-				 GMFGraphFactory.eINSTANCE.createColorStyle()));
+				(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor(),
+				 GMFGraphFactory.eINSTANCE.createRGBColor()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_SizeStyle(),
-				 GMFGraphFactory.eINSTANCE.createSizeStyle()));
+				(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor(),
+				 GMFGraphFactory.eINSTANCE.createConstantColor()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getFigure_FontStyle(),
-				 GMFGraphFactory.eINSTANCE.createFontStyle()));
+				(GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor(),
+				 GMFGraphFactory.eINSTANCE.createRGBColor()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor(),
+				 GMFGraphFactory.eINSTANCE.createConstantColor()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigure_MaximumSize(),
+				 GMFGraphFactory.eINSTANCE.createDimension()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigure_MinimumSize(),
+				 GMFGraphFactory.eINSTANCE.createDimension()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigure_PreferredSize(),
+				 GMFGraphFactory.eINSTANCE.createDimension()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigure_Insets(),
+				 GMFGraphFactory.eINSTANCE.createInsets()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigure_Border(),
+				 GMFGraphFactory.eINSTANCE.createLineBorder()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigure_Border(),
+				 GMFGraphFactory.eINSTANCE.createMarginBorder()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigure_Border(),
+				 GMFGraphFactory.eINSTANCE.createCompoundBorder()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigure_Border(),
+				 GMFGraphFactory.eINSTANCE.createCustomBorder()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -450,6 +505,11 @@ public class ShapeItemProvider
 		Object childObject = child;
 
 		boolean qualify =
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_MaximumSize() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_MinimumSize() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_PreferredSize() ||
 			childFeature == GMFGraphPackage.eINSTANCE.getFigure_Location() ||
 			childFeature == GMFGraphPackage.eINSTANCE.getFigure_Size();
 

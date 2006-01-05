@@ -35,7 +35,7 @@ import org.eclipse.emf.common.util.EList;
  * @model abstract="true"
  * @generated
  */
-public interface Shape extends Figure{
+public interface Shape extends Figure {
 	/**
 	 * Returns the value of the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -205,6 +205,9 @@ public interface Shape extends Figure{
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Same as children, but resolves child FigureRefs, if any, to Figures
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Resolved Children</em>' reference list.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getShape_ResolvedChildren()
 	 * @model type="org.eclipse.gmf.gmfgraph.Figure" transient="true" changeable="false" volatile="true" derived="true"

@@ -6,7 +6,29 @@
     redirection="" modelName="GMFGraph" importerID="org.eclipse.emf.importer.ecore">
   <foreignModel>gmfgraph.ecore</foreignModel>
   <genPackages prefix="GMFGraph" basePackage="org.eclipse.gmf" disposableProviderFactory="true"
-      ecorePackage="gmfgraph.ecore#/">
+      literalsInterface="false" ecorePackage="gmfgraph.ecore#/">
+    <genEnums ecoreEnum="gmfgraph.ecore#//ColorConstants">
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//ColorConstants/white"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//ColorConstants/black"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//ColorConstants/lightGray"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//ColorConstants/gray"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//ColorConstants/darkGray"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//ColorConstants/red"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//ColorConstants/orange"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//ColorConstants/yellow"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//ColorConstants/green"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//ColorConstants/lightGreen"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//ColorConstants/darkGreen"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//ColorConstants/cyan"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//ColorConstants/lightBlue"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//ColorConstants/blue"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//ColorConstants/darkBlue"/>
+    </genEnums>
+    <genEnums ecoreEnum="gmfgraph.ecore#//FontStyle">
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//FontStyle/NORMAL"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//FontStyle/BOLD"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//FontStyle/ITALIC"/>
+    </genEnums>
     <genEnums ecoreEnum="gmfgraph.ecore#//Direction">
       <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/NONE"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgraph.ecore#//Direction/NORTH"/>
@@ -67,9 +89,14 @@
     <genClasses ecoreClass="gmfgraph.ecore#//Figure">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/children"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/parent"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/colorStyle"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/sizeStyle"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/fontStyle"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/foregroundColor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/backgroundColor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/maximumSize"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/minimumSize"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/preferredSize"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/font"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/insets"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/border"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/location"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/size"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Figure/layoutManager"/>
@@ -108,27 +135,54 @@
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//PolylineDecoration"/>
     <genClasses ecoreClass="gmfgraph.ecore#//PolygonDecoration"/>
-    <genClasses ecoreClass="gmfgraph.ecore#//CustomFigure">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//CustomFigure/qualifiedClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//CustomFigure/bundleName"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//CustomClass">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//CustomClass/qualifiedClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//CustomClass/bundleName"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//CustomFigure"/>
     <genClasses ecoreClass="gmfgraph.ecore#//CustomDecoration"/>
     <genClasses ecoreClass="gmfgraph.ecore#//CustomConnection"/>
-    <genClasses ecoreClass="gmfgraph.ecore#//ColorStyle">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//ColorStyle/foregroundColor"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//ColorStyle/backgroundColor"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//Color"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//RGBColor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//RGBColor/red"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//RGBColor/green"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//RGBColor/blue"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgraph.ecore#//SizeStyle">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//SizeStyle/maxSize"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//SizeStyle/minSize"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//SizeStyle/prefSize"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//ConstantColor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//ConstantColor/value"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgraph.ecore#//FontStyle">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//FontStyle/faceName"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//Font"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//BasicFont">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//BasicFont/faceName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//BasicFont/height"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//BasicFont/style"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//Point">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Point/x"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Point/y"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//Dimension">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Dimension/dx"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Dimension/dy"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//Insets">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Insets/top"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Insets/left"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Insets/bottom"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Insets/right"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//Border"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//LineBorder">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//LineBorder/color"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//LineBorder/width"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//MarginBorder">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//MarginBorder/insets"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//CompoundBorder">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//CompoundBorder/outer"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//CompoundBorder/inner"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//CustomBorder"/>
   </genPackages>
 </genmodel:GenModel>

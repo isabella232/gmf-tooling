@@ -12,32 +12,44 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.gmf.gmfgraph.BasicFont;
+import org.eclipse.gmf.gmfgraph.Border;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Child;
-import org.eclipse.gmf.gmfgraph.ColorStyle;
+import org.eclipse.gmf.gmfgraph.Color;
+import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.Compartment;
+import org.eclipse.gmf.gmfgraph.CompoundBorder;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.ConnectionFigure;
+import org.eclipse.gmf.gmfgraph.ConstantColor;
+import org.eclipse.gmf.gmfgraph.CustomBorder;
+import org.eclipse.gmf.gmfgraph.CustomClass;
 import org.eclipse.gmf.gmfgraph.CustomConnection;
 import org.eclipse.gmf.gmfgraph.CustomDecoration;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.DecorationFigure;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
+import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Direction;
 import org.eclipse.gmf.gmfgraph.Ellipse;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.FigureMarker;
 import org.eclipse.gmf.gmfgraph.FigureRef;
+import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.GeneralFacet;
 import org.eclipse.gmf.gmfgraph.GradientFacet;
 import org.eclipse.gmf.gmfgraph.Identity;
+import org.eclipse.gmf.gmfgraph.Insets;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.LabeledContainer;
+import org.eclipse.gmf.gmfgraph.LineBorder;
 import org.eclipse.gmf.gmfgraph.LineKind;
+import org.eclipse.gmf.gmfgraph.MarginBorder;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.Polygon;
@@ -45,10 +57,10 @@ import org.eclipse.gmf.gmfgraph.PolygonDecoration;
 import org.eclipse.gmf.gmfgraph.Polyline;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
 import org.eclipse.gmf.gmfgraph.PolylineDecoration;
+import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.Shape;
-import org.eclipse.gmf.gmfgraph.SizeStyle;
 import org.eclipse.gmf.gmfgraph.VisualFacet;
 
 /**
@@ -252,6 +264,13 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass customClassEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass customFigureEClass = null;
 
 	/**
@@ -273,21 +292,35 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass colorStyleEClass = null;
+	private EClass colorEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass sizeStyleEClass = null;
+	private EClass rgbColorEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass fontStyleEClass = null;
+	private EClass constantColorEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass fontEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass basicFontEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -295,6 +328,69 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * @generated
 	 */
 	private EClass pointEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass dimensionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass insetsEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass borderEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass lineBorderEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass marginBorderEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass compoundBorderEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass customBorderEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum colorConstantsEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum fontStyleEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -662,7 +758,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFigure_ColorStyle() {
+	public EReference getFigure_ForegroundColor() {
 		return (EReference)figureEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -671,7 +767,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFigure_SizeStyle() {
+	public EReference getFigure_BackgroundColor() {
 		return (EReference)figureEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -680,7 +776,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFigure_FontStyle() {
+	public EReference getFigure_MaximumSize() {
 		return (EReference)figureEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -689,7 +785,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFigure_Location() {
+	public EReference getFigure_MinimumSize() {
 		return (EReference)figureEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -698,7 +794,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFigure_Size() {
+	public EReference getFigure_PreferredSize() {
 		return (EReference)figureEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -707,8 +803,53 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getFigure_Font() {
+		return (EReference)figureEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFigure_Insets() {
+		return (EReference)figureEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFigure_Border() {
+		return (EReference)figureEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFigure_Location() {
+		return (EReference)figureEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFigure_Size() {
+		return (EReference)figureEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getFigure_LayoutManager() {
-		return (EAttribute)figureEClass.getEStructuralFeatures().get(7);
+		return (EAttribute)figureEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -968,26 +1109,35 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getCustomClass() {
+		return customClassEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCustomClass_QualifiedClassName() {
+		return (EAttribute)customClassEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCustomClass_BundleName() {
+		return (EAttribute)customClassEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getCustomFigure() {
 		return customFigureEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getCustomFigure_QualifiedClassName() {
-		return (EAttribute)customFigureEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getCustomFigure_BundleName() {
-		return (EAttribute)customFigureEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1013,8 +1163,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getColorStyle() {
-		return colorStyleEClass;
+	public EClass getColor() {
+		return colorEClass;
 	}
 
 	/**
@@ -1022,8 +1172,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getColorStyle_ForegroundColor() {
-		return (EAttribute)colorStyleEClass.getEStructuralFeatures().get(0);
+	public EClass getRGBColor() {
+		return rgbColorEClass;
 	}
 
 	/**
@@ -1031,8 +1181,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getColorStyle_BackgroundColor() {
-		return (EAttribute)colorStyleEClass.getEStructuralFeatures().get(1);
+	public EAttribute getRGBColor_Red() {
+		return (EAttribute)rgbColorEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1040,8 +1190,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getSizeStyle() {
-		return sizeStyleEClass;
+	public EAttribute getRGBColor_Green() {
+		return (EAttribute)rgbColorEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1049,8 +1199,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSizeStyle_MaxSize() {
-		return (EReference)sizeStyleEClass.getEStructuralFeatures().get(0);
+	public EAttribute getRGBColor_Blue() {
+		return (EAttribute)rgbColorEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1058,8 +1208,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSizeStyle_MinSize() {
-		return (EReference)sizeStyleEClass.getEStructuralFeatures().get(1);
+	public EClass getConstantColor() {
+		return constantColorEClass;
 	}
 
 	/**
@@ -1067,8 +1217,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSizeStyle_PrefSize() {
-		return (EReference)sizeStyleEClass.getEStructuralFeatures().get(2);
+	public EAttribute getConstantColor_Value() {
+		return (EAttribute)constantColorEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1076,8 +1226,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getFontStyle() {
-		return fontStyleEClass;
+	public EClass getFont() {
+		return fontEClass;
 	}
 
 	/**
@@ -1085,8 +1235,44 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFontStyle_FaceName() {
-		return (EAttribute)fontStyleEClass.getEStructuralFeatures().get(0);
+	public EClass getBasicFont() {
+		return basicFontEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBasicFont_FaceName() {
+		return (EAttribute)basicFontEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBasicFont_Height() {
+		return (EAttribute)basicFontEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBasicFont_Style() {
+		return (EAttribute)basicFontEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getFontStyle() {
+		return fontStyleEEnum;
 	}
 
 	/**
@@ -1114,6 +1300,177 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 */
 	public EAttribute getPoint_Y() {
 		return (EAttribute)pointEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getDimension() {
+		return dimensionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDimension_Dx() {
+		return (EAttribute)dimensionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getDimension_Dy() {
+		return (EAttribute)dimensionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getInsets() {
+		return insetsEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getInsets_Top() {
+		return (EAttribute)insetsEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getInsets_Left() {
+		return (EAttribute)insetsEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getInsets_Bottom() {
+		return (EAttribute)insetsEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getInsets_Right() {
+		return (EAttribute)insetsEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getBorder() {
+		return borderEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLineBorder() {
+		return lineBorderEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLineBorder_Color() {
+		return (EReference)lineBorderEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLineBorder_Width() {
+		return (EAttribute)lineBorderEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMarginBorder() {
+		return marginBorderEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMarginBorder_Insets() {
+		return (EReference)marginBorderEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCompoundBorder() {
+		return compoundBorderEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCompoundBorder_Outer() {
+		return (EReference)compoundBorderEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCompoundBorder_Inner() {
+		return (EReference)compoundBorderEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCustomBorder() {
+		return customBorderEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getColorConstants() {
+		return colorConstantsEEnum;
 	}
 
 	/**
@@ -1205,9 +1562,14 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		figureEClass = createEClass(FIGURE);
 		createEReference(figureEClass, FIGURE__CHILDREN);
 		createEReference(figureEClass, FIGURE__PARENT);
-		createEReference(figureEClass, FIGURE__COLOR_STYLE);
-		createEReference(figureEClass, FIGURE__SIZE_STYLE);
-		createEReference(figureEClass, FIGURE__FONT_STYLE);
+		createEReference(figureEClass, FIGURE__FOREGROUND_COLOR);
+		createEReference(figureEClass, FIGURE__BACKGROUND_COLOR);
+		createEReference(figureEClass, FIGURE__MAXIMUM_SIZE);
+		createEReference(figureEClass, FIGURE__MINIMUM_SIZE);
+		createEReference(figureEClass, FIGURE__PREFERRED_SIZE);
+		createEReference(figureEClass, FIGURE__FONT);
+		createEReference(figureEClass, FIGURE__INSETS);
+		createEReference(figureEClass, FIGURE__BORDER);
 		createEReference(figureEClass, FIGURE__LOCATION);
 		createEReference(figureEClass, FIGURE__SIZE);
 		createEAttribute(figureEClass, FIGURE__LAYOUT_MANAGER);
@@ -1254,31 +1616,65 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		polygonDecorationEClass = createEClass(POLYGON_DECORATION);
 
+		customClassEClass = createEClass(CUSTOM_CLASS);
+		createEAttribute(customClassEClass, CUSTOM_CLASS__QUALIFIED_CLASS_NAME);
+		createEAttribute(customClassEClass, CUSTOM_CLASS__BUNDLE_NAME);
+
 		customFigureEClass = createEClass(CUSTOM_FIGURE);
-		createEAttribute(customFigureEClass, CUSTOM_FIGURE__QUALIFIED_CLASS_NAME);
-		createEAttribute(customFigureEClass, CUSTOM_FIGURE__BUNDLE_NAME);
 
 		customDecorationEClass = createEClass(CUSTOM_DECORATION);
 
 		customConnectionEClass = createEClass(CUSTOM_CONNECTION);
 
-		colorStyleEClass = createEClass(COLOR_STYLE);
-		createEAttribute(colorStyleEClass, COLOR_STYLE__FOREGROUND_COLOR);
-		createEAttribute(colorStyleEClass, COLOR_STYLE__BACKGROUND_COLOR);
+		colorEClass = createEClass(COLOR);
 
-		sizeStyleEClass = createEClass(SIZE_STYLE);
-		createEReference(sizeStyleEClass, SIZE_STYLE__MAX_SIZE);
-		createEReference(sizeStyleEClass, SIZE_STYLE__MIN_SIZE);
-		createEReference(sizeStyleEClass, SIZE_STYLE__PREF_SIZE);
+		rgbColorEClass = createEClass(RGB_COLOR);
+		createEAttribute(rgbColorEClass, RGB_COLOR__RED);
+		createEAttribute(rgbColorEClass, RGB_COLOR__GREEN);
+		createEAttribute(rgbColorEClass, RGB_COLOR__BLUE);
 
-		fontStyleEClass = createEClass(FONT_STYLE);
-		createEAttribute(fontStyleEClass, FONT_STYLE__FACE_NAME);
+		constantColorEClass = createEClass(CONSTANT_COLOR);
+		createEAttribute(constantColorEClass, CONSTANT_COLOR__VALUE);
+
+		fontEClass = createEClass(FONT);
+
+		basicFontEClass = createEClass(BASIC_FONT);
+		createEAttribute(basicFontEClass, BASIC_FONT__FACE_NAME);
+		createEAttribute(basicFontEClass, BASIC_FONT__HEIGHT);
+		createEAttribute(basicFontEClass, BASIC_FONT__STYLE);
 
 		pointEClass = createEClass(POINT);
 		createEAttribute(pointEClass, POINT__X);
 		createEAttribute(pointEClass, POINT__Y);
 
+		dimensionEClass = createEClass(DIMENSION);
+		createEAttribute(dimensionEClass, DIMENSION__DX);
+		createEAttribute(dimensionEClass, DIMENSION__DY);
+
+		insetsEClass = createEClass(INSETS);
+		createEAttribute(insetsEClass, INSETS__TOP);
+		createEAttribute(insetsEClass, INSETS__LEFT);
+		createEAttribute(insetsEClass, INSETS__BOTTOM);
+		createEAttribute(insetsEClass, INSETS__RIGHT);
+
+		borderEClass = createEClass(BORDER);
+
+		lineBorderEClass = createEClass(LINE_BORDER);
+		createEReference(lineBorderEClass, LINE_BORDER__COLOR);
+		createEAttribute(lineBorderEClass, LINE_BORDER__WIDTH);
+
+		marginBorderEClass = createEClass(MARGIN_BORDER);
+		createEReference(marginBorderEClass, MARGIN_BORDER__INSETS);
+
+		compoundBorderEClass = createEClass(COMPOUND_BORDER);
+		createEReference(compoundBorderEClass, COMPOUND_BORDER__OUTER);
+		createEReference(compoundBorderEClass, COMPOUND_BORDER__INNER);
+
+		customBorderEClass = createEClass(CUSTOM_BORDER);
+
 		// Create enums
+		colorConstantsEEnum = createEEnum(COLOR_CONSTANTS);
+		fontStyleEEnum = createEEnum(FONT_STYLE);
 		directionEEnum = createEEnum(DIRECTION);
 		lineKindEEnum = createEEnum(LINE_KIND);
 	}
@@ -1336,10 +1732,18 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		polygonDecorationEClass.getESuperTypes().add(this.getPolygon());
 		polygonDecorationEClass.getESuperTypes().add(this.getDecorationFigure());
 		customFigureEClass.getESuperTypes().add(this.getFigure());
+		customFigureEClass.getESuperTypes().add(this.getCustomClass());
 		customDecorationEClass.getESuperTypes().add(this.getCustomFigure());
 		customDecorationEClass.getESuperTypes().add(this.getDecorationFigure());
 		customConnectionEClass.getESuperTypes().add(this.getCustomFigure());
 		customConnectionEClass.getESuperTypes().add(this.getConnectionFigure());
+		rgbColorEClass.getESuperTypes().add(this.getColor());
+		constantColorEClass.getESuperTypes().add(this.getColor());
+		lineBorderEClass.getESuperTypes().add(this.getBorder());
+		marginBorderEClass.getESuperTypes().add(this.getBorder());
+		compoundBorderEClass.getESuperTypes().add(this.getBorder());
+		customBorderEClass.getESuperTypes().add(this.getBorder());
+		customBorderEClass.getESuperTypes().add(this.getCustomClass());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(canvasEClass, Canvas.class, "Canvas", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1385,9 +1789,14 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEClass(figureEClass, Figure.class, "Figure", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFigure_Children(), this.getFigureMarker(), null, "children", null, 0, -1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFigure_Parent(), this.getFigure(), this.getFigure_Children(), "parent", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFigure_ColorStyle(), this.getColorStyle(), null, "colorStyle", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFigure_SizeStyle(), this.getSizeStyle(), null, "sizeStyle", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFigure_FontStyle(), this.getFontStyle(), null, "fontStyle", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFigure_ForegroundColor(), this.getColor(), null, "foregroundColor", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFigure_BackgroundColor(), this.getColor(), null, "backgroundColor", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFigure_MaximumSize(), this.getDimension(), null, "maximumSize", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFigure_MinimumSize(), this.getDimension(), null, "minimumSize", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFigure_PreferredSize(), this.getDimension(), null, "preferredSize", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFigure_Font(), this.getFont(), null, "font", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFigure_Insets(), this.getInsets(), null, "insets", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFigure_Border(), this.getBorder(), null, "border", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFigure_Location(), this.getPoint(), null, "location", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFigure_Size(), this.getPoint(), null, "size", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFigure_LayoutManager(), ecorePackage.getEString(), "layoutManager", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1416,8 +1825,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEClass(rectangleEClass, Rectangle.class, "Rectangle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(roundedRectangleEClass, RoundedRectangle.class, "RoundedRectangle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getRoundedRectangle_CornerWidth(), ecorePackage.getEInt(), "cornerWidth", null, 0, 1, RoundedRectangle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getRoundedRectangle_CornerHeight(), ecorePackage.getEInt(), "cornerHeight", null, 0, 1, RoundedRectangle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRoundedRectangle_CornerWidth(), ecorePackage.getEInt(), "cornerWidth", "8", 0, 1, RoundedRectangle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRoundedRectangle_CornerHeight(), ecorePackage.getEInt(), "cornerHeight", "8", 0, 1, RoundedRectangle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(ellipseEClass, Ellipse.class, "Ellipse", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1434,31 +1843,85 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		initEClass(polygonDecorationEClass, PolygonDecoration.class, "PolygonDecoration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		initEClass(customClassEClass, CustomClass.class, "CustomClass", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCustomClass_QualifiedClassName(), ecorePackage.getEString(), "qualifiedClassName", null, 0, 1, CustomClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCustomClass_BundleName(), ecorePackage.getEString(), "bundleName", null, 0, 1, CustomClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(customFigureEClass, CustomFigure.class, "CustomFigure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getCustomFigure_QualifiedClassName(), ecorePackage.getEString(), "qualifiedClassName", null, 0, 1, CustomFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getCustomFigure_BundleName(), ecorePackage.getEString(), "bundleName", null, 0, 1, CustomFigure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(customDecorationEClass, CustomDecoration.class, "CustomDecoration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(customConnectionEClass, CustomConnection.class, "CustomConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(colorStyleEClass, ColorStyle.class, "ColorStyle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getColorStyle_ForegroundColor(), ecorePackage.getEString(), "foregroundColor", null, 0, 1, ColorStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getColorStyle_BackgroundColor(), ecorePackage.getEString(), "backgroundColor", null, 0, 1, ColorStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(colorEClass, Color.class, "Color", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(sizeStyleEClass, SizeStyle.class, "SizeStyle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSizeStyle_MaxSize(), this.getPoint(), null, "maxSize", null, 0, 1, SizeStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSizeStyle_MinSize(), this.getPoint(), null, "minSize", null, 0, 1, SizeStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSizeStyle_PrefSize(), this.getPoint(), null, "prefSize", null, 0, 1, SizeStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(rgbColorEClass, RGBColor.class, "RGBColor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRGBColor_Red(), ecorePackage.getEInt(), "red", null, 1, 1, RGBColor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRGBColor_Green(), ecorePackage.getEInt(), "green", null, 1, 1, RGBColor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRGBColor_Blue(), ecorePackage.getEInt(), "blue", null, 1, 1, RGBColor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(fontStyleEClass, FontStyle.class, "FontStyle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getFontStyle_FaceName(), ecorePackage.getEString(), "faceName", null, 0, 1, FontStyle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(constantColorEClass, ConstantColor.class, "ConstantColor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getConstantColor_Value(), this.getColorConstants(), "value", null, 1, 1, ConstantColor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(fontEClass, Font.class, "Font", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(basicFontEClass, BasicFont.class, "BasicFont", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getBasicFont_FaceName(), ecorePackage.getEString(), "faceName", null, 0, 1, BasicFont.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBasicFont_Height(), ecorePackage.getEInt(), "height", null, 0, 1, BasicFont.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBasicFont_Style(), this.getFontStyle(), "style", null, 0, 1, BasicFont.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(pointEClass, Point.class, "Point", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPoint_X(), ecorePackage.getEInt(), "x", null, 0, 1, Point.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPoint_Y(), ecorePackage.getEInt(), "y", null, 0, 1, Point.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(dimensionEClass, Dimension.class, "Dimension", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getDimension_Dx(), ecorePackage.getEInt(), "dx", null, 0, 1, Dimension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDimension_Dy(), ecorePackage.getEInt(), "dy", null, 0, 1, Dimension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(insetsEClass, Insets.class, "Insets", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getInsets_Top(), ecorePackage.getEInt(), "top", null, 0, 1, Insets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInsets_Left(), ecorePackage.getEInt(), "left", null, 0, 1, Insets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInsets_Bottom(), ecorePackage.getEInt(), "bottom", null, 0, 1, Insets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInsets_Right(), ecorePackage.getEInt(), "right", null, 0, 1, Insets.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(borderEClass, Border.class, "Border", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(lineBorderEClass, LineBorder.class, "LineBorder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLineBorder_Color(), this.getColor(), null, "color", null, 0, 1, LineBorder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLineBorder_Width(), ecorePackage.getEInt(), "width", null, 0, 1, LineBorder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(marginBorderEClass, MarginBorder.class, "MarginBorder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getMarginBorder_Insets(), this.getInsets(), null, "insets", null, 0, 1, MarginBorder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(compoundBorderEClass, CompoundBorder.class, "CompoundBorder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCompoundBorder_Outer(), this.getBorder(), null, "outer", null, 0, 1, CompoundBorder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCompoundBorder_Inner(), this.getBorder(), null, "inner", null, 0, 1, CompoundBorder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(customBorderEClass, CustomBorder.class, "CustomBorder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
 		// Initialize enums and add enum literals
+		initEEnum(colorConstantsEEnum, ColorConstants.class, "ColorConstants");
+		addEEnumLiteral(colorConstantsEEnum, ColorConstants.WHITE_LITERAL);
+		addEEnumLiteral(colorConstantsEEnum, ColorConstants.BLACK_LITERAL);
+		addEEnumLiteral(colorConstantsEEnum, ColorConstants.LIGHT_GRAY_LITERAL);
+		addEEnumLiteral(colorConstantsEEnum, ColorConstants.GRAY_LITERAL);
+		addEEnumLiteral(colorConstantsEEnum, ColorConstants.DARK_GRAY_LITERAL);
+		addEEnumLiteral(colorConstantsEEnum, ColorConstants.RED_LITERAL);
+		addEEnumLiteral(colorConstantsEEnum, ColorConstants.ORANGE_LITERAL);
+		addEEnumLiteral(colorConstantsEEnum, ColorConstants.YELLOW_LITERAL);
+		addEEnumLiteral(colorConstantsEEnum, ColorConstants.GREEN_LITERAL);
+		addEEnumLiteral(colorConstantsEEnum, ColorConstants.LIGHT_GREEN_LITERAL);
+		addEEnumLiteral(colorConstantsEEnum, ColorConstants.DARK_GREEN_LITERAL);
+		addEEnumLiteral(colorConstantsEEnum, ColorConstants.CYAN_LITERAL);
+		addEEnumLiteral(colorConstantsEEnum, ColorConstants.LIGHT_BLUE_LITERAL);
+		addEEnumLiteral(colorConstantsEEnum, ColorConstants.BLUE_LITERAL);
+		addEEnumLiteral(colorConstantsEEnum, ColorConstants.DARK_BLUE_LITERAL);
+
+		initEEnum(fontStyleEEnum, FontStyle.class, "FontStyle");
+		addEEnumLiteral(fontStyleEEnum, FontStyle.NORMAL_LITERAL);
+		addEEnumLiteral(fontStyleEEnum, FontStyle.BOLD_LITERAL);
+		addEEnumLiteral(fontStyleEEnum, FontStyle.ITALIC_LITERAL);
+
 		initEEnum(directionEEnum, Direction.class, "Direction");
 		addEEnumLiteral(directionEEnum, Direction.NONE_LITERAL);
 		addEEnumLiteral(directionEEnum, Direction.NORTH_LITERAL);

@@ -6,23 +6,11 @@
  */
 package org.eclipse.gmf.gmfgraph.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.gmf.gmfgraph.ColorStyle;
-import org.eclipse.gmf.gmfgraph.Figure;
-import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.gmfgraph.LineKind;
-import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
-import org.eclipse.gmf.gmfgraph.SizeStyle;
 
 /**
  * <!-- begin-user-doc -->
@@ -47,7 +35,7 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int CORNER_WIDTH_EDEFAULT = 0;
+	protected static final int CORNER_WIDTH_EDEFAULT = 8;
 
 	/**
 	 * The cached value of the '{@link #getCornerWidth() <em>Corner Width</em>}' attribute.
@@ -67,7 +55,7 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int CORNER_HEIGHT_EDEFAULT = 0;
+	protected static final int CORNER_HEIGHT_EDEFAULT = 8;
 
 	/**
 	 * The cached value of the '{@link #getCornerHeight() <em>Corner Height</em>}' attribute.
@@ -144,113 +132,14 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGraphPackage.ROUNDED_RECTANGLE__PARENT:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, GMFGraphPackage.ROUNDED_RECTANGLE__PARENT, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGraphPackage.ROUNDED_RECTANGLE__CHILDREN:
-					return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
-				case GMFGraphPackage.ROUNDED_RECTANGLE__PARENT:
-					return eBasicSetContainer(null, GMFGraphPackage.ROUNDED_RECTANGLE__PARENT, msgs);
-				case GMFGraphPackage.ROUNDED_RECTANGLE__COLOR_STYLE:
-					return basicSetColorStyle(null, msgs);
-				case GMFGraphPackage.ROUNDED_RECTANGLE__SIZE_STYLE:
-					return basicSetSizeStyle(null, msgs);
-				case GMFGraphPackage.ROUNDED_RECTANGLE__FONT_STYLE:
-					return basicSetFontStyle(null, msgs);
-				case GMFGraphPackage.ROUNDED_RECTANGLE__LOCATION:
-					return basicSetLocation(null, msgs);
-				case GMFGraphPackage.ROUNDED_RECTANGLE__SIZE:
-					return basicSetSize(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case GMFGraphPackage.ROUNDED_RECTANGLE__PARENT:
-					return eContainer.eInverseRemove(this, GMFGraphPackage.FIGURE__CHILDREN, Figure.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
-		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGraphPackage.ROUNDED_RECTANGLE__NAME:
-				return getName();
-			case GMFGraphPackage.ROUNDED_RECTANGLE__CHILDREN:
-				return getChildren();
-			case GMFGraphPackage.ROUNDED_RECTANGLE__PARENT:
-				return getParent();
-			case GMFGraphPackage.ROUNDED_RECTANGLE__COLOR_STYLE:
-				return getColorStyle();
-			case GMFGraphPackage.ROUNDED_RECTANGLE__SIZE_STYLE:
-				return getSizeStyle();
-			case GMFGraphPackage.ROUNDED_RECTANGLE__FONT_STYLE:
-				return getFontStyle();
-			case GMFGraphPackage.ROUNDED_RECTANGLE__LOCATION:
-				return getLocation();
-			case GMFGraphPackage.ROUNDED_RECTANGLE__SIZE:
-				return getSize();
-			case GMFGraphPackage.ROUNDED_RECTANGLE__LAYOUT_MANAGER:
-				return getLayoutManager();
-			case GMFGraphPackage.ROUNDED_RECTANGLE__OUTLINE:
-				return isOutline() ? Boolean.TRUE : Boolean.FALSE;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__FILL:
-				return isFill() ? Boolean.TRUE : Boolean.FALSE;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__LINE_WIDTH:
-				return new Integer(getLineWidth());
-			case GMFGraphPackage.ROUNDED_RECTANGLE__LINE_KIND:
-				return getLineKind();
-			case GMFGraphPackage.ROUNDED_RECTANGLE__XOR_FILL:
-				return isXorFill() ? Boolean.TRUE : Boolean.FALSE;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__XOR_OUTLINE:
-				return isXorOutline() ? Boolean.TRUE : Boolean.FALSE;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__RESOLVED_CHILDREN:
-				return getResolvedChildren();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_WIDTH:
 				return new Integer(getCornerWidth());
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_HEIGHT:
 				return new Integer(getCornerHeight());
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -258,51 +147,8 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGraphPackage.ROUNDED_RECTANGLE__NAME:
-				setName((String)newValue);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__CHILDREN:
-				getChildren().clear();
-				getChildren().addAll((Collection)newValue);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__COLOR_STYLE:
-				setColorStyle((ColorStyle)newValue);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__SIZE_STYLE:
-				setSizeStyle((SizeStyle)newValue);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__FONT_STYLE:
-				setFontStyle((FontStyle)newValue);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__LOCATION:
-				setLocation((Point)newValue);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__SIZE:
-				setSize((Point)newValue);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__LAYOUT_MANAGER:
-				setLayoutManager((String)newValue);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__OUTLINE:
-				setOutline(((Boolean)newValue).booleanValue());
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__FILL:
-				setFill(((Boolean)newValue).booleanValue());
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__LINE_WIDTH:
-				setLineWidth(((Integer)newValue).intValue());
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__LINE_KIND:
-				setLineKind((LineKind)newValue);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__XOR_FILL:
-				setXorFill(((Boolean)newValue).booleanValue());
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__XOR_OUTLINE:
-				setXorOutline(((Boolean)newValue).booleanValue());
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_WIDTH:
 				setCornerWidth(((Integer)newValue).intValue());
 				return;
@@ -310,7 +156,7 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 				setCornerHeight(((Integer)newValue).intValue());
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -318,50 +164,8 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGraphPackage.ROUNDED_RECTANGLE__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__CHILDREN:
-				getChildren().clear();
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__COLOR_STYLE:
-				setColorStyle((ColorStyle)null);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__SIZE_STYLE:
-				setSizeStyle((SizeStyle)null);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__FONT_STYLE:
-				setFontStyle((FontStyle)null);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__LOCATION:
-				setLocation((Point)null);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__SIZE:
-				setSize((Point)null);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__LAYOUT_MANAGER:
-				setLayoutManager(LAYOUT_MANAGER_EDEFAULT);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__OUTLINE:
-				setOutline(OUTLINE_EDEFAULT);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__FILL:
-				setFill(FILL_EDEFAULT);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__LINE_WIDTH:
-				setLineWidth(LINE_WIDTH_EDEFAULT);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__LINE_KIND:
-				setLineKind(LINE_KIND_EDEFAULT);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__XOR_FILL:
-				setXorFill(XOR_FILL_EDEFAULT);
-				return;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__XOR_OUTLINE:
-				setXorOutline(XOR_OUTLINE_EDEFAULT);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_WIDTH:
 				setCornerWidth(CORNER_WIDTH_EDEFAULT);
 				return;
@@ -369,7 +173,7 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 				setCornerHeight(CORNER_HEIGHT_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -377,46 +181,14 @@ public class RoundedRectangleImpl extends ShapeImpl implements RoundedRectangle 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGraphPackage.ROUNDED_RECTANGLE__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case GMFGraphPackage.ROUNDED_RECTANGLE__CHILDREN:
-				return children != null && !children.isEmpty();
-			case GMFGraphPackage.ROUNDED_RECTANGLE__PARENT:
-				return getParent() != null;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__COLOR_STYLE:
-				return colorStyle != null;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__SIZE_STYLE:
-				return sizeStyle != null;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__FONT_STYLE:
-				return fontStyle != null;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__LOCATION:
-				return location != null;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__SIZE:
-				return size != null;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__LAYOUT_MANAGER:
-				return LAYOUT_MANAGER_EDEFAULT == null ? layoutManager != null : !LAYOUT_MANAGER_EDEFAULT.equals(layoutManager);
-			case GMFGraphPackage.ROUNDED_RECTANGLE__OUTLINE:
-				return outline != OUTLINE_EDEFAULT;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__FILL:
-				return fill != FILL_EDEFAULT;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__LINE_WIDTH:
-				return lineWidth != LINE_WIDTH_EDEFAULT;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__LINE_KIND:
-				return lineKind != LINE_KIND_EDEFAULT;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__XOR_FILL:
-				return xorFill != XOR_FILL_EDEFAULT;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__XOR_OUTLINE:
-				return xorOutline != XOR_OUTLINE_EDEFAULT;
-			case GMFGraphPackage.ROUNDED_RECTANGLE__RESOLVED_CHILDREN:
-				return !getResolvedChildren().isEmpty();
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_WIDTH:
 				return cornerWidth != CORNER_WIDTH_EDEFAULT;
 			case GMFGraphPackage.ROUNDED_RECTANGLE__CORNER_HEIGHT:
 				return cornerHeight != CORNER_HEIGHT_EDEFAULT;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

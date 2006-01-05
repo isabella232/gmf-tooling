@@ -23,7 +23,7 @@ public interface GMFGraphFactory extends EFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	GMFGraphFactory eINSTANCE = new org.eclipse.gmf.gmfgraph.impl.GMFGraphFactoryImpl();
+	GMFGraphFactory eINSTANCE = org.eclipse.gmf.gmfgraph.impl.GMFGraphFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Canvas</em>'.
@@ -224,31 +224,31 @@ public interface GMFGraphFactory extends EFactory {
 	CustomConnection createCustomConnection();
 
 	/**
-	 * Returns a new object of class '<em>Color Style</em>'.
+	 * Returns a new object of class '<em>RGB Color</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Color Style</em>'.
+	 * @return a new object of class '<em>RGB Color</em>'.
 	 * @generated
 	 */
-	ColorStyle createColorStyle();
+	RGBColor createRGBColor();
 
 	/**
-	 * Returns a new object of class '<em>Size Style</em>'.
+	 * Returns a new object of class '<em>Constant Color</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Size Style</em>'.
+	 * @return a new object of class '<em>Constant Color</em>'.
 	 * @generated
 	 */
-	SizeStyle createSizeStyle();
+	ConstantColor createConstantColor();
 
 	/**
-	 * Returns a new object of class '<em>Font Style</em>'.
+	 * Returns a new object of class '<em>Basic Font</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Font Style</em>'.
+	 * @return a new object of class '<em>Basic Font</em>'.
 	 * @generated
 	 */
-	FontStyle createFontStyle();
+	BasicFont createBasicFont();
 
 	/**
 	 * Returns a new object of class '<em>Point</em>'.
@@ -258,6 +258,60 @@ public interface GMFGraphFactory extends EFactory {
 	 * @generated
 	 */
 	Point createPoint();
+
+	/**
+	 * Returns a new object of class '<em>Dimension</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Dimension</em>'.
+	 * @generated
+	 */
+	Dimension createDimension();
+
+	/**
+	 * Returns a new object of class '<em>Insets</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Insets</em>'.
+	 * @generated
+	 */
+	Insets createInsets();
+
+	/**
+	 * Returns a new object of class '<em>Line Border</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Line Border</em>'.
+	 * @generated
+	 */
+	LineBorder createLineBorder();
+
+	/**
+	 * Returns a new object of class '<em>Margin Border</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Margin Border</em>'.
+	 * @generated
+	 */
+	MarginBorder createMarginBorder();
+
+	/**
+	 * Returns a new object of class '<em>Compound Border</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Compound Border</em>'.
+	 * @generated
+	 */
+	CompoundBorder createCompoundBorder();
+
+	/**
+	 * Returns a new object of class '<em>Custom Border</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Custom Border</em>'.
+	 * @generated
+	 */
+	CustomBorder createCustomBorder();
 
 	/**
 	 * Returns the package supported by this factory.

@@ -188,6 +188,11 @@ public class PolylineConnectionItemProvider
 			childFeature == GMFGraphPackage.eINSTANCE.getFigure_Children() ||
 			childFeature == GMFGraphPackage.eINSTANCE.getPolylineConnection_SourceDecoration() ||
 			childFeature == GMFGraphPackage.eINSTANCE.getPolylineConnection_TargetDecoration() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_MaximumSize() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_MinimumSize() ||
+			childFeature == GMFGraphPackage.eINSTANCE.getFigure_PreferredSize() ||
 			childFeature == GMFGraphPackage.eINSTANCE.getFigure_Location() ||
 			childFeature == GMFGraphPackage.eINSTANCE.getFigure_Size() ||
 			childFeature == GMFGraphPackage.eINSTANCE.getPolyline_Template();

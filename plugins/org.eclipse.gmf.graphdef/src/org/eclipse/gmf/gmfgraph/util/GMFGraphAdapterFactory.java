@@ -151,6 +151,9 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 			public Object casePolygonDecoration(PolygonDecoration object) {
 				return createPolygonDecorationAdapter();
 			}
+			public Object caseCustomClass(CustomClass object) {
+				return createCustomClassAdapter();
+			}
 			public Object caseCustomFigure(CustomFigure object) {
 				return createCustomFigureAdapter();
 			}
@@ -160,17 +163,44 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 			public Object caseCustomConnection(CustomConnection object) {
 				return createCustomConnectionAdapter();
 			}
-			public Object caseColorStyle(ColorStyle object) {
-				return createColorStyleAdapter();
+			public Object caseColor(Color object) {
+				return createColorAdapter();
 			}
-			public Object caseSizeStyle(SizeStyle object) {
-				return createSizeStyleAdapter();
+			public Object caseRGBColor(RGBColor object) {
+				return createRGBColorAdapter();
 			}
-			public Object caseFontStyle(FontStyle object) {
-				return createFontStyleAdapter();
+			public Object caseConstantColor(ConstantColor object) {
+				return createConstantColorAdapter();
+			}
+			public Object caseFont(Font object) {
+				return createFontAdapter();
+			}
+			public Object caseBasicFont(BasicFont object) {
+				return createBasicFontAdapter();
 			}
 			public Object casePoint(Point object) {
 				return createPointAdapter();
+			}
+			public Object caseDimension(Dimension object) {
+				return createDimensionAdapter();
+			}
+			public Object caseInsets(Insets object) {
+				return createInsetsAdapter();
+			}
+			public Object caseBorder(Border object) {
+				return createBorderAdapter();
+			}
+			public Object caseLineBorder(LineBorder object) {
+				return createLineBorderAdapter();
+			}
+			public Object caseMarginBorder(MarginBorder object) {
+				return createMarginBorderAdapter();
+			}
+			public Object caseCompoundBorder(CompoundBorder object) {
+				return createCompoundBorderAdapter();
+			}
+			public Object caseCustomBorder(CustomBorder object) {
+				return createCustomBorderAdapter();
 			}
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
@@ -569,6 +599,20 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.CustomClass <em>Custom Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.CustomClass
+	 * @generated
+	 */
+	public Adapter createCustomClassAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.CustomFigure <em>Custom Figure</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -611,44 +655,72 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.ColorStyle <em>Color Style</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.Color <em>Color</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.gmf.gmfgraph.ColorStyle
+	 * @see org.eclipse.gmf.gmfgraph.Color
 	 * @generated
 	 */
-	public Adapter createColorStyleAdapter() {
+	public Adapter createColorAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.SizeStyle <em>Size Style</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.RGBColor <em>RGB Color</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.gmf.gmfgraph.SizeStyle
+	 * @see org.eclipse.gmf.gmfgraph.RGBColor
 	 * @generated
 	 */
-	public Adapter createSizeStyleAdapter() {
+	public Adapter createRGBColorAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.FontStyle <em>Font Style</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.ConstantColor <em>Constant Color</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.gmf.gmfgraph.FontStyle
+	 * @see org.eclipse.gmf.gmfgraph.ConstantColor
 	 * @generated
 	 */
-	public Adapter createFontStyleAdapter() {
+	public Adapter createConstantColorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.Font <em>Font</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.Font
+	 * @generated
+	 */
+	public Adapter createFontAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.BasicFont <em>Basic Font</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.BasicFont
+	 * @generated
+	 */
+	public Adapter createBasicFontAdapter() {
 		return null;
 	}
 
@@ -663,6 +735,104 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPointAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.Dimension <em>Dimension</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.Dimension
+	 * @generated
+	 */
+	public Adapter createDimensionAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.Insets <em>Insets</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.Insets
+	 * @generated
+	 */
+	public Adapter createInsetsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.Border <em>Border</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.Border
+	 * @generated
+	 */
+	public Adapter createBorderAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.LineBorder <em>Line Border</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.LineBorder
+	 * @generated
+	 */
+	public Adapter createLineBorderAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.MarginBorder <em>Margin Border</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.MarginBorder
+	 * @generated
+	 */
+	public Adapter createMarginBorderAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.CompoundBorder <em>Compound Border</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.CompoundBorder
+	 * @generated
+	 */
+	public Adapter createCompoundBorderAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.CustomBorder <em>Custom Border</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.CustomBorder
+	 * @generated
+	 */
+	public Adapter createCustomBorderAdapter() {
 		return null;
 	}
 

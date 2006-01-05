@@ -9,15 +9,22 @@ package org.eclipse.gmf.gmfgraph.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Child;
-import org.eclipse.gmf.gmfgraph.ColorStyle;
+import org.eclipse.gmf.gmfgraph.ColorConstants;
 import org.eclipse.gmf.gmfgraph.Compartment;
+import org.eclipse.gmf.gmfgraph.CompoundBorder;
 import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.ConstantColor;
+import org.eclipse.gmf.gmfgraph.CustomBorder;
 import org.eclipse.gmf.gmfgraph.CustomConnection;
 import org.eclipse.gmf.gmfgraph.CustomDecoration;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
+import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Direction;
 import org.eclipse.gmf.gmfgraph.Ellipse;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
@@ -27,9 +34,12 @@ import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.GeneralFacet;
 import org.eclipse.gmf.gmfgraph.GradientFacet;
+import org.eclipse.gmf.gmfgraph.Insets;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.LabeledContainer;
+import org.eclipse.gmf.gmfgraph.LineBorder;
 import org.eclipse.gmf.gmfgraph.LineKind;
+import org.eclipse.gmf.gmfgraph.MarginBorder;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.Point;
 import org.eclipse.gmf.gmfgraph.Polygon;
@@ -37,9 +47,9 @@ import org.eclipse.gmf.gmfgraph.PolygonDecoration;
 import org.eclipse.gmf.gmfgraph.Polyline;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
 import org.eclipse.gmf.gmfgraph.PolylineDecoration;
+import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
-import org.eclipse.gmf.gmfgraph.SizeStyle;
 
 /**
  * <!-- begin-user-doc -->
@@ -48,6 +58,25 @@ import org.eclipse.gmf.gmfgraph.SizeStyle;
  * @generated
  */
 public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory {
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static GMFGraphFactory init() {
+		try {
+			GMFGraphFactory theGMFGraphFactory = (GMFGraphFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/gmf/2005/GraphicalDefinition"); 
+			if (theGMFGraphFactory != null) {
+				return theGMFGraphFactory;
+			}
+		}
+		catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new GMFGraphFactoryImpl();
+	}
+
 	/**
 	 * Creates an instance of the factory.
 	 * <!-- begin-user-doc -->
@@ -87,10 +116,16 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 			case GMFGraphPackage.CUSTOM_FIGURE: return createCustomFigure();
 			case GMFGraphPackage.CUSTOM_DECORATION: return createCustomDecoration();
 			case GMFGraphPackage.CUSTOM_CONNECTION: return createCustomConnection();
-			case GMFGraphPackage.COLOR_STYLE: return createColorStyle();
-			case GMFGraphPackage.SIZE_STYLE: return createSizeStyle();
-			case GMFGraphPackage.FONT_STYLE: return createFontStyle();
+			case GMFGraphPackage.RGB_COLOR: return createRGBColor();
+			case GMFGraphPackage.CONSTANT_COLOR: return createConstantColor();
+			case GMFGraphPackage.BASIC_FONT: return createBasicFont();
 			case GMFGraphPackage.POINT: return createPoint();
+			case GMFGraphPackage.DIMENSION: return createDimension();
+			case GMFGraphPackage.INSETS: return createInsets();
+			case GMFGraphPackage.LINE_BORDER: return createLineBorder();
+			case GMFGraphPackage.MARGIN_BORDER: return createMarginBorder();
+			case GMFGraphPackage.COMPOUND_BORDER: return createCompoundBorder();
+			case GMFGraphPackage.CUSTOM_BORDER: return createCustomBorder();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -103,16 +138,14 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	 */
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case GMFGraphPackage.DIRECTION: {
-				Direction result = Direction.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
-			case GMFGraphPackage.LINE_KIND: {
-				LineKind result = LineKind.get(initialValue);
-				if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-				return result;
-			}
+			case GMFGraphPackage.COLOR_CONSTANTS:
+				return createColorConstantsFromString(eDataType, initialValue);
+			case GMFGraphPackage.FONT_STYLE:
+				return createFontStyleFromString(eDataType, initialValue);
+			case GMFGraphPackage.DIRECTION:
+				return createDirectionFromString(eDataType, initialValue);
+			case GMFGraphPackage.LINE_KIND:
+				return createLineKindFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -125,10 +158,14 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	 */
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
+			case GMFGraphPackage.COLOR_CONSTANTS:
+				return convertColorConstantsToString(eDataType, instanceValue);
+			case GMFGraphPackage.FONT_STYLE:
+				return convertFontStyleToString(eDataType, instanceValue);
 			case GMFGraphPackage.DIRECTION:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertDirectionToString(eDataType, instanceValue);
 			case GMFGraphPackage.LINE_KIND:
-				return instanceValue == null ? null : instanceValue.toString();
+				return convertLineKindToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -359,9 +396,9 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ColorStyle createColorStyle() {
-		ColorStyleImpl colorStyle = new ColorStyleImpl();
-		return colorStyle;
+	public RGBColor createRGBColor() {
+		RGBColorImpl rgbColor = new RGBColorImpl();
+		return rgbColor;
 	}
 
 	/**
@@ -369,9 +406,9 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SizeStyle createSizeStyle() {
-		SizeStyleImpl sizeStyle = new SizeStyleImpl();
-		return sizeStyle;
+	public ConstantColor createConstantColor() {
+		ConstantColorImpl constantColor = new ConstantColorImpl();
+		return constantColor;
 	}
 
 	/**
@@ -379,9 +416,9 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FontStyle createFontStyle() {
-		FontStyleImpl fontStyle = new FontStyleImpl();
-		return fontStyle;
+	public BasicFont createBasicFont() {
+		BasicFontImpl basicFont = new BasicFontImpl();
+		return basicFont;
 	}
 
 	/**
@@ -392,6 +429,146 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	public Point createPoint() {
 		PointImpl point = new PointImpl();
 		return point;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Dimension createDimension() {
+		DimensionImpl dimension = new DimensionImpl();
+		return dimension;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Insets createInsets() {
+		InsetsImpl insets = new InsetsImpl();
+		return insets;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LineBorder createLineBorder() {
+		LineBorderImpl lineBorder = new LineBorderImpl();
+		return lineBorder;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MarginBorder createMarginBorder() {
+		MarginBorderImpl marginBorder = new MarginBorderImpl();
+		return marginBorder;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CompoundBorder createCompoundBorder() {
+		CompoundBorderImpl compoundBorder = new CompoundBorderImpl();
+		return compoundBorder;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CustomBorder createCustomBorder() {
+		CustomBorderImpl customBorder = new CustomBorderImpl();
+		return customBorder;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ColorConstants createColorConstantsFromString(EDataType eDataType, String initialValue) {
+		ColorConstants result = ColorConstants.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertColorConstantsToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FontStyle createFontStyleFromString(EDataType eDataType, String initialValue) {
+		FontStyle result = FontStyle.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertFontStyleToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Direction createDirectionFromString(EDataType eDataType, String initialValue) {
+		Direction result = Direction.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertDirectionToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LineKind createLineKindFromString(EDataType eDataType, String initialValue) {
+		LineKind result = LineKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertLineKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

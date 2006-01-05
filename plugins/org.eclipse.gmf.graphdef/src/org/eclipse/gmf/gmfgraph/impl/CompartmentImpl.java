@@ -6,17 +6,10 @@
  */
 package org.eclipse.gmf.gmfgraph.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.gmfgraph.Compartment;
-import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 
 /**
@@ -139,38 +132,14 @@ public class CompartmentImpl extends DiagramElementImpl implements Compartment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGraphPackage.COMPARTMENT__FACETS:
-					return ((InternalEList)getFacets()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGraphPackage.COMPARTMENT__NAME:
-				return getName();
-			case GMFGraphPackage.COMPARTMENT__FIGURE:
-				if (resolve) return getFigure();
-				return basicGetFigure();
-			case GMFGraphPackage.COMPARTMENT__FACETS:
-				return getFacets();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGraphPackage.COMPARTMENT__COLLAPSIBLE:
 				return isCollapsible() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGraphPackage.COMPARTMENT__NEEDS_TITLE:
 				return isNeedsTitle() ? Boolean.TRUE : Boolean.FALSE;
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -178,18 +147,8 @@ public class CompartmentImpl extends DiagramElementImpl implements Compartment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGraphPackage.COMPARTMENT__NAME:
-				setName((String)newValue);
-				return;
-			case GMFGraphPackage.COMPARTMENT__FIGURE:
-				setFigure((Figure)newValue);
-				return;
-			case GMFGraphPackage.COMPARTMENT__FACETS:
-				getFacets().clear();
-				getFacets().addAll((Collection)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGraphPackage.COMPARTMENT__COLLAPSIBLE:
 				setCollapsible(((Boolean)newValue).booleanValue());
 				return;
@@ -197,7 +156,7 @@ public class CompartmentImpl extends DiagramElementImpl implements Compartment {
 				setNeedsTitle(((Boolean)newValue).booleanValue());
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -205,17 +164,8 @@ public class CompartmentImpl extends DiagramElementImpl implements Compartment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGraphPackage.COMPARTMENT__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case GMFGraphPackage.COMPARTMENT__FIGURE:
-				setFigure((Figure)null);
-				return;
-			case GMFGraphPackage.COMPARTMENT__FACETS:
-				getFacets().clear();
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGraphPackage.COMPARTMENT__COLLAPSIBLE:
 				setCollapsible(COLLAPSIBLE_EDEFAULT);
 				return;
@@ -223,7 +173,7 @@ public class CompartmentImpl extends DiagramElementImpl implements Compartment {
 				setNeedsTitle(NEEDS_TITLE_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -231,20 +181,14 @@ public class CompartmentImpl extends DiagramElementImpl implements Compartment {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGraphPackage.COMPARTMENT__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case GMFGraphPackage.COMPARTMENT__FIGURE:
-				return figure != null;
-			case GMFGraphPackage.COMPARTMENT__FACETS:
-				return facets != null && !facets.isEmpty();
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGraphPackage.COMPARTMENT__COLLAPSIBLE:
 				return collapsible != COLLAPSIBLE_EDEFAULT;
 			case GMFGraphPackage.COMPARTMENT__NEEDS_TITLE:
 				return needsTitle != NEEDS_TITLE_EDEFAULT;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

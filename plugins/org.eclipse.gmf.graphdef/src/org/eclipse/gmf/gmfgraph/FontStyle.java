@@ -6,49 +6,173 @@
  */
 package org.eclipse.gmf.gmfgraph;
 
-import org.eclipse.emf.ecore.EObject;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import org.eclipse.emf.common.util.AbstractEnumerator;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Font Style</b></em>'.
+ * A representation of the literals of the enumeration '<em><b>Font Style</b></em>',
+ * and utility methods for working with them.
  * <!-- end-user-doc -->
- *
- * <p>
- * The following features are supported:
- * <ul>
- *   <li>{@link org.eclipse.gmf.gmfgraph.FontStyle#getFaceName <em>Face Name</em>}</li>
- * </ul>
- * </p>
- *
  * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getFontStyle()
  * @model
  * @generated
  */
-public interface FontStyle extends EObject {
+public final class FontStyle extends AbstractEnumerator {
 	/**
-	 * Returns the value of the '<em><b>Face Name</b></em>' attribute.
+	 * The '<em><b>NORMAL</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Face Name</em>' attribute isn't clear,
+	 * If the meaning of '<em><b>NORMAL</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Face Name</em>' attribute.
-	 * @see #setFaceName(String)
-	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getFontStyle_FaceName()
+	 * @see #NORMAL_LITERAL
 	 * @model
 	 * @generated
+	 * @ordered
 	 */
-	String getFaceName();
+	public static final int NORMAL = 0;
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.gmfgraph.FontStyle#getFaceName <em>Face Name</em>}' attribute.
+	 * The '<em><b>BOLD</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>BOLD</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #BOLD_LITERAL
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int BOLD = 1;
+
+	/**
+	 * The '<em><b>ITALIC</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>ITALIC</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #ITALIC_LITERAL
+	 * @model
+	 * @generated
+	 * @ordered
+	 */
+	public static final int ITALIC = 2;
+
+	/**
+	 * The '<em><b>NORMAL</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Face Name</em>' attribute.
-	 * @see #getFaceName()
+	 * @see #NORMAL
+	 * @generated
+	 * @ordered
+	 */
+	public static final FontStyle NORMAL_LITERAL = new FontStyle(NORMAL, "NORMAL", "NORMAL");
+
+	/**
+	 * The '<em><b>BOLD</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #BOLD
+	 * @generated
+	 * @ordered
+	 */
+	public static final FontStyle BOLD_LITERAL = new FontStyle(BOLD, "BOLD", "BOLD");
+
+	/**
+	 * The '<em><b>ITALIC</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #ITALIC
+	 * @generated
+	 * @ordered
+	 */
+	public static final FontStyle ITALIC_LITERAL = new FontStyle(ITALIC, "ITALIC", "ITALIC");
+
+	/**
+	 * An array of all the '<em><b>Font Style</b></em>' enumerators.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	void setFaceName(String value);
+	private static final FontStyle[] VALUES_ARRAY =
+		new FontStyle[] {
+			NORMAL_LITERAL,
+			BOLD_LITERAL,
+			ITALIC_LITERAL,
+		};
 
-} // FontStyle
+	/**
+	 * A public read-only list of all the '<em><b>Font Style</b></em>' enumerators.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+
+	/**
+	 * Returns the '<em><b>Font Style</b></em>' literal with the specified literal value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static FontStyle get(String literal) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			FontStyle result = VALUES_ARRAY[i];
+			if (result.toString().equals(literal)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Font Style</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static FontStyle getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			FontStyle result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Font Style</b></em>' literal with the specified integer value.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static FontStyle get(int value) {
+		switch (value) {
+			case NORMAL: return NORMAL_LITERAL;
+			case BOLD: return BOLD_LITERAL;
+			case ITALIC: return ITALIC_LITERAL;
+		}
+		return null;	
+	}
+
+	/**
+	 * Only this class can construct instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private FontStyle(int value, String name, String literal) {
+		super(value, name, literal);
+	}
+
+} //FontStyle

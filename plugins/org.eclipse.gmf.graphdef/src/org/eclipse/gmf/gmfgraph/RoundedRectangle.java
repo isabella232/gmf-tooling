@@ -31,6 +31,7 @@ package org.eclipse.gmf.gmfgraph;
 public interface RoundedRectangle extends Shape {
 	/**
 	 * Returns the value of the '<em><b>Corner Width</b></em>' attribute.
+	 * The default value is <code>"8"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Corner Width</em>' attribute isn't clear,
@@ -40,7 +41,7 @@ public interface RoundedRectangle extends Shape {
 	 * @return the value of the '<em>Corner Width</em>' attribute.
 	 * @see #setCornerWidth(int)
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getRoundedRectangle_CornerWidth()
-	 * @model
+	 * @model default="8"
 	 * @generated
 	 */
 	int getCornerWidth();
@@ -57,6 +58,7 @@ public interface RoundedRectangle extends Shape {
 
 	/**
 	 * Returns the value of the '<em><b>Corner Height</b></em>' attribute.
+	 * The default value is <code>"8"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Corner Height</em>' attribute isn't clear,
@@ -66,7 +68,7 @@ public interface RoundedRectangle extends Shape {
 	 * @return the value of the '<em>Corner Height</em>' attribute.
 	 * @see #setCornerHeight(int)
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getRoundedRectangle_CornerHeight()
-	 * @model
+	 * @model default="8"
 	 * @generated
 	 */
 	int getCornerHeight();

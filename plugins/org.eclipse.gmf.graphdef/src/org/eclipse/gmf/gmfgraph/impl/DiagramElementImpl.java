@@ -12,7 +12,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
@@ -125,8 +124,8 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 */
 	public Figure getFigure() {
 		if (figure != null && figure.eIsProxy()) {
-			Figure oldFigure = figure;
-			figure = (Figure)eResolveProxy((InternalEObject)figure);
+			InternalEObject oldFigure = (InternalEObject)figure;
+			figure = (Figure)eResolveProxy(oldFigure);
 			if (figure != oldFigure) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE, oldFigure, figure));
@@ -173,16 +172,12 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGraphPackage.DIAGRAM_ELEMENT__FACETS:
-					return ((InternalEList)getFacets()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGraphPackage.DIAGRAM_ELEMENT__FACETS:
+				return ((InternalEList)getFacets()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -190,8 +185,8 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGraphPackage.DIAGRAM_ELEMENT__NAME:
 				return getName();
 			case GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE:
@@ -200,7 +195,7 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 			case GMFGraphPackage.DIAGRAM_ELEMENT__FACETS:
 				return getFacets();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -208,8 +203,8 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGraphPackage.DIAGRAM_ELEMENT__NAME:
 				setName((String)newValue);
 				return;
@@ -221,7 +216,7 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 				getFacets().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -229,8 +224,8 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGraphPackage.DIAGRAM_ELEMENT__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -241,7 +236,7 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 				getFacets().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -249,8 +244,8 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGraphPackage.DIAGRAM_ELEMENT__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GMFGraphPackage.DIAGRAM_ELEMENT__FIGURE:
@@ -258,7 +253,7 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 			case GMFGraphPackage.DIAGRAM_ELEMENT__FACETS:
 				return facets != null && !facets.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**
