@@ -12,8 +12,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -22,18 +23,19 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+
+import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.FigureViewmap} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class DecoratedConnectionViewmapItemProvider
+public class FigureViewmapItemProvider
 	extends ViewmapItemProvider
 	implements	
 		IEditingDomainItemProvider,	
@@ -47,7 +49,7 @@ public class DecoratedConnectionViewmapItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DecoratedConnectionViewmapItemProvider(AdapterFactory adapterFactory) {
+	public FigureViewmapItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -77,9 +79,9 @@ public class DecoratedConnectionViewmapItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_DecoratedConnectionViewmap_figureQualifiedClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_DecoratedConnectionViewmap_figureQualifiedClassName_feature", "_UI_DecoratedConnectionViewmap_type"),
-				 GMFGenPackage.eINSTANCE.getDecoratedConnectionViewmap_FigureQualifiedClassName(),
+				 getString("_UI_FigureViewmap_figureQualifiedClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FigureViewmap_figureQualifiedClassName_feature", "_UI_FigureViewmap_type"),
+				 GMFGenPackage.eINSTANCE.getFigureViewmap_FigureQualifiedClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -87,42 +89,13 @@ public class DecoratedConnectionViewmapItemProvider
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Collection getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getDecoratedConnectionViewmap_Source());
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getDecoratedConnectionViewmap_Target());
-		}
-		return childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
-	}
-
-	/**
-	 * This returns DecoratedConnectionViewmap.gif.
+	 * This returns FigureViewmap.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/DecoratedConnectionViewmap");
+		return getResourceLocator().getImage("full/obj16/FigureViewmap");
 	}
 
 	/**
@@ -132,10 +105,10 @@ public class DecoratedConnectionViewmapItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((DecoratedConnectionViewmap)object).getFigureQualifiedClassName();
+		String label = ((FigureViewmap)object).getFigureQualifiedClassName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_DecoratedConnectionViewmap_type") :
-			getString("_UI_DecoratedConnectionViewmap_type") + " " + label;
+			getString("_UI_FigureViewmap_type") :
+			getString("_UI_FigureViewmap_type") + " " + label;
 	}
 
 	/**
@@ -148,13 +121,9 @@ public class DecoratedConnectionViewmapItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(DecoratedConnectionViewmap.class)) {
-			case GMFGenPackage.DECORATED_CONNECTION_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME:
+		switch (notification.getFeatureID(FigureViewmap.class)) {
+			case GMFGenPackage.FIGURE_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case GMFGenPackage.DECORATED_CONNECTION_VIEWMAP__SOURCE:
-			case GMFGenPackage.DECORATED_CONNECTION_VIEWMAP__TARGET:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -169,38 +138,6 @@ public class DecoratedConnectionViewmapItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getDecoratedConnectionViewmap_Source(),
-				 GMFGenFactory.eINSTANCE.createLinkDecoration()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getDecoratedConnectionViewmap_Target(),
-				 GMFGenFactory.eINSTANCE.createLinkDecoration()));
-	}
-
-	/**
-	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getCreateChildText(Object owner, Object feature, Object child, Collection selection) {
-		Object childFeature = feature;
-		Object childObject = child;
-
-		boolean qualify =
-			childFeature == GMFGenPackage.eINSTANCE.getDecoratedConnectionViewmap_Source() ||
-			childFeature == GMFGenPackage.eINSTANCE.getDecoratedConnectionViewmap_Target();
-
-		if (qualify) {
-			return getString
-				("_UI_CreateChild_text2",
-				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
-		}
-		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 	/**

@@ -11,7 +11,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
@@ -85,7 +84,7 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 */
 	public GenLink getLink() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK) return null;
-		return (GenLink)eContainer;
+		return (GenLink)eContainer();
 	}
 
 	/**
@@ -94,11 +93,11 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * @generated
 	 */
 	public void setLink(GenLink newLink) {
-		if (newLink != eContainer || (eContainerFeatureID != GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK && newLink != null)) {
+		if (newLink != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK && newLink != null)) {
 			if (EcoreUtil.isAncestor(this, newLink))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newLink != null)
 				msgs = ((InternalEObject)newLink).eInverseAdd(this, GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS, GenLink.class, msgs);
@@ -265,20 +264,14 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -286,20 +279,16 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK:
-					return eBasicSetContainer(null, GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK, msgs);
-				case GMFGenPackage.GEN_LINK_CONSTRAINTS__SOURCE_END:
-					return basicSetSourceEnd(null, msgs);
-				case GMFGenPackage.GEN_LINK_CONSTRAINTS__TARGET_END:
-					return basicSetTargetEnd(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK:
+				return eBasicSetContainer(null, GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK, msgs);
+			case GMFGenPackage.GEN_LINK_CONSTRAINTS__SOURCE_END:
+				return basicSetSourceEnd(null, msgs);
+			case GMFGenPackage.GEN_LINK_CONSTRAINTS__TARGET_END:
+				return basicSetTargetEnd(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -307,16 +296,12 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK:
-					return eContainer.eInverseRemove(this, GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS, GenLink.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS, GenLink.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -324,8 +309,8 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK:
 				return getLink();
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS__SOURCE_END:
@@ -333,7 +318,7 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS__TARGET_END:
 				return getTargetEnd();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -341,8 +326,8 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK:
 				setLink((GenLink)newValue);
 				return;
@@ -353,7 +338,7 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 				setTargetEnd((ValueExpression)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -361,8 +346,8 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK:
 				setLink((GenLink)null);
 				return;
@@ -373,7 +358,7 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 				setTargetEnd((ValueExpression)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -381,8 +366,8 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS__LINK:
 				return getLink() != null;
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS__SOURCE_END:
@@ -390,7 +375,7 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS__TARGET_END:
 				return targetEnd != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 } //GenLinkConstraintsImpl

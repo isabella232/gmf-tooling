@@ -7,7 +7,6 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
-import org.eclipse.emf.codegen.ecore.genmodel.impl.GenModelPackageImpl;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -15,17 +14,13 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.eclipse.emf.ecore.impl.EcorePackageImpl;
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
-import org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap;
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind;
-import org.eclipse.gmf.codegen.gmfgen.CompartmentViewmap;
-import org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
-import org.eclipse.gmf.codegen.gmfgen.DiagramViewmap;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
@@ -45,8 +40,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
-import org.eclipse.gmf.codegen.gmfgen.LabelViewmap;
-import org.eclipse.gmf.codegen.gmfgen.LinkDecoration;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
@@ -55,6 +48,7 @@ import org.eclipse.gmf.codegen.gmfgen.ModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ShapeAttributes;
+import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
@@ -221,42 +215,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass basicNodeViewmapEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass decoratedConnectionViewmapEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass linkDecorationEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass diagramViewmapEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass compartmentViewmapEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass labelViewmapEClass = null;
+	private EClass snippetViewmapEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -427,8 +386,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		isInited = true;
 
 		// Initialize simple dependencies
-		GenModelPackageImpl.init();
-		EcorePackageImpl.init();
+		GenModelPackage.eINSTANCE.eClass();
+		EcorePackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theGMFGenPackage.createPackageContents();
@@ -1491,8 +1450,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getBasicNodeViewmap() {
-		return basicNodeViewmapEClass;
+	public EAttribute getFigureViewmap_FigureQualifiedClassName() {
+		return (EAttribute)figureViewmapEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1500,8 +1459,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getBasicNodeViewmap_FigureQualifiedClassName() {
-		return (EAttribute)basicNodeViewmapEClass.getEStructuralFeatures().get(0);
+	public EClass getSnippetViewmap() {
+		return snippetViewmapEClass;
 	}
 
 	/**
@@ -1509,80 +1468,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getDecoratedConnectionViewmap() {
-		return decoratedConnectionViewmapEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getDecoratedConnectionViewmap_FigureQualifiedClassName() {
-		return (EAttribute)decoratedConnectionViewmapEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getDecoratedConnectionViewmap_Source() {
-		return (EReference)decoratedConnectionViewmapEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getDecoratedConnectionViewmap_Target() {
-		return (EReference)decoratedConnectionViewmapEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getLinkDecoration() {
-		return linkDecorationEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getLinkDecoration_FigureQualifiedClassName() {
-		return (EAttribute)linkDecorationEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getDiagramViewmap() {
-		return diagramViewmapEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getCompartmentViewmap() {
-		return compartmentViewmapEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getLabelViewmap() {
-		return labelViewmapEClass;
+	public EAttribute getSnippetViewmap_Body() {
+		return (EAttribute)snippetViewmapEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2145,23 +2032,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(viewmapEClass, VIEWMAP__ATTRIBUTES);
 
 		figureViewmapEClass = createEClass(FIGURE_VIEWMAP);
+		createEAttribute(figureViewmapEClass, FIGURE_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME);
 
-		basicNodeViewmapEClass = createEClass(BASIC_NODE_VIEWMAP);
-		createEAttribute(basicNodeViewmapEClass, BASIC_NODE_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME);
-
-		decoratedConnectionViewmapEClass = createEClass(DECORATED_CONNECTION_VIEWMAP);
-		createEAttribute(decoratedConnectionViewmapEClass, DECORATED_CONNECTION_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME);
-		createEReference(decoratedConnectionViewmapEClass, DECORATED_CONNECTION_VIEWMAP__SOURCE);
-		createEReference(decoratedConnectionViewmapEClass, DECORATED_CONNECTION_VIEWMAP__TARGET);
-
-		linkDecorationEClass = createEClass(LINK_DECORATION);
-		createEAttribute(linkDecorationEClass, LINK_DECORATION__FIGURE_QUALIFIED_CLASS_NAME);
-
-		diagramViewmapEClass = createEClass(DIAGRAM_VIEWMAP);
-
-		compartmentViewmapEClass = createEClass(COMPARTMENT_VIEWMAP);
-
-		labelViewmapEClass = createEClass(LABEL_VIEWMAP);
+		snippetViewmapEClass = createEClass(SNIPPET_VIEWMAP);
+		createEAttribute(snippetViewmapEClass, SNIPPET_VIEWMAP__BODY);
 
 		valueExpressionEClass = createEClass(VALUE_EXPRESSION);
 		createEAttribute(valueExpressionEClass, VALUE_EXPRESSION__BODY);
@@ -2248,7 +2122,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		GenModelPackageImpl theGenModelPackage = (GenModelPackageImpl)EPackage.Registry.INSTANCE.getEPackage(GenModelPackage.eNS_URI);
+		GenModelPackage theGenModelPackage = (GenModelPackage)EPackage.Registry.INSTANCE.getEPackage(GenModelPackage.eNS_URI);
 
 		// Add supertypes to classes
 		genDiagramEClass.getESuperTypes().add(this.getGenCommonBase());
@@ -2269,13 +2143,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		colorAttributesEClass.getESuperTypes().add(this.getAttributes());
 		shapeAttributesEClass.getESuperTypes().add(this.getAttributes());
 		defaultSizeAttributesEClass.getESuperTypes().add(this.getAttributes());
-		basicNodeViewmapEClass.getESuperTypes().add(this.getViewmap());
-		basicNodeViewmapEClass.getESuperTypes().add(this.getFigureViewmap());
-		decoratedConnectionViewmapEClass.getESuperTypes().add(this.getViewmap());
-		decoratedConnectionViewmapEClass.getESuperTypes().add(this.getFigureViewmap());
-		diagramViewmapEClass.getESuperTypes().add(this.getViewmap());
-		compartmentViewmapEClass.getESuperTypes().add(this.getViewmap());
-		labelViewmapEClass.getESuperTypes().add(this.getViewmap());
+		figureViewmapEClass.getESuperTypes().add(this.getViewmap());
+		snippetViewmapEClass.getESuperTypes().add(this.getViewmap());
 		modelElementSelectorEClass.getESuperTypes().add(this.getValueExpression());
 		toolEntryEClass.getESuperTypes().add(this.getEntryBase());
 		nodeEntryEClass.getESuperTypes().add(this.getToolEntry());
@@ -2331,73 +2200,73 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenDiagram_PreferenceInitializerClassName(), ecorePackage.getEString(), "preferenceInitializerClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagram_VisualIDRegistryClassName(), ecorePackage.getEString(), "visualIDRegistryClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(genDiagramEClass, theGenModelPackage.getGenModel(), "getEMFGenModel");
+		addEOperation(genDiagramEClass, theGenModelPackage.getGenModel(), "getEMFGenModel", 0, 1);
 
-		addEOperation(genDiagramEClass, this.getStringArray(), "getRequiredPluginIDs");
+		addEOperation(genDiagramEClass, this.getStringArray(), "getRequiredPluginIDs", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getElementInitializersClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getElementInitializersClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getElementInitializersPackageName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getElementInitializersPackageName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getReorientConnectionViewCommandQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getReorientConnectionViewCommandQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getEditPartFactoryQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getEditPartFactoryQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getBaseItemSemanticEditPolicyQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getBaseItemSemanticEditPolicyQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getBaseGraphicalNodeEditPolicyQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getBaseGraphicalNodeEditPolicyQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getReferenceConnectionEditPolicyQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getReferenceConnectionEditPolicyQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getCanonicalEditPolicyQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getCanonicalEditPolicyQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEBoolean(), "hasLinkCreationConstraints");
+		addEOperation(genDiagramEClass, ecorePackage.getEBoolean(), "hasLinkCreationConstraints", 1, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getLinkCreationConstraintsClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getLinkCreationConstraintsClassName", 1, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getLinkCreationConstraintsQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getLinkCreationConstraintsQualifiedClassName", 1, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getElementTypesQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getElementTypesQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getSemanticHintsQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getSemanticHintsQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getNotationViewProviderQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getNotationViewProviderQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getEditPartProviderQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getEditPartProviderQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getMetamodelSupportProviderQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getMetamodelSupportProviderQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getModelingAssistantProviderQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getModelingAssistantProviderQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getPropertyProviderQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getPropertyProviderQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getIconProviderQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getIconProviderQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getStructuralFeatureParserQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getStructuralFeatureParserQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getActionBarContributorQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getActionBarContributorQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getCreationWizardQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getCreationWizardQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getCreationWizardPageQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getCreationWizardPageQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getDiagramEditorUtilQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getDiagramEditorUtilQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getDiagramFileCreatorQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getDiagramFileCreatorQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getDocumentProviderQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getDocumentProviderQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getEditorQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getEditorQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getInitDiagramFileActionQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getInitDiagramFileActionQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getMatchingStrategyQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getMatchingStrategyQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getPluginQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getPluginQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getPreferenceInitializerQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getPreferenceInitializerQualifiedClassName", 0, 1);
 
-		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getVisualIDRegistryQualifiedClassName");
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getVisualIDRegistryQualifiedClassName", 0, 1);
 
 		initEClass(genCommonBaseEClass, GenCommonBase.class, "GenCommonBase", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenCommonBase_DiagramRunTimeClass(), theGenModelPackage.getGenClass(), null, "diagramRunTimeClass", null, 1, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2407,25 +2276,25 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenCommonBase_NotationViewFactoryClassName(), ecorePackage.getEString(), "notationViewFactoryClassName", null, 0, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenCommonBase_Viewmap(), this.getViewmap(), null, "viewmap", null, 1, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getEditPartQualifiedClassName");
+		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getEditPartQualifiedClassName", 0, 1);
 
-		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getItemSemanticEditPolicyQualifiedClassName");
+		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getItemSemanticEditPolicyQualifiedClassName", 0, 1);
 
-		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getNotationViewFactoryQualifiedClassName");
+		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getNotationViewFactoryQualifiedClassName", 0, 1);
 
-		addEOperation(genCommonBaseEClass, this.getGenDiagram(), "getDiagram");
+		addEOperation(genCommonBaseEClass, this.getGenDiagram(), "getDiagram", 0, 1);
 
-		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getClassNamePrefix");
+		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getClassNamePrefix", 0, 1);
 
-		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getClassNameSuffux");
+		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getClassNameSuffux", 0, 1);
 
-		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getUniqueIdentifier");
+		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getUniqueIdentifier", 0, 1);
 
 		initEClass(genChildContainerEClass, GenChildContainer.class, "GenChildContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenChildContainer_ChildNodes(), this.getGenChildNode(), this.getGenChildNode_Container(), "childNodes", null, 0, -1, GenChildContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenChildContainer_CanonicalEditPolicyClassName(), ecorePackage.getEString(), "canonicalEditPolicyClassName", null, 0, 1, GenChildContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(genChildContainerEClass, ecorePackage.getEString(), "getCanonicalEditPolicyQualifiedClassName");
+		addEOperation(genChildContainerEClass, ecorePackage.getEString(), "getCanonicalEditPolicyQualifiedClassName", 0, 1);
 
 		initEClass(genNodeEClass, GenNode.class, "GenNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenNode_Diagram(), this.getGenDiagram(), this.getGenDiagram_Nodes(), "diagram", null, 1, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2436,9 +2305,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenNode_ExplicitContentPane(), ecorePackage.getEBoolean(), "explicitContentPane", null, 0, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNode_GraphicalNodeEditPolicyClassName(), ecorePackage.getEString(), "graphicalNodeEditPolicyClassName", null, 0, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(genNodeEClass, theGenModelPackage.getGenClass(), "getDomainMetaClass");
+		addEOperation(genNodeEClass, theGenModelPackage.getGenClass(), "getDomainMetaClass", 1, 1);
 
-		addEOperation(genNodeEClass, ecorePackage.getEString(), "getGraphicalNodeEditPolicyQualifiedClassName");
+		addEOperation(genNodeEClass, ecorePackage.getEString(), "getGraphicalNodeEditPolicyQualifiedClassName", 0, 1);
 
 		initEClass(genCompartmentEClass, GenCompartment.class, "GenCompartment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenCompartment_Title(), ecorePackage.getEString(), "title", null, 0, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2448,12 +2317,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenCompartment_LayoutKind(), this.getCompartmentLayoutKind(), "layoutKind", null, 0, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenCompartment_Node(), this.getGenNode(), this.getGenNode_Compartments(), "node", null, 1, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(genCompartmentEClass, ecorePackage.getEString(), "getSemanticHintFieldName");
+		addEOperation(genCompartmentEClass, ecorePackage.getEString(), "getSemanticHintFieldName", 0, 1);
 
 		initEClass(genChildNodeEClass, GenChildNode.class, "GenChildNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenChildNode_Container(), this.getGenChildContainer(), this.getGenChildContainer_ChildNodes(), "container", null, 1, 1, GenChildNode.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(genChildNodeEClass, ecorePackage.getEBoolean(), "isListContainerEntry");
+		addEOperation(genChildNodeEClass, ecorePackage.getEBoolean(), "isListContainerEntry", 0, 1);
 
 		initEClass(genLinkEClass, GenLink.class, "GenLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenLink_Diagram(), this.getGenDiagram(), this.getGenDiagram_Links(), "diagram", null, 1, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2468,9 +2337,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenLabel_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", null, 0, 1, GenLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenLabel_ModelFacet(), this.getFeatureModelFacet(), null, "modelFacet", null, 1, 1, GenLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(genLabelEClass, theGenModelPackage.getGenFeature(), "getMetaFeature");
+		addEOperation(genLabelEClass, theGenModelPackage.getGenFeature(), "getMetaFeature", 0, 1);
 
-		addEOperation(genLabelEClass, ecorePackage.getEString(), "getSemanticHintFieldName");
+		addEOperation(genLabelEClass, ecorePackage.getEString(), "getSemanticHintFieldName", 0, 1);
 
 		initEClass(genNodeLabelEClass, GenNodeLabel.class, "GenNodeLabel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenNodeLabel_Node(), this.getGenNode(), this.getGenNode_Labels(), "node", null, 1, 1, GenNodeLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2481,11 +2350,11 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenLinkLabel_TextEditPartClassName(), ecorePackage.getEString(), "textEditPartClassName", null, 0, 1, GenLinkLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenLinkLabel_TextNotationViewFactoryClassName(), ecorePackage.getEString(), "textNotationViewFactoryClassName", null, 0, 1, GenLinkLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(genLinkLabelEClass, ecorePackage.getEString(), "getTextEditPartQualifiedClassName");
+		addEOperation(genLinkLabelEClass, ecorePackage.getEString(), "getTextEditPartQualifiedClassName", 0, 1);
 
-		addEOperation(genLinkLabelEClass, ecorePackage.getEString(), "getTextNotationViewFactoryQualifiedClassName");
+		addEOperation(genLinkLabelEClass, ecorePackage.getEString(), "getTextNotationViewFactoryQualifiedClassName", 0, 1);
 
-		addEOperation(genLinkLabelEClass, ecorePackage.getEString(), "getSemanticHintLabelFieldName");
+		addEOperation(genLinkLabelEClass, ecorePackage.getEString(), "getSemanticHintLabelFieldName", 0, 1);
 
 		initEClass(modelFacetEClass, ModelFacet.class, "ModelFacet", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -2522,29 +2391,14 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(viewmapEClass, Viewmap.class, "Viewmap", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getViewmap_Attributes(), this.getAttributes(), null, "attributes", null, 0, -1, Viewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		EOperation op = addEOperation(viewmapEClass, this.getAttributes(), "find");
-		addEParameter(op, ecorePackage.getEJavaClass(), "attributesClass");
+		EOperation op = addEOperation(viewmapEClass, this.getAttributes(), "find", 0, 1);
+		addEParameter(op, ecorePackage.getEJavaClass(), "attributesClass", 0, 1);
 
-		initEClass(figureViewmapEClass, FigureViewmap.class, "FigureViewmap", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(figureViewmapEClass, FigureViewmap.class, "FigureViewmap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getFigureViewmap_FigureQualifiedClassName(), ecorePackage.getEString(), "figureQualifiedClassName", null, 1, 1, FigureViewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(figureViewmapEClass, ecorePackage.getEString(), "getFigureQualifiedClassName");
-
-		initEClass(basicNodeViewmapEClass, BasicNodeViewmap.class, "BasicNodeViewmap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getBasicNodeViewmap_FigureQualifiedClassName(), ecorePackage.getEString(), "figureQualifiedClassName", null, 0, 1, BasicNodeViewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(decoratedConnectionViewmapEClass, DecoratedConnectionViewmap.class, "DecoratedConnectionViewmap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getDecoratedConnectionViewmap_FigureQualifiedClassName(), ecorePackage.getEString(), "figureQualifiedClassName", null, 0, 1, DecoratedConnectionViewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDecoratedConnectionViewmap_Source(), this.getLinkDecoration(), null, "source", null, 0, 1, DecoratedConnectionViewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getDecoratedConnectionViewmap_Target(), this.getLinkDecoration(), null, "target", null, 0, 1, DecoratedConnectionViewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(linkDecorationEClass, LinkDecoration.class, "LinkDecoration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getLinkDecoration_FigureQualifiedClassName(), ecorePackage.getEString(), "figureQualifiedClassName", null, 0, 1, LinkDecoration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(diagramViewmapEClass, DiagramViewmap.class, "DiagramViewmap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(compartmentViewmapEClass, CompartmentViewmap.class, "CompartmentViewmap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(labelViewmapEClass, LabelViewmap.class, "LabelViewmap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(snippetViewmapEClass, SnippetViewmap.class, "SnippetViewmap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getSnippetViewmap_Body(), ecorePackage.getEString(), "body", null, 0, 1, SnippetViewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(valueExpressionEClass, ValueExpression.class, "ValueExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getValueExpression_Body(), ecorePackage.getEString(), "body", null, 1, 1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2552,7 +2406,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(modelElementSelectorEClass, ModelElementSelector.class, "ModelElementSelector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		addEOperation(modelElementSelectorEClass, this.getStringArray(), "getRequiredPluginIDs");
+		addEOperation(modelElementSelectorEClass, this.getStringArray(), "getRequiredPluginIDs", 0, 1);
 
 		initEClass(paletteEClass, Palette.class, "Palette", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPalette_Diagram(), this.getGenDiagram(), this.getGenDiagram_Palette(), "diagram", null, 1, 1, Palette.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2562,7 +2416,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getPalette_PackageName(), ecorePackage.getEString(), "packageName", null, 0, 1, Palette.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPalette_FactoryClassName(), ecorePackage.getEString(), "factoryClassName", null, 0, 1, Palette.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(paletteEClass, ecorePackage.getEString(), "getFactoryQualifiedClassName");
+		addEOperation(paletteEClass, ecorePackage.getEString(), "getFactoryQualifiedClassName", 0, 1);
 
 		initEClass(entryBaseEClass, EntryBase.class, "EntryBase", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEntryBase_Order(), ecorePackage.getEInt(), "order", null, 0, 1, EntryBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2591,34 +2445,34 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(genElementInitializerEClass, GenElementInitializer.class, "GenElementInitializer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenElementInitializer_TypeModelFacet(), this.getTypeModelFacet(), this.getTypeModelFacet_ModelElementInitializer(), "typeModelFacet", null, 1, 1, GenElementInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(genElementInitializerEClass, this.getStringArray(), "getRequiredPluginIDs");
+		addEOperation(genElementInitializerEClass, this.getStringArray(), "getRequiredPluginIDs", 1, 1);
 
 		initEClass(genFeatureSeqInitializerEClass, GenFeatureSeqInitializer.class, "GenFeatureSeqInitializer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenFeatureSeqInitializer_Initializers(), this.getGenFeatureValueSpec(), null, "initializers", null, 1, -1, GenFeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(genFeatureSeqInitializerEClass, this.getStringArray(), "getRequiredPluginIDs");
+		addEOperation(genFeatureSeqInitializerEClass, this.getStringArray(), "getRequiredPluginIDs", 0, 1);
 
-		addEOperation(genFeatureSeqInitializerEClass, ecorePackage.getEString(), "getElementClassAccessorName");
+		addEOperation(genFeatureSeqInitializerEClass, ecorePackage.getEString(), "getElementClassAccessorName", 1, 1);
 
-		addEOperation(genFeatureSeqInitializerEClass, ecorePackage.getEString(), "getElementQualifiedPackageInterfaceName");
+		addEOperation(genFeatureSeqInitializerEClass, ecorePackage.getEString(), "getElementQualifiedPackageInterfaceName", 1, 1);
 
 		initEClass(genFeatureValueSpecEClass, GenFeatureValueSpec.class, "GenFeatureValueSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenFeatureValueSpec_Feature(), theGenModelPackage.getGenFeature(), null, "feature", null, 1, 1, GenFeatureValueSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(genFeatureValueSpecEClass, ecorePackage.getEString(), "getFeatureQualifiedPackageInterfaceName");
+		addEOperation(genFeatureValueSpecEClass, ecorePackage.getEString(), "getFeatureQualifiedPackageInterfaceName", 1, 1);
 
 		initEClass(genLinkConstraintsEClass, GenLinkConstraints.class, "GenLinkConstraints", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenLinkConstraints_Link(), this.getGenLink(), this.getGenLink_CreationConstraints(), "link", null, 1, 1, GenLinkConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenLinkConstraints_SourceEnd(), this.getValueExpression(), null, "sourceEnd", null, 0, 1, GenLinkConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenLinkConstraints_TargetEnd(), this.getValueExpression(), null, "targetEnd", null, 0, 1, GenLinkConstraints.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(genLinkConstraintsEClass, theGenModelPackage.getGenClass(), "getLinkClass");
+		addEOperation(genLinkConstraintsEClass, theGenModelPackage.getGenClass(), "getLinkClass", 0, 1);
 
-		addEOperation(genLinkConstraintsEClass, theGenModelPackage.getGenClass(), "getSourceEndContextClass");
+		addEOperation(genLinkConstraintsEClass, theGenModelPackage.getGenClass(), "getSourceEndContextClass", 0, 1);
 
-		addEOperation(genLinkConstraintsEClass, theGenModelPackage.getGenClass(), "getTargetEndContextClass");
+		addEOperation(genLinkConstraintsEClass, theGenModelPackage.getGenClass(), "getTargetEndContextClass", 0, 1);
 
-		addEOperation(genLinkConstraintsEClass, ecorePackage.getEString(), "getConstraintsInstanceFieldName");
+		addEOperation(genLinkConstraintsEClass, ecorePackage.getEString(), "getConstraintsInstanceFieldName", 1, 1);
 
 		// Initialize enums and add enum literals
 		initEEnum(compartmentPlacementKindEEnum, CompartmentPlacementKind.class, "CompartmentPlacementKind");
@@ -2666,7 +2520,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																																																																										
+		   });																																																																																							
 	}
 
 	/**
@@ -2694,7 +2548,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "let c: ecore::EClass = diagramRunTimeClass.ecoreClass.oclAsType(ecore::EClass) in c = notation::Node or c.eAllSuperTypes->includes(notation::Node)"
-		   });								
+		   });							
 		addAnnotation
 		  (genLinkEClass, 
 		   source, 
@@ -2736,7 +2590,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "targetMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)"
-		   });																										
+		   });																								
 		addAnnotation
 		  (getGenFeatureSeqInitializer_Initializers(), 
 		   source, 
@@ -2758,14 +2612,14 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																											
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																										
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
 			 "ocl", "metaClass.ecoreClass"
-		   });																
+		   });														
 		addAnnotation
 		  (valueExpressionEClass, 
 		   source, 

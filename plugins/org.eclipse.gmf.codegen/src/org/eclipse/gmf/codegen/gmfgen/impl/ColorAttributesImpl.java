@@ -9,7 +9,6 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
@@ -137,14 +136,14 @@ public class ColorAttributesImpl extends EObjectImpl implements ColorAttributes 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGenPackage.COLOR_ATTRIBUTES__FOREGROUND_COLOR:
 				return getForegroundColor();
 			case GMFGenPackage.COLOR_ATTRIBUTES__BACKGROUND_COLOR:
 				return getBackgroundColor();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -152,8 +151,8 @@ public class ColorAttributesImpl extends EObjectImpl implements ColorAttributes 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGenPackage.COLOR_ATTRIBUTES__FOREGROUND_COLOR:
 				setForegroundColor((String)newValue);
 				return;
@@ -161,7 +160,7 @@ public class ColorAttributesImpl extends EObjectImpl implements ColorAttributes 
 				setBackgroundColor((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -169,8 +168,8 @@ public class ColorAttributesImpl extends EObjectImpl implements ColorAttributes 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.COLOR_ATTRIBUTES__FOREGROUND_COLOR:
 				setForegroundColor(FOREGROUND_COLOR_EDEFAULT);
 				return;
@@ -178,7 +177,7 @@ public class ColorAttributesImpl extends EObjectImpl implements ColorAttributes 
 				setBackgroundColor(BACKGROUND_COLOR_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -186,14 +185,14 @@ public class ColorAttributesImpl extends EObjectImpl implements ColorAttributes 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.COLOR_ATTRIBUTES__FOREGROUND_COLOR:
 				return FOREGROUND_COLOR_EDEFAULT == null ? foregroundColor != null : !FOREGROUND_COLOR_EDEFAULT.equals(foregroundColor);
 			case GMFGenPackage.COLOR_ATTRIBUTES__BACKGROUND_COLOR:
 				return BACKGROUND_COLOR_EDEFAULT == null ? backgroundColor != null : !BACKGROUND_COLOR_EDEFAULT.equals(backgroundColor);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

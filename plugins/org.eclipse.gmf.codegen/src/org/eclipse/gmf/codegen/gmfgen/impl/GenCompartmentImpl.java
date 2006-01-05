@@ -6,27 +6,16 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
-import java.util.Collection;
-
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
  * <!-- begin-user-doc -->
@@ -277,7 +266,7 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 */
 	public GenNode getNode() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_COMPARTMENT__NODE) return null;
-		return (GenNode)eContainer;
+		return (GenNode)eContainer();
 	}
 
 	/**
@@ -294,22 +283,14 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.GEN_COMPARTMENT__CHILD_NODES:
-					return ((InternalEList)getChildNodes()).basicAdd(otherEnd, msgs);
-				case GMFGenPackage.GEN_COMPARTMENT__NODE:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_COMPARTMENT__NODE, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_COMPARTMENT__NODE:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_COMPARTMENT__NODE, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -317,20 +298,12 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.GEN_COMPARTMENT__VIEWMAP:
-					return basicSetViewmap(null, msgs);
-				case GMFGenPackage.GEN_COMPARTMENT__CHILD_NODES:
-					return ((InternalEList)getChildNodes()).basicRemove(otherEnd, msgs);
-				case GMFGenPackage.GEN_COMPARTMENT__NODE:
-					return eBasicSetContainer(null, GMFGenPackage.GEN_COMPARTMENT__NODE, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_COMPARTMENT__NODE:
+				return eBasicSetContainer(null, GMFGenPackage.GEN_COMPARTMENT__NODE, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -338,16 +311,12 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case GMFGenPackage.GEN_COMPARTMENT__NODE:
-					return eContainer.eInverseRemove(this, GMFGenPackage.GEN_NODE__COMPARTMENTS, GenNode.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFGenPackage.GEN_COMPARTMENT__NODE:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_NODE__COMPARTMENTS, GenNode.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -355,25 +324,8 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_COMPARTMENT__DIAGRAM_RUN_TIME_CLASS:
-				if (resolve) return getDiagramRunTimeClass();
-				return basicGetDiagramRunTimeClass();
-			case GMFGenPackage.GEN_COMPARTMENT__VISUAL_ID:
-				return new Integer(getVisualID());
-			case GMFGenPackage.GEN_COMPARTMENT__EDIT_PART_CLASS_NAME:
-				return getEditPartClassName();
-			case GMFGenPackage.GEN_COMPARTMENT__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				return getItemSemanticEditPolicyClassName();
-			case GMFGenPackage.GEN_COMPARTMENT__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				return getNotationViewFactoryClassName();
-			case GMFGenPackage.GEN_COMPARTMENT__VIEWMAP:
-				return getViewmap();
-			case GMFGenPackage.GEN_COMPARTMENT__CHILD_NODES:
-				return getChildNodes();
-			case GMFGenPackage.GEN_COMPARTMENT__CANONICAL_EDIT_POLICY_CLASS_NAME:
-				return getCanonicalEditPolicyClassName();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_COMPARTMENT__TITLE:
 				return getTitle();
 			case GMFGenPackage.GEN_COMPARTMENT__CAN_COLLAPSE:
@@ -387,7 +339,7 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 			case GMFGenPackage.GEN_COMPARTMENT__NODE:
 				return getNode();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -395,33 +347,8 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_COMPARTMENT__DIAGRAM_RUN_TIME_CLASS:
-				setDiagramRunTimeClass((GenClass)newValue);
-				return;
-			case GMFGenPackage.GEN_COMPARTMENT__VISUAL_ID:
-				setVisualID(((Integer)newValue).intValue());
-				return;
-			case GMFGenPackage.GEN_COMPARTMENT__EDIT_PART_CLASS_NAME:
-				setEditPartClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_COMPARTMENT__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				setItemSemanticEditPolicyClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_COMPARTMENT__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				setNotationViewFactoryClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_COMPARTMENT__VIEWMAP:
-				setViewmap((Viewmap)newValue);
-				return;
-			case GMFGenPackage.GEN_COMPARTMENT__CHILD_NODES:
-				getChildNodes().clear();
-				getChildNodes().addAll((Collection)newValue);
-				return;
-			case GMFGenPackage.GEN_COMPARTMENT__CANONICAL_EDIT_POLICY_CLASS_NAME:
-				setCanonicalEditPolicyClassName((String)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_COMPARTMENT__TITLE:
 				setTitle((String)newValue);
 				return;
@@ -438,7 +365,7 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 				setLayoutKind((CompartmentLayoutKind)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -446,32 +373,8 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_COMPARTMENT__DIAGRAM_RUN_TIME_CLASS:
-				setDiagramRunTimeClass((GenClass)null);
-				return;
-			case GMFGenPackage.GEN_COMPARTMENT__VISUAL_ID:
-				setVisualID(VISUAL_ID_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_COMPARTMENT__EDIT_PART_CLASS_NAME:
-				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_COMPARTMENT__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				setItemSemanticEditPolicyClassName(ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_COMPARTMENT__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_COMPARTMENT__VIEWMAP:
-				setViewmap((Viewmap)null);
-				return;
-			case GMFGenPackage.GEN_COMPARTMENT__CHILD_NODES:
-				getChildNodes().clear();
-				return;
-			case GMFGenPackage.GEN_COMPARTMENT__CANONICAL_EDIT_POLICY_CLASS_NAME:
-				setCanonicalEditPolicyClassName(CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_COMPARTMENT__TITLE:
 				setTitle(TITLE_EDEFAULT);
 				return;
@@ -488,7 +391,7 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 				setLayoutKind(LAYOUT_KIND_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -496,24 +399,8 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_COMPARTMENT__DIAGRAM_RUN_TIME_CLASS:
-				return diagramRunTimeClass != null;
-			case GMFGenPackage.GEN_COMPARTMENT__VISUAL_ID:
-				return visualID != VISUAL_ID_EDEFAULT;
-			case GMFGenPackage.GEN_COMPARTMENT__EDIT_PART_CLASS_NAME:
-				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
-			case GMFGenPackage.GEN_COMPARTMENT__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				return ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? itemSemanticEditPolicyClassName != null : !ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(itemSemanticEditPolicyClassName);
-			case GMFGenPackage.GEN_COMPARTMENT__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
-			case GMFGenPackage.GEN_COMPARTMENT__VIEWMAP:
-				return viewmap != null;
-			case GMFGenPackage.GEN_COMPARTMENT__CHILD_NODES:
-				return childNodes != null && !childNodes.isEmpty();
-			case GMFGenPackage.GEN_COMPARTMENT__CANONICAL_EDIT_POLICY_CLASS_NAME:
-				return CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? canonicalEditPolicyClassName != null : !CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(canonicalEditPolicyClassName);
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_COMPARTMENT__TITLE:
 				return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
 			case GMFGenPackage.GEN_COMPARTMENT__CAN_COLLAPSE:
@@ -527,7 +414,7 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 			case GMFGenPackage.GEN_COMPARTMENT__NODE:
 				return getNode() != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

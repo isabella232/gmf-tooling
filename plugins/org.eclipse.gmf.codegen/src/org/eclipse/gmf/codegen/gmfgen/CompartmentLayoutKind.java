@@ -105,7 +105,7 @@ public final class CompartmentLayoutKind extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final CompartmentLayoutKind BORDER_LITERAL = new CompartmentLayoutKind(BORDER, "BORDER");
+	public static final CompartmentLayoutKind BORDER_LITERAL = new CompartmentLayoutKind(BORDER, "BORDER", "BORDER");
 
 	/**
 	 * The '<em><b>FLOW</b></em>' literal object.
@@ -115,7 +115,7 @@ public final class CompartmentLayoutKind extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final CompartmentLayoutKind FLOW_LITERAL = new CompartmentLayoutKind(FLOW, "FLOW");
+	public static final CompartmentLayoutKind FLOW_LITERAL = new CompartmentLayoutKind(FLOW, "FLOW", "FLOW");
 
 	/**
 	 * The '<em><b>SCROLL</b></em>' literal object.
@@ -125,7 +125,7 @@ public final class CompartmentLayoutKind extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final CompartmentLayoutKind SCROLL_LITERAL = new CompartmentLayoutKind(SCROLL, "SCROLL");
+	public static final CompartmentLayoutKind SCROLL_LITERAL = new CompartmentLayoutKind(SCROLL, "SCROLL", "SCROLL");
 
 	/**
 	 * The '<em><b>TOOLBAR</b></em>' literal object.
@@ -135,7 +135,7 @@ public final class CompartmentLayoutKind extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final CompartmentLayoutKind TOOLBAR_LITERAL = new CompartmentLayoutKind(TOOLBAR, "TOOLBAR");
+	public static final CompartmentLayoutKind TOOLBAR_LITERAL = new CompartmentLayoutKind(TOOLBAR, "TOOLBAR", "TOOLBAR");
 
 	/**
 	 * The '<em><b>XY</b></em>' literal object.
@@ -145,7 +145,7 @@ public final class CompartmentLayoutKind extends AbstractEnumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final CompartmentLayoutKind XY_LITERAL = new CompartmentLayoutKind(XY, "XY");
+	public static final CompartmentLayoutKind XY_LITERAL = new CompartmentLayoutKind(XY, "XY", "XY");
 
 	/**
 	 * An array of all the '<em><b>Compartment Layout Kind</b></em>' enumerators.
@@ -171,15 +171,15 @@ public final class CompartmentLayoutKind extends AbstractEnumerator {
 	public static final List VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
-	 * Returns the '<em><b>Compartment Layout Kind</b></em>' literal with the specified name.
+	 * Returns the '<em><b>Compartment Layout Kind</b></em>' literal with the specified literal value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static CompartmentLayoutKind get(String name) {
+	public static CompartmentLayoutKind get(String literal) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			CompartmentLayoutKind result = VALUES_ARRAY[i];
-			if (result.toString().equals(name)) {
+			if (result.toString().equals(literal)) {
 				return result;
 			}
 		}
@@ -187,7 +187,23 @@ public final class CompartmentLayoutKind extends AbstractEnumerator {
 	}
 
 	/**
-	 * Returns the '<em><b>Compartment Layout Kind</b></em>' literal with the specified value.
+	 * Returns the '<em><b>Compartment Layout Kind</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static CompartmentLayoutKind getByName(String name) {
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			CompartmentLayoutKind result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the '<em><b>Compartment Layout Kind</b></em>' literal with the specified integer value.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -209,8 +225,8 @@ public final class CompartmentLayoutKind extends AbstractEnumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private CompartmentLayoutKind(int value, String name) {
-		super(value, name);
+	private CompartmentLayoutKind(int value, String name, String literal) {
+		super(value, name, literal);
 	}
 
 } //CompartmentLayoutKind

@@ -14,7 +14,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
@@ -27,7 +26,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
  * <!-- begin-user-doc -->
@@ -164,7 +162,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 */
 	public GenDiagram getDiagram() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_LINK__DIAGRAM) return null;
-		return (GenDiagram)eContainer;
+		return (GenDiagram)eContainer();
 	}
 
 	/**
@@ -333,26 +331,20 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.GEN_LINK__DIAGRAM:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_LINK__DIAGRAM, msgs);
-				case GMFGenPackage.GEN_LINK__LABELS:
-					return ((InternalEList)getLabels()).basicAdd(otherEnd, msgs);
-				case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
-					if (creationConstraints != null)
-						msgs = ((InternalEObject)creationConstraints).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS, null, msgs);
-					return basicSetCreationConstraints((GenLinkConstraints)otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_LINK__DIAGRAM:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_LINK__DIAGRAM, msgs);
+			case GMFGenPackage.GEN_LINK__LABELS:
+				return ((InternalEList)getLabels()).basicAdd(otherEnd, msgs);
+			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
+				if (creationConstraints != null)
+					msgs = ((InternalEObject)creationConstraints).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS, null, msgs);
+				return basicSetCreationConstraints((GenLinkConstraints)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -360,24 +352,18 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.GEN_LINK__VIEWMAP:
-					return basicSetViewmap(null, msgs);
-				case GMFGenPackage.GEN_LINK__DIAGRAM:
-					return eBasicSetContainer(null, GMFGenPackage.GEN_LINK__DIAGRAM, msgs);
-				case GMFGenPackage.GEN_LINK__MODEL_FACET:
-					return basicSetModelFacet(null, msgs);
-				case GMFGenPackage.GEN_LINK__LABELS:
-					return ((InternalEList)getLabels()).basicRemove(otherEnd, msgs);
-				case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
-					return basicSetCreationConstraints(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_LINK__DIAGRAM:
+				return eBasicSetContainer(null, GMFGenPackage.GEN_LINK__DIAGRAM, msgs);
+			case GMFGenPackage.GEN_LINK__MODEL_FACET:
+				return basicSetModelFacet(null, msgs);
+			case GMFGenPackage.GEN_LINK__LABELS:
+				return ((InternalEList)getLabels()).basicRemove(otherEnd, msgs);
+			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
+				return basicSetCreationConstraints(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -385,16 +371,12 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case GMFGenPackage.GEN_LINK__DIAGRAM:
-					return eContainer.eInverseRemove(this, GMFGenPackage.GEN_DIAGRAM__LINKS, GenDiagram.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFGenPackage.GEN_LINK__DIAGRAM:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_DIAGRAM__LINKS, GenDiagram.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -402,21 +384,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_LINK__DIAGRAM_RUN_TIME_CLASS:
-				if (resolve) return getDiagramRunTimeClass();
-				return basicGetDiagramRunTimeClass();
-			case GMFGenPackage.GEN_LINK__VISUAL_ID:
-				return new Integer(getVisualID());
-			case GMFGenPackage.GEN_LINK__EDIT_PART_CLASS_NAME:
-				return getEditPartClassName();
-			case GMFGenPackage.GEN_LINK__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				return getItemSemanticEditPolicyClassName();
-			case GMFGenPackage.GEN_LINK__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				return getNotationViewFactoryClassName();
-			case GMFGenPackage.GEN_LINK__VIEWMAP:
-				return getViewmap();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
@@ -432,7 +401,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
 				return getCreationConstraints();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -440,26 +409,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_LINK__DIAGRAM_RUN_TIME_CLASS:
-				setDiagramRunTimeClass((GenClass)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK__VISUAL_ID:
-				setVisualID(((Integer)newValue).intValue());
-				return;
-			case GMFGenPackage.GEN_LINK__EDIT_PART_CLASS_NAME:
-				setEditPartClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				setItemSemanticEditPolicyClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				setNotationViewFactoryClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK__VIEWMAP:
-				setViewmap((Viewmap)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
 				setModelFacet((LinkModelFacet)newValue);
 				return;
@@ -480,7 +431,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				setCreationConstraints((GenLinkConstraints)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -488,26 +439,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_LINK__DIAGRAM_RUN_TIME_CLASS:
-				setDiagramRunTimeClass((GenClass)null);
-				return;
-			case GMFGenPackage.GEN_LINK__VISUAL_ID:
-				setVisualID(VISUAL_ID_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_LINK__EDIT_PART_CLASS_NAME:
-				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_LINK__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				setItemSemanticEditPolicyClassName(ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_LINK__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_LINK__VIEWMAP:
-				setViewmap((Viewmap)null);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
 				setModelFacet((LinkModelFacet)null);
 				return;
@@ -527,7 +460,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 				setCreationConstraints((GenLinkConstraints)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -535,20 +468,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_LINK__DIAGRAM_RUN_TIME_CLASS:
-				return diagramRunTimeClass != null;
-			case GMFGenPackage.GEN_LINK__VISUAL_ID:
-				return visualID != VISUAL_ID_EDEFAULT;
-			case GMFGenPackage.GEN_LINK__EDIT_PART_CLASS_NAME:
-				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
-			case GMFGenPackage.GEN_LINK__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				return ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? itemSemanticEditPolicyClassName != null : !ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(itemSemanticEditPolicyClassName);
-			case GMFGenPackage.GEN_LINK__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
-			case GMFGenPackage.GEN_LINK__VIEWMAP:
-				return viewmap != null;
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_LINK__DIAGRAM:
 				return getDiagram() != null;
 			case GMFGenPackage.GEN_LINK__MODEL_FACET:
@@ -564,7 +485,7 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 			case GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS:
 				return creationConstraints != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

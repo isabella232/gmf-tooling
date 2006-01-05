@@ -73,29 +73,24 @@ public class <%=genNode.getEditPartClassName()%> extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	protected IFigure createNodeShape() {
-<%
+	protected IFigure createNodeShape() {<%
 Viewmap viewmap = genNode.getViewmap();
-String figureQualifiedClassName = null;
 if (viewmap instanceof FigureViewmap) {
+	String figureQualifiedClassName = null;
 	figureQualifiedClassName = ((FigureViewmap) viewmap).getFigureQualifiedClassName();
-}
-if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length() == 0) {
-	figureQualifiedClassName = "org.eclipse.draw2d.RectangleFigure";
+	if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length() == 0) {
+		figureQualifiedClassName = "org.eclipse.draw2d.RectangleFigure";
 }
 %>
 		return new <%=importManager.getImportedName(figureQualifiedClassName)%>()<%if (useFlowLayout) {%> {
 			protected boolean useLocalCoordinates() {
 				return true;
 			}
-}<%}%>;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void decorateNodeShape(Shape shape) {
-<%@ include file="shapeattrs.jetinc"%>
+		}<%} // use flow layout%>;
+<%} // instanceof FigureViewmap
+ else if (viewmap instanceof SnippetViewmap) {%>
+		return <%=((SnippetViewmap) viewmap).getBody()%>;
+<%}%>
 	}
 
 	/**
@@ -127,9 +122,6 @@ if (defSizeAttrs != null) {
 		figure.setBorder(new RectangularDropShadowLineBorder(0));
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
-		if (shape instanceof Shape) {
-			decorateNodeShape((Shape) shape);
-		}
 		figure.add(shape);
 		addContentPane(shape);
 		return figure;

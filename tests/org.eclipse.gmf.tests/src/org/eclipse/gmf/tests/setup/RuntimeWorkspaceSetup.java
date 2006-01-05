@@ -58,7 +58,7 @@ public class RuntimeWorkspaceSetup {
 	// TODO Refactor to clear away similar code (CodeCompilationTest, RuntimeWorkspaceSetup, GenProjectSetup)
 	public RuntimeWorkspaceSetup init() throws Exception {
 		ensureJava14();
-		if (PDECore.isDevLaunchMode()) {
+		if (false && PDECore.isDevLaunchMode()) {
 			// Need to get some gmf source code into target workspace 
 			importDevPluginsIntoRunTimeWorkspace(new String[] {
 					"org.apache.batik",

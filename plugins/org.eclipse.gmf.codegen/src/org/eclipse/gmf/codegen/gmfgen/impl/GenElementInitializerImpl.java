@@ -7,18 +7,11 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
-
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
-
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 
 /**
@@ -60,7 +53,7 @@ public abstract class GenElementInitializerImpl extends EObjectImpl implements G
 	 */
 	public TypeModelFacet getTypeModelFacet() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_ELEMENT_INITIALIZER__TYPE_MODEL_FACET) return null;
-		return (TypeModelFacet)eContainer;
+		return (TypeModelFacet)eContainer();
 	}
 
 	/**
@@ -77,20 +70,14 @@ public abstract class GenElementInitializerImpl extends EObjectImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.GEN_ELEMENT_INITIALIZER__TYPE_MODEL_FACET:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_ELEMENT_INITIALIZER__TYPE_MODEL_FACET, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_ELEMENT_INITIALIZER__TYPE_MODEL_FACET:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_ELEMENT_INITIALIZER__TYPE_MODEL_FACET, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -98,16 +85,12 @@ public abstract class GenElementInitializerImpl extends EObjectImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.GEN_ELEMENT_INITIALIZER__TYPE_MODEL_FACET:
-					return eBasicSetContainer(null, GMFGenPackage.GEN_ELEMENT_INITIALIZER__TYPE_MODEL_FACET, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_ELEMENT_INITIALIZER__TYPE_MODEL_FACET:
+				return eBasicSetContainer(null, GMFGenPackage.GEN_ELEMENT_INITIALIZER__TYPE_MODEL_FACET, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -115,16 +98,12 @@ public abstract class GenElementInitializerImpl extends EObjectImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case GMFGenPackage.GEN_ELEMENT_INITIALIZER__TYPE_MODEL_FACET:
-					return eContainer.eInverseRemove(this, GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_INITIALIZER, TypeModelFacet.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFGenPackage.GEN_ELEMENT_INITIALIZER__TYPE_MODEL_FACET:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_INITIALIZER, TypeModelFacet.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -132,12 +111,12 @@ public abstract class GenElementInitializerImpl extends EObjectImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_ELEMENT_INITIALIZER__TYPE_MODEL_FACET:
 				return getTypeModelFacet();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -145,12 +124,12 @@ public abstract class GenElementInitializerImpl extends EObjectImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_ELEMENT_INITIALIZER__TYPE_MODEL_FACET:
 				return getTypeModelFacet() != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 } //GenElementInitializerImpl

@@ -6,18 +6,15 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenLabel;
-import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
  * <!-- begin-user-doc -->
@@ -169,18 +166,12 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.GEN_LABEL__VIEWMAP:
-					return basicSetViewmap(null, msgs);
-				case GMFGenPackage.GEN_LABEL__MODEL_FACET:
-					return basicSetModelFacet(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_LABEL__MODEL_FACET:
+				return basicSetModelFacet(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -188,27 +179,14 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_LABEL__DIAGRAM_RUN_TIME_CLASS:
-				if (resolve) return getDiagramRunTimeClass();
-				return basicGetDiagramRunTimeClass();
-			case GMFGenPackage.GEN_LABEL__VISUAL_ID:
-				return new Integer(getVisualID());
-			case GMFGenPackage.GEN_LABEL__EDIT_PART_CLASS_NAME:
-				return getEditPartClassName();
-			case GMFGenPackage.GEN_LABEL__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				return getItemSemanticEditPolicyClassName();
-			case GMFGenPackage.GEN_LABEL__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				return getNotationViewFactoryClassName();
-			case GMFGenPackage.GEN_LABEL__VIEWMAP:
-				return getViewmap();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_LABEL__READ_ONLY:
 				return isReadOnly() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_LABEL__MODEL_FACET:
 				return getModelFacet();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -216,26 +194,8 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_LABEL__DIAGRAM_RUN_TIME_CLASS:
-				setDiagramRunTimeClass((GenClass)newValue);
-				return;
-			case GMFGenPackage.GEN_LABEL__VISUAL_ID:
-				setVisualID(((Integer)newValue).intValue());
-				return;
-			case GMFGenPackage.GEN_LABEL__EDIT_PART_CLASS_NAME:
-				setEditPartClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_LABEL__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				setItemSemanticEditPolicyClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_LABEL__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				setNotationViewFactoryClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_LABEL__VIEWMAP:
-				setViewmap((Viewmap)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_LABEL__READ_ONLY:
 				setReadOnly(((Boolean)newValue).booleanValue());
 				return;
@@ -243,7 +203,7 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 				setModelFacet((FeatureModelFacet)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -251,26 +211,8 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_LABEL__DIAGRAM_RUN_TIME_CLASS:
-				setDiagramRunTimeClass((GenClass)null);
-				return;
-			case GMFGenPackage.GEN_LABEL__VISUAL_ID:
-				setVisualID(VISUAL_ID_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_LABEL__EDIT_PART_CLASS_NAME:
-				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_LABEL__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				setItemSemanticEditPolicyClassName(ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_LABEL__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_LABEL__VIEWMAP:
-				setViewmap((Viewmap)null);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_LABEL__READ_ONLY:
 				setReadOnly(READ_ONLY_EDEFAULT);
 				return;
@@ -278,7 +220,7 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 				setModelFacet((FeatureModelFacet)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -286,26 +228,14 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_LABEL__DIAGRAM_RUN_TIME_CLASS:
-				return diagramRunTimeClass != null;
-			case GMFGenPackage.GEN_LABEL__VISUAL_ID:
-				return visualID != VISUAL_ID_EDEFAULT;
-			case GMFGenPackage.GEN_LABEL__EDIT_PART_CLASS_NAME:
-				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
-			case GMFGenPackage.GEN_LABEL__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				return ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? itemSemanticEditPolicyClassName != null : !ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(itemSemanticEditPolicyClassName);
-			case GMFGenPackage.GEN_LABEL__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
-			case GMFGenPackage.GEN_LABEL__VIEWMAP:
-				return viewmap != null;
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_LABEL__READ_ONLY:
 				return readOnly != READ_ONLY_EDEFAULT;
 			case GMFGenPackage.GEN_LABEL__MODEL_FACET:
 				return modelFacet != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

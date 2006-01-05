@@ -24,11 +24,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap;
-import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind;
-import org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
@@ -44,13 +41,11 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
-import org.eclipse.gmf.codegen.gmfgen.LinkDecoration;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
-import org.eclipse.gmf.codegen.gmfgen.ShapeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
@@ -58,15 +53,6 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.gmfgraph.Compartment;
-import org.eclipse.gmf.gmfgraph.Connection;
-import org.eclipse.gmf.gmfgraph.ConnectionFigure;
-import org.eclipse.gmf.gmfgraph.CustomConnection;
-import org.eclipse.gmf.gmfgraph.DecorationFigure;
-import org.eclipse.gmf.gmfgraph.Figure;
-import org.eclipse.gmf.gmfgraph.PolylineConnection;
-import org.eclipse.gmf.gmfgraph.Shape;
-import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
-import org.eclipse.gmf.gmfgraph.util.GMFGraphSwitch;
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
@@ -99,8 +85,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private GenModelMatcher myGenModelMatch;
 	private final DiagramRunTimeModelHelper myDRTHelper;
 	private final NamingStrategy myNamingStrategy;
-
-	private final GMFGraphSwitch myFiqureQualifiedNamesSwitch = new FigureQualifiedNameSwitch();
+	private final ViewmapProducer myViewmaps = new ViewmapProducer();
 
 	private int myNodeCount = 0;
 	private int myLinkCount = 0;
@@ -154,7 +139,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		getGenDiagram().setDiagramRunTimeClass(findRunTimeClass(mapping));
 		getGenDiagram().setVisualID(CANVAS_COUNT_BASE);
 		getGenDiagram().setPluginName(mapping.getDomainModel().getName() + " Plugin");
-		getGenDiagram().setViewmap(GMFGenFactory.eINSTANCE.createDiagramViewmap());
+		getGenDiagram().setViewmap(myViewmaps.create(mapping.getDiagramCanvas()));
 
 		// set class names
 		getGenDiagram().setNotationViewFactoryClassName(myNamingStrategy.createCanvasClassName(mapping, GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX));
@@ -179,7 +164,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			label.setModelFacet(modelFacet);
 			label.setVisualID(LABEL_COUNT_BASE + (++myLabelCount));
 			label.setDiagramRunTimeClass(getNodeLabelRunTimeClass());
-			label.setViewmap(GMFGenFactory.eINSTANCE.createLabelViewmap());
+			label.setViewmap(createLabelViewmap());
 
 			// set class names
 			label.setNotationViewFactoryClassName(myNamingStrategy.createNodeLabelClassName(nme, nme.getEditFeature(), GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX));
@@ -188,7 +173,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 			genNode.getLabels().add(label);
 		}
-		genNode.setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap());
+		genNode.setViewmap(myViewmaps.create(nme.getDiagramNode()));
 		handleNodeTool(nme, genNode);
 
 		// set class names
@@ -209,7 +194,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		childNode.setModelFacet(createModelFacet(childNodeMapping));
 		
 		childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
-		childNode.setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap());
+		childNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
 		childNode.setVisualID(CHILD_COUNT_BASE + (++myChildCount ));
 		childNode.setChildContainersPlacement(CompartmentPlacementKind.TOOLBAR_LITERAL);
 
@@ -227,7 +212,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			label.setModelFacet(modelFacet);
 			label.setVisualID(LABEL_COUNT_BASE + (++myLabelCount));
 			label.setDiagramRunTimeClass(getNodeLabelRunTimeClass());
-			label.setViewmap(GMFGenFactory.eINSTANCE.createLabelViewmap());
+			label.setViewmap(createLabelViewmap());
 
 			// set class names
 			label.setNotationViewFactoryClassName(myNamingStrategy.createNodeLabelClassName(childNodeMapping, childNodeMapping.getEditFeature(), GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX));
@@ -280,7 +265,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		GenCompartment childCompartment = GMFGenFactory.eINSTANCE.createGenCompartment();
 		childCompartment.setVisualID(COMPARTMENT_COUNT_BASE + (++myCompartmentCount));
 		childCompartment.setDiagramRunTimeClass(getChildContainerRunTimeClass());
-		childCompartment.setViewmap(GMFGenFactory.eINSTANCE.createCompartmentViewmap());
+		childCompartment.setViewmap(myViewmaps.create(mapping.getCompartment()));
 		childCompartment.setCanCollapse(compartment.isCollapsible());
 		childCompartment.setNeedsTitle(compartment.isNeedsTitle());
 		childCompartment.setLayoutKind(CompartmentLayoutKind.TOOLBAR_LITERAL);
@@ -316,7 +301,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			label.setModelFacet(modelFacet);
 			label.setVisualID(LABEL_COUNT_BASE + (++myLabelCount));
 			label.setDiagramRunTimeClass(getLinkLabelRunTimeClass());
-			label.setViewmap(GMFGenFactory.eINSTANCE.createLabelViewmap());
+			label.setViewmap(createLabelViewmap());
 
 			// set class names
 			label.setNotationViewFactoryClassName(myNamingStrategy.createLinkLabelClassName(lme, lme.getLabelEditFeature(), GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX));
@@ -335,59 +320,19 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		gl.setEditPartClassName(myNamingStrategy.createLinkClassName(lme, GenCommonBase.EDIT_PART_SUFFIX));
 		gl.setItemSemanticEditPolicyClassName(myNamingStrategy.createLinkClassName(lme, GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX));
 
-		gl.setViewmap(createViewmap(lme.getDiagramLink()));
+		gl.setViewmap(myViewmaps.create(lme.getDiagramLink()));
 
 		if(lme.getCreationConstraints() != null) {
 			gl.setCreationConstraints(createLinkCreationConstraints(lme.getCreationConstraints()));
 		}
 	}
 
-	private Viewmap createViewmap(Connection conn) {
-		assert conn.getFigure() instanceof ConnectionFigure;
-		Viewmap viewmap = null;
-		if (conn.getFigure() instanceof PolylineConnection) {
-			PolylineConnection pc = (PolylineConnection) conn.getFigure();
-			DecoratedConnectionViewmap v = GMFGenFactory.eINSTANCE.createDecoratedConnectionViewmap();
-			if (pc.getSourceDecoration() != null) {
-				v.setSource(from(pc.getSourceDecoration()));
-			}
-			if (pc.getTargetDecoration() != null) {
-				v.setTarget(from(pc.getTargetDecoration()));
-			}
-			viewmap = v;
-		} else {
-			assert conn.getFigure() instanceof CustomConnection;
-			BasicNodeViewmap v = GMFGenFactory.eINSTANCE.createBasicNodeViewmap(); // FIXME rename BasicNodeV to just GenericV
-			v.setFigureQualifiedClassName(qualifiedFigureName(conn.getFigure()));
-			viewmap = v;
-		}
-		setupAttributes(conn.getFigure(), viewmap);
-		return viewmap;
-	}
-
-	private void setupAttributes(Figure figure, Viewmap v) {
-		if (figure.getColorStyle() != null) {
-			ColorAttributes attrs = GMFGenFactory.eINSTANCE.createColorAttributes();
-			attrs.setBackgroundColor(figure.getColorStyle().getBackgroundColor());
-			attrs.setForegroundColor(figure.getColorStyle().getForegroundColor());
-			v.getAttributes().add(attrs);
-		}
-		if (figure instanceof Shape) {
-			ShapeAttributes attrs = GMFGenFactory.eINSTANCE.createShapeAttributes();
-			attrs.setLineStyle(((Shape) figure).getLineKind().getLiteral());
-			attrs.setLineWidth(((Shape) figure).getLineWidth());
-			v.getAttributes().add(attrs);
-		}
-	}
-
-	private LinkDecoration from(DecorationFigure df) {
-		LinkDecoration ld = GMFGenFactory.eINSTANCE.createLinkDecoration();
-		ld.setFigureQualifiedClassName(qualifiedFigureName(df));
-		return ld;
-	}
-
-	private String qualifiedFigureName(Figure fig) {
-		return (String) myFiqureQualifiedNamesSwitch.doSwitch(fig);
+	/**
+	 * FIXME Use child from gmfgraph with dedicated figure
+	 * @return
+	 */
+	private Viewmap createLabelViewmap() {
+		return myViewmaps.createLabelViewmap();
 	}
 
 	private GenClass findRunTimeClass(NodeMapping nme) {

@@ -6,32 +6,26 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap;
+import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Basic Node Viewmap</b></em>'.
+ * An implementation of the model object '<em><b>Figure Viewmap</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.BasicNodeViewmapImpl#getFigureQualifiedClassName <em>Figure Qualified Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FigureViewmapImpl#getFigureQualifiedClassName <em>Figure Qualified Class Name</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class BasicNodeViewmapImpl extends ViewmapImpl implements BasicNodeViewmap {
+public class FigureViewmapImpl extends ViewmapImpl implements FigureViewmap {
 	/**
 	 * The default value of the '{@link #getFigureQualifiedClassName() <em>Figure Qualified Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -57,7 +51,7 @@ public class BasicNodeViewmapImpl extends ViewmapImpl implements BasicNodeViewma
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected BasicNodeViewmapImpl() {
+	protected FigureViewmapImpl() {
 		super();
 	}
 
@@ -67,7 +61,7 @@ public class BasicNodeViewmapImpl extends ViewmapImpl implements BasicNodeViewma
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return GMFGenPackage.eINSTANCE.getBasicNodeViewmap();
+		return GMFGenPackage.eINSTANCE.getFigureViewmap();
 	}
 
 	/**
@@ -88,7 +82,7 @@ public class BasicNodeViewmapImpl extends ViewmapImpl implements BasicNodeViewma
 		String oldFigureQualifiedClassName = figureQualifiedClassName;
 		figureQualifiedClassName = newFigureQualifiedClassName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.BASIC_NODE_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME, oldFigureQualifiedClassName, figureQualifiedClassName));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.FIGURE_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME, oldFigureQualifiedClassName, figureQualifiedClassName));
 	}
 
 	/**
@@ -96,31 +90,12 @@ public class BasicNodeViewmapImpl extends ViewmapImpl implements BasicNodeViewma
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.BASIC_NODE_VIEWMAP__ATTRIBUTES:
-					return ((InternalEList)getAttributes()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.BASIC_NODE_VIEWMAP__ATTRIBUTES:
-				return getAttributes();
-			case GMFGenPackage.BASIC_NODE_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME:
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case GMFGenPackage.FIGURE_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME:
 				return getFigureQualifiedClassName();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -128,17 +103,13 @@ public class BasicNodeViewmapImpl extends ViewmapImpl implements BasicNodeViewma
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.BASIC_NODE_VIEWMAP__ATTRIBUTES:
-				getAttributes().clear();
-				getAttributes().addAll((Collection)newValue);
-				return;
-			case GMFGenPackage.BASIC_NODE_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME:
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case GMFGenPackage.FIGURE_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME:
 				setFigureQualifiedClassName((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -146,16 +117,13 @@ public class BasicNodeViewmapImpl extends ViewmapImpl implements BasicNodeViewma
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.BASIC_NODE_VIEWMAP__ATTRIBUTES:
-				getAttributes().clear();
-				return;
-			case GMFGenPackage.BASIC_NODE_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME:
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case GMFGenPackage.FIGURE_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME:
 				setFigureQualifiedClassName(FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -163,14 +131,12 @@ public class BasicNodeViewmapImpl extends ViewmapImpl implements BasicNodeViewma
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.BASIC_NODE_VIEWMAP__ATTRIBUTES:
-				return attributes != null && !attributes.isEmpty();
-			case GMFGenPackage.BASIC_NODE_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME:
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case GMFGenPackage.FIGURE_VIEWMAP__FIGURE_QUALIFIED_CLASS_NAME:
 				return FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT == null ? figureQualifiedClassName != null : !FIGURE_QUALIFIED_CLASS_NAME_EDEFAULT.equals(figureQualifiedClassName);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**
@@ -188,4 +154,4 @@ public class BasicNodeViewmapImpl extends ViewmapImpl implements BasicNodeViewma
 		return result.toString();
 	}
 
-} //BasicNodeViewmapImpl
+} //FigureViewmapImpl

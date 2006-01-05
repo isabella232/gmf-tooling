@@ -8,7 +8,7 @@
     usedGenPackages="../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel#//genmodel ../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore">
   <foreignModel>gmfgen.ecore</foreignModel>
   <genPackages prefix="GMFGen" basePackage="org.eclipse.gmf.codegen" disposableProviderFactory="true"
-      ecorePackage="gmfgen.ecore#/">
+      literalsInterface="false" ecorePackage="gmfgen.ecore#/">
     <genEnums ecoreEnum="gmfgen.ecore#//CompartmentPlacementKind">
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//CompartmentPlacementKind/FLOW"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//CompartmentPlacementKind/TOOLBAR"/>
@@ -213,22 +213,11 @@
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//FigureViewmap">
-      <genOperations ecoreOperation="gmfgen.ecore#//FigureViewmap/getFigureQualifiedClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FigureViewmap/figureQualifiedClassName"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//BasicNodeViewmap">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BasicNodeViewmap/figureQualifiedClassName"/>
+    <genClasses ecoreClass="gmfgen.ecore#//SnippetViewmap">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//SnippetViewmap/body"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//DecoratedConnectionViewmap">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//DecoratedConnectionViewmap/figureQualifiedClassName"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//DecoratedConnectionViewmap/source"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//DecoratedConnectionViewmap/target"/>
-    </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//LinkDecoration">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//LinkDecoration/figureQualifiedClassName"/>
-    </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//DiagramViewmap"/>
-    <genClasses ecoreClass="gmfgen.ecore#//CompartmentViewmap"/>
-    <genClasses ecoreClass="gmfgen.ecore#//LabelViewmap"/>
     <genClasses ecoreClass="gmfgen.ecore#//ValueExpression">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/body"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/language"/>

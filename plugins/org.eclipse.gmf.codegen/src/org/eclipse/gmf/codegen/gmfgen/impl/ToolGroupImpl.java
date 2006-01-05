@@ -11,7 +11,6 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -106,7 +105,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 */
 	public Palette getPalette() {
 		if (eContainerFeatureID != GMFGenPackage.TOOL_GROUP__PALETTE) return null;
-		return (Palette)eContainer;
+		return (Palette)eContainer();
 	}
 
 	/**
@@ -114,24 +113,18 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.TOOL_GROUP__NODE_TOOLS:
-					return ((InternalEList)getNodeTools()).basicAdd(otherEnd, msgs);
-				case GMFGenPackage.TOOL_GROUP__LINK_TOOLS:
-					return ((InternalEList)getLinkTools()).basicAdd(otherEnd, msgs);
-				case GMFGenPackage.TOOL_GROUP__PALETTE:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, GMFGenPackage.TOOL_GROUP__PALETTE, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.TOOL_GROUP__NODE_TOOLS:
+				return ((InternalEList)getNodeTools()).basicAdd(otherEnd, msgs);
+			case GMFGenPackage.TOOL_GROUP__LINK_TOOLS:
+				return ((InternalEList)getLinkTools()).basicAdd(otherEnd, msgs);
+			case GMFGenPackage.TOOL_GROUP__PALETTE:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.TOOL_GROUP__PALETTE, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -139,20 +132,16 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.TOOL_GROUP__NODE_TOOLS:
-					return ((InternalEList)getNodeTools()).basicRemove(otherEnd, msgs);
-				case GMFGenPackage.TOOL_GROUP__LINK_TOOLS:
-					return ((InternalEList)getLinkTools()).basicRemove(otherEnd, msgs);
-				case GMFGenPackage.TOOL_GROUP__PALETTE:
-					return eBasicSetContainer(null, GMFGenPackage.TOOL_GROUP__PALETTE, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.TOOL_GROUP__NODE_TOOLS:
+				return ((InternalEList)getNodeTools()).basicRemove(otherEnd, msgs);
+			case GMFGenPackage.TOOL_GROUP__LINK_TOOLS:
+				return ((InternalEList)getLinkTools()).basicRemove(otherEnd, msgs);
+			case GMFGenPackage.TOOL_GROUP__PALETTE:
+				return eBasicSetContainer(null, GMFGenPackage.TOOL_GROUP__PALETTE, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -160,16 +149,12 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case GMFGenPackage.TOOL_GROUP__PALETTE:
-					return eContainer.eInverseRemove(this, GMFGenPackage.PALETTE__GROUPS, Palette.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFGenPackage.TOOL_GROUP__PALETTE:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.PALETTE__GROUPS, Palette.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -177,20 +162,8 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.TOOL_GROUP__ORDER:
-				return new Integer(getOrder());
-			case GMFGenPackage.TOOL_GROUP__TITLE_KEY:
-				return getTitleKey();
-			case GMFGenPackage.TOOL_GROUP__DESCRIPTION_KEY:
-				return getDescriptionKey();
-			case GMFGenPackage.TOOL_GROUP__LARGE_ICON_PATH:
-				return getLargeIconPath();
-			case GMFGenPackage.TOOL_GROUP__SMALL_ICON_PATH:
-				return getSmallIconPath();
-			case GMFGenPackage.TOOL_GROUP__CREATE_METHOD_NAME:
-				return getCreateMethodName();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGenPackage.TOOL_GROUP__NODE_TOOLS:
 				return getNodeTools();
 			case GMFGenPackage.TOOL_GROUP__LINK_TOOLS:
@@ -198,7 +171,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 			case GMFGenPackage.TOOL_GROUP__PALETTE:
 				return getPalette();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -206,26 +179,8 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.TOOL_GROUP__ORDER:
-				setOrder(((Integer)newValue).intValue());
-				return;
-			case GMFGenPackage.TOOL_GROUP__TITLE_KEY:
-				setTitleKey((String)newValue);
-				return;
-			case GMFGenPackage.TOOL_GROUP__DESCRIPTION_KEY:
-				setDescriptionKey((String)newValue);
-				return;
-			case GMFGenPackage.TOOL_GROUP__LARGE_ICON_PATH:
-				setLargeIconPath((String)newValue);
-				return;
-			case GMFGenPackage.TOOL_GROUP__SMALL_ICON_PATH:
-				setSmallIconPath((String)newValue);
-				return;
-			case GMFGenPackage.TOOL_GROUP__CREATE_METHOD_NAME:
-				setCreateMethodName((String)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGenPackage.TOOL_GROUP__NODE_TOOLS:
 				getNodeTools().clear();
 				getNodeTools().addAll((Collection)newValue);
@@ -235,7 +190,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 				getLinkTools().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -243,26 +198,8 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.TOOL_GROUP__ORDER:
-				setOrder(ORDER_EDEFAULT);
-				return;
-			case GMFGenPackage.TOOL_GROUP__TITLE_KEY:
-				setTitleKey(TITLE_KEY_EDEFAULT);
-				return;
-			case GMFGenPackage.TOOL_GROUP__DESCRIPTION_KEY:
-				setDescriptionKey(DESCRIPTION_KEY_EDEFAULT);
-				return;
-			case GMFGenPackage.TOOL_GROUP__LARGE_ICON_PATH:
-				setLargeIconPath(LARGE_ICON_PATH_EDEFAULT);
-				return;
-			case GMFGenPackage.TOOL_GROUP__SMALL_ICON_PATH:
-				setSmallIconPath(SMALL_ICON_PATH_EDEFAULT);
-				return;
-			case GMFGenPackage.TOOL_GROUP__CREATE_METHOD_NAME:
-				setCreateMethodName(CREATE_METHOD_NAME_EDEFAULT);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.TOOL_GROUP__NODE_TOOLS:
 				getNodeTools().clear();
 				return;
@@ -270,7 +207,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 				getLinkTools().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -278,20 +215,8 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.TOOL_GROUP__ORDER:
-				return order != ORDER_EDEFAULT;
-			case GMFGenPackage.TOOL_GROUP__TITLE_KEY:
-				return TITLE_KEY_EDEFAULT == null ? titleKey != null : !TITLE_KEY_EDEFAULT.equals(titleKey);
-			case GMFGenPackage.TOOL_GROUP__DESCRIPTION_KEY:
-				return DESCRIPTION_KEY_EDEFAULT == null ? descriptionKey != null : !DESCRIPTION_KEY_EDEFAULT.equals(descriptionKey);
-			case GMFGenPackage.TOOL_GROUP__LARGE_ICON_PATH:
-				return LARGE_ICON_PATH_EDEFAULT == null ? largeIconPath != null : !LARGE_ICON_PATH_EDEFAULT.equals(largeIconPath);
-			case GMFGenPackage.TOOL_GROUP__SMALL_ICON_PATH:
-				return SMALL_ICON_PATH_EDEFAULT == null ? smallIconPath != null : !SMALL_ICON_PATH_EDEFAULT.equals(smallIconPath);
-			case GMFGenPackage.TOOL_GROUP__CREATE_METHOD_NAME:
-				return CREATE_METHOD_NAME_EDEFAULT == null ? createMethodName != null : !CREATE_METHOD_NAME_EDEFAULT.equals(createMethodName);
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.TOOL_GROUP__NODE_TOOLS:
 				return nodeTools != null && !nodeTools.isEmpty();
 			case GMFGenPackage.TOOL_GROUP__LINK_TOOLS:
@@ -299,7 +224,7 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 			case GMFGenPackage.TOOL_GROUP__PALETTE:
 				return getPalette() != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 } //ToolGroupImpl

@@ -8,7 +8,6 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
@@ -134,14 +133,14 @@ public class DefaultSizeAttributesImpl extends EObjectImpl implements DefaultSiz
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGenPackage.DEFAULT_SIZE_ATTRIBUTES__WIDTH:
 				return new Integer(getWidth());
 			case GMFGenPackage.DEFAULT_SIZE_ATTRIBUTES__HEIGHT:
 				return new Integer(getHeight());
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -149,8 +148,8 @@ public class DefaultSizeAttributesImpl extends EObjectImpl implements DefaultSiz
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGenPackage.DEFAULT_SIZE_ATTRIBUTES__WIDTH:
 				setWidth(((Integer)newValue).intValue());
 				return;
@@ -158,7 +157,7 @@ public class DefaultSizeAttributesImpl extends EObjectImpl implements DefaultSiz
 				setHeight(((Integer)newValue).intValue());
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -166,8 +165,8 @@ public class DefaultSizeAttributesImpl extends EObjectImpl implements DefaultSiz
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.DEFAULT_SIZE_ATTRIBUTES__WIDTH:
 				setWidth(WIDTH_EDEFAULT);
 				return;
@@ -175,7 +174,7 @@ public class DefaultSizeAttributesImpl extends EObjectImpl implements DefaultSiz
 				setHeight(HEIGHT_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -183,14 +182,14 @@ public class DefaultSizeAttributesImpl extends EObjectImpl implements DefaultSiz
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.DEFAULT_SIZE_ATTRIBUTES__WIDTH:
 				return width != WIDTH_EDEFAULT;
 			case GMFGenPackage.DEFAULT_SIZE_ATTRIBUTES__HEIGHT:
 				return height != HEIGHT_EDEFAULT;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

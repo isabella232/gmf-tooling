@@ -13,25 +13,38 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.codegen.gmfgen.*;
 
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
-import org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap;
-import org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
+import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
+import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.codegen.gmfgen.LinkDecoration;
+import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
+import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
+import org.eclipse.gmf.codegen.gmfgen.ModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ShapeAttributes;
+import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
@@ -256,49 +269,14 @@ public class GMFGenSwitch {
 			case GMFGenPackage.FIGURE_VIEWMAP: {
 				FigureViewmap figureViewmap = (FigureViewmap)theEObject;
 				Object result = caseFigureViewmap(figureViewmap);
+				if (result == null) result = caseViewmap(figureViewmap);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GMFGenPackage.BASIC_NODE_VIEWMAP: {
-				BasicNodeViewmap basicNodeViewmap = (BasicNodeViewmap)theEObject;
-				Object result = caseBasicNodeViewmap(basicNodeViewmap);
-				if (result == null) result = caseViewmap(basicNodeViewmap);
-				if (result == null) result = caseFigureViewmap(basicNodeViewmap);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GMFGenPackage.DECORATED_CONNECTION_VIEWMAP: {
-				DecoratedConnectionViewmap decoratedConnectionViewmap = (DecoratedConnectionViewmap)theEObject;
-				Object result = caseDecoratedConnectionViewmap(decoratedConnectionViewmap);
-				if (result == null) result = caseViewmap(decoratedConnectionViewmap);
-				if (result == null) result = caseFigureViewmap(decoratedConnectionViewmap);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GMFGenPackage.LINK_DECORATION: {
-				LinkDecoration linkDecoration = (LinkDecoration)theEObject;
-				Object result = caseLinkDecoration(linkDecoration);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GMFGenPackage.DIAGRAM_VIEWMAP: {
-				DiagramViewmap diagramViewmap = (DiagramViewmap)theEObject;
-				Object result = caseDiagramViewmap(diagramViewmap);
-				if (result == null) result = caseViewmap(diagramViewmap);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GMFGenPackage.COMPARTMENT_VIEWMAP: {
-				CompartmentViewmap compartmentViewmap = (CompartmentViewmap)theEObject;
-				Object result = caseCompartmentViewmap(compartmentViewmap);
-				if (result == null) result = caseViewmap(compartmentViewmap);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GMFGenPackage.LABEL_VIEWMAP: {
-				LabelViewmap labelViewmap = (LabelViewmap)theEObject;
-				Object result = caseLabelViewmap(labelViewmap);
-				if (result == null) result = caseViewmap(labelViewmap);
+			case GMFGenPackage.SNIPPET_VIEWMAP: {
+				SnippetViewmap snippetViewmap = (SnippetViewmap)theEObject;
+				Object result = caseSnippetViewmap(snippetViewmap);
+				if (result == null) result = caseViewmap(snippetViewmap);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -703,92 +681,17 @@ public class GMFGenSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Basic Node Viewmap</em>'.
+	 * Returns the result of interpretting the object as an instance of '<em>Snippet Viewmap</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Basic Node Viewmap</em>'.
+	 * @return the result of interpretting the object as an instance of '<em>Snippet Viewmap</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseBasicNodeViewmap(BasicNodeViewmap object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Decorated Connection Viewmap</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Decorated Connection Viewmap</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseDecoratedConnectionViewmap(DecoratedConnectionViewmap object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Link Decoration</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Link Decoration</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseLinkDecoration(LinkDecoration object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Diagram Viewmap</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Diagram Viewmap</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseDiagramViewmap(DiagramViewmap object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Compartment Viewmap</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Compartment Viewmap</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseCompartmentViewmap(CompartmentViewmap object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Label Viewmap</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Label Viewmap</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseLabelViewmap(LabelViewmap object) {
+	public Object caseSnippetViewmap(SnippetViewmap object) {
 		return null;
 	}
 

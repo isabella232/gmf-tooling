@@ -8,7 +8,6 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
@@ -91,24 +90,12 @@ public abstract class ToolEntryImpl extends EntryBaseImpl implements ToolEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.TOOL_ENTRY__ORDER:
-				return new Integer(getOrder());
-			case GMFGenPackage.TOOL_ENTRY__TITLE_KEY:
-				return getTitleKey();
-			case GMFGenPackage.TOOL_ENTRY__DESCRIPTION_KEY:
-				return getDescriptionKey();
-			case GMFGenPackage.TOOL_ENTRY__LARGE_ICON_PATH:
-				return getLargeIconPath();
-			case GMFGenPackage.TOOL_ENTRY__SMALL_ICON_PATH:
-				return getSmallIconPath();
-			case GMFGenPackage.TOOL_ENTRY__CREATE_METHOD_NAME:
-				return getCreateMethodName();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGenPackage.TOOL_ENTRY__DEFAULT:
 				return isDefault() ? Boolean.TRUE : Boolean.FALSE;
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -116,31 +103,13 @@ public abstract class ToolEntryImpl extends EntryBaseImpl implements ToolEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.TOOL_ENTRY__ORDER:
-				setOrder(((Integer)newValue).intValue());
-				return;
-			case GMFGenPackage.TOOL_ENTRY__TITLE_KEY:
-				setTitleKey((String)newValue);
-				return;
-			case GMFGenPackage.TOOL_ENTRY__DESCRIPTION_KEY:
-				setDescriptionKey((String)newValue);
-				return;
-			case GMFGenPackage.TOOL_ENTRY__LARGE_ICON_PATH:
-				setLargeIconPath((String)newValue);
-				return;
-			case GMFGenPackage.TOOL_ENTRY__SMALL_ICON_PATH:
-				setSmallIconPath((String)newValue);
-				return;
-			case GMFGenPackage.TOOL_ENTRY__CREATE_METHOD_NAME:
-				setCreateMethodName((String)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGenPackage.TOOL_ENTRY__DEFAULT:
 				setDefault(((Boolean)newValue).booleanValue());
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -148,31 +117,13 @@ public abstract class ToolEntryImpl extends EntryBaseImpl implements ToolEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.TOOL_ENTRY__ORDER:
-				setOrder(ORDER_EDEFAULT);
-				return;
-			case GMFGenPackage.TOOL_ENTRY__TITLE_KEY:
-				setTitleKey(TITLE_KEY_EDEFAULT);
-				return;
-			case GMFGenPackage.TOOL_ENTRY__DESCRIPTION_KEY:
-				setDescriptionKey(DESCRIPTION_KEY_EDEFAULT);
-				return;
-			case GMFGenPackage.TOOL_ENTRY__LARGE_ICON_PATH:
-				setLargeIconPath(LARGE_ICON_PATH_EDEFAULT);
-				return;
-			case GMFGenPackage.TOOL_ENTRY__SMALL_ICON_PATH:
-				setSmallIconPath(SMALL_ICON_PATH_EDEFAULT);
-				return;
-			case GMFGenPackage.TOOL_ENTRY__CREATE_METHOD_NAME:
-				setCreateMethodName(CREATE_METHOD_NAME_EDEFAULT);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.TOOL_ENTRY__DEFAULT:
 				setDefault(DEFAULT_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -180,24 +131,12 @@ public abstract class ToolEntryImpl extends EntryBaseImpl implements ToolEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.TOOL_ENTRY__ORDER:
-				return order != ORDER_EDEFAULT;
-			case GMFGenPackage.TOOL_ENTRY__TITLE_KEY:
-				return TITLE_KEY_EDEFAULT == null ? titleKey != null : !TITLE_KEY_EDEFAULT.equals(titleKey);
-			case GMFGenPackage.TOOL_ENTRY__DESCRIPTION_KEY:
-				return DESCRIPTION_KEY_EDEFAULT == null ? descriptionKey != null : !DESCRIPTION_KEY_EDEFAULT.equals(descriptionKey);
-			case GMFGenPackage.TOOL_ENTRY__LARGE_ICON_PATH:
-				return LARGE_ICON_PATH_EDEFAULT == null ? largeIconPath != null : !LARGE_ICON_PATH_EDEFAULT.equals(largeIconPath);
-			case GMFGenPackage.TOOL_ENTRY__SMALL_ICON_PATH:
-				return SMALL_ICON_PATH_EDEFAULT == null ? smallIconPath != null : !SMALL_ICON_PATH_EDEFAULT.equals(smallIconPath);
-			case GMFGenPackage.TOOL_ENTRY__CREATE_METHOD_NAME:
-				return CREATE_METHOD_NAME_EDEFAULT == null ? createMethodName != null : !CREATE_METHOD_NAME_EDEFAULT.equals(createMethodName);
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.TOOL_ENTRY__DEFAULT:
 				return default_ != DEFAULT_EDEFAULT;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

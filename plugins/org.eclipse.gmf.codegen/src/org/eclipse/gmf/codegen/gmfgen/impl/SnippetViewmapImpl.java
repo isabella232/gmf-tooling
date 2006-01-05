@@ -9,25 +9,23 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
+import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Value Expression</b></em>'.
+ * An implementation of the model object '<em><b>Snippet Viewmap</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ValueExpressionImpl#getBody <em>Body</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.ValueExpressionImpl#getLanguage <em>Language</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.SnippetViewmapImpl#getBody <em>Body</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ValueExpressionImpl extends EObjectImpl implements ValueExpression {
+public class SnippetViewmapImpl extends ViewmapImpl implements SnippetViewmap {
 	/**
 	 * The default value of the '{@link #getBody() <em>Body</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -49,31 +47,11 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	protected String body = BODY_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getLanguage() <em>Language</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLanguage()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String LANGUAGE_EDEFAULT = "ocl";
-
-	/**
-	 * The cached value of the '{@link #getLanguage() <em>Language</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLanguage()
-	 * @generated
-	 * @ordered
-	 */
-	protected String language = LANGUAGE_EDEFAULT;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ValueExpressionImpl() {
+	protected SnippetViewmapImpl() {
 		super();
 	}
 
@@ -83,7 +61,7 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return GMFGenPackage.eINSTANCE.getValueExpression();
+		return GMFGenPackage.eINSTANCE.getSnippetViewmap();
 	}
 
 	/**
@@ -104,28 +82,7 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 		String oldBody = body;
 		body = newBody;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.VALUE_EXPRESSION__BODY, oldBody, body));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getLanguage() {
-		return language;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setLanguage(String newLanguage) {
-		String oldLanguage = language;
-		language = newLanguage;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.VALUE_EXPRESSION__LANGUAGE, oldLanguage, language));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.SNIPPET_VIEWMAP__BODY, oldBody, body));
 	}
 
 	/**
@@ -135,10 +92,8 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GMFGenPackage.VALUE_EXPRESSION__BODY:
+			case GMFGenPackage.SNIPPET_VIEWMAP__BODY:
 				return getBody();
-			case GMFGenPackage.VALUE_EXPRESSION__LANGUAGE:
-				return getLanguage();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -150,11 +105,8 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFGenPackage.VALUE_EXPRESSION__BODY:
+			case GMFGenPackage.SNIPPET_VIEWMAP__BODY:
 				setBody((String)newValue);
-				return;
-			case GMFGenPackage.VALUE_EXPRESSION__LANGUAGE:
-				setLanguage((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -167,11 +119,8 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.VALUE_EXPRESSION__BODY:
+			case GMFGenPackage.SNIPPET_VIEWMAP__BODY:
 				setBody(BODY_EDEFAULT);
-				return;
-			case GMFGenPackage.VALUE_EXPRESSION__LANGUAGE:
-				setLanguage(LANGUAGE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -184,10 +133,8 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.VALUE_EXPRESSION__BODY:
+			case GMFGenPackage.SNIPPET_VIEWMAP__BODY:
 				return BODY_EDEFAULT == null ? body != null : !BODY_EDEFAULT.equals(body);
-			case GMFGenPackage.VALUE_EXPRESSION__LANGUAGE:
-				return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -203,10 +150,8 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (body: ");
 		result.append(body);
-		result.append(", language: ");
-		result.append(language);
 		result.append(')');
 		return result.toString();
 	}
 
-} //ValueExpressionImpl
+} //SnippetViewmapImpl

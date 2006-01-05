@@ -9,16 +9,13 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
@@ -165,8 +162,8 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 */
 	public GenClass getDiagramRunTimeClass() {
 		if (diagramRunTimeClass != null && diagramRunTimeClass.eIsProxy()) {
-			GenClass oldDiagramRunTimeClass = diagramRunTimeClass;
-			diagramRunTimeClass = (GenClass)eResolveProxy((InternalEObject)diagramRunTimeClass);
+			InternalEObject oldDiagramRunTimeClass = (InternalEObject)diagramRunTimeClass;
+			diagramRunTimeClass = (GenClass)eResolveProxy(oldDiagramRunTimeClass);
 			if (diagramRunTimeClass != oldDiagramRunTimeClass) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS, oldDiagramRunTimeClass, diagramRunTimeClass));
@@ -386,16 +383,117 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
-					return basicSetViewmap(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
+				return basicSetViewmap(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS:
+				if (resolve) return getDiagramRunTimeClass();
+				return basicGetDiagramRunTimeClass();
+			case GMFGenPackage.GEN_COMMON_BASE__VISUAL_ID:
+				return new Integer(getVisualID());
+			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
+				return getEditPartClassName();
+			case GMFGenPackage.GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				return getItemSemanticEditPolicyClassName();
+			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return getNotationViewFactoryClassName();
+			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
+				return getViewmap();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS:
+				setDiagramRunTimeClass((GenClass)newValue);
+				return;
+			case GMFGenPackage.GEN_COMMON_BASE__VISUAL_ID:
+				setVisualID(((Integer)newValue).intValue());
+				return;
+			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
+				setEditPartClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				setItemSemanticEditPolicyClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setNotationViewFactoryClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
+				setViewmap((Viewmap)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS:
+				setDiagramRunTimeClass((GenClass)null);
+				return;
+			case GMFGenPackage.GEN_COMMON_BASE__VISUAL_ID:
+				setVisualID(VISUAL_ID_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
+				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				setItemSemanticEditPolicyClassName(ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
+				setViewmap((Viewmap)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS:
+				return diagramRunTimeClass != null;
+			case GMFGenPackage.GEN_COMMON_BASE__VISUAL_ID:
+				return visualID != VISUAL_ID_EDEFAULT;
+			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
+				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
+			case GMFGenPackage.GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				return ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? itemSemanticEditPolicyClassName != null : !ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(itemSemanticEditPolicyClassName);
+			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
+				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
+			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
+				return viewmap != null;
+		}
+		return super.eIsSet(featureID);
 	}
 
 	/**
@@ -431,111 +529,6 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 	 * @generated NOT
 	 */
 	public abstract GenDiagram getDiagram();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS:
-				if (resolve) return getDiagramRunTimeClass();
-				return basicGetDiagramRunTimeClass();
-			case GMFGenPackage.GEN_COMMON_BASE__VISUAL_ID:
-				return new Integer(getVisualID());
-			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
-				return getEditPartClassName();
-			case GMFGenPackage.GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				return getItemSemanticEditPolicyClassName();
-			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				return getNotationViewFactoryClassName();
-			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
-				return getViewmap();
-		}
-		return eDynamicGet(eFeature, resolve);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS:
-				setDiagramRunTimeClass((GenClass)newValue);
-				return;
-			case GMFGenPackage.GEN_COMMON_BASE__VISUAL_ID:
-				setVisualID(((Integer)newValue).intValue());
-				return;
-			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
-				setEditPartClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				setItemSemanticEditPolicyClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				setNotationViewFactoryClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
-				setViewmap((Viewmap)newValue);
-				return;
-		}
-		eDynamicSet(eFeature, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS:
-				setDiagramRunTimeClass((GenClass)null);
-				return;
-			case GMFGenPackage.GEN_COMMON_BASE__VISUAL_ID:
-				setVisualID(VISUAL_ID_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
-				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				setItemSemanticEditPolicyClassName(ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
-				setViewmap((Viewmap)null);
-				return;
-		}
-		eDynamicUnset(eFeature);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS:
-				return diagramRunTimeClass != null;
-			case GMFGenPackage.GEN_COMMON_BASE__VISUAL_ID:
-				return visualID != VISUAL_ID_EDEFAULT;
-			case GMFGenPackage.GEN_COMMON_BASE__EDIT_PART_CLASS_NAME:
-				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
-			case GMFGenPackage.GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				return ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? itemSemanticEditPolicyClassName != null : !ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(itemSemanticEditPolicyClassName);
-			case GMFGenPackage.GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
-			case GMFGenPackage.GEN_COMMON_BASE__VIEWMAP:
-				return viewmap != null;
-		}
-		return eDynamicIsSet(eFeature);
-	}
 
 	/**
 	 * <!-- begin-user-doc -->

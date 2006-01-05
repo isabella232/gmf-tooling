@@ -18,6 +18,7 @@ import junit.framework.TestCase;
 
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.util.Diagnostician;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.Node;
@@ -46,6 +47,7 @@ public class TestSetupTest extends TestCase {
 		try {
 			DiaGenSource s = new DiaGenFileSetup().init(Plugin.createURI("/models/library/library.gmfgen"));
 			doAssert(Diagnostician.INSTANCE.validate(s.getGenDiagram()));
+			
 		} catch (IOException ex) {
 			fail(ex.getMessage());
 		}

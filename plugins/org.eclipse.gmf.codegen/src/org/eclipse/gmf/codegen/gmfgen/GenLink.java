@@ -13,10 +13,6 @@ import org.eclipse.emf.common.util.EList;
  * A representation of the model object '<em><b>Gen Link</b></em>'.
  * <!-- end-user-doc -->
  *
- * <!-- begin-model-doc -->
- * super.viewmap shall be {@link org.eclipse.draw2d.Connection} or subclass thereof
- * <!-- end-model-doc -->
- *
  * <p>
  * The following features are supported:
  * <ul>
@@ -34,7 +30,7 @@ import org.eclipse.emf.common.util.EList;
  * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let c: ecore::EClass = diagramRunTimeClass.ecoreClass.oclAsType(ecore::EClass) in c = notation::Edge or c.eAllSuperTypes->includes(notation::Edge)'"
  * @generated
  */
-public interface GenLink extends GenCommonBase{
+public interface GenLink extends GenCommonBase {
 	/**
 	 * Returns the value of the '<em><b>Diagram</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getLinks <em>Links</em>}'.

@@ -13,25 +13,38 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.codegen.gmfgen.*;
 
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
-import org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap;
-import org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
+import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
+import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
+import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
-import org.eclipse.gmf.codegen.gmfgen.LinkDecoration;
+import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
+import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
+import org.eclipse.gmf.codegen.gmfgen.ModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ShapeAttributes;
+import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
+import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
@@ -152,23 +165,8 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseFigureViewmap(FigureViewmap object) {
 				return createFigureViewmapAdapter();
 			}
-			public Object caseBasicNodeViewmap(BasicNodeViewmap object) {
-				return createBasicNodeViewmapAdapter();
-			}
-			public Object caseDecoratedConnectionViewmap(DecoratedConnectionViewmap object) {
-				return createDecoratedConnectionViewmapAdapter();
-			}
-			public Object caseLinkDecoration(LinkDecoration object) {
-				return createLinkDecorationAdapter();
-			}
-			public Object caseDiagramViewmap(DiagramViewmap object) {
-				return createDiagramViewmapAdapter();
-			}
-			public Object caseCompartmentViewmap(CompartmentViewmap object) {
-				return createCompartmentViewmapAdapter();
-			}
-			public Object caseLabelViewmap(LabelViewmap object) {
-				return createLabelViewmapAdapter();
+			public Object caseSnippetViewmap(SnippetViewmap object) {
+				return createSnippetViewmapAdapter();
 			}
 			public Object caseValueExpression(ValueExpression object) {
 				return createValueExpressionAdapter();
@@ -519,86 +517,16 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap <em>Basic Node Viewmap</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.SnippetViewmap <em>Snippet Viewmap</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap
+	 * @see org.eclipse.gmf.codegen.gmfgen.SnippetViewmap
 	 * @generated
 	 */
-	public Adapter createBasicNodeViewmapAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap <em>Decorated Connection Viewmap</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap
-	 * @generated
-	 */
-	public Adapter createDecoratedConnectionViewmapAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.LinkDecoration <em>Link Decoration</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.codegen.gmfgen.LinkDecoration
-	 * @generated
-	 */
-	public Adapter createLinkDecorationAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.DiagramViewmap <em>Diagram Viewmap</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.codegen.gmfgen.DiagramViewmap
-	 * @generated
-	 */
-	public Adapter createDiagramViewmapAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.CompartmentViewmap <em>Compartment Viewmap</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.codegen.gmfgen.CompartmentViewmap
-	 * @generated
-	 */
-	public Adapter createCompartmentViewmapAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.LabelViewmap <em>Label Viewmap</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.codegen.gmfgen.LabelViewmap
-	 * @generated
-	 */
-	public Adapter createLabelViewmapAdapter() {
+	public Adapter createSnippetViewmapAdapter() {
 		return null;
 	}
 

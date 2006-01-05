@@ -7,15 +7,10 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
-
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 
@@ -68,8 +63,8 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	 */
 	public GenFeature getFeature() {
 		if (feature != null && feature.eIsProxy()) {
-			GenFeature oldFeature = feature;
-			feature = (GenFeature)eResolveProxy((InternalEObject)feature);
+			InternalEObject oldFeature = (InternalEObject)feature;
+			feature = (GenFeature)eResolveProxy(oldFeature);
 			if (feature != oldFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE, oldFeature, feature));
@@ -116,17 +111,13 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__BODY:
-				return getBody();
-			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__LANGUAGE:
-				return getLanguage();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE:
 				if (resolve) return getFeature();
 				return basicGetFeature();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -134,19 +125,13 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__BODY:
-				setBody((String)newValue);
-				return;
-			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__LANGUAGE:
-				setLanguage((String)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE:
 				setFeature((GenFeature)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -154,19 +139,13 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__BODY:
-				setBody(BODY_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__LANGUAGE:
-				setLanguage(LANGUAGE_EDEFAULT);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE:
 				setFeature((GenFeature)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -174,16 +153,12 @@ public class GenFeatureValueSpecImpl extends ValueExpressionImpl implements GenF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__BODY:
-				return BODY_EDEFAULT == null ? body != null : !BODY_EDEFAULT.equals(body);
-			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__LANGUAGE:
-				return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC__FEATURE:
 				return feature != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 } //GenFeatureValueSpecImpl

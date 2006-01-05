@@ -360,135 +360,47 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.FigureViewmap} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected BasicNodeViewmapItemProvider basicNodeViewmapItemProvider;
+	protected FigureViewmapItemProvider figureViewmapItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.BasicNodeViewmap}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.FigureViewmap}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Adapter createBasicNodeViewmapAdapter() {
-		if (basicNodeViewmapItemProvider == null) {
-			basicNodeViewmapItemProvider = new BasicNodeViewmapItemProvider(this);
+	public Adapter createFigureViewmapAdapter() {
+		if (figureViewmapItemProvider == null) {
+			figureViewmapItemProvider = new FigureViewmapItemProvider(this);
 		}
 
-		return basicNodeViewmapItemProvider;
+		return figureViewmapItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.SnippetViewmap} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected DecoratedConnectionViewmapItemProvider decoratedConnectionViewmapItemProvider;
+	protected SnippetViewmapItemProvider snippetViewmapItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.DecoratedConnectionViewmap}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.SnippetViewmap}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Adapter createDecoratedConnectionViewmapAdapter() {
-		if (decoratedConnectionViewmapItemProvider == null) {
-			decoratedConnectionViewmapItemProvider = new DecoratedConnectionViewmapItemProvider(this);
+	public Adapter createSnippetViewmapAdapter() {
+		if (snippetViewmapItemProvider == null) {
+			snippetViewmapItemProvider = new SnippetViewmapItemProvider(this);
 		}
 
-		return decoratedConnectionViewmapItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.LinkDecoration} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected LinkDecorationItemProvider linkDecorationItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.LinkDecoration}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Adapter createLinkDecorationAdapter() {
-		if (linkDecorationItemProvider == null) {
-			linkDecorationItemProvider = new LinkDecorationItemProvider(this);
-		}
-
-		return linkDecorationItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.DiagramViewmap} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected DiagramViewmapItemProvider diagramViewmapItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.DiagramViewmap}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Adapter createDiagramViewmapAdapter() {
-		if (diagramViewmapItemProvider == null) {
-			diagramViewmapItemProvider = new DiagramViewmapItemProvider(this);
-		}
-
-		return diagramViewmapItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.CompartmentViewmap} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected CompartmentViewmapItemProvider compartmentViewmapItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.CompartmentViewmap}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Adapter createCompartmentViewmapAdapter() {
-		if (compartmentViewmapItemProvider == null) {
-			compartmentViewmapItemProvider = new CompartmentViewmapItemProvider(this);
-		}
-
-		return compartmentViewmapItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.LabelViewmap} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected LabelViewmapItemProvider labelViewmapItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.LabelViewmap}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Adapter createLabelViewmapAdapter() {
-		if (labelViewmapItemProvider == null) {
-			labelViewmapItemProvider = new LabelViewmapItemProvider(this);
-		}
-
-		return labelViewmapItemProvider;
+		return snippetViewmapItemProvider;
 	}
 
 	/**
@@ -798,12 +710,8 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (colorAttributesItemProvider != null) colorAttributesItemProvider.dispose();
 		if (shapeAttributesItemProvider != null) shapeAttributesItemProvider.dispose();
 		if (defaultSizeAttributesItemProvider != null) defaultSizeAttributesItemProvider.dispose();
-		if (basicNodeViewmapItemProvider != null) basicNodeViewmapItemProvider.dispose();
-		if (decoratedConnectionViewmapItemProvider != null) decoratedConnectionViewmapItemProvider.dispose();
-		if (linkDecorationItemProvider != null) linkDecorationItemProvider.dispose();
-		if (diagramViewmapItemProvider != null) diagramViewmapItemProvider.dispose();
-		if (compartmentViewmapItemProvider != null) compartmentViewmapItemProvider.dispose();
-		if (labelViewmapItemProvider != null) labelViewmapItemProvider.dispose();
+		if (figureViewmapItemProvider != null) figureViewmapItemProvider.dispose();
+		if (snippetViewmapItemProvider != null) snippetViewmapItemProvider.dispose();
 		if (valueExpressionItemProvider != null) valueExpressionItemProvider.dispose();
 		if (modelElementSelectorItemProvider != null) modelElementSelectorItemProvider.dispose();
 		if (paletteItemProvider != null) paletteItemProvider.dispose();

@@ -6,21 +6,17 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
-import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
  * <!-- begin-user-doc -->
@@ -124,7 +120,7 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	 */
 	public GenLink getLink() {
 		if (eContainerFeatureID != GMFGenPackage.GEN_LINK_LABEL__LINK) return null;
-		return (GenLink)eContainer;
+		return (GenLink)eContainer();
 	}
 
 	/**
@@ -133,11 +129,11 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	 * @generated
 	 */
 	public void setLink(GenLink newLink) {
-		if (newLink != eContainer || (eContainerFeatureID != GMFGenPackage.GEN_LINK_LABEL__LINK && newLink != null)) {
+		if (newLink != eInternalContainer() || (eContainerFeatureID != GMFGenPackage.GEN_LINK_LABEL__LINK && newLink != null)) {
 			if (EcoreUtil.isAncestor(this, newLink))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
-			if (eContainer != null)
+			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newLink != null)
 				msgs = ((InternalEObject)newLink).eInverseAdd(this, GMFGenPackage.GEN_LINK__LABELS, GenLink.class, msgs);
@@ -259,20 +255,14 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.GEN_LINK_LABEL__LINK:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_LINK_LABEL__LINK, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_LINK_LABEL__LINK:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_LINK_LABEL__LINK, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -280,20 +270,12 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.GEN_LINK_LABEL__VIEWMAP:
-					return basicSetViewmap(null, msgs);
-				case GMFGenPackage.GEN_LINK_LABEL__MODEL_FACET:
-					return basicSetModelFacet(null, msgs);
-				case GMFGenPackage.GEN_LINK_LABEL__LINK:
-					return eBasicSetContainer(null, GMFGenPackage.GEN_LINK_LABEL__LINK, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_LINK_LABEL__LINK:
+				return eBasicSetContainer(null, GMFGenPackage.GEN_LINK_LABEL__LINK, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -301,16 +283,12 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case GMFGenPackage.GEN_LINK_LABEL__LINK:
-					return eContainer.eInverseRemove(this, GMFGenPackage.GEN_LINK__LABELS, GenLink.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFGenPackage.GEN_LINK_LABEL__LINK:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_LINK__LABELS, GenLink.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -318,25 +296,8 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_LINK_LABEL__DIAGRAM_RUN_TIME_CLASS:
-				if (resolve) return getDiagramRunTimeClass();
-				return basicGetDiagramRunTimeClass();
-			case GMFGenPackage.GEN_LINK_LABEL__VISUAL_ID:
-				return new Integer(getVisualID());
-			case GMFGenPackage.GEN_LINK_LABEL__EDIT_PART_CLASS_NAME:
-				return getEditPartClassName();
-			case GMFGenPackage.GEN_LINK_LABEL__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				return getItemSemanticEditPolicyClassName();
-			case GMFGenPackage.GEN_LINK_LABEL__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				return getNotationViewFactoryClassName();
-			case GMFGenPackage.GEN_LINK_LABEL__VIEWMAP:
-				return getViewmap();
-			case GMFGenPackage.GEN_LINK_LABEL__READ_ONLY:
-				return isReadOnly() ? Boolean.TRUE : Boolean.FALSE;
-			case GMFGenPackage.GEN_LINK_LABEL__MODEL_FACET:
-				return getModelFacet();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_LINK_LABEL__LINK:
 				return getLink();
 			case GMFGenPackage.GEN_LINK_LABEL__ALIGNMENT:
@@ -346,7 +307,7 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 			case GMFGenPackage.GEN_LINK_LABEL__TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return getTextNotationViewFactoryClassName();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -354,32 +315,8 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_LINK_LABEL__DIAGRAM_RUN_TIME_CLASS:
-				setDiagramRunTimeClass((GenClass)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK_LABEL__VISUAL_ID:
-				setVisualID(((Integer)newValue).intValue());
-				return;
-			case GMFGenPackage.GEN_LINK_LABEL__EDIT_PART_CLASS_NAME:
-				setEditPartClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK_LABEL__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				setItemSemanticEditPolicyClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK_LABEL__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				setNotationViewFactoryClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK_LABEL__VIEWMAP:
-				setViewmap((Viewmap)newValue);
-				return;
-			case GMFGenPackage.GEN_LINK_LABEL__READ_ONLY:
-				setReadOnly(((Boolean)newValue).booleanValue());
-				return;
-			case GMFGenPackage.GEN_LINK_LABEL__MODEL_FACET:
-				setModelFacet((FeatureModelFacet)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_LINK_LABEL__LINK:
 				setLink((GenLink)newValue);
 				return;
@@ -393,7 +330,7 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 				setTextNotationViewFactoryClassName((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -401,32 +338,8 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_LINK_LABEL__DIAGRAM_RUN_TIME_CLASS:
-				setDiagramRunTimeClass((GenClass)null);
-				return;
-			case GMFGenPackage.GEN_LINK_LABEL__VISUAL_ID:
-				setVisualID(VISUAL_ID_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_LINK_LABEL__EDIT_PART_CLASS_NAME:
-				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_LINK_LABEL__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				setItemSemanticEditPolicyClassName(ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_LINK_LABEL__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_LINK_LABEL__VIEWMAP:
-				setViewmap((Viewmap)null);
-				return;
-			case GMFGenPackage.GEN_LINK_LABEL__READ_ONLY:
-				setReadOnly(READ_ONLY_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_LINK_LABEL__MODEL_FACET:
-				setModelFacet((FeatureModelFacet)null);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_LINK_LABEL__LINK:
 				setLink((GenLink)null);
 				return;
@@ -440,7 +353,7 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 				setTextNotationViewFactoryClassName(TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -448,24 +361,8 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_LINK_LABEL__DIAGRAM_RUN_TIME_CLASS:
-				return diagramRunTimeClass != null;
-			case GMFGenPackage.GEN_LINK_LABEL__VISUAL_ID:
-				return visualID != VISUAL_ID_EDEFAULT;
-			case GMFGenPackage.GEN_LINK_LABEL__EDIT_PART_CLASS_NAME:
-				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
-			case GMFGenPackage.GEN_LINK_LABEL__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				return ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? itemSemanticEditPolicyClassName != null : !ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(itemSemanticEditPolicyClassName);
-			case GMFGenPackage.GEN_LINK_LABEL__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
-			case GMFGenPackage.GEN_LINK_LABEL__VIEWMAP:
-				return viewmap != null;
-			case GMFGenPackage.GEN_LINK_LABEL__READ_ONLY:
-				return readOnly != READ_ONLY_EDEFAULT;
-			case GMFGenPackage.GEN_LINK_LABEL__MODEL_FACET:
-				return modelFacet != null;
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.GEN_LINK_LABEL__LINK:
 				return getLink() != null;
 			case GMFGenPackage.GEN_LINK_LABEL__ALIGNMENT:
@@ -475,7 +372,7 @@ public class GenLinkLabelImpl extends GenLabelImpl implements GenLinkLabel {
 			case GMFGenPackage.GEN_LINK_LABEL__TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME:
 				return TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? textNotationViewFactoryClassName != null : !TEXT_NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(textNotationViewFactoryClassName);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

@@ -11,7 +11,6 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -81,7 +80,7 @@ public class NodeEntryImpl extends ToolEntryImpl implements NodeEntry {
 	 */
 	public ToolGroup getGroup() {
 		if (eContainerFeatureID != GMFGenPackage.NODE_ENTRY__GROUP) return null;
-		return (ToolGroup)eContainer;
+		return (ToolGroup)eContainer();
 	}
 
 	/**
@@ -89,20 +88,14 @@ public class NodeEntryImpl extends ToolEntryImpl implements NodeEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.NODE_ENTRY__GROUP:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, GMFGenPackage.NODE_ENTRY__GROUP, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.NODE_ENTRY__GROUP:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.NODE_ENTRY__GROUP, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -110,16 +103,12 @@ public class NodeEntryImpl extends ToolEntryImpl implements NodeEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.NODE_ENTRY__GROUP:
-					return eBasicSetContainer(null, GMFGenPackage.NODE_ENTRY__GROUP, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.NODE_ENTRY__GROUP:
+				return eBasicSetContainer(null, GMFGenPackage.NODE_ENTRY__GROUP, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -127,16 +116,12 @@ public class NodeEntryImpl extends ToolEntryImpl implements NodeEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case GMFGenPackage.NODE_ENTRY__GROUP:
-					return eContainer.eInverseRemove(this, GMFGenPackage.TOOL_GROUP__NODE_TOOLS, ToolGroup.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFGenPackage.NODE_ENTRY__GROUP:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.TOOL_GROUP__NODE_TOOLS, ToolGroup.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -144,28 +129,14 @@ public class NodeEntryImpl extends ToolEntryImpl implements NodeEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.NODE_ENTRY__ORDER:
-				return new Integer(getOrder());
-			case GMFGenPackage.NODE_ENTRY__TITLE_KEY:
-				return getTitleKey();
-			case GMFGenPackage.NODE_ENTRY__DESCRIPTION_KEY:
-				return getDescriptionKey();
-			case GMFGenPackage.NODE_ENTRY__LARGE_ICON_PATH:
-				return getLargeIconPath();
-			case GMFGenPackage.NODE_ENTRY__SMALL_ICON_PATH:
-				return getSmallIconPath();
-			case GMFGenPackage.NODE_ENTRY__CREATE_METHOD_NAME:
-				return getCreateMethodName();
-			case GMFGenPackage.NODE_ENTRY__DEFAULT:
-				return isDefault() ? Boolean.TRUE : Boolean.FALSE;
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGenPackage.NODE_ENTRY__GEN_NODE:
 				return getGenNode();
 			case GMFGenPackage.NODE_ENTRY__GROUP:
 				return getGroup();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -173,35 +144,14 @@ public class NodeEntryImpl extends ToolEntryImpl implements NodeEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.NODE_ENTRY__ORDER:
-				setOrder(((Integer)newValue).intValue());
-				return;
-			case GMFGenPackage.NODE_ENTRY__TITLE_KEY:
-				setTitleKey((String)newValue);
-				return;
-			case GMFGenPackage.NODE_ENTRY__DESCRIPTION_KEY:
-				setDescriptionKey((String)newValue);
-				return;
-			case GMFGenPackage.NODE_ENTRY__LARGE_ICON_PATH:
-				setLargeIconPath((String)newValue);
-				return;
-			case GMFGenPackage.NODE_ENTRY__SMALL_ICON_PATH:
-				setSmallIconPath((String)newValue);
-				return;
-			case GMFGenPackage.NODE_ENTRY__CREATE_METHOD_NAME:
-				setCreateMethodName((String)newValue);
-				return;
-			case GMFGenPackage.NODE_ENTRY__DEFAULT:
-				setDefault(((Boolean)newValue).booleanValue());
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGenPackage.NODE_ENTRY__GEN_NODE:
 				getGenNode().clear();
 				getGenNode().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -209,34 +159,13 @@ public class NodeEntryImpl extends ToolEntryImpl implements NodeEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.NODE_ENTRY__ORDER:
-				setOrder(ORDER_EDEFAULT);
-				return;
-			case GMFGenPackage.NODE_ENTRY__TITLE_KEY:
-				setTitleKey(TITLE_KEY_EDEFAULT);
-				return;
-			case GMFGenPackage.NODE_ENTRY__DESCRIPTION_KEY:
-				setDescriptionKey(DESCRIPTION_KEY_EDEFAULT);
-				return;
-			case GMFGenPackage.NODE_ENTRY__LARGE_ICON_PATH:
-				setLargeIconPath(LARGE_ICON_PATH_EDEFAULT);
-				return;
-			case GMFGenPackage.NODE_ENTRY__SMALL_ICON_PATH:
-				setSmallIconPath(SMALL_ICON_PATH_EDEFAULT);
-				return;
-			case GMFGenPackage.NODE_ENTRY__CREATE_METHOD_NAME:
-				setCreateMethodName(CREATE_METHOD_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.NODE_ENTRY__DEFAULT:
-				setDefault(DEFAULT_EDEFAULT);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.NODE_ENTRY__GEN_NODE:
 				getGenNode().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -244,28 +173,14 @@ public class NodeEntryImpl extends ToolEntryImpl implements NodeEntry {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.NODE_ENTRY__ORDER:
-				return order != ORDER_EDEFAULT;
-			case GMFGenPackage.NODE_ENTRY__TITLE_KEY:
-				return TITLE_KEY_EDEFAULT == null ? titleKey != null : !TITLE_KEY_EDEFAULT.equals(titleKey);
-			case GMFGenPackage.NODE_ENTRY__DESCRIPTION_KEY:
-				return DESCRIPTION_KEY_EDEFAULT == null ? descriptionKey != null : !DESCRIPTION_KEY_EDEFAULT.equals(descriptionKey);
-			case GMFGenPackage.NODE_ENTRY__LARGE_ICON_PATH:
-				return LARGE_ICON_PATH_EDEFAULT == null ? largeIconPath != null : !LARGE_ICON_PATH_EDEFAULT.equals(largeIconPath);
-			case GMFGenPackage.NODE_ENTRY__SMALL_ICON_PATH:
-				return SMALL_ICON_PATH_EDEFAULT == null ? smallIconPath != null : !SMALL_ICON_PATH_EDEFAULT.equals(smallIconPath);
-			case GMFGenPackage.NODE_ENTRY__CREATE_METHOD_NAME:
-				return CREATE_METHOD_NAME_EDEFAULT == null ? createMethodName != null : !CREATE_METHOD_NAME_EDEFAULT.equals(createMethodName);
-			case GMFGenPackage.NODE_ENTRY__DEFAULT:
-				return default_ != DEFAULT_EDEFAULT;
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.NODE_ENTRY__GEN_NODE:
 				return genNode != null && !genNode.isEmpty();
 			case GMFGenPackage.NODE_ENTRY__GROUP:
 				return getGroup() != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 } //NodeEntryImpl

@@ -6,18 +6,12 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
-import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 
 /**
@@ -80,8 +74,8 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 	 */
 	public GenFeature getSourceMetaFeature() {
 		if (sourceMetaFeature != null && sourceMetaFeature.eIsProxy()) {
-			GenFeature oldSourceMetaFeature = sourceMetaFeature;
-			sourceMetaFeature = (GenFeature)eResolveProxy((InternalEObject)sourceMetaFeature);
+			InternalEObject oldSourceMetaFeature = (InternalEObject)sourceMetaFeature;
+			sourceMetaFeature = (GenFeature)eResolveProxy(oldSourceMetaFeature);
 			if (sourceMetaFeature != oldSourceMetaFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.TYPE_LINK_MODEL_FACET__SOURCE_META_FEATURE, oldSourceMetaFeature, sourceMetaFeature));
@@ -118,8 +112,8 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 	 */
 	public GenFeature getTargetMetaFeature() {
 		if (targetMetaFeature != null && targetMetaFeature.eIsProxy()) {
-			GenFeature oldTargetMetaFeature = targetMetaFeature;
-			targetMetaFeature = (GenFeature)eResolveProxy((InternalEObject)targetMetaFeature);
+			InternalEObject oldTargetMetaFeature = (InternalEObject)targetMetaFeature;
+			targetMetaFeature = (GenFeature)eResolveProxy(oldTargetMetaFeature);
 			if (targetMetaFeature != oldTargetMetaFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.TYPE_LINK_MODEL_FACET__TARGET_META_FEATURE, oldTargetMetaFeature, targetMetaFeature));
@@ -154,61 +148,8 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.TYPE_LINK_MODEL_FACET__MODEL_ELEMENT_INITIALIZER:
-					if (modelElementInitializer != null)
-						msgs = ((InternalEObject)modelElementInitializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.TYPE_LINK_MODEL_FACET__MODEL_ELEMENT_INITIALIZER, null, msgs);
-					return basicSetModelElementInitializer((GenElementInitializer)otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.TYPE_LINK_MODEL_FACET__MODEL_ELEMENT_SELECTOR:
-					return basicSetModelElementSelector(null, msgs);
-				case GMFGenPackage.TYPE_LINK_MODEL_FACET__MODEL_ELEMENT_INITIALIZER:
-					return basicSetModelElementInitializer(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__META_CLASS:
-				if (resolve) return getMetaClass();
-				return basicGetMetaClass();
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CONTAINMENT_META_FEATURE:
-				if (resolve) return getContainmentMetaFeature();
-				return basicGetContainmentMetaFeature();
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CHILD_META_FEATURE:
-				if (resolve) return getChildMetaFeature();
-				return basicGetChildMetaFeature();
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__MODEL_ELEMENT_SELECTOR:
-				return getModelElementSelector();
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__MODEL_ELEMENT_INITIALIZER:
-				return getModelElementInitializer();
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET__SOURCE_META_FEATURE:
 				if (resolve) return getSourceMetaFeature();
 				return basicGetSourceMetaFeature();
@@ -216,7 +157,7 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 				if (resolve) return getTargetMetaFeature();
 				return basicGetTargetMetaFeature();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -224,23 +165,8 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__META_CLASS:
-				setMetaClass((GenClass)newValue);
-				return;
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CONTAINMENT_META_FEATURE:
-				setContainmentMetaFeature((GenFeature)newValue);
-				return;
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CHILD_META_FEATURE:
-				setChildMetaFeature((GenFeature)newValue);
-				return;
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__MODEL_ELEMENT_SELECTOR:
-				setModelElementSelector((ModelElementSelector)newValue);
-				return;
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__MODEL_ELEMENT_INITIALIZER:
-				setModelElementInitializer((GenElementInitializer)newValue);
-				return;
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET__SOURCE_META_FEATURE:
 				setSourceMetaFeature((GenFeature)newValue);
 				return;
@@ -248,7 +174,7 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 				setTargetMetaFeature((GenFeature)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -256,23 +182,8 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__META_CLASS:
-				setMetaClass((GenClass)null);
-				return;
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CONTAINMENT_META_FEATURE:
-				setContainmentMetaFeature((GenFeature)null);
-				return;
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CHILD_META_FEATURE:
-				setChildMetaFeature((GenFeature)null);
-				return;
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__MODEL_ELEMENT_SELECTOR:
-				setModelElementSelector((ModelElementSelector)null);
-				return;
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__MODEL_ELEMENT_INITIALIZER:
-				setModelElementInitializer((GenElementInitializer)null);
-				return;
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET__SOURCE_META_FEATURE:
 				setSourceMetaFeature((GenFeature)null);
 				return;
@@ -280,7 +191,7 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 				setTargetMetaFeature((GenFeature)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -288,24 +199,14 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__META_CLASS:
-				return metaClass != null;
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CONTAINMENT_META_FEATURE:
-				return containmentMetaFeature != null;
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__CHILD_META_FEATURE:
-				return childMetaFeature != null;
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__MODEL_ELEMENT_SELECTOR:
-				return modelElementSelector != null;
-			case GMFGenPackage.TYPE_LINK_MODEL_FACET__MODEL_ELEMENT_INITIALIZER:
-				return modelElementInitializer != null;
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET__SOURCE_META_FEATURE:
 				return sourceMetaFeature != null;
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET__TARGET_META_FEATURE:
 				return targetMetaFeature != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 } //TypeLinkModelFacetImpl

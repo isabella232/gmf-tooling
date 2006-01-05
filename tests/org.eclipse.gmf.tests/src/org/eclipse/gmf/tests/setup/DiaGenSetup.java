@@ -29,6 +29,7 @@ import org.eclipse.gmf.bridge.genmodel.GenModelMatcher;
 import org.eclipse.gmf.bridge.genmodel.NamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.RuntimeGenModelAccess;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -39,6 +40,7 @@ import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.tests.Utils;
 
@@ -68,7 +70,7 @@ public class DiaGenSetup implements DiaGenSource {
 		myGenDiagram.setDomainMetaModel(gmm.findGenPackage(domainSource.getModel()));
 		myGenDiagram.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getDiagram()));
 		myGenDiagram.setPalette(createPalette());
-		myGenDiagram.setViewmap(GMFGenFactory.eINSTANCE.createDiagramViewmap());
+		myGenDiagram.setViewmap(createDiagramViewmap());
 		myGenDiagram.setVisualID(99);
 
 		myNodeA = GMFGenFactory.eINSTANCE.createGenNode();
@@ -83,19 +85,37 @@ public class DiaGenSetup implements DiaGenSource {
 			label.setVisualID(401);
 			myNodeA.getLabels().add(label);
 		}
-		myNodeA.setViewmap(GMFGenFactory.eINSTANCE.createBasicNodeViewmap());
+		myNodeA.setViewmap(createNodeViewmap());
 		myNodeA.setVisualID(100);
 
 		myLinkC = GMFGenFactory.eINSTANCE.createGenLink();
 		myLinkC.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getEdge()));
 		myLinkC.setModelFacet(createLinkModelFacet(gmm, domainSource.getLinkAsClass()));
-		myLinkC.setViewmap(GMFGenFactory.eINSTANCE.createDecoratedConnectionViewmap());
+		myLinkC.setViewmap(createLinkViewmap());
 		myLinkC.setVisualID(200);
 		// TODO add linkRefOnly
 		myGenDiagram.getNodes().add(myNodeA);
 		myGenDiagram.getLinks().add(myLinkC);
 		confineInResource();
 		return this;
+	}
+
+	private Viewmap createLinkViewmap() {
+		FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
+		v.setFigureQualifiedClassName("org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx");
+		return v;
+	}
+
+	private Viewmap createNodeViewmap() {
+		FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
+		v.setFigureQualifiedClassName("org.eclipse.draw2d.RoundedRectangle");
+		return v;
+	}
+
+	private Viewmap createDiagramViewmap() {
+		FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
+		v.setFigureQualifiedClassName("org.eclipse.draw2d.FreeformLayer");
+		return v;
 	}
 
 	private TypeModelFacet createNodeModelFacet(GenModelMatcher gmm, DomainModelSetup.NodeData node) {

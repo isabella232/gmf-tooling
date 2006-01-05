@@ -12,7 +12,6 @@ import java.util.Iterator;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -95,16 +94,12 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.VIEWMAP__ATTRIBUTES:
-					return ((InternalEList)getAttributes()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.VIEWMAP__ATTRIBUTES:
+				return ((InternalEList)getAttributes()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -112,12 +107,12 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGenPackage.VIEWMAP__ATTRIBUTES:
 				return getAttributes();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -125,14 +120,14 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGenPackage.VIEWMAP__ATTRIBUTES:
 				getAttributes().clear();
 				getAttributes().addAll((Collection)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -140,13 +135,13 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.VIEWMAP__ATTRIBUTES:
 				getAttributes().clear();
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -154,12 +149,12 @@ public abstract class ViewmapImpl extends EObjectImpl implements Viewmap {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.VIEWMAP__ATTRIBUTES:
 				return attributes != null && !attributes.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 } //ViewmapImpl

@@ -12,7 +12,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
@@ -157,7 +156,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 */
 	public GenDiagram getDiagram() {
 		if (eContainerFeatureID != GMFGenPackage.PALETTE__DIAGRAM) return null;
-		return (GenDiagram)eContainer;
+		return (GenDiagram)eContainer();
 	}
 
 	/**
@@ -286,22 +285,16 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.PALETTE__DIAGRAM:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, GMFGenPackage.PALETTE__DIAGRAM, msgs);
-				case GMFGenPackage.PALETTE__GROUPS:
-					return ((InternalEList)getGroups()).basicAdd(otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.PALETTE__DIAGRAM:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.PALETTE__DIAGRAM, msgs);
+			case GMFGenPackage.PALETTE__GROUPS:
+				return ((InternalEList)getGroups()).basicAdd(otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -309,18 +302,14 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.PALETTE__DIAGRAM:
-					return eBasicSetContainer(null, GMFGenPackage.PALETTE__DIAGRAM, msgs);
-				case GMFGenPackage.PALETTE__GROUPS:
-					return ((InternalEList)getGroups()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.PALETTE__DIAGRAM:
+				return eBasicSetContainer(null, GMFGenPackage.PALETTE__DIAGRAM, msgs);
+			case GMFGenPackage.PALETTE__GROUPS:
+				return ((InternalEList)getGroups()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -328,16 +317,12 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case GMFGenPackage.PALETTE__DIAGRAM:
-					return eContainer.eInverseRemove(this, GMFGenPackage.GEN_DIAGRAM__PALETTE, GenDiagram.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFGenPackage.PALETTE__DIAGRAM:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_DIAGRAM__PALETTE, GenDiagram.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -345,8 +330,8 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGenPackage.PALETTE__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.PALETTE__GROUPS:
@@ -360,7 +345,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 			case GMFGenPackage.PALETTE__FACTORY_CLASS_NAME:
 				return getFactoryClassName();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -368,8 +353,8 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGenPackage.PALETTE__GROUPS:
 				getGroups().clear();
 				getGroups().addAll((Collection)newValue);
@@ -387,7 +372,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 				setFactoryClassName((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -395,8 +380,8 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.PALETTE__GROUPS:
 				getGroups().clear();
 				return;
@@ -413,7 +398,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 				setFactoryClassName(FACTORY_CLASS_NAME_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -421,8 +406,8 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.PALETTE__DIAGRAM:
 				return getDiagram() != null;
 			case GMFGenPackage.PALETTE__GROUPS:
@@ -436,7 +421,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 			case GMFGenPackage.PALETTE__FACTORY_CLASS_NAME:
 				return FACTORY_CLASS_NAME_EDEFAULT == null ? factoryClassName != null : !FACTORY_CLASS_NAME_EDEFAULT.equals(factoryClassName);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

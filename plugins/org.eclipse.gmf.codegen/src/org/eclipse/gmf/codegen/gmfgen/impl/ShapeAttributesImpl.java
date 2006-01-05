@@ -8,7 +8,6 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -168,14 +167,14 @@ public class ShapeAttributesImpl extends EObjectImpl implements ShapeAttributes 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGenPackage.SHAPE_ATTRIBUTES__LINE_WIDTH:
 				return new Integer(getLineWidth());
 			case GMFGenPackage.SHAPE_ATTRIBUTES__LINE_STYLE:
 				return getLineStyle();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -183,8 +182,8 @@ public class ShapeAttributesImpl extends EObjectImpl implements ShapeAttributes 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGenPackage.SHAPE_ATTRIBUTES__LINE_WIDTH:
 				setLineWidth(((Integer)newValue).intValue());
 				return;
@@ -192,7 +191,7 @@ public class ShapeAttributesImpl extends EObjectImpl implements ShapeAttributes 
 				setLineStyle((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -200,8 +199,8 @@ public class ShapeAttributesImpl extends EObjectImpl implements ShapeAttributes 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.SHAPE_ATTRIBUTES__LINE_WIDTH:
 				unsetLineWidth();
 				return;
@@ -209,7 +208,7 @@ public class ShapeAttributesImpl extends EObjectImpl implements ShapeAttributes 
 				setLineStyle(LINE_STYLE_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -217,14 +216,14 @@ public class ShapeAttributesImpl extends EObjectImpl implements ShapeAttributes 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.SHAPE_ATTRIBUTES__LINE_WIDTH:
 				return isSetLineWidth();
 			case GMFGenPackage.SHAPE_ATTRIBUTES__LINE_STYLE:
 				return LINE_STYLE_EDEFAULT == null ? lineStyle != null : !LINE_STYLE_EDEFAULT.equals(lineStyle);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

@@ -12,7 +12,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -20,20 +22,21 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.LinkDecoration;
+import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
+
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.LinkDecoration} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.SnippetViewmap} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class LinkDecorationItemProvider
-	extends ItemProviderAdapter
+public class SnippetViewmapItemProvider
+	extends ViewmapItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -46,7 +49,7 @@ public class LinkDecorationItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public LinkDecorationItemProvider(AdapterFactory adapterFactory) {
+	public SnippetViewmapItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -60,25 +63,25 @@ public class LinkDecorationItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addFigureQualifiedClassNamePropertyDescriptor(object);
+			addBodyPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Figure Qualified Class Name feature.
+	 * This adds a property descriptor for the Body feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addFigureQualifiedClassNamePropertyDescriptor(Object object) {
+	protected void addBodyPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_LinkDecoration_figureQualifiedClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LinkDecoration_figureQualifiedClassName_feature", "_UI_LinkDecoration_type"),
-				 GMFGenPackage.eINSTANCE.getLinkDecoration_FigureQualifiedClassName(),
+				 getString("_UI_SnippetViewmap_body_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SnippetViewmap_body_feature", "_UI_SnippetViewmap_type"),
+				 GMFGenPackage.eINSTANCE.getSnippetViewmap_Body(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -86,13 +89,13 @@ public class LinkDecorationItemProvider
 	}
 
 	/**
-	 * This returns LinkDecoration.gif.
+	 * This returns SnippetViewmap.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/LinkDecoration");
+		return getResourceLocator().getImage("full/obj16/SnippetViewmap");
 	}
 
 	/**
@@ -102,10 +105,10 @@ public class LinkDecorationItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((LinkDecoration)object).getFigureQualifiedClassName();
+		String label = ((SnippetViewmap)object).getBody();
 		return label == null || label.length() == 0 ?
-			getString("_UI_LinkDecoration_type") :
-			getString("_UI_LinkDecoration_type") + " " + label;
+			getString("_UI_SnippetViewmap_type") :
+			getString("_UI_SnippetViewmap_type") + " " + label;
 	}
 
 	/**
@@ -118,8 +121,8 @@ public class LinkDecorationItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(LinkDecoration.class)) {
-			case GMFGenPackage.LINK_DECORATION__FIGURE_QUALIFIED_CLASS_NAME:
+		switch (notification.getFeatureID(SnippetViewmap.class)) {
+			case GMFGenPackage.SNIPPET_VIEWMAP__BODY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

@@ -16,14 +16,14 @@ import org.eclipse.emf.ecore.EFactory;
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage
  * @generated
  */
-public interface GMFGenFactory extends EFactory{
+public interface GMFGenFactory extends EFactory {
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	GMFGenFactory eINSTANCE = new org.eclipse.gmf.codegen.gmfgen.impl.GMFGenFactoryImpl();
+	GMFGenFactory eINSTANCE = org.eclipse.gmf.codegen.gmfgen.impl.GMFGenFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Gen Diagram</em>'.
@@ -143,58 +143,22 @@ public interface GMFGenFactory extends EFactory{
 	DefaultSizeAttributes createDefaultSizeAttributes();
 
 	/**
-	 * Returns a new object of class '<em>Basic Node Viewmap</em>'.
+	 * Returns a new object of class '<em>Figure Viewmap</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Basic Node Viewmap</em>'.
+	 * @return a new object of class '<em>Figure Viewmap</em>'.
 	 * @generated
 	 */
-	BasicNodeViewmap createBasicNodeViewmap();
+	FigureViewmap createFigureViewmap();
 
 	/**
-	 * Returns a new object of class '<em>Decorated Connection Viewmap</em>'.
+	 * Returns a new object of class '<em>Snippet Viewmap</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Decorated Connection Viewmap</em>'.
+	 * @return a new object of class '<em>Snippet Viewmap</em>'.
 	 * @generated
 	 */
-	DecoratedConnectionViewmap createDecoratedConnectionViewmap();
-
-	/**
-	 * Returns a new object of class '<em>Link Decoration</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Link Decoration</em>'.
-	 * @generated
-	 */
-	LinkDecoration createLinkDecoration();
-
-	/**
-	 * Returns a new object of class '<em>Diagram Viewmap</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Diagram Viewmap</em>'.
-	 * @generated
-	 */
-	DiagramViewmap createDiagramViewmap();
-
-	/**
-	 * Returns a new object of class '<em>Compartment Viewmap</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Compartment Viewmap</em>'.
-	 * @generated
-	 */
-	CompartmentViewmap createCompartmentViewmap();
-
-	/**
-	 * Returns a new object of class '<em>Label Viewmap</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Label Viewmap</em>'.
-	 * @generated
-	 */
-	LabelViewmap createLabelViewmap();
+	SnippetViewmap createSnippetViewmap();
 
 	/**
 	 * Returns a new object of class '<em>Palette</em>'.

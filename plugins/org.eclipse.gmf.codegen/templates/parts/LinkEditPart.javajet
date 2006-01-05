@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="LinkEditPartGenerator"
-	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
 <%
 GenLink genLink = (GenLink) argument;
 GenDiagram genDiagram = genLink.getDiagram();
@@ -40,46 +40,6 @@ public class <%=genLink.getEditPartClassName()%> extends ConnectionNodeEditPart 
 	}
 
 	/**
-	 * @generated
-	 */
-	protected PolylineConnection createConnectionShape() {
-<%
-Viewmap viewmap = genLink.getViewmap();
-String figureQualifiedClassName = null;
-if (viewmap instanceof FigureViewmap) {
-	figureQualifiedClassName = ((FigureViewmap) viewmap).getFigureQualifiedClassName();
-}
-if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length() == 0) {
-	figureQualifiedClassName = "org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx";
-}
-%>
-		return new <%=importManager.getImportedName(figureQualifiedClassName)%>();
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void decorateConnectionShape(PolylineConnection shape) {
-<%@ include file="shapeattrs.jetinc"%>
-<%if (viewmap instanceof DecoratedConnectionViewmap) {%>
-		RotatableDecoration sourceDecoration = createSourceDecoration();
-		if (sourceDecoration != null) {
-			shape.setSourceDecoration(sourceDecoration);
-			if (sourceDecoration instanceof <%=importManager.getImportedName("org.eclipse.draw2d.Shape")%>) {
-				((<%=importManager.getImportedName("org.eclipse.draw2d.Shape")%>) sourceDecoration).setLineWidth(shape.getLineWidth());
-			}
-		}
-		RotatableDecoration targetDecoration = createTargetDecoration();
-		if (targetDecoration != null) {
-			shape.setTargetDecoration(targetDecoration);
-			if (targetDecoration instanceof <%=importManager.getImportedName("org.eclipse.draw2d.Shape")%>) {
-				((<%=importManager.getImportedName("org.eclipse.draw2d.Shape")%>) targetDecoration).setLineWidth(shape.getLineWidth());
-			}
-		}
-<%}%>
-	}
-
-	/**
 	 * Creates figure for this edit part.
 	 * 
 	 * Body of this method does not depend on settings in generation model
@@ -87,29 +47,20 @@ if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length()
 	 * 
 	 * @generated
 	 */
-	protected Connection createConnectionFigure() {
-		PolylineConnection shape = createConnectionShape();
-		decorateConnectionShape(shape);
-		return shape;
+	protected Connection createConnectionFigure() {<%
+Viewmap viewmap = genLink.getViewmap();
+if (viewmap instanceof FigureViewmap) {
+	String figureQualifiedClassName = null;
+	figureQualifiedClassName = ((FigureViewmap) viewmap).getFigureQualifiedClassName();
+	if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length() == 0) {
+		figureQualifiedClassName = "org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx";
 	}
-
-<%if (viewmap instanceof DecoratedConnectionViewmap) {%>
-
-	/**
-	 * @generated
-	 */
-	protected RotatableDecoration createSourceDecoration() {
-<%	LinkDecoration linkDecoration = ((DecoratedConnectionViewmap) viewmap).getSource();%>
-<%@ include file="linkdecoration.jetinc" %>
-	}
-
-	/**
-	 * @generated
-	 */
-	protected RotatableDecoration createTargetDecoration() {
-<%	linkDecoration = ((DecoratedConnectionViewmap) viewmap).getTarget();%>
-<%@ include file="linkdecoration.jetinc" %>
-	}
+%>
+		return new <%=importManager.getImportedName(figureQualifiedClassName)%>();
+<%} // instanceof FigureViewmap
+	else if (viewmap instanceof SnippetViewmap) {%>
+		return <%=((SnippetViewmap) viewmap).getBody()%>;
 <%}%>
+	}
 }
 <%importManager.emitSortedImports();%>

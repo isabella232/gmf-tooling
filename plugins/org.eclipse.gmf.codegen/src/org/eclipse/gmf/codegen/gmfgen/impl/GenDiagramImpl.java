@@ -21,7 +21,6 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
@@ -36,8 +35,6 @@ import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
-
-import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 
 /**
  * <!-- begin-user-doc -->
@@ -954,8 +951,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public GenPackage getDomainMetaModel() {
 		if (domainMetaModel != null && domainMetaModel.eIsProxy()) {
-			GenPackage oldDomainMetaModel = domainMetaModel;
-			domainMetaModel = (GenPackage)eResolveProxy((InternalEObject)domainMetaModel);
+			InternalEObject oldDomainMetaModel = (InternalEObject)domainMetaModel;
+			domainMetaModel = (GenPackage)eResolveProxy(oldDomainMetaModel);
 			if (domainMetaModel != oldDomainMetaModel) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL, oldDomainMetaModel, domainMetaModel));
@@ -992,8 +989,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public GenClass getDomainDiagramElement() {
 		if (domainDiagramElement != null && domainDiagramElement.eIsProxy()) {
-			GenClass oldDomainDiagramElement = domainDiagramElement;
-			domainDiagramElement = (GenClass)eResolveProxy((InternalEObject)domainDiagramElement);
+			InternalEObject oldDomainDiagramElement = (InternalEObject)domainDiagramElement;
+			domainDiagramElement = (GenClass)eResolveProxy(oldDomainDiagramElement);
 			if (domainDiagramElement != oldDomainDiagramElement) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT, oldDomainDiagramElement, domainDiagramElement));
@@ -2248,6 +2245,530 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_DIAGRAM__NODES:
+				return ((InternalEList)getNodes()).basicAdd(otherEnd, msgs);
+			case GMFGenPackage.GEN_DIAGRAM__LINKS:
+				return ((InternalEList)getLinks()).basicAdd(otherEnd, msgs);
+			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
+				if (palette != null)
+					msgs = ((InternalEObject)palette).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_DIAGRAM__PALETTE, null, msgs);
+				return basicSetPalette((Palette)otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_DIAGRAM__NODES:
+				return ((InternalEList)getNodes()).basicRemove(otherEnd, msgs);
+			case GMFGenPackage.GEN_DIAGRAM__LINKS:
+				return ((InternalEList)getLinks()).basicRemove(otherEnd, msgs);
+			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
+				return basicSetPalette(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
+				if (resolve) return getDomainMetaModel();
+				return basicGetDomainMetaModel();
+			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
+				if (resolve) return getDomainDiagramElement();
+				return basicGetDomainDiagramElement();
+			case GMFGenPackage.GEN_DIAGRAM__NODES:
+				return getNodes();
+			case GMFGenPackage.GEN_DIAGRAM__LINKS:
+				return getLinks();
+			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
+				return getPalette();
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
+				return getEditCommandsPackageName();
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
+				return getEditPartsPackageName();
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
+				return getEditPoliciesPackageName();
+			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
+				return getEditorPackageName();
+			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
+				return getProvidersPackageName();
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME:
+				return getNotationViewFactoriesPackageName();
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
+				return getPluginID();
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
+				return getPluginName();
+			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
+				return getProviderName();
+			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
+				return isSameFileForDiagramAndModel() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
+				return isPrintingEnabled() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
+				return getDiagramFileExtension();
+			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
+				return getReorientConnectionViewCommandClassName();
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
+				return getEditPartFactoryClassName();
+			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				return getBaseItemSemanticEditPolicyClassName();
+			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
+				return getBaseGraphicalNodeEditPolicyClassName();
+			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
+				return getReferenceConnectionEditPolicyClassName();
+			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				return getCanonicalEditPolicyClassName();
+			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
+				return getElementTypesClassName();
+			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
+				return getSemanticHintsClassName();
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
+				return getNotationViewProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
+				return getEditPartProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
+				return getMetamodelSupportProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
+				return getModelingAssistantProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME:
+				return getPropertyProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
+				return getIconProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
+				return getStructuralFeatureParserClassName();
+			case GMFGenPackage.GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME:
+				return getActionBarContributorClassName();
+			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
+				return getCreationWizardClassName();
+			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME:
+				return getCreationWizardPageClassName();
+			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME:
+				return getDiagramEditorUtilClassName();
+			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME:
+				return getDiagramFileCreatorClassName();
+			case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME:
+				return getDocumentProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
+				return getEditorClassName();
+			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
+				return getInitDiagramFileActionClassName();
+			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
+				return getMatchingStrategyClassName();
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
+				return getPluginClassName();
+			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
+				return getPreferenceInitializerClassName();
+			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
+				return getVisualIDRegistryClassName();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
+				setDomainMetaModel((GenPackage)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
+				setDomainDiagramElement((GenClass)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__NODES:
+				getNodes().clear();
+				getNodes().addAll((Collection)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__LINKS:
+				getLinks().clear();
+				getLinks().addAll((Collection)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
+				setPalette((Palette)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
+				setEditCommandsPackageName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
+				setEditPartsPackageName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
+				setEditPoliciesPackageName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
+				setEditorPackageName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
+				setProvidersPackageName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME:
+				setNotationViewFactoriesPackageName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
+				setPluginID((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
+				setPluginName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
+				setProviderName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
+				setSameFileForDiagramAndModel(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
+				setPrintingEnabled(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
+				setDiagramFileExtension((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
+				setReorientConnectionViewCommandClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
+				setEditPartFactoryClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				setBaseItemSemanticEditPolicyClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
+				setBaseGraphicalNodeEditPolicyClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
+				setReferenceConnectionEditPolicyClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				setCanonicalEditPolicyClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
+				setElementTypesClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
+				setSemanticHintsClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
+				setNotationViewProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
+				setEditPartProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
+				setMetamodelSupportProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
+				setModelingAssistantProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME:
+				setPropertyProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
+				setIconProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
+				setStructuralFeatureParserClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME:
+				setActionBarContributorClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
+				setCreationWizardClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME:
+				setCreationWizardPageClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME:
+				setDiagramEditorUtilClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME:
+				setDiagramFileCreatorClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME:
+				setDocumentProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
+				setEditorClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
+				setInitDiagramFileActionClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
+				setMatchingStrategyClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
+				setPluginClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
+				setPreferenceInitializerClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
+				setVisualIDRegistryClassName((String)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
+				setDomainMetaModel((GenPackage)null);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
+				setDomainDiagramElement((GenClass)null);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__NODES:
+				getNodes().clear();
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__LINKS:
+				getLinks().clear();
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
+				setPalette((Palette)null);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
+				setEditCommandsPackageName(EDIT_COMMANDS_PACKAGE_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
+				setEditPartsPackageName(EDIT_PARTS_PACKAGE_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
+				setEditPoliciesPackageName(EDIT_POLICIES_PACKAGE_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
+				setEditorPackageName(EDITOR_PACKAGE_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
+				setProvidersPackageName(PROVIDERS_PACKAGE_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME:
+				setNotationViewFactoriesPackageName(NOTATION_VIEW_FACTORIES_PACKAGE_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
+				setPluginID(PLUGIN_ID_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
+				setPluginName(PLUGIN_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
+				setProviderName(PROVIDER_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
+				setSameFileForDiagramAndModel(SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
+				setPrintingEnabled(PRINTING_ENABLED_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
+				setDiagramFileExtension(DIAGRAM_FILE_EXTENSION_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
+				setReorientConnectionViewCommandClassName(REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
+				setEditPartFactoryClassName(EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				setBaseItemSemanticEditPolicyClassName(BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
+				setBaseGraphicalNodeEditPolicyClassName(BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
+				setReferenceConnectionEditPolicyClassName(REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				setCanonicalEditPolicyClassName(CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
+				setElementTypesClassName(ELEMENT_TYPES_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
+				setSemanticHintsClassName(SEMANTIC_HINTS_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
+				setNotationViewProviderClassName(NOTATION_VIEW_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
+				setEditPartProviderClassName(EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
+				setMetamodelSupportProviderClassName(METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
+				setModelingAssistantProviderClassName(MODELING_ASSISTANT_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME:
+				setPropertyProviderClassName(PROPERTY_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
+				setIconProviderClassName(ICON_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
+				setStructuralFeatureParserClassName(STRUCTURAL_FEATURE_PARSER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME:
+				setActionBarContributorClassName(ACTION_BAR_CONTRIBUTOR_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
+				setCreationWizardClassName(CREATION_WIZARD_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME:
+				setCreationWizardPageClassName(CREATION_WIZARD_PAGE_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME:
+				setDiagramEditorUtilClassName(DIAGRAM_EDITOR_UTIL_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME:
+				setDiagramFileCreatorClassName(DIAGRAM_FILE_CREATOR_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME:
+				setDocumentProviderClassName(DOCUMENT_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
+				setEditorClassName(EDITOR_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
+				setInitDiagramFileActionClassName(INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
+				setMatchingStrategyClassName(MATCHING_STRATEGY_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
+				setPluginClassName(PLUGIN_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
+				setPreferenceInitializerClassName(PREFERENCE_INITIALIZER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
+				setVisualIDRegistryClassName(VISUAL_ID_REGISTRY_CLASS_NAME_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
+				return domainMetaModel != null;
+			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
+				return domainDiagramElement != null;
+			case GMFGenPackage.GEN_DIAGRAM__NODES:
+				return nodes != null && !nodes.isEmpty();
+			case GMFGenPackage.GEN_DIAGRAM__LINKS:
+				return links != null && !links.isEmpty();
+			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
+				return palette != null;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
+				return EDIT_COMMANDS_PACKAGE_NAME_EDEFAULT == null ? editCommandsPackageName != null : !EDIT_COMMANDS_PACKAGE_NAME_EDEFAULT.equals(editCommandsPackageName);
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
+				return EDIT_PARTS_PACKAGE_NAME_EDEFAULT == null ? editPartsPackageName != null : !EDIT_PARTS_PACKAGE_NAME_EDEFAULT.equals(editPartsPackageName);
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
+				return EDIT_POLICIES_PACKAGE_NAME_EDEFAULT == null ? editPoliciesPackageName != null : !EDIT_POLICIES_PACKAGE_NAME_EDEFAULT.equals(editPoliciesPackageName);
+			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
+				return EDITOR_PACKAGE_NAME_EDEFAULT == null ? editorPackageName != null : !EDITOR_PACKAGE_NAME_EDEFAULT.equals(editorPackageName);
+			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
+				return PROVIDERS_PACKAGE_NAME_EDEFAULT == null ? providersPackageName != null : !PROVIDERS_PACKAGE_NAME_EDEFAULT.equals(providersPackageName);
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME:
+				return NOTATION_VIEW_FACTORIES_PACKAGE_NAME_EDEFAULT == null ? notationViewFactoriesPackageName != null : !NOTATION_VIEW_FACTORIES_PACKAGE_NAME_EDEFAULT.equals(notationViewFactoriesPackageName);
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
+				return PLUGIN_ID_EDEFAULT == null ? pluginID != null : !PLUGIN_ID_EDEFAULT.equals(pluginID);
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
+				return PLUGIN_NAME_EDEFAULT == null ? pluginName != null : !PLUGIN_NAME_EDEFAULT.equals(pluginName);
+			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
+				return PROVIDER_NAME_EDEFAULT == null ? providerName != null : !PROVIDER_NAME_EDEFAULT.equals(providerName);
+			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
+				return sameFileForDiagramAndModel != SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT;
+			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
+				return printingEnabled != PRINTING_ENABLED_EDEFAULT;
+			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
+				return DIAGRAM_FILE_EXTENSION_EDEFAULT == null ? diagramFileExtension != null : !DIAGRAM_FILE_EXTENSION_EDEFAULT.equals(diagramFileExtension);
+			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
+				return REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT == null ? reorientConnectionViewCommandClassName != null : !REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT.equals(reorientConnectionViewCommandClassName);
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
+				return EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT == null ? editPartFactoryClassName != null : !EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT.equals(editPartFactoryClassName);
+			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+				return BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? baseItemSemanticEditPolicyClassName != null : !BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(baseItemSemanticEditPolicyClassName);
+			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
+				return BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? baseGraphicalNodeEditPolicyClassName != null : !BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(baseGraphicalNodeEditPolicyClassName);
+			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
+				return REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? referenceConnectionEditPolicyClassName != null : !REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(referenceConnectionEditPolicyClassName);
+			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
+				return CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? canonicalEditPolicyClassName != null : !CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(canonicalEditPolicyClassName);
+			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
+				return ELEMENT_TYPES_CLASS_NAME_EDEFAULT == null ? elementTypesClassName != null : !ELEMENT_TYPES_CLASS_NAME_EDEFAULT.equals(elementTypesClassName);
+			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
+				return SEMANTIC_HINTS_CLASS_NAME_EDEFAULT == null ? semanticHintsClassName != null : !SEMANTIC_HINTS_CLASS_NAME_EDEFAULT.equals(semanticHintsClassName);
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
+				return NOTATION_VIEW_PROVIDER_CLASS_NAME_EDEFAULT == null ? notationViewProviderClassName != null : !NOTATION_VIEW_PROVIDER_CLASS_NAME_EDEFAULT.equals(notationViewProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
+				return EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT == null ? editPartProviderClassName != null : !EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT.equals(editPartProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
+				return METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT == null ? metamodelSupportProviderClassName != null : !METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT.equals(metamodelSupportProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
+				return MODELING_ASSISTANT_PROVIDER_CLASS_NAME_EDEFAULT == null ? modelingAssistantProviderClassName != null : !MODELING_ASSISTANT_PROVIDER_CLASS_NAME_EDEFAULT.equals(modelingAssistantProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME:
+				return PROPERTY_PROVIDER_CLASS_NAME_EDEFAULT == null ? propertyProviderClassName != null : !PROPERTY_PROVIDER_CLASS_NAME_EDEFAULT.equals(propertyProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
+				return ICON_PROVIDER_CLASS_NAME_EDEFAULT == null ? iconProviderClassName != null : !ICON_PROVIDER_CLASS_NAME_EDEFAULT.equals(iconProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
+				return STRUCTURAL_FEATURE_PARSER_CLASS_NAME_EDEFAULT == null ? structuralFeatureParserClassName != null : !STRUCTURAL_FEATURE_PARSER_CLASS_NAME_EDEFAULT.equals(structuralFeatureParserClassName);
+			case GMFGenPackage.GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME:
+				return ACTION_BAR_CONTRIBUTOR_CLASS_NAME_EDEFAULT == null ? actionBarContributorClassName != null : !ACTION_BAR_CONTRIBUTOR_CLASS_NAME_EDEFAULT.equals(actionBarContributorClassName);
+			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
+				return CREATION_WIZARD_CLASS_NAME_EDEFAULT == null ? creationWizardClassName != null : !CREATION_WIZARD_CLASS_NAME_EDEFAULT.equals(creationWizardClassName);
+			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME:
+				return CREATION_WIZARD_PAGE_CLASS_NAME_EDEFAULT == null ? creationWizardPageClassName != null : !CREATION_WIZARD_PAGE_CLASS_NAME_EDEFAULT.equals(creationWizardPageClassName);
+			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME:
+				return DIAGRAM_EDITOR_UTIL_CLASS_NAME_EDEFAULT == null ? diagramEditorUtilClassName != null : !DIAGRAM_EDITOR_UTIL_CLASS_NAME_EDEFAULT.equals(diagramEditorUtilClassName);
+			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME:
+				return DIAGRAM_FILE_CREATOR_CLASS_NAME_EDEFAULT == null ? diagramFileCreatorClassName != null : !DIAGRAM_FILE_CREATOR_CLASS_NAME_EDEFAULT.equals(diagramFileCreatorClassName);
+			case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME:
+				return DOCUMENT_PROVIDER_CLASS_NAME_EDEFAULT == null ? documentProviderClassName != null : !DOCUMENT_PROVIDER_CLASS_NAME_EDEFAULT.equals(documentProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
+				return EDITOR_CLASS_NAME_EDEFAULT == null ? editorClassName != null : !EDITOR_CLASS_NAME_EDEFAULT.equals(editorClassName);
+			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
+				return INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT == null ? initDiagramFileActionClassName != null : !INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT.equals(initDiagramFileActionClassName);
+			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
+				return MATCHING_STRATEGY_CLASS_NAME_EDEFAULT == null ? matchingStrategyClassName != null : !MATCHING_STRATEGY_CLASS_NAME_EDEFAULT.equals(matchingStrategyClassName);
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
+				return PLUGIN_CLASS_NAME_EDEFAULT == null ? pluginClassName != null : !PLUGIN_CLASS_NAME_EDEFAULT.equals(pluginClassName);
+			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
+				return PREFERENCE_INITIALIZER_CLASS_NAME_EDEFAULT == null ? preferenceInitializerClassName != null : !PREFERENCE_INITIALIZER_CLASS_NAME_EDEFAULT.equals(preferenceInitializerClassName);
+			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
+				return VISUAL_ID_REGISTRY_CLASS_NAME_EDEFAULT == null ? visualIDRegistryClassName != null : !VISUAL_ID_REGISTRY_CLASS_NAME_EDEFAULT.equals(visualIDRegistryClassName);
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public boolean hasLinkCreationConstraints() {
@@ -2540,603 +3061,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		}
 */
 		return false;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.GEN_DIAGRAM__NODES:
-					return ((InternalEList)getNodes()).basicAdd(otherEnd, msgs);
-				case GMFGenPackage.GEN_DIAGRAM__LINKS:
-					return ((InternalEList)getLinks()).basicAdd(otherEnd, msgs);
-				case GMFGenPackage.GEN_DIAGRAM__PALETTE:
-					if (palette != null)
-						msgs = ((InternalEObject)palette).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_DIAGRAM__PALETTE, null, msgs);
-					return basicSetPalette((Palette)otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFGenPackage.GEN_DIAGRAM__VIEWMAP:
-					return basicSetViewmap(null, msgs);
-				case GMFGenPackage.GEN_DIAGRAM__NODES:
-					return ((InternalEList)getNodes()).basicRemove(otherEnd, msgs);
-				case GMFGenPackage.GEN_DIAGRAM__LINKS:
-					return ((InternalEList)getLinks()).basicRemove(otherEnd, msgs);
-				case GMFGenPackage.GEN_DIAGRAM__PALETTE:
-					return basicSetPalette(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_RUN_TIME_CLASS:
-				if (resolve) return getDiagramRunTimeClass();
-				return basicGetDiagramRunTimeClass();
-			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID:
-				return new Integer(getVisualID());
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_CLASS_NAME:
-				return getEditPartClassName();
-			case GMFGenPackage.GEN_DIAGRAM__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				return getItemSemanticEditPolicyClassName();
-			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				return getNotationViewFactoryClassName();
-			case GMFGenPackage.GEN_DIAGRAM__VIEWMAP:
-				return getViewmap();
-			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
-				if (resolve) return getDomainMetaModel();
-				return basicGetDomainMetaModel();
-			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
-				if (resolve) return getDomainDiagramElement();
-				return basicGetDomainDiagramElement();
-			case GMFGenPackage.GEN_DIAGRAM__NODES:
-				return getNodes();
-			case GMFGenPackage.GEN_DIAGRAM__LINKS:
-				return getLinks();
-			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
-				return getPalette();
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
-				return getEditCommandsPackageName();
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
-				return getEditPartsPackageName();
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
-				return getEditPoliciesPackageName();
-			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
-				return getEditorPackageName();
-			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
-				return getProvidersPackageName();
-			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME:
-				return getNotationViewFactoriesPackageName();
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
-				return getPluginID();
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
-				return getPluginName();
-			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
-				return getProviderName();
-			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
-				return isSameFileForDiagramAndModel() ? Boolean.TRUE : Boolean.FALSE;
-			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
-				return isPrintingEnabled() ? Boolean.TRUE : Boolean.FALSE;
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
-				return getDiagramFileExtension();
-			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
-				return getReorientConnectionViewCommandClassName();
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
-				return getEditPartFactoryClassName();
-			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				return getBaseItemSemanticEditPolicyClassName();
-			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
-				return getBaseGraphicalNodeEditPolicyClassName();
-			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
-				return getReferenceConnectionEditPolicyClassName();
-			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
-				return getCanonicalEditPolicyClassName();
-			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
-				return getElementTypesClassName();
-			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
-				return getSemanticHintsClassName();
-			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
-				return getNotationViewProviderClassName();
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
-				return getEditPartProviderClassName();
-			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
-				return getMetamodelSupportProviderClassName();
-			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
-				return getModelingAssistantProviderClassName();
-			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME:
-				return getPropertyProviderClassName();
-			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
-				return getIconProviderClassName();
-			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
-				return getStructuralFeatureParserClassName();
-			case GMFGenPackage.GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME:
-				return getActionBarContributorClassName();
-			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
-				return getCreationWizardClassName();
-			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME:
-				return getCreationWizardPageClassName();
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME:
-				return getDiagramEditorUtilClassName();
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME:
-				return getDiagramFileCreatorClassName();
-			case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME:
-				return getDocumentProviderClassName();
-			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
-				return getEditorClassName();
-			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
-				return getInitDiagramFileActionClassName();
-			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
-				return getMatchingStrategyClassName();
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
-				return getPluginClassName();
-			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
-				return getPreferenceInitializerClassName();
-			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
-				return getVisualIDRegistryClassName();
-		}
-		return eDynamicGet(eFeature, resolve);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_RUN_TIME_CLASS:
-				setDiagramRunTimeClass((GenClass)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID:
-				setVisualID(((Integer)newValue).intValue());
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_CLASS_NAME:
-				setEditPartClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				setItemSemanticEditPolicyClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				setNotationViewFactoryClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__VIEWMAP:
-				setViewmap((Viewmap)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
-				setDomainMetaModel((GenPackage)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
-				setDomainDiagramElement((GenClass)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__NODES:
-				getNodes().clear();
-				getNodes().addAll((Collection)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__LINKS:
-				getLinks().clear();
-				getLinks().addAll((Collection)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
-				setPalette((Palette)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
-				setEditCommandsPackageName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
-				setEditPartsPackageName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
-				setEditPoliciesPackageName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
-				setEditorPackageName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
-				setProvidersPackageName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME:
-				setNotationViewFactoriesPackageName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
-				setPluginID((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
-				setPluginName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
-				setProviderName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
-				setSameFileForDiagramAndModel(((Boolean)newValue).booleanValue());
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
-				setPrintingEnabled(((Boolean)newValue).booleanValue());
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
-				setDiagramFileExtension((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
-				setReorientConnectionViewCommandClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
-				setEditPartFactoryClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				setBaseItemSemanticEditPolicyClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
-				setBaseGraphicalNodeEditPolicyClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
-				setReferenceConnectionEditPolicyClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
-				setCanonicalEditPolicyClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
-				setElementTypesClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
-				setSemanticHintsClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
-				setNotationViewProviderClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
-				setEditPartProviderClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
-				setMetamodelSupportProviderClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
-				setModelingAssistantProviderClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME:
-				setPropertyProviderClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
-				setIconProviderClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
-				setStructuralFeatureParserClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME:
-				setActionBarContributorClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
-				setCreationWizardClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME:
-				setCreationWizardPageClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME:
-				setDiagramEditorUtilClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME:
-				setDiagramFileCreatorClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME:
-				setDocumentProviderClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
-				setEditorClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
-				setInitDiagramFileActionClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
-				setMatchingStrategyClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
-				setPluginClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
-				setPreferenceInitializerClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
-				setVisualIDRegistryClassName((String)newValue);
-				return;
-		}
-		eDynamicSet(eFeature, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_RUN_TIME_CLASS:
-				setDiagramRunTimeClass((GenClass)null);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID:
-				setVisualID(VISUAL_ID_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_CLASS_NAME:
-				setEditPartClassName(EDIT_PART_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				setItemSemanticEditPolicyClassName(ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				setNotationViewFactoryClassName(NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__VIEWMAP:
-				setViewmap((Viewmap)null);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
-				setDomainMetaModel((GenPackage)null);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
-				setDomainDiagramElement((GenClass)null);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__NODES:
-				getNodes().clear();
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__LINKS:
-				getLinks().clear();
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
-				setPalette((Palette)null);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
-				setEditCommandsPackageName(EDIT_COMMANDS_PACKAGE_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
-				setEditPartsPackageName(EDIT_PARTS_PACKAGE_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
-				setEditPoliciesPackageName(EDIT_POLICIES_PACKAGE_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
-				setEditorPackageName(EDITOR_PACKAGE_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
-				setProvidersPackageName(PROVIDERS_PACKAGE_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME:
-				setNotationViewFactoriesPackageName(NOTATION_VIEW_FACTORIES_PACKAGE_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
-				setPluginID(PLUGIN_ID_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
-				setPluginName(PLUGIN_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
-				setProviderName(PROVIDER_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
-				setSameFileForDiagramAndModel(SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
-				setPrintingEnabled(PRINTING_ENABLED_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
-				setDiagramFileExtension(DIAGRAM_FILE_EXTENSION_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
-				setReorientConnectionViewCommandClassName(REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
-				setEditPartFactoryClassName(EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				setBaseItemSemanticEditPolicyClassName(BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
-				setBaseGraphicalNodeEditPolicyClassName(BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
-				setReferenceConnectionEditPolicyClassName(REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
-				setCanonicalEditPolicyClassName(CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
-				setElementTypesClassName(ELEMENT_TYPES_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
-				setSemanticHintsClassName(SEMANTIC_HINTS_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
-				setNotationViewProviderClassName(NOTATION_VIEW_PROVIDER_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
-				setEditPartProviderClassName(EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
-				setMetamodelSupportProviderClassName(METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
-				setModelingAssistantProviderClassName(MODELING_ASSISTANT_PROVIDER_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME:
-				setPropertyProviderClassName(PROPERTY_PROVIDER_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
-				setIconProviderClassName(ICON_PROVIDER_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
-				setStructuralFeatureParserClassName(STRUCTURAL_FEATURE_PARSER_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME:
-				setActionBarContributorClassName(ACTION_BAR_CONTRIBUTOR_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
-				setCreationWizardClassName(CREATION_WIZARD_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME:
-				setCreationWizardPageClassName(CREATION_WIZARD_PAGE_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME:
-				setDiagramEditorUtilClassName(DIAGRAM_EDITOR_UTIL_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME:
-				setDiagramFileCreatorClassName(DIAGRAM_FILE_CREATOR_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME:
-				setDocumentProviderClassName(DOCUMENT_PROVIDER_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
-				setEditorClassName(EDITOR_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
-				setInitDiagramFileActionClassName(INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
-				setMatchingStrategyClassName(MATCHING_STRATEGY_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
-				setPluginClassName(PLUGIN_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
-				setPreferenceInitializerClassName(PREFERENCE_INITIALIZER_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
-				setVisualIDRegistryClassName(VISUAL_ID_REGISTRY_CLASS_NAME_EDEFAULT);
-				return;
-		}
-		eDynamicUnset(eFeature);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_RUN_TIME_CLASS:
-				return diagramRunTimeClass != null;
-			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID:
-				return visualID != VISUAL_ID_EDEFAULT;
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_CLASS_NAME:
-				return EDIT_PART_CLASS_NAME_EDEFAULT == null ? editPartClassName != null : !EDIT_PART_CLASS_NAME_EDEFAULT.equals(editPartClassName);
-			case GMFGenPackage.GEN_DIAGRAM__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				return ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? itemSemanticEditPolicyClassName != null : !ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(itemSemanticEditPolicyClassName);
-			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORY_CLASS_NAME:
-				return NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT == null ? notationViewFactoryClassName != null : !NOTATION_VIEW_FACTORY_CLASS_NAME_EDEFAULT.equals(notationViewFactoryClassName);
-			case GMFGenPackage.GEN_DIAGRAM__VIEWMAP:
-				return viewmap != null;
-			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
-				return domainMetaModel != null;
-			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
-				return domainDiagramElement != null;
-			case GMFGenPackage.GEN_DIAGRAM__NODES:
-				return nodes != null && !nodes.isEmpty();
-			case GMFGenPackage.GEN_DIAGRAM__LINKS:
-				return links != null && !links.isEmpty();
-			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
-				return palette != null;
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
-				return EDIT_COMMANDS_PACKAGE_NAME_EDEFAULT == null ? editCommandsPackageName != null : !EDIT_COMMANDS_PACKAGE_NAME_EDEFAULT.equals(editCommandsPackageName);
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
-				return EDIT_PARTS_PACKAGE_NAME_EDEFAULT == null ? editPartsPackageName != null : !EDIT_PARTS_PACKAGE_NAME_EDEFAULT.equals(editPartsPackageName);
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
-				return EDIT_POLICIES_PACKAGE_NAME_EDEFAULT == null ? editPoliciesPackageName != null : !EDIT_POLICIES_PACKAGE_NAME_EDEFAULT.equals(editPoliciesPackageName);
-			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
-				return EDITOR_PACKAGE_NAME_EDEFAULT == null ? editorPackageName != null : !EDITOR_PACKAGE_NAME_EDEFAULT.equals(editorPackageName);
-			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
-				return PROVIDERS_PACKAGE_NAME_EDEFAULT == null ? providersPackageName != null : !PROVIDERS_PACKAGE_NAME_EDEFAULT.equals(providersPackageName);
-			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME:
-				return NOTATION_VIEW_FACTORIES_PACKAGE_NAME_EDEFAULT == null ? notationViewFactoriesPackageName != null : !NOTATION_VIEW_FACTORIES_PACKAGE_NAME_EDEFAULT.equals(notationViewFactoriesPackageName);
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
-				return PLUGIN_ID_EDEFAULT == null ? pluginID != null : !PLUGIN_ID_EDEFAULT.equals(pluginID);
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
-				return PLUGIN_NAME_EDEFAULT == null ? pluginName != null : !PLUGIN_NAME_EDEFAULT.equals(pluginName);
-			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
-				return PROVIDER_NAME_EDEFAULT == null ? providerName != null : !PROVIDER_NAME_EDEFAULT.equals(providerName);
-			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
-				return sameFileForDiagramAndModel != SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT;
-			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
-				return printingEnabled != PRINTING_ENABLED_EDEFAULT;
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
-				return DIAGRAM_FILE_EXTENSION_EDEFAULT == null ? diagramFileExtension != null : !DIAGRAM_FILE_EXTENSION_EDEFAULT.equals(diagramFileExtension);
-			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
-				return REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT == null ? reorientConnectionViewCommandClassName != null : !REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT.equals(reorientConnectionViewCommandClassName);
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
-				return EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT == null ? editPartFactoryClassName != null : !EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT.equals(editPartFactoryClassName);
-			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-				return BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? baseItemSemanticEditPolicyClassName != null : !BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(baseItemSemanticEditPolicyClassName);
-			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
-				return BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? baseGraphicalNodeEditPolicyClassName != null : !BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(baseGraphicalNodeEditPolicyClassName);
-			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
-				return REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? referenceConnectionEditPolicyClassName != null : !REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(referenceConnectionEditPolicyClassName);
-			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
-				return CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? canonicalEditPolicyClassName != null : !CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(canonicalEditPolicyClassName);
-			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
-				return ELEMENT_TYPES_CLASS_NAME_EDEFAULT == null ? elementTypesClassName != null : !ELEMENT_TYPES_CLASS_NAME_EDEFAULT.equals(elementTypesClassName);
-			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
-				return SEMANTIC_HINTS_CLASS_NAME_EDEFAULT == null ? semanticHintsClassName != null : !SEMANTIC_HINTS_CLASS_NAME_EDEFAULT.equals(semanticHintsClassName);
-			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
-				return NOTATION_VIEW_PROVIDER_CLASS_NAME_EDEFAULT == null ? notationViewProviderClassName != null : !NOTATION_VIEW_PROVIDER_CLASS_NAME_EDEFAULT.equals(notationViewProviderClassName);
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
-				return EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT == null ? editPartProviderClassName != null : !EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT.equals(editPartProviderClassName);
-			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
-				return METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT == null ? metamodelSupportProviderClassName != null : !METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT.equals(metamodelSupportProviderClassName);
-			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
-				return MODELING_ASSISTANT_PROVIDER_CLASS_NAME_EDEFAULT == null ? modelingAssistantProviderClassName != null : !MODELING_ASSISTANT_PROVIDER_CLASS_NAME_EDEFAULT.equals(modelingAssistantProviderClassName);
-			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME:
-				return PROPERTY_PROVIDER_CLASS_NAME_EDEFAULT == null ? propertyProviderClassName != null : !PROPERTY_PROVIDER_CLASS_NAME_EDEFAULT.equals(propertyProviderClassName);
-			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
-				return ICON_PROVIDER_CLASS_NAME_EDEFAULT == null ? iconProviderClassName != null : !ICON_PROVIDER_CLASS_NAME_EDEFAULT.equals(iconProviderClassName);
-			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
-				return STRUCTURAL_FEATURE_PARSER_CLASS_NAME_EDEFAULT == null ? structuralFeatureParserClassName != null : !STRUCTURAL_FEATURE_PARSER_CLASS_NAME_EDEFAULT.equals(structuralFeatureParserClassName);
-			case GMFGenPackage.GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME:
-				return ACTION_BAR_CONTRIBUTOR_CLASS_NAME_EDEFAULT == null ? actionBarContributorClassName != null : !ACTION_BAR_CONTRIBUTOR_CLASS_NAME_EDEFAULT.equals(actionBarContributorClassName);
-			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
-				return CREATION_WIZARD_CLASS_NAME_EDEFAULT == null ? creationWizardClassName != null : !CREATION_WIZARD_CLASS_NAME_EDEFAULT.equals(creationWizardClassName);
-			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME:
-				return CREATION_WIZARD_PAGE_CLASS_NAME_EDEFAULT == null ? creationWizardPageClassName != null : !CREATION_WIZARD_PAGE_CLASS_NAME_EDEFAULT.equals(creationWizardPageClassName);
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME:
-				return DIAGRAM_EDITOR_UTIL_CLASS_NAME_EDEFAULT == null ? diagramEditorUtilClassName != null : !DIAGRAM_EDITOR_UTIL_CLASS_NAME_EDEFAULT.equals(diagramEditorUtilClassName);
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME:
-				return DIAGRAM_FILE_CREATOR_CLASS_NAME_EDEFAULT == null ? diagramFileCreatorClassName != null : !DIAGRAM_FILE_CREATOR_CLASS_NAME_EDEFAULT.equals(diagramFileCreatorClassName);
-			case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME:
-				return DOCUMENT_PROVIDER_CLASS_NAME_EDEFAULT == null ? documentProviderClassName != null : !DOCUMENT_PROVIDER_CLASS_NAME_EDEFAULT.equals(documentProviderClassName);
-			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
-				return EDITOR_CLASS_NAME_EDEFAULT == null ? editorClassName != null : !EDITOR_CLASS_NAME_EDEFAULT.equals(editorClassName);
-			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
-				return INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT == null ? initDiagramFileActionClassName != null : !INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT.equals(initDiagramFileActionClassName);
-			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
-				return MATCHING_STRATEGY_CLASS_NAME_EDEFAULT == null ? matchingStrategyClassName != null : !MATCHING_STRATEGY_CLASS_NAME_EDEFAULT.equals(matchingStrategyClassName);
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
-				return PLUGIN_CLASS_NAME_EDEFAULT == null ? pluginClassName != null : !PLUGIN_CLASS_NAME_EDEFAULT.equals(pluginClassName);
-			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
-				return PREFERENCE_INITIALIZER_CLASS_NAME_EDEFAULT == null ? preferenceInitializerClassName != null : !PREFERENCE_INITIALIZER_CLASS_NAME_EDEFAULT.equals(preferenceInitializerClassName);
-			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
-				return VISUAL_ID_REGISTRY_CLASS_NAME_EDEFAULT == null ? visualIDRegistryClassName != null : !VISUAL_ID_REGISTRY_CLASS_NAME_EDEFAULT.equals(visualIDRegistryClassName);
-		}
-		return eDynamicIsSet(eFeature);
 	}
 
 	/**

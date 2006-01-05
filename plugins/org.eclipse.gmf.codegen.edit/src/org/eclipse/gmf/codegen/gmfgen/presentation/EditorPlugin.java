@@ -8,6 +8,8 @@ package org.eclipse.gmf.codegen.gmfgen.presentation;
 
 import org.eclipse.emf.codegen.ecore.genmodel.provider.GenModelEditPlugin;
 import org.eclipse.emf.common.EMFPlugin;
+import org.eclipse.emf.common.ui.EclipseUIPlugin;
+
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.provider.EcoreEditPlugin;
 
@@ -76,7 +78,7 @@ public final class EditorPlugin extends EMFPlugin {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static class Implementation extends EclipsePlugin {
+	public static class Implementation extends EclipseUIPlugin {
 		/**
 		 * Creates an instance.
 		 * <!-- begin-user-doc -->

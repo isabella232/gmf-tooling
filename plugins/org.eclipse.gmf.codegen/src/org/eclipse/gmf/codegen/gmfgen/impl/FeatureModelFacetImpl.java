@@ -9,7 +9,6 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
@@ -65,8 +64,8 @@ public class FeatureModelFacetImpl extends EObjectImpl implements FeatureModelFa
 	 */
 	public GenFeature getMetaFeature() {
 		if (metaFeature != null && metaFeature.eIsProxy()) {
-			GenFeature oldMetaFeature = metaFeature;
-			metaFeature = (GenFeature)eResolveProxy((InternalEObject)metaFeature);
+			InternalEObject oldMetaFeature = (InternalEObject)metaFeature;
+			metaFeature = (GenFeature)eResolveProxy(oldMetaFeature);
 			if (metaFeature != oldMetaFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.FEATURE_MODEL_FACET__META_FEATURE, oldMetaFeature, metaFeature));
@@ -101,13 +100,13 @@ public class FeatureModelFacetImpl extends EObjectImpl implements FeatureModelFa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFGenPackage.FEATURE_MODEL_FACET__META_FEATURE:
 				if (resolve) return getMetaFeature();
 				return basicGetMetaFeature();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -115,13 +114,13 @@ public class FeatureModelFacetImpl extends EObjectImpl implements FeatureModelFa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFGenPackage.FEATURE_MODEL_FACET__META_FEATURE:
 				setMetaFeature((GenFeature)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -129,13 +128,13 @@ public class FeatureModelFacetImpl extends EObjectImpl implements FeatureModelFa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.FEATURE_MODEL_FACET__META_FEATURE:
 				setMetaFeature((GenFeature)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -143,12 +142,12 @@ public class FeatureModelFacetImpl extends EObjectImpl implements FeatureModelFa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFGenPackage.FEATURE_MODEL_FACET__META_FEATURE:
 				return metaFeature != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 } //FeatureModelFacetImpl
