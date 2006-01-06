@@ -1,0 +1,22 @@
+<%
+// PERHAPS, do this with reflection?
+%><%if (shapeFigure.eIsSet(GMFGraphPackage.eINSTANCE.getShape_Fill())) {%>
+		<%=shapeVarName%>.setFill(<%=shapeFigure.isFill()%>);
+<%} if (shapeFigure.eIsSet(GMFGraphPackage.eINSTANCE.getShape_Outline())) {%>
+		<%=shapeVarName%>.setOutline(<%=shapeFigure.isOutline()%>);
+<%} if (shapeFigure.eIsSet(GMFGraphPackage.eINSTANCE.getShape_LineWidth())) {%>
+		<%=shapeVarName%>.setLineWidth(<%=shapeFigure.getLineWidth()%>);
+<%} if (shapeFigure.eIsSet(GMFGraphPackage.eINSTANCE.getShape_LineKind())) {%>
+		<%=shapeVarName%>.setLineStyle(org.eclipse.draw2d.Graphics.<%=shapeFigure.getLineKind().getName()%>);
+<%} if (shapeFigure.eIsSet(GMFGraphPackage.eINSTANCE.getShape_XorFill())) {%>
+		<%=shapeVarName%>.setFillXOR(<%=shapeFigure.isXorFill()%>);
+<%} if (shapeFigure.eIsSet(GMFGraphPackage.eINSTANCE.getShape_XorOutline())) {%>
+		<%=shapeVarName%>.setOutlineXOR(<%=shapeFigure.isXorOutline()%>);
+<%} if (shapeFigure instanceof Polyline && !((Polyline) shapeFigure).getTemplate().isEmpty()) {
+	for (Iterator pointIt = ((Polyline) shapeFigure).getTemplate().iterator(); pointIt.hasNext(); ) {
+		Point p = (Point) pointIt.next();%>
+		<%=shapeVarName%>.addPoint(new org.eclipse.draw2d.geometry.Point(<%=p.getX()%>, <%=p.getY()%>));
+<%}%><%} else if (shapeFigure instanceof RoundedRectangle) {
+		RoundedRectangle rrFigure = (RoundedRectangle) shapeFigure;%>
+		<%=shapeVarName%>.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(<%=rrFigure.getCornerWidth()%>, <%=rrFigure.getCornerHeight()%>));
+<%}%><%@ include file="FigureAttrs.jetinc"%>

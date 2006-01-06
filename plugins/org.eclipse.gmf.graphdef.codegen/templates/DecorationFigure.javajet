@@ -1,0 +1,27 @@
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="DecorationFigureGenerator"
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* java.util.*"%>
+<%
+DecorationFigure figure = (DecorationFigure) argument;
+assert false == figure instanceof CustomFigure;
+final Point scale;
+scale = null; //XXX
+final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
+%>
+
+class <%=figure.getName()%> extends <%=fqnSwitch.doSwitch(figure)%> {
+
+	public <%=figure.getName()%>() {
+<%
+DecorationFigure df = figure;
+String decFigVarName = "this";%>
+<%@ include file="decoration.jetinc" %>
+<%if (scale != null) {%>
+		setScale(<%=scale.getX()%>, <%=scale.getY()%>);
+<%}%>
+<%
+Shape shapeFigure = (Shape) figure;
+String shapeVarName = "this";
+%>
+<%@ include file="ShapeAttrs.jetinc" %>
+	}
+}

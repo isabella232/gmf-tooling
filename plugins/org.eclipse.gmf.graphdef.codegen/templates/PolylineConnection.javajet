@@ -1,0 +1,39 @@
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="ConnectionGenerator"
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* java.util.*"%>
+
+<%
+PolylineConnection figure = (PolylineConnection) argument;
+final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
+%>
+
+public class <%=figure.getName()%> extends <%=fqnSwitch.doSwitch(figure)%> {
+
+	public <%=figure.getName()%>() {
+<%Shape shapeFigure = figure;
+String shapeVarName = "this";%>
+<%@ include file="ShapeAttrs.jetinc" %>
+<%if (figure.getSourceDecoration() != null) {%>
+		setSourceDecoration(createSourceDecoration());
+<%}
+if (figure.getTargetDecoration() != null) {%>
+		setTargetDecoration(createTargetDecoration());
+<%}%>
+	}
+
+<%String decFigVarName = "df";
+if (figure.getSourceDecoration() != null) {
+DecorationFigure df = figure.getSourceDecoration();%>
+	private <%=fqnSwitch.doSwitch(df)%> createSourceDecoration() {
+<%@ include file="decoration.jetinc" %>
+		return <%=decFigVarName%>;
+	}
+<%} /*if sourceDecoration != null */ %>
+
+<%if (figure.getTargetDecoration() != null) {
+DecorationFigure df = figure.getTargetDecoration();%>
+	private <%=fqnSwitch.doSwitch(df)%> createTargetDecoration() {
+<%@ include file="decoration.jetinc" %>
+		return <%=decFigVarName%>;
+	}
+<%}%>
+}

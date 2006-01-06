@@ -1,0 +1,15 @@
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="CustomFigureGenerator"
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* java.util.*"%>
+<%
+CustomFigure figure = (CustomFigure) argument;
+final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
+%>
+
+public class <%=figure.getName()%> extends <%=figure.getQualifiedClassName()%> {
+
+	public <%=figure.getName()%>() {
+		// TODO - process custom properties here
+<%String parentFigureVarName = "this";%>
+<%@ include file="FigureChildren.jetinc" %>
+	}
+}

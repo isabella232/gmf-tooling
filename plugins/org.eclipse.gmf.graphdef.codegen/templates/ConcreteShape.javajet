@@ -1,0 +1,52 @@
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="ShapeGenerator"
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* java.util.*"%>
+<%
+Shape shapeFig = (Shape) argument;
+final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
+%>
+
+public class <%=shapeFig.getName()%> extends <%=fqnSwitch.doSwitch(shapeFig)%> {
+
+	public <%=shapeFig.getName()%>() {
+<%
+{
+Shape shapeFigure = shapeFig;
+String shapeVarName = "this";
+%>
+<%@ include file="ShapeAttrs.jetinc" %>
+<%
+}for (Iterator it = shapeFig.getResolvedChildren().iterator(); it.hasNext();) {
+		Figure next = (Figure) it.next();%>
+		setFigure<%=next.getName()%>(createFigure<%=next.getName()%>());
+		add(getFigure<%=next.getName()%>());
+<%}%>
+	}
+
+<%
+int fc = 0;
+for (Iterator it = shapeFig.getResolvedChildren().iterator(); it.hasNext(); fc++) {
+	Figure figure = (Figure) it.next();%>
+
+	private IFigure f<%=figure.getName()%>; 
+
+	public IFigure getFigure<%=figure.getName()%>() {
+		return f<%=figure.getName()%>;
+	}
+
+	protected void setFigure<%=figure.getName()%>(IFigure figure) {
+		f<%=figure.getName()%> = figure;
+	}
+
+	private IFigure createFigure<%=figure.getName()%>() {
+<%
+String parentFigureVarName = "rv" + fc;
+{ // scope
+FigureMarker figureMarker = figure;
+String figureVarName = parentFigureVarName;%>
+<%@ include file="instantiate.jetinc" %><%}%>
+<%@ include file="FigureChildren.jetinc" %>
+		return <%=parentFigureVarName%>;
+	}
+
+<%}%>
+}

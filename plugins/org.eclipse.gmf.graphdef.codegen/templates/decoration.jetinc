@@ -1,0 +1,11 @@
+		<%=fqnSwitch.doSwitch(df)%> <%=decFigVarName%> = new <%=fqnSwitch.doSwitch(df)%>();
+<%@ include file="FigureAttrs.jetinc"%>
+<% /*include FigureChildren*/ %>
+<%if ((df instanceof PolylineDecoration || df instanceof PolygonDecoration) && !((Polyline) df).getTemplate().isEmpty()) {%>
+		org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();
+<%	for (Iterator pointIt = ((Polyline) df).getTemplate().iterator(); pointIt.hasNext(); ) {
+		Point p = (Point) pointIt.next();%>
+		pl.addPoint(<%=p.getX()%>, <%=p.getY()%>);
+<%} /*for*/ %>
+		<%=decFigVarName%>.setTemplate(pl);
+<%} /*if instanceof */ %>
