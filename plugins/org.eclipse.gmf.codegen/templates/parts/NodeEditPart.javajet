@@ -90,6 +90,9 @@ if (viewmap instanceof FigureViewmap) {
 <%} // instanceof FigureViewmap
  else if (viewmap instanceof SnippetViewmap) {%>
 		return <%=((SnippetViewmap) viewmap).getBody()%>;
+<%} // instanceof SnippetViewmap 
+ else if (viewmap instanceof InnerClassViewmap) {%>
+ 		return new <%=((InnerClassViewmap) viewmap).getClassName()%>();
 <%}%>
 	}
 
@@ -185,6 +188,10 @@ if (!genNode.getLabels().isEmpty()) {
 	public <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> getPrimaryChildEditPart() {
 		return getChildBySemanticHint(<%=semanticHintsClassName%>.<%=genNode.getUniqueIdentifier()%>Labels.<%=primaryLabel.getSemanticHintFieldName()%>);
 	}
+<%}%>
+
+<%if (genNode.getViewmap() instanceof InnerClassViewmap) {%>
+<%=((InnerClassViewmap) genNode.getViewmap()).getClassBody()%>
 <%}%>
 }
 <%importManager.emitSortedImports();%>

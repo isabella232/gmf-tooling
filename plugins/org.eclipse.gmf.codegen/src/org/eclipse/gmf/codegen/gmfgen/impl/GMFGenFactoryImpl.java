@@ -101,6 +101,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.DEFAULT_SIZE_ATTRIBUTES: return createDefaultSizeAttributes();
 			case GMFGenPackage.FIGURE_VIEWMAP: return createFigureViewmap();
 			case GMFGenPackage.SNIPPET_VIEWMAP: return createSnippetViewmap();
+			case GMFGenPackage.INNER_CLASS_VIEWMAP: return createInnerClassViewmap();
 			case GMFGenPackage.VALUE_EXPRESSION: return createValueExpression();
 			case GMFGenPackage.MODEL_ELEMENT_SELECTOR: return createModelElementSelector();
 			case GMFGenPackage.PALETTE: return createPalette();
@@ -303,6 +304,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public SnippetViewmap createSnippetViewmap() {
 		SnippetViewmapImpl snippetViewmap = new SnippetViewmapImpl();
 		return snippetViewmap;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public InnerClassViewmap createInnerClassViewmap() {
+		InnerClassViewmapImpl innerClassViewmap = new InnerClassViewmapImpl();
+		return innerClassViewmap;
 	}
 
 	/**

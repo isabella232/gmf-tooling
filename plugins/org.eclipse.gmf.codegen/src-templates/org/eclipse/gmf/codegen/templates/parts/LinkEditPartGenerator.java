@@ -30,8 +30,12 @@ public class LinkEditPartGenerator
   protected final String TEXT_13 = "();";
   protected final String TEXT_14 = NL + "\t\treturn ";
   protected final String TEXT_15 = ";";
-  protected final String TEXT_16 = NL + "\t}" + NL + "}";
-  protected final String TEXT_17 = NL;
+  protected final String TEXT_16 = NL + " \t\treturn new ";
+  protected final String TEXT_17 = "();";
+  protected final String TEXT_18 = NL + "\t}" + NL;
+  protected final String TEXT_19 = NL;
+  protected final String TEXT_20 = NL + "}";
+  protected final String TEXT_21 = NL;
 
   public String generate(Object argument)
   {
@@ -78,10 +82,20 @@ if (viewmap instanceof FigureViewmap) {
     stringBuffer.append(TEXT_14);
     stringBuffer.append(((SnippetViewmap) viewmap).getBody());
     stringBuffer.append(TEXT_15);
-    }
+    } // instanceof SnippetViewmap 
+	else if (viewmap instanceof InnerClassViewmap) {
     stringBuffer.append(TEXT_16);
-    importManager.emitSortedImports();
+    stringBuffer.append(((InnerClassViewmap) viewmap).getClassName());
     stringBuffer.append(TEXT_17);
+    }
+    stringBuffer.append(TEXT_18);
+    if (genLink.getViewmap() instanceof InnerClassViewmap) {
+    stringBuffer.append(TEXT_19);
+    stringBuffer.append(((InnerClassViewmap) genLink.getViewmap()).getClassBody());
+    }
+    stringBuffer.append(TEXT_20);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_21);
     return stringBuffer.toString();
   }
 }

@@ -404,6 +404,28 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected InnerClassViewmapItemProvider innerClassViewmapItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createInnerClassViewmapAdapter() {
+		if (innerClassViewmapItemProvider == null) {
+			innerClassViewmapItemProvider = new InnerClassViewmapItemProvider(this);
+		}
+
+		return innerClassViewmapItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.Palette} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -712,6 +734,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (defaultSizeAttributesItemProvider != null) defaultSizeAttributesItemProvider.dispose();
 		if (figureViewmapItemProvider != null) figureViewmapItemProvider.dispose();
 		if (snippetViewmapItemProvider != null) snippetViewmapItemProvider.dispose();
+		if (innerClassViewmapItemProvider != null) innerClassViewmapItemProvider.dispose();
 		if (valueExpressionItemProvider != null) valueExpressionItemProvider.dispose();
 		if (modelElementSelectorItemProvider != null) modelElementSelectorItemProvider.dispose();
 		if (paletteItemProvider != null) paletteItemProvider.dispose();

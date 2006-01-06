@@ -218,6 +218,10 @@
     <genClasses ecoreClass="gmfgen.ecore#//SnippetViewmap">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//SnippetViewmap/body"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//InnerClassViewmap">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//InnerClassViewmap/className"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//InnerClassViewmap/classBody"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//ValueExpression">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/body"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/language"/>

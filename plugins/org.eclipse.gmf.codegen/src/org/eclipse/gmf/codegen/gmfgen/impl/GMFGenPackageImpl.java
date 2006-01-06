@@ -40,6 +40,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
@@ -216,6 +217,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass snippetViewmapEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass innerClassViewmapEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1477,6 +1485,33 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getInnerClassViewmap() {
+		return innerClassViewmapEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getInnerClassViewmap_ClassName() {
+		return (EAttribute)innerClassViewmapEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getInnerClassViewmap_ClassBody() {
+		return (EAttribute)innerClassViewmapEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getValueExpression() {
 		return valueExpressionEClass;
 	}
@@ -2037,6 +2072,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		snippetViewmapEClass = createEClass(SNIPPET_VIEWMAP);
 		createEAttribute(snippetViewmapEClass, SNIPPET_VIEWMAP__BODY);
 
+		innerClassViewmapEClass = createEClass(INNER_CLASS_VIEWMAP);
+		createEAttribute(innerClassViewmapEClass, INNER_CLASS_VIEWMAP__CLASS_NAME);
+		createEAttribute(innerClassViewmapEClass, INNER_CLASS_VIEWMAP__CLASS_BODY);
+
 		valueExpressionEClass = createEClass(VALUE_EXPRESSION);
 		createEAttribute(valueExpressionEClass, VALUE_EXPRESSION__BODY);
 		createEAttribute(valueExpressionEClass, VALUE_EXPRESSION__LANGUAGE);
@@ -2145,6 +2184,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		defaultSizeAttributesEClass.getESuperTypes().add(this.getAttributes());
 		figureViewmapEClass.getESuperTypes().add(this.getViewmap());
 		snippetViewmapEClass.getESuperTypes().add(this.getViewmap());
+		innerClassViewmapEClass.getESuperTypes().add(this.getViewmap());
 		modelElementSelectorEClass.getESuperTypes().add(this.getValueExpression());
 		toolEntryEClass.getESuperTypes().add(this.getEntryBase());
 		nodeEntryEClass.getESuperTypes().add(this.getToolEntry());
@@ -2399,6 +2439,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(snippetViewmapEClass, SnippetViewmap.class, "SnippetViewmap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getSnippetViewmap_Body(), ecorePackage.getEString(), "body", null, 0, 1, SnippetViewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(innerClassViewmapEClass, InnerClassViewmap.class, "InnerClassViewmap", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getInnerClassViewmap_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, InnerClassViewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getInnerClassViewmap_ClassBody(), ecorePackage.getEString(), "classBody", null, 0, 1, InnerClassViewmap.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(valueExpressionEClass, ValueExpression.class, "ValueExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getValueExpression_Body(), ecorePackage.getEString(), "body", null, 1, 1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

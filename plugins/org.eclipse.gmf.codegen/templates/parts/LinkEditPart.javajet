@@ -60,7 +60,14 @@ if (viewmap instanceof FigureViewmap) {
 <%} // instanceof FigureViewmap
 	else if (viewmap instanceof SnippetViewmap) {%>
 		return <%=((SnippetViewmap) viewmap).getBody()%>;
+<%} // instanceof SnippetViewmap 
+	else if (viewmap instanceof InnerClassViewmap) {%>
+ 		return new <%=((InnerClassViewmap) viewmap).getClassName()%>();
 <%}%>
 	}
+
+<%if (genLink.getViewmap() instanceof InnerClassViewmap) {%>
+<%=((InnerClassViewmap) genLink.getViewmap()).getClassBody()%>
+<%}%>
 }
 <%importManager.emitSortedImports();%>

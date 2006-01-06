@@ -161,6 +161,15 @@ public interface GMFGenFactory extends EFactory {
 	SnippetViewmap createSnippetViewmap();
 
 	/**
+	 * Returns a new object of class '<em>Inner Class Viewmap</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Inner Class Viewmap</em>'.
+	 * @generated
+	 */
+	InnerClassViewmap createInnerClassViewmap();
+
+	/**
 	 * Returns a new object of class '<em>Palette</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

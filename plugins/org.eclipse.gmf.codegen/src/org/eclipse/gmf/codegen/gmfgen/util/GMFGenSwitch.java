@@ -280,6 +280,13 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.INNER_CLASS_VIEWMAP: {
+				InnerClassViewmap innerClassViewmap = (InnerClassViewmap)theEObject;
+				Object result = caseInnerClassViewmap(innerClassViewmap);
+				if (result == null) result = caseViewmap(innerClassViewmap);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.VALUE_EXPRESSION: {
 				ValueExpression valueExpression = (ValueExpression)theEObject;
 				Object result = caseValueExpression(valueExpression);
@@ -692,6 +699,21 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseSnippetViewmap(SnippetViewmap object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Inner Class Viewmap</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Inner Class Viewmap</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseInnerClassViewmap(InnerClassViewmap object) {
 		return null;
 	}
 

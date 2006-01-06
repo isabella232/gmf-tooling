@@ -242,6 +242,11 @@ public class GenCommonBaseItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenCommonBase_Viewmap(),
 				 GMFGenFactory.eINSTANCE.createSnippetViewmap()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenCommonBase_Viewmap(),
+				 GMFGenFactory.eINSTANCE.createInnerClassViewmap()));
 	}
 
 	/**
