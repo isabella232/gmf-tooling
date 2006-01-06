@@ -83,13 +83,13 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 		if (!figure.getChildren().isEmpty()) {
 			return false;
 		}
-		Collection featuresToCheck = new LinkedList(figure.eClass().getEAllStructuralFeatures());
+		final Collection featuresToCheck = new LinkedList(figure.eClass().getEAllStructuralFeatures());
 		featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getIdentity_Name());
 		if (figure instanceof CustomFigure) {
 			featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getCustomClass_BundleName());
 			featuresToCheck.remove(GMFGraphPackage.eINSTANCE.getCustomClass_QualifiedClassName());
 		}
-		for(Iterator it = figure.eClass().getEAllStructuralFeatures().iterator(); it.hasNext();) {
+		for(Iterator it = featuresToCheck.iterator(); it.hasNext();) {
 			if (figure.eIsSet((EStructuralFeature) it.next())) {
 				return false;
 			}
