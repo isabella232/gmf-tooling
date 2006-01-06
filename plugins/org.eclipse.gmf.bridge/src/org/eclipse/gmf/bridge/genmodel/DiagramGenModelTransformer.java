@@ -85,7 +85,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private GenModelMatcher myGenModelMatch;
 	private final DiagramRunTimeModelHelper myDRTHelper;
 	private final NamingStrategy myNamingStrategy;
-	private final ViewmapProducer myViewmaps = new ViewmapProducer();
+	private final ViewmapProducer myViewmaps = new InnerClassViewmapProducer();
 
 	private int myNodeCount = 0;
 	private int myLinkCount = 0;
@@ -332,7 +332,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	 * @return
 	 */
 	private Viewmap createLabelViewmap() {
-		return myViewmaps.createLabelViewmap();
+		return DefaultViewmapProducer.createLabelViewmap();
 	}
 
 	private GenClass findRunTimeClass(NodeMapping nme) {

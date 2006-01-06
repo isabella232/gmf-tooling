@@ -10,6 +10,7 @@ plugin@org.eclipse.gmf.codegen=I20060105-1630,:pserver:anonymous@dev.eclipse.org
 plugin@org.eclipse.gmf.codegen.edit=I20060105-1630,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.edit
 plugin@org.eclipse.gmf.codegen.ui=I20060105-1630,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.ui
 plugin@org.eclipse.gmf.graphdef=I20060105-1630,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef
+plugin@org.eclipse.gmf.graphdef.codegen=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.codegen
 plugin@org.eclipse.gmf.graphdef.edit=I20060105-1630,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.edit
 plugin@org.eclipse.gmf.map=I20060105-1630,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.map
 plugin@org.eclipse.gmf.map.edit=I20060105-1630,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.map.edit

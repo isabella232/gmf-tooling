@@ -19,6 +19,7 @@ import junit.framework.TestSuite;
 
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.gen.CompilationTest;
+import org.eclipse.gmf.tests.gen.FigureCodegenTest;
 import org.eclipse.gmf.tests.gen.HandcodedImplTest;
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
@@ -30,7 +31,7 @@ import org.eclipse.gmf.tests.tr.GenModelTransformerBasicRTTest;
 public class AllTests {
 
 	public static Test suite() {
-		TestSuite suite = new TestSuite("Tests for org.eclipse.gmf");
+		TestSuite suite = new TestSuite("Tests for org.eclipse.gmf, tooling side");
 		//$JUnit-BEGIN$
 		
 		final SessionSetup sessionSetup = SessionSetup.newInstance();
@@ -40,6 +41,9 @@ public class AllTests {
 		
 		suite.addTestSuite(TestSetupTest.class); // first, check sources/setups we use for rest of the tests
 		suite.addTest(feed(HandcodedImplTest.class, sessionSetup)); // then, check handcoded implementations are in place
+
+		suite.addTestSuite(FigureCodegenTest.class);
+		// fires new runtime workbench initialization
 		suite.addTestSuite(CompilationTest.class);
 
 		suite.addTest(feed(DiagramNodeTest.class, sessionSetup));

@@ -19,6 +19,7 @@
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.edit,org.eclipse.gmf.codegen.edit"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.ui,org.eclipse.gmf.codegen.ui"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef,org.eclipse.gmf.graphdef"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.codegen,org.eclipse.gmf.graphdef.codegen"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.graphdef.edit,org.eclipse.gmf.graphdef.edit"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/doc/org.eclipse.gmf.doc,org.eclipse.gmf.doc"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/features/org.eclipse.gmf.doc-feature,org.eclipse.gmf.doc-feature"/>

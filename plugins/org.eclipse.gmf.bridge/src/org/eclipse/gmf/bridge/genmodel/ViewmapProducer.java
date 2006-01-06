@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.bridge.genmodel;
 
-import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Child;
@@ -26,37 +24,19 @@ import org.eclipse.gmf.gmfgraph.util.GMFGraphSwitch;
  * @author artem
  * XXX rename 'create' to 'get'? 
  */
-public class ViewmapProducer {
-	public Viewmap create(Canvas canvasElement) {
-		FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
-		v.setFigureQualifiedClassName("org.eclipse.draw2d.FreeformLayer");
-		return v;
-	}
+public abstract class ViewmapProducer {
 
-	public Viewmap create(Node node) {
-		FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
-		v.setFigureQualifiedClassName("org.eclipse.draw2d.RoundedRectangle");
-		return v;
-	}
+	public abstract Viewmap create(Canvas canvasElement);
 
-	public Viewmap create(Connection link) {
-		FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
-		v.setFigureQualifiedClassName("org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx");
-		return v;
-	}
+	public abstract Viewmap create(Node node);
 
-	public Viewmap create(Child child) {
-		return createLabelViewmap();
-	}
+	public abstract Viewmap create(Connection link);
 
-	public Viewmap create(Compartment compartment) {
-		FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
-		// ShapeCompartmentFigure | NestedResizableCompartmentFigure
-		v.setFigureQualifiedClassName("XXX");
-		return v;
-	}
+	public abstract Viewmap create(Child child);
 
-	public Viewmap create(DiagramElement diagramElement) {
+	public abstract Viewmap create(Compartment compartment);
+
+	public final Viewmap create(DiagramElement diagramElement) {
 		return (Viewmap) new GMFGraphSwitch() {
 			public Object caseCanvas(Canvas object) {
 				return create(object);
@@ -76,10 +56,4 @@ public class ViewmapProducer {
 		}.doSwitch(diagramElement);
 	}
 
-	// FIXME remove
-	Viewmap createLabelViewmap() {
-		FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
-		v.setFigureQualifiedClassName("org.eclipse.draw2d.Label");
-		return v;
-	}
 }
