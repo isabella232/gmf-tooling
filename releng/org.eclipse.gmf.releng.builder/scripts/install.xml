@@ -21,7 +21,7 @@
 	
 	<target name="unTarBase" unless="isWindows">
 		<gunzip src="${baseLocationRoot}/${eclipseArchiveName}-${basews}.${archiveType}" />
-		<unzip dest="${baseLocationRoot}" overwrite="true" src="${baseLocationRoot}/${eclipseArchiveName}-${basews}.tar" />
+		<untar dest="${baseLocationRoot}" overwrite="true" src="${baseLocationRoot}/${eclipseArchiveName}-${basews}.tar" />
 	</target>
 	
 	<target name="unZipBase" if="isWindows">
