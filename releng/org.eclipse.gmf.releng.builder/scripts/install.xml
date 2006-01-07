@@ -1,14 +1,31 @@
 <?xml version="1.0"?>
 <project name="Installation script for GMF and dependencies" default="" basedir=".">
-
-	<target name="getBaseComponents" unless="skipBaseDownload">
-		<get src="${eclipseBaseURL}" dest="${baseLocationRoot}/${eclipseZipName}" verbose="true" usetimestamp="true" />
+	<condition property="isWindows">
+		<os family="windows"/>
+    </condition>
+	
+	<target name="getBaseComponentZip" if="isWindows">
+		<get src="${eclipseBaseURL}.${archiveType}${mirror}" dest="${baseLocationRoot}/${eclipseArchiveName}.${archiveType}" verbose="true" usetimestamp="true" />
 	</target>
+	
+	<target name="getBaseComponentTar" unless="isWindows">
+			<get src="${eclipseBaseURL}-${basews}.${archiveType}${mirror}" dest="${baseLocationRoot}/${eclipseArchiveName}-${basews}.${archiveType}" verbose="true" usetimestamp="true" />
+		</target>
 
 	<target name="installBase" unless="baseExists" depends="checkBaseInstalled">
-		<available file="${baseLocationRoot}/${eclipseZipName}" property="skipBaseDownload" />
-		<antcall target="getBaseComponents"/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${eclipseZipName}" />
+		<antcall target="getBaseComponentZip"/>
+		<antcall target="getBaseComponentTar"/>
+		<antcall target="unTarBase"/>		
+		<antcall target="unZipBase"/>		
+	</target>
+	
+	<target name="unTarBase" unless="isWindows">
+		<gunzip src="${baseLocationRoot}/${eclipseArchiveName}-${basews}.${archiveType}" />
+		<unzip dest="${baseLocationRoot}" overwrite="true" src="${baseLocationRoot}/${eclipseArchiveName}-${basews}.tar" />
+	</target>
+	
+	<target name="unZipBase" if="isWindows">
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${eclipseArchiveName}.${archiveType}" />
 	</target>
 	
 	<target name="checkBaseInstalled">
