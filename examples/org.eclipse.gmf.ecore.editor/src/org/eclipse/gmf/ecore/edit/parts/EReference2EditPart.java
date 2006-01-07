@@ -1,19 +1,10 @@
 package org.eclipse.gmf.ecore.edit.parts;
 
 import org.eclipse.draw2d.Connection;
-import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.PolygonDecoration;
-import org.eclipse.draw2d.PolylineConnection;
-import org.eclipse.draw2d.RotatableDecoration;
-import org.eclipse.draw2d.Shape;
-import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.gmf.ecore.edit.policies.EReference2ItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
 import org.eclipse.gmf.runtime.notation.View;
-
-import org.eclipse.draw2d.PolylineDecoration;
 
 /**
  * @generated
@@ -36,36 +27,6 @@ public class EReference2EditPart extends ConnectionNodeEditPart {
 	}
 
 	/**
-	 * @generated
-	 */
-	protected PolylineConnection createConnectionShape() {
-		return new PolylineConnectionEx();
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void decorateConnectionShape(PolylineConnection shape) {
-
-		shape.setLineStyle(Graphics.LINE_SOLID);
-		shape.setLineWidth(1);
-		RotatableDecoration sourceDecoration = createSourceDecoration();
-		if (sourceDecoration != null) {
-			shape.setSourceDecoration(sourceDecoration);
-			if (sourceDecoration instanceof Shape) {
-				((Shape) sourceDecoration).setLineWidth(shape.getLineWidth());
-			}
-		}
-		RotatableDecoration targetDecoration = createTargetDecoration();
-		if (targetDecoration != null) {
-			shape.setTargetDecoration(targetDecoration);
-			if (targetDecoration instanceof Shape) {
-				((Shape) targetDecoration).setLineWidth(shape.getLineWidth());
-			}
-		}
-	}
-
-	/**
 	 * Creates figure for this edit part.
 	 * 
 	 * Body of this method does not depend on settings in generation model
@@ -74,28 +35,39 @@ public class EReference2EditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
-		PolylineConnection shape = createConnectionShape();
-		decorateConnectionShape(shape);
-		return shape;
-	}
-
-	/**
-	 * @generated NOT
-	 */
-	protected RotatableDecoration createSourceDecoration() {
-
-		PolygonDecoration decoration = new PolygonDecoration();
-		PointList template = new PointList(new int[] { -2, 0, -1, 1, 0, 0, -1, -1, -2, 0 });
-		decoration.setTemplate(template);
-		decoration.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));
-		return decoration;
+		return new SolidLineWSrcDiamond();
 	}
 
 	/**
 	 * @generated
 	 */
-	protected RotatableDecoration createTargetDecoration() {
+	public class SolidLineWSrcDiamond extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
 
-		return null;
+		/**
+		 * @generated
+		 */
+		public SolidLineWSrcDiamond() {
+
+			setSourceDecoration(createSourceDecoration());
+		}
+
+		/**
+		 * @generated
+		 */
+		private org.eclipse.draw2d.PolygonDecoration createSourceDecoration() {
+			org.eclipse.draw2d.PolygonDecoration df = new org.eclipse.draw2d.PolygonDecoration();
+
+			org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();
+			pl.addPoint(-2, 0);
+			pl.addPoint(-1, 1);
+			pl.addPoint(0, 0);
+			pl.addPoint(-1, -1);
+			pl.addPoint(-2, 0);
+			df.setTemplate(pl);
+			df.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));
+			return df;
+		}
+
 	}
+
 }

@@ -1,20 +1,13 @@
 package org.eclipse.gmf.ecore.edit.parts;
 
 import org.eclipse.draw2d.Connection;
-import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.PolylineConnection;
-import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.draw2d.Shape;
-
 import org.eclipse.gef.EditPolicy;
 
 import org.eclipse.gmf.ecore.edit.policies.EcoreReferenceConnectionEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.ReferencesItemSemanticEditPolicy;
-
-import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
 
 /**
  * @generated
@@ -38,36 +31,6 @@ public class ReferencesEditPart extends ConnectionNodeEditPart {
 	}
 
 	/**
-	 * @generated
-	 */
-	protected PolylineConnection createConnectionShape() {
-		return new PolylineConnectionEx();
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void decorateConnectionShape(PolylineConnection shape) {
-
-		shape.setLineStyle(Graphics.LINE_DASH);
-		shape.setLineWidth(1);
-		RotatableDecoration sourceDecoration = createSourceDecoration();
-		if (sourceDecoration != null) {
-			shape.setSourceDecoration(sourceDecoration);
-			if (sourceDecoration instanceof Shape) {
-				((Shape) sourceDecoration).setLineWidth(shape.getLineWidth());
-			}
-		}
-		RotatableDecoration targetDecoration = createTargetDecoration();
-		if (targetDecoration != null) {
-			shape.setTargetDecoration(targetDecoration);
-			if (targetDecoration instanceof Shape) {
-				((Shape) targetDecoration).setLineWidth(shape.getLineWidth());
-			}
-		}
-	}
-
-	/**
 	 * Creates figure for this edit part.
 	 * 
 	 * Body of this method does not depend on settings in generation model
@@ -76,24 +39,22 @@ public class ReferencesEditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
-		PolylineConnection shape = createConnectionShape();
-		decorateConnectionShape(shape);
-		return shape;
+		return new DashedLineConnection();
 	}
 
 	/**
 	 * @generated
 	 */
-	protected RotatableDecoration createSourceDecoration() {
+	public class DashedLineConnection extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
 
-		return null;
+		/**
+		 * @generated
+		 */
+		public DashedLineConnection() {
+
+			this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);
+		}
+
 	}
 
-	/**
-	 * @generated
-	 */
-	protected RotatableDecoration createTargetDecoration() {
-
-		return null;
-	}
 }

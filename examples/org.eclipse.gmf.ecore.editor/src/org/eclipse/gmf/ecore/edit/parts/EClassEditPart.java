@@ -1,7 +1,6 @@
 package org.eclipse.gmf.ecore.edit.parts;
 
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
@@ -57,13 +56,6 @@ public class EClassEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	protected void decorateNodeShape(Shape shape) {
-
-	}
-
-	/**
-	 * @generated
-	 */
 	protected NodeFigure createNodePlate() {
 		return new DefaultSizeNodeFigure(getMapMode().DPtoLP(40), getMapMode().DPtoLP(40));
 	}
@@ -81,9 +73,6 @@ public class EClassEditPart extends ShapeNodeEditPart {
 		figure.setBorder(new RectangularDropShadowLineBorder(0));
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
-		if (shape instanceof Shape) {
-			decorateNodeShape((Shape) shape);
-		}
 		figure.add(shape);
 		addContentPane(shape);
 		return figure;
@@ -115,4 +104,5 @@ public class EClassEditPart extends ShapeNodeEditPart {
 	public EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(EcoreSemanticHints.EClass_1001Labels.ECLASSNAME_4001_TEXT);
 	}
+
 }

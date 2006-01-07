@@ -299,7 +299,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	private void createAttributes_5001Children(Node viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
-		for (Iterator values = ((EClass) modelObject).getEStructuralFeatures().iterator(); values.hasNext();) {
+		for (Iterator values = ((EClass) modelObject).getEAttributes().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
 			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
