@@ -5,8 +5,14 @@ Shape shapeFig = (Shape) argument;
 final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
 %>
 
+/**
+ * @generated
+ */
 public class <%=shapeFig.getName()%> extends <%=fqnSwitch.doSwitch(shapeFig)%> {
 
+	/**
+	 * @generated
+	 */
 	public <%=shapeFig.getName()%>() {
 <%
 {
@@ -29,14 +35,23 @@ for (Iterator it = shapeFig.getResolvedChildren().iterator(); it.hasNext(); fc++
 
 	private IFigure f<%=figure.getName()%>; 
 
+	/**
+	 * @generated
+	 */
 	public IFigure getFigure<%=figure.getName()%>() {
 		return f<%=figure.getName()%>;
 	}
 
+	/**
+	 * @generated
+	 */
 	protected void setFigure<%=figure.getName()%>(IFigure figure) {
 		f<%=figure.getName()%> = figure;
 	}
 
+	/**
+	 * @generated
+	 */
 	private IFigure createFigure<%=figure.getName()%>() {
 <%
 String parentFigureVarName = "rv" + fc;

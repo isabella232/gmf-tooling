@@ -16,9 +16,9 @@ public class CustomFigureGenerator
   }
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
-  protected final String TEXT_1 = NL + "public class ";
+  protected final String TEXT_1 = NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_2 = " extends ";
-  protected final String TEXT_3 = " {" + NL + "" + NL + "\tpublic ";
+  protected final String TEXT_3 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
   protected final String TEXT_4 = "() {" + NL + "\t\t// TODO - process custom properties here";
   protected final String TEXT_5 = NL;
   protected final String TEXT_6 = NL;

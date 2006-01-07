@@ -6,8 +6,14 @@ PolylineConnection figure = (PolylineConnection) argument;
 final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
 %>
 
+/**
+ * @generated
+ */
 public class <%=figure.getName()%> extends <%=fqnSwitch.doSwitch(figure)%> {
 
+	/**
+	 * @generated
+	 */
 	public <%=figure.getName()%>() {
 <%Shape shapeFigure = figure;
 String shapeVarName = "this";%>
@@ -23,6 +29,9 @@ if (figure.getTargetDecoration() != null) {%>
 <%String decFigVarName = "df";
 if (figure.getSourceDecoration() != null) {
 DecorationFigure df = figure.getSourceDecoration();%>
+	/**
+	 * @generated
+	 */
 	private <%=fqnSwitch.doSwitch(df)%> createSourceDecoration() {
 <%@ include file="decoration.jetinc" %>
 		return <%=decFigVarName%>;
@@ -31,6 +40,9 @@ DecorationFigure df = figure.getSourceDecoration();%>
 
 <%if (figure.getTargetDecoration() != null) {
 DecorationFigure df = figure.getTargetDecoration();%>
+	/**
+	 * @generated
+	 */
 	private <%=fqnSwitch.doSwitch(df)%> createTargetDecoration() {
 <%@ include file="decoration.jetinc" %>
 		return <%=decFigVarName%>;

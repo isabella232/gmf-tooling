@@ -5,8 +5,14 @@ CustomFigure figure = (CustomFigure) argument;
 final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
 %>
 
+/**
+ * @generated
+ */
 public class <%=figure.getName()%> extends <%=figure.getQualifiedClassName()%> {
 
+	/**
+	 * @generated
+	 */
 	public <%=figure.getName()%>() {
 		// TODO - process custom properties here
 <%String parentFigureVarName = "this";%>

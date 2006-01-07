@@ -17,9 +17,9 @@ public class ConnectionGenerator
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "";
-  protected final String TEXT_2 = NL + NL + "public class ";
+  protected final String TEXT_2 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_3 = " extends ";
-  protected final String TEXT_4 = " {" + NL + "" + NL + "\tpublic ";
+  protected final String TEXT_4 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
   protected final String TEXT_5 = "() {";
   protected final String TEXT_6 = NL;
   protected final String TEXT_7 = NL + "\t\t";
@@ -51,7 +51,7 @@ public class ConnectionGenerator
   protected final String TEXT_33 = NL + "\t\tsetSourceDecoration(createSourceDecoration());";
   protected final String TEXT_34 = NL + "\t\tsetTargetDecoration(createTargetDecoration());";
   protected final String TEXT_35 = NL + "\t}" + NL;
-  protected final String TEXT_36 = NL + "\tprivate ";
+  protected final String TEXT_36 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
   protected final String TEXT_37 = " createSourceDecoration() {";
   protected final String TEXT_38 = NL;
   protected final String TEXT_39 = "\t\t";
@@ -68,7 +68,7 @@ public class ConnectionGenerator
   protected final String TEXT_50 = NL + "\t\treturn ";
   protected final String TEXT_51 = ";" + NL + "\t}";
   protected final String TEXT_52 = NL;
-  protected final String TEXT_53 = NL + "\tprivate ";
+  protected final String TEXT_53 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
   protected final String TEXT_54 = " createTargetDecoration() {";
   protected final String TEXT_55 = NL;
   protected final String TEXT_56 = "\t\t";

@@ -8,8 +8,14 @@ scale = null; //XXX
 final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
 %>
 
+/**
+ * @generated
+ */
 class <%=figure.getName()%> extends <%=fqnSwitch.doSwitch(figure)%> {
 
+	/**
+	 * @generated
+	 */
 	public <%=figure.getName()%>() {
 <%
 DecorationFigure df = figure;

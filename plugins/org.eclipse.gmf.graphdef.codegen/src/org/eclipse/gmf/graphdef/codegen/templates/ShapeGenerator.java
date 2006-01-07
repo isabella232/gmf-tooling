@@ -16,9 +16,9 @@ public class ShapeGenerator
   }
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
-  protected final String TEXT_1 = NL + "public class ";
+  protected final String TEXT_1 = NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_2 = " extends ";
-  protected final String TEXT_3 = " {" + NL + "" + NL + "\tpublic ";
+  protected final String TEXT_3 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
   protected final String TEXT_4 = "() {";
   protected final String TEXT_5 = NL;
   protected final String TEXT_6 = NL + "\t\t";
@@ -53,11 +53,11 @@ public class ShapeGenerator
   protected final String TEXT_35 = "());";
   protected final String TEXT_36 = NL + "\t}" + NL;
   protected final String TEXT_37 = NL + NL + "\tprivate IFigure f";
-  protected final String TEXT_38 = "; " + NL + "" + NL + "\tpublic IFigure getFigure";
+  protected final String TEXT_38 = "; " + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic IFigure getFigure";
   protected final String TEXT_39 = "() {" + NL + "\t\treturn f";
-  protected final String TEXT_40 = ";" + NL + "\t}" + NL + "" + NL + "\tprotected void setFigure";
+  protected final String TEXT_40 = ";" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void setFigure";
   protected final String TEXT_41 = "(IFigure figure) {" + NL + "\t\tf";
-  protected final String TEXT_42 = " = figure;" + NL + "\t}" + NL + "" + NL + "\tprivate IFigure createFigure";
+  protected final String TEXT_42 = " = figure;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate IFigure createFigure";
   protected final String TEXT_43 = "() {";
   protected final String TEXT_44 = NL;
   protected final String TEXT_45 = NL + "\t\torg.eclipse.draw2d.IFigure ";
