@@ -21,6 +21,7 @@ import org.eclipse.gmf.tests.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.gen.CompilationTest;
 import org.eclipse.gmf.tests.gen.FigureCodegenTest;
 import org.eclipse.gmf.tests.gen.HandcodedImplTest;
+import org.eclipse.gmf.tests.gen.ViewmapProducersTest;
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
@@ -43,6 +44,7 @@ public class AllTests {
 		suite.addTest(feed(HandcodedImplTest.class, sessionSetup)); // then, check handcoded implementations are in place
 
 		suite.addTestSuite(FigureCodegenTest.class);
+		suite.addTestSuite(ViewmapProducersTest.class);
 		// fires new runtime workbench initialization
 		suite.addTestSuite(CompilationTest.class);
 
