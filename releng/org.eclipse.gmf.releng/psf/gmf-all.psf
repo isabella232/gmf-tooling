@@ -37,6 +37,8 @@
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/features/org.eclipse.gmf.examples-feature,org.eclipse.gmf.examples-feature"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.map,org.eclipse.gmf.map"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.map.edit,org.eclipse.gmf.map.edit"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.tooldef,org.eclipse.gmf.tooldef"/>
+		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.tooldef.edit,org.eclipse.gmf.tooldef.edit"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/releng/org.eclipse.gmf.releng.builder,org.eclipse.gmf.releng.builder"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.core,org.eclipse.gmf.runtime.common.core"/>
 		<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/plugins/org.eclipse.gmf.runtime.common.ui,org.eclipse.gmf.runtime.common.ui"/>
