@@ -140,6 +140,12 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 			public Object caseFeatureValueSpec(FeatureValueSpec object) {
 				return createFeatureValueSpecAdapter();
 			}
+			public Object caseAuditContainer(AuditContainer object) {
+				return createAuditContainerAdapter();
+			}
+			public Object caseAuditRule(AuditRule object) {
+				return createAuditRuleAdapter();
+			}
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -407,6 +413,34 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFeatureValueSpecAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.AuditContainer <em>Audit Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.AuditContainer
+	 * @generated
+	 */
+	public Adapter createAuditContainerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.AuditRule <em>Audit Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.AuditRule
+	 * @generated
+	 */
+	public Adapter createAuditRuleAdapter() {
 		return null;
 	}
 

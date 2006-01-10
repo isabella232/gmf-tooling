@@ -8,12 +8,14 @@ package org.eclipse.gmf.mappings.impl;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
-import org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl;
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
+import org.eclipse.gmf.mappings.AuditContainer;
+import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
@@ -30,6 +32,7 @@ import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.NewActionTool;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.mappings.Tool;
 import org.eclipse.gmf.mappings.ToolGroup;
 import org.eclipse.gmf.mappings.ValueExpression;
@@ -168,6 +171,27 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	private EClass featureValueSpecEClass = null;
 
 	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass auditContainerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass auditRuleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum severityEEnum = null;
+
+	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
 	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
 	 * package URI value.
@@ -224,7 +248,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		isInited = true;
 
 		// Initialize simple dependencies
-		GMFGraphPackageImpl.init();
+		GMFGraphPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theGMFMapPackage.createPackageContents();
@@ -612,6 +636,15 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getMapping_Audits() {
+		return (EReference)mappingEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getToolGroup() {
 		return toolGroupEClass;
 	}
@@ -792,6 +825,168 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getAuditContainer() {
+		return auditContainerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAuditContainer_Id() {
+		return (EAttribute)auditContainerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAuditContainer_Name() {
+		return (EAttribute)auditContainerEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAuditContainer_Description() {
+		return (EAttribute)auditContainerEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAuditContainer_ParentContainer() {
+		return (EReference)auditContainerEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAuditContainer_Audits() {
+		return (EReference)auditContainerEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAuditContainer_ChildContainers() {
+		return (EReference)auditContainerEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAuditRule() {
+		return auditRuleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAuditRule_Id() {
+		return (EAttribute)auditRuleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAuditRule_Rule() {
+		return (EReference)auditRuleEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAuditRule_Target() {
+		return (EReference)auditRuleEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAuditRule_Name() {
+		return (EAttribute)auditRuleEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAuditRule_Severity() {
+		return (EAttribute)auditRuleEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAuditRule_UseInLiveMode() {
+		return (EAttribute)auditRuleEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAuditRule_Message() {
+		return (EAttribute)auditRuleEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAuditRule_Description() {
+		return (EAttribute)auditRuleEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAuditRule_Container() {
+		return (EReference)auditRuleEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getSeverity() {
+		return severityEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public GMFMapFactory getGMFMapFactory() {
 		return (GMFMapFactory)getEFactoryInstance();
 	}
@@ -863,6 +1058,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		createEReference(mappingEClass, MAPPING__LINKS);
 		createEReference(mappingEClass, MAPPING__DIAGRAM);
 		createEReference(mappingEClass, MAPPING__TOOL_GROUPS);
+		createEReference(mappingEClass, MAPPING__AUDITS);
 
 		toolGroupEClass = createEClass(TOOL_GROUP);
 		createEAttribute(toolGroupEClass, TOOL_GROUP__NAME);
@@ -893,6 +1089,28 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 
 		featureValueSpecEClass = createEClass(FEATURE_VALUE_SPEC);
 		createEReference(featureValueSpecEClass, FEATURE_VALUE_SPEC__FEATURE);
+
+		auditContainerEClass = createEClass(AUDIT_CONTAINER);
+		createEAttribute(auditContainerEClass, AUDIT_CONTAINER__ID);
+		createEAttribute(auditContainerEClass, AUDIT_CONTAINER__NAME);
+		createEAttribute(auditContainerEClass, AUDIT_CONTAINER__DESCRIPTION);
+		createEReference(auditContainerEClass, AUDIT_CONTAINER__PARENT_CONTAINER);
+		createEReference(auditContainerEClass, AUDIT_CONTAINER__AUDITS);
+		createEReference(auditContainerEClass, AUDIT_CONTAINER__CHILD_CONTAINERS);
+
+		auditRuleEClass = createEClass(AUDIT_RULE);
+		createEAttribute(auditRuleEClass, AUDIT_RULE__ID);
+		createEReference(auditRuleEClass, AUDIT_RULE__RULE);
+		createEReference(auditRuleEClass, AUDIT_RULE__TARGET);
+		createEAttribute(auditRuleEClass, AUDIT_RULE__NAME);
+		createEAttribute(auditRuleEClass, AUDIT_RULE__SEVERITY);
+		createEAttribute(auditRuleEClass, AUDIT_RULE__USE_IN_LIVE_MODE);
+		createEAttribute(auditRuleEClass, AUDIT_RULE__MESSAGE);
+		createEAttribute(auditRuleEClass, AUDIT_RULE__DESCRIPTION);
+		createEReference(auditRuleEClass, AUDIT_RULE__CONTAINER);
+
+		// Create enums
+		severityEEnum = createEEnum(SEVERITY);
 	}
 
 	/**
@@ -919,7 +1137,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		GMFGraphPackageImpl theGMFGraphPackage = (GMFGraphPackageImpl)EPackage.Registry.INSTANCE.getEPackage(GMFGraphPackage.eNS_URI);
+		GMFGraphPackage theGMFGraphPackage = (GMFGraphPackage)EPackage.Registry.INSTANCE.getEPackage(GMFGraphPackage.eNS_URI);
 
 		// Add supertypes to classes
 		nodeMappingEClass.getESuperTypes().add(this.getAbstractNodeMapping());
@@ -944,7 +1162,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEReference(getAbstractNodeMapping_CompartmentMappings(), this.getCompartmentMapping(), this.getCompartmentMapping_ParentNodeMapping(), "compartmentMappings", null, 0, -1, AbstractNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAbstractNodeMapping_Tool(), this.getTool(), null, "tool", null, 0, 1, AbstractNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(abstractNodeMappingEClass, ecorePackage.getEClass(), "getDomainMetaClass");
+		addEOperation(abstractNodeMappingEClass, ecorePackage.getEClass(), "getDomainMetaClass", 0, 1);
 
 		initEClass(mappingEntryEClass, MappingEntry.class, "MappingEntry", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -974,7 +1192,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEReference(getLinkMapping_CreationConstraints(), this.getLinkConstraints(), this.getLinkConstraints_LinkMapping(), "creationConstraints", null, 0, 1, LinkMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLinkMapping_Tool(), this.getTool(), null, "tool", null, 0, 1, LinkMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(linkMappingEClass, ecorePackage.getEClass(), "getDomainMetaClass");
+		addEOperation(linkMappingEClass, ecorePackage.getEClass(), "getDomainMetaClass", 0, 1);
 
 		initEClass(canvasMappingEClass, CanvasMapping.class, "CanvasMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCanvasMapping_DiagramCanvas(), theGMFGraphPackage.getCanvas(), null, "diagramCanvas", null, 1, 1, CanvasMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -986,6 +1204,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEReference(getMapping_Links(), this.getLinkMapping(), null, "links", null, 0, -1, Mapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMapping_Diagram(), this.getCanvasMapping(), null, "diagram", null, 1, 1, Mapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMapping_ToolGroups(), this.getToolGroup(), null, "toolGroups", null, 0, -1, Mapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMapping_Audits(), this.getAuditContainer(), null, "audits", null, 0, 1, Mapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(toolGroupEClass, ToolGroup.class, "ToolGroup", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getToolGroup_Name(), ecorePackage.getEString(), "name", null, 0, 1, ToolGroup.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1017,6 +1236,31 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEClass(featureValueSpecEClass, FeatureValueSpec.class, "FeatureValueSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeatureValueSpec_Feature(), ecorePackage.getEStructuralFeature(), null, "feature", null, 1, 1, FeatureValueSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(auditContainerEClass, AuditContainer.class, "AuditContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAuditContainer_Id(), ecorePackage.getEString(), "id", null, 1, 1, AuditContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAuditContainer_Name(), ecorePackage.getEString(), "name", null, 0, 1, AuditContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAuditContainer_Description(), ecorePackage.getEString(), "description", null, 0, 1, AuditContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAuditContainer_ParentContainer(), this.getAuditContainer(), this.getAuditContainer_ChildContainers(), "parentContainer", null, 0, 1, AuditContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAuditContainer_Audits(), this.getAuditRule(), this.getAuditRule_Container(), "audits", null, 0, -1, AuditContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAuditContainer_ChildContainers(), this.getAuditContainer(), this.getAuditContainer_ParentContainer(), "childContainers", null, 0, -1, AuditContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(auditRuleEClass, AuditRule.class, "AuditRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAuditRule_Id(), ecorePackage.getEString(), "id", null, 1, 1, AuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAuditRule_Rule(), this.getConstraint(), null, "rule", null, 1, 1, AuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAuditRule_Target(), ecorePackage.getEClass(), null, "target", null, 1, 1, AuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAuditRule_Name(), ecorePackage.getEString(), "name", null, 0, 1, AuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAuditRule_Severity(), this.getSeverity(), "severity", "ERROR", 0, 1, AuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAuditRule_UseInLiveMode(), ecorePackage.getEBoolean(), "useInLiveMode", "false", 0, 1, AuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAuditRule_Message(), ecorePackage.getEString(), "message", null, 0, 1, AuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAuditRule_Description(), ecorePackage.getEString(), "description", null, 0, 1, AuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAuditRule_Container(), this.getAuditContainer(), this.getAuditContainer_Audits(), "container", null, 1, 1, AuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		// Initialize enums and add enum literals
+		initEEnum(severityEEnum, Severity.class, "Severity");
+		addEEnumLiteral(severityEEnum, Severity.INFO_LITERAL);
+		addEEnumLiteral(severityEEnum, Severity.WARNING_LITERAL);
+		addEEnumLiteral(severityEEnum, Severity.ERROR_LITERAL);
+
 		// Create resource
 		createResource(eNS_URI);
 
@@ -1043,7 +1287,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																													
+		   });																																																													
 	}
 
 	/**
@@ -1081,7 +1325,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "if domainMetaElement.oclIsUndefined() then linkMetaFeature.eContainingClass else domainMetaElement endif "
-		   });											
+		   });												
 		addAnnotation
 		  (constraintEClass, 
 		   source, 
@@ -1147,7 +1391,14 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   source, 
 		   new String[] {
 			 "def", "type"
-		   });
+		   });									
+		addAnnotation
+		  (getAuditRule_Rule(), 
+		   source, 
+		   new String[] {
+			 "def", "context",
+			 "ocl", "target"
+		   });							
 	}
 
 	/**
@@ -1217,7 +1468,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "domainMetaElement.oclIsUndefined() or linkMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)"
-		   });																									
+		   });																																									
 	}
 
 } //GMFMapPackageImpl

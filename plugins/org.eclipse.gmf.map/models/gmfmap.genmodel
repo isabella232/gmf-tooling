@@ -7,7 +7,12 @@
     importerID="org.eclipse.emf.importer.ecore" usedGenPackages="../../org.eclipse.gmf.graphdef/models/gmfgraph.genmodel#//gmfgraph">
   <foreignModel>gmfmap.ecore</foreignModel>
   <genPackages prefix="GMFMap" basePackage="org.eclipse.gmf" disposableProviderFactory="true"
-      ecorePackage="gmfmap.ecore#/">
+      literalsInterface="false" ecorePackage="gmfmap.ecore#/">
+    <genEnums ecoreEnum="gmfmap.ecore#//Severity">
+      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//Severity/INFO"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//Severity/WARNING"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//Severity/ERROR"/>
+    </genEnums>
     <genClasses image="false" ecoreClass="gmfmap.ecore#//AbstractNodeMapping">
       <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
           ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/domainMetaElement"/>
@@ -79,6 +84,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//Mapping/links"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//Mapping/diagram"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//Mapping/toolGroups"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//Mapping/audits"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//ToolGroup">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//ToolGroup/name"/>
@@ -105,6 +111,25 @@
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//FeatureValueSpec">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureValueSpec/feature"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//AuditContainer">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditContainer/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditContainer/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditContainer/description"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//AuditContainer/parentContainer"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AuditContainer/audits"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AuditContainer/childContainers"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//AuditRule">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditRule/id"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AuditRule/rule"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//AuditRule/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditRule/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditRule/severity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditRule/useInLiveMode"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditRule/message"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditRule/description"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//AuditRule/container"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

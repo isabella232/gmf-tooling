@@ -12,12 +12,12 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LinkMapping;
@@ -36,6 +36,7 @@ import org.eclipse.gmf.mappings.ToolGroup;
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingImpl#getLinks <em>Links</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingImpl#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingImpl#getToolGroups <em>Tool Groups</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.MappingImpl#getAudits <em>Audits</em>}</li>
  * </ul>
  * </p>
  *
@@ -81,6 +82,16 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * @ordered
 	 */
 	protected EList toolGroups = null;
+
+	/**
+	 * The cached value of the '{@link #getAudits() <em>Audits</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAudits()
+	 * @generated
+	 * @ordered
+	 */
+	protected AuditContainer audits = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -184,22 +195,8 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFMapPackage.MAPPING__NODES:
-					return ((InternalEList)getNodes()).basicRemove(otherEnd, msgs);
-				case GMFMapPackage.MAPPING__LINKS:
-					return ((InternalEList)getLinks()).basicRemove(otherEnd, msgs);
-				case GMFMapPackage.MAPPING__DIAGRAM:
-					return basicSetDiagram(null, msgs);
-				case GMFMapPackage.MAPPING__TOOL_GROUPS:
-					return ((InternalEList)getToolGroups()).basicRemove(otherEnd, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
-		}
-		return eBasicSetContainer(null, featureID, msgs);
+	public AuditContainer getAudits() {
+		return audits;
 	}
 
 	/**
@@ -207,8 +204,63 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public NotificationChain basicSetAudits(AuditContainer newAudits, NotificationChain msgs) {
+		AuditContainer oldAudits = audits;
+		audits = newAudits;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFMapPackage.MAPPING__AUDITS, oldAudits, newAudits);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAudits(AuditContainer newAudits) {
+		if (newAudits != audits) {
+			NotificationChain msgs = null;
+			if (audits != null)
+				msgs = ((InternalEObject)audits).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.MAPPING__AUDITS, null, msgs);
+			if (newAudits != null)
+				msgs = ((InternalEObject)newAudits).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.MAPPING__AUDITS, null, msgs);
+			msgs = basicSetAudits(newAudits, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.MAPPING__AUDITS, newAudits, newAudits));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFMapPackage.MAPPING__NODES:
+				return ((InternalEList)getNodes()).basicRemove(otherEnd, msgs);
+			case GMFMapPackage.MAPPING__LINKS:
+				return ((InternalEList)getLinks()).basicRemove(otherEnd, msgs);
+			case GMFMapPackage.MAPPING__DIAGRAM:
+				return basicSetDiagram(null, msgs);
+			case GMFMapPackage.MAPPING__TOOL_GROUPS:
+				return ((InternalEList)getToolGroups()).basicRemove(otherEnd, msgs);
+			case GMFMapPackage.MAPPING__AUDITS:
+				return basicSetAudits(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFMapPackage.MAPPING__NODES:
 				return getNodes();
 			case GMFMapPackage.MAPPING__LINKS:
@@ -217,8 +269,10 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 				return getDiagram();
 			case GMFMapPackage.MAPPING__TOOL_GROUPS:
 				return getToolGroups();
+			case GMFMapPackage.MAPPING__AUDITS:
+				return getAudits();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -226,8 +280,8 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFMapPackage.MAPPING__NODES:
 				getNodes().clear();
 				getNodes().addAll((Collection)newValue);
@@ -243,8 +297,11 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 				getToolGroups().clear();
 				getToolGroups().addAll((Collection)newValue);
 				return;
+			case GMFMapPackage.MAPPING__AUDITS:
+				setAudits((AuditContainer)newValue);
+				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -252,8 +309,8 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFMapPackage.MAPPING__NODES:
 				getNodes().clear();
 				return;
@@ -266,8 +323,11 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 			case GMFMapPackage.MAPPING__TOOL_GROUPS:
 				getToolGroups().clear();
 				return;
+			case GMFMapPackage.MAPPING__AUDITS:
+				setAudits((AuditContainer)null);
+				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -275,8 +335,8 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFMapPackage.MAPPING__NODES:
 				return nodes != null && !nodes.isEmpty();
 			case GMFMapPackage.MAPPING__LINKS:
@@ -285,8 +345,10 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 				return diagram != null;
 			case GMFMapPackage.MAPPING__TOOL_GROUPS:
 				return toolGroups != null && !toolGroups.isEmpty();
+			case GMFMapPackage.MAPPING__AUDITS:
+				return audits != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 } //MappingImpl

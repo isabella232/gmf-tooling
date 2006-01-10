@@ -8,7 +8,6 @@ package org.eclipse.gmf.mappings.impl;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.mappings.GMFMapPackage;
@@ -134,14 +133,14 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFMapPackage.VALUE_EXPRESSION__BODY:
 				return getBody();
 			case GMFMapPackage.VALUE_EXPRESSION__LANGUAGE:
 				return getLanguage();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -149,8 +148,8 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFMapPackage.VALUE_EXPRESSION__BODY:
 				setBody((String)newValue);
 				return;
@@ -158,7 +157,7 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 				setLanguage((String)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -166,8 +165,8 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFMapPackage.VALUE_EXPRESSION__BODY:
 				setBody(BODY_EDEFAULT);
 				return;
@@ -175,7 +174,7 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 				setLanguage(LANGUAGE_EDEFAULT);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -183,14 +182,14 @@ public class ValueExpressionImpl extends EObjectImpl implements ValueExpression 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFMapPackage.VALUE_EXPRESSION__BODY:
 				return BODY_EDEFAULT == null ? body != null : !BODY_EDEFAULT.equals(body);
 			case GMFMapPackage.VALUE_EXPRESSION__LANGUAGE:
 				return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

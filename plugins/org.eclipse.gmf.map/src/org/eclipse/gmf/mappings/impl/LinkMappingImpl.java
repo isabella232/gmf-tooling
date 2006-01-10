@@ -181,8 +181,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	public Connection getDiagramLink() {
 		if (diagramLink != null && diagramLink.eIsProxy()) {
-			Connection oldDiagramLink = diagramLink;
-			diagramLink = (Connection)eResolveProxy((InternalEObject)diagramLink);
+			InternalEObject oldDiagramLink = (InternalEObject)diagramLink;
+			diagramLink = (Connection)eResolveProxy(oldDiagramLink);
 			if (diagramLink != oldDiagramLink) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.LINK_MAPPING__DIAGRAM_LINK, oldDiagramLink, diagramLink));
@@ -219,8 +219,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	public EClass getDomainMetaElement() {
 		if (domainMetaElement != null && domainMetaElement.eIsProxy()) {
-			EClass oldDomainMetaElement = domainMetaElement;
-			domainMetaElement = (EClass)eResolveProxy((InternalEObject)domainMetaElement);
+			InternalEObject oldDomainMetaElement = (InternalEObject)domainMetaElement;
+			domainMetaElement = (EClass)eResolveProxy(oldDomainMetaElement);
 			if (domainMetaElement != oldDomainMetaElement) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.LINK_MAPPING__DOMAIN_META_ELEMENT, oldDomainMetaElement, domainMetaElement));
@@ -343,8 +343,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	public EReference getContainmentFeature() {
 		if (containmentFeature != null && containmentFeature.eIsProxy()) {
-			EReference oldContainmentFeature = containmentFeature;
-			containmentFeature = (EReference)eResolveProxy((InternalEObject)containmentFeature);
+			InternalEObject oldContainmentFeature = (InternalEObject)containmentFeature;
+			containmentFeature = (EReference)eResolveProxy(oldContainmentFeature);
 			if (containmentFeature != oldContainmentFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE, oldContainmentFeature, containmentFeature));
@@ -381,8 +381,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	public EAttribute getLabelEditFeature() {
 		if (labelEditFeature != null && labelEditFeature.eIsProxy()) {
-			EAttribute oldLabelEditFeature = labelEditFeature;
-			labelEditFeature = (EAttribute)eResolveProxy((InternalEObject)labelEditFeature);
+			InternalEObject oldLabelEditFeature = (InternalEObject)labelEditFeature;
+			labelEditFeature = (EAttribute)eResolveProxy(oldLabelEditFeature);
 			if (labelEditFeature != oldLabelEditFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.LINK_MAPPING__LABEL_EDIT_FEATURE, oldLabelEditFeature, labelEditFeature));
@@ -419,8 +419,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	public EAttribute getLabelDisplayFeatureGen() {
 		if (labelDisplayFeature != null && labelDisplayFeature.eIsProxy()) {
-			EAttribute oldLabelDisplayFeature = labelDisplayFeature;
-			labelDisplayFeature = (EAttribute)eResolveProxy((InternalEObject)labelDisplayFeature);
+			InternalEObject oldLabelDisplayFeature = (InternalEObject)labelDisplayFeature;
+			labelDisplayFeature = (EAttribute)eResolveProxy(oldLabelDisplayFeature);
 			if (labelDisplayFeature != oldLabelDisplayFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.LINK_MAPPING__LABEL_DISPLAY_FEATURE, oldLabelDisplayFeature, labelDisplayFeature));
@@ -465,8 +465,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	public EStructuralFeature getSourceMetaFeature() {
 		if (sourceMetaFeature != null && sourceMetaFeature.eIsProxy()) {
-			EStructuralFeature oldSourceMetaFeature = sourceMetaFeature;
-			sourceMetaFeature = (EStructuralFeature)eResolveProxy((InternalEObject)sourceMetaFeature);
+			InternalEObject oldSourceMetaFeature = (InternalEObject)sourceMetaFeature;
+			sourceMetaFeature = (EStructuralFeature)eResolveProxy(oldSourceMetaFeature);
 			if (sourceMetaFeature != oldSourceMetaFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.LINK_MAPPING__SOURCE_META_FEATURE, oldSourceMetaFeature, sourceMetaFeature));
@@ -503,8 +503,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	public EStructuralFeature getLinkMetaFeature() {
 		if (linkMetaFeature != null && linkMetaFeature.eIsProxy()) {
-			EStructuralFeature oldLinkMetaFeature = linkMetaFeature;
-			linkMetaFeature = (EStructuralFeature)eResolveProxy((InternalEObject)linkMetaFeature);
+			InternalEObject oldLinkMetaFeature = (InternalEObject)linkMetaFeature;
+			linkMetaFeature = (EStructuralFeature)eResolveProxy(oldLinkMetaFeature);
 			if (linkMetaFeature != oldLinkMetaFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.LINK_MAPPING__LINK_META_FEATURE, oldLinkMetaFeature, linkMetaFeature));
@@ -643,20 +643,14 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
-					if (creationConstraints != null)
-						msgs = ((InternalEObject)creationConstraints).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS, null, msgs);
-					return basicSetCreationConstraints((LinkConstraints)otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
+				if (creationConstraints != null)
+					msgs = ((InternalEObject)creationConstraints).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS, null, msgs);
+				return basicSetCreationConstraints((LinkConstraints)otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -664,22 +658,18 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFMapPackage.LINK_MAPPING__DOMAIN_SPECIALIZATION:
-					return basicSetDomainSpecialization(null, msgs);
-				case GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER:
-					return basicSetDomainInitializer(null, msgs);
-				case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
-					return basicSetCreationConstraints(null, msgs);
-				case GMFMapPackage.LINK_MAPPING__TOOL:
-					return basicSetTool(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFMapPackage.LINK_MAPPING__DOMAIN_SPECIALIZATION:
+				return basicSetDomainSpecialization(null, msgs);
+			case GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER:
+				return basicSetDomainInitializer(null, msgs);
+			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
+				return basicSetCreationConstraints(null, msgs);
+			case GMFMapPackage.LINK_MAPPING__TOOL:
+				return basicSetTool(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -687,8 +677,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFMapPackage.LINK_MAPPING__DIAGRAM_LINK:
 				if (resolve) return getDiagramLink();
 				return basicGetDiagramLink();
@@ -719,7 +709,7 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 			case GMFMapPackage.LINK_MAPPING__TOOL:
 				return getTool();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -727,8 +717,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFMapPackage.LINK_MAPPING__DIAGRAM_LINK:
 				setDiagramLink((Connection)newValue);
 				return;
@@ -763,7 +753,7 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 				setTool((Tool)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -771,8 +761,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFMapPackage.LINK_MAPPING__DIAGRAM_LINK:
 				setDiagramLink((Connection)null);
 				return;
@@ -807,7 +797,7 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 				setTool((Tool)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -815,8 +805,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFMapPackage.LINK_MAPPING__DIAGRAM_LINK:
 				return diagramLink != null;
 			case GMFMapPackage.LINK_MAPPING__DOMAIN_META_ELEMENT:
@@ -840,7 +830,7 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 			case GMFMapPackage.LINK_MAPPING__TOOL:
 				return tool != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 } //LinkMappingImpl

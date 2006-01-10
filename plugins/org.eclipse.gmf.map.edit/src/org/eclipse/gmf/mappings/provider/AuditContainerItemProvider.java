@@ -12,26 +12,32 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.ecore.EStructuralFeature;
+
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
+import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
-import org.eclipse.gmf.mappings.Mapping;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.Mapping} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.AuditContainer} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class MappingItemProvider
+public class AuditContainerItemProvider
 	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
@@ -45,7 +51,7 @@ public class MappingItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public MappingItemProvider(AdapterFactory adapterFactory) {
+	public AuditContainerItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -59,8 +65,71 @@ public class MappingItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addIdPropertyDescriptor(object);
+			addNamePropertyDescriptor(object);
+			addDescriptionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Id feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addIdPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_AuditContainer_id_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AuditContainer_id_feature", "_UI_AuditContainer_type"),
+				 GMFMapPackage.eINSTANCE.getAuditContainer_Id(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_AuditContainer_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AuditContainer_name_feature", "_UI_AuditContainer_type"),
+				 GMFMapPackage.eINSTANCE.getAuditContainer_Name(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Description feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDescriptionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_AuditContainer_description_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AuditContainer_description_feature", "_UI_AuditContainer_type"),
+				 GMFMapPackage.eINSTANCE.getAuditContainer_Description(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -74,11 +143,8 @@ public class MappingItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMapping_Nodes());
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMapping_Links());
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMapping_Diagram());
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMapping_ToolGroups());
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMapping_Audits());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAuditContainer_Audits());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAuditContainer_ChildContainers());
 		}
 		return childrenFeatures;
 	}
@@ -96,13 +162,13 @@ public class MappingItemProvider
 	}
 
 	/**
-	 * This returns Mapping.gif.
+	 * This returns AuditContainer.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/Mapping");
+		return getResourceLocator().getImage("full/obj16/AuditContainer");
 	}
 
 	/**
@@ -112,7 +178,10 @@ public class MappingItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		return getString("_UI_Mapping_type");
+		String label = ((AuditContainer)object).getName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_AuditContainer_type") :
+			getString("_UI_AuditContainer_type") + " " + label;
 	}
 
 	/**
@@ -125,12 +194,14 @@ public class MappingItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(Mapping.class)) {
-			case GMFMapPackage.MAPPING__NODES:
-			case GMFMapPackage.MAPPING__LINKS:
-			case GMFMapPackage.MAPPING__DIAGRAM:
-			case GMFMapPackage.MAPPING__TOOL_GROUPS:
-			case GMFMapPackage.MAPPING__AUDITS:
+		switch (notification.getFeatureID(AuditContainer.class)) {
+			case GMFMapPackage.AUDIT_CONTAINER__ID:
+			case GMFMapPackage.AUDIT_CONTAINER__NAME:
+			case GMFMapPackage.AUDIT_CONTAINER__DESCRIPTION:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case GMFMapPackage.AUDIT_CONTAINER__AUDITS:
+			case GMFMapPackage.AUDIT_CONTAINER__CHILD_CONTAINERS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -149,27 +220,12 @@ public class MappingItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getMapping_Nodes(),
-				 GMFMapFactory.eINSTANCE.createNodeMapping()));
+				(GMFMapPackage.eINSTANCE.getAuditContainer_Audits(),
+				 GMFMapFactory.eINSTANCE.createAuditRule()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getMapping_Links(),
-				 GMFMapFactory.eINSTANCE.createLinkMapping()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getMapping_Diagram(),
-				 GMFMapFactory.eINSTANCE.createCanvasMapping()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getMapping_ToolGroups(),
-				 GMFMapFactory.eINSTANCE.createToolGroup()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getMapping_Audits(),
+				(GMFMapPackage.eINSTANCE.getAuditContainer_ChildContainers(),
 				 GMFMapFactory.eINSTANCE.createAuditContainer()));
 	}
 

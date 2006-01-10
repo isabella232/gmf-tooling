@@ -14,7 +14,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
@@ -154,8 +153,8 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 */
 	public EClass getDomainMetaElement() {
 		if (domainMetaElement != null && domainMetaElement.eIsProxy()) {
-			EClass oldDomainMetaElement = domainMetaElement;
-			domainMetaElement = (EClass)eResolveProxy((InternalEObject)domainMetaElement);
+			InternalEObject oldDomainMetaElement = (InternalEObject)domainMetaElement;
+			domainMetaElement = (EClass)eResolveProxy(oldDomainMetaElement);
 			if (domainMetaElement != oldDomainMetaElement) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT, oldDomainMetaElement, domainMetaElement));
@@ -278,8 +277,8 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 */
 	public EReference getContainmentFeature() {
 		if (containmentFeature != null && containmentFeature.eIsProxy()) {
-			EReference oldContainmentFeature = containmentFeature;
-			containmentFeature = (EReference)eResolveProxy((InternalEObject)containmentFeature);
+			InternalEObject oldContainmentFeature = (InternalEObject)containmentFeature;
+			containmentFeature = (EReference)eResolveProxy(oldContainmentFeature);
 			if (containmentFeature != oldContainmentFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE, oldContainmentFeature, containmentFeature));
@@ -316,8 +315,8 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 */
 	public EAttribute getEditFeature() {
 		if (editFeature != null && editFeature.eIsProxy()) {
-			EAttribute oldEditFeature = editFeature;
-			editFeature = (EAttribute)eResolveProxy((InternalEObject)editFeature);
+			InternalEObject oldEditFeature = (InternalEObject)editFeature;
+			editFeature = (EAttribute)eResolveProxy(oldEditFeature);
 			if (editFeature != oldEditFeature) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.ABSTRACT_NODE_MAPPING__EDIT_FEATURE, oldEditFeature, editFeature));
@@ -433,20 +432,14 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
-					return ((InternalEList)getChildMappings()).basicAdd(otherEnd, msgs);
-				case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
-					return ((InternalEList)getCompartmentMappings()).basicAdd(otherEnd, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
+				return ((InternalEList)getChildMappings()).basicAdd(otherEnd, msgs);
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
+				return ((InternalEList)getCompartmentMappings()).basicAdd(otherEnd, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -454,24 +447,20 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION:
-					return basicSetDomainSpecialization(null, msgs);
-				case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER:
-					return basicSetDomainInitializer(null, msgs);
-				case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
-					return ((InternalEList)getChildMappings()).basicRemove(otherEnd, msgs);
-				case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
-					return ((InternalEList)getCompartmentMappings()).basicRemove(otherEnd, msgs);
-				case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
-					return basicSetTool(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION:
+				return basicSetDomainSpecialization(null, msgs);
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER:
+				return basicSetDomainInitializer(null, msgs);
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
+				return ((InternalEList)getChildMappings()).basicRemove(otherEnd, msgs);
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
+				return ((InternalEList)getCompartmentMappings()).basicRemove(otherEnd, msgs);
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
+				return basicSetTool(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -479,8 +468,8 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				if (resolve) return getDomainMetaElement();
 				return basicGetDomainMetaElement();
@@ -501,7 +490,7 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
 				return getTool();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -509,8 +498,8 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				setDomainMetaElement((EClass)newValue);
 				return;
@@ -538,7 +527,7 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 				setTool((Tool)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -546,8 +535,8 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				setDomainMetaElement((EClass)null);
 				return;
@@ -573,7 +562,7 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 				setTool((Tool)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -581,8 +570,8 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT:
 				return domainMetaElement != null;
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION:
@@ -600,7 +589,7 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
 				return tool != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 } //AbstractNodeMappingImpl

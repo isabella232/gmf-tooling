@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.mappings.Mapping#getLinks <em>Links</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.Mapping#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.Mapping#getToolGroups <em>Tool Groups</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.Mapping#getAudits <em>Audits</em>}</li>
  * </ul>
  * </p>
  *
@@ -28,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Mapping extends EObject{
+public interface Mapping extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Nodes</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.mappings.NodeMapping}.
@@ -102,5 +103,30 @@ public interface Mapping extends EObject{
 	 * @generated
 	 */
 	EList getToolGroups();
+
+	/**
+	 * Returns the value of the '<em><b>Audits</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Domain meta-model audit rules definitions
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Audits</em>' containment reference.
+	 * @see #setAudits(AuditContainer)
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMapping_Audits()
+	 * @model containment="true"
+	 * @generated
+	 */
+	AuditContainer getAudits();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.mappings.Mapping#getAudits <em>Audits</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Audits</em>' containment reference.
+	 * @see #getAudits()
+	 * @generated
+	 */
+	void setAudits(AuditContainer value);
 
 } // Mapping

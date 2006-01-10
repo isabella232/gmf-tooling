@@ -28,6 +28,8 @@ import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
@@ -41,6 +43,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
@@ -54,6 +57,8 @@ import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
+import org.eclipse.gmf.mappings.AuditContainer;
+import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
@@ -66,6 +71,7 @@ import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.mappings.Tool;
 
 /**
@@ -146,6 +152,14 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		getGenDiagram().setEditPartClassName(myNamingStrategy.createCanvasClassName(mapping, GenCommonBase.EDIT_PART_SUFFIX));
 		getGenDiagram().setItemSemanticEditPolicyClassName(myNamingStrategy.createCanvasClassName(mapping, GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX));
 		getGenDiagram().setCanonicalEditPolicyClassName(myNamingStrategy.createCanvasClassName(mapping, GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX));
+		
+		// process audit rules
+		if(mapping.eContainer() != null) {
+			AuditContainer audits = ((Mapping)mapping.eContainer()).getAudits();
+			if(audits != null) {
+				getGenDiagram().setAudits(createGenAuditContainer(audits));
+			}
+		}
 	}
 
 	protected void process(NodeMapping nme) {
@@ -435,7 +449,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private LinkModelFacet createModelFacet(LinkMapping lme) {
 		if (lme.getDomainMetaElement() != null) {
 			TypeLinkModelFacet mf = GMFGenFactory.eINSTANCE.createTypeLinkModelFacet();
-			mf.setMetaClass(findGenClass(lme.getDomainMetaClass()));
+			mf.setMetaClass(findGenClass(lme.getDomainMetaElement()));
 			mf.setContainmentMetaFeature(findGenFeature(lme.getContainmentFeature()));
 			mf.setChildMetaFeature(mf.getContainmentMetaFeature());
 			mf.setSourceMetaFeature(findGenFeature(lme.getSourceMetaFeature()));
@@ -524,4 +538,48 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		modelElementSelector.setLanguage(metaElementConstraint.getLanguage());		
 		return modelElementSelector;
 	}
+	
+	private GenAuditContainer createGenAuditContainer(AuditContainer ac) {
+		GenAuditContainer gac = GMFGenFactory.eINSTANCE.createGenAuditContainer();
+		gac.setId(ac.getId());
+		gac.setName(ac.getName());
+
+		for(Iterator it = ac.getChildContainers().iterator(); it.hasNext();) {
+			AuditContainer nextChild = (AuditContainer) it.next();
+			gac.getChildContainers().add(createGenAuditContainer(nextChild));
+		}
+		for (Iterator it = ac.getAudits().iterator(); it.hasNext();) {
+			gac.getAudits().add(createGenAudit((AuditRule) it.next()));
+		}
+		return gac;
+	}
+	
+	private GenAuditRule createGenAudit(AuditRule audit) {
+		GenAuditRule genAudit = GMFGenFactory.eINSTANCE.createGenAuditRule();
+		genAudit.setId(audit.getId());
+		genAudit.setName(audit.getName());
+		genAudit.setUseInLiveMode(audit.isUseInLiveMode());
+		
+		if(audit.getTarget() != null) {
+			genAudit.setTarget(findGenClass(audit.getTarget()));
+		}
+		Constraint rule = audit.getRule();
+		if(rule != null) {
+			genAudit.setRule(createExpression(rule.getBody(), rule.getLanguage()));
+		}
+
+		Severity severity = audit.getSeverity();
+		GenSeverity genSeverity = null;
+		if(severity == Severity.INFO_LITERAL) {
+			genSeverity = GenSeverity.INFO_LITERAL;
+		} else if(severity == Severity.WARNING_LITERAL) {
+			genSeverity = GenSeverity.WARNING_LITERAL;
+		} else if(severity == Severity.ERROR_LITERAL) {
+			genSeverity = GenSeverity.ERROR_LITERAL;
+		}
+		if(genSeverity != null) {
+			genAudit.setSeverity(genSeverity);
+		}
+		return genAudit;
+	} 
 }

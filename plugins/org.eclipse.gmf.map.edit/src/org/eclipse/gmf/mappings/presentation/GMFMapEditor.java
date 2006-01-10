@@ -54,6 +54,8 @@ import org.eclipse.emf.edit.ui.dnd.LocalTransfer;
 import org.eclipse.emf.edit.ui.dnd.ViewerDragAdapter;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
+
 import org.eclipse.gmf.gmfgraph.provider.GMFGraphItemProviderAdapterFactory;
 import org.eclipse.gmf.mappings.provider.GMFMapEditPlugin;
 import org.eclipse.gmf.mappings.provider.GMFMapItemProviderAdapterFactory;
@@ -947,14 +949,6 @@ public class GMFMapEditor
 	protected void pageChange(int pageIndex) {
 		super.pageChange(pageIndex);
 
-		// This is a temporary workaround... EATM
-		//
-		Control control = getControl(pageIndex);
-		if (control != null) {
-			control.setVisible(true);
-			control.setFocus();
-		}
-
 		if (contentOutlinePage != null) {
 			handleContentOutlineSelection(contentOutlinePage.getSelection());
 		}
@@ -1053,9 +1047,10 @@ public class GMFMapEditor
 	public IPropertySheetPage getPropertySheetPage() {
 		if (propertySheetPage == null) {
 			propertySheetPage =
-				new PropertySheetPage() {
-					public void makeContributions(IMenuManager menuManager, IToolBarManager toolBarManager, IStatusLineManager statusLineManager) {
-						super.makeContributions(menuManager, toolBarManager, statusLineManager);
+				new ExtendedPropertySheetPage(editingDomain) {
+					public void setSelectionToViewer(List selection) {
+						GMFMapEditor.this.setSelectionToViewer(selection);
+						GMFMapEditor.this.setFocus();
 					}
 
 					public void setActionBars(IActionBars actionBars) {
@@ -1197,7 +1192,7 @@ public class GMFMapEditor
 	 */
 	protected void doSaveAs(URI uri, IEditorInput editorInput) {
 		((Resource)editingDomain.getResourceSet().getResources().get(0)).setURI(uri);
-		setInput(editorInput);
+		setInputWithNotify(editorInput);
 		setPartName(editorInput.getName());
 		IProgressMonitor progressMonitor =
 			getActionBars().getStatusLineManager() != null ?
@@ -1237,7 +1232,7 @@ public class GMFMapEditor
 	 */
 	public void init(IEditorSite site, IEditorInput editorInput) {
 		setSite(site);
-		setInput(editorInput);
+		setInputWithNotify(editorInput);
 		setPartName(editorInput.getName());
 		site.setSelectionProvider(this);
 		site.getPage().addPartListener(partListener);
@@ -1250,7 +1245,12 @@ public class GMFMapEditor
 	 * @generated
 	 */
 	public void setFocus() {
-		getControl(getActivePage()).setFocus();
+		if (currentViewerPane != null) {
+			currentViewerPane.setFocus();
+		}
+		else {
+			getControl(getActivePage()).setFocus();
+		}
 	}
 
 	/**

@@ -9,7 +9,6 @@ package org.eclipse.gmf.mappings.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
@@ -79,7 +78,7 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 */
 	public LinkMapping getLinkMapping() {
 		if (eContainerFeatureID != GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING) return null;
-		return (LinkMapping)eContainer;
+		return (LinkMapping)eContainer();
 	}
 
 	/**
@@ -173,20 +172,14 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING:
-					if (eContainer != null)
-						msgs = eBasicRemoveFromContainer(msgs);
-					return eBasicSetContainer(otherEnd, GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING, msgs);
-				default:
-					return eDynamicInverseAdd(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING, msgs);
 		}
-		if (eContainer != null)
-			msgs = eBasicRemoveFromContainer(msgs);
-		return eBasicSetContainer(otherEnd, featureID, msgs);
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -194,20 +187,16 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-				case GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING:
-					return eBasicSetContainer(null, GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING, msgs);
-				case GMFMapPackage.LINK_CONSTRAINTS__SOURCE_END:
-					return basicSetSourceEnd(null, msgs);
-				case GMFMapPackage.LINK_CONSTRAINTS__TARGET_END:
-					return basicSetTargetEnd(null, msgs);
-				default:
-					return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING:
+				return eBasicSetContainer(null, GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING, msgs);
+			case GMFMapPackage.LINK_CONSTRAINTS__SOURCE_END:
+				return basicSetSourceEnd(null, msgs);
+			case GMFMapPackage.LINK_CONSTRAINTS__TARGET_END:
+				return basicSetTargetEnd(null, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -215,16 +204,12 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eBasicRemoveFromContainer(NotificationChain msgs) {
-		if (eContainerFeatureID >= 0) {
-			switch (eContainerFeatureID) {
-				case GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING:
-					return eContainer.eInverseRemove(this, GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS, LinkMapping.class, msgs);
-				default:
-					return eDynamicBasicRemoveFromContainer(msgs);
-			}
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING:
+				return eInternalContainer().eInverseRemove(this, GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS, LinkMapping.class, msgs);
 		}
-		return eContainer.eInverseRemove(this, EOPPOSITE_FEATURE_BASE - eContainerFeatureID, null, msgs);
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -232,8 +217,8 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING:
 				return getLinkMapping();
 			case GMFMapPackage.LINK_CONSTRAINTS__SOURCE_END:
@@ -241,7 +226,7 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 			case GMFMapPackage.LINK_CONSTRAINTS__TARGET_END:
 				return getTargetEnd();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -249,8 +234,8 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFMapPackage.LINK_CONSTRAINTS__SOURCE_END:
 				setSourceEnd((Constraint)newValue);
 				return;
@@ -258,7 +243,7 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 				setTargetEnd((Constraint)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -266,8 +251,8 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFMapPackage.LINK_CONSTRAINTS__SOURCE_END:
 				setSourceEnd((Constraint)null);
 				return;
@@ -275,7 +260,7 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 				setTargetEnd((Constraint)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -283,8 +268,8 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFMapPackage.LINK_CONSTRAINTS__LINK_MAPPING:
 				return getLinkMapping() != null;
 			case GMFMapPackage.LINK_CONSTRAINTS__SOURCE_END:
@@ -292,7 +277,7 @@ public class LinkConstraintsImpl extends EObjectImpl implements LinkConstraints 
 			case GMFMapPackage.LINK_CONSTRAINTS__TARGET_END:
 				return targetEnd != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 } //LinkConstraintsImpl

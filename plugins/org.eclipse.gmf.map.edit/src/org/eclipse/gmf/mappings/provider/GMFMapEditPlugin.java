@@ -7,6 +7,8 @@
 package org.eclipse.gmf.mappings.provider;
 
 import org.eclipse.emf.common.EMFPlugin;
+import org.eclipse.emf.common.ui.EclipseUIPlugin;
+
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.gmf.gmfgraph.provider.GMFGraphEditPlugin;
 
@@ -74,7 +76,7 @@ public final class GMFMapEditPlugin extends EMFPlugin {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static class Implementation extends EclipsePlugin {
+	public static class Implementation extends EclipseUIPlugin {
 		/**
 		 * Creates an instance.
 		 * <!-- begin-user-doc -->

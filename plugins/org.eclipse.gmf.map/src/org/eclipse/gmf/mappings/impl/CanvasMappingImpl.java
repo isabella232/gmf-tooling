@@ -9,7 +9,6 @@ package org.eclipse.gmf.mappings.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.gmf.gmfgraph.Canvas;
@@ -87,8 +86,8 @@ public class CanvasMappingImpl extends MappingEntryImpl implements CanvasMapping
 	 */
 	public Canvas getDiagramCanvas() {
 		if (diagramCanvas != null && diagramCanvas.eIsProxy()) {
-			Canvas oldDiagramCanvas = diagramCanvas;
-			diagramCanvas = (Canvas)eResolveProxy((InternalEObject)diagramCanvas);
+			InternalEObject oldDiagramCanvas = (InternalEObject)diagramCanvas;
+			diagramCanvas = (Canvas)eResolveProxy(oldDiagramCanvas);
 			if (diagramCanvas != oldDiagramCanvas) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.CANVAS_MAPPING__DIAGRAM_CANVAS, oldDiagramCanvas, diagramCanvas));
@@ -125,8 +124,8 @@ public class CanvasMappingImpl extends MappingEntryImpl implements CanvasMapping
 	 */
 	public EPackage getDomainModel() {
 		if (domainModel != null && domainModel.eIsProxy()) {
-			EPackage oldDomainModel = domainModel;
-			domainModel = (EPackage)eResolveProxy((InternalEObject)domainModel);
+			InternalEObject oldDomainModel = (InternalEObject)domainModel;
+			domainModel = (EPackage)eResolveProxy(oldDomainModel);
 			if (domainModel != oldDomainModel) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.CANVAS_MAPPING__DOMAIN_MODEL, oldDomainModel, domainModel));
@@ -163,8 +162,8 @@ public class CanvasMappingImpl extends MappingEntryImpl implements CanvasMapping
 	 */
 	public EClass getDomainMetaElement() {
 		if (domainMetaElement != null && domainMetaElement.eIsProxy()) {
-			EClass oldDomainMetaElement = domainMetaElement;
-			domainMetaElement = (EClass)eResolveProxy((InternalEObject)domainMetaElement);
+			InternalEObject oldDomainMetaElement = (InternalEObject)domainMetaElement;
+			domainMetaElement = (EClass)eResolveProxy(oldDomainMetaElement);
 			if (domainMetaElement != oldDomainMetaElement) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.CANVAS_MAPPING__DOMAIN_META_ELEMENT, oldDomainMetaElement, domainMetaElement));
@@ -199,8 +198,8 @@ public class CanvasMappingImpl extends MappingEntryImpl implements CanvasMapping
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 			case GMFMapPackage.CANVAS_MAPPING__DIAGRAM_CANVAS:
 				if (resolve) return getDiagramCanvas();
 				return basicGetDiagramCanvas();
@@ -211,7 +210,7 @@ public class CanvasMappingImpl extends MappingEntryImpl implements CanvasMapping
 				if (resolve) return getDomainMetaElement();
 				return basicGetDomainMetaElement();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -219,8 +218,8 @@ public class CanvasMappingImpl extends MappingEntryImpl implements CanvasMapping
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 			case GMFMapPackage.CANVAS_MAPPING__DIAGRAM_CANVAS:
 				setDiagramCanvas((Canvas)newValue);
 				return;
@@ -231,7 +230,7 @@ public class CanvasMappingImpl extends MappingEntryImpl implements CanvasMapping
 				setDomainMetaElement((EClass)newValue);
 				return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -239,8 +238,8 @@ public class CanvasMappingImpl extends MappingEntryImpl implements CanvasMapping
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 			case GMFMapPackage.CANVAS_MAPPING__DIAGRAM_CANVAS:
 				setDiagramCanvas((Canvas)null);
 				return;
@@ -251,7 +250,7 @@ public class CanvasMappingImpl extends MappingEntryImpl implements CanvasMapping
 				setDomainMetaElement((EClass)null);
 				return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -259,8 +258,8 @@ public class CanvasMappingImpl extends MappingEntryImpl implements CanvasMapping
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 			case GMFMapPackage.CANVAS_MAPPING__DIAGRAM_CANVAS:
 				return diagramCanvas != null;
 			case GMFMapPackage.CANVAS_MAPPING__DOMAIN_MODEL:
@@ -268,7 +267,7 @@ public class CanvasMappingImpl extends MappingEntryImpl implements CanvasMapping
 			case GMFMapPackage.CANVAS_MAPPING__DOMAIN_META_ELEMENT:
 				return domainMetaElement != null;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 } //CanvasMappingImpl

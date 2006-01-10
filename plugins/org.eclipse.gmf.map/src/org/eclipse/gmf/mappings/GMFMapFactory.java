@@ -16,14 +16,14 @@ import org.eclipse.emf.ecore.EFactory;
  * @see org.eclipse.gmf.mappings.GMFMapPackage
  * @generated
  */
-public interface GMFMapFactory extends EFactory{
+public interface GMFMapFactory extends EFactory {
 	/**
 	 * The singleton instance of the factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	GMFMapFactory eINSTANCE = new org.eclipse.gmf.mappings.impl.GMFMapFactoryImpl();
+	GMFMapFactory eINSTANCE = org.eclipse.gmf.mappings.impl.GMFMapFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Node Mapping</em>'.
@@ -150,6 +150,24 @@ public interface GMFMapFactory extends EFactory{
 	 * @generated
 	 */
 	FeatureValueSpec createFeatureValueSpec();
+
+	/**
+	 * Returns a new object of class '<em>Audit Container</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Audit Container</em>'.
+	 * @generated
+	 */
+	AuditContainer createAuditContainer();
+
+	/**
+	 * Returns a new object of class '<em>Audit Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Audit Rule</em>'.
+	 * @generated
+	 */
+	AuditRule createAuditRule();
 
 	/**
 	 * Returns the package supported by this factory.

@@ -8,6 +8,7 @@ package org.eclipse.gmf.mappings;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -26,7 +27,7 @@ import org.eclipse.emf.ecore.EReference;
  * @model kind="package"
  * @generated
  */
-public interface GMFMapPackage extends EPackage{
+public interface GMFMapPackage extends EPackage {
 	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
@@ -142,7 +143,7 @@ public interface GMFMapPackage extends EPackage{
 	int ABSTRACT_NODE_MAPPING__TOOL = 7;
 
 	/**
-	 * The number of structural features of the the '<em>Abstract Node Mapping</em>' class.
+	 * The number of structural features of the '<em>Abstract Node Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -161,7 +162,7 @@ public interface GMFMapPackage extends EPackage{
 	int MAPPING_ENTRY = 1;
 
 	/**
-	 * The number of structural features of the the '<em>Mapping Entry</em>' class.
+	 * The number of structural features of the '<em>Mapping Entry</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -261,7 +262,7 @@ public interface GMFMapPackage extends EPackage{
 	int NODE_MAPPING__DIAGRAM_NODE = ABSTRACT_NODE_MAPPING_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Node Mapping</em>' class.
+	 * The number of structural features of the '<em>Node Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -379,7 +380,7 @@ public interface GMFMapPackage extends EPackage{
 	int CHILD_NODE_MAPPING__PARENT_NODE = ABSTRACT_NODE_MAPPING_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the the '<em>Child Node Mapping</em>' class.
+	 * The number of structural features of the '<em>Child Node Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -425,7 +426,7 @@ public interface GMFMapPackage extends EPackage{
 	int COMPARTMENT_MAPPING__CHILD_NODES = 2;
 
 	/**
-	 * The number of structural features of the the '<em>Compartment Mapping</em>' class.
+	 * The number of structural features of the '<em>Compartment Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -543,7 +544,7 @@ public interface GMFMapPackage extends EPackage{
 	int LINK_MAPPING__TOOL = MAPPING_ENTRY_FEATURE_COUNT + 10;
 
 	/**
-	 * The number of structural features of the the '<em>Link Mapping</em>' class.
+	 * The number of structural features of the '<em>Link Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -589,7 +590,7 @@ public interface GMFMapPackage extends EPackage{
 	int CANVAS_MAPPING__DOMAIN_META_ELEMENT = MAPPING_ENTRY_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the the '<em>Canvas Mapping</em>' class.
+	 * The number of structural features of the '<em>Canvas Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -644,13 +645,22 @@ public interface GMFMapPackage extends EPackage{
 	int MAPPING__TOOL_GROUPS = 3;
 
 	/**
-	 * The number of structural features of the the '<em>Mapping</em>' class.
+	 * The feature id for the '<em><b>Audits</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MAPPING_FEATURE_COUNT = 4;
+	int MAPPING__AUDITS = 4;
+
+	/**
+	 * The number of structural features of the '<em>Mapping</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAPPING_FEATURE_COUNT = 5;
 
 
 	/**
@@ -682,7 +692,7 @@ public interface GMFMapPackage extends EPackage{
 	int TOOL_GROUP__TOOLS = 1;
 
 	/**
-	 * The number of structural features of the the '<em>Tool Group</em>' class.
+	 * The number of structural features of the '<em>Tool Group</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -710,7 +720,7 @@ public interface GMFMapPackage extends EPackage{
 	int TOOL__GROUP = 0;
 
 	/**
-	 * The number of structural features of the the '<em>Tool</em>' class.
+	 * The number of structural features of the '<em>Tool</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -738,7 +748,7 @@ public interface GMFMapPackage extends EPackage{
 	int CREATION_TOOL__GROUP = TOOL__GROUP;
 
 	/**
-	 * The number of structural features of the the '<em>Creation Tool</em>' class.
+	 * The number of structural features of the '<em>Creation Tool</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -766,7 +776,7 @@ public interface GMFMapPackage extends EPackage{
 	int NEW_ACTION_TOOL__GROUP = TOOL__GROUP;
 
 	/**
-	 * The number of structural features of the the '<em>New Action Tool</em>' class.
+	 * The number of structural features of the '<em>New Action Tool</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -803,7 +813,7 @@ public interface GMFMapPackage extends EPackage{
 	int VALUE_EXPRESSION__LANGUAGE = 1;
 
 	/**
-	 * The number of structural features of the the '<em>Value Expression</em>' class.
+	 * The number of structural features of the '<em>Value Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -840,7 +850,7 @@ public interface GMFMapPackage extends EPackage{
 	int CONSTRAINT__LANGUAGE = VALUE_EXPRESSION__LANGUAGE;
 
 	/**
-	 * The number of structural features of the the '<em>Constraint</em>' class.
+	 * The number of structural features of the '<em>Constraint</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -887,7 +897,7 @@ public interface GMFMapPackage extends EPackage{
 	int LINK_CONSTRAINTS__TARGET_END = 2;
 
 	/**
-	 * The number of structural features of the the '<em>Link Constraints</em>' class.
+	 * The number of structural features of the '<em>Link Constraints</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -906,7 +916,7 @@ public interface GMFMapPackage extends EPackage{
 	int ELEMENT_INITIALIZER = 15;
 
 	/**
-	 * The number of structural features of the the '<em>Element Initializer</em>' class.
+	 * The number of structural features of the '<em>Element Initializer</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -934,7 +944,7 @@ public interface GMFMapPackage extends EPackage{
 	int FEATURE_SEQ_INITIALIZER__INITIALIZERS = ELEMENT_INITIALIZER_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Feature Seq Initializer</em>' class.
+	 * The number of structural features of the '<em>Feature Seq Initializer</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -980,13 +990,197 @@ public interface GMFMapPackage extends EPackage{
 	int FEATURE_VALUE_SPEC__FEATURE = VALUE_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the the '<em>Feature Value Spec</em>' class.
+	 * The number of structural features of the '<em>Feature Value Spec</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int FEATURE_VALUE_SPEC_FEATURE_COUNT = VALUE_EXPRESSION_FEATURE_COUNT + 1;
+
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.AuditContainerImpl <em>Audit Container</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.AuditContainerImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAuditContainer()
+	 * @generated
+	 */
+	int AUDIT_CONTAINER = 18;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIT_CONTAINER__ID = 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIT_CONTAINER__NAME = 1;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIT_CONTAINER__DESCRIPTION = 2;
+
+	/**
+	 * The feature id for the '<em><b>Parent Container</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIT_CONTAINER__PARENT_CONTAINER = 3;
+
+	/**
+	 * The feature id for the '<em><b>Audits</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIT_CONTAINER__AUDITS = 4;
+
+	/**
+	 * The feature id for the '<em><b>Child Containers</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIT_CONTAINER__CHILD_CONTAINERS = 5;
+
+	/**
+	 * The number of structural features of the '<em>Audit Container</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIT_CONTAINER_FEATURE_COUNT = 6;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.AuditRuleImpl <em>Audit Rule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.AuditRuleImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAuditRule()
+	 * @generated
+	 */
+	int AUDIT_RULE = 19;
+
+	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIT_RULE__ID = 0;
+
+	/**
+	 * The feature id for the '<em><b>Rule</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIT_RULE__RULE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIT_RULE__TARGET = 2;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIT_RULE__NAME = 3;
+
+	/**
+	 * The feature id for the '<em><b>Severity</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIT_RULE__SEVERITY = 4;
+
+	/**
+	 * The feature id for the '<em><b>Use In Live Mode</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIT_RULE__USE_IN_LIVE_MODE = 5;
+
+	/**
+	 * The feature id for the '<em><b>Message</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIT_RULE__MESSAGE = 6;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIT_RULE__DESCRIPTION = 7;
+
+	/**
+	 * The feature id for the '<em><b>Container</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIT_RULE__CONTAINER = 8;
+
+	/**
+	 * The number of structural features of the '<em>Audit Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIT_RULE_FEATURE_COUNT = 9;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.Severity <em>Severity</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.Severity
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getSeverity()
+	 * @generated
+	 */
+	int SEVERITY = 20;
 
 
 	/**
@@ -1433,6 +1627,17 @@ public interface GMFMapPackage extends EPackage{
 	EReference getMapping_ToolGroups();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.Mapping#getAudits <em>Audits</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Audits</em>'.
+	 * @see org.eclipse.gmf.mappings.Mapping#getAudits()
+	 * @see #getMapping()
+	 * @generated
+	 */
+	EReference getMapping_Audits();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.ToolGroup <em>Tool Group</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1641,6 +1846,201 @@ public interface GMFMapPackage extends EPackage{
 	 * @generated
 	 */
 	EReference getFeatureValueSpec_Feature();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.AuditContainer <em>Audit Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Audit Container</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditContainer
+	 * @generated
+	 */
+	EClass getAuditContainer();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.AuditContainer#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditContainer#getId()
+	 * @see #getAuditContainer()
+	 * @generated
+	 */
+	EAttribute getAuditContainer_Id();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.AuditContainer#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditContainer#getName()
+	 * @see #getAuditContainer()
+	 * @generated
+	 */
+	EAttribute getAuditContainer_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.AuditContainer#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Description</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditContainer#getDescription()
+	 * @see #getAuditContainer()
+	 * @generated
+	 */
+	EAttribute getAuditContainer_Description();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.AuditContainer#getParentContainer <em>Parent Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Parent Container</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditContainer#getParentContainer()
+	 * @see #getAuditContainer()
+	 * @generated
+	 */
+	EReference getAuditContainer_ParentContainer();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.mappings.AuditContainer#getAudits <em>Audits</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Audits</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditContainer#getAudits()
+	 * @see #getAuditContainer()
+	 * @generated
+	 */
+	EReference getAuditContainer_Audits();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.mappings.AuditContainer#getChildContainers <em>Child Containers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Child Containers</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditContainer#getChildContainers()
+	 * @see #getAuditContainer()
+	 * @generated
+	 */
+	EReference getAuditContainer_ChildContainers();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.AuditRule <em>Audit Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Audit Rule</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditRule
+	 * @generated
+	 */
+	EClass getAuditRule();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.AuditRule#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditRule#getId()
+	 * @see #getAuditRule()
+	 * @generated
+	 */
+	EAttribute getAuditRule_Id();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.AuditRule#getRule <em>Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Rule</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditRule#getRule()
+	 * @see #getAuditRule()
+	 * @generated
+	 */
+	EReference getAuditRule_Rule();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.AuditRule#getTarget <em>Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Target</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditRule#getTarget()
+	 * @see #getAuditRule()
+	 * @generated
+	 */
+	EReference getAuditRule_Target();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.AuditRule#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditRule#getName()
+	 * @see #getAuditRule()
+	 * @generated
+	 */
+	EAttribute getAuditRule_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.AuditRule#getSeverity <em>Severity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Severity</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditRule#getSeverity()
+	 * @see #getAuditRule()
+	 * @generated
+	 */
+	EAttribute getAuditRule_Severity();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.AuditRule#isUseInLiveMode <em>Use In Live Mode</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Use In Live Mode</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditRule#isUseInLiveMode()
+	 * @see #getAuditRule()
+	 * @generated
+	 */
+	EAttribute getAuditRule_UseInLiveMode();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.AuditRule#getMessage <em>Message</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Message</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditRule#getMessage()
+	 * @see #getAuditRule()
+	 * @generated
+	 */
+	EAttribute getAuditRule_Message();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.AuditRule#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Description</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditRule#getDescription()
+	 * @see #getAuditRule()
+	 * @generated
+	 */
+	EAttribute getAuditRule_Description();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.AuditRule#getContainer <em>Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Container</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditRule#getContainer()
+	 * @see #getAuditRule()
+	 * @generated
+	 */
+	EReference getAuditRule_Container();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.gmf.mappings.Severity <em>Severity</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Severity</em>'.
+	 * @see org.eclipse.gmf.mappings.Severity
+	 * @generated
+	 */
+	EEnum getSeverity();
 
 	/**
 	 * Returns the factory that creates the instances of the model.

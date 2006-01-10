@@ -382,6 +382,50 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.AuditContainer} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AuditContainerItemProvider auditContainerItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.AuditContainer}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createAuditContainerAdapter() {
+		if (auditContainerItemProvider == null) {
+			auditContainerItemProvider = new AuditContainerItemProvider(this);
+		}
+
+		return auditContainerItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.AuditRule} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AuditRuleItemProvider auditRuleItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.AuditRule}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createAuditRuleAdapter() {
+		if (auditRuleItemProvider == null) {
+			auditRuleItemProvider = new AuditRuleItemProvider(this);
+		}
+
+		return auditRuleItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -491,6 +535,8 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 		if (valueExpressionItemProvider != null) valueExpressionItemProvider.dispose();
 		if (featureSeqInitializerItemProvider != null) featureSeqInitializerItemProvider.dispose();
 		if (featureValueSpecItemProvider != null) featureValueSpecItemProvider.dispose();
+		if (auditContainerItemProvider != null) auditContainerItemProvider.dispose();
+		if (auditRuleItemProvider != null) auditRuleItemProvider.dispose();
 	}
 
 }
