@@ -38,5 +38,4 @@
     <domainModel href="library.ecore#/"/>
     <domainMetaElement href="library.ecore#//Library"/>
   </diagram>
-  <toolGroups name="Library Tools" tools="//@nodes.0/@tool //@nodes.1/@tool //@nodes.1/@childMappings.0/@tool //@links.0/@tool //@links.1/@tool"/>
 </gmfmap:Mapping>
