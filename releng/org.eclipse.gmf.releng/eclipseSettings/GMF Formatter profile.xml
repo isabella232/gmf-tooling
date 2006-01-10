@@ -25,7 +25,7 @@
 <setting id="org.eclipse.jdt.core.formatter.blank_lines_after_imports" value="1"/>
 <setting id="org.eclipse.jdt.core.formatter.blank_lines_after_package" value="1"/>
 <setting id="org.eclipse.jdt.core.formatter.blank_lines_before_field" value="1"/>
-<setting id="org.eclipse.jdt.core.formatter.blank_lines_before_first_class_body_declaration" value="0"/>
+<setting id="org.eclipse.jdt.core.formatter.blank_lines_before_first_class_body_declaration" value="1"/>
 <setting id="org.eclipse.jdt.core.formatter.blank_lines_before_imports" value="1"/>
 <setting id="org.eclipse.jdt.core.formatter.blank_lines_before_member_type" value="1"/>
 <setting id="org.eclipse.jdt.core.formatter.blank_lines_before_method" value="1"/>
