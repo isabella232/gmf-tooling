@@ -45,11 +45,7 @@ for (Iterator it = genModel.getAllUsedGenPackagesWithClassifiers().iterator(); i
 	}
 }
 
-String[] requiredPlugins = genDiagram.getRequiredPluginIDs();
-if (requiredPlugins == null) {
-	requiredPlugins = new String[0];
-}
-requiredPluginIDs.addAll(Arrays.asList(requiredPlugins));
+requiredPluginIDs.addAll(genDiagram.getRequiredPluginIDs());
 Iterator requiredBundleIterator = requiredPluginIDs.iterator();
 
     stringBuffer.append(TEXT_1);

@@ -28,7 +28,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface GenFeatureSeqInitializer extends GenElementInitializer{
+public interface GenFeatureSeqInitializer extends GenElementInitializer {
 	/**
 	 * Returns the value of the '<em><b>Initializers</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec}.
@@ -45,17 +45,6 @@ public interface GenFeatureSeqInitializer extends GenElementInitializer{
 	 * @generated
 	 */
 	EList getInitializers();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Gets IDs of plugins required by this initializer
-	 * <!-- end-model-doc -->
-	 * @model kind="operation" dataType="org.eclipse.gmf.codegen.gmfgen.StringArray"
-	 * @generated
-	 */
-	String[] getRequiredPluginIDs();
 
 	/**
 	 * <!-- begin-user-doc -->

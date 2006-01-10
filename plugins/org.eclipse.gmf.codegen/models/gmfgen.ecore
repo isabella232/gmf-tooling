@@ -19,7 +19,7 @@
         <details key="documentation" value="== domainMetaModel.getGenModel()"/>
       </eAnnotations>
     </eOperations>
-    <eOperations name="getRequiredPluginIDs" eType="#//StringArray">
+    <eOperations name="getRequiredPluginIDs" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Need this one for NewDiagramAction. Takes first diagramRunTimeClass and it's package's namespace. Perhaps, should just reference appropriate genModel instead"/>
       </eAnnotations>
@@ -166,7 +166,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visualIDRegistryClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EDataType" name="StringArray" instanceClassName="java.lang.String[]"/>
   <eClassifiers xsi:type="ecore:EClass" name="GenCommonBase" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="One that combines attributes that are essential for EditPart"/>
@@ -519,7 +518,7 @@
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
       <details key="def" value="Constraint"/>
     </eAnnotations>
-    <eOperations name="getRequiredPluginIDs" eType="#//StringArray"/>
+    <eOperations name="getRequiredPluginIDs" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Palette">
     <eOperations name="getFactoryQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -568,7 +567,7 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Base class for initializers of domain model elements"/>
     </eAnnotations>
-    <eOperations name="getRequiredPluginIDs" lowerBound="1" eType="#//StringArray">
+    <eOperations name="getRequiredPluginIDs" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Gets IDs of plugins required by this initializer"/>
       </eAnnotations>
@@ -584,11 +583,6 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Feature sequence initializer"/>
     </eAnnotations>
-    <eOperations name="getRequiredPluginIDs" eType="#//StringArray">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Gets IDs of plugins required by this initializer"/>
-      </eAnnotations>
-    </eOperations>
     <eOperations name="getElementClassAccessorName" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Gets the accessor name of this initializer's element class meta object within its package interface"/>

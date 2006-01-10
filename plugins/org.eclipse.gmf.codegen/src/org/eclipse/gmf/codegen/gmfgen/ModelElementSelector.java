@@ -7,6 +7,8 @@
 package org.eclipse.gmf.codegen.gmfgen;
 
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Model Element Selector</b></em>'.
@@ -21,13 +23,13 @@ package org.eclipse.gmf.codegen.gmfgen;
  * @model annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='Constraint'"
  * @generated
  */
-public interface ModelElementSelector extends ValueExpression{
+public interface ModelElementSelector extends ValueExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation" dataType="org.eclipse.gmf.codegen.gmfgen.StringArray"
+	 * @model kind="operation" type="java.lang.String"
 	 * @generated
 	 */
-	String[] getRequiredPluginIDs();
+	EList getRequiredPluginIDs();
 
 } // ModelElementSelector

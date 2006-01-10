@@ -1377,10 +1377,10 @@ public interface GenDiagram extends GenCommonBase {
 	 * <!-- begin-model-doc -->
 	 * Need this one for NewDiagramAction. Takes first diagramRunTimeClass and it's package's namespace. Perhaps, should just reference appropriate genModel instead
 	 * <!-- end-model-doc -->
-	 * @model kind="operation" dataType="org.eclipse.gmf.codegen.gmfgen.StringArray"
+	 * @model kind="operation" type="java.lang.String"
 	 * @generated
 	 */
-	String[] getRequiredPluginIDs();
+	EList getRequiredPluginIDs();
 
 	/**
 	 * <!-- begin-user-doc -->

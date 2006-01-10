@@ -12,6 +12,7 @@ import java.util.Iterator;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -82,7 +83,7 @@ public class GenFeatureSeqInitializerImpl extends GenElementInitializerImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public String[] getRequiredPluginIDs() {
+	public EList getRequiredPluginIDs() {
 		HashSet ids = new HashSet();
 		for (Iterator it = getInitializers().iterator(); it.hasNext();) {
 			GenFeatureValueSpec valueSpec = (GenFeatureValueSpec) it.next();
@@ -92,7 +93,7 @@ public class GenFeatureSeqInitializerImpl extends GenElementInitializerImpl impl
 				ids.add("org.eclipse.emf.query.ocl"); //$NON-NLS-1$
 			}
 		}
-		return (String[]) ids.toArray(new String[ids.size()]);
+		return new BasicEList(ids);
 	}
 
 	/**

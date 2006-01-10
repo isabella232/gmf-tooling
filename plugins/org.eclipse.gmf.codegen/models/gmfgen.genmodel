@@ -30,7 +30,6 @@
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenSeverity/WARNING"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenSeverity/ERROR"/>
     </genEnums>
-    <genDataTypes ecoreDataType="gmfgen.ecore#//StringArray"/>
     <genClasses ecoreClass="gmfgen.ecore#//GenDiagram">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/domainMetaModel"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/domainDiagramElement"/>
@@ -274,7 +273,6 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenFeatureSeqInitializer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureSeqInitializer/initializers"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureSeqInitializer/getRequiredPluginIDs"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureSeqInitializer/getElementClassAccessorName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenFeatureSeqInitializer/getElementQualifiedPackageInterfaceName"/>
     </genClasses>

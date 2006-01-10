@@ -6,6 +6,9 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
@@ -43,13 +46,14 @@ public class ModelElementSelectorImpl extends ValueExpressionImpl implements Mod
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public String[] getRequiredPluginIDs() {
+	public EList getRequiredPluginIDs() {
+		BasicEList rv = new BasicEList();
 		// For now hardcode only the default support for OCL
 		// TODO - to be refactored to plugg-in other languages
 		if("ocl".equals(getLanguage())) { //$NON-NLS-1$
-			return new String[] { "org.eclipse.emf.query.ocl" }; //$NON-NLS-1$
+			rv.add("org.eclipse.emf.query.ocl"); //$NON-NLS-1$
 		}
-		return new String[0];		
+		return rv;		
 	}
 
 } //ModelElementSelectorImpl

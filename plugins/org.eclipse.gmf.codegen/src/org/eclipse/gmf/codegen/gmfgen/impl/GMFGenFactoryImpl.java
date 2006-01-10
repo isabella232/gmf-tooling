@@ -133,8 +133,6 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 				return createLinkLabelAlignmentFromString(eDataType, initialValue);
 			case GMFGenPackage.GEN_SEVERITY:
 				return createGenSeverityFromString(eDataType, initialValue);
-			case GMFGenPackage.STRING_ARRAY:
-				return createStringArrayFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -155,8 +153,6 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 				return convertLinkLabelAlignmentToString(eDataType, instanceValue);
 			case GMFGenPackage.GEN_SEVERITY:
 				return convertGenSeverityToString(eDataType, instanceValue);
-			case GMFGenPackage.STRING_ARRAY:
-				return convertStringArrayToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -510,28 +506,6 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 */
 	public String convertGenSeverityToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String[] createStringArrayFromString(EDataType eDataType, String initialValue) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertStringArrayToString(EDataType eDataType, Object instanceValue) {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
 	}
 
 	/**

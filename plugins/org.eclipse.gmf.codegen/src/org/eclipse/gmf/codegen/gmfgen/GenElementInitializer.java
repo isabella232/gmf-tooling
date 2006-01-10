@@ -6,6 +6,8 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -28,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model abstract="true"
  * @generated
  */
-public interface GenElementInitializer extends EObject{
+public interface GenElementInitializer extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Type Model Facet</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getModelElementInitializer <em>Model Element Initializer</em>}'.
@@ -51,9 +53,9 @@ public interface GenElementInitializer extends EObject{
 	 * <!-- begin-model-doc -->
 	 * Gets IDs of plugins required by this initializer
 	 * <!-- end-model-doc -->
-	 * @model kind="operation" dataType="org.eclipse.gmf.codegen.gmfgen.StringArray" required="true"
+	 * @model kind="operation" type="java.lang.String"
 	 * @generated
 	 */
-	String[] getRequiredPluginIDs();
+	EList getRequiredPluginIDs();
 
 } // GenElementInitializer

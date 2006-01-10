@@ -7,6 +7,9 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
@@ -61,8 +64,8 @@ public abstract class GenElementInitializerImpl extends EObjectImpl implements G
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public String[] getRequiredPluginIDs() {
-		return new String[0];
+	public EList getRequiredPluginIDs() {
+		return new BasicEList();
 	}
 
 	/**

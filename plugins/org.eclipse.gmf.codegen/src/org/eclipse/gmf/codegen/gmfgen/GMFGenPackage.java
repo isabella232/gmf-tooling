@@ -8,7 +8,6 @@ package org.eclipse.gmf.codegen.gmfgen;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
@@ -3057,16 +3056,6 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_SEVERITY = 40;
 
 	/**
-	 * The meta object id for the '<em>String Array</em>' data type.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getStringArray()
-	 * @generated
-	 */
-	int STRING_ARRAY = 41;
-
-
-	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram <em>Gen Diagram</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5015,16 +5004,6 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getGenSeverity();
-
-	/**
-	 * Returns the meta object for data type '<em>String Array</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for data type '<em>String Array</em>'.
-	 * @model instanceClass="java.lang.String[]"
-	 * @generated
-	 */
-	EDataType getStringArray();
 
 	/**
 	 * Returns the factory that creates the instances of the model.

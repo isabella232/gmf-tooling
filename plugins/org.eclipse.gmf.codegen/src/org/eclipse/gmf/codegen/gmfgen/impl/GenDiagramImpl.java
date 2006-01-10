@@ -6,7 +6,6 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -20,6 +19,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -2966,7 +2966,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public String[] getRequiredPluginIDs() {
+	public EList getRequiredPluginIDs() {
 		Collection requiredPlugins = new LinkedHashSet();
 		if (usesSVGShapes()) {
 			requiredPlugins.add("org.eclipse.gmf.diagramrt.gefsvg");
@@ -2974,7 +2974,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		
 		requiredPlugins.addAll(getExpressionsRequiredPluginIDs());
 		requiredPlugins.addAll(getAuditRequiredPluginIDs());
-		return (String[]) requiredPlugins.toArray(new String[requiredPlugins.size()]);
+		return new BasicEList(requiredPlugins);
 	}
 
 	/**
@@ -3253,20 +3253,20 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			GenNode nextNode = (GenNode) it.next();
 			TypeModelFacet modelFacet = nextNode.getModelFacet();
 			if(modelFacet.getModelElementInitializer() != null) {
-				requiredIDs.addAll(Arrays.asList(modelFacet.getModelElementInitializer().getRequiredPluginIDs()));
+				requiredIDs.addAll(modelFacet.getModelElementInitializer().getRequiredPluginIDs());
 			}
 			if(modelFacet.getModelElementSelector() != null) {
-				requiredIDs.addAll(Arrays.asList(modelFacet.getModelElementSelector().getRequiredPluginIDs()));				
+				requiredIDs.addAll(modelFacet.getModelElementSelector().getRequiredPluginIDs());				
 			}
 			
 			for (Iterator childIt = nextNode.getChildNodes().iterator(); childIt.hasNext();) {
 				GenChildNode nextChild = (GenChildNode) childIt.next();
 				TypeModelFacet childModelFacet = nextChild.getModelFacet();
 				if(childModelFacet.getModelElementInitializer() != null) {
-					requiredIDs.addAll(Arrays.asList(childModelFacet.getModelElementInitializer().getRequiredPluginIDs()));
+					requiredIDs.addAll(childModelFacet.getModelElementInitializer().getRequiredPluginIDs());
 				}
 				if(childModelFacet.getModelElementSelector() != null) {
-					requiredIDs.addAll(Arrays.asList(childModelFacet.getModelElementSelector().getRequiredPluginIDs()));				
+					requiredIDs.addAll(childModelFacet.getModelElementSelector().getRequiredPluginIDs());				
 				}				
 			}
 		}
@@ -3277,10 +3277,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			if(modelFacet instanceof TypeLinkModelFacet) {
 				TypeLinkModelFacet  typeModelFacet = (TypeLinkModelFacet)modelFacet;
 				if(typeModelFacet.getModelElementInitializer() != null) {
-					requiredIDs.addAll(Arrays.asList(typeModelFacet.getModelElementInitializer().getRequiredPluginIDs()));
+					requiredIDs.addAll(typeModelFacet.getModelElementInitializer().getRequiredPluginIDs());
 				}
 				if(typeModelFacet.getModelElementSelector() != null) {
-					requiredIDs.addAll(Arrays.asList(typeModelFacet.getModelElementSelector().getRequiredPluginIDs()));
+					requiredIDs.addAll(typeModelFacet.getModelElementSelector().getRequiredPluginIDs());
 				}
 			}
 		}		
