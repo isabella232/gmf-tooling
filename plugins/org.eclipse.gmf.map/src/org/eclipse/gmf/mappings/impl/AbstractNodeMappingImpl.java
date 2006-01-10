@@ -420,7 +420,7 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EClass getDomainMetaClass() {
+	public EClass getDomainContext() {
 		if (getDomainMetaElement() == null && getContainmentFeature() != null) {
 			return getContainmentFeature().getEReferenceType();
 		}

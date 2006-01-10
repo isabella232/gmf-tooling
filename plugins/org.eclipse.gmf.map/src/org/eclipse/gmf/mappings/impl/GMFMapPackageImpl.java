@@ -1162,7 +1162,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEReference(getAbstractNodeMapping_CompartmentMappings(), this.getCompartmentMapping(), this.getCompartmentMapping_ParentNodeMapping(), "compartmentMappings", null, 0, -1, AbstractNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAbstractNodeMapping_Tool(), this.getTool(), null, "tool", null, 0, 1, AbstractNodeMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(abstractNodeMappingEClass, ecorePackage.getEClass(), "getDomainMetaClass", 0, 1);
+		addEOperation(abstractNodeMappingEClass, ecorePackage.getEClass(), "getDomainContext", 0, 1);
 
 		initEClass(mappingEntryEClass, MappingEntry.class, "MappingEntry", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1192,7 +1192,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEReference(getLinkMapping_CreationConstraints(), this.getLinkConstraints(), this.getLinkConstraints_LinkMapping(), "creationConstraints", null, 0, 1, LinkMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLinkMapping_Tool(), this.getTool(), null, "tool", null, 0, 1, LinkMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		addEOperation(linkMappingEClass, ecorePackage.getEClass(), "getDomainMetaClass", 0, 1);
+		addEOperation(linkMappingEClass, ecorePackage.getEClass(), "getDomainContext", 0, 1);
 
 		initEClass(canvasMappingEClass, CanvasMapping.class, "CanvasMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCanvasMapping_DiagramCanvas(), theGMFGraphPackage.getCanvas(), null, "diagramCanvas", null, 1, 1, CanvasMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1303,28 +1303,28 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   source, 
 		   new String[] {
 			 "def", "context",
-			 "ocl", "if domainMetaElement.oclIsUndefined() then containmentFeature.eContainingClass else domainMetaElement endif"
+			 "ocl", "self.getDomainContext()"
 		   });				
 		addAnnotation
 		  (getAbstractNodeMapping_DomainInitializer(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
-			 "ocl", "if domainMetaElement.oclIsUndefined() then containmentFeature.eContainingClass else domainMetaElement endif"
+			 "ocl", "self.getDomainContext()"
 		   });							
 		addAnnotation
 		  (getLinkMapping_DomainSpecialization(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
-			 "ocl", "if domainMetaElement.oclIsUndefined() then linkMetaFeature.eContainingClass else domainMetaElement endif "
+			 "ocl", "self.getDomainContext()"
 		   });				
 		addAnnotation
 		  (getLinkMapping_DomainInitializer(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
-			 "ocl", "if domainMetaElement.oclIsUndefined() then linkMetaFeature.eContainingClass else domainMetaElement endif "
+			 "ocl", "self.getDomainContext()"
 		   });												
 		addAnnotation
 		  (constraintEClass, 

@@ -38,7 +38,7 @@ import org.eclipse.gmf.gmfgraph.Connection;
  * @model
  * @generated
  */
-public interface LinkMapping extends MappingEntry{
+public interface LinkMapping extends MappingEntry {
 	/**
 	 * Returns the value of the '<em><b>Diagram Link</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -102,7 +102,7 @@ public interface LinkMapping extends MappingEntry{
 	 * @see #setDomainSpecialization(Constraint)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping_DomainSpecialization()
 	 * @model containment="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='if domainMetaElement.oclIsUndefined() then linkMetaFeature.eContainingClass else domainMetaElement endif '"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='self.getDomainContext()'"
 	 * @generated
 	 */
 	Constraint getDomainSpecialization();
@@ -133,7 +133,7 @@ public interface LinkMapping extends MappingEntry{
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping_DomainInitializer()
 	 * @model containment="true"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let i : FeatureSeqInitializer = domainInitializer.oclAsType( FeatureSeqInitializer) in i.oclIsUndefined() or i.initializers.feature.eContainingClass->forAll(c|c.isSuperTypeOf(domainMetaElement)) '"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='if domainMetaElement.oclIsUndefined() then linkMetaFeature.eContainingClass else domainMetaElement endif '"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='self.getDomainContext()'"
 	 * @generated
 	 */
 	ElementInitializer getDomainInitializer();
@@ -340,6 +340,6 @@ public interface LinkMapping extends MappingEntry{
 	 * @model kind="operation"
 	 * @generated
 	 */
-	EClass getDomainMetaClass();
+	EClass getDomainContext();
 
 } // LinkMapping

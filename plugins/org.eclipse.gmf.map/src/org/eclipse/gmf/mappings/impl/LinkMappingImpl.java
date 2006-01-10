@@ -623,17 +623,17 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	/**
 	 * <!-- begin-user-doc -->
 	 * This method was created to simplify transtofmation code.
-	 * @return getDomainMetaElement() if specified, and getLinkMetaFeature().getEType()  
+	 * @return getDomainMetaElement() if specified, and getLinkMetaFeature().getEContainingClass()  
 	 * if link meta feature was specified. <code>null</code> otherwise.
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EClass getDomainMetaClass() {
+	public EClass getDomainContext() {
 		if (getDomainMetaElement() != null) {
 			return getDomainMetaElement();
 		}
 		if (getLinkMetaFeature() != null) {
-			return (EClass) getLinkMetaFeature().getEType();
+			return getLinkMetaFeature().getEContainingClass();
 		}
 		return null;
 	}

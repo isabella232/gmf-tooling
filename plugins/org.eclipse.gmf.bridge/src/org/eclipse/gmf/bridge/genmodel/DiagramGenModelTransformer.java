@@ -384,7 +384,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			findToolGroup(nme.getTool()).getNodeTools().add(ne);
 			ne.getGenNode().add(genNode);
 			ne.setCreateMethodName(myNamingStrategy.createToolCreationMethodName(nme));
-			setupCommonToolEntry(ne, nme.getTool(), nme.getDomainMetaClass().getName());
+			setupCommonToolEntry(ne, nme.getTool(), nme.getDomainContext().getName());
 		}
 	}
 
@@ -417,7 +417,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 	
 	private void assertAbstractNodeMapping(AbstractNodeMapping mapping) {
-		assert mapping.getDomainMetaClass() != null;
+		assert mapping.getDomainContext() != null;
 		assert checkDirectEditAttrValidity(mapping);
 	}
 
@@ -426,7 +426,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			return true;
 		}
 		EClassifier attrContainer = nme.getEditFeature().getEContainingClass();
-		return attrContainer == nme.getDomainMetaClass() || nme.getDomainMetaClass().getEAllSuperTypes().contains(attrContainer);
+		return attrContainer == nme.getDomainContext() || nme.getDomainContext().getEAllSuperTypes().contains(attrContainer);
 	}
 
 	private GenPackage findGenPackage(EPackage ePackage) {
@@ -442,7 +442,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 	
 	private TypeModelFacet createModelFacet(AbstractNodeMapping anm) {
-		TypeModelFacet typeModelFacet = setupModelFacet(anm.getDomainMetaClass(), anm.getContainmentFeature(), null);
+		TypeModelFacet typeModelFacet = setupModelFacet(anm.getDomainContext(), anm.getContainmentFeature(), null);
 		return setupAux(typeModelFacet, anm.getDomainSpecialization(), anm.getDomainInitializer());
 	}
 

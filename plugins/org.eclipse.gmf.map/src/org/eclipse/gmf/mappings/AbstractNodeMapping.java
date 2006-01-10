@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.EReference;
  *        annotation="http://www.eclipse.org/emf/2004/EmfaticAnnotationMap constraints='http://www.eclipse.org/gmf/2005/constraints' constraintsMeta='http://www.eclipse.org/gmf/2005/constraints/meta'"
  * @generated
  */
-public interface AbstractNodeMapping extends EObject{
+public interface AbstractNodeMapping extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Domain Meta Element</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -74,7 +74,7 @@ public interface AbstractNodeMapping extends EObject{
 	 * @see #setDomainSpecialization(Constraint)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getAbstractNodeMapping_DomainSpecialization()
 	 * @model containment="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='if domainMetaElement.oclIsUndefined() then containmentFeature.eContainingClass else domainMetaElement endif'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='self.getDomainContext()'"
 	 * @generated
 	 */
 	Constraint getDomainSpecialization();
@@ -101,7 +101,7 @@ public interface AbstractNodeMapping extends EObject{
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getAbstractNodeMapping_DomainInitializer()
 	 * @model containment="true"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let i : FeatureSeqInitializer = domainInitializer.oclAsType( FeatureSeqInitializer) in i.oclIsUndefined() or i.initializers.feature.eContainingClass->forAll(c|c.isSuperTypeOf(domainMetaElement))'"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='if domainMetaElement.oclIsUndefined() then containmentFeature.eContainingClass else domainMetaElement endif'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='self.getDomainContext()'"
 	 * @generated
 	 */
 	ElementInitializer getDomainInitializer();
@@ -236,6 +236,6 @@ public interface AbstractNodeMapping extends EObject{
 	 * @model kind="operation"
 	 * @generated
 	 */
-	EClass getDomainMetaClass();
+	EClass getDomainContext();
 
 } // AbstractNodeMapping

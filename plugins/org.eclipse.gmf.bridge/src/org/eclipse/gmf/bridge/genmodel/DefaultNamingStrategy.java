@@ -63,31 +63,31 @@ public class DefaultNamingStrategy extends NamingStrategy {
 	}
 
 	public String createNodeClassName(NodeMapping mapping, String suffix) {
-		if (mapping.getDomainMetaClass() == null) {
+		if (mapping.getDomainContext() == null) {
 			return null;
 		}
-		return createClassName(mapping.getDomainMetaClass().getName(), getNodeSuffix(suffix));
+		return createClassName(mapping.getDomainContext().getName(), getNodeSuffix(suffix));
 	}
 
 	public String createChildNodeClassName(ChildNodeMapping mapping, String suffix) {
-		if (mapping.getDomainMetaClass() == null) {
+		if (mapping.getDomainContext() == null) {
 			return null;
 		}
-		return createClassName(mapping.getDomainMetaClass().getName(), getChildNodeSuffix(suffix));
+		return createClassName(mapping.getDomainContext().getName(), getChildNodeSuffix(suffix));
 	}
 
 	public String createCompartmentClassName(AbstractNodeMapping mapping, Compartment compartment, String suffix) {
-		if (mapping.getDomainMetaClass() == null) {
+		if (mapping.getDomainContext() == null) {
 			return null;
 		}
-		return createClassName(mapping.getDomainMetaClass().getName() + '_' + compartment.getName(), getCompartmentSuffix(suffix));
+		return createClassName(mapping.getDomainContext().getName() + '_' + compartment.getName(), getCompartmentSuffix(suffix));
 	}
 
 	public String createNodeLabelClassName(AbstractNodeMapping mapping, EStructuralFeature labelFeature, String suffix) {
-		if (mapping.getDomainMetaClass() == null) {
+		if (mapping.getDomainContext() == null) {
 			return null;
 		}
-		return createClassName(mapping.getDomainMetaClass().getName() + '_' + labelFeature.getName(), getCompartmentSuffix(suffix));
+		return createClassName(mapping.getDomainContext().getName() + '_' + labelFeature.getName(), getCompartmentSuffix(suffix));
 	}
 
 	public String createLinkClassName(LinkMapping mapping, String suffix) {
@@ -109,7 +109,7 @@ public class DefaultNamingStrategy extends NamingStrategy {
 	}
 
 	public String createToolCreationMethodName(AbstractNodeMapping nodeMapping) {
-		return getUniquePaletteFactoryMethodName("create" + nodeMapping.getDomainMetaClass().getName() + "NodeCreationTool");
+		return getUniquePaletteFactoryMethodName("create" + nodeMapping.getDomainContext().getName() + "NodeCreationTool");
 	}
 
 	public String createToolCreationMethodName(LinkMapping linkMapping) {
