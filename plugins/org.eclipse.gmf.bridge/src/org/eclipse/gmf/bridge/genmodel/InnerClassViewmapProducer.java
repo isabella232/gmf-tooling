@@ -66,7 +66,7 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 	}
 
 	private Viewmap createViewmap(Figure figure) throws JETException {
-		if (isBareInstance(figure)) {
+		if ((figure instanceof CustomFigure) && isBareInstance(figure)) {
 			FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
 			v.setFigureQualifiedClassName(String.valueOf(fqnSwitch.doSwitch(figure)));
 			return v;
