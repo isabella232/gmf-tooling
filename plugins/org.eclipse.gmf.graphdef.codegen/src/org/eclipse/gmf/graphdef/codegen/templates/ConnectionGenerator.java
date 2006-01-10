@@ -65,28 +65,30 @@ public class ConnectionGenerator
   protected final String TEXT_47 = NL + "\t\t";
   protected final String TEXT_48 = ".setTemplate(pl);";
   protected final String TEXT_49 = NL + "\t\t";
-  protected final String TEXT_50 = ".setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));" + NL + "\t\treturn ";
-  protected final String TEXT_51 = ";" + NL + "\t}";
-  protected final String TEXT_52 = NL;
-  protected final String TEXT_53 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
-  protected final String TEXT_54 = " createTargetDecoration() {";
-  protected final String TEXT_55 = NL;
-  protected final String TEXT_56 = "\t\t";
-  protected final String TEXT_57 = " ";
-  protected final String TEXT_58 = " = new ";
-  protected final String TEXT_59 = "();";
-  protected final String TEXT_60 = NL;
-  protected final String TEXT_61 = NL + "\t\torg.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();";
-  protected final String TEXT_62 = NL + "\t\tpl.addPoint(";
-  protected final String TEXT_63 = ", ";
-  protected final String TEXT_64 = ");";
-  protected final String TEXT_65 = NL + "\t\t";
-  protected final String TEXT_66 = ".setTemplate(pl);";
-  protected final String TEXT_67 = NL + "\t\t";
-  protected final String TEXT_68 = ".setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));" + NL + "\t\treturn ";
-  protected final String TEXT_69 = ";" + NL + "\t}";
-  protected final String TEXT_70 = NL + "}";
-  protected final String TEXT_71 = NL;
+  protected final String TEXT_50 = ".setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));";
+  protected final String TEXT_51 = NL + "\t\treturn ";
+  protected final String TEXT_52 = ";" + NL + "\t}";
+  protected final String TEXT_53 = NL;
+  protected final String TEXT_54 = NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ";
+  protected final String TEXT_55 = " createTargetDecoration() {";
+  protected final String TEXT_56 = NL;
+  protected final String TEXT_57 = "\t\t";
+  protected final String TEXT_58 = " ";
+  protected final String TEXT_59 = " = new ";
+  protected final String TEXT_60 = "();";
+  protected final String TEXT_61 = NL;
+  protected final String TEXT_62 = NL + "\t\torg.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();";
+  protected final String TEXT_63 = NL + "\t\tpl.addPoint(";
+  protected final String TEXT_64 = ", ";
+  protected final String TEXT_65 = ");";
+  protected final String TEXT_66 = NL + "\t\t";
+  protected final String TEXT_67 = ".setTemplate(pl);";
+  protected final String TEXT_68 = NL + "\t\t";
+  protected final String TEXT_69 = ".setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));";
+  protected final String TEXT_70 = NL + "\t\treturn ";
+  protected final String TEXT_71 = ";" + NL + "\t}";
+  protected final String TEXT_72 = NL + "}";
+  protected final String TEXT_73 = NL;
 
   public String generate(Object argument)
   {
@@ -187,64 +189,74 @@ DecorationFigure df = figure.getSourceDecoration();
     stringBuffer.append(TEXT_41);
     stringBuffer.append(TEXT_42);
      /*include FigureChildren*/ 
-    if ((df instanceof PolylineDecoration || df instanceof PolygonDecoration) && !((Polyline) df).getTemplate().isEmpty()) {
+    
+if ((df instanceof PolylineDecoration || df instanceof PolygonDecoration)) {
+	if (!((Polyline) df).getTemplate().isEmpty()) {
+
     stringBuffer.append(TEXT_43);
-    	for (Iterator pointIt = ((Polyline) df).getTemplate().iterator(); pointIt.hasNext(); ) {
+    		for (Iterator pointIt = ((Polyline) df).getTemplate().iterator(); pointIt.hasNext(); ) {
 		Point p = (Point) pointIt.next();
     stringBuffer.append(TEXT_44);
     stringBuffer.append(p.getX());
     stringBuffer.append(TEXT_45);
     stringBuffer.append(p.getY());
     stringBuffer.append(TEXT_46);
-    } /*for*/ 
+    		} /*for*/ 
     stringBuffer.append(TEXT_47);
     stringBuffer.append(decFigVarName);
     stringBuffer.append(TEXT_48);
-    } /*if instanceof */ 
+    	} /*!if getTemplate().isEmpty()*/ 
     stringBuffer.append(TEXT_49);
     stringBuffer.append(decFigVarName);
     stringBuffer.append(TEXT_50);
-    stringBuffer.append(decFigVarName);
+    } /*if instanceof */ 
     stringBuffer.append(TEXT_51);
-    } /*if sourceDecoration != null */ 
+    stringBuffer.append(decFigVarName);
     stringBuffer.append(TEXT_52);
+    } /*if sourceDecoration != null */ 
+    stringBuffer.append(TEXT_53);
     if (figure.getTargetDecoration() != null) {
 DecorationFigure df = figure.getTargetDecoration();
-    stringBuffer.append(TEXT_53);
-    stringBuffer.append(fqnSwitch.doSwitch(df));
     stringBuffer.append(TEXT_54);
+    stringBuffer.append(fqnSwitch.doSwitch(df));
     stringBuffer.append(TEXT_55);
     stringBuffer.append(TEXT_56);
-    stringBuffer.append(fqnSwitch.doSwitch(df));
     stringBuffer.append(TEXT_57);
-    stringBuffer.append(decFigVarName);
-    stringBuffer.append(TEXT_58);
     stringBuffer.append(fqnSwitch.doSwitch(df));
+    stringBuffer.append(TEXT_58);
+    stringBuffer.append(decFigVarName);
     stringBuffer.append(TEXT_59);
+    stringBuffer.append(fqnSwitch.doSwitch(df));
     stringBuffer.append(TEXT_60);
-     /*include FigureChildren*/ 
-    if ((df instanceof PolylineDecoration || df instanceof PolygonDecoration) && !((Polyline) df).getTemplate().isEmpty()) {
     stringBuffer.append(TEXT_61);
-    	for (Iterator pointIt = ((Polyline) df).getTemplate().iterator(); pointIt.hasNext(); ) {
-		Point p = (Point) pointIt.next();
+     /*include FigureChildren*/ 
+    
+if ((df instanceof PolylineDecoration || df instanceof PolygonDecoration)) {
+	if (!((Polyline) df).getTemplate().isEmpty()) {
+
     stringBuffer.append(TEXT_62);
-    stringBuffer.append(p.getX());
+    		for (Iterator pointIt = ((Polyline) df).getTemplate().iterator(); pointIt.hasNext(); ) {
+		Point p = (Point) pointIt.next();
     stringBuffer.append(TEXT_63);
-    stringBuffer.append(p.getY());
+    stringBuffer.append(p.getX());
     stringBuffer.append(TEXT_64);
-    } /*for*/ 
+    stringBuffer.append(p.getY());
     stringBuffer.append(TEXT_65);
-    stringBuffer.append(decFigVarName);
+    		} /*for*/ 
     stringBuffer.append(TEXT_66);
-    } /*if instanceof */ 
-    stringBuffer.append(TEXT_67);
     stringBuffer.append(decFigVarName);
+    stringBuffer.append(TEXT_67);
+    	} /*!if getTemplate().isEmpty()*/ 
     stringBuffer.append(TEXT_68);
     stringBuffer.append(decFigVarName);
     stringBuffer.append(TEXT_69);
-    }
+    } /*if instanceof */ 
     stringBuffer.append(TEXT_70);
+    stringBuffer.append(decFigVarName);
     stringBuffer.append(TEXT_71);
+    }
+    stringBuffer.append(TEXT_72);
+    stringBuffer.append(TEXT_73);
     return stringBuffer.toString();
   }
 }

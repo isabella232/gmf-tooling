@@ -97,23 +97,27 @@ String decFigVarName = "this";
     stringBuffer.append(TEXT_9);
     stringBuffer.append(TEXT_10);
      /*include FigureChildren*/ 
-    if ((df instanceof PolylineDecoration || df instanceof PolygonDecoration) && !((Polyline) df).getTemplate().isEmpty()) {
+    
+if ((df instanceof PolylineDecoration || df instanceof PolygonDecoration)) {
+	if (!((Polyline) df).getTemplate().isEmpty()) {
+
     stringBuffer.append(TEXT_11);
-    	for (Iterator pointIt = ((Polyline) df).getTemplate().iterator(); pointIt.hasNext(); ) {
+    		for (Iterator pointIt = ((Polyline) df).getTemplate().iterator(); pointIt.hasNext(); ) {
 		Point p = (Point) pointIt.next();
     stringBuffer.append(TEXT_12);
     stringBuffer.append(p.getX());
     stringBuffer.append(TEXT_13);
     stringBuffer.append(p.getY());
     stringBuffer.append(TEXT_14);
-    } /*for*/ 
+    		} /*for*/ 
     stringBuffer.append(TEXT_15);
     stringBuffer.append(decFigVarName);
     stringBuffer.append(TEXT_16);
-    } /*if instanceof */ 
+    	} /*!if getTemplate().isEmpty()*/ 
     stringBuffer.append(TEXT_17);
     stringBuffer.append(decFigVarName);
     stringBuffer.append(TEXT_18);
+    } /*if instanceof */ 
     if (scale != null) {
     stringBuffer.append(TEXT_19);
     stringBuffer.append(scale.getX());
