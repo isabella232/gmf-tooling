@@ -1,18 +1,11 @@
 package org.eclipse.gmf.ecore.editor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
-import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
-import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gmf.runtime.emf.core.util.ResourceUtil;
@@ -35,14 +28,11 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
-import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 
 /**
  * @generated
  */
 public class EcoreElementChooserDialog extends Dialog {
-
-	private AdapterFactory myModelAdapterFactory = null;
 
 	private TreeViewer myTreeViewer;
 
@@ -107,20 +97,6 @@ public class EcoreElementChooserDialog extends Dialog {
 	/**
 	 * @generated
 	 */
-	private AdapterFactory getModelAdapterFactory() {
-		if (myModelAdapterFactory == null) {
-			List factories = new ArrayList();
-			factories.add(new ResourceItemProviderAdapterFactory());
-			factories.add(new EcoreItemProviderAdapterFactory());
-			factories.add(new ReflectiveItemProviderAdapterFactory());
-			myModelAdapterFactory = new ComposedAdapterFactory(factories);
-		}
-		return myModelAdapterFactory;
-	}
-
-	/**
-	 * @generated
-	 */
 	public EObject getSelectedModelElement() {
 		return mySelectedModelElement;
 	}
@@ -132,7 +108,7 @@ public class EcoreElementChooserDialog extends Dialog {
 
 		private ITreeContentProvider myWorkbenchContentProvider = new WorkbenchContentProvider();
 
-		private AdapterFactoryContentProvider myAdapterFctoryContentProvier = new AdapterFactoryContentProvider(getModelAdapterFactory());
+		private AdapterFactoryContentProvider myAdapterFctoryContentProvier = new AdapterFactoryContentProvider(EcoreDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
 
 		/**
 		 * @generated
@@ -224,7 +200,7 @@ public class EcoreElementChooserDialog extends Dialog {
 
 		private WorkbenchLabelProvider myWorkbenchLabelProvider = new WorkbenchLabelProvider();
 
-		private AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new AdapterFactoryLabelProvider(getModelAdapterFactory());
+		private AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new AdapterFactoryLabelProvider(EcoreDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
 
 		/**
 		 * @generated

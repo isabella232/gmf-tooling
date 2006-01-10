@@ -2,6 +2,8 @@ package org.eclipse.gmf.ecore.editor;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
@@ -103,6 +105,13 @@ public class EcoreDiagramEditorPlugin extends AbstractUIPlugin {
 		factories.add(new EcoreItemProviderAdapterFactory());
 		factories.add(new ResourceItemProviderAdapterFactory());
 		factories.add(new ReflectiveItemProviderAdapterFactory());
+	}
+
+	/**
+	 * @generated
+	 */
+	public AdapterFactory getItemProvidersAdapterFactory() {
+		return adapterFactory;
 	}
 
 	/**
