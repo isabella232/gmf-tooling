@@ -26,8 +26,10 @@ public class LinkLabelTextEditPartGenerator
   protected final String TEXT_8 = "(" + NL + "\t\t\t\t\t";
   protected final String TEXT_9 = ".eINSTANCE.get";
   protected final String TEXT_10 = "().getEStructuralFeature(\"";
-  protected final String TEXT_11 = "\"));" + NL + "\t\t}" + NL + "\t\treturn parser;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_12 = NL;
+  protected final String TEXT_11 = "\"));" + NL + "\t\t}" + NL + "\t\treturn parser;" + NL + "\t}";
+  protected final String TEXT_12 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean isEditable() {" + NL + "\t\treturn false;" + NL + "\t}";
+  protected final String TEXT_13 = NL + "}";
+  protected final String TEXT_14 = NL;
 
   public String generate(Object argument)
   {
@@ -68,8 +70,12 @@ if (genLabel.getLink().getModelFacet() instanceof TypeLinkModelFacet) {
     stringBuffer.append(TEXT_10);
     stringBuffer.append(genLabel.getMetaFeature().getName());
     stringBuffer.append(TEXT_11);
-    importManager.emitSortedImports();
+    if (genLabel.isReadOnly()) {
     stringBuffer.append(TEXT_12);
+    }
+    stringBuffer.append(TEXT_13);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_14);
     return stringBuffer.toString();
   }
 }

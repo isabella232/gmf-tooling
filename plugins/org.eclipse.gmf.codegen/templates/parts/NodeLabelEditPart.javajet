@@ -53,7 +53,16 @@ String accessorName = label.getNode().getDomainMetaClass().getClassifierAccessor
 		}
 		return parser;
 	}
+<%if (label.isReadOnly()) {%>
+
+	/**
+	 * @generated
+	 */
+	protected boolean isEditable() {
+		return false;
+	}
 <%
+}
 if (isParentFlowLayout) {
 %>
 

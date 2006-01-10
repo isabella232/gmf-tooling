@@ -46,5 +46,14 @@ if (genLabel.getLink().getModelFacet() instanceof TypeLinkModelFacet) {
 		}
 		return parser;
 	}
+<%if (genLabel.isReadOnly()) {%>
+
+	/**
+	 * @generated
+	 */
+	protected boolean isEditable() {
+		return false;
+	}
+<%}%>
 }
 <%importManager.emitSortedImports();%>
