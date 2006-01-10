@@ -6,8 +6,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.ecore.edit.policies.EReferenceItemSemanticEditPolicy;
 
-import org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx;
-
 /**
  * @generated
  */
@@ -37,7 +35,21 @@ public class EReferenceEditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
-		return new PolylineConnectionEx();
+		return new ConnectionLine();
+	}
+
+	/**
+	 * @generated
+	 */
+	public class ConnectionLine extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
+
+		/**
+		 * @generated
+		 */
+		public ConnectionLine() {
+
+		}
+
 	}
 
 }

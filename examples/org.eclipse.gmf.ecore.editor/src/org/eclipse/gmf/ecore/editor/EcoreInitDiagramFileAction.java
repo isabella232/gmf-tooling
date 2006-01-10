@@ -149,6 +149,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 			return;
 		}
 		OperationUtil.runAsUnchecked(new MRunnable() {
+
 			public Object run() {
 				EObject diagram = create(diagramModelObject);
 				if (diagram == null) {
@@ -743,6 +744,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				Node dstNode = (Node) myEObject2NodeMap.get(dst);
 				if (dstNode != null) {
 					Edge edge = (Edge) ViewService.getInstance().createEdge(new IAdaptable() {
+
 						public Object getAdapter(Class adapter) {
 							if (IElementType.class.equals(adapter)) {
 								return EcoreElementTypes.EAnnotationReferences_3001;
@@ -810,6 +812,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				Node dstNode = (Node) myEObject2NodeMap.get(dst);
 				if (dstNode != null) {
 					Edge edge = (Edge) ViewService.getInstance().createEdge(new IAdaptable() {
+
 						public Object getAdapter(Class adapter) {
 							if (IElementType.class.equals(adapter)) {
 								return EcoreElementTypes.EClassESuperTypes_3004;

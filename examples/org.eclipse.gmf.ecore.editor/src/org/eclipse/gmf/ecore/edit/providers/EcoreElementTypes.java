@@ -368,6 +368,7 @@ public class EcoreElementTypes {
 		 * @generated
 		 */
 		public static class ObjectInitializer {
+
 			/** 
 			 * @generated
 			 */
@@ -395,6 +396,7 @@ public class EcoreElementTypes {
 		 * @generated
 		 */
 		static class FeatureInitializer {
+
 			/** 
 			 * @generated
 			 */

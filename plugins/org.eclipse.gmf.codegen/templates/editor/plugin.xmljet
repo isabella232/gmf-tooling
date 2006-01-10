@@ -64,7 +64,19 @@ final GenModel genModel = genDiagram.getEMFGenModel();
                enablesFor="1"
                id="<%=genDiagram.getInitDiagramFileActionQualifiedClassName()%>ID">
          </action>
-      </objectContribution>            
+      </objectContribution>  
+      <objectContribution
+            adaptable="false"
+            id="<%=genDiagram.getPluginID()%>.ui.objectContribution.FileEditorInputProxy1"
+            objectClass="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy">
+         <action
+               class="<%=genDiagram.getCreateShortcutActionQualifiedClassName()%>"
+               enablesFor="1"
+               id="<%=genDiagram.getCreateShortcutActionQualifiedClassName()%>ID"
+               label="Create Shortcut"
+               menubarPath="additions">
+         </action>
+      </objectContribution>                      
   </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">

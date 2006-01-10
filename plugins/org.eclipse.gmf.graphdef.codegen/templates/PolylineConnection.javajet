@@ -9,7 +9,7 @@ final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
 /**
  * @generated
  */
-public class <%=figure.getName()%> extends <%=fqnSwitch.doSwitch(figure)%> {
+public class <%=figure.getName()%> extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
 
 	/**
 	 * @generated

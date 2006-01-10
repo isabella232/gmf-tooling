@@ -4,10 +4,11 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLDestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 
@@ -30,7 +31,17 @@ public class EEnumItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		return getMSLWrapper(new MSLDestroyElementCommand(req));
+		return getMSLWrapper(new MSLDestroyElementCommand(req) {
+
+			protected EObject getElementToDestroy() {
+				View view = (View) getHost().getModel();
+				EAnnotation annotation = view.getEAnnotation("Shortcutted"); //$NON-NLS-1$
+				if (annotation != null) {
+					return view;
+				}
+				return super.getElementToDestroy();
+			}
+		});
 	}
 
 	/**

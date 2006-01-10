@@ -82,7 +82,7 @@
   </nodes>
   <nodes visualID="1002" editPartClassName="EPackage2EditPart" itemSemanticEditPolicyClassName="EPackage2ItemSemanticEditPolicy" notationViewFactoryClassName="EPackage2ViewFactory" canonicalEditPolicyClassName="EPackage2CanonicalEditPolicy" graphicalNodeEditPolicyClassName="EPackageGraphicalNodeEditPolicy">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
+    <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NodeRectangle" classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NodeRectangle() {&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}"/>
     <modelFacet>
       <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage"/>
       <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eSubpackages"/>
@@ -198,7 +198,7 @@
   </nodes>
   <nodes visualID="1003" editPartClassName="EAnnotation3EditPart" itemSemanticEditPolicyClassName="EAnnotation3ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation3ViewFactory" canonicalEditPolicyClassName="EAnnotation3CanonicalEditPolicy" graphicalNodeEditPolicyClassName="EAnnotation3GraphicalNodeEditPolicy">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
+    <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NodeRectangle" classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NodeRectangle() {&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}"/>
     <modelFacet>
       <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation"/>
       <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
@@ -234,7 +234,7 @@
   </nodes>
   <nodes visualID="1004" editPartClassName="EDataType2EditPart" itemSemanticEditPolicyClassName="EDataType2ItemSemanticEditPolicy" notationViewFactoryClassName="EDataType2ViewFactory" canonicalEditPolicyClassName="EDataType2CanonicalEditPolicy" graphicalNodeEditPolicyClassName="EDataType2GraphicalNodeEditPolicy">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
+    <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NodeRectangle" classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NodeRectangle() {&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}"/>
     <modelFacet>
       <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EDataType"/>
       <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
@@ -270,7 +270,7 @@
   </nodes>
   <nodes visualID="1005" editPartClassName="EEnum2EditPart" itemSemanticEditPolicyClassName="EEnum2ItemSemanticEditPolicy" notationViewFactoryClassName="EEnum2ViewFactory" canonicalEditPolicyClassName="EEnum2CanonicalEditPolicy" graphicalNodeEditPolicyClassName="EEnum2GraphicalNodeEditPolicy">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
+    <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NodeRectangle" classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NodeRectangle() {&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}"/>
     <modelFacet>
       <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EEnum"/>
       <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
@@ -333,7 +333,7 @@
   </links>
   <links visualID="3002" editPartClassName="EReferenceEditPart" itemSemanticEditPolicyClassName="EReferenceItemSemanticEditPolicy" notationViewFactoryClassName="EReferenceViewFactory">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
-    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx"/>
+    <viewmap xsi:type="gmfgen:InnerClassViewmap" className="ConnectionLine" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ConnectionLine extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ConnectionLine() {&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
     <modelFacet xsi:type="gmfgen:TypeLinkModelFacet">
       <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EReference"/>
       <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eStructuralFeatures"/>

@@ -20,12 +20,14 @@ import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.gmf.codegen.templates.commands.ReorientConnectionViewCommandGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ActionBarContributorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.BuildPropertiesGenerator;
+import org.eclipse.gmf.codegen.templates.editor.CreateShortcutActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardGenerator;
 import org.eclipse.gmf.codegen.templates.editor.CreationWizardPageGenerator;
 import org.eclipse.gmf.codegen.templates.editor.DiagramEditorUtilGenerator;
 import org.eclipse.gmf.codegen.templates.editor.DiagramFileCreatorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.DocumentProviderGenerator;
 import org.eclipse.gmf.codegen.templates.editor.EditorGenerator;
+import org.eclipse.gmf.codegen.templates.editor.ElementChooserGenerator;
 import org.eclipse.gmf.codegen.templates.editor.InitDiagramFileActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ManifestGenerator;
 import org.eclipse.gmf.codegen.templates.editor.MatchingStrategyGenerator;
@@ -258,7 +260,15 @@ public class EmitterFactory {
 	public static JETEmitter getEditorEmitter() throws JETException {
 		return initializeEmitter("/templates/editor/Editor.javajet", EditorGenerator.class);
 	}
+	
+	public static JETEmitter getCreateShortcutActionEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/CreateShortcutAction.javajet", CreateShortcutActionGenerator.class);
+	}
 
+	public static JETEmitter getElementChooserEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/ElementChooser.javajet", ElementChooserGenerator.class);
+	}
+	
 	public static JETEmitter getDocumentProviderEmitter() throws JETException {
 		return initializeEmitter("/templates/editor/DocumentProvider.javajet", DocumentProviderGenerator.class);
 	}
@@ -293,6 +303,10 @@ public class EmitterFactory {
 
 	public static JETEmitter getBuildPropertiesEmitter() throws JETException {
 		return initializeEmitter("/templates/editor/build.propertiesjet", BuildPropertiesGenerator.class);
+	}
+	
+	public static GIFEmitter getShortcutImageEmitter() {
+		return new GIFEmitter("/templates/editor/shortcut.gif", getTemplatesBundle());
 	}
 
 	private static JETEmitter initializeEmitter(String relativeTemplatePath, Class precompiledTemplate) throws JETException {

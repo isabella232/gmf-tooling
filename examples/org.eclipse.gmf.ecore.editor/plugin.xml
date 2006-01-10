@@ -58,7 +58,19 @@
                enablesFor="1"
                id="org.eclipse.gmf.ecore.editor.EcoreInitDiagramFileActionID">
          </action>
-      </objectContribution>            
+      </objectContribution>  
+      <objectContribution
+            adaptable="false"
+            id="org.eclipse.gmf.ecore.editor.ui.objectContribution.FileEditorInputProxy1"
+            objectClass="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy">
+         <action
+               class="org.eclipse.gmf.ecore.editor.EcoreCreateShortcutAction"
+               enablesFor="1"
+               id="org.eclipse.gmf.ecore.editor.EcoreCreateShortcutActionID"
+               label="Create Shortcut"
+               menubarPath="additions">
+         </action>
+      </objectContribution>                      
   </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
@@ -150,4 +162,5 @@
       </IconProvider>
    </extension>
 
+   
 </plugin>

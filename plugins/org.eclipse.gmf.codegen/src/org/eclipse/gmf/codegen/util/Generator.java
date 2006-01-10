@@ -149,6 +149,8 @@ public class Generator implements Runnable {
 			generateCreationWizard();
 			generateCreationWizardPage();
 			generateEditor();
+			generateCreateShortcutAction();
+			generateElementChooser();
 			generateDocumentProvider();
 			generateActionBarContributor();
 			generateMatchingStrategy();
@@ -158,6 +160,7 @@ public class Generator implements Runnable {
 			generatePluginProperties();
 			generatePluginXml();
 			generateBuildProperties();
+			generateShortcutIcon();
 
 			if (myExceptions.isEmpty()) {
 				myRunStatus = Status.OK_STATUS;
@@ -605,6 +608,24 @@ public class Generator implements Runnable {
 		);
 	}
 	
+	private void generateCreateShortcutAction() throws JETException, InterruptedException {
+		doGenerateJavaClass(
+				EmitterFactory.getCreateShortcutActionEmitter(),
+				myDiagram.getEditorPackageName(), 
+				myDiagram.getCreateShortcutActionClassName(),
+				myDiagram
+			);
+	}
+	
+	private void generateElementChooser() throws JETException, InterruptedException {
+		doGenerateJavaClass(
+				EmitterFactory.getElementChooserEmitter(),
+				myDiagram.getEditorPackageName(), 
+				myDiagram.getElementChooserClassName(),
+				myDiagram
+			);
+	}
+	
 	private void generateDocumentProvider() throws JETException, InterruptedException {
 		doGenerateJavaClass(
 			EmitterFactory.getDocumentProviderEmitter(),
@@ -665,7 +686,29 @@ public class Generator implements Runnable {
 	private void generateBuildProperties() throws JETException, InterruptedException {
 		doGenerateFile(EmitterFactory.getBuildPropertiesEmitter(), new Path("build.properties"));
 	}
+	
+	private void generateShortcutIcon() throws InterruptedException {
+		Path iconPath = new Path("icons/shortcut.gif");
+		IProgressMonitor pm = getNextStepMonitor();
+		try {
+			pm.beginTask(iconPath.lastSegment(), 3);
+			IPath containerPath = myDestProject.getFullPath().append(iconPath.removeLastSegments(1));
+			CodeGenUtil.findOrCreateContainer(containerPath, false, (IPath) null, new SubProgressMonitor(pm, 1));
+			IFile f = myDestProject.getFile(iconPath);
+			if (f.exists()) {
+				f.setContents(new ByteArrayInputStream(EmitterFactory.getShortcutImageEmitter().generateGif()), true, true, new SubProgressMonitor(pm, 1));
+			} else {
+				f.create(new ByteArrayInputStream(EmitterFactory.getShortcutImageEmitter().generateGif()), true, new SubProgressMonitor(pm, 1));
+			}
+			f.getParent().refreshLocal(IResource.DEPTH_ONE, new SubProgressMonitor(pm, 1));
+		} catch (CoreException ex) {
+			myExceptions.add(ex.getStatus());
+		} finally {
+			pm.done();
+		}
 
+	}
+	
 	/**
 	 * Generate ordinary file. No merge is performed at the moment.
 	 * @param emitter template to use

@@ -102,6 +102,8 @@ public class GenDiagramItemProvider
 			addPluginClassNamePropertyDescriptor(object);
 			addPreferenceInitializerClassNamePropertyDescriptor(object);
 			addVisualIDRegistryClassNamePropertyDescriptor(object);
+			addCreateShortcutActionClassNamePropertyDescriptor(object);
+			addElementChooserClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -320,6 +322,46 @@ public class GenDiagramItemProvider
 				 getString("_UI_GenDiagram_visualIDRegistryClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_visualIDRegistryClassName_feature", "_UI_GenDiagram_type"),
 				 GMFGenPackage.eINSTANCE.getGenDiagram_VisualIDRegistryClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Create Shortcut Action Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCreateShortcutActionClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_createShortcutActionClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_createShortcutActionClassName_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_CreateShortcutActionClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Element Chooser Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addElementChooserClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_elementChooserClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_elementChooserClassName_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_ElementChooserClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -1030,6 +1072,8 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__NODES:

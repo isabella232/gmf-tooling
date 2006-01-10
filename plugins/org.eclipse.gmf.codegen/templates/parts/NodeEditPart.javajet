@@ -9,6 +9,7 @@ boolean useFlowLayout = genNode.getChildContainersPlacement() == CompartmentPlac
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
+import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.gef.EditPolicy;
@@ -18,6 +19,8 @@ import org.eclipse.gmf.runtime.draw2d.ui.figures.RectangularDropShadowLineBorder
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
@@ -79,7 +82,7 @@ if (viewmap instanceof FigureViewmap) {
 	figureQualifiedClassName = ((FigureViewmap) viewmap).getFigureQualifiedClassName();
 	if (figureQualifiedClassName == null || figureQualifiedClassName.trim().length() == 0) {
 		figureQualifiedClassName = "org.eclipse.draw2d.RectangleFigure";
-}
+	}
 %>
 		return new <%=importManager.getImportedName(figureQualifiedClassName)%>()<%if (useFlowLayout) {%> {
 			protected boolean useLocalCoordinates() {
@@ -125,23 +128,42 @@ if (defSizeAttrs != null) {
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
 		figure.add(shape);
-		addContentPane(shape);
+		shape.setLayoutManager(new StackLayout());
+		
+		IFigure shapeContents = new Figure();
+		shape.add(shapeContents);
+		shapeContents.setLayoutManager(new BorderLayout());
+		addContentPane(shapeContents);
+		decorateShape(shapeContents);
+
 		return figure;
+	}
+	
+	/**
+	 * @generated
+	 */
+	private void decorateShape(IFigure shapeContents) {
+		View view = (View) getModel();
+		EAnnotation annotation = view.getEAnnotation("Shortcutted"); //$NON-NLS-1$
+		if (annotation == null) {
+			return;
+		}
+		
+		Figure decorationPane = new Figure();
+		decorationPane.setLayoutManager(new BorderLayout());
+		shapeContents.add(decorationPane, BorderLayout.BOTTOM);
+		
+		ImageFigureEx imageFigure = new ImageFigureEx(<%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.getInstance().getBundledImage("icons/shortcut.gif"));
+		decorationPane.add(imageFigure, BorderLayout.RIGHT);
 	}
 
 	/**
 	 * @generated
 	 */
 	protected void addContentPane(IFigure shape) {
-<%if (genNode.isExplicitContentPane()) {%>
 		contentPane = new <%=importManager.getImportedName("org.eclipse.draw2d.Figure")%>();
-		shape.setLayoutManager(new StackLayout());
-		shape.add(contentPane);
-<%} else {%>
-		contentPane = shape;
+		shape.add(contentPane, BorderLayout.CENTER);
 <%
-}
-
 if (!useFlowLayout) {
 	String layoutClassName = importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout");
 %>

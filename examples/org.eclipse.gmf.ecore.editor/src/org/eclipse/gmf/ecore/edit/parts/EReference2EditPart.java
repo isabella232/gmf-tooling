@@ -1,10 +1,10 @@
 package org.eclipse.gmf.ecore.edit.parts;
 
 import org.eclipse.draw2d.Connection;
-import org.eclipse.gmf.ecore.edit.policies.EReference2ItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.ecore.edit.policies.EReference2ItemSemanticEditPolicy;
 
 /**
  * @generated

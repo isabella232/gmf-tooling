@@ -12,7 +12,8 @@
 package org.eclipse.gmf.internal.codegen.popup.actions;
 
 import java.io.IOException;
-import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -30,6 +31,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.Diagnostician;
+import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.gmf.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.DefaultNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
@@ -59,7 +61,8 @@ public class TransformToGenModel implements IObjectActionDelegate {
 
 	private IFile myMapFile;
 	private IWorkbenchPart myPart;
-	private IFile myDestFile; 
+	private IFile myDestFile;
+	private Map mySaveOptions = null;
 	private static final Boolean THERE_IS_NO_SPECIFIC_RT = Boolean.TRUE;
 
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
@@ -154,10 +157,18 @@ public class TransformToGenModel implements IObjectActionDelegate {
 			}
 			private void save(GenDiagram gd) throws IOException {
 				Resource dgmmRes = resSet.createResource(getGenModelURI());
-				dgmmRes.getContents().add(gd);
-				dgmmRes.save(Collections.EMPTY_MAP);
+				dgmmRes.getContents().add(gd);				
+				dgmmRes.save(getSaveOptions());
 			}
 		}.schedule();
+	}
+
+	protected Map getSaveOptions() {
+		if (mySaveOptions == null) {
+			mySaveOptions = new HashMap();
+			mySaveOptions.put(XMIResource.OPTION_ENCODING, "UTF-8");
+		}
+		return mySaveOptions;
 	}
 
 	private IStatus validate(Mapping mapping) {

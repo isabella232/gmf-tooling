@@ -35,7 +35,7 @@ import org.eclipse.emf.common.util.EList;
  * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let c: ecore::EClass = diagramRunTimeClass.ecoreClass.oclAsType(ecore::EClass) in c = notation::Node or c.eAllSuperTypes->includes(notation::Node)'"
  * @generated
  */
-public interface GenNode extends GenChildContainer{
+public interface GenNode extends GenChildContainer {
 	/**
 	 * Returns the value of the '<em><b>Diagram</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getNodes <em>Nodes</em>}'.
@@ -151,7 +151,7 @@ public interface GenNode extends GenChildContainer{
 	 * @return the value of the '<em>Explicit Content Pane</em>' attribute.
 	 * @see #setExplicitContentPane(boolean)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_ExplicitContentPane()
-	 * @model
+	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Obsolete with new gmfgraph. Should be removed form the model.'"
 	 * @generated
 	 */
 	boolean isExplicitContentPane();

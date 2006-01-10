@@ -90,6 +90,8 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPluginClassName <em>Plugin Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPreferenceInitializerClassName <em>Preference Initializer Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getVisualIDRegistryClassName <em>Visual ID Registry Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreateShortcutActionClassName <em>Create Shortcut Action Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getElementChooserClassName <em>Element Chooser Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -937,6 +939,46 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	protected String visualIDRegistryClassName = VISUAL_ID_REGISTRY_CLASS_NAME_EDEFAULT;
 
+	/**
+	 * The default value of the '{@link #getCreateShortcutActionClassName() <em>Create Shortcut Action Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreateShortcutActionClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CREATE_SHORTCUT_ACTION_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCreateShortcutActionClassName() <em>Create Shortcut Action Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCreateShortcutActionClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String createShortcutActionClassName = CREATE_SHORTCUT_ACTION_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getElementChooserClassName() <em>Element Chooser Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getElementChooserClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ELEMENT_CHOOSER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getElementChooserClassName() <em>Element Chooser Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getElementChooserClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String elementChooserClassName = ELEMENT_CHOOSER_CLASS_NAME_EDEFAULT;
+
 	private static final String DIAGRAM_EDITOR_TOKEN = "gmf.editor";
 
 	/**
@@ -1406,6 +1448,64 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		visualIDRegistryClassName = newVisualIDRegistryClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME, oldVisualIDRegistryClassName, visualIDRegistryClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getCreateShortcutActionClassNameGen() {
+		return createShortcutActionClassName;
+	}
+
+	public String getCreateShortcutActionClassName() {
+		String value = getCreateShortcutActionClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "CreateShortcutAction"; //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCreateShortcutActionClassName(String newCreateShortcutActionClassName) {
+		String oldCreateShortcutActionClassName = createShortcutActionClassName;
+		createShortcutActionClassName = newCreateShortcutActionClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME, oldCreateShortcutActionClassName, createShortcutActionClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getElementChooserClassNameGen() {
+		return elementChooserClassName;
+	}
+
+	public String getElementChooserClassName() {
+		String value = getElementChooserClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "ElementChooserDialog"; //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setElementChooserClassName(String newElementChooserClassName) {
+		String oldElementChooserClassName = elementChooserClassName;
+		elementChooserClassName = newElementChooserClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME, oldElementChooserClassName, elementChooserClassName));
 	}
 
 	/**
@@ -2301,6 +2401,24 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getCreateShortcutActionQualifiedClassName() {
+		return getEditorPackageName() + '.' + getCreateShortcutActionClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getElementChooserQualifiedClassName() {
+		return getEditorPackageName() + '.' + getElementChooserClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -2435,6 +2553,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getPreferenceInitializerClassName();
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
 				return getVisualIDRegistryClassName();
+			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
+				return getCreateShortcutActionClassName();
+			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
+				return getElementChooserClassName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -2583,6 +2705,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
 				setVisualIDRegistryClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
+				setCreateShortcutActionClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
+				setElementChooserClassName((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -2729,6 +2857,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
 				setVisualIDRegistryClassName(VISUAL_ID_REGISTRY_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
+				setCreateShortcutActionClassName(CREATE_SHORTCUT_ACTION_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
+				setElementChooserClassName(ELEMENT_CHOOSER_CLASS_NAME_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -2830,6 +2964,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return PREFERENCE_INITIALIZER_CLASS_NAME_EDEFAULT == null ? preferenceInitializerClassName != null : !PREFERENCE_INITIALIZER_CLASS_NAME_EDEFAULT.equals(preferenceInitializerClassName);
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
 				return VISUAL_ID_REGISTRY_CLASS_NAME_EDEFAULT == null ? visualIDRegistryClassName != null : !VISUAL_ID_REGISTRY_CLASS_NAME_EDEFAULT.equals(visualIDRegistryClassName);
+			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
+				return CREATE_SHORTCUT_ACTION_CLASS_NAME_EDEFAULT == null ? createShortcutActionClassName != null : !CREATE_SHORTCUT_ACTION_CLASS_NAME_EDEFAULT.equals(createShortcutActionClassName);
+			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
+				return ELEMENT_CHOOSER_CLASS_NAME_EDEFAULT == null ? elementChooserClassName != null : !ELEMENT_CHOOSER_CLASS_NAME_EDEFAULT.equals(elementChooserClassName);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -3219,6 +3357,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(preferenceInitializerClassName);
 		result.append(", visualIDRegistryClassName: ");
 		result.append(visualIDRegistryClassName);
+		result.append(", createShortcutActionClassName: ");
+		result.append(createShortcutActionClassName);
+		result.append(", elementChooserClassName: ");
+		result.append(elementChooserClassName);
 		result.append(')');
 		return result.toString();
 	}

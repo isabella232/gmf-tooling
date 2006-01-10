@@ -1392,6 +1392,7 @@ public class EcoreVisualIDRegistry {
 		 * @generated
 		 */
 		static class AcceptAllMatcher {
+
 			/**
 			 * @generated
 			 */

@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EReference;
  * <!-- end-user-doc -->
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenFactory
  * @model kind="package"
- *        annotation="http://www.eclipse.org/emf/2004/EmfaticAnnotationMap constraints='http://www.eclipse.org/gmf/2005/constraints' meta='http://www.eclipse.org/gmf/2005/constraints/meta'"
+ *        annotation="http://www.eclipse.org/emf/2004/EmfaticAnnotationMap constraints='http://www.eclipse.org/gmf/2005/constraints' meta='http://www.eclipse.org/gmf/2005/constraints/meta' deprecated='http://www.eclipse.org/gmf/2006/deprecated'"
  *        annotation="http://www.eclipse.org/gmf/2005/constraints import='platform:/resource/org.eclipse.gmf.runtime.notation/model/notation.ecore'"
  * @generated
  */
@@ -605,13 +605,31 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 44;
 
 	/**
+	 * The feature id for the '<em><b>Create Shortcut Action Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 45;
+
+	/**
+	 * The feature id for the '<em><b>Element Chooser Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 46;
+
+	/**
 	 * The number of structural features of the '<em>Gen Diagram</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 45;
+	int GEN_DIAGRAM_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 47;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl <em>Gen Node</em>}' class.
@@ -3229,6 +3247,28 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenDiagram_VisualIDRegistryClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCreateShortcutActionClassName <em>Create Shortcut Action Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Create Shortcut Action Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCreateShortcutActionClassName()
+	 * @see #getGenDiagram()
+	 * @generated
+	 */
+	EAttribute getGenDiagram_CreateShortcutActionClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getElementChooserClassName <em>Element Chooser Class Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Element Chooser Class Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getElementChooserClassName()
+	 * @see #getGenDiagram()
+	 * @generated
+	 */
+	EAttribute getGenDiagram_ElementChooserClassName();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditorPackageName <em>Editor Package Name</em>}'.

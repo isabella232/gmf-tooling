@@ -11,6 +11,7 @@ import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.gmf.runtime.emf.core.internal.util.MSLAdapterFactoryManager;
 import org.eclipse.gmf.runtime.emf.core.internal.util.MSLMetaModelManager;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -125,5 +126,22 @@ public class EcoreDiagramEditorPlugin extends AbstractUIPlugin {
 	 */
 	public static ImageDescriptor getBundledImageDescriptor(String path) {
 		return AbstractUIPlugin.imageDescriptorFromPlugin(ID, path);
+	}
+
+	/**
+	 * Returns an image for the image file at the given plug-in relative path.
+	 * Client do not need to dispose this image. Images will be disposed automatically.
+	 *
+	 * @generated
+	 * @param path the path
+	 * @return image instance
+	 */
+	public Image getBundledImage(String path) {
+		Image image = getImageRegistry().get(path);
+		if (image == null) {
+			getImageRegistry().put(path, getBundledImageDescriptor(path));
+			image = getImageRegistry().get(path);
+		}
+		return image;
 	}
 }

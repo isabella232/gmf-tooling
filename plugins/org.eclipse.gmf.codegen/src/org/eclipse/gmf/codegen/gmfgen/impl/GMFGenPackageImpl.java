@@ -574,6 +574,24 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenDiagram_CreateShortcutActionClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(45);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_ElementChooserClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(46);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getGenDiagram_EditorPackageName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(9);
 	}
@@ -2128,6 +2146,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genDiagramEClass, GEN_DIAGRAM__PLUGIN_CLASS_NAME);
 		createEAttribute(genDiagramEClass, GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME);
 		createEAttribute(genDiagramEClass, GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME);
+		createEAttribute(genDiagramEClass, GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME);
+		createEAttribute(genDiagramEClass, GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME);
 
 		genCommonBaseEClass = createEClass(GEN_COMMON_BASE);
 		createEReference(genCommonBaseEClass, GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS);
@@ -2406,6 +2426,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenDiagram_PluginClassName(), ecorePackage.getEString(), "pluginClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagram_PreferenceInitializerClassName(), ecorePackage.getEString(), "preferenceInitializerClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagram_VisualIDRegistryClassName(), ecorePackage.getEString(), "visualIDRegistryClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagram_CreateShortcutActionClassName(), ecorePackage.getEString(), "createShortcutActionClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagram_ElementChooserClassName(), ecorePackage.getEString(), "elementChooserClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genDiagramEClass, theGenModelPackage.getGenModel(), "getEMFGenModel", 0, 1);
 
@@ -2474,6 +2496,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getPreferenceInitializerQualifiedClassName", 0, 1);
 
 		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getVisualIDRegistryQualifiedClassName", 0, 1);
+
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getCreateShortcutActionQualifiedClassName", 0, 1);
+
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getElementChooserQualifiedClassName", 0, 1);
 
 		initEClass(genCommonBaseEClass, GenCommonBase.class, "GenCommonBase", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenCommonBase_DiagramRunTimeClass(), theGenModelPackage.getGenClass(), null, "diagramRunTimeClass", null, 1, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2735,6 +2761,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEmfaticAnnotationMapAnnotations();
 		// http://www.eclipse.org/gmf/2005/constraints
 		createConstraintsAnnotations();
+		// http://www.eclipse.org/gmf/2006/deprecated
+		createDeprecatedAnnotations();
 		// http://www.eclipse.org/gmf/2005/constraints/meta
 		createMetaAnnotations();
 	}
@@ -2752,8 +2780,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
-			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																																																																																						
+			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
+			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
+		   });																																																																																																							
 	}
 
 	/**
@@ -2781,7 +2810,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "let c: ecore::EClass = diagramRunTimeClass.ecoreClass.oclAsType(ecore::EClass) in c = notation::Node or c.eAllSuperTypes->includes(notation::Node)"
-		   });							
+		   });								
 		addAnnotation
 		  (genLinkEClass, 
 		   source, 
@@ -2839,13 +2868,29 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	}
 
 	/**
+	 * Initializes the annotations for <b>http://www.eclipse.org/gmf/2006/deprecated</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createDeprecatedAnnotations() {
+		String source = "http://www.eclipse.org/gmf/2006/deprecated";																							
+		addAnnotation
+		  (getGenNode_ExplicitContentPane(), 
+		   source, 
+		   new String[] {
+			 "documentation", "Obsolete with new gmfgraph. Should be removed form the model."
+		   });																																																																																		
+	}
+
+	/**
 	 * Initializes the annotations for <b>http://www.eclipse.org/gmf/2005/constraints/meta</b>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																											
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																												
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 

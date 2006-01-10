@@ -64,6 +64,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPluginClassName <em>Plugin Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPreferenceInitializerClassName <em>Preference Initializer Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getVisualIDRegistryClassName <em>Visual ID Registry Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCreateShortcutActionClassName <em>Create Shortcut Action Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getElementChooserClassName <em>Element Chooser Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -451,6 +453,58 @@ public interface GenDiagram extends GenCommonBase {
 	 * @generated
 	 */
 	void setVisualIDRegistryClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Create Shortcut Action Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Create Shortcut Action Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Create Shortcut Action Class Name</em>' attribute.
+	 * @see #setCreateShortcutActionClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_CreateShortcutActionClassName()
+	 * @model
+	 * @generated
+	 */
+	String getCreateShortcutActionClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCreateShortcutActionClassName <em>Create Shortcut Action Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Create Shortcut Action Class Name</em>' attribute.
+	 * @see #getCreateShortcutActionClassName()
+	 * @generated
+	 */
+	void setCreateShortcutActionClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Element Chooser Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Element Chooser Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Element Chooser Class Name</em>' attribute.
+	 * @see #setElementChooserClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_ElementChooserClassName()
+	 * @model
+	 * @generated
+	 */
+	String getElementChooserClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getElementChooserClassName <em>Element Chooser Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Element Chooser Class Name</em>' attribute.
+	 * @see #getElementChooserClassName()
+	 * @generated
+	 */
+	void setElementChooserClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Editor Package Name</b></em>' attribute.
@@ -1265,6 +1319,22 @@ public interface GenDiagram extends GenCommonBase {
 	 * @generated
 	 */
 	String getVisualIDRegistryQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getCreateShortcutActionQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getElementChooserQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

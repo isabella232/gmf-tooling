@@ -138,6 +138,7 @@ public class EcorePaletteFactory {
 		elementTypes.add(EcoreElementTypes.EClass_1001);
 		elementTypes.add(EcoreElementTypes.EClass_2004);
 		return new ToolEntry("EClass", "EClass", smallImage, largeImage) {
+
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
 				tool.setProperties(getToolProperties());
@@ -161,6 +162,7 @@ public class EcorePaletteFactory {
 		elementTypes.add(EcoreElementTypes.EPackage_1002);
 		elementTypes.add(EcoreElementTypes.EPackage_2005);
 		return new ToolEntry("EPackage", "EPackage", smallImage, largeImage) {
+
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
 				tool.setProperties(getToolProperties());
@@ -187,6 +189,7 @@ public class EcorePaletteFactory {
 		elementTypes.add(EcoreElementTypes.EAnnotation_2010);
 		elementTypes.add(EcoreElementTypes.EAnnotation_2012);
 		return new ToolEntry("EAnnotation", "EAnnotation", smallImage, largeImage) {
+
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
 				tool.setProperties(getToolProperties());
@@ -210,6 +213,7 @@ public class EcorePaletteFactory {
 		elementTypes.add(EcoreElementTypes.EDataType_1004);
 		elementTypes.add(EcoreElementTypes.EDataType_2006);
 		return new ToolEntry("EDataType", "EDataType", smallImage, largeImage) {
+
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
 				tool.setProperties(getToolProperties());
@@ -233,6 +237,7 @@ public class EcorePaletteFactory {
 		elementTypes.add(EcoreElementTypes.EEnum_1005);
 		elementTypes.add(EcoreElementTypes.EEnum_2007);
 		return new ToolEntry("EEnum", "EEnum", smallImage, largeImage) {
+
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
 				tool.setProperties(getToolProperties());
@@ -255,6 +260,7 @@ public class EcorePaletteFactory {
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EAttribute_2001);
 		return new ToolEntry("EAttribute", "EAttribute", smallImage, largeImage) {
+
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
 				tool.setProperties(getToolProperties());
@@ -277,6 +283,7 @@ public class EcorePaletteFactory {
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EOperation_2002);
 		return new ToolEntry("EOperation", "EOperation", smallImage, largeImage) {
+
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
 				tool.setProperties(getToolProperties());
@@ -299,6 +306,7 @@ public class EcorePaletteFactory {
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EStringToStringMapEntry_2009);
 		return new ToolEntry("Annotation Details", "EStringToStringMapEntry", smallImage, largeImage) {
+
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
 				tool.setProperties(getToolProperties());
@@ -321,6 +329,7 @@ public class EcorePaletteFactory {
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EEnumLiteral_2011);
 		return new ToolEntry("EEnumLiteral", "EEnumLiteral", smallImage, largeImage) {
+
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
 				tool.setProperties(getToolProperties());

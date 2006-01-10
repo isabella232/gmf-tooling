@@ -1,5 +1,6 @@
 package org.eclipse.gmf.ecore.edit.parts;
 
+import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.gef.EditPolicy;
@@ -9,7 +10,9 @@ import org.eclipse.gmf.runtime.draw2d.ui.figures.RectangularDropShadowLineBorder
 import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
 import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.draw2d.RectangleFigure;
+import org.eclipse.emf.ecore.EAnnotation;
+import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
+import org.eclipse.draw2d.Figure;
 
 import org.eclipse.gef.EditPart;
 
@@ -17,6 +20,8 @@ import org.eclipse.gmf.ecore.edit.policies.EEnum2GraphicalNodeEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EEnum2ItemSemanticEditPolicy;
 
 import org.eclipse.gmf.ecore.edit.providers.EcoreSemanticHints;
+
+import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
 
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 
@@ -50,7 +55,7 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		return new RectangleFigure();
+		return new NodeRectangle();
 	}
 
 	/**
@@ -74,15 +79,41 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
 		figure.add(shape);
-		addContentPane(shape);
+		shape.setLayoutManager(new StackLayout());
+
+		IFigure shapeContents = new Figure();
+		shape.add(shapeContents);
+		shapeContents.setLayoutManager(new BorderLayout());
+		addContentPane(shapeContents);
+		decorateShape(shapeContents);
+
 		return figure;
 	}
 
 	/**
 	 * @generated
 	 */
+	private void decorateShape(IFigure shapeContents) {
+		View view = (View) getModel();
+		EAnnotation annotation = view.getEAnnotation("Shortcutted"); //$NON-NLS-1$
+		if (annotation == null) {
+			return;
+		}
+
+		Figure decorationPane = new Figure();
+		decorationPane.setLayoutManager(new BorderLayout());
+		shapeContents.add(decorationPane, BorderLayout.BOTTOM);
+
+		ImageFigureEx imageFigure = new ImageFigureEx(EcoreDiagramEditorPlugin.getInstance().getBundledImage("icons/shortcut.gif"));
+		decorationPane.add(imageFigure, BorderLayout.RIGHT);
+	}
+
+	/**
+	 * @generated
+	 */
 	protected void addContentPane(IFigure shape) {
-		contentPane = shape;
+		contentPane = new Figure();
+		shape.add(contentPane, BorderLayout.CENTER);
 		ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
 		layout.setSpacing(getMapMode().DPtoLP(5));
 		contentPane.setLayoutManager(layout);
@@ -105,4 +136,17 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 		return getChildBySemanticHint(EcoreSemanticHints.EEnum_1005Labels.EENUMNAME_4015_TEXT);
 	}
 
+	/**
+	 * @generated
+	 */
+	public class NodeRectangle extends org.eclipse.draw2d.RectangleFigure {
+
+		/**
+		 * @generated
+		 */
+		public NodeRectangle() {
+
+		}
+
+	}
 }

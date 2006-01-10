@@ -32,38 +32,40 @@ public class DecorationFigureGenerator
   protected final String TEXT_14 = ");";
   protected final String TEXT_15 = NL + "\t\t";
   protected final String TEXT_16 = ".setTemplate(pl);";
-  protected final String TEXT_17 = NL + "\t\tsetScale(";
-  protected final String TEXT_18 = ", ";
-  protected final String TEXT_19 = ");";
-  protected final String TEXT_20 = NL;
-  protected final String TEXT_21 = NL + "\t\t";
-  protected final String TEXT_22 = ".setFill(";
-  protected final String TEXT_23 = ");";
-  protected final String TEXT_24 = NL + "\t\t";
-  protected final String TEXT_25 = ".setOutline(";
-  protected final String TEXT_26 = ");";
-  protected final String TEXT_27 = NL + "\t\t";
-  protected final String TEXT_28 = ".setLineWidth(";
-  protected final String TEXT_29 = ");";
-  protected final String TEXT_30 = NL + "\t\t";
-  protected final String TEXT_31 = ".setLineStyle(org.eclipse.draw2d.Graphics.";
-  protected final String TEXT_32 = ");";
-  protected final String TEXT_33 = NL + "\t\t";
-  protected final String TEXT_34 = ".setFillXOR(";
-  protected final String TEXT_35 = ");";
-  protected final String TEXT_36 = NL + "\t\t";
-  protected final String TEXT_37 = ".setOutlineXOR(";
-  protected final String TEXT_38 = ");";
-  protected final String TEXT_39 = NL + "\t\t";
-  protected final String TEXT_40 = ".addPoint(new org.eclipse.draw2d.geometry.Point(";
-  protected final String TEXT_41 = ", ";
-  protected final String TEXT_42 = "));";
-  protected final String TEXT_43 = NL + "\t\t";
-  protected final String TEXT_44 = ".setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(";
-  protected final String TEXT_45 = ", ";
-  protected final String TEXT_46 = "));";
-  protected final String TEXT_47 = NL + "\t}" + NL + "}";
-  protected final String TEXT_48 = NL;
+  protected final String TEXT_17 = NL + "\t\t";
+  protected final String TEXT_18 = ".setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));";
+  protected final String TEXT_19 = NL + "\t\tsetScale(";
+  protected final String TEXT_20 = ", ";
+  protected final String TEXT_21 = ");";
+  protected final String TEXT_22 = NL;
+  protected final String TEXT_23 = NL + "\t\t";
+  protected final String TEXT_24 = ".setFill(";
+  protected final String TEXT_25 = ");";
+  protected final String TEXT_26 = NL + "\t\t";
+  protected final String TEXT_27 = ".setOutline(";
+  protected final String TEXT_28 = ");";
+  protected final String TEXT_29 = NL + "\t\t";
+  protected final String TEXT_30 = ".setLineWidth(";
+  protected final String TEXT_31 = ");";
+  protected final String TEXT_32 = NL + "\t\t";
+  protected final String TEXT_33 = ".setLineStyle(org.eclipse.draw2d.Graphics.";
+  protected final String TEXT_34 = ");";
+  protected final String TEXT_35 = NL + "\t\t";
+  protected final String TEXT_36 = ".setFillXOR(";
+  protected final String TEXT_37 = ");";
+  protected final String TEXT_38 = NL + "\t\t";
+  protected final String TEXT_39 = ".setOutlineXOR(";
+  protected final String TEXT_40 = ");";
+  protected final String TEXT_41 = NL + "\t\t";
+  protected final String TEXT_42 = ".addPoint(new org.eclipse.draw2d.geometry.Point(";
+  protected final String TEXT_43 = ", ";
+  protected final String TEXT_44 = "));";
+  protected final String TEXT_45 = NL + "\t\t";
+  protected final String TEXT_46 = ".setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(";
+  protected final String TEXT_47 = ", ";
+  protected final String TEXT_48 = "));";
+  protected final String TEXT_49 = NL + "\t}" + NL + "}";
+  protected final String TEXT_50 = NL;
 
   public String generate(Object argument)
   {
@@ -109,80 +111,83 @@ String decFigVarName = "this";
     stringBuffer.append(decFigVarName);
     stringBuffer.append(TEXT_16);
     } /*if instanceof */ 
-    if (scale != null) {
     stringBuffer.append(TEXT_17);
-    stringBuffer.append(scale.getX());
+    stringBuffer.append(decFigVarName);
     stringBuffer.append(TEXT_18);
-    stringBuffer.append(scale.getY());
+    if (scale != null) {
     stringBuffer.append(TEXT_19);
+    stringBuffer.append(scale.getX());
+    stringBuffer.append(TEXT_20);
+    stringBuffer.append(scale.getY());
+    stringBuffer.append(TEXT_21);
     }
     
 Shape shapeFigure = (Shape) figure;
 String shapeVarName = "this";
 
-    stringBuffer.append(TEXT_20);
+    stringBuffer.append(TEXT_22);
     
 // PERHAPS, do this with reflection?
 
     if (shapeFigure.eIsSet(GMFGraphPackage.eINSTANCE.getShape_Fill())) {
-    stringBuffer.append(TEXT_21);
-    stringBuffer.append(shapeVarName);
-    stringBuffer.append(TEXT_22);
-    stringBuffer.append(shapeFigure.isFill());
     stringBuffer.append(TEXT_23);
-    } if (shapeFigure.eIsSet(GMFGraphPackage.eINSTANCE.getShape_Outline())) {
+    stringBuffer.append(shapeVarName);
     stringBuffer.append(TEXT_24);
-    stringBuffer.append(shapeVarName);
+    stringBuffer.append(shapeFigure.isFill());
     stringBuffer.append(TEXT_25);
-    stringBuffer.append(shapeFigure.isOutline());
+    } if (shapeFigure.eIsSet(GMFGraphPackage.eINSTANCE.getShape_Outline())) {
     stringBuffer.append(TEXT_26);
-    } if (shapeFigure.eIsSet(GMFGraphPackage.eINSTANCE.getShape_LineWidth())) {
+    stringBuffer.append(shapeVarName);
     stringBuffer.append(TEXT_27);
-    stringBuffer.append(shapeVarName);
+    stringBuffer.append(shapeFigure.isOutline());
     stringBuffer.append(TEXT_28);
-    stringBuffer.append(shapeFigure.getLineWidth());
+    } if (shapeFigure.eIsSet(GMFGraphPackage.eINSTANCE.getShape_LineWidth())) {
     stringBuffer.append(TEXT_29);
-    } if (shapeFigure.eIsSet(GMFGraphPackage.eINSTANCE.getShape_LineKind())) {
+    stringBuffer.append(shapeVarName);
     stringBuffer.append(TEXT_30);
-    stringBuffer.append(shapeVarName);
+    stringBuffer.append(shapeFigure.getLineWidth());
     stringBuffer.append(TEXT_31);
-    stringBuffer.append(shapeFigure.getLineKind().getName());
+    } if (shapeFigure.eIsSet(GMFGraphPackage.eINSTANCE.getShape_LineKind())) {
     stringBuffer.append(TEXT_32);
-    } if (shapeFigure.eIsSet(GMFGraphPackage.eINSTANCE.getShape_XorFill())) {
+    stringBuffer.append(shapeVarName);
     stringBuffer.append(TEXT_33);
-    stringBuffer.append(shapeVarName);
+    stringBuffer.append(shapeFigure.getLineKind().getName());
     stringBuffer.append(TEXT_34);
-    stringBuffer.append(shapeFigure.isXorFill());
+    } if (shapeFigure.eIsSet(GMFGraphPackage.eINSTANCE.getShape_XorFill())) {
     stringBuffer.append(TEXT_35);
-    } if (shapeFigure.eIsSet(GMFGraphPackage.eINSTANCE.getShape_XorOutline())) {
-    stringBuffer.append(TEXT_36);
     stringBuffer.append(shapeVarName);
+    stringBuffer.append(TEXT_36);
+    stringBuffer.append(shapeFigure.isXorFill());
     stringBuffer.append(TEXT_37);
-    stringBuffer.append(shapeFigure.isXorOutline());
+    } if (shapeFigure.eIsSet(GMFGraphPackage.eINSTANCE.getShape_XorOutline())) {
     stringBuffer.append(TEXT_38);
+    stringBuffer.append(shapeVarName);
+    stringBuffer.append(TEXT_39);
+    stringBuffer.append(shapeFigure.isXorOutline());
+    stringBuffer.append(TEXT_40);
     } if (shapeFigure instanceof Polyline && !((Polyline) shapeFigure).getTemplate().isEmpty()) {
 	for (Iterator pointIt = ((Polyline) shapeFigure).getTemplate().iterator(); pointIt.hasNext(); ) {
 		Point p = (Point) pointIt.next();
-    stringBuffer.append(TEXT_39);
-    stringBuffer.append(shapeVarName);
-    stringBuffer.append(TEXT_40);
-    stringBuffer.append(p.getX());
     stringBuffer.append(TEXT_41);
-    stringBuffer.append(p.getY());
+    stringBuffer.append(shapeVarName);
     stringBuffer.append(TEXT_42);
+    stringBuffer.append(p.getX());
+    stringBuffer.append(TEXT_43);
+    stringBuffer.append(p.getY());
+    stringBuffer.append(TEXT_44);
     }
     } else if (shapeFigure instanceof RoundedRectangle) {
 		RoundedRectangle rrFigure = (RoundedRectangle) shapeFigure;
-    stringBuffer.append(TEXT_43);
-    stringBuffer.append(shapeVarName);
-    stringBuffer.append(TEXT_44);
-    stringBuffer.append(rrFigure.getCornerWidth());
     stringBuffer.append(TEXT_45);
-    stringBuffer.append(rrFigure.getCornerHeight());
+    stringBuffer.append(shapeVarName);
     stringBuffer.append(TEXT_46);
-    }
+    stringBuffer.append(rrFigure.getCornerWidth());
     stringBuffer.append(TEXT_47);
+    stringBuffer.append(rrFigure.getCornerHeight());
     stringBuffer.append(TEXT_48);
+    }
+    stringBuffer.append(TEXT_49);
+    stringBuffer.append(TEXT_50);
     return stringBuffer.toString();
   }
 }

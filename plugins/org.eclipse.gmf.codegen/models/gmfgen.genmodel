@@ -76,6 +76,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/pluginClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/preferenceInitializerClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/visualIDRegistryClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/createShortcutActionClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/elementChooserClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getEMFGenModel"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getRequiredPluginIDs"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getElementInitializersClassName"/>
@@ -110,6 +112,8 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getPluginQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getPreferenceInitializerQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getVisualIDRegistryQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getCreateShortcutActionQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getElementChooserQualifiedClassName"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenCommonBase">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCommonBase/diagramRunTimeClass"/>

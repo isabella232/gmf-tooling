@@ -9,3 +9,4 @@
 <%} /*for*/ %>
 		<%=decFigVarName%>.setTemplate(pl);
 <%} /*if instanceof */ %>
+		<%=decFigVarName%>.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));
