@@ -10,13 +10,14 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.mappings.*;
-
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
+import org.eclipse.gmf.mappings.AppearanceSteward;
+import org.eclipse.gmf.mappings.AuditContainer;
+import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
+import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.Constraint;
-import org.eclipse.gmf.mappings.CreationTool;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
@@ -25,10 +26,9 @@ import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
-import org.eclipse.gmf.mappings.NewActionTool;
+import org.eclipse.gmf.mappings.MenuOwner;
 import org.eclipse.gmf.mappings.NodeMapping;
-import org.eclipse.gmf.mappings.Tool;
-import org.eclipse.gmf.mappings.ToolGroup;
+import org.eclipse.gmf.mappings.ToolOwner;
 import org.eclipse.gmf.mappings.ValueExpression;
 
 /**
@@ -86,11 +86,14 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected GMFMapSwitch modelSwitch =
 		new GMFMapSwitch() {
-			public Object caseAbstractNodeMapping(AbstractNodeMapping object) {
-				return createAbstractNodeMappingAdapter();
+			public Object caseMapping(Mapping object) {
+				return createMappingAdapter();
 			}
 			public Object caseMappingEntry(MappingEntry object) {
 				return createMappingEntryAdapter();
+			}
+			public Object caseAbstractNodeMapping(AbstractNodeMapping object) {
+				return createAbstractNodeMappingAdapter();
 			}
 			public Object caseNodeMapping(NodeMapping object) {
 				return createNodeMappingAdapter();
@@ -106,21 +109,6 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseCanvasMapping(CanvasMapping object) {
 				return createCanvasMappingAdapter();
-			}
-			public Object caseMapping(Mapping object) {
-				return createMappingAdapter();
-			}
-			public Object caseToolGroup(ToolGroup object) {
-				return createToolGroupAdapter();
-			}
-			public Object caseTool(Tool object) {
-				return createToolAdapter();
-			}
-			public Object caseCreationTool(CreationTool object) {
-				return createCreationToolAdapter();
-			}
-			public Object caseNewActionTool(NewActionTool object) {
-				return createNewActionToolAdapter();
 			}
 			public Object caseConstraint(Constraint object) {
 				return createConstraintAdapter();
@@ -139,6 +127,15 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseFeatureValueSpec(FeatureValueSpec object) {
 				return createFeatureValueSpecAdapter();
+			}
+			public Object caseMenuOwner(MenuOwner object) {
+				return createMenuOwnerAdapter();
+			}
+			public Object caseToolOwner(ToolOwner object) {
+				return createToolOwnerAdapter();
+			}
+			public Object caseAppearanceSteward(AppearanceSteward object) {
+				return createAppearanceStewardAdapter();
 			}
 			public Object caseAuditContainer(AuditContainer object) {
 				return createAuditContainerAdapter();
@@ -277,62 +274,6 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.ToolGroup <em>Tool Group</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.mappings.ToolGroup
-	 * @generated
-	 */
-	public Adapter createToolGroupAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.Tool <em>Tool</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.mappings.Tool
-	 * @generated
-	 */
-	public Adapter createToolAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.CreationTool <em>Creation Tool</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.mappings.CreationTool
-	 * @generated
-	 */
-	public Adapter createCreationToolAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.NewActionTool <em>New Action Tool</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.mappings.NewActionTool
-	 * @generated
-	 */
-	public Adapter createNewActionToolAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.Constraint <em>Constraint</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -413,6 +354,48 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFeatureValueSpecAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.MenuOwner <em>Menu Owner</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.MenuOwner
+	 * @generated
+	 */
+	public Adapter createMenuOwnerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.ToolOwner <em>Tool Owner</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.ToolOwner
+	 * @generated
+	 */
+	public Adapter createToolOwnerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.AppearanceSteward <em>Appearance Steward</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.AppearanceSteward
+	 * @generated
+	 */
+	public Adapter createAppearanceStewardAdapter() {
 		return null;
 	}
 

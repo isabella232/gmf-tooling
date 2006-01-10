@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.mappings.Mapping#getNodes <em>Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.Mapping#getLinks <em>Links</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.Mapping#getDiagram <em>Diagram</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.Mapping#getToolGroups <em>Tool Groups</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.Mapping#getAppearanceStyles <em>Appearance Styles</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.Mapping#getAudits <em>Audits</em>}</li>
  * </ul>
  * </p>
@@ -89,20 +89,20 @@ public interface Mapping extends EObject {
 	void setDiagram(CanvasMapping value);
 
 	/**
-	 * Returns the value of the '<em><b>Tool Groups</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.mappings.ToolGroup}.
+	 * Returns the value of the '<em><b>Appearance Styles</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.tooldef.StyleSelector}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Tool Groups</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Appearance Styles</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Tool Groups</em>' containment reference list.
-	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMapping_ToolGroups()
-	 * @model type="org.eclipse.gmf.mappings.ToolGroup" containment="true"
+	 * @return the value of the '<em>Appearance Styles</em>' containment reference list.
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMapping_AppearanceStyles()
+	 * @model type="org.eclipse.gmf.tooldef.StyleSelector" containment="true"
 	 * @generated
 	 */
-	EList getToolGroups();
+	EList getAppearanceStyles();
 
 	/**
 	 * Returns the value of the '<em><b>Audits</b></em>' containment reference.

@@ -13,6 +13,10 @@ import org.eclipse.gmf.gmfgraph.Child;
  * A representation of the model object '<em><b>Child Node Mapping</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Inner element
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -26,7 +30,7 @@ import org.eclipse.gmf.gmfgraph.Child;
  * @model
  * @generated
  */
-public interface ChildNodeMapping extends AbstractNodeMapping{
+public interface ChildNodeMapping extends AbstractNodeMapping {
 	/**
 	 * Returns the value of the '<em><b>Diagram Node</b></em>' reference.
 	 * <!-- begin-user-doc -->

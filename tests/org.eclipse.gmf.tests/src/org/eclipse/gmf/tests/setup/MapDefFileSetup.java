@@ -35,10 +35,10 @@ public class MapDefFileSetup implements MapDefSource {
 		myMap = (Mapping) srcRes.getContents().get(0);
 		for (Iterator it = getMapping().getLinks().iterator(); it.hasNext();) {
 			LinkMapping next = (LinkMapping) it.next();
-			if (myClassLink == null && next.getDomainMetaClass() != null) {
+			if (myClassLink == null && next.getDomainMetaElement() != null) {
 				myClassLink = next;
 			}
-			if (myRefLink == null && next.getDomainMetaClass() == null) {
+			if (myRefLink == null && next.getDomainMetaElement() == null) {
 				myRefLink = next;
 			}
 		}

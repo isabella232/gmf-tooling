@@ -24,6 +24,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.Mapping;
+import org.eclipse.gmf.tooldef.GMFToolFactory;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.Mapping} object.
@@ -77,7 +78,7 @@ public class MappingItemProvider
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMapping_Nodes());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMapping_Links());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMapping_Diagram());
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMapping_ToolGroups());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMapping_AppearanceStyles());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMapping_Audits());
 		}
 		return childrenFeatures;
@@ -129,7 +130,7 @@ public class MappingItemProvider
 			case GMFMapPackage.MAPPING__NODES:
 			case GMFMapPackage.MAPPING__LINKS:
 			case GMFMapPackage.MAPPING__DIAGRAM:
-			case GMFMapPackage.MAPPING__TOOL_GROUPS:
+			case GMFMapPackage.MAPPING__APPEARANCE_STYLES:
 			case GMFMapPackage.MAPPING__AUDITS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -164,8 +165,8 @@ public class MappingItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getMapping_ToolGroups(),
-				 GMFMapFactory.eINSTANCE.createToolGroup()));
+				(GMFMapPackage.eINSTANCE.getMapping_AppearanceStyles(),
+				 GMFToolFactory.eINSTANCE.createGenericStyleSelector()));
 
 		newChildDescriptors.add
 			(createChildParameter

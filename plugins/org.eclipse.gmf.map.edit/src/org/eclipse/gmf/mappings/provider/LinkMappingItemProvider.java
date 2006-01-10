@@ -18,7 +18,6 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -65,15 +64,76 @@ public class LinkMappingItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addContextMenuPropertyDescriptor(object);
+			addToolPropertyDescriptor(object);
+			addAppearanceStylePropertyDescriptor(object);
 			addDiagramLinkPropertyDescriptor(object);
-			addDomainMetaElementPropertyDescriptor(object);
-			addContainmentFeaturePropertyDescriptor(object);
 			addLabelEditFeaturePropertyDescriptor(object);
 			addLabelDisplayFeaturePropertyDescriptor(object);
 			addSourceMetaFeaturePropertyDescriptor(object);
 			addLinkMetaFeaturePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Context Menu feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addContextMenuPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_MenuOwner_contextMenu_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_MenuOwner_contextMenu_feature", "_UI_MenuOwner_type"),
+				 GMFMapPackage.eINSTANCE.getMenuOwner_ContextMenu(),
+				 true,
+				 null,
+				 getString("_UI_VisualrepresentationPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Tool feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addToolPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ToolOwner_tool_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ToolOwner_tool_feature", "_UI_ToolOwner_type"),
+				 GMFMapPackage.eINSTANCE.getToolOwner_Tool(),
+				 true,
+				 null,
+				 getString("_UI_VisualrepresentationPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Appearance Style feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAppearanceStylePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_AppearanceSteward_appearanceStyle_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AppearanceSteward_appearanceStyle_feature", "_UI_AppearanceSteward_type"),
+				 GMFMapPackage.eINSTANCE.getAppearanceSteward_AppearanceStyle(),
+				 true,
+				 null,
+				 getString("_UI_VisualrepresentationPropertyCategory"),
+				 null));
 	}
 
 	/**
@@ -97,26 +157,6 @@ public class LinkMappingItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Domain Meta Element feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDomainMetaElementPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_LinkMapping_domainMetaElement_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LinkMapping_domainMetaElement_feature", "_UI_LinkMapping_type"),
-				 GMFMapPackage.eINSTANCE.getLinkMapping_DomainMetaElement(),
-				 true,
-				 null,
-				 getString("_UI_DomainmetainformationPropertyCategory"),
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Containment Feature feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -127,9 +167,9 @@ public class LinkMappingItemProvider
 			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_LinkMapping_containmentFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LinkMapping_containmentFeature_feature", "_UI_LinkMapping_type"),
-				 GMFMapPackage.eINSTANCE.getLinkMapping_ContainmentFeature(),
+				 getString("_UI_MappingEntry_containmentFeature_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_MappingEntry_containmentFeature_feature", "_UI_MappingEntry_type"),
+				 GMFMapPackage.eINSTANCE.getMappingEntry_ContainmentFeature(),
 				 true,
 				 null,
 				 getString("_UI_DomainmetainformationPropertyCategory"),
@@ -257,24 +297,9 @@ public class LinkMappingItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getLinkMapping_DomainSpecialization());
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getLinkMapping_DomainInitializer());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getLinkMapping_CreationConstraints());
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getLinkMapping_Tool());
 		}
 		return childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
 	}
 
 	/**
@@ -308,10 +333,7 @@ public class LinkMappingItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(LinkMapping.class)) {
-			case GMFMapPackage.LINK_MAPPING__DOMAIN_SPECIALIZATION:
-			case GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER:
 			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
-			case GMFMapPackage.LINK_MAPPING__TOOL:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -330,28 +352,8 @@ public class LinkMappingItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getLinkMapping_DomainSpecialization(),
-				 GMFMapFactory.eINSTANCE.createConstraint()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getLinkMapping_DomainInitializer(),
-				 GMFMapFactory.eINSTANCE.createFeatureSeqInitializer()));
-
-		newChildDescriptors.add
-			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getLinkMapping_CreationConstraints(),
 				 GMFMapFactory.eINSTANCE.createLinkConstraints()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getLinkMapping_Tool(),
-				 GMFMapFactory.eINSTANCE.createCreationTool()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getLinkMapping_Tool(),
-				 GMFMapFactory.eINSTANCE.createNewActionTool()));
 	}
 
 	/**

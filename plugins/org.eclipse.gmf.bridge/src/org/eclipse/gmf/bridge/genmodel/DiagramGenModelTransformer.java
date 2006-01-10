@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
 import org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind;
+import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
@@ -49,7 +50,6 @@ import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
-import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
@@ -63,7 +63,6 @@ import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.Constraint;
-import org.eclipse.gmf.mappings.CreationTool;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
@@ -72,7 +71,11 @@ import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.Severity;
-import org.eclipse.gmf.mappings.Tool;
+import org.eclipse.gmf.mappings.ToolOwner;
+import org.eclipse.gmf.tooldef.AbstractTool;
+import org.eclipse.gmf.tooldef.BundleImage;
+import org.eclipse.gmf.tooldef.CreationTool;
+import org.eclipse.gmf.tooldef.ToolContainer;
 
 /**
  * Creates generation model from diagram definition.
@@ -304,8 +307,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			LinkEntry le = GMFGenFactory.eINSTANCE.createLinkEntry();
 			findToolGroup(lme.getTool()).getLinkTools().add(le);
 			le.getGenLink().add(gl);
-			le.setCreateMethodName(myNamingStrategy.createToolCreationMethodName(lme));
-			setupCommonToolEntry(le, lme.getTool(), lme.getDomainMetaElement() != null ? lme.getDomainMetaElement().getName() : lme.getLinkMetaFeature().getName());
+			setupCommonToolEntry(le, lme.getTool());
 		}
 		EAttribute editFeature = lme.getLabelEditFeature();
 		if (editFeature != null) {
@@ -377,32 +379,43 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return myDRTHelper.getLinkLabelDefault();
 	}
 
-	private void handleNodeTool(AbstractNodeMapping nme, GenNode genNode) {
+	private void handleNodeTool(ToolOwner nme, GenNode genNode) {
 		if (nme.getTool() != null && nme.getTool() instanceof CreationTool) {
 			// XXX handle other tool types (action, whatever)
 			NodeEntry ne = GMFGenFactory.eINSTANCE.createNodeEntry();
 			findToolGroup(nme.getTool()).getNodeTools().add(ne);
 			ne.getGenNode().add(genNode);
-			ne.setCreateMethodName(myNamingStrategy.createToolCreationMethodName(nme));
-			setupCommonToolEntry(ne, nme.getTool(), nme.getDomainContext().getName());
+			setupCommonToolEntry(ne, nme.getTool());
 		}
 	}
 
-	private void setupCommonToolEntry(ToolEntry te, Tool tool, String elementName) {
+	private void setupCommonToolEntry(EntryBase te, AbstractTool tool) {
+		te.setTitleKey(tool.getTitle() == null ? "" : tool.getTitle()); // same at (*1*)
+		te.setDescriptionKey(tool.getDescription());
+
+		// FIXME - there's no need in createMethodName.
+		te.setCreateMethodName(myNamingStrategy.createCreationMethodName(tool));
+
 		// FIXME need to change this once better tooling definition is in place. 
-		te.setLargeIconPath(null);
-		te.setSmallIconPath(null);
-		te.setTitleKey(elementName);
-		te.setDescriptionKey(elementName);
+		if (tool.getLargeIcon() instanceof BundleImage) {
+			// XXX assume same bundle
+			te.setLargeIconPath(((BundleImage) tool.getLargeIcon()).getPath());
+		}
+		if (tool.getSmallIcon() instanceof BundleImage) {
+			// XXX assume same bundle
+			te.setSmallIconPath(((BundleImage) tool.getSmallIcon()).getPath());
+		}
 	}
 
 	/**
 	 * TODO initialize palette with set of groups known from Mapping. Perhaps, don't even 
 	 * create missed group in that case.
+	 * FIXME and don't rely on title as unique key
 	 */
-	private ToolGroup findToolGroup(Tool tool) {
-		assert tool.getGroup() != null;
-		String groupName = tool.getGroup().getName() == null ? "" : tool.getGroup().getName();
+	private ToolGroup findToolGroup(AbstractTool tool) {
+		assert tool.eContainer() != null;
+		ToolContainer tc = (ToolContainer) tool.eContainer();
+		String groupName = tc.getTitle() == null ? "" : tc.getTitle(); // same at (*1*)
 		for (Iterator it = getGenPalette().getGroups().iterator(); it.hasNext();) {
 			ToolGroup next = (ToolGroup) it.next();
 			if (groupName.equals(next.getTitleKey())) {
@@ -411,8 +424,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		ToolGroup tg = GMFGenFactory.eINSTANCE.createToolGroup();
 		getGenPalette().getGroups().add(tg);
-		tg.setTitleKey(groupName);
-		tg.setCreateMethodName(myNamingStrategy.createToolGroupCreationMethodName(tool.getGroup()));
+		setupCommonToolEntry(tg, tc);
 		return tg;
 	}
 	

@@ -10,17 +10,19 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.gmf.gmfgraph.Connection;
-import org.eclipse.gmf.mappings.Constraint;
-import org.eclipse.gmf.mappings.ElementInitializer;
+import org.eclipse.gmf.mappings.AppearanceSteward;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
-import org.eclipse.gmf.mappings.Tool;
+import org.eclipse.gmf.mappings.MenuOwner;
+import org.eclipse.gmf.mappings.ToolOwner;
+import org.eclipse.gmf.tooldef.AbstractTool;
+import org.eclipse.gmf.tooldef.ContextMenu;
+import org.eclipse.gmf.tooldef.StyleSelector;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,23 +31,51 @@ import org.eclipse.gmf.mappings.Tool;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getContextMenu <em>Context Menu</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getTool <em>Tool</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getAppearanceStyle <em>Appearance Style</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getDiagramLink <em>Diagram Link</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getDomainMetaElement <em>Domain Meta Element</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getDomainSpecialization <em>Domain Specialization</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getDomainInitializer <em>Domain Initializer</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getContainmentFeature <em>Containment Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getLabelEditFeature <em>Label Edit Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getLabelDisplayFeature <em>Label Display Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getSourceMetaFeature <em>Source Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getLinkMetaFeature <em>Link Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getCreationConstraints <em>Creation Constraints</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getTool <em>Tool</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
+	/**
+	 * The cached value of the '{@link #getContextMenu() <em>Context Menu</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContextMenu()
+	 * @generated
+	 * @ordered
+	 */
+	protected ContextMenu contextMenu = null;
+
+	/**
+	 * The cached value of the '{@link #getTool() <em>Tool</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTool()
+	 * @generated
+	 * @ordered
+	 */
+	protected AbstractTool tool = null;
+
+	/**
+	 * The cached value of the '{@link #getAppearanceStyle() <em>Appearance Style</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAppearanceStyle()
+	 * @generated
+	 * @ordered
+	 */
+	protected StyleSelector appearanceStyle = null;
+
 	/**
 	 * The cached value of the '{@link #getDiagramLink() <em>Diagram Link</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -55,46 +85,6 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * @ordered
 	 */
 	protected Connection diagramLink = null;
-
-	/**
-	 * The cached value of the '{@link #getDomainMetaElement() <em>Domain Meta Element</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDomainMetaElement()
-	 * @generated
-	 * @ordered
-	 */
-	protected EClass domainMetaElement = null;
-
-	/**
-	 * The cached value of the '{@link #getDomainSpecialization() <em>Domain Specialization</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDomainSpecialization()
-	 * @generated
-	 * @ordered
-	 */
-	protected Constraint domainSpecialization = null;
-
-	/**
-	 * The cached value of the '{@link #getDomainInitializer() <em>Domain Initializer</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDomainInitializer()
-	 * @generated
-	 * @ordered
-	 */
-	protected ElementInitializer domainInitializer = null;
-
-	/**
-	 * The cached value of the '{@link #getContainmentFeature() <em>Containment Feature</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContainmentFeature()
-	 * @generated
-	 * @ordered
-	 */
-	protected EReference containmentFeature = null;
 
 	/**
 	 * The cached value of the '{@link #getLabelEditFeature() <em>Label Edit Feature</em>}' reference.
@@ -147,16 +137,6 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	protected LinkConstraints creationConstraints = null;
 
 	/**
-	 * The cached value of the '{@link #getTool() <em>Tool</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTool()
-	 * @generated
-	 * @ordered
-	 */
-	protected Tool tool = null;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -172,6 +152,44 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getLinkMapping();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ContextMenu getContextMenu() {
+		if (contextMenu != null && contextMenu.eIsProxy()) {
+			InternalEObject oldContextMenu = (InternalEObject)contextMenu;
+			contextMenu = (ContextMenu)eResolveProxy(oldContextMenu);
+			if (contextMenu != oldContextMenu) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.LINK_MAPPING__CONTEXT_MENU, oldContextMenu, contextMenu));
+			}
+		}
+		return contextMenu;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ContextMenu basicGetContextMenu() {
+		return contextMenu;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setContextMenu(ContextMenu newContextMenu) {
+		ContextMenu oldContextMenu = contextMenu;
+		contextMenu = newContextMenu;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__CONTEXT_MENU, oldContextMenu, contextMenu));
 	}
 
 	/**
@@ -210,168 +228,6 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 		diagramLink = newDiagramLink;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__DIAGRAM_LINK, oldDiagramLink, diagramLink));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getDomainMetaElement() {
-		if (domainMetaElement != null && domainMetaElement.eIsProxy()) {
-			InternalEObject oldDomainMetaElement = (InternalEObject)domainMetaElement;
-			domainMetaElement = (EClass)eResolveProxy(oldDomainMetaElement);
-			if (domainMetaElement != oldDomainMetaElement) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.LINK_MAPPING__DOMAIN_META_ELEMENT, oldDomainMetaElement, domainMetaElement));
-			}
-		}
-		return domainMetaElement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass basicGetDomainMetaElement() {
-		return domainMetaElement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDomainMetaElement(EClass newDomainMetaElement) {
-		EClass oldDomainMetaElement = domainMetaElement;
-		domainMetaElement = newDomainMetaElement;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__DOMAIN_META_ELEMENT, oldDomainMetaElement, domainMetaElement));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Constraint getDomainSpecialization() {
-		return domainSpecialization;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetDomainSpecialization(Constraint newDomainSpecialization, NotificationChain msgs) {
-		Constraint oldDomainSpecialization = domainSpecialization;
-		domainSpecialization = newDomainSpecialization;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__DOMAIN_SPECIALIZATION, oldDomainSpecialization, newDomainSpecialization);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDomainSpecialization(Constraint newDomainSpecialization) {
-		if (newDomainSpecialization != domainSpecialization) {
-			NotificationChain msgs = null;
-			if (domainSpecialization != null)
-				msgs = ((InternalEObject)domainSpecialization).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.LINK_MAPPING__DOMAIN_SPECIALIZATION, null, msgs);
-			if (newDomainSpecialization != null)
-				msgs = ((InternalEObject)newDomainSpecialization).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.LINK_MAPPING__DOMAIN_SPECIALIZATION, null, msgs);
-			msgs = basicSetDomainSpecialization(newDomainSpecialization, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__DOMAIN_SPECIALIZATION, newDomainSpecialization, newDomainSpecialization));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ElementInitializer getDomainInitializer() {
-		return domainInitializer;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetDomainInitializer(ElementInitializer newDomainInitializer, NotificationChain msgs) {
-		ElementInitializer oldDomainInitializer = domainInitializer;
-		domainInitializer = newDomainInitializer;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER, oldDomainInitializer, newDomainInitializer);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDomainInitializer(ElementInitializer newDomainInitializer) {
-		if (newDomainInitializer != domainInitializer) {
-			NotificationChain msgs = null;
-			if (domainInitializer != null)
-				msgs = ((InternalEObject)domainInitializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER, null, msgs);
-			if (newDomainInitializer != null)
-				msgs = ((InternalEObject)newDomainInitializer).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER, null, msgs);
-			msgs = basicSetDomainInitializer(newDomainInitializer, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER, newDomainInitializer, newDomainInitializer));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getContainmentFeature() {
-		if (containmentFeature != null && containmentFeature.eIsProxy()) {
-			InternalEObject oldContainmentFeature = (InternalEObject)containmentFeature;
-			containmentFeature = (EReference)eResolveProxy(oldContainmentFeature);
-			if (containmentFeature != oldContainmentFeature) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE, oldContainmentFeature, containmentFeature));
-			}
-		}
-		return containmentFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference basicGetContainmentFeature() {
-		return containmentFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setContainmentFeature(EReference newContainmentFeature) {
-		EReference oldContainmentFeature = containmentFeature;
-		containmentFeature = newContainmentFeature;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE, oldContainmentFeature, containmentFeature));
 	}
 
 	/**
@@ -582,7 +438,15 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Tool getTool() {
+	public AbstractTool getTool() {
+		if (tool != null && tool.eIsProxy()) {
+			InternalEObject oldTool = (InternalEObject)tool;
+			tool = (AbstractTool)eResolveProxy(oldTool);
+			if (tool != oldTool) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.LINK_MAPPING__TOOL, oldTool, tool));
+			}
+		}
 		return tool;
 	}
 
@@ -591,14 +455,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetTool(Tool newTool, NotificationChain msgs) {
-		Tool oldTool = tool;
-		tool = newTool;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__TOOL, oldTool, newTool);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	public AbstractTool basicGetTool() {
+		return tool;
 	}
 
 	/**
@@ -606,18 +464,49 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTool(Tool newTool) {
-		if (newTool != tool) {
-			NotificationChain msgs = null;
-			if (tool != null)
-				msgs = ((InternalEObject)tool).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.LINK_MAPPING__TOOL, null, msgs);
-			if (newTool != null)
-				msgs = ((InternalEObject)newTool).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.LINK_MAPPING__TOOL, null, msgs);
-			msgs = basicSetTool(newTool, msgs);
-			if (msgs != null) msgs.dispatch();
+	public void setTool(AbstractTool newTool) {
+		AbstractTool oldTool = tool;
+		tool = newTool;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__TOOL, oldTool, tool));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StyleSelector getAppearanceStyle() {
+		if (appearanceStyle != null && appearanceStyle.eIsProxy()) {
+			InternalEObject oldAppearanceStyle = (InternalEObject)appearanceStyle;
+			appearanceStyle = (StyleSelector)eResolveProxy(oldAppearanceStyle);
+			if (appearanceStyle != oldAppearanceStyle) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.LINK_MAPPING__APPEARANCE_STYLE, oldAppearanceStyle, appearanceStyle));
+			}
 		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__TOOL, newTool, newTool));
+		return appearanceStyle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StyleSelector basicGetAppearanceStyle() {
+		return appearanceStyle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAppearanceStyle(StyleSelector newAppearanceStyle) {
+		StyleSelector oldAppearanceStyle = appearanceStyle;
+		appearanceStyle = newAppearanceStyle;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__APPEARANCE_STYLE, oldAppearanceStyle, appearanceStyle));
 	}
 
 	/**
@@ -660,14 +549,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFMapPackage.LINK_MAPPING__DOMAIN_SPECIALIZATION:
-				return basicSetDomainSpecialization(null, msgs);
-			case GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER:
-				return basicSetDomainInitializer(null, msgs);
 			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
 				return basicSetCreationConstraints(null, msgs);
-			case GMFMapPackage.LINK_MAPPING__TOOL:
-				return basicSetTool(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -679,19 +562,18 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFMapPackage.LINK_MAPPING__CONTEXT_MENU:
+				if (resolve) return getContextMenu();
+				return basicGetContextMenu();
+			case GMFMapPackage.LINK_MAPPING__TOOL:
+				if (resolve) return getTool();
+				return basicGetTool();
+			case GMFMapPackage.LINK_MAPPING__APPEARANCE_STYLE:
+				if (resolve) return getAppearanceStyle();
+				return basicGetAppearanceStyle();
 			case GMFMapPackage.LINK_MAPPING__DIAGRAM_LINK:
 				if (resolve) return getDiagramLink();
 				return basicGetDiagramLink();
-			case GMFMapPackage.LINK_MAPPING__DOMAIN_META_ELEMENT:
-				if (resolve) return getDomainMetaElement();
-				return basicGetDomainMetaElement();
-			case GMFMapPackage.LINK_MAPPING__DOMAIN_SPECIALIZATION:
-				return getDomainSpecialization();
-			case GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER:
-				return getDomainInitializer();
-			case GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE:
-				if (resolve) return getContainmentFeature();
-				return basicGetContainmentFeature();
 			case GMFMapPackage.LINK_MAPPING__LABEL_EDIT_FEATURE:
 				if (resolve) return getLabelEditFeature();
 				return basicGetLabelEditFeature();
@@ -706,8 +588,6 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 				return basicGetLinkMetaFeature();
 			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
 				return getCreationConstraints();
-			case GMFMapPackage.LINK_MAPPING__TOOL:
-				return getTool();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -719,20 +599,17 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFMapPackage.LINK_MAPPING__CONTEXT_MENU:
+				setContextMenu((ContextMenu)newValue);
+				return;
+			case GMFMapPackage.LINK_MAPPING__TOOL:
+				setTool((AbstractTool)newValue);
+				return;
+			case GMFMapPackage.LINK_MAPPING__APPEARANCE_STYLE:
+				setAppearanceStyle((StyleSelector)newValue);
+				return;
 			case GMFMapPackage.LINK_MAPPING__DIAGRAM_LINK:
 				setDiagramLink((Connection)newValue);
-				return;
-			case GMFMapPackage.LINK_MAPPING__DOMAIN_META_ELEMENT:
-				setDomainMetaElement((EClass)newValue);
-				return;
-			case GMFMapPackage.LINK_MAPPING__DOMAIN_SPECIALIZATION:
-				setDomainSpecialization((Constraint)newValue);
-				return;
-			case GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER:
-				setDomainInitializer((ElementInitializer)newValue);
-				return;
-			case GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE:
-				setContainmentFeature((EReference)newValue);
 				return;
 			case GMFMapPackage.LINK_MAPPING__LABEL_EDIT_FEATURE:
 				setLabelEditFeature((EAttribute)newValue);
@@ -749,9 +626,6 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
 				setCreationConstraints((LinkConstraints)newValue);
 				return;
-			case GMFMapPackage.LINK_MAPPING__TOOL:
-				setTool((Tool)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -763,20 +637,17 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFMapPackage.LINK_MAPPING__CONTEXT_MENU:
+				setContextMenu((ContextMenu)null);
+				return;
+			case GMFMapPackage.LINK_MAPPING__TOOL:
+				setTool((AbstractTool)null);
+				return;
+			case GMFMapPackage.LINK_MAPPING__APPEARANCE_STYLE:
+				setAppearanceStyle((StyleSelector)null);
+				return;
 			case GMFMapPackage.LINK_MAPPING__DIAGRAM_LINK:
 				setDiagramLink((Connection)null);
-				return;
-			case GMFMapPackage.LINK_MAPPING__DOMAIN_META_ELEMENT:
-				setDomainMetaElement((EClass)null);
-				return;
-			case GMFMapPackage.LINK_MAPPING__DOMAIN_SPECIALIZATION:
-				setDomainSpecialization((Constraint)null);
-				return;
-			case GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER:
-				setDomainInitializer((ElementInitializer)null);
-				return;
-			case GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE:
-				setContainmentFeature((EReference)null);
 				return;
 			case GMFMapPackage.LINK_MAPPING__LABEL_EDIT_FEATURE:
 				setLabelEditFeature((EAttribute)null);
@@ -793,9 +664,6 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
 				setCreationConstraints((LinkConstraints)null);
 				return;
-			case GMFMapPackage.LINK_MAPPING__TOOL:
-				setTool((Tool)null);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -807,16 +675,14 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFMapPackage.LINK_MAPPING__CONTEXT_MENU:
+				return contextMenu != null;
+			case GMFMapPackage.LINK_MAPPING__TOOL:
+				return tool != null;
+			case GMFMapPackage.LINK_MAPPING__APPEARANCE_STYLE:
+				return appearanceStyle != null;
 			case GMFMapPackage.LINK_MAPPING__DIAGRAM_LINK:
 				return diagramLink != null;
-			case GMFMapPackage.LINK_MAPPING__DOMAIN_META_ELEMENT:
-				return domainMetaElement != null;
-			case GMFMapPackage.LINK_MAPPING__DOMAIN_SPECIALIZATION:
-				return domainSpecialization != null;
-			case GMFMapPackage.LINK_MAPPING__DOMAIN_INITIALIZER:
-				return domainInitializer != null;
-			case GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE:
-				return containmentFeature != null;
 			case GMFMapPackage.LINK_MAPPING__LABEL_EDIT_FEATURE:
 				return labelEditFeature != null;
 			case GMFMapPackage.LINK_MAPPING__LABEL_DISPLAY_FEATURE:
@@ -827,10 +693,62 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 				return linkMetaFeature != null;
 			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
 				return creationConstraints != null;
-			case GMFMapPackage.LINK_MAPPING__TOOL:
-				return tool != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+		if (baseClass == MenuOwner.class) {
+			switch (derivedFeatureID) {
+				case GMFMapPackage.LINK_MAPPING__CONTEXT_MENU: return GMFMapPackage.MENU_OWNER__CONTEXT_MENU;
+				default: return -1;
+			}
+		}
+		if (baseClass == ToolOwner.class) {
+			switch (derivedFeatureID) {
+				case GMFMapPackage.LINK_MAPPING__TOOL: return GMFMapPackage.TOOL_OWNER__TOOL;
+				default: return -1;
+			}
+		}
+		if (baseClass == AppearanceSteward.class) {
+			switch (derivedFeatureID) {
+				case GMFMapPackage.LINK_MAPPING__APPEARANCE_STYLE: return GMFMapPackage.APPEARANCE_STEWARD__APPEARANCE_STYLE;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+		if (baseClass == MenuOwner.class) {
+			switch (baseFeatureID) {
+				case GMFMapPackage.MENU_OWNER__CONTEXT_MENU: return GMFMapPackage.LINK_MAPPING__CONTEXT_MENU;
+				default: return -1;
+			}
+		}
+		if (baseClass == ToolOwner.class) {
+			switch (baseFeatureID) {
+				case GMFMapPackage.TOOL_OWNER__TOOL: return GMFMapPackage.LINK_MAPPING__TOOL;
+				default: return -1;
+			}
+		}
+		if (baseClass == AppearanceSteward.class) {
+			switch (baseFeatureID) {
+				case GMFMapPackage.APPEARANCE_STEWARD__APPEARANCE_STYLE: return GMFMapPackage.LINK_MAPPING__APPEARANCE_STYLE;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 } //LinkMappingImpl

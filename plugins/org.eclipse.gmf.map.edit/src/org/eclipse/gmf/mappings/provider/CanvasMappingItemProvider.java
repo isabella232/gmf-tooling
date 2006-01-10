@@ -19,6 +19,7 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 
 /**
@@ -28,7 +29,7 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
  * @generated
  */
 public class CanvasMappingItemProvider
-	extends MappingEntryItemProvider
+	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -58,6 +59,9 @@ public class CanvasMappingItemProvider
 			addDiagramCanvasPropertyDescriptor(object);
 			addDomainModelPropertyDescriptor(object);
 			addDomainMetaElementPropertyDescriptor(object);
+			addPalettePropertyDescriptor(object);
+			addMenuContributionsPropertyDescriptor(object);
+			addToolbarContributionsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -119,6 +123,66 @@ public class CanvasMappingItemProvider
 				 true,
 				 null,
 				 getString("_UI_DomainmetainformationPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Palette feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPalettePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_CanvasMapping_palette_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CanvasMapping_palette_feature", "_UI_CanvasMapping_type"),
+				 GMFMapPackage.eINSTANCE.getCanvasMapping_Palette(),
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Menu Contributions feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMenuContributionsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_CanvasMapping_menuContributions_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CanvasMapping_menuContributions_feature", "_UI_CanvasMapping_type"),
+				 GMFMapPackage.eINSTANCE.getCanvasMapping_MenuContributions(),
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Toolbar Contributions feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addToolbarContributionsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_CanvasMapping_toolbarContributions_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CanvasMapping_toolbarContributions_feature", "_UI_CanvasMapping_type"),
+				 GMFMapPackage.eINSTANCE.getCanvasMapping_ToolbarContributions(),
+				 true,
+				 null,
+				 null,
 				 null));
 	}
 

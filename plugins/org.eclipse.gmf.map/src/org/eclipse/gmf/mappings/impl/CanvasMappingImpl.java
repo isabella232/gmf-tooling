@@ -6,14 +6,22 @@
  */
 package org.eclipse.gmf.mappings.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.tooldef.MainMenu;
+import org.eclipse.gmf.tooldef.Palette;
+import org.eclipse.gmf.tooldef.Toolbar;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,12 +33,15 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
  *   <li>{@link org.eclipse.gmf.mappings.impl.CanvasMappingImpl#getDiagramCanvas <em>Diagram Canvas</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.CanvasMappingImpl#getDomainModel <em>Domain Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.CanvasMappingImpl#getDomainMetaElement <em>Domain Meta Element</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.CanvasMappingImpl#getPalette <em>Palette</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.CanvasMappingImpl#getMenuContributions <em>Menu Contributions</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.CanvasMappingImpl#getToolbarContributions <em>Toolbar Contributions</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class CanvasMappingImpl extends MappingEntryImpl implements CanvasMapping {
+public class CanvasMappingImpl extends EObjectImpl implements CanvasMapping {
 	/**
 	 * The cached value of the '{@link #getDiagramCanvas() <em>Diagram Canvas</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -60,6 +71,36 @@ public class CanvasMappingImpl extends MappingEntryImpl implements CanvasMapping
 	 * @ordered
 	 */
 	protected EClass domainMetaElement = null;
+
+	/**
+	 * The cached value of the '{@link #getPalette() <em>Palette</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPalette()
+	 * @generated
+	 * @ordered
+	 */
+	protected Palette palette = null;
+
+	/**
+	 * The cached value of the '{@link #getMenuContributions() <em>Menu Contributions</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMenuContributions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList menuContributions = null;
+
+	/**
+	 * The cached value of the '{@link #getToolbarContributions() <em>Toolbar Contributions</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getToolbarContributions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList toolbarContributions = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -198,6 +239,68 @@ public class CanvasMappingImpl extends MappingEntryImpl implements CanvasMapping
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Palette getPalette() {
+		if (palette != null && palette.eIsProxy()) {
+			InternalEObject oldPalette = (InternalEObject)palette;
+			palette = (Palette)eResolveProxy(oldPalette);
+			if (palette != oldPalette) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.CANVAS_MAPPING__PALETTE, oldPalette, palette));
+			}
+		}
+		return palette;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Palette basicGetPalette() {
+		return palette;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPalette(Palette newPalette) {
+		Palette oldPalette = palette;
+		palette = newPalette;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.CANVAS_MAPPING__PALETTE, oldPalette, palette));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getMenuContributions() {
+		if (menuContributions == null) {
+			menuContributions = new EObjectResolvingEList(MainMenu.class, this, GMFMapPackage.CANVAS_MAPPING__MENU_CONTRIBUTIONS);
+		}
+		return menuContributions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getToolbarContributions() {
+		if (toolbarContributions == null) {
+			toolbarContributions = new EObjectResolvingEList(Toolbar.class, this, GMFMapPackage.CANVAS_MAPPING__TOOLBAR_CONTRIBUTIONS);
+		}
+		return toolbarContributions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.CANVAS_MAPPING__DIAGRAM_CANVAS:
@@ -209,6 +312,13 @@ public class CanvasMappingImpl extends MappingEntryImpl implements CanvasMapping
 			case GMFMapPackage.CANVAS_MAPPING__DOMAIN_META_ELEMENT:
 				if (resolve) return getDomainMetaElement();
 				return basicGetDomainMetaElement();
+			case GMFMapPackage.CANVAS_MAPPING__PALETTE:
+				if (resolve) return getPalette();
+				return basicGetPalette();
+			case GMFMapPackage.CANVAS_MAPPING__MENU_CONTRIBUTIONS:
+				return getMenuContributions();
+			case GMFMapPackage.CANVAS_MAPPING__TOOLBAR_CONTRIBUTIONS:
+				return getToolbarContributions();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -228,6 +338,17 @@ public class CanvasMappingImpl extends MappingEntryImpl implements CanvasMapping
 				return;
 			case GMFMapPackage.CANVAS_MAPPING__DOMAIN_META_ELEMENT:
 				setDomainMetaElement((EClass)newValue);
+				return;
+			case GMFMapPackage.CANVAS_MAPPING__PALETTE:
+				setPalette((Palette)newValue);
+				return;
+			case GMFMapPackage.CANVAS_MAPPING__MENU_CONTRIBUTIONS:
+				getMenuContributions().clear();
+				getMenuContributions().addAll((Collection)newValue);
+				return;
+			case GMFMapPackage.CANVAS_MAPPING__TOOLBAR_CONTRIBUTIONS:
+				getToolbarContributions().clear();
+				getToolbarContributions().addAll((Collection)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -249,6 +370,15 @@ public class CanvasMappingImpl extends MappingEntryImpl implements CanvasMapping
 			case GMFMapPackage.CANVAS_MAPPING__DOMAIN_META_ELEMENT:
 				setDomainMetaElement((EClass)null);
 				return;
+			case GMFMapPackage.CANVAS_MAPPING__PALETTE:
+				setPalette((Palette)null);
+				return;
+			case GMFMapPackage.CANVAS_MAPPING__MENU_CONTRIBUTIONS:
+				getMenuContributions().clear();
+				return;
+			case GMFMapPackage.CANVAS_MAPPING__TOOLBAR_CONTRIBUTIONS:
+				getToolbarContributions().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -266,6 +396,12 @@ public class CanvasMappingImpl extends MappingEntryImpl implements CanvasMapping
 				return domainModel != null;
 			case GMFMapPackage.CANVAS_MAPPING__DOMAIN_META_ELEMENT:
 				return domainMetaElement != null;
+			case GMFMapPackage.CANVAS_MAPPING__PALETTE:
+				return palette != null;
+			case GMFMapPackage.CANVAS_MAPPING__MENU_CONTRIBUTIONS:
+				return menuContributions != null && !menuContributions.isEmpty();
+			case GMFMapPackage.CANVAS_MAPPING__TOOLBAR_CONTRIBUTIONS:
+				return toolbarContributions != null && !toolbarContributions.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

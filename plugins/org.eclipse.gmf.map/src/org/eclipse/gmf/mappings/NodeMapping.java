@@ -14,6 +14,10 @@ import org.eclipse.gmf.gmfgraph.Node;
  * A representation of the model object '<em><b>Node Mapping</b></em>'.
  * <!-- end-user-doc -->
  *
+ * <!-- begin-model-doc -->
+ * Top-level diagram node
+ * <!-- end-model-doc -->
+ *
  * <p>
  * The following features are supported:
  * <ul>
@@ -25,7 +29,7 @@ import org.eclipse.gmf.gmfgraph.Node;
  * @model
  * @generated
  */
-public interface NodeMapping extends AbstractNodeMapping, MappingEntry{
+public interface NodeMapping extends AbstractNodeMapping {
 	/**
 	 * Returns the value of the '<em><b>Diagram Node</b></em>' reference.
 	 * <!-- begin-user-doc -->

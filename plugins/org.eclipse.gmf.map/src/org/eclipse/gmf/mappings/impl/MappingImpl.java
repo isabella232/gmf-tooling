@@ -23,7 +23,7 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
-import org.eclipse.gmf.mappings.ToolGroup;
+import org.eclipse.gmf.tooldef.StyleSelector;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,7 +35,7 @@ import org.eclipse.gmf.mappings.ToolGroup;
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingImpl#getNodes <em>Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingImpl#getLinks <em>Links</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingImpl#getDiagram <em>Diagram</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.MappingImpl#getToolGroups <em>Tool Groups</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.MappingImpl#getAppearanceStyles <em>Appearance Styles</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingImpl#getAudits <em>Audits</em>}</li>
  * </ul>
  * </p>
@@ -74,14 +74,14 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	protected CanvasMapping diagram = null;
 
 	/**
-	 * The cached value of the '{@link #getToolGroups() <em>Tool Groups</em>}' containment reference list.
+	 * The cached value of the '{@link #getAppearanceStyles() <em>Appearance Styles</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getToolGroups()
+	 * @see #getAppearanceStyles()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList toolGroups = null;
+	protected EList appearanceStyles = null;
 
 	/**
 	 * The cached value of the '{@link #getAudits() <em>Audits</em>}' containment reference.
@@ -183,11 +183,11 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getToolGroups() {
-		if (toolGroups == null) {
-			toolGroups = new EObjectContainmentEList(ToolGroup.class, this, GMFMapPackage.MAPPING__TOOL_GROUPS);
+	public EList getAppearanceStyles() {
+		if (appearanceStyles == null) {
+			appearanceStyles = new EObjectContainmentEList(StyleSelector.class, this, GMFMapPackage.MAPPING__APPEARANCE_STYLES);
 		}
-		return toolGroups;
+		return appearanceStyles;
 	}
 
 	/**
@@ -246,8 +246,8 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 				return ((InternalEList)getLinks()).basicRemove(otherEnd, msgs);
 			case GMFMapPackage.MAPPING__DIAGRAM:
 				return basicSetDiagram(null, msgs);
-			case GMFMapPackage.MAPPING__TOOL_GROUPS:
-				return ((InternalEList)getToolGroups()).basicRemove(otherEnd, msgs);
+			case GMFMapPackage.MAPPING__APPEARANCE_STYLES:
+				return ((InternalEList)getAppearanceStyles()).basicRemove(otherEnd, msgs);
 			case GMFMapPackage.MAPPING__AUDITS:
 				return basicSetAudits(null, msgs);
 		}
@@ -267,8 +267,8 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 				return getLinks();
 			case GMFMapPackage.MAPPING__DIAGRAM:
 				return getDiagram();
-			case GMFMapPackage.MAPPING__TOOL_GROUPS:
-				return getToolGroups();
+			case GMFMapPackage.MAPPING__APPEARANCE_STYLES:
+				return getAppearanceStyles();
 			case GMFMapPackage.MAPPING__AUDITS:
 				return getAudits();
 		}
@@ -293,9 +293,9 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 			case GMFMapPackage.MAPPING__DIAGRAM:
 				setDiagram((CanvasMapping)newValue);
 				return;
-			case GMFMapPackage.MAPPING__TOOL_GROUPS:
-				getToolGroups().clear();
-				getToolGroups().addAll((Collection)newValue);
+			case GMFMapPackage.MAPPING__APPEARANCE_STYLES:
+				getAppearanceStyles().clear();
+				getAppearanceStyles().addAll((Collection)newValue);
 				return;
 			case GMFMapPackage.MAPPING__AUDITS:
 				setAudits((AuditContainer)newValue);
@@ -320,8 +320,8 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 			case GMFMapPackage.MAPPING__DIAGRAM:
 				setDiagram((CanvasMapping)null);
 				return;
-			case GMFMapPackage.MAPPING__TOOL_GROUPS:
-				getToolGroups().clear();
+			case GMFMapPackage.MAPPING__APPEARANCE_STYLES:
+				getAppearanceStyles().clear();
 				return;
 			case GMFMapPackage.MAPPING__AUDITS:
 				setAudits((AuditContainer)null);
@@ -343,8 +343,8 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 				return links != null && !links.isEmpty();
 			case GMFMapPackage.MAPPING__DIAGRAM:
 				return diagram != null;
-			case GMFMapPackage.MAPPING__TOOL_GROUPS:
-				return toolGroups != null && !toolGroups.isEmpty();
+			case GMFMapPackage.MAPPING__APPEARANCE_STYLES:
+				return appearanceStyles != null && !appearanceStyles.isEmpty();
 			case GMFMapPackage.MAPPING__AUDITS:
 				return audits != null;
 		}

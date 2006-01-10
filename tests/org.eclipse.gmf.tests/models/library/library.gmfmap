@@ -4,7 +4,6 @@
     <domainMetaElement href="library.ecore#//Writer"/>
     <containmentFeature href="library.ecore#//Library/writers"/>
     <editFeature href="library.ecore#//Writer/name"/>
-    <tool xsi:type="gmfmap:CreationTool" group="Library Tools"/>
     <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Node"/>
   </nodes>
   <nodes>
@@ -15,13 +14,11 @@
       <domainMetaElement href="library.ecore#//Review"/>
       <containmentFeature href="library.ecore#//Book/reviews"/>
       <editFeature href="library.ecore#//Review/title"/>
-      <tool xsi:type="gmfmap:CreationTool" group="Library Tools"/>
       <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Child"/>
     </childMappings>
     <compartmentMappings childNodes="//@nodes.1/@childMappings.0">
       <compartment href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Compartment"/>
     </compartmentMappings>
-    <tool xsi:type="gmfmap:CreationTool" group="Library Tools"/>
     <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Node"/>
   </nodes>
   <links>
@@ -30,13 +27,11 @@
     <containmentFeature href="library.ecore#//Writer/opinions"/>
     <labelEditFeature href="library.ecore#//Opinion/text"/>
     <linkMetaFeature xsi:type="ecore:EReference" href="library.ecore#//Opinion/book"/>
-    <tool xsi:type="gmfmap:CreationTool" group="Library Tools"/>
   </links>
   <links>
     <diagramLink href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Link"/>
     <containmentFeature href="library.ecore#//Book/author"/>
     <linkMetaFeature xsi:type="ecore:EReference" href="library.ecore#//Book/author"/>
-    <tool xsi:type="gmfmap:CreationTool" group="Library Tools"/>
   </links>
   <diagram>
     <diagramCanvas href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Surface"/>

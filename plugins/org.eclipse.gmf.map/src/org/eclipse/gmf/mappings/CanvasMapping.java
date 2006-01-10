@@ -6,9 +6,12 @@
  */
 package org.eclipse.gmf.mappings;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.tooldef.Palette;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,6 +24,9 @@ import org.eclipse.gmf.gmfgraph.Canvas;
  *   <li>{@link org.eclipse.gmf.mappings.CanvasMapping#getDiagramCanvas <em>Diagram Canvas</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.CanvasMapping#getDomainModel <em>Domain Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.CanvasMapping#getDomainMetaElement <em>Domain Meta Element</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.CanvasMapping#getPalette <em>Palette</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.CanvasMapping#getMenuContributions <em>Menu Contributions</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.CanvasMapping#getToolbarContributions <em>Toolbar Contributions</em>}</li>
  * </ul>
  * </p>
  *
@@ -28,7 +34,7 @@ import org.eclipse.gmf.gmfgraph.Canvas;
  * @model
  * @generated
  */
-public interface CanvasMapping extends MappingEntry{
+public interface CanvasMapping extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Diagram Canvas</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -106,5 +112,63 @@ public interface CanvasMapping extends MappingEntry{
 	 * @generated
 	 */
 	void setDomainMetaElement(EClass value);
+
+	/**
+	 * Returns the value of the '<em><b>Palette</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Palette</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Palette</em>' reference.
+	 * @see #setPalette(Palette)
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getCanvasMapping_Palette()
+	 * @model
+	 * @generated
+	 */
+	Palette getPalette();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.mappings.CanvasMapping#getPalette <em>Palette</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Palette</em>' reference.
+	 * @see #getPalette()
+	 * @generated
+	 */
+	void setPalette(Palette value);
+
+	/**
+	 * Returns the value of the '<em><b>Menu Contributions</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.tooldef.MainMenu}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Menu Contributions</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Menu Contributions</em>' reference list.
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getCanvasMapping_MenuContributions()
+	 * @model type="org.eclipse.gmf.tooldef.MainMenu"
+	 * @generated
+	 */
+	EList getMenuContributions();
+
+	/**
+	 * Returns the value of the '<em><b>Toolbar Contributions</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.tooldef.Toolbar}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Toolbar Contributions</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Toolbar Contributions</em>' reference list.
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getCanvasMapping_ToolbarContributions()
+	 * @model type="org.eclipse.gmf.tooldef.Toolbar"
+	 * @generated
+	 */
+	EList getToolbarContributions();
 
 } // CanvasMapping

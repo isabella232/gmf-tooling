@@ -13,19 +13,20 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
+import org.eclipse.gmf.mappings.AppearanceSteward;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
-import org.eclipse.gmf.mappings.Constraint;
-import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.GMFMapPackage;
-import org.eclipse.gmf.mappings.Tool;
+import org.eclipse.gmf.mappings.MenuOwner;
+import org.eclipse.gmf.mappings.ToolOwner;
+import org.eclipse.gmf.tooldef.AbstractTool;
+import org.eclipse.gmf.tooldef.ContextMenu;
+import org.eclipse.gmf.tooldef.StyleSelector;
 
 /**
  * <!-- begin-user-doc -->
@@ -34,59 +35,47 @@ import org.eclipse.gmf.mappings.Tool;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getDomainMetaElement <em>Domain Meta Element</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getDomainSpecialization <em>Domain Specialization</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getDomainInitializer <em>Domain Initializer</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getContainmentFeature <em>Containment Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getContextMenu <em>Context Menu</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getTool <em>Tool</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getAppearanceStyle <em>Appearance Style</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getEditFeature <em>Edit Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getChildMappings <em>Child Mappings</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getCompartmentMappings <em>Compartment Mappings</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getTool <em>Tool</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public abstract class AbstractNodeMappingImpl extends EObjectImpl implements AbstractNodeMapping {
+public abstract class AbstractNodeMappingImpl extends MappingEntryImpl implements AbstractNodeMapping {
 	/**
-	 * The cached value of the '{@link #getDomainMetaElement() <em>Domain Meta Element</em>}' reference.
+	 * The cached value of the '{@link #getContextMenu() <em>Context Menu</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDomainMetaElement()
+	 * @see #getContextMenu()
 	 * @generated
 	 * @ordered
 	 */
-	protected EClass domainMetaElement = null;
+	protected ContextMenu contextMenu = null;
 
 	/**
-	 * The cached value of the '{@link #getDomainSpecialization() <em>Domain Specialization</em>}' containment reference.
+	 * The cached value of the '{@link #getTool() <em>Tool</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDomainSpecialization()
+	 * @see #getTool()
 	 * @generated
 	 * @ordered
 	 */
-	protected Constraint domainSpecialization = null;
+	protected AbstractTool tool = null;
 
 	/**
-	 * The cached value of the '{@link #getDomainInitializer() <em>Domain Initializer</em>}' containment reference.
+	 * The cached value of the '{@link #getAppearanceStyle() <em>Appearance Style</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getDomainInitializer()
+	 * @see #getAppearanceStyle()
 	 * @generated
 	 * @ordered
 	 */
-	protected ElementInitializer domainInitializer = null;
-
-	/**
-	 * The cached value of the '{@link #getContainmentFeature() <em>Containment Feature</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getContainmentFeature()
-	 * @generated
-	 * @ordered
-	 */
-	protected EReference containmentFeature = null;
+	protected StyleSelector appearanceStyle = null;
 
 	/**
 	 * The cached value of the '{@link #getEditFeature() <em>Edit Feature</em>}' reference.
@@ -119,16 +108,6 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	protected EList compartmentMappings = null;
 
 	/**
-	 * The cached value of the '{@link #getTool() <em>Tool</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTool()
-	 * @generated
-	 * @ordered
-	 */
-	protected Tool tool = null;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -151,16 +130,16 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getDomainMetaElement() {
-		if (domainMetaElement != null && domainMetaElement.eIsProxy()) {
-			InternalEObject oldDomainMetaElement = (InternalEObject)domainMetaElement;
-			domainMetaElement = (EClass)eResolveProxy(oldDomainMetaElement);
-			if (domainMetaElement != oldDomainMetaElement) {
+	public ContextMenu getContextMenu() {
+		if (contextMenu != null && contextMenu.eIsProxy()) {
+			InternalEObject oldContextMenu = (InternalEObject)contextMenu;
+			contextMenu = (ContextMenu)eResolveProxy(oldContextMenu);
+			if (contextMenu != oldContextMenu) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT, oldDomainMetaElement, domainMetaElement));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTEXT_MENU, oldContextMenu, contextMenu));
 			}
 		}
-		return domainMetaElement;
+		return contextMenu;
 	}
 
 	/**
@@ -168,8 +147,8 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass basicGetDomainMetaElement() {
-		return domainMetaElement;
+	public ContextMenu basicGetContextMenu() {
+		return contextMenu;
 	}
 
 	/**
@@ -177,11 +156,11 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDomainMetaElement(EClass newDomainMetaElement) {
-		EClass oldDomainMetaElement = domainMetaElement;
-		domainMetaElement = newDomainMetaElement;
+	public void setContextMenu(ContextMenu newContextMenu) {
+		ContextMenu oldContextMenu = contextMenu;
+		contextMenu = newContextMenu;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT, oldDomainMetaElement, domainMetaElement));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTEXT_MENU, oldContextMenu, contextMenu));
 	}
 
 	/**
@@ -189,102 +168,16 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Constraint getDomainSpecialization() {
-		return domainSpecialization;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetDomainSpecialization(Constraint newDomainSpecialization, NotificationChain msgs) {
-		Constraint oldDomainSpecialization = domainSpecialization;
-		domainSpecialization = newDomainSpecialization;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION, oldDomainSpecialization, newDomainSpecialization);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDomainSpecialization(Constraint newDomainSpecialization) {
-		if (newDomainSpecialization != domainSpecialization) {
-			NotificationChain msgs = null;
-			if (domainSpecialization != null)
-				msgs = ((InternalEObject)domainSpecialization).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION, null, msgs);
-			if (newDomainSpecialization != null)
-				msgs = ((InternalEObject)newDomainSpecialization).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION, null, msgs);
-			msgs = basicSetDomainSpecialization(newDomainSpecialization, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION, newDomainSpecialization, newDomainSpecialization));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ElementInitializer getDomainInitializer() {
-		return domainInitializer;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetDomainInitializer(ElementInitializer newDomainInitializer, NotificationChain msgs) {
-		ElementInitializer oldDomainInitializer = domainInitializer;
-		domainInitializer = newDomainInitializer;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER, oldDomainInitializer, newDomainInitializer);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDomainInitializer(ElementInitializer newDomainInitializer) {
-		if (newDomainInitializer != domainInitializer) {
-			NotificationChain msgs = null;
-			if (domainInitializer != null)
-				msgs = ((InternalEObject)domainInitializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER, null, msgs);
-			if (newDomainInitializer != null)
-				msgs = ((InternalEObject)newDomainInitializer).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER, null, msgs);
-			msgs = basicSetDomainInitializer(newDomainInitializer, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER, newDomainInitializer, newDomainInitializer));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getContainmentFeature() {
-		if (containmentFeature != null && containmentFeature.eIsProxy()) {
-			InternalEObject oldContainmentFeature = (InternalEObject)containmentFeature;
-			containmentFeature = (EReference)eResolveProxy(oldContainmentFeature);
-			if (containmentFeature != oldContainmentFeature) {
+	public AbstractTool getTool() {
+		if (tool != null && tool.eIsProxy()) {
+			InternalEObject oldTool = (InternalEObject)tool;
+			tool = (AbstractTool)eResolveProxy(oldTool);
+			if (tool != oldTool) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE, oldContainmentFeature, containmentFeature));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL, oldTool, tool));
 			}
 		}
-		return containmentFeature;
+		return tool;
 	}
 
 	/**
@@ -292,8 +185,8 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference basicGetContainmentFeature() {
-		return containmentFeature;
+	public AbstractTool basicGetTool() {
+		return tool;
 	}
 
 	/**
@@ -301,11 +194,49 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setContainmentFeature(EReference newContainmentFeature) {
-		EReference oldContainmentFeature = containmentFeature;
-		containmentFeature = newContainmentFeature;
+	public void setTool(AbstractTool newTool) {
+		AbstractTool oldTool = tool;
+		tool = newTool;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE, oldContainmentFeature, containmentFeature));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL, oldTool, tool));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StyleSelector getAppearanceStyle() {
+		if (appearanceStyle != null && appearanceStyle.eIsProxy()) {
+			InternalEObject oldAppearanceStyle = (InternalEObject)appearanceStyle;
+			appearanceStyle = (StyleSelector)eResolveProxy(oldAppearanceStyle);
+			if (appearanceStyle != oldAppearanceStyle) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.ABSTRACT_NODE_MAPPING__APPEARANCE_STYLE, oldAppearanceStyle, appearanceStyle));
+			}
+		}
+		return appearanceStyle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StyleSelector basicGetAppearanceStyle() {
+		return appearanceStyle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAppearanceStyle(StyleSelector newAppearanceStyle) {
+		StyleSelector oldAppearanceStyle = appearanceStyle;
+		appearanceStyle = newAppearanceStyle;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__APPEARANCE_STYLE, oldAppearanceStyle, appearanceStyle));
 	}
 
 	/**
@@ -372,49 +303,6 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 
 	/**
 	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Tool getTool() {
-		return tool;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetTool(Tool newTool, NotificationChain msgs) {
-		Tool oldTool = tool;
-		tool = newTool;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL, oldTool, newTool);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTool(Tool newTool) {
-		if (newTool != tool) {
-			NotificationChain msgs = null;
-			if (tool != null)
-				msgs = ((InternalEObject)tool).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL, null, msgs);
-			if (newTool != null)
-				msgs = ((InternalEObject)newTool).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL, null, msgs);
-			msgs = basicSetTool(newTool, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL, newTool, newTool));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
 	 * This method was created to simplify transtofmation code.
 	 * @return getDomainMetaElement() if specified or getContainmentFeature().getEReferenceType()
 	 * <!-- end-user-doc -->
@@ -449,16 +337,10 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION:
-				return basicSetDomainSpecialization(null, msgs);
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER:
-				return basicSetDomainInitializer(null, msgs);
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				return ((InternalEList)getChildMappings()).basicRemove(otherEnd, msgs);
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
 				return ((InternalEList)getCompartmentMappings()).basicRemove(otherEnd, msgs);
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
-				return basicSetTool(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -470,16 +352,15 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT:
-				if (resolve) return getDomainMetaElement();
-				return basicGetDomainMetaElement();
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION:
-				return getDomainSpecialization();
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER:
-				return getDomainInitializer();
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE:
-				if (resolve) return getContainmentFeature();
-				return basicGetContainmentFeature();
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTEXT_MENU:
+				if (resolve) return getContextMenu();
+				return basicGetContextMenu();
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
+				if (resolve) return getTool();
+				return basicGetTool();
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__APPEARANCE_STYLE:
+				if (resolve) return getAppearanceStyle();
+				return basicGetAppearanceStyle();
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__EDIT_FEATURE:
 				if (resolve) return getEditFeature();
 				return basicGetEditFeature();
@@ -487,8 +368,6 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 				return getChildMappings();
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
 				return getCompartmentMappings();
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
-				return getTool();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -500,17 +379,14 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT:
-				setDomainMetaElement((EClass)newValue);
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTEXT_MENU:
+				setContextMenu((ContextMenu)newValue);
 				return;
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION:
-				setDomainSpecialization((Constraint)newValue);
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
+				setTool((AbstractTool)newValue);
 				return;
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER:
-				setDomainInitializer((ElementInitializer)newValue);
-				return;
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE:
-				setContainmentFeature((EReference)newValue);
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__APPEARANCE_STYLE:
+				setAppearanceStyle((StyleSelector)newValue);
 				return;
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__EDIT_FEATURE:
 				setEditFeature((EAttribute)newValue);
@@ -523,9 +399,6 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 				getCompartmentMappings().clear();
 				getCompartmentMappings().addAll((Collection)newValue);
 				return;
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
-				setTool((Tool)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -537,17 +410,14 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT:
-				setDomainMetaElement((EClass)null);
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTEXT_MENU:
+				setContextMenu((ContextMenu)null);
 				return;
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION:
-				setDomainSpecialization((Constraint)null);
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
+				setTool((AbstractTool)null);
 				return;
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER:
-				setDomainInitializer((ElementInitializer)null);
-				return;
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE:
-				setContainmentFeature((EReference)null);
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__APPEARANCE_STYLE:
+				setAppearanceStyle((StyleSelector)null);
 				return;
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__EDIT_FEATURE:
 				setEditFeature((EAttribute)null);
@@ -557,9 +427,6 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 				return;
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
 				getCompartmentMappings().clear();
-				return;
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
-				setTool((Tool)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -572,24 +439,74 @@ public abstract class AbstractNodeMappingImpl extends EObjectImpl implements Abs
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_META_ELEMENT:
-				return domainMetaElement != null;
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION:
-				return domainSpecialization != null;
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER:
-				return domainInitializer != null;
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTAINMENT_FEATURE:
-				return containmentFeature != null;
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTEXT_MENU:
+				return contextMenu != null;
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
+				return tool != null;
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__APPEARANCE_STYLE:
+				return appearanceStyle != null;
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__EDIT_FEATURE:
 				return editFeature != null;
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				return childMappings != null && !childMappings.isEmpty();
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
 				return compartmentMappings != null && !compartmentMappings.isEmpty();
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
-				return tool != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+		if (baseClass == MenuOwner.class) {
+			switch (derivedFeatureID) {
+				case GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTEXT_MENU: return GMFMapPackage.MENU_OWNER__CONTEXT_MENU;
+				default: return -1;
+			}
+		}
+		if (baseClass == ToolOwner.class) {
+			switch (derivedFeatureID) {
+				case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL: return GMFMapPackage.TOOL_OWNER__TOOL;
+				default: return -1;
+			}
+		}
+		if (baseClass == AppearanceSteward.class) {
+			switch (derivedFeatureID) {
+				case GMFMapPackage.ABSTRACT_NODE_MAPPING__APPEARANCE_STYLE: return GMFMapPackage.APPEARANCE_STEWARD__APPEARANCE_STYLE;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+		if (baseClass == MenuOwner.class) {
+			switch (baseFeatureID) {
+				case GMFMapPackage.MENU_OWNER__CONTEXT_MENU: return GMFMapPackage.ABSTRACT_NODE_MAPPING__CONTEXT_MENU;
+				default: return -1;
+			}
+		}
+		if (baseClass == ToolOwner.class) {
+			switch (baseFeatureID) {
+				case GMFMapPackage.TOOL_OWNER__TOOL: return GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL;
+				default: return -1;
+			}
+		}
+		if (baseClass == AppearanceSteward.class) {
+			switch (baseFeatureID) {
+				case GMFMapPackage.APPEARANCE_STEWARD__APPEARANCE_STYLE: return GMFMapPackage.ABSTRACT_NODE_MAPPING__APPEARANCE_STYLE;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 } //AbstractNodeMappingImpl

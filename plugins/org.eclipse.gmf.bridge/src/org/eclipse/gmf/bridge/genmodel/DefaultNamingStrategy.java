@@ -22,7 +22,9 @@ import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
-import org.eclipse.gmf.mappings.ToolGroup;
+import org.eclipse.gmf.tooldef.AbstractTool;
+import org.eclipse.gmf.tooldef.CreationTool;
+import org.eclipse.gmf.tooldef.ToolContainer;
 
 /**
  * In most cases it should be sufficient to override <code>getXXXSuffix()</code>
@@ -108,16 +110,13 @@ public class DefaultNamingStrategy extends NamingStrategy {
 		return null;
 	}
 
-	public String createToolCreationMethodName(AbstractNodeMapping nodeMapping) {
-		return getUniquePaletteFactoryMethodName("create" + nodeMapping.getDomainContext().getName() + "NodeCreationTool");
-	}
-
-	public String createToolCreationMethodName(LinkMapping linkMapping) {
-		return getUniquePaletteFactoryMethodName("create" + (linkMapping.getDomainMetaElement() != null ? linkMapping.getDomainMetaElement().getName() : linkMapping.getLinkMetaFeature().getName()) + "LinkCreationTool");
-	}
-	
-	public String createToolGroupCreationMethodName(ToolGroup toolGroup) {
-		return getUniquePaletteFactoryMethodName("create" + (toolGroup.getName() != null ? toolGroup.getName() : "") + "Group");
+	public String createCreationMethodName(AbstractTool tool) {
+		if (tool instanceof CreationTool) {
+			return getUniquePaletteFactoryMethodName("create" + tool.getTitle() + "CreationTool");
+		} else if (tool instanceof ToolContainer) {
+			return getUniquePaletteFactoryMethodName("create" + tool.getTitle() + "Group");
+		}
+		return getUniquePaletteFactoryMethodName("create" + tool.getTitle() + "Unknown");
 	}
 
 	/**

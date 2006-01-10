@@ -26,7 +26,6 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.GMFMapFactory;
@@ -39,7 +38,7 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
  * @generated
  */
 public class AbstractNodeMappingItemProvider
-	extends ItemProviderAdapter
+	extends MappingEntryItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -66,30 +65,71 @@ public class AbstractNodeMappingItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDomainMetaElementPropertyDescriptor(object);
-			addContainmentFeaturePropertyDescriptor(object);
+			addContextMenuPropertyDescriptor(object);
+			addToolPropertyDescriptor(object);
+			addAppearanceStylePropertyDescriptor(object);
 			addEditFeaturePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Domain Meta Element feature.
+	 * This adds a property descriptor for the Context Menu feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addDomainMetaElementPropertyDescriptor(Object object) {
+	protected void addContextMenuPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_AbstractNodeMapping_domainMetaElement_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_AbstractNodeMapping_domainMetaElement_feature", "_UI_AbstractNodeMapping_type"),
-				 GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainMetaElement(),
+				 getString("_UI_MenuOwner_contextMenu_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_MenuOwner_contextMenu_feature", "_UI_MenuOwner_type"),
+				 GMFMapPackage.eINSTANCE.getMenuOwner_ContextMenu(),
 				 true,
 				 null,
-				 getString("_UI_DomainmetainformationPropertyCategory"),
+				 getString("_UI_VisualrepresentationPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Tool feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addToolPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ToolOwner_tool_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ToolOwner_tool_feature", "_UI_ToolOwner_type"),
+				 GMFMapPackage.eINSTANCE.getToolOwner_Tool(),
+				 true,
+				 null,
+				 getString("_UI_VisualrepresentationPropertyCategory"),
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Appearance Style feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAppearanceStylePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_AppearanceSteward_appearanceStyle_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AppearanceSteward_appearanceStyle_feature", "_UI_AppearanceSteward_type"),
+				 GMFMapPackage.eINSTANCE.getAppearanceSteward_AppearanceStyle(),
+				 true,
+				 null,
+				 getString("_UI_VisualrepresentationPropertyCategory"),
 				 null));
 	}
 
@@ -104,9 +144,9 @@ public class AbstractNodeMappingItemProvider
 			(new ItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_AbstractNodeMapping_containmentFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_AbstractNodeMapping_containmentFeature_feature", "_UI_AbstractNodeMapping_type"),
-				 GMFMapPackage.eINSTANCE.getAbstractNodeMapping_ContainmentFeature(),
+				 getString("_UI_MappingEntry_containmentFeature_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_MappingEntry_containmentFeature_feature", "_UI_MappingEntry_type"),
+				 GMFMapPackage.eINSTANCE.getMappingEntry_ContainmentFeature(),
 				 true,
 				 null,
 				 getString("_UI_DomainmetainformationPropertyCategory"),
@@ -174,11 +214,8 @@ public class AbstractNodeMappingItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainSpecialization());
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainInitializer());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_ChildMappings());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_CompartmentMappings());
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_Tool());
 		}
 		return childrenFeatures;
 	}
@@ -216,11 +253,8 @@ public class AbstractNodeMappingItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(AbstractNodeMapping.class)) {
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_SPECIALIZATION:
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__DOMAIN_INITIALIZER:
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__TOOL:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -239,16 +273,6 @@ public class AbstractNodeMappingItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainSpecialization(),
-				 GMFMapFactory.eINSTANCE.createConstraint()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_DomainInitializer(),
-				 GMFMapFactory.eINSTANCE.createFeatureSeqInitializer()));
-
-		newChildDescriptors.add
-			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_ChildMappings(),
 				 GMFMapFactory.eINSTANCE.createChildNodeMapping()));
 
@@ -256,16 +280,6 @@ public class AbstractNodeMappingItemProvider
 			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_CompartmentMappings(),
 				 GMFMapFactory.eINSTANCE.createCompartmentMapping()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_Tool(),
-				 GMFMapFactory.eINSTANCE.createCreationTool()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_Tool(),
-				 GMFMapFactory.eINSTANCE.createNewActionTool()));
 	}
 
 	/**

@@ -18,7 +18,7 @@ import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
-import org.eclipse.gmf.mappings.ToolGroup;
+import org.eclipse.gmf.tooldef.AbstractTool;
 
 /**
  * Means to provide your own names for classes being generated from genmodel. 
@@ -59,18 +59,10 @@ public class NamingStrategy {
 		return null;
 	}
 	
-	public String createToolCreationMethodName(AbstractNodeMapping nodeMapping) {
+	public String createCreationMethodName(AbstractTool tool) {
 		return null;
 	}
 
-	public String createToolCreationMethodName(LinkMapping linkMapping) {
-		return null;
-	}
-	
-	public String createToolGroupCreationMethodName(ToolGroup toolGroup) {
-		return null;
-	}
-	
 	public void reset() {
 	};
 }
