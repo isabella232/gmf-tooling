@@ -91,8 +91,8 @@ public class DefaultNamingStrategy extends NamingStrategy {
 	}
 
 	public String createLinkClassName(LinkMapping mapping, String suffix) {
-		if (mapping.getDomainMetaClass() != null) {
-			return createClassName(mapping.getDomainMetaClass().getName(), getLinkSuffix(suffix));
+		if (mapping.getDomainMetaElement() != null) {
+			return createClassName(mapping.getDomainMetaElement().getName(), getLinkSuffix(suffix));
 		} else if (mapping.getLinkMetaFeature() != null) {
 			return createClassName(mapping.getLinkMetaFeature().getName(), getLinkSuffix(suffix));
 		}
@@ -100,8 +100,8 @@ public class DefaultNamingStrategy extends NamingStrategy {
 	}
 
 	public String createLinkLabelClassName(LinkMapping mapping, EStructuralFeature labelFeature, String suffix) {
-		if (mapping.getDomainMetaClass() != null) {
-			return createClassName(mapping.getDomainMetaClass().getName() + '_' + labelFeature.getName(), getLinkSuffix(suffix));
+		if (mapping.getDomainMetaElement() != null) {
+			return createClassName(mapping.getDomainMetaElement().getName() + '_' + labelFeature.getName(), getLinkSuffix(suffix));
 		} else if (mapping.getLinkMetaFeature() != null) {
 			return createClassName(mapping.getLinkMetaFeature().getName() + '_' + labelFeature.getName(), getLinkSuffix(suffix));
 		}
@@ -113,7 +113,7 @@ public class DefaultNamingStrategy extends NamingStrategy {
 	}
 
 	public String createToolCreationMethodName(LinkMapping linkMapping) {
-		return getUniquePaletteFactoryMethodName("create" + (linkMapping.getDomainMetaClass() != null ? linkMapping.getDomainMetaClass().getName() : linkMapping.getLinkMetaFeature().getName()) + "LinkCreationTool");
+		return getUniquePaletteFactoryMethodName("create" + (linkMapping.getDomainMetaElement() != null ? linkMapping.getDomainMetaElement().getName() : linkMapping.getLinkMetaFeature().getName()) + "LinkCreationTool");
 	}
 	
 	public String createToolGroupCreationMethodName(ToolGroup toolGroup) {

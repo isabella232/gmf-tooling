@@ -305,7 +305,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			findToolGroup(lme.getTool()).getLinkTools().add(le);
 			le.getGenLink().add(gl);
 			le.setCreateMethodName(myNamingStrategy.createToolCreationMethodName(lme));
-			setupCommonToolEntry(le, lme.getTool(), lme.getDomainMetaClass() != null ? lme.getDomainMetaClass().getName() : lme.getLinkMetaFeature().getName());
+			setupCommonToolEntry(le, lme.getTool(), lme.getDomainMetaElement() != null ? lme.getDomainMetaElement().getName() : lme.getLinkMetaFeature().getName());
 		}
 		EAttribute editFeature = lme.getLabelEditFeature();
 		if (editFeature != null) {

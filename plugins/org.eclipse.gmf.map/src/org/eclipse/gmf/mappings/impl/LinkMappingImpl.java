@@ -623,8 +623,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	/**
 	 * <!-- begin-user-doc -->
 	 * This method was created to simplify transtofmation code.
-	 * @return getDomainMetaElement() if specified or getContainmentFeature().getEReferenceType() 
-	 * if containment feature was specified or null in case of "Reference only" link mapping
+	 * @return getDomainMetaElement() if specified, and getLinkMetaFeature().getEType()  
+	 * if link meta feature was specified. <code>null</code> otherwise.
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
@@ -632,8 +632,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 		if (getDomainMetaElement() != null) {
 			return getDomainMetaElement();
 		}
-		if (getContainmentFeature() != null) {
-			return getContainmentFeature().getEReferenceType();
+		if (getLinkMetaFeature() != null) {
+			return (EClass) getLinkMetaFeature().getEType();
 		}
 		return null;
 	}
