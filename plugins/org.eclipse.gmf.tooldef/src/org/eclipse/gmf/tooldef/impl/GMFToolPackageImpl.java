@@ -800,7 +800,7 @@ public class GMFToolPackageImpl extends EPackageImpl implements GMFToolPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenericStyleSelector_Value() {
+	public EAttribute getGenericStyleSelector_Values() {
 		return (EAttribute) genericStyleSelectorEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -937,7 +937,7 @@ public class GMFToolPackageImpl extends EPackageImpl implements GMFToolPackage {
 		styleSelectorEClass = createEClass(STYLE_SELECTOR);
 
 		genericStyleSelectorEClass = createEClass(GENERIC_STYLE_SELECTOR);
-		createEAttribute(genericStyleSelectorEClass, GENERIC_STYLE_SELECTOR__VALUE);
+		createEAttribute(genericStyleSelectorEClass, GENERIC_STYLE_SELECTOR__VALUES);
 
 		// Create enums
 		standardToolKindEEnum = createEEnum(STANDARD_TOOL_KIND);
@@ -1100,8 +1100,8 @@ public class GMFToolPackageImpl extends EPackageImpl implements GMFToolPackage {
 		addEParameter(op, ecorePackage.getEJavaObject(), "style", 0, 1);
 
 		initEClass(genericStyleSelectorEClass, GenericStyleSelector.class, "GenericStyleSelector", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getGenericStyleSelector_Value(), this.getAppearanceStyle(), "value", null, 0, 1, GenericStyleSelector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
-				IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenericStyleSelector_Values(), this.getAppearanceStyle(), "values", null, 1, -1, GenericStyleSelector.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE,
+				!IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(standardToolKindEEnum, StandardToolKind.class, "StandardToolKind");

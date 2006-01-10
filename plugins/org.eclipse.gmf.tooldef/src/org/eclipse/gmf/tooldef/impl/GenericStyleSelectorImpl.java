@@ -6,14 +6,14 @@
  */
 package org.eclipse.gmf.tooldef.impl;
 
-import org.eclipse.emf.common.notify.Notification;
+import java.util.Collection;
+import java.util.Iterator;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.gmf.tooldef.AppearanceStyle;
 import org.eclipse.gmf.tooldef.GMFToolPackage;
 import org.eclipse.gmf.tooldef.GenericStyleSelector;
@@ -25,7 +25,7 @@ import org.eclipse.gmf.tooldef.GenericStyleSelector;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.tooldef.impl.GenericStyleSelectorImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.eclipse.gmf.tooldef.impl.GenericStyleSelectorImpl#getValues <em>Values</em>}</li>
  * </ul>
  * </p>
  *
@@ -33,24 +33,14 @@ import org.eclipse.gmf.tooldef.GenericStyleSelector;
  */
 public class GenericStyleSelectorImpl extends EObjectImpl implements GenericStyleSelector {
 	/**
-	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
+	 * The cached value of the '{@link #getValues() <em>Values</em>}' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getValue()
+	 * @see #getValues()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final AppearanceStyle VALUE_EDEFAULT = AppearanceStyle.FONT_LITERAL;
-
-	/**
-	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getValue()
-	 * @generated
-	 * @ordered
-	 */
-	protected AppearanceStyle value = VALUE_EDEFAULT;
+	protected EList values = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -75,20 +65,11 @@ public class GenericStyleSelectorImpl extends EObjectImpl implements GenericStyl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AppearanceStyle getValue() {
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setValue(AppearanceStyle newValue) {
-		AppearanceStyle oldValue = value;
-		value = newValue == null ? VALUE_EDEFAULT : newValue;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFToolPackage.GENERIC_STYLE_SELECTOR__VALUE, oldValue, value));
+	public EList getValues() {
+		if (values == null) {
+			values = new EDataTypeUniqueEList(AppearanceStyle.class, this, GMFToolPackage.GENERIC_STYLE_SELECTOR__VALUES);
+		}
+		return values;
 	}
 
 	/**
@@ -100,7 +81,14 @@ public class GenericStyleSelectorImpl extends EObjectImpl implements GenericStyl
 		if (false == style instanceof EObject) {
 			return false;
 		}
-		return ((EObject) style).eClass().getName().equals(getValue().getName() + "Style");
+		final String styleName = ((EObject) style).eClass().getName();
+		for (Iterator it = getValues().iterator(); it.hasNext(); ) {
+			AppearanceStyle s = (AppearanceStyle) it.next();
+			if (styleName.equals(s.getName() + "Style")) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -110,8 +98,8 @@ public class GenericStyleSelectorImpl extends EObjectImpl implements GenericStyl
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case GMFToolPackage.GENERIC_STYLE_SELECTOR__VALUE:
-			return getValue();
+		case GMFToolPackage.GENERIC_STYLE_SELECTOR__VALUES:
+			return getValues();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -123,8 +111,9 @@ public class GenericStyleSelectorImpl extends EObjectImpl implements GenericStyl
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case GMFToolPackage.GENERIC_STYLE_SELECTOR__VALUE:
-			setValue((AppearanceStyle) newValue);
+		case GMFToolPackage.GENERIC_STYLE_SELECTOR__VALUES:
+			getValues().clear();
+			getValues().addAll((Collection) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -137,8 +126,8 @@ public class GenericStyleSelectorImpl extends EObjectImpl implements GenericStyl
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case GMFToolPackage.GENERIC_STYLE_SELECTOR__VALUE:
-			setValue(VALUE_EDEFAULT);
+		case GMFToolPackage.GENERIC_STYLE_SELECTOR__VALUES:
+			getValues().clear();
 			return;
 		}
 		super.eUnset(featureID);
@@ -151,8 +140,8 @@ public class GenericStyleSelectorImpl extends EObjectImpl implements GenericStyl
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case GMFToolPackage.GENERIC_STYLE_SELECTOR__VALUE:
-			return value != VALUE_EDEFAULT;
+		case GMFToolPackage.GENERIC_STYLE_SELECTOR__VALUES:
+			return values != null && !values.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -167,8 +156,8 @@ public class GenericStyleSelectorImpl extends EObjectImpl implements GenericStyl
 			return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (value: ");
-		result.append(value);
+		result.append(" (values: ");
+		result.append(values);
 		result.append(')');
 		return result.toString();
 	}

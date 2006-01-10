@@ -6,6 +6,8 @@
  */
 package org.eclipse.gmf.tooldef;
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Generic Style Selector</b></em>'.
@@ -14,7 +16,7 @@ package org.eclipse.gmf.tooldef;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.gmf.tooldef.GenericStyleSelector#getValue <em>Value</em>}</li>
+ *   <li>{@link org.eclipse.gmf.tooldef.GenericStyleSelector#getValues <em>Values</em>}</li>
  * </ul>
  * </p>
  *
@@ -24,32 +26,21 @@ package org.eclipse.gmf.tooldef;
  */
 public interface GenericStyleSelector extends StyleSelector {
 	/**
-	 * Returns the value of the '<em><b>Value</b></em>' attribute.
+	 * Returns the value of the '<em><b>Values</b></em>' attribute list.
+	 * The list contents are of type {@link org.eclipse.gmf.tooldef.AppearanceStyle}.
 	 * The literals are from the enumeration {@link org.eclipse.gmf.tooldef.AppearanceStyle}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Value</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Values</em>' attribute list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Value</em>' attribute.
+	 * @return the value of the '<em>Values</em>' attribute list.
 	 * @see org.eclipse.gmf.tooldef.AppearanceStyle
-	 * @see #setValue(AppearanceStyle)
-	 * @see org.eclipse.gmf.tooldef.GMFToolPackage#getGenericStyleSelector_Value()
-	 * @model
+	 * @see org.eclipse.gmf.tooldef.GMFToolPackage#getGenericStyleSelector_Values()
+	 * @model type="org.eclipse.gmf.tooldef.AppearanceStyle" required="true"
 	 * @generated
 	 */
-	AppearanceStyle getValue();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.tooldef.GenericStyleSelector#getValue <em>Value</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Value</em>' attribute.
-	 * @see org.eclipse.gmf.tooldef.AppearanceStyle
-	 * @see #getValue()
-	 * @generated
-	 */
-	void setValue(AppearanceStyle value);
+	EList getValues();
 
 } // GenericStyleSelector

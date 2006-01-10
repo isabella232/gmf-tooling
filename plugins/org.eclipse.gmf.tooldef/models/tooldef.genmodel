@@ -101,7 +101,7 @@
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="tooldef.ecore#//GenericStyleSelector">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tooldef.ecore#//GenericStyleSelector/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute tooldef.ecore#//GenericStyleSelector/values"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

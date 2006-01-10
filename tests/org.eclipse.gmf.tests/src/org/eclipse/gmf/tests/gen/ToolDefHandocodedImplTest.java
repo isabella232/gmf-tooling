@@ -13,6 +13,9 @@ package org.eclipse.gmf.tests.gen;
 
 import junit.framework.TestCase;
 
+import org.eclipse.gmf.runtime.notation.FillStyle;
+import org.eclipse.gmf.runtime.notation.FontStyle;
+import org.eclipse.gmf.runtime.notation.LineStyle;
 import org.eclipse.gmf.runtime.notation.NotationFactory;
 import org.eclipse.gmf.tooldef.AppearanceStyle;
 import org.eclipse.gmf.tooldef.GMFToolFactory;
@@ -29,11 +32,26 @@ public class ToolDefHandocodedImplTest extends TestCase {
 
 	public void testGenericStyleSelector() {
 		final GenericStyleSelector ss = GMFToolFactory.eINSTANCE.createGenericStyleSelector();
-		ss.setValue(AppearanceStyle.FILL_LITERAL);
-		assertTrue(ss.isOk(NotationFactory.eINSTANCE.createFillStyle()));
-		ss.setValue(AppearanceStyle.LINE_LITERAL);
-		assertTrue(ss.isOk(NotationFactory.eINSTANCE.createLineStyle()));
-		ss.setValue(AppearanceStyle.FONT_LITERAL);
+		final FillStyle fillStyle = NotationFactory.eINSTANCE.createFillStyle();
+		final LineStyle lineStyle = NotationFactory.eINSTANCE.createLineStyle();
+		final FontStyle fontStyle = NotationFactory.eINSTANCE.createFontStyle();
+
+		ss.getValues().add(AppearanceStyle.FILL_LITERAL);
+		assertTrue(ss.isOk(fillStyle));
+		assertFalse(ss.isOk(fontStyle));
+		ss.getValues().clear();
+		ss.getValues().add(AppearanceStyle.LINE_LITERAL);
+		assertTrue(ss.isOk(lineStyle));
+		ss.getValues().clear();
+		ss.getValues().add(AppearanceStyle.FONT_LITERAL);
+		assertTrue(ss.isOk(fontStyle));
+		assertFalse(ss.isOk(lineStyle));
+		// note, no clear(), two values in the list
+		ss.getValues().add(AppearanceStyle.FILL_LITERAL);
 		assertTrue(ss.isOk(NotationFactory.eINSTANCE.createFontStyle()));
+		assertFalse(ss.isOk(lineStyle));
+		assertFalse(ss.isOk(NotationFactory.eINSTANCE.createLineStyle()));
+		assertTrue(ss.isOk(NotationFactory.eINSTANCE.createFillStyle()));
+		assertTrue(ss.isOk(fillStyle));
 	}
 }

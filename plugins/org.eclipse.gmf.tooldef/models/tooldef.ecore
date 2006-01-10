@@ -114,7 +114,8 @@
     </eOperations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenericStyleSelector" eSuperTypes="#//StyleSelector">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="#//AppearanceStyle"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="values" lowerBound="1"
+        upperBound="-1" eType="#//AppearanceStyle"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="AppearanceStyle">
     <eLiterals name="Font"/>

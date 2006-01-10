@@ -1140,13 +1140,13 @@ public interface GMFToolPackage extends EPackage {
 	int GENERIC_STYLE_SELECTOR = 25;
 
 	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * The feature id for the '<em><b>Values</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GENERIC_STYLE_SELECTOR__VALUE = STYLE_SELECTOR_FEATURE_COUNT + 0;
+	int GENERIC_STYLE_SELECTOR__VALUES = STYLE_SELECTOR_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Generic Style Selector</em>' class.
@@ -1734,15 +1734,15 @@ public interface GMFToolPackage extends EPackage {
 	EClass getGenericStyleSelector();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.tooldef.GenericStyleSelector#getValue <em>Value</em>}'.
+	 * Returns the meta object for the attribute list '{@link org.eclipse.gmf.tooldef.GenericStyleSelector#getValues <em>Values</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see org.eclipse.gmf.tooldef.GenericStyleSelector#getValue()
+	 * @return the meta object for the attribute list '<em>Values</em>'.
+	 * @see org.eclipse.gmf.tooldef.GenericStyleSelector#getValues()
 	 * @see #getGenericStyleSelector()
 	 * @generated
 	 */
-	EAttribute getGenericStyleSelector_Value();
+	EAttribute getGenericStyleSelector_Values();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.tooldef.StandardToolKind <em>Standard Tool Kind</em>}'.
