@@ -23,6 +23,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDomainDiagramElement <em>Domain Diagram Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getNodes <em>Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getLinks <em>Links</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getAudits <em>Audits</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPalette <em>Palette</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditCommandsPackageName <em>Edit Commands Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditPartsPackageName <em>Edit Parts Package Name</em>}</li>
@@ -70,7 +71,7 @@ import org.eclipse.emf.common.util.EList;
  * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='nodes->forAll(n : GenNode | self.links->forAll(l : GenLink | l.oclAsType(TypeLinkModelFacet).metaClass <> n.getDomainMetaClass()))'"
  * @generated
  */
-public interface GenDiagram extends GenCommonBase{
+public interface GenDiagram extends GenCommonBase {
 	/**
 	 * Returns the value of the '<em><b>Domain Meta Model</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -158,6 +159,35 @@ public interface GenDiagram extends GenCommonBase{
 	 * @generated
 	 */
 	EList getLinks();
+
+	/**
+	 * Returns the value of the '<em><b>Audits</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Audits</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Domain meta-model  audit rules definitions
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Audits</em>' containment reference.
+	 * @see #setAudits(GenAuditContainer)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_Audits()
+	 * @model containment="true"
+	 * @generated
+	 */
+	GenAuditContainer getAudits();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getAudits <em>Audits</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Audits</em>' containment reference.
+	 * @see #getAudits()
+	 * @generated
+	 */
+	void setAudits(GenAuditContainer value);
 
 	/**
 	 * Returns the value of the '<em><b>Palette</b></em>' containment reference.

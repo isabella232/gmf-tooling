@@ -939,6 +939,7 @@ public class GenDiagramItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Nodes());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Links());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Audits());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Palette());
 		}
 		return childrenFeatures;
@@ -1033,6 +1034,7 @@ public class GenDiagramItemProvider
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__NODES:
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
+			case GMFGenPackage.GEN_DIAGRAM__AUDITS:
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -1064,6 +1066,11 @@ public class GenDiagramItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenDiagram_Links(),
 				 GMFGenFactory.eINSTANCE.createGenLink()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenDiagram_Audits(),
+				 GMFGenFactory.eINSTANCE.createGenAuditContainer()));
 
 		newChildDescriptors.add
 			(createChildParameter

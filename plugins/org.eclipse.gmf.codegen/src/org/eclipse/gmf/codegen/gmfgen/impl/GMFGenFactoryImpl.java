@@ -111,6 +111,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER: return createGenFeatureSeqInitializer();
 			case GMFGenPackage.GEN_FEATURE_VALUE_SPEC: return createGenFeatureValueSpec();
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS: return createGenLinkConstraints();
+			case GMFGenPackage.GEN_AUDIT_CONTAINER: return createGenAuditContainer();
+			case GMFGenPackage.GEN_AUDIT_RULE: return createGenAuditRule();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -129,6 +131,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 				return createCompartmentLayoutKindFromString(eDataType, initialValue);
 			case GMFGenPackage.LINK_LABEL_ALIGNMENT:
 				return createLinkLabelAlignmentFromString(eDataType, initialValue);
+			case GMFGenPackage.GEN_SEVERITY:
+				return createGenSeverityFromString(eDataType, initialValue);
 			case GMFGenPackage.STRING_ARRAY:
 				return createStringArrayFromString(eDataType, initialValue);
 			default:
@@ -149,6 +153,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 				return convertCompartmentLayoutKindToString(eDataType, instanceValue);
 			case GMFGenPackage.LINK_LABEL_ALIGNMENT:
 				return convertLinkLabelAlignmentToString(eDataType, instanceValue);
+			case GMFGenPackage.GEN_SEVERITY:
+				return convertGenSeverityToString(eDataType, instanceValue);
 			case GMFGenPackage.STRING_ARRAY:
 				return convertStringArrayToString(eDataType, instanceValue);
 			default:
@@ -411,6 +417,26 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GenAuditContainer createGenAuditContainer() {
+		GenAuditContainerImpl genAuditContainer = new GenAuditContainerImpl();
+		return genAuditContainer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenAuditRule createGenAuditRule() {
+		GenAuditRuleImpl genAuditRule = new GenAuditRuleImpl();
+		return genAuditRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public CompartmentPlacementKind createCompartmentPlacementKindFromString(EDataType eDataType, String initialValue) {
 		CompartmentPlacementKind result = CompartmentPlacementKind.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -463,6 +489,26 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 * @generated
 	 */
 	public String convertLinkLabelAlignmentToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenSeverity createGenSeverityFromString(EDataType eDataType, String initialValue) {
+		GenSeverity result = GenSeverity.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertGenSeverityToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

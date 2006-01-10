@@ -207,6 +207,12 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGenLinkConstraints(GenLinkConstraints object) {
 				return createGenLinkConstraintsAdapter();
 			}
+			public Object caseGenAuditContainer(GenAuditContainer object) {
+				return createGenAuditContainerAdapter();
+			}
+			public Object caseGenAuditRule(GenAuditRule object) {
+				return createGenAuditRuleAdapter();
+			}
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -684,6 +690,34 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenLinkConstraintsAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer <em>Gen Audit Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditContainer
+	 * @generated
+	 */
+	public Adapter createGenAuditContainerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule <em>Gen Audit Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditRule
+	 * @generated
+	 */
+	public Adapter createGenAuditRuleAdapter() {
 		return null;
 	}
 

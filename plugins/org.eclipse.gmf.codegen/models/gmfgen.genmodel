@@ -25,12 +25,18 @@
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LinkLabelAlignment/TARGET"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LinkLabelAlignment/SOURCE"/>
     </genEnums>
+    <genEnums ecoreEnum="gmfgen.ecore#//GenSeverity">
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenSeverity/INFO"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenSeverity/WARNING"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//GenSeverity/ERROR"/>
+    </genEnums>
     <genDataTypes ecoreDataType="gmfgen.ecore#//StringArray"/>
     <genClasses ecoreClass="gmfgen.ecore#//GenDiagram">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/domainMetaModel"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/domainDiagramElement"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/nodes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/links"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/audits"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/palette"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/editCommandsPackageName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/editPartsPackageName"/>
@@ -284,6 +290,25 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenLinkConstraints/getSourceEndContextClass"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLinkConstraints/getTargetEndContextClass"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLinkConstraints/getConstraintsInstanceFieldName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenAuditContainer">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditContainer/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditContainer/name"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditContainer/parentContainer"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditContainer/audits"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditContainer/childContainers"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenAuditContainer/getAllAuditRules"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenAuditContainer/getAllAuditContainers"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenAuditContainer/getPath"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenAuditRule">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/id"/>
+      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditRule/rule"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditRule/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/severity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/useInLiveMode"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditRule/container"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

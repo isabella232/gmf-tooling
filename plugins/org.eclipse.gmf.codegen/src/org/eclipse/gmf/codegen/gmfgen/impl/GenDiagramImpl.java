@@ -6,11 +6,12 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
@@ -26,6 +27,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -47,6 +49,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDomainDiagramElement <em>Domain Diagram Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getNodes <em>Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getLinks <em>Links</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getAudits <em>Audits</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPalette <em>Palette</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditCommandsPackageName <em>Edit Commands Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartsPackageName <em>Edit Parts Package Name</em>}</li>
@@ -133,6 +136,16 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected EList links = null;
+
+	/**
+	 * The cached value of the '{@link #getAudits() <em>Audits</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAudits()
+	 * @generated
+	 * @ordered
+	 */
+	protected GenAuditContainer audits = null;
 
 	/**
 	 * The cached value of the '{@link #getPalette() <em>Palette</em>}' containment reference.
@@ -1042,6 +1055,49 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			links = new EObjectContainmentWithInverseEList(GenLink.class, this, GMFGenPackage.GEN_DIAGRAM__LINKS, GMFGenPackage.GEN_LINK__DIAGRAM);
 		}
 		return links;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenAuditContainer getAudits() {
+		return audits;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetAudits(GenAuditContainer newAudits, NotificationChain msgs) {
+		GenAuditContainer oldAudits = audits;
+		audits = newAudits;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__AUDITS, oldAudits, newAudits);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAudits(GenAuditContainer newAudits) {
+		if (newAudits != audits) {
+			NotificationChain msgs = null;
+			if (audits != null)
+				msgs = ((InternalEObject)audits).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_DIAGRAM__AUDITS, null, msgs);
+			if (newAudits != null)
+				msgs = ((InternalEObject)newAudits).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_DIAGRAM__AUDITS, null, msgs);
+			msgs = basicSetAudits(newAudits, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__AUDITS, newAudits, newAudits));
 	}
 
 	/**
@@ -2272,6 +2328,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return ((InternalEList)getNodes()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 				return ((InternalEList)getLinks()).basicRemove(otherEnd, msgs);
+			case GMFGenPackage.GEN_DIAGRAM__AUDITS:
+				return basicSetAudits(null, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				return basicSetPalette(null, msgs);
 		}
@@ -2295,6 +2353,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getNodes();
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 				return getLinks();
+			case GMFGenPackage.GEN_DIAGRAM__AUDITS:
+				return getAudits();
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				return getPalette();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
@@ -2399,6 +2459,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 				getLinks().clear();
 				getLinks().addAll((Collection)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__AUDITS:
+				setAudits((GenAuditContainer)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				setPalette((Palette)newValue);
@@ -2543,6 +2606,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 				getLinks().clear();
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__AUDITS:
+				setAudits((GenAuditContainer)null);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				setPalette((Palette)null);
 				return;
@@ -2682,6 +2748,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return nodes != null && !nodes.isEmpty();
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 				return links != null && !links.isEmpty();
+			case GMFGenPackage.GEN_DIAGRAM__AUDITS:
+				return audits != null;
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				return palette != null;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
@@ -2899,12 +2967,13 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @generated NOT
 	 */
 	public String[] getRequiredPluginIDs() {
-		ArrayList requiredPlugins = new ArrayList();
+		Collection requiredPlugins = new LinkedHashSet();
 		if (usesSVGShapes()) {
 			requiredPlugins.add("org.eclipse.gmf.diagramrt.gefsvg");
 		}
 		
 		requiredPlugins.addAll(getExpressionsRequiredPluginIDs());
+		requiredPlugins.addAll(getAuditRequiredPluginIDs());
 		return (String[]) requiredPlugins.toArray(new String[requiredPlugins.size()]);
 	}
 
@@ -3220,5 +3289,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			requiredIDs.add("org.eclipse.emf.query.ocl"); //$NON-NLS-1$			
 		}
 		return requiredIDs;
+	}
+	
+	private Set getAuditRequiredPluginIDs() {
+		if(getAudits() != null && getAudits().getAllAuditRules().size() > 0) {
+			return Collections.singleton("org.eclipse.emf.validation"); //$NON-NLS-1$ 
+		}
+		return Collections.EMPTY_SET;
 	}
 } //GenDiagramImpl

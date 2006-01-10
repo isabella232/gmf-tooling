@@ -84,6 +84,12 @@
         eType="#//GenNode" containment="true" eOpposite="#//GenNode/diagram"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
         eType="#//GenLink" containment="true" eOpposite="#//GenLink/diagram"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="audits" eType="#//GenAuditContainer"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Domain meta-model  audit rules definitions"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="palette" lowerBound="1"
         eType="#//Palette" containment="true" eOpposite="#//Palette/diagram"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="editCommandsPackageName"
@@ -693,5 +699,96 @@
         <details key="type.ocl" value="getSourceEndContextClass().ecoreClass"/>
       </eAnnotations>
     </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenAuditContainer">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Container for audit rules representing a hierarchical organization of audits in the constraint category hierarchy of emft.validation framework"/>
+    </eAnnotations>
+    <eOperations name="getAllAuditRules" upperBound="-1" eType="#//GenAuditRule">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Gets all audit rules from this audit container hierarchy recursively"/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="getAllAuditContainers" upperBound="-1" eType="#//GenAuditContainer">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Gets all audit containers from this audit container hierarchy recursively"/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="getPath" lowerBound="1" upperBound="-1" eType="#//GenAuditContainer">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Gets hierarchical path of this audit container as ordered list of containers beginning with the root and ended with this container"/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Identifier which is unique within the scope of its parent container."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A human readable name for the category of audits organized in this container"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parentContainer" eType="#//GenAuditContainer"
+        eOpposite="#//GenAuditContainer/childContainers"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="audits" upperBound="-1"
+        eType="#//GenAuditRule" containment="true" eOpposite="#//GenAuditRule/container">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The audit rules organized in this container"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="childContainers" upperBound="-1"
+        eType="#//GenAuditContainer" containment="true" eOpposite="#//GenAuditContainer/parentContainer"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenAuditRule">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Unique identifier of this audit rule"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//ValueExpression"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A boolean type condition which if not satisfied indicates this audit rule violation. It is evaluated in the context of the target"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="context"/>
+        <details key="ocl" value="target.ecoreClass"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
+        eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Model class to which this rules is targeted and is the context for rule expression evaluation"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A human readable name"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="severity" eType="#//GenSeverity"
+        defaultValueLiteral="ERROR">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Describes the severity of this audit rule violation"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="useInLiveMode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates if this audit should be evaluated also in Live mode. If 'false', only Batch mode is applicable"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="container" lowerBound="1"
+        eType="#//GenAuditContainer" eOpposite="#//GenAuditContainer/audits">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The containing audit container of this audit rule"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="GenSeverity">
+    <eLiterals name="INFO"/>
+    <eLiterals name="WARNING" value="1"/>
+    <eLiterals name="ERROR" value="2"/>
   </eClassifiers>
 </ecore:EPackage>

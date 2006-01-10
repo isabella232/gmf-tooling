@@ -1,0 +1,72 @@
+<%
+GenAuditContainer rootContainer = genDiagram.getAudits();
+if(rootContainer != null) {
+	java.util.List containers = rootContainer != null ? rootContainer.getAllAuditContainers() : java.util.Collections.EMPTY_LIST;
+%>
+<extension point="org.eclipse.emf.validation.constraintProviders">
+<%
+	java.util.HashMap idMap = new java.util.HashMap();
+	for(int i = 0; i < containers.size(); i++) {
+		GenAuditContainer container = (GenAuditContainer)containers.get(i);
+		idMap.put(container, container.getId() != null ? container.getId() : "category" + Integer.toString(i + 1));
+	}
+	java.util.HashMap pathMap = new java.util.HashMap();
+	for(int i = 0; i < containers.size(); i++) {
+		GenAuditContainer category = (GenAuditContainer)containers.get(i);
+		java.util.List path = category.getPath();
+		StringBuffer id = new StringBuffer();
+		for(int pathPos = 0; pathPos < path.size(); pathPos++) {
+			if(pathPos > 0) id.append('/');
+			id.append(idMap.get(path.get(pathPos)));
+		}
+		pathMap.put(category, id.toString());
+%>
+	<category
+		id="<%=id.toString()%>"
+		mandatory="false"
+		name="<%=category.getName()%>"/>
+<%
+	} // end of categories loop
+	String rootCategoryId = (String)pathMap.get(rootContainer);
+%>
+	<constraintProvider cache="true">
+		<package namespaceUri="<%=genDiagram.getDomainMetaModel().getNSURI()%>"/>
+<%
+	int rulePos = 0;
+	for(java.util.Iterator catIt = containers.iterator(); catIt.hasNext(); rulePos++) {
+		GenAuditContainer category = (GenAuditContainer)catIt.next();
+		for(java.util.Iterator it = category.getAudits().iterator(); it.hasNext();) {
+			GenAuditRule audit = (GenAuditRule)it.next();
+			GenClass targetClass = audit.getTarget();
+			String targetClassName = (targetClass != null) ? targetClass.getGenPackage().getNSName() + "." + targetClass.getInterfaceName() : "null";
+			String modeAttr = audit.isUseInLiveMode() ? "" : "mode=\"Batch\"";
+%>
+		<constraints categories="<%=pathMap.get(category)%>">
+			<constraint id="<%=audit.getId()%>"
+				lang="OCL" <%=modeAttr%>
+				name="<%=audit.getName()%>"
+				severity="<%=audit.getSeverity().getName()%>" statusCode="<%=Integer.toString(200 + rulePos)%>">
+				<![CDATA[<%=audit.getRule() != null ? audit.getRule().getBody() : ""%>]]>
+				<description>
+	            </description>
+	            <message><![CDATA[<%=audit.getName()%> audit violated]]></message>
+				<target class="<%=targetClassName%>"/>
+			</constraint>
+		</constraints>
+<%
+		} // end of audits in category
+	} // end of category loop
+%>
+	</constraintProvider>
+</extension>
+
+<extension point="org.eclipse.emf.validation.constraintBindings">
+	<clientContext default="true" id="<%=rootCategoryId%>.clientContext">
+		<enablement/>
+	</clientContext>
+	<binding category="<%=rootCategoryId%>"
+		context="<%=rootCategoryId%>.clientContext"/>
+</extension>
+<%
+	} 
+%>

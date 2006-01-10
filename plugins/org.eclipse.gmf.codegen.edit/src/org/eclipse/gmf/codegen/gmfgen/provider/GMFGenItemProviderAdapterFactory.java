@@ -580,6 +580,50 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenAuditContainerItemProvider genAuditContainerItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenAuditContainerAdapter() {
+		if (genAuditContainerItemProvider == null) {
+			genAuditContainerItemProvider = new GenAuditContainerItemProvider(this);
+		}
+
+		return genAuditContainerItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenAuditRuleItemProvider genAuditRuleItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenAuditRuleAdapter() {
+		if (genAuditRuleItemProvider == null) {
+			genAuditRuleItemProvider = new GenAuditRuleItemProvider(this);
+		}
+
+		return genAuditRuleItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ValueExpression} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -744,6 +788,8 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genFeatureSeqInitializerItemProvider != null) genFeatureSeqInitializerItemProvider.dispose();
 		if (genFeatureValueSpecItemProvider != null) genFeatureValueSpecItemProvider.dispose();
 		if (genLinkConstraintsItemProvider != null) genLinkConstraintsItemProvider.dispose();
+		if (genAuditContainerItemProvider != null) genAuditContainerItemProvider.dispose();
+		if (genAuditRuleItemProvider != null) genAuditRuleItemProvider.dispose();
 	}
 
 }

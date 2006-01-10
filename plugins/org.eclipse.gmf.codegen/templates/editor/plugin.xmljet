@@ -158,4 +158,5 @@ final GenModel genModel = genDiagram.getEMFGenModel();
       </IconProvider>
    </extension>
 
+   <%@ include file="ConstraintProviders.jetinc"%>
 </plugin>
