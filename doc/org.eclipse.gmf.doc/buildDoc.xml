@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="build.docs">
+
+<!-- Note that this script is called from the automated build system and expects
+     the following properties to be passed in:
+     	javadoc.exe
+     	buildRoot
+     	buildDirectory
+     	fullEmfVersion (needed until EMF packages their documentation in single jar)
+     
+     Also note that it is expected that this script is called as part of the 
+     automated build, and particularly that the SDK component has been built
+     and installed into the target eclipse, along with GMF's dependencies.
+-->
+
+	<property name="doc.plugin.dir" value="${buildDirectory}/plugins/org.eclipse.gmf.doc" />
+	<property name="javadoc.location" value="${doc.plugin.dir}/reference/api"/>
+	<property name="javadoc.link.location" value="${buildDirectory}/javadoc.link.location"/>
+	
+	<target name="build.docs" depends="init" description="Build GMF documentation">
+		<antcall target="javadoc"/>
+		<antcall target="convertSchemaToHtml"/>
+	</target>
+	
+	<target name="init">
+		<delete dir="${javadoc.location}" />
+		<delete dir="${javadoc.link.location}" />
+	</target>
+	
+	<target name="computeClasspath" unless="javadoc.classpath">
+		<!-- Construct the javadoc classpath and store it in a property. -->
+		<echo level="info" message="Computing classpath ..."/>
+		
+		<!-- Add platform dependencies required by your plug-in here.
+			 Note that this pattern expects GMF and its dependencies to have 
+			 been installed into the platform directory structure, as is
+			 the case during the build. -->
+		<patternset id="platform.classpath.pattern">
+
+			<include name="**/org.eclipse.core*.jar"/>
+			<include name="**/org.eclipse.core*/**/*.jar"/>
+			<include name="**/org.eclipse.emf*.jar"/>
+			<include name="**/org.eclipse.emf*/**/*.jar"/>
+        	<include name="**/org.eclipse.swt*.jar"/>
+        	<include name="**/org.eclipse.swt*/**/*.jar"/>
+        	<include name="**/org.eclipse.ui*.jar"/>
+        	<include name="**/org.eclipse.ui*/**/*.jar"/>
+        	<include name="**/org.eclipse.update*.jar"/>
+        	<include name="**/org.eclipse.update*/**/*.jar"/>
+        	<include name="**/org.eclipse.osgi*.jar"/>
+        	<include name="**/org.eclipse.osgi*/**/*.jar"/>
+        	<include name="**/org.eclipse.equinox*.jar"/>
+        	<include name="**/org.eclipse.equinox*/**/*.jar"/>
+        	<include name="**/org.eclipse.jdt*.jar"/>
+        	<include name="**/org.eclipse.jdt*/**/*.jar"/>
+        	<include name="**/org.eclipse.jface*.jar"/>
+        	<include name="**/org.eclipse.jface*/**/*.jar"/>
+        	<include name="**/org.eclipse.text*.jar"/>
+        	<include name="**/org.eclipse.text*/**/*.jar"/>
+        	<include name="**/org.eclipse.team*.jar"/>
+        	<include name="**/org.eclipse.team*/**/*.jar"/>
+        	<include name="**/org.eclipse.draw2d*.jar"/>
+        	<include name="**/org.eclipse.draw2d*/**/*.jar"/>
+        	<include name="**/org.eclipse.gef*.jar"/>
+        	<include name="**/org.eclipse.gef*/**/*.jar"/>
+        	<include name="**/org.junit*.jar"/>
+        	<include name="**/org.junit*/**/*.jar"/>
+        	
+        	<include name="**/org.eclipse.gmf*.jar"/>
+           	<include name="**/org.eclipse.gmf*/**/*.jar"/>
+        	<include name="**/org.apache.batik*.jar"/>
+        	<include name="**/org.apache.batik*/**/*.jar"/>
+			
+			<!-- Temporary dependencies... TODO: remove prior to 1.0.0 -->
+			<include name="**/antlr*.jar"/>
+			<include name="**/antlr*/**/*.jar"/>
+			<include name="**/org.eclipse.wst.common.ui.properties*.jar"/>
+           	<include name="**/org.eclipse.wst.common.ui.properties*/**/*.jar"/>
+           	
+		</patternset>
+			
+		<pathconvert property="javadoc.classpath" targetos="windows">
+			<path>				
+				<fileset dir="${baseLocation}">
+					<patternset refid="platform.classpath.pattern"/>
+		    	</fileset>
+			</path>
+		</pathconvert>
+		<echo level="info" message="Done computing classpath."/>
+		<echo level="debug" message="Classpath is: ${javadoc.classpath}"/>
+	</target>
+	
+	<target name="extractLinks">
+		<mkdir dir="${javadoc.link.location}"/>
+		
+		<patternset id="package.list">
+			<include name="**/package-list"/>
+		</patternset>
+		
+		<!-- We only need the package-list files out of these -->
+		<unzip dest="${javadoc.link.location}/draw2d/">
+			<patternset refid="package.list"/>
+			<fileset dir="${baseLocation}/plugins">
+				<include name="org.eclipse.draw2d.doc.isv*.jar"/>
+			</fileset>
+		</unzip>
+		
+		<unzip dest="${javadoc.link.location}/gef/">
+			<patternset refid="package.list"/>
+			<fileset dir="${baseLocation}/plugins">
+				<include name="org.eclipse.gef.doc.isv*.jar"/>
+			</fileset>
+		</unzip>
+		
+		<unzip dest="${javadoc.link.location}/emf/">
+			<patternset refid="package.list"/>			
+			<fileset dir="${baseLocation}/plugins/org.eclipse.emf.doc_${fullEmfVersion}">
+				<include name="doc.zip"/>
+			</fileset>
+		</unzip>
+		
+		<unzip dest="${javadoc.link.location}/platform/">
+			<patternset refid="package.list"/>
+			<fileset dir="${baseLocation}/plugins">
+				<include name="org.eclipse.platform.doc.isv*.jar"/>
+			</fileset>
+		</unzip>
+	</target>
+	
+	<target name="javadoc" depends="extractLinks,computeClasspath">
+		
+		<!-- Add your plug-ins to one of the "subsystem" (domain) doc sets below or, if
+		     necessary, create a new doc set. Order matters, please add subsystems 
+		     according to layer order -->
+	
+		<javadoc-subsystem subsystem="common" tocTitle="Common Frameworks Layer">
+			<package-sets>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.core/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.action/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.action.ide/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.pathvariables.ide/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.printing/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.printing.win32/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services.action/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services.dnd/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services.dnd.ide/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services.properties/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.draw2d.ui/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.draw2d.ui.render/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.gef.ui/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.commands.core/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.core/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.ui/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.ui.properties/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.ocl/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.query/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.query.ocl/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.clipboard.core/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.type.core/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.type.ui/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.validation/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.validation.ocl/src"/>
+			</package-sets>
+			<package-groups>
+				<group title="Common Core Packages" packages="org.eclipse.gmf.runtime.common.core*"/>
+				<group title="Common UI Packages" packages="org.eclipse.gmf.runtime.common.ui*"/>
+				<group title="Draw2D Packages" packages="org.eclipse.gmf.runtime.draw2d*"/>
+				<group title="EMF Modeling Services Layer Packages" packages="org.eclipse.gmf.runtime.emf*"/>
+				<group title="EMF Query Packages" packages="org.eclipse.emf.query*"/>
+				<group title="EMF OCL Packages" packages="org.eclipse.emf.ocl*"/>
+				<group title="EMF Clipboard Support Packages" packages="org.eclipse.gmf.runtime.emf.clipboard.core*"/>
+				<group title="EMF Validation Framework Packages" packages="org.eclipse.emf.validation*"/>
+				<group title="EMF Element Type Framework Packages" packages="org.eclipse.gmf.runtime.emf.type.core*"/>
+				<group title="GEF Packages" packages="org.eclipse.gmf.runtime.gef*"/>
+			</package-groups>
+		</javadoc-subsystem>
+
+		<javadoc-subsystem subsystem="diagram" tocTitle="Diagram Layer">
+			<package-sets>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.notation/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.core/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.dnd/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.geoshapes/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.printing/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.properties/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.providers/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.providers.ide/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.resources.editor/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide/src"/>
+			</package-sets>
+			<package-groups>
+				<group title="Diagram Core Packages" packages="org.eclipse.gmf.runtime.diagram.core*"/>
+				<group title="Diagram Notation Packages" packages="org.eclipse.gmf.runtime.notation*"/>
+				<group title="Diagram UI Packages" packages="org.eclipse.gmf.runtime.diagram.ui*"/>
+			</package-groups>
+		</javadoc-subsystem>
+
+		<javadoc-subsystem subsystem="tooling" tocTitle="Generation Framework">
+			<package-sets>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.tooldef/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.tooldef.edit/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.map/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.map.edit/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.bridge/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.codegen/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.codegen.edit/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.codegen.ui/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.graphdef/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.graphdef.codegen/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.graphdef.edit/src"/>
+			</package-sets>
+			<package-groups>
+				<group title="Tooling Packages" packages="org.eclipse.gmf.tooldef*,org.eclipse.gmf.map*,org.eclipse.gmf.bridge*,org.eclipse.gmf.codegen*,org.eclipse.gmf.internal.codegen*,org.eclipse.gmf.graphdef*,org.eclipse.gmf.gmfgraph*"/>
+			</package-groups>
+		</javadoc-subsystem>
+		
+		<!-- Add your plug-ins to one of the "subsystem" (domain) doc sets above or, if
+		     necessary, create a new doc set. -->
+		
+    </target>
+	
+    <!--
+		Builds the Javadoc set for a subsystem (often corresponds to a "domain").
+		
+		attributes:
+			subsystem - the name of the subsystem, used in the directory where its Javadocs are generated to
+			tocTitle - Title to add to the generated TOC
+			tocLinkTo - Path to link generated TOC to (Optional)
+					
+		elements:
+			package-sets - a set of <packageset> elements specifying the "src/" directories of the plug-ins included in the subsystem
+			package-groups - a set of <group> elements specifying package groups.  Callers should include at least one group
+			bottom - the bottom copyright element to appear for the subsystem
+    -->
+	<macrodef name="javadoc-subsystem">
+		<attribute name="subsystem"/>
+		<attribute name="tocTitle"/>
+		<attribute name="tocLinkTo" default=" "/>
+		<element name="package-sets"/>
+		<element name="package-groups"/>
+		
+		<sequential>
+			<delete dir="${doc.plugin.dir}/reference/api/@{subsystem}"/>
+			<mkdir dir="${doc.plugin.dir}/reference/api/@{subsystem}"/>
+
+			<echo level="info" message="***"/>
+			<echo level="info" message="*** Building javadoc for subsystem @{subsystem}"/>
+			<echo level="info" message="***"/>
+		
+	 		<javadoc 
+	 			access="protected"
+				additionalparam="-breakiterator -tocFilename '${doc.plugin.dir}/toc-@{subsystem}.xml' -tocTitle '@{tocTitle}' -tocLinkTo '@{tocLinkTo}' -tocRefPrefix reference/api/@{subsystem}/"
+				maxmemory="512M"
+				classpath="${javadoc.classpath}"
+				useexternalfile="true"
+				author="false"
+	        	destdir="${doc.plugin.dir}/reference/api/@{subsystem}"
+	 			windowtitle="Eclipse GMF Documentation"
+	 			source="1.4" 
+	        	noindex="false"
+	        	nonavbar="false"
+	        	executable="${javadoc.exe}"
+	        	notree="false"
+	        	splitindex="true"
+	        	stylesheetfile="${doc.plugin.dir}/stylesheet.css"
+	        	use="true"
+	 			doclet="org.eclipse.gmf.runtime.doclet.AuroraDoclet"
+	 			docletpath="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet/aurora-doclet.jar"
+	        	version="false">
+				    <doctitle><![CDATA[<h2>Eclipse Graphical Modeling Framework (GMF)</h2><h2>@{tocTitle} API Specification</h2>]]></doctitle>				    
+	 				<bottom><![CDATA[<font size="-1"><p><a href="/help/topic/org.eclipse.platform.doc.isv/reference/misc/api-usage-rules.html">Guidelines for using Eclipse APIs</a>.</p><p>Copyright (c) IBM Corp., Borland Software Corp., and others 2005,2006. All rights reserved.</font></p>]]></bottom>	
+	 				<header><![CDATA[@{tocTitle}]]></header>
+	 				<tag name="generated" scope="all" description="** Generated **"/>
+	 				<tag name="ordered" scope="all" description="Ordered:"/>
+	 				<tag name="model" scope="all" description="Model:"/>
+					<package-groups/>
+	 				<link offline="true" href="http://java.sun.com/j2se/1.5.0/docs/api/" packagelistLoc="/java/j2sdk1.5/docs/api/"/>
+					<link offline="true" href="/help/topic/org.eclipse.emf.doc/references/javadoc/" packagelistLoc="${javadoc.link.location}/emf/references/javadoc/"/>
+					<link offline="true" href="/help/topic/org.eclipse.platform.doc.isv/reference/api/" packagelistLoc="${javadoc.link.location}/platform/reference/api/"/>
+					<link offline="true" href="/help/topic/org.eclipse.platform.doc.isv/reference/osgi/" packagelistLoc="${javadoc.link.location}/platform/reference/osgi/"/>
+					<link offline="true" href="/help/topic/org.eclipse.draw2d.doc.isv/reference/api/" packagelistLoc="${javadoc.link.location}/draw2d/reference/api/"/>
+					<link offline="true" href="/help/topic/org.eclipse.gef.doc.isv/reference/api/" packagelistLoc="${javadoc.link.location}/gef/reference/api/"/>
+					<!-- Links to other doc sets in GMF -->
+					<link offline="true" href="/help/topic/org.eclipse.gmf.runtime.doc.isv/reference/api/common" packagelistLoc="${doc.plugin.dir}/reference/api/common/"/>
+					<link offline="true" href="/help/topic/org.eclipse.gmf.runtime.doc.isv/reference/api/diagram" packagelistLoc="${doc.plugin.dir}/reference/api/diagram/"/>
+	 				<link offline="true" href="/help/topic/org.eclipse.gmf.runtime.doc.isv/reference/api/tooling" packagelistLoc="${doc.plugin.dir}/reference/api/tooling/"/>
+			    	<package-sets/>
+			</javadoc>
+		</sequential>
+    </macrodef>
+
+	<target name="convertSchemaToHtml">
+		<property name="schema-destination" value="${doc.plugin.dir}/reference/extension-points" />
+
+		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.core/plugin.xml" destination="${schema-destination}" />
+		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui/plugin.xml" destination="${schema-destination}" />
+		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services.action/plugin.xml" destination="${schema-destination}" />
+		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services.dnd/plugin.xml" destination="${schema-destination}" />
+		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services.properties/plugin.xml" destination="${schema-destination}" />
+		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.core/plugin.xml" destination="${schema-destination}" />
+		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.ui/plugin.xml" destination="${schema-destination}" />
+		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.clipboard.core/plugin.xml" destination="${schema-destination}" />
+		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.type.core/plugin.xml" destination="${schema-destination}" />
+		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.emf.validation/plugin.xml" destination="${schema-destination}" />
+		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.core/plugin.xml" destination="${schema-destination}" />
+		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui/plugin.xml" destination="${schema-destination}" />
+		
+	</target>
+</project>

@@ -138,6 +138,16 @@
 	<!-- Steps to do before running package. -->
 	<!-- ===================================================================== -->
 	<target name="prePackage">
+		<!-- Retrieve doclet -->
+		<cvs command="checkout -r HEAD org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet" 
+		     cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" 
+		     dest="${buildDirectory}" />
+		<!-- Compile and package doclet -->
+		<ant antfile="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet/build.xml" 
+		     target="build.jar" 
+		     dir="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet" />
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
+		<ant antfile="${buildDirectory}/plugins/org.eclipse.gmf.doc/buildDoc.xml" />
 	</target>
 
 	<!-- ===================================================================== -->
@@ -152,8 +162,6 @@
 	<target name="postBuild">
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>		
 		<antcall target="gatherLogs" />
-		<!-- A temporary directory leftover? -->
-		<delete dir="${buildDirectory}/org.eclipse.gmf" failonerror="false"/>
 		<antcall target="publish"/>
 		<antcall target="generateUpdateSite"/>
 	</target>
