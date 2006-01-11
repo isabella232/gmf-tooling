@@ -63,11 +63,11 @@ public class EditPartContentBuilder extends AbstractContentBuilder {
 				allChildren.addAll(gEditPart.getTargetConnections());
 			}
 			if (editPart instanceof AbstractEditPart) {
-				Object editPolicyKeysObject = ReflectionUtil.getFieldValue(editPart, "editPolicyKeys", AbstractEditPart.class);
-				if (editPolicyKeysObject instanceof List) {
-					List editPolicyKeys = (List) editPolicyKeysObject;
-					for (int i = 0; i < editPolicyKeys.size(); i++) {
-						EditPolicy editPolicy = editPart.getEditPolicy(editPolicyKeys.get(i));
+				Object policiesObject = ReflectionUtil.getFieldValue(editPart, "policies", AbstractEditPart.class);
+				if (policiesObject instanceof Object[]) {
+					Object[] policies = (Object[]) policiesObject;
+					for (int i = 0; i < policies.length; i += 2) {
+						EditPolicy editPolicy = (EditPolicy) policies[i + 1];
 						if (editPolicy != null) {
 							allChildren.add(editPolicy);
 						}
