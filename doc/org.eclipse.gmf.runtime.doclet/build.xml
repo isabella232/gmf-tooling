@@ -10,7 +10,30 @@
 <project default="jar" basedir=".">
 
 	<target name="jar">
-		  <jar destfile="${basedir}/aurora-doclet.jar" basedir="${basedir}/bin"/>
+		<jar destfile="${basedir}/aurora-doclet.jar" basedir="${basedir}/bin" />
 	</target>
+	
+	<path id="project.classpath">
+		<pathelement location="bin" />
+		<pathelement location="${basedir}/tools.jar" />
+	</path>
+	
+	<target name="init">
+		<mkdir dir="bin" />
+	</target>
+	
+	<target name="clean">
+		<delete dir="bin" />
+	</target>
+	
+	<target name="build" depends="init">
+		<echo message="${ant.project.name}: ${ant.file}" />
+		<javac destdir="bin">
+			<src path="src" />
+			<classpath refid="project.classpath" />
+		</javac>
+	</target>
+	
+	<target name="build.jar" depends="build,jar" />
 
 </project>
