@@ -11,12 +11,13 @@
  */
 package org.eclipse.gmf.tests.setup;
 
+import org.eclipse.gmf.tests.TestConfiguration;
 import org.osgi.framework.BundleException;
 
 /**
  * @author artem
  */
-public class SessionSetup {
+public class SessionSetup implements TestConfiguration {
 
 	private DomainModelSource myDomainModel;
 	private DiaGenSource myGenModel;

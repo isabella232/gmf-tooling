@@ -27,7 +27,7 @@ public abstract class ConfiguredTestCase extends TestCase implements NeedsSetup 
 		super(name);
 	}
 
-	public final void setSetup(SessionSetup sessionSetup) {
+	public final void configure(SessionSetup sessionSetup) {
 		assertNotNull(sessionSetup);
 		mySessionSetup = sessionSetup;
 		mySessionSetup.oneUp();

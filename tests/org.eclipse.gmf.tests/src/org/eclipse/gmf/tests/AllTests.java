@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.tests;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Enumeration;
 
 import junit.framework.Test;
@@ -77,14 +79,48 @@ public class AllTests {
 		return suite;
 	}
 
-	private static TestSuite feed(Class theClass, SessionSetup setup) {
+	private static Test feed(Class theClass, TestConfiguration config) {
 		TestSuite suite = new TestSuite(theClass);
-		for (Enumeration en = suite.tests(); en.hasMoreElements(); ) {
-			Object nextTest = en.nextElement();
-			if (nextTest instanceof NeedsSetup) {
-				((NeedsSetup) nextTest).setSetup(setup);
+		if (!NeedsSetup.class.isAssignableFrom(theClass)) {
+			return suite;
+		}
+		try {
+			Method m = null;
+			Class configClass = config.getClass();
+			while (m == null && configClass != null) {
+				try {
+					m = theClass.getMethod(NeedsSetup.METHOD_NAME, new Class[] { configClass });
+				} catch (NoSuchMethodException ex) {
+					configClass = configClass.getSuperclass();
+				}
 			}
+			if (m == null) {
+				String methodInvocation = NeedsSetup.METHOD_NAME + "(" + config.getClass().getSimpleName() + " arg);";
+				return new ConfigurationFailedCase(theClass.getCanonicalName() + " has no method compatible with " + methodInvocation);
+			}
+			final Object[] args = new Object[] { config };
+			for (Enumeration en = suite.tests(); en.hasMoreElements(); ) {
+				Object nextTest = en.nextElement();
+				m.invoke(nextTest, args);
+			}
+		} catch (SecurityException ex) {
+			return new ConfigurationFailedCase(theClass.getCanonicalName() + ": " + ex.getMessage());
+		} catch (IllegalAccessException ex) {
+			return new ConfigurationFailedCase(theClass.getCanonicalName() + ": " + ex.getMessage());
+		} catch (InvocationTargetException ex) {
+			return new ConfigurationFailedCase(theClass.getCanonicalName() + ": " + ex.getMessage());
 		}
 		return suite;
+	}
+
+	private static class ConfigurationFailedCase extends TestCase {
+		private final String cause; 
+		ConfigurationFailedCase(String aCause) {
+			super(ConfigurationFailedCase.class.getName());
+			cause = aCause;
+		}
+		protected void runTest() throws Throwable {
+			fail(cause);
+		}
 	}
 }

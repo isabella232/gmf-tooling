@@ -11,13 +11,18 @@
  */
 package org.eclipse.gmf.tests;
 
-import org.eclipse.gmf.tests.setup.SessionSetup;
-
 /**
+ * Marker interface used in conjunction with {@link TestConfiguration} class.
+ * Test that needs some configuration object (i.e. one which implements {@link TestConfiguration})
+ * should add this interface to the <code>implements</code> list <b>AND</b>
+ * define method named <em>configure</em> ({@link #METHOD_NAME}) taking its favourite
+ * TestConfiguration subclass as a single argument.
+ * 
  * @author artem
- *
  */
 public interface NeedsSetup {
-
-	void setSetup(SessionSetup sessionSetup);
+	/**
+	 * Name of the method to be invoked via reflection (value: <em>configure</em>)
+	 */
+	String METHOD_NAME = "configure";
 }
