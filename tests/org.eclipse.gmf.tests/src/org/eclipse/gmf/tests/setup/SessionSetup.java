@@ -22,6 +22,8 @@ public class SessionSetup implements TestConfiguration {
 	private DomainModelSource myDomainModel;
 	private DiaGenSource myGenModel;
 	private GenProjectSetup myProject;
+	private MapDefSource myMapModel;
+	private DiaDefSource myGraphDefModel;
 	private int myUses;
 	private static RuntimeWorkspaceSetup myRuntimeWorkspaceSetup;
 	protected static boolean factoryClosed = false;
@@ -80,6 +82,28 @@ public class SessionSetup implements TestConfiguration {
 
 	protected GenProjectSetup createGenProject() throws BundleException, Exception {
 		return new GenProjectSetup().init(getRuntimeWorkspaceSetup(), getGenModel());
+	}
+
+	public MapDefSource getMapModel() {
+		if (myMapModel == null) {
+			myMapModel = createMapModel();
+		}
+		return myMapModel;
+	}
+
+	protected MapDefSource createMapModel() {
+		return new MapSetup().init(getGraphDefModel(), getDomainModel(), new ToolDefSetup());
+	}
+
+	public DiaDefSource getGraphDefModel() {
+		if (myGraphDefModel == null) {
+			myGraphDefModel = createGraphDefModel();
+		}
+		return myGraphDefModel;
+	}
+
+	protected DiaDefSource createGraphDefModel() {
+		return new DiaDefSetup(null);
 	}
 
 	public static RuntimeWorkspaceSetup getRuntimeWorkspaceSetup() throws Exception {

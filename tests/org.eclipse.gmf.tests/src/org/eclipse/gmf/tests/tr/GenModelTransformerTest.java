@@ -39,11 +39,6 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 		super(name);
 	}
 
-	protected void setUp() throws Exception {
-		// TODO Auto-generated method stub
-		super.setUp();
-	}
-
 	public void testGenModelTransform() {
 		final DiagramRunTimeModelHelper drtModelHelper = getRTHelper();
 		final Mapping m = getMapping();

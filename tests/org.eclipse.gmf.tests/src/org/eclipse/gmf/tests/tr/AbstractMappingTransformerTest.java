@@ -20,11 +20,13 @@ import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.gmf.tests.setup.DiaDefSetup;
+import org.eclipse.gmf.tests.setup.DiaDefSource;
+import org.eclipse.gmf.tests.setup.MapDefSource;
 import org.eclipse.gmf.tests.setup.MapSetup;
 import org.eclipse.gmf.tests.setup.ToolDefSetup;
 
 public abstract class AbstractMappingTransformerTest extends ConfiguredTestCase implements DiaDefSetup.Config {
-	private MapSetup myMapDef;
+	private MapDefSource myMapDef;
 	private DiaDefSetup myDiaDef;
 
 	protected AbstractMappingTransformerTest(String name) {
@@ -35,8 +37,10 @@ public abstract class AbstractMappingTransformerTest extends ConfiguredTestCase 
 		super.setUp();
 		myDiaDef = new DiaDefSetup(this);
 		myDiaDef.init();
-		myMapDef = new MapSetup();
-		myMapDef.init(myDiaDef, getSetup().getDomainModel(), new ToolDefSetup());
+		myMapDef = initMapModel(myDiaDef);
+	}
+	protected MapDefSource initMapModel(DiaDefSource graphDef) {
+		return new MapSetup().init(graphDef, getSetup().getDomainModel(), new ToolDefSetup());
 	}
 
 	protected final Canvas getCanvasDef() {
