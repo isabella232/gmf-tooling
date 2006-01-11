@@ -101,7 +101,9 @@ public class TestSetupTest extends TestCase {
 	}
 
 	public void testDiaGenSetupMap() {
-		doDiaGenTests(new DiaGenSetup().init(new MapSetup().init(new DiaDefSetup(null).init(), new DomainModelSetup().init())));
+		DomainModelSource ds = new DomainModelSetup().init();
+		MapDefSource ms = new MapSetup().init(new DiaDefSetup(null).init(), ds, new ToolDefSetup());
+		doDiaGenTests(new DiaGenSetup().init(ms));
 	}
 
 	private void doDiaDefTests(DiaDefSource s) {

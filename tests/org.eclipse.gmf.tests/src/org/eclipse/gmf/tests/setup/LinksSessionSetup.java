@@ -92,7 +92,7 @@ public class LinksSessionSetup extends SessionSetup {
 						"self.acceptLinkKind = oppositeEnd.acceptLinkKind"); //$NON-NLS-1$
 			}
 		};
-		this.mapDefSource.init(new DiaDefSetup(null).init(), getDomainModel());
+		this.mapDefSource.init(new DiaDefSetup(null).init(), getDomainModel(), new ToolDefSetup());
 
 		// TODO - uncomment when multiple elements with the same domainMetaElement do not cause compilation problem		
 		//LinkMapping FIRST_CHILD_LINK_MAPPING = mapDefSource.mapClassLink("Link", "Container::firstChildNode", "Link::target"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$

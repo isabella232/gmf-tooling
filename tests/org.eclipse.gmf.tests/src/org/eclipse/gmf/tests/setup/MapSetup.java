@@ -43,15 +43,22 @@ public class MapSetup implements MapDefSource {
 	/**
 	 * @return <code>this</code> for convenience
 	 */
-	public MapSetup init(DiaDefSource ddSource, DomainModelSource domainSource) {
+	public MapSetup init(DiaDefSource ddSource, DomainModelSource domainSource, ToolDefSource toolDef) {
 		initCanvasMappping(domainSource.getModel(), ddSource.getCanvasDef(), domainSource.getDiagramElement());
+		if (toolDef.getMainMenu() != null) {
+			myMap.getDiagram().getMenuContributions().add(toolDef.getMainMenu());
+		}
+		myMap.getDiagram().setPalette(toolDef.getPalette());
 		
 		myNodeA = createNodeMapping(ddSource.getNodeDef(), domainSource.getNodeA());
+		myNodeA.setContextMenu(toolDef.getNodeContextMenu());
+		myNodeA.setTool(toolDef.getNodeCreationTool());
 		if (domainSource.getNodeB() != null) {
 			myNodeB = createNodeMapping(ddSource.getNodeDef(), domainSource.getNodeB());
 		}
 		
 		myClassLink = createLinkMapping(ddSource.getLinkDef(), domainSource.getLinkAsClass());
+		myClassLink.setTool(toolDef.getLinkCreationTool());
 		if (domainSource.getLinkAsRef() != null) {
 			myRefLink = createLinkMapping(ddSource.getLinkDef(), null, domainSource.getLinkAsRef(), null);
 		}
