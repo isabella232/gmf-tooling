@@ -9,15 +9,11 @@ package org.eclipse.gmf.mappings.provider;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -29,6 +25,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LinkMapping;
+import org.eclipse.gmf.mappings.presentation.ScopeUtil;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.LinkMapping} object.
@@ -175,23 +172,12 @@ public class LinkMappingItemProvider
 				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null) {
 						protected Collection getComboBoxObjects(Object object) {
-							if (object instanceof LinkMapping) {
-								LinkMapping nm = (LinkMapping) object;
-								if (nm.getDomainMetaElement() != null) {
-									Set features = new HashSet();
-									for (Iterator it = nm.getDomainMetaElement().getEPackage().eAllContents(); it.hasNext(); ) {
-										Object next = it.next();
-										if (next instanceof EReference) {
-											EReference ref = (EReference) next;
-											if (ref.isContainment() && nm.getDomainMetaElement().equals(ref.getEType())) {
-												features.add(ref);
-											}
-										}
-									}
-									return features;
-								}
+							ScopeUtil scopeUtil = new ScopeUtil((LinkMapping) object);
+							if (scopeUtil.isDevisable()) {
+								return scopeUtil.getPossibleContainments();
+							} else {
+								return super.getComboBoxObjects(object);
 							}
-							return Collections.EMPTY_LIST;
 						}
 				});
 	}
