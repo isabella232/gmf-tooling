@@ -12,7 +12,12 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
+import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.emf.core.util.ResourceUtil;
+import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -39,15 +44,28 @@ import org.eclipse.ui.model.WorkbenchLabelProvider;
  */
 public class <%=genDiagram.getElementChooserClassName()%> extends Dialog {
 
+	/**
+	 * @generated
+	 */
 	private TreeViewer myTreeViewer;
+
+	/**
+	 * @generated
+	 */
 	private EObject mySelectedModelElement;
 
 	/**
 	 * @generated
 	 */
-	public <%=genDiagram.getElementChooserClassName()%>(Shell parentShell) {
+	private View myView;
+
+	/**
+	 * @generated
+	 */
+	public <%=genDiagram.getElementChooserClassName()%>(Shell parentShell, View view) {
 		super(parentShell);
 		setShellStyle(getShellStyle() | SWT.RESIZE);
+		myView = view;
 	}
 	
 	/**
@@ -296,7 +314,7 @@ for (Iterator it = genDiagram.getContainsShortcutsTo().iterator(); it.hasNext();
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				if (selection.size() == 1 && selection.getFirstElement() instanceof EObject) {
 					mySelectedModelElement = (EObject) selection.getFirstElement();
-					setOkButtonEnabled(true);
+					setOkButtonEnabled(ViewService.getInstance().provides(Node.class, new EObjectAdapter(mySelectedModelElement), myView, null, ViewUtil.APPEND, true, <%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT));
 					return;
 				}
 			}

@@ -69,7 +69,7 @@ final GenModel genModel = genDiagram.getEMFGenModel();
       <objectContribution
             adaptable="false"
             id="<%=genDiagram.getPluginID()%>.ui.objectContribution.FileEditorInputProxy1"
-            objectClass="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy">
+            objectClass="<%=genDiagram.getEditPartQualifiedClassName()%>">
          <action
                class="<%=genDiagram.getCreateShortcutActionQualifiedClassName()%>"
                enablesFor="1"

@@ -97,4 +97,6 @@
       <linkTools titleKey="Route" descriptionKey="Create Route link" createMethodName="createRouteCreationTool" genLink="//@links.1"/>
     </groups>
   </palette>
+  <containsShortcutsTo>taipan</containsShortcutsTo>
+  <shortcutsProvidedFor>TaiPan</shortcutsProvidedFor>
 </gmfgen:GenDiagram>

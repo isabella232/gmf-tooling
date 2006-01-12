@@ -8,7 +8,6 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.editor.FileDiagramEditorWithFlyoutPalette;
 import org.eclipse.ui.IEditorInput;
-
 import org.eclipse.gmf.ecore.edit.parts.EcoreEditPartFactory;
 
 /**

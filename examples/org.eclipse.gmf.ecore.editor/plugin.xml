@@ -62,7 +62,7 @@
       <objectContribution
             adaptable="false"
             id="org.eclipse.gmf.ecore.editor.ui.objectContribution.FileEditorInputProxy1"
-            objectClass="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileEditorInputProxy">
+            objectClass="org.eclipse.gmf.ecore.edit.parts.EPackageEditPart">
          <action
                class="org.eclipse.gmf.ecore.editor.EcoreCreateShortcutAction"
                enablesFor="1"

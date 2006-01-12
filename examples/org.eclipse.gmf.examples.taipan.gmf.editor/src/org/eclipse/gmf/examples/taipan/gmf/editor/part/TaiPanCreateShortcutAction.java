@@ -1,9 +1,5 @@
-<%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="CreateShortcutActionGenerator"
-    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.ImportUtil"%>
-<%GenDiagram genDiagram = (GenDiagram) argument;%>
-package <%=genDiagram.getEditorPackageName()%>;
+package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());%>
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcoreFactory;
@@ -19,18 +15,18 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
-<%importManager.markImportLocation(stringBuffer);%>
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 
 /**
  * @generated
  */
-public class <%=genDiagram.getCreateShortcutActionClassName()%> implements IObjectActionDelegate {
+public class TaiPanCreateShortcutAction implements IObjectActionDelegate {
 
 	/**
 	 * @generated
 	 */
-	private <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%> mySelectedElement;
-	
+	private AquatoryEditPart mySelectedElement;
+
 	/**
 	 * @generated
 	 */
@@ -48,7 +44,7 @@ public class <%=genDiagram.getCreateShortcutActionClassName()%> implements IObje
 	 */
 	public void run(IAction action) {
 		final View view = (View) mySelectedElement.getModel();
-		<%=importManager.getImportedName(genDiagram.getElementChooserQualifiedClassName())%> elementChooser = new <%=importManager.getImportedName(genDiagram.getElementChooserQualifiedClassName())%>(myShell, view);
+		TaiPanElementChooserDialog elementChooser = new TaiPanElementChooserDialog(myShell, view);
 		int result = elementChooser.open();
 		if (result != Window.OK) {
 			return;
@@ -57,17 +53,18 @@ public class <%=genDiagram.getCreateShortcutActionClassName()%> implements IObje
 		if (selectedElement == null) {
 			return;
 		}
-		
+
 		OperationUtil.runAsUnchecked(new MRunnable() {
+
 			public Object run() {
-				Node shortcutNode = ViewService.createNode(view, selectedElement, null, <%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
+				Node shortcutNode = ViewService.createNode(view, selectedElement, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
 				annotation.setSource("Shortcutted"); //$NON-NLS-1$
 				shortcutNode.getEAnnotations().add(annotation);
 				return null;
 			}
 		});
-		
+
 	}
 
 	/**
@@ -77,13 +74,13 @@ public class <%=genDiagram.getCreateShortcutActionClassName()%> implements IObje
 		mySelectedElement = null;
 		if (selection instanceof IStructuredSelection) {
 			IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-			if (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>) {
-				mySelectedElement = (<%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>) structuredSelection.getFirstElement();
+			if (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof AquatoryEditPart) {
+				mySelectedElement = (AquatoryEditPart) structuredSelection.getFirstElement();
 			}
 		}
 		action.setEnabled(isEnabled());
 	}
-	
+
 	/**
 	 * @generated
 	 */
@@ -92,4 +89,3 @@ public class <%=genDiagram.getCreateShortcutActionClassName()%> implements IObje
 	}
 
 }
-<%importManager.emitSortedImports();%>

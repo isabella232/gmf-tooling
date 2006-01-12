@@ -1,4 +1,4 @@
-package org.eclipse.gmf.ecore.editor;
+package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -37,7 +37,7 @@ import org.eclipse.ui.model.WorkbenchLabelProvider;
 /**
  * @generated
  */
-public class EcoreElementChooserDialog extends Dialog {
+public class TaiPanElementChooserDialog extends Dialog {
 
 	/**
 	 * @generated
@@ -57,7 +57,7 @@ public class EcoreElementChooserDialog extends Dialog {
 	/**
 	 * @generated
 	 */
-	public EcoreElementChooserDialog(Shell parentShell, View view) {
+	public TaiPanElementChooserDialog(Shell parentShell, View view) {
 		super(parentShell);
 		setShellStyle(getShellStyle() | SWT.RESIZE);
 		myView = view;
@@ -109,7 +109,7 @@ public class EcoreElementChooserDialog extends Dialog {
 	 */
 	private boolean isValidModelFile(IFile file) {
 		String fileExtension = file.getFullPath().getFileExtension();
-		return "ecore".equals(fileExtension);
+		return "taipan".equals(fileExtension);
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class EcoreElementChooserDialog extends Dialog {
 
 		private ITreeContentProvider myWorkbenchContentProvider = new WorkbenchContentProvider();
 
-		private AdapterFactoryContentProvider myAdapterFctoryContentProvier = new AdapterFactoryContentProvider(EcoreDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
+		private AdapterFactoryContentProvider myAdapterFctoryContentProvier = new AdapterFactoryContentProvider(TaiPanDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
 
 		/**
 		 * @generated
@@ -218,7 +218,7 @@ public class EcoreElementChooserDialog extends Dialog {
 
 		private WorkbenchLabelProvider myWorkbenchLabelProvider = new WorkbenchLabelProvider();
 
-		private AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new AdapterFactoryLabelProvider(EcoreDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
+		private AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new AdapterFactoryLabelProvider(TaiPanDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
 
 		/**
 		 * @generated
@@ -304,7 +304,7 @@ public class EcoreElementChooserDialog extends Dialog {
 				if (selection.size() == 1 && selection.getFirstElement() instanceof EObject) {
 					mySelectedModelElement = (EObject) selection.getFirstElement();
 					setOkButtonEnabled(ViewService.getInstance().provides(Node.class, new EObjectAdapter(mySelectedModelElement), myView, null, ViewUtil.APPEND, true,
-							EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
+							TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT));
 					return;
 				}
 			}
