@@ -5,12 +5,22 @@
     </condition>
 	
 	<target name="getBaseComponentZip" if="isWindows">
+		<available file="${baseLocationRoot}/${eclipseArchiveName}.${archiveType}" property="baseZipPresent"/>
+		<antcall target="downloadBaseZip"/>
+	</target>
+	
+	<target name="downloadBaseZip" unless="baseZipPresent">
 		<get src="${eclipseBaseURL}.${archiveType}${mirror}" dest="${baseLocationRoot}/${eclipseArchiveName}.${archiveType}" verbose="true" usetimestamp="true" />
 	</target>
 	
 	<target name="getBaseComponentTar" unless="isWindows">
-			<get src="${eclipseBaseURL}-${basews}.${archiveType}${mirror}" dest="${baseLocationRoot}/${eclipseArchiveName}-${basews}.${archiveType}" verbose="true" usetimestamp="true" />
-		</target>
+		<available file="${baseLocationRoot}/${eclipseArchiveName}-${basews}.${archiveType}" property="baseTarPresent"/>
+		<antcall target="downloadBaseTar"/>
+	</target>
+	
+	<target name="downloadBaseTar" unless="baseTarPresent">
+		<get src="${eclipseBaseURL}-${basews}.${archiveType}${mirror}" dest="${baseLocationRoot}/${eclipseArchiveName}-${basews}.${archiveType}" verbose="true" usetimestamp="true" />
+	</target>
 
 	<target name="installBase" unless="baseExists" depends="checkBaseInstalled">
 		<antcall target="getBaseComponentZip"/>
@@ -78,7 +88,7 @@
 	</target>
 	
 	<target name="checkGEFInstalled">
-		<available file="${baseLocation}/plugins/org.eclipse.gef_${gefVersion}.jar" property="gefExists" />
+		<available file="${baseLocation}/plugins/org.eclipse.gef_${fullGefVersion}.jar" property="gefExists" />
 	</target>
 
 	<target name="installGEF" unless="gefExists" depends="checkGEFInstalled">
