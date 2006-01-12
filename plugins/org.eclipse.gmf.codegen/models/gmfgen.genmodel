@@ -305,6 +305,7 @@
     <genClasses ecoreClass="gmfgen.ecore#//GenAuditContainer">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditContainer/id"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditContainer/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditContainer/description"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditContainer/parentContainer"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditContainer/audits"/>
       <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditContainer/childContainers"/>
@@ -317,6 +318,8 @@
       <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditRule/rule"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditRule/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/message"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/severity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/useInLiveMode"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditRule/container"/>

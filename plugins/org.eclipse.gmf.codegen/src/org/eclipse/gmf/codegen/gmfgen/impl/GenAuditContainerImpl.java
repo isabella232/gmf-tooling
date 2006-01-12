@@ -33,6 +33,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditContainerImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditContainerImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditContainerImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditContainerImpl#getParentContainer <em>Parent Container</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditContainerImpl#getAudits <em>Audits</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditContainerImpl#getChildContainers <em>Child Containers</em>}</li>
@@ -81,6 +82,26 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DESCRIPTION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected String description = DESCRIPTION_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getAudits() <em>Audits</em>}' containment reference list.
@@ -184,6 +205,27 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 		name = newName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_AUDIT_CONTAINER__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDescription(String newDescription) {
+		String oldDescription = description;
+		description = newDescription;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_AUDIT_CONTAINER__DESCRIPTION, oldDescription, description));
 	}
 
 	/**
@@ -312,6 +354,8 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 				return getId();
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__NAME:
 				return getName();
+			case GMFGenPackage.GEN_AUDIT_CONTAINER__DESCRIPTION:
+				return getDescription();
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__PARENT_CONTAINER:
 				return getParentContainer();
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__AUDITS:
@@ -334,6 +378,9 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 				return;
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__NAME:
 				setName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_AUDIT_CONTAINER__DESCRIPTION:
+				setDescription((String)newValue);
 				return;
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__PARENT_CONTAINER:
 				setParentContainer((GenAuditContainer)newValue);
@@ -363,6 +410,9 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_AUDIT_CONTAINER__DESCRIPTION:
+				setDescription(DESCRIPTION_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__PARENT_CONTAINER:
 				setParentContainer((GenAuditContainer)null);
 				return;
@@ -387,6 +437,8 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case GMFGenPackage.GEN_AUDIT_CONTAINER__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__PARENT_CONTAINER:
 				return getParentContainer() != null;
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__AUDITS:
@@ -410,6 +462,8 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 		result.append(id);
 		result.append(", name: ");
 		result.append(name);
+		result.append(", description: ");
+		result.append(description);
 		result.append(')');
 		return result.toString();
 	}

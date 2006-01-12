@@ -69,6 +69,7 @@ public class GenAuditContainerItemProvider
 
 			addIdPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
+			addDescriptionPropertyDescriptor(object);
 			addChildContainersPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -108,6 +109,26 @@ public class GenAuditContainerItemProvider
 				 getString("_UI_GenAuditContainer_name_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditContainer_name_feature", "_UI_GenAuditContainer_type"),
 				 GMFGenPackage.eINSTANCE.getGenAuditContainer_Name(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Description feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDescriptionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenAuditContainer_description_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditContainer_description_feature", "_UI_GenAuditContainer_type"),
+				 GMFGenPackage.eINSTANCE.getGenAuditContainer_Description(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -199,6 +220,7 @@ public class GenAuditContainerItemProvider
 		switch (notification.getFeatureID(GenAuditContainer.class)) {
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__ID:
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__NAME:
+			case GMFGenPackage.GEN_AUDIT_CONTAINER__DESCRIPTION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_AUDIT_CONTAINER__AUDITS:

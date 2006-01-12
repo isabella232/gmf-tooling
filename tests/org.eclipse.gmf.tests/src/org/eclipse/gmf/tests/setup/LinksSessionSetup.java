@@ -24,8 +24,6 @@ import org.eclipse.gmf.tests.Plugin;
 public class LinksSessionSetup extends SessionSetup {
 	private static String modelURI = "/models/links/links.ecore"; //$NON-NLS-1$
 	
-	private MapSetup mapDefSource;
-
 	private LinksSessionSetup() {
 	}
 
@@ -71,18 +69,11 @@ public class LinksSessionSetup extends SessionSetup {
 	}
 	
 	protected DiaGenSource createGenModel() {
-		return new DiaGenSetup().init(getMapDefSource());
+		return new DiaGenSetup().init(getMapModel());
 	}
 
-	/**
-	 * XXX perhaps, just move to superclass for uniformity, override createMapDefSource here.
-	 */
-	public MapDefSource getMapDefSource() {
-		if(mapDefSource != null) {
-			return mapDefSource;
-		}
-		
-		this.mapDefSource = new MapSetup() {
+	protected MapDefSource createMapModel() {
+		MapSetup mapDefSource = new MapSetup() {
 			protected void setupClassLinkMapping(LinkMapping lme) {
 				addCreationConstraints(lme, null, "self.acceptLinkKind = oppositeEnd.acceptLinkKind"); //$NON-NLS-1$
 			}
@@ -92,7 +83,7 @@ public class LinksSessionSetup extends SessionSetup {
 						"self.acceptLinkKind = oppositeEnd.acceptLinkKind"); //$NON-NLS-1$
 			}
 		};
-		this.mapDefSource.init(new DiaDefSetup(null).init(), getDomainModel(), new ToolDefSetup());
+		mapDefSource.init(new DiaDefSetup(null).init(), getDomainModel(), new ToolDefSetup());
 
 		// TODO - uncomment when multiple elements with the same domainMetaElement do not cause compilation problem		
 		//LinkMapping FIRST_CHILD_LINK_MAPPING = mapDefSource.mapClassLink("Link", "Container::firstChildNode", "Link::target"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$

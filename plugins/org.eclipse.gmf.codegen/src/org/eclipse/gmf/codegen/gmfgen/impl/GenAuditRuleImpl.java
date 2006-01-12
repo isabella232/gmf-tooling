@@ -31,6 +31,8 @@ import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getRule <em>Rule</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getMessage <em>Message</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getSeverity <em>Severity</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#isUseInLiveMode <em>Use In Live Mode</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getContainer <em>Container</em>}</li>
@@ -99,6 +101,46 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getMessage() <em>Message</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMessage()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String MESSAGE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getMessage() <em>Message</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMessage()
+	 * @generated
+	 * @ordered
+	 */
+	protected String message = MESSAGE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DESCRIPTION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDescription()
+	 * @generated
+	 * @ordered
+	 */
+	protected String description = DESCRIPTION_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getSeverity() <em>Severity</em>}' attribute.
@@ -198,6 +240,48 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 		name = newName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_AUDIT_RULE__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getMessage() {
+		return message;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMessage(String newMessage) {
+		String oldMessage = message;
+		message = newMessage;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_AUDIT_RULE__MESSAGE, oldMessage, message));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDescription(String newDescription) {
+		String oldDescription = description;
+		description = newDescription;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_AUDIT_RULE__DESCRIPTION, oldDescription, description));
 	}
 
 	/**
@@ -413,6 +497,10 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 				return basicGetTarget();
 			case GMFGenPackage.GEN_AUDIT_RULE__NAME:
 				return getName();
+			case GMFGenPackage.GEN_AUDIT_RULE__MESSAGE:
+				return getMessage();
+			case GMFGenPackage.GEN_AUDIT_RULE__DESCRIPTION:
+				return getDescription();
 			case GMFGenPackage.GEN_AUDIT_RULE__SEVERITY:
 				return getSeverity();
 			case GMFGenPackage.GEN_AUDIT_RULE__USE_IN_LIVE_MODE:
@@ -441,6 +529,12 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 				return;
 			case GMFGenPackage.GEN_AUDIT_RULE__NAME:
 				setName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_AUDIT_RULE__MESSAGE:
+				setMessage((String)newValue);
+				return;
+			case GMFGenPackage.GEN_AUDIT_RULE__DESCRIPTION:
+				setDescription((String)newValue);
 				return;
 			case GMFGenPackage.GEN_AUDIT_RULE__SEVERITY:
 				setSeverity((GenSeverity)newValue);
@@ -474,6 +568,12 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 			case GMFGenPackage.GEN_AUDIT_RULE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_AUDIT_RULE__MESSAGE:
+				setMessage(MESSAGE_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_AUDIT_RULE__DESCRIPTION:
+				setDescription(DESCRIPTION_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_AUDIT_RULE__SEVERITY:
 				setSeverity(SEVERITY_EDEFAULT);
 				return;
@@ -502,6 +602,10 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 				return target != null;
 			case GMFGenPackage.GEN_AUDIT_RULE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case GMFGenPackage.GEN_AUDIT_RULE__MESSAGE:
+				return MESSAGE_EDEFAULT == null ? message != null : !MESSAGE_EDEFAULT.equals(message);
+			case GMFGenPackage.GEN_AUDIT_RULE__DESCRIPTION:
+				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
 			case GMFGenPackage.GEN_AUDIT_RULE__SEVERITY:
 				return severity != SEVERITY_EDEFAULT;
 			case GMFGenPackage.GEN_AUDIT_RULE__USE_IN_LIVE_MODE:
@@ -525,6 +629,10 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 		result.append(id);
 		result.append(", name: ");
 		result.append(name);
+		result.append(", message: ");
+		result.append(message);
+		result.append(", description: ");
+		result.append(description);
 		result.append(", severity: ");
 		result.append(severity);
 		result.append(", useInLiveMode: ");

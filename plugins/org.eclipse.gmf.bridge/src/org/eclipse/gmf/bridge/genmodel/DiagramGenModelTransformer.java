@@ -555,7 +555,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		GenAuditContainer gac = GMFGenFactory.eINSTANCE.createGenAuditContainer();
 		gac.setId(ac.getId());
 		gac.setName(ac.getName());
-
+		gac.setDescription(ac.getDescription());
 		for(Iterator it = ac.getChildContainers().iterator(); it.hasNext();) {
 			AuditContainer nextChild = (AuditContainer) it.next();
 			gac.getChildContainers().add(createGenAuditContainer(nextChild));
@@ -570,6 +570,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		GenAuditRule genAudit = GMFGenFactory.eINSTANCE.createGenAuditRule();
 		genAudit.setId(audit.getId());
 		genAudit.setName(audit.getName());
+		genAudit.setMessage(audit.getMessage());
+		genAudit.setDescription(audit.getDescription());
 		genAudit.setUseInLiveMode(audit.isUseInLiveMode());
 		
 		if(audit.getTarget() != null) {

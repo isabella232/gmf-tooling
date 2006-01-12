@@ -20,11 +20,13 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.eclipse.gmf.tests.gef.DiagramNodeTest;
+import org.eclipse.gmf.tests.gen.AuditHandcodedTest;
 import org.eclipse.gmf.tests.gen.CompilationTest;
 import org.eclipse.gmf.tests.gen.FigureCodegenTest;
 import org.eclipse.gmf.tests.gen.HandcodedImplTest;
 import org.eclipse.gmf.tests.gen.ToolDefHandocodedImplTest;
 import org.eclipse.gmf.tests.gen.ViewmapProducersTest;
+import org.eclipse.gmf.tests.rt.AuditRulesTest;
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
@@ -49,6 +51,8 @@ public class AllTests {
 		suite.addTestSuite(FigureCodegenTest.class);
 		suite.addTestSuite(ViewmapProducersTest.class);
 		suite.addTestSuite(ToolDefHandocodedImplTest.class);
+		suite.addTestSuite(AuditHandcodedTest.class);		
+		suite.addTest(feed(AuditRulesTest.class, sessionSetup2));		
 		// fires new runtime workbench initialization
 		suite.addTestSuite(CompilationTest.class);
 

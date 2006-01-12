@@ -19,6 +19,8 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.mappings.AuditContainer;
+import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.GMFMapFactory;
@@ -26,6 +28,8 @@ import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.Severity;
+import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.setup.DomainModelSource.LinkData;
 import org.eclipse.gmf.tests.setup.DomainModelSource.NodeData;
 
@@ -62,6 +66,7 @@ public class MapSetup implements MapDefSource {
 		if (domainSource.getLinkAsRef() != null) {
 			myRefLink = createLinkMapping(ddSource.getLinkDef(), null, domainSource.getLinkAsRef(), null);
 		}
+		initAudits();
 		return this;
 	}
 
@@ -75,6 +80,44 @@ public class MapSetup implements MapDefSource {
 		setupCanvasMapping(cme);
 		m.setDiagram(cme);
 		myMap = m;
+	}
+	
+	private void initAudits() {
+		EClass classA = myNodeA.getDomainMetaElement();
+		EClass classB = myNodeB.getDomainMetaElement();		
+		AuditContainer root = createAuditContainer(Plugin.getPluginID() + ".category1" + System.currentTimeMillis()); //$NON-NLS-1$
+		// create set of allways satisfied constraints
+		root.getAudits().add(createAudit("constraint.id1", "true", classA, Severity.ERROR_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
+		root.getAudits().add(createAudit("constraint.id2", "10 > 0", classB, Severity.WARNING_LITERAL, false));	//$NON-NLS-1$ //$NON-NLS-2$
+		
+		AuditContainer subCat = createAuditContainer("category2"); //$NON-NLS-1$
+		root.getChildContainers().add(subCat);
+		subCat.getAudits().add(createAudit("constraint.id3", "''<>'Foo'", classA, Severity.INFO_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
+		
+		myMap.setAudits(root);
+	}
+	
+	private AuditRule createAudit(String id, String ruleBody, EClass target, Severity severity, boolean isLiveMode) {
+		AuditRule audit = GMFMapFactory.eINSTANCE.createAuditRule();
+		audit.setId(id);
+		audit.setName("Name of" + id); //$NON-NLS-1$
+		audit.setMessage("Violation of " + id); //$NON-NLS-1$
+		audit.setDescription("Description of " + id); //$NON-NLS-1$
+		audit.setTarget(target);
+		Constraint rule = GMFMapFactory.eINSTANCE.createConstraint();
+		rule.setBody(ruleBody);
+		audit.setRule(rule);
+		
+		audit.setSeverity(severity);
+		audit.setUseInLiveMode(isLiveMode);
+		return audit;
+	}
+	private AuditContainer createAuditContainer(String id) {
+		AuditContainer container = GMFMapFactory.eINSTANCE.createAuditContainer();		
+		container.setId(id);
+		container.setName("Name of " + id); //$NON-NLS-1$
+		container.setDescription("Description of " + id); //$NON-NLS-1$
+		return container;
 	}
 
 	private LinkMapping createLinkMapping(Connection link, LinkData data) {

@@ -69,6 +69,8 @@ public class GenAuditRuleItemProvider
 			addRulePropertyDescriptor(object);
 			addTargetPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
+			addMessagePropertyDescriptor(object);
+			addDescriptionPropertyDescriptor(object);
 			addSeverityPropertyDescriptor(object);
 			addUseInLiveModePropertyDescriptor(object);
 		}
@@ -149,6 +151,46 @@ public class GenAuditRuleItemProvider
 				 getString("_UI_GenAuditRule_name_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditRule_name_feature", "_UI_GenAuditRule_type"),
 				 GMFGenPackage.eINSTANCE.getGenAuditRule_Name(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Message feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMessagePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenAuditRule_message_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditRule_message_feature", "_UI_GenAuditRule_type"),
+				 GMFGenPackage.eINSTANCE.getGenAuditRule_Message(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Description feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDescriptionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenAuditRule_description_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditRule_description_feature", "_UI_GenAuditRule_type"),
+				 GMFGenPackage.eINSTANCE.getGenAuditRule_Description(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -247,6 +289,8 @@ public class GenAuditRuleItemProvider
 		switch (notification.getFeatureID(GenAuditRule.class)) {
 			case GMFGenPackage.GEN_AUDIT_RULE__ID:
 			case GMFGenPackage.GEN_AUDIT_RULE__NAME:
+			case GMFGenPackage.GEN_AUDIT_RULE__MESSAGE:
+			case GMFGenPackage.GEN_AUDIT_RULE__DESCRIPTION:
 			case GMFGenPackage.GEN_AUDIT_RULE__SEVERITY:
 			case GMFGenPackage.GEN_AUDIT_RULE__USE_IN_LIVE_MODE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

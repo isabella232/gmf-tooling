@@ -3098,13 +3098,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_AUDIT_CONTAINER__NAME = 1;
 
 	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_AUDIT_CONTAINER__DESCRIPTION = 2;
+
+	/**
 	 * The feature id for the '<em><b>Parent Container</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_AUDIT_CONTAINER__PARENT_CONTAINER = 2;
+	int GEN_AUDIT_CONTAINER__PARENT_CONTAINER = 3;
 
 	/**
 	 * The feature id for the '<em><b>Audits</b></em>' containment reference list.
@@ -3113,7 +3122,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_AUDIT_CONTAINER__AUDITS = 3;
+	int GEN_AUDIT_CONTAINER__AUDITS = 4;
 
 	/**
 	 * The feature id for the '<em><b>Child Containers</b></em>' containment reference list.
@@ -3122,7 +3131,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_AUDIT_CONTAINER__CHILD_CONTAINERS = 4;
+	int GEN_AUDIT_CONTAINER__CHILD_CONTAINERS = 5;
 
 	/**
 	 * The number of structural features of the '<em>Gen Audit Container</em>' class.
@@ -3131,7 +3140,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_AUDIT_CONTAINER_FEATURE_COUNT = 5;
+	int GEN_AUDIT_CONTAINER_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl <em>Gen Audit Rule</em>}' class.
@@ -3180,13 +3189,31 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_AUDIT_RULE__NAME = 3;
 
 	/**
+	 * The feature id for the '<em><b>Message</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_AUDIT_RULE__MESSAGE = 4;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_AUDIT_RULE__DESCRIPTION = 5;
+
+	/**
 	 * The feature id for the '<em><b>Severity</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_AUDIT_RULE__SEVERITY = 4;
+	int GEN_AUDIT_RULE__SEVERITY = 6;
 
 	/**
 	 * The feature id for the '<em><b>Use In Live Mode</b></em>' attribute.
@@ -3195,7 +3222,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_AUDIT_RULE__USE_IN_LIVE_MODE = 5;
+	int GEN_AUDIT_RULE__USE_IN_LIVE_MODE = 7;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' container reference.
@@ -3204,7 +3231,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_AUDIT_RULE__CONTAINER = 6;
+	int GEN_AUDIT_RULE__CONTAINER = 8;
 
 	/**
 	 * The number of structural features of the '<em>Gen Audit Rule</em>' class.
@@ -3213,7 +3240,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_AUDIT_RULE_FEATURE_COUNT = 7;
+	int GEN_AUDIT_RULE_FEATURE_COUNT = 9;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind <em>Compartment Placement Kind</em>}' enum.
@@ -5143,6 +5170,17 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getGenAuditContainer_Name();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Description</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getDescription()
+	 * @see #getGenAuditContainer()
+	 * @generated
+	 */
+	EAttribute getGenAuditContainer_Description();
+
+	/**
 	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getParentContainer <em>Parent Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5206,6 +5244,28 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenAuditRule_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getMessage <em>Message</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Message</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getMessage()
+	 * @see #getGenAuditRule()
+	 * @generated
+	 */
+	EAttribute getGenAuditRule_Message();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Description</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getDescription()
+	 * @see #getGenAuditRule()
+	 * @generated
+	 */
+	EAttribute getGenAuditRule_Description();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getSeverity <em>Severity</em>}'.

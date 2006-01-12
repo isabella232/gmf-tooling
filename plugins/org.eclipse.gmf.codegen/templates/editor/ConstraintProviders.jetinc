@@ -24,7 +24,9 @@ if(rootContainer != null) {
 	<category
 		id="<%=id.toString()%>"
 		mandatory="false"
-		name="<%=category.getName()%>"/>
+		name="<%=category.getName() != null ? category.getName() : id.toString()%>">
+	<![CDATA[<%=category.getDescription() != null ? category.getDescription():""%>]]>
+	</category>		
 <%
 	} // end of categories loop
 	String rootCategoryId = (String)pathMap.get(rootContainer);
@@ -40,17 +42,18 @@ if(rootContainer != null) {
 			GenClass targetClass = audit.getTarget();
 			String targetClassName = (targetClass != null) ? targetClass.getGenPackage().getNSName() + "." + targetClass.getInterfaceName() : "null";
 			String modeAttr = audit.isUseInLiveMode() ? "" : "mode=\"Batch\"";
+			String name = audit.getName() != null ? audit.getName() : audit.getId();
+			String message = audit.getMessage() != null ? audit.getMessage() : name + " audit violated";
 %>
 		<constraints categories="<%=pathMap.get(category)%>">
 			<constraint id="<%=audit.getId()%>"
 				lang="OCL" <%=modeAttr%>
-				name="<%=audit.getName()%>"
+				name="<%=name%>"
 				severity="<%=audit.getSeverity().getName()%>" statusCode="<%=Integer.toString(200 + rulePos)%>">
 				<![CDATA[<%=audit.getRule() != null ? audit.getRule().getBody() : ""%>]]>
-				<description>
-	            </description>
-	            <message><![CDATA[<%=audit.getName()%> audit violated]]></message>
-				<target class="<%=targetClassName%>"/>
+	            <description><![CDATA[<%=audit.getDescription() != null ? audit.getDescription():""%>]]></description>
+	            <message><![CDATA[<%=message%>]]></message>
+				<target class="<%=targetClassName%>"/>				
 			</constraint>
 		</constraints>
 <%
