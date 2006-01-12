@@ -298,6 +298,7 @@
 		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.core/plugin.xml" destination="${schema-destination}" />
 		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui/plugin.xml" destination="${schema-destination}" />
 		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services.action/plugin.xml" destination="${schema-destination}" />
+		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services/plugin.xml" destination="${schema-destination}" />
 		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services.dnd/plugin.xml" destination="${schema-destination}" />
 		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services.properties/plugin.xml" destination="${schema-destination}" />
 		<pde.convertSchemaToHTML manifest="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.core/plugin.xml" destination="${schema-destination}" />

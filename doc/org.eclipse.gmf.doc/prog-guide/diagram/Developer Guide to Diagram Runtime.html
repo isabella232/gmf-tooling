@@ -1,0 +1,2838 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 10">
+<meta name=Originator content="Microsoft Word 10">
+<link rel=File-List
+href="Developer%20Guide%20to%20Diagram%20Runtime_files/filelist.xml">
+<link rel=Edit-Time-Data
+href="Developer%20Guide%20to%20Diagram%20Runtime_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Developer’s Guide to Diagram Runtime</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>RX</o:Author>
+  <o:LastAuthor>Steven R. Shaw</o:LastAuthor>
+  <o:Revision>9</o:Revision>
+  <o:TotalTime>57</o:TotalTime>
+  <o:Created>2005-12-23T16:50:00Z</o:Created>
+  <o:LastSaved>2005-12-23T17:49:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>3844</o:Words>
+  <o:Characters>21916</o:Characters>
+  <o:Lines>182</o:Lines>
+  <o:Paragraphs>51</o:Paragraphs>
+  <o:CharactersWithSpaces>25709</o:CharactersWithSpaces>
+  <o:Version>10.6735</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>120</w:Zoom>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SnapToGridInCell/>
+   <w:WrapTextWithPunct/>
+   <w:UseAsianBreakRules/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:2;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:0 268435456 0 0 -2147483648 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:16.0pt;
+	font-family:Arial;
+	mso-font-kerning:16.0pt;
+	font-weight:bold;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:18.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
+	font-size:13.5pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+h4
+	{mso-style-link:"Heading 4 Char";
+	mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:4;
+	font-size:14.0pt;
+	font-family:"Times New Roman";
+	font-weight:bold;}
+p.MsoToc1, li.MsoToc1, div.MsoToc1
+	{mso-style-update:auto;
+	mso-style-noshow:yes;
+	mso-style-next:Normal;
+	margin-top:.25in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:"Times New Roman";
+	text-transform:uppercase;
+	font-weight:bold;}
+p.MsoToc2, li.MsoToc2, div.MsoToc2
+	{mso-style-update:auto;
+	mso-style-noshow:yes;
+	mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	font-weight:bold;}
+p.MsoToc3, li.MsoToc3, div.MsoToc3
+	{mso-style-update:auto;
+	mso-style-noshow:yes;
+	mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:12.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc4, li.MsoToc4, div.MsoToc4
+	{mso-style-update:auto;
+	mso-style-noshow:yes;
+	mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:24.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc5, li.MsoToc5, div.MsoToc5
+	{mso-style-update:auto;
+	mso-style-noshow:yes;
+	mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc6, li.MsoToc6, div.MsoToc6
+	{mso-style-update:auto;
+	mso-style-noshow:yes;
+	mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:48.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc7, li.MsoToc7, div.MsoToc7
+	{mso-style-update:auto;
+	mso-style-noshow:yes;
+	mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:60.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc8, li.MsoToc8, div.MsoToc8
+	{mso-style-update:auto;
+	mso-style-noshow:yes;
+	mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:1.0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoToc9, li.MsoToc9, div.MsoToc9
+	{mso-style-update:auto;
+	mso-style-noshow:yes;
+	mso-style-next:Normal;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:84.0pt;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoList2, li.MsoList2, div.MsoList2
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	text-indent:-.25in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoList3, li.MsoList3, div.MsoList3
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.75in;
+	margin-bottom:.0001pt;
+	text-indent:-.25in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoList4, li.MsoList4, div.MsoList4
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:1.0in;
+	margin-bottom:.0001pt;
+	text-indent:-.25in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoListBullet2, li.MsoListBullet2, div.MsoListBullet2
+	{mso-style-update:auto;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	text-indent:-.25in;
+	mso-pagination:widow-orphan;
+	mso-list:l2 level1 lfo3;
+	tab-stops:list .5in;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoListBullet3, li.MsoListBullet3, div.MsoListBullet3
+	{mso-style-update:auto;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.75in;
+	margin-bottom:.0001pt;
+	text-indent:-.25in;
+	mso-pagination:widow-orphan;
+	mso-list:l1 level1 lfo6;
+	tab-stops:list .75in;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoListBullet4, li.MsoListBullet4, div.MsoListBullet4
+	{mso-style-update:auto;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:1.0in;
+	margin-bottom:.0001pt;
+	text-indent:-.25in;
+	mso-pagination:widow-orphan;
+	mso-list:l0 level1 lfo9;
+	tab-stops:list 1.0in;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoBodyText, li.MsoBodyText, div.MsoBodyText
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoBodyTextIndent, li.MsoBodyTextIndent, div.MsoBodyTextIndent
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:.25in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p.MsoListContinue2, li.MsoListContinue2, div.MsoListContinue2
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:.5in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	mso-ansi-font-size:18.0pt;
+	mso-bidi-font-size:18.0pt;
+	mso-ansi-language:EN-US;
+	mso-fareast-language:EN-US;
+	mso-bidi-language:AR-SA;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	mso-ansi-font-size:13.5pt;
+	mso-bidi-font-size:13.5pt;
+	mso-ansi-language:EN-US;
+	mso-fareast-language:EN-US;
+	mso-bidi-language:AR-SA;
+	font-weight:bold;}
+span.Heading4Char
+	{mso-style-name:"Heading 4 Char";
+	mso-style-link:"Heading 4";
+	mso-ansi-font-size:14.0pt;
+	mso-bidi-font-size:14.0pt;
+	mso-ansi-language:EN-US;
+	mso-fareast-language:EN-US;
+	mso-bidi-language:AR-SA;
+	font-weight:bold;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.5in .5in 1.5in .5in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:-127;
+	mso-list-type:simple;
+	mso-list-template-ids:-1006202366;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-style-link:"List Bullet 4";
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	margin-left:1.0in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l1
+	{mso-list-id:-126;
+	mso-list-type:simple;
+	mso-list-template-ids:-1649110548;}
+@list l1:level1
+	{mso-level-number-format:bullet;
+	mso-level-style-link:"List Bullet 3";
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.75in;
+	mso-level-number-position:left;
+	margin-left:.75in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l2
+	{mso-list-id:-125;
+	mso-list-type:simple;
+	mso-list-template-ids:-571962302;}
+@list l2:level1
+	{mso-level-number-format:bullet;
+	mso-level-style-link:"List Bullet 2";
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l3
+	{mso-list-id:159538736;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1723260134 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l3:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.75in;
+	mso-level-number-position:left;
+	margin-left:.75in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l4
+	{mso-list-id:162623480;
+	mso-list-template-ids:-1685962788;}
+@list l4:level1
+	{mso-level-start-at:0;
+	mso-level-number-format:bullet;
+	mso-level-text:-;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+@list l4:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l4:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l4:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l4:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l4:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l4:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l4:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l4:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l5
+	{mso-list-id:408356212;
+	mso-list-template-ids:-714570274;}
+@list l5:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6
+	{mso-list-id:482240365;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1191198288 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l6:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l7
+	{mso-list-id:488061733;
+	mso-list-template-ids:-2027919570;}
+@list l7:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l7:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l7:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l7:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l7:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l7:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l7:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l7:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l7:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l8
+	{mso-list-id:625896194;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1039738000 1181095032 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l8:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l8:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l8:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l8:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l8:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l8:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l8:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l8:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l8:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l9
+	{mso-list-id:948198761;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1375201232 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l9:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l9:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l10
+	{mso-list-id:994991983;
+	mso-list-template-ids:-18448758;}
+@list l10:level1
+	{mso-level-start-at:6;
+	mso-level-text:%1;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;}
+@list l10:level2
+	{mso-level-text:"%1\.%2";
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	margin-left:.5in;
+	text-indent:-.25in;}
+@list l10:level3
+	{mso-level-text:"%1\.%2\.%3";
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	margin-left:1.0in;
+	text-indent:-.5in;}
+@list l10:level4
+	{mso-level-text:"%1\.%2\.%3\.%4";
+	mso-level-tab-stop:1.25in;
+	mso-level-number-position:left;
+	margin-left:1.25in;
+	text-indent:-.5in;}
+@list l10:level5
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5";
+	mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	margin-left:1.5in;
+	text-indent:-.5in;}
+@list l10:level6
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6";
+	mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	margin-left:2.0in;
+	text-indent:-.75in;}
+@list l10:level7
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7";
+	mso-level-tab-stop:2.25in;
+	mso-level-number-position:left;
+	margin-left:2.25in;
+	text-indent:-.75in;}
+@list l10:level8
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8";
+	mso-level-tab-stop:2.75in;
+	mso-level-number-position:left;
+	margin-left:2.75in;
+	text-indent:-1.0in;}
+@list l10:level9
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8\.%9";
+	mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	margin-left:3.0in;
+	text-indent:-1.0in;}
+@list l11
+	{mso-list-id:1033578378;
+	mso-list-template-ids:1270907530;}
+@list l11:level1
+	{mso-level-start-at:3;
+	mso-level-text:%1;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;}
+@list l11:level2
+	{mso-level-text:"%1\.%2";
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	margin-left:.5in;
+	text-indent:-.25in;}
+@list l11:level3
+	{mso-level-text:"%1\.%2\.%3";
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	margin-left:1.0in;
+	text-indent:-.5in;}
+@list l11:level4
+	{mso-level-text:"%1\.%2\.%3\.%4";
+	mso-level-tab-stop:1.25in;
+	mso-level-number-position:left;
+	margin-left:1.25in;
+	text-indent:-.5in;}
+@list l11:level5
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5";
+	mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	margin-left:1.5in;
+	text-indent:-.5in;}
+@list l11:level6
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6";
+	mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	margin-left:2.0in;
+	text-indent:-.75in;}
+@list l11:level7
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7";
+	mso-level-tab-stop:2.25in;
+	mso-level-number-position:left;
+	margin-left:2.25in;
+	text-indent:-.75in;}
+@list l11:level8
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8";
+	mso-level-tab-stop:2.75in;
+	mso-level-number-position:left;
+	margin-left:2.75in;
+	text-indent:-1.0in;}
+@list l11:level9
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8\.%9";
+	mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	margin-left:3.0in;
+	text-indent:-1.0in;}
+@list l12
+	{mso-list-id:1050835654;
+	mso-list-type:hybrid;
+	mso-list-template-ids:768272942 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l12:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l12:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l12:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l12:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l12:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l12:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l12:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l12:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l12:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l13
+	{mso-list-id:1130561743;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1922013032 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l13:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l13:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l14
+	{mso-list-id:1245341706;
+	mso-list-template-ids:689196332;}
+@list l14:level1
+	{mso-level-start-at:5;
+	mso-level-text:%1;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;}
+@list l14:level2
+	{mso-level-text:"%1\.%2";
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;}
+@list l14:level3
+	{mso-level-text:"%1\.%2\.%3";
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	margin-left:.5in;
+	text-indent:-.5in;}
+@list l14:level4
+	{mso-level-text:"%1\.%2\.%3\.%4";
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	margin-left:.5in;
+	text-indent:-.5in;}
+@list l14:level5
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5";
+	mso-level-tab-stop:.75in;
+	mso-level-number-position:left;
+	margin-left:.75in;
+	text-indent:-.75in;}
+@list l14:level6
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6";
+	mso-level-tab-stop:.75in;
+	mso-level-number-position:left;
+	margin-left:.75in;
+	text-indent:-.75in;}
+@list l14:level7
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7";
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	margin-left:1.0in;
+	text-indent:-1.0in;}
+@list l14:level8
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8";
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	margin-left:1.0in;
+	text-indent:-1.0in;}
+@list l14:level9
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8\.%9";
+	mso-level-tab-stop:1.25in;
+	mso-level-number-position:left;
+	margin-left:1.25in;
+	text-indent:-1.25in;}
+@list l15
+	{mso-list-id:1255439173;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1413307864 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l15:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l15:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l16
+	{mso-list-id:1289237850;
+	mso-list-type:hybrid;
+	mso-list-template-ids:550820946 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l16:level1
+	{mso-level-start-at:3;
+	mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";}
+@list l16:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l16:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l16:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l16:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l16:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l16:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l16:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l16:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l17
+	{mso-list-id:1323046004;
+	mso-list-type:hybrid;
+	mso-list-template-ids:2023673618 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l17:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l17:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l17:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l17:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l17:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l17:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l17:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l17:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l17:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l18
+	{mso-list-id:1329863032;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1916225360 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l18:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l18:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l18:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0A7;
+	mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l19
+	{mso-list-id:1386683885;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1685962788 1547494172 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l19:level1
+	{mso-level-start-at:0;
+	mso-level-number-format:bullet;
+	mso-level-text:-;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+@list l19:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l20
+	{mso-list-id:1407410484;
+	mso-list-template-ids:-1579800542;}
+@list l20:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.75in;
+	mso-level-number-position:left;
+	margin-left:.75in;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l20:level2
+	{mso-level-text:"%1\.%2";
+	mso-level-tab-stop:.75in;
+	mso-level-number-position:left;
+	margin-left:.75in;
+	text-indent:-.25in;}
+@list l20:level3
+	{mso-level-text:"%1\.%2\.%3";
+	mso-level-tab-stop:1.25in;
+	mso-level-number-position:left;
+	margin-left:1.25in;
+	text-indent:-.5in;}
+@list l20:level4
+	{mso-level-text:"%1\.%2\.%3\.%4";
+	mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	margin-left:1.5in;
+	text-indent:-.5in;}
+@list l20:level5
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5";
+	mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	margin-left:2.0in;
+	text-indent:-.75in;}
+@list l20:level6
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6";
+	mso-level-tab-stop:2.25in;
+	mso-level-number-position:left;
+	margin-left:2.25in;
+	text-indent:-.75in;}
+@list l20:level7
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7";
+	mso-level-tab-stop:2.75in;
+	mso-level-number-position:left;
+	margin-left:2.75in;
+	text-indent:-1.0in;}
+@list l20:level8
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8";
+	mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	margin-left:3.0in;
+	text-indent:-1.0in;}
+@list l20:level9
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8\.%9";
+	mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	margin-left:3.5in;
+	text-indent:-1.25in;}
+@list l21
+	{mso-list-id:1512601810;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-394113990 1547494172 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l21:level1
+	{mso-level-start-at:0;
+	mso-level-number-format:bullet;
+	mso-level-text:-;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+@list l21:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l22
+	{mso-list-id:1516458426;
+	mso-list-template-ids:940894130;}
+@list l22:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l22:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l22:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l22:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l22:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l22:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l22:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l22:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l22:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l23
+	{mso-list-id:1520703754;
+	mso-list-type:hybrid;
+	mso-list-template-ids:2026829110 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l23:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l23:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l24
+	{mso-list-id:1532264088;
+	mso-list-template-ids:-2027919570;}
+@list l24:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l24:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l24:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l24:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l24:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l24:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l24:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l24:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l24:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l25
+	{mso-list-id:1602879840;
+	mso-list-template-ids:-810679102;}
+@list l25:level1
+	{mso-level-start-at:9;
+	mso-level-text:%1;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;}
+@list l25:level2
+	{mso-level-text:"%1\.%2";
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	margin-left:.5in;
+	text-indent:-.25in;}
+@list l25:level3
+	{mso-level-text:"%1\.%2\.%3";
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	margin-left:1.0in;
+	text-indent:-.5in;}
+@list l25:level4
+	{mso-level-text:"%1\.%2\.%3\.%4";
+	mso-level-tab-stop:1.25in;
+	mso-level-number-position:left;
+	margin-left:1.25in;
+	text-indent:-.5in;}
+@list l25:level5
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5";
+	mso-level-tab-stop:1.75in;
+	mso-level-number-position:left;
+	margin-left:1.75in;
+	text-indent:-.75in;}
+@list l25:level6
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6";
+	mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	margin-left:2.0in;
+	text-indent:-.75in;}
+@list l25:level7
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7";
+	mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	margin-left:2.5in;
+	text-indent:-1.0in;}
+@list l25:level8
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8";
+	mso-level-tab-stop:2.75in;
+	mso-level-number-position:left;
+	margin-left:2.75in;
+	text-indent:-1.0in;}
+@list l25:level9
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8\.%9";
+	mso-level-tab-stop:3.25in;
+	mso-level-number-position:left;
+	margin-left:3.25in;
+	text-indent:-1.25in;}
+@list l26
+	{mso-list-id:1880581603;
+	mso-list-template-ids:-1162060388;}
+@list l26:level1
+	{mso-level-start-at:6;
+	mso-level-text:%1;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;}
+@list l26:level2
+	{mso-level-start-at:9;
+	mso-level-text:"%1\.%2";
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	margin-left:.5in;
+	text-indent:-.25in;}
+@list l26:level3
+	{mso-level-text:"%1\.%2\.%3";
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	margin-left:1.0in;
+	text-indent:-.5in;}
+@list l26:level4
+	{mso-level-text:"%1\.%2\.%3\.%4";
+	mso-level-tab-stop:1.25in;
+	mso-level-number-position:left;
+	margin-left:1.25in;
+	text-indent:-.5in;}
+@list l26:level5
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5";
+	mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	margin-left:1.5in;
+	text-indent:-.5in;}
+@list l26:level6
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6";
+	mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	margin-left:2.0in;
+	text-indent:-.75in;}
+@list l26:level7
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7";
+	mso-level-tab-stop:2.25in;
+	mso-level-number-position:left;
+	margin-left:2.25in;
+	text-indent:-.75in;}
+@list l26:level8
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8";
+	mso-level-tab-stop:2.75in;
+	mso-level-number-position:left;
+	margin-left:2.75in;
+	text-indent:-1.0in;}
+@list l26:level9
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8\.%9";
+	mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	margin-left:3.0in;
+	text-indent:-1.0in;}
+@list l27
+	{mso-list-id:1889950547;
+	mso-list-template-ids:-1819390410;}
+@list l27:level1
+	{mso-level-start-at:5;
+	mso-level-text:%1;
+	mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;}
+@list l27:level2
+	{mso-level-text:"%1\.%2";
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	margin-left:.5in;
+	text-indent:-.25in;}
+@list l27:level3
+	{mso-level-text:"%1\.%2\.%3";
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	margin-left:1.0in;
+	text-indent:-.5in;}
+@list l27:level4
+	{mso-level-text:"%1\.%2\.%3\.%4";
+	mso-level-tab-stop:1.25in;
+	mso-level-number-position:left;
+	margin-left:1.25in;
+	text-indent:-.5in;}
+@list l27:level5
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5";
+	mso-level-tab-stop:1.75in;
+	mso-level-number-position:left;
+	margin-left:1.75in;
+	text-indent:-.75in;}
+@list l27:level6
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6";
+	mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	margin-left:2.0in;
+	text-indent:-.75in;}
+@list l27:level7
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7";
+	mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	margin-left:2.5in;
+	text-indent:-1.0in;}
+@list l27:level8
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8";
+	mso-level-tab-stop:2.75in;
+	mso-level-number-position:left;
+	margin-left:2.75in;
+	text-indent:-1.0in;}
+@list l27:level9
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8\.%9";
+	mso-level-tab-stop:3.25in;
+	mso-level-number-position:left;
+	margin-left:3.25in;
+	text-indent:-1.25in;}
+@list l28
+	{mso-list-id:1970627370;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1434965460 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l28:level1
+	{mso-level-start-at:2;
+	mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";}
+@list l28:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l28:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l28:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l28:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l28:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l28:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l28:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l28:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l29
+	{mso-list-id:2001495850;
+	mso-list-type:hybrid;
+	mso-list-template-ids:212339338 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l29:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l29:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l30
+	{mso-list-id:2073507227;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-778935556 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l30:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l30:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l30:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l30:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l30:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l30:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l30:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l30:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l30:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="3074"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang=EN-US link=blue vlink=purple style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<p class=MsoNormal><img width=347 height=134 id="_x0000_i1025"
+src="gmf_header.gif" border=0></p>
+
+<h1><a name=top></a><a name="_Toc119419871"></a><a name="_Toc119419980"></a><a
+name="_Toc119420262"><span style='mso-bookmark:_Toc119419980'><span
+style='mso-bookmark:_Toc119419871'><span style='mso-bookmark:top'>Developer
+Guide to Diagram Runtime Framework</span></span></span></a><span
+style='mso-bookmark:top'></span></h1>
+
+<span style='mso-bookmark:top'></span>
+
+<h1><a name="_Toc119419872"></a><a name="_Toc119419981"></a><a
+name="_Toc119420263"><span style='mso-bookmark:_Toc119419981'><span
+style='mso-bookmark:_Toc119419872'>Contents</span></span></a><!--[if supportFields]><span
+style='mso-element:field-begin'></span> TOC \o &quot;1-3&quot; \n \h \z \u <span
+style='mso-element:field-separator'></span><![endif]--><span style='mso-no-proof:
+yes'><o:p></o:p></span></h1>
+
+<p class=MsoToc2 style='tab-stops:right 539.5pt'><span class=MsoHyperlink><span
+style='mso-no-proof:yes'><a href="#_Toc119420264">Pre-requisites</a></span></span><span
+style='font-size:12.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc2 style='tab-stops:right 539.5pt'><span class=MsoHyperlink><span
+style='mso-no-proof:yes'><a href="#_Toc119420265">Overview</a></span></span><span
+style='font-size:12.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:right 539.5pt'><span class=MsoHyperlink><span
+style='mso-no-proof:yes'><a href="#_Toc119420266">Figure I: GEF Model View
+Controller Architecture</a></span></span><span style='font-size:12.0pt;
+mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:right 539.5pt'><span class=MsoHyperlink><span
+style='mso-no-proof:yes'><a href="#_Toc119420267">Figure II: GMF Model View
+Controller</a></span></span><span style='font-size:12.0pt;mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc2 style='tab-stops:right 539.5pt'><span class=MsoHyperlink><span
+style='mso-no-proof:yes'><a href="#_Toc119420268">Notation meta-model</a></span></span><span
+style='font-size:12.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:right 539.5pt'><span class=MsoHyperlink><span
+style='mso-no-proof:yes'><a href="#_Toc119420269">Figure III Core notation
+meta-model:</a></span></span><span style='font-size:12.0pt;mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc2 style='tab-stops:right 539.5pt'><span class=MsoHyperlink><span
+style='mso-no-proof:yes'><a href="#_Toc119420270">Extensibility</a></span></span><span
+style='font-size:12.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc2 style='tab-stops:right 539.5pt'><span class=MsoHyperlink><span
+style='mso-no-proof:yes'><a href="#_Toc119420271">Services</a></span></span><span
+style='font-size:12.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:right 539.5pt'><span class=MsoHyperlink><span
+style='mso-no-proof:yes'><a href="#_Toc119420272">View Service:</a></span></span><span
+style='font-size:12.0pt;mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:right 539.5pt'><span class=MsoHyperlink><span
+style='mso-no-proof:yes'><a href="#_Toc119420273">EditPart Service:</a></span></span><span
+style='font-size:12.0pt;mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:right 539.5pt'><span class=MsoHyperlink><span
+style='mso-no-proof:yes'><a href="#_Toc119420274">EditPolicy Service:</a></span></span><span
+style='font-size:12.0pt;mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:right 539.5pt'><span class=MsoHyperlink><span
+style='mso-no-proof:yes'><a href="#_Toc119420275">Palette Service:</a></span></span><span
+style='font-size:12.0pt;mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:right 539.5pt'><span class=MsoHyperlink><span
+style='mso-no-proof:yes'><a href="#_Toc119420276">Decoration Service:</a></span></span><span
+style='font-size:12.0pt;mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:right 539.5pt'><span class=MsoHyperlink><span
+style='mso-no-proof:yes'><a href="#_Toc119420277">Layout Service:</a></span></span><span
+style='font-size:12.0pt;mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc2 style='tab-stops:right 539.5pt'><span class=MsoHyperlink><span
+style='mso-no-proof:yes'><a href="#_Toc119420278">Interactions</a></span></span><span
+style='font-size:12.0pt;font-weight:normal;mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:right 539.5pt'><span class=MsoHyperlink><span
+style='mso-no-proof:yes'><a href="#_Toc119420279">Creation of an element in GEF</a></span></span><span
+style='font-size:12.0pt;mso-no-proof:yes'><o:p></o:p></span></p>
+
+<p class=MsoToc3 style='tab-stops:right 539.5pt'><span class=MsoHyperlink><span
+style='mso-no-proof:yes'><a href="#_Toc119420280">Creation of an element in GMF</a><o:p></o:p></span></span></p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal align=center style='text-align:center'><!--[if supportFields]><span
+style='mso-element:field-end'></span><![endif]--><o:p></o:p></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h2>Introduction</h2>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>[<a
+href="../../tutorials/diagram/canonicalContainer.html#top#top">back to top</a>]<o:p></o:p></span></p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoBodyText>This guide is meant as an initial introduction to
+developers interested in creating Eclipse based graphical editor that are based
+on an EMF model.<span style='mso-spacerun:yes'>  </span>GMF is top level
+platform that is meant to bridge the tools projects of GEF and EMF.<span
+style='mso-spacerun:yes'>  </span></p>
+
+<p class=MsoBodyText>GMF is a platform upon which graphical editors can depend
+upon to gain a rich initial feature set and inoperability between EMF and
+GEF.<span style='mso-spacerun:yes'>  </span>It is designed to eliminate the
+need for the client to manage diagram persistence and lets the client focus on
+managing their business logic model in the editor.</p>
+
+<p class=MsoNormal>This guide won’t cover the generative aspects of the GMF
+project. <span style='mso-spacerun:yes'> </span>These capabilities are part of the
+GMF SDK and can be referenced in a separate guide.<br>
+<br>
+<o:p></o:p></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h2><a name=prerequisite></a><a name="_Toc119419873"></a><a name="_Toc119420264"><span
+style='mso-bookmark:_Toc119419873'><span style='mso-bookmark:prerequisite'>Pre-requisites</span></span></a></h2>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>[<a
+href="../../tutorials/diagram/canonicalContainer.html#top#top">back to top</a>]<o:p></o:p></span></p>
+
+<p class=MsoBodyText><o:p>&nbsp;</o:p></p>
+
+<p class=MsoBodyText>The initial requirements for a client developing on top of
+GMF are as follows:</p>
+
+<p class=MsoList2 style='mso-list:l6 level1 lfo11;tab-stops:list .5in'><![if !supportLists]><span
+style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>At least an introductory level of knowledge of the GEF
+and EMF tools projects which GMF is built upon.<span style='mso-spacerun:yes'> 
+</span>Recommendation is to familiarize oneself with some on the online
+documentation available for those projects.</p>
+
+<p class=MsoList3 style='margin-left:1.0in;mso-list:l6 level2 lfo11;tab-stops:
+list 1.0in'><![if !supportLists]><span style='mso-list:Ignore'>a.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><![endif]><a
+href="http://www.eclipse.org/gef">http://www.eclipse.org/gef</a> </p>
+
+<p class=MsoList3 style='margin-left:1.0in;mso-list:l6 level2 lfo11;tab-stops:
+list 1.0in'><![if !supportLists]><span style='mso-list:Ignore'>b.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><![endif]><a
+href="http://www.eclipse.org/emf">http://www.eclipse.org/emf</a> </p>
+
+<p class=MsoList2 style='mso-list:l6 level1 lfo11;tab-stops:list .5in'><![if !supportLists]><span
+style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>A semantic model is defined in EMF that represents the
+data persistence model for the Editor.<span style='mso-spacerun:yes'> 
+</span>i.e.<span style='mso-spacerun:yes'>  </span>the Editor is editing the
+data stored in the semantic model.<span style='mso-spacerun:yes'>  </span></p>
+
+<p class=MsoListBullet3 style='margin-left:.5in;mso-list:l17 level1 lfo13;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
+style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Java (J2SE)</p>
+
+<p class=MsoListBullet4 style='mso-list:l17 level2 lfo13'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>“<a href="http://java.sun.com/"><i
+style='mso-bidi-font-style:normal'>Java Technology</i></a>”</p>
+
+<p class=MsoListBullet3 style='margin-left:.5in;mso-list:l17 level1 lfo13;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
+style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Eclipse</p>
+
+<p class=MsoListBullet4 style='mso-list:l17 level2 lfo13'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>“<a
+href="http://www.eclipse.org/articles/index.html"><i style='mso-bidi-font-style:
+normal'>Eclipse Platform Technical Overview</i></a>”, by Object Technology
+International Inc.</p>
+
+<p class=MsoListBullet4 style='mso-list:l17 level2 lfo13'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>“<a
+href="http://www.eclipse.org/articles/index.html"><i style='mso-bidi-font-style:
+normal'>Notes on Eclipse Plug-in Architecture</i></a>”, by Azad Bolour, Bolour
+Computing</p>
+
+<p class=MsoListBullet4 style='mso-list:l17 level2 lfo13'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>“<a
+href="http://www.eclipse.org/articles/index.html"><i style='mso-bidi-font-style:
+normal'>How to Use the Eclipse API</i></a>”, by Jin des Rivieres, OTI</p>
+
+<p class=MsoListBullet3 style='margin-left:.5in;mso-list:l17 level1 lfo13;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
+style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>EMF</p>
+
+<p class=MsoListBullet4 style='mso-list:l17 level2 lfo13'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>“<a
+href="http://www.eclipse.org/articles/index.html"><i style='mso-bidi-font-style:
+normal'>Using EMF</i></a>”, by Catherine Griffin, IBM</p>
+
+<p class=MsoListBullet3 style='margin-left:.5in;mso-list:l17 level1 lfo13;
+tab-stops:list .5in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
+style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>GEF</p>
+
+<p class=MsoListBullet4 style='mso-list:l17 level2 lfo13'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><a
+href="http://help.eclipse.org/help31/index.jsp?topic=/org.eclipse.gef.doc.isv/guide/guide.html"><i
+style='mso-bidi-font-style:normal'>“GEF Programmer’s Guide”</i></a></p>
+
+<p class=MsoNormal><br>
+<o:p></o:p></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h2><a name="_Toc119420265"></a><a name="_Toc119419874"></a><a name="_Overview"></a><span
+style='mso-bookmark:_Toc119420265'><span style='mso-bookmark:_Toc119419874'>Overview</span></span></h2>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>[<a
+href="../../tutorials/diagram/canonicalContainer.html#top#top">back to top</a>]<o:p></o:p></span></p>
+
+<p class=MsoBodyText><o:p>&nbsp;</o:p></p>
+
+<p class=MsoBodyText>GMF is a framework that is a bridging technology between
+the GEF platform and the EMF modeling platform.<span style='mso-spacerun:yes'> 
+</span>GEF provides a platform for building graphical editors and EMF is a
+modeling technology for managing and persisting data at a higher level of
+abstraction.<span style='mso-spacerun:yes'>  </span>The bridge that GMF
+provides is a links these technologies seamlessly so that the graphical editor
+is displaying data stored and managed using EMF.<o:p></o:p></p>
+
+<p class=MsoBodyText>There are usually 2 aspects to the data stored in a
+graphical editor.<span style='mso-spacerun:yes'>  </span>There is the
+diagramming data that represents the shapes and connections displayed in the
+editor (otherwise known as notation), and also the semantic data that the user
+is editing.<span style='mso-spacerun:yes'>  </span>From the graphical editor
+user’s point of view, the two are synonymous – the notation view is simply a window
+into the semantic data.<span style='mso-spacerun:yes'>  </span>However, there
+is an important distinction between the notation and semantic that makes it
+necessary to separate them.<span style='mso-spacerun:yes'>  </span>The semantic
+data can be displayed in different contexts or editors and as such shouldn’t
+store information about how it can be displayed in an editor.<span
+style='mso-spacerun:yes'>  </span>Also, the semantic data can be displayed
+multiple times on the same diagram potentially which means the notation
+information needs to be stored multiple times.<span style='mso-spacerun:yes'> 
+</span>In order to facilitate this it is necessary that the notation
+information be stored in a different model (define by a notation meta-model)
+that references the semantic model.<span style='mso-spacerun:yes'>  </span><o:p></o:p></p>
+
+<p class=MsoBodyText>GMF addresses this by providing a logical persistence
+model for GEF through the diagram layer.<span style='mso-spacerun:yes'> 
+</span>It defines a notation meta-model in EMF that is generic and logically
+separated from the semantic model persistence.<span style='mso-spacerun:yes'> 
+</span>This allows multiple clients of GMF to have diagram interoperability
+through a compatible and consistent notation format.<span
+style='mso-spacerun:yes'>  </span>Additional, since the notation is generic is
+allows for management of the notation data to be encapsulated from the client
+letting them focus their development efforts on the business logic.<span
+style='mso-spacerun:yes'>  </span>As well, the separation of notation and
+semantic lets the client define multiple notations (shapes) for the same
+semantic element.<span style='mso-spacerun:yes'>  </span>In addition is
+possible to have the semantic element to be visualized different depending on a
+context.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<h3><a name="_Toc119419875"></a><a name="_Toc119420266"><span style='mso-bookmark:
+_Toc119419875'>Figure I: GEF Model View Controller Architecture</span></a></h3>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>[<a
+href="../../tutorials/diagram/canonicalContainer.html#top#top">back to top</a>]<o:p></o:p></span></p>
+
+<p class=MsoBodyText><a name="_Toc119420267"><span class=Heading3Char><span
+style='font-size:13.5pt;font-weight:normal'><!--[if gte vml 1]><v:shapetype
+ id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
+ path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
+ <v:stroke joinstyle="miter"/>
+ <v:formulas>
+  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
+  <v:f eqn="sum @0 1 0"/>
+  <v:f eqn="sum 0 0 @1"/>
+  <v:f eqn="prod @2 1 2"/>
+  <v:f eqn="prod @3 21600 pixelWidth"/>
+  <v:f eqn="prod @3 21600 pixelHeight"/>
+  <v:f eqn="sum @0 0 1"/>
+  <v:f eqn="prod @6 1 2"/>
+  <v:f eqn="prod @7 21600 pixelWidth"/>
+  <v:f eqn="sum @8 21600 0"/>
+  <v:f eqn="prod @7 21600 pixelHeight"/>
+  <v:f eqn="sum @10 21600 0"/>
+ </v:formulas>
+ <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
+ <o:lock v:ext="edit" aspectratio="t"/>
+</v:shapetype><v:shape id="_x0000_i1033" type="#_x0000_t75" style='width:444.75pt;
+ height:247.5pt'>
+ <v:imagedata src="clip_image001.gif"
+  o:title="clip_image001"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=593 height=330
+src="Developer%20Guide%20to%20Diagram%20Runtime_files/image001.gif" v:shapes="_x0000_i1033"><![endif]><o:p></o:p></span></span></a></p>
+
+<p class=MsoBodyText><span style='mso-bookmark:_Toc119420267'><span
+class=Heading3Char><span style='font-size:13.5pt'><o:p>&nbsp;</o:p></span></span></span></p>
+
+<p class=MsoBodyText><span style='mso-bookmark:_Toc119420267'><span
+class=Heading3Char><span style='font-size:13.5pt'>Figure II: GMF Model View
+Controller</span></span></span> </p>
+
+<p class=MsoBodyText>Architecture with addition of 2 tier model layer to
+support generic notation meta-model</p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>[<a
+href="../../tutorials/diagram/canonicalContainer.html#top#top">back to top</a>]<o:p></o:p></span></p>
+
+<p class=MsoBodyText><!--[if gte vml 1]><v:shape id="_x0000_i1034" type="#_x0000_t75"
+ style='width:438.75pt;height:261.75pt'>
+ <v:imagedata src="clip_image003.gif"
+  o:title="clip_image003"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=585 height=349
+src="Developer%20Guide%20to%20Diagram%20Runtime_files/image002.gif" v:shapes="_x0000_i1034"><![endif]></p>
+
+<p class=MsoBodyText>Since GMF is designed as a platform for different domain
+editors to be built on, it needs a robust extensibility solution that will
+allow for clients to extend off of other GMF clients and allow their
+construction to be scalable through the plug-in architecture.<span
+style='mso-spacerun:yes'>  </span>The extensibility of GMF is allows for
+on-demand loading of client components using the Eclipse extension point
+mechanism and a GMF based Service-Provider infrastructure.<span
+style='mso-spacerun:yes'>  </span></p>
+
+<p class=MsoBodyText>Aside from the architectural benefits to the platform,
+there is a rich set of features that clients can optionally include in their
+editor or they would inherit with little overhead.<span
+style='mso-spacerun:yes'>  </span>There is a special attention given to
+usability in the diagram editor and a service for providing diagram assistants
+that can appear as pop-ups or connection handles on the shape to assist in
+creating elements using a context to guide them.<span
+style='mso-spacerun:yes'>  </span>More advanced geometry capabilities are also
+included through a generic geometric shapes feature and support for SVG display
+and export.</p>
+
+<h4>Example of geometric shapes:</h4>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>[<a
+href="../../tutorials/diagram/canonicalContainer.html#top#top">back to top</a>]<o:p></o:p></span></p>
+
+<p class=MsoNormal><!--[if gte vml 1]><v:shape id="_x0000_i1035" type="#_x0000_t75"
+ style='width:350.25pt;height:240pt'>
+ <v:imagedata src="clip_image005.jpg"
+  o:title="clip_image005"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=467 height=320
+src="Developer%20Guide%20to%20Diagram%20Runtime_files/image003.jpg" v:shapes="_x0000_i1035"><![endif]><o:p></o:p></p>
+
+<p class=MsoBodyText>When building domain specific shapes, it is useful to have
+proper building blocks to construct them.<span style='mso-spacerun:yes'> 
+</span>Constructs such as containment, list compartments, automatic
+synchronization of notation to semantic are built into the platform to make
+construction of a new shapes as ubiquitous as possible.</p>
+
+<h4>Example Logic circuit:</h4>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>[<a
+href="../../tutorials/diagram/canonicalContainer.html#top#top">back to top</a>]<o:p></o:p></span></p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoBodyText>If we consider the logic circuit in the example we provide
+as part of the SDK, this has complex behavior for containment, creation of the
+terminals and color display.<span style='mso-spacerun:yes'>  </span>Using the
+GMF infrastructure, the shape was constructed using a shape compartment for
+containment and the terminals are created using a border shape infrastructure
+to avoid having to construct these concepts from first principles.</p>
+
+<p class=MsoNormal><!--[if gte vml 1]><v:shape id="_x0000_i1036" type="#_x0000_t75"
+ style='width:275.25pt;height:289.5pt'>
+ <v:imagedata src="clip_image007.jpg"
+  o:title="clip_image007"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=367 height=386
+src="Developer%20Guide%20to%20Diagram%20Runtime_files/image004.jpg" v:shapes="_x0000_i1036"><![endif]></p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<div class=MsoNormal align=center style='text-align:center'><a
+name="_Toc119420268"></a><a name="_Toc119419876"></a><a
+name="_Notation_meta-model"></a>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h2><span style='mso-bookmark:_Toc119420268'><span style='mso-bookmark:_Toc119419876'>Notation
+meta-model</span></span></h2>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>[<a
+href="../../tutorials/diagram/canonicalContainer.html#top#top">back to top</a>]<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoBodyText>The unifying force of GMF is the notation meta-model which
+provides the concrete link between the EMF and GEF.<span
+style='mso-spacerun:yes'>  </span>It is the scaffolding around which GMF
+diagram capability is built.<span style='mso-spacerun:yes'>  </span>The most
+important aspect about the notation meta-model is that it is completely domain
+independent.<span style='mso-spacerun:yes'>  </span>By having it be generic
+across domains, this allows the engine to behave in a common way and provide a
+common feature set that can be absorbed into those domains.<span
+style='mso-spacerun:yes'>  </span>The only link to the semantic model is a
+reference stored on the View element in the hierarchy.<span
+style='mso-spacerun:yes'>  </span>The GMF editparts always navigate to the
+semantic model through this reference.</p>
+
+<h3><a name="_Toc119420269">Figure III Core notation meta-model:</a></h3>
+
+<p class=MsoBodyText>The following is the core hierarchy of the notation
+meta-model.<span style='mso-spacerun:yes'>  </span>There are styles and
+enumerations not displayed.</p>
+
+<p class=MsoNormal><img border=0 width=1312 height=910 id="_x0000_i1026"
+src=NotationMetaModel.gif></p>
+
+<p class=MsoNormal><br>
+<br>
+<span style='font-size:10.0pt'>[<a
+href="../../tutorials/diagram/canonicalContainer.html#top#top">back to top</a>]<o:p></o:p></span></p>
+
+<p class=MsoBodyText><o:p>&nbsp;</o:p></p>
+
+<p class=MsoBodyText>There are 4 main hierarchies that make up the notation
+meta-model.<span style='mso-spacerun:yes'>  </span></p>
+
+<p class=MsoListBullet2 style='mso-list:l16 level1 lfo15'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>View which is the main container that defines a
+shape.<span style='mso-spacerun:yes'>  </span>There are 3 subclasses of view
+that make up the major components of a diagram.<span style='mso-spacerun:yes'> 
+</span>Of course the Diagram itself is the main container for all the
+shapes.<span style='mso-spacerun:yes'>  </span>Then the Diagram element
+contains Nodes (shapes) and Edges (connections) that connect the Nodes on the
+diagram together.</p>
+
+<p class=MsoListBullet2 style='mso-list:l16 level1 lfo15'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Style: Styles are owned by View.<span
+style='mso-spacerun:yes'>  </span>They represents the properties of a View that
+need to be persisted in order to properly display the shape.<span
+style='mso-spacerun:yes'>  </span>Typical values with-in the Style hierarchy
+are for storing color, font, geometry information etc.</p>
+
+<p class=MsoListBullet2 style='mso-list:l16 level1 lfo15'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>LayoutConstraint: This is the hierarchy that
+defines the position of a Node in the diagram.<span style='mso-spacerun:yes'> 
+</span>Most often this will be a Bounds object defining a size and position.<span
+style='mso-spacerun:yes'>  </span>The hierarchy is flexible to define different
+kinds of positioning information such as a Ratio that represents area allow for
+a subcompartment within a container relative to it’s children.</p>
+
+<p class=MsoListBullet2 style='mso-list:l16 level1 lfo15'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Bendpoints: Similar to layout constraint except
+it has a multiplicity on the Edge view, the bendpoints are the points that
+constraint the Edge on the diagram.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoBodyText>The notation meta-model has been designed with a number of
+conscious benefits in mind for the graphical editor.</p>
+
+<p class=MsoList2 style='mso-list:l7 level1 lfo17;tab-stops:list .5in'><![if !supportLists]><span
+style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Customized for team support.<span
+style='mso-spacerun:yes'>  </span>Often when multiple team members are working
+on the same resource and then check-in or deliver their work at the same time a
+merge conflict can arise.<span style='mso-spacerun:yes'>  </span>The notation
+meta-model is designed to minimize these merge conflicts through the separation
+of styles into granular properties that can be merge independently.</p>
+
+<p class=MsoList2 style='mso-list:l7 level1 lfo17;tab-stops:list .5in'><![if !supportLists]><span
+style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Customized for GEF (relative bendpoints, layout
+constraints).<span style='mso-spacerun:yes'>  </span>Since GMF is meant to be a
+bridge between EMF and GEF it makes to incorporate some GEF concepts into the
+persistence model and treat them as first class citizens.<span
+style='mso-spacerun:yes'>  </span>This is the case with the relative bendpoints
+that are using to store the connection edge points.<span
+style='mso-spacerun:yes'>  </span>In other editors, these bendpoints are
+usually an absolute (x,y) value.<span style='mso-spacerun:yes'>  </span>GEF
+stores these values internally as two points that are a relative value to an
+anchor on the source and on the target.<span style='mso-spacerun:yes'>  </span></p>
+
+<p class=MsoList2 style='mso-list:l7 level1 lfo17;tab-stops:list .5in'><![if !supportLists]><span
+style='mso-list:Ignore'>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Though the meta-model model is generic it doesn’t mean
+that it has to remain static as well.<span style='mso-spacerun:yes'> 
+</span>Through the style hierarchy it is possible to extent the notation
+meta-model to store domain specific properties that individual editors may
+need.<span style='mso-spacerun:yes'>  </span>Additionally, this hierarchy
+allows the notation meta-model to evolve in the future as new feature are added
+without breaking backward / forward compatibility.<br>
+<br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></p>
+
+<div class=MsoNormal align=center style='text-align:center'><a
+name="_Toc119420270"></a><a name="_Toc119419877"></a><a name="_Extensibility"></a>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h2><span style='mso-bookmark:_Toc119420270'><span style='mso-bookmark:_Toc119419877'>Extensibility</span></span></h2>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>[<a
+href="../../tutorials/diagram/canonicalContainer.html#top#top">back to top</a>]<o:p></o:p></span></p>
+
+<p class=MsoBodyText><o:p>&nbsp;</o:p></p>
+
+<p class=MsoBodyText>The extensibility of GMF is an area where the platform
+differs greatly from the GEF mechanism for integrating a domain editor.<span
+style='mso-spacerun:yes'>  </span>We will consider the general methods for
+extending each infrastructure independently.</p>
+
+<h4>Extending GEF:</h4>
+
+<p class=MsoList2 style='mso-list:l23 level1 lfo47;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Classic Java extensibility – inheritance,
+aggregation.</p>
+
+<p class=MsoList3 style='margin-left:1.0in;mso-list:l23 level2 lfo47;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Issues:
+static, overrides force knowledge of other components, plug-in loading.</p>
+
+<p class=MsoList2 style='mso-list:l23 level1 lfo47;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Limited hooks – main entry point is through
+EditPartFactory subclasses installed by the Viewer.</p>
+
+<p class=MsoList2 style='mso-list:l23 level1 lfo47;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>No separation of semantic vs. notation.</p>
+
+<p class=MsoList2><!--[if gte vml 1]><v:shape id="_x0000_i1037" type="#_x0000_t75"
+ style='width:346.5pt;height:132pt'>
+ <v:imagedata src="GEF_EditPart_Create.gif"
+  o:title="GEF_EditPart_Create"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=462 height=176
+src="GEF_EditPart_Create.gif" v:shapes="_x0000_i1037"><![endif]></p>
+
+<h4>Extending GMF:</h4>
+
+<p class=MsoListBullet2 style='mso-list:l17 level1 lfo20'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Utilizes GEF extensibility then adds additional
+extensions points inside EditPart creation itself (EditPolicies,
+Decorations).<span style='mso-spacerun:yes'>  </span>By delegating to the
+Service, then the service can manage multiple providers and dynamic contributions
+based on runtime criteria.</p>
+
+<p class=MsoNormal><br>
+<!--[if gte vml 1]><v:shape id="_x0000_i1038" type="#_x0000_t75" style='width:348pt;
+ height:234pt'>
+ <v:imagedata src="GMF_EditPart_Create.gif"
+  o:title="GMF_EditPart_Create"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=464 height=312
+src="GMF_EditPart_Create.gif" v:shapes="_x0000_i1038"><![endif]></p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<div class=MsoNormal align=center style='text-align:center'><a
+name="_Toc119419878"></a><a name="_Toc119420271"><span style='mso-bookmark:
+_Toc119419878'>
+
+<hr size=2 width="100%" align=center>
+
+</span></a></div>
+
+<h2><span style='mso-bookmark:_Toc119420271'><span style='mso-bookmark:_Toc119419878'>Services</span></span></h2>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>[<a
+href="../../tutorials/diagram/canonicalContainer.html#top#top">back to top</a>]<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoBodyText>A set of services with-in the GMF diagram plug-ins provide
+this extensibility for the platform.<span style='mso-spacerun:yes'> 
+</span>They are more or less consistent in their usage but have some
+differences to account for their functionality.<span style='mso-spacerun:yes'> 
+</span>Notable common denominators:</p>
+
+<p class=MsoList2 style='mso-list:l17 level1 lfo20;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Follows Eclipse extensibility paradigm</p>
+
+<p class=MsoList3 style='margin-left:1.0in;mso-list:l17 level2 lfo20;
+tab-stops:list 1.0in'><![if !supportLists]><span lang=FR style='font-family:
+"Courier New";mso-fareast-font-family:"Courier New";mso-ansi-language:FR'><span
+style='mso-list:Ignore'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span lang=FR style='mso-ansi-language:FR'>Uses
+extension point/extension concept<o:p></o:p></span></p>
+
+<p class=MsoList3 style='margin-left:1.0in;mso-list:l17 level2 lfo20;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Eclipse
+PDE can be used to create plug-in</p>
+
+<p class=MsoList2 style='mso-list:l17 level1 lfo20;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Service infrastructure support for dynamic
+providers, overrides of existing providers.</p>
+
+<p class=MsoList2 style='mso-list:l17 level1 lfo20;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Support for on-demand loading – specify
+providers in XML.</p>
+
+<p class=MsoList2 style='mso-list:l17 level1 lfo20;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Allows any type of override without introducing
+any direct domain specific dependency in core services.</p>
+
+<p class=MsoList2 style='mso-list:l17 level1 lfo20;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Providers can be prioritized to give priority
+over existing providers.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal><!--[if gte vml 1]><v:shape id="_x0000_i1039" type="#_x0000_t75"
+ style='width:532.5pt;height:218.25pt'>
+ <v:imagedata src="GMF Extensibility.gif"
+  o:title="GMF%20Extensibility"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=710 height=291
+src="GMF Extensibility.gif" v:shapes="_x0000_i1039"><![endif]><br>
+<o:p></o:p></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h3><a name="_Toc119419879"></a><a name="_Toc119420272"><span style='mso-bookmark:
+_Toc119419879'><span class=Heading4Char><span style='font-size:14.0pt'>View
+Service</span></span>:</span></a></h3>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>[<a
+href="../../tutorials/diagram/canonicalContainer.html#top#top">back to top</a>]<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoBodyText>ViewService is responsible for constructing the notation
+view elements that are persisted to represent the diagram.<span
+style='mso-spacerun:yes'>  </span>A typical provider returns a factory class
+that would create a notation view, set it’s styles and layout constraint as
+appropriate.<span style='mso-spacerun:yes'>  </span>Next it would add
+containment to the view by recursively calling the ViewService with a hint that
+is used by the service to determine another provider and get the factory for
+it.</p>
+
+<p class=MsoList2 style='mso-list:l18 level1 lfo48;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>View providers create View Factory objects by:</p>
+
+<p class=MsoList3 style='margin-left:1.0in;mso-list:l18 level2 lfo48;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Creation
+methods: creates new notational elements and returns the View notation element
+to it.<span style='mso-spacerun:yes'>  </span>Hints include:</p>
+
+<p class=MsoList4 style='margin-left:1.5in;mso-list:l18 level3 lfo48;
+tab-stops:list 1.5in'><![if !supportLists]><span style='font-family:Wingdings;
+mso-fareast-font-family:Wingdings;mso-bidi-font-family:Wingdings'><span
+style='mso-list:Ignore'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>The view kind
+(org.eclipse.gmf.runtime.notation.*): Node, Edge, Diagram</p>
+
+<p class=MsoList4 style='margin-left:1.5in;mso-list:l18 level3 lfo48;
+tab-stops:list 1.5in'><![if !supportLists]><span style='font-family:Wingdings;
+mso-fareast-font-family:Wingdings;mso-bidi-font-family:Wingdings'><span
+style='mso-list:Ignore'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>The semantic reference (EObject)</p>
+
+<p class=MsoList4 style='margin-left:1.5in;mso-list:l18 level3 lfo48;
+tab-stops:list 1.5in'><![if !supportLists]><span style='font-family:Wingdings;
+mso-fareast-font-family:Wingdings;mso-bidi-font-family:Wingdings'><span
+style='mso-list:Ignore'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>The factory hint (String)</p>
+
+<p class=MsoList4 style='margin-left:1.5in;mso-list:l18 level3 lfo48;
+tab-stops:list 1.5in'><![if !supportLists]><span style='font-family:Wingdings;
+mso-fareast-font-family:Wingdings;mso-bidi-font-family:Wingdings'><span
+style='mso-list:Ignore'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>The container view (View)</p>
+
+<p class=MsoList4 style='margin-left:1.5in;mso-list:l18 level3 lfo48;
+tab-stops:list 1.5in'><![if !supportLists]><span style='font-family:Wingdings;
+mso-fareast-font-family:Wingdings;mso-bidi-font-family:Wingdings'><span
+style='mso-list:Ignore'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>The index in parent collection</p>
+
+<p class=MsoList4 style='margin-left:1.5in;mso-list:l18 level3 lfo48;
+tab-stops:list 1.5in'><![if !supportLists]><span style='font-family:Wingdings;
+mso-fareast-font-family:Wingdings;mso-bidi-font-family:Wingdings'><span
+style='mso-list:Ignore'>§<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>The preference store containing default value
+overrides.</p>
+
+<p class=MsoList2 style='mso-list:l18 level1 lfo48;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Each created view factory object subclasses from
+one of 3 abstract classes for creating Nodes, Edges or Diagram:</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal><!--[if gte vml 1]><v:shape id="_x0000_i1040" type="#_x0000_t75"
+ style='width:502.5pt;height:287.25pt'>
+ <v:imagedata src="ViewService.gif"
+  o:title="ViewService"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=670 height=383
+src="ViewService.gif" v:shapes="_x0000_i1040"><![endif]><br>
+<o:p></o:p></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h3><a name="_Toc119420273">EditPart Service:</a></h3>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>[<a
+href="../../tutorials/diagram/canonicalContainer.html#top#top">back to top</a>]<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoBodyText>EditPart Service is similar to the View Service except that
+a provider will return the EditPart class that is the controller for the
+notation view and semantic element.</p>
+
+<p class=MsoList2 style='mso-list:l9 level1 lfo49;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>An Editpart provider creates an EditPart for a
+given model element.</p>
+
+<p class=MsoList2 style='mso-list:l9 level1 lfo49;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Providers implement the IEditPartProvider with
+the following method:</p>
+
+<p class=MsoList3 style='margin-left:1.0in;mso-list:l9 level2 lfo49;tab-stops:
+list 1.0in'><![if !supportLists]><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>EditPart
+createGraphicEditPart(View view)</p>
+
+<p class=MsoList2 style='mso-list:l9 level1 lfo49;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Providers can provide new editparts for new or
+existing model element types.</p>
+
+<p class=MsoList2 style='mso-list:l9 level1 lfo49;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Providers should avoid providing new editparts
+where the intent is just to customize the set of editpolicies (this can be done
+more efficiently using the EditPolicy service)</p>
+
+<p class=MsoNormal><!--[if gte vml 1]><v:shape id="_x0000_i1041" type="#_x0000_t75"
+ style='width:645pt;height:240.75pt'>
+ <v:imagedata src="EditPartService.gif"
+  o:title="EditPartService"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=860 height=321
+src="EditPartService.gif" v:shapes="_x0000_i1041"><![endif]><br>
+<o:p></o:p></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h3><a name="_Toc119419880"></a><a name="_Toc119420274"><span style='mso-bookmark:
+_Toc119419880'>EditPolicy Service:</span></a></h3>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>[<a
+href="../../tutorials/diagram/canonicalContainer.html#top#top">back to top</a>]<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoBodyText>EditPolicy Service is an important extensibility point
+since it allows clients to install their own editpolicies on existing EditParts
+without overriding the EditPart itself.<span style='mso-spacerun:yes'> 
+</span>Each EditPart when it is created in GMF will call the EditPolicyService
+on activation to determine if any clients are contributing to their set of
+EditPolicies.</p>
+
+<p class=MsoListBullet2 style='mso-list:l28 level1 lfo29'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>An Editpolicy provider creates EditPolicies for
+a given editpart.</p>
+
+<p class=MsoListBullet2 style='mso-list:l28 level1 lfo29'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Providers implement the IEditPolicyProvider with
+the following method:</p>
+
+<p class=MsoListBullet3 style='margin-left:1.0in;mso-list:l28 level2 lfo29;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>void
+createEditPolicies(EditPart editpart)</p>
+
+<p class=MsoListBullet2 style='mso-list:l28 level1 lfo29'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>The service gives all interested providers a
+chance to create editpolicies for the given editpart in order of priority from
+lowest to highest.</p>
+
+<p class=MsoListBullet2 style='mso-list:l28 level1 lfo29'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Overriding an editpolicy is done by assigning a
+new one in the same role.</p>
+
+<p class=MsoListBullet2 style='mso-list:l28 level1 lfo29'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Assigning ‘null’ to an editpolicy role is
+equivalent to removing that role behavior.</p>
+
+<p class=MsoListBullet2 style='mso-list:l28 level1 lfo29'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>The service is very useful for adding/removing
+behavior without having to subclass targeted editparts.</p>
+
+<p class=MsoNormal><br>
+<!--[if gte vml 1]><v:shape id="_x0000_i1042" type="#_x0000_t75" style='width:495.75pt;
+ height:210.75pt'>
+ <v:imagedata src="EditPolicyService.gif"
+  o:title="EditPolicyService"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=661 height=281
+src="EditPolicyService.gif" v:shapes="_x0000_i1042"><![endif]><br>
+<o:p></o:p></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h3><a name="_Toc119420275">Palette Service:</a></h3>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>[<a
+href="../../tutorials/diagram/canonicalContainer.html#top#top">back to top</a>]<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoBodyText>The Palette Service is the entry point to define a custom
+palette for a domain editor with a set of creation tools organized into a
+drawer or stacks.<span style='mso-spacerun:yes'>  </span>The concept of a
+Service is useful here if there are multiple contributors to a domain editor
+and each wants to make individual contributions to the palette without
+depending on each other.</p>
+
+<p class=MsoList2 style='mso-list:l15 level1 lfo55;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Palette providers contribute to the palette of a
+given editor with a given content</p>
+
+<p class=MsoList2 style='mso-list:l15 level1 lfo55;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Palette providers are encouraged to utilize the
+DefaultPaletteProvider, since all the contributions could be described in the
+XML extension.</p>
+
+<p class=MsoList2 style='margin-left:1.0in;mso-list:l15 level2 lfo55;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>Clients
+typically will subclass PaletteFactory.Adapter to specify the creation tools
+that will be contributed for each palette entry.</p>
+
+<p class=MsoList3 style='margin-left:.5in;mso-list:l15 level1 lfo55;tab-stops:
+list .5in'><![if !supportLists]><span style='font-family:Symbol;mso-fareast-font-family:
+Symbol;mso-bidi-font-family:Symbol'><span style='mso-list:Ignore'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Palette providers can contribute:</p>
+
+<p class=MsoList4 style='mso-list:l15 level2 lfo55;tab-stops:list 1.0in'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>New Palette Drawers</p>
+
+<p class=MsoList4 style='mso-list:l15 level2 lfo55;tab-stops:list 1.0in'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>New Palette Groups</p>
+
+<p class=MsoList4 style='mso-list:l15 level2 lfo55;tab-stops:list 1.0in'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>New Palette Separators</p>
+
+<p class=MsoList4 style='mso-list:l15 level2 lfo55;tab-stops:list 1.0in'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>New Palette Tool Items in drawers/groups.</p>
+
+<p class=MsoList4 style='mso-list:l15 level2 lfo55;tab-stops:list 1.0in'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>New Palette Template Items in drawers/groups</p>
+
+<p class=MsoNormal style='margin-left:.75in'><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal><!--[if gte vml 1]><v:shape id="_x0000_i1043" type="#_x0000_t75"
+ style='width:344.25pt;height:223.5pt'>
+ <v:imagedata src="PaletteService.gif"
+  o:title="PaletteService"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=459 height=298
+src="PaletteService.gif" v:shapes="_x0000_i1043"><![endif]></p>
+
+<p class=MsoNormal><br>
+<o:p></o:p></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h3><a name="_Toc119420276">Decoration Service:</a></h3>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>[<a
+href="../../tutorials/diagram/canonicalContainer.html#top#top">back to top</a>]<o:p></o:p></span></p>
+
+<p class=MsoBodyText><o:p>&nbsp;</o:p></p>
+
+<p class=MsoBodyText>The DecorationService is designed as a simple way to
+annotate an existing shape without knowledge of the implementation of that
+shape.<span style='mso-spacerun:yes'>  </span>It allows for an acetate image on
+top of a shape at a particular location.<span style='mso-spacerun:yes'> 
+</span>A decoration acetate can adorn any shape on the diagram based on a
+certain condition since it is a layer above the shape it can cross EditPart
+hierarchies.<span style='mso-spacerun:yes'>  </span>An example could be a image
+on top of shapes indicating whether or not the corresponding resource has been
+checked out of source control or not.</p>
+
+<p class=MsoList2 style='mso-list:l13 level1 lfo50;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Decoration providers creates decorations for a
+given adapter.</p>
+
+<p class=MsoList2 style='mso-list:l13 level1 lfo50;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Providers implement the IDecorationProvider with
+the following method:</p>
+
+<p class=MsoList3 style='margin-left:1.0in;mso-list:l13 level2 lfo50;
+tab-stops:list 1.0in'><![if !supportLists]><span style='font-family:"Courier New";
+mso-fareast-font-family:"Courier New"'><span style='mso-list:Ignore'>o<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><![endif]>void
+createDecorators(IDecoratorTarget decoratorTarget)</p>
+
+<p class=MsoList2 style='mso-list:l13 level1 lfo50;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>The IDecoratorTarget api lets the client install
+a custom Decoration or an image to a pre-defined location on the shape.</p>
+
+<p class=MsoList3 style='margin-left:.5in;mso-list:l13 level1 lfo50;tab-stops:
+list .5in'><![if !supportLists]><span style='font-family:Symbol;mso-fareast-font-family:
+Symbol;mso-bidi-font-family:Symbol'><span style='mso-list:Ignore'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>The service could be used by any client that
+needs to decorate a shape on the diagram without having any dependency to GEF.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal><!--[if gte vml 1]><v:shape id="_x0000_i1044" type="#_x0000_t75"
+ style='width:546pt;height:397.5pt'>
+ <v:imagedata src="DecoratorService.gif"
+  o:title="DecoratorService"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=728 height=530
+src="DecoratorService.gif" v:shapes="_x0000_i1044"><![endif]><br>
+<br>
+<o:p></o:p></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h3><a name="_Toc119420277">Layout Service:</a></h3>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>[<a
+href="../../tutorials/diagram/canonicalContainer.html#top#top">back to top</a>]<o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:10.0pt'><o:p>&nbsp;</o:p></span></p>
+
+<p class=MsoBodyText>The Layout Service is essentially a hook into the arrange
+action on the toolbar and context menu.<span style='mso-spacerun:yes'> 
+</span>This action will arrange the shapes on the diagram automatically in a
+more organized and hopefully esthetically pleasing manner.<span
+style='mso-spacerun:yes'>  </span>However, layout itself is very difficult to
+do generically and domain specific editors may wish to override the default
+layout to do a custom layout more suited for the domain.</p>
+
+<p class=MsoList2 style='mso-list:l29 level1 lfo51;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Layout providers creates a Runnable object that
+will execute a layout for a given layout type.</p>
+
+<p class=MsoList3 style='margin-left:.5in;mso-list:l29 level1 lfo51;tab-stops:
+list .5in'><![if !supportLists]><span style='font-family:Symbol;mso-fareast-font-family:
+Symbol;mso-bidi-font-family:Symbol'><span style='mso-list:Ignore'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Providers implement the ILayoutNodesProvider
+with the following method:</p>
+
+<p class=MsoList4 style='mso-list:l29 level2 lfo51;tab-stops:list 1.0in'><![if !supportLists]><span
+style='font-family:"Courier New";mso-fareast-font-family:"Courier New"'><span
+style='mso-list:Ignore'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>public Runnable layoutNodes( List layoutNodes,
+boolean offsetFromBoundingBox,</p>
+
+<p class=MsoBodyTextIndent style='margin-left:.5in;text-indent:-.25in;
+mso-list:l29 level1 lfo51;tab-stops:list .5in'><![if !supportLists]><span
+style='font-family:Symbol;mso-fareast-font-family:Symbol;mso-bidi-font-family:
+Symbol'><span style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>IAdaptable layoutHint);</p>
+
+<p class=MsoBodyTextIndent style='margin-left:.5in'>The List is a list of Node
+shapes to be laid-out on the diagram surface.</p>
+
+<p class=MsoBodyText style='margin-left:.5in'>The boolean offsetFromBoundingBox
+indicates if the layout is to be kept with-in the relative bounding box of the
+existing node shapes.</p>
+
+<p class=MsoBodyText style='margin-left:.5in'>The layoutHint is an adaptable
+that usually adapts to String.<span style='mso-spacerun:yes'>  </span>It tells
+the provider what kind of layout is desired.</p>
+
+<p class=MsoNormal><!--[if gte vml 1]><v:shape id="_x0000_i1045" type="#_x0000_t75"
+ style='width:550.5pt;height:364.5pt'>
+ <v:imagedata src="LayoutService.gif"
+  o:title="LayoutService"/>
+</v:shape><![endif]--><![if !vml]><img border=0 width=734 height=486
+src="LayoutService.gif" v:shapes="_x0000_i1045"><![endif]><br>
+<o:p></o:p></p>
+
+<div class=MsoNormal align=center style='text-align:center'>
+
+<hr size=2 width="100%" align=center>
+
+</div>
+
+<h2><a name="_Toc119420278"></a><a name="_Toc119419881"></a><a
+name="_Interactions"></a><span style='mso-bookmark:_Toc119420278'><span
+style='mso-bookmark:_Toc119419881'>Interactions</span></span></h2>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>[<a
+href="../../tutorials/diagram/canonicalContainer.html#top#top">back to top</a>]<o:p></o:p></span></p>
+
+<p class=MsoBodyText><o:p>&nbsp;</o:p></p>
+
+<p class=MsoBodyText>A fundamental use case in a graphical editing framework is
+how elements get created.<span style='mso-spacerun:yes'>  </span>In this
+section we will explore the differences in how an element gets created in the
+GEF framework versus the GMF framework using UML interaction diagrams.<span
+style='mso-spacerun:yes'>  </span>This will help clarify some of the basic
+architectural differences where GMF has differentiated from GEF to achieve
+extensibility and separation of concerns (semantic vs. notation).</p>
+
+<h3><a name="_Toc119419882"></a><a name="_Toc119420279"><span style='mso-bookmark:
+_Toc119419882'>Creation of an element in GEF</span></a></h3>
+
+<p class=MsoBodyText>In GEF since there is no concerns about the separate of
+notation and semantic they follow the pattern of a request which asks a factory
+for the element to create on mouse move and then on mouse click adds the
+created element to the target container.</p>
+
+<p class=MsoList2 style='mso-list:l30 level1 lfo39;tab-stops:list .5in'><![if !supportLists]><span
+style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Creation tool mouse move on diagram surface</p>
+
+<p class=MsoNormal style='margin-left:.25in'><img border=0 width=893
+height=529 id="_x0000_i1027" src="GEF_CreationTool_MouseMove.gif"></p>
+
+<p class=MsoList2 style='mso-list:l30 level1 lfo39;tab-stops:list .5in'><![if !supportLists]><span
+style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Creation tool mouse click on diagram surface</p>
+
+<p class=MsoListContinue2>The cached object created in the mouse move operation
+is added to the container in the creation command execution which triggers
+through events the creation of the corresponding EditPart and figure
+containment hierarchies.</p>
+
+<p class=MsoNormal style='margin-left:.25in'><img border=0 width=896
+height=529 id="_x0000_i1028" src="GEF_CreationTool_MouseClick.gif"><br>
+<br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></p>
+
+<div class=MsoNormal align=center style='text-align:center'><a
+name="_Toc119419883"></a><a name="_Toc119420280"><span style='mso-bookmark:
+_Toc119419883'>
+
+<hr size=2 width="100%" align=center>
+
+</span></a></div>
+
+<h3><span style='mso-bookmark:_Toc119420280'><span style='mso-bookmark:_Toc119419883'>Creation
+of an element in GMF</span></span></h3>
+
+<p class=MsoNormal><span style='font-size:10.0pt'>[<a
+href="../../tutorials/diagram/canonicalContainer.html#top#top">back to top</a>]<o:p></o:p></span></p>
+
+<p class=MsoList2 style='margin-left:0in;text-indent:0in'><o:p>&nbsp;</o:p></p>
+
+<p class=MsoList2 style='mso-list:l24 level1 lfo52;tab-stops:list .5in'><![if !supportLists]><span
+style='mso-list:Ignore'>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Creation tool mouse move on diagram surface</p>
+
+<p class=MsoListContinue2 style='margin-left:.25in'><o:p>&nbsp;</o:p></p>
+
+<p class=MsoListContinue2 style='margin-left:.25in'>The interaction is similar
+to the GEF interaction except for some subtle differences.<span
+style='mso-spacerun:yes'>  </span>The request is handled by the GMF defined
+CreationEditPolicy which will aggregate a semantic creation command and a
+notation creation command and return it.<span style='mso-spacerun:yes'> 
+</span>Also, it is notable that the commands don’t create the orphaned element
+before execution occurs by calling a factory.<span style='mso-spacerun:yes'> 
+</span>This is important in order to properly (and generically) handle undo /
+redo which are managed through the command infrastructure.</p>
+
+<p class=MsoNormal style='margin-left:.25in'><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal style='margin-left:.25in'><img border=0 width=929
+height=481 id="_x0000_i1029" src="GMF_CreationTool_MouseMove.gif"></p>
+
+<p class=MsoNormal style='margin-left:.25in'><o:p>&nbsp;</o:p></p>
+
+<p class=MsoList2 style='margin-left:0in;text-indent:0in'><o:p>&nbsp;</o:p></p>
+
+<p class=MsoList2 style='mso-list:l24 level1 lfo52;tab-stops:list .5in'><![if !supportLists]><span
+style='mso-list:Ignore'>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><![endif]>Creation tool mouse click on diagram surface</p>
+
+<p class=MsoListContinue2><o:p>&nbsp;</o:p></p>
+
+<p class=MsoListContinue2>We will look at the GMF creation in 2 phases.<span
+style='mso-spacerun:yes'>  </span>First the element creation phases of the
+semantic element and notation element and then the editpart and figure creation
+which respond to the creation in the first phase.</p>
+
+<p class=MsoList2 style='margin-left:.75in;mso-list:l20 level1 lfo53;
+tab-stops:list .75in'><![if !supportLists]><span style='font-family:Symbol;
+mso-fareast-font-family:Symbol;mso-bidi-font-family:Symbol'><span
+style='mso-list:Ignore'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>First phase (Creation of semantic and
+notation):<span style='mso-spacerun:yes'>  </span>Since the commands have been
+created in the mouse, the command compound executes each sub command
+serially.<span style='mso-spacerun:yes'>  </span>The execution creates the
+semantic element first and the result is fed to the notation element creation
+which calls the ViewService to create a notation element for a given semantic
+element.<span style='mso-spacerun:yes'>  </span>Not visualized in the
+interaction below is where the ViewService looks for a provider among all the
+registered providers which “provides” for the element passed in.<span
+style='mso-spacerun:yes'>  </span>This provider is what returns the ViewFactory
+which will create and initialize the proper notation view element.</p>
+
+<p class=MsoNormal><img border=0 width=933 height=577 id="_x0000_i1030"
+src="GMF_CreationTool_MouseClick1.gif"></p>
+
+<p class=MsoList2 style='margin-left:0in;text-indent:0in'><o:p>&nbsp;</o:p></p>
+
+<p class=MsoList2 style='margin-left:.75in;mso-list:l3 level1 lfo54;tab-stops:
+list .75in'><![if !supportLists]><span style='font-family:Symbol;mso-fareast-font-family:
+Symbol;mso-bidi-font-family:Symbol'><span style='mso-list:Ignore'>·<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]>Second phase (Creation of EditParts and
+Figures): In this phase, the editpart of the container where the semantic
+element was added is listening to the notification event for adding the
+element.<span style='mso-spacerun:yes'>  </span>The notification occurs when
+the write action which wraps the command execution is closed.<span
+style='mso-spacerun:yes'>  </span>Everything within the write action is
+registered by the transaction so that the gesture can subsequently be undone
+and redone.<span style='mso-spacerun:yes'>  </span>In the interaction below,
+the DiagramEditPart responds and calls refreshChildren as per the GEF mechanism.<span
+style='mso-spacerun:yes'>  </span>When reaching for the EditPartFactory, GMF
+returns the EditPartService which implements this GEF interface.<span
+style='mso-spacerun:yes'>  </span>Similar to the ViewService, the
+EditPartService will find the appropriate provider from all the registered
+providers and that provider will return the EditPart class that the
+EditPartService needs to create.</p>
+
+<p class=MsoList2 style='text-indent:0in'><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal style='margin-left:.25in'><img border=0 width=889
+height=577 id="_x0000_i1031" src="GMF_CreationTool_MouseClick2.gif"></p>
+
+<p class=MsoBodyTextIndent><br style='mso-special-character:line-break'>
+<![if !supportLineBreakNewLine]><br style='mso-special-character:line-break'>
+<![endif]></p>
+
+<p class=MsoBodyTextIndent><a href="http://www.eclipse.org/legal/epl-v10.html"><span
+style='color:windowtext;text-decoration:none;text-underline:none'><img
+border=0 width=324 height=14 id="_x0000_i1032" src="../../howto/copyright.gif"></span></a></p>
+
+</div>
+
+</body>
+
+</html>

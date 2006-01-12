@@ -10,7 +10,7 @@
 <!--    IBM Corporation - initial API and implementation                   -->
 <!--	Borland Software Corporation									   -->
 
-<toc label="Graphical Modeling Framework (GMF)">
+<toc label="GMF Developer Guide">
 
 	<anchor id="programmers-guide-before" />
 	<topic label="Programmer's Guide" href="prog-guide/index.html" >
@@ -24,7 +24,7 @@
 			<topic label="Command Framework" href="prog-guide/common/Developer Guide to Command Framework.html" />
 			<topic label="Contribution Item Service" href="prog-guide/common/Developer Guide to Contribution Item Service.html" />
 			<topic label="Global Actions" href="prog-guide/common/Developer Guide to Global Actions.html" />
-			<topic label="How To Guide For Model Services Components" href="howto/RMP_MSL_HowToDoc.html" />
+			<topic label="How To Guide For Model Services Components" href="howto/GMF_MSL_HowToDoc.html" />
 			<topic label="Multithreaded Model Operations" href="prog-guide/msl/Multithreaded_Model_Operations.html" />		
 			<anchor id="programmers-guide-common-layer-in" />
 		</topic>
@@ -42,10 +42,11 @@
 	<anchor id="programmers-guide-after" />
 
 	<anchor id="tutorial-before" />
-	<topic label="Tutorials">	
+	<topic label="Tutorials" href="tutorials/index.html">	
 
 		<anchor id="tutorial-common-layer-before" />
-		<topic label="Common Frameworks Layer Tutorials">
+		<topic label="Common Frameworks Layer Tutorials" href="tutorials/index.html">
+			<topic label="Extensible Type Registry" href="tutorials/common/Extensible Type Registry/extensibleTypeRegistryTutorial.html" />
 			<topic label="Service Providers" href="tutorials/Service and Provider Tutorial.html" />		
 			<topic label="Validation Tutorial" href="tutorials/msl/validationTutorial.html" />
 			<topic label="Validation Adapter Tutorial" href="tutorials/msl/validationAdapterTutorial.html" />		
@@ -60,7 +61,7 @@
 		<anchor id="tutorial-common-layer-after" />
 		
 		<anchor id="tutorial-diagram-layer-before" />
-		<topic label="Diagram Layer Tutorials">
+		<topic label="Diagram Layer Tutorials" href="tutorials/index.html">
 			<topic label="Creating a Shape" href="tutorials/diagram/createShape.html" />		
 			<topic label="Creating Connections" href="tutorials/diagram/createConnection.html" />		
 			<topic label="Diagram Preferences" href="tutorials/diagram/diagramPreferencesTutorial.html" />		
@@ -134,13 +135,6 @@
 			<anchor id="reference-ext-pt-diagram-layer-after" />
 		</topic>
 		<anchor id="reference-ext-pt-after" />
-		
-		<anchor id="reference-other-before" />
-		<topic label="Other Information"
-			href="reference/misc/index.html">
-			<anchor id="reference-misc-in" />			
-		</topic>
-		<anchor id="reference-other-after" />
 
 	</topic>	
 	<anchor id="reference-after" />
