@@ -59,7 +59,7 @@ public class <%=genNode.getEditPartClassName()%> extends ShapeNodeEditPart {
 <%}%>
 <%if (useFlowLayout) {%>
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy")%>() {
-			protected EditPolicy createChildEditPolicy(EditPart child) {
+			protected EditPolicy createChildEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child) {
 				EditPolicy result = super.createChildEditPolicy(child);
 				if (result == null) {
 					if (result == null && child instanceof SubDetail_subDetailNameEditPart) {
@@ -216,7 +216,7 @@ if (!genNode.getLabels().isEmpty()) {
 	/**
 	 * @generated
 	 */
-	protected void addChildVisual(EditPart childEditPart, int index) {
+	protected void addChildVisual(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart, int index) {
 		if (isExternalLabel(childEditPart)) {
 			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
 			getExternalLabelsContainer().add(labelFigure);
@@ -228,7 +228,7 @@ if (!genNode.getLabels().isEmpty()) {
 	/**
 	 * @generated
 	 */
-	protected void removeChildVisual(EditPart childEditPart) {
+	protected void removeChildVisual(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart) {
 		if (isExternalLabel(childEditPart)) {
 			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
 			getExternalLabelsContainer().remove(labelFigure);
@@ -240,7 +240,7 @@ if (!genNode.getLabels().isEmpty()) {
 	/**
 	 * @generated
 	 */
-	protected boolean isExternalLabel(EditPart childEditPart) {
+	protected boolean isExternalLabel(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart) {
 <%
 for (Iterator labels = genNode.getLabels().iterator(); labels.hasNext();) {
 	GenNodeLabel label = (GenNodeLabel) labels.next();
