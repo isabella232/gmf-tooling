@@ -11,11 +11,7 @@
  */
 package org.eclipse.gmf.bridge.genmodel;
 
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 
 /**
@@ -29,16 +25,6 @@ public class RuntimeGenModelAccess extends BasicGenModelAccess {
 	public RuntimeGenModelAccess() {
 		super(NotationPackage.eINSTANCE);
 		registerLocation(fromExtpoint());
-		// hack
-		registerLocation(fromExtpoint("http://www.eclipse.org/gmf/1.5.0/Notation")); // as in plugin.xml at the moment %-)
-		// uglier 
-		registerLocation(constructDefaultFromModel());
-		// the ugliest
-		IPath workspaceCopy = new Path("/org.eclipse.gmf.runtime.notation/model/notation.genmodel");
-		if (ResourcesPlugin.getWorkspace().getRoot().getFile(workspaceCopy).exists()) {
-			registerLocation(URI.createPlatformResourceURI(workspaceCopy.toPortableString()));
-		}
-		registerLocation(URI.createURI("platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel"));  
 	}
 
 	/**
