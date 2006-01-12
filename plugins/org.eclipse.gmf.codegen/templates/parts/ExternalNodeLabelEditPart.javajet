@@ -7,14 +7,13 @@ GenDiagram genDiagram = genLabel.getDiagram();
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
-import org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
-public class <%=genLabel.getEditPartClassName()%> extends LabelEditPart {
+public class <%=genLabel.getEditPartClassName()%> extends <%=genDiagram.getBaseExternalNodeLabelEditPartClassName()%> {
 
 	/**
 	 * @generated

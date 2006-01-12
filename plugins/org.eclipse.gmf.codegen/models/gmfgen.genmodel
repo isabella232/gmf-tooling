@@ -51,6 +51,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/diagramFileExtension"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/reorientConnectionViewCommandClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/editPartFactoryClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/baseExternalNodeLabelEditPartClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/baseItemSemanticEditPolicyClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/baseGraphicalNodeEditPolicyClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/referenceConnectionEditPolicyClassName"/>
@@ -84,6 +85,7 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getElementInitializersPackageName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getReorientConnectionViewCommandQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getEditPartFactoryQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getBaseExternalNodeLabelEditPartQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getBaseItemSemanticEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getBaseGraphicalNodeEditPolicyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getReferenceConnectionEditPolicyQualifiedClassName"/>

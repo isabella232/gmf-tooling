@@ -77,6 +77,7 @@ public class GenDiagramItemProvider
 			addDiagramFileExtensionPropertyDescriptor(object);
 			addReorientConnectionViewCommandClassNamePropertyDescriptor(object);
 			addEditPartFactoryClassNamePropertyDescriptor(object);
+			addBaseExternalNodeLabelEditPartClassNamePropertyDescriptor(object);
 			addBaseItemSemanticEditPolicyClassNamePropertyDescriptor(object);
 			addBaseGraphicalNodeEditPolicyClassNamePropertyDescriptor(object);
 			addReferenceConnectionEditPolicyClassNamePropertyDescriptor(object);
@@ -482,6 +483,26 @@ public class GenDiagramItemProvider
 				 getString("_UI_GenDiagram_editPartFactoryClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_editPartFactoryClassName_feature", "_UI_GenDiagram_type"),
 				 GMFGenPackage.eINSTANCE.getGenDiagram_EditPartFactoryClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Base External Node Label Edit Part Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addBaseExternalNodeLabelEditPartClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_baseExternalNodeLabelEditPartClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_baseExternalNodeLabelEditPartClassName_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_BaseExternalNodeLabelEditPartClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -1047,6 +1068,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:

@@ -40,6 +40,7 @@ import org.eclipse.gmf.codegen.templates.editor.VisualIDRegistryGenerator;
 import org.eclipse.gmf.codegen.templates.parts.ChildNodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.CompartmentEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.DiagramEditPartGenerator;
+import org.eclipse.gmf.codegen.templates.parts.DiagramExternalNodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.EditPartFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.parts.ExternalNodeLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.ExternalNodeLabelTextEditPartGenerator;
@@ -103,6 +104,10 @@ public class EmitterFactory {
 
 	public static JETEmitter getDiagramEditPartEmitter() throws JETException {
 		return initializeEmitter("/templates/parts/DiagramEditPart.javajet", DiagramEditPartGenerator.class);
+	}
+
+	public static JETEmitter getDiagramExternalNodeLabelEditPartEmitter() throws JETException {
+		return initializeEmitter("/templates/parts/DiagramExternalNodeLabelEditPart.javajet", DiagramExternalNodeLabelEditPartGenerator.class);
 	}
 
 	public static JETEmitter getNodeEditPartEmitter() throws JETException {

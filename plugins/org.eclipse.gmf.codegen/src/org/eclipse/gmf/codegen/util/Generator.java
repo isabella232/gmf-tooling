@@ -132,6 +132,7 @@ public class Generator implements Runnable {
 			}
 			generateViewFactory(myDiagram);
 			generateDiagramEditPart();
+			generateDiagramExternalNodeLabelEditPart();
 			generateEditPartFactory();
 			generateElementTypes();
 			generateViewProvider();
@@ -259,6 +260,15 @@ public class Generator implements Runnable {
 			EmitterFactory.getDiagramEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			myDiagram.getEditPartClassName(),
+			myDiagram
+		);
+	}
+
+	private void generateDiagramExternalNodeLabelEditPart() throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			EmitterFactory.getDiagramExternalNodeLabelEditPartEmitter(),
+			myDiagram.getEditPartsPackageName(),
+			myDiagram.getBaseExternalNodeLabelEditPartClassName(),
 			myDiagram
 		);
 	}

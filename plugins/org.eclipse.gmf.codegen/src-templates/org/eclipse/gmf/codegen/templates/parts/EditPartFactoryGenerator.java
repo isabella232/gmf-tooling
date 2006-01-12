@@ -20,7 +20,7 @@ public class EditPartFactoryGenerator
   protected final String TEXT_2 = ";" + NL;
   protected final String TEXT_3 = NL + "import org.eclipse.gef.EditPart;" + NL + "import org.eclipse.gef.EditPartFactory;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
   protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_5 = " implements EditPartFactory {" + NL;
+  protected final String TEXT_5 = " implements EditPartFactory {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final String EXTERNAL_NODE_LABELS_LAYER = \"External Node Labels\";" + NL;
   protected final String TEXT_6 = NL;
   protected final String TEXT_7 = "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic int getVisualID(View containerView) {" + NL + "\t\t";
   protected final String TEXT_8 = " annotation = containerView.getEAnnotation(\"VisualID\");" + NL + "\t\tif (annotation == null) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\tString visualID = (String) annotation.getDetails().get(\"value\");" + NL + "\t\tif (visualID == null) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\ttry {" + NL + "\t\t\treturn Integer.parseInt(visualID);" + NL + "\t\t} catch (NumberFormatException e) {" + NL + "\t\t\te.printStackTrace();\t\t" + NL + "\t\t}" + NL + "\t\treturn -1;" + NL + "\t}";

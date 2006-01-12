@@ -39,6 +39,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getReorientConnectionViewCommandClassName <em>Reorient Connection View Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditPartFactoryClassName <em>Edit Part Factory Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getBaseExternalNodeLabelEditPartClassName <em>Base External Node Label Edit Part Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getBaseItemSemanticEditPolicyClassName <em>Base Item Semantic Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getBaseGraphicalNodeEditPolicyClassName <em>Base Graphical Node Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getReferenceConnectionEditPolicyClassName <em>Reference Connection Edit Policy Class Name</em>}</li>
@@ -661,6 +662,32 @@ public interface GenDiagram extends GenCommonBase {
 	 * @generated
 	 */
 	void setEditPartFactoryClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Base External Node Label Edit Part Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Base External Node Label Edit Part Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Base External Node Label Edit Part Class Name</em>' attribute.
+	 * @see #setBaseExternalNodeLabelEditPartClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_BaseExternalNodeLabelEditPartClassName()
+	 * @model
+	 * @generated
+	 */
+	String getBaseExternalNodeLabelEditPartClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getBaseExternalNodeLabelEditPartClassName <em>Base External Node Label Edit Part Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Base External Node Label Edit Part Class Name</em>' attribute.
+	 * @see #getBaseExternalNodeLabelEditPartClassName()
+	 * @generated
+	 */
+	void setBaseExternalNodeLabelEditPartClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Base Item Semantic Edit Policy Class Name</b></em>' attribute.
@@ -1384,6 +1411,14 @@ public interface GenDiagram extends GenCommonBase {
 	 * @generated
 	 */
 	String getEditPartFactoryQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getBaseExternalNodeLabelEditPartQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -1,5 +1,6 @@
 package org.eclipse.gmf.codegen.templates.parts;
 
+import java.util.*;
 import org.eclipse.emf.codegen.ecore.genmodel.*;
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.codegen.util.*;
@@ -18,7 +19,7 @@ public class NodeEditPartGenerator {
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "package ";
   protected final String TEXT_2 = ";" + NL;
-  protected final String TEXT_3 = NL + "import org.eclipse.draw2d.BorderLayout;" + NL + "import org.eclipse.draw2d.IFigure;" + NL + "import org.eclipse.draw2d.StackLayout;" + NL + "import org.eclipse.gef.EditPolicy;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;" + NL + "import org.eclipse.gmf.runtime.draw2d.ui.figures.RectangularDropShadowLineBorder;" + NL + "import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;" + NL + "import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;" + NL + "import org.eclipse.gmf.runtime.notation.View;" + NL + "import org.eclipse.emf.ecore.EAnnotation;" + NL + "import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;";
+  protected final String TEXT_3 = NL + "import org.eclipse.draw2d.BorderLayout;" + NL + "import org.eclipse.draw2d.IFigure;" + NL + "import org.eclipse.draw2d.StackLayout;" + NL + "import org.eclipse.gef.EditPolicy;" + NL + "import org.eclipse.gef.GraphicalEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;" + NL + "import org.eclipse.gmf.runtime.draw2d.ui.figures.RectangularDropShadowLineBorder;" + NL + "import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;" + NL + "import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;" + NL + "import org.eclipse.gmf.runtime.notation.View;" + NL + "import org.eclipse.emf.ecore.EAnnotation;" + NL + "import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;";
   protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_5 = " extends ShapeNodeEditPart {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected IFigure contentPane;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
   protected final String TEXT_6 = "(View view) {" + NL + "\t\tsuper(view);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void createDefaultEditPolicies() {";
@@ -62,10 +63,14 @@ public class NodeEditPartGenerator {
   protected final String TEXT_44 = ".";
   protected final String TEXT_45 = "Labels.";
   protected final String TEXT_46 = ");" + NL + "\t}";
-  protected final String TEXT_47 = NL;
-  protected final String TEXT_48 = NL;
-  protected final String TEXT_49 = NL + "}";
-  protected final String TEXT_50 = NL;
+  protected final String TEXT_47 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void addChildVisual(EditPart childEditPart, int index) {" + NL + "\t\tif (isExternalLabel(childEditPart)) {" + NL + "\t\t\tIFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();" + NL + "\t\t\tgetExternalLabelsContainer().add(labelFigure);" + NL + "\t\t} else {" + NL + "\t\t\tsuper.addChildVisual(childEditPart, index);" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void removeChildVisual(EditPart childEditPart) {" + NL + "\t\tif (isExternalLabel(childEditPart)) {" + NL + "\t\t\tIFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();" + NL + "\t\t\tgetExternalLabelsContainer().remove(labelFigure);" + NL + "\t\t} else {" + NL + "\t\t\tsuper.removeChildVisual(childEditPart);" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean isExternalLabel(EditPart childEditPart) {";
+  protected final String TEXT_48 = NL + "\t\tif (childEditPart instanceof ";
+  protected final String TEXT_49 = ") {" + NL + "\t\t\treturn true;" + NL + "\t\t}";
+  protected final String TEXT_50 = NL + "\t\treturn false;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected IFigure getExternalLabelsContainer() {" + NL + "\t\tDiagramRootEditPart root = (DiagramRootEditPart) getRoot();" + NL + "\t\treturn root.getLayer(";
+  protected final String TEXT_51 = ".EXTERNAL_NODE_LABELS_LAYER);" + NL + "\t}" + NL;
+  protected final String TEXT_52 = NL;
+  protected final String TEXT_53 = NL + "}";
+  protected final String TEXT_54 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
 		StringBuffer result = new StringBuffer();
@@ -289,13 +294,28 @@ if (!genNode.getLabels().isEmpty()) {
     stringBuffer.append(TEXT_46);
     }
     stringBuffer.append(TEXT_47);
-    if (genNode.getViewmap() instanceof InnerClassViewmap) {
+    
+for (Iterator labels = genNode.getLabels().iterator(); labels.hasNext();) {
+	GenNodeLabel label = (GenNodeLabel) labels.next();
+	if (label instanceof ExternalLabel) {
+
     stringBuffer.append(TEXT_48);
+    stringBuffer.append(importManager.getImportedName(label.getEditPartQualifiedClassName()));
+    stringBuffer.append(TEXT_49);
+    
+	}
+}
+
+    stringBuffer.append(TEXT_50);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartFactoryQualifiedClassName()));
+    stringBuffer.append(TEXT_51);
+    if (genNode.getViewmap() instanceof InnerClassViewmap) {
+    stringBuffer.append(TEXT_52);
     stringBuffer.append(((InnerClassViewmap) genNode.getViewmap()).getClassBody());
     }
-    stringBuffer.append(TEXT_49);
+    stringBuffer.append(TEXT_53);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_50);
+    stringBuffer.append(TEXT_54);
     return stringBuffer.toString();
   }
 }

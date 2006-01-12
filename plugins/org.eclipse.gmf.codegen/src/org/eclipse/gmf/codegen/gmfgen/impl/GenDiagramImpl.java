@@ -65,6 +65,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getReorientConnectionViewCommandClassName <em>Reorient Connection View Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartFactoryClassName <em>Edit Part Factory Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getBaseExternalNodeLabelEditPartClassName <em>Base External Node Label Edit Part Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getBaseItemSemanticEditPolicyClassName <em>Base Item Semantic Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getBaseGraphicalNodeEditPolicyClassName <em>Base Graphical Node Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getReferenceConnectionEditPolicyClassName <em>Reference Connection Edit Policy Class Name</em>}</li>
@@ -438,6 +439,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String editPartFactoryClassName = EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getBaseExternalNodeLabelEditPartClassName() <em>Base External Node Label Edit Part Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBaseExternalNodeLabelEditPartClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getBaseExternalNodeLabelEditPartClassName() <em>Base External Node Label Edit Part Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBaseExternalNodeLabelEditPartClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String baseExternalNodeLabelEditPartClassName = BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getBaseItemSemanticEditPolicyClassName() <em>Base Item Semantic Edit Policy Class Name</em>}' attribute.
@@ -1687,6 +1708,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getBaseExternalNodeLabelEditPartClassNameGen() {
+		return baseExternalNodeLabelEditPartClassName;
+	}
+
+	public String getBaseExternalNodeLabelEditPartClassName() {
+		String value = getBaseExternalNodeLabelEditPartClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "ExternalNodeLabelEditPart"; //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setBaseExternalNodeLabelEditPartClassName(String newBaseExternalNodeLabelEditPartClassName) {
+		String oldBaseExternalNodeLabelEditPartClassName = baseExternalNodeLabelEditPartClassName;
+		baseExternalNodeLabelEditPartClassName = newBaseExternalNodeLabelEditPartClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME, oldBaseExternalNodeLabelEditPartClassName, baseExternalNodeLabelEditPartClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getBaseItemSemanticEditPolicyClassNameGen() {
 		return baseItemSemanticEditPolicyClassName;
 	}
@@ -2503,6 +2553,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getReorientConnectionViewCommandClassName();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				return getEditPartFactoryClassName();
+			case GMFGenPackage.GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME:
+				return getBaseExternalNodeLabelEditPartClassName();
 			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
 				return getBaseItemSemanticEditPolicyClassName();
 			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
@@ -2629,6 +2681,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				setEditPartFactoryClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME:
+				setBaseExternalNodeLabelEditPartClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
 				setBaseItemSemanticEditPolicyClassName((String)newValue);
@@ -2782,6 +2837,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				setEditPartFactoryClassName(EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME:
+				setBaseExternalNodeLabelEditPartClassName(BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
 				setBaseItemSemanticEditPolicyClassName(BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT);
 				return;
@@ -2914,6 +2972,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT == null ? reorientConnectionViewCommandClassName != null : !REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT.equals(reorientConnectionViewCommandClassName);
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 				return EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT == null ? editPartFactoryClassName != null : !EDIT_PART_FACTORY_CLASS_NAME_EDEFAULT.equals(editPartFactoryClassName);
+			case GMFGenPackage.GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME:
+				return BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME_EDEFAULT == null ? baseExternalNodeLabelEditPartClassName != null : !BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME_EDEFAULT.equals(baseExternalNodeLabelEditPartClassName);
 			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
 				return BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? baseItemSemanticEditPolicyClassName != null : !BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(baseItemSemanticEditPolicyClassName);
 			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
@@ -3034,6 +3094,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public String getEditPartFactoryQualifiedClassName() {
 		return getEditPartsPackageName() + '.' + getEditPartFactoryClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getBaseExternalNodeLabelEditPartQualifiedClassName() {
+		return getEditPartsPackageName() + '.' + getBaseExternalNodeLabelEditPartClassName();
 	}
 
 	/**
@@ -3307,6 +3376,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(reorientConnectionViewCommandClassName);
 		result.append(", editPartFactoryClassName: ");
 		result.append(editPartFactoryClassName);
+		result.append(", baseExternalNodeLabelEditPartClassName: ");
+		result.append(baseExternalNodeLabelEditPartClassName);
 		result.append(", baseItemSemanticEditPolicyClassName: ");
 		result.append(baseItemSemanticEditPolicyClassName);
 		result.append(", baseGraphicalNodeEditPolicyClassName: ");

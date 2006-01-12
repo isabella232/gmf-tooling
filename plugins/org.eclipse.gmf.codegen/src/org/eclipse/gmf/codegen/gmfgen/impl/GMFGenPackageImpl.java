@@ -564,15 +564,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagram_PluginClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(42);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_PreferenceInitializerClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(43);
 	}
 
@@ -581,7 +572,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_VisualIDRegistryClassName() {
+	public EAttribute getGenDiagram_PreferenceInitializerClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(44);
 	}
 
@@ -590,7 +581,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_CreateShortcutActionClassName() {
+	public EAttribute getGenDiagram_VisualIDRegistryClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(45);
 	}
 
@@ -599,8 +590,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_ElementChooserClassName() {
+	public EAttribute getGenDiagram_CreateShortcutActionClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(46);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_ElementChooserClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(47);
 	}
 
 	/**
@@ -636,7 +636,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagram_EditorClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(39);
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(40);
 	}
 
 	/**
@@ -645,7 +645,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagram_DocumentProviderClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(38);
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(39);
 	}
 
 	/**
@@ -662,7 +662,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_BaseItemSemanticEditPolicyClassName() {
+	public EAttribute getGenDiagram_BaseExternalNodeLabelEditPartClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(20);
 	}
 
@@ -671,7 +671,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_BaseGraphicalNodeEditPolicyClassName() {
+	public EAttribute getGenDiagram_BaseItemSemanticEditPolicyClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(21);
 	}
 
@@ -680,7 +680,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_ReferenceConnectionEditPolicyClassName() {
+	public EAttribute getGenDiagram_BaseGraphicalNodeEditPolicyClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(22);
 	}
 
@@ -689,7 +689,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_CanonicalEditPolicyClassName() {
+	public EAttribute getGenDiagram_ReferenceConnectionEditPolicyClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(23);
 	}
 
@@ -698,7 +698,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_ElementTypesClassName() {
+	public EAttribute getGenDiagram_CanonicalEditPolicyClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(24);
 	}
 
@@ -707,7 +707,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_SemanticHintsClassName() {
+	public EAttribute getGenDiagram_ElementTypesClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(25);
 	}
 
@@ -716,8 +716,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_NotationViewProviderClassName() {
+	public EAttribute getGenDiagram_SemanticHintsClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(26);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_NotationViewProviderClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(27);
 	}
 
 	/**
@@ -762,60 +771,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenDiagram_InitDiagramFileActionClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(40);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_ActionBarContributorClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(33);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_CreationWizardClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(34);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_CreationWizardPageClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(35);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_DiagramEditorUtilClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(36);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_DiagramFileCreatorClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(37);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_MatchingStrategyClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(41);
 	}
 
@@ -824,8 +779,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_EditPartProviderClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(27);
+	public EAttribute getGenDiagram_ActionBarContributorClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(34);
 	}
 
 	/**
@@ -833,7 +788,52 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_MetamodelSupportProviderClassName() {
+	public EAttribute getGenDiagram_CreationWizardClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(35);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_CreationWizardPageClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(36);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_DiagramEditorUtilClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(37);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_DiagramFileCreatorClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(38);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_MatchingStrategyClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(42);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_EditPartProviderClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(28);
 	}
 
@@ -842,7 +842,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_ModelingAssistantProviderClassName() {
+	public EAttribute getGenDiagram_MetamodelSupportProviderClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(29);
 	}
 
@@ -851,7 +851,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_PropertyProviderClassName() {
+	public EAttribute getGenDiagram_ModelingAssistantProviderClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(30);
 	}
 
@@ -860,7 +860,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_IconProviderClassName() {
+	public EAttribute getGenDiagram_PropertyProviderClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(31);
 	}
 
@@ -869,8 +869,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_StructuralFeatureParserClassName() {
+	public EAttribute getGenDiagram_IconProviderClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(32);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_StructuralFeatureParserClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(33);
 	}
 
 	/**
@@ -2155,6 +2164,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genDiagramEClass, GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION);
 		createEAttribute(genDiagramEClass, GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME);
 		createEAttribute(genDiagramEClass, GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME);
+		createEAttribute(genDiagramEClass, GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME);
 		createEAttribute(genDiagramEClass, GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME);
 		createEAttribute(genDiagramEClass, GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME);
 		createEAttribute(genDiagramEClass, GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME);
@@ -2442,6 +2452,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenDiagram_DiagramFileExtension(), ecorePackage.getEString(), "diagramFileExtension", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagram_ReorientConnectionViewCommandClassName(), ecorePackage.getEString(), "reorientConnectionViewCommandClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagram_EditPartFactoryClassName(), ecorePackage.getEString(), "editPartFactoryClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagram_BaseExternalNodeLabelEditPartClassName(), ecorePackage.getEString(), "baseExternalNodeLabelEditPartClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagram_BaseItemSemanticEditPolicyClassName(), ecorePackage.getEString(), "baseItemSemanticEditPolicyClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagram_BaseGraphicalNodeEditPolicyClassName(), ecorePackage.getEString(), "baseGraphicalNodeEditPolicyClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagram_ReferenceConnectionEditPolicyClassName(), ecorePackage.getEString(), "referenceConnectionEditPolicyClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2481,6 +2492,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getReorientConnectionViewCommandQualifiedClassName", 0, 1);
 
 		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getEditPartFactoryQualifiedClassName", 0, 1);
+
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getBaseExternalNodeLabelEditPartQualifiedClassName", 0, 1);
 
 		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getBaseItemSemanticEditPolicyQualifiedClassName", 0, 1);
 
