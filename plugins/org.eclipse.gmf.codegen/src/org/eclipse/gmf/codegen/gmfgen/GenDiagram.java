@@ -67,6 +67,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getVisualIDRegistryClassName <em>Visual ID Registry Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCreateShortcutActionClassName <em>Create Shortcut Action Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getElementChooserClassName <em>Element Chooser Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getContainsShortcutsTo <em>Contains Shortcuts To</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getShortcutsProvidedFor <em>Shortcuts Provided For</em>}</li>
  * </ul>
  * </p>
  *
@@ -506,6 +508,36 @@ public interface GenDiagram extends GenCommonBase {
 	 * @generated
 	 */
 	void setElementChooserClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Contains Shortcuts To</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Set of domain meta-model file extensions. Elements of the corresponding models could be shortcutted on this diagram.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Contains Shortcuts To</em>' attribute list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_ContainsShortcutsTo()
+	 * @model type="java.lang.String"
+	 * @generated
+	 */
+	EList getContainsShortcutsTo();
+
+	/**
+	 * Returns the value of the '<em><b>Shortcuts Provided For</b></em>' attribute list.
+	 * The list contents are of type {@link java.lang.String}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Set of domain meta-model names. Elements of this diagram domain model could be added as a shortcuts to the diagrams of the specified domains.
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Shortcuts Provided For</em>' attribute list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_ShortcutsProvidedFor()
+	 * @model type="java.lang.String"
+	 * @generated
+	 */
+	EList getShortcutsProvidedFor();
 
 	/**
 	 * Returns the value of the '<em><b>Editor Package Name</b></em>' attribute.
@@ -1362,6 +1394,22 @@ public interface GenDiagram extends GenCommonBase {
 	 * @generated
 	 */
 	String getElementChooserQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	boolean generateCreateShortcutAction();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	boolean generateShortcutIcon();
 
 	/**
 	 * <!-- begin-user-doc -->

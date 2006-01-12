@@ -91,7 +91,8 @@ public class EcoreElementChooserDialog extends Dialog {
 	 * @generated
 	 */
 	private boolean isValidModelFile(IFile file) {
-		return "ecore".equals(file.getFullPath().getFileExtension());
+		String fileExtension = file.getFullPath().getFileExtension();
+		return "ecore".equals(fileExtension);
 	}
 
 	/**

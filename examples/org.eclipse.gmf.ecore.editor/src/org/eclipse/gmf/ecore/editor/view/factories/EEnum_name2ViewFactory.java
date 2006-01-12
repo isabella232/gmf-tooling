@@ -20,8 +20,9 @@ public class EEnum_name2ViewFactory extends BasicNodeViewFactory {
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
 		EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
-		annotation.setSource("VisualID");
+		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
-		annotation.getDetails().put("value", "4015");
+		annotation.getDetails().put("modelID", "Ecore"); //$NON-NLS-1$
+		annotation.getDetails().put("visualID", "4015"); //$NON-NLS-1$
 	}
 }

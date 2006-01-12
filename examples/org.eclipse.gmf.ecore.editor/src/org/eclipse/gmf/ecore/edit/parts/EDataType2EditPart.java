@@ -4,6 +4,8 @@ import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.RectangularDropShadowLineBorder;
@@ -134,6 +136,45 @@ public class EDataType2EditPart extends ShapeNodeEditPart {
 	 */
 	public EditPart getPrimaryChildEditPart() {
 		return getChildBySemanticHint(EcoreSemanticHints.EDataType_1004Labels.EDATATYPENAME_4013_TEXT);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (isExternalLabel(childEditPart)) {
+			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
+			getExternalLabelsContainer().add(labelFigure);
+		} else {
+			super.addChildVisual(childEditPart, index);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(EditPart childEditPart) {
+		if (isExternalLabel(childEditPart)) {
+			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
+			getExternalLabelsContainer().remove(labelFigure);
+		} else {
+			super.removeChildVisual(childEditPart);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean isExternalLabel(EditPart childEditPart) {
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure getExternalLabelsContainer() {
+		DiagramRootEditPart root = (DiagramRootEditPart) getRoot();
+		return root.getLayer(EcoreEditPartFactory.EXTERNAL_NODE_LABELS_LAYER);
 	}
 
 	/**

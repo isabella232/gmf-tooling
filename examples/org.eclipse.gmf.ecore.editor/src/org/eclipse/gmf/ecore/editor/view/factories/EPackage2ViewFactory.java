@@ -20,9 +20,10 @@ public class EPackage2ViewFactory extends AbstractShapeViewFactory {
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
 		EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
-		annotation.setSource("VisualID");
+		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
-		annotation.getDetails().put("value", "1002");
+		annotation.getDetails().put("modelID", "Ecore"); //$NON-NLS-1$
+		annotation.getDetails().put("visualID", "1002"); //$NON-NLS-1$
 		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EPackage_1002Labels.EPACKAGENAME_4005_TEXT, ViewUtil.APPEND, persisted, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EPackage_1002Compartments.CLASSES_5004, ViewUtil.APPEND, persisted, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EPackage_1002Compartments.PACKAGES_5005, ViewUtil.APPEND, persisted, getPreferencesHint());

@@ -14,6 +14,7 @@ ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());
 importManager.addImport("org.eclipse.emf.ecore.EClass");
 importManager.addImport("org.eclipse.emf.ecore.EObject");
 importManager.addImport("org.eclipse.gmf.runtime.notation.View");
+importManager.addImport("org.eclipse.gmf.runtime.notation.Diagram");
 
 importManager.markImportLocation(stringBuffer);
 %>
@@ -75,7 +76,32 @@ String semanticPackageInterfaceName = importManager.getImportedName(genPackage.g
 	 * @generated
 	 */
 	public int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {
-		int containerVisualID = getVisualID(containerView);
+		String containerModelID = getModelID(containerView);
+		if (!"<%=genDiagram.getEMFGenModel().getModelName()%>".equals(containerModelID)
+<%
+for (Iterator it = genDiagram.getShortcutsProvidedFor().iterator(); it.hasNext();) { 
+	String nextDomainModelName = (String) it.next();
+	if (genDiagram.getEMFGenModel().getModelName().equals(nextDomainModelName)) {
+		continue;
+	}
+%>			
+			&& !"<%=nextDomainModelName%>".equals(containerModelID)
+<%
+}
+%>
+		) {
+			return -1;
+		}
+		int containerVisualID;
+		if ("<%=genDiagram.getEMFGenModel().getModelName()%>".equals(containerModelID)) {
+			containerVisualID = getVisualID(containerView);
+		} else {
+			if (containerView instanceof Diagram) {
+				containerVisualID = <%=genDiagram.getVisualID()%>;		
+			} else {
+				return -1;
+			}
+		}
 		switch (containerVisualID) {
 		case <%=genDiagram.getVisualID()%>:
 <%
@@ -390,6 +416,8 @@ for (int i = 0; i < genLinks.size(); i++) {
 	}
 }
 %>
+
+<%@ include file="getModelID.jetinc" %>
 
 <%@ include file="getVisualID.jetinc" %>
 

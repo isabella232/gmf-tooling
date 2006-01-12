@@ -24,6 +24,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
@@ -93,6 +94,8 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getVisualIDRegistryClassName <em>Visual ID Registry Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreateShortcutActionClassName <em>Create Shortcut Action Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getElementChooserClassName <em>Element Chooser Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getContainsShortcutsTo <em>Contains Shortcuts To</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getShortcutsProvidedFor <em>Shortcuts Provided For</em>}</li>
  * </ul>
  * </p>
  *
@@ -1000,6 +1003,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	protected String elementChooserClassName = ELEMENT_CHOOSER_CLASS_NAME_EDEFAULT;
 
+	/**
+	 * The cached value of the '{@link #getContainsShortcutsTo() <em>Contains Shortcuts To</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContainsShortcutsTo()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList containsShortcutsTo = null;
+
+	/**
+	 * The cached value of the '{@link #getShortcutsProvidedFor() <em>Shortcuts Provided For</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getShortcutsProvidedFor()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList shortcutsProvidedFor = null;
+
 	private static final String DIAGRAM_EDITOR_TOKEN = "gmf.editor";
 
 	/**
@@ -1527,6 +1550,30 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		elementChooserClassName = newElementChooserClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME, oldElementChooserClassName, elementChooserClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getContainsShortcutsTo() {
+		if (containsShortcutsTo == null) {
+			containsShortcutsTo = new EDataTypeUniqueEList(String.class, this, GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO);
+		}
+		return containsShortcutsTo;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getShortcutsProvidedFor() {
+		if (shortcutsProvidedFor == null) {
+			shortcutsProvidedFor = new EDataTypeUniqueEList(String.class, this, GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR);
+		}
+		return shortcutsProvidedFor;
 	}
 
 	/**
@@ -2469,6 +2516,24 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean generateCreateShortcutAction() {
+		return getContainsShortcutsTo().size() > 0;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean generateShortcutIcon() {
+		return getShortcutsProvidedFor().size() > 0;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -2609,6 +2674,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getCreateShortcutActionClassName();
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
 				return getElementChooserClassName();
+			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
+				return getContainsShortcutsTo();
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR:
+				return getShortcutsProvidedFor();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -2766,6 +2835,14 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
 				setElementChooserClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
+				getContainsShortcutsTo().clear();
+				getContainsShortcutsTo().addAll((Collection)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR:
+				getShortcutsProvidedFor().clear();
+				getShortcutsProvidedFor().addAll((Collection)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -2921,6 +2998,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
 				setElementChooserClassName(ELEMENT_CHOOSER_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
+				getContainsShortcutsTo().clear();
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR:
+				getShortcutsProvidedFor().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -3028,6 +3111,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return CREATE_SHORTCUT_ACTION_CLASS_NAME_EDEFAULT == null ? createShortcutActionClassName != null : !CREATE_SHORTCUT_ACTION_CLASS_NAME_EDEFAULT.equals(createShortcutActionClassName);
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
 				return ELEMENT_CHOOSER_CLASS_NAME_EDEFAULT == null ? elementChooserClassName != null : !ELEMENT_CHOOSER_CLASS_NAME_EDEFAULT.equals(elementChooserClassName);
+			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
+				return containsShortcutsTo != null && !containsShortcutsTo.isEmpty();
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR:
+				return shortcutsProvidedFor != null && !shortcutsProvidedFor.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -3432,6 +3519,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(createShortcutActionClassName);
 		result.append(", elementChooserClassName: ");
 		result.append(elementChooserClassName);
+		result.append(", containsShortcutsTo: ");
+		result.append(containsShortcutsTo);
+		result.append(", shortcutsProvidedFor: ");
+		result.append(shortcutsProvidedFor);
 		result.append(')');
 		return result.toString();
 	}

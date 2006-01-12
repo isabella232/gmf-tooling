@@ -664,6 +664,9 @@ public class Generator implements Runnable {
 	}
 	
 	private void generateCreateShortcutAction() throws JETException, InterruptedException {
+		if (!myDiagram.generateCreateShortcutAction()) {
+			return;
+		}
 		doGenerateJavaClass(
 				EmitterFactory.getCreateShortcutActionEmitter(),
 				myDiagram.getEditorPackageName(), 
@@ -673,6 +676,9 @@ public class Generator implements Runnable {
 	}
 	
 	private void generateElementChooser() throws JETException, InterruptedException {
+		if (!myDiagram.generateCreateShortcutAction()) {
+			return;
+		}
 		doGenerateJavaClass(
 				EmitterFactory.getElementChooserEmitter(),
 				myDiagram.getEditorPackageName(), 
@@ -743,6 +749,9 @@ public class Generator implements Runnable {
 	}
 	
 	private void generateShortcutIcon() throws InterruptedException {
+		if (!myDiagram.generateShortcutIcon()) {
+			return;
+		}
 		Path iconPath = new Path("icons/shortcut.gif");
 		IProgressMonitor pm = getNextStepMonitor();
 		try {

@@ -67,6 +67,7 @@ public class AllTests {
 			protected void runTest() throws Throwable {
 				try {
 					sessionSetup.cleanup();
+					sessionSetup2.cleanup();
 				} catch (RuntimeException ex) {
 					throw ex;
 				} catch (Exception ex) {

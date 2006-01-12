@@ -2,10 +2,10 @@
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
 <%
 GenLabel label = (GenLabel) argument;
-GenDiagram diagram = label.getDiagram();
-ImportUtil importManager = new ImportUtil(diagram.getNotationViewFactoriesPackageName());
+GenDiagram genDiagram = label.getDiagram();
+ImportUtil importManager = new ImportUtil(genDiagram.getNotationViewFactoriesPackageName());
 %>
-package <%=diagram.getNotationViewFactoriesPackageName()%>;
+package <%=genDiagram.getNotationViewFactoriesPackageName()%>;
 
 <%
 importManager.markImportLocation(stringBuffer);

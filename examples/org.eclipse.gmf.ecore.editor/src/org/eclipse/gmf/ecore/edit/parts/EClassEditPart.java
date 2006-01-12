@@ -4,6 +4,8 @@ import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.RectangularDropShadowLineBorder;
@@ -13,7 +15,6 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
 import org.eclipse.draw2d.Figure;
-import org.eclipse.draw2d.RectangleFigure;
 
 import org.eclipse.gef.EditPart;
 
@@ -56,7 +57,7 @@ public class EClassEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		return new RectangleFigure();
+		return new NodeRectangle();
 	}
 
 	/**
@@ -137,4 +138,56 @@ public class EClassEditPart extends ShapeNodeEditPart {
 		return getChildBySemanticHint(EcoreSemanticHints.EClass_1001Labels.ECLASSNAME_4001_TEXT);
 	}
 
+	/**
+	 * @generated
+	 */
+	protected void addChildVisual(EditPart childEditPart, int index) {
+		if (isExternalLabel(childEditPart)) {
+			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
+			getExternalLabelsContainer().add(labelFigure);
+		} else {
+			super.addChildVisual(childEditPart, index);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void removeChildVisual(EditPart childEditPart) {
+		if (isExternalLabel(childEditPart)) {
+			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
+			getExternalLabelsContainer().remove(labelFigure);
+		} else {
+			super.removeChildVisual(childEditPart);
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean isExternalLabel(EditPart childEditPart) {
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IFigure getExternalLabelsContainer() {
+		DiagramRootEditPart root = (DiagramRootEditPart) getRoot();
+		return root.getLayer(EcoreEditPartFactory.EXTERNAL_NODE_LABELS_LAYER);
+	}
+
+	/**
+	 * @generated
+	 */
+	public class NodeRectangle extends org.eclipse.draw2d.RectangleFigure {
+
+		/**
+		 * @generated
+		 */
+		public NodeRectangle() {
+
+		}
+
+	}
 }

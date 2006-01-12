@@ -20,9 +20,10 @@ public class EReferenceViewFactory extends ConnectionViewFactory {
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
 		EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
-		annotation.setSource("VisualID");
+		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
-		annotation.getDetails().put("value", "3002");
+		annotation.getDetails().put("modelID", "Ecore"); //$NON-NLS-1$
+		annotation.getDetails().put("visualID", "3002"); //$NON-NLS-1$
 		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EReference_3002Labels.EREFERENCENAME_4018_LABEL, ViewUtil.APPEND, persisted, getPreferencesHint());
 	}
 }

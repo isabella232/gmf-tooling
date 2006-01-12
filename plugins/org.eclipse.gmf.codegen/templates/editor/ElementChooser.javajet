@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="ElementChooserGenerator"
-    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.ImportUtil"%>
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.ImportUtil java.util.*"%>
 <%GenDiagram genDiagram = (GenDiagram) argument;%>
 package <%=genDiagram.getEditorPackageName()%>;
 
@@ -95,7 +95,16 @@ public class <%=genDiagram.getElementChooserClassName()%> extends Dialog {
 	 * @generated
 	 */
 	private boolean isValidModelFile(IFile file) {
-		return "<%=genDiagram.getDomainDiagramElement().getGenPackage().getPrefix().toLowerCase()%>".equals(file.getFullPath().getFileExtension());
+		String fileExtension = file.getFullPath().getFileExtension();
+		return 
+<%
+for (Iterator it = genDiagram.getContainsShortcutsTo().iterator(); it.hasNext();) {
+	String nextFileExtension = (String) it.next();
+%>
+			"<%=nextFileExtension%>".equals(fileExtension) <%=it.hasNext() ? "||" : ";"%>
+<%
+}
+%>
 	}
 	
 	/**

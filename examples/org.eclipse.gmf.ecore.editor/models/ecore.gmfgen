@@ -6,7 +6,7 @@
   <domainDiagramElement href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage"/>
   <nodes visualID="1001" editPartClassName="EClassEditPart" itemSemanticEditPolicyClassName="EClassItemSemanticEditPolicy" notationViewFactoryClassName="EClassViewFactory" canonicalEditPolicyClassName="EClassCanonicalEditPolicy" graphicalNodeEditPolicyClassName="EClassGraphicalNodeEditPolicy">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.RectangleFigure"/>
+    <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NodeRectangle" classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NodeRectangle() {&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}"/>
     <modelFacet>
       <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass"/>
       <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
@@ -385,24 +385,26 @@
     </modelFacet>
   </links>
   <palette>
-    <groups titleKey="Nodes" createMethodName="createNodesGroup">
-      <nodeTools titleKey="EClass" descriptionKey="EClass" createMethodName="createEClassNodeCreationTool" genNode="//@nodes.0 //@nodes.1/@compartments.0/@childNodes.0"/>
-      <nodeTools titleKey="EPackage" descriptionKey="EPackage" createMethodName="createEPackageNodeCreationTool" genNode="//@nodes.1 //@nodes.1/@compartments.1/@childNodes.0"/>
-      <nodeTools titleKey="EAnnotation" descriptionKey="EAnnotation" createMethodName="createEAnnotationNodeCreationTool" genNode="//@nodes.2 //@nodes.0/@compartments.2/@childNodes.0 //@nodes.1/@compartments.4/@childNodes.0 //@nodes.3/@compartments.0/@childNodes.0 //@nodes.4/@compartments.1/@childNodes.0"/>
-      <nodeTools titleKey="EDataType" descriptionKey="EDataType" createMethodName="createEDataTypeNodeCreationTool" genNode="//@nodes.3 //@nodes.1/@compartments.2/@childNodes.0"/>
-      <nodeTools titleKey="EEnum" descriptionKey="EEnum" createMethodName="createEEnumNodeCreationTool" genNode="//@nodes.4 //@nodes.1/@compartments.3/@childNodes.0"/>
+    <groups titleKey="Nodes" descriptionKey="Diagram Nodes" createMethodName="createNodesGroup">
+      <nodeTools titleKey="EClass" descriptionKey="Create Class" createMethodName="createEClassCreationTool" genNode="//@nodes.0 //@nodes.1/@compartments.0/@childNodes.0"/>
+      <nodeTools titleKey="EPackage" descriptionKey="Create Package" createMethodName="createEPackageCreationTool" genNode="//@nodes.1 //@nodes.1/@compartments.1/@childNodes.0"/>
+      <nodeTools titleKey="EAnnotation" descriptionKey="Create Annotation" createMethodName="createEAnnotationCreationTool" genNode="//@nodes.2 //@nodes.0/@compartments.2/@childNodes.0 //@nodes.1/@compartments.4/@childNodes.0 //@nodes.3/@compartments.0/@childNodes.0 //@nodes.4/@compartments.1/@childNodes.0"/>
+      <nodeTools titleKey="EDataType" descriptionKey="Create DataType" createMethodName="createEDataTypeCreationTool" genNode="//@nodes.3 //@nodes.1/@compartments.2/@childNodes.0"/>
+      <nodeTools titleKey="EEnum" descriptionKey="Create Enumeration" createMethodName="createEEnumCreationTool" genNode="//@nodes.4 //@nodes.1/@compartments.3/@childNodes.0"/>
     </groups>
-    <groups titleKey="Chlid Nodes" createMethodName="createChlidNodesGroup">
-      <nodeTools titleKey="EAttribute" descriptionKey="EAttribute" createMethodName="createEAttributeNodeCreationTool" genNode="//@nodes.0/@compartments.0/@childNodes.0"/>
-      <nodeTools titleKey="EOperation" descriptionKey="EOperation" createMethodName="createEOperationNodeCreationTool" genNode="//@nodes.0/@compartments.1/@childNodes.0"/>
-      <nodeTools titleKey="Annotation Details" descriptionKey="EStringToStringMapEntry" createMethodName="createEStringToStringMapEntryNodeCreationTool" genNode="//@nodes.2/@compartments.0/@childNodes.0"/>
-      <nodeTools titleKey="EEnumLiteral" descriptionKey="EEnumLiteral" createMethodName="createEEnumLiteralNodeCreationTool" genNode="//@nodes.4/@compartments.0/@childNodes.0"/>
+    <groups titleKey="Child Nodes" descriptionKey="Child Nodes" createMethodName="createChildNodesGroup">
+      <nodeTools titleKey="EAttribute" descriptionKey="Create Attribute" createMethodName="createEAttributeCreationTool" genNode="//@nodes.0/@compartments.0/@childNodes.0"/>
+      <nodeTools titleKey="EOperation" descriptionKey="Create Operation" createMethodName="createEOperationCreationTool" genNode="//@nodes.0/@compartments.1/@childNodes.0"/>
+      <nodeTools titleKey="Annotation details" descriptionKey="Create Annotation details" createMethodName="createAnnotationdetailsCreationTool" genNode="//@nodes.2/@compartments.0/@childNodes.0"/>
+      <nodeTools titleKey="EEnumLiteral" descriptionKey="Create Enumeration literal" createMethodName="createEEnumLiteralCreationTool" genNode="//@nodes.4/@compartments.0/@childNodes.0"/>
     </groups>
-    <groups titleKey="Links" createMethodName="createLinksGroup">
-      <linkTools titleKey="EAnnotation reference" descriptionKey="references" createMethodName="createreferencesLinkCreationTool" genLink="//@links.0"/>
-      <linkTools titleKey="Association" descriptionKey="EReference" createMethodName="createEReferenceLinkCreationTool" genLink="//@links.1"/>
-      <linkTools titleKey="Aggregation" descriptionKey="EReference" createMethodName="createEReferenceLinkCreationTool2" genLink="//@links.2"/>
-      <linkTools titleKey="Generalization" descriptionKey="eSuperTypes" createMethodName="createeSuperTypesLinkCreationTool" genLink="//@links.3"/>
+    <groups titleKey="Links" descriptionKey="Links" createMethodName="createLinksGroup">
+      <linkTools titleKey="EAnnotation reference" descriptionKey="Create Annotation reference link" createMethodName="createEAnnotationreferenceCreationTool" genLink="//@links.0"/>
+      <linkTools titleKey="Association" descriptionKey="Create Association link" createMethodName="createAssociationCreationTool" genLink="//@links.1"/>
+      <linkTools titleKey="Aggregation" descriptionKey="Create Aggregation link" createMethodName="createAggregationCreationTool" genLink="//@links.2"/>
+      <linkTools titleKey="Generalization" descriptionKey="Create Generalization link" createMethodName="createGeneralizationCreationTool" genLink="//@links.3"/>
     </groups>
   </palette>
+  <containsShortcutsTo>ecore</containsShortcutsTo>
+  <shortcutsProvidedFor>Ecore</shortcutsProvidedFor>
 </gmfgen:GenDiagram>

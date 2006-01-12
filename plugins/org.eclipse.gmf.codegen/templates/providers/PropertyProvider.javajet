@@ -57,10 +57,13 @@ public class <%=genDiagram.getPropertyProviderClassName()%> extends GenericEMFPr
 				view = (View) editPart.getModel();
 			}
 		}
-		if (view != null && "<%=genModel.getModelName()%>".equals(view.getDiagram().getType())) {
+		if (view != null && "<%=genModel.getModelName()%>".equals(getModelID(view))) {
 			return view.getElement();
 		}
 		return null;
 	}
+	
+<%@ include file="../editor/getModelID.jetinc" %>
+
 }
 <%importManager.emitSortedImports();%>

@@ -121,8 +121,9 @@ public class RTSetup implements RTSource {
 
 	private void affixVisualID(View view, GenCommonBase genBase) {
 		EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
-		annotation.setSource("VisualID");
-		annotation.getDetails().put("value", String.valueOf(genBase.getVisualID()));
+		annotation.setSource("ViewIdentifier");
+		annotation.getDetails().put("modelID", String.valueOf(genBase.getDiagram().getEMFGenModel().getModelName()));
+		annotation.getDetails().put("visualID", String.valueOf(genBase.getVisualID()));
 		view.getEAnnotations().add(annotation);
 	}
 

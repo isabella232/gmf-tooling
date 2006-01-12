@@ -18,6 +18,7 @@ import org.eclipse.emf.query.ocl.conditions.OclConstraintCondition;
 
 import org.eclipse.gmf.ecore.edit.providers.EcoreSemanticHints;
 
+import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
@@ -67,7 +68,20 @@ public class EcoreVisualIDRegistry {
 	 * @generated
 	 */
 	public int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {
-		int containerVisualID = getVisualID(containerView);
+		String containerModelID = getModelID(containerView);
+		if (!"Ecore".equals(containerModelID)) {
+			return -1;
+		}
+		int containerVisualID;
+		if ("Ecore".equals(containerModelID)) {
+			containerVisualID = getVisualID(containerView);
+		} else {
+			if (containerView instanceof Diagram) {
+				containerVisualID = 79;
+			} else {
+				return -1;
+			}
+		}
 		switch (containerVisualID) {
 		case 79:
 			if (EcorePackage.eINSTANCE.getEClass().equals(domainElementMetaclass) && (domainElement != null ? isNodeEClass_1001((EClass) domainElement) : true)) {
@@ -1276,12 +1290,23 @@ public class EcoreVisualIDRegistry {
 	/**
 	 * @generated
 	 */
-	public int getVisualID(View containerView) {
-		EAnnotation annotation = containerView.getEAnnotation("VisualID");
+	private String getModelID(View containerView) {
+		EAnnotation annotation = containerView.getEAnnotation("ViewIdentifier"); //$NON-NLS-1$
+		if (annotation == null) {
+			return null;
+		}
+		return (String) annotation.getDetails().get("modelID"); //$NON-NLS-1$
+	}
+
+	/**
+	 * @generated
+	 */
+	private int getVisualID(View containerView) {
+		EAnnotation annotation = containerView.getEAnnotation("ViewIdentifier"); //$NON-NLS-1$
 		if (annotation == null) {
 			return -1;
 		}
-		String visualID = (String) annotation.getDetails().get("value");
+		String visualID = (String) annotation.getDetails().get("visualID"); //$NON-NLS-1$
 		if (visualID == null) {
 			return -1;
 		}

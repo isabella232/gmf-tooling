@@ -32,7 +32,7 @@ public class <%=genDiagram.getNotationViewProviderClassName()%> extends Abstract
 		}
 		return null;
 	}
-
+	
 	/**
 	 * @generated
 	 */
@@ -40,10 +40,7 @@ public class <%=genDiagram.getNotationViewProviderClassName()%> extends Abstract
 		if (containerView == null) {
 			return null;
 		}
-		if (!"<%=genModel.getModelName()%>".equals(containerView.getDiagram().getType())) {
-			return null;
-		}
-		
+
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
 		int nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(containerView, semanticElement, semanticType, semanticHint);
@@ -99,16 +96,8 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 }
 %>
 		}
-		return getUnrecognizedNodeViewClass(semanticAdapter, containerView, semanticHint);
+		return null;
 	}
-	
-	/**
-	 * @generated
-	 */
-	 private Class getUnrecognizedNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-	 	// Handle unrecognized node classes here
-	 	return null;
-	 }
 
 	/**
 	 * @generated

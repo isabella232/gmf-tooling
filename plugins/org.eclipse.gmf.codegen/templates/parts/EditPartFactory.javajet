@@ -19,7 +19,10 @@ public class <%=genDiagram.getEditPartFactoryClassName()%> implements EditPartFa
 	 */
 	public static final String EXTERNAL_NODE_LABELS_LAYER = "External Node Labels";
 
+<%@ include file="../editor/getModelID.jetinc" %>
+
 <%@ include file="../editor/getVisualID.jetinc" %>
+
 <%
 List genLinks = genDiagram.getLinks();
 Collection allContainers = AccessUtil.getAllContainers(genDiagram);
@@ -31,7 +34,7 @@ Collection allContainers = AccessUtil.getAllContainers(genDiagram);
 	public EditPart createEditPart(EditPart context, Object model) {
 		if (model instanceof View) {
 			View view = (View) model;
-			if (!"<%=genDiagram.getEMFGenModel().getModelName()%>".equals(view.getDiagram().getType())) {
+			if (!"<%=genDiagram.getEMFGenModel().getModelName()%>".equals(getModelID(view))) {
 				return null;
 			}
 			

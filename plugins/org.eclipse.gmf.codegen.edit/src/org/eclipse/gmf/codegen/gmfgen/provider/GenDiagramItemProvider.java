@@ -105,6 +105,8 @@ public class GenDiagramItemProvider
 			addVisualIDRegistryClassNamePropertyDescriptor(object);
 			addCreateShortcutActionClassNamePropertyDescriptor(object);
 			addElementChooserClassNamePropertyDescriptor(object);
+			addContainsShortcutsToPropertyDescriptor(object);
+			addShortcutsProvidedForPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -363,6 +365,46 @@ public class GenDiagramItemProvider
 				 getString("_UI_GenDiagram_elementChooserClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_elementChooserClassName_feature", "_UI_GenDiagram_type"),
 				 GMFGenPackage.eINSTANCE.getGenDiagram_ElementChooserClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Contains Shortcuts To feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addContainsShortcutsToPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_containsShortcutsTo_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_containsShortcutsTo_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_ContainsShortcutsTo(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Shortcuts Provided For feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addShortcutsProvidedForPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_shortcutsProvidedFor_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_shortcutsProvidedFor_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_ShortcutsProvidedFor(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -1096,6 +1138,8 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
+			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__NODES:

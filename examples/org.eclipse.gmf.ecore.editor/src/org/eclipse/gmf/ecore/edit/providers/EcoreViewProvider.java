@@ -76,9 +76,6 @@ public class EcoreViewProvider extends AbstractViewProvider {
 		if (containerView == null) {
 			return null;
 		}
-		if (!"Ecore".equals(containerView.getDiagram().getType())) {
-			return null;
-		}
 
 		EClass semanticType = getSemanticEClass(semanticAdapter);
 		EObject semanticElement = getSemanticElement(semanticAdapter);
@@ -166,14 +163,6 @@ public class EcoreViewProvider extends AbstractViewProvider {
 				return EReference_name2TextViewFactory.class;
 			}
 		}
-		return getUnrecognizedNodeViewClass(semanticAdapter, containerView, semanticHint);
-	}
-
-	/**
-	 * @generated
-	 */
-	private Class getUnrecognizedNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-		// Handle unrecognized node classes here
 		return null;
 	}
 

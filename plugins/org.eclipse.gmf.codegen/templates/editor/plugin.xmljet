@@ -65,6 +65,7 @@ final GenModel genModel = genDiagram.getEMFGenModel();
                id="<%=genDiagram.getInitDiagramFileActionQualifiedClassName()%>ID">
          </action>
       </objectContribution>  
+<%if (genDiagram.generateCreateShortcutAction()) {%>
       <objectContribution
             adaptable="false"
             id="<%=genDiagram.getPluginID()%>.ui.objectContribution.FileEditorInputProxy1"
@@ -77,6 +78,7 @@ final GenModel genModel = genDiagram.getEMFGenModel();
                menubarPath="additions">
          </action>
       </objectContribution>                      
+<%}%>
   </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
