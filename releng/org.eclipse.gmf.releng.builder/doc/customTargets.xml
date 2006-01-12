@@ -79,6 +79,11 @@
 		<!-- Load build.cfg properties -->
 		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
 		<ant antfile="${scripts}/install.xml" target="installBase" />	
+		<ant antfile="${scripts}/install.xml" target="installGEF" />
+		<ant antfile="${scripts}/install.xml" target="installEMF" />	
+		<ant antfile="${scripts}/install.xml" target="installGMF" />
+		<!-- TODO: Remove when dependency gone -->
+		<copy file="${baseLocationRoot}/antlr.jar" todir="${baseLocation}/plugins/antlr_2.7.2/lib"/>		
 	</target>
 
 	<!-- ===================================================================== -->
@@ -94,7 +99,6 @@
 		<replace dir="${buildDirectory}/plugins" value="${buildId}" token="@buildId@">
 			<include name="**/about.mappings" />
 		</replace>
-		<zip destfile="${buildDirectory}/plugins/org.eclipse.gmf.runtime.doc.isv/doc.zip" basedir="${buildDirectory}/plugins/org.eclipse.gmf.runtime.doc.isv/html" filesonly="false" whenempty="skip"/>
 	</target>
 
 	<!-- ===================================================================== -->
@@ -114,6 +118,16 @@
 	<!-- Steps to do before running the build.xmls for the elements being built. -->
 	<!-- ===================================================================== -->
 	<target name="preProcess">
+		<!-- Retrieve doclet -->
+		<cvs command="checkout -r HEAD org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet" 
+		     cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" 
+		     dest="${buildDirectory}" />
+		<!-- Compile and package doclet -->
+		<ant antfile="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet/build.xml" 
+		     target="build.jar" 
+		     dir="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet" />
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
+		<ant antfile="${buildDirectory}/plugins/org.eclipse.gmf.doc/buildDoc.xml" />
 	</target>
 
 	<!-- ===================================================================== -->
@@ -137,17 +151,7 @@
 	<!-- ===================================================================== -->
 	<!-- Steps to do before running package. -->
 	<!-- ===================================================================== -->
-	<target name="prePackage">
-		<!-- Retrieve doclet -->
-		<cvs command="checkout -r HEAD org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet" 
-		     cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" 
-		     dest="${buildDirectory}" />
-		<!-- Compile and package doclet -->
-		<ant antfile="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet/build.xml" 
-		     target="build.jar" 
-		     dir="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet" />
-		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
-		<ant antfile="${buildDirectory}/plugins/org.eclipse.gmf.doc/buildDoc.xml" />
+	<target name="prePackage">		
 	</target>
 
 	<!-- ===================================================================== -->
