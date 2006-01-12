@@ -60,10 +60,23 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 		GenNode node = (GenNode) container;
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
+			if (label instanceof ExternalLabel) {
+				String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
+				String labelViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Labels." + ((ExternalLabel) label).getSemanticHintLabelFieldName();
+%>
+		case <%=label.getVisualID()%>:
+			if (<%=labelViewId%>.equals(semanticHint)) {
+				return <%=importManager.getImportedName(label.getNotationViewFactoryQualifiedClassName())%>.class;
+			} else { 
+				return <%=importManager.getImportedName(((ExternalLabel) label).getTextNotationViewFactoryQualifiedClassName())%>.class;
+			}
+<%
+			} else {
 %>
 		case <%=label.getVisualID()%>:
 			return <%=importManager.getImportedName(label.getNotationViewFactoryQualifiedClassName())%>.class;
 <%
+			}
 		}
 	}
 }

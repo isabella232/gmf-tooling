@@ -32,18 +32,23 @@ public class EditPartFactoryGenerator
   protected final String TEXT_14 = ":" + NL + "\t\t\t return new ";
   protected final String TEXT_15 = "(view);";
   protected final String TEXT_16 = NL + "\t\tcase ";
-  protected final String TEXT_17 = ":" + NL + "\t\t\treturn new ";
-  protected final String TEXT_18 = "(view);";
-  protected final String TEXT_19 = "\t\t" + NL + "\t\t\tcase ";
-  protected final String TEXT_20 = ":" + NL + "\t\t\t\treturn new ";
-  protected final String TEXT_21 = "(view);";
-  protected final String TEXT_22 = NL + "\t\t\tcase ";
-  protected final String TEXT_23 = ":" + NL + "\t\t\t\tif (";
-  protected final String TEXT_24 = ".equals(view.getType())) {" + NL + "\t\t\t\t\treturn new ";
-  protected final String TEXT_25 = "(view);" + NL + "\t\t\t\t} else {" + NL + "\t\t\t\t\treturn new ";
-  protected final String TEXT_26 = "(view);" + NL + "\t\t\t\t}";
-  protected final String TEXT_27 = NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn createUnrecognizedEditPart(context, model);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private EditPart createUnrecognizedEditPart(EditPart context, Object model) {" + NL + "\t \t// Handle creation of unrecognized child node EditParts here" + NL + "\t \treturn null;" + NL + "\t }" + NL + "" + NL + "}";
-  protected final String TEXT_28 = NL;
+  protected final String TEXT_17 = ":" + NL + "\t\t\tif (";
+  protected final String TEXT_18 = ".equals(view.getType())) {" + NL + "\t\t\t\treturn new ";
+  protected final String TEXT_19 = "(view);" + NL + "\t\t\t} else {" + NL + "\t\t\t\treturn new ";
+  protected final String TEXT_20 = "(view);" + NL + "\t\t\t}";
+  protected final String TEXT_21 = NL + "\t\tcase ";
+  protected final String TEXT_22 = ":" + NL + "\t\t\treturn new ";
+  protected final String TEXT_23 = "(view);";
+  protected final String TEXT_24 = "\t\t" + NL + "\t\t\tcase ";
+  protected final String TEXT_25 = ":" + NL + "\t\t\t\treturn new ";
+  protected final String TEXT_26 = "(view);";
+  protected final String TEXT_27 = NL + "\t\t\tcase ";
+  protected final String TEXT_28 = ":" + NL + "\t\t\t\tif (";
+  protected final String TEXT_29 = ".equals(view.getType())) {" + NL + "\t\t\t\t\treturn new ";
+  protected final String TEXT_30 = "(view);" + NL + "\t\t\t\t} else {" + NL + "\t\t\t\t\treturn new ";
+  protected final String TEXT_31 = "(view);" + NL + "\t\t\t\t}";
+  protected final String TEXT_32 = NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn createUnrecognizedEditPart(context, model);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private EditPart createUnrecognizedEditPart(EditPart context, Object model) {" + NL + "\t \t// Handle creation of unrecognized child node EditParts here" + NL + "\t \treturn null;" + NL + "\t }" + NL + "" + NL + "}";
+  protected final String TEXT_33 = NL;
 
   public String generate(Object argument)
   {
@@ -87,24 +92,42 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 		GenNode node = (GenNode) container;
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
+			if (label instanceof ExternalLabel) {
+// [++] Just to remove unnecessary imports we are doing this import insode a loop
+				String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
+// [--]
+				String labelViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Labels." + ((ExternalLabel) label).getSemanticHintLabelFieldName();
 
     stringBuffer.append(TEXT_16);
     stringBuffer.append(label.getVisualID());
     stringBuffer.append(TEXT_17);
-    stringBuffer.append(label.getEditPartClassName());
+    stringBuffer.append(labelViewId);
     stringBuffer.append(TEXT_18);
+    stringBuffer.append(label.getEditPartClassName());
+    stringBuffer.append(TEXT_19);
+    stringBuffer.append(((ExternalLabel) label).getTextEditPartClassName());
+    stringBuffer.append(TEXT_20);
     
+			} else {
+
+    stringBuffer.append(TEXT_21);
+    stringBuffer.append(label.getVisualID());
+    stringBuffer.append(TEXT_22);
+    stringBuffer.append(label.getEditPartClassName());
+    stringBuffer.append(TEXT_23);
+    
+			}
 		}
 	}
 }
 for (Iterator links = genLinks.iterator(); links.hasNext();) {
 	GenLink link = (GenLink) links.next();
 
-    stringBuffer.append(TEXT_19);
+    stringBuffer.append(TEXT_24);
     stringBuffer.append(link.getVisualID());
-    stringBuffer.append(TEXT_20);
+    stringBuffer.append(TEXT_25);
     stringBuffer.append(link.getEditPartClassName());
-    stringBuffer.append(TEXT_21);
+    stringBuffer.append(TEXT_26);
     
 	for (Iterator linkLabels = link.getLabels().iterator(); linkLabels.hasNext();) {
 // [++] Just to remove unnecessary imports we are doing this import insode a loop
@@ -113,22 +136,22 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 		GenLinkLabel linkLabel = (GenLinkLabel) linkLabels.next();
 		String labelViewId = semanticHintsClassName + '.' + link.getUniqueIdentifier() + "Labels." + linkLabel.getSemanticHintLabelFieldName();
 
-    stringBuffer.append(TEXT_22);
+    stringBuffer.append(TEXT_27);
     stringBuffer.append(linkLabel.getVisualID());
-    stringBuffer.append(TEXT_23);
+    stringBuffer.append(TEXT_28);
     stringBuffer.append(labelViewId);
-    stringBuffer.append(TEXT_24);
+    stringBuffer.append(TEXT_29);
     stringBuffer.append(linkLabel.getEditPartClassName());
-    stringBuffer.append(TEXT_25);
+    stringBuffer.append(TEXT_30);
     stringBuffer.append(linkLabel.getTextEditPartClassName());
-    stringBuffer.append(TEXT_26);
+    stringBuffer.append(TEXT_31);
     
 	}
 }
 
-    stringBuffer.append(TEXT_27);
+    stringBuffer.append(TEXT_32);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_28);
+    stringBuffer.append(TEXT_33);
     return stringBuffer.toString();
   }
 }

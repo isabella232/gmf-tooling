@@ -92,6 +92,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_CHILD_NODE: return createGenChildNode();
 			case GMFGenPackage.GEN_LINK: return createGenLink();
 			case GMFGenPackage.GEN_NODE_LABEL: return createGenNodeLabel();
+			case GMFGenPackage.GEN_EXTERNAL_NODE_LABEL: return createGenExternalNodeLabel();
 			case GMFGenPackage.GEN_LINK_LABEL: return createGenLinkLabel();
 			case GMFGenPackage.TYPE_MODEL_FACET: return createTypeModelFacet();
 			case GMFGenPackage.FEATURE_MODEL_FACET: return createFeatureModelFacet();
@@ -216,6 +217,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenNodeLabel createGenNodeLabel() {
 		GenNodeLabelImpl genNodeLabel = new GenNodeLabelImpl();
 		return genNodeLabel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenExternalNodeLabel createGenExternalNodeLabel() {
+		GenExternalNodeLabelImpl genExternalNodeLabel = new GenExternalNodeLabelImpl();
+		return genExternalNodeLabel;
 	}
 
 	/**

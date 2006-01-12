@@ -41,6 +41,8 @@ import org.eclipse.gmf.codegen.templates.parts.ChildNodeEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.CompartmentEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.DiagramEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.EditPartFactoryGenerator;
+import org.eclipse.gmf.codegen.templates.parts.ExternalNodeLabelEditPartGenerator;
+import org.eclipse.gmf.codegen.templates.parts.ExternalNodeLabelTextEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.LinkEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.LinkLabelEditPartGenerator;
 import org.eclipse.gmf.codegen.templates.parts.LinkLabelTextEditPartGenerator;
@@ -59,13 +61,13 @@ import org.eclipse.gmf.codegen.templates.policies.ReferenceConnectionEditPolicyG
 import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ElementTypesGenerator;
 import org.eclipse.gmf.codegen.templates.providers.IconProviderGenerator;
-import org.eclipse.gmf.codegen.templates.providers.LinkLabelViewFactoryGenerator;
+import org.eclipse.gmf.codegen.templates.providers.LabelTextViewFactoryGenerator;
+import org.eclipse.gmf.codegen.templates.providers.LabelViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.MetamodelSupportProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.PropertyProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.SemanticHintsGenerator;
 import org.eclipse.gmf.codegen.templates.providers.StructuralFeatureParserGenerator;
-import org.eclipse.gmf.codegen.templates.providers.TextLabelViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewProviderGenerator;
 import org.osgi.framework.Bundle;
@@ -109,6 +111,14 @@ public class EmitterFactory {
 
 	public static JETEmitter getNodeLabelEditPartEmitter() throws JETException {
 		return initializeEmitter("/templates/parts/NodeLabelEditPart.javajet", NodeLabelEditPartGenerator.class);
+	}
+
+	public static JETEmitter getExternalNodeLabelEditPartEmitter() throws JETException {
+		return initializeEmitter("/templates/parts/ExternalNodeLabelEditPart.javajet", ExternalNodeLabelEditPartGenerator.class);
+	}
+
+	public static JETEmitter getExternalNodeLabelTextEditPartEmitter() throws JETException {
+		return initializeEmitter("/templates/parts/ExternalNodeLabelTextEditPart.javajet", ExternalNodeLabelTextEditPartGenerator.class);
 	}
 
 	public static JETEmitter getChildNodeEditPartEmitter() throws JETException {
@@ -191,12 +201,12 @@ public class EmitterFactory {
 		return initializeEmitter("/templates/providers/ViewFactory.javajet", ViewFactoryGenerator.class);
 	}
 
-	public static JETEmitter getLinkLabelViewFactoryEmitter() throws JETException {
-		return initializeEmitter("/templates/providers/LinkLabelViewFactory.javajet", LinkLabelViewFactoryGenerator.class);
+	public static JETEmitter getLabelViewFactoryEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/LabelViewFactory.javajet", LabelViewFactoryGenerator.class);
 	}
 
-	public static JETEmitter getTextLabelViewFactoryEmitter() throws JETException {
-		return initializeEmitter("/templates/providers/TextLabelViewFactory.javajet", TextLabelViewFactoryGenerator.class);
+	public static JETEmitter getLabelTextViewFactoryEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/LabelTextViewFactory.javajet", LabelTextViewFactoryGenerator.class);
 	}
 	
 	public static JETEmitter getElementTypesEmitter() throws JETException {

@@ -1,9 +1,8 @@
-<%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="TextLabelViewFactoryGenerator"
+<%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="LabelTextViewFactoryGenerator"
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
 <%
 GenLabel label = (GenLabel) argument;
 GenDiagram diagram = label.getDiagram();
-boolean isFlowLayout = label instanceof GenNodeLabel ? ((GenNodeLabel) label).getNode().getChildContainersPlacement() == CompartmentPlacementKind.FLOW_LITERAL : false;
 ImportUtil importManager = new ImportUtil(diagram.getNotationViewFactoriesPackageName());
 %>
 package <%=diagram.getNotationViewFactoriesPackageName()%>;
@@ -14,12 +13,14 @@ importManager.addImport("org.eclipse.core.runtime.IAdaptable");
 importManager.addImport("org.eclipse.emf.ecore.EAnnotation");
 importManager.addImport("org.eclipse.emf.ecore.EcoreFactory");
 importManager.addImport("org.eclipse.gmf.runtime.notation.View");
+boolean isFlowLayout = label instanceof GenNodeLabel ? ((GenNodeLabel) label).getNode().getChildContainersPlacement() == CompartmentPlacementKind.FLOW_LITERAL : false;
 %>
 
 /**
  * @generated
  */
-public class <%=label instanceof GenLinkLabel ? ((GenLinkLabel) label).getTextNotationViewFactoryClassName() : label.getNotationViewFactoryClassName()%> extends <%=isFlowLayout ? importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory") : importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory")%> {
+public class <%=label instanceof ExternalLabel ? ((ExternalLabel) label).getTextNotationViewFactoryClassName() : label.getNotationViewFactoryClassName()%>
+	extends <%=isFlowLayout ? importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory") : importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory")%> {
 
 	/**
 	 * @generated

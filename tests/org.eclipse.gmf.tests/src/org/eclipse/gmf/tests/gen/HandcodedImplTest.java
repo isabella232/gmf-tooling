@@ -27,9 +27,11 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.tests.ConfiguredTestCase;
 import org.eclipse.jdt.core.JavaConventions;
@@ -165,6 +167,14 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 			} else if (nextEntity instanceof GenNode) {
 				GenNode genNode = (GenNode) nextEntity;
 				checkClassName(state, "GenNode:GraphicalNodeEditPolicy", genNode.getGraphicalNodeEditPolicyClassName(), genNode.getGraphicalNodeEditPolicyQualifiedClassName());
+				for (Iterator labels = genNode.getLabels().iterator(); labels.hasNext();) {
+					GenNodeLabel nextLabel = (GenNodeLabel) labels.next();
+					if (nextLabel instanceof GenExternalNodeLabel) {
+						GenExternalNodeLabel nextExtLabel = (GenExternalNodeLabel) nextLabel;
+						checkClassName(state, "GenExternalNodeLabel:TextEditPart", nextExtLabel.getTextEditPartClassName(), nextExtLabel.getTextEditPartQualifiedClassName());
+						checkClassName(state, "GenExternalNodeLabel:TextNotationViewFactory", nextExtLabel.getTextNotationViewFactoryClassName(), nextExtLabel.getTextNotationViewFactoryQualifiedClassName());
+					}
+				}
 			}
 		}
 		// test model may not contain them
@@ -172,11 +182,11 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		state.add("GenCommonBase:ItemSemanticEditPolicy");
 		state.add("GenCommonBase:NotationViewFactory");
 		state.add("GenContainer:CanonicalEditPolicy");
-		state.add("GenLinkLabel:TextEditPart");
-		state.add("GenLinkLabel:TextNotationViewFactory");
 		state.add("GenNode:GraphicalNodeEditPolicy");
 		// disable explicitly
 		state.add("FigureViewmap:Figure");
+		state.add("ExternalLabel:TextEditPart");
+		state.add("ExternalLabel:TextNotationViewFactory");
 
 		// coverage check
 		for (Iterator classifiers = GMFGenPackage.eINSTANCE.getEClassifiers().iterator(); classifiers.hasNext();) {

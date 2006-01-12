@@ -80,6 +80,15 @@ public interface GMFGenFactory extends EFactory {
 	GenNodeLabel createGenNodeLabel();
 
 	/**
+	 * Returns a new object of class '<em>Gen External Node Label</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen External Node Label</em>'.
+	 * @generated
+	 */
+	GenExternalNodeLabel createGenExternalNodeLabel();
+
+	/**
 	 * Returns a new object of class '<em>Gen Link Label</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

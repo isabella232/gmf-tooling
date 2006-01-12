@@ -102,12 +102,21 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 		String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
-			String labelTextViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Labels." + label.getSemanticHintFieldName();
+			if (label instanceof ExternalLabel) {
+				String labelViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Labels." + ((ExternalLabel) label).getSemanticHintLabelFieldName();
+%>
+			if (<%=labelViewId%>.equals(semanticHint)) {
+				return <%=label.getVisualID()%>;
+			}
+<%
+			} else {
+				String labelTextViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Labels." + label.getSemanticHintFieldName();
 %>
 			if (<%=labelTextViewId%>.equals(semanticHint)) {
 				return <%=label.getVisualID()%>;
 			}  
-<%			
+<%
+			}
 		}
 		for (Iterator compartments = node.getCompartments().iterator(); compartments.hasNext();) {
 			GenCompartment compartment = (GenCompartment) compartments.next();
@@ -137,6 +146,23 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 %>
 			return getUnrecognized<%=nextContainer.getUniqueIdentifier()%>ChildNodeID(domainElement);
 <%
+	if (nextContainer instanceof GenNode) {
+		GenNode node = (GenNode) nextContainer;
+		String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
+		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
+			GenNodeLabel label = (GenNodeLabel) labels.next();
+			if (label instanceof ExternalLabel) {
+				String labelTextViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Labels." + label.getSemanticHintFieldName();
+%>
+		case <%=label.getVisualID()%>:
+			if (<%=labelTextViewId%>.equals(semanticHint)) {
+				return <%=label.getVisualID()%>;
+			}
+			return -1;
+<%
+			}
+		}
+	}
 }
 for (Iterator links = genLinks.iterator(); links.hasNext();) {
 	GenLink link = (GenLink) links.next();

@@ -206,6 +206,28 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenExternalNodeLabelItemProvider genExternalNodeLabelItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenExternalNodeLabelAdapter() {
+		if (genExternalNodeLabelItemProvider == null) {
+			genExternalNodeLabelItemProvider = new GenExternalNodeLabelItemProvider(this);
+		}
+
+		return genExternalNodeLabelItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -769,6 +791,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genChildNodeItemProvider != null) genChildNodeItemProvider.dispose();
 		if (genLinkItemProvider != null) genLinkItemProvider.dispose();
 		if (genNodeLabelItemProvider != null) genNodeLabelItemProvider.dispose();
+		if (genExternalNodeLabelItemProvider != null) genExternalNodeLabelItemProvider.dispose();
 		if (genLinkLabelItemProvider != null) genLinkLabelItemProvider.dispose();
 		if (typeModelFacetItemProvider != null) typeModelFacetItemProvider.dispose();
 		if (featureModelFacetItemProvider != null) featureModelFacetItemProvider.dispose();

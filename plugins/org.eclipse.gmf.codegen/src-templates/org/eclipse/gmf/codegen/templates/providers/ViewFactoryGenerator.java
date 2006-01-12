@@ -161,10 +161,15 @@ if (isNode) {
 		for (int j = 0; j < labels.size(); j++) {
 			String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
 			GenNodeLabel label = (GenNodeLabel) labels.get(j);
-			String labelTextViewId = semanticHintsClassName + '.' + genNode.getUniqueIdentifier() + "Labels." + label.getSemanticHintFieldName();
+			String labelViewId;
+			if (label instanceof ExternalLabel) {
+				labelViewId = semanticHintsClassName + '.' + genNode.getUniqueIdentifier() + "Labels." + ((ExternalLabel) label).getSemanticHintLabelFieldName();
+			} else {
+				labelViewId = semanticHintsClassName + '.' + genNode.getUniqueIdentifier() + "Labels." + label.getSemanticHintFieldName();
+			}
 
     stringBuffer.append(TEXT_29);
-    stringBuffer.append(labelTextViewId);
+    stringBuffer.append(labelViewId);
     stringBuffer.append(TEXT_30);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil"));
     stringBuffer.append(TEXT_31);

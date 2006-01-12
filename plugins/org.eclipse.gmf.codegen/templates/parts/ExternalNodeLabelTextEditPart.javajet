@@ -1,0 +1,51 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="ExternalNodeLabelTextEditPartGenerator"
+	imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+<%
+GenExternalNodeLabel genLabel = (GenExternalNodeLabel) argument;
+GenDiagram genDiagram = genLabel.getDiagram();
+%>
+package <%=genDiagram.getEditPartsPackageName()%>;
+
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
+import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart;
+import org.eclipse.gmf.runtime.notation.View;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genLabel.getTextEditPartClassName()%> extends TextCompartmentEditPart {
+
+	/**
+	 * @generated
+	 */
+	public <%=genLabel.getTextEditPartClassName()%>(View view) {
+		super(view);
+	}
+<%
+GenPackage genPackage = genDiagram.getDomainMetaModel();
+String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
+String accessorName = genLabel.getNode().getDomainMetaClass().getClassifierAccessorName();
+%>
+
+	/**
+	 * @generated
+	 */
+	public IParser getParser() {
+		if (parser == null) {
+			parser = new <%=importManager.getImportedName(genDiagram.getStructuralFeatureParserQualifiedClassName())%>(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=accessorName%>().getEStructuralFeature("<%=genLabel.getMetaFeature().getName()%>"));
+		}
+		return parser;
+	}
+<%if (genLabel.isReadOnly()) {%>
+
+	/**
+	 * @generated
+	 */
+	protected boolean isEditable() {
+		return false;
+	}
+<%}%>
+}
+<%importManager.emitSortedImports();%>

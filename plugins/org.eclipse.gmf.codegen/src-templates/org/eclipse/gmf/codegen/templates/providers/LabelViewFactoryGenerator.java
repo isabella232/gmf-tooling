@@ -3,13 +3,13 @@ package org.eclipse.gmf.codegen.templates.providers;
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.codegen.util.*;
 
-public class LinkLabelViewFactoryGenerator
+public class LabelViewFactoryGenerator
 {
   protected static String nl;
-  public static synchronized LinkLabelViewFactoryGenerator create(String lineSeparator)
+  public static synchronized LabelViewFactoryGenerator create(String lineSeparator)
   {
     nl = lineSeparator;
-    LinkLabelViewFactoryGenerator result = new LinkLabelViewFactoryGenerator();
+    LabelViewFactoryGenerator result = new LabelViewFactoryGenerator();
     nl = null;
     return result;
   }
@@ -22,16 +22,17 @@ public class LinkLabelViewFactoryGenerator
   protected final String TEXT_5 = " extends AbstractLabelViewFactory {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void decorateView(View containerView, View view, IAdaptable semanticAdapter," + NL + "\t\tString semanticHint, int index, boolean persisted) {" + NL + "\t\tsuper.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);";
   protected final String TEXT_6 = NL;
   protected final String TEXT_7 = "EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();" + NL + "annotation.setSource(\"VisualID\");" + NL + "view.getEAnnotations().add(annotation);" + NL + "annotation.getDetails().put(\"value\", \"";
-  protected final String TEXT_8 = "\");" + NL + "\t\tgetViewService().createNode(semanticAdapter, view," + NL + "\t\t\t";
-  protected final String TEXT_9 = ".";
-  protected final String TEXT_10 = "Labels.";
-  protected final String TEXT_11 = "," + NL + "\t\t\tViewUtil.APPEND, persisted, getPreferencesHint());" + NL + "\t}" + NL + "}";
-  protected final String TEXT_12 = NL;
+  protected final String TEXT_8 = "\");";
+  protected final String TEXT_9 = NL + "\t\tgetViewService().createNode(semanticAdapter, view," + NL + "\t\t\t";
+  protected final String TEXT_10 = ".";
+  protected final String TEXT_11 = "Labels.";
+  protected final String TEXT_12 = "," + NL + "\t\t\tViewUtil.APPEND, persisted, getPreferencesHint());" + NL + "\t}" + NL + "}";
+  protected final String TEXT_13 = NL;
 
   public String generate(Object argument)
   {
     StringBuffer stringBuffer = new StringBuffer();
-    GenLinkLabel label = (GenLinkLabel) argument;
+    GenLabel label = (GenLabel) argument;
     GenDiagram diagram = label.getDiagram();
     stringBuffer.append(TEXT_1);
     stringBuffer.append(diagram.getNotationViewFactoriesPackageName());
@@ -47,14 +48,16 @@ public class LinkLabelViewFactoryGenerator
     stringBuffer.append(TEXT_7);
     stringBuffer.append(genElement.getVisualID());
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(importManager.getImportedName(diagram.getSemanticHintsQualifiedClassName()));
+    String id = label instanceof GenLinkLabel ? ((GenLinkLabel) label).getLink().getUniqueIdentifier() : ((GenNodeLabel) label).getNode().getUniqueIdentifier();
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(label.getLink().getUniqueIdentifier());
+    stringBuffer.append(importManager.getImportedName(diagram.getSemanticHintsQualifiedClassName()));
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(label.getSemanticHintFieldName());
+    stringBuffer.append(id);
     stringBuffer.append(TEXT_11);
-    importManager.emitSortedImports();
+    stringBuffer.append(label.getSemanticHintFieldName());
     stringBuffer.append(TEXT_12);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_13);
     return stringBuffer.toString();
   }
 }

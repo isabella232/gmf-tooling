@@ -45,10 +45,25 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 		GenNode node = (GenNode) container;
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
+			if (label instanceof ExternalLabel) {
+// [++] Just to remove unnecessary imports we are doing this import insode a loop
+				String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
+// [--]
+				String labelViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Labels." + ((ExternalLabel) label).getSemanticHintLabelFieldName();
+%>
+		case <%=label.getVisualID()%>:
+			if (<%=labelViewId%>.equals(view.getType())) {
+				return new <%=label.getEditPartClassName()%>(view);
+			} else {
+				return new <%=((ExternalLabel) label).getTextEditPartClassName()%>(view);
+			}
+<%
+			} else {
 %>
 		case <%=label.getVisualID()%>:
 			return new <%=label.getEditPartClassName()%>(view);
 <%
+			}
 		}
 	}
 }

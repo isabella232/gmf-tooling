@@ -21,8 +21,6 @@ package org.eclipse.gmf.codegen.gmfgen;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getLink <em>Link</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getAlignment <em>Alignment</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getTextEditPartClassName <em>Text Edit Part Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getTextNotationViewFactoryClassName <em>Text Notation View Factory Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -30,7 +28,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let tl: TypeLinkModelFacet = link.modelFacet.oclAsType(TypeLinkModelFacet) in tl.oclIsUndefined() or modelFacet.metaFeature.ecoreFeature.eContainingClass.isSuperTypeOf(tl.metaClass.ecoreClass)'"
  * @generated
  */
-public interface GenLinkLabel extends GenLabel{
+public interface GenLinkLabel extends GenLabel, ExternalLabel {
 	/**
 	 * Returns the value of the '<em><b>Link</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenLink#getLabels <em>Labels</em>}'.
@@ -88,85 +86,5 @@ public interface GenLinkLabel extends GenLabel{
 	 * @generated
 	 */
 	void setAlignment(LinkLabelAlignment value);
-
-	/**
-	 * Returns the value of the '<em><b>Text Edit Part Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Text Edit Part Class Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Text Edit Part Class Name</em>' attribute.
-	 * @see #setTextEditPartClassName(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLinkLabel_TextEditPartClassName()
-	 * @model
-	 * @generated
-	 */
-	String getTextEditPartClassName();
-
-	public static final String TEXT_EDIT_PART_SUFFIX = "TextEditPart";
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getTextEditPartClassName <em>Text Edit Part Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Text Edit Part Class Name</em>' attribute.
-	 * @see #getTextEditPartClassName()
-	 * @generated
-	 */
-	void setTextEditPartClassName(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Text Notation View Factory Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Text Notation View Factory Class Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Text Notation View Factory Class Name</em>' attribute.
-	 * @see #setTextNotationViewFactoryClassName(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLinkLabel_TextNotationViewFactoryClassName()
-	 * @model
-	 * @generated
-	 */
-	String getTextNotationViewFactoryClassName();
-
-	public static final String TEXT_NOTATION_VIEW_FACTORY_SUFFIX = "TextViewFactory";
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLinkLabel#getTextNotationViewFactoryClassName <em>Text Notation View Factory Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Text Notation View Factory Class Name</em>' attribute.
-	 * @see #getTextNotationViewFactoryClassName()
-	 * @generated
-	 */
-	void setTextNotationViewFactoryClassName(String value);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	String getTextEditPartQualifiedClassName();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	String getTextNotationViewFactoryQualifiedClassName();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	String getSemanticHintLabelFieldName();
 
 } // GenLinkLabel

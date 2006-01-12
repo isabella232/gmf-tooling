@@ -40,6 +40,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
@@ -126,7 +127,7 @@ public class Generator implements Runnable {
 					generateLinkLabelEditPart(label);
 					generateLinkLabelTextEditPart(label);
 					generateLinkLabelViewFactory(label);
-					generateTextLinkLabelViewFactory(label);
+					generateLinkLabelTextViewFactory(label);
 				}
 			}
 			generateViewFactory(myDiagram);
@@ -193,8 +194,16 @@ public class Generator implements Runnable {
 		generateNodeEditPart(node);
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
-			generateNodeLabelEditPart(label);
-			generateTextLabelViewFactory(label);
+			if (label instanceof GenExternalNodeLabel) {
+				GenExternalNodeLabel extLabel = (GenExternalNodeLabel) label;
+				generateExternalNodeLabelEditPart(extLabel);
+				generateExternalNodeLabelViewFactory(extLabel);
+				generateExternalNodeLabelTextEditPart(extLabel);
+				generateExternalNodeLabelTextViewFactory(extLabel);
+			} else {
+				generateNodeLabelEditPart(label);
+				generateNodeLabelTextViewFactory(label);
+			}
 		}
 		for (Iterator compartments = node.getCompartments().iterator(); compartments.hasNext();) {
 			GenCompartment compartment = (GenCompartment) compartments.next();
@@ -268,6 +277,24 @@ public class Generator implements Runnable {
 			EmitterFactory.getNodeLabelEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			label.getEditPartClassName(),
+			label
+		);
+	}
+
+	private void generateExternalNodeLabelEditPart(GenExternalNodeLabel label) throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			EmitterFactory.getExternalNodeLabelEditPartEmitter(),
+			myDiagram.getEditPartsPackageName(),
+			label.getEditPartClassName(),
+			label
+		);
+	}
+
+	private void generateExternalNodeLabelTextEditPart(GenExternalNodeLabel label) throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			EmitterFactory.getExternalNodeLabelTextEditPartEmitter(),
+			myDiagram.getEditPartsPackageName(),
+			label.getTextEditPartClassName(),
 			label
 		);
 	}
@@ -510,25 +537,43 @@ public class Generator implements Runnable {
 
 	private void generateLinkLabelViewFactory(GenLinkLabel label) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getLinkLabelViewFactoryEmitter(),
+			EmitterFactory.getLabelViewFactoryEmitter(),
 			myDiagram.getNotationViewFactoriesPackageName(),
 			label.getNotationViewFactoryClassName(),
 			label
 		);
 	}
 
-	private void generateTextLinkLabelViewFactory(GenLinkLabel label) throws JETException, InterruptedException {
+	private void generateLinkLabelTextViewFactory(GenLinkLabel label) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getTextLabelViewFactoryEmitter(),
+			EmitterFactory.getLabelTextViewFactoryEmitter(),
 			myDiagram.getNotationViewFactoriesPackageName(),
 			label.getTextNotationViewFactoryClassName(),
 			label
 		);
 	}
 
-	private void generateTextLabelViewFactory(GenNodeLabel label) throws JETException, InterruptedException {
+	private void generateExternalNodeLabelViewFactory(GenExternalNodeLabel label) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getTextLabelViewFactoryEmitter(),
+			EmitterFactory.getLabelViewFactoryEmitter(),
+			myDiagram.getNotationViewFactoriesPackageName(),
+			label.getNotationViewFactoryClassName(),
+			label
+		);
+	}
+
+	private void generateExternalNodeLabelTextViewFactory(GenExternalNodeLabel label) throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			EmitterFactory.getLabelTextViewFactoryEmitter(),
+			myDiagram.getNotationViewFactoriesPackageName(),
+			label.getTextNotationViewFactoryClassName(),
+			label
+		);
+	}
+
+	private void generateNodeLabelTextViewFactory(GenNodeLabel label) throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			EmitterFactory.getLabelTextViewFactoryEmitter(),
 			myDiagram.getNotationViewFactoriesPackageName(),
 			label.getNotationViewFactoryClassName(),
 			label

@@ -31,29 +31,34 @@ public class ViewProviderGenerator
   protected final String TEXT_12 = ":" + NL + "\t\t\t return ";
   protected final String TEXT_13 = ".class;";
   protected final String TEXT_14 = NL + "\t\tcase ";
-  protected final String TEXT_15 = ":" + NL + "\t\t\treturn ";
-  protected final String TEXT_16 = ".class;";
-  protected final String TEXT_17 = NL + "\t\tcase ";
-  protected final String TEXT_18 = ":" + NL + "\t\t\tif (";
-  protected final String TEXT_19 = ".equals(semanticHint)) {" + NL + "\t\t\t\treturn ";
-  protected final String TEXT_20 = ".class;" + NL + "\t\t\t} else { " + NL + "\t\t\t\treturn ";
-  protected final String TEXT_21 = ".class;" + NL + "\t\t\t}";
-  protected final String TEXT_22 = NL + "\t\t}" + NL + "\t\treturn getUnrecognizedNodeViewClass(semanticAdapter, containerView, semanticHint);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private Class getUnrecognizedNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {" + NL + "\t \t// Handle unrecognized node classes here" + NL + "\t \treturn null;" + NL + "\t }" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {";
-  protected final String TEXT_23 = NL + "\t\t";
-  protected final String TEXT_24 = " elementType = (";
-  protected final String TEXT_25 = ") semanticAdapter.getAdapter(";
-  protected final String TEXT_26 = ".class);";
-  protected final String TEXT_27 = NL + "\t\tif (";
-  protected final String TEXT_28 = ".";
-  protected final String TEXT_29 = ".equals(elementType)) {" + NL + "\t\t\treturn ";
-  protected final String TEXT_30 = ".class;" + NL + "\t\t}";
-  protected final String TEXT_31 = NL + NL + "\t\tEClass semanticType = getSemanticEClass(semanticAdapter);" + NL + "\t\tEObject semanticElement = getSemanticElement(semanticAdapter);" + NL + "" + NL + "\t\tint linkVID = ";
-  protected final String TEXT_32 = ".INSTANCE.getLinkWithClassVisualID(semanticElement, semanticType);" + NL + "\t\t" + NL + "\t\tswitch (linkVID) {";
-  protected final String TEXT_33 = NL + "\t\tcase ";
-  protected final String TEXT_34 = ":" + NL + "\t\t\treturn ";
-  protected final String TEXT_35 = ".class;";
-  protected final String TEXT_36 = NL + "\t\t}" + NL + "\t\treturn getUnrecognizedConnectorViewClass(semanticAdapter, containerView, semanticHint);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private Class getUnrecognizedConnectorViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {" + NL + "\t \t// Handle unrecognized child node classes here" + NL + "\t \treturn null;" + NL + "\t }" + NL + "\t" + NL + "}";
-  protected final String TEXT_37 = NL;
+  protected final String TEXT_15 = ":" + NL + "\t\t\tif (";
+  protected final String TEXT_16 = ".equals(semanticHint)) {" + NL + "\t\t\t\treturn ";
+  protected final String TEXT_17 = ".class;" + NL + "\t\t\t} else { " + NL + "\t\t\t\treturn ";
+  protected final String TEXT_18 = ".class;" + NL + "\t\t\t}";
+  protected final String TEXT_19 = NL + "\t\tcase ";
+  protected final String TEXT_20 = ":" + NL + "\t\t\treturn ";
+  protected final String TEXT_21 = ".class;";
+  protected final String TEXT_22 = NL + "\t\tcase ";
+  protected final String TEXT_23 = ":" + NL + "\t\t\tif (";
+  protected final String TEXT_24 = ".equals(semanticHint)) {" + NL + "\t\t\t\treturn ";
+  protected final String TEXT_25 = ".class;" + NL + "\t\t\t} else { " + NL + "\t\t\t\treturn ";
+  protected final String TEXT_26 = ".class;" + NL + "\t\t\t}";
+  protected final String TEXT_27 = NL + "\t\t}" + NL + "\t\treturn getUnrecognizedNodeViewClass(semanticAdapter, containerView, semanticHint);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private Class getUnrecognizedNodeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {" + NL + "\t \t// Handle unrecognized node classes here" + NL + "\t \treturn null;" + NL + "\t }" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {";
+  protected final String TEXT_28 = NL + "\t\t";
+  protected final String TEXT_29 = " elementType = (";
+  protected final String TEXT_30 = ") semanticAdapter.getAdapter(";
+  protected final String TEXT_31 = ".class);";
+  protected final String TEXT_32 = NL + "\t\tif (";
+  protected final String TEXT_33 = ".";
+  protected final String TEXT_34 = ".equals(elementType)) {" + NL + "\t\t\treturn ";
+  protected final String TEXT_35 = ".class;" + NL + "\t\t}";
+  protected final String TEXT_36 = NL + NL + "\t\tEClass semanticType = getSemanticEClass(semanticAdapter);" + NL + "\t\tEObject semanticElement = getSemanticElement(semanticAdapter);" + NL + "" + NL + "\t\tint linkVID = ";
+  protected final String TEXT_37 = ".INSTANCE.getLinkWithClassVisualID(semanticElement, semanticType);" + NL + "\t\t" + NL + "\t\tswitch (linkVID) {";
+  protected final String TEXT_38 = NL + "\t\tcase ";
+  protected final String TEXT_39 = ":" + NL + "\t\t\treturn ";
+  protected final String TEXT_40 = ".class;";
+  protected final String TEXT_41 = NL + "\t\t}" + NL + "\t\treturn getUnrecognizedConnectorViewClass(semanticAdapter, containerView, semanticHint);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\t private Class getUnrecognizedConnectorViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {" + NL + "\t \t// Handle unrecognized child node classes here" + NL + "\t \treturn null;" + NL + "\t }" + NL + "\t" + NL + "}";
+  protected final String TEXT_42 = NL;
 
   public String generate(Object argument)
   {
@@ -97,13 +102,29 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 		GenNode node = (GenNode) container;
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();
+			if (label instanceof ExternalLabel) {
+				String semanticHintsClassName = importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName());
+				String labelViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Labels." + ((ExternalLabel) label).getSemanticHintLabelFieldName();
 
     stringBuffer.append(TEXT_14);
     stringBuffer.append(label.getVisualID());
     stringBuffer.append(TEXT_15);
-    stringBuffer.append(importManager.getImportedName(label.getNotationViewFactoryQualifiedClassName()));
+    stringBuffer.append(labelViewId);
     stringBuffer.append(TEXT_16);
+    stringBuffer.append(importManager.getImportedName(label.getNotationViewFactoryQualifiedClassName()));
+    stringBuffer.append(TEXT_17);
+    stringBuffer.append(importManager.getImportedName(((ExternalLabel) label).getTextNotationViewFactoryQualifiedClassName()));
+    stringBuffer.append(TEXT_18);
     
+			} else {
+
+    stringBuffer.append(TEXT_19);
+    stringBuffer.append(label.getVisualID());
+    stringBuffer.append(TEXT_20);
+    stringBuffer.append(importManager.getImportedName(label.getNotationViewFactoryQualifiedClassName()));
+    stringBuffer.append(TEXT_21);
+    
+			}
 		}
 	}
 }
@@ -115,20 +136,20 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 		GenLinkLabel linkLabel = (GenLinkLabel) linkLabels.next();
 		String labelViewId = semanticHintsClassName + '.' + link.getUniqueIdentifier() + "Labels." + linkLabel.getSemanticHintLabelFieldName();
 
-    stringBuffer.append(TEXT_17);
+    stringBuffer.append(TEXT_22);
     stringBuffer.append(linkLabel.getVisualID());
-    stringBuffer.append(TEXT_18);
+    stringBuffer.append(TEXT_23);
     stringBuffer.append(labelViewId);
-    stringBuffer.append(TEXT_19);
+    stringBuffer.append(TEXT_24);
     stringBuffer.append(importManager.getImportedName(linkLabel.getNotationViewFactoryQualifiedClassName()));
-    stringBuffer.append(TEXT_20);
+    stringBuffer.append(TEXT_25);
     stringBuffer.append(importManager.getImportedName(linkLabel.getTextNotationViewFactoryQualifiedClassName()));
-    stringBuffer.append(TEXT_21);
+    stringBuffer.append(TEXT_26);
     
 	}
 }
 
-    stringBuffer.append(TEXT_22);
+    stringBuffer.append(TEXT_27);
     
 boolean elementTypeInitialized = false;
 for (int i = 0; i < genLinks.size(); i++) {
@@ -137,37 +158,20 @@ for (int i = 0; i < genLinks.size(); i++) {
 		if (!elementTypeInitialized) {
 			elementTypeInitialized = true;
 
-    stringBuffer.append(TEXT_23);
+    stringBuffer.append(TEXT_28);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType"));
-    stringBuffer.append(TEXT_24);
+    stringBuffer.append(TEXT_29);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType"));
-    stringBuffer.append(TEXT_25);
+    stringBuffer.append(TEXT_30);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType"));
-    stringBuffer.append(TEXT_26);
+    stringBuffer.append(TEXT_31);
     
 		}
 
-    stringBuffer.append(TEXT_27);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
-    stringBuffer.append(TEXT_28);
-    stringBuffer.append(genLink.getUniqueIdentifier());
-    stringBuffer.append(TEXT_29);
-    stringBuffer.append(importManager.getImportedName(genLink.getNotationViewFactoryQualifiedClassName()));
-    stringBuffer.append(TEXT_30);
-    
-	}
-}
-
-    stringBuffer.append(TEXT_31);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_32);
-    
-for (int i = 0; i < genLinks.size(); i++) {
-	GenLink genLink = (GenLink) genLinks.get(i);
-	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
-
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
     stringBuffer.append(TEXT_33);
-    stringBuffer.append(genLink.getVisualID());
+    stringBuffer.append(genLink.getUniqueIdentifier());
     stringBuffer.append(TEXT_34);
     stringBuffer.append(importManager.getImportedName(genLink.getNotationViewFactoryQualifiedClassName()));
     stringBuffer.append(TEXT_35);
@@ -176,8 +180,25 @@ for (int i = 0; i < genLinks.size(); i++) {
 }
 
     stringBuffer.append(TEXT_36);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_37);
+    
+for (int i = 0; i < genLinks.size(); i++) {
+	GenLink genLink = (GenLink) genLinks.get(i);
+	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
+
+    stringBuffer.append(TEXT_38);
+    stringBuffer.append(genLink.getVisualID());
+    stringBuffer.append(TEXT_39);
+    stringBuffer.append(importManager.getImportedName(genLink.getNotationViewFactoryQualifiedClassName()));
+    stringBuffer.append(TEXT_40);
+    
+	}
+}
+
+    stringBuffer.append(TEXT_41);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_42);
     return stringBuffer.toString();
   }
 }

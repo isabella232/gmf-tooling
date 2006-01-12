@@ -174,17 +174,20 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenLabel/getMetaFeature"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenLabel/getSemanticHintFieldName"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//ExternalLabel">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ExternalLabel/textEditPartClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ExternalLabel/textNotationViewFactoryClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//ExternalLabel/getTextEditPartQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//ExternalLabel/getTextNotationViewFactoryQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//ExternalLabel/getSemanticHintLabelFieldName"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenNodeLabel">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNodeLabel/node"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenExternalNodeLabel"/>
     <genClasses ecoreClass="gmfgen.ecore#//GenLinkLabel">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLinkLabel/link"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLinkLabel/alignment"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLinkLabel/textEditPartClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenLinkLabel/textNotationViewFactoryClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenLinkLabel/getTextEditPartQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenLinkLabel/getTextNotationViewFactoryQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenLinkLabel/getSemanticHintLabelFieldName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//ModelFacet"/>
     <genClasses ecoreClass="gmfgen.ecore#//LinkModelFacet"/>

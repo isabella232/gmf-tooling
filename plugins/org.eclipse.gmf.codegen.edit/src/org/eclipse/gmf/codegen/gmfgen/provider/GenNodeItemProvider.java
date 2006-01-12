@@ -233,6 +233,11 @@ public class GenNodeItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenNode_Labels(),
+				 GMFGenFactory.eINSTANCE.createGenExternalNodeLabel()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenNode_Compartments(),
 				 GMFGenFactory.eINSTANCE.createGenCompartment()));
 	}

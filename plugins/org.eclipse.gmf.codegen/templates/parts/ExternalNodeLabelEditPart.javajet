@@ -1,0 +1,26 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="ExternalNodeLabelEditPartGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+<%
+GenExternalNodeLabel genLabel = (GenExternalNodeLabel) argument;
+GenDiagram genDiagram = genLabel.getDiagram();
+%>
+package <%=genDiagram.getEditPartsPackageName()%>;
+
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
+import org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart;
+import org.eclipse.gmf.runtime.notation.View;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genLabel.getEditPartClassName()%> extends LabelEditPart {
+
+	/**
+	 * @generated
+	 */
+	public <%=genLabel.getEditPartClassName()%>(View view) {
+		super(view);
+	}
+}
+<%importManager.emitSortedImports();%>

@@ -1,6 +1,6 @@
-<%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="LinkLabelViewFactoryGenerator"
+<%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="LabelViewFactoryGenerator"
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
-<%GenLinkLabel label = (GenLinkLabel) argument;%>
+<%GenLabel label = (GenLabel) argument;%>
 <%GenDiagram diagram = label.getDiagram();%>
 package <%=diagram.getNotationViewFactoriesPackageName()%>;
 
@@ -26,8 +26,9 @@ public class <%=label.getNotationViewFactoryClassName()%> extends AbstractLabelV
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
 <%GenCommonBase genElement = label;%>
 <%@ include file="createVIDAnnotation.jetinc"%>
+<%String id = label instanceof GenLinkLabel ? ((GenLinkLabel) label).getLink().getUniqueIdentifier() : ((GenNodeLabel) label).getNode().getUniqueIdentifier();%>
 		getViewService().createNode(semanticAdapter, view,
-			<%=importManager.getImportedName(diagram.getSemanticHintsQualifiedClassName())%>.<%=label.getLink().getUniqueIdentifier()%>Labels.<%=label.getSemanticHintFieldName()%>,
+			<%=importManager.getImportedName(diagram.getSemanticHintsQualifiedClassName())%>.<%=id%>Labels.<%=label.getSemanticHintFieldName()%>,
 			ViewUtil.APPEND, persisted, getPreferencesHint());
 	}
 }
