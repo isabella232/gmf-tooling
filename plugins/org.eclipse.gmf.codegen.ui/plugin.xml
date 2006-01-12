@@ -36,5 +36,21 @@
          </action>
       </objectContribution>
    </extension>
+  <extension
+    point = "org.eclipse.ui.newWizards">
+    <category
+      id = "org.eclipse.emf.ecore.Wizard.category.ID"
+      name="%_UI_Wizard_category">
+    </category>
+    <wizard
+      id = "org.eclipse.gmf.internal.codegen.wizards.GMFGraphSimpleModelWizardID"
+      name = "%_UI_GMFGraphSimpleModelWizard_label"
+      class = "org.eclipse.gmf.internal.codegen.wizards.GMFGraphSimpleModelWizard"
+      category = "org.eclipse.emf.ecore.Wizard.category.ID"
+      icon = "icons/full/obj16/GMFGraphModelFile.gif">
+      <description>%_UI_GMFGraphSimpleModelWizard_description</description>
+      <selection class = "org.eclipse.core.resources.IResource" />
+    </wizard>
+  </extension>
 
 </plugin>

@@ -9,6 +9,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.gmf.bridge,
- org.eclipse.emf.ecore.xmi
+ org.eclipse.emf.ecore.edit,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.gmf.graphdef.edit
 Eclipse-LazyStart: true
 Bundle-Vendor: %providerName
