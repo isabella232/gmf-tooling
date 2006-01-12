@@ -159,6 +159,7 @@ public class TaiPanDocumentProvider extends FileDiagramDocumentProvider {
 			super(documentProviderParameter, documentParameter, inputParameter);
 			final DiagramDocument document = documentParameter;
 			MFilter diagramResourceSavedFilter = new MFilter() {
+
 				public boolean matches(Notification notification) {
 					Diagram diagram = document.getDiagram();
 					Object notifier = notification.getNotifier();

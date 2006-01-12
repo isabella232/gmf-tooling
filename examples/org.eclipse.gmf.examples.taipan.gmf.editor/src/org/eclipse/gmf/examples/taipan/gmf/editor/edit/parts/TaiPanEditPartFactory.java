@@ -26,12 +26,28 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 	/**
 	 * @generated
 	 */
-	public int getVisualID(View containerView) {
-		EAnnotation annotation = containerView.getEAnnotation("VisualID");
+	public static final String EXTERNAL_NODE_LABELS_LAYER = "External Node Labels";
+
+	/**
+	 * @generated
+	 */
+	private String getModelID(View containerView) {
+		EAnnotation annotation = containerView.getEAnnotation("ViewIdentifier"); //$NON-NLS-1$
+		if (annotation == null) {
+			return null;
+		}
+		return (String) annotation.getDetails().get("modelID"); //$NON-NLS-1$
+	}
+
+	/**
+	 * @generated
+	 */
+	private int getVisualID(View containerView) {
+		EAnnotation annotation = containerView.getEAnnotation("ViewIdentifier"); //$NON-NLS-1$
 		if (annotation == null) {
 			return -1;
 		}
-		String visualID = (String) annotation.getDetails().get("value");
+		String visualID = (String) annotation.getDetails().get("visualID"); //$NON-NLS-1$
 		if (visualID == null) {
 			return -1;
 		}
@@ -49,7 +65,7 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 	public EditPart createEditPart(EditPart context, Object model) {
 		if (model instanceof View) {
 			View view = (View) model;
-			if (!"TaiPan".equals(view.getDiagram().getType())) {
+			if (!"TaiPan".equals(getModelID(view))) {
 				return null;
 			}
 

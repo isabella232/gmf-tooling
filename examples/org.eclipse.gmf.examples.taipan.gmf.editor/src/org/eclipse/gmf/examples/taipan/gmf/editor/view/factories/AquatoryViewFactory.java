@@ -28,8 +28,9 @@ public class AquatoryViewFactory extends DiagramViewFactory {
 	protected void decorateView(View view, IAdaptable semanticAdapter, String diagramKind) {
 		super.decorateView(view, semanticAdapter, diagramKind);
 		EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
-		annotation.setSource("VisualID");
+		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
-		annotation.getDetails().put("value", "79");
+		annotation.getDetails().put("modelID", "TaiPan"); //$NON-NLS-1$
+		annotation.getDetails().put("visualID", "79"); //$NON-NLS-1$
 	}
 }

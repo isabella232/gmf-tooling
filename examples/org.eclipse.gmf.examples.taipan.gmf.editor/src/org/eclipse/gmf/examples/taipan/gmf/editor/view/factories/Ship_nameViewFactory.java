@@ -31,8 +31,9 @@ public class Ship_nameViewFactory extends BasicNodeViewFactory {
 	protected void decorateView(View containerView, View view, IAdaptable semanticAdapter, String semanticHint, int index, boolean persisted) {
 		super.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);
 		EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
-		annotation.setSource("VisualID");
+		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
-		annotation.getDetails().put("value", "4002");
+		annotation.getDetails().put("modelID", "TaiPan"); //$NON-NLS-1$
+		annotation.getDetails().put("visualID", "4002"); //$NON-NLS-1$
 	}
 }

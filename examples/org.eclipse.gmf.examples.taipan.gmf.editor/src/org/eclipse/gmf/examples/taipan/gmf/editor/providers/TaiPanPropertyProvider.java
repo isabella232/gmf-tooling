@@ -20,6 +20,8 @@ import org.eclipse.gmf.runtime.common.ui.services.properties.IPropertiesProvider
 import org.eclipse.gmf.runtime.emf.ui.properties.providers.GenericEMFPropertiesProvider;
 import org.eclipse.gmf.runtime.notation.View;
 
+import org.eclipse.emf.ecore.EAnnotation;
+
 /**
  * @generated
  */
@@ -60,9 +62,21 @@ public class TaiPanPropertyProvider extends GenericEMFPropertiesProvider impleme
 				view = (View) editPart.getModel();
 			}
 		}
-		if (view != null && "TaiPan".equals(view.getDiagram().getType())) {
+		if (view != null && "TaiPan".equals(getModelID(view))) {
 			return view.getElement();
 		}
 		return null;
 	}
+
+	/**
+	 * @generated
+	 */
+	private String getModelID(View containerView) {
+		EAnnotation annotation = containerView.getEAnnotation("ViewIdentifier"); //$NON-NLS-1$
+		if (annotation == null) {
+			return null;
+		}
+		return (String) annotation.getDetails().get("modelID"); //$NON-NLS-1$
+	}
+
 }

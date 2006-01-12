@@ -13,6 +13,7 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
@@ -22,6 +23,7 @@ import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.gmf.runtime.emf.core.internal.util.MSLAdapterFactoryManager;
 import org.eclipse.gmf.runtime.emf.core.internal.util.MSLMetaModelManager;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
@@ -118,6 +120,13 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
+	public AdapterFactory getItemProvidersAdapterFactory() {
+		return adapterFactory;
+	}
+
+	/**
+	 * @generated
+	 */
 	public ImageDescriptor getItemImageDescriptor(Object item) {
 		IItemLabelProvider labelProvider = (IItemLabelProvider) adapterFactory.adapt(item, IItemLabelProvider.class);
 		if (labelProvider != null) {
@@ -136,5 +145,22 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	 */
 	public static ImageDescriptor getBundledImageDescriptor(String path) {
 		return AbstractUIPlugin.imageDescriptorFromPlugin(ID, path);
+	}
+
+	/**
+	 * Returns an image for the image file at the given plug-in relative path.
+	 * Client do not need to dispose this image. Images will be disposed automatically.
+	 *
+	 * @generated
+	 * @param path the path
+	 * @return image instance
+	 */
+	public Image getBundledImage(String path) {
+		Image image = getImageRegistry().get(path);
+		if (image == null) {
+			getImageRegistry().put(path, getBundledImageDescriptor(path));
+			image = getImageRegistry().get(path);
+		}
+		return image;
 	}
 }

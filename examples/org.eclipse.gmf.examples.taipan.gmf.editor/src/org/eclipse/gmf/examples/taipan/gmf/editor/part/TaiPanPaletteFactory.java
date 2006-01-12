@@ -99,19 +99,19 @@ public class TaiPanPaletteFactory {
 	 */
 	private PaletteContainer createTaiPanGroup() {
 		PaletteContainer paletteContainer = createContainer("TaiPan");
-		paletteContainer.add(createPortNodeCreationTool());
-		paletteContainer.add(createShipNodeCreationTool());
-		paletteContainer.add(createItemNodeCreationTool());
+		paletteContainer.add(createPortCreationTool());
+		paletteContainer.add(createShipCreationTool());
+		paletteContainer.add(createItemCreationTool());
 		paletteContainer.add(new PaletteSeparator());
-		paletteContainer.add(createdestinationLinkCreationTool());
-		paletteContainer.add(createRouteLinkCreationTool());
+		paletteContainer.add(createDestinationCreationTool());
+		paletteContainer.add(createRouteCreationTool());
 		return paletteContainer;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createPortNodeCreationTool() {
+	private ToolEntry createPortCreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -121,7 +121,8 @@ public class TaiPanPaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(TaiPanElementTypes.Port_1001);
-		return new ToolEntry("Port", "Port", smallImage, largeImage) {
+		return new ToolEntry("Port", "Create Port node", smallImage, largeImage) {
+
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
 				tool.setProperties(getToolProperties());
@@ -133,7 +134,7 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createShipNodeCreationTool() {
+	private ToolEntry createShipCreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -143,7 +144,8 @@ public class TaiPanPaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(TaiPanElementTypes.Ship_1002);
-		return new ToolEntry("Ship", "Ship", smallImage, largeImage) {
+		return new ToolEntry("Ship", "Create Ship node", smallImage, largeImage) {
+
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
 				tool.setProperties(getToolProperties());
@@ -155,7 +157,7 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createItemNodeCreationTool() {
+	private ToolEntry createItemCreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -165,7 +167,8 @@ public class TaiPanPaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(TaiPanElementTypes.Item_2001);
-		return new ToolEntry("Item", "Item", smallImage, largeImage) {
+		return new ToolEntry("Item", "Create Item node", smallImage, largeImage) {
+
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
 				tool.setProperties(getToolProperties());
@@ -177,7 +180,7 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createdestinationLinkCreationTool() {
+	private ToolEntry createDestinationCreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -187,7 +190,7 @@ public class TaiPanPaletteFactory {
 
 		final List relationshipTypes = new ArrayList();
 		relationshipTypes.add(TaiPanElementTypes.ShipDestination_3001);
-		return new ToolEntry("destination", "destination", smallImage, largeImage) {
+		return new ToolEntry("Destination", "Create Destination link", smallImage, largeImage) {
 
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeConnectionTool(relationshipTypes);
@@ -200,7 +203,7 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createRouteLinkCreationTool() {
+	private ToolEntry createRouteCreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -210,7 +213,7 @@ public class TaiPanPaletteFactory {
 
 		final List relationshipTypes = new ArrayList();
 		relationshipTypes.add(TaiPanElementTypes.Route_3002);
-		return new ToolEntry("Route", "Route", smallImage, largeImage) {
+		return new ToolEntry("Route", "Create Route link", smallImage, largeImage) {
 
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeConnectionTool(relationshipTypes);

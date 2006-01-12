@@ -58,7 +58,7 @@
                enablesFor="1"
                id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanInitDiagramFileActionID">
          </action>
-      </objectContribution>            
+      </objectContribution>  
   </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
@@ -140,4 +140,5 @@
       </IconProvider>
    </extension>
 
+   
 </plugin>
