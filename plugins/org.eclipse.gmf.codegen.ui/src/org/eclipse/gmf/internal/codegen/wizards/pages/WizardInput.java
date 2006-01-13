@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.GMFMapFactory;
@@ -204,10 +205,40 @@ public class WizardInput {
 	}
 
 	private Node findSuitableNode(NodeMapping nm) {
-		return null;
+		String name = nm.getDomainMetaElement() == null ? null : nm.getDomainMetaElement().getName();
+		return (Node) doSearch(myCanvas.getNodes(), name);
 	}
 
 	private Connection findSuitableLink(LinkMapping lm) {
+		String name = null;
+		if (lm.getDomainMetaElement() != null) {
+			name = lm.getDomainMetaElement().getName();
+		} else if (lm.getLinkMetaFeature() != null) {
+			name = lm.getLinkMetaFeature().getEContainingClass().getName();
+		}
+		return (Connection) doSearch(myCanvas.getConnections(), name);
+	}
+
+	private DiagramElement doSearch(List/*<DiagramElement>*/ elements, String namePart) {
+		if (elements.isEmpty()) {
+			return null;
+		}
+		if (namePart != null) {
+			DiagramElement c = matchName(elements, namePart);
+			if (c != null) {
+				return c;
+			}
+		}
+		return (DiagramElement) elements.get(0);
+	}
+
+	private DiagramElement matchName(List/*<DiagramElement>*/ elements, String namePart) {
+		for (Iterator it = elements.iterator(); it.hasNext();) {
+			DiagramElement next = (DiagramElement) it.next();
+			if (next.getName() != null && next.getName().indexOf(namePart) >= 0) {
+				return next;
+			}
+		}
 		return null;
 	}
 
