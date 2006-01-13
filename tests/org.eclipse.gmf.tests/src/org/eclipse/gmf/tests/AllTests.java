@@ -26,6 +26,7 @@ import org.eclipse.gmf.tests.gen.FigureCodegenTest;
 import org.eclipse.gmf.tests.gen.HandcodedImplTest;
 import org.eclipse.gmf.tests.gen.ToolDefHandocodedImplTest;
 import org.eclipse.gmf.tests.gen.ViewmapProducersTest;
+import org.eclipse.gmf.tests.rt.AuditRulesTest;
 import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
@@ -51,7 +52,7 @@ public class AllTests {
 		suite.addTestSuite(ViewmapProducersTest.class);
 		suite.addTestSuite(ToolDefHandocodedImplTest.class);
 		suite.addTestSuite(AuditHandcodedTest.class);		
-		//suite.addTest(feed(AuditRulesTest.class, sessionSetup2));		
+		suite.addTest(feed(AuditRulesTest.class, sessionSetup2));		
 		// fires new runtime workbench initialization
 		suite.addTestSuite(CompilationTest.class);
 
