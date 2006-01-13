@@ -61,4 +61,4 @@ plugin@org.eclipse.emf.query=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/te
 plugin@org.eclipse.emf.query.ocl=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.emft/query/plugins/org.eclipse.emf.query.ocl
 
 !*** TODO: remove when moved to Platform ***
-plugin@org.eclipse.wst.common.ui.properties=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,wst/components/common/plugins/org.eclipse.wst.common.ui.properties
+plugin@org.eclipse.wst.common.ui.properties=v20051209_1800,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,wst/components/common/plugins/org.eclipse.wst.common.ui.properties
