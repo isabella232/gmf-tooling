@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
 public class StructureResolver {
@@ -68,6 +69,11 @@ public class StructureResolver {
 
 	public TypePattern resolve(EClass type) {
 		if (type.isAbstract() || type.isInterface()) {
+			return null;
+		}
+		EReference[] containments = getContainments(type);
+		if (containments.length == 0) {
+			// skip diagram node and other unattached types
 			return null;
 		}
 		EAttribute[] labels = getLabels(type);
@@ -124,6 +130,23 @@ public class StructureResolver {
 			boolean samePackage = refType.getEPackage().equals(type.getEPackage());
 			if (!ref.isDerived() && !ref.isContainer() && !ref.isContainment() && samePackage) {
 				refs.add(ref);
+			}
+		}
+		return (EReference[]) refs.toArray(new EReference[refs.size()]);
+	}
+
+	/**
+	 * Returns list of references that contain this type.
+	 */
+	protected EReference[] getContainments(EClass type) {
+		List refs = new ArrayList();
+		for (Iterator it = type.getEPackage().eAllContents(); it.hasNext();) {
+			EObject element = (EObject) it.next();
+			if (element instanceof EReference) {
+				EReference ref = (EReference) element;
+				if (ref.isContainment() && ref.getEReferenceType().isSuperTypeOf(type) && ref.getEContainingClass() != type) {
+					refs.add(ref);
+				}
 			}
 		}
 		return (EReference[]) refs.toArray(new EReference[refs.size()]);
