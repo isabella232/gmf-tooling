@@ -17,6 +17,7 @@ import java.util.Iterator;
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
+import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
@@ -147,12 +148,12 @@ public class EntriesPage extends WizardPage {
 		private SelectionListener myListListener = new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				final boolean nodeSelected = e.widget == nodesList;
-				asNodeButton.setEnabled(!nodeSelected);
 				asLinkButton.setEnabled(nodeSelected);
 				removeButton.setEnabled(true);
 				changeDetailsButton.setEnabled(true);
 				restoreButton.setEnabled(true);
 				if (nodeSelected) {
+					asNodeButton.setEnabled(false);
 					assert nodesList.getSelectionIndex() != -1;
 					selectedEntry = (NodeMapping) getMapInstance().getNodes().get(nodesList.getSelectionIndex());
 					refreshNodeDetails();
@@ -161,6 +162,7 @@ public class EntriesPage extends WizardPage {
 					// e.widget == linksList
 					assert linksList.getSelectionIndex() != -1;
 					selectedEntry =(LinkMapping) getMapInstance().getLinks().get(linksList.getSelectionIndex());
+					asNodeButton.setEnabled(selectedEntry.getDomainMetaElement() != null);
 					refreshLinkDetails();
 					nodesList.deselectAll();
 				}
@@ -337,9 +339,45 @@ public class EntriesPage extends WizardPage {
 			asNodeButton = new Button(composite, SWT.NONE);
 			asNodeButton.setText("As node <--");
 			asNodeButton.setEnabled(false);
+			asNodeButton.addListener(SWT.Selection, new Listener() {
+				public void handleEvent(Event event) {
+					NodeMapping nm = GMFMapFactory.eINSTANCE.createNodeMapping();
+					nm.setDomainMetaElement(selectedEntry.getDomainMetaElement());
+					nm.setContainmentFeature(selectedEntry.getContainmentFeature());
+					nm.setDomainInitializer(selectedEntry.getDomainInitializer());
+					nm.setDomainSpecialization(selectedEntry.getDomainSpecialization());
+					final LinkMapping linkMapping = (LinkMapping) selectedEntry;
+					nm.setEditFeature(linkMapping.getLabelEditFeature());
+					nm.setTool(linkMapping.getTool());
+					nm.setContextMenu(linkMapping.getContextMenu());
+					nm.setAppearanceStyle(linkMapping.getAppearanceStyle());
+					getMapInstance().getNodes().add(nm);
+					linksList.remove(linksList.getSelectionIndex());
+					nodesList.add(myLabelProvider.getText(nm));
+					nodesList.select(nodesList.getItemCount() - 1);
+				}
+			});
 			asLinkButton = new Button(composite, SWT.NONE);
 			asLinkButton.setText("As link  -->");
 			asLinkButton.setEnabled(false);
+			asLinkButton.addListener(SWT.Selection, new Listener() {
+				public void handleEvent(Event event) {
+					LinkMapping lm = GMFMapFactory.eINSTANCE.createLinkMapping();
+					lm.setDomainMetaElement(selectedEntry.getDomainMetaElement());
+					lm.setContainmentFeature(selectedEntry.getContainmentFeature());
+					lm.setDomainInitializer(selectedEntry.getDomainInitializer());
+					lm.setDomainSpecialization(selectedEntry.getDomainSpecialization());
+					final NodeMapping nodeMapping = (NodeMapping) selectedEntry;
+					lm.setLabelEditFeature(nodeMapping.getEditFeature());
+					lm.setTool(nodeMapping.getTool());
+					lm.setContextMenu(nodeMapping.getContextMenu());
+					lm.setAppearanceStyle(nodeMapping.getAppearanceStyle());
+					getMapInstance().getLinks().add(lm);
+					nodesList.remove(nodesList.getSelectionIndex());
+					linksList.add(myLabelProvider.getText(lm));
+					linksList.select(linksList.getItemCount() - 1);
+				}
+			});
 			removeButton = new Button(composite, SWT.NONE);
 			removeButton.setText("Remove");
 			removeButton.setEnabled(false);
