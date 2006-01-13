@@ -17,8 +17,10 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.DecorationFigure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
@@ -50,28 +52,51 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 			FigureGallery fGallery = gmfGraphFactory.createFigureGallery();
 			fGallery.setName("default");
 			canvas.getFigures().add(fGallery);
-			for (Iterator ePackageIt = ePackage.eContents().iterator(); ePackageIt.hasNext();) {
+			for (Iterator ePackageIt = ePackage.eAllContents(); ePackageIt.hasNext();) {
 				EObject ePackageObj = (EObject) ePackageIt.next();
 				if (!viewer.getChecked(ePackageObj)) {
 					continue;
 				}
 				if (ePackageObj instanceof EClass) {
 					TypePattern pattern = resolver.resolve((EClass) ePackageObj);
+					String baseName = pattern.getType().getName();
 					if (pattern instanceof NodePattern) {
 						Rectangle figure = gmfGraphFactory.createRectangle();
-						figure.setName(pattern.getType().getName() + "Figure");
+						figure.setName(baseName + "Figure");
 						fGallery.getFigures().add(figure);
 						Node dElement = gmfGraphFactory.createNode();
 						dElement.setFigure(figure);
-						dElement.setName(pattern.getType().getName() + "Node");
+						dElement.setName(baseName + "Node");
 						canvas.getNodes().add(dElement);
 					} else if (pattern instanceof TypeLinkPattern) {
 						PolylineConnection figure = gmfGraphFactory.createPolylineConnection();
-						figure.setName(pattern.getType().getName() + "Figure");
+						figure.setName(baseName + "Figure");
 						fGallery.getFigures().add(figure);
 						Connection dElement = gmfGraphFactory.createConnection();
 						dElement.setFigure(figure);
-						dElement.setName(pattern.getType().getName() + "Link");
+						dElement.setName(baseName + "Link");
+						canvas.getConnections().add(dElement);
+					}
+				} else if (ePackageObj instanceof EReference) {
+					EReference ref = (EReference) ePackageObj;
+					TypePattern pattern = resolver.resolve(ref.getEContainingClass());
+					String baseName = pattern.getType().getName();
+					if (ref.getName().length() > 0) {
+						baseName += Character.toUpperCase(ref.getName().charAt(0));
+					}
+					if (ref.getName().length() > 1) {
+						baseName += ref.getName().substring(1);
+					}
+					if (pattern instanceof NodePattern) {
+						PolylineConnection figure = gmfGraphFactory.createPolylineConnection();
+						figure.setName(baseName + "Figure");
+						DecorationFigure decoration = gmfGraphFactory.createPolylineDecoration();
+						decoration.setName(baseName + "TargetDecoration");
+						figure.setTargetDecoration(decoration);
+						fGallery.getFigures().add(figure);
+						Connection dElement = gmfGraphFactory.createConnection();
+						dElement.setFigure(figure);
+						dElement.setName(baseName + "Link");
 						canvas.getConnections().add(dElement);
 					}
 				}
