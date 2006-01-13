@@ -17,9 +17,13 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.gmf.internal.codegen.resolver.NodePattern;
 import org.eclipse.gmf.internal.codegen.resolver.StructureResolver;
+import org.eclipse.gmf.internal.codegen.resolver.TypePattern;
 import org.eclipse.gmf.tooldef.CreationTool;
 import org.eclipse.gmf.tooldef.Palette;
+import org.eclipse.gmf.tooldef.ToolGroup;
 import org.eclipse.gmf.tooldef.ToolRegistry;
 import org.eclipse.gmf.tooldef.presentation.GMFToolModelWizard;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
@@ -42,19 +46,41 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 		if (ePackage != null) {
 			Palette palette = gmfToolFactory.createPalette();
 			toolRegistry.setPalette(palette);
-			for (Iterator ePackageIt = ePackage.eContents().iterator(); ePackageIt.hasNext();) {
+			ToolGroup group = gmfToolFactory.createToolGroup();
+			group.setTitle(ePackage.getName());
+			palette.getTools().add(group);
+			for (Iterator ePackageIt = ePackage.eAllContents(); ePackageIt.hasNext();) {
 				EObject ePackageObj = (EObject) ePackageIt.next();
 				if (!viewer.getChecked(ePackageObj)) {
 					continue;
 				}
 				if (ePackageObj instanceof EClass) {
 					EClass eClass = (EClass) ePackageObj;
+					String baseName = eClass.getName();
 					CreationTool tool = gmfToolFactory.createCreationTool();
-					tool.setTitle(eClass.getName());
-					tool.setDescription("Create new " + eClass.getName());
+					tool.setTitle(baseName);
+					tool.setDescription("Create new " + baseName);
 					tool.setSmallIcon(gmfToolFactory.createDefaultImage());
 					tool.setLargeIcon(gmfToolFactory.createDefaultImage());
-					palette.getTools().add(tool);
+					group.getTools().add(tool);
+				} else if (ePackageObj instanceof EReference) {
+					EReference ref = (EReference) ePackageObj;
+					TypePattern pattern = resolver.resolve(ref.getEContainingClass());
+					String baseName = pattern.getType().getName();
+					if (ref.getName().length() > 0) {
+						baseName += Character.toUpperCase(ref.getName().charAt(0));
+					}
+					if (ref.getName().length() > 1) {
+						baseName += ref.getName().substring(1);
+					}
+					if (pattern instanceof NodePattern) {
+						CreationTool tool = gmfToolFactory.createCreationTool();
+						tool.setTitle(baseName);
+						tool.setDescription("Create new " + baseName);
+						tool.setSmallIcon(gmfToolFactory.createDefaultImage());
+						tool.setLargeIcon(gmfToolFactory.createDefaultImage());
+						group.getTools().add(tool);
+					}
 				}
 			}
 		}
