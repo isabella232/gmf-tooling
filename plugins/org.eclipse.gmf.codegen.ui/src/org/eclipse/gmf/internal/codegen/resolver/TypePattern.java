@@ -14,7 +14,7 @@ package org.eclipse.gmf.internal.codegen.resolver;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 
-public abstract class TypePattern implements DiagramElementPattern {
+public abstract class TypePattern {
 
 	private EClass type;
 

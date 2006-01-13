@@ -73,7 +73,7 @@ public class StructureResolver {
 		// heuristics : type that has containment feature(s) is likely a node
 		// heuristics : guess node by vocabulary
 		if (refs.length == 0 || !type.getEAllContainments().isEmpty() || guessNode(type)) {
-			return new NodePattern(type, labels);
+			return new NodePattern(type, labels, refs);
 		}
 		EReference source;
 		EReference target;
@@ -104,14 +104,20 @@ public class StructureResolver {
 		return (EAttribute[]) attrs.toArray(new EAttribute[attrs.size()]);
 	}
 
+	/**
+	 * Finds all potential references. Such references are not containments,
+	 * have multiplicity 1 and have type from the same package as the host type;
+	 * thus they may connect types as links on diagram surface.
+	 */
 	protected EReference[] getEAllPotentialRefs(EClass type, boolean excludeSelf) {
 		List refs = new ArrayList();
 		for (Iterator it = type.getEAllReferences().iterator(); it.hasNext();) {
 			EReference ref = (EReference) it.next();
-			if (excludeSelf && ref.getEReferenceType().isSuperTypeOf(type)) {
+			EClass refType = ref.getEReferenceType();
+			if (excludeSelf && refType.isSuperTypeOf(type)) {
 				continue;
 			}
-			if (!ref.isContainment() && !ref.isMany()) {
+			if (!ref.isContainment() && !ref.isMany() && refType.getEPackage().equals(type.getEPackage())) {
 				refs.add(ref);
 			}
 		}

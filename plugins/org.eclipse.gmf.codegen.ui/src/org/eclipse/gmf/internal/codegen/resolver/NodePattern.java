@@ -13,10 +13,18 @@ package org.eclipse.gmf.internal.codegen.resolver;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EReference;
 
 public class NodePattern extends TypePattern {
 
-	public NodePattern(EClass type, EAttribute[] labels) {
+	private EReference[] refLinks;
+
+	public NodePattern(EClass type, EAttribute[] labels, EReference[] refLinks) {
 		super(type, labels);
+		this.refLinks = refLinks;
+	}
+
+	public EReference[] getRefLinks() {
+		return refLinks;
 	}
 }

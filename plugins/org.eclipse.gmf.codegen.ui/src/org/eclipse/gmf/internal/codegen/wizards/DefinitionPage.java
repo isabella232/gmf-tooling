@@ -16,6 +16,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -101,6 +102,8 @@ public class DefinitionPage extends WizardPage {
 					} else if (pattern instanceof TypeLinkPattern) {
 						label += " : Link";
 					}
+				} else if (object instanceof EReference) {
+					label += " : Link";
 				}
 				return label;
 			}
@@ -119,6 +122,17 @@ public class DefinitionPage extends WizardPage {
 			return true;
 		} else if (element instanceof EClass) {
 			return true;
+		} else if (element instanceof EReference) {
+			EReference ref = (EReference) element;
+			TypePattern pattern = resolver.resolve(ref.getEContainingClass());
+			if (pattern instanceof NodePattern) {
+				EReference[] refLinks = ((NodePattern) pattern).getRefLinks();
+				for (int i = 0; i < refLinks.length; i++) {
+					if (refLinks[i] == ref) {
+						return true;
+					}
+				}
+			}
 		}
 		return false;
 	}
