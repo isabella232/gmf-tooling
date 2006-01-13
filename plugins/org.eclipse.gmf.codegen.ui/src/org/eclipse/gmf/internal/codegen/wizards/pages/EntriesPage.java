@@ -101,6 +101,7 @@ public class EntriesPage extends WizardPage {
 		private Label diagramElementLabel = null;
 		private Label metaElementLabel;
 		private Label containmentLabel;
+		private Label linkMetaFeatureLabel;
 
 		private MappingEntry selectedEntry;
 		private final ILabelProvider myLabelProvider = new LabelProvider() {
@@ -280,11 +281,15 @@ public class EntriesPage extends WizardPage {
 			l.setText("Element:");
 			metaElementLabel = new Label(groupStructure, SWT.NONE);
 			metaElementLabel.setLayoutData(newDetailLabelConstraint());
-			metaElementLabel.setText("zffff");
 			l = new Label(groupStructure, SWT.NONE);
 			l.setText("Containment:");
 			containmentLabel = new Label(groupStructure, SWT.NONE);
 			containmentLabel.setLayoutData(newDetailLabelConstraint());
+			l = new Label(groupStructure, SWT.NONE);
+			l.setText("Target Feature:");
+			linkMetaFeatureLabel = new Label(groupStructure, SWT.NONE);
+			linkMetaFeatureLabel.setLayoutData(newDetailLabelConstraint());
+			
 		}
 
 		private void createEditGroup() {
@@ -530,6 +535,7 @@ public class EntriesPage extends WizardPage {
 				diagramElementLabel.setText("");
 			}
 			affix(editFeatureLabel, m.getEditFeature());
+			linkMetaFeatureLabel.setText("");
 		}
 
 		private void refreshLinkDetails() {
@@ -542,6 +548,7 @@ public class EntriesPage extends WizardPage {
 			}
 			affix(editFeatureLabel, l.getLabelEditFeature());
 			affix(displayFeatureLabel, l.getLabelDisplayFeature());
+			affix(linkMetaFeatureLabel, l.getLinkMetaFeature());
 		}
 	}
 }
