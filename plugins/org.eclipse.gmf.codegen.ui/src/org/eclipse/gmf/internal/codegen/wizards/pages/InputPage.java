@@ -77,6 +77,7 @@ public class InputPage extends WizardPage implements Loader {
 		});
 		c = tooldefSelector.createControl(p);
 		c.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		c.setEnabled(false);
 		setControl(p);
 	}
 
@@ -84,17 +85,14 @@ public class InputPage extends WizardPage implements Loader {
 		URI uri = URI.createURI(uriText);
 		Resource r = holder.getResourceSet().getResource(uri, true);
 		if (selector == ecoreSelector) {
-			System.err.println("Ecore:" + uriText);
 			if (r != null && r.getContents().get(0) instanceof EPackage) {
 				holder.setDomainModel((EPackage) r.getContents().get(0));
 			}
 		} else if (selector == gmfgraphSelector) {
-			System.err.println("Graph:" + uriText);
 			if (r != null && r.getContents().get(0) instanceof Canvas) {
 				holder.setGraphDef((Canvas) r.getContents().get(0));
 			}
 		} else {
-			System.err.println("Tool:" + uriText);
 			if (r != null && r.getContents().get(0) instanceof ToolRegistry) {
 				holder.setToolDef((ToolRegistry) r.getContents().get(0));
 			}
