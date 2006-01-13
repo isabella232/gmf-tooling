@@ -357,6 +357,7 @@ public class EntriesPage extends WizardPage {
 					nm.setContextMenu(linkMapping.getContextMenu());
 					nm.setAppearanceStyle(linkMapping.getAppearanceStyle());
 					getMapInstance().getNodes().add(nm);
+					getMapInstance().getLinks().remove(selectedEntry);
 					linksList.remove(linksList.getSelectionIndex());
 					nodesList.add(myLabelProvider.getText(nm));
 					nodesList.select(nodesList.getItemCount() - 1);
@@ -378,6 +379,7 @@ public class EntriesPage extends WizardPage {
 					lm.setContextMenu(nodeMapping.getContextMenu());
 					lm.setAppearanceStyle(nodeMapping.getAppearanceStyle());
 					getMapInstance().getLinks().add(lm);
+					getMapInstance().getNodes().remove(selectedEntry);
 					nodesList.remove(nodesList.getSelectionIndex());
 					linksList.add(myLabelProvider.getText(lm));
 					linksList.select(linksList.getItemCount() - 1);
