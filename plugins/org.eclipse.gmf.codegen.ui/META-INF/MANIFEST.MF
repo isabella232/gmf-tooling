@@ -11,6 +11,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.gmf.bridge,
  org.eclipse.emf.ecore.edit,
  org.eclipse.emf.ecore.xmi,
- org.eclipse.gmf.graphdef.edit
+ org.eclipse.gmf.graphdef.edit,
+ org.eclipse.gmf.tooldef.edit
 Eclipse-LazyStart: true
 Bundle-Vendor: %providerName

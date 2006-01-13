@@ -18,31 +18,28 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.gmfgraph.Canvas;
-import org.eclipse.gmf.gmfgraph.FigureGallery;
-import org.eclipse.gmf.gmfgraph.Node;
-import org.eclipse.gmf.gmfgraph.Rectangle;
-import org.eclipse.gmf.gmfgraph.presentation.GMFGraphModelWizard;
+import org.eclipse.gmf.tooldef.CreationTool;
+import org.eclipse.gmf.tooldef.Palette;
+import org.eclipse.gmf.tooldef.ToolRegistry;
+import org.eclipse.gmf.tooldef.presentation.GMFToolModelWizard;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
-public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
+public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 
 	protected DomainModelSelectionPage domainModelSelectionPage;
 
-	protected GraphicalDefinitionPage graphicalDefinitionPage;
+	protected ToolDefinitionPage toolDefinitionPage;
 
 	protected EObject createInitialModel() {
-		Canvas canvas = (Canvas) gmfGraphFactory.createCanvas();
-		CheckboxTreeViewer viewer = graphicalDefinitionPage.getViewer();
+		ToolRegistry toolRegistry = (ToolRegistry) gmfToolFactory.createToolRegistry();
+		CheckboxTreeViewer viewer = toolDefinitionPage.getViewer();
 		EPackage ePackage = (EPackage) viewer.getInput();
 		if (ePackage != null) {
-			canvas.setName(ePackage.getName());
-			FigureGallery fGallery = gmfGraphFactory.createFigureGallery();
-			fGallery.setName("default");
-			canvas.getFigures().add(fGallery);
+			Palette palette = gmfToolFactory.createPalette();
+			toolRegistry.setPalette(palette);
 			for (Iterator ePackageIt = ePackage.eContents().iterator(); ePackageIt.hasNext();) {
 				EObject ePackageObj = (EObject) ePackageIt.next();
 				if (!viewer.getChecked(ePackageObj)) {
@@ -50,17 +47,16 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 				}
 				if (ePackageObj instanceof EClass) {
 					EClass eClass = (EClass) ePackageObj;
-					Rectangle figure = gmfGraphFactory.createRectangle();
-					figure.setName(eClass.getName() + "Figure");
-					fGallery.getFigures().add(figure);
-					Node dElement = gmfGraphFactory.createNode();
-					dElement.setFigure(figure);
-					dElement.setName(eClass.getName() + "Node");
-					canvas.getNodes().add(dElement);
+					CreationTool tool = gmfToolFactory.createCreationTool();
+					tool.setTitle(eClass.getName());
+					tool.setDescription("Create new " + eClass.getName());
+					tool.setSmallIcon(gmfToolFactory.createDefaultImage());
+					tool.setLargeIcon(gmfToolFactory.createDefaultImage());
+					palette.getTools().add(tool);
 				}
 			}
 		}
-		return canvas;
+		return toolRegistry;
 	}
 
 	public void addPages() {
@@ -69,7 +65,7 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 		if (selection != null && !selection.isEmpty()) {
 			Object selected = selection.getFirstElement();
 			if (selected instanceof IFile) {
-				newFileCreationPage.setFileName(WizardUtil.getDefaultFileName((IFile) selected, "gmfgraph"));
+				newFileCreationPage.setFileName(WizardUtil.getDefaultFileName((IFile) selected, "gmftool"));
 			}
 		}
 
@@ -81,10 +77,10 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 		domainModelSelectionPage.setDescription("Select file with ecore domain model");
 		addPage(domainModelSelectionPage);
 
-		graphicalDefinitionPage = new GraphicalDefinitionPage("GraphicalDefinitionPage", domainModelSelectionPage);
-		graphicalDefinitionPage.setTitle("Graphical Definition");
-		graphicalDefinitionPage.setDescription("Specify basic graphical definition of the domain model");
-		addPage(graphicalDefinitionPage);
+		toolDefinitionPage = new ToolDefinitionPage("ToolDefinitionPage", domainModelSelectionPage);
+		toolDefinitionPage.setTitle("Tooling Definition");
+		toolDefinitionPage.setDescription("Specify basic tooling definition of the domain model");
+		addPage(toolDefinitionPage);
 	}
 
 	public void addPage(IWizardPage page) {
@@ -94,7 +90,7 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 		super.addPage(page);
 	}
 
-	public class PredefinedInitialObjectCreationPage extends GMFGraphModelWizardInitialObjectCreationPage {
+	public class PredefinedInitialObjectCreationPage extends GMFToolModelWizardInitialObjectCreationPage {
 
 		public PredefinedInitialObjectCreationPage(String pageId) {
 			super(pageId);
@@ -114,7 +110,7 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 		}
 
 		public String getInitialObjectName() {
-			return gmfGraphPackage.getCanvas().getName();
+			return gmfToolPackage.getToolRegistry().getName();
 		}
 
 		public String getEncoding() {
@@ -122,9 +118,9 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 		}
 	}
 
-	public class GraphicalDefinitionPage extends DefinitionPage {
+	public class ToolDefinitionPage extends DefinitionPage {
 
-		public GraphicalDefinitionPage(String pageId, DomainModelSelectionPage domainModelSelectionPage) {
+		public ToolDefinitionPage(String pageId, DomainModelSelectionPage domainModelSelectionPage) {
 			super(pageId, domainModelSelectionPage);
 		}
 
