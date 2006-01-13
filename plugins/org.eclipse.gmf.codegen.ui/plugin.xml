@@ -60,6 +60,15 @@
       <description>%_UI_GMFToolSimpleModelWizard_description</description>
       <selection class = "org.eclipse.core.resources.IResource" />
     </wizard>
+    <wizard
+      id = "org.eclipse.gmf.internal.codegen.wizards.NewGMFMapModelWizardID"
+      name = "New .gmfmap Model"
+      class = "org.eclipse.gmf.internal.codegen.wizards.NewGMFMapModelWizard"
+      category = "org.eclipse.gmf.Wizard.category.ID"
+      icon = "icons/full/obj16/GMFMapModelFile.gif">
+      <description>Create new GMFMap model with some pre-recognized nodes and links</description>
+      <selection class = "org.eclipse.core.resources.IResource" />
+    </wizard>
   </extension>
 
 </plugin>
