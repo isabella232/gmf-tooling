@@ -62,7 +62,7 @@
     </wizard>
     <wizard
       id = "org.eclipse.gmf.internal.codegen.wizards.NewGMFMapModelWizardID"
-      name = "New .gmfmap Model"
+      name = "Guide GMFMap Creation"
       class = "org.eclipse.gmf.internal.codegen.wizards.NewGMFMapModelWizard"
       category = "org.eclipse.gmf.Wizard.category.ID"
       icon = "icons/full/obj16/GMFMapModelFile.gif">

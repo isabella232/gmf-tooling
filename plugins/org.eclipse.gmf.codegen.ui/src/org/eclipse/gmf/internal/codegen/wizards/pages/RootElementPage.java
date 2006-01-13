@@ -36,6 +36,7 @@ public class RootElementPage extends WizardPage implements Listener {
 
 	public RootElementPage(WizardInput input) {
 		super("rootElementPage");
+		setDescription("Choose element of domain model to act as top-level container, associated with diagram");
 		holder = input;
 		setPageComplete(false);
 	}
@@ -65,7 +66,6 @@ public class RootElementPage extends WizardPage implements Listener {
 			items[i] = next.getName();
 		}
 		elementsList.setItems(items);
-		elementsList.select(0);
 	}
 
 	private Group createGroup1(Composite p) {
