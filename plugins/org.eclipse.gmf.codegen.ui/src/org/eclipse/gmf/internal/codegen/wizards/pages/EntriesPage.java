@@ -110,7 +110,13 @@ public class EntriesPage extends WizardPage {
 					LinkMapping next = (LinkMapping) element;
 					StringBuffer sb = new StringBuffer();
 					if (next.getDomainMetaElement() == null) {
-						sb.append(next.getLinkMetaFeature() == null ? "Link" : next.getLinkMetaFeature().getName());
+						if (next.getLinkMetaFeature() == null) {
+							sb.append("Link");
+						} else {
+							sb.append(next.getLinkMetaFeature().getName());
+							sb.append(" : ");
+							sb.append(next.getLinkMetaFeature().getEContainingClass().getName());
+						}
 					} else {
 						sb.append(next.getDomainMetaElement().getName());
 					}
