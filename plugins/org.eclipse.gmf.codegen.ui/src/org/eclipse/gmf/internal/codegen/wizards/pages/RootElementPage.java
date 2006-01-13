@@ -36,7 +36,6 @@ public class RootElementPage extends WizardPage implements Listener {
 
 	public RootElementPage(WizardInput input) {
 		super("rootElementPage");
-		setDescription("Choose element of domain model to act as top-level container, associated with diagram");
 		holder = input;
 		setPageComplete(false);
 	}

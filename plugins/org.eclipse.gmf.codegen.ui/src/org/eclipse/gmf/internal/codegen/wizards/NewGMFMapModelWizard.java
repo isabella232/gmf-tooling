@@ -52,12 +52,23 @@ public class NewGMFMapModelWizard extends Wizard implements INewWizard {
 
 	public void addPages() {
 		final NewMappingFileCreationPage p = new NewMappingFileCreationPage(selection);
+		p.setTitle("GMFMap Model");
+		p.setDescription("Create a new GMFMap model");
 		addPage(p);
 		resultContainer = p.getResultContainer();
 		myHolder = new WizardInput();
-		addPage(new InputPage(myHolder));
-		addPage(new RootElementPage(myHolder));
-		addPage(new EntriesPage(myHolder));
+		InputPage p1 = new InputPage(myHolder);
+		p1.setTitle("Source Models");
+		p1.setDescription("Select domain, graphical and tooling definition models");
+		addPage(p1);
+		RootElementPage p2 = new RootElementPage(myHolder);
+		p2.setTitle("Diagram Element");
+		p2.setDescription("Choose element of domain model to act as top-level container, associated with diagram");
+		addPage(p2);
+		EntriesPage p3 = new EntriesPage(myHolder);
+		p3.setTitle("Mapping");
+		p3.setDescription("Map domain model elements");
+		addPage(p3);
 	}
 
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
