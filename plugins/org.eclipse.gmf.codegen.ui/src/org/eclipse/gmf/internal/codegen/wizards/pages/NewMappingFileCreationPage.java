@@ -12,6 +12,7 @@ public class NewMappingFileCreationPage extends WizardNewFileCreationPage {
 	public NewMappingFileCreationPage(IStructuredSelection selection) {
 		super("newMappingFileCreationPage", selection);
 		setFileName("Theirs.gmfmap");
+		setDescription("Choose location and file name of a GMFMap model");
 	}
 
 	protected boolean validatePage() {
