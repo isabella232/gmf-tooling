@@ -52,17 +52,14 @@ public class InputPage extends WizardPage implements Loader {
 		l.verticalSpacing = 30;
 		p.setLayout(l);
 		Control c = ecoreSelector.createControl(p);
-		MenuItem ii = new MenuItem(ecoreSelector.getBrowseMenu(), SWT.PUSH);
-		ii.setText("s1");
-		ii.setData("platform:/resource/webdesign_sample/models/test1.ecore");
 		final Listener lll = new Listener() {
 			public void handleEvent(Event event) {
 				ecoreSelector.setURIText((String) event.widget.getData());
 			}
 		};
-		ii.addListener(SWT.Selection, lll);
-		ii = new MenuItem(ecoreSelector.getBrowseMenu(), SWT.PUSH);
-		ii.setText("ecore");
+		new MenuItem(ecoreSelector.getBrowseMenu(), SWT.SEPARATOR);
+		MenuItem ii = new MenuItem(ecoreSelector.getBrowseMenu(), SWT.PUSH);
+		ii.setText("Use ECore");
 		ii.setData("platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore");
 		ii.addListener(SWT.Selection, lll);
 
