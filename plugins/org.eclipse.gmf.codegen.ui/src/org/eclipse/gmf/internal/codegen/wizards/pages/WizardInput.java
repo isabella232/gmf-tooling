@@ -152,6 +152,7 @@ public class WizardInput {
 		CanvasMapping cm;
 		if (getMapping().getDiagram() == null) {
 			cm =  GMFMapFactory.eINSTANCE.createCanvasMapping();
+			cm.setDiagramCanvas(myCanvas);
 			// +palette/gmfgraph.canvas
 		} else {
 			cm = getMapping().getDiagram();
