@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.internal.codegen.wizards.pages;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,7 +20,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.emf.common.command.BasicCommandStack;
+import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -28,24 +33,30 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
+import org.eclipse.emf.edit.domain.EditingDomain;
+import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
+import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
+import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.gmfgraph.provider.GMFGraphItemProviderAdapterFactory;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.provider.GMFMapItemProviderAdapterFactory;
 import org.eclipse.gmf.tooldef.AbstractTool;
 import org.eclipse.gmf.tooldef.ToolRegistry;
+import org.eclipse.gmf.tooldef.provider.GMFToolItemProviderAdapterFactory;
 
 /**
  * @author artem
  */
 public class WizardInput {
-	private ResourceSet resourceSet;
 	private EPackage myDomainModel;
 	private Canvas myCanvas;
 	private ToolRegistry myRegistry;
@@ -53,15 +64,37 @@ public class WizardInput {
 	private List/*<EClass>*/ myNodeCandidates;
 	private List/*<ENamedElement>*/ myLinkCandidates;
 	private Hierarchy myHierarchy;
+	private final IFile[] myResultContainer;
+	private EditingDomain myEditingDomain;
+	private AdapterFactory myAdapterFactory;
 
-	public WizardInput() {
+	public WizardInput(IFile[] resultContainer) {
+		myResultContainer = resultContainer;
+	}
+	
+	public AdapterFactory getAdapterFactory() {
+		if (myAdapterFactory == null) {
+			List factories = new ArrayList();
+			factories.add(new ResourceItemProviderAdapterFactory());
+			factories.add(new GMFMapItemProviderAdapterFactory());
+			factories.add(new GMFGraphItemProviderAdapterFactory());
+			factories.add(new GMFToolItemProviderAdapterFactory());
+			factories.add(new ReflectiveItemProviderAdapterFactory());
+
+			myAdapterFactory = new ComposedAdapterFactory(factories);
+		}
+		return myAdapterFactory;
+	}
+	
+	public EditingDomain getEditingDomain() {
+		if (myEditingDomain == null) {
+			myEditingDomain = new AdapterFactoryEditingDomain(getAdapterFactory(), new BasicCommandStack());
+		}
+		return myEditingDomain;
 	}
 
 	public ResourceSet getResourceSet() {
-		if (resourceSet == null) {
-			resourceSet = new ResourceSetImpl();
-		}
-		return resourceSet;
+		return getEditingDomain().getResourceSet();
 	}
 
 	public void setDomainModel(EPackage aPackage) {
@@ -82,6 +115,8 @@ public class WizardInput {
 	public Mapping getMapping() {
 		if (mapInstance == null) {
 			mapInstance = GMFMapFactory.eINSTANCE.createMapping();
+			URI res = URI.createPlatformResourceURI(myResultContainer[0].getFullPath().toString());
+			getResourceSet().createResource(res).getContents().add(mapInstance);
 		}
 		return mapInstance;
 	}
@@ -94,7 +129,7 @@ public class WizardInput {
 		if (eobj == null) {
 			return;
 		}
-		if (eobj.eResource().getResourceSet() == resourceSet && eobj.eResource().isLoaded()) {
+		if (eobj.eResource().getResourceSet() == getResourceSet() && eobj.eResource().isLoaded()) {
 			eobj.eResource().unload();
 		}
 	}

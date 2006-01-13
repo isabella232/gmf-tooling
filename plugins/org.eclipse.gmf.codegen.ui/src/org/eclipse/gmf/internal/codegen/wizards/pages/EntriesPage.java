@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.ENamedElement;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.GMFMapFactory;
@@ -22,11 +23,14 @@ import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.NodeMapping;
-import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -38,12 +42,16 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ListDialog;
+import org.eclipse.ui.views.properties.PropertySheetPage;
 
 /**
  * @author artem
@@ -265,7 +273,11 @@ public class EntriesPage extends WizardPage {
 			changeDetailsButton.setText("Change...");
 			changeDetailsButton.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent e) {
-					MessageDialog.openInformation(getShell(), "Mapping Details", "Please use EMF-generated editor to modify values for a while...");
+					ChangePropertiesDialog changePropertiesDialog = new ChangePropertiesDialog(getShell(), new Object[] {selectedEntry});
+					int result = changePropertiesDialog.open();
+					if (result == Window.OK) {
+// TODO: save values to the model here
+					}
 				}
 			});
 			GridData gridData8 = new GridData();
@@ -558,5 +570,41 @@ public class EntriesPage extends WizardPage {
 			affix(displayFeatureLabel, l.getLabelDisplayFeature());
 			affix(linkMetaFeatureLabel, l.getLinkMetaFeature());
 		}
+	}
+	
+	private class ChangePropertiesDialog extends Dialog {
+
+		private Object[] mySelection;
+
+		protected ChangePropertiesDialog(Shell parentShell, Object[] selection) {
+			super(parentShell);
+			setShellStyle(getShellStyle() | SWT.RESIZE);
+			mySelection = selection;
+		}
+
+		protected Control createDialogArea(Composite parent) {
+			Composite composite = (Composite) super.createDialogArea(parent);
+			Composite frame = new Composite(composite, SWT.BORDER);
+			GridData layoutData = new GridData(GridData.FILL_BOTH);
+			layoutData.heightHint = 300;
+			layoutData.widthHint = 400;
+			frame.setLayoutData(layoutData);
+			GridLayout layout = new GridLayout();
+			layout.marginHeight = 0;
+			layout.marginWidth = 0;
+			frame.setLayout(layout);
+			
+			PropertySheetPage propertyPage = new PropertySheetPage();
+			propertyPage.createControl(frame);
+			propertyPage.setPropertySourceProvider(new AdapterFactoryContentProvider(myHolder.getAdapterFactory()));
+			propertyPage.selectionChanged(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getPartService().getActivePart(), new StructuredSelection(mySelection));
+			propertyPage.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
+			return composite;
+		}
+		
+		protected void createButtonsForButtonBar(Composite parent) {
+			createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
+		}
+		
 	}
 }

@@ -15,13 +15,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.gmf.internal.codegen.wizards.pages.EntriesPage;
 import org.eclipse.gmf.internal.codegen.wizards.pages.InputPage;
@@ -43,8 +40,6 @@ public class NewGMFMapModelWizard extends Wizard implements INewWizard {
 
 	private WizardInput myHolder;
 
-	private IFile[] resultContainer;
-
 	public NewGMFMapModelWizard() {
 		setNeedsProgressMonitor(true);
 		setWindowTitle("Ecore to GMFGraph model");
@@ -55,8 +50,7 @@ public class NewGMFMapModelWizard extends Wizard implements INewWizard {
 		p.setTitle("GMFMap Model");
 		p.setDescription("Create a new GMFMap model");
 		addPage(p);
-		resultContainer = p.getResultContainer();
-		myHolder = new WizardInput();
+		myHolder = new WizardInput(p.getResultContainer());
 		InputPage p1 = new InputPage(myHolder);
 		p1.setTitle("Source Models");
 		p1.setDescription("Select domain, graphical and tooling definition models");
@@ -79,12 +73,9 @@ public class NewGMFMapModelWizard extends Wizard implements INewWizard {
 		WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
 			protected void execute(IProgressMonitor progressMonitor) {
 				try {
-					URI res = URI.createPlatformResourceURI(resultContainer[0].getFullPath().toString());
-					Resource r = myHolder.getResourceSet().createResource(res);
-					r.getContents().add(myHolder.getMapping());
 					Map options = new HashMap();
 					options.put(XMLResource.OPTION_ENCODING, "UTF-8");
-					r.save(options);
+					myHolder.getMapping().eResource().save(options);
 				} catch (Exception ex) {
 					IStatus s = new Status(IStatus.ERROR, "org.eclipse.gmf.codegen.ui", 0, ex.getMessage(), ex);
 					Platform.getLog(Platform.getBundle("org.eclipse.gmf.codegen.ui")).log(s);
