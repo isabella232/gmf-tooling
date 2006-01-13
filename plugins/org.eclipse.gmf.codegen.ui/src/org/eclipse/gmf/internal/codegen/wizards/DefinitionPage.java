@@ -121,7 +121,10 @@ public class DefinitionPage extends WizardPage {
 		if (element instanceof EPackage) {
 			return true;
 		} else if (element instanceof EClass) {
-			return true;
+			TypePattern pattern = resolver.resolve((EClass) element);
+			if (pattern != null) {
+				return true;
+			}
 		} else if (element instanceof EReference) {
 			EReference ref = (EReference) element;
 			TypePattern pattern = resolver.resolve(ref.getEContainingClass());

@@ -67,12 +67,16 @@ public class StructureResolver {
 	}
 
 	public TypePattern resolve(EClass type) {
+		if (type.isAbstract() || type.isInterface()) {
+			return null;
+		}
 		EAttribute[] labels = getLabels(type);
 		EReference[] refs = getEAllPotentialRefs(type, true);
 		// heuristics : type without refs is a node
 		// heuristics : type that has containment feature(s) is likely a node
 		// heuristics : guess node by vocabulary
 		if (refs.length == 0 || !type.getEAllContainments().isEmpty() || guessNode(type)) {
+			refs = getEAllPotentialRefs(type, false);
 			return new NodePattern(type, labels, refs);
 		}
 		EReference source;
@@ -105,19 +109,20 @@ public class StructureResolver {
 	}
 
 	/**
-	 * Finds all potential references. Such references are not containments,
-	 * have multiplicity 1 and have type from the same package as the host type;
-	 * thus they may connect types as links on diagram surface.
+	 * Finds all potential references. Such references are not containers,
+	 * containments, derived and have type from the same package as the host
+	 * type; thus they may connect types as links on diagram surface.
 	 */
-	protected EReference[] getEAllPotentialRefs(EClass type, boolean excludeSelf) {
+	protected EReference[] getEAllPotentialRefs(EClass type, boolean forLink) {
 		List refs = new ArrayList();
 		for (Iterator it = type.getEAllReferences().iterator(); it.hasNext();) {
 			EReference ref = (EReference) it.next();
 			EClass refType = ref.getEReferenceType();
-			if (excludeSelf && refType.isSuperTypeOf(type)) {
+			if (forLink && (refType.isSuperTypeOf(type) || ref.isMany())) {
 				continue;
 			}
-			if (!ref.isContainment() && !ref.isMany() && refType.getEPackage().equals(type.getEPackage())) {
+			boolean samePackage = refType.getEPackage().equals(type.getEPackage());
+			if (!ref.isDerived() && !ref.isContainer() && !ref.isContainment() && samePackage) {
 				refs.add(ref);
 			}
 		}
