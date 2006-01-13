@@ -68,17 +68,29 @@ public class StructureResolver {
 
 	public TypePattern resolve(EClass type) {
 		EAttribute[] labels = getLabels(type);
-		EReference[] refs = getEAllNonContainments(type, true);
-		if (refs.length < 2 || guessNode(type)) {
+		EReference[] refs = getEAllPotentialRefs(type, true);
+		// heuristics : type without refs is a node
+		// heuristics : type that has containment feature(s) is likely a node
+		// heuristics : guess node by vocabulary
+		if (refs.length == 0 || !type.getEAllContainments().isEmpty() || guessNode(type)) {
 			return new NodePattern(type, labels);
 		}
-		EReference source = guessLinkSource(refs);
-		EReference target = guessLinkTarget(refs);
-		if (source == null) {
-			source = target == refs[0] ? refs[1] : refs[0];
-		}
-		if (target == null) {
-			target = source == refs[1] ? refs[0] : refs[1];
+		EReference source;
+		EReference target;
+		if (refs.length == 1) {
+			// heuristics : one ref is target; source is container
+			source = null;
+			target = refs[0];
+		} else {
+			// heuristics : guess source and target refs by vocabulary
+			source = guessLinkSource(refs);
+			target = guessLinkTarget(refs);
+			if (source == null) {
+				source = target == refs[0] ? refs[1] : refs[0];
+			}
+			if (target == null) {
+				target = source == refs[1] ? refs[0] : refs[1];
+			}
 		}
 		return new TypeLinkPattern(type, labels, source, target);
 	}
@@ -92,7 +104,7 @@ public class StructureResolver {
 		return (EAttribute[]) attrs.toArray(new EAttribute[attrs.size()]);
 	}
 
-	protected EReference[] getEAllNonContainments(EClass type, boolean excludeSelf) {
+	protected EReference[] getEAllPotentialRefs(EClass type, boolean excludeSelf) {
 		List refs = new ArrayList();
 		for (Iterator it = type.getEAllReferences().iterator(); it.hasNext();) {
 			EReference ref = (EReference) it.next();
