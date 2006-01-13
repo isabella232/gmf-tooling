@@ -28,9 +28,9 @@
 		<topic label="org.eclipse.gmf.runtime.emf.core.MetaModelProviders" href="reference/extension-points/org_eclipse_gmf_runtime_emf_core_MetaModelProviders.html" />
 		<topic label="org.eclipse.gmf.runtime.emf.core.Pathmaps" href="reference/extension-points/org_eclipse_gmf_runtime_emf_core_Pathmaps.html" />
 		<topic label="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders" href="reference/extension-points/org_eclipse_gmf_runtime_emf_ui_modelingAssistantProviders.html" />
-		<topic label="org.eclipse.gmf.runtime.emf.core.resourcePolicies" href="org_eclipse_gmf_runtime_emf_core_resourcePolicies.html" />
+		<topic label="org.eclipse.gmf.runtime.emf.core.resourcePolicies" href="reference/extension-points/org_eclipse_gmf_runtime_emf_core_resourcePolicies.html" />
 		<topic label="org.eclipse.gmf.runtime.emf.clipboard.core.clipboardSupport" href="reference/extension-points/org_eclipse_gmf_runtime_emf_clipboard_core_clipboardSupport.html" />
-		<topic label="org.eclipse.gmf.runtime.emf.type.core.elementTypes" href="reference/extension-points/org_eclipse_gmf_runtime_emf_type_elementTypes.html" />
+		<topic label="org.eclipse.gmf.runtime.emf.type.core.elementTypes" href="reference/extension-points/org_eclipse_gmf_runtime_emf_type_core_elementTypes.html" />
 		<topic label="org.eclipse.emf.validation.constraintBindings" href="reference/extension-points/org_eclipse_emf_validation_constraintBindings.html" />
 		<topic label="org.eclipse.emf.validation.constraintProviders" href="reference/extension-points/org_eclipse_emf_validation_constraintProviders.html" />
 		<topic label="org.eclipse.emf.validation.constraintParsers" href="reference/extension-points/org_eclipse_emf_validation_constraintParsers.html" />
