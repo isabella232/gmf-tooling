@@ -88,6 +88,7 @@ public class DomainModelSelectionPage extends WizardPage {
 					}
 				} catch (Exception e) {
 				}
+				setPageComplete(validatePage());
 			}
 		});
 		Button button = new Button(composite, SWT.PUSH);
@@ -106,6 +107,7 @@ public class DomainModelSelectionPage extends WizardPage {
 					} else {
 						file = null;
 					}
+					setPageComplete(validatePage());
 				}
 			}
 
