@@ -14,12 +14,17 @@ package org.eclipse.gmf.internal.codegen.wizards;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
+import org.eclipse.gmf.internal.codegen.resolver.NodePattern;
+import org.eclipse.gmf.internal.codegen.resolver.StructureResolver;
+import org.eclipse.gmf.internal.codegen.resolver.TypeLinkPattern;
+import org.eclipse.gmf.internal.codegen.resolver.TypePattern;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.wizard.WizardPage;
@@ -31,6 +36,8 @@ import org.eclipse.swt.widgets.Label;
 
 public class DefinitionPage extends WizardPage {
 
+	private StructureResolver resolver;
+
 	private DomainModelSelectionPage domainModelSelectionPage;
 
 	private IFile file;
@@ -39,8 +46,9 @@ public class DefinitionPage extends WizardPage {
 
 	protected StructuredViewer viewer;
 
-	public DefinitionPage(String pageId, DomainModelSelectionPage domainModelSelectionPage) {
+	public DefinitionPage(String pageId, StructureResolver resolver, DomainModelSelectionPage domainModelSelectionPage) {
 		super(pageId);
+		this.resolver = resolver;
 		this.domainModelSelectionPage = domainModelSelectionPage;
 	}
 
@@ -82,7 +90,21 @@ public class DefinitionPage extends WizardPage {
 	protected StructuredViewer createViewer(Composite parent) {
 		StructuredViewer viewer = new CheckboxTreeViewer(parent);
 		AdapterFactory adapterFactory = new EcoreItemProviderAdapterFactory();
-		viewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory));
+		viewer.setLabelProvider(new AdapterFactoryLabelProvider(adapterFactory) {
+
+			public String getText(Object object) {
+				String label = super.getText(object);
+				if (object instanceof EClass) {
+					TypePattern pattern = resolver.resolve((EClass) object);
+					if (pattern instanceof NodePattern) {
+						label += " : Node";
+					} else if (pattern instanceof TypeLinkPattern) {
+						label += " : Link";
+					}
+				}
+				return label;
+			}
+		});
 		viewer.setContentProvider(new FilteredAdapterFactoryContentProvider(adapterFactory) {
 
 			protected boolean isShown(Object element) {
@@ -93,7 +115,12 @@ public class DefinitionPage extends WizardPage {
 	}
 
 	protected boolean isDomainElementShown(Object element) {
-		return true;
+		if (element instanceof EPackage) {
+			return true;
+		} else if (element instanceof EClass) {
+			return true;
+		}
+		return false;
 	}
 
 	protected void createAdditionalControls(Composite parent) {

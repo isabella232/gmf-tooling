@@ -17,12 +17,17 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.gmfgraph.Canvas;
+import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.Node;
+import org.eclipse.gmf.gmfgraph.PolylineConnection;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.presentation.GMFGraphModelWizard;
+import org.eclipse.gmf.internal.codegen.resolver.NodePattern;
+import org.eclipse.gmf.internal.codegen.resolver.StructureResolver;
+import org.eclipse.gmf.internal.codegen.resolver.TypeLinkPattern;
+import org.eclipse.gmf.internal.codegen.resolver.TypePattern;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
@@ -33,6 +38,8 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 	protected DomainModelSelectionPage domainModelSelectionPage;
 
 	protected GraphicalDefinitionPage graphicalDefinitionPage;
+
+	protected StructureResolver resolver;
 
 	protected EObject createInitialModel() {
 		Canvas canvas = (Canvas) gmfGraphFactory.createCanvas();
@@ -49,14 +56,24 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 					continue;
 				}
 				if (ePackageObj instanceof EClass) {
-					EClass eClass = (EClass) ePackageObj;
-					Rectangle figure = gmfGraphFactory.createRectangle();
-					figure.setName(eClass.getName() + "Figure");
-					fGallery.getFigures().add(figure);
-					Node dElement = gmfGraphFactory.createNode();
-					dElement.setFigure(figure);
-					dElement.setName(eClass.getName() + "Node");
-					canvas.getNodes().add(dElement);
+					TypePattern pattern = resolver.resolve((EClass) ePackageObj);
+					if (pattern instanceof NodePattern) {
+						Rectangle figure = gmfGraphFactory.createRectangle();
+						figure.setName(pattern.getType().getName() + "Figure");
+						fGallery.getFigures().add(figure);
+						Node dElement = gmfGraphFactory.createNode();
+						dElement.setFigure(figure);
+						dElement.setName(pattern.getType().getName() + "Node");
+						canvas.getNodes().add(dElement);
+					} else if (pattern instanceof TypeLinkPattern) {
+						PolylineConnection figure = gmfGraphFactory.createPolylineConnection();
+						figure.setName(pattern.getType().getName() + "Figure");
+						fGallery.getFigures().add(figure);
+						Connection dElement = gmfGraphFactory.createConnection();
+						dElement.setFigure(figure);
+						dElement.setName(pattern.getType().getName() + "Link");
+						canvas.getConnections().add(dElement);
+					}
 				}
 			}
 		}
@@ -81,7 +98,7 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 		domainModelSelectionPage.setDescription("Select file with ecore domain model");
 		addPage(domainModelSelectionPage);
 
-		graphicalDefinitionPage = new GraphicalDefinitionPage("GraphicalDefinitionPage", domainModelSelectionPage);
+		graphicalDefinitionPage = new GraphicalDefinitionPage("GraphicalDefinitionPage", resolver = new StructureResolver(), domainModelSelectionPage);
 		graphicalDefinitionPage.setTitle("Graphical Definition");
 		graphicalDefinitionPage.setDescription("Specify basic graphical definition of the domain model");
 		addPage(graphicalDefinitionPage);
@@ -124,19 +141,8 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 
 	public class GraphicalDefinitionPage extends DefinitionPage {
 
-		public GraphicalDefinitionPage(String pageId, DomainModelSelectionPage domainModelSelectionPage) {
-			super(pageId, domainModelSelectionPage);
-		}
-
-		protected boolean isDomainElementShown(Object element) {
-			if (element instanceof EPackage) {
-				return true;
-			} else if (element instanceof EClass) {
-				return true;
-			} else if (element instanceof EStructuralFeature) {
-				return true;
-			}
-			return false;
+		public GraphicalDefinitionPage(String pageId, StructureResolver resolver, DomainModelSelectionPage domainModelSelectionPage) {
+			super(pageId, resolver, domainModelSelectionPage);
 		}
 
 		protected void processNewDomainModel(EPackage contents) {

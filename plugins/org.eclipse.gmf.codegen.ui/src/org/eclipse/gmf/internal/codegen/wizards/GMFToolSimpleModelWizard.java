@@ -17,7 +17,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.gmf.internal.codegen.resolver.StructureResolver;
 import org.eclipse.gmf.tooldef.CreationTool;
 import org.eclipse.gmf.tooldef.Palette;
 import org.eclipse.gmf.tooldef.ToolRegistry;
@@ -32,6 +32,8 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 	protected DomainModelSelectionPage domainModelSelectionPage;
 
 	protected ToolDefinitionPage toolDefinitionPage;
+
+	protected StructureResolver resolver;
 
 	protected EObject createInitialModel() {
 		ToolRegistry toolRegistry = (ToolRegistry) gmfToolFactory.createToolRegistry();
@@ -77,7 +79,7 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 		domainModelSelectionPage.setDescription("Select file with ecore domain model");
 		addPage(domainModelSelectionPage);
 
-		toolDefinitionPage = new ToolDefinitionPage("ToolDefinitionPage", domainModelSelectionPage);
+		toolDefinitionPage = new ToolDefinitionPage("ToolDefinitionPage", resolver = new StructureResolver(), domainModelSelectionPage);
 		toolDefinitionPage.setTitle("Tooling Definition");
 		toolDefinitionPage.setDescription("Specify basic tooling definition of the domain model");
 		addPage(toolDefinitionPage);
@@ -120,19 +122,8 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 
 	public class ToolDefinitionPage extends DefinitionPage {
 
-		public ToolDefinitionPage(String pageId, DomainModelSelectionPage domainModelSelectionPage) {
-			super(pageId, domainModelSelectionPage);
-		}
-
-		protected boolean isDomainElementShown(Object element) {
-			if (element instanceof EPackage) {
-				return true;
-			} else if (element instanceof EClass) {
-				return true;
-			} else if (element instanceof EStructuralFeature) {
-				return true;
-			}
-			return false;
+		public ToolDefinitionPage(String pageId, StructureResolver resolver, DomainModelSelectionPage domainModelSelectionPage) {
+			super(pageId, resolver, domainModelSelectionPage);
 		}
 
 		protected void processNewDomainModel(EPackage contents) {
