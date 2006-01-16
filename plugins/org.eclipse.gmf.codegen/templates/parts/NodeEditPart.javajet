@@ -62,11 +62,7 @@ public class <%=genNode.getEditPartClassName()%> extends ShapeNodeEditPart {
 			protected EditPolicy createChildEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child) {
 				EditPolicy result = super.createChildEditPolicy(child);
 				if (result == null) {
-					if (result == null && child instanceof SubDetail_subDetailNameEditPart) {
-						return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy")%>();
-					} else if (result == null && child instanceof SubDetail_CompartmentEditPart) {
-						return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy")%>();
-					}
+					return new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ResizableShapeEditPolicy")%>();
 				}
 				return result;
 			}
