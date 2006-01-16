@@ -379,6 +379,7 @@ public class EntriesPage extends WizardPage {
 					linksList.remove(linksList.getSelectionIndex());
 					nodesList.add(myLabelProvider.getText(nm));
 					nodesList.select(nodesList.getItemCount() - 1);
+					selectedEntry = (MappingEntry) getMapInstance().getNodes().get(nodesList.getSelectionIndex());
 				}
 			});
 			asLinkButton = new Button(composite, SWT.NONE);
@@ -401,6 +402,7 @@ public class EntriesPage extends WizardPage {
 					nodesList.remove(nodesList.getSelectionIndex());
 					linksList.add(myLabelProvider.getText(lm));
 					linksList.select(linksList.getItemCount() - 1);
+					selectedEntry = (MappingEntry) getMapInstance().getLinks().get(linksList.getSelectionIndex());
 				}
 			});
 			removeButton = new Button(composite, SWT.NONE);
@@ -416,6 +418,7 @@ public class EntriesPage extends WizardPage {
 							i--;
 						}
 						nodesList.select(i);
+						selectedEntry = (MappingEntry) getMapInstance().getNodes().get(nodesList.getSelectionIndex());
 					}
 					if (linksList.getSelectionIndex() != -1) {
 						int i = linksList.getSelectionIndex();
@@ -425,6 +428,7 @@ public class EntriesPage extends WizardPage {
 							i--;
 						}
 						linksList.select(i);
+						selectedEntry = (MappingEntry) getMapInstance().getLinks().get(linksList.getSelectionIndex());
 					}
 				}
 			});
