@@ -70,5 +70,13 @@
       <selection class = "org.eclipse.core.resources.IResource" />
     </wizard>
   </extension>
+  <extension point = "org.eclipse.ui.views">
+      <view
+         id = "org.eclipse.gmf.internal.codegen.dashboard.DashboardPart"
+         name = "GMF Dashboard"
+         category = "org.eclipse.ui"
+         class = "org.eclipse.gmf.internal.codegen.dashboard.DashboardPart"
+         icon = "icons/full/dashboard.gif" />
+  </extension>
 
 </plugin>
