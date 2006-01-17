@@ -135,31 +135,73 @@
 	
 		<javadoc-subsystem subsystem="common" tocTitle="Common Frameworks Layer">
 			<package-sets>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.core/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.action/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.action.ide/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.pathvariables.ide/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.printing/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.core/src">
+		    		<exclude name="org/eclipse/gmf/runtime/common/core/internal/**"/>
+		    	</packageset>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui/src">
+		    		<exclude name="org/eclipse/gmf/runtime/common/ui/internal/**,org/eclipse/gmf/runtime/common/ui/l10n/**"/>
+		    	</packageset>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.action/src">
+		    		<exclude name="org/eclipse/gmf/runtime/common/ui/action/internal/**"/>
+		    	</packageset>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.action.ide/src">
+		    		<exclude name="org/eclipse/gmf/runtime/common/ui/action/ide/internal/**"/>
+		    	</packageset>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.pathvariables.ide/src">
+		    		<exclude name="org/eclipse/gmf/runtime/common/ui/pathvariables/ide/internal/**"/>
+		    	</packageset>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.printing/src">
+		    		<exclude name="org/eclipse/gmf/runtime/common/ui/printing/internal/**"/>
+		    	</packageset>
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.printing.win32/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services.action/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services.dnd/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services.dnd.ide/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services.properties/src"/>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.draw2d.ui/src"/>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.draw2d.ui.render/src"/>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.gef.ui/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.commands.core/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.core/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.ui/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.ui.properties/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services/src">
+		    		<exclude name="org/eclipse/gmf/runtime/common/ui/services/internal/**"/>
+		    	</packageset>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services.action/src">
+		    		<exclude name="org/eclipse/gmf/runtime/common/ui/services/action/internal/**"/>
+		    	</packageset>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services.dnd/src">
+		    		<exclude name="org/eclipse/gmf/runtime/common/ui/services/dnd/internal/**"/>
+		    	</packageset>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services.dnd.ide/src">
+		    		<exclude name="org/eclipse/gmf/runtime/common/ui/services/dnd/ide/internal/**"/>
+		    	</packageset>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.services.properties/src">
+		    		<exclude name="org/eclipse/gmf/runtime/common/ui/services/properties/internal/**"/>
+		    	</packageset>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.draw2d.ui/src">
+		    		<exclude name="org/eclipse/gmf/runtime/draw2d/ui/internal/**"/>
+		    	</packageset>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.draw2d.ui.render/src">
+		    		<exclude name="org/eclipse/gmf/runtime/draw2d/ui/render/internal/**"/>
+		    	</packageset>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.gef.ui/src">
+		    		<exclude name="org/eclipse/gmf/runtime/gef/ui/internal/**"/>
+		    	</packageset>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.commands.core/src">
+		    		<exclude name="org/eclipse/gmf/runtime/emf/commands/core/internal/**"/>
+		    	</packageset>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.core/src">
+		    		<exclude name="org/eclipse/gmf/runtime/emf/core/internal/**"/>
+		    	</packageset>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.ui/src">
+		    		<exclude name="org/eclipse/gmf/runtime/emf/ui/internal/**"/>
+		    	</packageset>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.ui.properties/src">
+		    		<exclude name="org/eclipse/gmf/runtime/emf/ui/properties/internal/**"/>
+		    	</packageset>
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.ocl/src"/>
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.query/src"/>
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.query.ocl/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.clipboard.core/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.type.core/src"/>
-		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.type.ui/src"/>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.clipboard.core/src">
+		    		<exclude name="org/eclipse/gmf/runtime/emf/clipboard/core/internal/**"/>
+		    	</packageset>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.type.core/src">
+		    		<exclude name="org/eclipse/gmf/runtime/emf/type/core/internal/**"/>
+		    	</packageset>
+		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.type.ui/src">
+		    		<exclude name="org/eclipse/gmf/runtime/emf/type/ui/internal/**"/>
+		    	</packageset>
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.validation/src"/>
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.validation.ocl/src"/>
 			</package-sets>
@@ -179,16 +221,32 @@
 
 		<javadoc-subsystem subsystem="diagram" tocTitle="Diagram Layer">
 			<package-sets>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.notation/src"/>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.core/src"/>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.notation/src">
+		    		<exclude name="org/eclipse/gmf/runtime/notation/providers/internal/**"/>
+		    	</packageset>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.core/src">
+		    		<exclude name="org/eclipse/gmf/runtime/diagram/core/internal/**"/>
+		    	</packageset>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui/src">
+		    		<exclude name="org/eclipse/gmf/runtime/diagram/ui/internal/**,org/eclipse/gmf/runtime/diagram/ui/l10n/**"/>
+		    	</packageset>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.dnd/src"/>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.geoshapes/src"/>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.printing/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.geoshapes/src">
+		    		<exclude name="org/eclipse/gmf/runtime/diagram/ui/geoshapes/internal/**"/>
+		    	</packageset>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.printing/src">
+		    		<exclude name="org/eclipse/gmf/runtime/diagram/ui/printing/internal/**"/>
+		    	</packageset>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.properties/src"/>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.providers/src"/>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.providers.ide/src"/>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.resources.editor/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.providers/src">
+		    		<exclude name="org/eclipse/gmf/runtime/diagram/ui/providers/internal/**"/>
+		    	</packageset>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.providers.ide/src">
+		    		<exclude name="org/eclipse/gmf/runtime/diagram/ui/providers/ide/internal/**"/>
+		    	</packageset>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.resources.editor/src">
+		    		<exclude name="org/eclipse/gmf/runtime/diagram/ui/resources/editor/internal/**"/>
+		    	</packageset>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide/src"/>
 			</package-sets>
 			<package-groups>
@@ -207,7 +265,9 @@
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.bridge/src"/>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.codegen/src"/>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.codegen.edit/src"/>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.codegen.ui/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.codegen.ui/src">
+		    		<exclude name="org/eclipse/gmf/internal/**"/>
+		    	</packageset>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.graphdef/src"/>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.graphdef.codegen/src"/>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.graphdef.edit/src"/>
