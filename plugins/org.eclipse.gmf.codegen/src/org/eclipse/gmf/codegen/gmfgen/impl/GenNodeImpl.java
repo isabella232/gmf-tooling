@@ -37,7 +37,6 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getLabels <em>Labels</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getChildContainersPlacement <em>Child Containers Placement</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#isExplicitContentPane <em>Explicit Content Pane</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl#getGraphicalNodeEditPolicyClassName <em>Graphical Node Edit Policy Class Name</em>}</li>
  * </ul>
  * </p>
@@ -94,26 +93,6 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 	 * @ordered
 	 */
 	protected CompartmentPlacementKind childContainersPlacement = CHILD_CONTAINERS_PLACEMENT_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #isExplicitContentPane() <em>Explicit Content Pane</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isExplicitContentPane()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean EXPLICIT_CONTENT_PANE_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isExplicitContentPane() <em>Explicit Content Pane</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isExplicitContentPane()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean explicitContentPane = EXPLICIT_CONTENT_PANE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getGraphicalNodeEditPolicyClassName() <em>Graphical Node Edit Policy Class Name</em>}' attribute.
@@ -249,8 +228,6 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 				return getCompartments();
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
 				return getChildContainersPlacement();
-			case GMFGenPackage.GEN_NODE__EXPLICIT_CONTENT_PANE:
-				return isExplicitContentPane() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				return getGraphicalNodeEditPolicyClassName();
 		}
@@ -278,9 +255,6 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
 				setChildContainersPlacement((CompartmentPlacementKind)newValue);
 				return;
-			case GMFGenPackage.GEN_NODE__EXPLICIT_CONTENT_PANE:
-				setExplicitContentPane(((Boolean)newValue).booleanValue());
-				return;
 			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				setGraphicalNodeEditPolicyClassName((String)newValue);
 				return;
@@ -307,9 +281,6 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
 				setChildContainersPlacement(CHILD_CONTAINERS_PLACEMENT_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_NODE__EXPLICIT_CONTENT_PANE:
-				setExplicitContentPane(EXPLICIT_CONTENT_PANE_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				setGraphicalNodeEditPolicyClassName(GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT);
 				return;
@@ -334,8 +305,6 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 				return compartments != null && !compartments.isEmpty();
 			case GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT:
 				return childContainersPlacement != CHILD_CONTAINERS_PLACEMENT_EDEFAULT;
-			case GMFGenPackage.GEN_NODE__EXPLICIT_CONTENT_PANE:
-				return explicitContentPane != EXPLICIT_CONTENT_PANE_EDEFAULT;
 			case GMFGenPackage.GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 				return GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? graphicalNodeEditPolicyClassName != null : !GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(graphicalNodeEditPolicyClassName);
 		}
@@ -385,27 +354,6 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 		childContainersPlacement = newChildContainersPlacement == null ? CHILD_CONTAINERS_PLACEMENT_EDEFAULT : newChildContainersPlacement;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NODE__CHILD_CONTAINERS_PLACEMENT, oldChildContainersPlacement, childContainersPlacement));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isExplicitContentPane() {
-		return explicitContentPane;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setExplicitContentPane(boolean newExplicitContentPane) {
-		boolean oldExplicitContentPane = explicitContentPane;
-		explicitContentPane = newExplicitContentPane;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_NODE__EXPLICIT_CONTENT_PANE, oldExplicitContentPane, explicitContentPane));
 	}
 
 	/**
@@ -491,8 +439,6 @@ public class GenNodeImpl extends GenChildContainerImpl implements GenNode {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (childContainersPlacement: ");
 		result.append(childContainersPlacement);
-		result.append(", explicitContentPane: ");
-		result.append(explicitContentPane);
 		result.append(", graphicalNodeEditPolicyClassName: ");
 		result.append(graphicalNodeEditPolicyClassName);
 		result.append(')');

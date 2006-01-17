@@ -897,22 +897,13 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_NODE__CHILD_CONTAINERS_PLACEMENT = GEN_CHILD_CONTAINER_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Explicit Content Pane</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NODE__EXPLICIT_CONTENT_PANE = GEN_CHILD_CONTAINER_FEATURE_COUNT + 5;
-
-	/**
 	 * The feature id for the '<em><b>Graphical Node Edit Policy Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME = GEN_CHILD_CONTAINER_FEATURE_COUNT + 6;
+	int GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME = GEN_CHILD_CONTAINER_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Gen Node</em>' class.
@@ -921,7 +912,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE_FEATURE_COUNT = GEN_CHILD_CONTAINER_FEATURE_COUNT + 7;
+	int GEN_NODE_FEATURE_COUNT = GEN_CHILD_CONTAINER_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Run Time Class</b></em>' reference.
@@ -1174,15 +1165,6 @@ public interface GMFGenPackage extends EPackage {
 	 * @ordered
 	 */
 	int GEN_CHILD_NODE__CHILD_CONTAINERS_PLACEMENT = GEN_NODE__CHILD_CONTAINERS_PLACEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Explicit Content Pane</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_NODE__EXPLICIT_CONTENT_PANE = GEN_NODE__EXPLICIT_CONTENT_PANE;
 
 	/**
 	 * The feature id for the '<em><b>Graphical Node Edit Policy Class Name</b></em>' attribute.
@@ -3971,17 +3953,6 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenNode_ChildContainersPlacement();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#isExplicitContentPane <em>Explicit Content Pane</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Explicit Content Pane</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenNode#isExplicitContentPane()
-	 * @see #getGenNode()
-	 * @generated
-	 */
-	EAttribute getGenNode_ExplicitContentPane();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getGraphicalNodeEditPolicyClassName <em>Graphical Node Edit Policy Class Name</em>}'.

@@ -37,7 +37,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
-import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
@@ -207,11 +206,12 @@ public class DiaGenSetup implements DiaGenSource {
 
 	// Empty palette, unless we'd like to test it
 	private Palette createPalette() {
-		Palette rv = GMFGenFactory.eINSTANCE.createPalette();
-		ToolGroup tg = GMFGenFactory.eINSTANCE.createToolGroup();
-		tg.setTitleKey("fake-group");
-		tg.setCreateMethodName("createFakeGroup");
-		rv.getGroups().add(tg); // to satisfy [+] restriction
-		return rv;
+		return null;
+//		Palette rv = GMFGenFactory.eINSTANCE.createPalette();
+//		ToolGroup tg = GMFGenFactory.eINSTANCE.createToolGroup();
+//		tg.setTitleKey("fake-group");
+//		tg.setCreateMethodName("createFakeGroup");
+//		rv.getGroups().add(tg); // to satisfy [+] restriction
+//		return rv;
 	}
 }

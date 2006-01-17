@@ -149,7 +149,11 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkClassName(state, "GenDiagram:CreateShortcutAction", genDiagram.getCreateShortcutActionClassName(), genDiagram.getCreateShortcutActionQualifiedClassName());
 		checkClassName(state, "GenDiagram:ElementChooser", genDiagram.getElementChooserClassName(), genDiagram.getElementChooserQualifiedClassName());
 		Palette palette = genDiagram.getPalette();
-		checkClassName(state, "Palette:Factory", palette.getFactoryClassName(), palette.getFactoryQualifiedClassName());
+		if (palette != null) {
+			checkClassName(state, "Palette:Factory", palette.getFactoryClassName(), palette.getFactoryQualifiedClassName());
+		} else {
+			state.add("Palette:Factory");
+		}
 		for (GenCommonBaseIterator entities = new GenCommonBaseIterator(genDiagram); entities.hasNext();) {
 			GenCommonBase nextEntity = entities.nextElement();
 			checkClassName(state, "GenCommonBase:EditPart", nextEntity.getEditPartClassName(), nextEntity.getEditPartQualifiedClassName());

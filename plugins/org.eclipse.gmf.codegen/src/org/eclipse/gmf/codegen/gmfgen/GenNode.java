@@ -26,7 +26,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getLabels <em>Labels</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getChildContainersPlacement <em>Child Containers Placement</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#isExplicitContentPane <em>Explicit Content Pane</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getGraphicalNodeEditPolicyClassName <em>Graphical Node Edit Policy Class Name</em>}</li>
  * </ul>
  * </p>
@@ -140,31 +139,6 @@ public interface GenNode extends GenChildContainer {
 	 * @generated
 	 */
 	void setChildContainersPlacement(CompartmentPlacementKind value);
-
-	/**
-	 * Returns the value of the '<em><b>Explicit Content Pane</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Add distinct figure to the node shape that will be used as a content pane
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Explicit Content Pane</em>' attribute.
-	 * @see #setExplicitContentPane(boolean)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_ExplicitContentPane()
-	 * @model annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Obsolete with new gmfgraph. Should be removed form the model.'"
-	 * @generated
-	 */
-	boolean isExplicitContentPane();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#isExplicitContentPane <em>Explicit Content Pane</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Explicit Content Pane</em>' attribute.
-	 * @see #isExplicitContentPane()
-	 * @generated
-	 */
-	void setExplicitContentPane(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Graphical Node Edit Policy Class Name</b></em>' attribute.

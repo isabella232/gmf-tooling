@@ -601,6 +601,9 @@ public class Generator implements Runnable {
 	}
 
 	private void generatePalette() throws JETException, InterruptedException {
+		if (myDiagram.getPalette() == null) {
+			return;
+		}
 		doGenerateJavaClass(
 			EmitterFactory.getPaletteEmitter(),
 			myDiagram.getPalette().getPackageName(),

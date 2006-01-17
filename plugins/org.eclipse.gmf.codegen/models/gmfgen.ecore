@@ -22,7 +22,7 @@
     </eOperations>
     <eOperations name="getRequiredPluginIDs" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Need this one for NewDiagramAction. Takes first diagramRunTimeClass and it's package's namespace. Perhaps, should just reference appropriate genModel instead"/>
+        <details key="documentation" value="Computed additional dependencies of generated plug-in"/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getElementInitializersClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
@@ -96,8 +96,8 @@
         <details key="documentation" value="Domain meta-model  audit rules definitions"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="palette" lowerBound="1"
-        eType="#//Palette" containment="true" eOpposite="#//Palette/diagram"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="palette" eType="#//Palette"
+        containment="true" eOpposite="#//Palette/diagram"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="editCommandsPackageName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="editPartsPackageName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -259,14 +259,6 @@
         eType="#//CompartmentPlacementKind" defaultValueLiteral="TOOLBAR">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="valid only when there are compartments"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="explicitContentPane" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
-      <eAnnotations source="http://www.eclipse.org/gmf/2006/deprecated">
-        <details key="documentation" value="Obsolete with new gmfgraph. Should be removed form the model."/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Add distinct figure to the node shape that will be used as a content pane"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="graphicalNodeEditPolicyClassName"

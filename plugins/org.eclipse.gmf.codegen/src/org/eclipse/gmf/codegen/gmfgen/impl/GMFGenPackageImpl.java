@@ -1013,17 +1013,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenNode_ExplicitContentPane() {
-		return (EAttribute)genNodeEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getGenNode_GraphicalNodeEditPolicyClassName() {
-		return (EAttribute)genNodeEClass.getEStructuralFeatures().get(6);
+		return (EAttribute)genNodeEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -2258,7 +2249,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genNodeEClass, GEN_NODE__LABELS);
 		createEReference(genNodeEClass, GEN_NODE__COMPARTMENTS);
 		createEAttribute(genNodeEClass, GEN_NODE__CHILD_CONTAINERS_PLACEMENT);
-		createEAttribute(genNodeEClass, GEN_NODE__EXPLICIT_CONTENT_PANE);
 		createEAttribute(genNodeEClass, GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME);
 
 		genCompartmentEClass = createEClass(GEN_COMPARTMENT);
@@ -2487,7 +2477,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenDiagram_Nodes(), this.getGenNode(), this.getGenNode_Diagram(), "nodes", null, 0, -1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenDiagram_Links(), this.getGenLink(), this.getGenLink_Diagram(), "links", null, 0, -1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenDiagram_Audits(), this.getGenAuditContainer(), null, "audits", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenDiagram_Palette(), this.getPalette(), this.getPalette_Diagram(), "palette", null, 1, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenDiagram_Palette(), this.getPalette(), this.getPalette_Diagram(), "palette", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagram_EditCommandsPackageName(), ecorePackage.getEString(), "editCommandsPackageName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagram_EditPartsPackageName(), ecorePackage.getEString(), "editPartsPackageName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagram_EditPoliciesPackageName(), ecorePackage.getEString(), "editPoliciesPackageName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2645,7 +2635,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenNode_Labels(), this.getGenNodeLabel(), this.getGenNodeLabel_Node(), "labels", null, 0, -1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenNode_Compartments(), this.getGenCompartment(), this.getGenCompartment_Node(), "compartments", null, 0, -1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNode_ChildContainersPlacement(), this.getCompartmentPlacementKind(), "childContainersPlacement", "TOOLBAR", 0, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNode_ExplicitContentPane(), ecorePackage.getEBoolean(), "explicitContentPane", null, 0, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNode_GraphicalNodeEditPolicyClassName(), ecorePackage.getEString(), "graphicalNodeEditPolicyClassName", null, 0, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genNodeEClass, theGenModelPackage.getGenClass(), "getDomainMetaClass", 1, 1);
@@ -2878,8 +2867,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEmfaticAnnotationMapAnnotations();
 		// http://www.eclipse.org/gmf/2005/constraints
 		createConstraintsAnnotations();
-		// http://www.eclipse.org/gmf/2006/deprecated
-		createDeprecatedAnnotations();
 		// http://www.eclipse.org/gmf/2005/constraints/meta
 		createMetaAnnotations();
 	}
@@ -2899,7 +2886,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																														
+		   });																																																																																																												
 	}
 
 	/**
@@ -2927,7 +2914,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "let c: ecore::EClass = diagramRunTimeClass.ecoreClass.oclAsType(ecore::EClass) in c = notation::Node or c.eAllSuperTypes->includes(notation::Node)"
-		   });								
+		   });						
 		addAnnotation
 		  (genLinkEClass, 
 		   source, 
@@ -2985,29 +2972,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	}
 
 	/**
-	 * Initializes the annotations for <b>http://www.eclipse.org/gmf/2006/deprecated</b>.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void createDeprecatedAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2006/deprecated";																									
-		addAnnotation
-		  (getGenNode_ExplicitContentPane(), 
-		   source, 
-		   new String[] {
-			 "documentation", "Obsolete with new gmfgraph. Should be removed form the model."
-		   });																																																																																							
-	}
-
-	/**
 	 * Initializes the annotations for <b>http://www.eclipse.org/gmf/2005/constraints/meta</b>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																														
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 

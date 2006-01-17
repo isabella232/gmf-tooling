@@ -207,7 +207,7 @@ public interface GenDiagram extends GenCommonBase {
 	 * @see #setPalette(Palette)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_Palette()
 	 * @see org.eclipse.gmf.codegen.gmfgen.Palette#getDiagram
-	 * @model opposite="diagram" containment="true" required="true"
+	 * @model opposite="diagram" containment="true"
 	 * @generated
 	 */
 	Palette getPalette();
@@ -1528,7 +1528,7 @@ public interface GenDiagram extends GenCommonBase {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * Need this one for NewDiagramAction. Takes first diagramRunTimeClass and it's package's namespace. Perhaps, should just reference appropriate genModel instead
+	 * Computed additional dependencies of generated plug-in
 	 * <!-- end-model-doc -->
 	 * @model kind="operation" type="java.lang.String"
 	 * @generated

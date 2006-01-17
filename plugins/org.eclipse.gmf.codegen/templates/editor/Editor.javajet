@@ -8,26 +8,33 @@ import org.eclipse.draw2d.DelegatingLayout;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.LayeredPane;
 import org.eclipse.gef.LayerConstants;
-import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.editor.FileDiagramEditorWithFlyoutPalette;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.editor.FileDiagramEditor;
 import org.eclipse.ui.IEditorInput;
 <%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
-public class <%=genDiagram.getEditorClassName()%> extends FileDiagramEditorWithFlyoutPalette {
+public class <%=genDiagram.getEditorClassName()%> extends FileDiagramEditor {
 
 	/**
 	 * @generated
 	 */
-	protected PaletteRoot createPaletteRoot(PaletteRoot existingPaletteRoot) {
+	public <%=genDiagram.getEditorClassName()%>() {
+		super(<%=genDiagram.getPalette() != null%>);
+	}
+
+<%if (genDiagram.getPalette() != null) {%>
+	/**
+	 * @generated
+	 */
+	protected <%=importManager.getImportedName("org.eclipse.gef.palette.PaletteRoot")%> createPaletteRoot(<%=importManager.getImportedName("org.eclipse.gef.palette.PaletteRoot")%> existingPaletteRoot) {
 		existingPaletteRoot = super.createPaletteRoot(existingPaletteRoot);
 		<%=importManager.getImportedName(genDiagram.getPalette().getFactoryQualifiedClassName())%>.fillPalette(existingPaletteRoot, getDiagram());
 		return existingPaletteRoot;
 	}
-
+<%}%>
 	/**
 	 * @generated
 	 */
