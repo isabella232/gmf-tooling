@@ -139,7 +139,8 @@
 		    		<exclude name="org/eclipse/gmf/runtime/common/core/internal/**"/>
 		    	</packageset>
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui/src">
-		    		<exclude name="org/eclipse/gmf/runtime/common/ui/internal/**,org/eclipse/gmf/runtime/common/ui/l10n/**"/>
+		    		<!-- explictly adding each package, as exclude list with multiple doesn't seem to work as imagined -->
+		    		<include name="org/eclipse/gmf/runtime/common/ui/action/**,org/eclipse/gmf/runtime/common/ui/contentassist/**,org/eclipse/gmf/runtime/common/ui/dialogs/**,org/eclipse/gmf/runtime/common/ui/editors/**,org/eclipse/gmf/runtime/common/ui/plugin/**,org/eclipse/gmf/runtime/common/ui/preferences/**,org/eclipse/gmf/runtime/common/ui/resources/**,org/eclipse/gmf/runtime/common/ui/util/**,org/eclipse/gmf/runtime/common/ui/viewers/**"/>
 		    	</packageset>
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.common.ui.action/src">
 		    		<exclude name="org/eclipse/gmf/runtime/common/ui/action/internal/**"/>
@@ -228,7 +229,8 @@
 		    		<exclude name="org/eclipse/gmf/runtime/diagram/core/internal/**"/>
 		    	</packageset>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui/src">
-		    		<exclude name="org/eclipse/gmf/runtime/diagram/ui/internal/**,org/eclipse/gmf/runtime/diagram/ui/l10n/**"/>
+					<!-- explictly adding each package, as exclude list with multiple doesn't seem to work as imagined -->
+		    		<include name="org/eclipse/gmf/runtime/diagram/ui/*.java,org/eclipse/gmf/runtime/diagram/ui/actions/**,org/eclipse/gmf/runtime/diagram/ui/commands/**,org/eclipse/gmf/runtime/diagram/ui/dialogs/**,org/eclipse/gmf/runtime/diagram/ui/editparts/**,org/eclipse/gmf/runtime/diagram/ui/figures/**,org/eclipse/gmf/runtime/diagram/ui/handles/**,org/eclipse/gmf/runtime/diagram/ui/help/**,org/eclipse/gmf/runtime/diagram/ui/image/**,org/eclipse/gmf/runtime/diagram/ui/menus/**,org/eclipse/gmf/runtime/diagram/ui/parts/**,org/eclipse/gmf/runtime/diagram/ui/preferences/**,org/eclipse/gmf/runtime/diagram/ui/properties/**,org/eclipse/gmf/runtime/diagram/ui/providers/**,org/eclipse/gmf/runtime/diagram/ui/requests/**,org/eclipse/gmf/runtime/diagram/ui/services/**,org/eclipse/gmf/runtime/diagram/ui/tools/**,org/eclipse/gmf/runtime/diagram/ui/util/**,org/eclipse/gmf/runtime/diagram/ui/view/**"/>
 		    	</packageset>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.dnd/src"/>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.diagram.ui.geoshapes/src">
