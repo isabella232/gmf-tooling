@@ -163,22 +163,15 @@ public class EntriesPage extends WizardPage {
 		private SelectionListener myListListener = new SelectionListener() {
 			public void widgetSelected(SelectionEvent e) {
 				final boolean nodeSelected = e.widget == nodesList;
-				asLinkButton.setEnabled(nodeSelected);
 				removeButton.setEnabled(true);
 				changeDetailsButton.setEnabled(true);
 				restoreButton.setEnabled(true);
 				if (nodeSelected) {
-					asNodeButton.setEnabled(false);
-					assert nodesList.getSelectionIndex() != -1;
-					selectedEntry = (NodeMapping) getMapInstance().getNodes().get(nodesList.getSelectionIndex());
-					refreshNodeDetails();
+					handleNodesListSelectionChange();
 					linksList.deselectAll();
 				} else {
 					// e.widget == linksList
-					assert linksList.getSelectionIndex() != -1;
-					selectedEntry =(LinkMapping) getMapInstance().getLinks().get(linksList.getSelectionIndex());
-					asNodeButton.setEnabled(selectedEntry.getDomainMetaElement() != null);
-					refreshLinkDetails();
+					handleLinksListSelectionChange();
 					nodesList.deselectAll();
 				}
 			}
@@ -378,8 +371,8 @@ public class EntriesPage extends WizardPage {
 					getMapInstance().getLinks().remove(selectedEntry);
 					linksList.remove(linksList.getSelectionIndex());
 					nodesList.add(myLabelProvider.getText(nm));
-					nodesList.select(nodesList.getItemCount() - 1);
-					selectedEntry = (MappingEntry) getMapInstance().getNodes().get(nodesList.getSelectionIndex());
+					nodesList.setSelection(nodesList.getItemCount() - 1);
+					handleNodesListSelectionChange();
 				}
 			});
 			asLinkButton = new Button(composite, SWT.NONE);
@@ -401,8 +394,8 @@ public class EntriesPage extends WizardPage {
 					getMapInstance().getNodes().remove(selectedEntry);
 					nodesList.remove(nodesList.getSelectionIndex());
 					linksList.add(myLabelProvider.getText(lm));
-					linksList.select(linksList.getItemCount() - 1);
-					selectedEntry = (MappingEntry) getMapInstance().getLinks().get(linksList.getSelectionIndex());
+					linksList.setSelection(linksList.getItemCount() - 1);
+					handleLinksListSelectionChange();
 				}
 			});
 			removeButton = new Button(composite, SWT.NONE);
@@ -417,8 +410,8 @@ public class EntriesPage extends WizardPage {
 						if (i == nodesList.getItemCount() && i > 0) {
 							i--;
 						}
-						nodesList.select(i);
-						selectedEntry = (MappingEntry) getMapInstance().getNodes().get(nodesList.getSelectionIndex());
+						nodesList.setSelection(i);
+						handleNodesListSelectionChange();
 					}
 					if (linksList.getSelectionIndex() != -1) {
 						int i = linksList.getSelectionIndex();
@@ -427,8 +420,8 @@ public class EntriesPage extends WizardPage {
 						if (i == linksList.getItemCount() && i > 0) {
 							i--;
 						}
-						linksList.select(i);
-						selectedEntry = (MappingEntry) getMapInstance().getLinks().get(linksList.getSelectionIndex());
+						linksList.setSelection(i);
+						handleLinksListSelectionChange();
 					}
 				}
 			});
@@ -573,6 +566,22 @@ public class EntriesPage extends WizardPage {
 			affix(editFeatureLabel, l.getLabelEditFeature());
 			affix(displayFeatureLabel, l.getLabelDisplayFeature());
 			affix(linkMetaFeatureLabel, l.getLinkMetaFeature());
+		}
+
+		void handleNodesListSelectionChange() {
+			asNodeButton.setEnabled(false);
+			asLinkButton.setEnabled(true);
+			assert nodesList.getSelectionIndex() != -1;
+			selectedEntry = (NodeMapping) getMapInstance().getNodes().get(nodesList.getSelectionIndex());
+			refreshNodeDetails();
+		}
+
+		void handleLinksListSelectionChange() {
+			assert linksList.getSelectionIndex() != -1;
+			asLinkButton.setEnabled(false);
+			selectedEntry =(LinkMapping) getMapInstance().getLinks().get(linksList.getSelectionIndex());
+			asNodeButton.setEnabled(selectedEntry.getDomainMetaElement() != null);
+			refreshLinkDetails();
 		}
 	}
 	
