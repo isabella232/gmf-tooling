@@ -19,6 +19,7 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.MouseEvent;
@@ -34,6 +35,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.presentation.EcoreModelWizard;
 import org.eclipse.gmf.codegen.gmfgen.presentation.GMFGenModelWizard;
 import org.eclipse.gmf.gmfgraph.presentation.GMFGraphModelWizard;
+import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
 import org.eclipse.gmf.internal.codegen.FileSelector;
 import org.eclipse.gmf.internal.codegen.popup.actions.ExecuteTemplatesAction;
 import org.eclipse.gmf.internal.codegen.popup.actions.TransformToGenModel;
@@ -44,11 +46,13 @@ import org.eclipse.gmf.mappings.presentation.GMFMapModelWizard;
 import org.eclipse.gmf.tooldef.presentation.GMFToolModelWizard;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWizard;
@@ -59,13 +63,23 @@ import org.eclipse.ui.PlatformUI;
  */
 public class DashboardFigure extends RectangleFigure {
 
-	private static final int TEXT_GAP = 6;
+	private static final int LINE_WIDTH = 6;
+
+	private static final int TEXT_GAP = LINE_WIDTH * 2;
+
+	private static final Color DASHBOARD_BG = new Color(null, 113, 104, 209);
+
+	private static final Color DASHBOARD_FG = new Color(null, 169, 164, 227);
+
+	private static final Color MODEL_BG = ColorConstants.white;
 
 	private Shell shell;
 
 	private IProject project;
 
 	private DashboardState state;
+
+	private ImageFigure logoFigure;
 
 	private IFigure statusFigure;
 
@@ -108,10 +122,11 @@ public class DashboardFigure extends RectangleFigure {
 	public DashboardFigure(Shell shell) {
 		state = new DashboardState();
 		this.shell = shell;
-
-		// setBackgroundColor(new Color(null, 130, 133, 178));
-		setBackgroundColor(new Color(null, 113, 104, 209));
-
+		add(logoFigure = new ImageFigure());
+		Image logoImage = CodeGenUIPlugin.getDefault().getImageRegistry().get(CodeGenUIPlugin.GMF_LOGO);
+		if (logoImage != null) {
+			logoFigure.setImage(logoImage);
+		}
 		final String gdmLabel = "Graphical Definition Model";
 		add(gdmFigure = createModelFigure(gdmLabel, new SelectFileAction() {
 
@@ -291,13 +306,16 @@ public class DashboardFigure extends RectangleFigure {
 			}
 		}));
 		add(statusFigure = new Figure());
+		statusFigure.setFont(JFaceResources.getBannerFont());
 		ToolbarLayout statusLayout = new ToolbarLayout();
 		statusLayout.setStretchMinorAxis(false);
 		statusFigure.setLayoutManager(statusLayout);
 		statusFigure.add(new Label());
 		statusFigure.add(new Label());
 		setLayoutManager(new DashboardLayout());
-		setBorder(new MarginBorder(30));
+		setBorder(new MarginBorder(20));
+		setBackgroundColor(DASHBOARD_BG);
+		setForegroundColor(DASHBOARD_FG);
 	}
 
 	protected ModelFigure createModelFigure(String description, DashboardAction selectAction, DashboardAction createAction) {
@@ -305,31 +323,40 @@ public class DashboardFigure extends RectangleFigure {
 		modelFigure.setDescription(description);
 		modelFigure.addAction(createLinkFigure("Select", selectAction));
 		modelFigure.addAction(createLinkFigure("Create", createAction));
-		modelFigure.setCornerDimensions(new Dimension(TEXT_GAP, TEXT_GAP));
-		// modelFigure.setBackgroundColor(new Color(null, 219, 219, 219));
-		modelFigure.setBackgroundColor(ColorConstants.white);
-		modelFigure.setLineWidth(2);
+		modelFigure.setBackgroundColor(MODEL_BG);
+		modelFigure.setForegroundColor(DASHBOARD_FG);
+		modelFigure.setLineWidth(LINE_WIDTH);
+		modelFigure.setSpacing(TEXT_GAP);
 		return modelFigure;
 	}
 
 	protected FlowFigure createFlowFigure(boolean directed) {
 		FlowFigure flowFigure = new FlowFigure();
 		if (directed) {
-			flowFigure.setTargetDecoration(new PolygonDecoration());
+			PolygonDecoration decoration = new PolygonDecoration();
+			PointList template = new PointList();
+			template.addPoint(0, -LINE_WIDTH / 2);
+			template.addPoint(0, LINE_WIDTH / 2);
+			template.addPoint(-15, LINE_WIDTH / 2 + 10);
+			template.addPoint(-15, -(LINE_WIDTH / 2 + 10));
+			decoration.setTemplate(template);
+			decoration.setScale(1, 1);
+			flowFigure.setTargetDecoration(decoration);
 		}
-		// flowFigure.setLineWidth(2);
+		flowFigure.setForegroundColor(DASHBOARD_FG);
+		flowFigure.setLineWidth(LINE_WIDTH);
 		return flowFigure;
 	}
 
 	protected FlowActionFigure createFlowActionFigure(DashboardAction generateAction) {
 		FlowActionFigure flowActionFigure = new FlowActionFigure();
-		flowActionFigure.setBorder(new MarginBorder(TEXT_GAP));
 		flowActionFigure.setLayoutManager(new ToolbarLayout());
 		IFigure generateLabel = createLinkFigure("Generate", generateAction);
 		flowActionFigure.add(generateLabel);
-		// flowActionFigure.setBackgroundColor(new Color(null, 219, 219, 219));
-		flowActionFigure.setBackgroundColor(ColorConstants.white);
-		flowActionFigure.setLineWidth(2);
+		flowActionFigure.setBackgroundColor(MODEL_BG);
+		flowActionFigure.setForegroundColor(DASHBOARD_FG);
+		flowActionFigure.setLineWidth(LINE_WIDTH / 3);
+		flowActionFigure.setBorder(new MarginBorder(TEXT_GAP / 2));
 		return flowActionFigure;
 	}
 
@@ -412,7 +439,7 @@ public class DashboardFigure extends RectangleFigure {
 
 		private static final int MAX_BOX_WIDTH = 200;
 
-		private static final int BOX_SPACING = 50;
+		private static final int BOX_SPACING = 30;
 
 		protected Dimension calculatePreferredSize(IFigure container, int wHint, int hHint) {
 			Dimension d = getLayoutData().getSize();
@@ -483,13 +510,18 @@ public class DashboardFigure extends RectangleFigure {
 			data.mm2gmPoints.addPoint(data.mmBox.x + data.mmBox.width, pointsY);
 			data.mm2gmPoints.addPoint(data.gmBox.x, pointsY);
 
+			Dimension logoSize = logoFigure.getPreferredSize();
+			data.logoBox = new Rectangle(data.mmBox.x, 0, logoSize.width, logoSize.height);
 			Dimension statusSize = statusFigure.getPreferredSize();
-			data.statusBox = new Rectangle(data.mmBox.x, Math.max(data.mmBox.y + data.mmBox.height, data.gmBox.y + data.gmBox.height) + BOX_SPACING, statusSize.width, statusSize.height);
+			int statusRoof = Math.max(data.mmBox.y + data.mmBox.height, data.gmBox.y + data.gmBox.height) + TEXT_GAP;
+			data.statusBox = new Rectangle(data.mmBox.x, Math.max(statusRoof, data.tdmBox.y), statusSize.width, statusSize.height);
 
 			return data;
 		}
 
 		private class LayoutData {
+
+			public Rectangle logoBox;
 
 			public Rectangle statusBox;
 
@@ -524,6 +556,7 @@ public class DashboardFigure extends RectangleFigure {
 			public Rectangle mm2gmBox;
 
 			public void apply(Point offset) {
+				logoFigure.setBounds(logoBox.getTranslated(offset));
 				statusFigure.setBounds(statusBox.getTranslated(offset));
 				gdmFigure.setBounds(gdmBox.getTranslated(offset));
 				dmFigure.setBounds(dmBox.getTranslated(offset));
@@ -550,7 +583,8 @@ public class DashboardFigure extends RectangleFigure {
 			}
 
 			public Dimension getSize() {
-				Rectangle bounds = statusBox.getCopy();
+				Rectangle bounds = logoBox.getCopy();
+				bounds.union(statusBox);
 				bounds.union(gdmBox);
 				bounds.union(dmBox);
 				bounds.union(tdmBox);

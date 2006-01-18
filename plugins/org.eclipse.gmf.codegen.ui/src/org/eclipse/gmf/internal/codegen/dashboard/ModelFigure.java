@@ -19,15 +19,16 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.MarginBorder;
-import org.eclipse.draw2d.RoundedRectangle;
+import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.jface.resource.JFaceResources;
 
 /**
  * @author dstadnik
  */
-public class ModelFigure extends RoundedRectangle {
+public class ModelFigure extends RectangleFigure {
 
 	private Label description;
 
@@ -48,6 +49,7 @@ public class ModelFigure extends RoundedRectangle {
 		holders.add(descriptionHolder);
 		add(descriptionHolder);
 		description = new Label();
+		description.setFont(JFaceResources.getBannerFont());
 		descriptionHolder.add(description);
 		SeparatorFigure s1 = new SeparatorFigure();
 		separators.add(s1);
@@ -58,24 +60,18 @@ public class ModelFigure extends RoundedRectangle {
 		actionsPlate.setLayoutManager(actionsLayout);
 		holders.add(actionsPlate);
 		add(actionsPlate);
-		updateSpacing();
 	}
 
-	protected void updateSpacing() {
-		setBorder(new MarginBorder(corner.height, 0, corner.height, 0));
+	public void setSpacing(int spacing) {
+		setBorder(new MarginBorder(spacing, 0, spacing, 0));
 		for (Iterator it = separators.iterator(); it.hasNext();) {
 			SeparatorFigure separator = (SeparatorFigure) it.next();
-			separator.setPreferredSize(new Dimension(0, corner.height * 2 + separator.getLineWidth()));
+			separator.setPreferredSize(new Dimension(0, spacing * 2 + separator.getLineWidth()));
 		}
 		for (Iterator it = holders.iterator(); it.hasNext();) {
 			IFigure holder = (IFigure) it.next();
-			holder.setBorder(new MarginBorder(0, corner.width, 0, corner.width));
+			holder.setBorder(new MarginBorder(0, spacing, 0, spacing));
 		}
-	}
-
-	public void setCornerDimensions(Dimension d) {
-		super.setCornerDimensions(d);
-		updateSpacing();
 	}
 
 	public String getDescription() {

@@ -16,10 +16,15 @@ import java.text.MessageFormat;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 public class CodeGenUIPlugin extends AbstractUIPlugin {
+
+	public static final String GMF_LOGO = "/icons/full/logo_banner.png";
+
 	private static CodeGenUIPlugin plugin;
 
 	public CodeGenUIPlugin() {
@@ -33,6 +38,13 @@ public class CodeGenUIPlugin extends AbstractUIPlugin {
 
 	public static CodeGenUIPlugin getDefault() {
 		return plugin;
+	}
+
+	protected void initializeImageRegistry(ImageRegistry reg) {
+		ImageDescriptor id = imageDescriptorFromPlugin(getBundle().getSymbolicName(), GMF_LOGO);
+		if (id != null) {
+			reg.put(GMF_LOGO, id);
+		}
 	}
 
 	public static String getBundleString(String key) {
