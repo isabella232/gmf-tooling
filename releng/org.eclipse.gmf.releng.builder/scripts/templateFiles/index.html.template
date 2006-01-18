@@ -41,8 +41,8 @@
       <td>(<a href="@eclipseDownloadPage@">build page</a>)</td>
     </tr>
     <tr>
-      <td>EMF build @emfVersion@:</td>
-      <td>(<a href="@emfDownloadPage@">build page</>, <a href="@emfUpdateSite@">update site</a>)</td>
+      <td>EMF build @emfBuildId@:</td>
+      <td>(<a href="@emfDownloadPage@">build page</>, <a href="@emfUpdateSite@">update site</a>) (Note: EMF examples are a dependency for GMF examples)</td>
     </tr>
     <tr>
       <td>GEF Build @gefVersion@:</td>
