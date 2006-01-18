@@ -57,40 +57,15 @@ public class DashboardMediator {
 	public void setView(DashboardFigure view) {
 		this.view = view;
 		view.getGDMFigure().addAction(view.createLinkFigure("Select", new SelectGDMAction()));
-		view.getGDMFigure().addAction(view.createLinkFigure("Create", new RunWizardAction() {
-
-			protected IWizard createWizard() {
-				return new GMFGraphModelWizard();
-			}
-		}));
+		view.getGDMFigure().addAction(view.createLinkFigure("Create", new CreateGDMAction()));
 		view.getDMFigure().addAction(view.createLinkFigure("Select", new SelectDMAction()));
-		view.getDMFigure().addAction(view.createLinkFigure("Create", new RunWizardAction() {
-
-			protected IWizard createWizard() {
-				return new EcoreModelWizard();
-			}
-		}));
+		view.getDMFigure().addAction(view.createLinkFigure("Create", new CreateDMAction()));
 		view.getTDMFigure().addAction(view.createLinkFigure("Select", new SelectTDMAction()));
-		view.getTDMFigure().addAction(view.createLinkFigure("Create", new RunWizardAction() {
-
-			protected IWizard createWizard() {
-				return new GMFToolModelWizard();
-			}
-		}));
+		view.getTDMFigure().addAction(view.createLinkFigure("Create", new CreateTDMAction()));
 		view.getMMFigure().addAction(view.createLinkFigure("Select", new SelectMMAction()));
-		view.getMMFigure().addAction(view.createLinkFigure("Create", new RunWizardAction() {
-
-			protected IWizard createWizard() {
-				return new GMFMapModelWizard();
-			}
-		}));
+		view.getMMFigure().addAction(view.createLinkFigure("Create", new CreateMMAction()));
 		view.getGMFigure().addAction(view.createLinkFigure("Select", new SelectGMAction()));
-		view.getGMFigure().addAction(view.createLinkFigure("Create", new RunWizardAction() {
-
-			protected IWizard createWizard() {
-				return new GMFGenModelWizard();
-			}
-		}));
+		view.getGMFigure().addAction(view.createLinkFigure("Create", new CreateGMAction()));
 		view.getGMFigure().addAction(view.createLinkFigure("Generate diagram editor", new GenerateDEAction()));
 		view.getDM2GDMFigure().addAction(view.createLinkFigure("Derive", new DeriveGDMAction()));
 		view.getDM2TDMFigure().addAction(view.createLinkFigure("Derive", new DeriveTDMAction()));
@@ -101,6 +76,13 @@ public class DashboardMediator {
 
 	protected IFile getFile(String fileName) {
 		return project.getFile(new Path(fileName));
+	}
+
+	protected String getName(IFile file) {
+		if (file == null) {
+			return null;
+		}
+		return file.getProjectRelativePath().toString();
 	}
 
 	public IProject getProject() {
@@ -154,11 +136,7 @@ public class DashboardMediator {
 				file = getFile(fileName);
 			}
 			file = FileSelector.selectFile(shell, getFigure().getDescription(), file);
-			if (file == null) {
-				setFileName(null);
-			} else {
-				setFileName(file.getProjectRelativePath().toString());
-			}
+			setFileName(getName(file));
 			updateStatus();
 		}
 
@@ -180,11 +158,17 @@ public class DashboardMediator {
 		}
 
 		public void run() {
-			IWizard wizard = createWizard();
+			final IWizard wizard = createWizard();
 			if (wizard instanceof IWorkbenchWizard) {
 				((IWorkbenchWizard) wizard).init(PlatformUI.getWorkbench(), getSelection());
 			}
-			WizardDialog dialog = new WizardDialog(shell, wizard);
+			WizardDialog dialog = new WizardDialog(shell, wizard) {
+
+				protected void finishPressed() {
+					wizardFinished(wizard);
+					super.finishPressed();
+				}
+			};
 			dialog.create();
 			dialog.getShell().setSize(Math.max(SIZING_WIZARD_WIDTH, dialog.getShell().getSize().x), SIZING_WIZARD_HEIGHT);
 			dialog.open();
@@ -195,6 +179,9 @@ public class DashboardMediator {
 		}
 
 		protected abstract IWizard createWizard();
+
+		protected void wizardFinished(IWizard wizard) {
+		}
 	}
 
 	private class SelectGDMAction extends SelectFileAction {
@@ -269,6 +256,71 @@ public class DashboardMediator {
 
 		protected void setFileName(String fileName) {
 			state.gmFileName = fileName;
+		}
+	}
+
+	private class CreateGDMAction extends RunWizardAction {
+
+		protected IWizard createWizard() {
+			return new GMFGraphModelWizard();
+		}
+
+		protected void wizardFinished(IWizard wizard) {
+			IFile file = ((GMFGraphModelWizard) wizard).getModelFile();
+			state.gdmFileName = getName(file);
+			updateStatus();
+		}
+	}
+
+	private class CreateDMAction extends RunWizardAction {
+
+		protected IWizard createWizard() {
+			return new EcoreModelWizard();
+		}
+
+		protected void wizardFinished(IWizard wizard) {
+			IFile file = ((EcoreModelWizard) wizard).getModelFile();
+			state.dmFileName = getName(file);
+			updateStatus();
+		}
+	}
+
+	private class CreateTDMAction extends RunWizardAction {
+
+		protected IWizard createWizard() {
+			return new GMFToolModelWizard();
+		}
+
+		protected void wizardFinished(IWizard wizard) {
+			IFile file = ((GMFToolModelWizard) wizard).getModelFile();
+			state.tdmFileName = getName(file);
+			updateStatus();
+		}
+	}
+
+	private class CreateMMAction extends RunWizardAction {
+
+		protected IWizard createWizard() {
+			return new GMFMapModelWizard();
+		}
+
+		protected void wizardFinished(IWizard wizard) {
+			IFile file = ((GMFMapModelWizard) wizard).getModelFile();
+			state.mmFileName = getName(file);
+			updateStatus();
+		}
+	}
+
+	private class CreateGMAction extends RunWizardAction {
+
+		protected IWizard createWizard() {
+			return new GMFGenModelWizard();
+		}
+
+		protected void wizardFinished(IWizard wizard) {
+			IFile file = ((GMFGenModelWizard) wizard).getModelFile();
+			state.gmFileName = getName(file);
+			updateStatus();
 		}
 	}
 
