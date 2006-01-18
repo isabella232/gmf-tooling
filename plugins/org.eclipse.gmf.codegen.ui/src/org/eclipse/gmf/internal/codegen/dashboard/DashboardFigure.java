@@ -95,11 +95,11 @@ public class DashboardFigure extends RectangleFigure {
 		if (logoImage != null) {
 			logoFigure.setImage(logoImage);
 		}
-		add(gdmFigure = createModelFigure("Graphical Definition Model"));
-		add(dmFigure = createModelFigure("Domain Model"));
-		add(tdmFigure = createModelFigure("Tooling Definition Model"));
-		add(mmFigure = createModelFigure("Mapping Model"));
-		add(gmFigure = createModelFigure("Generation Model"));
+		add(gdmFigure = createModelFigure("Graphical Definition Model", CodeGenUIPlugin.GDM_ICON));
+		add(dmFigure = createModelFigure("Domain Model", CodeGenUIPlugin.DM_ICON));
+		add(tdmFigure = createModelFigure("Tooling Definition Model", CodeGenUIPlugin.TDM_ICON));
+		add(mmFigure = createModelFigure("Mapping Model", CodeGenUIPlugin.MM_ICON));
+		add(gmFigure = createModelFigure("Generation Model", CodeGenUIPlugin.GM_ICON));
 		add(dm2gdmFlow = createFlowFigure(true));
 		add(dm2tdmFlow = createFlowFigure(true));
 		add(dm2mmFlow = createFlowFigure(true));
@@ -159,9 +159,13 @@ public class DashboardFigure extends RectangleFigure {
 		return mm2gmFigure;
 	}
 
-	protected ModelFigure createModelFigure(String description) {
+	protected ModelFigure createModelFigure(String description, String iconKey) {
 		ModelFigure modelFigure = new ModelFigure();
 		modelFigure.setDescription(description);
+		Image image = CodeGenUIPlugin.getDefault().getImageRegistry().get(iconKey);
+		if (image != null) {
+			modelFigure.setIcon(image);
+		}
 		modelFigure.setBackgroundColor(MODEL_BG);
 		modelFigure.setForegroundColor(DASHBOARD_FG);
 		modelFigure.setLineWidth(LINE_WIDTH);
@@ -242,7 +246,7 @@ public class DashboardFigure extends RectangleFigure {
 
 	private class DashboardLayout extends AbstractLayout {
 
-		private static final int MAX_BOX_WIDTH = 200;
+		private static final int MAX_BOX_WIDTH = 300;
 
 		private static final int BOX_SPACING = 30;
 

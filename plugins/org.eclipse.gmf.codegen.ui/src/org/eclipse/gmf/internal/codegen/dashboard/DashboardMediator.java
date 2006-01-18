@@ -129,7 +129,16 @@ public class DashboardMediator {
 			int done = state.getSpecifiedModelsCount() * 100 / state.getModelsCount();
 			view.getStatusLine(1).setText("Progress: " + done + "% done");
 		}
-		view.repaint();
+		setModelName(view.getGDMFigure(), state.gdmFileName);
+		setModelName(view.getDMFigure(), state.dmFileName);
+		setModelName(view.getTDMFigure(), state.tdmFileName);
+		setModelName(view.getMMFigure(), state.mmFileName);
+		setModelName(view.getGMFigure(), state.gmFileName);
+		view.repaint(); // update hyperlinks
+	}
+
+	protected void setModelName(ModelFigure figure, String name) {
+		figure.setName(name);
 	}
 
 	protected abstract class SelectFileAction implements DashboardAction {
@@ -144,7 +153,7 @@ public class DashboardMediator {
 			if (fileName != null) {
 				file = getFile(fileName);
 			}
-			file = FileSelector.selectFile(shell, getDescription(), file);
+			file = FileSelector.selectFile(shell, getFigure().getDescription(), file);
 			if (file == null) {
 				setFileName(null);
 			} else {
@@ -153,11 +162,11 @@ public class DashboardMediator {
 			updateStatus();
 		}
 
-		protected abstract String getDescription();
+		protected abstract ModelFigure getFigure();
 
 		protected abstract String getFileName();
 
-		protected abstract String setFileName(String fileName);
+		protected abstract void setFileName(String fileName);
 	}
 
 	protected abstract class RunWizardAction implements DashboardAction {
@@ -190,76 +199,76 @@ public class DashboardMediator {
 
 	private class SelectGDMAction extends SelectFileAction {
 
-		protected String getDescription() {
-			return DashboardMediator.this.view.getGDMFigure().getDescription();
+		protected ModelFigure getFigure() {
+			return DashboardMediator.this.view.getGDMFigure();
 		}
 
 		protected String getFileName() {
 			return state.gdmFileName;
 		}
 
-		protected String setFileName(String fileName) {
-			return state.gdmFileName = fileName;
+		protected void setFileName(String fileName) {
+			state.gdmFileName = fileName;
 		}
 	}
 
 	private class SelectDMAction extends SelectFileAction {
 
-		protected String getDescription() {
-			return DashboardMediator.this.view.getDMFigure().getDescription();
+		protected ModelFigure getFigure() {
+			return DashboardMediator.this.view.getDMFigure();
 		}
 
 		protected String getFileName() {
 			return state.dmFileName;
 		}
 
-		protected String setFileName(String fileName) {
-			return state.dmFileName = fileName;
+		protected void setFileName(String fileName) {
+			state.dmFileName = fileName;
 		}
 	}
 
 	private class SelectTDMAction extends SelectFileAction {
 
-		protected String getDescription() {
-			return DashboardMediator.this.view.getTDMFigure().getDescription();
+		protected ModelFigure getFigure() {
+			return DashboardMediator.this.view.getTDMFigure();
 		}
 
 		protected String getFileName() {
 			return state.tdmFileName;
 		}
 
-		protected String setFileName(String fileName) {
-			return state.tdmFileName = fileName;
+		protected void setFileName(String fileName) {
+			state.tdmFileName = fileName;
 		}
 	}
 
 	private class SelectMMAction extends SelectFileAction {
 
-		protected String getDescription() {
-			return DashboardMediator.this.view.getMMFigure().getDescription();
+		protected ModelFigure getFigure() {
+			return DashboardMediator.this.view.getMMFigure();
 		}
 
 		protected String getFileName() {
 			return state.mmFileName;
 		}
 
-		protected String setFileName(String fileName) {
-			return state.mmFileName = fileName;
+		protected void setFileName(String fileName) {
+			state.mmFileName = fileName;
 		}
 	}
 
 	private class SelectGMAction extends SelectFileAction {
 
-		protected String getDescription() {
-			return DashboardMediator.this.view.getGMFigure().getDescription();
+		protected ModelFigure getFigure() {
+			return DashboardMediator.this.view.getGMFigure();
 		}
 
 		protected String getFileName() {
 			return state.gmFileName;
 		}
 
-		protected String setFileName(String fileName) {
-			return state.gmFileName = fileName;
+		protected void setFileName(String fileName) {
+			state.gmFileName = fileName;
 		}
 	}
 
@@ -296,7 +305,7 @@ public class DashboardMediator {
 	private class CombineMMAction extends RunWizardAction {
 
 		public boolean isEnabled() {
-			return project != null && state.dmFileName != null;
+			return project != null && state.gdmFileName != null && state.dmFileName != null && state.tdmFileName != null;
 		}
 
 		protected IWizard createWizard() {

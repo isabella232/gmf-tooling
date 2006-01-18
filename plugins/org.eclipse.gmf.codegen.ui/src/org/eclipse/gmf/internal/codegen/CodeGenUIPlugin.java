@@ -24,6 +24,11 @@ import org.osgi.framework.BundleContext;
 public class CodeGenUIPlugin extends AbstractUIPlugin {
 
 	public static final String GMF_LOGO = "/icons/full/logo_banner.png";
+	public static final String GDM_ICON = "/icons/full/obj16/GMFGraphModelFile.gif";
+	public static final String DM_ICON = "/icons/full/obj16/EcoreModelFile.gif";
+	public static final String TDM_ICON = "/icons/full/obj16/GMFToolModelFile.gif";
+	public static final String MM_ICON = "/icons/full/obj16/GMFMapModelFile.gif";
+	public static final String GM_ICON = "/icons/full/obj16/GMFGenModelFile.gif";
 
 	private static CodeGenUIPlugin plugin;
 
@@ -44,6 +49,26 @@ public class CodeGenUIPlugin extends AbstractUIPlugin {
 		ImageDescriptor id = imageDescriptorFromPlugin(getBundle().getSymbolicName(), GMF_LOGO);
 		if (id != null) {
 			reg.put(GMF_LOGO, id);
+		}
+		id = imageDescriptorFromPlugin("org.eclipse.gmf.graphdef.edit", GDM_ICON);
+		if (id != null) {
+			reg.put(GDM_ICON, id);
+		}
+		id = imageDescriptorFromPlugin("org.eclipse.emf.ecore.editor", DM_ICON);
+		if (id != null) {
+			reg.put(DM_ICON, id);
+		}
+		id = imageDescriptorFromPlugin("org.eclipse.gmf.tooldef.edit", TDM_ICON);
+		if (id != null) {
+			reg.put(TDM_ICON, id);
+		}
+		id = imageDescriptorFromPlugin("org.eclipse.gmf.map.edit", MM_ICON);
+		if (id != null) {
+			reg.put(MM_ICON, id);
+		}
+		id = imageDescriptorFromPlugin("org.eclipse.gmf.codegen.edit", GM_ICON);
+		if (id != null) {
+			reg.put(GM_ICON, id);
 		}
 	}
 

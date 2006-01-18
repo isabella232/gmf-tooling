@@ -20,46 +20,49 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.MarginBorder;
 import org.eclipse.draw2d.RectangleFigure;
-import org.eclipse.draw2d.StackLayout;
 import org.eclipse.draw2d.ToolbarLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.swt.graphics.Image;
 
 /**
  * @author dstadnik
  */
 public class ModelFigure extends RectangleFigure {
 
-	private Label description;
+	private IFigure labelsPlate;
 
 	private IFigure actionsPlate;
 
 	private List separators;
 
-	private List holders;
-
 	public ModelFigure() {
 		separators = new ArrayList();
-		holders = new ArrayList();
 		ToolbarLayout layout = new ToolbarLayout();
 		layout.setMinorAlignment(ToolbarLayout.ALIGN_CENTER);
 		setLayoutManager(layout);
-		IFigure descriptionHolder = new Figure();
-		descriptionHolder.setLayoutManager(new StackLayout());
-		holders.add(descriptionHolder);
-		add(descriptionHolder);
-		description = new Label();
-		description.setFont(JFaceResources.getBannerFont());
-		descriptionHolder.add(description);
+
+		labelsPlate = new Figure();
+		ToolbarLayout labelsLayout = new ToolbarLayout();
+		labelsPlate.setLayoutManager(labelsLayout);
+		add(labelsPlate);
+
 		SeparatorFigure s1 = new SeparatorFigure();
 		separators.add(s1);
 		add(s1);
+
 		actionsPlate = new Figure();
 		ToolbarLayout actionsLayout = new ToolbarLayout();
 		actionsLayout.setStretchMinorAxis(false);
 		actionsPlate.setLayoutManager(actionsLayout);
-		holders.add(actionsPlate);
 		add(actionsPlate);
+
+		Label descriptionFigure = new Label();
+		descriptionFigure.setFont(JFaceResources.getBannerFont());
+		addLabel(descriptionFigure);
+		Label nameFigure = new Label();
+		addLabel(nameFigure);
+		setName(null); // init
 	}
 
 	public void setSpacing(int spacing) {
@@ -68,18 +71,16 @@ public class ModelFigure extends RectangleFigure {
 			SeparatorFigure separator = (SeparatorFigure) it.next();
 			separator.setPreferredSize(new Dimension(0, spacing * 2 + separator.getLineWidth()));
 		}
-		for (Iterator it = holders.iterator(); it.hasNext();) {
-			IFigure holder = (IFigure) it.next();
-			holder.setBorder(new MarginBorder(0, spacing, 0, spacing));
-		}
+		labelsPlate.setBorder(new MarginBorder(0, spacing, 0, spacing));
+		actionsPlate.setBorder(new MarginBorder(0, spacing, 0, spacing));
 	}
 
-	public String getDescription() {
-		return description.getText();
+	public void addLabel(IFigure labelFigure) {
+		labelsPlate.add(labelFigure);
 	}
 
-	public void setDescription(String description) {
-		this.description.setText(description);
+	public void removeLabel(IFigure labelFigure) {
+		labelsPlate.remove(labelFigure);
 	}
 
 	public void addAction(IFigure actionFigure) {
@@ -92,5 +93,38 @@ public class ModelFigure extends RectangleFigure {
 		plate.add(bullet);
 		plate.add(actionFigure);
 		actionsPlate.add(plate);
+	}
+
+	public void removeAction(IFigure actionFigure) {
+		for (Iterator it = actionsPlate.getChildren().iterator(); it.hasNext();) {
+			IFigure plate = (IFigure) it.next();
+			if (plate.getChildren().contains(actionFigure)) {
+				actionsPlate.remove(plate);
+				break;
+			}
+		}
+	}
+
+	protected Label getLabel(int i) {
+		return (Label) labelsPlate.getChildren().get(i);
+	}
+
+	public String getDescription() {
+		return getLabel(0).getText();
+	}
+
+	public void setDescription(String description) {
+		getLabel(0).setText(description);
+	}
+
+	public void setIcon(Image icon) {
+		getLabel(0).setIcon(icon);
+	}
+
+	public void setName(String name) {
+		if (name == null || name.trim().length() == 0) {
+			name = "<not specified>";
+		}
+		getLabel(1).setText(name);
 	}
 }
