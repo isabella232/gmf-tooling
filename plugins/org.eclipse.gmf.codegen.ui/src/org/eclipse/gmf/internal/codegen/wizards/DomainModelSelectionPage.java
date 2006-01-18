@@ -11,14 +11,12 @@
  */
 package org.eclipse.gmf.internal.codegen.wizards;
 
-import java.util.Collections;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.gmf.internal.codegen.FileSelector;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -31,7 +29,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.dialogs.ResourceSelectionDialog;
 
 public class DomainModelSelectionPage extends WizardPage {
 
@@ -95,20 +92,13 @@ public class DomainModelSelectionPage extends WizardPage {
 		button.addSelectionListener(new SelectionListener() {
 
 			public void widgetSelected(SelectionEvent e) {
-				ResourceSelectionDialog fsd = new ResourceSelectionDialog(getShell(), ResourcesPlugin.getWorkspace().getRoot(), "Domain Model File");
+				file = FileSelector.selectFile(getShell(), "Domain Model File", null, file, "ecore");
 				if (file != null) {
-					fsd.setInitialElementSelections(Collections.singletonList(file));
+					text.setText(file.getFullPath().toString());
+				} else {
+					text.setText("");
 				}
-				if (fsd.open() == Window.OK) {
-					Object[] result = fsd.getResult();
-					if (result.length > 0 && result[0] instanceof IFile) {
-						file = (IFile) result[0];
-						text.setText(file.getFullPath().toString());
-					} else {
-						file = null;
-					}
-					setPageComplete(validatePage());
-				}
+				setPageComplete(validatePage());
 			}
 
 			public void widgetDefaultSelected(SelectionEvent e) {

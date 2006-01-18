@@ -135,7 +135,7 @@ public class DashboardMediator {
 			if (fileName != null) {
 				file = getFile(fileName);
 			}
-			file = FileSelector.selectFile(shell, getFigure().getDescription(), project, file);
+			file = FileSelector.selectFile(shell, getFigure().getDescription(), project, file, getFileExtension());
 			setFileName(getName(file));
 			updateStatus();
 		}
@@ -145,6 +145,8 @@ public class DashboardMediator {
 		protected abstract String getFileName();
 
 		protected abstract void setFileName(String fileName);
+
+		protected abstract String getFileExtension();
 	}
 
 	protected abstract class RunWizardAction implements DashboardAction {
@@ -197,6 +199,10 @@ public class DashboardMediator {
 		protected void setFileName(String fileName) {
 			state.gdmFileName = fileName;
 		}
+
+		protected String getFileExtension() {
+			return "gmfgraph";
+		}
 	}
 
 	private class SelectDMAction extends SelectFileAction {
@@ -211,6 +217,10 @@ public class DashboardMediator {
 
 		protected void setFileName(String fileName) {
 			state.dmFileName = fileName;
+		}
+
+		protected String getFileExtension() {
+			return "ecore";
 		}
 	}
 
@@ -227,6 +237,10 @@ public class DashboardMediator {
 		protected void setFileName(String fileName) {
 			state.tdmFileName = fileName;
 		}
+
+		protected String getFileExtension() {
+			return "gmftool";
+		}
 	}
 
 	private class SelectMMAction extends SelectFileAction {
@@ -242,6 +256,10 @@ public class DashboardMediator {
 		protected void setFileName(String fileName) {
 			state.mmFileName = fileName;
 		}
+
+		protected String getFileExtension() {
+			return "gmfmap";
+		}
 	}
 
 	private class SelectGMAction extends SelectFileAction {
@@ -256,6 +274,10 @@ public class DashboardMediator {
 
 		protected void setFileName(String fileName) {
 			state.gmFileName = fileName;
+		}
+
+		protected String getFileExtension() {
+			return "gmfgen";
 		}
 	}
 
