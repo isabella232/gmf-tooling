@@ -11,9 +11,6 @@
  */
 package org.eclipse.gmf.internal.codegen.dashboard;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.AbstractLayout;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
@@ -32,31 +29,10 @@ import org.eclipse.draw2d.geometry.Insets;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.emf.ecore.presentation.EcoreModelWizard;
-import org.eclipse.gmf.codegen.gmfgen.presentation.GMFGenModelWizard;
-import org.eclipse.gmf.gmfgraph.presentation.GMFGraphModelWizard;
 import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
-import org.eclipse.gmf.internal.codegen.FileSelector;
-import org.eclipse.gmf.internal.codegen.popup.actions.ExecuteTemplatesAction;
-import org.eclipse.gmf.internal.codegen.popup.actions.TransformToGenModel;
-import org.eclipse.gmf.internal.codegen.wizards.GMFGraphSimpleModelWizard;
-import org.eclipse.gmf.internal.codegen.wizards.GMFToolSimpleModelWizard;
-import org.eclipse.gmf.internal.codegen.wizards.NewGMFMapModelWizard;
-import org.eclipse.gmf.mappings.presentation.GMFMapModelWizard;
-import org.eclipse.gmf.tooldef.presentation.GMFToolModelWizard;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.resource.JFaceResources;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.wizard.IWizard;
-import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWizard;
-import org.eclipse.ui.PlatformUI;
 
 /**
  * @author dstadnik
@@ -72,12 +48,6 @@ public class DashboardFigure extends RectangleFigure {
 	private static final Color DASHBOARD_FG = new Color(null, 169, 164, 227);
 
 	private static final Color MODEL_BG = ColorConstants.white;
-
-	private Shell shell;
-
-	private IProject project;
-
-	private DashboardState state;
 
 	private ImageFigure logoFigure;
 
@@ -119,192 +89,27 @@ public class DashboardFigure extends RectangleFigure {
 
 	private FlowActionFigure mm2gmFigure;
 
-	public DashboardFigure(Shell shell) {
-		state = new DashboardState();
-		this.shell = shell;
+	public DashboardFigure() {
 		add(logoFigure = new ImageFigure());
 		Image logoImage = CodeGenUIPlugin.getDefault().getImageRegistry().get(CodeGenUIPlugin.GMF_LOGO);
 		if (logoImage != null) {
 			logoFigure.setImage(logoImage);
 		}
-		final String gdmLabel = "Graphical Definition Model";
-		add(gdmFigure = createModelFigure(gdmLabel, new SelectFileAction() {
-
-			protected String getDescription() {
-				return gdmLabel;
-			}
-
-			protected String getFileName() {
-				return state.gdmFileName;
-			}
-
-			protected String setFileName(String fileName) {
-				return state.gdmFileName = fileName;
-			}
-		}, new RunWizardAction() {
-
-			protected IWizard createWizard() {
-				return new GMFGraphModelWizard();
-			}
-		}));
-		final String dmLabel = "Domain Model";
-		add(dmFigure = createModelFigure(dmLabel, new SelectFileAction() {
-
-			protected String getDescription() {
-				return dmLabel;
-			}
-
-			protected String getFileName() {
-				return state.dmFileName;
-			}
-
-			protected String setFileName(String fileName) {
-				return state.dmFileName = fileName;
-			}
-		}, new RunWizardAction() {
-
-			protected IWizard createWizard() {
-				return new EcoreModelWizard();
-			}
-		}));
-		final String tdmLabel = "Tooling Definition Model";
-		add(tdmFigure = createModelFigure(tdmLabel, new SelectFileAction() {
-
-			protected String getDescription() {
-				return tdmLabel;
-			}
-
-			protected String getFileName() {
-				return state.tdmFileName;
-			}
-
-			protected String setFileName(String fileName) {
-				return state.tdmFileName = fileName;
-			}
-		}, new RunWizardAction() {
-
-			protected IWizard createWizard() {
-				return new GMFToolModelWizard();
-			}
-		}));
-		final String mmLabel = "Mapping Model";
-		add(mmFigure = createModelFigure(mmLabel, new SelectFileAction() {
-
-			protected String getDescription() {
-				return mmLabel;
-			}
-
-			protected String getFileName() {
-				return state.mmFileName;
-			}
-
-			protected String setFileName(String fileName) {
-				return state.mmFileName = fileName;
-			}
-		}, new RunWizardAction() {
-
-			protected IWizard createWizard() {
-				return new GMFMapModelWizard();
-			}
-		}));
-		final String gmLabel = "Generation Model";
-		add(gmFigure = createModelFigure(gmLabel, new SelectFileAction() {
-
-			protected String getDescription() {
-				return gmLabel;
-			}
-
-			protected String getFileName() {
-				return state.gmFileName;
-			}
-
-			protected String setFileName(String fileName) {
-				return state.gmFileName = fileName;
-			}
-		}, new RunWizardAction() {
-
-			protected IWizard createWizard() {
-				return new GMFGenModelWizard();
-			}
-		}));
-		gmFigure.addAction(createLinkFigure("Generate diagram editor", new DashboardAction() {
-
-			public boolean isEnabled() {
-				return project != null && state.gmFileName != null;
-			}
-
-			public void run() {
-				IFile file = getFile(state.gmFileName);
-				ExecuteTemplatesAction action = new ExecuteTemplatesAction();
-				IAction uiAction = new Action() {
-				};
-				IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-				action.setActivePart(uiAction, window.getPartService().getActivePart());
-				action.selectionChanged(uiAction, new StructuredSelection(file));
-				action.run(uiAction);
-			}
-		}));
+		add(gdmFigure = createModelFigure("Graphical Definition Model"));
+		add(dmFigure = createModelFigure("Domain Model"));
+		add(tdmFigure = createModelFigure("Tooling Definition Model"));
+		add(mmFigure = createModelFigure("Mapping Model"));
+		add(gmFigure = createModelFigure("Generation Model"));
 		add(dm2gdmFlow = createFlowFigure(true));
 		add(dm2tdmFlow = createFlowFigure(true));
 		add(dm2mmFlow = createFlowFigure(true));
 		add(gdm2mmFlow = createFlowFigure(false));
 		add(tdm2mmFlow = createFlowFigure(false));
 		add(mm2gmFlow = createFlowFigure(true));
-		add(dm2gdmFigure = createFlowActionFigure(new RunWizardAction() {
-
-			public boolean isEnabled() {
-				return super.isEnabled() && state.dmFileName != null;
-			}
-
-			protected IWizard createWizard() {
-				return new GMFGraphSimpleModelWizard();
-			}
-
-			protected IStructuredSelection getSelection() {
-				return new StructuredSelection(getFile(state.dmFileName));
-			}
-		}));
-		add(dm2tdmFigure = createFlowActionFigure(new RunWizardAction() {
-
-			public boolean isEnabled() {
-				return super.isEnabled() && state.dmFileName != null;
-			}
-
-			protected IWizard createWizard() {
-				return new GMFToolSimpleModelWizard();
-			}
-
-			protected IStructuredSelection getSelection() {
-				return new StructuredSelection(getFile(state.dmFileName));
-			}
-		}));
-		add(dm2mmFigure = createFlowActionFigure(new RunWizardAction() {
-
-			public boolean isEnabled() {
-				return project != null && state.dmFileName != null;
-			}
-
-			protected IWizard createWizard() {
-				return new NewGMFMapModelWizard();
-			}
-		}));
-		add(mm2gmFigure = createFlowActionFigure(new DashboardAction() {
-
-			public boolean isEnabled() {
-				return project != null && state.mmFileName != null;
-			}
-
-			public void run() {
-				IFile file = getFile(state.mmFileName);
-				TransformToGenModel action = new TransformToGenModel();
-				IAction uiAction = new Action() {
-				};
-				IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-				action.setActivePart(uiAction, window.getPartService().getActivePart());
-				action.selectionChanged(uiAction, new StructuredSelection(file));
-				action.run(uiAction);
-			}
-		}));
+		add(dm2gdmFigure = createFlowActionFigure());
+		add(dm2tdmFigure = createFlowActionFigure());
+		add(dm2mmFigure = createFlowActionFigure());
+		add(mm2gmFigure = createFlowActionFigure());
 		add(statusFigure = new Figure());
 		statusFigure.setFont(JFaceResources.getBannerFont());
 		ToolbarLayout statusLayout = new ToolbarLayout();
@@ -318,11 +123,45 @@ public class DashboardFigure extends RectangleFigure {
 		setForegroundColor(DASHBOARD_FG);
 	}
 
-	protected ModelFigure createModelFigure(String description, DashboardAction selectAction, DashboardAction createAction) {
+	public ModelFigure getGDMFigure() {
+		return gdmFigure;
+	}
+
+	public ModelFigure getDMFigure() {
+		return dmFigure;
+	}
+
+	public ModelFigure getTDMFigure() {
+		return tdmFigure;
+	}
+
+	public ModelFigure getMMFigure() {
+		return mmFigure;
+	}
+
+	public ModelFigure getGMFigure() {
+		return gmFigure;
+	}
+
+	public FlowActionFigure getDM2GDMFigure() {
+		return dm2gdmFigure;
+	}
+
+	public FlowActionFigure getDM2TDMFigure() {
+		return dm2tdmFigure;
+	}
+
+	public FlowActionFigure getDM2MMFigure() {
+		return dm2mmFigure;
+	}
+
+	public FlowActionFigure getMM2GMFigure() {
+		return mm2gmFigure;
+	}
+
+	protected ModelFigure createModelFigure(String description) {
 		ModelFigure modelFigure = new ModelFigure();
 		modelFigure.setDescription(description);
-		modelFigure.addAction(createLinkFigure("Select", selectAction));
-		modelFigure.addAction(createLinkFigure("Create", createAction));
 		modelFigure.setBackgroundColor(MODEL_BG);
 		modelFigure.setForegroundColor(DASHBOARD_FG);
 		modelFigure.setLineWidth(LINE_WIDTH);
@@ -348,11 +187,9 @@ public class DashboardFigure extends RectangleFigure {
 		return flowFigure;
 	}
 
-	protected FlowActionFigure createFlowActionFigure(DashboardAction generateAction) {
+	protected FlowActionFigure createFlowActionFigure() {
 		FlowActionFigure flowActionFigure = new FlowActionFigure();
 		flowActionFigure.setLayoutManager(new ToolbarLayout());
-		IFigure generateLabel = createLinkFigure("Generate", generateAction);
-		flowActionFigure.add(generateLabel);
 		flowActionFigure.setBackgroundColor(MODEL_BG);
 		flowActionFigure.setForegroundColor(DASHBOARD_FG);
 		flowActionFigure.setLineWidth(LINE_WIDTH / 3);
@@ -360,7 +197,7 @@ public class DashboardFigure extends RectangleFigure {
 		return flowActionFigure;
 	}
 
-	protected IFigure createLinkFigure(String text, final DashboardAction action) {
+	public IFigure createLinkFigure(String text, final DashboardAction action) {
 		Label label = new Label() {
 
 			protected void paintFigure(Graphics graphics) {
@@ -396,43 +233,11 @@ public class DashboardFigure extends RectangleFigure {
 		return label;
 	}
 
-	protected Label getStatusLine(int i) {
+	public Label getStatusLine(int i) {
 		return (Label) statusFigure.getChildren().get(i);
 	}
 
 	protected void outlineShape(Graphics graphics) {
-	}
-
-	protected IFile getFile(String fileName) {
-		return project.getFile(new Path(fileName));
-	}
-
-	public IProject getProject() {
-		return project;
-	}
-
-	public DashboardState getState() {
-		return state;
-	}
-
-	public void setProjectAndState(IProject project, DashboardState state) {
-		this.project = project;
-		this.state = state;
-		if (this.state == null) {
-			this.state = new DashboardState();
-		}
-		updateStatus();
-	}
-
-	protected void updateStatus() {
-		if (project == null) {
-			getStatusLine(0).setText("");
-		} else {
-			getStatusLine(0).setText("Project: " + project.getName());
-		}
-		int done = state.getSpecifiedModelsCount() * 100 / state.getModelsCount();
-		getStatusLine(1).setText("Progress: " + done + "% done");
-		repaint();
 	}
 
 	private class DashboardLayout extends AbstractLayout {
@@ -593,61 +398,5 @@ public class DashboardFigure extends RectangleFigure {
 				return bounds.getSize();
 			}
 		}
-	}
-
-	protected abstract class SelectFileAction implements DashboardAction {
-
-		public boolean isEnabled() {
-			return project != null;
-		}
-
-		public void run() {
-			IFile file = null;
-			String fileName = getFileName();
-			if (fileName != null) {
-				file = getFile(fileName);
-			}
-			file = FileSelector.selectFile(shell, getDescription(), file);
-			if (file == null) {
-				setFileName(null);
-			} else {
-				setFileName(file.getProjectRelativePath().toString());
-			}
-			updateStatus();
-		}
-
-		protected abstract String getDescription();
-
-		protected abstract String getFileName();
-
-		protected abstract String setFileName(String fileName);
-	}
-
-	protected abstract class RunWizardAction implements DashboardAction {
-
-		private static final int SIZING_WIZARD_WIDTH = 500;
-
-		private static final int SIZING_WIZARD_HEIGHT = 500;
-
-		public boolean isEnabled() {
-			return project != null;
-		}
-
-		public void run() {
-			IWizard wizard = createWizard();
-			if (wizard instanceof IWorkbenchWizard) {
-				((IWorkbenchWizard) wizard).init(PlatformUI.getWorkbench(), getSelection());
-			}
-			WizardDialog dialog = new WizardDialog(shell, wizard);
-			dialog.create();
-			dialog.getShell().setSize(Math.max(SIZING_WIZARD_WIDTH, dialog.getShell().getSize().x), SIZING_WIZARD_HEIGHT);
-			dialog.open();
-		}
-
-		protected IStructuredSelection getSelection() {
-			return new StructuredSelection(project);
-		}
-
-		protected abstract IWizard createWizard();
 	}
 }

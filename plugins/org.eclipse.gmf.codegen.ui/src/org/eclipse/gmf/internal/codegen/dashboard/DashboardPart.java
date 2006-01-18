@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.internal.codegen.dashboard;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -35,18 +36,26 @@ public class DashboardPart extends ViewPart {
 
 	private FigureCanvas canvas;
 
+	private DashboardMediator mediator;
+
 	private ISelectionListener projectUpdater;
 
 	private Map states;
 
 	public void init(IViewSite site, IMemento memento) throws PartInitException {
 		super.init(site, memento);
-		states = DashboardPersistence.read(memento);
+		if (memento == null) {
+			states = new HashMap();
+		} else {
+			states = DashboardPersistence.read(memento);
+		}
 	}
 
 	public void createPartControl(Composite parent) {
 		canvas = new FigureCanvas(parent);
-		DashboardFigure contents = new DashboardFigure(parent.getShell());
+		mediator = new DashboardMediator(parent.getShell());
+		DashboardFigure contents = new DashboardFigure();
+		mediator.setView(contents);
 		canvas.setContents(contents);
 		getSite().getWorkbenchWindow().getSelectionService().addSelectionListener(projectUpdater = new ISelectionListener() {
 
@@ -59,11 +68,8 @@ public class DashboardPart extends ViewPart {
 
 	public void saveState(IMemento memento) {
 		super.saveState(memento);
-		if (canvas != null) {
-			DashboardFigure contents = getDashboardFigure();
-			if (contents.getProject() != null) {
-				states.put(contents.getProject(), contents.getState());
-			}
+		if (mediator != null && mediator.getProject() != null) {
+			states.put(mediator.getProject(), mediator.getState());
 		}
 		DashboardPersistence.write(memento, states);
 	}
@@ -82,15 +88,10 @@ public class DashboardPart extends ViewPart {
 		}
 	}
 
-	protected DashboardFigure getDashboardFigure() {
-		return (DashboardFigure) canvas.getContents();
-	}
-
 	protected void updateActiveProject(ISelection selection) {
 		if (!(selection instanceof IStructuredSelection)) {
 			return;
 		}
-		DashboardFigure contents = getDashboardFigure();
 		IProject activeProject = null;
 		for (Iterator it = ((IStructuredSelection) selection).iterator(); it.hasNext();) {
 			Object element = (Object) it.next();
@@ -106,7 +107,7 @@ public class DashboardPart extends ViewPart {
 			if (project == null) {
 				continue;
 			}
-			if (project.equals(contents.getProject())) {
+			if (project.equals(mediator.getProject())) {
 				// if current active project is selected do not change it
 				return;
 			}
@@ -116,10 +117,10 @@ public class DashboardPart extends ViewPart {
 			}
 		}
 		if (activeProject != null) {
-			if (contents.getProject() != null) {
-				states.put(contents.getProject(), contents.getState());
+			if (mediator.getProject() != null) {
+				states.put(mediator.getProject(), mediator.getState());
 			}
-			contents.setProjectAndState(activeProject, (DashboardState) states.get(activeProject));
+			mediator.setProjectAndState(activeProject, (DashboardState) states.get(activeProject));
 		}
 	}
 }

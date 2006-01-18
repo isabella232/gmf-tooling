@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.internal.codegen.dashboard;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.RectangleFigure;
 
 /**
@@ -18,4 +19,7 @@ import org.eclipse.draw2d.RectangleFigure;
  */
 public class FlowActionFigure extends RectangleFigure {
 
+	public void addAction(IFigure actionFigure) {
+		add(actionFigure);
+	}
 }
