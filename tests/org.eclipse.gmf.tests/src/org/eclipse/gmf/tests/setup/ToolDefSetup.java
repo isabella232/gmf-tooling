@@ -67,7 +67,9 @@ public class ToolDefSetup implements ToolDefSource {
 	}
 
 	private CreationTool createTool(String title) {
-		return GMFToolFactory.eINSTANCE.createCreationTool();
+		CreationTool t = GMFToolFactory.eINSTANCE.createCreationTool();
+		t.setTitle(title);
+		return t;
 	}
 
 	private static MenuAction createAction(String name) {

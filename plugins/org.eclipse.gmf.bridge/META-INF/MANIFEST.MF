@@ -12,5 +12,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.codegen;visibility:=reexport,
  org.eclipse.gmf.runtime.notation;visibility:=reexport,
  org.eclipse.gmf.graphdef.codegen
-Export-Package: org.eclipse.gmf.bridge.genmodel
+Export-Package: org.eclipse.gmf.bridge.genmodel,
+ org.eclipse.gmf.internal.bridge.naming,
+ org.eclipse.gmf.internal.bridge.naming.gen
 Eclipse-LazyStart: true

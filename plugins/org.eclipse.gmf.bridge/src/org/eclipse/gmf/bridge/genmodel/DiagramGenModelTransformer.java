@@ -33,7 +33,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
-import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
@@ -56,6 +55,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.gmfgraph.Compartment;
+import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediator;
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
@@ -93,7 +93,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private GenDiagram myGenModel;
 	private GenModelMatcher myGenModelMatch;
 	private final DiagramRunTimeModelHelper myDRTHelper;
-	private final NamingStrategy myNamingStrategy;
 	private final ViewmapProducer myViewmaps = new InnerClassViewmapProducer();
 
 	private int myNodeCount = 0;
@@ -101,8 +100,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private int myChildCount = 0;
 	private int myLabelCount = 0;
 	private int myCompartmentCount = 0;
+	private final GenModelNamingMediator myNamingStrategy;
 
-	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, NamingStrategy namingStrategy) {
+	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy) {
 		myDRTHelper = drtHelper;
 		myNamingStrategy = namingStrategy;
 	}
@@ -151,10 +151,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		getGenDiagram().setViewmap(myViewmaps.create(mapping.getDiagramCanvas()));
 
 		// set class names
-		getGenDiagram().setNotationViewFactoryClassName(myNamingStrategy.createCanvasClassName(mapping, GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX));
-		getGenDiagram().setEditPartClassName(myNamingStrategy.createCanvasClassName(mapping, GenCommonBase.EDIT_PART_SUFFIX));
-		getGenDiagram().setItemSemanticEditPolicyClassName(myNamingStrategy.createCanvasClassName(mapping, GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX));
-		getGenDiagram().setCanonicalEditPolicyClassName(myNamingStrategy.createCanvasClassName(mapping, GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX));
+		myNamingStrategy.feed(getGenDiagram(), mapping);
 		
 		// process audit rules
 		if(mapping.eContainer() != null) {
@@ -184,9 +181,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			label.setViewmap(createLabelViewmap());
 
 			// set class names
-			label.setNotationViewFactoryClassName(myNamingStrategy.createNodeLabelClassName(nme, nme.getEditFeature(), GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX));
-			label.setEditPartClassName(myNamingStrategy.createNodeLabelClassName(nme, nme.getEditFeature(), GenCommonBase.EDIT_PART_SUFFIX));
-			label.setItemSemanticEditPolicyClassName(myNamingStrategy.createNodeLabelClassName(nme, nme.getEditFeature(), GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX));
+			myNamingStrategy.feed(label, nme);
 
 			genNode.getLabels().add(label);
 		}
@@ -194,11 +189,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		handleNodeTool(nme, genNode);
 
 		// set class names
-		genNode.setNotationViewFactoryClassName(myNamingStrategy.createNodeClassName(nme, GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX));
-		genNode.setEditPartClassName(myNamingStrategy.createNodeClassName(nme, GenCommonBase.EDIT_PART_SUFFIX));
-		genNode.setItemSemanticEditPolicyClassName(myNamingStrategy.createNodeClassName(nme, GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX));
-		genNode.setCanonicalEditPolicyClassName(myNamingStrategy.createNodeClassName(nme, GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX));
-		genNode.setGraphicalNodeEditPolicyClassName(myNamingStrategy.createNodeClassName(nme, GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX));
+		myNamingStrategy.feed(genNode, nme);
 		
 		processAbstractNode(nme, genNode);
 	}
@@ -216,11 +207,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		childNode.setChildContainersPlacement(CompartmentPlacementKind.TOOLBAR_LITERAL);
 
 		// set class names
-		childNode.setNotationViewFactoryClassName(myNamingStrategy.createChildNodeClassName(childNodeMapping, GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX));
-		childNode.setEditPartClassName(myNamingStrategy.createChildNodeClassName(childNodeMapping, GenCommonBase.EDIT_PART_SUFFIX));
-		childNode.setItemSemanticEditPolicyClassName(myNamingStrategy.createChildNodeClassName(childNodeMapping, GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX));
-		childNode.setCanonicalEditPolicyClassName(myNamingStrategy.createChildNodeClassName(childNodeMapping, GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX));
-		childNode.setGraphicalNodeEditPolicyClassName(myNamingStrategy.createChildNodeClassName(childNodeMapping, GenNode.GRAPHICAL_NODE_EDIT_POLICY_SUFFIX));
+		myNamingStrategy.feed(childNode, childNodeMapping);
 
 		if (childNodeMapping.getEditFeature() != null) {
 			FeatureModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureModelFacet();
@@ -232,9 +219,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			label.setViewmap(createLabelViewmap());
 
 			// set class names
-			label.setNotationViewFactoryClassName(myNamingStrategy.createNodeLabelClassName(childNodeMapping, childNodeMapping.getEditFeature(), GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX));
-			label.setEditPartClassName(myNamingStrategy.createNodeLabelClassName(childNodeMapping, childNodeMapping.getEditFeature(), GenCommonBase.EDIT_PART_SUFFIX));
-			label.setItemSemanticEditPolicyClassName(myNamingStrategy.createNodeLabelClassName(childNodeMapping, childNodeMapping.getEditFeature(), GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX));
+			myNamingStrategy.feed(label, childNodeMapping);
 
 			childNode.getLabels().add(label);
 		}
@@ -289,10 +274,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		childCompartment.setTitle(compartment.getName());
 
 		// set class names
-		childCompartment.setNotationViewFactoryClassName(myNamingStrategy.createCompartmentClassName(mapping.getParentNodeMapping(), compartment, GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX));
-		childCompartment.setEditPartClassName(myNamingStrategy.createCompartmentClassName(mapping.getParentNodeMapping(), compartment, GenCommonBase.EDIT_PART_SUFFIX));
-		childCompartment.setItemSemanticEditPolicyClassName(myNamingStrategy.createCompartmentClassName(mapping.getParentNodeMapping(), compartment, GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX));
-		childCompartment.setCanonicalEditPolicyClassName(myNamingStrategy.createCompartmentClassName(mapping.getParentNodeMapping(), compartment, GenChildContainer.CANONICAL_EDIT_POLICY_SUFFIX));
+		myNamingStrategy.feed(childCompartment, mapping);
 
 		return childCompartment;
 	}
@@ -320,11 +302,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			label.setViewmap(createLabelViewmap());
 
 			// set class names
-			label.setNotationViewFactoryClassName(myNamingStrategy.createLinkLabelClassName(lme, lme.getLabelEditFeature(), GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX));
-			label.setTextNotationViewFactoryClassName(myNamingStrategy.createLinkLabelClassName(lme, lme.getLabelEditFeature(), GenLinkLabel.TEXT_NOTATION_VIEW_FACTORY_SUFFIX));
-			label.setEditPartClassName(myNamingStrategy.createLinkLabelClassName(lme, lme.getLabelEditFeature(), GenCommonBase.EDIT_PART_SUFFIX));
-			label.setTextEditPartClassName(myNamingStrategy.createLinkLabelClassName(lme, lme.getLabelEditFeature(), GenLinkLabel.TEXT_EDIT_PART_SUFFIX));
-			label.setItemSemanticEditPolicyClassName(myNamingStrategy.createLinkLabelClassName(lme, lme.getLabelEditFeature(), GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX));
+			myNamingStrategy.feed(label, lme);
 
 			gl.getLabels().add(label);
 		}
@@ -332,9 +310,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		gl.setVisualID(LINK_COUNT_BASE + (++myLinkCount));
 
 		// set class names
-		gl.setNotationViewFactoryClassName(myNamingStrategy.createLinkClassName(lme, GenCommonBase.NOTATION_VIEW_FACTORY_SUFFIX));
-		gl.setEditPartClassName(myNamingStrategy.createLinkClassName(lme, GenCommonBase.EDIT_PART_SUFFIX));
-		gl.setItemSemanticEditPolicyClassName(myNamingStrategy.createLinkClassName(lme, GenCommonBase.ITEM_SEMANTIC_EDIT_POLICY_SUFFIX));
+		myNamingStrategy.feed(gl, lme);
 
 		gl.setViewmap(myViewmaps.create(lme.getDiagramLink()));
 
@@ -392,9 +368,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private void setupCommonToolEntry(EntryBase te, AbstractTool tool) {
 		te.setTitleKey(tool.getTitle() == null ? "" : tool.getTitle()); // same at (*1*)
 		te.setDescriptionKey(tool.getDescription());
-
-		// FIXME - there's no need in createMethodName.
-		te.setCreateMethodName(myNamingStrategy.createCreationMethodName(tool));
 
 		// FIXME need to change this once better tooling definition is in place. 
 		if (tool.getLargeIcon() instanceof BundleImage) {

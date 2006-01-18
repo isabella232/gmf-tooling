@@ -31,7 +31,7 @@ import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.TestSetupTest;
-import org.eclipse.gmf.tests.tr.EPNamingStrategyTest;
+import org.eclipse.gmf.tests.tr.NamingStrategyTest;
 import org.eclipse.gmf.tests.tr.GenModelTransformerBasicRTTest;
 
 public class AllTests {
@@ -57,7 +57,7 @@ public class AllTests {
 		suite.addTestSuite(CompilationTest.class);
 
 		suite.addTest(feed(DiagramNodeTest.class, sessionSetup));
-		suite.addTest(feed(EPNamingStrategyTest.class, sessionSetup));
+		suite.addTest(feed(NamingStrategyTest.class, sessionSetup));
 		suite.addTest(feed(GenModelTransformerBasicRTTest.class, sessionSetup));
 
 //		suite.addTestSuite(RunTimeModelTransformerTest.class); #113966

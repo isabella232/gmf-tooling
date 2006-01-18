@@ -14,10 +14,8 @@ package org.eclipse.gmf.tests.tr;
 import java.util.Iterator;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.gmf.bridge.genmodel.DefaultNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
-import org.eclipse.gmf.bridge.genmodel.NamingStrategy;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
@@ -26,6 +24,9 @@ import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
+import org.eclipse.gmf.internal.bridge.naming.CollectingDispenser;
+import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
+import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
@@ -34,47 +35,48 @@ import org.eclipse.gmf.tests.Utils;
 public abstract class GenModelTransformerTest extends AbstractMappingTransformerTest {
 
 	private NamingStrategy myNamingStrategy;
+	private GenDiagram transfromationResult; 
 
 	public GenModelTransformerTest(String name) {
 		super(name);
 	}
 
-	public void testGenModelTransform() {
+	protected void setUp() throws Exception {
+		super.setUp();
 		final DiagramRunTimeModelHelper drtModelHelper = getRTHelper();
 		final Mapping m = getMapping();
+		CollectingDispenser uniquenessDispenser = new CollectingDispenser();
+		GenModelNamingMediatorImpl namingMediator = new GenModelNamingMediatorImpl(uniquenessDispenser);
+		myNamingStrategy = namingMediator.getEditPart();
 
-		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, getNamingStrategy());
+		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, namingMediator);
 		t.setEMFGenModel(Utils.createGenModel(m.getDiagram().getDomainModel(), Utils.createUniquePluginID()));
 		t.transform(m);
-		getNamingStrategy().reset();
-		GenDiagram genDiagram = t.getResult();
-		assertNotNull("GenDiagram is expected as result of mapping transformation", genDiagram);
-		assertNotNull("Diagram filename extension not set", genDiagram.getDiagramFileExtension());
+		transfromationResult = t.getResult();
+		uniquenessDispenser.forget();
+	}
+
+	public void testGenModelTransform() {
+		assertNotNull("GenDiagram is expected as result of mapping transformation", transfromationResult);
+		assertNotNull("Diagram filename extension not set", transfromationResult.getDiagramFileExtension());
 		// FIXME add more
 
-		GenNode genNode = (GenNode) findGenBaseElement(genDiagram.getNodes(), getNamingStrategy().createNodeClassName(getNodeMapping(), GenCommonBase.EDIT_PART_SUFFIX));
+		GenNode genNode = (GenNode) findGenBaseElement(transfromationResult.getNodes(), getEditPartNameStrategy().get(getNodeMapping()));
 		assertNotNull("Result model contains no GenNode for nodeMapping", genNode);
 		// FIXME add more
 
-		GenLink genLink = (GenLink) findGenBaseElement(genDiagram.getLinks(), getNamingStrategy().createLinkClassName(getLinkMapping(), GenCommonBase.EDIT_PART_SUFFIX));
+		GenLink genLink = (GenLink) findGenBaseElement(transfromationResult.getLinks(), getEditPartNameStrategy().get(getLinkMapping()));
 		assertNotNull("Result model contains no GenLink for linkMapping", genLink);
 		// FIXME add more
 	}
 
 	public void testCreatedPalette() {
-		final DiagramRunTimeModelHelper drtModelHelper = getRTHelper();
-		final Mapping m = getMapping();
-		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, getNamingStrategy());
-		t.setEMFGenModel(Utils.createGenModel(m.getDiagram().getDomainModel(), Utils.createUniquePluginID()));
-		t.transform(m);
-		getNamingStrategy().reset();
-		GenDiagram genDiagram = t.getResult();
-		Palette palette = genDiagram.getPalette();
-		for (Iterator itN = m.getNodes().iterator(); itN.hasNext();) {
+		Palette palette = transfromationResult.getPalette();
+		for (Iterator itN = getMapping().getNodes().iterator(); itN.hasNext();) {
 			NodeMapping nodeMapping = (NodeMapping) (itN.next());
 			assertEquals(nodeMapping.getTool() != null ? 1 : 0, countUses(nodeMapping, palette));
 		}
-		for (Iterator itL = m.getLinks().iterator(); itL.hasNext();) {
+		for (Iterator itL = getMapping().getLinks().iterator(); itL.hasNext();) {
 			LinkMapping linkMapping = (LinkMapping) (itL.next());
 			assertEquals(linkMapping.getTool() != null ? 1 : 0, countUses(linkMapping, palette));
 		}
@@ -93,7 +95,7 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 
 	private int countUses(NodeMapping mappingEntry, Palette palette) {
 		int uses = 0;
-		final String epName = getNamingStrategy().createNodeClassName(mappingEntry, GenCommonBase.EDIT_PART_SUFFIX);
+		final String epName = getEditPartNameStrategy().get(mappingEntry);
 		for (Iterator itG = palette.getGroups().iterator(); itG.hasNext();) {
 			ToolGroup nextGroup = (ToolGroup) (itG.next());
 			for (Iterator itE = nextGroup.getNodeTools().iterator(); itE.hasNext();) {
@@ -111,7 +113,7 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 
 	private int countUses(LinkMapping mappingEntry, Palette palette) {
 		int uses = 0;
-		final String epName = getNamingStrategy().createLinkClassName(mappingEntry, GenCommonBase.EDIT_PART_SUFFIX);
+		final String epName = getEditPartNameStrategy().get(mappingEntry);
 		for (Iterator itG = palette.getGroups().iterator(); itG.hasNext();) {
 			ToolGroup nextGroup = (ToolGroup) (itG.next());
 			for (Iterator itE = nextGroup.getLinkTools().iterator(); itE.hasNext();) {
@@ -129,14 +131,7 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 
 	protected abstract DiagramRunTimeModelHelper getRTHelper();
 
-	protected final NamingStrategy getNamingStrategy() {
-		if (myNamingStrategy == null) {
-			myNamingStrategy = createNamingStrategy();
-		}
+	protected final NamingStrategy getEditPartNameStrategy() {
 		return myNamingStrategy;
-	}
-
-	protected NamingStrategy createNamingStrategy() {
-		return new DefaultNamingStrategy();
 	}
 }

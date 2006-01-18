@@ -22,16 +22,13 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.gmf.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.BasicGenModelAccess;
-import org.eclipse.gmf.bridge.genmodel.DefaultNamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.GenModelMatcher;
-import org.eclipse.gmf.bridge.genmodel.NamingStrategy;
 import org.eclipse.gmf.bridge.genmodel.RuntimeGenModelAccess;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
-import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
@@ -40,6 +37,9 @@ import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+import org.eclipse.gmf.internal.bridge.naming.CollectingDispenser;
+import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
+import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.tests.Utils;
 
@@ -142,19 +142,21 @@ public class DiaGenSetup implements DiaGenSource {
 
 	public DiaGenSetup init(MapDefSource mapSource) {
 		final DiagramRunTimeModelHelper drth = new BasicDiagramRunTimeModelHelper();
-		final NamingStrategy epns = new DefaultNamingStrategy();
-		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, epns);
+		final CollectingDispenser uniquenessDispenser = new CollectingDispenser();
+		final GenModelNamingMediatorImpl namingMediator = new GenModelNamingMediatorImpl(uniquenessDispenser);
+		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, namingMediator);
 		BasicGenModelAccess gma = new BasicGenModelAccess(mapSource.getCanvas().getDomainModel());
 		IStatus gmaStatus = gma.createDummy();
 		Assert.assertTrue("Need (fake) genModel for transformation to work", gmaStatus.isOK());
 		t.setEMFGenModel(gma.model());
 		t.transform(mapSource.getMapping());
 		myGenDiagram = t.getResult();
-		epns.reset();
-		final String aNodeEPName = epns.createNodeClassName(mapSource.getNodeA(), GenCommonBase.EDIT_PART_SUFFIX);
-		final String bNodeEPName = mapSource.getNodeB() == null ? null : epns.createNodeClassName(mapSource.getNodeB(), GenCommonBase.EDIT_PART_SUFFIX);
-		final String cLinkEPName = epns.createLinkClassName(mapSource.getClassLink(), GenCommonBase.EDIT_PART_SUFFIX);
-		final String dLinkEPName = epns.createLinkClassName(mapSource.getReferenceLink(), GenCommonBase.EDIT_PART_SUFFIX);
+		uniquenessDispenser.forget();
+		NamingStrategy epns = namingMediator.getEditPart();
+		final String aNodeEPName = epns.get(mapSource.getNodeA());
+		final String bNodeEPName = mapSource.getNodeB() == null ? null : epns.get(mapSource.getNodeB());
+		final String cLinkEPName = epns.get(mapSource.getClassLink());
+		final String dLinkEPName = epns.get(mapSource.getReferenceLink());
 		for (Iterator it = myGenDiagram.getNodes().iterator(); it.hasNext();) {
 			GenNode n = (GenNode) it.next();
 			if (n.getEditPartClassName().equals(aNodeEPName)) {
