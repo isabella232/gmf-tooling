@@ -40,7 +40,7 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 	protected StructureResolver resolver;
 
 	protected EObject createInitialModel() {
-		ToolRegistry toolRegistry = (ToolRegistry) gmfToolFactory.createToolRegistry();
+		ToolRegistry toolRegistry = gmfToolFactory.createToolRegistry();
 		CheckboxTreeViewer viewer = toolDefinitionPage.getViewer();
 		EPackage ePackage = (EPackage) viewer.getInput();
 		if (ePackage != null) {

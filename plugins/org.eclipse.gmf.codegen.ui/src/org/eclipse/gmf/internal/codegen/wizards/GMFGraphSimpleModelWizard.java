@@ -44,7 +44,7 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 	protected StructureResolver resolver;
 
 	protected EObject createInitialModel() {
-		Canvas canvas = (Canvas) gmfGraphFactory.createCanvas();
+		Canvas canvas = gmfGraphFactory.createCanvas();
 		CheckboxTreeViewer viewer = graphicalDefinitionPage.getViewer();
 		EPackage ePackage = (EPackage) viewer.getInput();
 		if (ePackage != null) {

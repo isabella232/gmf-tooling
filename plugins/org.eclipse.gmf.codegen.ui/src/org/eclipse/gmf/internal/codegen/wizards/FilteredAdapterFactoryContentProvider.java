@@ -40,7 +40,7 @@ public class FilteredAdapterFactoryContentProvider extends AdapterFactoryContent
 				shownChildren.add(children[i]);
 			}
 		}
-		return (Object[]) shownChildren.toArray(new Object[shownChildren.size()]);
+		return shownChildren.toArray(new Object[shownChildren.size()]);
 	}
 
 	public boolean hasChildren(Object object) {

@@ -146,7 +146,7 @@ public class DashboardPart extends ViewPart {
 		}
 		IProject activeProject = null;
 		for (Iterator it = ((IStructuredSelection) selection).iterator(); it.hasNext();) {
-			Object element = (Object) it.next();
+			Object element = it.next();
 			IProject project = null;
 			if (element instanceof IResource) {
 				project = ((IResource) element).getProject();
