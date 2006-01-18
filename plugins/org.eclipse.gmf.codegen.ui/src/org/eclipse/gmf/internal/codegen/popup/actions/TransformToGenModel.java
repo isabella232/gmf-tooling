@@ -196,6 +196,10 @@ public class TransformToGenModel implements IObjectActionDelegate {
 		myDestFile = ResourcesPlugin.getWorkspace().getRoot().getFile(destLocation.append(dlg.getValue()));
 	}
 
+	public IFile getGenModelFile() {
+		return myDestFile;
+	}
+
 	URI getMapModelURI() {
 		return URI.createPlatformResourceURI(myMapFile.getFullPath().toString());
 	}

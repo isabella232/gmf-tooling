@@ -112,10 +112,14 @@ public class WizardInput {
 		myRegistry = registry;
 	}
 
+	public IFile getMappingFile() {
+		return myResultContainer[0];
+	}
+
 	public Mapping getMapping() {
 		if (mapInstance == null) {
 			mapInstance = GMFMapFactory.eINSTANCE.createMapping();
-			URI res = URI.createPlatformResourceURI(myResultContainer[0].getFullPath().toString());
+			URI res = URI.createPlatformResourceURI(getMappingFile().getFullPath().toString());
 			getResourceSet().createResource(res).getContents().add(mapInstance);
 		}
 		return mapInstance;

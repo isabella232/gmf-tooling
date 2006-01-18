@@ -135,7 +135,7 @@ public class DashboardMediator {
 			if (fileName != null) {
 				file = getFile(fileName);
 			}
-			file = FileSelector.selectFile(shell, getFigure().getDescription(), file);
+			file = FileSelector.selectFile(shell, getFigure().getDescription(), project, file);
 			setFileName(getName(file));
 			updateStatus();
 		}
@@ -334,6 +334,12 @@ public class DashboardMediator {
 			return new GMFGraphSimpleModelWizard();
 		}
 
+		protected void wizardFinished(IWizard wizard) {
+			IFile file = ((GMFGraphSimpleModelWizard) wizard).getModelFile();
+			state.gdmFileName = getName(file);
+			updateStatus();
+		}
+
 		protected IStructuredSelection getSelection() {
 			return new StructuredSelection(getFile(state.dmFileName));
 		}
@@ -349,6 +355,12 @@ public class DashboardMediator {
 			return new GMFToolSimpleModelWizard();
 		}
 
+		protected void wizardFinished(IWizard wizard) {
+			IFile file = ((GMFToolSimpleModelWizard) wizard).getModelFile();
+			state.tdmFileName = getName(file);
+			updateStatus();
+		}
+
 		protected IStructuredSelection getSelection() {
 			return new StructuredSelection(getFile(state.dmFileName));
 		}
@@ -362,6 +374,12 @@ public class DashboardMediator {
 
 		protected IWizard createWizard() {
 			return new NewGMFMapModelWizard();
+		}
+
+		protected void wizardFinished(IWizard wizard) {
+			IFile file = ((NewGMFMapModelWizard) wizard).getModelFile();
+			state.mmFileName = getName(file);
+			updateStatus();
 		}
 	}
 
@@ -380,6 +398,9 @@ public class DashboardMediator {
 			action.setActivePart(uiAction, window.getPartService().getActivePart());
 			action.selectionChanged(uiAction, new StructuredSelection(file));
 			action.run(uiAction);
+			IFile gfile = action.getGenModelFile();
+			state.gmFileName = getName(gfile);
+			updateStatus();
 		}
 	}
 

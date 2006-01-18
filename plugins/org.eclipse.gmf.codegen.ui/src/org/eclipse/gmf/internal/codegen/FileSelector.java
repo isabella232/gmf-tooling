@@ -15,6 +15,7 @@ import java.util.Collections;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.ResourceSelectionDialog;
@@ -26,9 +27,12 @@ import org.eclipse.ui.dialogs.ResourceSelectionDialog;
  */
 public class FileSelector {
 
-	public static IFile selectFile(Shell shell, String description, IFile selected) {
-		ResourceSelectionDialog fsd = new ResourceSelectionDialog(shell, ResourcesPlugin.getWorkspace().getRoot(), description);
-		if (selected != null) {
+	public static IFile selectFile(Shell shell, String description, IAdaptable rootElement, IFile selected) {
+		if (rootElement == null) {
+			rootElement = ResourcesPlugin.getWorkspace().getRoot();
+		}
+		ResourceSelectionDialog fsd = new ResourceSelectionDialog(shell, rootElement, description);
+		if (selected != null && selected.exists()) {
 			fsd.setInitialElementSelections(Collections.singletonList(selected));
 		}
 		if (fsd.open() == Window.OK) {

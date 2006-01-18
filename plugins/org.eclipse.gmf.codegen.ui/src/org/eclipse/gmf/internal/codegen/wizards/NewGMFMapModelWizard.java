@@ -15,6 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
@@ -95,4 +96,7 @@ public class NewGMFMapModelWizard extends Wizard implements INewWizard {
 		return true;
 	}
 
+	public IFile getModelFile() {
+		return myHolder.getMappingFile();
+	}
 }
