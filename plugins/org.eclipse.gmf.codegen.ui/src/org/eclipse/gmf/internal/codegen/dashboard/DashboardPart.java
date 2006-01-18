@@ -17,6 +17,7 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.jface.viewers.ISelection;
@@ -34,6 +35,8 @@ import org.eclipse.ui.part.ViewPart;
  */
 public class DashboardPart extends ViewPart {
 
+	private static final String ACTIVE_PROJECT_KEY = "activeProject";
+
 	private FigureCanvas canvas;
 
 	private DashboardMediator mediator;
@@ -42,12 +45,15 @@ public class DashboardPart extends ViewPart {
 
 	private Map states;
 
+	private String activeProjectName;
+
 	public void init(IViewSite site, IMemento memento) throws PartInitException {
 		super.init(site, memento);
 		if (memento == null) {
 			states = new HashMap();
 		} else {
 			states = DashboardPersistence.read(memento);
+			activeProjectName = memento.getString(ACTIVE_PROJECT_KEY);
 		}
 	}
 
@@ -64,12 +70,19 @@ public class DashboardPart extends ViewPart {
 			}
 		});
 		updateActiveProject(getSite().getWorkbenchWindow().getSelectionService().getSelection());
+		if (mediator.getProject() == null && activeProjectName != null) {
+			IProject activeProject = ResourcesPlugin.getWorkspace().getRoot().getProject(activeProjectName);
+			if (activeProject.exists()) {
+				mediator.setProjectAndState(activeProject, (DashboardState) states.get(activeProject));
+			}
+		}
 	}
 
 	public void saveState(IMemento memento) {
 		super.saveState(memento);
 		if (mediator != null && mediator.getProject() != null) {
 			states.put(mediator.getProject(), mediator.getState());
+			memento.putString(ACTIVE_PROJECT_KEY, mediator.getProject().getName());
 		}
 		DashboardPersistence.write(memento, states);
 	}
