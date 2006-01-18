@@ -20,6 +20,12 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.draw2d.FigureCanvas;
+import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Composite;
@@ -37,6 +43,8 @@ public class DashboardPart extends ViewPart {
 
 	private static final String ACTIVE_PROJECT_KEY = "activeProject";
 
+	private static final String SYNC_SELECTION_KEY = "syncSelection";
+
 	private FigureCanvas canvas;
 
 	private DashboardMediator mediator;
@@ -47,6 +55,8 @@ public class DashboardPart extends ViewPart {
 
 	private String activeProjectName;
 
+	private boolean syncSelection = true;
+
 	public void init(IViewSite site, IMemento memento) throws PartInitException {
 		super.init(site, memento);
 		if (memento == null) {
@@ -54,7 +64,31 @@ public class DashboardPart extends ViewPart {
 		} else {
 			states = DashboardPersistence.read(memento);
 			activeProjectName = memento.getString(ACTIVE_PROJECT_KEY);
+			String syncSelectionValue = memento.getString(SYNC_SELECTION_KEY);
+			if (syncSelectionValue != null) {
+				syncSelection = Boolean.valueOf(syncSelectionValue).booleanValue();
+			}
 		}
+		IAction syncSelectionAction = new Action("Synchronize", IAction.AS_CHECK_BOX) {
+		};
+		syncSelectionAction.setToolTipText("Synchronize with workbench selection");
+		ImageDescriptor synchImage = CodeGenUIPlugin.getDefault().getImageRegistry().getDescriptor(CodeGenUIPlugin.SYNC_IMAGE);
+		if (synchImage != null) {
+			syncSelectionAction.setImageDescriptor(synchImage);
+		}
+		syncSelectionAction.setChecked(syncSelection);
+		syncSelectionAction.addPropertyChangeListener(new IPropertyChangeListener() {
+
+			public void propertyChange(PropertyChangeEvent event) {
+				if (IAction.CHECKED.equals(event.getProperty())) {
+					syncSelection = ((Boolean) event.getNewValue()).booleanValue();
+					if (syncSelection) {
+						updateActiveProject(getSite().getWorkbenchWindow().getSelectionService().getSelection());
+					}
+				}
+			}
+		});
+		site.getActionBars().getToolBarManager().add(syncSelectionAction);
 	}
 
 	public void createPartControl(Composite parent) {
@@ -69,7 +103,9 @@ public class DashboardPart extends ViewPart {
 				updateActiveProject(selection);
 			}
 		});
-		updateActiveProject(getSite().getWorkbenchWindow().getSelectionService().getSelection());
+		if (syncSelection) {
+			updateActiveProject(getSite().getWorkbenchWindow().getSelectionService().getSelection());
+		}
 		if (mediator.getProject() == null && activeProjectName != null) {
 			IProject activeProject = ResourcesPlugin.getWorkspace().getRoot().getProject(activeProjectName);
 			if (activeProject.exists()) {
@@ -83,6 +119,9 @@ public class DashboardPart extends ViewPart {
 		if (mediator != null && mediator.getProject() != null) {
 			states.put(mediator.getProject(), mediator.getState());
 			memento.putString(ACTIVE_PROJECT_KEY, mediator.getProject().getName());
+			if (!syncSelection) {
+				memento.putString(SYNC_SELECTION_KEY, String.valueOf(syncSelection));
+			}
 		}
 		DashboardPersistence.write(memento, states);
 	}
@@ -102,7 +141,7 @@ public class DashboardPart extends ViewPart {
 	}
 
 	protected void updateActiveProject(ISelection selection) {
-		if (!(selection instanceof IStructuredSelection)) {
+		if (!syncSelection || !(selection instanceof IStructuredSelection)) {
 			return;
 		}
 		IProject activeProject = null;

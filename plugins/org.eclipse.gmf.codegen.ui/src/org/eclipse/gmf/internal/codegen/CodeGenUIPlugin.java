@@ -24,6 +24,7 @@ import org.osgi.framework.BundleContext;
 public class CodeGenUIPlugin extends AbstractUIPlugin {
 
 	public static final String GMF_LOGO = "/icons/full/logo_banner.png";
+	public static final String SYNC_IMAGE = "/icons/full/synced.gif";
 	public static final String GDM_ICON = "/icons/full/obj16/GMFGraphModelFile.gif";
 	public static final String DM_ICON = "/icons/full/obj16/EcoreModelFile.gif";
 	public static final String TDM_ICON = "/icons/full/obj16/GMFToolModelFile.gif";
@@ -49,6 +50,10 @@ public class CodeGenUIPlugin extends AbstractUIPlugin {
 		ImageDescriptor id = imageDescriptorFromPlugin(getBundle().getSymbolicName(), GMF_LOGO);
 		if (id != null) {
 			reg.put(GMF_LOGO, id);
+		}
+		id = imageDescriptorFromPlugin(getBundle().getSymbolicName(), SYNC_IMAGE);
+		if (id != null) {
+			reg.put(SYNC_IMAGE, id);
 		}
 		id = imageDescriptorFromPlugin("org.eclipse.gmf.graphdef.edit", GDM_ICON);
 		if (id != null) {
