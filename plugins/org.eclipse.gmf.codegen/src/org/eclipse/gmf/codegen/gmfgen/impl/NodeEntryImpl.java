@@ -182,5 +182,4 @@ public class NodeEntryImpl extends ToolEntryImpl implements NodeEntry {
 		}
 		return super.eIsSet(featureID);
 	}
-
 } //NodeEntryImpl

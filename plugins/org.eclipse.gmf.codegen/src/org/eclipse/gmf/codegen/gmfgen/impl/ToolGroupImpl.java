@@ -227,4 +227,10 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 		return super.eIsSet(featureID);
 	}
 
+	public String getCreateMethodName() {
+		if (getCreateMethodNameGen() != null) {
+			return getCreateMethodNameGen();
+		}
+		return "create" + getTitleKey() + "Group";
+	}
 } //ToolGroupImpl

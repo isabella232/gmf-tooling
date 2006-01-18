@@ -154,4 +154,11 @@ public abstract class ToolEntryImpl extends EntryBaseImpl implements ToolEntry {
 		return result.toString();
 	}
 
+	public String getCreateMethodName() {
+		if (getCreateMethodNameGen() != null) {
+			return getCreateMethodNameGen();
+		}
+		return "create" + getTitleKey() + "CreationTool";
+	}
+
 } //ToolEntryImpl

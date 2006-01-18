@@ -280,7 +280,7 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getCreateMethodName() {
+	public String getCreateMethodNameGen() {
 		return createMethodName;
 	}
 
