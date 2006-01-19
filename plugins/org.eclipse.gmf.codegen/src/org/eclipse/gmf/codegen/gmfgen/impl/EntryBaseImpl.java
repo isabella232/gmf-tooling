@@ -26,6 +26,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getLargeIconPath <em>Large Icon Path</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getSmallIconPath <em>Small Icon Path</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getCreateMethodName <em>Create Method Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl#getEntryID <em>Entry ID</em>}</li>
  * </ul>
  * </p>
  *
@@ -151,6 +152,26 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 	 * @ordered
 	 */
 	protected String createMethodName = CREATE_METHOD_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getEntryID() <em>Entry ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEntryID()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int ENTRY_ID_EDEFAULT = 0;
+
+	/**
+	 * The cached value of the '{@link #getEntryID() <em>Entry ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEntryID()
+	 * @generated
+	 * @ordered
+	 */
+	protected int entryID = ENTRY_ID_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -301,6 +322,27 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public int getEntryID() {
+		return entryID;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEntryID(int newEntryID) {
+		int oldEntryID = entryID;
+		entryID = newEntryID;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.ENTRY_BASE__ENTRY_ID, oldEntryID, entryID));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGenPackage.ENTRY_BASE__ORDER:
@@ -315,6 +357,8 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 				return getSmallIconPath();
 			case GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME:
 				return getCreateMethodName();
+			case GMFGenPackage.ENTRY_BASE__ENTRY_ID:
+				return new Integer(getEntryID());
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -343,6 +387,9 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 				return;
 			case GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME:
 				setCreateMethodName((String)newValue);
+				return;
+			case GMFGenPackage.ENTRY_BASE__ENTRY_ID:
+				setEntryID(((Integer)newValue).intValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -373,6 +420,9 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 			case GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME:
 				setCreateMethodName(CREATE_METHOD_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.ENTRY_BASE__ENTRY_ID:
+				setEntryID(ENTRY_ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -396,6 +446,8 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 				return SMALL_ICON_PATH_EDEFAULT == null ? smallIconPath != null : !SMALL_ICON_PATH_EDEFAULT.equals(smallIconPath);
 			case GMFGenPackage.ENTRY_BASE__CREATE_METHOD_NAME:
 				return CREATE_METHOD_NAME_EDEFAULT == null ? createMethodName != null : !CREATE_METHOD_NAME_EDEFAULT.equals(createMethodName);
+			case GMFGenPackage.ENTRY_BASE__ENTRY_ID:
+				return entryID != ENTRY_ID_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -421,6 +473,8 @@ public abstract class EntryBaseImpl extends EObjectImpl implements EntryBase {
 		result.append(smallIconPath);
 		result.append(", createMethodName: ");
 		result.append(createMethodName);
+		result.append(", entryID: ");
+		result.append(entryID);
 		result.append(')');
 		return result.toString();
 	}

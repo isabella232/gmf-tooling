@@ -231,6 +231,6 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 		if (getCreateMethodNameGen() != null) {
 			return getCreateMethodNameGen();
 		}
-		return "create" + getTitleKey() + "Group";
+		return "create" + getTitleKey() + getEntryID() + "Group";
 	}
 } //ToolGroupImpl

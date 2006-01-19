@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getLargeIconPath <em>Large Icon Path</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getSmallIconPath <em>Small Icon Path</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getCreateMethodName <em>Create Method Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getEntryID <em>Entry ID</em>}</li>
  * </ul>
  * </p>
  *
@@ -29,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model abstract="true"
  * @generated
  */
-public interface EntryBase extends EObject{
+public interface EntryBase extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Order</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -185,5 +186,31 @@ public interface EntryBase extends EObject{
 	 * @generated
 	 */
 	void setCreateMethodName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Entry ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Entry ID</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Entry ID</em>' attribute.
+	 * @see #setEntryID(int)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEntryBase_EntryID()
+	 * @model required="true"
+	 * @generated
+	 */
+	int getEntryID();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EntryBase#getEntryID <em>Entry ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Entry ID</em>' attribute.
+	 * @see #getEntryID()
+	 * @generated
+	 */
+	void setEntryID(int value);
 
 } // EntryBase

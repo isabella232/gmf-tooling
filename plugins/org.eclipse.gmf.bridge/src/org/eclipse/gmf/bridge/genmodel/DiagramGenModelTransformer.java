@@ -88,6 +88,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private static final int LINK_COUNT_BASE = 3000;
 	private static final int LABEL_COUNT_BASE = 4000;
 	private static final int COMPARTMENT_COUNT_BASE = 5000;
+	
+	private static final int TOOL_GROUP_COUNT_BASE = 0;
+	private static final int TOOL_NODE_COUNT_BASE = 1000;
+	private static final int TOOL_LINK_COUNT_BASE = 2000;
 
 	private GenDiagram myGenModel;
 	private GenModelMatcher myGenModelMatch;
@@ -99,6 +103,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private int myChildCount = 0;
 	private int myLabelCount = 0;
 	private int myCompartmentCount = 0;
+	private int myToolGroupCount = 0;
+	private int myToolNodeCount = 0;
+	private int myToolLinkCount = 0;
 	private final GenModelNamingMediator myNamingStrategy;
 
 	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy) {
@@ -282,6 +289,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		gl.setModelFacet(createModelFacet(lme));
 		if (lme.getTool() instanceof CreationTool) {
 			LinkEntry le = GMFGenFactory.eINSTANCE.createLinkEntry();
+			le.setEntryID(TOOL_LINK_COUNT_BASE + (++myToolLinkCount));
 			findToolGroup(lme.getTool()).getLinkTools().add(le);
 			le.getGenLink().add(gl);
 			setupCommonToolEntry(le, lme.getTool());
@@ -354,6 +362,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if (nme.getTool() != null && nme.getTool() instanceof CreationTool) {
 			// XXX handle other tool types (action, whatever)
 			NodeEntry ne = GMFGenFactory.eINSTANCE.createNodeEntry();
+			ne.setEntryID(TOOL_NODE_COUNT_BASE + (++myToolNodeCount));
 			findToolGroup(nme.getTool()).getNodeTools().add(ne);
 			ne.getGenNode().add(genNode);
 			setupCommonToolEntry(ne, nme.getTool());
@@ -363,7 +372,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private void setupCommonToolEntry(EntryBase te, AbstractTool tool) {
 		te.setTitleKey(tool.getTitle() == null ? "" : tool.getTitle()); // same at (*1*)
 		te.setDescriptionKey(tool.getDescription());
-
 		// FIXME need to change this once better tooling definition is in place. 
 		if (tool.getLargeIcon() instanceof BundleImage) {
 			// XXX assume same bundle
@@ -391,6 +399,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			}
 		}
 		ToolGroup tg = GMFGenFactory.eINSTANCE.createToolGroup();
+		tg.setEntryID(TOOL_GROUP_COUNT_BASE + (++myToolGroupCount));
 		getGenPalette().getGroups().add(tg);
 		setupCommonToolEntry(tg, tc);
 		return tg;

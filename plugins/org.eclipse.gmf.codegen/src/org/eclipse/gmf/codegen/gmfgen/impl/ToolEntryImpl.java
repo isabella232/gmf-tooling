@@ -158,7 +158,7 @@ public abstract class ToolEntryImpl extends EntryBaseImpl implements ToolEntry {
 		if (getCreateMethodNameGen() != null) {
 			return getCreateMethodNameGen();
 		}
-		return "create" + getTitleKey() + "CreationTool";
+		return "create" + getTitleKey() + getEntryID() + "CreationTool";
 	}
 
 } //ToolEntryImpl
