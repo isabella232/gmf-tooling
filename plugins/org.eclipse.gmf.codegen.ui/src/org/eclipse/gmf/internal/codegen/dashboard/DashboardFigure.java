@@ -41,7 +41,7 @@ public class DashboardFigure extends RectangleFigure {
 
 	private static final int LINE_WIDTH = 6;
 
-	private static final int TEXT_GAP = LINE_WIDTH * 2;
+	private static final int TEXT_GAP = LINE_WIDTH + 3;
 
 	private static final Color DASHBOARD_BG = new Color(null, 113, 104, 209);
 
@@ -118,7 +118,7 @@ public class DashboardFigure extends RectangleFigure {
 		statusFigure.add(new Label());
 		statusFigure.add(new Label());
 		setLayoutManager(new DashboardLayout());
-		setBorder(new MarginBorder(20));
+		setBorder(new MarginBorder(10));
 		setBackgroundColor(DASHBOARD_BG);
 		setForegroundColor(DASHBOARD_FG);
 	}
