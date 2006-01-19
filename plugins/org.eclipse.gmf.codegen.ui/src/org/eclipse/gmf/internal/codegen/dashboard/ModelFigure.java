@@ -34,6 +34,8 @@ public class ModelFigure extends RectangleFigure {
 
 	private IFigure actionsPlate;
 
+	private IFigure stdActionsPlate;
+
 	private List separators;
 
 	public ModelFigure() {
@@ -56,6 +58,12 @@ public class ModelFigure extends RectangleFigure {
 		actionsLayout.setStretchMinorAxis(false);
 		actionsPlate.setLayoutManager(actionsLayout);
 		add(actionsPlate);
+
+		stdActionsPlate = new Figure();
+		ToolbarLayout stdActionsLayout = new ToolbarLayout(true);
+		stdActionsLayout.setSpacing(2);
+		stdActionsPlate.setLayoutManager(stdActionsLayout);
+		actionsPlate.add(stdActionsPlate);
 
 		Label descriptionFigure = new Label();
 		descriptionFigure.setFont(JFaceResources.getBannerFont());
@@ -83,25 +91,27 @@ public class ModelFigure extends RectangleFigure {
 		labelsPlate.remove(labelFigure);
 	}
 
-	public void addAction(IFigure actionFigure) {
-		IFigure plate = new Figure();
-		ToolbarLayout layout = new ToolbarLayout(true);
-		layout.setSpacing(3);
-		plate.setLayoutManager(layout);
-		Label bullet = new Label();
-		bullet.setText("-");
-		plate.add(bullet);
-		plate.add(actionFigure);
-		actionsPlate.add(plate);
+	public final void addAction(IFigure actionFigure) {
+		addAction(actionFigure, true);
 	}
 
-	public void removeAction(IFigure actionFigure) {
-		for (Iterator it = actionsPlate.getChildren().iterator(); it.hasNext();) {
-			IFigure plate = (IFigure) it.next();
-			if (plate.getChildren().contains(actionFigure)) {
-				actionsPlate.remove(plate);
-				break;
+	public void addAction(IFigure actionFigure, boolean std) {
+		Label bullet = new Label();
+		bullet.setText("-");
+		if (std) {
+			if (!stdActionsPlate.getChildren().isEmpty()) {
+				bullet.setText("/");
 			}
+			stdActionsPlate.add(bullet);
+			stdActionsPlate.add(actionFigure);
+		} else {
+			IFigure plate = new Figure();
+			ToolbarLayout layout = new ToolbarLayout(true);
+			layout.setSpacing(3);
+			plate.setLayoutManager(layout);
+			plate.add(bullet);
+			plate.add(actionFigure);
+			actionsPlate.add(plate);
 		}
 	}
 
