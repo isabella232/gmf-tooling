@@ -485,6 +485,7 @@ public class DashboardMediator {
 			TransformToGenModel action = new TransformToGenModel();
 			IAction uiAction = new Action() {
 			};
+			uiAction.setText("Transform to GMF generation model");
 			IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 			action.setActivePart(uiAction, window.getPartService().getActivePart());
 			action.selectionChanged(uiAction, new StructuredSelection(file));
@@ -506,6 +507,7 @@ public class DashboardMediator {
 			ExecuteTemplatesAction action = new ExecuteTemplatesAction();
 			IAction uiAction = new Action() {
 			};
+			uiAction.setText("Generate diagram editor");
 			IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 			action.setActivePart(uiAction, window.getPartService().getActivePart());
 			action.selectionChanged(uiAction, new StructuredSelection(file));
