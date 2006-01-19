@@ -27,14 +27,19 @@ import org.eclipse.gmf.mappings.presentation.GMFMapModelWizard;
 import org.eclipse.gmf.tooldef.presentation.GMFToolModelWizard;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWizard;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.FileEditorInput;
 
 /**
  * @author dstadnik
@@ -57,16 +62,21 @@ public class DashboardMediator {
 	public void setView(DashboardFigure view) {
 		this.view = view;
 		view.getGDMFigure().addAction(view.createLinkFigure("Select", new SelectGDMAction()));
+		view.getGDMFigure().addAction(view.createLinkFigure("Edit", new EditGDMAction()));
 		view.getGDMFigure().addAction(view.createLinkFigure("Create", new CreateGDMAction()));
 		view.getDMFigure().addAction(view.createLinkFigure("Select", new SelectDMAction()));
+		view.getDMFigure().addAction(view.createLinkFigure("Edit", new EditDMAction()));
 		view.getDMFigure().addAction(view.createLinkFigure("Create", new CreateDMAction()));
 		view.getTDMFigure().addAction(view.createLinkFigure("Select", new SelectTDMAction()));
+		view.getTDMFigure().addAction(view.createLinkFigure("Edit", new EditTDMAction()));
 		view.getTDMFigure().addAction(view.createLinkFigure("Create", new CreateTDMAction()));
 		view.getMMFigure().addAction(view.createLinkFigure("Select", new SelectMMAction()));
+		view.getMMFigure().addAction(view.createLinkFigure("Edit", new EditMMAction()));
 		view.getMMFigure().addAction(view.createLinkFigure("Create", new CreateMMAction()));
 		view.getGMFigure().addAction(view.createLinkFigure("Select", new SelectGMAction()));
+		view.getGMFigure().addAction(view.createLinkFigure("Edit", new EditGMAction()));
 		view.getGMFigure().addAction(view.createLinkFigure("Create", new CreateGMAction()));
-		view.getGMFigure().addAction(view.createLinkFigure("Generate diagram editor", new GenerateDEAction()));
+		view.getGMFigure().addAction(view.createLinkFigure("Generate diagram editor", new GenerateDEAction()), false);
 		view.getDM2GDMFigure().addAction(view.createLinkFigure("Derive", new DeriveGDMAction()));
 		view.getDM2TDMFigure().addAction(view.createLinkFigure("Derive", new DeriveTDMAction()));
 		view.getDM2MMFigure().addAction(view.createLinkFigure("Combine", new CombineMMAction()));
@@ -147,6 +157,30 @@ public class DashboardMediator {
 		protected abstract void setFileName(String fileName);
 
 		protected abstract String getFileExtension();
+	}
+
+	protected abstract class EditFileAction implements DashboardAction {
+
+		public boolean isEnabled() {
+			return project != null && getFileName() != null;
+		}
+
+		public void run() {
+			IWorkbench workbench = PlatformUI.getWorkbench();
+			IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
+			IWorkbenchPage page = workbenchWindow.getActivePage();
+			IFile modelFile = getFile(getFileName());
+			try {
+				String fileName = modelFile.getFullPath().toString();
+				String editorId = workbench.getEditorRegistry().getDefaultEditor(fileName).getId();
+				page.openEditor(new FileEditorInput(modelFile), editorId);
+			} catch (PartInitException pie) {
+				String msg = "Unable to open editor for " + getFileName();
+				MessageDialog.openError(workbenchWindow.getShell(), msg, pie.getMessage());
+			}
+		}
+
+		protected abstract String getFileName();
 	}
 
 	protected abstract class RunWizardAction implements DashboardAction {
@@ -278,6 +312,41 @@ public class DashboardMediator {
 
 		protected String getFileExtension() {
 			return "gmfgen";
+		}
+	}
+
+	private class EditGDMAction extends EditFileAction {
+
+		protected String getFileName() {
+			return state.gdmFileName;
+		}
+	}
+
+	private class EditDMAction extends EditFileAction {
+
+		protected String getFileName() {
+			return state.dmFileName;
+		}
+	}
+
+	private class EditTDMAction extends EditFileAction {
+
+		protected String getFileName() {
+			return state.tdmFileName;
+		}
+	}
+
+	private class EditMMAction extends EditFileAction {
+
+		protected String getFileName() {
+			return state.mmFileName;
+		}
+	}
+
+	private class EditGMAction extends EditFileAction {
+
+		protected String getFileName() {
+			return state.gmFileName;
 		}
 	}
 
