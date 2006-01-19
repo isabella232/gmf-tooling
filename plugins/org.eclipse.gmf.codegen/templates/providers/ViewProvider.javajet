@@ -4,7 +4,6 @@
 GenDiagram genDiagram = (GenDiagram) argument;
 GenModel genModel = genDiagram.getEMFGenModel();
 List genLinks = genDiagram.getLinks();
-Collection allContainers = AccessUtil.getAllContainers(genDiagram);
 %>
 package <%=genDiagram.getProvidersPackageName()%>;
 
@@ -47,13 +46,13 @@ public class <%=genDiagram.getNotationViewProviderClassName()%> extends Abstract
 
 		switch (nodeVID) {
 <%
-for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
-	GenChildContainer container = (GenChildContainer) containers.next();
+for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.hasNext();) {
+	GenContainerEditPart container = (GenContainerEditPart) containers.next();
 %>
 		case <%=container.getVisualID()%>:
 			 return <%=importManager.getImportedName(container.getNotationViewFactoryQualifiedClassName())%>.class;
 <%
-	if (container instanceof GenChildNode ? !((GenChildNode) container).isListContainerEntry() : container instanceof GenNode) {
+	if (container instanceof GenNode && !((GenNode) container).isListContainerEntry()) {
 		GenNode node = (GenNode) container;
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();

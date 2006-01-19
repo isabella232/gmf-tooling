@@ -17,8 +17,6 @@ import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
-import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
-import org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.ExternalLabel;
@@ -32,6 +30,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenContainerEditPart;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
@@ -44,6 +43,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
@@ -87,6 +87,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass genContainerEditPartEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass genNodeEClass = null;
 
 	/**
@@ -94,7 +101,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass genCompartmentEClass = null;
+	private EClass genTopLevelNodeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -102,6 +109,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass genChildNodeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genCompartmentEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -346,20 +360,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EEnum compartmentPlacementKindEEnum = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EEnum compartmentLayoutKindEEnum = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EEnum linkLabelAlignmentEEnum = null;
 
 	/**
@@ -473,7 +473,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenDiagram_Nodes() {
+	public EReference getGenDiagram_ChildNodes() {
 		return (EReference)genDiagramEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -482,7 +482,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenDiagram_Links() {
+	public EReference getGenDiagram_TopLevelNodes() {
 		return (EReference)genDiagramEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -491,7 +491,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenDiagram_Audits() {
+	public EReference getGenDiagram_Links() {
 		return (EReference)genDiagramEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -500,7 +500,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenDiagram_Palette() {
+	public EReference getGenDiagram_Compartments() {
 		return (EReference)genDiagramEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -509,25 +509,25 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getGenDiagram_Audits() {
+		return (EReference)genDiagramEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenDiagram_Palette() {
+		return (EReference)genDiagramEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getGenDiagram_EditCommandsPackageName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_EditPartsPackageName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(7);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_EditPoliciesPackageName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -536,97 +536,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_PluginName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(13);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_ProviderName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(14);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_PluginID() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(12);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_PluginClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(43);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_PreferenceInitializerClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(44);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_VisualIDRegistryClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(45);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_CreateShortcutActionClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(46);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_ElementChooserClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(47);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_ContainsShortcutsTo() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(48);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_ShortcutsProvidedFor() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(49);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_EditorPackageName() {
+	public EAttribute getGenDiagram_EditPartsPackageName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -635,7 +545,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_ProvidersPackageName() {
+	public EAttribute getGenDiagram_EditPoliciesPackageName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -644,133 +554,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_NotationViewFactoriesPackageName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(11);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_EditorClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(40);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_DocumentProviderClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(39);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_EditPartFactoryClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(19);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_BaseExternalNodeLabelEditPartClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(20);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_BaseItemSemanticEditPolicyClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(21);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_BaseGraphicalNodeEditPolicyClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(22);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_ReferenceConnectionEditPolicyClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(23);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_CanonicalEditPolicyClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(24);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_ElementTypesClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(25);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_SemanticHintsClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(26);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_NotationViewProviderClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(27);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_DiagramFileExtension() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(17);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_ReorientConnectionViewCommandClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(18);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenDiagram_SameFileForDiagramAndModel() {
+	public EAttribute getGenDiagram_PluginName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(15);
 	}
 
@@ -779,7 +563,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_PrintingEnabled() {
+	public EAttribute getGenDiagram_ProviderName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(16);
 	}
 
@@ -788,8 +572,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_InitDiagramFileActionClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(41);
+	public EAttribute getGenDiagram_PluginID() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(14);
 	}
 
 	/**
@@ -797,8 +581,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_ActionBarContributorClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(34);
+	public EAttribute getGenDiagram_PluginClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(45);
 	}
 
 	/**
@@ -806,8 +590,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_CreationWizardClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(35);
+	public EAttribute getGenDiagram_PreferenceInitializerClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(46);
 	}
 
 	/**
@@ -815,8 +599,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_CreationWizardPageClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(36);
+	public EAttribute getGenDiagram_VisualIDRegistryClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(47);
 	}
 
 	/**
@@ -824,8 +608,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_DiagramEditorUtilClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(37);
+	public EAttribute getGenDiagram_CreateShortcutActionClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(48);
 	}
 
 	/**
@@ -833,8 +617,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_DiagramFileCreatorClassName() {
-		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(38);
+	public EAttribute getGenDiagram_ElementChooserClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(49);
 	}
 
 	/**
@@ -842,7 +626,52 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_MatchingStrategyClassName() {
+	public EAttribute getGenDiagram_ContainsShortcutsTo() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(50);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_ShortcutsProvidedFor() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(51);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_EditorPackageName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_ProvidersPackageName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(12);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_NotationViewFactoriesPackageName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(13);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_EditorClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(42);
 	}
 
@@ -851,7 +680,79 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_EditPartProviderClassName() {
+	public EAttribute getGenDiagram_DocumentProviderClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(41);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_EditPartFactoryClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(21);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_BaseExternalNodeLabelEditPartClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(22);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_BaseItemSemanticEditPolicyClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(23);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_BaseGraphicalNodeEditPolicyClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(24);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_ReferenceConnectionEditPolicyClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(25);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_CanonicalEditPolicyClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(26);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_ElementTypesClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(27);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_SemanticHintsClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(28);
 	}
 
@@ -860,7 +761,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_MetamodelSupportProviderClassName() {
+	public EAttribute getGenDiagram_NotationViewProviderClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(29);
 	}
 
@@ -869,7 +770,106 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_ModelingAssistantProviderClassName() {
+	public EAttribute getGenDiagram_DiagramFileExtension() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(19);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_ReorientConnectionViewCommandClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(20);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_SameFileForDiagramAndModel() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(17);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_PrintingEnabled() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(18);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_InitDiagramFileActionClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(43);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_ActionBarContributorClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(36);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_CreationWizardClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(37);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_CreationWizardPageClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(38);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_DiagramEditorUtilClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(39);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_DiagramFileCreatorClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(40);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_MatchingStrategyClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(44);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_EditPartProviderClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(30);
 	}
 
@@ -878,7 +878,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_PropertyProviderClassName() {
+	public EAttribute getGenDiagram_MetamodelSupportProviderClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(31);
 	}
 
@@ -887,7 +887,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_IconProviderClassName() {
+	public EAttribute getGenDiagram_ModelingAssistantProviderClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(32);
 	}
 
@@ -896,8 +896,26 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenDiagram_StructuralFeatureParserClassName() {
+	public EAttribute getGenDiagram_PropertyProviderClassName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(33);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_IconProviderClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(34);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_StructuralFeatureParserClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(35);
 	}
 
 	/**
@@ -968,6 +986,24 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getGenContainerEditPart() {
+		return genContainerEditPartEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenContainerEditPart_ContainedNodes() {
+		return (EReference)genContainerEditPartEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getGenNode() {
 		return genNodeEClass;
 	}
@@ -977,17 +1013,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenNode_Diagram() {
-		return (EReference)genNodeEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getGenNode_Labels() {
-		return (EReference)genNodeEClass.getEStructuralFeatures().get(2);
+		return (EReference)genNodeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -996,16 +1023,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNode_Compartments() {
-		return (EReference)genNodeEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getGenNode_ChildContainersPlacement() {
-		return (EAttribute)genNodeEClass.getEStructuralFeatures().get(4);
+		return (EReference)genNodeEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1014,7 +1032,52 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EAttribute getGenNode_GraphicalNodeEditPolicyClassName() {
-		return (EAttribute)genNodeEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)genNodeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenTopLevelNode() {
+		return genTopLevelNodeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenTopLevelNode_Diagram() {
+		return (EReference)genTopLevelNodeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenChildNode() {
+		return genChildNodeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenChildNode_Diagram() {
+		return (EReference)genChildNodeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenChildNode_Containers() {
+		return (EReference)genChildNodeEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1067,8 +1130,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenCompartment_LayoutKind() {
-		return (EAttribute)genCompartmentEClass.getEStructuralFeatures().get(4);
+	public EReference getGenCompartment_Diagram() {
+		return (EReference)genCompartmentEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -1086,25 +1149,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	public EReference getGenNode_ModelFacet() {
-		return (EReference)genNodeEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getGenChildNode() {
-		return genChildNodeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGenChildNode_Container() {
-		return (EReference)genChildNodeEClass.getEStructuralFeatures().get(0);
+		return (EReference)genNodeEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1132,6 +1177,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EAttribute getGenChildContainer_CanonicalEditPolicyClassName() {
 		return (EAttribute)genChildContainerEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenChildContainer_ListLayout() {
+		return (EAttribute)genChildContainerEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2120,24 +2174,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EEnum getCompartmentPlacementKind() {
-		return compartmentPlacementKindEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EEnum getCompartmentLayoutKind() {
-		return compartmentLayoutKindEEnum;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EEnum getLinkLabelAlignment() {
 		return linkLabelAlignmentEEnum;
 	}
@@ -2182,8 +2218,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genDiagramEClass = createEClass(GEN_DIAGRAM);
 		createEReference(genDiagramEClass, GEN_DIAGRAM__DOMAIN_META_MODEL);
 		createEReference(genDiagramEClass, GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT);
-		createEReference(genDiagramEClass, GEN_DIAGRAM__NODES);
+		createEReference(genDiagramEClass, GEN_DIAGRAM__CHILD_NODES);
+		createEReference(genDiagramEClass, GEN_DIAGRAM__TOP_LEVEL_NODES);
 		createEReference(genDiagramEClass, GEN_DIAGRAM__LINKS);
+		createEReference(genDiagramEClass, GEN_DIAGRAM__COMPARTMENTS);
 		createEReference(genDiagramEClass, GEN_DIAGRAM__AUDITS);
 		createEReference(genDiagramEClass, GEN_DIAGRAM__PALETTE);
 		createEAttribute(genDiagramEClass, GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME);
@@ -2239,28 +2277,34 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genCommonBaseEClass, GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME);
 		createEReference(genCommonBaseEClass, GEN_COMMON_BASE__VIEWMAP);
 
+		genContainerEditPartEClass = createEClass(GEN_CONTAINER_EDIT_PART);
+		createEReference(genContainerEditPartEClass, GEN_CONTAINER_EDIT_PART__CONTAINED_NODES);
+
 		genChildContainerEClass = createEClass(GEN_CHILD_CONTAINER);
 		createEReference(genChildContainerEClass, GEN_CHILD_CONTAINER__CHILD_NODES);
 		createEAttribute(genChildContainerEClass, GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME);
+		createEAttribute(genChildContainerEClass, GEN_CHILD_CONTAINER__LIST_LAYOUT);
 
 		genNodeEClass = createEClass(GEN_NODE);
-		createEReference(genNodeEClass, GEN_NODE__DIAGRAM);
 		createEReference(genNodeEClass, GEN_NODE__MODEL_FACET);
 		createEReference(genNodeEClass, GEN_NODE__LABELS);
 		createEReference(genNodeEClass, GEN_NODE__COMPARTMENTS);
-		createEAttribute(genNodeEClass, GEN_NODE__CHILD_CONTAINERS_PLACEMENT);
 		createEAttribute(genNodeEClass, GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME);
+
+		genTopLevelNodeEClass = createEClass(GEN_TOP_LEVEL_NODE);
+		createEReference(genTopLevelNodeEClass, GEN_TOP_LEVEL_NODE__DIAGRAM);
+
+		genChildNodeEClass = createEClass(GEN_CHILD_NODE);
+		createEReference(genChildNodeEClass, GEN_CHILD_NODE__DIAGRAM);
+		createEReference(genChildNodeEClass, GEN_CHILD_NODE__CONTAINERS);
 
 		genCompartmentEClass = createEClass(GEN_COMPARTMENT);
 		createEAttribute(genCompartmentEClass, GEN_COMPARTMENT__TITLE);
 		createEAttribute(genCompartmentEClass, GEN_COMPARTMENT__CAN_COLLAPSE);
 		createEAttribute(genCompartmentEClass, GEN_COMPARTMENT__HIDE_IF_EMPTY);
 		createEAttribute(genCompartmentEClass, GEN_COMPARTMENT__NEEDS_TITLE);
-		createEAttribute(genCompartmentEClass, GEN_COMPARTMENT__LAYOUT_KIND);
+		createEReference(genCompartmentEClass, GEN_COMPARTMENT__DIAGRAM);
 		createEReference(genCompartmentEClass, GEN_COMPARTMENT__NODE);
-
-		genChildNodeEClass = createEClass(GEN_CHILD_NODE);
-		createEReference(genChildNodeEClass, GEN_CHILD_NODE__CONTAINER);
 
 		genLinkEClass = createEClass(GEN_LINK);
 		createEReference(genLinkEClass, GEN_LINK__DIAGRAM);
@@ -2405,8 +2449,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genAuditRuleEClass, GEN_AUDIT_RULE__CONTAINER);
 
 		// Create enums
-		compartmentPlacementKindEEnum = createEEnum(COMPARTMENT_PLACEMENT_KIND);
-		compartmentLayoutKindEEnum = createEEnum(COMPARTMENT_LAYOUT_KIND);
 		linkLabelAlignmentEEnum = createEEnum(LINK_LABEL_ALIGNMENT);
 		genSeverityEEnum = createEEnum(GEN_SEVERITY);
 	}
@@ -2438,11 +2480,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		GenModelPackage theGenModelPackage = (GenModelPackage)EPackage.Registry.INSTANCE.getEPackage(GenModelPackage.eNS_URI);
 
 		// Add supertypes to classes
-		genDiagramEClass.getESuperTypes().add(this.getGenCommonBase());
-		genChildContainerEClass.getESuperTypes().add(this.getGenCommonBase());
+		genDiagramEClass.getESuperTypes().add(this.getGenContainerEditPart());
+		genContainerEditPartEClass.getESuperTypes().add(this.getGenCommonBase());
+		genChildContainerEClass.getESuperTypes().add(this.getGenContainerEditPart());
 		genNodeEClass.getESuperTypes().add(this.getGenChildContainer());
-		genCompartmentEClass.getESuperTypes().add(this.getGenChildContainer());
+		genTopLevelNodeEClass.getESuperTypes().add(this.getGenNode());
 		genChildNodeEClass.getESuperTypes().add(this.getGenNode());
+		genCompartmentEClass.getESuperTypes().add(this.getGenChildContainer());
 		genLinkEClass.getESuperTypes().add(this.getGenCommonBase());
 		genLabelEClass.getESuperTypes().add(this.getGenCommonBase());
 		genNodeLabelEClass.getESuperTypes().add(this.getGenLabel());
@@ -2474,8 +2518,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(genDiagramEClass, GenDiagram.class, "GenDiagram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenDiagram_DomainMetaModel(), theGenModelPackage.getGenPackage(), null, "domainMetaModel", null, 1, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenDiagram_DomainDiagramElement(), theGenModelPackage.getGenClass(), null, "domainDiagramElement", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenDiagram_Nodes(), this.getGenNode(), this.getGenNode_Diagram(), "nodes", null, 0, -1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenDiagram_ChildNodes(), this.getGenChildNode(), this.getGenChildNode_Diagram(), "childNodes", null, 0, -1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenDiagram_TopLevelNodes(), this.getGenTopLevelNode(), this.getGenTopLevelNode_Diagram(), "topLevelNodes", null, 0, -1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenDiagram_Links(), this.getGenLink(), this.getGenLink_Diagram(), "links", null, 0, -1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenDiagram_Compartments(), this.getGenCompartment(), this.getGenCompartment_Diagram(), "compartments", null, 0, -1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenDiagram_Audits(), this.getGenAuditContainer(), null, "audits", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenDiagram_Palette(), this.getPalette(), this.getPalette_Diagram(), "palette", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagram_EditCommandsPackageName(), ecorePackage.getEString(), "editCommandsPackageName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2524,6 +2570,10 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenDiagram_ShortcutsProvidedFor(), ecorePackage.getEString(), "shortcutsProvidedFor", null, 0, -1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genDiagramEClass, theGenModelPackage.getGenModel(), "getEMFGenModel", 0, 1);
+
+		addEOperation(genDiagramEClass, this.getGenContainerEditPart(), "getAllContainers", 0, -1);
+
+		addEOperation(genDiagramEClass, this.getGenNode(), "getAllNodes", 0, -1);
 
 		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getRequiredPluginIDs", 0, -1);
 
@@ -2623,38 +2673,44 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getUniqueIdentifier", 0, 1);
 
+		initEClass(genContainerEditPartEClass, GenContainerEditPart.class, "GenContainerEditPart", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenContainerEditPart_ContainedNodes(), this.getGenNode(), null, "containedNodes", null, 0, -1, GenContainerEditPart.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+
 		initEClass(genChildContainerEClass, GenChildContainer.class, "GenChildContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenChildContainer_ChildNodes(), this.getGenChildNode(), this.getGenChildNode_Container(), "childNodes", null, 0, -1, GenChildContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenChildContainer_ChildNodes(), this.getGenChildNode(), this.getGenChildNode_Containers(), "childNodes", null, 0, -1, GenChildContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenChildContainer_CanonicalEditPolicyClassName(), ecorePackage.getEString(), "canonicalEditPolicyClassName", null, 0, 1, GenChildContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenChildContainer_ListLayout(), ecorePackage.getEBoolean(), "listLayout", "true", 0, 1, GenChildContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genChildContainerEClass, ecorePackage.getEString(), "getCanonicalEditPolicyQualifiedClassName", 0, 1);
 
-		initEClass(genNodeEClass, GenNode.class, "GenNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenNode_Diagram(), this.getGenDiagram(), this.getGenDiagram_Nodes(), "diagram", null, 1, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(genNodeEClass, GenNode.class, "GenNode", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenNode_ModelFacet(), this.getTypeModelFacet(), null, "modelFacet", null, 1, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenNode_Labels(), this.getGenNodeLabel(), this.getGenNodeLabel_Node(), "labels", null, 0, -1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenNode_Compartments(), this.getGenCompartment(), this.getGenCompartment_Node(), "compartments", null, 0, -1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenNode_ChildContainersPlacement(), this.getCompartmentPlacementKind(), "childContainersPlacement", "TOOLBAR", 0, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenNode_Compartments(), this.getGenCompartment(), this.getGenCompartment_Node(), "compartments", null, 0, -1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenNode_GraphicalNodeEditPolicyClassName(), ecorePackage.getEString(), "graphicalNodeEditPolicyClassName", null, 0, 1, GenNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genNodeEClass, theGenModelPackage.getGenClass(), "getDomainMetaClass", 1, 1);
 
 		addEOperation(genNodeEClass, ecorePackage.getEString(), "getGraphicalNodeEditPolicyQualifiedClassName", 0, 1);
 
+		addEOperation(genNodeEClass, ecorePackage.getEBoolean(), "isListContainerEntry", 0, 1);
+
+		initEClass(genTopLevelNodeEClass, GenTopLevelNode.class, "GenTopLevelNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenTopLevelNode_Diagram(), this.getGenDiagram(), this.getGenDiagram_TopLevelNodes(), "diagram", null, 1, 1, GenTopLevelNode.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genChildNodeEClass, GenChildNode.class, "GenChildNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenChildNode_Diagram(), this.getGenDiagram(), this.getGenDiagram_ChildNodes(), "diagram", null, 1, 1, GenChildNode.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenChildNode_Containers(), this.getGenChildContainer(), this.getGenChildContainer_ChildNodes(), "containers", null, 0, -1, GenChildNode.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(genCompartmentEClass, GenCompartment.class, "GenCompartment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenCompartment_Title(), ecorePackage.getEString(), "title", null, 0, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenCompartment_CanCollapse(), ecorePackage.getEBoolean(), "canCollapse", "true", 0, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenCompartment_HideIfEmpty(), ecorePackage.getEBoolean(), "hideIfEmpty", "true", 0, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenCompartment_NeedsTitle(), ecorePackage.getEBoolean(), "needsTitle", "true", 0, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenCompartment_LayoutKind(), this.getCompartmentLayoutKind(), "layoutKind", null, 0, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenCompartment_Node(), this.getGenNode(), this.getGenNode_Compartments(), "node", null, 1, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenCompartment_Diagram(), this.getGenDiagram(), this.getGenDiagram_Compartments(), "diagram", null, 1, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenCompartment_Node(), this.getGenNode(), this.getGenNode_Compartments(), "node", null, 1, 1, GenCompartment.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genCompartmentEClass, ecorePackage.getEString(), "getSemanticHintFieldName", 0, 1);
-
-		initEClass(genChildNodeEClass, GenChildNode.class, "GenChildNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenChildNode_Container(), this.getGenChildContainer(), this.getGenChildContainer_ChildNodes(), "container", null, 1, 1, GenChildNode.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(genChildNodeEClass, ecorePackage.getEBoolean(), "isListContainerEntry", 0, 1);
 
 		initEClass(genLinkEClass, GenLink.class, "GenLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenLink_Diagram(), this.getGenDiagram(), this.getGenDiagram_Links(), "diagram", null, 1, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2838,17 +2894,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenAuditRule_Container(), this.getGenAuditContainer(), this.getGenAuditContainer_Audits(), "container", null, 1, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
-		initEEnum(compartmentPlacementKindEEnum, CompartmentPlacementKind.class, "CompartmentPlacementKind");
-		addEEnumLiteral(compartmentPlacementKindEEnum, CompartmentPlacementKind.FLOW_LITERAL);
-		addEEnumLiteral(compartmentPlacementKindEEnum, CompartmentPlacementKind.TOOLBAR_LITERAL);
-
-		initEEnum(compartmentLayoutKindEEnum, CompartmentLayoutKind.class, "CompartmentLayoutKind");
-		addEEnumLiteral(compartmentLayoutKindEEnum, CompartmentLayoutKind.BORDER_LITERAL);
-		addEEnumLiteral(compartmentLayoutKindEEnum, CompartmentLayoutKind.FLOW_LITERAL);
-		addEEnumLiteral(compartmentLayoutKindEEnum, CompartmentLayoutKind.SCROLL_LITERAL);
-		addEEnumLiteral(compartmentLayoutKindEEnum, CompartmentLayoutKind.TOOLBAR_LITERAL);
-		addEEnumLiteral(compartmentLayoutKindEEnum, CompartmentLayoutKind.XY_LITERAL);
-
 		initEEnum(linkLabelAlignmentEEnum, LinkLabelAlignment.class, "LinkLabelAlignment");
 		addEEnumLiteral(linkLabelAlignmentEEnum, LinkLabelAlignment.MIDDLE_LITERAL);
 		addEEnumLiteral(linkLabelAlignmentEEnum, LinkLabelAlignment.TARGET_LITERAL);
@@ -2886,7 +2931,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																												
+		   });																																																																																																													
 	}
 
 	/**
@@ -2914,6 +2959,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "let c: ecore::EClass = diagramRunTimeClass.ecoreClass.oclAsType(ecore::EClass) in c = notation::Node or c.eAllSuperTypes->includes(notation::Node)"
+		   });		
+		addAnnotation
+		  (genNodeEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "containers->forAll(n|n.listLayout) or containers->forAll(n|not n.listLayout)"
 		   });						
 		addAnnotation
 		  (genLinkEClass, 
@@ -2978,7 +3029,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																														
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																															
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 

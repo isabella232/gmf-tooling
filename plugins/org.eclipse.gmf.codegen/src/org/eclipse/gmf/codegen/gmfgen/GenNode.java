@@ -21,37 +21,20 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getModelFacet <em>Model Facet</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getLabels <em>Labels</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getCompartments <em>Compartments</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getChildContainersPlacement <em>Child Containers Placement</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getGraphicalNodeEditPolicyClassName <em>Graphical Node Edit Policy Class Name</em>}</li>
  * </ul>
  * </p>
  *
  * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode()
- * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let c: ecore::EClass = diagramRunTimeClass.ecoreClass.oclAsType(ecore::EClass) in c = notation::Node or c.eAllSuperTypes->includes(notation::Node)'"
+ * @model abstract="true"
+ *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let c: ecore::EClass = diagramRunTimeClass.ecoreClass.oclAsType(ecore::EClass) in c = notation::Node or c.eAllSuperTypes->includes(notation::Node)'"
+ *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='containers->forAll(n|n.listLayout) or containers->forAll(n|not n.listLayout)'"
  * @generated
  */
 public interface GenNode extends GenChildContainer {
-	/**
-	 * Returns the value of the '<em><b>Diagram</b></em>' container reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getNodes <em>Nodes</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Diagram</em>' container reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Diagram</em>' container reference.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_Diagram()
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getNodes
-	 * @model opposite="nodes" required="true" changeable="false"
-	 * @generated
-	 */
-	GenDiagram getDiagram();
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -70,10 +53,21 @@ public interface GenNode extends GenChildContainer {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * valid only when there are compartments
+	 * <!-- end-model-doc -->
 	 * @model kind="operation"
 	 * @generated
 	 */
 	String getGraphicalNodeEditPolicyQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	boolean isListContainerEntry();
 
 	/**
 	 * Returns the value of the '<em><b>Labels</b></em>' containment reference list.
@@ -94,7 +88,7 @@ public interface GenNode extends GenChildContainer {
 	EList getLabels();
 
 	/**
-	 * Returns the value of the '<em><b>Compartments</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Compartments</b></em>' reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenCompartment}.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#getNode <em>Node</em>}'.
 	 * <!-- begin-user-doc -->
@@ -103,42 +97,13 @@ public interface GenNode extends GenChildContainer {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Compartments</em>' containment reference list.
+	 * @return the value of the '<em>Compartments</em>' reference list.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_Compartments()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenCompartment#getNode
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenCompartment" opposite="node" containment="true"
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenCompartment" opposite="node"
 	 * @generated
 	 */
 	EList getCompartments();
-
-	/**
-	 * Returns the value of the '<em><b>Child Containers Placement</b></em>' attribute.
-	 * The default value is <code>"TOOLBAR"</code>.
-	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * valid only when there are compartments
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Child Containers Placement</em>' attribute.
-	 * @see org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind
-	 * @see #setChildContainersPlacement(CompartmentPlacementKind)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenNode_ChildContainersPlacement()
-	 * @model default="TOOLBAR"
-	 * @generated
-	 */
-	CompartmentPlacementKind getChildContainersPlacement();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getChildContainersPlacement <em>Child Containers Placement</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Child Containers Placement</em>' attribute.
-	 * @see org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind
-	 * @see #getChildContainersPlacement()
-	 * @generated
-	 */
-	void setChildContainersPlacement(CompartmentPlacementKind value);
 
 	/**
 	 * Returns the value of the '<em><b>Graphical Node Edit Policy Class Name</b></em>' attribute.

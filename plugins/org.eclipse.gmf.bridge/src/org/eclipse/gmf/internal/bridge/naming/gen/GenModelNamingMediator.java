@@ -16,8 +16,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
@@ -32,7 +32,7 @@ public interface GenModelNamingMediator {
 
 	void feed(GenDiagram genDiagram, CanvasMapping cme);
 
-	void feed(GenNode genNode, NodeMapping nme);
+	void feed(GenTopLevelNode genNode, NodeMapping nme);
 
 	void feed(GenChildNode childNode, ChildNodeMapping nme);
 

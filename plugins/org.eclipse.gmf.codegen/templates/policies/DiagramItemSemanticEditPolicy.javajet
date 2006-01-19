@@ -22,7 +22,7 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class <%=genDiagram.getItemSemanticEditPolicyClassName()%> extends <%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())%> {
 <%
-Collection childNodes = genDiagram.getNodes();
+Collection childNodes = genDiagram.getTopLevelNodes();
 GenClass containerGenClass = genDiagram.getDomainDiagramElement();
 %>
 

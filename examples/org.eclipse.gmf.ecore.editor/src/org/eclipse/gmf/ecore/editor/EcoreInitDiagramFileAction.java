@@ -214,7 +214,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 		myLinkVID2EObjectMap.put(new Integer(3003), new LinkedList());
 		myLinkVID2EObjectMap.put(new Integer(3004), new LinkedList());
 		Diagram diagram = ViewService.createDiagram(diagramModel, "Ecore", EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-		createDiagramChildren(diagram, diagramModel);
+		createEPackage_79Children(diagram, diagramModel);
 		createLinks();
 		myLinkVID2EObjectMap.clear();
 		myEObject2NodeMap.clear();
@@ -224,60 +224,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	/**
 	 * @generated
 	 */
-	private void createDiagramChildren(Diagram diagram, EObject diagramModel) {
-		EObject nextValue;
-		int nodeVID;
-		for (Iterator values = ((EPackage) diagramModel).getEClassifiers().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(diagram, nextValue, "");
-			if (1001 == nodeVID) {
-				Node nextNode = ViewService.createNode(diagram, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-				myEObject2NodeMap.put(nextValue, nextNode);
-				createEClass_1001Children(nextNode, nextValue);
-			}
-		}
-		for (Iterator values = ((EPackage) diagramModel).getESubpackages().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(diagram, nextValue, "");
-			if (1002 == nodeVID) {
-				Node nextNode = ViewService.createNode(diagram, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-				myEObject2NodeMap.put(nextValue, nextNode);
-				createEPackage_1002Children(nextNode, nextValue);
-			}
-		}
-		for (Iterator values = ((EModelElement) diagramModel).getEAnnotations().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(diagram, nextValue, "");
-			if (1003 == nodeVID) {
-				Node nextNode = ViewService.createNode(diagram, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-				myEObject2NodeMap.put(nextValue, nextNode);
-				createEAnnotation_1003Children(nextNode, nextValue);
-			}
-		}
-		for (Iterator values = ((EPackage) diagramModel).getEClassifiers().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(diagram, nextValue, "");
-			if (1004 == nodeVID) {
-				Node nextNode = ViewService.createNode(diagram, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-				myEObject2NodeMap.put(nextValue, nextNode);
-				createEDataType_1004Children(nextNode, nextValue);
-			}
-		}
-		for (Iterator values = ((EPackage) diagramModel).getEClassifiers().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(diagram, nextValue, "");
-			if (1005 == nodeVID) {
-				Node nextNode = ViewService.createNode(diagram, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-				myEObject2NodeMap.put(nextValue, nextNode);
-				createEEnum_1005Children(nextNode, nextValue);
-			}
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createEClass_1001Children(Node viewObject, EObject modelObject) {
+	private void createEClass_1001Children(View viewObject, EObject modelObject) {
 		Node nextNode;
 		nextNode = getCompartment(viewObject, "attributes");
 		if (nextNode != null) {
@@ -297,82 +244,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	/**
 	 * @generated
 	 */
-	private void createAttributes_5001Children(Node viewObject, EObject modelObject) {
-		EObject nextValue;
-		Node nextNode;
-		for (Iterator values = ((EClass) modelObject).getEAttributes().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
-			if (2001 == nodeVID) {
-				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-				myEObject2NodeMap.put(nextValue, nextNode);
-				createEAttribute_2001Children(nextNode, nextValue);
-			}
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createEAttribute_2001Children(Node viewObject, EObject modelObject) {
-		storeLinks(modelObject);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createOperations_5002Children(Node viewObject, EObject modelObject) {
-		EObject nextValue;
-		Node nextNode;
-		for (Iterator values = ((EClass) modelObject).getEOperations().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
-			if (2002 == nodeVID) {
-				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-				myEObject2NodeMap.put(nextValue, nextNode);
-				createEOperation_2002Children(nextNode, nextValue);
-			}
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createEOperation_2002Children(Node viewObject, EObject modelObject) {
-		storeLinks(modelObject);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createClass_annotations_5003Children(Node viewObject, EObject modelObject) {
-		EObject nextValue;
-		Node nextNode;
-		for (Iterator values = ((EModelElement) modelObject).getEAnnotations().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
-			if (2003 == nodeVID) {
-				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-				myEObject2NodeMap.put(nextValue, nextNode);
-				createEAnnotation_2003Children(nextNode, nextValue);
-			}
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createEAnnotation_2003Children(Node viewObject, EObject modelObject) {
-		storeLinks(modelObject);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createEPackage_1002Children(Node viewObject, EObject modelObject) {
+	private void createEPackage_1002Children(View viewObject, EObject modelObject) {
 		Node nextNode;
 		nextNode = getCompartment(viewObject, "classes");
 		if (nextNode != null) {
@@ -400,7 +272,185 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	/**
 	 * @generated
 	 */
-	private void createClasses_5004Children(Node viewObject, EObject modelObject) {
+	private void createEAnnotation_1003Children(View viewObject, EObject modelObject) {
+		Node nextNode;
+		nextNode = getCompartment(viewObject, "details");
+		if (nextNode != null) {
+			createDetails_5009Children(nextNode, modelObject);
+		}
+		storeLinks(modelObject);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createEDataType_1004Children(View viewObject, EObject modelObject) {
+		Node nextNode;
+		nextNode = getCompartment(viewObject, "data type annotations");
+		if (nextNode != null) {
+			createData_type_annotations_5010Children(nextNode, modelObject);
+		}
+		storeLinks(modelObject);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createEEnum_1005Children(View viewObject, EObject modelObject) {
+		Node nextNode;
+		nextNode = getCompartment(viewObject, "literals");
+		if (nextNode != null) {
+			createLiterals_5011Children(nextNode, modelObject);
+		}
+		nextNode = getCompartment(viewObject, "enum annotations");
+		if (nextNode != null) {
+			createEnum_annotations_5012Children(nextNode, modelObject);
+		}
+		storeLinks(modelObject);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createEAttribute_2001Children(View viewObject, EObject modelObject) {
+		storeLinks(modelObject);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createEOperation_2002Children(View viewObject, EObject modelObject) {
+		storeLinks(modelObject);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createEAnnotation_2003Children(View viewObject, EObject modelObject) {
+		storeLinks(modelObject);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createEClass_2004Children(View viewObject, EObject modelObject) {
+		storeLinks(modelObject);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createEPackage_2005Children(View viewObject, EObject modelObject) {
+		storeLinks(modelObject);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createEDataType_2006Children(View viewObject, EObject modelObject) {
+		storeLinks(modelObject);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createEEnum_2007Children(View viewObject, EObject modelObject) {
+		storeLinks(modelObject);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createEAnnotation_2008Children(View viewObject, EObject modelObject) {
+		storeLinks(modelObject);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createEStringToStringMapEntry_2009Children(View viewObject, EObject modelObject) {
+		storeLinks(modelObject);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createEAnnotation_2010Children(View viewObject, EObject modelObject) {
+		storeLinks(modelObject);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createEEnumLiteral_2011Children(View viewObject, EObject modelObject) {
+		storeLinks(modelObject);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createEAnnotation_2012Children(View viewObject, EObject modelObject) {
+		storeLinks(modelObject);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createAttributes_5001Children(View viewObject, EObject modelObject) {
+		EObject nextValue;
+		Node nextNode;
+		for (Iterator values = ((EClass) modelObject).getEAttributes().iterator(); values.hasNext();) {
+			nextValue = (EObject) values.next();
+
+			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			if (2001 == nodeVID) {
+				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				myEObject2NodeMap.put(nextValue, nextNode);
+				createEAttribute_2001Children(nextNode, nextValue);
+			}
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createOperations_5002Children(View viewObject, EObject modelObject) {
+		EObject nextValue;
+		Node nextNode;
+		for (Iterator values = ((EClass) modelObject).getEOperations().iterator(); values.hasNext();) {
+			nextValue = (EObject) values.next();
+
+			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			if (2002 == nodeVID) {
+				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				myEObject2NodeMap.put(nextValue, nextNode);
+				createEOperation_2002Children(nextNode, nextValue);
+			}
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createClass_annotations_5003Children(View viewObject, EObject modelObject) {
+		EObject nextValue;
+		Node nextNode;
+		for (Iterator values = ((EModelElement) modelObject).getEAnnotations().iterator(); values.hasNext();) {
+			nextValue = (EObject) values.next();
+
+			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			if (2003 == nodeVID) {
+				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				myEObject2NodeMap.put(nextValue, nextNode);
+				createEAnnotation_2003Children(nextNode, nextValue);
+			}
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createClasses_5004Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
 		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
@@ -418,14 +468,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	/**
 	 * @generated
 	 */
-	private void createEClass_2004Children(Node viewObject, EObject modelObject) {
-		storeLinks(modelObject);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createPackages_5005Children(Node viewObject, EObject modelObject) {
+	private void createPackages_5005Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
 		for (Iterator values = ((EPackage) modelObject).getESubpackages().iterator(); values.hasNext();) {
@@ -443,14 +486,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	/**
 	 * @generated
 	 */
-	private void createEPackage_2005Children(Node viewObject, EObject modelObject) {
-		storeLinks(modelObject);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createData_types_5006Children(Node viewObject, EObject modelObject) {
+	private void createData_types_5006Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
 		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
@@ -468,14 +504,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	/**
 	 * @generated
 	 */
-	private void createEDataType_2006Children(Node viewObject, EObject modelObject) {
-		storeLinks(modelObject);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createEnums_5007Children(Node viewObject, EObject modelObject) {
+	private void createEnums_5007Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
 		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
@@ -493,14 +522,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	/**
 	 * @generated
 	 */
-	private void createEEnum_2007Children(Node viewObject, EObject modelObject) {
-		storeLinks(modelObject);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createPackage_annotations_5008Children(Node viewObject, EObject modelObject) {
+	private void createPackage_annotations_5008Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
 		for (Iterator values = ((EModelElement) modelObject).getEAnnotations().iterator(); values.hasNext();) {
@@ -518,26 +540,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	/**
 	 * @generated
 	 */
-	private void createEAnnotation_2008Children(Node viewObject, EObject modelObject) {
-		storeLinks(modelObject);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createEAnnotation_1003Children(Node viewObject, EObject modelObject) {
-		Node nextNode;
-		nextNode = getCompartment(viewObject, "details");
-		if (nextNode != null) {
-			createDetails_5009Children(nextNode, modelObject);
-		}
-		storeLinks(modelObject);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createDetails_5009Children(Node viewObject, EObject modelObject) {
+	private void createDetails_5009Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
 		for (Iterator values = ((EAnnotation) modelObject).getDetails().iterator(); values.hasNext();) {
@@ -555,26 +558,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	/**
 	 * @generated
 	 */
-	private void createEStringToStringMapEntry_2009Children(Node viewObject, EObject modelObject) {
-		storeLinks(modelObject);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createEDataType_1004Children(Node viewObject, EObject modelObject) {
-		Node nextNode;
-		nextNode = getCompartment(viewObject, "data type annotations");
-		if (nextNode != null) {
-			createData_type_annotations_5010Children(nextNode, modelObject);
-		}
-		storeLinks(modelObject);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createData_type_annotations_5010Children(Node viewObject, EObject modelObject) {
+	private void createData_type_annotations_5010Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
 		for (Iterator values = ((EModelElement) modelObject).getEAnnotations().iterator(); values.hasNext();) {
@@ -592,30 +576,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	/**
 	 * @generated
 	 */
-	private void createEAnnotation_2010Children(Node viewObject, EObject modelObject) {
-		storeLinks(modelObject);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createEEnum_1005Children(Node viewObject, EObject modelObject) {
-		Node nextNode;
-		nextNode = getCompartment(viewObject, "literals");
-		if (nextNode != null) {
-			createLiterals_5011Children(nextNode, modelObject);
-		}
-		nextNode = getCompartment(viewObject, "enum annotations");
-		if (nextNode != null) {
-			createEnum_annotations_5012Children(nextNode, modelObject);
-		}
-		storeLinks(modelObject);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createLiterals_5011Children(Node viewObject, EObject modelObject) {
+	private void createLiterals_5011Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
 		for (Iterator values = ((EEnum) modelObject).getELiterals().iterator(); values.hasNext();) {
@@ -633,14 +594,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	/**
 	 * @generated
 	 */
-	private void createEEnumLiteral_2011Children(Node viewObject, EObject modelObject) {
-		storeLinks(modelObject);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createEnum_annotations_5012Children(Node viewObject, EObject modelObject) {
+	private void createEnum_annotations_5012Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
 		for (Iterator values = ((EModelElement) modelObject).getEAnnotations().iterator(); values.hasNext();) {
@@ -658,14 +612,65 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	/**
 	 * @generated
 	 */
-	private void createEAnnotation_2012Children(Node viewObject, EObject modelObject) {
-		storeLinks(modelObject);
+	private void createEPackage_79Children(View viewObject, EObject modelObject) {
+		EObject nextValue;
+		Node nextNode;
+		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
+			nextValue = (EObject) values.next();
+
+			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			if (1001 == nodeVID) {
+				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				myEObject2NodeMap.put(nextValue, nextNode);
+				createEClass_1001Children(nextNode, nextValue);
+			}
+		}
+		for (Iterator values = ((EPackage) modelObject).getESubpackages().iterator(); values.hasNext();) {
+			nextValue = (EObject) values.next();
+
+			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			if (1002 == nodeVID) {
+				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				myEObject2NodeMap.put(nextValue, nextNode);
+				createEPackage_1002Children(nextNode, nextValue);
+			}
+		}
+		for (Iterator values = ((EModelElement) modelObject).getEAnnotations().iterator(); values.hasNext();) {
+			nextValue = (EObject) values.next();
+
+			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			if (1003 == nodeVID) {
+				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				myEObject2NodeMap.put(nextValue, nextNode);
+				createEAnnotation_1003Children(nextNode, nextValue);
+			}
+		}
+		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
+			nextValue = (EObject) values.next();
+
+			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			if (1004 == nodeVID) {
+				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				myEObject2NodeMap.put(nextValue, nextNode);
+				createEDataType_1004Children(nextNode, nextValue);
+			}
+		}
+		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
+			nextValue = (EObject) values.next();
+
+			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			if (1005 == nodeVID) {
+				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				myEObject2NodeMap.put(nextValue, nextNode);
+				createEEnum_1005Children(nextNode, nextValue);
+			}
+		}
 	}
 
 	/**
 	 * @generated
 	 */
-	private Node getCompartment(Node node, String name) {
+	private Node getCompartment(View node, String name) {
 		for (Iterator it = node.getChildren().iterator(); it.hasNext();) {
 			View nextView = (View) it.next();
 			if (nextView instanceof Node && name.equals(nextView.getType())) {

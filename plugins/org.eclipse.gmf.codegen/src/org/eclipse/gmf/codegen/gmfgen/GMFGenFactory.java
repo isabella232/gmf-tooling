@@ -35,22 +35,13 @@ public interface GMFGenFactory extends EFactory {
 	GenDiagram createGenDiagram();
 
 	/**
-	 * Returns a new object of class '<em>Gen Node</em>'.
+	 * Returns a new object of class '<em>Gen Top Level Node</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Gen Node</em>'.
+	 * @return a new object of class '<em>Gen Top Level Node</em>'.
 	 * @generated
 	 */
-	GenNode createGenNode();
-
-	/**
-	 * Returns a new object of class '<em>Gen Compartment</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Gen Compartment</em>'.
-	 * @generated
-	 */
-	GenCompartment createGenCompartment();
+	GenTopLevelNode createGenTopLevelNode();
 
 	/**
 	 * Returns a new object of class '<em>Gen Child Node</em>'.
@@ -60,6 +51,15 @@ public interface GMFGenFactory extends EFactory {
 	 * @generated
 	 */
 	GenChildNode createGenChildNode();
+
+	/**
+	 * Returns a new object of class '<em>Gen Compartment</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Compartment</em>'.
+	 * @generated
+	 */
+	GenCompartment createGenCompartment();
 
 	/**
 	 * Returns a new object of class '<em>Gen Link</em>'.

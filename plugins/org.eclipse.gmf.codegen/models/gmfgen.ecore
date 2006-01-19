@@ -11,7 +11,7 @@
   <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
     <details key="import" value="platform:/resource/org.eclipse.gmf.runtime.notation/model/notation.ecore"/>
   </eAnnotations>
-  <eClassifiers xsi:type="ecore:EClass" name="GenDiagram" eSuperTypes="#//GenCommonBase">
+  <eClassifiers xsi:type="ecore:EClass" name="GenDiagram" eSuperTypes="#//GenContainerEditPart">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
       <details key="ocl" value="nodes->forAll(n : GenNode | self.links->forAll(l : GenLink | l.oclAsType(TypeLinkModelFacet).metaClass &lt;> n.getDomainMetaClass()))"/>
     </eAnnotations>
@@ -20,6 +20,8 @@
         <details key="documentation" value="== domainMetaModel.getGenModel()"/>
       </eAnnotations>
     </eOperations>
+    <eOperations name="getAllContainers" upperBound="-1" eType="#//GenContainerEditPart"/>
+    <eOperations name="getAllNodes" upperBound="-1" eType="#//GenNode"/>
     <eOperations name="getRequiredPluginIDs" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Computed additional dependencies of generated plug-in"/>
@@ -86,10 +88,14 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainMetaModel" lowerBound="1"
         eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenPackage"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainDiagramElement" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
-        eType="#//GenNode" containment="true" eOpposite="#//GenNode/diagram"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="childNodes" upperBound="-1"
+        eType="#//GenChildNode" containment="true" eOpposite="#//GenChildNode/diagram"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="topLevelNodes" upperBound="-1"
+        eType="#//GenTopLevelNode" containment="true" eOpposite="#//GenTopLevelNode/diagram"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
         eType="#//GenLink" containment="true" eOpposite="#//GenLink/diagram"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="compartments" upperBound="-1"
+        eType="#//GenCompartment" containment="true" eOpposite="#//GenCompartment/diagram"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="audits" eType="#//GenAuditContainer"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -221,22 +227,32 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="viewmap" lowerBound="1"
         eType="#//Viewmap" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenChildContainer" abstract="true" eSuperTypes="#//GenCommonBase">
+  <eClassifiers xsi:type="ecore:EClass" name="GenContainerEditPart" interface="true"
+      eSuperTypes="#//GenCommonBase">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containedNodes" upperBound="-1"
+        eType="#//GenNode" volatile="true" transient="true" derived="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenChildContainer" abstract="true" eSuperTypes="#//GenContainerEditPart">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Base class for all ChildNode containers"/>
     </eAnnotations>
     <eOperations name="getCanonicalEditPolicyQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="childNodes" upperBound="-1"
-        eType="#//GenChildNode" containment="true" eOpposite="#//GenChildNode/container"/>
+        eType="#//GenChildNode" eOpposite="#//GenChildNode/containers"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="canonicalEditPolicyClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="listLayout" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenNode" eSuperTypes="#//GenChildContainer">
+  <eClassifiers xsi:type="ecore:EClass" name="GenNode" abstract="true" eSuperTypes="#//GenChildContainer">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="EClass mapped to Node"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
       <details key="ocl" value="let c: ecore::EClass = diagramRunTimeClass.ecoreClass.oclAsType(ecore::EClass) in c = notation::Node or c.eAllSuperTypes->includes(notation::Node)"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="containers->forAll(n|n.listLayout) or containers->forAll(n|not n.listLayout)"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="super.diagramRunTimeClass - diagramrt.DiagramNode or its subclass"/>
@@ -246,27 +262,30 @@
         <details key="documentation" value="Delegates to modelFacet"/>
       </eAnnotations>
     </eOperations>
-    <eOperations name="getGraphicalNodeEditPolicyQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
-        eType="#//GenDiagram" changeable="false" eOpposite="#//GenDiagram/nodes"/>
+    <eOperations name="getGraphicalNodeEditPolicyQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="valid only when there are compartments"/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="isListContainerEntry" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="modelFacet" lowerBound="1"
         eType="#//TypeModelFacet" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="labels" upperBound="-1"
         eType="#//GenNodeLabel" containment="true" eOpposite="#//GenNodeLabel/node"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="compartments" upperBound="-1"
-        eType="#//GenCompartment" containment="true" eOpposite="#//GenCompartment/node"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="childContainersPlacement"
-        eType="#//CompartmentPlacementKind" defaultValueLiteral="TOOLBAR">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="valid only when there are compartments"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        eType="#//GenCompartment" eOpposite="#//GenCompartment/node"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="graphicalNodeEditPolicyClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="CompartmentPlacementKind">
-    <eLiterals name="FLOW"/>
-    <eLiterals name="TOOLBAR" value="1"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GenTopLevelNode" eSuperTypes="#//GenNode">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
+        eType="#//GenDiagram" changeable="false" eOpposite="#//GenDiagram/topLevelNodes"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenChildNode" eSuperTypes="#//GenNode">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
+        eType="#//GenDiagram" changeable="false" eOpposite="#//GenDiagram/childNodes"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="containers" upperBound="-1"
+        eType="#//GenChildContainer" changeable="false" eOpposite="#//GenChildContainer/childNodes"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenCompartment" eSuperTypes="#//GenChildContainer">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -280,21 +299,10 @@
         defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="needsTitle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="layoutKind" eType="#//CompartmentLayoutKind"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
+        eType="#//GenDiagram" changeable="false" eOpposite="#//GenDiagram/compartments"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="node" lowerBound="1" eType="#//GenNode"
         changeable="false" eOpposite="#//GenNode/compartments"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="CompartmentLayoutKind">
-    <eLiterals name="BORDER"/>
-    <eLiterals name="FLOW" value="1"/>
-    <eLiterals name="SCROLL" value="2"/>
-    <eLiterals name="TOOLBAR" value="3"/>
-    <eLiterals name="XY" value="4"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenChildNode" eSuperTypes="#//GenNode">
-    <eOperations name="isListContainerEntry" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="container" lowerBound="1"
-        eType="#//GenChildContainer" changeable="false" eOpposite="#//GenChildContainer/childNodes"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenLink" eSuperTypes="#//GenCommonBase">
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">

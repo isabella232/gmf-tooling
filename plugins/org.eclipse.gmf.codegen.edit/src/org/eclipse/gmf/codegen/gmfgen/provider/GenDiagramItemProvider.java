@@ -61,6 +61,7 @@ public class GenDiagramItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addContainedNodesPropertyDescriptor(object);
 			addDomainMetaModelPropertyDescriptor(object);
 			addDomainDiagramElementPropertyDescriptor(object);
 			addEditCommandsPackageNamePropertyDescriptor(object);
@@ -109,6 +110,26 @@ public class GenDiagramItemProvider
 			addShortcutsProvidedForPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Contained Nodes feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addContainedNodesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenContainerEditPart_containedNodes_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenContainerEditPart_containedNodes_feature", "_UI_GenContainerEditPart_type"),
+				 GMFGenPackage.eINSTANCE.getGenContainerEditPart_ContainedNodes(),
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -1042,8 +1063,10 @@ public class GenDiagramItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Nodes());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_ChildNodes());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_TopLevelNodes());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Links());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Compartments());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Audits());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Palette());
 		}
@@ -1142,8 +1165,10 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__NODES:
+			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:
+			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
+			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
 			case GMFGenPackage.GEN_DIAGRAM__AUDITS:
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -1164,18 +1189,23 @@ public class GenDiagramItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenDiagram_Nodes(),
-				 GMFGenFactory.eINSTANCE.createGenNode()));
+				(GMFGenPackage.eINSTANCE.getGenDiagram_ChildNodes(),
+				 GMFGenFactory.eINSTANCE.createGenChildNode()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenDiagram_Nodes(),
-				 GMFGenFactory.eINSTANCE.createGenChildNode()));
+				(GMFGenPackage.eINSTANCE.getGenDiagram_TopLevelNodes(),
+				 GMFGenFactory.eINSTANCE.createGenTopLevelNode()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenDiagram_Links(),
 				 GMFGenFactory.eINSTANCE.createGenLink()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenDiagram_Compartments(),
+				 GMFGenFactory.eINSTANCE.createGenCompartment()));
 
 		newChildDescriptors.add
 			(createChildParameter

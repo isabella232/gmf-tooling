@@ -86,70 +86,70 @@ public class EcoreViewProvider extends AbstractViewProvider {
 			return EClassViewFactory.class;
 		case 4001:
 			return EClass_nameViewFactory.class;
-		case 5001:
-			return EClass_attributesViewFactory.class;
-		case 2001:
-			return EAttributeViewFactory.class;
-		case 5002:
-			return EClass_operationsViewFactory.class;
-		case 2002:
-			return EOperationViewFactory.class;
-		case 5003:
-			return EClass_classannotationsViewFactory.class;
-		case 2003:
-			return EAnnotationViewFactory.class;
 		case 1002:
 			return EPackage2ViewFactory.class;
 		case 4005:
 			return EPackage_nameViewFactory.class;
-		case 5004:
-			return EPackage_classesViewFactory.class;
-		case 2004:
-			return EClass2ViewFactory.class;
-		case 5005:
-			return EPackage_packagesViewFactory.class;
-		case 2005:
-			return EPackage3ViewFactory.class;
-		case 5006:
-			return EPackage_datatypesViewFactory.class;
-		case 2006:
-			return EDataTypeViewFactory.class;
-		case 5007:
-			return EPackage_enumsViewFactory.class;
-		case 2007:
-			return EEnumViewFactory.class;
-		case 5008:
-			return EPackage_packageannotationsViewFactory.class;
-		case 2008:
-			return EAnnotation2ViewFactory.class;
 		case 1003:
 			return EAnnotation3ViewFactory.class;
 		case 4011:
 			return EAnnotation_source3ViewFactory.class;
-		case 5009:
-			return EAnnotation_detailsViewFactory.class;
-		case 2009:
-			return EStringToStringMapEntryViewFactory.class;
 		case 1004:
 			return EDataType2ViewFactory.class;
 		case 4013:
 			return EDataType_name2ViewFactory.class;
-		case 5010:
-			return EDataType_datatypeannotationsViewFactory.class;
-		case 2010:
-			return EAnnotation4ViewFactory.class;
 		case 1005:
 			return EEnum2ViewFactory.class;
 		case 4015:
 			return EEnum_name2ViewFactory.class;
-		case 5011:
-			return EEnum_literalsViewFactory.class;
+		case 2001:
+			return EAttributeViewFactory.class;
+		case 2002:
+			return EOperationViewFactory.class;
+		case 2003:
+			return EAnnotationViewFactory.class;
+		case 2004:
+			return EClass2ViewFactory.class;
+		case 2005:
+			return EPackage3ViewFactory.class;
+		case 2006:
+			return EDataTypeViewFactory.class;
+		case 2007:
+			return EEnumViewFactory.class;
+		case 2008:
+			return EAnnotation2ViewFactory.class;
+		case 2009:
+			return EStringToStringMapEntryViewFactory.class;
+		case 2010:
+			return EAnnotation4ViewFactory.class;
 		case 2011:
 			return EEnumLiteralViewFactory.class;
-		case 5012:
-			return EEnum_enumannotationsViewFactory.class;
 		case 2012:
 			return EAnnotation5ViewFactory.class;
+		case 5001:
+			return EClass_attributesViewFactory.class;
+		case 5002:
+			return EClass_operationsViewFactory.class;
+		case 5003:
+			return EClass_classannotationsViewFactory.class;
+		case 5004:
+			return EPackage_classesViewFactory.class;
+		case 5005:
+			return EPackage_packagesViewFactory.class;
+		case 5006:
+			return EPackage_datatypesViewFactory.class;
+		case 5007:
+			return EPackage_enumsViewFactory.class;
+		case 5008:
+			return EPackage_packageannotationsViewFactory.class;
+		case 5009:
+			return EAnnotation_detailsViewFactory.class;
+		case 5010:
+			return EDataType_datatypeannotationsViewFactory.class;
+		case 5011:
+			return EEnum_literalsViewFactory.class;
+		case 5012:
+			return EEnum_enumannotationsViewFactory.class;
 		case 4018:
 			if (EcoreSemanticHints.EReference_3002Labels.EREFERENCENAME_4018_LABEL.equals(semanticHint)) {
 				return EReference_nameViewFactory.class;

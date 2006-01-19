@@ -20,20 +20,15 @@ public class ModelingAssistantProviderGenerator
   protected final String TEXT_2 = ";" + NL;
   protected final String TEXT_3 = NL + "import java.util.ArrayList;" + NL + "import java.util.Collections;" + NL + "import java.util.List;" + NL + "" + NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;" + NL + "import org.eclipse.gmf.runtime.emf.ui.services.modelingassistant.ModelingAssistantProvider;";
   protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_5 = " extends ModelingAssistantProvider {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic List getTypesForPopupBar(IAdaptable host) {" + NL + "\t\tObject editPart = host.getAdapter(IGraphicalEditPart.class);" + NL + "\t\tif (editPart instanceof ";
-  protected final String TEXT_6 = ") {" + NL + "\t\t\tList children = new ArrayList();";
-  protected final String TEXT_7 = NL + "\t\t\tchildren.add(";
-  protected final String TEXT_8 = ".";
-  protected final String TEXT_9 = ");";
-  protected final String TEXT_10 = NL + "\t\t\treturn children;";
-  protected final String TEXT_11 = NL + "\t\t} else if (editPart instanceof ";
-  protected final String TEXT_12 = ") {" + NL + "\t\t\tList children = new ArrayList();";
-  protected final String TEXT_13 = NL + "\t\t\tchildren.add(";
-  protected final String TEXT_14 = ".";
-  protected final String TEXT_15 = ");";
-  protected final String TEXT_16 = NL + "\t\t\treturn children;";
-  protected final String TEXT_17 = NL + "\t\t}" + NL + "\t\treturn Collections.EMPTY_LIST;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_18 = NL;
+  protected final String TEXT_5 = " extends ModelingAssistantProvider {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic List getTypesForPopupBar(IAdaptable host) {" + NL + "\t\tObject editPart = host.getAdapter(IGraphicalEditPart.class);";
+  protected final String TEXT_6 = NL + "\t\tif (editPart instanceof ";
+  protected final String TEXT_7 = ") {" + NL + "\t\t\tList children = new ArrayList();";
+  protected final String TEXT_8 = NL + "\t\t\tchildren.add(";
+  protected final String TEXT_9 = ".";
+  protected final String TEXT_10 = ");";
+  protected final String TEXT_11 = NL + "\t\t\treturn children;" + NL + "\t\t}";
+  protected final String TEXT_12 = NL + "\t\treturn Collections.EMPTY_LIST;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_13 = NL;
 
   public String generate(Object argument)
   {
@@ -48,46 +43,32 @@ public class ModelingAssistantProviderGenerator
     stringBuffer.append(TEXT_4);
     stringBuffer.append(genDiagram.getModelingAssistantProviderClassName());
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
+    
+Collection allContainers = new LinkedList(genDiagram.getAllContainers());
+allContainers.add(genDiagram);
+for (Iterator contents = allContainers.iterator(); contents.hasNext(); ) {
+	GenContainerEditPart genContainer = (GenContainerEditPart) contents.next();
+	List children = genContainer.getContainedNodes();
+	if (!children.isEmpty()) {
+
     stringBuffer.append(TEXT_6);
-    
-List children = genDiagram.getNodes();
-for (int i = 0; i < children.size(); i++) {
-
-    stringBuffer.append(TEXT_7);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
-    stringBuffer.append(TEXT_8);
-    stringBuffer.append(((GenNode) children.get(i)).getUniqueIdentifier());
-    stringBuffer.append(TEXT_9);
-    }
-    stringBuffer.append(TEXT_10);
-    
-for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
-	Object next = contents.next();
-	if (next instanceof GenChildContainer) {
-		GenChildContainer genContainer = (GenChildContainer) next;
-		children = genContainer.getChildNodes();
-		if (!children.isEmpty()) {
-
-    stringBuffer.append(TEXT_11);
     stringBuffer.append(importManager.getImportedName(genContainer.getEditPartQualifiedClassName()));
-    stringBuffer.append(TEXT_12);
+    stringBuffer.append(TEXT_7);
     			for (int i = 0; i < children.size(); i++) {
-    stringBuffer.append(TEXT_13);
+    stringBuffer.append(TEXT_8);
     stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
-    stringBuffer.append(TEXT_14);
+    stringBuffer.append(TEXT_9);
     stringBuffer.append(((GenNode) children.get(i)).getUniqueIdentifier());
-    stringBuffer.append(TEXT_15);
+    stringBuffer.append(TEXT_10);
     			}
-    stringBuffer.append(TEXT_16);
+    stringBuffer.append(TEXT_11);
     
-		}
 	}
 }
 
-    stringBuffer.append(TEXT_17);
+    stringBuffer.append(TEXT_12);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_18);
+    stringBuffer.append(TEXT_13);
     return stringBuffer.toString();
   }
 }

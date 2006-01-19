@@ -13,17 +13,21 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.codegen.gmfgen.*;
 
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
+import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
+import org.eclipse.gmf.codegen.gmfgen.ExternalLabel;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenLabel;
@@ -32,6 +36,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
@@ -108,17 +113,23 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGenCommonBase(GenCommonBase object) {
 				return createGenCommonBaseAdapter();
 			}
+			public Object caseGenContainerEditPart(GenContainerEditPart object) {
+				return createGenContainerEditPartAdapter();
+			}
 			public Object caseGenChildContainer(GenChildContainer object) {
 				return createGenChildContainerAdapter();
 			}
 			public Object caseGenNode(GenNode object) {
 				return createGenNodeAdapter();
 			}
-			public Object caseGenCompartment(GenCompartment object) {
-				return createGenCompartmentAdapter();
+			public Object caseGenTopLevelNode(GenTopLevelNode object) {
+				return createGenTopLevelNodeAdapter();
 			}
 			public Object caseGenChildNode(GenChildNode object) {
 				return createGenChildNodeAdapter();
+			}
+			public Object caseGenCompartment(GenCompartment object) {
+				return createGenCompartmentAdapter();
 			}
 			public Object caseGenLink(GenLink object) {
 				return createGenLinkAdapter();
@@ -266,6 +277,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenContainerEditPart <em>Gen Container Edit Part</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenContainerEditPart
+	 * @generated
+	 */
+	public Adapter createGenContainerEditPartAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenNode <em>Gen Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -280,16 +305,16 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment <em>Gen Compartment</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode <em>Gen Top Level Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenCompartment
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode
 	 * @generated
 	 */
-	public Adapter createGenCompartmentAdapter() {
+	public Adapter createGenTopLevelNodeAdapter() {
 		return null;
 	}
 
@@ -304,6 +329,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenChildNodeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment <em>Gen Compartment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCompartment
+	 * @generated
+	 */
+	public Adapter createGenCompartmentAdapter() {
 		return null;
 	}
 

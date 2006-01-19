@@ -43,7 +43,7 @@ importManager.addImport("org.eclipse.core.runtime.IAdaptable");
 importManager.addImport("org.eclipse.emf.ecore.EAnnotation");
 importManager.addImport("org.eclipse.emf.ecore.EcoreFactory");
 importManager.addImport("org.eclipse.gmf.runtime.notation.View");
-boolean isFlowLayout = label instanceof GenNodeLabel ? ((GenNodeLabel) label).getNode().getChildContainersPlacement() == CompartmentPlacementKind.FLOW_LITERAL : false;
+boolean isFlowLayout = label instanceof GenNodeLabel && !((GenNodeLabel) label).getNode().isListLayout();
 
     stringBuffer.append(TEXT_3);
     stringBuffer.append(label instanceof ExternalLabel ? ((ExternalLabel) label).getTextNotationViewFactoryClassName() : label.getNotationViewFactoryClassName());

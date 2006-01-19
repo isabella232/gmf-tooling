@@ -72,7 +72,7 @@ public class DiaGenSetup implements DiaGenSource {
 		myGenDiagram.setViewmap(createDiagramViewmap());
 		myGenDiagram.setVisualID(99);
 
-		myNodeA = GMFGenFactory.eINSTANCE.createGenNode();
+		myNodeA = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
 		myNodeA.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getNode()));
 		myNodeA.setModelFacet(createNodeModelFacet(gmm, domainSource.getNodeA()));
 		EAttribute editFeature = domainSource.getNodeA().getNameAttr();
@@ -93,7 +93,7 @@ public class DiaGenSetup implements DiaGenSource {
 		myLinkC.setViewmap(createLinkViewmap());
 		myLinkC.setVisualID(200);
 		// TODO add linkRefOnly
-		myGenDiagram.getNodes().add(myNodeA);
+		myGenDiagram.getTopLevelNodes().add(myNodeA);
 		myGenDiagram.getLinks().add(myLinkC);
 		confineInResource();
 		return this;
@@ -157,7 +157,7 @@ public class DiaGenSetup implements DiaGenSource {
 		final String bNodeEPName = mapSource.getNodeB() == null ? null : epns.get(mapSource.getNodeB());
 		final String cLinkEPName = epns.get(mapSource.getClassLink());
 		final String dLinkEPName = epns.get(mapSource.getReferenceLink());
-		for (Iterator it = myGenDiagram.getNodes().iterator(); it.hasNext();) {
+		for (Iterator it = myGenDiagram.getTopLevelNodes().iterator(); it.hasNext();) {
 			GenNode n = (GenNode) it.next();
 			if (n.getEditPartClassName().equals(aNodeEPName)) {
 				myNodeA = n;

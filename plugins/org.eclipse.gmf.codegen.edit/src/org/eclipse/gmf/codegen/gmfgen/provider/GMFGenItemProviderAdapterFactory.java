@@ -96,47 +96,25 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenNode} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected GenNodeItemProvider genNodeItemProvider;
+	protected GenTopLevelNodeItemProvider genTopLevelNodeItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenNode}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Adapter createGenNodeAdapter() {
-		if (genNodeItemProvider == null) {
-			genNodeItemProvider = new GenNodeItemProvider(this);
+	public Adapter createGenTopLevelNodeAdapter() {
+		if (genTopLevelNodeItemProvider == null) {
+			genTopLevelNodeItemProvider = new GenTopLevelNodeItemProvider(this);
 		}
 
-		return genNodeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenCompartment} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected GenCompartmentItemProvider genCompartmentItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenCompartment}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Adapter createGenCompartmentAdapter() {
-		if (genCompartmentItemProvider == null) {
-			genCompartmentItemProvider = new GenCompartmentItemProvider(this);
-		}
-
-		return genCompartmentItemProvider;
+		return genTopLevelNodeItemProvider;
 	}
 
 	/**
@@ -159,6 +137,28 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		}
 
 		return genChildNodeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenCompartment} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenCompartmentItemProvider genCompartmentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenCompartment}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenCompartmentAdapter() {
+		if (genCompartmentItemProvider == null) {
+			genCompartmentItemProvider = new GenCompartmentItemProvider(this);
+		}
+
+		return genCompartmentItemProvider;
 	}
 
 	/**
@@ -786,9 +786,9 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 */
 	public void dispose() {
 		if (genDiagramItemProvider != null) genDiagramItemProvider.dispose();
-		if (genNodeItemProvider != null) genNodeItemProvider.dispose();
-		if (genCompartmentItemProvider != null) genCompartmentItemProvider.dispose();
+		if (genTopLevelNodeItemProvider != null) genTopLevelNodeItemProvider.dispose();
 		if (genChildNodeItemProvider != null) genChildNodeItemProvider.dispose();
+		if (genCompartmentItemProvider != null) genCompartmentItemProvider.dispose();
 		if (genLinkItemProvider != null) genLinkItemProvider.dispose();
 		if (genNodeLabelItemProvider != null) genNodeLabelItemProvider.dispose();
 		if (genExternalNodeLabelItemProvider != null) genExternalNodeLabelItemProvider.dispose();

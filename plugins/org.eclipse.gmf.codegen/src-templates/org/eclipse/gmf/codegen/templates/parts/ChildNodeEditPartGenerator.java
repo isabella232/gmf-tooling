@@ -34,7 +34,7 @@ public class ChildNodeEditPartGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-GenChildNode genChildNode = (GenChildNode) argument;
+GenNode genChildNode = (GenNode) argument;
 GenDiagram genDiagram = genChildNode.getDiagram();
 
     stringBuffer.append(TEXT_1);

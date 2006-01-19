@@ -53,8 +53,8 @@ public class DiaGenFileSetup implements DiaGenSource {
  			}
  		}
  		// TODO decide from myLinkC modelFacet or even introduce source/target genNodes attrs in GenLink (!!!)
- 		myNodeA = (GenNode) myGenDiagram.getNodes().get(0);
- 		myNodeB = (GenNode) myGenDiagram.getNodes().get(1);
+ 		myNodeA = (GenNode) myGenDiagram.getTopLevelNodes().get(0);
+ 		myNodeB = (GenNode) myGenDiagram.getTopLevelNodes().get(1);
  		return this;
 	}
 

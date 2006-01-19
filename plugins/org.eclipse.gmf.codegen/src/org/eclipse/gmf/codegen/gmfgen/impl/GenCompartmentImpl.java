@@ -11,7 +11,6 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -28,7 +27,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCompartmentImpl#isCanCollapse <em>Can Collapse</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCompartmentImpl#isHideIfEmpty <em>Hide If Empty</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCompartmentImpl#isNeedsTitle <em>Needs Title</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCompartmentImpl#getLayoutKind <em>Layout Kind</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCompartmentImpl#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCompartmentImpl#getNode <em>Node</em>}</li>
  * </ul>
  * </p>
@@ -117,24 +116,14 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	protected boolean needsTitle = NEEDS_TITLE_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getLayoutKind() <em>Layout Kind</em>}' attribute.
+	 * The cached value of the '{@link #getNode() <em>Node</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getLayoutKind()
+	 * @see #getNode()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final CompartmentLayoutKind LAYOUT_KIND_EDEFAULT = CompartmentLayoutKind.BORDER_LITERAL;
-
-	/**
-	 * The cached value of the '{@link #getLayoutKind() <em>Layout Kind</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLayoutKind()
-	 * @generated
-	 * @ordered
-	 */
-	protected CompartmentLayoutKind layoutKind = LAYOUT_KIND_EDEFAULT;
+	protected GenNode node = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -243,20 +232,9 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CompartmentLayoutKind getLayoutKind() {
-		return layoutKind;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setLayoutKind(CompartmentLayoutKind newLayoutKind) {
-		CompartmentLayoutKind oldLayoutKind = layoutKind;
-		layoutKind = newLayoutKind == null ? LAYOUT_KIND_EDEFAULT : newLayoutKind;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_COMPARTMENT__LAYOUT_KIND, oldLayoutKind, layoutKind));
+	public GenDiagram getDiagram() {
+		if (eContainerFeatureID != GMFGenPackage.GEN_COMPARTMENT__DIAGRAM) return null;
+		return (GenDiagram)eContainer();
 	}
 
 	/**
@@ -265,8 +243,39 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 * @generated
 	 */
 	public GenNode getNode() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_COMPARTMENT__NODE) return null;
-		return (GenNode)eContainer();
+		if (node != null && node.eIsProxy()) {
+			InternalEObject oldNode = (InternalEObject)node;
+			node = (GenNode)eResolveProxy(oldNode);
+			if (node != oldNode) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_COMPARTMENT__NODE, oldNode, node));
+			}
+		}
+		return node;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenNode basicGetNode() {
+		return node;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetNode(GenNode newNode, NotificationChain msgs) {
+		GenNode oldNode = node;
+		node = newNode;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_COMPARTMENT__NODE, oldNode, newNode);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
 	}
 
 	/**
@@ -285,10 +294,14 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_COMPARTMENT__NODE:
+			case GMFGenPackage.GEN_COMPARTMENT__DIAGRAM:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_COMPARTMENT__NODE, msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_COMPARTMENT__DIAGRAM, msgs);
+			case GMFGenPackage.GEN_COMPARTMENT__NODE:
+				if (node != null)
+					msgs = ((InternalEObject)node).eInverseRemove(this, GMFGenPackage.GEN_NODE__COMPARTMENTS, GenNode.class, msgs);
+				return basicSetNode((GenNode)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -300,8 +313,10 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_COMPARTMENT__DIAGRAM:
+				return eBasicSetContainer(null, GMFGenPackage.GEN_COMPARTMENT__DIAGRAM, msgs);
 			case GMFGenPackage.GEN_COMPARTMENT__NODE:
-				return eBasicSetContainer(null, GMFGenPackage.GEN_COMPARTMENT__NODE, msgs);
+				return basicSetNode(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -313,8 +328,8 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	 */
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
-			case GMFGenPackage.GEN_COMPARTMENT__NODE:
-				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_NODE__COMPARTMENTS, GenNode.class, msgs);
+			case GMFGenPackage.GEN_COMPARTMENT__DIAGRAM:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS, GenDiagram.class, msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
@@ -334,10 +349,11 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 				return isHideIfEmpty() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_COMPARTMENT__NEEDS_TITLE:
 				return isNeedsTitle() ? Boolean.TRUE : Boolean.FALSE;
-			case GMFGenPackage.GEN_COMPARTMENT__LAYOUT_KIND:
-				return getLayoutKind();
+			case GMFGenPackage.GEN_COMPARTMENT__DIAGRAM:
+				return getDiagram();
 			case GMFGenPackage.GEN_COMPARTMENT__NODE:
-				return getNode();
+				if (resolve) return getNode();
+				return basicGetNode();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -360,9 +376,6 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 				return;
 			case GMFGenPackage.GEN_COMPARTMENT__NEEDS_TITLE:
 				setNeedsTitle(((Boolean)newValue).booleanValue());
-				return;
-			case GMFGenPackage.GEN_COMPARTMENT__LAYOUT_KIND:
-				setLayoutKind((CompartmentLayoutKind)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -387,9 +400,6 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 			case GMFGenPackage.GEN_COMPARTMENT__NEEDS_TITLE:
 				setNeedsTitle(NEEDS_TITLE_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_COMPARTMENT__LAYOUT_KIND:
-				setLayoutKind(LAYOUT_KIND_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -409,10 +419,10 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 				return hideIfEmpty != HIDE_IF_EMPTY_EDEFAULT;
 			case GMFGenPackage.GEN_COMPARTMENT__NEEDS_TITLE:
 				return needsTitle != NEEDS_TITLE_EDEFAULT;
-			case GMFGenPackage.GEN_COMPARTMENT__LAYOUT_KIND:
-				return layoutKind != LAYOUT_KIND_EDEFAULT;
+			case GMFGenPackage.GEN_COMPARTMENT__DIAGRAM:
+				return getDiagram() != null;
 			case GMFGenPackage.GEN_COMPARTMENT__NODE:
-				return getNode() != null;
+				return node != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -434,8 +444,6 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 		result.append(hideIfEmpty);
 		result.append(", needsTitle: ");
 		result.append(needsTitle);
-		result.append(", layoutKind: ");
-		result.append(layoutKind);
 		result.append(')');
 		return result.toString();
 	}
@@ -462,10 +470,6 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 
 	public String getClassNameSuffux() {
 		return "Container";
-	}
-
-	public GenDiagram getDiagram() {
-		return getNode().getDiagram();
 	}
 
 	public String getUniqueIdentifier() {

@@ -2,9 +2,9 @@
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.*"%>
 <%
 GenDiagram genDiagram = (GenDiagram) argument;
-List genNodes = genDiagram.getNodes();
 List genLinks = genDiagram.getLinks();
-Collection allContainers = AccessUtil.getAllContainers(genDiagram);
+Collection allContainers = new LinkedList(genDiagram.getAllContainers());
+allContainers.add(genDiagram);
 %>
 package <%=genDiagram.getEditorPackageName()%>;
 
@@ -103,23 +103,9 @@ for (Iterator it = genDiagram.getShortcutsProvidedFor().iterator(); it.hasNext()
 			}
 		}
 		switch (containerVisualID) {
-		case <%=genDiagram.getVisualID()%>:
-<%
-for (int i = 0; i < genNodes.size(); i++) {
-	GenNode genNode = (GenNode) genNodes.get(i);
-	String classifierAccessorName = genNode.getDomainMetaClass().getClassifierAccessorName();
-	String interfaceName = importManager.getImportedName(genNode.getDomainMetaClass().getQualifiedInterfaceName());
-%>
-			if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=classifierAccessorName%>().equals(domainElementMetaclass) && (domainElement != null ? isNode<%=genNode.getUniqueIdentifier()%>((<%=interfaceName%>) domainElement) : true)) {
-				return <%=genNode.getVisualID()%>;
-			} 
-<%
-}
-%>
-			return getUnrecognizedDiagramChildID(domainElement);
 <%
 for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
-	GenChildContainer nextContainer = (GenChildContainer) containers.next();
+	GenContainerEditPart nextContainer = (GenContainerEditPart) containers.next();
 %>
 		case <%=nextContainer.getVisualID()%>:
 <%
@@ -159,12 +145,12 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 				return getUnrecognized<%=nextContainer.getUniqueIdentifier()%>ChildNodeID(semanticHint);
 			} 
 <%	
-	for (Iterator childNodes = nextContainer.getChildNodes().iterator(); childNodes.hasNext();) {
+	for (Iterator childNodes = nextContainer.getContainedNodes().iterator(); childNodes.hasNext();) {
 		GenNode childNode = (GenNode) childNodes.next();
 		String classifierAccessorName = childNode.getDomainMetaClass().getClassifierAccessorName();
 		String interfaceName = importManager.getImportedName(childNode.getDomainMetaClass().getQualifiedInterfaceName());
 %>		
-			if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=classifierAccessorName%>().equals(domainElementMetaclass) && (domainElement != null ? isChildNode<%=childNode.getUniqueIdentifier()%>((<%=interfaceName%>) domainElement) : true)) {
+			if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=classifierAccessorName%>().equals(domainElementMetaclass) && (domainElement != null ? isNode<%=childNode.getUniqueIdentifier()%>((<%=interfaceName%>) domainElement) : true)) {
 				return <%=childNode.getVisualID()%>;
 			} 
 <%
@@ -278,10 +264,10 @@ for (int i = 0; i < genLinks.size(); i++) {
 	}
 <%
 String acceptAllMatcherAccessor = "acceptAllMatcher()"; //$NON-NLS-1$
-for (int i = 0; i < genNodes.size(); i++) {
-	GenNode genNode = (GenNode) genNodes.get(i);
-	String qualifiedNodeInterfaceName = genNode.getDomainMetaClass().getQualifiedInterfaceName();
-	String nodeSelector = genNode.getModelFacet() != null && genNode.getModelFacet().getModelElementSelector() != null ? genNode.getUniqueIdentifier() : acceptAllMatcherAccessor;
+for (Iterator nodes = genDiagram.getAllNodes().iterator(); nodes.hasNext();) {
+	GenNode nextNode = (GenNode) nodes.next();
+	String qualifiedChildNodeInterfaceName = nextNode.getDomainMetaClass().getQualifiedInterfaceName();
+	String childNodeSelector = nextNode.getModelFacet() != null && nextNode.getModelFacet().getModelElementSelector() != null ? nextNode.getUniqueIdentifier() : acceptAllMatcherAccessor;
 %>
 
 	/**
@@ -290,32 +276,16 @@ for (int i = 0; i < genNodes.size(); i++) {
 	 *
 	 * @generated
 	 */
-	private boolean isNode<%=genNode.getUniqueIdentifier()%>(<%=importManager.getImportedName(qualifiedNodeInterfaceName)%> element) {
-		return ElementSelectors.<%=nodeSelector%>.matches(element);
-	}
-<%
-}
-
-for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
-	GenChildContainer nextContainer = (GenChildContainer) containers.next();
-	for (Iterator childNodes = nextContainer.getChildNodes().iterator(); childNodes.hasNext();) {
-		GenChildNode nextChildNode = (GenChildNode) childNodes.next();
-		String qualifiedChildNodeInterfaceName = nextChildNode.getDomainMetaClass().getQualifiedInterfaceName();
-		String childNodeSelector = nextChildNode.getModelFacet() != null && nextChildNode.getModelFacet().getModelElementSelector() != null ? nextChildNode.getUniqueIdentifier() : acceptAllMatcherAccessor;
-%>
-
-	/**
-	 * User can change implementation of this method to check some additional 
-	 * conditions here.
-	 *
-	 * @generated
-	 */
-	private boolean isChildNode<%=nextChildNode.getUniqueIdentifier()%>(<%=importManager.getImportedName(qualifiedChildNodeInterfaceName)%> element) {
+	private boolean isNode<%=nextNode.getUniqueIdentifier()%>(<%=importManager.getImportedName(qualifiedChildNodeInterfaceName)%> element) {
 		return ElementSelectors.<%=childNodeSelector%>.matches(element);
 	}	
 <%
-	}
 }
+%>
+
+<%
+for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
+	GenContainerEditPart nextContainer = (GenContainerEditPart) containers.next();
 %>
 
 	/**
@@ -324,13 +294,9 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 	 *
 	 * @generated
 	 */	
-	private int getUnrecognizedDiagramChildID(EObject domainElement) {
+	private int getUnrecognized<%=nextContainer.getUniqueIdentifier()%>ChildNodeID(String semanticHint) {
 		return -1;
 	}
-<%
-for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
-	GenChildContainer nextContainer = (GenChildContainer) containers.next();
-%>
 
 	/**
 	 * User can change implementation of this method to handle some specific
@@ -339,16 +305,6 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 	 * @generated
 	 */	
 	private int getUnrecognized<%=nextContainer.getUniqueIdentifier()%>ChildNodeID(EObject domainElement) {
-		return -1;
-	}
-	
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */	
-	private int getUnrecognized<%=nextContainer.getUniqueIdentifier()%>ChildNodeID(String semanticHint) {
 		return -1;
 	}
 <%

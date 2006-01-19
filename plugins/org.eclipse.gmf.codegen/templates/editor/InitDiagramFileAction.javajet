@@ -1,11 +1,11 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="InitDiagramFileActionGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.ImportUtil"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.ImportUtil"
 	skeleton="../common.skeleton"%>
 <%
 GenDiagram genDiagram = (GenDiagram) argument;
-List genNodes = genDiagram.getNodes();
 List genLinks = genDiagram.getLinks();
-Collection allContainers = AccessUtil.getAllContainers(genDiagram);
+Collection allContainers = new LinkedList(genDiagram.getAllContainers());
+allContainers.add(genDiagram);
 
 boolean generateGetCompartment = false;
 %>
@@ -214,71 +214,24 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 }
 %>
 		Diagram diagram = ViewService.createDiagram(diagramModel, "<%=genDiagram.getEMFGenModel().getModelName()%>", <%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
-		createDiagramChildren(diagram, diagramModel);
+		create<%=genDiagram.getUniqueIdentifier()%>Children(diagram, diagramModel);
 		createLinks();
 		myLinkVID2EObjectMap.clear();
 		myEObject2NodeMap.clear();		
 	    return diagram;
 	}
 	
-    /**
-     * @generated
-     */
-	private void createDiagramChildren(Diagram diagram, EObject diagramModel) {
-<%
-if (genNodes.size() > 0) {
-%>
-		EObject nextValue;
-<%
-}
-
-if (genNodes.size() > 0) {
-%>
-		int nodeVID;
-<%
-}
-
-for (Iterator diagramNodes = genNodes.iterator(); diagramNodes.hasNext();) {
-	GenNode nextNode = (GenNode) diagramNodes.next();
-	TypeModelFacet typeModelFacet = nextNode.getModelFacet();
-	GenFeature childMetaFeature = typeModelFacet.getChildMetaFeature();	
-	if (childMetaFeature.isListType()) {
-%>		
-		for (<%=importManager.getImportedName("java.util.Iterator")%> values = <%=getFeatureValueGetter("diagramModel", childMetaFeature, true, importManager)%>.iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-<%
-	} else {
-%>
-		nextValue = <%=getFeatureValueGetter("diagramModel", childMetaFeature, true, importManager)%>;
-<%		
-	}
-%>
-		nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(diagram, nextValue, "");
-		if (<%=nextNode.getVisualID()%> == nodeVID) {
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> nextNode = ViewService.createNode(diagram, nextValue, null, <%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
-			myEObject2NodeMap.put(nextValue, nextNode);
-			create<%=nextNode.getUniqueIdentifier()%>Children(nextNode, nextValue);
-		}
-<%
-	if (childMetaFeature.isListType()) {
-%>
-		}
-<%
-	}
-}
-%>
-	}
 <%
 for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
-	GenChildContainer nextContainer = (GenChildContainer) containers.next();
+	GenContainerEditPart nextContainer = (GenContainerEditPart) containers.next();
 %>	
 
     /**
      * @generated
      */
-	private void create<%=nextContainer.getUniqueIdentifier()%>Children(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> viewObject, EObject modelObject) {
+	private void create<%=nextContainer.getUniqueIdentifier()%>Children(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> viewObject, EObject modelObject) {
 <%
-	if (nextContainer.getChildNodes().size() > 0) {
+	if (nextContainer.getContainedNodes().size() > 0) {
 %>
 		EObject nextValue;
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> nextNode;
@@ -289,8 +242,8 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 <%
 	}
 	
-	for (Iterator children = nextContainer.getChildNodes().iterator(); children.hasNext();) {
-		GenChildNode nextChild = (GenChildNode) children.next();
+	for (Iterator children = nextContainer.getContainedNodes().iterator(); children.hasNext();) {
+		GenNode nextChild = (GenNode) children.next();
 		TypeModelFacet typeModelFacet = nextChild.getModelFacet();
 		GenFeature childMetaFeature = typeModelFacet.getChildMetaFeature();
 		if (childMetaFeature.isListType()) {
@@ -346,7 +299,7 @@ if (generateGetCompartment) {
     /**
      * @generated
      */
-	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> getCompartment(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> node, String name) {
+	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> getCompartment(<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> node, String name) {
 		for (<%=importManager.getImportedName("java.util.Iterator")%> it = node.getChildren().iterator(); it.hasNext();) {
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> nextView = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) it.next();
 			if (nextView instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> && name.equals(nextView.getType())) {

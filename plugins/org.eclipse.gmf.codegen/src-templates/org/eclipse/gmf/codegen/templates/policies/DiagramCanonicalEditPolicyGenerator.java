@@ -160,7 +160,7 @@ GenDiagram genDiagram = (GenDiagram) argument;
     
 String modelElementInterfaceName = importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName());
 {
-	Collection genNodes = genDiagram.getNodes();
+	Collection genNodes = genDiagram.getTopLevelNodes();
 
     stringBuffer.append(TEXT_6);
     stringBuffer.append(TEXT_7);

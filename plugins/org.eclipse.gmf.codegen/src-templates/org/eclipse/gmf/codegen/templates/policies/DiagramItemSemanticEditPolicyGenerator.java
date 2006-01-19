@@ -193,7 +193,7 @@ GenDiagram genDiagram = (GenDiagram) argument;
     stringBuffer.append(importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_6);
     
-Collection childNodes = genDiagram.getNodes();
+Collection childNodes = genDiagram.getTopLevelNodes();
 GenClass containerGenClass = genDiagram.getDomainDiagramElement();
 
     stringBuffer.append(TEXT_7);

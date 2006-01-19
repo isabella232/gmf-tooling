@@ -171,7 +171,7 @@ public class NodeEditPartGenerator {
     
 GenNode genNode = (GenNode) argument;
 GenDiagram genDiagram = genNode.getDiagram();
-boolean useFlowLayout = genNode.getChildContainersPlacement() == CompartmentPlacementKind.FLOW_LITERAL;
+boolean useFlowLayout = !genNode.isListLayout();
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getEditPartsPackageName());

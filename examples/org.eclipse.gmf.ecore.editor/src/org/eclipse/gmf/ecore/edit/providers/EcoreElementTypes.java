@@ -136,16 +136,12 @@ public class EcoreElementTypes {
 		Object type = hint.getAdapter(IElementType.class);
 		if (EPackage_79 == type) {
 			return EcorePackage.eINSTANCE.getEPackage();
-		} else if (EClass_1001 == type) {
-			return EcorePackage.eINSTANCE.getEClass();
 		} else if (EAttribute_2001 == type) {
 			return EcorePackage.eINSTANCE.getEAttribute();
 		} else if (EOperation_2002 == type) {
 			return EcorePackage.eINSTANCE.getEOperation();
 		} else if (EAnnotation_2003 == type) {
 			return EcorePackage.eINSTANCE.getEAnnotation();
-		} else if (EPackage_1002 == type) {
-			return EcorePackage.eINSTANCE.getEPackage();
 		} else if (EClass_2004 == type) {
 			return EcorePackage.eINSTANCE.getEClass();
 		} else if (EPackage_2005 == type) {
@@ -156,20 +152,24 @@ public class EcoreElementTypes {
 			return EcorePackage.eINSTANCE.getEEnum();
 		} else if (EAnnotation_2008 == type) {
 			return EcorePackage.eINSTANCE.getEAnnotation();
-		} else if (EAnnotation_1003 == type) {
-			return EcorePackage.eINSTANCE.getEAnnotation();
 		} else if (EStringToStringMapEntry_2009 == type) {
 			return EcorePackage.eINSTANCE.getEStringToStringMapEntry();
-		} else if (EDataType_1004 == type) {
-			return EcorePackage.eINSTANCE.getEDataType();
 		} else if (EAnnotation_2010 == type) {
 			return EcorePackage.eINSTANCE.getEAnnotation();
-		} else if (EEnum_1005 == type) {
-			return EcorePackage.eINSTANCE.getEEnum();
 		} else if (EEnumLiteral_2011 == type) {
 			return EcorePackage.eINSTANCE.getEEnumLiteral();
 		} else if (EAnnotation_2012 == type) {
 			return EcorePackage.eINSTANCE.getEAnnotation();
+		} else if (EClass_1001 == type) {
+			return EcorePackage.eINSTANCE.getEClass();
+		} else if (EPackage_1002 == type) {
+			return EcorePackage.eINSTANCE.getEPackage();
+		} else if (EAnnotation_1003 == type) {
+			return EcorePackage.eINSTANCE.getEAnnotation();
+		} else if (EDataType_1004 == type) {
+			return EcorePackage.eINSTANCE.getEDataType();
+		} else if (EEnum_1005 == type) {
+			return EcorePackage.eINSTANCE.getEEnum();
 		} else if (EAnnotationReferences_3001 == type) {
 			return EcorePackage.eINSTANCE.getEAnnotation_References();
 		} else if (EReference_3002 == type) {
@@ -298,23 +298,23 @@ public class EcoreElementTypes {
 	 */
 	public static void register() {
 		ElementTypeRegistry.getInstance().register(EPackage_79);
-		ElementTypeRegistry.getInstance().register(EClass_1001);
 		ElementTypeRegistry.getInstance().register(EAttribute_2001);
 		ElementTypeRegistry.getInstance().register(EOperation_2002);
 		ElementTypeRegistry.getInstance().register(EAnnotation_2003);
-		ElementTypeRegistry.getInstance().register(EPackage_1002);
 		ElementTypeRegistry.getInstance().register(EClass_2004);
 		ElementTypeRegistry.getInstance().register(EPackage_2005);
 		ElementTypeRegistry.getInstance().register(EDataType_2006);
 		ElementTypeRegistry.getInstance().register(EEnum_2007);
 		ElementTypeRegistry.getInstance().register(EAnnotation_2008);
-		ElementTypeRegistry.getInstance().register(EAnnotation_1003);
 		ElementTypeRegistry.getInstance().register(EStringToStringMapEntry_2009);
-		ElementTypeRegistry.getInstance().register(EDataType_1004);
 		ElementTypeRegistry.getInstance().register(EAnnotation_2010);
-		ElementTypeRegistry.getInstance().register(EEnum_1005);
 		ElementTypeRegistry.getInstance().register(EEnumLiteral_2011);
 		ElementTypeRegistry.getInstance().register(EAnnotation_2012);
+		ElementTypeRegistry.getInstance().register(EClass_1001);
+		ElementTypeRegistry.getInstance().register(EPackage_1002);
+		ElementTypeRegistry.getInstance().register(EAnnotation_1003);
+		ElementTypeRegistry.getInstance().register(EDataType_1004);
+		ElementTypeRegistry.getInstance().register(EEnum_1005);
 		ElementTypeRegistry.getInstance().register(EAnnotationReferences_3001);
 		ElementTypeRegistry.getInstance().register(EReference_3002);
 		ElementTypeRegistry.getInstance().register(EReference_3003);

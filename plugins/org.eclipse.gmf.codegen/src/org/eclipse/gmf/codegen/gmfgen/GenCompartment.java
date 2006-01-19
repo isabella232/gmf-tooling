@@ -7,6 +7,7 @@
 package org.eclipse.gmf.codegen.gmfgen;
 
 
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Gen Compartment</b></em>'.
@@ -23,7 +24,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#isCanCollapse <em>Can Collapse</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#isHideIfEmpty <em>Hide If Empty</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#isNeedsTitle <em>Needs Title</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#getLayoutKind <em>Layout Kind</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#getNode <em>Node</em>}</li>
  * </ul>
  * </p>
@@ -32,7 +33,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  * @model
  * @generated
  */
-public interface GenCompartment extends GenChildContainer{
+public interface GenCompartment extends GenChildContainer {
 	/**
 	 * Returns the value of the '<em><b>Title</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -141,44 +142,32 @@ public interface GenCompartment extends GenChildContainer{
 	void setNeedsTitle(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Layout Kind</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind}.
+	 * Returns the value of the '<em><b>Diagram</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCompartments <em>Compartments</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Layout Kind</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Diagram</em>' container reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Layout Kind</em>' attribute.
-	 * @see org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind
-	 * @see #setLayoutKind(CompartmentLayoutKind)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCompartment_LayoutKind()
-	 * @model
+	 * @return the value of the '<em>Diagram</em>' container reference.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCompartment_Diagram()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCompartments
+	 * @model opposite="compartments" required="true" changeable="false"
 	 * @generated
 	 */
-	CompartmentLayoutKind getLayoutKind();
+	GenDiagram getDiagram();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#getLayoutKind <em>Layout Kind</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Layout Kind</em>' attribute.
-	 * @see org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind
-	 * @see #getLayoutKind()
-	 * @generated
-	 */
-	void setLayoutKind(CompartmentLayoutKind value);
-
-	/**
-	 * Returns the value of the '<em><b>Node</b></em>' container reference.
+	 * Returns the value of the '<em><b>Node</b></em>' reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getCompartments <em>Compartments</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Node</em>' container reference isn't clear,
+	 * If the meaning of the '<em>Node</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Node</em>' container reference.
+	 * @return the value of the '<em>Node</em>' reference.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCompartment_Node()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenNode#getCompartments
 	 * @model opposite="compartments" required="true" changeable="false"

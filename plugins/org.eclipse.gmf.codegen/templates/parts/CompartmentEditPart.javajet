@@ -4,7 +4,7 @@
 <%
 GenCompartment genCompartment = (GenCompartment) argument;
 GenDiagram genDiagram = genCompartment.getDiagram();
-boolean isParentFlowLayout = genCompartment.getNode().getChildContainersPlacement() == CompartmentPlacementKind.FLOW_LITERAL;
+boolean isParentFlowLayout = !genCompartment.getNode().isListLayout();
 %>
 package <%=genDiagram.getEditPartsPackageName()%>;
 
@@ -13,13 +13,12 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 <%
 importManager.markImportLocation(stringBuffer);
-final boolean isListLayout = genCompartment.getLayoutKind() == CompartmentLayoutKind.TOOLBAR_LITERAL;
 %>
 
 /**
  * @generated
  */
-public class <%=genCompartment.getEditPartClassName()%> extends <%=isListLayout ? importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart") : importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeCompartmentEditPart")%> {
+public class <%=genCompartment.getEditPartClassName()%> extends <%=genCompartment.isListLayout() ? importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart") : importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeCompartmentEditPart")%> {
 
 	/**
 	 * @generated
@@ -27,7 +26,7 @@ public class <%=genCompartment.getEditPartClassName()%> extends <%=isListLayout 
 	public <%=genCompartment.getEditPartClassName()%>(View view) {
 		super(view);
 	}
-<%if (isListLayout) {%>
+<%if (genCompartment.isListLayout()) {%>
 
 	/**
 	 * @generated
@@ -56,7 +55,7 @@ public class <%=genCompartment.getEditPartClassName()%> extends <%=isListLayout 
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=importManager.getImportedName(genCompartment.getCanonicalEditPolicyQualifiedClassName())%>());
 <%
 }
-if (isListLayout) {
+if (genCompartment.isListLayout()) {
 %>
 		installEditPolicy(EditPolicyRoles.POPUPBAR_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.PopupBarEditPolicy")%>());
 <%}%>

@@ -31,9 +31,11 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
@@ -46,10 +48,13 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getContainedNodes <em>Contained Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDomainMetaModel <em>Domain Meta Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDomainDiagramElement <em>Domain Diagram Element</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getNodes <em>Nodes</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getChildNodes <em>Child Nodes</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getTopLevelNodes <em>Top Level Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getLinks <em>Links</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getAudits <em>Audits</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPalette <em>Palette</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditCommandsPackageName <em>Edit Commands Package Name</em>}</li>
@@ -124,14 +129,24 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected GenClass domainDiagramElement = null;
 
 	/**
-	 * The cached value of the '{@link #getNodes() <em>Nodes</em>}' containment reference list.
+	 * The cached value of the '{@link #getChildNodes() <em>Child Nodes</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getNodes()
+	 * @see #getChildNodes()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList nodes = null;
+	protected EList childNodes = null;
+
+	/**
+	 * The cached value of the '{@link #getTopLevelNodes() <em>Top Level Nodes</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTopLevelNodes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList topLevelNodes = null;
 
 	/**
 	 * The cached value of the '{@link #getLinks() <em>Links</em>}' containment reference list.
@@ -142,6 +157,16 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected EList links = null;
+
+	/**
+	 * The cached value of the '{@link #getCompartments() <em>Compartments</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCompartments()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList compartments = null;
 
 	/**
 	 * The cached value of the '{@link #getAudits() <em>Audits</em>}' containment reference.
@@ -1046,6 +1071,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList getContainedNodes() {
+		return getTopLevelNodes();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public GenPackage getDomainMetaModel() {
@@ -1124,11 +1158,23 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getNodes() {
-		if (nodes == null) {
-			nodes = new EObjectContainmentWithInverseEList(GenNode.class, this, GMFGenPackage.GEN_DIAGRAM__NODES, GMFGenPackage.GEN_NODE__DIAGRAM);
+	public EList getChildNodes() {
+		if (childNodes == null) {
+			childNodes = new EObjectContainmentWithInverseEList(GenChildNode.class, this, GMFGenPackage.GEN_DIAGRAM__CHILD_NODES, GMFGenPackage.GEN_CHILD_NODE__DIAGRAM);
 		}
-		return nodes;
+		return childNodes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getTopLevelNodes() {
+		if (topLevelNodes == null) {
+			topLevelNodes = new EObjectContainmentWithInverseEList(GenTopLevelNode.class, this, GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES, GMFGenPackage.GEN_TOP_LEVEL_NODE__DIAGRAM);
+		}
+		return topLevelNodes;
 	}
 
 	/**
@@ -1141,6 +1187,18 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			links = new EObjectContainmentWithInverseEList(GenLink.class, this, GMFGenPackage.GEN_DIAGRAM__LINKS, GMFGenPackage.GEN_LINK__DIAGRAM);
 		}
 		return links;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getCompartments() {
+		if (compartments == null) {
+			compartments = new EObjectContainmentWithInverseEList(GenCompartment.class, this, GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS, GMFGenPackage.GEN_COMPARTMENT__DIAGRAM);
+		}
+		return compartments;
 	}
 
 	/**
@@ -2473,6 +2531,30 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public EList getAllContainers() {
+		EList result = new BasicEList();
+		result.addAll(getAllNodes());
+		result.addAll(getCompartments());
+		return new BasicEList.UnmodifiableEList(result.size(), result.toArray());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList getAllNodes() {
+		EList result = new BasicEList();
+		result.addAll(getTopLevelNodes());
+		result.addAll(getChildNodes());
+		return new BasicEList.UnmodifiableEList(result.size(), result.toArray());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public String getPluginQualifiedClassName() {
 		return getEditorPackageName() + '.' + getPluginClassName();
 	}
@@ -2538,10 +2620,14 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_DIAGRAM__NODES:
-				return ((InternalEList)getNodes()).basicAdd(otherEnd, msgs);
+			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:
+				return ((InternalEList)getChildNodes()).basicAdd(otherEnd, msgs);
+			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
+				return ((InternalEList)getTopLevelNodes()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 				return ((InternalEList)getLinks()).basicAdd(otherEnd, msgs);
+			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
+				return ((InternalEList)getCompartments()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				if (palette != null)
 					msgs = ((InternalEObject)palette).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_DIAGRAM__PALETTE, null, msgs);
@@ -2557,10 +2643,14 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_DIAGRAM__NODES:
-				return ((InternalEList)getNodes()).basicRemove(otherEnd, msgs);
+			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:
+				return ((InternalEList)getChildNodes()).basicRemove(otherEnd, msgs);
+			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
+				return ((InternalEList)getTopLevelNodes()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 				return ((InternalEList)getLinks()).basicRemove(otherEnd, msgs);
+			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
+				return ((InternalEList)getCompartments()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__AUDITS:
 				return basicSetAudits(null, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
@@ -2576,16 +2666,22 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_DIAGRAM__CONTAINED_NODES:
+				return getContainedNodes();
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
 				if (resolve) return getDomainMetaModel();
 				return basicGetDomainMetaModel();
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
 				if (resolve) return getDomainDiagramElement();
 				return basicGetDomainDiagramElement();
-			case GMFGenPackage.GEN_DIAGRAM__NODES:
-				return getNodes();
+			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:
+				return getChildNodes();
+			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
+				return getTopLevelNodes();
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 				return getLinks();
+			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
+				return getCompartments();
 			case GMFGenPackage.GEN_DIAGRAM__AUDITS:
 				return getAudits();
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
@@ -2689,19 +2785,31 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_DIAGRAM__CONTAINED_NODES:
+				getContainedNodes().clear();
+				getContainedNodes().addAll((Collection)newValue);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
 				setDomainMetaModel((GenPackage)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
 				setDomainDiagramElement((GenClass)newValue);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__NODES:
-				getNodes().clear();
-				getNodes().addAll((Collection)newValue);
+			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:
+				getChildNodes().clear();
+				getChildNodes().addAll((Collection)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
+				getTopLevelNodes().clear();
+				getTopLevelNodes().addAll((Collection)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 				getLinks().clear();
 				getLinks().addAll((Collection)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
+				getCompartments().clear();
+				getCompartments().addAll((Collection)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__AUDITS:
 				setAudits((GenAuditContainer)newValue);
@@ -2854,17 +2962,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_DIAGRAM__CONTAINED_NODES:
+				getContainedNodes().clear();
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
 				setDomainMetaModel((GenPackage)null);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
 				setDomainDiagramElement((GenClass)null);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__NODES:
-				getNodes().clear();
+			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:
+				getChildNodes().clear();
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
+				getTopLevelNodes().clear();
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 				getLinks().clear();
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
+				getCompartments().clear();
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__AUDITS:
 				setAudits((GenAuditContainer)null);
@@ -3015,14 +3132,20 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_DIAGRAM__CONTAINED_NODES:
+				return !getContainedNodes().isEmpty();
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
 				return domainMetaModel != null;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
 				return domainDiagramElement != null;
-			case GMFGenPackage.GEN_DIAGRAM__NODES:
-				return nodes != null && !nodes.isEmpty();
+			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:
+				return childNodes != null && !childNodes.isEmpty();
+			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
+				return topLevelNodes != null && !topLevelNodes.isEmpty();
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 				return links != null && !links.isEmpty();
+			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
+				return compartments != null && !compartments.isEmpty();
 			case GMFGenPackage.GEN_DIAGRAM__AUDITS:
 				return audits != null;
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
@@ -3553,7 +3676,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	private Set getExpressionsRequiredPluginIDs() {
 		Set requiredIDs = new HashSet();
-		for (Iterator it = getNodes().iterator(); it.hasNext();) {
+		for (Iterator it = getAllNodes().iterator(); it.hasNext();) {
 			GenNode nextNode = (GenNode) it.next();
 			TypeModelFacet modelFacet = nextNode.getModelFacet();
 			if(modelFacet.getModelElementInitializer() != null) {
@@ -3561,17 +3684,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			}
 			if(modelFacet.getModelElementSelector() != null) {
 				requiredIDs.addAll(modelFacet.getModelElementSelector().getRequiredPluginIDs());				
-			}
-			
-			for (Iterator childIt = nextNode.getChildNodes().iterator(); childIt.hasNext();) {
-				GenChildNode nextChild = (GenChildNode) childIt.next();
-				TypeModelFacet childModelFacet = nextChild.getModelFacet();
-				if(childModelFacet.getModelElementInitializer() != null) {
-					requiredIDs.addAll(childModelFacet.getModelElementInitializer().getRequiredPluginIDs());
-				}
-				if(childModelFacet.getModelElementSelector() != null) {
-					requiredIDs.addAll(childModelFacet.getModelElementSelector().getRequiredPluginIDs());				
-				}				
 			}
 		}
 		

@@ -1,7 +1,7 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="ChildNodeEditPartGenerator"
 	imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
 <%
-GenChildNode genChildNode = (GenChildNode) argument;
+GenNode genChildNode = (GenNode) argument;
 GenDiagram genDiagram = genChildNode.getDiagram();
 %>
 package <%=genDiagram.getEditPartsPackageName()%>;

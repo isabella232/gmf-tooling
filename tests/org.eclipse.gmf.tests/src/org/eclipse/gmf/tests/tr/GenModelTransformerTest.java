@@ -61,7 +61,7 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 		assertNotNull("Diagram filename extension not set", transfromationResult.getDiagramFileExtension());
 		// FIXME add more
 
-		GenNode genNode = (GenNode) findGenBaseElement(transfromationResult.getNodes(), getEditPartNameStrategy().get(getNodeMapping()));
+		GenNode genNode = (GenNode) findGenBaseElement(transfromationResult.getTopLevelNodes(), getEditPartNameStrategy().get(getNodeMapping()));
 		assertNotNull("Result model contains no GenNode for nodeMapping", genNode);
 		// FIXME add more
 

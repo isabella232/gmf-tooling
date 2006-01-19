@@ -153,7 +153,7 @@ public class CompartmentEditPartGenerator {
     
 GenCompartment genCompartment = (GenCompartment) argument;
 GenDiagram genDiagram = genCompartment.getDiagram();
-boolean isParentFlowLayout = genCompartment.getNode().getChildContainersPlacement() == CompartmentPlacementKind.FLOW_LITERAL;
+boolean isParentFlowLayout = !genCompartment.getNode().isListLayout();
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getEditPartsPackageName());
@@ -162,16 +162,15 @@ boolean isParentFlowLayout = genCompartment.getNode().getChildContainersPlacemen
     stringBuffer.append(TEXT_3);
     
 importManager.markImportLocation(stringBuffer);
-final boolean isListLayout = genCompartment.getLayoutKind() == CompartmentLayoutKind.TOOLBAR_LITERAL;
 
     stringBuffer.append(TEXT_4);
     stringBuffer.append(genCompartment.getEditPartClassName());
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(isListLayout ? importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart") : importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeCompartmentEditPart"));
+    stringBuffer.append(genCompartment.isListLayout() ? importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart") : importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeCompartmentEditPart"));
     stringBuffer.append(TEXT_6);
     stringBuffer.append(genCompartment.getEditPartClassName());
     stringBuffer.append(TEXT_7);
-    if (isListLayout) {
+    if (genCompartment.isListLayout()) {
     stringBuffer.append(TEXT_8);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.notify.Notification"));
     stringBuffer.append(TEXT_9);
@@ -191,7 +190,7 @@ final boolean isListLayout = genCompartment.getLayoutKind() == CompartmentLayout
     stringBuffer.append(TEXT_16);
     
 }
-if (isListLayout) {
+if (genCompartment.isListLayout()) {
 
     stringBuffer.append(TEXT_17);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.PopupBarEditPolicy"));

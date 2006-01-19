@@ -4,7 +4,199 @@
   <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
   <domainMetaModel href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore"/>
   <domainDiagramElement href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage"/>
-  <nodes visualID="1001" editPartClassName="EClassEditPart" itemSemanticEditPolicyClassName="EClassItemSemanticEditPolicy" notationViewFactoryClassName="EClassViewFactory" canonicalEditPolicyClassName="EClassCanonicalEditPolicy" graphicalNodeEditPolicyClassName="EClassGraphicalNodeEditPolicy">
+  <childNodes visualID="2001" editPartClassName="EAttributeEditPart" itemSemanticEditPolicyClassName="EAttributeItemSemanticEditPolicy" notationViewFactoryClassName="EAttributeViewFactory" canonicalEditPolicyClassName="EAttributeCanonicalEditPolicy" graphicalNodeEditPolicyClassName="EAttributeGraphicalNodeEditPolicy" containers="//@compartments.0">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+    <modelFacet>
+      <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAttribute"/>
+      <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eStructuralFeatures"/>
+      <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eAttributes"/>
+    </modelFacet>
+    <labels visualID="4002" editPartClassName="EAttribute_nameEditPart" itemSemanticEditPolicyClassName="EAttribute_nameItemSemanticEditPolicy" notationViewFactoryClassName="EAttribute_nameViewFactory">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+      <modelFacet>
+        <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
+      </modelFacet>
+    </labels>
+  </childNodes>
+  <childNodes visualID="2002" editPartClassName="EOperationEditPart" itemSemanticEditPolicyClassName="EOperationItemSemanticEditPolicy" notationViewFactoryClassName="EOperationViewFactory" canonicalEditPolicyClassName="EOperationCanonicalEditPolicy" graphicalNodeEditPolicyClassName="EOperationGraphicalNodeEditPolicy" containers="//@compartments.1">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+    <modelFacet>
+      <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EOperation"/>
+      <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eOperations"/>
+      <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eOperations"/>
+    </modelFacet>
+    <labels visualID="4003" editPartClassName="EOperation_nameEditPart" itemSemanticEditPolicyClassName="EOperation_nameItemSemanticEditPolicy" notationViewFactoryClassName="EOperation_nameViewFactory">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+      <modelFacet>
+        <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
+      </modelFacet>
+    </labels>
+  </childNodes>
+  <childNodes visualID="2003" editPartClassName="EAnnotationEditPart" itemSemanticEditPolicyClassName="EAnnotationItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotationViewFactory" canonicalEditPolicyClassName="EAnnotationCanonicalEditPolicy" graphicalNodeEditPolicyClassName="EAnnotationGraphicalNodeEditPolicy" containers="//@compartments.2">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+    <modelFacet>
+      <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation"/>
+      <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
+      <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
+    </modelFacet>
+    <labels visualID="4004" editPartClassName="EAnnotation_sourceEditPart" itemSemanticEditPolicyClassName="EAnnotation_sourceItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_sourceViewFactory">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+      <modelFacet>
+        <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
+      </modelFacet>
+    </labels>
+  </childNodes>
+  <childNodes visualID="2004" editPartClassName="EClass2EditPart" itemSemanticEditPolicyClassName="EClass2ItemSemanticEditPolicy" notationViewFactoryClassName="EClass2ViewFactory" canonicalEditPolicyClassName="EClass2CanonicalEditPolicy" graphicalNodeEditPolicyClassName="EClass2GraphicalNodeEditPolicy" containers="//@compartments.3">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+    <modelFacet>
+      <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass"/>
+      <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
+      <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
+    </modelFacet>
+    <labels visualID="4006" editPartClassName="EClass_name2EditPart" itemSemanticEditPolicyClassName="EClass_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EClass_name2ViewFactory">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+      <modelFacet>
+        <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
+      </modelFacet>
+    </labels>
+  </childNodes>
+  <childNodes visualID="2005" editPartClassName="EPackage3EditPart" itemSemanticEditPolicyClassName="EPackage3ItemSemanticEditPolicy" notationViewFactoryClassName="EPackage3ViewFactory" canonicalEditPolicyClassName="EPackage3CanonicalEditPolicy" graphicalNodeEditPolicyClassName="EPackage2GraphicalNodeEditPolicy" containers="//@compartments.4">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+    <modelFacet>
+      <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage"/>
+      <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eSubpackages"/>
+      <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eSubpackages"/>
+    </modelFacet>
+    <labels visualID="4007" editPartClassName="EPackage_name2EditPart" itemSemanticEditPolicyClassName="EPackage_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_name2ViewFactory">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+      <modelFacet>
+        <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
+      </modelFacet>
+    </labels>
+  </childNodes>
+  <childNodes visualID="2006" editPartClassName="EDataTypeEditPart" itemSemanticEditPolicyClassName="EDataTypeItemSemanticEditPolicy" notationViewFactoryClassName="EDataTypeViewFactory" canonicalEditPolicyClassName="EDataTypeCanonicalEditPolicy" graphicalNodeEditPolicyClassName="EDataTypeGraphicalNodeEditPolicy" containers="//@compartments.5">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+    <modelFacet>
+      <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EDataType"/>
+      <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
+      <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
+    </modelFacet>
+    <labels visualID="4008" editPartClassName="EDataType_nameEditPart" itemSemanticEditPolicyClassName="EDataType_nameItemSemanticEditPolicy" notationViewFactoryClassName="EDataType_nameViewFactory">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+      <modelFacet>
+        <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
+      </modelFacet>
+    </labels>
+  </childNodes>
+  <childNodes visualID="2007" editPartClassName="EEnumEditPart" itemSemanticEditPolicyClassName="EEnumItemSemanticEditPolicy" notationViewFactoryClassName="EEnumViewFactory" canonicalEditPolicyClassName="EEnumCanonicalEditPolicy" graphicalNodeEditPolicyClassName="EEnumGraphicalNodeEditPolicy" containers="//@compartments.6">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+    <modelFacet>
+      <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EEnum"/>
+      <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
+      <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
+    </modelFacet>
+    <labels visualID="4009" editPartClassName="EEnum_nameEditPart" itemSemanticEditPolicyClassName="EEnum_nameItemSemanticEditPolicy" notationViewFactoryClassName="EEnum_nameViewFactory">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+      <modelFacet>
+        <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
+      </modelFacet>
+    </labels>
+  </childNodes>
+  <childNodes visualID="2008" editPartClassName="EAnnotation2EditPart" itemSemanticEditPolicyClassName="EAnnotation2ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation2ViewFactory" canonicalEditPolicyClassName="EAnnotation2CanonicalEditPolicy" graphicalNodeEditPolicyClassName="EAnnotation2GraphicalNodeEditPolicy" containers="//@compartments.7">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+    <modelFacet>
+      <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation"/>
+      <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
+      <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
+    </modelFacet>
+    <labels visualID="4010" editPartClassName="EAnnotation_source2EditPart" itemSemanticEditPolicyClassName="EAnnotation_source2ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_source2ViewFactory">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+      <modelFacet>
+        <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
+      </modelFacet>
+    </labels>
+  </childNodes>
+  <childNodes visualID="2009" editPartClassName="EStringToStringMapEntryEditPart" itemSemanticEditPolicyClassName="EStringToStringMapEntryItemSemanticEditPolicy" notationViewFactoryClassName="EStringToStringMapEntryViewFactory" canonicalEditPolicyClassName="EStringToStringMapEntryCanonicalEditPolicy" graphicalNodeEditPolicyClassName="EStringToStringMapEntryGraphicalNodeEditPolicy" containers="//@compartments.8">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+    <modelFacet>
+      <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EStringToStringMapEntry"/>
+      <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/details"/>
+      <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/details"/>
+    </modelFacet>
+    <labels visualID="4012" editPartClassName="EStringToStringMapEntry_keyEditPart" itemSemanticEditPolicyClassName="EStringToStringMapEntry_keyItemSemanticEditPolicy" notationViewFactoryClassName="EStringToStringMapEntry_keyViewFactory">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+      <modelFacet>
+        <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EStringToStringMapEntry/key"/>
+      </modelFacet>
+    </labels>
+  </childNodes>
+  <childNodes visualID="2010" editPartClassName="EAnnotation4EditPart" itemSemanticEditPolicyClassName="EAnnotation4ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation4ViewFactory" canonicalEditPolicyClassName="EAnnotation4CanonicalEditPolicy" graphicalNodeEditPolicyClassName="EAnnotation4GraphicalNodeEditPolicy" containers="//@compartments.9">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+    <modelFacet>
+      <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation"/>
+      <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
+      <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
+    </modelFacet>
+    <labels visualID="4014" editPartClassName="EAnnotation_source4EditPart" itemSemanticEditPolicyClassName="EAnnotation_source4ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_source4ViewFactory">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+      <modelFacet>
+        <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
+      </modelFacet>
+    </labels>
+  </childNodes>
+  <childNodes visualID="2011" editPartClassName="EEnumLiteralEditPart" itemSemanticEditPolicyClassName="EEnumLiteralItemSemanticEditPolicy" notationViewFactoryClassName="EEnumLiteralViewFactory" canonicalEditPolicyClassName="EEnumLiteralCanonicalEditPolicy" graphicalNodeEditPolicyClassName="EEnumLiteralGraphicalNodeEditPolicy" containers="//@compartments.10">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+    <modelFacet>
+      <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EEnumLiteral"/>
+      <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EEnum/eLiterals"/>
+      <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EEnum/eLiterals"/>
+    </modelFacet>
+    <labels visualID="4016" editPartClassName="EEnumLiteral_nameEditPart" itemSemanticEditPolicyClassName="EEnumLiteral_nameItemSemanticEditPolicy" notationViewFactoryClassName="EEnumLiteral_nameViewFactory">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+      <modelFacet>
+        <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
+      </modelFacet>
+    </labels>
+  </childNodes>
+  <childNodes visualID="2012" editPartClassName="EAnnotation5EditPart" itemSemanticEditPolicyClassName="EAnnotation5ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation5ViewFactory" canonicalEditPolicyClassName="EAnnotation5CanonicalEditPolicy" graphicalNodeEditPolicyClassName="EAnnotation5GraphicalNodeEditPolicy" containers="//@compartments.11">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+    <modelFacet>
+      <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation"/>
+      <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
+      <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
+    </modelFacet>
+    <labels visualID="4017" editPartClassName="EAnnotation_source5EditPart" itemSemanticEditPolicyClassName="EAnnotation_source5ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_source5ViewFactory">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+      <modelFacet>
+        <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
+      </modelFacet>
+    </labels>
+  </childNodes>
+  <topLevelNodes visualID="1001" editPartClassName="EClassEditPart" itemSemanticEditPolicyClassName="EClassItemSemanticEditPolicy" notationViewFactoryClassName="EClassViewFactory" canonicalEditPolicyClassName="EClassCanonicalEditPolicy" compartments="//@compartments.0 //@compartments.1 //@compartments.2" graphicalNodeEditPolicyClassName="EClassGraphicalNodeEditPolicy">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
     <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NodeRectangle" classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NodeRectangle() {&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}"/>
     <modelFacet>
@@ -19,68 +211,8 @@
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </modelFacet>
     </labels>
-    <compartments visualID="5001" editPartClassName="EClass_attributesEditPart" itemSemanticEditPolicyClassName="EClass_attributesItemSemanticEditPolicy" notationViewFactoryClassName="EClass_attributesViewFactory" canonicalEditPolicyClassName="EClass_attributesCanonicalEditPolicy" title="attributes" layoutKind="TOOLBAR">
-      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
-      <childNodes visualID="2001" editPartClassName="EAttributeEditPart" itemSemanticEditPolicyClassName="EAttributeItemSemanticEditPolicy" notationViewFactoryClassName="EAttributeViewFactory" canonicalEditPolicyClassName="EAttributeCanonicalEditPolicy" graphicalNodeEditPolicyClassName="EAttributeGraphicalNodeEditPolicy">
-        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet>
-          <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAttribute"/>
-          <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eStructuralFeatures"/>
-          <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eAttributes"/>
-        </modelFacet>
-        <labels visualID="4002" editPartClassName="EAttribute_nameEditPart" itemSemanticEditPolicyClassName="EAttribute_nameItemSemanticEditPolicy" notationViewFactoryClassName="EAttribute_nameViewFactory">
-          <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-          <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-          <modelFacet>
-            <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
-          </modelFacet>
-        </labels>
-      </childNodes>
-    </compartments>
-    <compartments visualID="5002" editPartClassName="EClass_operationsEditPart" itemSemanticEditPolicyClassName="EClass_operationsItemSemanticEditPolicy" notationViewFactoryClassName="EClass_operationsViewFactory" canonicalEditPolicyClassName="EClass_operationsCanonicalEditPolicy" title="operations" layoutKind="TOOLBAR">
-      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
-      <childNodes visualID="2002" editPartClassName="EOperationEditPart" itemSemanticEditPolicyClassName="EOperationItemSemanticEditPolicy" notationViewFactoryClassName="EOperationViewFactory" canonicalEditPolicyClassName="EOperationCanonicalEditPolicy" graphicalNodeEditPolicyClassName="EOperationGraphicalNodeEditPolicy">
-        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet>
-          <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EOperation"/>
-          <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eOperations"/>
-          <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eOperations"/>
-        </modelFacet>
-        <labels visualID="4003" editPartClassName="EOperation_nameEditPart" itemSemanticEditPolicyClassName="EOperation_nameItemSemanticEditPolicy" notationViewFactoryClassName="EOperation_nameViewFactory">
-          <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-          <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-          <modelFacet>
-            <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
-          </modelFacet>
-        </labels>
-      </childNodes>
-    </compartments>
-    <compartments visualID="5003" editPartClassName="EClass_classannotationsEditPart" itemSemanticEditPolicyClassName="EClass_classannotationsItemSemanticEditPolicy" notationViewFactoryClassName="EClass_classannotationsViewFactory" canonicalEditPolicyClassName="EClass_classannotationsCanonicalEditPolicy" title="class annotations" layoutKind="TOOLBAR">
-      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
-      <childNodes visualID="2003" editPartClassName="EAnnotationEditPart" itemSemanticEditPolicyClassName="EAnnotationItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotationViewFactory" canonicalEditPolicyClassName="EAnnotationCanonicalEditPolicy" graphicalNodeEditPolicyClassName="EAnnotationGraphicalNodeEditPolicy">
-        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet>
-          <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation"/>
-          <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
-          <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
-        </modelFacet>
-        <labels visualID="4004" editPartClassName="EAnnotation_sourceEditPart" itemSemanticEditPolicyClassName="EAnnotation_sourceItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_sourceViewFactory">
-          <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-          <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-          <modelFacet>
-            <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
-          </modelFacet>
-        </labels>
-      </childNodes>
-    </compartments>
-  </nodes>
-  <nodes visualID="1002" editPartClassName="EPackage2EditPart" itemSemanticEditPolicyClassName="EPackage2ItemSemanticEditPolicy" notationViewFactoryClassName="EPackage2ViewFactory" canonicalEditPolicyClassName="EPackage2CanonicalEditPolicy" graphicalNodeEditPolicyClassName="EPackageGraphicalNodeEditPolicy">
+  </topLevelNodes>
+  <topLevelNodes visualID="1002" editPartClassName="EPackage2EditPart" itemSemanticEditPolicyClassName="EPackage2ItemSemanticEditPolicy" notationViewFactoryClassName="EPackage2ViewFactory" canonicalEditPolicyClassName="EPackage2CanonicalEditPolicy" compartments="//@compartments.3 //@compartments.4 //@compartments.5 //@compartments.6 //@compartments.7" graphicalNodeEditPolicyClassName="EPackageGraphicalNodeEditPolicy">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
     <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NodeRectangle" classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NodeRectangle() {&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}"/>
     <modelFacet>
@@ -95,108 +227,8 @@
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </modelFacet>
     </labels>
-    <compartments visualID="5004" editPartClassName="EPackage_classesEditPart" itemSemanticEditPolicyClassName="EPackage_classesItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_classesViewFactory" canonicalEditPolicyClassName="EPackage_classesCanonicalEditPolicy" title="classes" layoutKind="TOOLBAR">
-      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
-      <childNodes visualID="2004" editPartClassName="EClass2EditPart" itemSemanticEditPolicyClassName="EClass2ItemSemanticEditPolicy" notationViewFactoryClassName="EClass2ViewFactory" canonicalEditPolicyClassName="EClass2CanonicalEditPolicy" graphicalNodeEditPolicyClassName="EClass2GraphicalNodeEditPolicy">
-        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet>
-          <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass"/>
-          <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
-          <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
-        </modelFacet>
-        <labels visualID="4006" editPartClassName="EClass_name2EditPart" itemSemanticEditPolicyClassName="EClass_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EClass_name2ViewFactory">
-          <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-          <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-          <modelFacet>
-            <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
-          </modelFacet>
-        </labels>
-      </childNodes>
-    </compartments>
-    <compartments visualID="5005" editPartClassName="EPackage_packagesEditPart" itemSemanticEditPolicyClassName="EPackage_packagesItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_packagesViewFactory" canonicalEditPolicyClassName="EPackage_packagesCanonicalEditPolicy" title="packages" layoutKind="TOOLBAR">
-      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
-      <childNodes visualID="2005" editPartClassName="EPackage3EditPart" itemSemanticEditPolicyClassName="EPackage3ItemSemanticEditPolicy" notationViewFactoryClassName="EPackage3ViewFactory" canonicalEditPolicyClassName="EPackage3CanonicalEditPolicy" graphicalNodeEditPolicyClassName="EPackage2GraphicalNodeEditPolicy">
-        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet>
-          <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage"/>
-          <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eSubpackages"/>
-          <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eSubpackages"/>
-        </modelFacet>
-        <labels visualID="4007" editPartClassName="EPackage_name2EditPart" itemSemanticEditPolicyClassName="EPackage_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_name2ViewFactory">
-          <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-          <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-          <modelFacet>
-            <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
-          </modelFacet>
-        </labels>
-      </childNodes>
-    </compartments>
-    <compartments visualID="5006" editPartClassName="EPackage_datatypesEditPart" itemSemanticEditPolicyClassName="EPackage_datatypesItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_datatypesViewFactory" canonicalEditPolicyClassName="EPackage_datatypesCanonicalEditPolicy" title="data types" layoutKind="TOOLBAR">
-      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
-      <childNodes visualID="2006" editPartClassName="EDataTypeEditPart" itemSemanticEditPolicyClassName="EDataTypeItemSemanticEditPolicy" notationViewFactoryClassName="EDataTypeViewFactory" canonicalEditPolicyClassName="EDataTypeCanonicalEditPolicy" graphicalNodeEditPolicyClassName="EDataTypeGraphicalNodeEditPolicy">
-        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet>
-          <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EDataType"/>
-          <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
-          <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
-        </modelFacet>
-        <labels visualID="4008" editPartClassName="EDataType_nameEditPart" itemSemanticEditPolicyClassName="EDataType_nameItemSemanticEditPolicy" notationViewFactoryClassName="EDataType_nameViewFactory">
-          <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-          <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-          <modelFacet>
-            <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
-          </modelFacet>
-        </labels>
-      </childNodes>
-    </compartments>
-    <compartments visualID="5007" editPartClassName="EPackage_enumsEditPart" itemSemanticEditPolicyClassName="EPackage_enumsItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_enumsViewFactory" canonicalEditPolicyClassName="EPackage_enumsCanonicalEditPolicy" title="enums" layoutKind="TOOLBAR">
-      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
-      <childNodes visualID="2007" editPartClassName="EEnumEditPart" itemSemanticEditPolicyClassName="EEnumItemSemanticEditPolicy" notationViewFactoryClassName="EEnumViewFactory" canonicalEditPolicyClassName="EEnumCanonicalEditPolicy" graphicalNodeEditPolicyClassName="EEnumGraphicalNodeEditPolicy">
-        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet>
-          <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EEnum"/>
-          <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
-          <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
-        </modelFacet>
-        <labels visualID="4009" editPartClassName="EEnum_nameEditPart" itemSemanticEditPolicyClassName="EEnum_nameItemSemanticEditPolicy" notationViewFactoryClassName="EEnum_nameViewFactory">
-          <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-          <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-          <modelFacet>
-            <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
-          </modelFacet>
-        </labels>
-      </childNodes>
-    </compartments>
-    <compartments visualID="5008" editPartClassName="EPackage_packageannotationsEditPart" itemSemanticEditPolicyClassName="EPackage_packageannotationsItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_packageannotationsViewFactory" canonicalEditPolicyClassName="EPackage_packageannotationsCanonicalEditPolicy" title="package annotations" layoutKind="TOOLBAR">
-      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
-      <childNodes visualID="2008" editPartClassName="EAnnotation2EditPart" itemSemanticEditPolicyClassName="EAnnotation2ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation2ViewFactory" canonicalEditPolicyClassName="EAnnotation2CanonicalEditPolicy" graphicalNodeEditPolicyClassName="EAnnotation2GraphicalNodeEditPolicy">
-        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet>
-          <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation"/>
-          <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
-          <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
-        </modelFacet>
-        <labels visualID="4010" editPartClassName="EAnnotation_source2EditPart" itemSemanticEditPolicyClassName="EAnnotation_source2ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_source2ViewFactory">
-          <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-          <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-          <modelFacet>
-            <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
-          </modelFacet>
-        </labels>
-      </childNodes>
-    </compartments>
-  </nodes>
-  <nodes visualID="1003" editPartClassName="EAnnotation3EditPart" itemSemanticEditPolicyClassName="EAnnotation3ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation3ViewFactory" canonicalEditPolicyClassName="EAnnotation3CanonicalEditPolicy" graphicalNodeEditPolicyClassName="EAnnotation3GraphicalNodeEditPolicy">
+  </topLevelNodes>
+  <topLevelNodes visualID="1003" editPartClassName="EAnnotation3EditPart" itemSemanticEditPolicyClassName="EAnnotation3ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation3ViewFactory" canonicalEditPolicyClassName="EAnnotation3CanonicalEditPolicy" compartments="//@compartments.8" graphicalNodeEditPolicyClassName="EAnnotation3GraphicalNodeEditPolicy">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
     <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NodeRectangle" classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NodeRectangle() {&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}"/>
     <modelFacet>
@@ -211,28 +243,8 @@
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
       </modelFacet>
     </labels>
-    <compartments visualID="5009" editPartClassName="EAnnotation_detailsEditPart" itemSemanticEditPolicyClassName="EAnnotation_detailsItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_detailsViewFactory" canonicalEditPolicyClassName="EAnnotation_detailsCanonicalEditPolicy" title="details" layoutKind="TOOLBAR">
-      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
-      <childNodes visualID="2009" editPartClassName="EStringToStringMapEntryEditPart" itemSemanticEditPolicyClassName="EStringToStringMapEntryItemSemanticEditPolicy" notationViewFactoryClassName="EStringToStringMapEntryViewFactory" canonicalEditPolicyClassName="EStringToStringMapEntryCanonicalEditPolicy" graphicalNodeEditPolicyClassName="EStringToStringMapEntryGraphicalNodeEditPolicy">
-        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet>
-          <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EStringToStringMapEntry"/>
-          <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/details"/>
-          <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/details"/>
-        </modelFacet>
-        <labels visualID="4012" editPartClassName="EStringToStringMapEntry_keyEditPart" itemSemanticEditPolicyClassName="EStringToStringMapEntry_keyItemSemanticEditPolicy" notationViewFactoryClassName="EStringToStringMapEntry_keyViewFactory">
-          <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-          <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-          <modelFacet>
-            <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EStringToStringMapEntry/key"/>
-          </modelFacet>
-        </labels>
-      </childNodes>
-    </compartments>
-  </nodes>
-  <nodes visualID="1004" editPartClassName="EDataType2EditPart" itemSemanticEditPolicyClassName="EDataType2ItemSemanticEditPolicy" notationViewFactoryClassName="EDataType2ViewFactory" canonicalEditPolicyClassName="EDataType2CanonicalEditPolicy" graphicalNodeEditPolicyClassName="EDataType2GraphicalNodeEditPolicy">
+  </topLevelNodes>
+  <topLevelNodes visualID="1004" editPartClassName="EDataType2EditPart" itemSemanticEditPolicyClassName="EDataType2ItemSemanticEditPolicy" notationViewFactoryClassName="EDataType2ViewFactory" canonicalEditPolicyClassName="EDataType2CanonicalEditPolicy" compartments="//@compartments.9" graphicalNodeEditPolicyClassName="EDataType2GraphicalNodeEditPolicy">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
     <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NodeRectangle" classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NodeRectangle() {&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}"/>
     <modelFacet>
@@ -247,28 +259,8 @@
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </modelFacet>
     </labels>
-    <compartments visualID="5010" editPartClassName="EDataType_datatypeannotationsEditPart" itemSemanticEditPolicyClassName="EDataType_datatypeannotationsItemSemanticEditPolicy" notationViewFactoryClassName="EDataType_datatypeannotationsViewFactory" canonicalEditPolicyClassName="EDataType_datatypeannotationsCanonicalEditPolicy" title="data type annotations" layoutKind="TOOLBAR">
-      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
-      <childNodes visualID="2010" editPartClassName="EAnnotation4EditPart" itemSemanticEditPolicyClassName="EAnnotation4ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation4ViewFactory" canonicalEditPolicyClassName="EAnnotation4CanonicalEditPolicy" graphicalNodeEditPolicyClassName="EAnnotation4GraphicalNodeEditPolicy">
-        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet>
-          <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation"/>
-          <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
-          <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
-        </modelFacet>
-        <labels visualID="4014" editPartClassName="EAnnotation_source4EditPart" itemSemanticEditPolicyClassName="EAnnotation_source4ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_source4ViewFactory">
-          <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-          <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-          <modelFacet>
-            <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
-          </modelFacet>
-        </labels>
-      </childNodes>
-    </compartments>
-  </nodes>
-  <nodes visualID="1005" editPartClassName="EEnum2EditPart" itemSemanticEditPolicyClassName="EEnum2ItemSemanticEditPolicy" notationViewFactoryClassName="EEnum2ViewFactory" canonicalEditPolicyClassName="EEnum2CanonicalEditPolicy" graphicalNodeEditPolicyClassName="EEnum2GraphicalNodeEditPolicy">
+  </topLevelNodes>
+  <topLevelNodes visualID="1005" editPartClassName="EEnum2EditPart" itemSemanticEditPolicyClassName="EEnum2ItemSemanticEditPolicy" notationViewFactoryClassName="EEnum2ViewFactory" canonicalEditPolicyClassName="EEnum2CanonicalEditPolicy" compartments="//@compartments.10 //@compartments.11" graphicalNodeEditPolicyClassName="EEnum2GraphicalNodeEditPolicy">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
     <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NodeRectangle" classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NodeRectangle() {&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}"/>
     <modelFacet>
@@ -283,47 +275,7 @@
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </modelFacet>
     </labels>
-    <compartments visualID="5011" editPartClassName="EEnum_literalsEditPart" itemSemanticEditPolicyClassName="EEnum_literalsItemSemanticEditPolicy" notationViewFactoryClassName="EEnum_literalsViewFactory" canonicalEditPolicyClassName="EEnum_literalsCanonicalEditPolicy" title="literals" layoutKind="TOOLBAR">
-      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
-      <childNodes visualID="2011" editPartClassName="EEnumLiteralEditPart" itemSemanticEditPolicyClassName="EEnumLiteralItemSemanticEditPolicy" notationViewFactoryClassName="EEnumLiteralViewFactory" canonicalEditPolicyClassName="EEnumLiteralCanonicalEditPolicy" graphicalNodeEditPolicyClassName="EEnumLiteralGraphicalNodeEditPolicy">
-        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet>
-          <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EEnumLiteral"/>
-          <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EEnum/eLiterals"/>
-          <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EEnum/eLiterals"/>
-        </modelFacet>
-        <labels visualID="4016" editPartClassName="EEnumLiteral_nameEditPart" itemSemanticEditPolicyClassName="EEnumLiteral_nameItemSemanticEditPolicy" notationViewFactoryClassName="EEnumLiteral_nameViewFactory">
-          <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-          <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-          <modelFacet>
-            <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
-          </modelFacet>
-        </labels>
-      </childNodes>
-    </compartments>
-    <compartments visualID="5012" editPartClassName="EEnum_enumannotationsEditPart" itemSemanticEditPolicyClassName="EEnum_enumannotationsItemSemanticEditPolicy" notationViewFactoryClassName="EEnum_enumannotationsViewFactory" canonicalEditPolicyClassName="EEnum_enumannotationsCanonicalEditPolicy" title="enum annotations" layoutKind="TOOLBAR">
-      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
-      <childNodes visualID="2012" editPartClassName="EAnnotation5EditPart" itemSemanticEditPolicyClassName="EAnnotation5ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation5ViewFactory" canonicalEditPolicyClassName="EAnnotation5CanonicalEditPolicy" graphicalNodeEditPolicyClassName="EAnnotation5GraphicalNodeEditPolicy">
-        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet>
-          <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation"/>
-          <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
-          <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
-        </modelFacet>
-        <labels visualID="4017" editPartClassName="EAnnotation_source5EditPart" itemSemanticEditPolicyClassName="EAnnotation_source5ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_source5ViewFactory">
-          <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-          <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-          <modelFacet>
-            <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
-          </modelFacet>
-        </labels>
-      </childNodes>
-    </compartments>
-  </nodes>
+  </topLevelNodes>
   <links visualID="3001" editPartClassName="ReferencesEditPart" itemSemanticEditPolicyClassName="ReferencesItemSemanticEditPolicy" notationViewFactoryClassName="ReferencesViewFactory">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
     <viewmap xsi:type="gmfgen:InnerClassViewmap" className="DashedLineConnection" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class DashedLineConnection extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public DashedLineConnection() {&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
@@ -384,19 +336,67 @@
       <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eSuperTypes"/>
     </modelFacet>
   </links>
+  <compartments visualID="5001" editPartClassName="EClass_attributesEditPart" itemSemanticEditPolicyClassName="EClass_attributesItemSemanticEditPolicy" notationViewFactoryClassName="EClass_attributesViewFactory" childNodes="//@childNodes.0" canonicalEditPolicyClassName="EClass_attributesCanonicalEditPolicy" title="attributes" node="//@topLevelNodes.0">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
+  </compartments>
+  <compartments visualID="5002" editPartClassName="EClass_operationsEditPart" itemSemanticEditPolicyClassName="EClass_operationsItemSemanticEditPolicy" notationViewFactoryClassName="EClass_operationsViewFactory" childNodes="//@childNodes.1" canonicalEditPolicyClassName="EClass_operationsCanonicalEditPolicy" title="operations" node="//@topLevelNodes.0">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
+  </compartments>
+  <compartments visualID="5003" editPartClassName="EClass_classannotationsEditPart" itemSemanticEditPolicyClassName="EClass_classannotationsItemSemanticEditPolicy" notationViewFactoryClassName="EClass_classannotationsViewFactory" childNodes="//@childNodes.2" canonicalEditPolicyClassName="EClass_classannotationsCanonicalEditPolicy" title="class annotations" node="//@topLevelNodes.0">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
+  </compartments>
+  <compartments visualID="5004" editPartClassName="EPackage_classesEditPart" itemSemanticEditPolicyClassName="EPackage_classesItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_classesViewFactory" childNodes="//@childNodes.3" canonicalEditPolicyClassName="EPackage_classesCanonicalEditPolicy" title="classes" node="//@topLevelNodes.1">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
+  </compartments>
+  <compartments visualID="5005" editPartClassName="EPackage_packagesEditPart" itemSemanticEditPolicyClassName="EPackage_packagesItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_packagesViewFactory" childNodes="//@childNodes.4" canonicalEditPolicyClassName="EPackage_packagesCanonicalEditPolicy" title="packages" node="//@topLevelNodes.1">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
+  </compartments>
+  <compartments visualID="5006" editPartClassName="EPackage_datatypesEditPart" itemSemanticEditPolicyClassName="EPackage_datatypesItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_datatypesViewFactory" childNodes="//@childNodes.5" canonicalEditPolicyClassName="EPackage_datatypesCanonicalEditPolicy" title="data types" node="//@topLevelNodes.1">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
+  </compartments>
+  <compartments visualID="5007" editPartClassName="EPackage_enumsEditPart" itemSemanticEditPolicyClassName="EPackage_enumsItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_enumsViewFactory" childNodes="//@childNodes.6" canonicalEditPolicyClassName="EPackage_enumsCanonicalEditPolicy" title="enums" node="//@topLevelNodes.1">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
+  </compartments>
+  <compartments visualID="5008" editPartClassName="EPackage_packageannotationsEditPart" itemSemanticEditPolicyClassName="EPackage_packageannotationsItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_packageannotationsViewFactory" childNodes="//@childNodes.7" canonicalEditPolicyClassName="EPackage_packageannotationsCanonicalEditPolicy" title="package annotations" node="//@topLevelNodes.1">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
+  </compartments>
+  <compartments visualID="5009" editPartClassName="EAnnotation_detailsEditPart" itemSemanticEditPolicyClassName="EAnnotation_detailsItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_detailsViewFactory" childNodes="//@childNodes.8" canonicalEditPolicyClassName="EAnnotation_detailsCanonicalEditPolicy" title="details" node="//@topLevelNodes.2">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
+  </compartments>
+  <compartments visualID="5010" editPartClassName="EDataType_datatypeannotationsEditPart" itemSemanticEditPolicyClassName="EDataType_datatypeannotationsItemSemanticEditPolicy" notationViewFactoryClassName="EDataType_datatypeannotationsViewFactory" childNodes="//@childNodes.9" canonicalEditPolicyClassName="EDataType_datatypeannotationsCanonicalEditPolicy" title="data type annotations" node="//@topLevelNodes.3">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
+  </compartments>
+  <compartments visualID="5011" editPartClassName="EEnum_literalsEditPart" itemSemanticEditPolicyClassName="EEnum_literalsItemSemanticEditPolicy" notationViewFactoryClassName="EEnum_literalsViewFactory" childNodes="//@childNodes.10" canonicalEditPolicyClassName="EEnum_literalsCanonicalEditPolicy" title="literals" node="//@topLevelNodes.4">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
+  </compartments>
+  <compartments visualID="5012" editPartClassName="EEnum_enumannotationsEditPart" itemSemanticEditPolicyClassName="EEnum_enumannotationsItemSemanticEditPolicy" notationViewFactoryClassName="EEnum_enumannotationsViewFactory" childNodes="//@childNodes.11" canonicalEditPolicyClassName="EEnum_enumannotationsCanonicalEditPolicy" title="enum annotations" node="//@topLevelNodes.4">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
+  </compartments>
   <palette>
     <groups titleKey="Nodes" descriptionKey="Diagram Nodes" createMethodName="createNodesGroup">
-      <nodeTools titleKey="EClass" descriptionKey="Create Class" createMethodName="createEClassCreationTool" genNode="//@nodes.0 //@nodes.1/@compartments.0/@childNodes.0"/>
-      <nodeTools titleKey="EPackage" descriptionKey="Create Package" createMethodName="createEPackageCreationTool" genNode="//@nodes.1 //@nodes.1/@compartments.1/@childNodes.0"/>
-      <nodeTools titleKey="EAnnotation" descriptionKey="Create Annotation" createMethodName="createEAnnotationCreationTool" genNode="//@nodes.2 //@nodes.0/@compartments.2/@childNodes.0 //@nodes.1/@compartments.4/@childNodes.0 //@nodes.3/@compartments.0/@childNodes.0 //@nodes.4/@compartments.1/@childNodes.0"/>
-      <nodeTools titleKey="EDataType" descriptionKey="Create DataType" createMethodName="createEDataTypeCreationTool" genNode="//@nodes.3 //@nodes.1/@compartments.2/@childNodes.0"/>
-      <nodeTools titleKey="EEnum" descriptionKey="Create Enumeration" createMethodName="createEEnumCreationTool" genNode="//@nodes.4 //@nodes.1/@compartments.3/@childNodes.0"/>
+      <nodeTools titleKey="EClass" descriptionKey="Create Class" createMethodName="createEClassCreationTool" genNode="//@topLevelNodes.0 //@childNodes.3"/>
+      <nodeTools titleKey="EPackage" descriptionKey="Create Package" createMethodName="createEPackageCreationTool" genNode="//@topLevelNodes.1 //@childNodes.4"/>
+      <nodeTools titleKey="EAnnotation" descriptionKey="Create Annotation" createMethodName="createEAnnotationCreationTool" genNode="//@topLevelNodes.2 //@childNodes.2 //@childNodes.7 //@childNodes.9 //@childNodes.11"/>
+      <nodeTools titleKey="EDataType" descriptionKey="Create DataType" createMethodName="createEDataTypeCreationTool" genNode="//@topLevelNodes.3 //@childNodes.5"/>
+      <nodeTools titleKey="EEnum" descriptionKey="Create Enumeration" createMethodName="createEEnumCreationTool" genNode="//@topLevelNodes.4 //@childNodes.6"/>
     </groups>
     <groups titleKey="Child Nodes" descriptionKey="Child Nodes" createMethodName="createChildNodesGroup">
-      <nodeTools titleKey="EAttribute" descriptionKey="Create Attribute" createMethodName="createEAttributeCreationTool" genNode="//@nodes.0/@compartments.0/@childNodes.0"/>
-      <nodeTools titleKey="EOperation" descriptionKey="Create Operation" createMethodName="createEOperationCreationTool" genNode="//@nodes.0/@compartments.1/@childNodes.0"/>
-      <nodeTools titleKey="Annotation details" descriptionKey="Create Annotation details" createMethodName="createAnnotationdetailsCreationTool" genNode="//@nodes.2/@compartments.0/@childNodes.0"/>
-      <nodeTools titleKey="EEnumLiteral" descriptionKey="Create Enumeration literal" createMethodName="createEEnumLiteralCreationTool" genNode="//@nodes.4/@compartments.0/@childNodes.0"/>
+      <nodeTools titleKey="EAttribute" descriptionKey="Create Attribute" createMethodName="createEAttributeCreationTool" genNode="//@childNodes.0"/>
+      <nodeTools titleKey="EOperation" descriptionKey="Create Operation" createMethodName="createEOperationCreationTool" genNode="//@childNodes.1"/>
+      <nodeTools titleKey="Annotation details" descriptionKey="Create Annotation details" createMethodName="createAnnotationdetailsCreationTool" genNode="//@childNodes.8"/>
+      <nodeTools titleKey="EEnumLiteral" descriptionKey="Create Enumeration literal" createMethodName="createEEnumLiteralCreationTool" genNode="//@childNodes.10"/>
     </groups>
     <groups titleKey="Links" descriptionKey="Links" createMethodName="createLinksGroup">
       <linkTools titleKey="EAnnotation reference" descriptionKey="Create Annotation reference link" createMethodName="createEAnnotationreferenceCreationTool" genLink="//@links.0"/>

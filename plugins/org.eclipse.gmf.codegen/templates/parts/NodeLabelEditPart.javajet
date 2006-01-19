@@ -3,7 +3,7 @@
 <%
 GenNodeLabel label = (GenNodeLabel) argument;
 GenDiagram genDiagram = label.getDiagram();
-boolean isParentFlowLayout = label.getNode().getChildContainersPlacement() == CompartmentPlacementKind.FLOW_LITERAL;
+boolean isParentFlowLayout = !label.getNode().isListLayout();
 %>
 package <%=genDiagram.getEditPartsPackageName()%>;
 

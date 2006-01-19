@@ -7,6 +7,8 @@
 package org.eclipse.gmf.codegen.gmfgen;
 
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Gen Child Node</b></em>'.
@@ -15,7 +17,8 @@ package org.eclipse.gmf.codegen.gmfgen;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenChildNode#getContainer <em>Container</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenChildNode#getDiagram <em>Diagram</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenChildNode#getContainers <em>Containers</em>}</li>
  * </ul>
  * </p>
  *
@@ -23,30 +26,40 @@ package org.eclipse.gmf.codegen.gmfgen;
  * @model
  * @generated
  */
-public interface GenChildNode extends GenNode{
+public interface GenChildNode extends GenNode {
 	/**
-	 * Returns the value of the '<em><b>Container</b></em>' container reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer#getChildNodes <em>Child Nodes</em>}'.
+	 * Returns the value of the '<em><b>Diagram</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getChildNodes <em>Child Nodes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Container</em>' container reference isn't clear,
+	 * If the meaning of the '<em>Diagram</em>' container reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Container</em>' container reference.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenChildNode_Container()
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildContainer#getChildNodes
+	 * @return the value of the '<em>Diagram</em>' container reference.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenChildNode_Diagram()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getChildNodes
 	 * @model opposite="childNodes" required="true" changeable="false"
 	 * @generated
 	 */
-	GenChildContainer getContainer();
+	GenDiagram getDiagram();
 
 	/**
+	 * Returns the value of the '<em><b>Containers</b></em>' reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer#getChildNodes <em>Child Nodes</em>}'.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Containers</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
 	 * <!-- end-user-doc -->
-	 * @model kind="operation"
+	 * @return the value of the '<em>Containers</em>' reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenChildNode_Containers()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildContainer#getChildNodes
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenChildContainer" opposite="childNodes" changeable="false"
 	 * @generated
 	 */
-	boolean isListContainerEntry();
+	EList getContainers();
 
 } // GenChildNode

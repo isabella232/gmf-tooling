@@ -66,7 +66,6 @@ public class ViewProviderGenerator
 GenDiagram genDiagram = (GenDiagram) argument;
 GenModel genModel = genDiagram.getEMFGenModel();
 List genLinks = genDiagram.getLinks();
-Collection allContainers = AccessUtil.getAllContainers(genDiagram);
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getProvidersPackageName());
@@ -86,8 +85,8 @@ Collection allContainers = AccessUtil.getAllContainers(genDiagram);
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_9);
     
-for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
-	GenChildContainer container = (GenChildContainer) containers.next();
+for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.hasNext();) {
+	GenContainerEditPart container = (GenContainerEditPart) containers.next();
 
     stringBuffer.append(TEXT_10);
     stringBuffer.append(container.getVisualID());
@@ -95,7 +94,7 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
     stringBuffer.append(importManager.getImportedName(container.getNotationViewFactoryQualifiedClassName()));
     stringBuffer.append(TEXT_12);
     
-	if (container instanceof GenChildNode ? !((GenChildNode) container).isListContainerEntry() : container instanceof GenNode) {
+	if (container instanceof GenNode && !((GenNode) container).isListContainerEntry()) {
 		GenNode node = (GenNode) container;
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();

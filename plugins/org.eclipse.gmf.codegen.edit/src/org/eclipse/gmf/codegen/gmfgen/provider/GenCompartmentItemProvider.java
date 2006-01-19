@@ -63,7 +63,7 @@ public class GenCompartmentItemProvider
 			addCanCollapsePropertyDescriptor(object);
 			addHideIfEmptyPropertyDescriptor(object);
 			addNeedsTitlePropertyDescriptor(object);
-			addLayoutKindPropertyDescriptor(object);
+			addNodePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -149,21 +149,21 @@ public class GenCompartmentItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Layout Kind feature.
+	 * This adds a property descriptor for the Node feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addLayoutKindPropertyDescriptor(Object object) {
+	protected void addNodePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenCompartment_layoutKind_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenCompartment_layoutKind_feature", "_UI_GenCompartment_type"),
-				 GMFGenPackage.eINSTANCE.getGenCompartment_LayoutKind(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 getString("_UI_GenCompartment_node_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenCompartment_node_feature", "_UI_GenCompartment_type"),
+				 GMFGenPackage.eINSTANCE.getGenCompartment_Node(),
+				 false,
+				 null,
 				 null,
 				 null));
 	}
@@ -206,7 +206,6 @@ public class GenCompartmentItemProvider
 			case GMFGenPackage.GEN_COMPARTMENT__CAN_COLLAPSE:
 			case GMFGenPackage.GEN_COMPARTMENT__HIDE_IF_EMPTY:
 			case GMFGenPackage.GEN_COMPARTMENT__NEEDS_TITLE:
-			case GMFGenPackage.GEN_COMPARTMENT__LAYOUT_KIND:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

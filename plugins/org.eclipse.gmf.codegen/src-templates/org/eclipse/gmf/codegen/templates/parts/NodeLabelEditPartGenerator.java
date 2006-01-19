@@ -54,7 +54,7 @@ public class NodeLabelEditPartGenerator
     
 GenNodeLabel label = (GenNodeLabel) argument;
 GenDiagram genDiagram = label.getDiagram();
-boolean isParentFlowLayout = label.getNode().getChildContainersPlacement() == CompartmentPlacementKind.FLOW_LITERAL;
+boolean isParentFlowLayout = !label.getNode().isListLayout();
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getEditPartsPackageName());

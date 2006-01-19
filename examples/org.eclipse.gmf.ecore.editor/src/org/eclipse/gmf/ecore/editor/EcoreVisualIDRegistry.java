@@ -83,23 +83,6 @@ public class EcoreVisualIDRegistry {
 			}
 		}
 		switch (containerVisualID) {
-		case 79:
-			if (EcorePackage.eINSTANCE.getEClass().equals(domainElementMetaclass) && (domainElement != null ? isNodeEClass_1001((EClass) domainElement) : true)) {
-				return 1001;
-			}
-			if (EcorePackage.eINSTANCE.getEPackage().equals(domainElementMetaclass) && (domainElement != null ? isNodeEPackage_1002((EPackage) domainElement) : true)) {
-				return 1002;
-			}
-			if (EcorePackage.eINSTANCE.getEAnnotation().equals(domainElementMetaclass) && (domainElement != null ? isNodeEAnnotation_1003((EAnnotation) domainElement) : true)) {
-				return 1003;
-			}
-			if (EcorePackage.eINSTANCE.getEDataType().equals(domainElementMetaclass) && (domainElement != null ? isNodeEDataType_1004((EDataType) domainElement) : true)) {
-				return 1004;
-			}
-			if (EcorePackage.eINSTANCE.getEEnum().equals(domainElementMetaclass) && (domainElement != null ? isNodeEEnum_1005((EEnum) domainElement) : true)) {
-				return 1005;
-			}
-			return getUnrecognizedDiagramChildID(domainElement);
 		case 1001:
 			if (EcoreSemanticHints.EClass_1001Labels.ECLASSNAME_4001_TEXT.equals(semanticHint)) {
 				return 4001;
@@ -117,54 +100,6 @@ public class EcoreVisualIDRegistry {
 				return getUnrecognizedEClass_1001ChildNodeID(semanticHint);
 			}
 			return getUnrecognizedEClass_1001ChildNodeID(domainElement);
-		case 5001:
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedAttributes_5001ChildNodeID(semanticHint);
-			}
-			if (EcorePackage.eINSTANCE.getEAttribute().equals(domainElementMetaclass) && (domainElement != null ? isChildNodeEAttribute_2001((EAttribute) domainElement) : true)) {
-				return 2001;
-			}
-			return getUnrecognizedAttributes_5001ChildNodeID(domainElement);
-		case 2001:
-			if (EcoreSemanticHints.EAttribute_2001Labels.EATTRIBUTENAME_4002_TEXT.equals(semanticHint)) {
-				return 4002;
-			}
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedEAttribute_2001ChildNodeID(semanticHint);
-			}
-			return getUnrecognizedEAttribute_2001ChildNodeID(domainElement);
-		case 5002:
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedOperations_5002ChildNodeID(semanticHint);
-			}
-			if (EcorePackage.eINSTANCE.getEOperation().equals(domainElementMetaclass) && (domainElement != null ? isChildNodeEOperation_2002((EOperation) domainElement) : true)) {
-				return 2002;
-			}
-			return getUnrecognizedOperations_5002ChildNodeID(domainElement);
-		case 2002:
-			if (EcoreSemanticHints.EOperation_2002Labels.EOPERATIONNAME_4003_TEXT.equals(semanticHint)) {
-				return 4003;
-			}
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedEOperation_2002ChildNodeID(semanticHint);
-			}
-			return getUnrecognizedEOperation_2002ChildNodeID(domainElement);
-		case 5003:
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedClass_annotations_5003ChildNodeID(semanticHint);
-			}
-			if (EcorePackage.eINSTANCE.getEAnnotation().equals(domainElementMetaclass) && (domainElement != null ? isChildNodeEAnnotation_2003((EAnnotation) domainElement) : true)) {
-				return 2003;
-			}
-			return getUnrecognizedClass_annotations_5003ChildNodeID(domainElement);
-		case 2003:
-			if (EcoreSemanticHints.EAnnotation_2003Labels.EANNOTATIONSOURCE_4004_TEXT.equals(semanticHint)) {
-				return 4004;
-			}
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedEAnnotation_2003ChildNodeID(semanticHint);
-			}
-			return getUnrecognizedEAnnotation_2003ChildNodeID(domainElement);
 		case 1002:
 			if (EcoreSemanticHints.EPackage_1002Labels.EPACKAGENAME_4005_TEXT.equals(semanticHint)) {
 				return 4005;
@@ -188,86 +123,6 @@ public class EcoreVisualIDRegistry {
 				return getUnrecognizedEPackage_1002ChildNodeID(semanticHint);
 			}
 			return getUnrecognizedEPackage_1002ChildNodeID(domainElement);
-		case 5004:
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedClasses_5004ChildNodeID(semanticHint);
-			}
-			if (EcorePackage.eINSTANCE.getEClass().equals(domainElementMetaclass) && (domainElement != null ? isChildNodeEClass_2004((EClass) domainElement) : true)) {
-				return 2004;
-			}
-			return getUnrecognizedClasses_5004ChildNodeID(domainElement);
-		case 2004:
-			if (EcoreSemanticHints.EClass_2004Labels.ECLASSNAME_4006_TEXT.equals(semanticHint)) {
-				return 4006;
-			}
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedEClass_2004ChildNodeID(semanticHint);
-			}
-			return getUnrecognizedEClass_2004ChildNodeID(domainElement);
-		case 5005:
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedPackages_5005ChildNodeID(semanticHint);
-			}
-			if (EcorePackage.eINSTANCE.getEPackage().equals(domainElementMetaclass) && (domainElement != null ? isChildNodeEPackage_2005((EPackage) domainElement) : true)) {
-				return 2005;
-			}
-			return getUnrecognizedPackages_5005ChildNodeID(domainElement);
-		case 2005:
-			if (EcoreSemanticHints.EPackage_2005Labels.EPACKAGENAME_4007_TEXT.equals(semanticHint)) {
-				return 4007;
-			}
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedEPackage_2005ChildNodeID(semanticHint);
-			}
-			return getUnrecognizedEPackage_2005ChildNodeID(domainElement);
-		case 5006:
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedData_types_5006ChildNodeID(semanticHint);
-			}
-			if (EcorePackage.eINSTANCE.getEDataType().equals(domainElementMetaclass) && (domainElement != null ? isChildNodeEDataType_2006((EDataType) domainElement) : true)) {
-				return 2006;
-			}
-			return getUnrecognizedData_types_5006ChildNodeID(domainElement);
-		case 2006:
-			if (EcoreSemanticHints.EDataType_2006Labels.EDATATYPENAME_4008_TEXT.equals(semanticHint)) {
-				return 4008;
-			}
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedEDataType_2006ChildNodeID(semanticHint);
-			}
-			return getUnrecognizedEDataType_2006ChildNodeID(domainElement);
-		case 5007:
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedEnums_5007ChildNodeID(semanticHint);
-			}
-			if (EcorePackage.eINSTANCE.getEEnum().equals(domainElementMetaclass) && (domainElement != null ? isChildNodeEEnum_2007((EEnum) domainElement) : true)) {
-				return 2007;
-			}
-			return getUnrecognizedEnums_5007ChildNodeID(domainElement);
-		case 2007:
-			if (EcoreSemanticHints.EEnum_2007Labels.EENUMNAME_4009_TEXT.equals(semanticHint)) {
-				return 4009;
-			}
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedEEnum_2007ChildNodeID(semanticHint);
-			}
-			return getUnrecognizedEEnum_2007ChildNodeID(domainElement);
-		case 5008:
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedPackage_annotations_5008ChildNodeID(semanticHint);
-			}
-			if (EcorePackage.eINSTANCE.getEAnnotation().equals(domainElementMetaclass) && (domainElement != null ? isChildNodeEAnnotation_2008((EAnnotation) domainElement) : true)) {
-				return 2008;
-			}
-			return getUnrecognizedPackage_annotations_5008ChildNodeID(domainElement);
-		case 2008:
-			if (EcoreSemanticHints.EAnnotation_2008Labels.EANNOTATIONSOURCE_4010_TEXT.equals(semanticHint)) {
-				return 4010;
-			}
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedEAnnotation_2008ChildNodeID(semanticHint);
-			}
-			return getUnrecognizedEAnnotation_2008ChildNodeID(domainElement);
 		case 1003:
 			if (EcoreSemanticHints.EAnnotation_1003Labels.EANNOTATIONSOURCE_4011_TEXT.equals(semanticHint)) {
 				return 4011;
@@ -279,22 +134,6 @@ public class EcoreVisualIDRegistry {
 				return getUnrecognizedEAnnotation_1003ChildNodeID(semanticHint);
 			}
 			return getUnrecognizedEAnnotation_1003ChildNodeID(domainElement);
-		case 5009:
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedDetails_5009ChildNodeID(semanticHint);
-			}
-			if (EcorePackage.eINSTANCE.getEStringToStringMapEntry().equals(domainElementMetaclass) && (domainElement != null ? isChildNodeEStringToStringMapEntry_2009((Entry) domainElement) : true)) {
-				return 2009;
-			}
-			return getUnrecognizedDetails_5009ChildNodeID(domainElement);
-		case 2009:
-			if (EcoreSemanticHints.EStringToStringMapEntry_2009Labels.ESTRINGTOSTRINGMAPENTRYKEY_4012_TEXT.equals(semanticHint)) {
-				return 4012;
-			}
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedEStringToStringMapEntry_2009ChildNodeID(semanticHint);
-			}
-			return getUnrecognizedEStringToStringMapEntry_2009ChildNodeID(domainElement);
 		case 1004:
 			if (EcoreSemanticHints.EDataType_1004Labels.EDATATYPENAME_4013_TEXT.equals(semanticHint)) {
 				return 4013;
@@ -306,22 +145,6 @@ public class EcoreVisualIDRegistry {
 				return getUnrecognizedEDataType_1004ChildNodeID(semanticHint);
 			}
 			return getUnrecognizedEDataType_1004ChildNodeID(domainElement);
-		case 5010:
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedData_type_annotations_5010ChildNodeID(semanticHint);
-			}
-			if (EcorePackage.eINSTANCE.getEAnnotation().equals(domainElementMetaclass) && (domainElement != null ? isChildNodeEAnnotation_2010((EAnnotation) domainElement) : true)) {
-				return 2010;
-			}
-			return getUnrecognizedData_type_annotations_5010ChildNodeID(domainElement);
-		case 2010:
-			if (EcoreSemanticHints.EAnnotation_2010Labels.EANNOTATIONSOURCE_4014_TEXT.equals(semanticHint)) {
-				return 4014;
-			}
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedEAnnotation_2010ChildNodeID(semanticHint);
-			}
-			return getUnrecognizedEAnnotation_2010ChildNodeID(domainElement);
 		case 1005:
 			if (EcoreSemanticHints.EEnum_1005Labels.EENUMNAME_4015_TEXT.equals(semanticHint)) {
 				return 4015;
@@ -336,14 +159,86 @@ public class EcoreVisualIDRegistry {
 				return getUnrecognizedEEnum_1005ChildNodeID(semanticHint);
 			}
 			return getUnrecognizedEEnum_1005ChildNodeID(domainElement);
-		case 5011:
+		case 2001:
+			if (EcoreSemanticHints.EAttribute_2001Labels.EATTRIBUTENAME_4002_TEXT.equals(semanticHint)) {
+				return 4002;
+			}
 			if (!"".equals(semanticHint)) {
-				return getUnrecognizedLiterals_5011ChildNodeID(semanticHint);
+				return getUnrecognizedEAttribute_2001ChildNodeID(semanticHint);
 			}
-			if (EcorePackage.eINSTANCE.getEEnumLiteral().equals(domainElementMetaclass) && (domainElement != null ? isChildNodeEEnumLiteral_2011((EEnumLiteral) domainElement) : true)) {
-				return 2011;
+			return getUnrecognizedEAttribute_2001ChildNodeID(domainElement);
+		case 2002:
+			if (EcoreSemanticHints.EOperation_2002Labels.EOPERATIONNAME_4003_TEXT.equals(semanticHint)) {
+				return 4003;
 			}
-			return getUnrecognizedLiterals_5011ChildNodeID(domainElement);
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedEOperation_2002ChildNodeID(semanticHint);
+			}
+			return getUnrecognizedEOperation_2002ChildNodeID(domainElement);
+		case 2003:
+			if (EcoreSemanticHints.EAnnotation_2003Labels.EANNOTATIONSOURCE_4004_TEXT.equals(semanticHint)) {
+				return 4004;
+			}
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedEAnnotation_2003ChildNodeID(semanticHint);
+			}
+			return getUnrecognizedEAnnotation_2003ChildNodeID(domainElement);
+		case 2004:
+			if (EcoreSemanticHints.EClass_2004Labels.ECLASSNAME_4006_TEXT.equals(semanticHint)) {
+				return 4006;
+			}
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedEClass_2004ChildNodeID(semanticHint);
+			}
+			return getUnrecognizedEClass_2004ChildNodeID(domainElement);
+		case 2005:
+			if (EcoreSemanticHints.EPackage_2005Labels.EPACKAGENAME_4007_TEXT.equals(semanticHint)) {
+				return 4007;
+			}
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedEPackage_2005ChildNodeID(semanticHint);
+			}
+			return getUnrecognizedEPackage_2005ChildNodeID(domainElement);
+		case 2006:
+			if (EcoreSemanticHints.EDataType_2006Labels.EDATATYPENAME_4008_TEXT.equals(semanticHint)) {
+				return 4008;
+			}
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedEDataType_2006ChildNodeID(semanticHint);
+			}
+			return getUnrecognizedEDataType_2006ChildNodeID(domainElement);
+		case 2007:
+			if (EcoreSemanticHints.EEnum_2007Labels.EENUMNAME_4009_TEXT.equals(semanticHint)) {
+				return 4009;
+			}
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedEEnum_2007ChildNodeID(semanticHint);
+			}
+			return getUnrecognizedEEnum_2007ChildNodeID(domainElement);
+		case 2008:
+			if (EcoreSemanticHints.EAnnotation_2008Labels.EANNOTATIONSOURCE_4010_TEXT.equals(semanticHint)) {
+				return 4010;
+			}
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedEAnnotation_2008ChildNodeID(semanticHint);
+			}
+			return getUnrecognizedEAnnotation_2008ChildNodeID(domainElement);
+		case 2009:
+			if (EcoreSemanticHints.EStringToStringMapEntry_2009Labels.ESTRINGTOSTRINGMAPENTRYKEY_4012_TEXT.equals(semanticHint)) {
+				return 4012;
+			}
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedEStringToStringMapEntry_2009ChildNodeID(semanticHint);
+			}
+			return getUnrecognizedEStringToStringMapEntry_2009ChildNodeID(domainElement);
+		case 2010:
+			if (EcoreSemanticHints.EAnnotation_2010Labels.EANNOTATIONSOURCE_4014_TEXT.equals(semanticHint)) {
+				return 4014;
+			}
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedEAnnotation_2010ChildNodeID(semanticHint);
+			}
+			return getUnrecognizedEAnnotation_2010ChildNodeID(domainElement);
 		case 2011:
 			if (EcoreSemanticHints.EEnumLiteral_2011Labels.EENUMLITERALNAME_4016_TEXT.equals(semanticHint)) {
 				return 4016;
@@ -352,14 +247,6 @@ public class EcoreVisualIDRegistry {
 				return getUnrecognizedEEnumLiteral_2011ChildNodeID(semanticHint);
 			}
 			return getUnrecognizedEEnumLiteral_2011ChildNodeID(domainElement);
-		case 5012:
-			if (!"".equals(semanticHint)) {
-				return getUnrecognizedEnum_annotations_5012ChildNodeID(semanticHint);
-			}
-			if (EcorePackage.eINSTANCE.getEAnnotation().equals(domainElementMetaclass) && (domainElement != null ? isChildNodeEAnnotation_2012((EAnnotation) domainElement) : true)) {
-				return 2012;
-			}
-			return getUnrecognizedEnum_annotations_5012ChildNodeID(domainElement);
 		case 2012:
 			if (EcoreSemanticHints.EAnnotation_2012Labels.EANNOTATIONSOURCE_4017_TEXT.equals(semanticHint)) {
 				return 4017;
@@ -368,6 +255,122 @@ public class EcoreVisualIDRegistry {
 				return getUnrecognizedEAnnotation_2012ChildNodeID(semanticHint);
 			}
 			return getUnrecognizedEAnnotation_2012ChildNodeID(domainElement);
+		case 5001:
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedAttributes_5001ChildNodeID(semanticHint);
+			}
+			if (EcorePackage.eINSTANCE.getEAttribute().equals(domainElementMetaclass) && (domainElement != null ? isNodeEAttribute_2001((EAttribute) domainElement) : true)) {
+				return 2001;
+			}
+			return getUnrecognizedAttributes_5001ChildNodeID(domainElement);
+		case 5002:
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedOperations_5002ChildNodeID(semanticHint);
+			}
+			if (EcorePackage.eINSTANCE.getEOperation().equals(domainElementMetaclass) && (domainElement != null ? isNodeEOperation_2002((EOperation) domainElement) : true)) {
+				return 2002;
+			}
+			return getUnrecognizedOperations_5002ChildNodeID(domainElement);
+		case 5003:
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedClass_annotations_5003ChildNodeID(semanticHint);
+			}
+			if (EcorePackage.eINSTANCE.getEAnnotation().equals(domainElementMetaclass) && (domainElement != null ? isNodeEAnnotation_2003((EAnnotation) domainElement) : true)) {
+				return 2003;
+			}
+			return getUnrecognizedClass_annotations_5003ChildNodeID(domainElement);
+		case 5004:
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedClasses_5004ChildNodeID(semanticHint);
+			}
+			if (EcorePackage.eINSTANCE.getEClass().equals(domainElementMetaclass) && (domainElement != null ? isNodeEClass_2004((EClass) domainElement) : true)) {
+				return 2004;
+			}
+			return getUnrecognizedClasses_5004ChildNodeID(domainElement);
+		case 5005:
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedPackages_5005ChildNodeID(semanticHint);
+			}
+			if (EcorePackage.eINSTANCE.getEPackage().equals(domainElementMetaclass) && (domainElement != null ? isNodeEPackage_2005((EPackage) domainElement) : true)) {
+				return 2005;
+			}
+			return getUnrecognizedPackages_5005ChildNodeID(domainElement);
+		case 5006:
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedData_types_5006ChildNodeID(semanticHint);
+			}
+			if (EcorePackage.eINSTANCE.getEDataType().equals(domainElementMetaclass) && (domainElement != null ? isNodeEDataType_2006((EDataType) domainElement) : true)) {
+				return 2006;
+			}
+			return getUnrecognizedData_types_5006ChildNodeID(domainElement);
+		case 5007:
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedEnums_5007ChildNodeID(semanticHint);
+			}
+			if (EcorePackage.eINSTANCE.getEEnum().equals(domainElementMetaclass) && (domainElement != null ? isNodeEEnum_2007((EEnum) domainElement) : true)) {
+				return 2007;
+			}
+			return getUnrecognizedEnums_5007ChildNodeID(domainElement);
+		case 5008:
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedPackage_annotations_5008ChildNodeID(semanticHint);
+			}
+			if (EcorePackage.eINSTANCE.getEAnnotation().equals(domainElementMetaclass) && (domainElement != null ? isNodeEAnnotation_2008((EAnnotation) domainElement) : true)) {
+				return 2008;
+			}
+			return getUnrecognizedPackage_annotations_5008ChildNodeID(domainElement);
+		case 5009:
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedDetails_5009ChildNodeID(semanticHint);
+			}
+			if (EcorePackage.eINSTANCE.getEStringToStringMapEntry().equals(domainElementMetaclass) && (domainElement != null ? isNodeEStringToStringMapEntry_2009((Entry) domainElement) : true)) {
+				return 2009;
+			}
+			return getUnrecognizedDetails_5009ChildNodeID(domainElement);
+		case 5010:
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedData_type_annotations_5010ChildNodeID(semanticHint);
+			}
+			if (EcorePackage.eINSTANCE.getEAnnotation().equals(domainElementMetaclass) && (domainElement != null ? isNodeEAnnotation_2010((EAnnotation) domainElement) : true)) {
+				return 2010;
+			}
+			return getUnrecognizedData_type_annotations_5010ChildNodeID(domainElement);
+		case 5011:
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedLiterals_5011ChildNodeID(semanticHint);
+			}
+			if (EcorePackage.eINSTANCE.getEEnumLiteral().equals(domainElementMetaclass) && (domainElement != null ? isNodeEEnumLiteral_2011((EEnumLiteral) domainElement) : true)) {
+				return 2011;
+			}
+			return getUnrecognizedLiterals_5011ChildNodeID(domainElement);
+		case 5012:
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedEnum_annotations_5012ChildNodeID(semanticHint);
+			}
+			if (EcorePackage.eINSTANCE.getEAnnotation().equals(domainElementMetaclass) && (domainElement != null ? isNodeEAnnotation_2012((EAnnotation) domainElement) : true)) {
+				return 2012;
+			}
+			return getUnrecognizedEnum_annotations_5012ChildNodeID(domainElement);
+		case 79:
+			if (!"".equals(semanticHint)) {
+				return getUnrecognizedEPackage_79ChildNodeID(semanticHint);
+			}
+			if (EcorePackage.eINSTANCE.getEClass().equals(domainElementMetaclass) && (domainElement != null ? isNodeEClass_1001((EClass) domainElement) : true)) {
+				return 1001;
+			}
+			if (EcorePackage.eINSTANCE.getEPackage().equals(domainElementMetaclass) && (domainElement != null ? isNodeEPackage_1002((EPackage) domainElement) : true)) {
+				return 1002;
+			}
+			if (EcorePackage.eINSTANCE.getEAnnotation().equals(domainElementMetaclass) && (domainElement != null ? isNodeEAnnotation_1003((EAnnotation) domainElement) : true)) {
+				return 1003;
+			}
+			if (EcorePackage.eINSTANCE.getEDataType().equals(domainElementMetaclass) && (domainElement != null ? isNodeEDataType_1004((EDataType) domainElement) : true)) {
+				return 1004;
+			}
+			if (EcorePackage.eINSTANCE.getEEnum().equals(domainElementMetaclass) && (domainElement != null ? isNodeEEnum_1005((EEnum) domainElement) : true)) {
+				return 1005;
+			}
+			return getUnrecognizedEPackage_79ChildNodeID(domainElement);
 		case 3001:
 			return getUnrecognizedEAnnotationReferences_3001LinkLabelID(semanticHint);
 		case 3002:
@@ -493,7 +496,7 @@ public class EcoreVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isChildNodeEAttribute_2001(EAttribute element) {
+	private boolean isNodeEAttribute_2001(EAttribute element) {
 		return ElementSelectors.acceptAllMatcher().matches(element);
 	}
 
@@ -503,7 +506,7 @@ public class EcoreVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isChildNodeEOperation_2002(EOperation element) {
+	private boolean isNodeEOperation_2002(EOperation element) {
 		return ElementSelectors.acceptAllMatcher().matches(element);
 	}
 
@@ -513,7 +516,7 @@ public class EcoreVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isChildNodeEAnnotation_2003(EAnnotation element) {
+	private boolean isNodeEAnnotation_2003(EAnnotation element) {
 		return ElementSelectors.acceptAllMatcher().matches(element);
 	}
 
@@ -523,7 +526,7 @@ public class EcoreVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isChildNodeEClass_2004(EClass element) {
+	private boolean isNodeEClass_2004(EClass element) {
 		return ElementSelectors.acceptAllMatcher().matches(element);
 	}
 
@@ -533,7 +536,7 @@ public class EcoreVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isChildNodeEPackage_2005(EPackage element) {
+	private boolean isNodeEPackage_2005(EPackage element) {
 		return ElementSelectors.acceptAllMatcher().matches(element);
 	}
 
@@ -543,7 +546,7 @@ public class EcoreVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isChildNodeEDataType_2006(EDataType element) {
+	private boolean isNodeEDataType_2006(EDataType element) {
 		return ElementSelectors.acceptAllMatcher().matches(element);
 	}
 
@@ -553,7 +556,7 @@ public class EcoreVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isChildNodeEEnum_2007(EEnum element) {
+	private boolean isNodeEEnum_2007(EEnum element) {
 		return ElementSelectors.acceptAllMatcher().matches(element);
 	}
 
@@ -563,7 +566,7 @@ public class EcoreVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isChildNodeEAnnotation_2008(EAnnotation element) {
+	private boolean isNodeEAnnotation_2008(EAnnotation element) {
 		return ElementSelectors.acceptAllMatcher().matches(element);
 	}
 
@@ -573,7 +576,7 @@ public class EcoreVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isChildNodeEStringToStringMapEntry_2009(Entry element) {
+	private boolean isNodeEStringToStringMapEntry_2009(Entry element) {
 		return ElementSelectors.acceptAllMatcher().matches(element);
 	}
 
@@ -583,7 +586,7 @@ public class EcoreVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isChildNodeEAnnotation_2010(EAnnotation element) {
+	private boolean isNodeEAnnotation_2010(EAnnotation element) {
 		return ElementSelectors.acceptAllMatcher().matches(element);
 	}
 
@@ -593,7 +596,7 @@ public class EcoreVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isChildNodeEEnumLiteral_2011(EEnumLiteral element) {
+	private boolean isNodeEEnumLiteral_2011(EEnumLiteral element) {
 		return ElementSelectors.acceptAllMatcher().matches(element);
 	}
 
@@ -603,18 +606,8 @@ public class EcoreVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isChildNodeEAnnotation_2012(EAnnotation element) {
+	private boolean isNodeEAnnotation_2012(EAnnotation element) {
 		return ElementSelectors.acceptAllMatcher().matches(element);
-	}
-
-	/**
-	 * User can change implementation of this method to handle some specific
-	 * situations not covered by default logic.
-	 *
-	 * @generated
-	 */
-	private int getUnrecognizedDiagramChildID(EObject domainElement) {
-		return -1;
 	}
 
 	/**
@@ -1164,6 +1157,26 @@ public class EcoreVisualIDRegistry {
 	 * @generated
 	 */
 	private int getUnrecognizedEnum_annotations_5012ChildNodeID(EObject domainElement) {
+		return -1;
+	}
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private int getUnrecognizedEPackage_79ChildNodeID(String semanticHint) {
+		return -1;
+	}
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private int getUnrecognizedEPackage_79ChildNodeID(EObject domainElement) {
 		return -1;
 	}
 

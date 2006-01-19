@@ -25,7 +25,8 @@ public class <%=genDiagram.getEditPartFactoryClassName()%> implements EditPartFa
 
 <%
 List genLinks = genDiagram.getLinks();
-Collection allContainers = AccessUtil.getAllContainers(genDiagram);
+Collection allContainers = new LinkedList(genDiagram.getAllContainers());
+allContainers.add(genDiagram);
 %>
 
 	/**
@@ -40,16 +41,14 @@ Collection allContainers = AccessUtil.getAllContainers(genDiagram);
 			
 			int viewVisualID = getVisualID(view);
 			switch (viewVisualID) {
-			case <%=genDiagram.getVisualID()%>:
-				return new <%=genDiagram.getEditPartClassName()%>(view);
 <%
 for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
-	GenChildContainer container = (GenChildContainer) containers.next();
+	GenContainerEditPart container = (GenContainerEditPart) containers.next();
 %>
 		case <%=container.getVisualID()%>:
 			 return new <%=container.getEditPartClassName()%>(view);
 <%
-	if (container instanceof GenChildNode ? !((GenChildNode) container).isListContainerEntry() : container instanceof GenNode) {
+	if (container instanceof GenNode && !((GenNode) container).isListContainerEntry()) {
 		GenNode node = (GenNode) container;
 		for (Iterator labels = node.getLabels().iterator(); labels.hasNext();) {
 			GenNodeLabel label = (GenNodeLabel) labels.next();

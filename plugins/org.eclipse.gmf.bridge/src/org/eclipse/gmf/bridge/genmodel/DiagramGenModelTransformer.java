@@ -24,8 +24,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
-import org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
@@ -44,6 +42,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
@@ -166,8 +165,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		assertAbstractNodeMapping(nme);
 		assert nme.getDiagramNode() != null;
 		
-		GenNode genNode = GMFGenFactory.eINSTANCE.createGenNode();
-		getGenDiagram().getNodes().add(genNode);
+		GenTopLevelNode genNode = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
+		getGenDiagram().getTopLevelNodes().add(genNode);
 		genNode.setDiagramRunTimeClass(findRunTimeClass(nme));
 		genNode.setModelFacet(createModelFacet(nme));
 		genNode.setVisualID(NODE_COUNT_BASE + (++myNodeCount));
@@ -204,7 +203,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
 		childNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
 		childNode.setVisualID(CHILD_COUNT_BASE + (++myChildCount ));
-		childNode.setChildContainersPlacement(CompartmentPlacementKind.TOOLBAR_LITERAL);
 
 		// set class names
 		myNamingStrategy.feed(childNode, childNodeMapping);
@@ -225,16 +223,13 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 
 		container.getChildNodes().add(childNode);
+		getGenDiagram().getChildNodes().add(childNode);
 		handleNodeTool(childNodeMapping, childNode);
 		processAbstractNode(childNodeMapping, childNode);
 		
 		if (childNodeMapping.getChildMappings().size() > 0) {
 			// TODO just layout from childNodeMapping.getDiagramNode()
-			if (container instanceof GenNode) {
-				((GenNode) container).setChildContainersPlacement(CompartmentPlacementKind.FLOW_LITERAL);
-			} else if (container instanceof GenCompartment) {
-				((GenCompartment) container).setLayoutKind(CompartmentLayoutKind.XY_LITERAL);
-			}
+			container.setListLayout(false);
 		}
 	}
 	
@@ -265,12 +260,12 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		Compartment compartment = mapping.getCompartment(); 
 		assert compartment != null;
 		GenCompartment childCompartment = GMFGenFactory.eINSTANCE.createGenCompartment();
+		getGenDiagram().getCompartments().add(childCompartment);
 		childCompartment.setVisualID(COMPARTMENT_COUNT_BASE + (++myCompartmentCount));
 		childCompartment.setDiagramRunTimeClass(getChildContainerRunTimeClass());
 		childCompartment.setViewmap(myViewmaps.create(mapping.getCompartment()));
 		childCompartment.setCanCollapse(compartment.isCollapsible());
 		childCompartment.setNeedsTitle(compartment.isNeedsTitle());
-		childCompartment.setLayoutKind(CompartmentLayoutKind.TOOLBAR_LITERAL);
 		childCompartment.setTitle(compartment.getName());
 
 		// set class names

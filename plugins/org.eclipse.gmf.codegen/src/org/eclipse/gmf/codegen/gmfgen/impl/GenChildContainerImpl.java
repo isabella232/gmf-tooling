@@ -14,7 +14,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
@@ -27,8 +27,10 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl#getContainedNodes <em>Contained Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl#getChildNodes <em>Child Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl#getCanonicalEditPolicyClassName <em>Canonical Edit Policy Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl#isListLayout <em>List Layout</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,7 +38,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
  */
 public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements GenChildContainer {
 	/**
-	 * The cached value of the '{@link #getChildNodes() <em>Child Nodes</em>}' containment reference list.
+	 * The cached value of the '{@link #getChildNodes() <em>Child Nodes</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getChildNodes()
@@ -66,6 +68,26 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	protected String canonicalEditPolicyClassName = CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #isListLayout() <em>List Layout</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isListLayout()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean LIST_LAYOUT_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isListLayout() <em>List Layout</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isListLayout()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean listLayout = LIST_LAYOUT_EDEFAULT;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -86,11 +108,20 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList getContainedNodes() {
+		return getChildNodes();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public EList getChildNodes() {
 		if (childNodes == null) {
-			childNodes = new EObjectContainmentWithInverseEList(GenChildNode.class, this, GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES, GMFGenPackage.GEN_CHILD_NODE__CONTAINER);
+			childNodes = new EObjectWithInverseResolvingEList.ManyInverse(GenChildNode.class, this, GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES, GMFGenPackage.GEN_CHILD_NODE__CONTAINERS);
 		}
 		return childNodes;
 	}
@@ -122,6 +153,27 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 		canonicalEditPolicyClassName = newCanonicalEditPolicyClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME, oldCanonicalEditPolicyClassName, canonicalEditPolicyClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isListLayout() {
+		return listLayout;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setListLayout(boolean newListLayout) {
+		boolean oldListLayout = listLayout;
+		listLayout = newListLayout;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_CHILD_CONTAINER__LIST_LAYOUT, oldListLayout, listLayout));
 	}
 
 	/**
@@ -166,10 +218,14 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_CHILD_CONTAINER__CONTAINED_NODES:
+				return getContainedNodes();
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
 				return getChildNodes();
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
 				return getCanonicalEditPolicyClassName();
+			case GMFGenPackage.GEN_CHILD_CONTAINER__LIST_LAYOUT:
+				return isListLayout() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -181,12 +237,19 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_CHILD_CONTAINER__CONTAINED_NODES:
+				getContainedNodes().clear();
+				getContainedNodes().addAll((Collection)newValue);
+				return;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
 				getChildNodes().clear();
 				getChildNodes().addAll((Collection)newValue);
 				return;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
 				setCanonicalEditPolicyClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_CHILD_CONTAINER__LIST_LAYOUT:
+				setListLayout(((Boolean)newValue).booleanValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -199,11 +262,17 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_CHILD_CONTAINER__CONTAINED_NODES:
+				getContainedNodes().clear();
+				return;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
 				getChildNodes().clear();
 				return;
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
 				setCanonicalEditPolicyClassName(CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_CHILD_CONTAINER__LIST_LAYOUT:
+				setListLayout(LIST_LAYOUT_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -216,10 +285,14 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_CHILD_CONTAINER__CONTAINED_NODES:
+				return !getContainedNodes().isEmpty();
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
 				return childNodes != null && !childNodes.isEmpty();
 			case GMFGenPackage.GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME:
 				return CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? canonicalEditPolicyClassName != null : !CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(canonicalEditPolicyClassName);
+			case GMFGenPackage.GEN_CHILD_CONTAINER__LIST_LAYOUT:
+				return listLayout != LIST_LAYOUT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -235,6 +308,8 @@ public abstract class GenChildContainerImpl extends GenCommonBaseImpl implements
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (canonicalEditPolicyClassName: ");
 		result.append(canonicalEditPolicyClassName);
+		result.append(", listLayout: ");
+		result.append(listLayout);
 		result.append(')');
 		return result.toString();
 	}

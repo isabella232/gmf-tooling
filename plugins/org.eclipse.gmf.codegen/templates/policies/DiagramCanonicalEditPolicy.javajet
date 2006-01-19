@@ -25,7 +25,7 @@ public class <%=genDiagram.getCanonicalEditPolicyClassName()%> extends Canonical
 <%
 String modelElementInterfaceName = importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName());
 {
-	Collection genNodes = genDiagram.getNodes();
+	Collection genNodes = genDiagram.getTopLevelNodes();
 %>
 <%@ include file="getSemanticChildrenList.jetinc"%>
 <%}%>

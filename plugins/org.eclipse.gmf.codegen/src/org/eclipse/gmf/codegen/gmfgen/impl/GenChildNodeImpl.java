@@ -7,16 +7,21 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
+
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
-import org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind;
+
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
-import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
-import org.eclipse.gmf.codegen.gmfgen.GenNode;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,13 +30,24 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildNodeImpl#getContainer <em>Container</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildNodeImpl#getDiagram <em>Diagram</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildNodeImpl#getContainers <em>Containers</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
+	/**
+	 * The cached value of the '{@link #getContainers() <em>Containers</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContainers()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList containers = null;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -55,24 +71,21 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenChildContainer getContainer() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_CHILD_NODE__CONTAINER) return null;
-		return (GenChildContainer)eContainer();
+	public GenDiagram getDiagram() {
+		if (eContainerFeatureID != GMFGenPackage.GEN_CHILD_NODE__DIAGRAM) return null;
+		return (GenDiagram)eContainer();
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
-	public boolean isListContainerEntry() {
-		if (getContainer() instanceof GenNode) {
-			return ((GenNode) getContainer()).getChildContainersPlacement() == CompartmentPlacementKind.TOOLBAR_LITERAL;
+	public EList getContainers() {
+		if (containers == null) {
+			containers = new EObjectWithInverseResolvingEList.ManyInverse(GenChildContainer.class, this, GMFGenPackage.GEN_CHILD_NODE__CONTAINERS, GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES);
 		}
-		if (getContainer() instanceof GenCompartment) {
-			return ((GenCompartment) getContainer()).getLayoutKind() == CompartmentLayoutKind.TOOLBAR_LITERAL;
-		}
-		return false;
+		return containers;
 	}
 
 	/**
@@ -82,10 +95,12 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_CHILD_NODE__CONTAINER:
+			case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_CHILD_NODE__CONTAINER, msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_CHILD_NODE__DIAGRAM, msgs);
+			case GMFGenPackage.GEN_CHILD_NODE__CONTAINERS:
+				return ((InternalEList)getContainers()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -97,8 +112,10 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_CHILD_NODE__CONTAINER:
-				return eBasicSetContainer(null, GMFGenPackage.GEN_CHILD_NODE__CONTAINER, msgs);
+			case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM:
+				return eBasicSetContainer(null, GMFGenPackage.GEN_CHILD_NODE__DIAGRAM, msgs);
+			case GMFGenPackage.GEN_CHILD_NODE__CONTAINERS:
+				return ((InternalEList)getContainers()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -110,8 +127,8 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	 */
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
-			case GMFGenPackage.GEN_CHILD_NODE__CONTAINER:
-				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES, GenChildContainer.class, msgs);
+			case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_DIAGRAM__CHILD_NODES, GenDiagram.class, msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
@@ -123,8 +140,10 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_CHILD_NODE__CONTAINER:
-				return getContainer();
+			case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM:
+				return getDiagram();
+			case GMFGenPackage.GEN_CHILD_NODE__CONTAINERS:
+				return getContainers();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -136,14 +155,19 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_CHILD_NODE__CONTAINER:
-				return getContainer() != null;
+			case GMFGenPackage.GEN_CHILD_NODE__DIAGRAM:
+				return getDiagram() != null;
+			case GMFGenPackage.GEN_CHILD_NODE__CONTAINERS:
+				return containers != null && !containers.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-	public GenDiagram getDiagram() {
-		return getContainer().getDiagram();
+	public boolean isListContainerEntry() {
+		if (getContainers().size() > 0) {
+			return ((GenChildContainer) getContainers().get(0)).isListLayout();
+		}
+		return false;
 	}
 
 	public String getClassNameSuffux() {

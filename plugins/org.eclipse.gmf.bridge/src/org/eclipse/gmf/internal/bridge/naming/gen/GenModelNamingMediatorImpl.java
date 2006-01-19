@@ -20,6 +20,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.internal.bridge.naming.ClassNameStrategy;
 import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.CollectingDispenser;
@@ -126,7 +127,7 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		return myTextEditPart;
 	}
 
-	public void feed(GenNode genNode, NodeMapping nme) {
+	public void feed(GenTopLevelNode genNode, NodeMapping nme) {
 		genNode.setNotationViewFactoryClassName(getViewFactory().get(nme));
 		genNode.setEditPartClassName(getEditPart().get(nme));
 		genNode.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().get(nme));

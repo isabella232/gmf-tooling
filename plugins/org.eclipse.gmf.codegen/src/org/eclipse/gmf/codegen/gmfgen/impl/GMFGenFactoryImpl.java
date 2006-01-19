@@ -14,23 +14,27 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.gmf.codegen.gmfgen.*;
 
-import org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind;
-import org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind;
+import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
-import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
 import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
@@ -87,9 +91,9 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case GMFGenPackage.GEN_DIAGRAM: return createGenDiagram();
-			case GMFGenPackage.GEN_NODE: return createGenNode();
-			case GMFGenPackage.GEN_COMPARTMENT: return createGenCompartment();
+			case GMFGenPackage.GEN_TOP_LEVEL_NODE: return createGenTopLevelNode();
 			case GMFGenPackage.GEN_CHILD_NODE: return createGenChildNode();
+			case GMFGenPackage.GEN_COMPARTMENT: return createGenCompartment();
 			case GMFGenPackage.GEN_LINK: return createGenLink();
 			case GMFGenPackage.GEN_NODE_LABEL: return createGenNodeLabel();
 			case GMFGenPackage.GEN_EXTERNAL_NODE_LABEL: return createGenExternalNodeLabel();
@@ -126,10 +130,6 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 */
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case GMFGenPackage.COMPARTMENT_PLACEMENT_KIND:
-				return createCompartmentPlacementKindFromString(eDataType, initialValue);
-			case GMFGenPackage.COMPARTMENT_LAYOUT_KIND:
-				return createCompartmentLayoutKindFromString(eDataType, initialValue);
 			case GMFGenPackage.LINK_LABEL_ALIGNMENT:
 				return createLinkLabelAlignmentFromString(eDataType, initialValue);
 			case GMFGenPackage.GEN_SEVERITY:
@@ -146,10 +146,6 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 */
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-			case GMFGenPackage.COMPARTMENT_PLACEMENT_KIND:
-				return convertCompartmentPlacementKindToString(eDataType, instanceValue);
-			case GMFGenPackage.COMPARTMENT_LAYOUT_KIND:
-				return convertCompartmentLayoutKindToString(eDataType, instanceValue);
 			case GMFGenPackage.LINK_LABEL_ALIGNMENT:
 				return convertLinkLabelAlignmentToString(eDataType, instanceValue);
 			case GMFGenPackage.GEN_SEVERITY:
@@ -174,19 +170,9 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenNode createGenNode() {
-		GenNodeImpl genNode = new GenNodeImpl();
-		return genNode;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenCompartment createGenCompartment() {
-		GenCompartmentImpl genCompartment = new GenCompartmentImpl();
-		return genCompartment;
+	public GenTopLevelNode createGenTopLevelNode() {
+		GenTopLevelNodeImpl genTopLevelNode = new GenTopLevelNodeImpl();
+		return genTopLevelNode;
 	}
 
 	/**
@@ -197,6 +183,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenChildNode createGenChildNode() {
 		GenChildNodeImpl genChildNode = new GenChildNodeImpl();
 		return genChildNode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenCompartment createGenCompartment() {
+		GenCompartmentImpl genCompartment = new GenCompartmentImpl();
+		return genCompartment;
 	}
 
 	/**
@@ -437,46 +433,6 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenAuditRule createGenAuditRule() {
 		GenAuditRuleImpl genAuditRule = new GenAuditRuleImpl();
 		return genAuditRule;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public CompartmentPlacementKind createCompartmentPlacementKindFromString(EDataType eDataType, String initialValue) {
-		CompartmentPlacementKind result = CompartmentPlacementKind.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertCompartmentPlacementKindToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public CompartmentLayoutKind createCompartmentLayoutKindFromString(EDataType eDataType, String initialValue) {
-		CompartmentLayoutKind result = CompartmentLayoutKind.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertCompartmentLayoutKindToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

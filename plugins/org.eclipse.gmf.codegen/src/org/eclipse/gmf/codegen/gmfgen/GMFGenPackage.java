@@ -136,6 +136,88 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_COMMON_BASE_FEATURE_COUNT = 6;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenContainerEditPart <em>Gen Container Edit Part</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenContainerEditPart
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenContainerEditPart()
+	 * @generated
+	 */
+	int GEN_CONTAINER_EDIT_PART = 2;
+
+	/**
+	 * The feature id for the '<em><b>Diagram Run Time Class</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONTAINER_EDIT_PART__DIAGRAM_RUN_TIME_CLASS = GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS;
+
+	/**
+	 * The feature id for the '<em><b>Visual ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONTAINER_EDIT_PART__VISUAL_ID = GEN_COMMON_BASE__VISUAL_ID;
+
+	/**
+	 * The feature id for the '<em><b>Edit Part Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONTAINER_EDIT_PART__EDIT_PART_CLASS_NAME = GEN_COMMON_BASE__EDIT_PART_CLASS_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Item Semantic Edit Policy Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONTAINER_EDIT_PART__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME = GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Notation View Factory Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONTAINER_EDIT_PART__NOTATION_VIEW_FACTORY_CLASS_NAME = GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Viewmap</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONTAINER_EDIT_PART__VIEWMAP = GEN_COMMON_BASE__VIEWMAP;
+
+	/**
+	 * The feature id for the '<em><b>Contained Nodes</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONTAINER_EDIT_PART__CONTAINED_NODES = GEN_COMMON_BASE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Gen Container Edit Part</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CONTAINER_EDIT_PART_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl <em>Gen Diagram</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -152,7 +234,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__DIAGRAM_RUN_TIME_CLASS = GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS;
+	int GEN_DIAGRAM__DIAGRAM_RUN_TIME_CLASS = GEN_CONTAINER_EDIT_PART__DIAGRAM_RUN_TIME_CLASS;
 
 	/**
 	 * The feature id for the '<em><b>Visual ID</b></em>' attribute.
@@ -161,7 +243,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__VISUAL_ID = GEN_COMMON_BASE__VISUAL_ID;
+	int GEN_DIAGRAM__VISUAL_ID = GEN_CONTAINER_EDIT_PART__VISUAL_ID;
 
 	/**
 	 * The feature id for the '<em><b>Edit Part Class Name</b></em>' attribute.
@@ -170,7 +252,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__EDIT_PART_CLASS_NAME = GEN_COMMON_BASE__EDIT_PART_CLASS_NAME;
+	int GEN_DIAGRAM__EDIT_PART_CLASS_NAME = GEN_CONTAINER_EDIT_PART__EDIT_PART_CLASS_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Item Semantic Edit Policy Class Name</b></em>' attribute.
@@ -179,7 +261,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME = GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME;
+	int GEN_DIAGRAM__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME = GEN_CONTAINER_EDIT_PART__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Notation View Factory Class Name</b></em>' attribute.
@@ -188,7 +270,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__NOTATION_VIEW_FACTORY_CLASS_NAME = GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME;
+	int GEN_DIAGRAM__NOTATION_VIEW_FACTORY_CLASS_NAME = GEN_CONTAINER_EDIT_PART__NOTATION_VIEW_FACTORY_CLASS_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Viewmap</b></em>' containment reference.
@@ -197,7 +279,16 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__VIEWMAP = GEN_COMMON_BASE__VIEWMAP;
+	int GEN_DIAGRAM__VIEWMAP = GEN_CONTAINER_EDIT_PART__VIEWMAP;
+
+	/**
+	 * The feature id for the '<em><b>Contained Nodes</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM__CONTAINED_NODES = GEN_CONTAINER_EDIT_PART__CONTAINED_NODES;
 
 	/**
 	 * The feature id for the '<em><b>Domain Meta Model</b></em>' reference.
@@ -206,7 +297,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__DOMAIN_META_MODEL = GEN_COMMON_BASE_FEATURE_COUNT + 0;
+	int GEN_DIAGRAM__DOMAIN_META_MODEL = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Domain Diagram Element</b></em>' reference.
@@ -215,16 +306,25 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT = GEN_COMMON_BASE_FEATURE_COUNT + 1;
+	int GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Child Nodes</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__NODES = GEN_COMMON_BASE_FEATURE_COUNT + 2;
+	int GEN_DIAGRAM__CHILD_NODES = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Top Level Nodes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM__TOP_LEVEL_NODES = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Links</b></em>' containment reference list.
@@ -233,7 +333,16 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__LINKS = GEN_COMMON_BASE_FEATURE_COUNT + 3;
+	int GEN_DIAGRAM__LINKS = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Compartments</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_DIAGRAM__COMPARTMENTS = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Audits</b></em>' containment reference.
@@ -242,7 +351,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__AUDITS = GEN_COMMON_BASE_FEATURE_COUNT + 4;
+	int GEN_DIAGRAM__AUDITS = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Palette</b></em>' containment reference.
@@ -251,7 +360,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PALETTE = GEN_COMMON_BASE_FEATURE_COUNT + 5;
+	int GEN_DIAGRAM__PALETTE = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Edit Commands Package Name</b></em>' attribute.
@@ -260,7 +369,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 6;
+	int GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Edit Parts Package Name</b></em>' attribute.
@@ -269,7 +378,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 7;
+	int GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Edit Policies Package Name</b></em>' attribute.
@@ -278,7 +387,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 8;
+	int GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>Editor Package Name</b></em>' attribute.
@@ -287,7 +396,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__EDITOR_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 9;
+	int GEN_DIAGRAM__EDITOR_PACKAGE_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 11;
 
 	/**
 	 * The feature id for the '<em><b>Providers Package Name</b></em>' attribute.
@@ -296,7 +405,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 10;
+	int GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 12;
 
 	/**
 	 * The feature id for the '<em><b>Notation View Factories Package Name</b></em>' attribute.
@@ -305,7 +414,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 11;
+	int GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 13;
 
 	/**
 	 * The feature id for the '<em><b>Plugin ID</b></em>' attribute.
@@ -314,7 +423,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PLUGIN_ID = GEN_COMMON_BASE_FEATURE_COUNT + 12;
+	int GEN_DIAGRAM__PLUGIN_ID = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 14;
 
 	/**
 	 * The feature id for the '<em><b>Plugin Name</b></em>' attribute.
@@ -323,7 +432,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PLUGIN_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 13;
+	int GEN_DIAGRAM__PLUGIN_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 15;
 
 	/**
 	 * The feature id for the '<em><b>Provider Name</b></em>' attribute.
@@ -332,7 +441,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PROVIDER_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 14;
+	int GEN_DIAGRAM__PROVIDER_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 16;
 
 	/**
 	 * The feature id for the '<em><b>Same File For Diagram And Model</b></em>' attribute.
@@ -341,7 +450,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL = GEN_COMMON_BASE_FEATURE_COUNT + 15;
+	int GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 17;
 
 	/**
 	 * The feature id for the '<em><b>Printing Enabled</b></em>' attribute.
@@ -350,7 +459,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PRINTING_ENABLED = GEN_COMMON_BASE_FEATURE_COUNT + 16;
+	int GEN_DIAGRAM__PRINTING_ENABLED = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 18;
 
 	/**
 	 * The feature id for the '<em><b>Diagram File Extension</b></em>' attribute.
@@ -359,7 +468,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION = GEN_COMMON_BASE_FEATURE_COUNT + 17;
+	int GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 19;
 
 	/**
 	 * The feature id for the '<em><b>Reorient Connection View Command Class Name</b></em>' attribute.
@@ -368,7 +477,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 18;
+	int GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 20;
 
 	/**
 	 * The feature id for the '<em><b>Edit Part Factory Class Name</b></em>' attribute.
@@ -377,7 +486,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 19;
+	int GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 21;
 
 	/**
 	 * The feature id for the '<em><b>Base External Node Label Edit Part Class Name</b></em>' attribute.
@@ -386,7 +495,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 20;
+	int GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 22;
 
 	/**
 	 * The feature id for the '<em><b>Base Item Semantic Edit Policy Class Name</b></em>' attribute.
@@ -395,7 +504,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 21;
+	int GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 23;
 
 	/**
 	 * The feature id for the '<em><b>Base Graphical Node Edit Policy Class Name</b></em>' attribute.
@@ -404,7 +513,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 22;
+	int GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 24;
 
 	/**
 	 * The feature id for the '<em><b>Reference Connection Edit Policy Class Name</b></em>' attribute.
@@ -413,7 +522,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 23;
+	int GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 25;
 
 	/**
 	 * The feature id for the '<em><b>Canonical Edit Policy Class Name</b></em>' attribute.
@@ -422,7 +531,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 24;
+	int GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 26;
 
 	/**
 	 * The feature id for the '<em><b>Element Types Class Name</b></em>' attribute.
@@ -431,7 +540,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 25;
+	int GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 27;
 
 	/**
 	 * The feature id for the '<em><b>Semantic Hints Class Name</b></em>' attribute.
@@ -440,7 +549,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 26;
+	int GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 28;
 
 	/**
 	 * The feature id for the '<em><b>Notation View Provider Class Name</b></em>' attribute.
@@ -449,7 +558,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 27;
+	int GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 29;
 
 	/**
 	 * The feature id for the '<em><b>Edit Part Provider Class Name</b></em>' attribute.
@@ -458,7 +567,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 28;
+	int GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 30;
 
 	/**
 	 * The feature id for the '<em><b>Metamodel Support Provider Class Name</b></em>' attribute.
@@ -467,7 +576,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 29;
+	int GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 31;
 
 	/**
 	 * The feature id for the '<em><b>Modeling Assistant Provider Class Name</b></em>' attribute.
@@ -476,7 +585,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 30;
+	int GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 32;
 
 	/**
 	 * The feature id for the '<em><b>Property Provider Class Name</b></em>' attribute.
@@ -485,7 +594,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 31;
+	int GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 33;
 
 	/**
 	 * The feature id for the '<em><b>Icon Provider Class Name</b></em>' attribute.
@@ -494,7 +603,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 32;
+	int GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 34;
 
 	/**
 	 * The feature id for the '<em><b>Structural Feature Parser Class Name</b></em>' attribute.
@@ -503,7 +612,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 33;
+	int GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 35;
 
 	/**
 	 * The feature id for the '<em><b>Action Bar Contributor Class Name</b></em>' attribute.
@@ -512,7 +621,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 34;
+	int GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 36;
 
 	/**
 	 * The feature id for the '<em><b>Creation Wizard Class Name</b></em>' attribute.
@@ -521,7 +630,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 35;
+	int GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 37;
 
 	/**
 	 * The feature id for the '<em><b>Creation Wizard Page Class Name</b></em>' attribute.
@@ -530,7 +639,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 36;
+	int GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 38;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Editor Util Class Name</b></em>' attribute.
@@ -539,7 +648,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 37;
+	int GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 39;
 
 	/**
 	 * The feature id for the '<em><b>Diagram File Creator Class Name</b></em>' attribute.
@@ -548,7 +657,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 38;
+	int GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 40;
 
 	/**
 	 * The feature id for the '<em><b>Document Provider Class Name</b></em>' attribute.
@@ -557,7 +666,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 39;
+	int GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 41;
 
 	/**
 	 * The feature id for the '<em><b>Editor Class Name</b></em>' attribute.
@@ -566,7 +675,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__EDITOR_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 40;
+	int GEN_DIAGRAM__EDITOR_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 42;
 
 	/**
 	 * The feature id for the '<em><b>Init Diagram File Action Class Name</b></em>' attribute.
@@ -575,7 +684,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 41;
+	int GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 43;
 
 	/**
 	 * The feature id for the '<em><b>Matching Strategy Class Name</b></em>' attribute.
@@ -584,7 +693,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 42;
+	int GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 44;
 
 	/**
 	 * The feature id for the '<em><b>Plugin Class Name</b></em>' attribute.
@@ -593,7 +702,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PLUGIN_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 43;
+	int GEN_DIAGRAM__PLUGIN_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 45;
 
 	/**
 	 * The feature id for the '<em><b>Preference Initializer Class Name</b></em>' attribute.
@@ -602,7 +711,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 44;
+	int GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 46;
 
 	/**
 	 * The feature id for the '<em><b>Visual ID Registry Class Name</b></em>' attribute.
@@ -611,7 +720,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 45;
+	int GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 47;
 
 	/**
 	 * The feature id for the '<em><b>Create Shortcut Action Class Name</b></em>' attribute.
@@ -620,7 +729,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 46;
+	int GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 48;
 
 	/**
 	 * The feature id for the '<em><b>Element Chooser Class Name</b></em>' attribute.
@@ -629,7 +738,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 47;
+	int GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 49;
 
 	/**
 	 * The feature id for the '<em><b>Contains Shortcuts To</b></em>' attribute list.
@@ -638,7 +747,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO = GEN_COMMON_BASE_FEATURE_COUNT + 48;
+	int GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 50;
 
 	/**
 	 * The feature id for the '<em><b>Shortcuts Provided For</b></em>' attribute list.
@@ -647,7 +756,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR = GEN_COMMON_BASE_FEATURE_COUNT + 49;
+	int GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 51;
 
 	/**
 	 * The number of structural features of the '<em>Gen Diagram</em>' class.
@@ -656,7 +765,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 50;
+	int GEN_DIAGRAM_FEATURE_COUNT = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 52;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl <em>Gen Node</em>}' class.
@@ -666,7 +775,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenNode()
 	 * @generated
 	 */
-	int GEN_NODE = 3;
+	int GEN_NODE = 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCompartmentImpl <em>Gen Compartment</em>}' class.
@@ -676,17 +785,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenCompartment()
 	 * @generated
 	 */
-	int GEN_COMPARTMENT = 4;
-
-	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildNodeImpl <em>Gen Child Node</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenChildNodeImpl
-	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenChildNode()
-	 * @generated
-	 */
-	int GEN_CHILD_NODE = 5;
+	int GEN_COMPARTMENT = 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildContainerImpl <em>Gen Child Container</em>}' class.
@@ -696,7 +795,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenChildContainer()
 	 * @generated
 	 */
-	int GEN_CHILD_CONTAINER = 2;
+	int GEN_CHILD_CONTAINER = 3;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Run Time Class</b></em>' reference.
@@ -705,7 +804,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CHILD_CONTAINER__DIAGRAM_RUN_TIME_CLASS = GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS;
+	int GEN_CHILD_CONTAINER__DIAGRAM_RUN_TIME_CLASS = GEN_CONTAINER_EDIT_PART__DIAGRAM_RUN_TIME_CLASS;
 
 	/**
 	 * The feature id for the '<em><b>Visual ID</b></em>' attribute.
@@ -714,7 +813,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CHILD_CONTAINER__VISUAL_ID = GEN_COMMON_BASE__VISUAL_ID;
+	int GEN_CHILD_CONTAINER__VISUAL_ID = GEN_CONTAINER_EDIT_PART__VISUAL_ID;
 
 	/**
 	 * The feature id for the '<em><b>Edit Part Class Name</b></em>' attribute.
@@ -723,7 +822,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CHILD_CONTAINER__EDIT_PART_CLASS_NAME = GEN_COMMON_BASE__EDIT_PART_CLASS_NAME;
+	int GEN_CHILD_CONTAINER__EDIT_PART_CLASS_NAME = GEN_CONTAINER_EDIT_PART__EDIT_PART_CLASS_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Item Semantic Edit Policy Class Name</b></em>' attribute.
@@ -732,7 +831,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CHILD_CONTAINER__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME = GEN_COMMON_BASE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME;
+	int GEN_CHILD_CONTAINER__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME = GEN_CONTAINER_EDIT_PART__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Notation View Factory Class Name</b></em>' attribute.
@@ -741,7 +840,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CHILD_CONTAINER__NOTATION_VIEW_FACTORY_CLASS_NAME = GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME;
+	int GEN_CHILD_CONTAINER__NOTATION_VIEW_FACTORY_CLASS_NAME = GEN_CONTAINER_EDIT_PART__NOTATION_VIEW_FACTORY_CLASS_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Viewmap</b></em>' containment reference.
@@ -750,16 +849,25 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CHILD_CONTAINER__VIEWMAP = GEN_COMMON_BASE__VIEWMAP;
+	int GEN_CHILD_CONTAINER__VIEWMAP = GEN_CONTAINER_EDIT_PART__VIEWMAP;
 
 	/**
-	 * The feature id for the '<em><b>Child Nodes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Contained Nodes</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CHILD_CONTAINER__CHILD_NODES = GEN_COMMON_BASE_FEATURE_COUNT + 0;
+	int GEN_CHILD_CONTAINER__CONTAINED_NODES = GEN_CONTAINER_EDIT_PART__CONTAINED_NODES;
+
+	/**
+	 * The feature id for the '<em><b>Child Nodes</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_CONTAINER__CHILD_NODES = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Canonical Edit Policy Class Name</b></em>' attribute.
@@ -768,7 +876,16 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME = GEN_COMMON_BASE_FEATURE_COUNT + 1;
+	int GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>List Layout</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_CONTAINER__LIST_LAYOUT = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Gen Child Container</em>' class.
@@ -777,7 +894,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CHILD_CONTAINER_FEATURE_COUNT = GEN_COMMON_BASE_FEATURE_COUNT + 2;
+	int GEN_CHILD_CONTAINER_FEATURE_COUNT = GEN_CONTAINER_EDIT_PART_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Run Time Class</b></em>' reference.
@@ -834,7 +951,16 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_NODE__VIEWMAP = GEN_CHILD_CONTAINER__VIEWMAP;
 
 	/**
-	 * The feature id for the '<em><b>Child Nodes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Contained Nodes</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_NODE__CONTAINED_NODES = GEN_CHILD_CONTAINER__CONTAINED_NODES;
+
+	/**
+	 * The feature id for the '<em><b>Child Nodes</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -852,13 +978,13 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_NODE__CANONICAL_EDIT_POLICY_CLASS_NAME = GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Diagram</b></em>' container reference.
+	 * The feature id for the '<em><b>List Layout</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE__DIAGRAM = GEN_CHILD_CONTAINER_FEATURE_COUNT + 0;
+	int GEN_NODE__LIST_LAYOUT = GEN_CHILD_CONTAINER__LIST_LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Model Facet</b></em>' containment reference.
@@ -867,7 +993,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE__MODEL_FACET = GEN_CHILD_CONTAINER_FEATURE_COUNT + 1;
+	int GEN_NODE__MODEL_FACET = GEN_CHILD_CONTAINER_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Labels</b></em>' containment reference list.
@@ -876,25 +1002,16 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE__LABELS = GEN_CHILD_CONTAINER_FEATURE_COUNT + 2;
+	int GEN_NODE__LABELS = GEN_CHILD_CONTAINER_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Compartments</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Compartments</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE__COMPARTMENTS = GEN_CHILD_CONTAINER_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Child Containers Placement</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NODE__CHILD_CONTAINERS_PLACEMENT = GEN_CHILD_CONTAINER_FEATURE_COUNT + 4;
+	int GEN_NODE__COMPARTMENTS = GEN_CHILD_CONTAINER_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Graphical Node Edit Policy Class Name</b></em>' attribute.
@@ -903,7 +1020,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME = GEN_CHILD_CONTAINER_FEATURE_COUNT + 5;
+	int GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME = GEN_CHILD_CONTAINER_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Gen Node</em>' class.
@@ -912,7 +1029,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NODE_FEATURE_COUNT = GEN_CHILD_CONTAINER_FEATURE_COUNT + 6;
+	int GEN_NODE_FEATURE_COUNT = GEN_CHILD_CONTAINER_FEATURE_COUNT + 4;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenTopLevelNodeImpl <em>Gen Top Level Node</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenTopLevelNodeImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenTopLevelNode()
+	 * @generated
+	 */
+	int GEN_TOP_LEVEL_NODE = 5;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Run Time Class</b></em>' reference.
@@ -921,7 +1048,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMPARTMENT__DIAGRAM_RUN_TIME_CLASS = GEN_CHILD_CONTAINER__DIAGRAM_RUN_TIME_CLASS;
+	int GEN_TOP_LEVEL_NODE__DIAGRAM_RUN_TIME_CLASS = GEN_NODE__DIAGRAM_RUN_TIME_CLASS;
 
 	/**
 	 * The feature id for the '<em><b>Visual ID</b></em>' attribute.
@@ -930,7 +1057,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMPARTMENT__VISUAL_ID = GEN_CHILD_CONTAINER__VISUAL_ID;
+	int GEN_TOP_LEVEL_NODE__VISUAL_ID = GEN_NODE__VISUAL_ID;
 
 	/**
 	 * The feature id for the '<em><b>Edit Part Class Name</b></em>' attribute.
@@ -939,7 +1066,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMPARTMENT__EDIT_PART_CLASS_NAME = GEN_CHILD_CONTAINER__EDIT_PART_CLASS_NAME;
+	int GEN_TOP_LEVEL_NODE__EDIT_PART_CLASS_NAME = GEN_NODE__EDIT_PART_CLASS_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Item Semantic Edit Policy Class Name</b></em>' attribute.
@@ -948,7 +1075,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMPARTMENT__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME = GEN_CHILD_CONTAINER__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME;
+	int GEN_TOP_LEVEL_NODE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME = GEN_NODE__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Notation View Factory Class Name</b></em>' attribute.
@@ -957,7 +1084,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMPARTMENT__NOTATION_VIEW_FACTORY_CLASS_NAME = GEN_CHILD_CONTAINER__NOTATION_VIEW_FACTORY_CLASS_NAME;
+	int GEN_TOP_LEVEL_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME = GEN_NODE__NOTATION_VIEW_FACTORY_CLASS_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Viewmap</b></em>' containment reference.
@@ -966,16 +1093,25 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMPARTMENT__VIEWMAP = GEN_CHILD_CONTAINER__VIEWMAP;
+	int GEN_TOP_LEVEL_NODE__VIEWMAP = GEN_NODE__VIEWMAP;
 
 	/**
-	 * The feature id for the '<em><b>Child Nodes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Contained Nodes</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMPARTMENT__CHILD_NODES = GEN_CHILD_CONTAINER__CHILD_NODES;
+	int GEN_TOP_LEVEL_NODE__CONTAINED_NODES = GEN_NODE__CONTAINED_NODES;
+
+	/**
+	 * The feature id for the '<em><b>Child Nodes</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_TOP_LEVEL_NODE__CHILD_NODES = GEN_NODE__CHILD_NODES;
 
 	/**
 	 * The feature id for the '<em><b>Canonical Edit Policy Class Name</b></em>' attribute.
@@ -984,70 +1120,80 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMPARTMENT__CANONICAL_EDIT_POLICY_CLASS_NAME = GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME;
+	int GEN_TOP_LEVEL_NODE__CANONICAL_EDIT_POLICY_CLASS_NAME = GEN_NODE__CANONICAL_EDIT_POLICY_CLASS_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Title</b></em>' attribute.
+	 * The feature id for the '<em><b>List Layout</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMPARTMENT__TITLE = GEN_CHILD_CONTAINER_FEATURE_COUNT + 0;
+	int GEN_TOP_LEVEL_NODE__LIST_LAYOUT = GEN_NODE__LIST_LAYOUT;
 
 	/**
-	 * The feature id for the '<em><b>Can Collapse</b></em>' attribute.
+	 * The feature id for the '<em><b>Model Facet</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMPARTMENT__CAN_COLLAPSE = GEN_CHILD_CONTAINER_FEATURE_COUNT + 1;
+	int GEN_TOP_LEVEL_NODE__MODEL_FACET = GEN_NODE__MODEL_FACET;
 
 	/**
-	 * The feature id for the '<em><b>Hide If Empty</b></em>' attribute.
+	 * The feature id for the '<em><b>Labels</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMPARTMENT__HIDE_IF_EMPTY = GEN_CHILD_CONTAINER_FEATURE_COUNT + 2;
+	int GEN_TOP_LEVEL_NODE__LABELS = GEN_NODE__LABELS;
 
 	/**
-	 * The feature id for the '<em><b>Needs Title</b></em>' attribute.
+	 * The feature id for the '<em><b>Compartments</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMPARTMENT__NEEDS_TITLE = GEN_CHILD_CONTAINER_FEATURE_COUNT + 3;
+	int GEN_TOP_LEVEL_NODE__COMPARTMENTS = GEN_NODE__COMPARTMENTS;
 
 	/**
-	 * The feature id for the '<em><b>Layout Kind</b></em>' attribute.
+	 * The feature id for the '<em><b>Graphical Node Edit Policy Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMPARTMENT__LAYOUT_KIND = GEN_CHILD_CONTAINER_FEATURE_COUNT + 4;
+	int GEN_TOP_LEVEL_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME = GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Node</b></em>' container reference.
+	 * The feature id for the '<em><b>Diagram</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMPARTMENT__NODE = GEN_CHILD_CONTAINER_FEATURE_COUNT + 5;
+	int GEN_TOP_LEVEL_NODE__DIAGRAM = GEN_NODE_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Gen Compartment</em>' class.
+	 * The number of structural features of the '<em>Gen Top Level Node</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_COMPARTMENT_FEATURE_COUNT = GEN_CHILD_CONTAINER_FEATURE_COUNT + 6;
+	int GEN_TOP_LEVEL_NODE_FEATURE_COUNT = GEN_NODE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenChildNodeImpl <em>Gen Child Node</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenChildNodeImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenChildNode()
+	 * @generated
+	 */
+	int GEN_CHILD_NODE = 6;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Run Time Class</b></em>' reference.
@@ -1104,7 +1250,16 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_CHILD_NODE__VIEWMAP = GEN_NODE__VIEWMAP;
 
 	/**
-	 * The feature id for the '<em><b>Child Nodes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Contained Nodes</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_NODE__CONTAINED_NODES = GEN_NODE__CONTAINED_NODES;
+
+	/**
+	 * The feature id for the '<em><b>Child Nodes</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1122,13 +1277,13 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_CHILD_NODE__CANONICAL_EDIT_POLICY_CLASS_NAME = GEN_NODE__CANONICAL_EDIT_POLICY_CLASS_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Diagram</b></em>' container reference.
+	 * The feature id for the '<em><b>List Layout</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CHILD_NODE__DIAGRAM = GEN_NODE__DIAGRAM;
+	int GEN_CHILD_NODE__LIST_LAYOUT = GEN_NODE__LIST_LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Model Facet</b></em>' containment reference.
@@ -1149,22 +1304,13 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_CHILD_NODE__LABELS = GEN_NODE__LABELS;
 
 	/**
-	 * The feature id for the '<em><b>Compartments</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Compartments</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
 	int GEN_CHILD_NODE__COMPARTMENTS = GEN_NODE__COMPARTMENTS;
-
-	/**
-	 * The feature id for the '<em><b>Child Containers Placement</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_CHILD_NODE__CHILD_CONTAINERS_PLACEMENT = GEN_NODE__CHILD_CONTAINERS_PLACEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Graphical Node Edit Policy Class Name</b></em>' attribute.
@@ -1176,13 +1322,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_CHILD_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME = GEN_NODE__GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME;
 
 	/**
-	 * The feature id for the '<em><b>Container</b></em>' container reference.
+	 * The feature id for the '<em><b>Diagram</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CHILD_NODE__CONTAINER = GEN_NODE_FEATURE_COUNT + 0;
+	int GEN_CHILD_NODE__DIAGRAM = GEN_NODE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Containers</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_CHILD_NODE__CONTAINERS = GEN_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Gen Child Node</em>' class.
@@ -1191,7 +1346,160 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_CHILD_NODE_FEATURE_COUNT = GEN_NODE_FEATURE_COUNT + 1;
+	int GEN_CHILD_NODE_FEATURE_COUNT = GEN_NODE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Diagram Run Time Class</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMPARTMENT__DIAGRAM_RUN_TIME_CLASS = GEN_CHILD_CONTAINER__DIAGRAM_RUN_TIME_CLASS;
+
+	/**
+	 * The feature id for the '<em><b>Visual ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMPARTMENT__VISUAL_ID = GEN_CHILD_CONTAINER__VISUAL_ID;
+
+	/**
+	 * The feature id for the '<em><b>Edit Part Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMPARTMENT__EDIT_PART_CLASS_NAME = GEN_CHILD_CONTAINER__EDIT_PART_CLASS_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Item Semantic Edit Policy Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMPARTMENT__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME = GEN_CHILD_CONTAINER__ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Notation View Factory Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMPARTMENT__NOTATION_VIEW_FACTORY_CLASS_NAME = GEN_CHILD_CONTAINER__NOTATION_VIEW_FACTORY_CLASS_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Viewmap</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMPARTMENT__VIEWMAP = GEN_CHILD_CONTAINER__VIEWMAP;
+
+	/**
+	 * The feature id for the '<em><b>Contained Nodes</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMPARTMENT__CONTAINED_NODES = GEN_CHILD_CONTAINER__CONTAINED_NODES;
+
+	/**
+	 * The feature id for the '<em><b>Child Nodes</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMPARTMENT__CHILD_NODES = GEN_CHILD_CONTAINER__CHILD_NODES;
+
+	/**
+	 * The feature id for the '<em><b>Canonical Edit Policy Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMPARTMENT__CANONICAL_EDIT_POLICY_CLASS_NAME = GEN_CHILD_CONTAINER__CANONICAL_EDIT_POLICY_CLASS_NAME;
+
+	/**
+	 * The feature id for the '<em><b>List Layout</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMPARTMENT__LIST_LAYOUT = GEN_CHILD_CONTAINER__LIST_LAYOUT;
+
+	/**
+	 * The feature id for the '<em><b>Title</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMPARTMENT__TITLE = GEN_CHILD_CONTAINER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Can Collapse</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMPARTMENT__CAN_COLLAPSE = GEN_CHILD_CONTAINER_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Hide If Empty</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMPARTMENT__HIDE_IF_EMPTY = GEN_CHILD_CONTAINER_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Needs Title</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMPARTMENT__NEEDS_TITLE = GEN_CHILD_CONTAINER_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Diagram</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMPARTMENT__DIAGRAM = GEN_CHILD_CONTAINER_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Node</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMPARTMENT__NODE = GEN_CHILD_CONTAINER_FEATURE_COUNT + 5;
+
+	/**
+	 * The number of structural features of the '<em>Gen Compartment</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_COMPARTMENT_FEATURE_COUNT = GEN_CHILD_CONTAINER_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenLinkImpl <em>Gen Link</em>}' class.
@@ -1201,7 +1509,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenLink()
 	 * @generated
 	 */
-	int GEN_LINK = 6;
+	int GEN_LINK = 8;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Run Time Class</b></em>' reference.
@@ -1337,7 +1645,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenLabel()
 	 * @generated
 	 */
-	int GEN_LABEL = 7;
+	int GEN_LABEL = 9;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Run Time Class</b></em>' reference.
@@ -1428,7 +1736,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getExternalLabel()
 	 * @generated
 	 */
-	int EXTERNAL_LABEL = 8;
+	int EXTERNAL_LABEL = 10;
 
 	/**
 	 * The feature id for the '<em><b>Text Edit Part Class Name</b></em>' attribute.
@@ -1465,7 +1773,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenNodeLabel()
 	 * @generated
 	 */
-	int GEN_NODE_LABEL = 9;
+	int GEN_NODE_LABEL = 11;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Run Time Class</b></em>' reference.
@@ -1565,7 +1873,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenExternalNodeLabel()
 	 * @generated
 	 */
-	int GEN_EXTERNAL_NODE_LABEL = 10;
+	int GEN_EXTERNAL_NODE_LABEL = 12;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Run Time Class</b></em>' reference.
@@ -1683,7 +1991,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenLinkLabel()
 	 * @generated
 	 */
-	int GEN_LINK_LABEL = 11;
+	int GEN_LINK_LABEL = 13;
 
 	/**
 	 * The feature id for the '<em><b>Diagram Run Time Class</b></em>' reference.
@@ -1810,7 +2118,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getModelFacet()
 	 * @generated
 	 */
-	int MODEL_FACET = 12;
+	int MODEL_FACET = 14;
 
 	/**
 	 * The number of structural features of the '<em>Model Facet</em>' class.
@@ -1829,7 +2137,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkModelFacet()
 	 * @generated
 	 */
-	int LINK_MODEL_FACET = 13;
+	int LINK_MODEL_FACET = 15;
 
 	/**
 	 * The number of structural features of the '<em>Link Model Facet</em>' class.
@@ -1848,7 +2156,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getTypeModelFacet()
 	 * @generated
 	 */
-	int TYPE_MODEL_FACET = 14;
+	int TYPE_MODEL_FACET = 16;
 
 	/**
 	 * The feature id for the '<em><b>Meta Class</b></em>' reference.
@@ -1912,7 +2220,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getFeatureModelFacet()
 	 * @generated
 	 */
-	int FEATURE_MODEL_FACET = 15;
+	int FEATURE_MODEL_FACET = 17;
 
 	/**
 	 * The feature id for the '<em><b>Meta Feature</b></em>' reference.
@@ -1940,7 +2248,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getTypeLinkModelFacet()
 	 * @generated
 	 */
-	int TYPE_LINK_MODEL_FACET = 16;
+	int TYPE_LINK_MODEL_FACET = 18;
 
 	/**
 	 * The feature id for the '<em><b>Meta Class</b></em>' reference.
@@ -2022,7 +2330,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getViewmap()
 	 * @generated
 	 */
-	int VIEWMAP = 21;
+	int VIEWMAP = 23;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.Attributes <em>Attributes</em>}' class.
@@ -2032,7 +2340,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getAttributes()
 	 * @generated
 	 */
-	int ATTRIBUTES = 17;
+	int ATTRIBUTES = 19;
 
 	/**
 	 * The number of structural features of the '<em>Attributes</em>' class.
@@ -2051,7 +2359,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getColorAttributes()
 	 * @generated
 	 */
-	int COLOR_ATTRIBUTES = 18;
+	int COLOR_ATTRIBUTES = 20;
 
 	/**
 	 * The feature id for the '<em><b>Foreground Color</b></em>' attribute.
@@ -2088,7 +2396,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getShapeAttributes()
 	 * @generated
 	 */
-	int SHAPE_ATTRIBUTES = 19;
+	int SHAPE_ATTRIBUTES = 21;
 
 	/**
 	 * The feature id for the '<em><b>Line Width</b></em>' attribute.
@@ -2125,7 +2433,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getDefaultSizeAttributes()
 	 * @generated
 	 */
-	int DEFAULT_SIZE_ATTRIBUTES = 20;
+	int DEFAULT_SIZE_ATTRIBUTES = 22;
 
 	/**
 	 * The feature id for the '<em><b>Width</b></em>' attribute.
@@ -2180,7 +2488,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getFigureViewmap()
 	 * @generated
 	 */
-	int FIGURE_VIEWMAP = 22;
+	int FIGURE_VIEWMAP = 24;
 
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -2217,7 +2525,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getSnippetViewmap()
 	 * @generated
 	 */
-	int SNIPPET_VIEWMAP = 23;
+	int SNIPPET_VIEWMAP = 25;
 
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -2254,7 +2562,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getInnerClassViewmap()
 	 * @generated
 	 */
-	int INNER_CLASS_VIEWMAP = 24;
+	int INNER_CLASS_VIEWMAP = 26;
 
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -2300,7 +2608,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getPalette()
 	 * @generated
 	 */
-	int PALETTE = 27;
+	int PALETTE = 29;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.EntryBaseImpl <em>Entry Base</em>}' class.
@@ -2310,7 +2618,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getEntryBase()
 	 * @generated
 	 */
-	int ENTRY_BASE = 28;
+	int ENTRY_BASE = 30;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.ToolEntryImpl <em>Tool Entry</em>}' class.
@@ -2320,7 +2628,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getToolEntry()
 	 * @generated
 	 */
-	int TOOL_ENTRY = 29;
+	int TOOL_ENTRY = 31;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.NodeEntryImpl <em>Node Entry</em>}' class.
@@ -2330,7 +2638,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getNodeEntry()
 	 * @generated
 	 */
-	int NODE_ENTRY = 30;
+	int NODE_ENTRY = 32;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.LinkEntryImpl <em>Link Entry</em>}' class.
@@ -2340,7 +2648,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkEntry()
 	 * @generated
 	 */
-	int LINK_ENTRY = 31;
+	int LINK_ENTRY = 33;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.ToolGroupImpl <em>Tool Group</em>}' class.
@@ -2350,7 +2658,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getToolGroup()
 	 * @generated
 	 */
-	int TOOL_GROUP = 32;
+	int TOOL_GROUP = 34;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.ValueExpressionImpl <em>Value Expression</em>}' class.
@@ -2360,7 +2668,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getValueExpression()
 	 * @generated
 	 */
-	int VALUE_EXPRESSION = 25;
+	int VALUE_EXPRESSION = 27;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -2397,7 +2705,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getModelElementSelector()
 	 * @generated
 	 */
-	int MODEL_ELEMENT_SELECTOR = 26;
+	int MODEL_ELEMENT_SELECTOR = 28;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -2902,7 +3210,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenElementInitializer()
 	 * @generated
 	 */
-	int GEN_ELEMENT_INITIALIZER = 33;
+	int GEN_ELEMENT_INITIALIZER = 35;
 
 	/**
 	 * The feature id for the '<em><b>Type Model Facet</b></em>' container reference.
@@ -2930,7 +3238,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenFeatureSeqInitializer()
 	 * @generated
 	 */
-	int GEN_FEATURE_SEQ_INITIALIZER = 34;
+	int GEN_FEATURE_SEQ_INITIALIZER = 36;
 
 	/**
 	 * The feature id for the '<em><b>Type Model Facet</b></em>' container reference.
@@ -2967,7 +3275,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenFeatureValueSpec()
 	 * @generated
 	 */
-	int GEN_FEATURE_VALUE_SPEC = 35;
+	int GEN_FEATURE_VALUE_SPEC = 37;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -3013,7 +3321,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenLinkConstraints()
 	 * @generated
 	 */
-	int GEN_LINK_CONSTRAINTS = 36;
+	int GEN_LINK_CONSTRAINTS = 38;
 
 	/**
 	 * The feature id for the '<em><b>Link</b></em>' container reference.
@@ -3059,7 +3367,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenAuditContainer()
 	 * @generated
 	 */
-	int GEN_AUDIT_CONTAINER = 37;
+	int GEN_AUDIT_CONTAINER = 39;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3132,7 +3440,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenAuditRule()
 	 * @generated
 	 */
-	int GEN_AUDIT_RULE = 38;
+	int GEN_AUDIT_RULE = 40;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3225,26 +3533,6 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_AUDIT_RULE_FEATURE_COUNT = 9;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind <em>Compartment Placement Kind</em>}' enum.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind
-	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getCompartmentPlacementKind()
-	 * @generated
-	 */
-	int COMPARTMENT_PLACEMENT_KIND = 39;
-
-	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind <em>Compartment Layout Kind</em>}' enum.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind
-	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getCompartmentLayoutKind()
-	 * @generated
-	 */
-	int COMPARTMENT_LAYOUT_KIND = 40;
-
-	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment <em>Link Label Alignment</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3297,15 +3585,26 @@ public interface GMFGenPackage extends EPackage {
 	EReference getGenDiagram_DomainDiagramElement();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getNodes <em>Nodes</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getChildNodes <em>Child Nodes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Nodes</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getNodes()
+	 * @return the meta object for the containment reference list '<em>Child Nodes</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getChildNodes()
 	 * @see #getGenDiagram()
 	 * @generated
 	 */
-	EReference getGenDiagram_Nodes();
+	EReference getGenDiagram_ChildNodes();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getTopLevelNodes <em>Top Level Nodes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Top Level Nodes</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getTopLevelNodes()
+	 * @see #getGenDiagram()
+	 * @generated
+	 */
+	EReference getGenDiagram_TopLevelNodes();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getLinks <em>Links</em>}'.
@@ -3317,6 +3616,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenDiagram_Links();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCompartments <em>Compartments</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Compartments</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCompartments()
+	 * @see #getGenDiagram()
+	 * @generated
+	 */
+	EReference getGenDiagram_Compartments();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getAudits <em>Audits</em>}'.
@@ -3901,6 +4211,27 @@ public interface GMFGenPackage extends EPackage {
 	EReference getGenCommonBase_Viewmap();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenContainerEditPart <em>Gen Container Edit Part</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Container Edit Part</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenContainerEditPart
+	 * @generated
+	 */
+	EClass getGenContainerEditPart();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenContainerEditPart#getContainedNodes <em>Contained Nodes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Contained Nodes</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenContainerEditPart#getContainedNodes()
+	 * @see #getGenContainerEditPart()
+	 * @generated
+	 */
+	EReference getGenContainerEditPart_ContainedNodes();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenNode <em>Gen Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3909,17 +4240,6 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getGenNode();
-
-	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getDiagram <em>Diagram</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Diagram</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenNode#getDiagram()
-	 * @see #getGenNode()
-	 * @generated
-	 */
-	EReference getGenNode_Diagram();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getLabels <em>Labels</em>}'.
@@ -3933,26 +4253,15 @@ public interface GMFGenPackage extends EPackage {
 	EReference getGenNode_Labels();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getCompartments <em>Compartments</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getCompartments <em>Compartments</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Compartments</em>'.
+	 * @return the meta object for the reference list '<em>Compartments</em>'.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenNode#getCompartments()
 	 * @see #getGenNode()
 	 * @generated
 	 */
 	EReference getGenNode_Compartments();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getChildContainersPlacement <em>Child Containers Placement</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Child Containers Placement</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenNode#getChildContainersPlacement()
-	 * @see #getGenNode()
-	 * @generated
-	 */
-	EAttribute getGenNode_ChildContainersPlacement();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getGraphicalNodeEditPolicyClassName <em>Graphical Node Edit Policy Class Name</em>}'.
@@ -3964,6 +4273,59 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenNode_GraphicalNodeEditPolicyClassName();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode <em>Gen Top Level Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Top Level Node</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode
+	 * @generated
+	 */
+	EClass getGenTopLevelNode();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode#getDiagram <em>Diagram</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Diagram</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode#getDiagram()
+	 * @see #getGenTopLevelNode()
+	 * @generated
+	 */
+	EReference getGenTopLevelNode_Diagram();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenChildNode <em>Gen Child Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Child Node</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildNode
+	 * @generated
+	 */
+	EClass getGenChildNode();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenChildNode#getDiagram <em>Diagram</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Diagram</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildNode#getDiagram()
+	 * @see #getGenChildNode()
+	 * @generated
+	 */
+	EReference getGenChildNode_Diagram();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenChildNode#getContainers <em>Containers</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Containers</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildNode#getContainers()
+	 * @see #getGenChildNode()
+	 * @generated
+	 */
+	EReference getGenChildNode_Containers();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment <em>Gen Compartment</em>}'.
@@ -4020,21 +4382,21 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getGenCompartment_NeedsTitle();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#getLayoutKind <em>Layout Kind</em>}'.
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#getDiagram <em>Diagram</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Layout Kind</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenCompartment#getLayoutKind()
+	 * @return the meta object for the container reference '<em>Diagram</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCompartment#getDiagram()
 	 * @see #getGenCompartment()
 	 * @generated
 	 */
-	EAttribute getGenCompartment_LayoutKind();
+	EReference getGenCompartment_Diagram();
 
 	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#getNode <em>Node</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#getNode <em>Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Node</em>'.
+	 * @return the meta object for the reference '<em>Node</em>'.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenCompartment#getNode()
 	 * @see #getGenCompartment()
 	 * @generated
@@ -4053,27 +4415,6 @@ public interface GMFGenPackage extends EPackage {
 	EReference getGenNode_ModelFacet();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenChildNode <em>Gen Child Node</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Gen Child Node</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildNode
-	 * @generated
-	 */
-	EClass getGenChildNode();
-
-	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenChildNode#getContainer <em>Container</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Container</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildNode#getContainer()
-	 * @see #getGenChildNode()
-	 * @generated
-	 */
-	EReference getGenChildNode_Container();
-
-	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer <em>Gen Child Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4084,10 +4425,10 @@ public interface GMFGenPackage extends EPackage {
 	EClass getGenChildContainer();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer#getChildNodes <em>Child Nodes</em>}'.
+	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer#getChildNodes <em>Child Nodes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Child Nodes</em>'.
+	 * @return the meta object for the reference list '<em>Child Nodes</em>'.
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildContainer#getChildNodes()
 	 * @see #getGenChildContainer()
 	 * @generated
@@ -4104,6 +4445,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenChildContainer_CanonicalEditPolicyClassName();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenChildContainer#isListLayout <em>List Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>List Layout</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildContainer#isListLayout()
+	 * @see #getGenChildContainer()
+	 * @generated
+	 */
+	EAttribute getGenChildContainer_ListLayout();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenLink <em>Gen Link</em>}'.
@@ -5270,26 +5622,6 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenAuditRule_Container();
-
-	/**
-	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind <em>Compartment Placement Kind</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Compartment Placement Kind</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.CompartmentPlacementKind
-	 * @generated
-	 */
-	EEnum getCompartmentPlacementKind();
-
-	/**
-	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind <em>Compartment Layout Kind</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for enum '<em>Compartment Layout Kind</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.CompartmentLayoutKind
-	 * @generated
-	 */
-	EEnum getCompartmentLayoutKind();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment <em>Link Label Alignment</em>}'.

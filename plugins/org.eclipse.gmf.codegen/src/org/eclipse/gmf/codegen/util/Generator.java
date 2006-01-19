@@ -12,6 +12,7 @@
 package org.eclipse.gmf.codegen.util;
 
 import java.io.ByteArrayInputStream;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -36,7 +37,6 @@ import org.eclipse.emf.codegen.jmerge.JControlModel;
 import org.eclipse.emf.codegen.jmerge.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -113,9 +113,17 @@ public class Generator implements Runnable {
 			generateReferenceConnectionEditPolicy();
 			generateDiagramCanonicalEditPolicy();
 			generateDiagramItemSemanticEditPolicy();
-			for (Iterator nodes = myDiagram.getNodes().iterator(); nodes.hasNext();) {
+			for (Iterator nodes = myDiagram.getAllNodes().iterator(); nodes.hasNext();) {
 				GenNode node = (GenNode) nodes.next();
-				generateNode(node);
+				if (node.isListContainerEntry()) {
+					generateListContainerNode(node);
+				} else {
+					generateNode(node);
+				}
+			}
+			for (Iterator compartments = myDiagram.getCompartments().iterator(); compartments.hasNext();) {
+				GenCompartment compartment = (GenCompartment) compartments.next();
+				generateCompartment(compartment);
 			}
 			for (Iterator it = myDiagram.getLinks().iterator(); it.hasNext();) {
 				final GenLink next = (GenLink) it.next();
@@ -206,17 +214,13 @@ public class Generator implements Runnable {
 				generateNodeLabelTextViewFactory(label);
 			}
 		}
-		for (Iterator compartments = node.getCompartments().iterator(); compartments.hasNext();) {
-			GenCompartment compartment = (GenCompartment) compartments.next();
-			generateCompartment(compartment);
-		}
 		generateChildContainer(node);
 		generateNodeGraphicalNodeEditPolicy(node);
 		generateNodeItemSemanticEditPolicy(node);
 	}
 
-	private void generateListContainerNode(GenChildNode child) throws JETException, InterruptedException {
-		generateChildNodeEditPart(child);
+	private void generateListContainerNode(GenNode child) throws JETException, InterruptedException {
+		generateListContainerNodeEditPart(child);
 		generateNodeItemSemanticEditPolicy(child);
 		generateViewFactory(child);
 	}
@@ -231,14 +235,6 @@ public class Generator implements Runnable {
 		generateViewFactory(childContainer);
 		if (!childContainer.getChildNodes().isEmpty()) {
 			generateChildContainerCanonicalEditPolicy(childContainer);
-		}
-		for (Iterator childNodes = childContainer.getChildNodes().iterator(); childNodes.hasNext();) {
-			GenChildNode childNode = (GenChildNode) childNodes.next();
-			if (childNode.isListContainerEntry()) {
-				generateListContainerNode(childNode);
-			} else {
-				generateNode(childNode);
-			}
 		}
 	}
 
@@ -309,7 +305,7 @@ public class Generator implements Runnable {
 		);
 	}
 
-	private void generateChildNodeEditPart(GenChildNode genChildNode) throws JETException, InterruptedException {
+	private void generateListContainerNodeEditPart(GenNode genChildNode) throws JETException, InterruptedException {
 		doGenerateJavaClass(
 			EmitterFactory.getChildNodeEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
@@ -823,7 +819,7 @@ public class Generator implements Runnable {
 		Counter c = new Counter(myDiagram);
 		c.setAdditionalOperations(8); // init, palette, editor, plugin.xml, etc
 		c.setOperationsPerNode(2);
-		c.setOperationsPerChildNode(1);
+		c.setOperationsPerListContainerNode(1);
 		c.setOperationsPerLink(2);
 		myProgress.beginTask(Messages.start, c.getTotal());
 	}
@@ -938,8 +934,9 @@ public class Generator implements Runnable {
 		private final GenDiagram myDiagram;
 		private int myOpsPerNode = 1;
 		private int myOpsPerLink = 1;
-		private int myOpsPerChildNode = 1;
+		private int myOpsPerListContainerNode = 1;
 		private int myAdditionalOps = 0;
+		private int myOpsPerCompartment = 1;
 
 		Counter(GenDiagram diagram) {
 			myDiagram = diagram;
@@ -951,26 +948,34 @@ public class Generator implements Runnable {
 		public void setOperationsPerLink(int opsPerLink) {
 			myOpsPerLink = opsPerLink;
 		}
-		public void setOperationsPerChildNode(int opsPerChild) {
-			myOpsPerChildNode = opsPerChild;
+		public void setOperationsPerListContainerNode(int opsPerChild) {
+			myOpsPerListContainerNode = opsPerChild;
+		}
+		public void setOperationsPerCompartment(int opsPerCompartment) {
+			myOpsPerCompartment = opsPerCompartment;
 		}
 		public void setAdditionalOperations(int additionalOps) {
 			myAdditionalOps = additionalOps;
 		}
 		public int getTotal() {
 			int rv = myAdditionalOps;
-			rv += myDiagram.getNodes().size() * myOpsPerNode;
+			rv += getNodesCound(myDiagram.getAllNodes());
+			rv += myDiagram.getCompartments().size() * myOpsPerCompartment;
 			rv += myDiagram.getLinks().size() * myOpsPerLink;
-			rv += getChildNodeCount() * myOpsPerChildNode;
 			return rv;  
 		}
 
-		private int getChildNodeCount() {
-			int rv = 0;
-			for (Iterator it = myDiagram.getNodes().iterator(); it.hasNext();) {
-				rv += AccessUtil.getAllChildNodes((GenNode) it.next()).size();
+		private int getNodesCound(Collection nodes) {
+			int counter = 0;
+			for (Iterator it = nodes.iterator(); it.hasNext();) {
+				GenNode nextNode = (GenNode) it.next();
+				if (nextNode.isListContainerEntry()) {
+					counter += myOpsPerNode;
+				} else {
+					counter += myOpsPerListContainerNode;
+				}
 			}
-			return rv;
+			return counter;
 		}
 	}
 }

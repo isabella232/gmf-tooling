@@ -23,35 +23,25 @@ public class <%=genDiagram.getModelingAssistantProviderClassName()%> extends Mod
 	 */
 	public List getTypesForPopupBar(IAdaptable host) {
 		Object editPart = host.getAdapter(IGraphicalEditPart.class);
-		if (editPart instanceof <%=importManager.getImportedName(genDiagram.getEditPartQualifiedClassName())%>) {
-			List children = new ArrayList();
 <%
-List children = genDiagram.getNodes();
-for (int i = 0; i < children.size(); i++) {
+Collection allContainers = new LinkedList(genDiagram.getAllContainers());
+allContainers.add(genDiagram);
+for (Iterator contents = allContainers.iterator(); contents.hasNext(); ) {
+	GenContainerEditPart genContainer = (GenContainerEditPart) contents.next();
+	List children = genContainer.getContainedNodes();
+	if (!children.isEmpty()) {
 %>
-			children.add(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=((GenNode) children.get(i)).getUniqueIdentifier()%>);
-<%}%>
-			return children;
-<%
-for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
-	Object next = contents.next();
-	if (next instanceof GenChildContainer) {
-		GenChildContainer genContainer = (GenChildContainer) next;
-		children = genContainer.getChildNodes();
-		if (!children.isEmpty()) {
-%>
-		} else if (editPart instanceof <%=importManager.getImportedName(genContainer.getEditPartQualifiedClassName())%>) {
+		if (editPart instanceof <%=importManager.getImportedName(genContainer.getEditPartQualifiedClassName())%>) {
 			List children = new ArrayList();
 <%			for (int i = 0; i < children.size(); i++) {%>
 			children.add(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=((GenNode) children.get(i)).getUniqueIdentifier()%>);
 <%			}%>
 			return children;
-<%
 		}
+<%
 	}
 }
 %>
-		}
 		return Collections.EMPTY_LIST;
 	}
 }

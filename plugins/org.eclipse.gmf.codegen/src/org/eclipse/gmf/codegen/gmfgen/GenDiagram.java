@@ -21,8 +21,10 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDomainMetaModel <em>Domain Meta Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDomainDiagramElement <em>Domain Diagram Element</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getNodes <em>Nodes</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getChildNodes <em>Child Nodes</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getTopLevelNodes <em>Top Level Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getLinks <em>Links</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getAudits <em>Audits</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPalette <em>Palette</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditCommandsPackageName <em>Edit Commands Package Name</em>}</li>
@@ -76,7 +78,7 @@ import org.eclipse.emf.common.util.EList;
  * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='nodes->forAll(n : GenNode | self.links->forAll(l : GenLink | l.oclAsType(TypeLinkModelFacet).metaClass <> n.getDomainMetaClass()))'"
  * @generated
  */
-public interface GenDiagram extends GenCommonBase {
+public interface GenDiagram extends GenContainerEditPart {
 	/**
 	 * Returns the value of the '<em><b>Domain Meta Model</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -130,22 +132,40 @@ public interface GenDiagram extends GenCommonBase {
 	void setDomainDiagramElement(GenClass value);
 
 	/**
-	 * Returns the value of the '<em><b>Nodes</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenNode}.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenNode#getDiagram <em>Diagram</em>}'.
+	 * Returns the value of the '<em><b>Child Nodes</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenChildNode}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenChildNode#getDiagram <em>Diagram</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Nodes</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Child Nodes</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Nodes</em>' containment reference list.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_Nodes()
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenNode#getDiagram
-	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenNode" opposite="diagram" containment="true"
+	 * @return the value of the '<em>Child Nodes</em>' containment reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_ChildNodes()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenChildNode#getDiagram
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenChildNode" opposite="diagram" containment="true"
 	 * @generated
 	 */
-	EList getNodes();
+	EList getChildNodes();
+
+	/**
+	 * Returns the value of the '<em><b>Top Level Nodes</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode#getDiagram <em>Diagram</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Top Level Nodes</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Top Level Nodes</em>' containment reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_TopLevelNodes()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode#getDiagram
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode" opposite="diagram" containment="true"
+	 * @generated
+	 */
+	EList getTopLevelNodes();
 
 	/**
 	 * Returns the value of the '<em><b>Links</b></em>' containment reference list.
@@ -164,6 +184,24 @@ public interface GenDiagram extends GenCommonBase {
 	 * @generated
 	 */
 	EList getLinks();
+
+	/**
+	 * Returns the value of the '<em><b>Compartments</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenCompartment}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#getDiagram <em>Diagram</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Compartments</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Compartments</em>' containment reference list.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_Compartments()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenCompartment#getDiagram
+	 * @model type="org.eclipse.gmf.codegen.gmfgen.GenCompartment" opposite="diagram" containment="true"
+	 * @generated
+	 */
+	EList getCompartments();
 
 	/**
 	 * Returns the value of the '<em><b>Audits</b></em>' containment reference.
@@ -1354,6 +1392,22 @@ public interface GenDiagram extends GenCommonBase {
 	 * @generated
 	 */
 	GenModel getEMFGenModel();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenContainerEditPart"
+	 * @generated
+	 */
+	EList getAllContainers();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenNode"
+	 * @generated
+	 */
+	EList getAllNodes();
 
 	/**
 	 * <!-- begin-user-doc -->

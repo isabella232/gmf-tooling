@@ -90,10 +90,10 @@ public class ViewFactoryGenerator
 boolean isLink = genElement instanceof GenLink;
 boolean isDiagram = genElement instanceof GenDiagram;
 boolean isCompartment = genElement instanceof GenCompartment;
-boolean isLeaf = genElement instanceof GenChildNode &&  ((GenChildNode) genElement).isListContainerEntry();
 boolean isNode = !isLink && !isDiagram && !isCompartment;
+boolean isLeaf = genElement instanceof GenNode &&  ((GenNode) genElement).isListContainerEntry();
 
-boolean isFlowLayout = isCompartment ? ((GenCompartment) genElement).getNode().getChildContainersPlacement() == CompartmentPlacementKind.FLOW_LITERAL : false;
+boolean isFlowLayout = isCompartment && !((GenCompartment) genElement).getNode().isListLayout();
 
     stringBuffer.append(TEXT_4);
     stringBuffer.append(genElement.getNotationViewFactoryClassName());

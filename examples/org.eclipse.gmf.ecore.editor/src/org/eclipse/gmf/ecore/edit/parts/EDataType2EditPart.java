@@ -77,7 +77,7 @@ public class EDataType2EditPart extends ShapeNodeEditPart {
 	 */
 	protected NodeFigure createNodeFigure() {
 		NodeFigure figure = createNodePlate();
-		figure.setBorder(new RectangularDropShadowLineBorder(0));
+		figure.setBorder(new RectangularDropShadowLineBorder(1));
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
 		figure.add(shape);

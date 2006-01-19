@@ -13,17 +13,21 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.codegen.gmfgen.*;
 
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
+import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
+import org.eclipse.gmf.codegen.gmfgen.ExternalLabel;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
-import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
+import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
 import org.eclipse.gmf.codegen.gmfgen.GenLabel;
@@ -32,6 +36,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
@@ -124,6 +129,7 @@ public class GMFGenSwitch {
 			case GMFGenPackage.GEN_DIAGRAM: {
 				GenDiagram genDiagram = (GenDiagram)theEObject;
 				Object result = caseGenDiagram(genDiagram);
+				if (result == null) result = caseGenContainerEditPart(genDiagram);
 				if (result == null) result = caseGenCommonBase(genDiagram);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -134,9 +140,17 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.GEN_CONTAINER_EDIT_PART: {
+				GenContainerEditPart genContainerEditPart = (GenContainerEditPart)theEObject;
+				Object result = caseGenContainerEditPart(genContainerEditPart);
+				if (result == null) result = caseGenCommonBase(genContainerEditPart);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.GEN_CHILD_CONTAINER: {
 				GenChildContainer genChildContainer = (GenChildContainer)theEObject;
 				Object result = caseGenChildContainer(genChildContainer);
+				if (result == null) result = caseGenContainerEditPart(genChildContainer);
 				if (result == null) result = caseGenCommonBase(genChildContainer);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -145,15 +159,18 @@ public class GMFGenSwitch {
 				GenNode genNode = (GenNode)theEObject;
 				Object result = caseGenNode(genNode);
 				if (result == null) result = caseGenChildContainer(genNode);
+				if (result == null) result = caseGenContainerEditPart(genNode);
 				if (result == null) result = caseGenCommonBase(genNode);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GMFGenPackage.GEN_COMPARTMENT: {
-				GenCompartment genCompartment = (GenCompartment)theEObject;
-				Object result = caseGenCompartment(genCompartment);
-				if (result == null) result = caseGenChildContainer(genCompartment);
-				if (result == null) result = caseGenCommonBase(genCompartment);
+			case GMFGenPackage.GEN_TOP_LEVEL_NODE: {
+				GenTopLevelNode genTopLevelNode = (GenTopLevelNode)theEObject;
+				Object result = caseGenTopLevelNode(genTopLevelNode);
+				if (result == null) result = caseGenNode(genTopLevelNode);
+				if (result == null) result = caseGenChildContainer(genTopLevelNode);
+				if (result == null) result = caseGenContainerEditPart(genTopLevelNode);
+				if (result == null) result = caseGenCommonBase(genTopLevelNode);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -162,7 +179,17 @@ public class GMFGenSwitch {
 				Object result = caseGenChildNode(genChildNode);
 				if (result == null) result = caseGenNode(genChildNode);
 				if (result == null) result = caseGenChildContainer(genChildNode);
+				if (result == null) result = caseGenContainerEditPart(genChildNode);
 				if (result == null) result = caseGenCommonBase(genChildNode);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_COMPARTMENT: {
+				GenCompartment genCompartment = (GenCompartment)theEObject;
+				Object result = caseGenCompartment(genCompartment);
+				if (result == null) result = caseGenChildContainer(genCompartment);
+				if (result == null) result = caseGenContainerEditPart(genCompartment);
+				if (result == null) result = caseGenCommonBase(genCompartment);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -432,6 +459,21 @@ public class GMFGenSwitch {
 	}
 
 	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Container Edit Part</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Container Edit Part</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenContainerEditPart(GenContainerEditPart object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpretting the object as an instance of '<em>Gen Node</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -447,17 +489,17 @@ public class GMFGenSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Compartment</em>'.
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Top Level Node</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Compartment</em>'.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Top Level Node</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseGenCompartment(GenCompartment object) {
+	public Object caseGenTopLevelNode(GenTopLevelNode object) {
 		return null;
 	}
 
@@ -473,6 +515,21 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseGenChildNode(GenChildNode object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Compartment</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Compartment</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenCompartment(GenCompartment object) {
 		return null;
 	}
 
