@@ -12,12 +12,13 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.draw2d.Connection;
-import org.eclipse.gef.EditPolicy;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.DestinationItemSemanticEditPolicy;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanReferenceConnectionEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ConnectionNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gef.EditPolicy;
+
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.DestinationItemSemanticEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.TaiPanReferenceConnectionEditPolicy;
 
 /**
  * @generated
@@ -43,8 +44,7 @@ public class DestinationEditPart extends ConnectionNodeEditPart {
 	/**
 	 * Creates figure for this edit part.
 	 * 
-	 * Body of this method does not depend on settings in generation model
-	 * so you may safely remove <i>generated</i> tag and modify it.
+	 * Body of this method does not depend on settings in generation model so you may safely remove <i>generated</i> tag and modify it.
 	 * 
 	 * @generated
 	 */

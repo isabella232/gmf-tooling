@@ -189,10 +189,8 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 	}
 
 	/**
-	 * Finds container element for the new relationship of the specified type.
-	 * Default implementation goes up by containment hierarchy starting from
-	 * the specified element and returns the first element that is instance of
-	 * the specified container class.
+	 * Finds container element for the new relationship of the specified type. Default implementation goes up by containment hierarchy starting from the specified element and returns the first element
+	 * that is instance of the specified container class.
 	 * 
 	 * @generated
 	 */

@@ -55,27 +55,21 @@ public class TaiPanDiagramEditorUtil extends IDEEditorUtil {
 	}
 
 	/**
-	 * Creates a new diagram file resource in the selected container and with
-	 * the selected name. Creates any missing resource containers along the
-	 * path; does nothing if the container resources already exist.
+	 * Creates a new diagram file resource in the selected container and with the selected name. Creates any missing resource containers along the path; does nothing if the container resources already
+	 * exist.
 	 * <p>
-	 * In normal usage, this method is invoked after the user has pressed Finish
-	 * on the wizard; the enablement of the Finish button implies that all
-	 * controls on on this page currently contain valid values.
+	 * In normal usage, this method is invoked after the user has pressed Finish on the wizard; the enablement of the Finish button implies that all controls on on this page currently contain valid
+	 * values.
 	 * </p>
 	 * <p>
-	 * Note that this page caches the new file once it has been successfully
-	 * created; subsequent invocations of this method will answer the same file
-	 * resource without attempting to create it again.
+	 * Note that this page caches the new file once it has been successfully created; subsequent invocations of this method will answer the same file resource without attempting to create it again.
 	 * </p>
 	 * <p>
-	 * This method should be called within a workspace modify operation since it
-	 * creates resources.
+	 * This method should be called within a workspace modify operation since it creates resources.
 	 * </p>
 	 * 
 	 * @generated
-	 * @return the created file resource, or <code>null</code> if the file was
-	 *         not created
+	 * @return the created file resource, or <code>null</code> if the file was not created
 	 */
 	public static final IFile createNewDiagramFile(DiagramFileCreator diagramFileCreator, IPath containerFullPath, String fileName, InputStream initialContents, String kind, Shell shell,
 			IProgressMonitor progressMonitor) {

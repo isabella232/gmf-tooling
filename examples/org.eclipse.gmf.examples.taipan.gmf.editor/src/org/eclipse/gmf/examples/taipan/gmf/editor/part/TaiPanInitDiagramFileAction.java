@@ -222,7 +222,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 		myLinkVID2EObjectMap.put(new Integer(3001), new LinkedList());
 		myLinkVID2EObjectMap.put(new Integer(3002), new LinkedList());
 		Diagram diagram = ViewService.createDiagram(diagramModel, "TaiPan", TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-		createDiagramChildren(diagram, diagramModel);
+		createAquatory_79Children(diagram, diagramModel);
 		createLinks();
 		myLinkVID2EObjectMap.clear();
 		myEObject2NodeMap.clear();
@@ -232,40 +232,14 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	/**
 	 * @generated
 	 */
-	private void createDiagramChildren(Diagram diagram, EObject diagramModel) {
-		EObject nextValue;
-		int nodeVID;
-		for (Iterator values = ((Aquatory) diagramModel).getPorts().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(diagram, nextValue, "");
-			if (1001 == nodeVID) {
-				Node nextNode = ViewService.createNode(diagram, nextValue, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-				myEObject2NodeMap.put(nextValue, nextNode);
-				createPort_1001Children(nextNode, nextValue);
-			}
-		}
-		for (Iterator values = ((Aquatory) diagramModel).getShips().iterator(); values.hasNext();) {
-			nextValue = (EObject) values.next();
-			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(diagram, nextValue, "");
-			if (1002 == nodeVID) {
-				Node nextNode = ViewService.createNode(diagram, nextValue, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-				myEObject2NodeMap.put(nextValue, nextNode);
-				createShip_1002Children(nextNode, nextValue);
-			}
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createPort_1001Children(Node viewObject, EObject modelObject) {
+	private void createPort_1001Children(View viewObject, EObject modelObject) {
 		storeLinks(modelObject);
 	}
 
 	/**
 	 * @generated
 	 */
-	private void createShip_1002Children(Node viewObject, EObject modelObject) {
+	private void createShip_1002Children(View viewObject, EObject modelObject) {
 		Node nextNode;
 		nextNode = getCompartment(viewObject, "CargoCompartment");
 		if (nextNode != null) {
@@ -277,7 +251,14 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	/**
 	 * @generated
 	 */
-	private void createCargoCompartment_5001Children(Node viewObject, EObject modelObject) {
+	private void createItem_2001Children(View viewObject, EObject modelObject) {
+		storeLinks(modelObject);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void createCargoCompartment_5001Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
 		for (Iterator values = ((Ship) modelObject).getCargo().iterator(); values.hasNext();) {
@@ -295,14 +276,35 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	/**
 	 * @generated
 	 */
-	private void createItem_2001Children(Node viewObject, EObject modelObject) {
-		storeLinks(modelObject);
+	private void createAquatory_79Children(View viewObject, EObject modelObject) {
+		EObject nextValue;
+		Node nextNode;
+		for (Iterator values = ((Aquatory) modelObject).getPorts().iterator(); values.hasNext();) {
+			nextValue = (EObject) values.next();
+
+			int nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			if (1001 == nodeVID) {
+				nextNode = ViewService.createNode(viewObject, nextValue, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				myEObject2NodeMap.put(nextValue, nextNode);
+				createPort_1001Children(nextNode, nextValue);
+			}
+		}
+		for (Iterator values = ((Aquatory) modelObject).getShips().iterator(); values.hasNext();) {
+			nextValue = (EObject) values.next();
+
+			int nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			if (1002 == nodeVID) {
+				nextNode = ViewService.createNode(viewObject, nextValue, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				myEObject2NodeMap.put(nextValue, nextNode);
+				createShip_1002Children(nextNode, nextValue);
+			}
+		}
 	}
 
 	/**
 	 * @generated
 	 */
-	private Node getCompartment(Node node, String name) {
+	private Node getCompartment(View node, String name) {
 		for (Iterator it = node.getChildren().iterator(); it.hasNext();) {
 			View nextView = (View) it.next();
 			if (nextView instanceof Node && name.equals(nextView.getType())) {
@@ -313,7 +315,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	}
 
 	/**
-	 *@generated
+	 * @generated
 	 */
 	private void storeLinks(EObject container) {
 		EClass containerMetaclass = container.eClass();
@@ -338,7 +340,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	}
 
 	/**
-	 *@generated
+	 * @generated
 	 */
 	private void storeFeatureModelFacetLinks(EObject container, EClass containerMetaclass) {
 		if (-1 != containerMetaclass.getFeatureID(TaiPanPackage.eINSTANCE.getShip_Destination())) {

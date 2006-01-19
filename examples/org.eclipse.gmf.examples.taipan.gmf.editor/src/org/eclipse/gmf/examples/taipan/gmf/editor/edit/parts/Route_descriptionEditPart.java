@@ -12,13 +12,19 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.draw2d.ConnectionLocator;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
 
 /**
  * @generated
  */
 public class Route_descriptionEditPart extends LabelEditPart {
+
+	static {
+		registerSnapBackPosition(TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4004_LABEL, new Point(0, 0));
+	}
 
 	/**
 	 * @generated

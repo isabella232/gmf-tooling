@@ -15,17 +15,24 @@ import org.eclipse.draw2d.DelegatingLayout;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.LayeredPane;
 import org.eclipse.gef.LayerConstants;
-import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.editor.FileDiagramEditorWithFlyoutPalette;
+import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.editor.FileDiagramEditor;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.gef.palette.PaletteRoot;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.TaiPanEditPartFactory;
 
 /**
  * @generated
  */
-public class TaiPanDiagramEditor extends FileDiagramEditorWithFlyoutPalette {
+public class TaiPanDiagramEditor extends FileDiagramEditor {
+
+	/**
+	 * @generated
+	 */
+	public TaiPanDiagramEditor() {
+		super(true);
+	}
 
 	/**
 	 * @generated

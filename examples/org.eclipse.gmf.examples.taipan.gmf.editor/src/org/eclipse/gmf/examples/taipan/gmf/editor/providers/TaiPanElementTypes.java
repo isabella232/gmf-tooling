@@ -143,12 +143,12 @@ public class TaiPanElementTypes {
 		Object type = hint.getAdapter(IElementType.class);
 		if (Aquatory_79 == type) {
 			return TaiPanPackage.eINSTANCE.getAquatory();
+		} else if (Item_2001 == type) {
+			return TaiPanPackage.eINSTANCE.getItem();
 		} else if (Port_1001 == type) {
 			return TaiPanPackage.eINSTANCE.getPort();
 		} else if (Ship_1002 == type) {
 			return TaiPanPackage.eINSTANCE.getShip();
-		} else if (Item_2001 == type) {
-			return TaiPanPackage.eINSTANCE.getItem();
 		} else if (ShipDestination_3001 == type) {
 			return TaiPanPackage.eINSTANCE.getShip_Destination();
 		} else if (Route_3002 == type) {
@@ -165,17 +165,17 @@ public class TaiPanElementTypes {
 	/**
 	 * @generated
 	 */
+	public static final IMetamodelType Item_2001 = new MetamodelType("Item_2001", null, "Item_2001", TaiPanPackage.eINSTANCE.getItem(), new NullEditHelper());
+
+	/**
+	 * @generated
+	 */
 	public static final IMetamodelType Port_1001 = new MetamodelType("Port_1001", null, "Port_1001", TaiPanPackage.eINSTANCE.getPort(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
 	public static final IMetamodelType Ship_1002 = new MetamodelType("Ship_1002", null, "Ship_1002", TaiPanPackage.eINSTANCE.getShip(), new NullEditHelper());
-
-	/**
-	 * @generated
-	 */
-	public static final IMetamodelType Item_2001 = new MetamodelType("Item_2001", null, "Item_2001", TaiPanPackage.eINSTANCE.getItem(), new NullEditHelper());
 
 	/**
 	 * @generated
@@ -192,9 +192,9 @@ public class TaiPanElementTypes {
 	 */
 	public static void register() {
 		ElementTypeRegistry.getInstance().register(Aquatory_79);
+		ElementTypeRegistry.getInstance().register(Item_2001);
 		ElementTypeRegistry.getInstance().register(Port_1001);
 		ElementTypeRegistry.getInstance().register(Ship_1002);
-		ElementTypeRegistry.getInstance().register(Item_2001);
 		ElementTypeRegistry.getInstance().register(ShipDestination_3001);
 		ElementTypeRegistry.getInstance().register(Route_3002);
 	}

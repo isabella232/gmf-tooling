@@ -13,6 +13,7 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -136,11 +137,11 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns an image descriptor for the image file at the given
-	 * plug-in relative path.
-	 *
+	 * Returns an image descriptor for the image file at the given plug-in relative path.
+	 * 
 	 * @generated
-	 * @param path the path
+	 * @param path
+	 *            the path
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getBundledImageDescriptor(String path) {
@@ -148,11 +149,11 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns an image for the image file at the given plug-in relative path.
-	 * Client do not need to dispose this image. Images will be disposed automatically.
-	 *
+	 * Returns an image for the image file at the given plug-in relative path. Client do not need to dispose this image. Images will be disposed automatically.
+	 * 
 	 * @generated
-	 * @param path the path
+	 * @param path
+	 *            the path
 	 * @return image instance
 	 */
 	public Image getBundledImage(String path) {

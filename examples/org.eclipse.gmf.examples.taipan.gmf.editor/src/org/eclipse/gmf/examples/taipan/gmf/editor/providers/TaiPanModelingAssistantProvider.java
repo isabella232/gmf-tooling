@@ -31,14 +31,15 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 	 */
 	public List getTypesForPopupBar(IAdaptable host) {
 		Object editPart = host.getAdapter(IGraphicalEditPart.class);
+		if (editPart instanceof Ship_CargoCompartmentEditPart) {
+			List children = new ArrayList();
+			children.add(TaiPanElementTypes.Item_2001);
+			return children;
+		}
 		if (editPart instanceof AquatoryEditPart) {
 			List children = new ArrayList();
 			children.add(TaiPanElementTypes.Port_1001);
 			children.add(TaiPanElementTypes.Ship_1002);
-			return children;
-		} else if (editPart instanceof Ship_CargoCompartmentEditPart) {
-			List children = new ArrayList();
-			children.add(TaiPanElementTypes.Item_2001);
 			return children;
 		}
 		return Collections.EMPTY_LIST;

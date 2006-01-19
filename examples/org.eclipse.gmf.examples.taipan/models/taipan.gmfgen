@@ -4,7 +4,23 @@
   <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
   <domainMetaModel href="taipan.genmodel#//taipan"/>
   <domainDiagramElement href="taipan.genmodel#//taipan/Aquatory"/>
-  <nodes visualID="1001" editPartClassName="PortEditPart" itemSemanticEditPolicyClassName="PortItemSemanticEditPolicy" notationViewFactoryClassName="PortViewFactory" canonicalEditPolicyClassName="PortCanonicalEditPolicy" graphicalNodeEditPolicyClassName="PortGraphicalNodeEditPolicy">
+  <childNodes visualID="2001" editPartClassName="ItemEditPart" itemSemanticEditPolicyClassName="ItemItemSemanticEditPolicy" notationViewFactoryClassName="ItemViewFactory" canonicalEditPolicyClassName="ItemCanonicalEditPolicy" graphicalNodeEditPolicyClassName="ItemGraphicalNodeEditPolicy" containers="//@compartments.0">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+    <modelFacet>
+      <metaClass href="taipan.genmodel#//taipan/Item"/>
+      <containmentMetaFeature href="taipan.genmodel#//taipan/Ship/cargo"/>
+      <childMetaFeature href="taipan.genmodel#//taipan/Ship/cargo"/>
+    </modelFacet>
+    <labels visualID="4003" editPartClassName="Item_articleEditPart" itemSemanticEditPolicyClassName="Item_articleItemSemanticEditPolicy" notationViewFactoryClassName="Item_articleViewFactory">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+      <modelFacet>
+        <metaFeature href="taipan.genmodel#//taipan/Item/article"/>
+      </modelFacet>
+    </labels>
+  </childNodes>
+  <topLevelNodes visualID="1001" editPartClassName="PortEditPart" itemSemanticEditPolicyClassName="PortItemSemanticEditPolicy" notationViewFactoryClassName="PortViewFactory" canonicalEditPolicyClassName="PortCanonicalEditPolicy" graphicalNodeEditPolicyClassName="PortGraphicalNodeEditPolicy">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
     <viewmap xsi:type="gmfgen:InnerClassViewmap" className="box" classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class box extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public box() {&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;setFigureboxName(createFigureboxName());&#xD;&#xA;&#x9;&#x9;add(getFigureboxName());&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;private IFigure fboxName; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public IFigure getFigureboxName() {&#xD;&#xA;&#x9;&#x9;return fboxName;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setFigureboxName(IFigure figure) {&#xD;&#xA;&#x9;&#x9;fboxName = figure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private IFigure createFigureboxName() {&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.Label rv0 = new org.eclipse.draw2d.Label();&#xD;&#xA;&#x9;&#x9;rv0.setText(&quot;&quot;);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return rv0;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}"/>
     <modelFacet>
@@ -19,8 +35,8 @@
         <metaFeature href="taipan.genmodel#//taipan/Port/location"/>
       </modelFacet>
     </labels>
-  </nodes>
-  <nodes visualID="1002" editPartClassName="ShipEditPart" itemSemanticEditPolicyClassName="ShipItemSemanticEditPolicy" notationViewFactoryClassName="ShipViewFactory" canonicalEditPolicyClassName="ShipCanonicalEditPolicy" graphicalNodeEditPolicyClassName="ShipGraphicalNodeEditPolicy">
+  </topLevelNodes>
+  <topLevelNodes visualID="1002" editPartClassName="ShipEditPart" itemSemanticEditPolicyClassName="ShipItemSemanticEditPolicy" notationViewFactoryClassName="ShipViewFactory" canonicalEditPolicyClassName="ShipCanonicalEditPolicy" compartments="//@compartments.0" graphicalNodeEditPolicyClassName="ShipGraphicalNodeEditPolicy">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
     <viewmap xsi:type="gmfgen:InnerClassViewmap" className="box" classBody="&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class box extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public box() {&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;setFigureboxName(createFigureboxName());&#xD;&#xA;&#x9;&#x9;add(getFigureboxName());&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;private IFigure fboxName; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public IFigure getFigureboxName() {&#xD;&#xA;&#x9;&#x9;return fboxName;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setFigureboxName(IFigure figure) {&#xD;&#xA;&#x9;&#x9;fboxName = figure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private IFigure createFigureboxName() {&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.Label rv0 = new org.eclipse.draw2d.Label();&#xD;&#xA;&#x9;&#x9;rv0.setText(&quot;&quot;);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return rv0;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}"/>
     <modelFacet>
@@ -35,27 +51,7 @@
         <metaFeature href="taipan.genmodel#//taipan/Ship/name"/>
       </modelFacet>
     </labels>
-    <compartments visualID="5001" editPartClassName="Ship_CargoCompartmentEditPart" itemSemanticEditPolicyClassName="Ship_CargoCompartmentItemSemanticEditPolicy" notationViewFactoryClassName="Ship_CargoCompartmentViewFactory" canonicalEditPolicyClassName="Ship_CargoCompartmentCanonicalEditPolicy" title="CargoCompartment" layoutKind="TOOLBAR">
-      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
-      <childNodes visualID="2001" editPartClassName="ItemEditPart" itemSemanticEditPolicyClassName="ItemItemSemanticEditPolicy" notationViewFactoryClassName="ItemViewFactory" canonicalEditPolicyClassName="ItemCanonicalEditPolicy" graphicalNodeEditPolicyClassName="ItemGraphicalNodeEditPolicy">
-        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet>
-          <metaClass href="taipan.genmodel#//taipan/Item"/>
-          <containmentMetaFeature href="taipan.genmodel#//taipan/Ship/cargo"/>
-          <childMetaFeature href="taipan.genmodel#//taipan/Ship/cargo"/>
-        </modelFacet>
-        <labels visualID="4003" editPartClassName="Item_articleEditPart" itemSemanticEditPolicyClassName="Item_articleItemSemanticEditPolicy" notationViewFactoryClassName="Item_articleViewFactory">
-          <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-          <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-          <modelFacet>
-            <metaFeature href="taipan.genmodel#//taipan/Item/article"/>
-          </modelFacet>
-        </labels>
-      </childNodes>
-    </compartments>
-  </nodes>
+  </topLevelNodes>
   <links visualID="3001" editPartClassName="DestinationEditPart" itemSemanticEditPolicyClassName="DestinationItemSemanticEditPolicy" notationViewFactoryClassName="DestinationViewFactory">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
     <viewmap xsi:type="gmfgen:InnerClassViewmap" className="line" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class line extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public line() {&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
@@ -80,7 +76,7 @@
         <metaFeature href="taipan.genmodel#//taipan/Route/description"/>
       </modelFacet>
     </labels>
-    <labels visualID="4009">
+    <labels visualID="4009" readOnly="true">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
       <modelFacet>
@@ -88,15 +84,17 @@
       </modelFacet>
     </labels>
   </links>
+  <compartments visualID="5001" editPartClassName="Ship_CargoCompartmentEditPart" itemSemanticEditPolicyClassName="Ship_CargoCompartmentItemSemanticEditPolicy" notationViewFactoryClassName="Ship_CargoCompartmentViewFactory" childNodes="//@childNodes.0" canonicalEditPolicyClassName="Ship_CargoCompartmentCanonicalEditPolicy" title="CargoCompartment" node="//@topLevelNodes.1">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
+  </compartments>
   <palette>
-    <groups titleKey="TaiPan" descriptionKey="Palete tools for TaiPan domain" createMethodName="createTaiPanGroup">
-      <nodeTools titleKey="Port" descriptionKey="Create Port node" createMethodName="createPortCreationTool" genNode="//@nodes.0"/>
-      <nodeTools titleKey="Ship" descriptionKey="Create Ship node" createMethodName="createShipCreationTool" genNode="//@nodes.1"/>
-      <nodeTools titleKey="Item" descriptionKey="Create Item node" createMethodName="createItemCreationTool" genNode="//@nodes.1/@compartments.0/@childNodes.0"/>
-      <linkTools titleKey="Destination" descriptionKey="Create Destination link" createMethodName="createDestinationCreationTool" genLink="//@links.0"/>
-      <linkTools titleKey="Route" descriptionKey="Create Route link" createMethodName="createRouteCreationTool" genLink="//@links.1"/>
+    <groups titleKey="TaiPan" descriptionKey="Palete tools for TaiPan domain">
+      <nodeTools titleKey="Port" descriptionKey="Create Port node" genNode="//@topLevelNodes.0"/>
+      <nodeTools titleKey="Ship" descriptionKey="Create Ship node" genNode="//@topLevelNodes.1"/>
+      <nodeTools titleKey="Item" descriptionKey="Create Item node" genNode="//@childNodes.0"/>
+      <linkTools titleKey="Destination" descriptionKey="Create Destination link" genLink="//@links.0"/>
+      <linkTools titleKey="Route" descriptionKey="Create Route link" genLink="//@links.1"/>
     </groups>
   </palette>
-  <containsShortcutsTo>taipan</containsShortcutsTo>
-  <shortcutsProvidedFor>TaiPan</shortcutsProvidedFor>
 </gmfgen:GenDiagram>

@@ -71,10 +71,10 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 			return ShipViewFactory.class;
 		case 4002:
 			return Ship_nameViewFactory.class;
-		case 5001:
-			return Ship_CargoCompartmentViewFactory.class;
 		case 2001:
 			return ItemViewFactory.class;
+		case 5001:
+			return Ship_CargoCompartmentViewFactory.class;
 		case 4004:
 			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4004_LABEL.equals(semanticHint)) {
 				return Route_descriptionViewFactory.class;

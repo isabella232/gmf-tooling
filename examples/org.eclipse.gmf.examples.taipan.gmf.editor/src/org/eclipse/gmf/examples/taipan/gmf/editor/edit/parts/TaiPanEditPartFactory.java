@@ -71,8 +71,6 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 
 			int viewVisualID = getVisualID(view);
 			switch (viewVisualID) {
-			case 79:
-				return new AquatoryEditPart(view);
 			case 1001:
 				return new PortEditPart(view);
 			case 4001:
@@ -81,10 +79,12 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 				return new ShipEditPart(view);
 			case 4002:
 				return new Ship_nameEditPart(view);
-			case 5001:
-				return new Ship_CargoCompartmentEditPart(view);
 			case 2001:
 				return new ItemEditPart(view);
+			case 5001:
+				return new Ship_CargoCompartmentEditPart(view);
+			case 79:
+				return new AquatoryEditPart(view);
 			case 3001:
 				return new DestinationEditPart(view);
 			case 3002:

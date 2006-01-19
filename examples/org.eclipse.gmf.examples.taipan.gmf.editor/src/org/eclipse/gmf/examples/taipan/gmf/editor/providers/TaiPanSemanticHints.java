@@ -25,6 +25,23 @@ public class TaiPanSemanticHints {
 	/**
 	 * @generated
 	 */
+	public static class Item_2001Labels {
+
+		/**
+		 * @generated
+		 */
+		private Item_2001Labels() {
+		}
+
+		/**
+		 * @generated
+		 */
+		public static final String ITEMARTICLE_4003_TEXT = "ItemArticle_4003Text";
+	}
+
+	/**
+	 * @generated
+	 */
 	public static class Port_1001Labels {
 
 		/**
@@ -71,23 +88,6 @@ public class TaiPanSemanticHints {
 		 * @generated
 		 */
 		public static final String CARGOCOMPARTMENT_5001 = "CargoCompartment_5001";
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class Item_2001Labels {
-
-		/**
-		 * @generated
-		 */
-		private Item_2001Labels() {
-		}
-
-		/**
-		 * @generated
-		 */
-		public static final String ITEMARTICLE_4003_TEXT = "ItemArticle_4003Text";
 	}
 
 	/**
