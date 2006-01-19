@@ -19,8 +19,6 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.MarginBorder;
-import org.eclipse.draw2d.MouseEvent;
-import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.PolygonDecoration;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.ToolbarLayout;
@@ -159,6 +157,10 @@ public class DashboardFigure extends RectangleFigure {
 		return mm2gmFigure;
 	}
 
+	public Label getStatusLine(int i) {
+		return (Label) statusFigure.getChildren().get(i);
+	}
+
 	protected ModelFigure createModelFigure(String description, String iconKey) {
 		ModelFigure modelFigure = new ModelFigure();
 		modelFigure.setDescription(description);
@@ -199,46 +201,6 @@ public class DashboardFigure extends RectangleFigure {
 		flowActionFigure.setLineWidth(LINE_WIDTH / 3);
 		flowActionFigure.setBorder(new MarginBorder(TEXT_GAP / 2));
 		return flowActionFigure;
-	}
-
-	public IFigure createLinkFigure(String text, final DashboardAction action) {
-		Label label = new Label() {
-
-			protected void paintFigure(Graphics graphics) {
-				Color color = graphics.getForegroundColor();
-				if (action.isEnabled()) {
-					graphics.setForegroundColor(ColorConstants.blue);
-				} else {
-					graphics.setForegroundColor(ColorConstants.gray);
-				}
-				super.paintFigure(graphics);
-				Rectangle bounds = getBounds();
-				int y = bounds.y + bounds.height - (getLineWidth());
-				graphics.drawLine(bounds.x, y, bounds.x + bounds.width, y);
-				graphics.setForegroundColor(color);
-			}
-		};
-		label.setText(text);
-		label.addMouseListener(new MouseListener() {
-
-			public void mouseDoubleClicked(MouseEvent me) {
-			}
-
-			public void mousePressed(MouseEvent me) {
-				if (action.isEnabled()) {
-					action.run();
-				}
-			}
-
-			public void mouseReleased(MouseEvent me) {
-			}
-
-		});
-		return label;
-	}
-
-	public Label getStatusLine(int i) {
-		return (Label) statusFigure.getChildren().get(i);
 	}
 
 	protected void outlineShape(Graphics graphics) {
@@ -319,6 +281,7 @@ public class DashboardFigure extends RectangleFigure {
 			data.mm2gmPoints.addPoint(data.mmBox.x + data.mmBox.width, pointsY);
 			data.mm2gmPoints.addPoint(data.gmBox.x, pointsY);
 
+			// logo and status
 			Dimension logoSize = logoFigure.getPreferredSize();
 			int logoX = Math.max(data.mmBox.x, data.gmBox.x + data.gmBox.width - logoSize.width);
 			data.logoBox = new Rectangle(logoX, 0, logoSize.width, logoSize.height);

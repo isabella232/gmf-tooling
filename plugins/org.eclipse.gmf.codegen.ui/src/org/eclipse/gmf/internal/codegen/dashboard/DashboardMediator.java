@@ -14,6 +14,7 @@ package org.eclipse.gmf.internal.codegen.dashboard;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.emf.ecore.presentation.EcoreModelWizard;
 import org.eclipse.gmf.codegen.gmfgen.presentation.GMFGenModelWizard;
 import org.eclipse.gmf.gmfgraph.presentation.GMFGraphModelWizard;
@@ -61,27 +62,33 @@ public class DashboardMediator {
 
 	public void setView(DashboardFigure view) {
 		this.view = view;
-		view.getGDMFigure().addAction(view.createLinkFigure("Select", new SelectGDMAction()));
-		view.getGDMFigure().addAction(view.createLinkFigure("Edit", new EditGDMAction()));
-		view.getGDMFigure().addAction(view.createLinkFigure("Create", new CreateGDMAction()));
-		view.getDMFigure().addAction(view.createLinkFigure("Select", new SelectDMAction()));
-		view.getDMFigure().addAction(view.createLinkFigure("Edit", new EditDMAction()));
-		view.getDMFigure().addAction(view.createLinkFigure("Create", new CreateDMAction()));
-		view.getTDMFigure().addAction(view.createLinkFigure("Select", new SelectTDMAction()));
-		view.getTDMFigure().addAction(view.createLinkFigure("Edit", new EditTDMAction()));
-		view.getTDMFigure().addAction(view.createLinkFigure("Create", new CreateTDMAction()));
-		view.getMMFigure().addAction(view.createLinkFigure("Select", new SelectMMAction()));
-		view.getMMFigure().addAction(view.createLinkFigure("Edit", new EditMMAction()));
-		view.getMMFigure().addAction(view.createLinkFigure("Create", new CreateMMAction()));
-		view.getGMFigure().addAction(view.createLinkFigure("Select", new SelectGMAction()));
-		view.getGMFigure().addAction(view.createLinkFigure("Edit", new EditGMAction()));
-		view.getGMFigure().addAction(view.createLinkFigure("Create", new CreateGMAction()));
-		view.getGMFigure().addAction(view.createLinkFigure("Generate diagram editor", new GenerateDEAction()), false);
-		view.getDM2GDMFigure().addAction(view.createLinkFigure("Derive", new DeriveGDMAction()));
-		view.getDM2TDMFigure().addAction(view.createLinkFigure("Derive", new DeriveTDMAction()));
-		view.getDM2MMFigure().addAction(view.createLinkFigure("Combine", new CombineMMAction()));
-		view.getMM2GMFigure().addAction(view.createLinkFigure("Transform", new GenerateGMAction()));
+		view.getGDMFigure().addAction(createLinkFigure("Select", new SelectGDMAction()));
+		view.getGDMFigure().addAction(createLinkFigure("Edit", new EditGDMAction()));
+		view.getGDMFigure().addAction(createLinkFigure("Create", new CreateGDMAction()));
+		view.getDMFigure().addAction(createLinkFigure("Select", new SelectDMAction()));
+		view.getDMFigure().addAction(createLinkFigure("Edit", new EditDMAction()));
+		view.getDMFigure().addAction(createLinkFigure("Create", new CreateDMAction()));
+		view.getTDMFigure().addAction(createLinkFigure("Select", new SelectTDMAction()));
+		view.getTDMFigure().addAction(createLinkFigure("Edit", new EditTDMAction()));
+		view.getTDMFigure().addAction(createLinkFigure("Create", new CreateTDMAction()));
+		view.getMMFigure().addAction(createLinkFigure("Select", new SelectMMAction()));
+		view.getMMFigure().addAction(createLinkFigure("Edit", new EditMMAction()));
+		view.getMMFigure().addAction(createLinkFigure("Create", new CreateMMAction()));
+		view.getGMFigure().addAction(createLinkFigure("Select", new SelectGMAction()));
+		view.getGMFigure().addAction(createLinkFigure("Edit", new EditGMAction()));
+		view.getGMFigure().addAction(createLinkFigure("Create", new CreateGMAction()));
+		view.getGMFigure().addAction(createLinkFigure("Generate diagram editor", new GenerateDEAction()), false);
+		view.getDM2GDMFigure().addAction(createLinkFigure("Derive", new DeriveGDMAction()));
+		view.getDM2TDMFigure().addAction(createLinkFigure("Derive", new DeriveTDMAction()));
+		view.getDM2MMFigure().addAction(createLinkFigure("Combine", new CombineMMAction()));
+		view.getMM2GMFigure().addAction(createLinkFigure("Transform", new GenerateGMAction()));
 		updateStatus();
+	}
+
+	public IFigure createLinkFigure(String text, DashboardAction action) {
+		HyperlinkFigure linkFigure = new HyperlinkFigure(action);
+		linkFigure.setText(text);
+		return linkFigure;
 	}
 
 	protected IFile getFile(String fileName) {
