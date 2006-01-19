@@ -54,6 +54,8 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.gmfgraph.Compartment;
+import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
+import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediator;
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.AuditContainer;
@@ -82,35 +84,18 @@ import org.eclipse.gmf.tooldef.ToolContainer;
  */
 public class DiagramGenModelTransformer extends MappingTransformer {
 
-	private static final int CANVAS_COUNT_BASE = 79;
-	private static final int NODE_COUNT_BASE = 1000;
-	private static final int CHILD_COUNT_BASE = 2000;
-	private static final int LINK_COUNT_BASE = 3000;
-	private static final int LABEL_COUNT_BASE = 4000;
-	private static final int COMPARTMENT_COUNT_BASE = 5000;
-	
-	private static final int TOOL_GROUP_COUNT_BASE = 0;
-	private static final int TOOL_NODE_COUNT_BASE = 1000;
-	private static final int TOOL_LINK_COUNT_BASE = 2000;
-
 	private GenDiagram myGenModel;
 	private GenModelMatcher myGenModelMatch;
 	private final DiagramRunTimeModelHelper myDRTHelper;
 	private final ViewmapProducer myViewmaps = new InnerClassViewmapProducer();
+	private final VisualIdentifierDispenser myVisualIDs;
 
-	private int myNodeCount = 0;
-	private int myLinkCount = 0;
-	private int myChildCount = 0;
-	private int myLabelCount = 0;
-	private int myCompartmentCount = 0;
-	private int myToolGroupCount = 0;
-	private int myToolNodeCount = 0;
-	private int myToolLinkCount = 0;
 	private final GenModelNamingMediator myNamingStrategy;
 
 	public DiagramGenModelTransformer(DiagramRunTimeModelHelper drtHelper, GenModelNamingMediator namingStrategy) {
 		myDRTHelper = drtHelper;
 		myNamingStrategy = namingStrategy;
+		myVisualIDs = new NaiveIdentifierDispenser();
 	}
 
 	/**
@@ -152,7 +137,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		getGenDiagram().setDomainMetaModel(findGenPackage(mapping.getDomainModel()));
 		getGenDiagram().setDomainDiagramElement(findGenClass(mapping.getDomainMetaElement()));
 		getGenDiagram().setDiagramRunTimeClass(findRunTimeClass(mapping));
-		getGenDiagram().setVisualID(CANVAS_COUNT_BASE);
+		getGenDiagram().setVisualID(myVisualIDs.get(getGenDiagram()));
 		getGenDiagram().setPluginName(mapping.getDomainModel().getName() + " Plugin");
 		getGenDiagram().setViewmap(myViewmaps.create(mapping.getDiagramCanvas()));
 
@@ -176,13 +161,13 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		getGenDiagram().getTopLevelNodes().add(genNode);
 		genNode.setDiagramRunTimeClass(findRunTimeClass(nme));
 		genNode.setModelFacet(createModelFacet(nme));
-		genNode.setVisualID(NODE_COUNT_BASE + (++myNodeCount));
+		genNode.setVisualID(myVisualIDs.get(genNode));
 		if (nme.getEditFeature() != null) {
 			FeatureModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureModelFacet();
 			modelFacet.setMetaFeature(findGenFeature(nme.getEditFeature()));
 			GenNodeLabel label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
 			label.setModelFacet(modelFacet);
-			label.setVisualID(LABEL_COUNT_BASE + (++myLabelCount));
+			label.setVisualID(myVisualIDs.get(label));
 			label.setDiagramRunTimeClass(getNodeLabelRunTimeClass());
 			label.setViewmap(createLabelViewmap());
 
@@ -209,7 +194,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		
 		childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
 		childNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
-		childNode.setVisualID(CHILD_COUNT_BASE + (++myChildCount ));
+		childNode.setVisualID(myVisualIDs.get(childNode));
 
 		// set class names
 		myNamingStrategy.feed(childNode, childNodeMapping);
@@ -219,7 +204,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			modelFacet.setMetaFeature(findGenFeature(childNodeMapping.getEditFeature()));
 			GenNodeLabel label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
 			label.setModelFacet(modelFacet);
-			label.setVisualID(LABEL_COUNT_BASE + (++myLabelCount));
+			label.setVisualID(myVisualIDs.get(label));
 			label.setDiagramRunTimeClass(getNodeLabelRunTimeClass());
 			label.setViewmap(createLabelViewmap());
 
@@ -268,7 +253,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		assert compartment != null;
 		GenCompartment childCompartment = GMFGenFactory.eINSTANCE.createGenCompartment();
 		getGenDiagram().getCompartments().add(childCompartment);
-		childCompartment.setVisualID(COMPARTMENT_COUNT_BASE + (++myCompartmentCount));
+		childCompartment.setVisualID(myVisualIDs.get(childCompartment));
 		childCompartment.setDiagramRunTimeClass(getChildContainerRunTimeClass());
 		childCompartment.setViewmap(myViewmaps.create(mapping.getCompartment()));
 		childCompartment.setCanCollapse(compartment.isCollapsible());
@@ -289,7 +274,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		gl.setModelFacet(createModelFacet(lme));
 		if (lme.getTool() instanceof CreationTool) {
 			LinkEntry le = GMFGenFactory.eINSTANCE.createLinkEntry();
-			le.setEntryID(TOOL_LINK_COUNT_BASE + (++myToolLinkCount));
+			le.setEntryID(myVisualIDs.get(le));
 			findToolGroup(lme.getTool()).getLinkTools().add(le);
 			le.getGenLink().add(gl);
 			setupCommonToolEntry(le, lme.getTool());
@@ -300,7 +285,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			modelFacet.setMetaFeature(findGenFeature(lme.getLabelEditFeature()));
 			GenLinkLabel label = GMFGenFactory.eINSTANCE.createGenLinkLabel();
 			label.setModelFacet(modelFacet);
-			label.setVisualID(LABEL_COUNT_BASE + (++myLabelCount));
+			label.setVisualID(myVisualIDs.get(label));
 			label.setDiagramRunTimeClass(getLinkLabelRunTimeClass());
 			label.setViewmap(createLabelViewmap());
 
@@ -310,7 +295,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			gl.getLabels().add(label);
 		}
 		gl.setDiagramRunTimeClass(findRunTimeClass(lme));
-		gl.setVisualID(LINK_COUNT_BASE + (++myLinkCount));
+		gl.setVisualID(myVisualIDs.get(gl));
 
 		// set class names
 		myNamingStrategy.feed(gl, lme);
@@ -362,7 +347,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if (nme.getTool() != null && nme.getTool() instanceof CreationTool) {
 			// XXX handle other tool types (action, whatever)
 			NodeEntry ne = GMFGenFactory.eINSTANCE.createNodeEntry();
-			ne.setEntryID(TOOL_NODE_COUNT_BASE + (++myToolNodeCount));
+			ne.setEntryID(myVisualIDs.get(ne));
 			findToolGroup(nme.getTool()).getNodeTools().add(ne);
 			ne.getGenNode().add(genNode);
 			setupCommonToolEntry(ne, nme.getTool());
@@ -399,7 +384,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			}
 		}
 		ToolGroup tg = GMFGenFactory.eINSTANCE.createToolGroup();
-		tg.setEntryID(TOOL_GROUP_COUNT_BASE + (++myToolGroupCount));
+		tg.setEntryID(myVisualIDs.get(tg));
 		getGenPalette().getGroups().add(tg);
 		setupCommonToolEntry(tg, tc);
 		return tg;
