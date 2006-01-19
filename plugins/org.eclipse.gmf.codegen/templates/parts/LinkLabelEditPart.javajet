@@ -8,6 +8,7 @@ package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
 import org.eclipse.draw2d.ConnectionLocator;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
@@ -16,6 +17,10 @@ import org.eclipse.gmf.runtime.notation.View;
  * @generated
  */
 public class <%=genLabel.getEditPartClassName()%> extends LabelEditPart {
+
+	static {
+		registerSnapBackPosition(<%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%>.<%=genLabel.getLink().getUniqueIdentifier()%>Labels.<%=genLabel.getSemanticHintLabelFieldName()%>, new Point(0, 0));
+	}
 
 	/**
 	 * @generated

@@ -7,6 +7,7 @@ GenDiagram genDiagram = genLabel.getDiagram();
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
 
@@ -14,6 +15,10 @@ import org.eclipse.gmf.runtime.notation.View;
  * @generated
  */
 public class <%=genLabel.getEditPartClassName()%> extends <%=genDiagram.getBaseExternalNodeLabelEditPartClassName()%> {
+
+	static {
+		registerSnapBackPosition(<%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%>.<%=genLabel.getNode().getUniqueIdentifier()%>Labels.<%=genLabel.getSemanticHintLabelFieldName()%>, new Point(0, 0));
+	}
 
 	/**
 	 * @generated
