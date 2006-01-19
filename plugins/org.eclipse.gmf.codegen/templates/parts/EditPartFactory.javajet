@@ -23,12 +23,6 @@ public class <%=genDiagram.getEditPartFactoryClassName()%> implements EditPartFa
 
 <%@ include file="../editor/getVisualID.jetinc" %>
 
-<%
-List genLinks = genDiagram.getLinks();
-Collection allContainers = new LinkedList(genDiagram.getAllContainers());
-allContainers.add(genDiagram);
-%>
-
 	/**
 	 * @generated
 	 */
@@ -42,11 +36,11 @@ allContainers.add(genDiagram);
 			int viewVisualID = getVisualID(view);
 			switch (viewVisualID) {
 <%
-for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
+for (Iterator containers = genDiagram.getAllContainerEditParts().iterator(); containers.hasNext();) {
 	GenContainerEditPart container = (GenContainerEditPart) containers.next();
 %>
-		case <%=container.getVisualID()%>:
-			 return new <%=container.getEditPartClassName()%>(view);
+			case <%=container.getVisualID()%>:
+				 return new <%=container.getEditPartClassName()%>(view);
 <%
 	if (container instanceof GenNode && !((GenNode) container).isListContainerEntry()) {
 		GenNode node = (GenNode) container;
@@ -58,23 +52,23 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 // [--]
 				String labelViewId = semanticHintsClassName + '.' + node.getUniqueIdentifier() + "Labels." + ((ExternalLabel) label).getSemanticHintLabelFieldName();
 %>
-		case <%=label.getVisualID()%>:
-			if (<%=labelViewId%>.equals(view.getType())) {
-				return new <%=label.getEditPartClassName()%>(view);
-			} else {
-				return new <%=((ExternalLabel) label).getTextEditPartClassName()%>(view);
-			}
+			case <%=label.getVisualID()%>:
+				if (<%=labelViewId%>.equals(view.getType())) {
+					return new <%=label.getEditPartClassName()%>(view);
+				} else {
+					return new <%=((ExternalLabel) label).getTextEditPartClassName()%>(view);
+				}
 <%
 			} else {
 %>
-		case <%=label.getVisualID()%>:
-			return new <%=label.getEditPartClassName()%>(view);
+			case <%=label.getVisualID()%>:
+				return new <%=label.getEditPartClassName()%>(view);
 <%
 			}
 		}
 	}
 }
-for (Iterator links = genLinks.iterator(); links.hasNext();) {
+for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext();) {
 	GenLink link = (GenLink) links.next();
 %>		
 			case <%=link.getVisualID()%>:

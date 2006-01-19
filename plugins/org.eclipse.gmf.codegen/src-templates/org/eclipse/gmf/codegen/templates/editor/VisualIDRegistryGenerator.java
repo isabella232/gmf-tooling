@@ -125,8 +125,7 @@ public class VisualIDRegistryGenerator
     
 GenDiagram genDiagram = (GenDiagram) argument;
 List genLinks = genDiagram.getLinks();
-Collection allContainers = new LinkedList(genDiagram.getAllContainers());
-allContainers.add(genDiagram);
+Collection allContainers = genDiagram.getAllContainerEditParts();
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getEditorPackageName());

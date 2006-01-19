@@ -1396,18 +1396,26 @@ public interface GenDiagram extends GenContainerEditPart {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenContainerEditPart"
-	 * @generated
-	 */
-	EList getAllContainers();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenNode"
 	 * @generated
 	 */
 	EList getAllNodes();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenChildContainer"
+	 * @generated
+	 */
+	EList getAllChildContainers();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenContainerEditPart"
+	 * @generated
+	 */
+	EList getAllContainerEditParts();
 
 	/**
 	 * <!-- begin-user-doc -->

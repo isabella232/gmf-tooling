@@ -44,9 +44,7 @@ public class ModelingAssistantProviderGenerator
     stringBuffer.append(genDiagram.getModelingAssistantProviderClassName());
     stringBuffer.append(TEXT_5);
     
-Collection allContainers = new LinkedList(genDiagram.getAllContainers());
-allContainers.add(genDiagram);
-for (Iterator contents = allContainers.iterator(); contents.hasNext(); ) {
+for (Iterator contents = genDiagram.getAllContainerEditParts().iterator(); contents.hasNext(); ) {
 	GenContainerEditPart genContainer = (GenContainerEditPart) contents.next();
 	List children = genContainer.getContainedNodes();
 	if (!children.isEmpty()) {

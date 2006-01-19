@@ -73,8 +73,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/containsShortcutsTo"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/shortcutsProvidedFor"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getEMFGenModel"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllContainers"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllNodes"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllChildContainers"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllContainerEditParts"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getRequiredPluginIDs"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getElementInitializersClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getElementInitializersPackageName"/>

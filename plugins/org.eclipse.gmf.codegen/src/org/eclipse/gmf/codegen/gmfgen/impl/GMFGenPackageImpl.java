@@ -2581,9 +2581,11 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genDiagramEClass, theGenModelPackage.getGenModel(), "getEMFGenModel", 0, 1);
 
-		addEOperation(genDiagramEClass, this.getGenContainerEditPart(), "getAllContainers", 0, -1);
-
 		addEOperation(genDiagramEClass, this.getGenNode(), "getAllNodes", 0, -1);
+
+		addEOperation(genDiagramEClass, this.getGenChildContainer(), "getAllChildContainers", 0, -1);
+
+		addEOperation(genDiagramEClass, this.getGenContainerEditPart(), "getAllContainerEditParts", 0, -1);
 
 		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getRequiredPluginIDs", 0, -1);
 

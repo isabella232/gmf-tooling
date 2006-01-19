@@ -2531,7 +2531,19 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getAllContainers() {
+	public EList getAllNodes() {
+		EList result = new BasicEList();
+		result.addAll(getTopLevelNodes());
+		result.addAll(getChildNodes());
+		return new BasicEList.UnmodifiableEList(result.size(), result.toArray());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList getAllChildContainers() {
 		EList result = new BasicEList();
 		result.addAll(getAllNodes());
 		result.addAll(getCompartments());
@@ -2543,10 +2555,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getAllNodes() {
+	public EList getAllContainerEditParts() {
 		EList result = new BasicEList();
-		result.addAll(getTopLevelNodes());
-		result.addAll(getChildNodes());
+		result.addAll(getAllChildContainers());
+		result.add(this);
 		return new BasicEList.UnmodifiableEList(result.size(), result.toArray());
 	}
 

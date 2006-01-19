@@ -224,8 +224,6 @@ public class InitDiagramFileActionGenerator {
     
 GenDiagram genDiagram = (GenDiagram) argument;
 List genLinks = genDiagram.getLinks();
-Collection allContainers = new LinkedList(genDiagram.getAllContainers());
-allContainers.add(genDiagram);
 
 boolean generateGetCompartment = false;
 
@@ -311,7 +309,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
     stringBuffer.append(genDiagram.getUniqueIdentifier());
     stringBuffer.append(TEXT_22);
     
-for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
+for (Iterator containers = genDiagram.getAllContainerEditParts().iterator(); containers.hasNext();) {
 	GenContainerEditPart nextContainer = (GenContainerEditPart) containers.next();
 
     stringBuffer.append(TEXT_23);

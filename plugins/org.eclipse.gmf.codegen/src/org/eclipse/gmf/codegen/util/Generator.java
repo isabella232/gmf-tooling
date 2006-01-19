@@ -37,6 +37,7 @@ import org.eclipse.emf.codegen.jmerge.JControlModel;
 import org.eclipse.emf.codegen.jmerge.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
@@ -45,6 +46,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -113,8 +115,12 @@ public class Generator implements Runnable {
 			generateReferenceConnectionEditPolicy();
 			generateDiagramCanonicalEditPolicy();
 			generateDiagramItemSemanticEditPolicy();
-			for (Iterator nodes = myDiagram.getAllNodes().iterator(); nodes.hasNext();) {
-				GenNode node = (GenNode) nodes.next();
+			for (Iterator nodes = myDiagram.getTopLevelNodes().iterator(); nodes.hasNext();) {
+				GenTopLevelNode node = (GenTopLevelNode) nodes.next();
+				generateNode(node);
+			}
+			for (Iterator nodes = myDiagram.getChildNodes().iterator(); nodes.hasNext();) {
+				GenChildNode node = (GenChildNode) nodes.next();
 				if (node.isListContainerEntry()) {
 					generateListContainerNode(node);
 				} else {
@@ -959,16 +965,17 @@ public class Generator implements Runnable {
 		}
 		public int getTotal() {
 			int rv = myAdditionalOps;
-			rv += getNodesCound(myDiagram.getAllNodes());
+			rv += myDiagram.getTopLevelNodes().size() * myOpsPerNode;
+			rv += getChildNodesCount(myDiagram.getChildNodes());
 			rv += myDiagram.getCompartments().size() * myOpsPerCompartment;
 			rv += myDiagram.getLinks().size() * myOpsPerLink;
 			return rv;  
 		}
 
-		private int getNodesCound(Collection nodes) {
+		private int getChildNodesCount(Collection nodes) {
 			int counter = 0;
 			for (Iterator it = nodes.iterator(); it.hasNext();) {
-				GenNode nextNode = (GenNode) it.next();
+				GenChildNode nextNode = (GenChildNode) it.next();
 				if (nextNode.isListContainerEntry()) {
 					counter += myOpsPerNode;
 				} else {

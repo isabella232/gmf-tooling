@@ -163,13 +163,6 @@ public class GenChildNodeImpl extends GenNodeImpl implements GenChildNode {
 		return super.eIsSet(featureID);
 	}
 
-	public boolean isListContainerEntry() {
-		if (getContainers().size() > 0) {
-			return ((GenChildContainer) getContainers().get(0)).isListLayout();
-		}
-		return false;
-	}
-
 	public String getClassNameSuffux() {
 		return "ChildNode";
 	}
