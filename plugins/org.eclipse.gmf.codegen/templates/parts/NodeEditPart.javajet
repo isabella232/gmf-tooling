@@ -13,8 +13,6 @@ import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.StackLayout;
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.RectangularDropShadowLineBorder;
@@ -207,17 +205,28 @@ if (!genNode.getLabels().isEmpty()) {
 	public <%=importManager.getImportedName("org.eclipse.gef.EditPart")%> getPrimaryChildEditPart() {
 		return getChildBySemanticHint(<%=semanticHintsClassName%>.<%=genNode.getUniqueIdentifier()%>Labels.<%=primaryLabel.getSemanticHintFieldName()%>);
 	}
-<%}%>
+<%
+}
+boolean hasExternalLabels = false;
+for (Iterator labels = genNode.getLabels().iterator(); labels.hasNext();) {
+	GenNodeLabel label = (GenNodeLabel) labels.next();
+	if (label instanceof ExternalLabel) {
+		hasExternalLabels = true;
+		break;
+	}
+}
+if (hasExternalLabels) {
+%>
 
 	/**
 	 * @generated
 	 */
 	protected void addChildVisual(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart, int index) {
 		if (isExternalLabel(childEditPart)) {
-			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
+			IFigure labelFigure = ((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) childEditPart).getFigure();
 			getExternalLabelsContainer().add(labelFigure);
 		} else {
-			super.addChildVisual(childEditPart, index);
+			super.addChildVisual(childEditPart, -1);
 		}
 	}
 
@@ -226,7 +235,7 @@ if (!genNode.getLabels().isEmpty()) {
 	 */
 	protected void removeChildVisual(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart) {
 		if (isExternalLabel(childEditPart)) {
-			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
+			IFigure labelFigure = ((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) childEditPart).getFigure();
 			getExternalLabelsContainer().remove(labelFigure);
 		} else {
 			super.removeChildVisual(childEditPart);
@@ -238,16 +247,16 @@ if (!genNode.getLabels().isEmpty()) {
 	 */
 	protected boolean isExternalLabel(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> childEditPart) {
 <%
-for (Iterator labels = genNode.getLabels().iterator(); labels.hasNext();) {
-	GenNodeLabel label = (GenNodeLabel) labels.next();
-	if (label instanceof ExternalLabel) {
+	for (Iterator labels = genNode.getLabels().iterator(); labels.hasNext();) {
+		GenNodeLabel label = (GenNodeLabel) labels.next();
+		if (label instanceof ExternalLabel) {
 %>
 		if (childEditPart instanceof <%=importManager.getImportedName(label.getEditPartQualifiedClassName())%>) {
 			return true;
 		}
 <%
+		}
 	}
-}
 %>
 		return false;
 	}
@@ -256,11 +265,14 @@ for (Iterator labels = genNode.getLabels().iterator(); labels.hasNext();) {
 	 * @generated
 	 */
 	protected IFigure getExternalLabelsContainer() {
-		DiagramRootEditPart root = (DiagramRootEditPart) getRoot();
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart")%> root = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart")%>) getRoot();
 		return root.getLayer(<%=importManager.getImportedName(genDiagram.getEditPartFactoryQualifiedClassName())%>.EXTERNAL_NODE_LABELS_LAYER);
 	}
 
-<%if (genNode.getViewmap() instanceof InnerClassViewmap) {%>
+<%
+}
+if (genNode.getViewmap() instanceof InnerClassViewmap) {
+%>
 <%=((InnerClassViewmap) genNode.getViewmap()).getClassBody()%>
 <%}%>
 }
