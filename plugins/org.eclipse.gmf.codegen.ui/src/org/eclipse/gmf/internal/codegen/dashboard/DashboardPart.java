@@ -51,9 +51,14 @@ public class DashboardPart extends ViewPart {
 
 	private ISelectionListener projectUpdater;
 
+	/**
+	 * Reflects current workbench selection even if synchronization is off.
+	 */
+	private IProject activeProject;
+
 	private Map states;
 
-	private String activeProjectName;
+	private String dashboardInitialProjectName;
 
 	private boolean syncSelection = true;
 
@@ -63,7 +68,7 @@ public class DashboardPart extends ViewPart {
 			states = new HashMap();
 		} else {
 			states = DashboardPersistence.read(memento);
-			activeProjectName = memento.getString(ACTIVE_PROJECT_KEY);
+			dashboardInitialProjectName = memento.getString(ACTIVE_PROJECT_KEY);
 			String syncSelectionValue = memento.getString(SYNC_SELECTION_KEY);
 			if (syncSelectionValue != null) {
 				syncSelection = Boolean.valueOf(syncSelectionValue).booleanValue();
@@ -82,8 +87,8 @@ public class DashboardPart extends ViewPart {
 			public void propertyChange(PropertyChangeEvent event) {
 				if (IAction.CHECKED.equals(event.getProperty())) {
 					syncSelection = ((Boolean) event.getNewValue()).booleanValue();
-					if (syncSelection) {
-						updateActiveProject(getSite().getWorkbenchWindow().getSelectionService().getSelection());
+					if (syncSelection && mediator != null && activeProject != mediator.getProject()) {
+						updateDashboardProject(activeProject);
 					}
 				}
 			}
@@ -103,13 +108,11 @@ public class DashboardPart extends ViewPart {
 				updateActiveProject(selection);
 			}
 		});
-		if (syncSelection) {
-			updateActiveProject(getSite().getWorkbenchWindow().getSelectionService().getSelection());
-		}
-		if (mediator.getProject() == null && activeProjectName != null) {
-			IProject activeProject = ResourcesPlugin.getWorkspace().getRoot().getProject(activeProjectName);
-			if (activeProject.exists()) {
-				mediator.setProjectAndState(activeProject, (DashboardState) states.get(activeProject));
+		updateActiveProject(getSite().getWorkbenchWindow().getSelectionService().getSelection());
+		if (mediator.getProject() == null && dashboardInitialProjectName != null) {
+			IProject dashboardProject = ResourcesPlugin.getWorkspace().getRoot().getProject(dashboardInitialProjectName);
+			if (dashboardProject.exists()) {
+				mediator.setProjectAndState(dashboardProject, (DashboardState) states.get(dashboardProject));
 			}
 		}
 	}
@@ -141,10 +144,10 @@ public class DashboardPart extends ViewPart {
 	}
 
 	protected void updateActiveProject(ISelection selection) {
-		if (!syncSelection || !(selection instanceof IStructuredSelection)) {
+		if (!(selection instanceof IStructuredSelection)) {
 			return;
 		}
-		IProject activeProject = null;
+		IProject newActiveProject = null;
 		for (Iterator it = ((IStructuredSelection) selection).iterator(); it.hasNext();) {
 			Object element = it.next();
 			IProject project = null;
@@ -159,20 +162,27 @@ public class DashboardPart extends ViewPart {
 			if (project == null) {
 				continue;
 			}
-			if (project.equals(mediator.getProject())) {
+			if (project.equals(activeProject)) {
 				// if current active project is selected do not change it
 				return;
 			}
-			if (activeProject == null) {
+			if (newActiveProject == null) {
 				// new active project is the first selected project
-				activeProject = project;
+				newActiveProject = project;
 			}
 		}
-		if (activeProject != null) {
-			if (mediator.getProject() != null) {
-				states.put(mediator.getProject(), mediator.getState());
+		if (newActiveProject != null) {
+			activeProject = newActiveProject;
+			if (syncSelection && mediator != null) {
+				updateDashboardProject(newActiveProject);
 			}
-			mediator.setProjectAndState(activeProject, (DashboardState) states.get(activeProject));
 		}
+	}
+
+	protected void updateDashboardProject(IProject project) {
+		if (mediator.getProject() != null) {
+			states.put(mediator.getProject(), mediator.getState());
+		}
+		mediator.setProjectAndState(project, (DashboardState) states.get(project));
 	}
 }
