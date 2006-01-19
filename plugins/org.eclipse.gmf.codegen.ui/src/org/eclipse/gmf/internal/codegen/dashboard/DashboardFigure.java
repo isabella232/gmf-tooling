@@ -320,7 +320,8 @@ public class DashboardFigure extends RectangleFigure {
 			data.mm2gmPoints.addPoint(data.gmBox.x, pointsY);
 
 			Dimension logoSize = logoFigure.getPreferredSize();
-			data.logoBox = new Rectangle(data.mmBox.x, 0, logoSize.width, logoSize.height);
+			int logoX = Math.max(data.mmBox.x, data.gmBox.x + data.gmBox.width - logoSize.width);
+			data.logoBox = new Rectangle(logoX, 0, logoSize.width, logoSize.height);
 			Dimension statusSize = statusFigure.getPreferredSize();
 			int statusRoof = Math.max(data.mmBox.y + data.mmBox.height, data.gmBox.y + data.gmBox.height) + TEXT_GAP;
 			data.statusBox = new Rectangle(data.mmBox.x, Math.max(statusRoof, data.tdmBox.y), statusSize.width, statusSize.height);
