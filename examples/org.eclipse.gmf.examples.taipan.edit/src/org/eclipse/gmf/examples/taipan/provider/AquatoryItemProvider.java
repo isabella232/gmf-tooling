@@ -39,8 +39,7 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class AquatoryItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class AquatoryItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -77,9 +76,9 @@ public class AquatoryItemProvider extends ItemProviderAdapter implements IEditin
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(TaiPanPackage.eINSTANCE.getAquatory_Ports());
-			childrenFeatures.add(TaiPanPackage.eINSTANCE.getAquatory_Ships());
-			childrenFeatures.add(TaiPanPackage.eINSTANCE.getAquatory_Routes());
+			childrenFeatures.add(TaiPanPackage.Literals.AQUATORY__PORTS);
+			childrenFeatures.add(TaiPanPackage.Literals.AQUATORY__SHIPS);
+			childrenFeatures.add(TaiPanPackage.Literals.AQUATORY__ROUTES);
 		}
 		return childrenFeatures;
 	}
@@ -146,14 +145,11 @@ public class AquatoryItemProvider extends ItemProviderAdapter implements IEditin
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(TaiPanPackage.eINSTANCE.getAquatory_Ports(), TaiPanFactory.eINSTANCE
-				.createPort()));
+		newChildDescriptors.add(createChildParameter(TaiPanPackage.Literals.AQUATORY__PORTS, TaiPanFactory.eINSTANCE.createPort()));
 
-		newChildDescriptors.add(createChildParameter(TaiPanPackage.eINSTANCE.getAquatory_Ships(), TaiPanFactory.eINSTANCE
-				.createShip()));
+		newChildDescriptors.add(createChildParameter(TaiPanPackage.Literals.AQUATORY__SHIPS, TaiPanFactory.eINSTANCE.createShip()));
 
-		newChildDescriptors.add(createChildParameter(TaiPanPackage.eINSTANCE.getAquatory_Routes(), TaiPanFactory.eINSTANCE
-				.createRoute()));
+		newChildDescriptors.add(createChildParameter(TaiPanPackage.Literals.AQUATORY__ROUTES, TaiPanFactory.eINSTANCE.createRoute()));
 	}
 
 	/**

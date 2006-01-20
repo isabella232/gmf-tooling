@@ -41,8 +41,7 @@ import org.eclipse.gmf.examples.taipan.util.TaiPanAdapterFactory;
  * <!-- end-user-doc -->
  * @generated
  */
-public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory implements ComposeableAdapterFactory,
-		IChangeNotifier, IDisposable {
+public class TaiPanItemProviderAdapterFactory extends TaiPanAdapterFactory implements ComposeableAdapterFactory, IChangeNotifier, IDisposable {
 
 	/**
 	 * This keeps track of the root adapter factory that delegates to this adapter factory.

@@ -38,8 +38,7 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class RouteItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class RouteItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -76,10 +75,8 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * @generated
 	 */
 	protected void addSourcePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Route_source_feature"), getString(
-				"_UI_PropertyDescriptor_description", "_UI_Route_source_feature", "_UI_Route_type"), TaiPanPackage.eINSTANCE
-				.getRoute_Source(), true, null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Route_source_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_Route_source_feature", "_UI_Route_type"), TaiPanPackage.Literals.ROUTE__SOURCE, true, null, null, null));
 	}
 
 	/**
@@ -89,10 +86,9 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * @generated
 	 */
 	protected void addDestinationPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Route_destination_feature"), getString(
-				"_UI_PropertyDescriptor_description", "_UI_Route_destination_feature", "_UI_Route_type"),
-				TaiPanPackage.eINSTANCE.getRoute_Destination(), true, null, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_Route_destination_feature"), getString("_UI_PropertyDescriptor_description", "_UI_Route_destination_feature", "_UI_Route_type"),
+				TaiPanPackage.Literals.ROUTE__DESTINATION, true, null, null, null));
 	}
 
 	/**
@@ -102,10 +98,9 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * @generated
 	 */
 	protected void addDescriptionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Route_description_feature"), getString(
-				"_UI_PropertyDescriptor_description", "_UI_Route_description_feature", "_UI_Route_type"),
-				TaiPanPackage.eINSTANCE.getRoute_Description(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_Route_description_feature"), getString("_UI_PropertyDescriptor_description", "_UI_Route_description_feature", "_UI_Route_type"),
+				TaiPanPackage.Literals.ROUTE__DESCRIPTION, true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -115,10 +110,9 @@ public class RouteItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * @generated
 	 */
 	protected void addReliabilityPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Route_reliability_feature"), getString(
-				"_UI_PropertyDescriptor_description", "_UI_Route_reliability_feature", "_UI_Route_type"),
-				TaiPanPackage.eINSTANCE.getRoute_Reliability(), true, ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				getString("_UI_Route_reliability_feature"), getString("_UI_PropertyDescriptor_description", "_UI_Route_reliability_feature", "_UI_Route_type"),
+				TaiPanPackage.Literals.ROUTE__RELIABILITY, true, ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
 	}
 
 	/**

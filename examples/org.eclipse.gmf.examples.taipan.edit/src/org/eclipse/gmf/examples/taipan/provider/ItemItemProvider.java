@@ -38,8 +38,7 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ItemItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ItemItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
 	/**
 	 * This constructs an instance from a factory and a notifier.
@@ -74,10 +73,9 @@ public class ItemItemProvider extends ItemProviderAdapter implements IEditingDom
 	 * @generated
 	 */
 	protected void addArticlePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Item_article_feature"), getString(
-				"_UI_PropertyDescriptor_description", "_UI_Item_article_feature", "_UI_Item_type"), TaiPanPackage.eINSTANCE
-				.getItem_Article(), true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Item_article_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_Item_article_feature", "_UI_Item_type"), TaiPanPackage.Literals.ITEM__ARTICLE, true, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				null, null));
 	}
 
 	/**
@@ -87,10 +85,9 @@ public class ItemItemProvider extends ItemProviderAdapter implements IEditingDom
 	 * @generated
 	 */
 	protected void addQuantityPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory)
-				.getRootAdapterFactory(), getResourceLocator(), getString("_UI_Item_quantity_feature"), getString(
-				"_UI_PropertyDescriptor_description", "_UI_Item_quantity_feature", "_UI_Item_type"), TaiPanPackage.eINSTANCE
-				.getItem_Quantity(), true, ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(), getString("_UI_Item_quantity_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_Item_quantity_feature", "_UI_Item_type"), TaiPanPackage.Literals.ITEM__QUANTITY, true,
+				ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
 	/**
