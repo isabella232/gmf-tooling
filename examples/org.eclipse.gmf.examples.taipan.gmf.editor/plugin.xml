@@ -24,7 +24,7 @@
      <editor
         id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID"
         name="TaiPan Diagram Editor"
-        icon="icons/full/obj16/TaiPanModelFile.gif"
+        icon="../org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/TaiPanModelFile.gif"
         extensions="taipan_diagram"
         default="true"
         class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditor"
@@ -36,7 +36,7 @@
    <extension point="org.eclipse.ui.newWizards">
   	  <wizard
   	     name="TaiPan Diagram"
-  	     icon="icons/full/obj16/TaiPanModelFile.gif"
+  	     icon="../org.eclipse.gmf.examples.taipan.edit/icons/full/obj16/TaiPanModelFile.gif"
   	     category="org.eclipse.ui.Examples"
   	     class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreationWizard"
   	     id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanCreationWizardID">
