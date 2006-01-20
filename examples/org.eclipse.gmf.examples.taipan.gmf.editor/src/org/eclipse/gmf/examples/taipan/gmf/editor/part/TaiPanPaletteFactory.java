@@ -80,7 +80,7 @@ public class TaiPanPaletteFactory {
 	 * @generated
 	 */
 	private void fillPalette(PaletteRoot paletteRoot) {
-		paletteRoot.add(createTaiPanGroup());
+		paletteRoot.add(createTaiPan1Group());
 	}
 
 	/**
@@ -97,21 +97,21 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private PaletteContainer createTaiPanGroup() {
+	private PaletteContainer createTaiPan1Group() {
 		PaletteContainer paletteContainer = createContainer("TaiPan");
-		paletteContainer.add(createPortCreationTool());
-		paletteContainer.add(createShipCreationTool());
-		paletteContainer.add(createItemCreationTool());
+		paletteContainer.add(createPort1001CreationTool());
+		paletteContainer.add(createShip1002CreationTool());
+		paletteContainer.add(createItem1003CreationTool());
 		paletteContainer.add(new PaletteSeparator());
-		paletteContainer.add(createDestinationCreationTool());
-		paletteContainer.add(createRouteCreationTool());
+		paletteContainer.add(createDestination2001CreationTool());
+		paletteContainer.add(createRoute2002CreationTool());
 		return paletteContainer;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createPortCreationTool() {
+	private ToolEntry createPort1001CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -134,7 +134,7 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createShipCreationTool() {
+	private ToolEntry createShip1002CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -157,7 +157,7 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createItemCreationTool() {
+	private ToolEntry createItem1003CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -180,7 +180,7 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createDestinationCreationTool() {
+	private ToolEntry createDestination2001CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -203,7 +203,7 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createRouteCreationTool() {
+	private ToolEntry createRoute2002CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 

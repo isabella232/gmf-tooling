@@ -89,12 +89,12 @@
     <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="XXX"/>
   </compartments>
   <palette>
-    <groups titleKey="TaiPan" descriptionKey="Palete tools for TaiPan domain">
-      <nodeTools titleKey="Port" descriptionKey="Create Port node" genNode="//@topLevelNodes.0"/>
-      <nodeTools titleKey="Ship" descriptionKey="Create Ship node" genNode="//@topLevelNodes.1"/>
-      <nodeTools titleKey="Item" descriptionKey="Create Item node" genNode="//@childNodes.0"/>
-      <linkTools titleKey="Destination" descriptionKey="Create Destination link" genLink="//@links.0"/>
-      <linkTools titleKey="Route" descriptionKey="Create Route link" genLink="//@links.1"/>
+    <groups titleKey="TaiPan" descriptionKey="Palete tools for TaiPan domain" entryID="1">
+      <nodeTools titleKey="Port" descriptionKey="Create Port node" entryID="1001" genNode="//@topLevelNodes.0"/>
+      <nodeTools titleKey="Ship" descriptionKey="Create Ship node" entryID="1002" genNode="//@topLevelNodes.1"/>
+      <nodeTools titleKey="Item" descriptionKey="Create Item node" entryID="1003" genNode="//@childNodes.0"/>
+      <linkTools titleKey="Destination" descriptionKey="Create Destination link" entryID="2001" genLink="//@links.0"/>
+      <linkTools titleKey="Route" descriptionKey="Create Route link" entryID="2002" genLink="//@links.1"/>
     </groups>
   </palette>
 </gmfgen:GenDiagram>

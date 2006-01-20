@@ -151,45 +151,6 @@ public class PortEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	protected void addChildVisual(EditPart childEditPart, int index) {
-		if (isExternalLabel(childEditPart)) {
-			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
-			getExternalLabelsContainer().add(labelFigure);
-		} else {
-			super.addChildVisual(childEditPart, index);
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	protected void removeChildVisual(EditPart childEditPart) {
-		if (isExternalLabel(childEditPart)) {
-			IFigure labelFigure = ((GraphicalEditPart) childEditPart).getFigure();
-			getExternalLabelsContainer().remove(labelFigure);
-		} else {
-			super.removeChildVisual(childEditPart);
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	protected boolean isExternalLabel(EditPart childEditPart) {
-		return false;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected IFigure getExternalLabelsContainer() {
-		DiagramRootEditPart root = (DiagramRootEditPart) getRoot();
-		return root.getLayer(TaiPanEditPartFactory.EXTERNAL_NODE_LABELS_LAYER);
-	}
-
-	/**
-	 * @generated
-	 */
 	public class box extends org.eclipse.draw2d.RectangleFigure {
 
 		/**
