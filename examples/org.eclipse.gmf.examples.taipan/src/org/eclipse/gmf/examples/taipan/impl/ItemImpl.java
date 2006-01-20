@@ -14,7 +14,6 @@ package org.eclipse.gmf.examples.taipan.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
@@ -93,7 +92,7 @@ public class ItemImpl extends EObjectImpl implements Item {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return TaiPanPackage.eINSTANCE.getItem();
+		return TaiPanPackage.Literals.ITEM;
 	}
 
 	/**
@@ -143,14 +142,14 @@ public class ItemImpl extends EObjectImpl implements Item {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 		case TaiPanPackage.ITEM__ARTICLE:
 			return getArticle();
 		case TaiPanPackage.ITEM__QUANTITY:
 			return new Integer(getQuantity());
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -158,8 +157,8 @@ public class ItemImpl extends EObjectImpl implements Item {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 		case TaiPanPackage.ITEM__ARTICLE:
 			setArticle((String) newValue);
 			return;
@@ -167,7 +166,7 @@ public class ItemImpl extends EObjectImpl implements Item {
 			setQuantity(((Integer) newValue).intValue());
 			return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -175,8 +174,8 @@ public class ItemImpl extends EObjectImpl implements Item {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 		case TaiPanPackage.ITEM__ARTICLE:
 			setArticle(ARTICLE_EDEFAULT);
 			return;
@@ -184,7 +183,7 @@ public class ItemImpl extends EObjectImpl implements Item {
 			setQuantity(QUANTITY_EDEFAULT);
 			return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -192,14 +191,14 @@ public class ItemImpl extends EObjectImpl implements Item {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 		case TaiPanPackage.ITEM__ARTICLE:
 			return ARTICLE_EDEFAULT == null ? article != null : !ARTICLE_EDEFAULT.equals(article);
 		case TaiPanPackage.ITEM__QUANTITY:
 			return quantity != QUANTITY_EDEFAULT;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

@@ -13,8 +13,11 @@ package org.eclipse.gmf.examples.taipan.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
+
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 import org.eclipse.gmf.examples.taipan.*;
 
@@ -25,6 +28,24 @@ import org.eclipse.gmf.examples.taipan.*;
  * @generated
  */
 public class TaiPanFactoryImpl extends EFactoryImpl implements TaiPanFactory {
+
+	/**
+	 * Creates the default factory implementation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public static TaiPanFactory init() {
+		try {
+			TaiPanFactory theTaiPanFactory = (TaiPanFactory) EPackage.Registry.INSTANCE.getEFactory("http://www.eclipse.org/examples/gmf/taipan");
+			if (theTaiPanFactory != null) {
+				return theTaiPanFactory;
+			}
+		} catch (Exception exception) {
+			EcorePlugin.INSTANCE.log(exception);
+		}
+		return new TaiPanFactoryImpl();
+	}
 
 	/**
 	 * Creates an instance of the factory.

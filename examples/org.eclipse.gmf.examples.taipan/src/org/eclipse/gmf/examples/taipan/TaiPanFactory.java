@@ -29,7 +29,7 @@ public interface TaiPanFactory extends EFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	TaiPanFactory eINSTANCE = new org.eclipse.gmf.examples.taipan.impl.TaiPanFactoryImpl();
+	TaiPanFactory eINSTANCE = org.eclipse.gmf.examples.taipan.impl.TaiPanFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Aquatory</em>'.

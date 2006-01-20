@@ -18,7 +18,6 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.EObjectImpl;
@@ -94,7 +93,7 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return TaiPanPackage.eINSTANCE.getAquatory();
+		return TaiPanPackage.Literals.AQUATORY;
 	}
 
 	/**
@@ -138,20 +137,16 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, Class baseClass, NotificationChain msgs) {
-		if (featureID >= 0) {
-			switch (eDerivedStructuralFeatureID(featureID, baseClass)) {
-			case TaiPanPackage.AQUATORY__PORTS:
-				return ((InternalEList) getPorts()).basicRemove(otherEnd, msgs);
-			case TaiPanPackage.AQUATORY__SHIPS:
-				return ((InternalEList) getShips()).basicRemove(otherEnd, msgs);
-			case TaiPanPackage.AQUATORY__ROUTES:
-				return ((InternalEList) getRoutes()).basicRemove(otherEnd, msgs);
-			default:
-				return eDynamicInverseRemove(otherEnd, featureID, baseClass, msgs);
-			}
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case TaiPanPackage.AQUATORY__PORTS:
+			return ((InternalEList) getPorts()).basicRemove(otherEnd, msgs);
+		case TaiPanPackage.AQUATORY__SHIPS:
+			return ((InternalEList) getShips()).basicRemove(otherEnd, msgs);
+		case TaiPanPackage.AQUATORY__ROUTES:
+			return ((InternalEList) getRoutes()).basicRemove(otherEnd, msgs);
 		}
-		return eBasicSetContainer(null, featureID, msgs);
+		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
@@ -159,8 +154,8 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 		case TaiPanPackage.AQUATORY__PORTS:
 			return getPorts();
 		case TaiPanPackage.AQUATORY__SHIPS:
@@ -168,7 +163,7 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 		case TaiPanPackage.AQUATORY__ROUTES:
 			return getRoutes();
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -176,8 +171,8 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 		case TaiPanPackage.AQUATORY__PORTS:
 			getPorts().clear();
 			getPorts().addAll((Collection) newValue);
@@ -191,7 +186,7 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 			getRoutes().addAll((Collection) newValue);
 			return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -199,8 +194,8 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 		case TaiPanPackage.AQUATORY__PORTS:
 			getPorts().clear();
 			return;
@@ -211,7 +206,7 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 			getRoutes().clear();
 			return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -219,8 +214,8 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 		case TaiPanPackage.AQUATORY__PORTS:
 			return ports != null && !ports.isEmpty();
 		case TaiPanPackage.AQUATORY__SHIPS:
@@ -228,7 +223,7 @@ public class AquatoryImpl extends EObjectImpl implements Aquatory {
 		case TaiPanPackage.AQUATORY__ROUTES:
 			return routes != null && !routes.isEmpty();
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 } //AquatoryImpl

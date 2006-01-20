@@ -14,7 +14,6 @@ package org.eclipse.gmf.examples.taipan.impl;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -117,7 +116,7 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return TaiPanPackage.eINSTANCE.getRoute();
+		return TaiPanPackage.Literals.ROUTE;
 	}
 
 	/**
@@ -127,8 +126,8 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 */
 	public Port getSource() {
 		if (source != null && source.eIsProxy()) {
-			Port oldSource = source;
-			source = (Port) eResolveProxy((InternalEObject) source);
+			InternalEObject oldSource = (InternalEObject) source;
+			source = (Port) eResolveProxy(oldSource);
 			if (source != oldSource) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TaiPanPackage.ROUTE__SOURCE, oldSource, source));
@@ -165,12 +164,11 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 */
 	public Port getDestination() {
 		if (destination != null && destination.eIsProxy()) {
-			Port oldDestination = destination;
-			destination = (Port) eResolveProxy((InternalEObject) destination);
+			InternalEObject oldDestination = (InternalEObject) destination;
+			destination = (Port) eResolveProxy(oldDestination);
 			if (destination != oldDestination) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TaiPanPackage.ROUTE__DESTINATION, oldDestination,
-							destination));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, TaiPanPackage.ROUTE__DESTINATION, oldDestination, destination));
 			}
 		}
 		return destination;
@@ -244,8 +242,8 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Object eGet(EStructuralFeature eFeature, boolean resolve) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
 		case TaiPanPackage.ROUTE__SOURCE:
 			if (resolve)
 				return getSource();
@@ -259,7 +257,7 @@ public class RouteImpl extends EObjectImpl implements Route {
 		case TaiPanPackage.ROUTE__RELIABILITY:
 			return new Double(getReliability());
 		}
-		return eDynamicGet(eFeature, resolve);
+		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
@@ -267,8 +265,8 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eSet(EStructuralFeature eFeature, Object newValue) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
 		case TaiPanPackage.ROUTE__SOURCE:
 			setSource((Port) newValue);
 			return;
@@ -282,7 +280,7 @@ public class RouteImpl extends EObjectImpl implements Route {
 			setReliability(((Double) newValue).doubleValue());
 			return;
 		}
-		eDynamicSet(eFeature, newValue);
+		super.eSet(featureID, newValue);
 	}
 
 	/**
@@ -290,8 +288,8 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void eUnset(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public void eUnset(int featureID) {
+		switch (featureID) {
 		case TaiPanPackage.ROUTE__SOURCE:
 			setSource((Port) null);
 			return;
@@ -305,7 +303,7 @@ public class RouteImpl extends EObjectImpl implements Route {
 			setReliability(RELIABILITY_EDEFAULT);
 			return;
 		}
-		eDynamicUnset(eFeature);
+		super.eUnset(featureID);
 	}
 
 	/**
@@ -313,8 +311,8 @@ public class RouteImpl extends EObjectImpl implements Route {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean eIsSet(EStructuralFeature eFeature) {
-		switch (eDerivedStructuralFeatureID(eFeature)) {
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
 		case TaiPanPackage.ROUTE__SOURCE:
 			return source != null;
 		case TaiPanPackage.ROUTE__DESTINATION:
@@ -324,7 +322,7 @@ public class RouteImpl extends EObjectImpl implements Route {
 		case TaiPanPackage.ROUTE__RELIABILITY:
 			return reliability != RELIABILITY_EDEFAULT;
 		}
-		return eDynamicIsSet(eFeature);
+		return super.eIsSet(featureID);
 	}
 
 	/**

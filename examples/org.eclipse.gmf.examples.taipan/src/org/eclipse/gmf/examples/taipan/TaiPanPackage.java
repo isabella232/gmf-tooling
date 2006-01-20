@@ -479,4 +479,174 @@ public interface TaiPanPackage extends EPackage {
 	 */
 	TaiPanFactory getTaiPanFactory();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * Defines literals for the meta objects that represent
+	 * <ul>
+	 *   <li>each class,</li>
+	 *   <li>each feature of each class,</li>
+	 *   <li>each enum,</li>
+	 *   <li>and each data type</li>
+	 * </ul>
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	interface Literals {
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.gmf.examples.taipan.impl.AquatoryImpl <em>Aquatory</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.gmf.examples.taipan.impl.AquatoryImpl
+		 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getAquatory()
+		 * @generated
+		 */
+		EClass AQUATORY = eINSTANCE.getAquatory();
+
+		/**
+		 * The meta object literal for the '<em><b>Ports</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference AQUATORY__PORTS = eINSTANCE.getAquatory_Ports();
+
+		/**
+		 * The meta object literal for the '<em><b>Ships</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference AQUATORY__SHIPS = eINSTANCE.getAquatory_Ships();
+
+		/**
+		 * The meta object literal for the '<em><b>Routes</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference AQUATORY__ROUTES = eINSTANCE.getAquatory_Routes();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.gmf.examples.taipan.impl.PortImpl <em>Port</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.gmf.examples.taipan.impl.PortImpl
+		 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getPort()
+		 * @generated
+		 */
+		EClass PORT = eINSTANCE.getPort();
+
+		/**
+		 * The meta object literal for the '<em><b>Location</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PORT__LOCATION = eINSTANCE.getPort_Location();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.gmf.examples.taipan.impl.ShipImpl <em>Ship</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.gmf.examples.taipan.impl.ShipImpl
+		 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getShip()
+		 * @generated
+		 */
+		EClass SHIP = eINSTANCE.getShip();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute SHIP__NAME = eINSTANCE.getShip_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Destination</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SHIP__DESTINATION = eINSTANCE.getShip_Destination();
+
+		/**
+		 * The meta object literal for the '<em><b>Cargo</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SHIP__CARGO = eINSTANCE.getShip_Cargo();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.gmf.examples.taipan.impl.ItemImpl <em>Item</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.gmf.examples.taipan.impl.ItemImpl
+		 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getItem()
+		 * @generated
+		 */
+		EClass ITEM = eINSTANCE.getItem();
+
+		/**
+		 * The meta object literal for the '<em><b>Article</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ITEM__ARTICLE = eINSTANCE.getItem_Article();
+
+		/**
+		 * The meta object literal for the '<em><b>Quantity</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ITEM__QUANTITY = eINSTANCE.getItem_Quantity();
+
+		/**
+		 * The meta object literal for the '{@link org.eclipse.gmf.examples.taipan.impl.RouteImpl <em>Route</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.gmf.examples.taipan.impl.RouteImpl
+		 * @see org.eclipse.gmf.examples.taipan.impl.TaiPanPackageImpl#getRoute()
+		 * @generated
+		 */
+		EClass ROUTE = eINSTANCE.getRoute();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ROUTE__SOURCE = eINSTANCE.getRoute_Source();
+
+		/**
+		 * The meta object literal for the '<em><b>Destination</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ROUTE__DESTINATION = eINSTANCE.getRoute_Destination();
+
+		/**
+		 * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ROUTE__DESCRIPTION = eINSTANCE.getRoute_Description();
+
+		/**
+		 * The meta object literal for the '<em><b>Reliability</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ROUTE__RELIABILITY = eINSTANCE.getRoute_Reliability();
+
+	}
+
 } //TaiPanPackage
