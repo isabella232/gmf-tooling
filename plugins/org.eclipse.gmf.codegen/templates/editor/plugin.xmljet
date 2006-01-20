@@ -30,7 +30,7 @@ final GenModel genModel = genDiagram.getEMFGenModel();
      <editor
         id="<%=genDiagram.getEditorQualifiedClassName()%>ID"
         name="<%=genModel.getModelName()%> Diagram Editor"
-        icon="../<%=genModel.getEditorPluginID()%>/icons/full/obj16/<%=genModel.getModelName()%>ModelFile.gif"
+        icon="../<%=genModel.getEditorPluginID()%>/icons/full/obj16/<%=genDiagram.getDomainMetaModel().getPrefix()%>ModelFile.gif"
         extensions="<%=genDiagram.getDiagramFileExtension()%>"
         default="true"
         class="<%=genDiagram.getEditorQualifiedClassName()%>"
@@ -42,7 +42,7 @@ final GenModel genModel = genDiagram.getEMFGenModel();
    <extension point="org.eclipse.ui.newWizards">
   	  <wizard
   	     name="<%=genModel.getModelName()%> Diagram"
-  	     icon="../<%=genModel.getEditorPluginID()%>/icons/full/obj16/<%=genModel.getModelName()%>ModelFile.gif"
+  	     icon="../<%=genModel.getEditorPluginID()%>/icons/full/obj16/<%=genDiagram.getDomainMetaModel().getPrefix()%>ModelFile.gif"
   	     category="org.eclipse.ui.Examples"
   	     class="<%=genDiagram.getCreationWizardQualifiedClassName()%>"
   	     id="<%=genDiagram.getCreationWizardQualifiedClassName()%>ID">
