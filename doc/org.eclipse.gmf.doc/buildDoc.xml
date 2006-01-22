@@ -264,7 +264,9 @@
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.tooldef.edit/src"/>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.map/src"/>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.map.edit/src"/>
-				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.bridge/src"/>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.bridge/src">
+		    		<exclude name="org/eclipse/gmf/internal/**"/>
+		    	</packageset>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.codegen/src"/>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.codegen.edit/src"/>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.codegen.ui/src">
