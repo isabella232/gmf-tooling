@@ -23,11 +23,6 @@
 				fileName='&lt;a href="@base@GMF-tests-@build@.zip">GMF-tests-@build@.zip&lt;/a>'>
 			</platform>
 		</zipType>
-		<zipType name="Documentation">
-			<platform id="D" name="All"
-				fileName='&lt;a href="@base@GMF-docs-@build@.zip">GMF-docs-@build@.zip&lt;/a>'>
-			</platform>
-		</zipType>
 	</zipTypes>
 
 	<logFiles>
