@@ -145,6 +145,17 @@
 		<!-- TODO: Remove when dependency gone -->
 		<available file="${buildDirectory}/plugins/antlr/lib/antlr.jar" property="antlrExists" />
 		<ant antfile="${scripts}/install.xml" target="installAntlr" />
+		
+		<!-- Retrieve doclet -->
+		<cvs command="checkout -r HEAD org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet" 
+		     cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" 
+		     dest="${buildDirectory}" />
+		<!-- Compile and package doclet -->
+		<ant antfile="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet/build.xml" 
+		     target="build.jar" 
+		     dir="${buildDirectory}/org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet" />
+		<property file="${buildDirectory}/maps/org.eclipse.gmf.releng/maps/build.cfg"/>
+		<ant antfile="${buildDirectory}/plugins/org.eclipse.gmf.doc/buildDoc.xml" />
 	</target>
 
 	<!-- ===================================================================== -->
