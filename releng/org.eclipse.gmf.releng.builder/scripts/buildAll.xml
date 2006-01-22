@@ -71,12 +71,6 @@
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable}" />
 		</ant>
-		<echo message="Building documentation..." />
-		<ant antfile="build.xml" target="main">
-			<property name="component" value="doc" />
-			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${stable}" />
-		</ant>
 		<antcall target="publish" />
 		<property file="label.properties" />
 		<property file="build.properties" />
@@ -120,12 +114,6 @@
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${integration}" />
 		</ant>
-		<echo message="Building documentation..." />
-		<ant antfile="build.xml" target="main">
-			<property name="component" value="doc" />
-			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${integration}" />
-		</ant>
 		<antcall target="publish" />
 	</target>
 	
@@ -159,12 +147,6 @@
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable}" />
 		</ant>
-		<echo message="Building documentation..." />
-		<ant antfile="build.xml" target="main">
-			<property name="component" value="doc" />
-			<property name="wipe" value="true" />
-			<property name="mapsCheckoutTag" value="${stable}" />
-		</ant>
 		<antcall target="publish" />
 		<property file="label.properties" />
 		<property file="build.properties" />
@@ -192,7 +174,7 @@
 		<property name="result" value="${buildRoot}/artifacts/${buildLabel}" />
 
 		<ant antfile="${publish.xml}" dir="${basedir}">
-			<property name="dropTokenList" value="%sdk%,%runtime%,%examples%,%tests%,%docs%" />
+			<property name="dropTokenList" value="%sdk%,%runtime%,%examples%,%tests%" />
 			<property name="isBuildTested" value="true" />
 		</ant>
 
