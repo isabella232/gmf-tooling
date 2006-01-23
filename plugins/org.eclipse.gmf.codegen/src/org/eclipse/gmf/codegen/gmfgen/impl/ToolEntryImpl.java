@@ -6,6 +6,7 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -158,7 +159,7 @@ public abstract class ToolEntryImpl extends EntryBaseImpl implements ToolEntry {
 		if (getCreateMethodNameGen() != null) {
 			return getCreateMethodNameGen();
 		}
-		return "create" + getTitleKey() + getEntryID() + "CreationTool";
+		return CodeGenUtil.validJavaIdentifier("create" + getTitleKey() + getEntryID() + "CreationTool");
 	}
 
 } //ToolEntryImpl

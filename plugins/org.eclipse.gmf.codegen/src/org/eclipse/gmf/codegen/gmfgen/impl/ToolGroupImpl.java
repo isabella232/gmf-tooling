@@ -8,6 +8,7 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -231,6 +232,6 @@ public class ToolGroupImpl extends EntryBaseImpl implements ToolGroup {
 		if (getCreateMethodNameGen() != null) {
 			return getCreateMethodNameGen();
 		}
-		return "create" + getTitleKey() + getEntryID() + "Group";
+		return CodeGenUtil.validJavaIdentifier("create" + getTitleKey() + getEntryID() + "Group");
 	}
 } //ToolGroupImpl
