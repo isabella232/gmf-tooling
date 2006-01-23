@@ -117,7 +117,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	 * @generated NOT
 	 */
 	public GenClass getDomainMetaClass() {
-		return getModelFacet().getMetaClass();
+		return getModelFacet() == null ? null : getModelFacet().getMetaClass();
 	}
 
 	/**
