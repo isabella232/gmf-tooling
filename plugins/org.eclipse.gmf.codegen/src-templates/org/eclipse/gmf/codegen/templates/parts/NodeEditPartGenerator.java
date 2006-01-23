@@ -19,7 +19,7 @@ public class NodeEditPartGenerator {
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "package ";
   protected final String TEXT_2 = ";" + NL;
-  protected final String TEXT_3 = NL + "import org.eclipse.draw2d.BorderLayout;" + NL + "import org.eclipse.draw2d.IFigure;" + NL + "import org.eclipse.draw2d.StackLayout;" + NL + "import org.eclipse.gef.EditPolicy;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;" + NL + "import org.eclipse.gmf.runtime.draw2d.ui.figures.RectangularDropShadowLineBorder;" + NL + "import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;" + NL + "import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;" + NL + "import org.eclipse.gmf.runtime.notation.View;" + NL + "import org.eclipse.emf.ecore.EAnnotation;" + NL + "import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;";
+  protected final String TEXT_3 = NL + "import org.eclipse.draw2d.BorderLayout;" + NL + "import org.eclipse.draw2d.IFigure;" + NL + "import org.eclipse.draw2d.StackLayout;" + NL + "import org.eclipse.gef.EditPolicy;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;" + NL + "import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;" + NL + "import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;" + NL + "import org.eclipse.gmf.runtime.notation.View;" + NL + "import org.eclipse.emf.ecore.EAnnotation;" + NL + "import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;";
   protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_5 = " extends ShapeNodeEditPart {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected IFigure contentPane;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
   protected final String TEXT_6 = "(View view) {" + NL + "\t\tsuper(view);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void createDefaultEditPolicies() {";
@@ -48,7 +48,7 @@ public class NodeEditPartGenerator {
   protected final String TEXT_29 = NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected NodeFigure createNodePlate() {";
   protected final String TEXT_30 = NL + "\t\treturn new DefaultSizeNodeFigure(getMapMode().DPtoLP(";
   protected final String TEXT_31 = "), getMapMode().DPtoLP(";
-  protected final String TEXT_32 = "));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * Creates figure for this edit part." + NL + "\t * " + NL + "\t * Body of this method does not depend on settings in generation model" + NL + "\t * so you may safely remove <i>generated</i> tag and modify it." + NL + "\t * " + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected NodeFigure createNodeFigure() {" + NL + "\t\tNodeFigure figure = createNodePlate();" + NL + "\t\tfigure.setBorder(new RectangularDropShadowLineBorder(1));" + NL + "\t\tfigure.setLayoutManager(new StackLayout());" + NL + "\t\tIFigure shape = createNodeShape();" + NL + "\t\tfigure.add(shape);" + NL + "\t\tshape.setLayoutManager(new StackLayout());" + NL + "\t\t" + NL + "\t\tIFigure shapeContents = new Figure();" + NL + "\t\tshape.add(shapeContents);" + NL + "\t\tshapeContents.setLayoutManager(new BorderLayout());" + NL + "\t\taddContentPane(shapeContents);" + NL + "\t\tdecorateShape(shapeContents);" + NL + "" + NL + "\t\treturn figure;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate void decorateShape(IFigure shapeContents) {" + NL + "\t\tView view = (View) getModel();" + NL + "\t\tEAnnotation annotation = view.getEAnnotation(\"Shortcutted\"); //$NON-NLS-1$" + NL + "\t\tif (annotation == null) {" + NL + "\t\t\treturn;" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\tFigure decorationPane = new Figure();" + NL + "\t\tdecorationPane.setLayoutManager(new BorderLayout());" + NL + "\t\tshapeContents.add(decorationPane, BorderLayout.BOTTOM);" + NL + "\t\t" + NL + "\t\tImageFigureEx imageFigure = new ImageFigureEx(";
+  protected final String TEXT_32 = "));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * Creates figure for this edit part." + NL + "\t * " + NL + "\t * Body of this method does not depend on settings in generation model" + NL + "\t * so you may safely remove <i>generated</i> tag and modify it." + NL + "\t * " + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected NodeFigure createNodeFigure() {" + NL + "\t\tNodeFigure figure = createNodePlate();" + NL + "\t\tfigure.setLayoutManager(new StackLayout());" + NL + "\t\tIFigure shape = createNodeShape();" + NL + "\t\tfigure.add(shape);" + NL + "\t\tshape.setLayoutManager(new StackLayout());" + NL + "\t\t" + NL + "\t\tIFigure shapeContents = new Figure();" + NL + "\t\tshape.add(shapeContents);" + NL + "\t\tshapeContents.setLayoutManager(new BorderLayout());" + NL + "\t\taddContentPane(shapeContents);" + NL + "\t\tdecorateShape(shapeContents);" + NL + "" + NL + "\t\treturn figure;" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate void decorateShape(IFigure shapeContents) {" + NL + "\t\tView view = (View) getModel();" + NL + "\t\tEAnnotation annotation = view.getEAnnotation(\"Shortcutted\"); //$NON-NLS-1$" + NL + "\t\tif (annotation == null) {" + NL + "\t\t\treturn;" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\tFigure decorationPane = new Figure();" + NL + "\t\tdecorationPane.setLayoutManager(new BorderLayout());" + NL + "\t\tshapeContents.add(decorationPane, BorderLayout.BOTTOM);" + NL + "\t\t" + NL + "\t\tImageFigureEx imageFigure = new ImageFigureEx(";
   protected final String TEXT_33 = ".getInstance().getBundledImage(\"icons/shortcut.gif\"));" + NL + "\t\tdecorationPane.add(imageFigure, BorderLayout.RIGHT);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void addContentPane(IFigure shape) {" + NL + "\t\tcontentPane = new ";
   protected final String TEXT_34 = "();" + NL + "\t\tshape.add(contentPane, BorderLayout.CENTER);";
   protected final String TEXT_35 = NL + "\t\t";
@@ -153,9 +153,15 @@ public class NodeEditPartGenerator {
 			if (isContainerEObject) {
 				result.append(")");
 			}
-			result.append(".set");
-			result.append(feature.getAccessorName());
-			result.append("(");
+			if (feature.isListType()) {
+				result.append(".");
+				result.append(feature.getGetAccessor());
+				result.append("().add(");
+			} else {
+				result.append(".set");
+				result.append(feature.getAccessorName());
+				result.append("(");
+			}
 		}
 		return result.toString();
 	}

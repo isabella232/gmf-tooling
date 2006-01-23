@@ -158,9 +158,15 @@ public class CompartmentItemSemanticEditPolicyGenerator {
 			if (isContainerEObject) {
 				result.append(")");
 			}
-			result.append(".set");
-			result.append(feature.getAccessorName());
-			result.append("(");
+			if (feature.isListType()) {
+				result.append(".");
+				result.append(feature.getGetAccessor());
+				result.append("().add(");
+			} else {
+				result.append(".set");
+				result.append(feature.getAccessorName());
+				result.append("(");
+			}
 		}
 		return result.toString();
 	}

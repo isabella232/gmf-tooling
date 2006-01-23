@@ -70,7 +70,7 @@ for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
 		GenFeature nextLinkTargetFeature = typeLinkFacet.getTargetMetaFeature();
 %>
 		case <%=nextGenLink.getVisualID()%>:
-			return <%=getFeatureValueGetter("relationship", nextLinkTargetFeature, true, importManager)%><%=nextLinkTargetFeature.isListType() ? ".get(0)" : ""%>;
+			return <%=nextLinkTargetFeature.isListType() ? "(EObject) " : ""%><%=getFeatureValueGetter("relationship", nextLinkTargetFeature, true, importManager)%><%=nextLinkTargetFeature.isListType() ? ".get(0)" : ""%>;
 <%
 	}
 }

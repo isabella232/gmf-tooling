@@ -126,9 +126,15 @@ public class DiagramCanonicalEditPolicyGenerator {
 			if (isContainerEObject) {
 				result.append(")");
 			}
-			result.append(".set");
-			result.append(feature.getAccessorName());
-			result.append("(");
+			if (feature.isListType()) {
+				result.append(".");
+				result.append(feature.getGetAccessor());
+				result.append("().add(");
+			} else {
+				result.append(".set");
+				result.append(feature.getAccessorName());
+				result.append("(");
+			}
 		}
 		return result.toString();
 	}
@@ -238,6 +244,7 @@ for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_30);
     stringBuffer.append(nextGenLink.getVisualID());
     stringBuffer.append(TEXT_31);
+    stringBuffer.append(nextLinkTargetFeature.isListType() ? "(EObject) " : "");
     stringBuffer.append(getFeatureValueGetter("relationship", nextLinkTargetFeature, true, importManager));
     stringBuffer.append(nextLinkTargetFeature.isListType() ? ".get(0)" : "");
     stringBuffer.append(TEXT_32);
