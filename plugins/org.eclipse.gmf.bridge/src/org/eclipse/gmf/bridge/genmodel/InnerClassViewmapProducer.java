@@ -21,6 +21,7 @@ import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+import org.eclipse.gmf.gmfgraph.Child;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.Figure;
@@ -50,6 +51,18 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 		} catch (JETException ex) {
 			ex.printStackTrace();
 			return super.create(node);
+		}
+	}
+	
+	public Viewmap create(Child child) {
+		if (child.getFigure() == null) {
+			return super.create(child);
+		}
+		try {
+			return createViewmap(child.getFigure());
+		} catch (JETException ex) {
+			ex.printStackTrace();
+			return super.create(child);
 		}
 	}
 
