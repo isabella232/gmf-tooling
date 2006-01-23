@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.BasicMonitor;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.DecorationFigure;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
 import org.eclipse.gmf.gmfgraph.Shape;
 import org.osgi.framework.Bundle;
@@ -32,6 +33,7 @@ public class FigureGenerator {
 	private final JETEmitter decorationFigureEmitter;
 	private final JETEmitter polylineConnectionEmitter;
 	private final String packageName;
+	private final JETEmitter labelFigureEmitter;
 
 	public FigureGenerator() {
 		this(null);
@@ -48,6 +50,8 @@ public class FigureGenerator {
 		initEmitter(decorationFigureEmitter);
 		polylineConnectionEmitter = new JETEmitter(thisBundle.getEntry("/templates/PolylineConnection.javajet").toString(), FigureGenerator.class.getClassLoader());
 		initEmitter(polylineConnectionEmitter);
+		labelFigureEmitter = new JETEmitter(thisBundle.getEntry("/templates/Label.javajet").toString(), FigureGenerator.class.getClassLoader());
+		initEmitter(labelFigureEmitter);
 	}
 
 	/**
@@ -78,7 +82,10 @@ public class FigureGenerator {
 			res = generate(fig, shapeEmitter);
 		} else if (fig instanceof CustomFigure) {
 			res = generate(fig, customFigureEmitter);
+		} else if (fig instanceof Label) {
+			res = generate(fig, labelFigureEmitter);
 		}
+// TODO: } else if (fig instanceof LabeledContainer) {
 		if (res == null) {
 			throw new IllegalStateException();
 		}

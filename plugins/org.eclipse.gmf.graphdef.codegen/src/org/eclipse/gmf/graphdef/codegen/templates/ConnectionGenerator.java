@@ -44,9 +44,9 @@ public class ConnectionGenerator
   protected final String TEXT_26 = ", ";
   protected final String TEXT_27 = "));";
   protected final String TEXT_28 = NL + "\t\t";
-  protected final String TEXT_29 = ".setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(";
-  protected final String TEXT_30 = ", ";
-  protected final String TEXT_31 = "));";
+  protected final String TEXT_29 = ".setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(";
+  protected final String TEXT_30 = "), getMapMode().DPtoLP(";
+  protected final String TEXT_31 = ")));";
   protected final String TEXT_32 = NL + "\t\tsetSourceDecoration(createSourceDecoration());";
   protected final String TEXT_33 = NL + "\t\tsetTargetDecoration(createTargetDecoration());";
   protected final String TEXT_34 = NL + "\t}" + NL;

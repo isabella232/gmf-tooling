@@ -18,5 +18,5 @@
 		<%=shapeVarName%>.addPoint(new org.eclipse.draw2d.geometry.Point(<%=p.getX()%>, <%=p.getY()%>));
 <%}%><%} else if (shapeFigure instanceof RoundedRectangle) {
 		RoundedRectangle rrFigure = (RoundedRectangle) shapeFigure;%>
-		<%=shapeVarName%>.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(<%=rrFigure.getCornerWidth()%>, <%=rrFigure.getCornerHeight()%>));
+		<%=shapeVarName%>.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(<%=rrFigure.getCornerWidth()%>), getMapMode().DPtoLP(<%=rrFigure.getCornerHeight()%>)));
 <%}%><%@ include file="FigureAttrs.jetinc"%>

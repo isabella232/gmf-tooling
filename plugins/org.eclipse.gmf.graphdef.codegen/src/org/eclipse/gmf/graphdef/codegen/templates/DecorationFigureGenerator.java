@@ -61,9 +61,9 @@ public class DecorationFigureGenerator
   protected final String TEXT_43 = ", ";
   protected final String TEXT_44 = "));";
   protected final String TEXT_45 = NL + "\t\t";
-  protected final String TEXT_46 = ".setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(";
-  protected final String TEXT_47 = ", ";
-  protected final String TEXT_48 = "));";
+  protected final String TEXT_46 = ".setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(";
+  protected final String TEXT_47 = "), getMapMode().DPtoLP(";
+  protected final String TEXT_48 = ")));";
   protected final String TEXT_49 = NL + "\t}" + NL + "}";
   protected final String TEXT_50 = NL;
 

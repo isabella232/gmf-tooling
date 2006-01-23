@@ -54,9 +54,9 @@ public class CustomFigureGenerator
   protected final String TEXT_36 = ", ";
   protected final String TEXT_37 = "));";
   protected final String TEXT_38 = NL + "\t\t";
-  protected final String TEXT_39 = ".setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(";
-  protected final String TEXT_40 = ", ";
-  protected final String TEXT_41 = "));";
+  protected final String TEXT_39 = ".setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(";
+  protected final String TEXT_40 = "), getMapMode().DPtoLP(";
+  protected final String TEXT_41 = ")));";
   protected final String TEXT_42 = NL + "\t\torg.eclipse.draw2d.IFigure ";
   protected final String TEXT_43 = " = new ";
   protected final String TEXT_44 = "();";

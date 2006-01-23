@@ -44,9 +44,9 @@ public class ShapeGenerator
   protected final String TEXT_26 = ", ";
   protected final String TEXT_27 = "));";
   protected final String TEXT_28 = NL + "\t\t";
-  protected final String TEXT_29 = ".setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(";
-  protected final String TEXT_30 = ", ";
-  protected final String TEXT_31 = "));";
+  protected final String TEXT_29 = ".setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(";
+  protected final String TEXT_30 = "), getMapMode().DPtoLP(";
+  protected final String TEXT_31 = ")));";
   protected final String TEXT_32 = NL + "\t\tsetFigure";
   protected final String TEXT_33 = "(createFigure";
   protected final String TEXT_34 = "());" + NL + "\t\tadd(getFigure";
@@ -92,9 +92,9 @@ public class ShapeGenerator
   protected final String TEXT_74 = ", ";
   protected final String TEXT_75 = "));";
   protected final String TEXT_76 = NL + "\t\t";
-  protected final String TEXT_77 = ".setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(";
-  protected final String TEXT_78 = ", ";
-  protected final String TEXT_79 = "));";
+  protected final String TEXT_77 = ".setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(";
+  protected final String TEXT_78 = "), getMapMode().DPtoLP(";
+  protected final String TEXT_79 = ")));";
   protected final String TEXT_80 = NL + "\t\torg.eclipse.draw2d.IFigure ";
   protected final String TEXT_81 = " = new ";
   protected final String TEXT_82 = "();";
@@ -138,9 +138,9 @@ public class ShapeGenerator
   protected final String TEXT_120 = ", ";
   protected final String TEXT_121 = "));";
   protected final String TEXT_122 = NL + "\t\t";
-  protected final String TEXT_123 = ".setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(";
-  protected final String TEXT_124 = ", ";
-  protected final String TEXT_125 = "));";
+  protected final String TEXT_123 = ".setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(";
+  protected final String TEXT_124 = "), getMapMode().DPtoLP(";
+  protected final String TEXT_125 = ")));";
   protected final String TEXT_126 = NL + "\t\torg.eclipse.draw2d.IFigure ";
   protected final String TEXT_127 = " = new ";
   protected final String TEXT_128 = "();";
