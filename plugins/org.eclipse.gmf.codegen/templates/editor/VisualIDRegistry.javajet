@@ -140,7 +140,7 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 		}
 	}
 %>
-			if (!"".equals(semanticHint)) {
+			if (semanticHint != null && !"".equals(semanticHint)) {
 				return getUnrecognized<%=nextContainer.getUniqueIdentifier()%>ChildNodeID(semanticHint);
 			} 
 <%	

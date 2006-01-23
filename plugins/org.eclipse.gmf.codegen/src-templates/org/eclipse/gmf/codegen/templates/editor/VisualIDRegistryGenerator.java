@@ -47,7 +47,7 @@ public class VisualIDRegistryGenerator
   protected final String TEXT_28 = NL + "\t\t\tif (";
   protected final String TEXT_29 = ".equals(semanticHint)) {" + NL + "\t\t\t\treturn ";
   protected final String TEXT_30 = ";" + NL + "\t\t\t} ";
-  protected final String TEXT_31 = NL + "\t\t\tif (!\"\".equals(semanticHint)) {" + NL + "\t\t\t\treturn getUnrecognized";
+  protected final String TEXT_31 = NL + "\t\t\tif (semanticHint != null && !\"\".equals(semanticHint)) {" + NL + "\t\t\t\treturn getUnrecognized";
   protected final String TEXT_32 = "ChildNodeID(semanticHint);" + NL + "\t\t\t} ";
   protected final String TEXT_33 = "\t\t" + NL + "\t\t\tif (";
   protected final String TEXT_34 = ".eINSTANCE.get";
