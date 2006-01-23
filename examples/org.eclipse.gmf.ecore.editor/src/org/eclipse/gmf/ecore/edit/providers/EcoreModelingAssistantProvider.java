@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
+import org.eclipse.gmf.runtime.emf.ui.services.modelingassistant.ModelingAssistantProvider;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation_detailsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClass_attributesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EClass_classannotationsEditPart;
@@ -18,8 +20,6 @@ import org.eclipse.gmf.ecore.edit.parts.EPackage_datatypesEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage_enumsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage_packageannotationsEditPart;
 import org.eclipse.gmf.ecore.edit.parts.EPackage_packagesEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-import org.eclipse.gmf.runtime.emf.ui.services.modelingassistant.ModelingAssistantProvider;
 
 /**
  * @generated

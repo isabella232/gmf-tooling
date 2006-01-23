@@ -69,9 +69,9 @@ public class EcorePaletteFactory {
 	 * @generated
 	 */
 	private void fillPalette(PaletteRoot paletteRoot) {
-		paletteRoot.add(createNodesGroup());
-		paletteRoot.add(createChildNodesGroup());
-		paletteRoot.add(createLinksGroup());
+		paletteRoot.add(createNodes1Group());
+		paletteRoot.add(createChildNodes2Group());
+		paletteRoot.add(createLinks3Group());
 	}
 
 	/**
@@ -88,45 +88,45 @@ public class EcorePaletteFactory {
 	/**
 	 * @generated
 	 */
-	private PaletteContainer createNodesGroup() {
+	private PaletteContainer createNodes1Group() {
 		PaletteContainer paletteContainer = createContainer("Nodes");
-		paletteContainer.add(createEClassCreationTool());
-		paletteContainer.add(createEPackageCreationTool());
-		paletteContainer.add(createEAnnotationCreationTool());
-		paletteContainer.add(createEDataTypeCreationTool());
-		paletteContainer.add(createEEnumCreationTool());
+		paletteContainer.add(createEClass1001CreationTool());
+		paletteContainer.add(createEPackage1004CreationTool());
+		paletteContainer.add(createEAnnotation1005CreationTool());
+		paletteContainer.add(createEDataType1007CreationTool());
+		paletteContainer.add(createEEnum1008CreationTool());
 		return paletteContainer;
 	}
 
 	/**
 	 * @generated
 	 */
-	private PaletteContainer createChildNodesGroup() {
+	private PaletteContainer createChildNodes2Group() {
 		PaletteContainer paletteContainer = createContainer("Child Nodes");
-		paletteContainer.add(createEAttributeCreationTool());
-		paletteContainer.add(createEOperationCreationTool());
-		paletteContainer.add(createAnnotationdetailsCreationTool());
-		paletteContainer.add(createEEnumLiteralCreationTool());
+		paletteContainer.add(createEAttribute1002CreationTool());
+		paletteContainer.add(createEOperation1003CreationTool());
+		paletteContainer.add(createAnnotationdetails1006CreationTool());
+		paletteContainer.add(createEEnumLiteral1009CreationTool());
 		return paletteContainer;
 	}
 
 	/**
 	 * @generated
 	 */
-	private PaletteContainer createLinksGroup() {
+	private PaletteContainer createLinks3Group() {
 		PaletteContainer paletteContainer = createContainer("Links");
 		paletteContainer.add(new PaletteSeparator());
-		paletteContainer.add(createEAnnotationreferenceCreationTool());
-		paletteContainer.add(createAssociationCreationTool());
-		paletteContainer.add(createAggregationCreationTool());
-		paletteContainer.add(createGeneralizationCreationTool());
+		paletteContainer.add(createEAnnotationreference2001CreationTool());
+		paletteContainer.add(createAssociation2002CreationTool());
+		paletteContainer.add(createAggregation2003CreationTool());
+		paletteContainer.add(createGeneralization2004CreationTool());
 		return paletteContainer;
 	}
 
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEClassCreationTool() {
+	private ToolEntry createEClass1001CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -150,7 +150,7 @@ public class EcorePaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEPackageCreationTool() {
+	private ToolEntry createEPackage1004CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -174,7 +174,7 @@ public class EcorePaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEAnnotationCreationTool() {
+	private ToolEntry createEAnnotation1005CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -201,7 +201,7 @@ public class EcorePaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEDataTypeCreationTool() {
+	private ToolEntry createEDataType1007CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -225,7 +225,7 @@ public class EcorePaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEEnumCreationTool() {
+	private ToolEntry createEEnum1008CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -249,7 +249,7 @@ public class EcorePaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEAttributeCreationTool() {
+	private ToolEntry createEAttribute1002CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -272,7 +272,7 @@ public class EcorePaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEOperationCreationTool() {
+	private ToolEntry createEOperation1003CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -295,7 +295,7 @@ public class EcorePaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createAnnotationdetailsCreationTool() {
+	private ToolEntry createAnnotationdetails1006CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -318,7 +318,7 @@ public class EcorePaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEEnumLiteralCreationTool() {
+	private ToolEntry createEEnumLiteral1009CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -341,7 +341,7 @@ public class EcorePaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createEAnnotationreferenceCreationTool() {
+	private ToolEntry createEAnnotationreference2001CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -364,7 +364,7 @@ public class EcorePaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createAssociationCreationTool() {
+	private ToolEntry createAssociation2002CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -387,7 +387,7 @@ public class EcorePaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createAggregationCreationTool() {
+	private ToolEntry createAggregation2003CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
@@ -410,7 +410,7 @@ public class EcorePaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createGeneralizationCreationTool() {
+	private ToolEntry createGeneralization2004CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 

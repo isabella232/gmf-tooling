@@ -141,7 +141,7 @@
   </nodes>
   <links>
     <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.2/@tools.0"/>
-    <diagramLink href="ecore.gmfgraph#DashedConnection"/>
+    <diagramLink href="../../../plugin/org.eclipse.gmf.graphdef/models/classDiagram.gmfgraph#DashedConnection"/>
     <linkMetaFeature xsi:type="ecore:EReference" href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EAnnotation/references"/>
   </links>
   <links>
@@ -168,13 +168,13 @@
     </domainInitializer>
     <containmentFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/eStructuralFeatures"/>
     <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.2/@tools.2"/>
-    <diagramLink href="ecore.gmfgraph#SolidConnectionWSrdDiamond"/>
+    <diagramLink href="../../../plugin/org.eclipse.gmf.graphdef/models/classDiagram.gmfgraph#SolidConnectionWSrcDiamond"/>
     <labelEditFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
     <linkMetaFeature xsi:type="ecore:EReference" href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ETypedElement/eType"/>
   </links>
   <links>
     <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.2/@tools.3"/>
-    <diagramLink href="ecore.gmfgraph#DashedConnectionWDstArrow"/>
+    <diagramLink href="../../../plugin/org.eclipse.gmf.graphdef/models/classDiagram.gmfgraph#DashedConnectionWDstArrow"/>
     <linkMetaFeature xsi:type="ecore:EReference" href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/eSuperTypes"/>
   </links>
   <diagram>

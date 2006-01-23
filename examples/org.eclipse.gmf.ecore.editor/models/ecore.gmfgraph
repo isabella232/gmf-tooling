@@ -1,24 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="Ecore Canvas">
   <figures name="Ecore Figure Gallery">
-    <figures xsi:type="gmfgraph:PolylineConnection" name="SolidLineWSrcDiamond">
-      <sourceDecoration xsi:type="gmfgraph:PolygonDecoration" name="FilledRhomb" fill="true">
-        <template x="-2"/>
-        <template x="-1" y="1"/>
-        <template/>
-        <template x="-1" y="-1"/>
-        <template x="-2"/>
-      </sourceDecoration>
-    </figures>
-    <figures xsi:type="gmfgraph:PolylineConnection" name="DashedLineConnection" layoutManager="" lineKind="LINE_DASH"/>
-    <figures xsi:type="gmfgraph:PolylineConnection" name="DashedLineWDstArrow" lineKind="LINE_DASH">
-      <targetDecoration xsi:type="gmfgraph:PolylineDecoration" name="ArrowDecoration"/>
-    </figures>
     <figures xsi:type="gmfgraph:Rectangle" name="RectangleFigure" layoutManager=""/>
   </figures>
-  <connections name="SolidConnectionWSrdDiamond" figure="SolidLineWSrcDiamond"/>
-  <connections name="DashedConnection" figure="DashedLineConnection"/>
-  <connections name="DashedConnectionWDstArrow" figure="DashedLineWDstArrow"/>
   <compartments name="attributes" figure="RectangleFigure" collapsible="true" needsTitle="true"/>
   <compartments name="operations" figure="RectangleFigure" collapsible="true" needsTitle="true"/>
   <compartments name="class annotations" figure="RectangleFigure" collapsible="true" needsTitle="true"/>

@@ -14,50 +14,6 @@ public class EcoreSemanticHints {
 	/**
 	 * @generated
 	 */
-	public static class EClass_1001Labels {
-
-		/**
-		 * @generated
-		 */
-		private EClass_1001Labels() {
-		}
-
-		/**
-		 * @generated
-		 */
-		public static final String ECLASSNAME_4001_TEXT = "EClassName_4001Text";
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class EClass_1001Compartments {
-
-		/**
-		 * @generated
-		 */
-		private EClass_1001Compartments() {
-		}
-
-		/**
-		 * @generated
-		 */
-		public static final String ATTRIBUTES_5001 = "Attributes_5001";
-
-		/**
-		 * @generated
-		 */
-		public static final String OPERATIONS_5002 = "Operations_5002";
-
-		/**
-		 * @generated
-		 */
-		public static final String CLASS_ANNOTATIONS_5003 = "Class_annotations_5003";
-	}
-
-	/**
-	 * @generated
-	 */
 	public static class EAttribute_2001Labels {
 
 		/**
@@ -104,60 +60,6 @@ public class EcoreSemanticHints {
 		 * @generated
 		 */
 		public static final String EANNOTATIONSOURCE_4004_TEXT = "EAnnotationSource_4004Text";
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class EPackage_1002Labels {
-
-		/**
-		 * @generated
-		 */
-		private EPackage_1002Labels() {
-		}
-
-		/**
-		 * @generated
-		 */
-		public static final String EPACKAGENAME_4005_TEXT = "EPackageName_4005Text";
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class EPackage_1002Compartments {
-
-		/**
-		 * @generated
-		 */
-		private EPackage_1002Compartments() {
-		}
-
-		/**
-		 * @generated
-		 */
-		public static final String CLASSES_5004 = "Classes_5004";
-
-		/**
-		 * @generated
-		 */
-		public static final String PACKAGES_5005 = "Packages_5005";
-
-		/**
-		 * @generated
-		 */
-		public static final String DATA_TYPES_5006 = "Data_types_5006";
-
-		/**
-		 * @generated
-		 */
-		public static final String ENUMS_5007 = "Enums_5007";
-
-		/**
-		 * @generated
-		 */
-		public static final String PACKAGE_ANNOTATIONS_5008 = "Package_annotations_5008";
 	}
 
 	/**
@@ -248,6 +150,172 @@ public class EcoreSemanticHints {
 	/**
 	 * @generated
 	 */
+	public static class EStringToStringMapEntry_2009Labels {
+
+		/**
+		 * @generated
+		 */
+		private EStringToStringMapEntry_2009Labels() {
+		}
+
+		/**
+		 * @generated
+		 */
+		public static final String ESTRINGTOSTRINGMAPENTRYKEY_4012_TEXT = "EStringToStringMapEntryKey_4012Text";
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class EAnnotation_2010Labels {
+
+		/**
+		 * @generated
+		 */
+		private EAnnotation_2010Labels() {
+		}
+
+		/**
+		 * @generated
+		 */
+		public static final String EANNOTATIONSOURCE_4014_TEXT = "EAnnotationSource_4014Text";
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class EEnumLiteral_2011Labels {
+
+		/**
+		 * @generated
+		 */
+		private EEnumLiteral_2011Labels() {
+		}
+
+		/**
+		 * @generated
+		 */
+		public static final String EENUMLITERALNAME_4016_TEXT = "EEnumLiteralName_4016Text";
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class EAnnotation_2012Labels {
+
+		/**
+		 * @generated
+		 */
+		private EAnnotation_2012Labels() {
+		}
+
+		/**
+		 * @generated
+		 */
+		public static final String EANNOTATIONSOURCE_4017_TEXT = "EAnnotationSource_4017Text";
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class EClass_1001Labels {
+
+		/**
+		 * @generated
+		 */
+		private EClass_1001Labels() {
+		}
+
+		/**
+		 * @generated
+		 */
+		public static final String ECLASSNAME_4001_TEXT = "EClassName_4001Text";
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class EClass_1001Compartments {
+
+		/**
+		 * @generated
+		 */
+		private EClass_1001Compartments() {
+		}
+
+		/**
+		 * @generated
+		 */
+		public static final String ATTRIBUTES_5001 = "Attributes_5001";
+
+		/**
+		 * @generated
+		 */
+		public static final String OPERATIONS_5002 = "Operations_5002";
+
+		/**
+		 * @generated
+		 */
+		public static final String CLASS_ANNOTATIONS_5003 = "Class_annotations_5003";
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class EPackage_1002Labels {
+
+		/**
+		 * @generated
+		 */
+		private EPackage_1002Labels() {
+		}
+
+		/**
+		 * @generated
+		 */
+		public static final String EPACKAGENAME_4005_TEXT = "EPackageName_4005Text";
+	}
+
+	/**
+	 * @generated
+	 */
+	public static class EPackage_1002Compartments {
+
+		/**
+		 * @generated
+		 */
+		private EPackage_1002Compartments() {
+		}
+
+		/**
+		 * @generated
+		 */
+		public static final String CLASSES_5004 = "Classes_5004";
+
+		/**
+		 * @generated
+		 */
+		public static final String PACKAGES_5005 = "Packages_5005";
+
+		/**
+		 * @generated
+		 */
+		public static final String DATA_TYPES_5006 = "Data_types_5006";
+
+		/**
+		 * @generated
+		 */
+		public static final String ENUMS_5007 = "Enums_5007";
+
+		/**
+		 * @generated
+		 */
+		public static final String PACKAGE_ANNOTATIONS_5008 = "Package_annotations_5008";
+	}
+
+	/**
+	 * @generated
+	 */
 	public static class EAnnotation_1003Labels {
 
 		/**
@@ -277,23 +345,6 @@ public class EcoreSemanticHints {
 		 * @generated
 		 */
 		public static final String DETAILS_5009 = "Details_5009";
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class EStringToStringMapEntry_2009Labels {
-
-		/**
-		 * @generated
-		 */
-		private EStringToStringMapEntry_2009Labels() {
-		}
-
-		/**
-		 * @generated
-		 */
-		public static final String ESTRINGTOSTRINGMAPENTRYKEY_4012_TEXT = "EStringToStringMapEntryKey_4012Text";
 	}
 
 	/**
@@ -333,23 +384,6 @@ public class EcoreSemanticHints {
 	/**
 	 * @generated
 	 */
-	public static class EAnnotation_2010Labels {
-
-		/**
-		 * @generated
-		 */
-		private EAnnotation_2010Labels() {
-		}
-
-		/**
-		 * @generated
-		 */
-		public static final String EANNOTATIONSOURCE_4014_TEXT = "EAnnotationSource_4014Text";
-	}
-
-	/**
-	 * @generated
-	 */
 	public static class EEnum_1005Labels {
 
 		/**
@@ -384,40 +418,6 @@ public class EcoreSemanticHints {
 		 * @generated
 		 */
 		public static final String ENUM_ANNOTATIONS_5012 = "Enum_annotations_5012";
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class EEnumLiteral_2011Labels {
-
-		/**
-		 * @generated
-		 */
-		private EEnumLiteral_2011Labels() {
-		}
-
-		/**
-		 * @generated
-		 */
-		public static final String EENUMLITERALNAME_4016_TEXT = "EEnumLiteralName_4016Text";
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class EAnnotation_2012Labels {
-
-		/**
-		 * @generated
-		 */
-		private EAnnotation_2012Labels() {
-		}
-
-		/**
-		 * @generated
-		 */
-		public static final String EANNOTATIONSOURCE_4017_TEXT = "EAnnotationSource_4017Text";
 	}
 
 	/**
