@@ -9,16 +9,12 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt.core,
  org.junit,
  org.eclipse.gmf.bridge,
- org.eclipse.pde.core,
- org.eclipse.pde.ui,
  org.eclipse.jface,
  org.eclipse.gef,
  org.eclipse.gmf.runtime.diagram.ui,
  org.eclipse.gmf.runtime.emf.commands.core,
  org.eclipse.gmf.graphdef.codegen,
  org.eclipse.gmf.tooldef,
- org.eclipse.emf.validation,
- org.eclipse.pde,
- org.eclipse.pde.build
+ org.eclipse.emf.validation
 Bundle-Activator: org.eclipse.gmf.tests.Plugin
 Eclipse-LazyStart: true
