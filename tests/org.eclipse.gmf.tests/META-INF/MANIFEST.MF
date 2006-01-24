@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Graphical Modeling Framework Tests
-Bundle-SymbolicName: org.eclipse.gmf.tests
+Bundle-SymbolicName: org.eclipse.gmf.tests;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Vendor: Eclipse.org
 Require-Bundle: org.eclipse.core.runtime,
@@ -17,6 +17,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.runtime.emf.commands.core,
  org.eclipse.gmf.graphdef.codegen,
  org.eclipse.gmf.tooldef,
- org.eclipse.emf.validation
+ org.eclipse.emf.validation,
+ org.eclipse.pde,
+ org.eclipse.pde.build
 Bundle-Activator: org.eclipse.gmf.tests.Plugin
 Eclipse-LazyStart: true
