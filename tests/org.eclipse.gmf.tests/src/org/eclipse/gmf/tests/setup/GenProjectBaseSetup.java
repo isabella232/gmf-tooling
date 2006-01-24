@@ -52,6 +52,7 @@ public class GenProjectBaseSetup {
 		Generator generator = new Generator(d);		
 		generator.run();
 		hookGeneratorStatus(generator.getRunStatus());
+		rtWorkspace.updateClassPath(ResourcesPlugin.getWorkspace().getRoot().getProject(d.getPluginID()));
 		
 		projectsToInit.add(d.getPluginID());
 		for (Iterator it = projectsToInit.iterator(); it.hasNext();) {
