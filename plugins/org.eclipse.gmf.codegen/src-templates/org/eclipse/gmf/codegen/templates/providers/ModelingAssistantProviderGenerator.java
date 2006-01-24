@@ -44,19 +44,30 @@ public class ModelingAssistantProviderGenerator
     stringBuffer.append(genDiagram.getModelingAssistantProviderClassName());
     stringBuffer.append(TEXT_5);
     
-for (Iterator contents = genDiagram.getAllContainerEditParts().iterator(); contents.hasNext(); ) {
+List containers = new ArrayList();
+containers.add(genDiagram);
+containers.addAll(genDiagram.getAllNodes());
+for (Iterator contents = containers.iterator(); contents.hasNext(); ) {
 	GenContainerEditPart genContainer = (GenContainerEditPart) contents.next();
-	List children = genContainer.getContainedNodes();
+	List children = new ArrayList(genContainer.getContainedNodes());
+	if (genContainer instanceof GenNode && ((GenNode) genContainer).isListLayout()) {
+		for (Iterator compartments = ((GenNode) genContainer).getCompartments().iterator(); compartments.hasNext(); ) {
+			children.addAll(((GenCompartment) compartments.next()).getContainedNodes());
+		}
+	}
 	if (!children.isEmpty()) {
 
     stringBuffer.append(TEXT_6);
     stringBuffer.append(importManager.getImportedName(genContainer.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_7);
-    			for (int i = 0; i < children.size(); i++) {
+    
+			for (int i = 0; i < children.size(); i++) {
+				String id = ((GenNode) children.get(i)).getUniqueIdentifier();
+
     stringBuffer.append(TEXT_8);
     stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(((GenNode) children.get(i)).getUniqueIdentifier());
+    stringBuffer.append(id);
     stringBuffer.append(TEXT_10);
     			}
     stringBuffer.append(TEXT_11);

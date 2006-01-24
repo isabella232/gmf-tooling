@@ -4,7 +4,6 @@
 <%
 GenCompartment genCompartment = (GenCompartment) argument;
 GenDiagram genDiagram = genCompartment.getDiagram();
-boolean isParentFlowLayout = !genCompartment.getNode().isListLayout();
 %>
 package <%=genDiagram.getEditPartsPackageName()%>;
 
@@ -53,16 +52,9 @@ public class <%=genCompartment.getEditPartClassName()%> extends <%=genCompartmen
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy")%>());
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy")%>());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=importManager.getImportedName(genCompartment.getCanonicalEditPolicyQualifiedClassName())%>());
-<%
-}
-if (genCompartment.isListLayout()) {
-%>
-		installEditPolicy(EditPolicyRoles.POPUPBAR_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.PopupBarEditPolicy")%>());
 <%}%>
 	}
-<%
-if (isParentFlowLayout) {
-%>
+<%if (!genCompartment.getNode().isListLayout()) {%>
 
 	/**
 	 * @generated
@@ -113,8 +105,6 @@ if (isParentFlowLayout) {
 		<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> loc = new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%>(x, y);
 		((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) getParent()).setLayoutConstraint(this, getFigure(), new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>(loc, size));
 	}
-<%
-}
-%>
+<%}%>
 }
 <%importManager.emitSortedImports();%>

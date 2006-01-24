@@ -43,18 +43,56 @@ public class <%=genNode.getEditPartClassName()%> extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void createDefaultEditPolicies() {
-<%if (!genNode.getChildNodes().isEmpty()) {%>
-		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy")%>());
-<%}%>
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genNode.getItemSemanticEditPolicyQualifiedClassName())%>());
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new <%=importManager.getImportedName(genNode.getGraphicalNodeEditPolicyQualifiedClassName())%>());
-<%if (!genNode.getChildNodes().isEmpty()) {%>
-		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy")%>());
+<%
+boolean hasActualChildren = !genNode.getChildNodes().isEmpty();
+for (Iterator compartments = genNode.getCompartments().iterator(); compartments.hasNext();) {
+	GenCompartment compartment = (GenCompartment) compartments.next();
+	hasActualChildren |= compartment.isListLayout() && !compartment.getChildNodes().isEmpty();
+}
+if (hasActualChildren) {
+%>
+		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy")%>() {
+
+			public <%=importManager.getImportedName("org.eclipse.gef.commands.Command")%> getCommand(<%=importManager.getImportedName("org.eclipse.gef.Request")%> request) {
+				if (understandsRequest(request)) {
+					if (request instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest")%>) {
+						<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter")%> adapter = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest")%>) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
+						<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%> type = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>) adapter.getAdapter(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>.class);
+<%
+	for (Iterator compartments = genNode.getCompartments().iterator(); compartments.hasNext();) {
+		GenCompartment compartment = (GenCompartment) compartments.next();
+		if (compartment.isListLayout() && !compartment.getChildNodes().isEmpty()) {
+			for (Iterator children = compartment.getChildNodes().iterator(); children.hasNext(); ) {
+				GenNode child = (GenNode) children.next();
+%>
+						if (type == <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=child.getUniqueIdentifier()%>) {
+							<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> compartmentEditPart = getChildBySemanticHint(<%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%>.<%=genNode.getUniqueIdentifier()%>Compartments.<%=compartment.getSemanticHintFieldName()%>);
+							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
+						}
+<%
+			}
+		}
+	}
+%>
+					}
+					return super.getCommand(request);
+				}
+				return null;
+			}
+		});
+<%
+}
+if (!genNode.getChildNodes().isEmpty()) {
+%>
 		installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy")%>());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new <%=importManager.getImportedName(genNode.getCanonicalEditPolicyQualifiedClassName())%>());
-<%}%>
-<%if (useFlowLayout) {%>
+<%
+}
+if (useFlowLayout) {
+%>
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.XYLayoutEditPolicy")%>() {
 			protected EditPolicy createChildEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPart")%> child) {
 				EditPolicy result = super.createChildEditPolicy(child);
@@ -70,7 +108,8 @@ public class <%=genNode.getEditPartClassName()%> extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	protected IFigure createNodeShape() {<%
+	protected IFigure createNodeShape() {
+<%
 Viewmap viewmap = genNode.getViewmap();
 if (viewmap instanceof FigureViewmap) {
 	String figureQualifiedClassName = null;

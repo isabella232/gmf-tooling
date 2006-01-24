@@ -32,30 +32,28 @@ public class CompartmentEditPartGenerator {
   protected final String TEXT_14 = "());" + NL + "\t\tinstallEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE, new ";
   protected final String TEXT_15 = "());" + NL + "\t\tinstallEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ";
   protected final String TEXT_16 = "());";
-  protected final String TEXT_17 = NL + "\t\tinstallEditPolicy(EditPolicyRoles.POPUPBAR_ROLE, new ";
-  protected final String TEXT_18 = "());";
-  protected final String TEXT_19 = NL + "\t}";
-  protected final String TEXT_20 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
-  protected final String TEXT_21 = " createFigure() {" + NL + "\t\t";
-  protected final String TEXT_22 = " result = super.createFigure();" + NL + "\t\tresult.setBorder(new ";
-  protected final String TEXT_23 = "());" + NL + "\t\treturn result;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshRatio() {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshVisuals() {" + NL + "\t\tsuper.refreshVisuals();" + NL + "\t\trefreshBounds();" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void handleNotificationEvent(";
-  protected final String TEXT_24 = " notification) {" + NL + "\t\tsuper.handleNotificationEvent(notification);" + NL + "\t\tObject feature = notification.getFeature();" + NL + "\t\tif (";
-  protected final String TEXT_25 = ".eINSTANCE.getSize_Width().equals(feature)" + NL + "\t\t\t|| ";
-  protected final String TEXT_26 = ".eINSTANCE.getSize_Height().equals(feature)" + NL + "\t\t\t|| ";
-  protected final String TEXT_27 = ".eINSTANCE.getLocation_X().equals(feature)" + NL + "\t\t\t|| ";
-  protected final String TEXT_28 = ".eINSTANCE.getLocation_Y().equals(feature)) {" + NL + "\t\t\trefreshBounds();" + NL + "\t\t} " + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshBounds() {" + NL + "\t\tint width = ((Integer) getStructuralFeatureValue(";
-  protected final String TEXT_29 = ".eINSTANCE.getSize_Width())).intValue();" + NL + "\t\tint height = ((Integer) getStructuralFeatureValue(";
-  protected final String TEXT_30 = ".eINSTANCE.getSize_Height())).intValue();" + NL + "\t\t";
-  protected final String TEXT_31 = " size = new ";
-  protected final String TEXT_32 = "(width, height);" + NL + "\t\tint x = ((Integer) getStructuralFeatureValue(";
-  protected final String TEXT_33 = ".eINSTANCE.getLocation_X())).intValue();" + NL + "\t\tint y = ((Integer) getStructuralFeatureValue(";
-  protected final String TEXT_34 = ".eINSTANCE.getLocation_Y())).intValue();" + NL + "\t\t";
-  protected final String TEXT_35 = " loc = new ";
-  protected final String TEXT_36 = "(x, y);" + NL + "\t\t((";
-  protected final String TEXT_37 = ") getParent()).setLayoutConstraint(this, getFigure(), new ";
-  protected final String TEXT_38 = "(loc, size));" + NL + "\t}";
-  protected final String TEXT_39 = NL + "}";
-  protected final String TEXT_40 = NL;
+  protected final String TEXT_17 = NL + "\t}";
+  protected final String TEXT_18 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
+  protected final String TEXT_19 = " createFigure() {" + NL + "\t\t";
+  protected final String TEXT_20 = " result = super.createFigure();" + NL + "\t\tresult.setBorder(new ";
+  protected final String TEXT_21 = "());" + NL + "\t\treturn result;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshRatio() {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshVisuals() {" + NL + "\t\tsuper.refreshVisuals();" + NL + "\t\trefreshBounds();" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void handleNotificationEvent(";
+  protected final String TEXT_22 = " notification) {" + NL + "\t\tsuper.handleNotificationEvent(notification);" + NL + "\t\tObject feature = notification.getFeature();" + NL + "\t\tif (";
+  protected final String TEXT_23 = ".eINSTANCE.getSize_Width().equals(feature)" + NL + "\t\t\t|| ";
+  protected final String TEXT_24 = ".eINSTANCE.getSize_Height().equals(feature)" + NL + "\t\t\t|| ";
+  protected final String TEXT_25 = ".eINSTANCE.getLocation_X().equals(feature)" + NL + "\t\t\t|| ";
+  protected final String TEXT_26 = ".eINSTANCE.getLocation_Y().equals(feature)) {" + NL + "\t\t\trefreshBounds();" + NL + "\t\t} " + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshBounds() {" + NL + "\t\tint width = ((Integer) getStructuralFeatureValue(";
+  protected final String TEXT_27 = ".eINSTANCE.getSize_Width())).intValue();" + NL + "\t\tint height = ((Integer) getStructuralFeatureValue(";
+  protected final String TEXT_28 = ".eINSTANCE.getSize_Height())).intValue();" + NL + "\t\t";
+  protected final String TEXT_29 = " size = new ";
+  protected final String TEXT_30 = "(width, height);" + NL + "\t\tint x = ((Integer) getStructuralFeatureValue(";
+  protected final String TEXT_31 = ".eINSTANCE.getLocation_X())).intValue();" + NL + "\t\tint y = ((Integer) getStructuralFeatureValue(";
+  protected final String TEXT_32 = ".eINSTANCE.getLocation_Y())).intValue();" + NL + "\t\t";
+  protected final String TEXT_33 = " loc = new ";
+  protected final String TEXT_34 = "(x, y);" + NL + "\t\t((";
+  protected final String TEXT_35 = ") getParent()).setLayoutConstraint(this, getFigure(), new ";
+  protected final String TEXT_36 = "(loc, size));" + NL + "\t}";
+  protected final String TEXT_37 = NL + "}";
+  protected final String TEXT_38 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
 		StringBuffer result = new StringBuffer();
@@ -159,7 +157,6 @@ public class CompartmentEditPartGenerator {
     
 GenCompartment genCompartment = (GenCompartment) argument;
 GenDiagram genDiagram = genCompartment.getDiagram();
-boolean isParentFlowLayout = !genCompartment.getNode().isListLayout();
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getEditPartsPackageName());
@@ -194,26 +191,21 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_15);
     stringBuffer.append(importManager.getImportedName(genCompartment.getCanonicalEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_16);
-    
-}
-if (genCompartment.isListLayout()) {
-
-    stringBuffer.append(TEXT_17);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.PopupBarEditPolicy"));
-    stringBuffer.append(TEXT_18);
     }
+    stringBuffer.append(TEXT_17);
+    if (!genCompartment.getNode().isListLayout()) {
+    stringBuffer.append(TEXT_18);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.IFigure"));
     stringBuffer.append(TEXT_19);
-    
-if (isParentFlowLayout) {
-
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.IFigure"));
     stringBuffer.append(TEXT_20);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.IFigure"));
-    stringBuffer.append(TEXT_21);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.IFigure"));
-    stringBuffer.append(TEXT_22);
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.LineBorder"));
-    stringBuffer.append(TEXT_23);
+    stringBuffer.append(TEXT_21);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.notify.Notification"));
+    stringBuffer.append(TEXT_22);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(TEXT_23);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_24);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_25);
@@ -223,32 +215,26 @@ if (isParentFlowLayout) {
     stringBuffer.append(TEXT_27);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_28);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension"));
     stringBuffer.append(TEXT_29);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension"));
     stringBuffer.append(TEXT_30);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_31);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_32);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Point"));
     stringBuffer.append(TEXT_33);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Point"));
     stringBuffer.append(TEXT_34);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Point"));
-    stringBuffer.append(TEXT_35);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Point"));
-    stringBuffer.append(TEXT_36);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.GraphicalEditPart"));
-    stringBuffer.append(TEXT_37);
+    stringBuffer.append(TEXT_35);
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle"));
-    stringBuffer.append(TEXT_38);
-    
-}
-
-    stringBuffer.append(TEXT_39);
+    stringBuffer.append(TEXT_36);
+    }
+    stringBuffer.append(TEXT_37);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_40);
+    stringBuffer.append(TEXT_38);
     return stringBuffer.toString();
   }
 }
