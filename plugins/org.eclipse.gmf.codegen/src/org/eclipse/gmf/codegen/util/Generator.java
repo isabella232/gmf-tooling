@@ -843,7 +843,8 @@ public class Generator implements Runnable {
 		final Path projectLocation = null; // use default
 		final List referencedProjects = createReferencedProjectsList();
 		final int style = org.eclipse.emf.codegen.ecore.Generator.EMF_PLUGIN_PROJECT_STYLE;
-		final List pluginVariables = createPluginVariablesList();
+		// pluginVariables is NOT used unless style is no EMF_PLUGIN_PROJECT_STYLE
+		final List pluginVariables = null;
 		final IProgressMonitor pm = getNextStepMonitor();
 
 		org.eclipse.emf.codegen.ecore.Generator.createEMFProject(srcPath, projectLocation, referencedProjects, pm, style, pluginVariables);
@@ -856,10 +857,6 @@ public class Generator implements Runnable {
 		if (myDestRoot == null) {
 			throw new UnexpectedBehaviourException("no source root can be found");
 		}
-	}
-
-	private List createPluginVariablesList() {
-		return Collections.EMPTY_LIST;
 	}
 
 	private List createReferencedProjectsList() {
