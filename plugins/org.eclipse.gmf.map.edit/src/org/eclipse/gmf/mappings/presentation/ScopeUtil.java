@@ -42,9 +42,14 @@ public class ScopeUtil {
 	public Collection/*<EReference>*/ getPossibleContainments() {
 		if (entry.getDomainMetaElement() != null) {
 			Set features = new HashSet();
-			// XXX perhaps, when mapping several domain models, should use resource.getResourceSet().getAllContent instead
-			for (Iterator it = entry.getDomainMetaElement().getEPackage().eAllContents(); it.hasNext(); ) {
-				Object next = it.next();
+			Iterator wholeWorld;
+			if (entry.getDomainMetaElement().eResource() == null) {
+				wholeWorld = entry.getDomainMetaElement().getEPackage().eAllContents();
+			} else {
+				wholeWorld = entry.getDomainMetaElement().eResource().getResourceSet().getAllContents();
+			}
+			while (wholeWorld.hasNext()) {
+				Object next = wholeWorld.next();
 				if (next instanceof EReference) {
 					EReference ref = (EReference) next;
 					if (ref.isContainment() && ref.getEReferenceType().isSuperTypeOf(entry.getDomainMetaElement())) {
