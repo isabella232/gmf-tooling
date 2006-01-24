@@ -29,11 +29,11 @@ import org.eclipse.emf.validation.service.IValidationListener;
 import org.eclipse.emf.validation.service.IValidator;
 import org.eclipse.emf.validation.service.ModelValidationService;
 import org.eclipse.emf.validation.service.ValidationEvent;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.tests.setup.MapDefSource;
-import org.osgi.framework.Bundle;
 
 /**
  * Tests valid registration of audit rule definitions in emft validation framework
@@ -51,7 +51,7 @@ import org.osgi.framework.Bundle;
  */
 public class AuditRulesTest extends RuntimeDiagramTestBase {
 	private AuditContainer audits;
-	private GenPackage domainModel;	
+	private AuditAssert auditAssert;	
 
 	public AuditRulesTest(String name) {
 		super(name);
@@ -64,19 +64,20 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 		Mapping mapping = mapSource.getMapping();
 		this.audits = mapping.getAudits();
 		assertNotNull("Requires mapping with audit rules", audits); //$NON-NLS-1$
-		this.domainModel = getSetup().getGenModel().getGenDiagram().getDomainMetaModel();
+		final GenDiagram genDiagram = getSetup().getGenModel().getGenDiagram();
+		auditAssert = new AuditAssert(genDiagram.getPluginID(), genDiagram.getDomainMetaModel());
 	}
 
 	public void testAuditConstraints() throws Exception {		
-		new AuditAssert(gmfEditorBundle, domainModel).assertAuditContainer(audits);
+		auditAssert.assertAuditContainer(audits);
 	}
 
 	private static class AuditAssert {
 		private String pluginId;
 		private GenPackage domainModel;
 
-		AuditAssert(Bundle gmfEditorBundle, GenPackage domainModel) {
-			this.pluginId = gmfEditorBundle.getSymbolicName();
+		AuditAssert(String pluginIdentifier, GenPackage domainModel) {
+			this.pluginId = pluginIdentifier;
 			this.domainModel = domainModel;
 		}
 

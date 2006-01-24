@@ -24,10 +24,6 @@ public class LinkCreationConstraintsTest extends RuntimeDiagramTestBase {
 		super(name);
 	}
 	
-	protected void tearDown() throws Exception {
-		super.tearDown();
-	}
-		
 	public void testCreateConstrainedLinks() throws Exception {		
 		IMetamodelType nodeMetaType = getElementType(getTargetGenNode());
 		IMetamodelType linkMetaType = getElementType(getClassGenLink());

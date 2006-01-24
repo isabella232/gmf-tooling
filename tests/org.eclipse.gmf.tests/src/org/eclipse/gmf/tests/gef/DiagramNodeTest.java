@@ -11,33 +11,18 @@
  */
 package org.eclipse.gmf.tests.gef;
 
-import java.util.Collections;
-import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.draw2d.GraphicsSource;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.draw2d.PositionConstants;
-import org.eclipse.draw2d.UpdateManager;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.EditPartFactory;
-import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
-import org.eclipse.gef.ui.parts.GraphicalViewerImpl;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramCommandStack;
-import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditDomain;
-import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditDomain;
-import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramGraphicalViewer;
 import org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractModelCommand;
 import org.eclipse.gmf.runtime.notation.FillStyle;
@@ -46,23 +31,14 @@ import org.eclipse.gmf.runtime.notation.Location;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.runtime.notation.Size;
-import org.eclipse.gmf.tests.ConfiguredTestCase;
-import org.eclipse.gmf.tests.setup.RTSetup;
-import org.eclipse.gmf.tests.setup.RTSource;
-import org.eclipse.swt.SWT;
+import org.eclipse.gmf.tests.rt.GeneratedCanvasTest;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.osgi.framework.Bundle;
 
-public class DiagramNodeTest extends ConfiguredTestCase {
+public class DiagramNodeTest extends GeneratedCanvasTest {
 
 	private final Point myMoveDelta = new Point(10, 20);
 	private final Dimension mySizeDelta = new Dimension(100, 50);
 	private EditPart myNodeEditPart;
-	private EditPartViewer myViewer;
-	private Composite myParentShell;
 
 	public DiagramNodeTest(String name) {
 		super(name);
@@ -72,44 +48,10 @@ public class DiagramNodeTest extends ConfiguredTestCase {
 		return myNodeEditPart;
 	}
 
-	private CommandStack getCommandStack() {
-		return myViewer.getEditDomain().getCommandStack();
-	}
-
 	// TODO EditPartViewer[Source|Setup]
 	protected void setUp() throws Exception {
 		super.setUp();
-		Bundle b = getSetup().getGenProject().getBundle();
-		String epFactoryClassName = getSetup().getGenModel().getGenDiagram().getEditPartFactoryQualifiedClassName();
-		Class epFactory = b.loadClass(epFactoryClassName);
-		assert EditPartFactory.class.isAssignableFrom(epFactory);
-		myViewer = createViewer();
-		myViewer.setEditPartFactory((EditPartFactory) epFactory.newInstance());
-		RTSource rtDiagram = new RTSetup().init(b, getSetup().getGenModel());
-
-		myViewer.setContents(rtDiagram.getCanvas());
-		myNodeEditPart = (EditPart) myViewer.getEditPartRegistry().get(rtDiagram.getNode());
-	}
-
-	private EditPartViewer createViewer() {
-		// make sure there's display for current thread
-		Display.getDefault();
-
-		FakeViewer gv = new FakeViewer();
-		myParentShell = new Shell(SWT.NONE);
-		gv.createControl(myParentShell);
-		DiagramEditDomain ded = new DiagramEditDomain(null);
-		gv.setEditDomain(ded);
-		gv.getEditDomain().setCommandStack(new DiagramCommandStack(ded));
-		return gv;
-	}
-
-	protected void tearDown() throws Exception {
-		if (myParentShell != null) {
-			myParentShell.dispose();
-			myParentShell = null;
-		}
-		super.tearDown();
+		myNodeEditPart = findEditPart(getCanvasInstance().getNode());
 	}
 
 	public void testChangeBounds() {
@@ -229,46 +171,5 @@ public class DiagramNodeTest extends ConfiguredTestCase {
 
 	protected Node getNode() {
 		return (Node) getNodeEditPart().getModel();
-	}
-
-	private static final class FakeViewer extends GraphicalViewerImpl implements IDiagramGraphicalViewer{
-
-		private FakeViewer() {
-		}
-
-		protected LightweightSystem createLightweightSystem() {
-			final UpdateManager NO_MANAGER = new UpdateManager() {
-				public void addDirtyRegion(IFigure figure, int x, int y, int w, int h) {}
-				public void addInvalidFigure(IFigure figure) {}
-				public void performUpdate() {}
-				public void performUpdate(Rectangle exposed) {}
-				public void setGraphicsSource(GraphicsSource gs) {}
-				public void setRoot(IFigure figure) {}
-			};
-
-			return new LightweightSystem() {
-				{
-					setUpdateManager(NO_MANAGER);
-				}
-		
-				public UpdateManager getUpdateManager() {
-					return NO_MANAGER;
-				}
-			};
-		}
-
-		public IDiagramEditDomain getDiagramEditDomain() {
-			return (IDiagramEditDomain) super.getEditDomain();
-		}
-
-		public List findEditPartsForElement(String elementIdStr, Class editPartClass) {
-			return Collections.EMPTY_LIST;
-		}
-
-		public void registerEditPartForElement(String elementIdStr, EditPart ep) {
-		}
-
-		public void unregisterEditPartForElement(String elementIdStr, EditPart ep) {
-		}
 	}
 }
