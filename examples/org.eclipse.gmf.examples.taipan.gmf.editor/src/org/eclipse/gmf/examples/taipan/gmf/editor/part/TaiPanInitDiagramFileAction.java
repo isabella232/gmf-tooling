@@ -271,6 +271,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 				createItem_2001Children(nextNode, nextValue);
 			}
 		}
+		storeLinks(modelObject);
 	}
 
 	/**
@@ -299,6 +300,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 				createShip_1002Children(nextNode, nextValue);
 			}
 		}
+		storeLinks(modelObject);
 	}
 
 	/**
@@ -362,33 +364,35 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 				continue;
 			}
 			Object structuralFeatureResult = ((Ship) linkElement).getDestination();
-			if (structuralFeatureResult instanceof Collection == false) {
+			if (structuralFeatureResult instanceof EObject == false) {
 				continue;
 			}
-			for (Iterator destinations = ((Collection) structuralFeatureResult).iterator(); destinations.hasNext();) {
-				EObject dst = (EObject) destinations.next();
-				Node dstNode = (Node) myEObject2NodeMap.get(dst);
-				if (dstNode != null) {
-					Edge edge = (Edge) ViewService.getInstance().createEdge(new IAdaptable() {
+			EObject dst = (EObject) structuralFeatureResult;
+			Node dstNode = (Node) myEObject2NodeMap.get(dst);
+			if (dstNode != null) {
+				Edge edge = (Edge) ViewService.getInstance().createEdge(new IAdaptable() {
 
-						public Object getAdapter(Class adapter) {
-							if (IElementType.class.equals(adapter)) {
-								return TaiPanElementTypes.ShipDestination_3001;
-							}
-							return null;
+					public Object getAdapter(Class adapter) {
+						if (IElementType.class.equals(adapter)) {
+							return TaiPanElementTypes.ShipDestination_3001;
 						}
-					}, srcNode.getDiagram(), "", ViewUtil.APPEND, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-					if (edge != null) {
-						edge.setSource(srcNode);
-						edge.setTarget(dstNode);
+						return null;
 					}
+				}, srcNode.getDiagram(), "", ViewUtil.APPEND, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				if (edge != null) {
+					edge.setSource(srcNode);
+					edge.setTarget(dstNode);
 				}
 			}
 		}
 		linkElements = (Collection) myLinkVID2EObjectMap.get(new Integer(3002));
 		for (Iterator it = linkElements.iterator(); it.hasNext();) {
 			EObject linkElement = (EObject) it.next();
-			EObject src = linkElement.eContainer();
+			Object srcResult = ((Route) linkElement).getSource();
+			if (srcResult instanceof EObject == false) {
+				continue;
+			}
+			EObject src = (EObject) srcResult;
 			Node srcNode = (Node) myEObject2NodeMap.get(src);
 			if (srcNode == null) {
 				continue;

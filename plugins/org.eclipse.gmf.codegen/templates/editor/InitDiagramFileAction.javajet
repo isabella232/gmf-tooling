@@ -282,11 +282,9 @@ for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.
 		}
 <%
 		}
-%>
-		storeLinks(modelObject);
-<%
 	}
 %>
+		storeLinks(modelObject);
 	}
 <%
 }
@@ -401,10 +399,21 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 			EObject linkElement = (EObject) it.next();
 <%	
 	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
-		domainLinkTargetGenFeature = ((TypeLinkModelFacet) nextLink.getModelFacet()).getTargetMetaFeature();
+		TypeLinkModelFacet typeLinkModelFacet = (TypeLinkModelFacet) nextLink.getModelFacet();
+		domainLinkTargetGenFeature = typeLinkModelFacet.getTargetMetaFeature();
+		if (typeLinkModelFacet.getSourceMetaFeature() != null) {
+%>
+			Object srcResult = <%=getFeatureValueGetter("linkElement", typeLinkModelFacet.getSourceMetaFeature(), true, importManager)%>;
+			if (srcResult instanceof EObject == false) {
+				continue;
+			}
+			EObject src = (EObject) srcResult;
+<%
+		} else {
 %>
 			EObject src = linkElement.eContainer();
 <%
+		}
 	} else {
 		domainLinkTargetGenFeature = ((FeatureModelFacet) nextLink.getModelFacet()).getMetaFeature();
 %>
@@ -426,6 +435,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 			EObject dst = (EObject) structuralFeatureResult;
 <%
 	} else {
+		if (domainLinkTargetGenFeature.isListType()) {
 %>
 			if (structuralFeatureResult instanceof <%=importManager.getImportedName("java.util.Collection")%> == false) {
 				continue;
@@ -433,6 +443,14 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 			for (<%=importManager.getImportedName("java.util.Iterator")%> destinations = ((<%=importManager.getImportedName("java.util.Collection")%>) structuralFeatureResult).iterator(); destinations.hasNext();) {
 				EObject dst = (EObject) destinations.next();
 <%	
+		} else {
+%>
+			if (structuralFeatureResult instanceof EObject == false) {
+				continue;
+			}
+			EObject dst = (EObject) structuralFeatureResult;
+<%
+		}
 	}
 %>
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> dstNode = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%>) myEObject2NodeMap.get(dst);
@@ -457,7 +475,13 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 						edge.setSource(srcNode);
 						edge.setTarget(dstNode);
 					}
+<%
+		if (domainLinkTargetGenFeature.isListType()) {
+%>
 				}
+<%
+}
+%>
 			}
 <%	
 	}

@@ -409,6 +409,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEAttribute_2001Children(nextNode, nextValue);
 			}
 		}
+		storeLinks(modelObject);
 	}
 
 	/**
@@ -427,6 +428,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEOperation_2002Children(nextNode, nextValue);
 			}
 		}
+		storeLinks(modelObject);
 	}
 
 	/**
@@ -445,6 +447,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEAnnotation_2003Children(nextNode, nextValue);
 			}
 		}
+		storeLinks(modelObject);
 	}
 
 	/**
@@ -463,6 +466,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEClass_2004Children(nextNode, nextValue);
 			}
 		}
+		storeLinks(modelObject);
 	}
 
 	/**
@@ -481,6 +485,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEPackage_2005Children(nextNode, nextValue);
 			}
 		}
+		storeLinks(modelObject);
 	}
 
 	/**
@@ -499,6 +504,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEDataType_2006Children(nextNode, nextValue);
 			}
 		}
+		storeLinks(modelObject);
 	}
 
 	/**
@@ -517,6 +523,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEEnum_2007Children(nextNode, nextValue);
 			}
 		}
+		storeLinks(modelObject);
 	}
 
 	/**
@@ -535,6 +542,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEAnnotation_2008Children(nextNode, nextValue);
 			}
 		}
+		storeLinks(modelObject);
 	}
 
 	/**
@@ -553,6 +561,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEStringToStringMapEntry_2009Children(nextNode, nextValue);
 			}
 		}
+		storeLinks(modelObject);
 	}
 
 	/**
@@ -571,6 +580,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEAnnotation_2010Children(nextNode, nextValue);
 			}
 		}
+		storeLinks(modelObject);
 	}
 
 	/**
@@ -589,6 +599,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEEnumLiteral_2011Children(nextNode, nextValue);
 			}
 		}
+		storeLinks(modelObject);
 	}
 
 	/**
@@ -607,6 +618,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEAnnotation_2012Children(nextNode, nextValue);
 			}
 		}
+		storeLinks(modelObject);
 	}
 
 	/**
@@ -665,6 +677,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEEnum_1005Children(nextNode, nextValue);
 			}
 		}
+		storeLinks(modelObject);
 	}
 
 	/**

@@ -91,7 +91,7 @@ public class TaiPanVisualIDRegistry {
 			if (TaiPanSemanticHints.Port_1001Labels.PORTLOCATION_4001_TEXT.equals(semanticHint)) {
 				return 4001;
 			}
-			if (!"".equals(semanticHint)) {
+			if (semanticHint != null && !"".equals(semanticHint)) {
 				return getUnrecognizedPort_1001ChildNodeID(semanticHint);
 			}
 			return getUnrecognizedPort_1001ChildNodeID(domainElement);
@@ -102,7 +102,7 @@ public class TaiPanVisualIDRegistry {
 			if (TaiPanSemanticHints.Ship_1002Compartments.CARGOCOMPARTMENT_5001.equals(semanticHint)) {
 				return 5001;
 			}
-			if (!"".equals(semanticHint)) {
+			if (semanticHint != null && !"".equals(semanticHint)) {
 				return getUnrecognizedShip_1002ChildNodeID(semanticHint);
 			}
 			return getUnrecognizedShip_1002ChildNodeID(domainElement);
@@ -110,12 +110,12 @@ public class TaiPanVisualIDRegistry {
 			if (TaiPanSemanticHints.Item_2001Labels.ITEMARTICLE_4003_TEXT.equals(semanticHint)) {
 				return 4003;
 			}
-			if (!"".equals(semanticHint)) {
+			if (semanticHint != null && !"".equals(semanticHint)) {
 				return getUnrecognizedItem_2001ChildNodeID(semanticHint);
 			}
 			return getUnrecognizedItem_2001ChildNodeID(domainElement);
 		case 5001:
-			if (!"".equals(semanticHint)) {
+			if (semanticHint != null && !"".equals(semanticHint)) {
 				return getUnrecognizedCargoCompartment_5001ChildNodeID(semanticHint);
 			}
 			if (TaiPanPackage.eINSTANCE.getItem().equals(domainElementMetaclass) && (domainElement != null ? isNodeItem_2001((Item) domainElement) : true)) {
@@ -123,7 +123,7 @@ public class TaiPanVisualIDRegistry {
 			}
 			return getUnrecognizedCargoCompartment_5001ChildNodeID(domainElement);
 		case 79:
-			if (!"".equals(semanticHint)) {
+			if (semanticHint != null && !"".equals(semanticHint)) {
 				return getUnrecognizedAquatory_79ChildNodeID(semanticHint);
 			}
 			if (TaiPanPackage.eINSTANCE.getPort().equals(domainElementMetaclass) && (domainElement != null ? isNodePort_1001((Port) domainElement) : true)) {

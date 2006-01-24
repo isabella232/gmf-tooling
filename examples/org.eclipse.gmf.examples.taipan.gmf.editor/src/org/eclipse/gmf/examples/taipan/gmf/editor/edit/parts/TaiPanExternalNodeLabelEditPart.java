@@ -28,6 +28,11 @@ public class TaiPanExternalNodeLabelEditPart extends LabelEditPart {
 	/**
 	 * @generated
 	 */
+	public static final int BOTTOM_GAP = 5;
+
+	/**
+	 * @generated
+	 */
 	public TaiPanExternalNodeLabelEditPart(View view) {
 		super(view);
 	}
@@ -44,10 +49,21 @@ public class TaiPanExternalNodeLabelEditPart extends LabelEditPart {
 
 			public void relocate(IFigure target) {
 				Point location = getReferencePoint().getTranslated(getOffset());
-				location.translate(-1 * target.getBounds().width / 2, -1 * target.getBounds().height / 2);
+				location.translate(-target.getBounds().width / 2, 0);
 				target.setLocation(location);
 				target.setSize(new Dimension(target.getPreferredSize().width, target.getPreferredSize().height));
 			}
+
+			protected Point getReferencePoint() {
+				return parent.getBounds().getBottom().getTranslated(0, BOTTOM_GAP);
+			}
 		});
+	}
+
+	/**
+	 * @generated
+	 */
+	public Point getReferencePoint() {
+		return ((GraphicalEditPart) getParent()).getFigure().getBounds().getBottom().getTranslated(0, BOTTOM_GAP);
 	}
 }
