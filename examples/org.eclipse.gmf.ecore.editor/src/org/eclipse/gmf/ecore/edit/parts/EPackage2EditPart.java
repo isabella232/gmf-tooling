@@ -14,15 +14,27 @@ import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
 import org.eclipse.draw2d.Figure;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.Request;
+
+import org.eclipse.gef.commands.Command;
 
 import org.eclipse.gmf.ecore.edit.policies.EPackage2ItemSemanticEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EPackageGraphicalNodeEditPolicy;
 
+import org.eclipse.gmf.ecore.edit.providers.EcoreElementTypes;
 import org.eclipse.gmf.ecore.edit.providers.EcoreSemanticHints;
 
 import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
 
+import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
+
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
+
+import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
+
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
+
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
 /**
  * @generated
@@ -48,6 +60,39 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EPackage2ItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new EPackageGraphicalNodeEditPolicy());
+		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy() {
+
+			public Command getCommand(Request request) {
+				if (understandsRequest(request)) {
+					if (request instanceof CreateViewAndElementRequest) {
+						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
+						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
+						if (type == EcoreElementTypes.EClass_2004) {
+							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EPackage_1002Compartments.CLASSES_5004);
+							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
+						}
+						if (type == EcoreElementTypes.EPackage_2005) {
+							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EPackage_1002Compartments.PACKAGES_5005);
+							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
+						}
+						if (type == EcoreElementTypes.EDataType_2006) {
+							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EPackage_1002Compartments.DATA_TYPES_5006);
+							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
+						}
+						if (type == EcoreElementTypes.EEnum_2007) {
+							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EPackage_1002Compartments.ENUMS_5007);
+							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
+						}
+						if (type == EcoreElementTypes.EAnnotation_2008) {
+							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EPackage_1002Compartments.PACKAGE_ANNOTATIONS_5008);
+							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
+						}
+					}
+					return super.getCommand(request);
+				}
+				return null;
+			}
+		});
 	}
 
 	/**

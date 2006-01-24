@@ -14,15 +14,27 @@ import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
 import org.eclipse.draw2d.Figure;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.Request;
+
+import org.eclipse.gef.commands.Command;
 
 import org.eclipse.gmf.ecore.edit.policies.EEnum2GraphicalNodeEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EEnum2ItemSemanticEditPolicy;
 
+import org.eclipse.gmf.ecore.edit.providers.EcoreElementTypes;
 import org.eclipse.gmf.ecore.edit.providers.EcoreSemanticHints;
 
 import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
 
+import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
+
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
+
+import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
+
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
+
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
 /**
  * @generated
@@ -48,6 +60,27 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EEnum2ItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new EEnum2GraphicalNodeEditPolicy());
+		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy() {
+
+			public Command getCommand(Request request) {
+				if (understandsRequest(request)) {
+					if (request instanceof CreateViewAndElementRequest) {
+						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
+						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
+						if (type == EcoreElementTypes.EEnumLiteral_2011) {
+							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EEnum_1005Compartments.LITERALS_5011);
+							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
+						}
+						if (type == EcoreElementTypes.EAnnotation_2012) {
+							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EEnum_1005Compartments.ENUM_ANNOTATIONS_5012);
+							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
+						}
+					}
+					return super.getCommand(request);
+				}
+				return null;
+			}
+		});
 	}
 
 	/**

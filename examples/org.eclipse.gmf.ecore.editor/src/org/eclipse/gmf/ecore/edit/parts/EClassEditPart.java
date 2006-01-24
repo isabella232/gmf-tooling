@@ -14,15 +14,27 @@ import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
 import org.eclipse.draw2d.Figure;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.Request;
+
+import org.eclipse.gef.commands.Command;
 
 import org.eclipse.gmf.ecore.edit.policies.EClassGraphicalNodeEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EClassItemSemanticEditPolicy;
 
+import org.eclipse.gmf.ecore.edit.providers.EcoreElementTypes;
 import org.eclipse.gmf.ecore.edit.providers.EcoreSemanticHints;
 
 import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
 
+import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
+
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
+
+import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
+
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
+
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
 /**
  * @generated
@@ -48,6 +60,31 @@ public class EClassEditPart extends ShapeNodeEditPart {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EClassItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new EClassGraphicalNodeEditPolicy());
+		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy() {
+
+			public Command getCommand(Request request) {
+				if (understandsRequest(request)) {
+					if (request instanceof CreateViewAndElementRequest) {
+						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
+						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
+						if (type == EcoreElementTypes.EAttribute_2001) {
+							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EClass_1001Compartments.ATTRIBUTES_5001);
+							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
+						}
+						if (type == EcoreElementTypes.EOperation_2002) {
+							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EClass_1001Compartments.OPERATIONS_5002);
+							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
+						}
+						if (type == EcoreElementTypes.EAnnotation_2003) {
+							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EClass_1001Compartments.CLASS_ANNOTATIONS_5003);
+							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
+						}
+					}
+					return super.getCommand(request);
+				}
+				return null;
+			}
+		});
 	}
 
 	/**
