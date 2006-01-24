@@ -31,7 +31,7 @@ import org.eclipse.emf.common.util.EList;
  * @model abstract="true"
  * @generated
  */
-public interface GenChildContainer extends GenContainerEditPart {
+public interface GenChildContainer extends GenContainerBase {
 	/**
 	 * Returns the value of the '<em><b>Child Nodes</b></em>' reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenChildNode}.

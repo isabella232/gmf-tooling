@@ -86,7 +86,7 @@ List genLinks = genDiagram.getLinks();
     stringBuffer.append(TEXT_9);
     
 for (Iterator containers = genDiagram.getAllChildContainers().iterator(); containers.hasNext();) {
-	GenContainerEditPart container = (GenContainerEditPart) containers.next();
+	GenContainerBase container = (GenContainerBase) containers.next();
 
     stringBuffer.append(TEXT_10);
     stringBuffer.append(container.getVisualID());

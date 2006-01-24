@@ -78,7 +78,7 @@ import org.eclipse.emf.common.util.EList;
  * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='nodes->forAll(n : GenNode | self.links->forAll(l : GenLink | l.oclAsType(TypeLinkModelFacet).metaClass <> n.getDomainMetaClass()))'"
  * @generated
  */
-public interface GenDiagram extends GenContainerEditPart {
+public interface GenDiagram extends GenContainerBase {
 	/**
 	 * Returns the value of the '<em><b>Domain Meta Model</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -1412,10 +1412,10 @@ public interface GenDiagram extends GenContainerEditPart {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenContainerEditPart"
+	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenContainerBase"
 	 * @generated
 	 */
-	EList getAllContainerEditParts();
+	EList getAllContainers();
 
 	/**
 	 * <!-- begin-user-doc -->

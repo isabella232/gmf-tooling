@@ -129,7 +129,7 @@ public class GMFGenSwitch {
 			case GMFGenPackage.GEN_DIAGRAM: {
 				GenDiagram genDiagram = (GenDiagram)theEObject;
 				Object result = caseGenDiagram(genDiagram);
-				if (result == null) result = caseGenContainerEditPart(genDiagram);
+				if (result == null) result = caseGenContainerBase(genDiagram);
 				if (result == null) result = caseGenCommonBase(genDiagram);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -140,17 +140,17 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GMFGenPackage.GEN_CONTAINER_EDIT_PART: {
-				GenContainerEditPart genContainerEditPart = (GenContainerEditPart)theEObject;
-				Object result = caseGenContainerEditPart(genContainerEditPart);
-				if (result == null) result = caseGenCommonBase(genContainerEditPart);
+			case GMFGenPackage.GEN_CONTAINER_BASE: {
+				GenContainerBase genContainerBase = (GenContainerBase)theEObject;
+				Object result = caseGenContainerBase(genContainerBase);
+				if (result == null) result = caseGenCommonBase(genContainerBase);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGenPackage.GEN_CHILD_CONTAINER: {
 				GenChildContainer genChildContainer = (GenChildContainer)theEObject;
 				Object result = caseGenChildContainer(genChildContainer);
-				if (result == null) result = caseGenContainerEditPart(genChildContainer);
+				if (result == null) result = caseGenContainerBase(genChildContainer);
 				if (result == null) result = caseGenCommonBase(genChildContainer);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -159,7 +159,7 @@ public class GMFGenSwitch {
 				GenNode genNode = (GenNode)theEObject;
 				Object result = caseGenNode(genNode);
 				if (result == null) result = caseGenChildContainer(genNode);
-				if (result == null) result = caseGenContainerEditPart(genNode);
+				if (result == null) result = caseGenContainerBase(genNode);
 				if (result == null) result = caseGenCommonBase(genNode);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -169,7 +169,7 @@ public class GMFGenSwitch {
 				Object result = caseGenTopLevelNode(genTopLevelNode);
 				if (result == null) result = caseGenNode(genTopLevelNode);
 				if (result == null) result = caseGenChildContainer(genTopLevelNode);
-				if (result == null) result = caseGenContainerEditPart(genTopLevelNode);
+				if (result == null) result = caseGenContainerBase(genTopLevelNode);
 				if (result == null) result = caseGenCommonBase(genTopLevelNode);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -179,7 +179,7 @@ public class GMFGenSwitch {
 				Object result = caseGenChildNode(genChildNode);
 				if (result == null) result = caseGenNode(genChildNode);
 				if (result == null) result = caseGenChildContainer(genChildNode);
-				if (result == null) result = caseGenContainerEditPart(genChildNode);
+				if (result == null) result = caseGenContainerBase(genChildNode);
 				if (result == null) result = caseGenCommonBase(genChildNode);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -188,7 +188,7 @@ public class GMFGenSwitch {
 				GenCompartment genCompartment = (GenCompartment)theEObject;
 				Object result = caseGenCompartment(genCompartment);
 				if (result == null) result = caseGenChildContainer(genCompartment);
-				if (result == null) result = caseGenContainerEditPart(genCompartment);
+				if (result == null) result = caseGenContainerBase(genCompartment);
 				if (result == null) result = caseGenCommonBase(genCompartment);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -459,17 +459,17 @@ public class GMFGenSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Gen Container Edit Part</em>'.
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Container Base</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Gen Container Edit Part</em>'.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Container Base</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseGenContainerEditPart(GenContainerEditPart object) {
+	public Object caseGenContainerBase(GenContainerBase object) {
 		return null;
 	}
 

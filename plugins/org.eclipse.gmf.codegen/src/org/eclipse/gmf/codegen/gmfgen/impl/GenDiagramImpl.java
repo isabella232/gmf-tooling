@@ -2555,7 +2555,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getAllContainerEditParts() {
+	public EList getAllContainers() {
 		EList result = new BasicEList();
 		result.addAll(getAllChildContainers());
 		result.add(this);

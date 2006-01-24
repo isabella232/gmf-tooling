@@ -74,8 +74,8 @@ public class EditPartFactoryGenerator
     stringBuffer.append(genDiagram.getEMFGenModel().getModelName());
     stringBuffer.append(TEXT_12);
     
-for (Iterator containers = genDiagram.getAllContainerEditParts().iterator(); containers.hasNext();) {
-	GenContainerEditPart container = (GenContainerEditPart) containers.next();
+for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.hasNext();) {
+	GenContainerBase container = (GenContainerBase) containers.next();
 
     stringBuffer.append(TEXT_13);
     stringBuffer.append(container.getVisualID());

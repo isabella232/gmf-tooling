@@ -125,7 +125,7 @@ public class VisualIDRegistryGenerator
     
 GenDiagram genDiagram = (GenDiagram) argument;
 List genLinks = genDiagram.getLinks();
-Collection allContainers = genDiagram.getAllContainerEditParts();
+Collection allContainers = genDiagram.getAllContainers();
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getEditorPackageName());
@@ -191,7 +191,7 @@ for (Iterator it = genDiagram.getShortcutsProvidedFor().iterator(); it.hasNext()
     stringBuffer.append(TEXT_19);
     
 for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
-	GenContainerEditPart nextContainer = (GenContainerEditPart) containers.next();
+	GenContainerBase nextContainer = (GenContainerBase) containers.next();
 
     stringBuffer.append(TEXT_20);
     stringBuffer.append(nextContainer.getVisualID());
@@ -372,7 +372,7 @@ for (Iterator nodes = genDiagram.getAllNodes().iterator(); nodes.hasNext();) {
     stringBuffer.append(TEXT_71);
     
 for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
-	GenContainerEditPart nextContainer = (GenContainerEditPart) containers.next();
+	GenContainerBase nextContainer = (GenContainerBase) containers.next();
 
     stringBuffer.append(TEXT_72);
     stringBuffer.append(nextContainer.getUniqueIdentifier());

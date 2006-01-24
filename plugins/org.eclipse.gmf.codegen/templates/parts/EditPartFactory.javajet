@@ -36,8 +36,8 @@ public class <%=genDiagram.getEditPartFactoryClassName()%> implements EditPartFa
 			int viewVisualID = getVisualID(view);
 			switch (viewVisualID) {
 <%
-for (Iterator containers = genDiagram.getAllContainerEditParts().iterator(); containers.hasNext();) {
-	GenContainerEditPart container = (GenContainerEditPart) containers.next();
+for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.hasNext();) {
+	GenContainerBase container = (GenContainerBase) containers.next();
 %>
 			case <%=container.getVisualID()%>:
 				 return new <%=container.getEditPartClassName()%>(view);

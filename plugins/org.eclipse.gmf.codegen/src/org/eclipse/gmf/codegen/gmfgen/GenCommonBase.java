@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * One that combines attributes that are essential for EditPart
+ * One that combines attributes that are essential for diagram elements
  * <!-- end-model-doc -->
  *
  * <p>
@@ -34,7 +34,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model abstract="true"
  * @generated
  */
-public interface GenCommonBase extends EObject{
+public interface GenCommonBase extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Diagram Run Time Class</b></em>' reference.
 	 * <!-- begin-user-doc -->

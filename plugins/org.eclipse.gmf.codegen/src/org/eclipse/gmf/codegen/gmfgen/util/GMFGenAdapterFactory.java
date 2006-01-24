@@ -113,8 +113,8 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGenCommonBase(GenCommonBase object) {
 				return createGenCommonBaseAdapter();
 			}
-			public Object caseGenContainerEditPart(GenContainerEditPart object) {
-				return createGenContainerEditPartAdapter();
+			public Object caseGenContainerBase(GenContainerBase object) {
+				return createGenContainerBaseAdapter();
 			}
 			public Object caseGenChildContainer(GenChildContainer object) {
 				return createGenChildContainerAdapter();
@@ -277,16 +277,16 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenContainerEditPart <em>Gen Container Edit Part</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenContainerBase <em>Gen Container Base</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenContainerEditPart
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenContainerBase
 	 * @generated
 	 */
-	public Adapter createGenContainerEditPartAdapter() {
+	public Adapter createGenContainerBaseAdapter() {
 		return null;
 	}
 

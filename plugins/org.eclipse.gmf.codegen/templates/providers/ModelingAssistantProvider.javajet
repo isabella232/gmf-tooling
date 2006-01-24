@@ -28,7 +28,7 @@ List containers = new ArrayList();
 containers.add(genDiagram);
 containers.addAll(genDiagram.getAllNodes());
 for (Iterator contents = containers.iterator(); contents.hasNext(); ) {
-	GenContainerEditPart genContainer = (GenContainerEditPart) contents.next();
+	GenContainerBase genContainer = (GenContainerBase) contents.next();
 	List children = new ArrayList(genContainer.getContainedNodes());
 	if (genContainer instanceof GenNode && ((GenNode) genContainer).isListLayout()) {
 		for (Iterator compartments = ((GenNode) genContainer).getCompartments().iterator(); compartments.hasNext(); ) {

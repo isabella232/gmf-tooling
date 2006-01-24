@@ -315,8 +315,8 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
     stringBuffer.append(genDiagram.getUniqueIdentifier());
     stringBuffer.append(TEXT_22);
     
-for (Iterator containers = genDiagram.getAllContainerEditParts().iterator(); containers.hasNext();) {
-	GenContainerEditPart nextContainer = (GenContainerEditPart) containers.next();
+for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.hasNext();) {
+	GenContainerBase nextContainer = (GenContainerBase) containers.next();
 
     stringBuffer.append(TEXT_23);
     stringBuffer.append(nextContainer.getUniqueIdentifier());

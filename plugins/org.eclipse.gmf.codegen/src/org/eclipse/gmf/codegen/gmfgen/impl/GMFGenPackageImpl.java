@@ -30,7 +30,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
-import org.eclipse.gmf.codegen.gmfgen.GenContainerEditPart;
+import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
@@ -87,7 +87,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass genContainerEditPartEClass = null;
+	private EClass genContainerBaseEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -986,8 +986,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getGenContainerEditPart() {
-		return genContainerEditPartEClass;
+	public EClass getGenContainerBase() {
+		return genContainerBaseEClass;
 	}
 
 	/**
@@ -995,8 +995,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenContainerEditPart_ContainedNodes() {
-		return (EReference)genContainerEditPartEClass.getEStructuralFeatures().get(0);
+	public EReference getGenContainerBase_ContainedNodes() {
+		return (EReference)genContainerBaseEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2286,8 +2286,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genCommonBaseEClass, GEN_COMMON_BASE__NOTATION_VIEW_FACTORY_CLASS_NAME);
 		createEReference(genCommonBaseEClass, GEN_COMMON_BASE__VIEWMAP);
 
-		genContainerEditPartEClass = createEClass(GEN_CONTAINER_EDIT_PART);
-		createEReference(genContainerEditPartEClass, GEN_CONTAINER_EDIT_PART__CONTAINED_NODES);
+		genContainerBaseEClass = createEClass(GEN_CONTAINER_BASE);
+		createEReference(genContainerBaseEClass, GEN_CONTAINER_BASE__CONTAINED_NODES);
 
 		genChildContainerEClass = createEClass(GEN_CHILD_CONTAINER);
 		createEReference(genChildContainerEClass, GEN_CHILD_CONTAINER__CHILD_NODES);
@@ -2490,9 +2490,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		GenModelPackage theGenModelPackage = (GenModelPackage)EPackage.Registry.INSTANCE.getEPackage(GenModelPackage.eNS_URI);
 
 		// Add supertypes to classes
-		genDiagramEClass.getESuperTypes().add(this.getGenContainerEditPart());
-		genContainerEditPartEClass.getESuperTypes().add(this.getGenCommonBase());
-		genChildContainerEClass.getESuperTypes().add(this.getGenContainerEditPart());
+		genDiagramEClass.getESuperTypes().add(this.getGenContainerBase());
+		genContainerBaseEClass.getESuperTypes().add(this.getGenCommonBase());
+		genChildContainerEClass.getESuperTypes().add(this.getGenContainerBase());
 		genNodeEClass.getESuperTypes().add(this.getGenChildContainer());
 		genTopLevelNodeEClass.getESuperTypes().add(this.getGenNode());
 		genChildNodeEClass.getESuperTypes().add(this.getGenNode());
@@ -2585,7 +2585,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genDiagramEClass, this.getGenChildContainer(), "getAllChildContainers", 0, -1);
 
-		addEOperation(genDiagramEClass, this.getGenContainerEditPart(), "getAllContainerEditParts", 0, -1);
+		addEOperation(genDiagramEClass, this.getGenContainerBase(), "getAllContainers", 0, -1);
 
 		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getRequiredPluginIDs", 0, -1);
 
@@ -2685,8 +2685,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genCommonBaseEClass, ecorePackage.getEString(), "getUniqueIdentifier", 0, 1);
 
-		initEClass(genContainerEditPartEClass, GenContainerEditPart.class, "GenContainerEditPart", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenContainerEditPart_ContainedNodes(), this.getGenNode(), null, "containedNodes", null, 0, -1, GenContainerEditPart.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEClass(genContainerBaseEClass, GenContainerBase.class, "GenContainerBase", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenContainerBase_ContainedNodes(), this.getGenNode(), null, "containedNodes", null, 0, -1, GenContainerBase.class, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		initEClass(genChildContainerEClass, GenChildContainer.class, "GenChildContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenChildContainer_ChildNodes(), this.getGenChildNode(), this.getGenChildNode_Containers(), "childNodes", null, 0, -1, GenChildContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

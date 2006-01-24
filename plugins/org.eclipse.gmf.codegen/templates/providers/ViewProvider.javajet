@@ -47,7 +47,7 @@ public class <%=genDiagram.getNotationViewProviderClassName()%> extends Abstract
 		switch (nodeVID) {
 <%
 for (Iterator containers = genDiagram.getAllChildContainers().iterator(); containers.hasNext();) {
-	GenContainerEditPart container = (GenContainerEditPart) containers.next();
+	GenContainerBase container = (GenContainerBase) containers.next();
 %>
 		case <%=container.getVisualID()%>:
 			 return <%=importManager.getImportedName(container.getNotationViewFactoryQualifiedClassName())%>.class;
