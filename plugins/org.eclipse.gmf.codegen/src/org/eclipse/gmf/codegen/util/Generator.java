@@ -843,7 +843,7 @@ public class Generator implements Runnable {
 		final Path projectLocation = null; // use default
 		final List referencedProjects = createReferencedProjectsList();
 		final int style = org.eclipse.emf.codegen.ecore.Generator.EMF_PLUGIN_PROJECT_STYLE;
-		// pluginVariables is NOT used unless style is no EMF_PLUGIN_PROJECT_STYLE
+		// pluginVariables is NOT used when style is EMF_PLUGIN_PROJECT_STYLE
 		final List pluginVariables = null;
 		final IProgressMonitor pm = getNextStepMonitor();
 
