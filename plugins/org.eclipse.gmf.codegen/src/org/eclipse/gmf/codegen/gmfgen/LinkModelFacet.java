@@ -7,6 +7,8 @@
 package org.eclipse.gmf.codegen.gmfgen;
 
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Link Model Facet</b></em>'.
@@ -22,4 +24,20 @@ package org.eclipse.gmf.codegen.gmfgen;
  * @generated
  */
 public interface LinkModelFacet extends ModelFacet {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" type="org.eclipse.emf.codegen.ecore.genmodel.GenClass"
+	 * @generated
+	 */
+	EList getSourceTypes();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" type="org.eclipse.emf.codegen.ecore.genmodel.GenClass"
+	 * @generated
+	 */
+	EList getTargetTypes();
+
 } // LinkModelFacet

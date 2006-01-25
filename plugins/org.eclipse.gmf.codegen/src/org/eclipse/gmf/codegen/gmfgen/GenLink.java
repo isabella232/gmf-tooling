@@ -197,4 +197,26 @@ public interface GenLink extends GenCommonBase {
 	 */
 	void setCreationConstraints(GenLinkConstraints value);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Returns link sources in this genmodel
+	 * <!-- end-model-doc -->
+	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenCommonBase"
+	 * @generated
+	 */
+	EList getSources();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Returns link targets in this genmodel
+	 * <!-- end-model-doc -->
+	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenCommonBase"
+	 * @generated
+	 */
+	EList getTargets();
+
 } // GenLink

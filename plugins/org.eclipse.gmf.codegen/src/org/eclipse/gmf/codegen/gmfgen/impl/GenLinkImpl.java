@@ -7,11 +7,13 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -24,6 +26,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 
@@ -324,6 +327,44 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK__CREATION_CONSTRAINTS, newCreationConstraints, newCreationConstraints));
+	}
+
+	protected EList getParticipants(EList participantTypes) {
+		BasicEList participants = new BasicEList();
+		for (Iterator nodes = getDiagram().getAllNodes().iterator(); nodes.hasNext();) {
+			GenNode node = (GenNode) nodes.next();
+			if (node.getModelFacet() != null) {
+				GenClass nodeType = node.getModelFacet().getMetaClass();
+				if (participantTypes.contains(nodeType)) {
+					participants.add(node);
+				}
+			}
+		}
+		return participants;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList getSources() {
+		if (getModelFacet() == null) {
+			return new BasicEList();
+		}
+		return getParticipants(getModelFacet().getSourceTypes());
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList getTargets() {
+		if (getModelFacet() == null) {
+			return new BasicEList();
+		}
+		return getParticipants(getModelFacet().getTargetTypes());
 	}
 
 	/**

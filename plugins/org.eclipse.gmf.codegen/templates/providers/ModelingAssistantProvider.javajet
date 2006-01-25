@@ -53,5 +53,122 @@ for (Iterator contents = containers.iterator(); contents.hasNext(); ) {
 %>
 		return Collections.EMPTY_LIST;
 	}
+<%
+Map linksForSources = new HashMap();
+Map linksForTargets = new HashMap();
+for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
+	GenLink genLink = (GenLink) links.next();
+	for (Iterator sources = genLink.getSources().iterator(); sources.hasNext(); ) {
+		GenCommonBase source = (GenCommonBase) sources.next();
+		List value = (List) linksForSources.get(source);
+		if (value == null) {
+			value = new ArrayList();
+			linksForSources.put(source, value);
+		}
+		value.add(genLink);
+	}
+	for (Iterator targets = genLink.getTargets().iterator(); targets.hasNext(); ) {
+		GenCommonBase target = (GenCommonBase) targets.next();
+		List value = (List) linksForTargets.get(target);
+		if (value == null) {
+			value = new ArrayList();
+			linksForTargets.put(target, value);
+		}
+		value.add(genLink);
+	}
+}
+%>
+
+	/**
+	 * @generated
+	 */
+	public List getRelTypesOnSource(IAdaptable source) {
+<%if (!linksForSources.isEmpty()) {%>
+		Object sourceEditPart = source.getAdapter(IGraphicalEditPart.class);
+<%
+	for (Iterator sources = linksForSources.keySet().iterator(); sources.hasNext(); ) {
+		GenCommonBase source = (GenCommonBase) sources.next();
+		List sourceLinks = (List) linksForSources.get(source);
+%>
+		if (sourceEditPart instanceof <%=importManager.getImportedName(source.getEditPartQualifiedClassName())%>) {
+			List children = new ArrayList();
+<%
+		for (Iterator links = sourceLinks.iterator(); links.hasNext(); ) {
+			GenLink genLink = (GenLink) links.next();
+%>
+			children.add(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>);
+<%		}%>
+			return children;
+		}
+<%
+	}
+}
+%>
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List getRelTypesOnTarget(IAdaptable target) {
+<%if (!linksForTargets.isEmpty()) {%>
+		Object targetEditPart = target.getAdapter(IGraphicalEditPart.class);
+<%
+	for (Iterator targets = linksForTargets.keySet().iterator(); targets.hasNext(); ) {
+		GenCommonBase target = (GenCommonBase) targets.next();
+		List targetLinks = (List) linksForTargets.get(target);
+%>
+		if (targetEditPart instanceof <%=importManager.getImportedName(target.getEditPartQualifiedClassName())%>) {
+			List children = new ArrayList();
+<%
+		for (Iterator links = targetLinks.iterator(); links.hasNext(); ) {
+			GenLink genLink = (GenLink) links.next();
+%>
+			children.add(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>);
+<%		}%>
+			return children;
+		}
+<%
+	}
+}
+%>
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List getRelTypesOnSourceAndTarget(IAdaptable source, IAdaptable target) {
+<%if (!linksForSources.isEmpty()) {%>
+		Object sourceEditPart = source.getAdapter(IGraphicalEditPart.class);
+		Object targetEditPart = target.getAdapter(IGraphicalEditPart.class);
+<%
+	for (Iterator sources = linksForSources.keySet().iterator(); sources.hasNext(); ) {
+		GenCommonBase source = (GenCommonBase) sources.next();
+		List sourceLinks = (List) linksForSources.get(source);
+%>
+		if (sourceEditPart instanceof <%=importManager.getImportedName(source.getEditPartQualifiedClassName())%>) {
+			List children = new ArrayList();
+<%
+		for (Iterator links = sourceLinks.iterator(); links.hasNext(); ) {
+			GenLink genLink = (GenLink) links.next();
+			for (Iterator targets = genLink.getTargets().iterator(); targets.hasNext(); ) {
+				GenCommonBase target = (GenCommonBase) targets.next();
+%>
+			if (targetEditPart instanceof <%=importManager.getImportedName(target.getEditPartQualifiedClassName())%>) {
+				children.add(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>);
+			}
+<%
+			}
+		}
+%>
+			return children;
+		}
+<%
+	}
+}
+%>
+		return Collections.EMPTY_LIST;
+	}
 }
 <%importManager.emitSortedImports();%>

@@ -8,6 +8,9 @@ package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -141,6 +144,34 @@ public class TypeLinkModelFacetImpl extends TypeModelFacetImpl implements TypeLi
 		targetMetaFeature = newTargetMetaFeature;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.TYPE_LINK_MODEL_FACET__TARGET_META_FEATURE, oldTargetMetaFeature, targetMetaFeature));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList getSourceTypes() {
+		EList sources = new BasicEList();
+		if (getSourceMetaFeature() != null) {
+			sources.add(getSourceMetaFeature().getTypeGenClass());
+		} else if (getContainmentMetaFeature() != null) {
+			sources.add(getContainmentMetaFeature().getGenClass());
+		}
+		return sources;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList getTargetTypes() {
+		EList sources = new BasicEList();
+		if (getTargetMetaFeature() != null) {
+			sources.add(getTargetMetaFeature().getTypeGenClass());
+		}
+		return sources;
 	}
 
 	/**
