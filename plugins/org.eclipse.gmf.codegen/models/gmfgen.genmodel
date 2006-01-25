@@ -28,53 +28,12 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/compartments"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/audits"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/palette"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/editCommandsPackageName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/editPartsPackageName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/editPoliciesPackageName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/editorPackageName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/providersPackageName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/notationViewFactoriesPackageName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/pluginID"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/pluginName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/providerName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/sameFileForDiagramAndModel"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/printingEnabled"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/diagramFileExtension"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/reorientConnectionViewCommandClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/editPartFactoryClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/baseExternalNodeLabelEditPartClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/baseItemSemanticEditPolicyClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/baseGraphicalNodeEditPolicyClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/referenceConnectionEditPolicyClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/canonicalEditPolicyClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/elementTypesClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/semanticHintsClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/notationViewProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/editPartProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/metamodelSupportProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/modelingAssistantProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/propertyProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/iconProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/structuralFeatureParserClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/actionBarContributorClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/creationWizardClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/creationWizardPageClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/diagramEditorUtilClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/diagramFileCreatorClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/documentProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/editorClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/initDiagramFileActionClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/matchingStrategyClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/pluginClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/preferenceInitializerClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/visualIDRegistryClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/createShortcutActionClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/elementChooserClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/containsShortcutsTo"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/shortcutsProvidedFor"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/validationProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/markerNavigationProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenDiagram/validationEnabled"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getEMFGenModel"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllNodes"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllChildContainers"/>
@@ -82,44 +41,99 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getRequiredPluginIDs"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getElementInitializersClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getElementInitializersPackageName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getReorientConnectionViewCommandQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getEditPartFactoryQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getBaseExternalNodeLabelEditPartQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getBaseItemSemanticEditPolicyQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getBaseGraphicalNodeEditPolicyQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getReferenceConnectionEditPolicyQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getCanonicalEditPolicyQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/hasLinkCreationConstraints"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getLinkCreationConstraintsClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getLinkCreationConstraintsQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getElementTypesQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getSemanticHintsQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getNotationViewProviderQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getEditPartProviderQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getMetamodelSupportProviderQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getModelingAssistantProviderQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getPropertyProviderQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getIconProviderQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getStructuralFeatureParserQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getActionBarContributorQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getCreationWizardQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getCreationWizardPageQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getDiagramEditorUtilQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getDiagramFileCreatorQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getDocumentProviderQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getEditorQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getInitDiagramFileActionQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getMatchingStrategyQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getPluginQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getPreferenceInitializerQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getVisualIDRegistryQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getCreateShortcutActionQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getElementChooserQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/generateCreateShortcutAction"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/generateShortcutIcon"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getValidationProviderQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getValidationDiagnosticMarkerType"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getMarkerNavigationProviderQualifiedClassName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//BatchValidation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/markerNavigationProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationEnabled"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getValidationProviderQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getValidationDiagnosticMarkerType"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getMarkerNavigationProviderQualifiedClassName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//ProviderClassNames">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/elementTypesClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/semanticHintsClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/notationViewProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/editPartProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/metamodelSupportProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/modelingAssistantProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/propertyProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/iconProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/structuralFeatureParserClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getElementTypesQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getSemanticHintsQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getNotationViewProviderQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getEditPartProviderQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getMetamodelSupportProviderQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getModelingAssistantProviderQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getPropertyProviderQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getIconProviderQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getStructuralFeatureParserQualifiedClassName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//Shortcuts">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Shortcuts/createShortcutActionClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Shortcuts/containsShortcutsTo"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//Shortcuts/shortcutsProvidedFor"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//Shortcuts/getCreateShortcutActionQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//Shortcuts/generateCreateShortcutAction"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//Shortcuts/generateShortcutIcon"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//PackageNames">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editCommandsPackageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editPartsPackageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editPoliciesPackageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editorPackageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/providersPackageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/notationViewFactoriesPackageName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//LinkConstraints">
+      <genOperations ecoreOperation="gmfgen.ecore#//LinkConstraints/hasLinkCreationConstraints"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//LinkConstraints/getLinkCreationConstraintsClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//LinkConstraints/getLinkCreationConstraintsQualifiedClassName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//EditorCandies">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/actionBarContributorClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/creationWizardClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/creationWizardPageClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/diagramEditorUtilClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/diagramFileCreatorClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/documentProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/editorClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/initDiagramFileActionClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/matchingStrategyClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/pluginClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/preferenceInitializerClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/visualIDRegistryClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/elementChooserClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getActionBarContributorQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getCreationWizardQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getCreationWizardPageQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getDiagramEditorUtilQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getDiagramFileCreatorQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getDocumentProviderQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getEditorQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getInitDiagramFileActionQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getMatchingStrategyQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getPluginQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getPreferenceInitializerQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getVisualIDRegistryQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getElementChooserQualifiedClassName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//EditPartCandies">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/reorientConnectionViewCommandClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/editPartFactoryClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseExternalNodeLabelEditPartClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseItemSemanticEditPolicyClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/baseGraphicalNodeEditPolicyClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/referenceConnectionEditPolicyClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/canonicalEditPolicyClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getReorientConnectionViewCommandQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getEditPartFactoryQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getBaseExternalNodeLabelEditPartQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getBaseItemSemanticEditPolicyQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getBaseGraphicalNodeEditPolicyQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getReferenceConnectionEditPolicyQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditPartCandies/getCanonicalEditPolicyQualifiedClassName"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenCommonBase">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCommonBase/diagramRunTimeClass"/>

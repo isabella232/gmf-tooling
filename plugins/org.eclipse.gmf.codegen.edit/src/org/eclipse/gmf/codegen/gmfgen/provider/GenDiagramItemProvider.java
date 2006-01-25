@@ -62,27 +62,12 @@ public class GenDiagramItemProvider
 			super.getPropertyDescriptors(object);
 
 			addContainedNodesPropertyDescriptor(object);
-			addDomainMetaModelPropertyDescriptor(object);
-			addDomainDiagramElementPropertyDescriptor(object);
 			addEditCommandsPackageNamePropertyDescriptor(object);
 			addEditPartsPackageNamePropertyDescriptor(object);
 			addEditPoliciesPackageNamePropertyDescriptor(object);
 			addEditorPackageNamePropertyDescriptor(object);
 			addProvidersPackageNamePropertyDescriptor(object);
 			addNotationViewFactoriesPackageNamePropertyDescriptor(object);
-			addPluginIDPropertyDescriptor(object);
-			addPluginNamePropertyDescriptor(object);
-			addProviderNamePropertyDescriptor(object);
-			addSameFileForDiagramAndModelPropertyDescriptor(object);
-			addPrintingEnabledPropertyDescriptor(object);
-			addDiagramFileExtensionPropertyDescriptor(object);
-			addReorientConnectionViewCommandClassNamePropertyDescriptor(object);
-			addEditPartFactoryClassNamePropertyDescriptor(object);
-			addBaseExternalNodeLabelEditPartClassNamePropertyDescriptor(object);
-			addBaseItemSemanticEditPolicyClassNamePropertyDescriptor(object);
-			addBaseGraphicalNodeEditPolicyClassNamePropertyDescriptor(object);
-			addReferenceConnectionEditPolicyClassNamePropertyDescriptor(object);
-			addCanonicalEditPolicyClassNamePropertyDescriptor(object);
 			addElementTypesClassNamePropertyDescriptor(object);
 			addSemanticHintsClassNamePropertyDescriptor(object);
 			addNotationViewProviderClassNamePropertyDescriptor(object);
@@ -92,6 +77,13 @@ public class GenDiagramItemProvider
 			addPropertyProviderClassNamePropertyDescriptor(object);
 			addIconProviderClassNamePropertyDescriptor(object);
 			addStructuralFeatureParserClassNamePropertyDescriptor(object);
+			addReorientConnectionViewCommandClassNamePropertyDescriptor(object);
+			addEditPartFactoryClassNamePropertyDescriptor(object);
+			addBaseExternalNodeLabelEditPartClassNamePropertyDescriptor(object);
+			addBaseItemSemanticEditPolicyClassNamePropertyDescriptor(object);
+			addBaseGraphicalNodeEditPolicyClassNamePropertyDescriptor(object);
+			addReferenceConnectionEditPolicyClassNamePropertyDescriptor(object);
+			addCanonicalEditPolicyClassNamePropertyDescriptor(object);
 			addActionBarContributorClassNamePropertyDescriptor(object);
 			addCreationWizardClassNamePropertyDescriptor(object);
 			addCreationWizardPageClassNamePropertyDescriptor(object);
@@ -104,13 +96,21 @@ public class GenDiagramItemProvider
 			addPluginClassNamePropertyDescriptor(object);
 			addPreferenceInitializerClassNamePropertyDescriptor(object);
 			addVisualIDRegistryClassNamePropertyDescriptor(object);
-			addCreateShortcutActionClassNamePropertyDescriptor(object);
 			addElementChooserClassNamePropertyDescriptor(object);
+			addCreateShortcutActionClassNamePropertyDescriptor(object);
 			addContainsShortcutsToPropertyDescriptor(object);
 			addShortcutsProvidedForPropertyDescriptor(object);
 			addValidationProviderClassNamePropertyDescriptor(object);
 			addMarkerNavigationProviderClassNamePropertyDescriptor(object);
 			addValidationEnabledPropertyDescriptor(object);
+			addDomainMetaModelPropertyDescriptor(object);
+			addDomainDiagramElementPropertyDescriptor(object);
+			addPluginIDPropertyDescriptor(object);
+			addPluginNamePropertyDescriptor(object);
+			addProviderNamePropertyDescriptor(object);
+			addSameFileForDiagramAndModelPropertyDescriptor(object);
+			addPrintingEnabledPropertyDescriptor(object);
+			addDiagramFileExtensionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -186,9 +186,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_editCommandsPackageName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_editCommandsPackageName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_EditCommandsPackageName(),
+				 getString("_UI_PackageNames_editCommandsPackageName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_editCommandsPackageName_feature", "_UI_PackageNames_type"),
+				 GMFGenPackage.eINSTANCE.getPackageNames_EditCommandsPackageName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -206,9 +206,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_editPartsPackageName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_editPartsPackageName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_EditPartsPackageName(),
+				 getString("_UI_PackageNames_editPartsPackageName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_editPartsPackageName_feature", "_UI_PackageNames_type"),
+				 GMFGenPackage.eINSTANCE.getPackageNames_EditPartsPackageName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -226,9 +226,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_editPoliciesPackageName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_editPoliciesPackageName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_EditPoliciesPackageName(),
+				 getString("_UI_PackageNames_editPoliciesPackageName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_editPoliciesPackageName_feature", "_UI_PackageNames_type"),
+				 GMFGenPackage.eINSTANCE.getPackageNames_EditPoliciesPackageName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -306,9 +306,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_pluginClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_pluginClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_PluginClassName(),
+				 getString("_UI_EditorCandies_pluginClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_pluginClassName_feature", "_UI_EditorCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditorCandies_PluginClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -326,9 +326,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_preferenceInitializerClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_preferenceInitializerClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_PreferenceInitializerClassName(),
+				 getString("_UI_EditorCandies_preferenceInitializerClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_preferenceInitializerClassName_feature", "_UI_EditorCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditorCandies_PreferenceInitializerClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -346,9 +346,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_visualIDRegistryClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_visualIDRegistryClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_VisualIDRegistryClassName(),
+				 getString("_UI_EditorCandies_visualIDRegistryClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_visualIDRegistryClassName_feature", "_UI_EditorCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditorCandies_VisualIDRegistryClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -366,9 +366,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_createShortcutActionClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_createShortcutActionClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_CreateShortcutActionClassName(),
+				 getString("_UI_Shortcuts_createShortcutActionClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Shortcuts_createShortcutActionClassName_feature", "_UI_Shortcuts_type"),
+				 GMFGenPackage.eINSTANCE.getShortcuts_CreateShortcutActionClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -386,9 +386,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_elementChooserClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_elementChooserClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_ElementChooserClassName(),
+				 getString("_UI_EditorCandies_elementChooserClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_elementChooserClassName_feature", "_UI_EditorCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditorCandies_ElementChooserClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -406,9 +406,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_containsShortcutsTo_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_containsShortcutsTo_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_ContainsShortcutsTo(),
+				 getString("_UI_Shortcuts_containsShortcutsTo_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Shortcuts_containsShortcutsTo_feature", "_UI_Shortcuts_type"),
+				 GMFGenPackage.eINSTANCE.getShortcuts_ContainsShortcutsTo(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -426,9 +426,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_shortcutsProvidedFor_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_shortcutsProvidedFor_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_ShortcutsProvidedFor(),
+				 getString("_UI_Shortcuts_shortcutsProvidedFor_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Shortcuts_shortcutsProvidedFor_feature", "_UI_Shortcuts_type"),
+				 GMFGenPackage.eINSTANCE.getShortcuts_ShortcutsProvidedFor(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -446,9 +446,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_validationProviderClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_validationProviderClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_ValidationProviderClassName(),
+				 getString("_UI_BatchValidation_validationProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_validationProviderClassName_feature", "_UI_BatchValidation_type"),
+				 GMFGenPackage.eINSTANCE.getBatchValidation_ValidationProviderClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -466,9 +466,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_markerNavigationProviderClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_markerNavigationProviderClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_MarkerNavigationProviderClassName(),
+				 getString("_UI_BatchValidation_markerNavigationProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_markerNavigationProviderClassName_feature", "_UI_BatchValidation_type"),
+				 GMFGenPackage.eINSTANCE.getBatchValidation_MarkerNavigationProviderClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -486,9 +486,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_validationEnabled_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_validationEnabled_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_ValidationEnabled(),
+				 getString("_UI_BatchValidation_validationEnabled_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_validationEnabled_feature", "_UI_BatchValidation_type"),
+				 GMFGenPackage.eINSTANCE.getBatchValidation_ValidationEnabled(),
 				 true,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
@@ -506,9 +506,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_editorPackageName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_editorPackageName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_EditorPackageName(),
+				 getString("_UI_PackageNames_editorPackageName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_editorPackageName_feature", "_UI_PackageNames_type"),
+				 GMFGenPackage.eINSTANCE.getPackageNames_EditorPackageName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -526,9 +526,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_providersPackageName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_providersPackageName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_ProvidersPackageName(),
+				 getString("_UI_PackageNames_providersPackageName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_providersPackageName_feature", "_UI_PackageNames_type"),
+				 GMFGenPackage.eINSTANCE.getPackageNames_ProvidersPackageName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -546,9 +546,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_notationViewFactoriesPackageName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_notationViewFactoriesPackageName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_NotationViewFactoriesPackageName(),
+				 getString("_UI_PackageNames_notationViewFactoriesPackageName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_notationViewFactoriesPackageName_feature", "_UI_PackageNames_type"),
+				 GMFGenPackage.eINSTANCE.getPackageNames_NotationViewFactoriesPackageName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -566,9 +566,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_editorClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_editorClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_EditorClassName(),
+				 getString("_UI_EditorCandies_editorClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_editorClassName_feature", "_UI_EditorCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditorCandies_EditorClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -586,9 +586,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_documentProviderClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_documentProviderClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_DocumentProviderClassName(),
+				 getString("_UI_EditorCandies_documentProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_documentProviderClassName_feature", "_UI_EditorCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditorCandies_DocumentProviderClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -606,9 +606,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_editPartFactoryClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_editPartFactoryClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_EditPartFactoryClassName(),
+				 getString("_UI_EditPartCandies_editPartFactoryClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_editPartFactoryClassName_feature", "_UI_EditPartCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditPartCandies_EditPartFactoryClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -626,9 +626,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_baseExternalNodeLabelEditPartClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_baseExternalNodeLabelEditPartClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_BaseExternalNodeLabelEditPartClassName(),
+				 getString("_UI_EditPartCandies_baseExternalNodeLabelEditPartClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_baseExternalNodeLabelEditPartClassName_feature", "_UI_EditPartCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditPartCandies_BaseExternalNodeLabelEditPartClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -646,9 +646,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_baseItemSemanticEditPolicyClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_baseItemSemanticEditPolicyClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_BaseItemSemanticEditPolicyClassName(),
+				 getString("_UI_EditPartCandies_baseItemSemanticEditPolicyClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_baseItemSemanticEditPolicyClassName_feature", "_UI_EditPartCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditPartCandies_BaseItemSemanticEditPolicyClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -666,9 +666,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_baseGraphicalNodeEditPolicyClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_baseGraphicalNodeEditPolicyClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_BaseGraphicalNodeEditPolicyClassName(),
+				 getString("_UI_EditPartCandies_baseGraphicalNodeEditPolicyClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_baseGraphicalNodeEditPolicyClassName_feature", "_UI_EditPartCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditPartCandies_BaseGraphicalNodeEditPolicyClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -686,9 +686,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_referenceConnectionEditPolicyClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_referenceConnectionEditPolicyClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_ReferenceConnectionEditPolicyClassName(),
+				 getString("_UI_EditPartCandies_referenceConnectionEditPolicyClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_referenceConnectionEditPolicyClassName_feature", "_UI_EditPartCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditPartCandies_ReferenceConnectionEditPolicyClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -706,9 +706,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_canonicalEditPolicyClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_canonicalEditPolicyClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_CanonicalEditPolicyClassName(),
+				 getString("_UI_EditPartCandies_canonicalEditPolicyClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_canonicalEditPolicyClassName_feature", "_UI_EditPartCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditPartCandies_CanonicalEditPolicyClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -726,9 +726,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_elementTypesClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_elementTypesClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_ElementTypesClassName(),
+				 getString("_UI_ProviderClassNames_elementTypesClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_elementTypesClassName_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_ElementTypesClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -746,9 +746,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_semanticHintsClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_semanticHintsClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_SemanticHintsClassName(),
+				 getString("_UI_ProviderClassNames_semanticHintsClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_semanticHintsClassName_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_SemanticHintsClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -766,9 +766,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_notationViewProviderClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_notationViewProviderClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_NotationViewProviderClassName(),
+				 getString("_UI_ProviderClassNames_notationViewProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_notationViewProviderClassName_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_NotationViewProviderClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -806,9 +806,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_reorientConnectionViewCommandClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_reorientConnectionViewCommandClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_ReorientConnectionViewCommandClassName(),
+				 getString("_UI_EditPartCandies_reorientConnectionViewCommandClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditPartCandies_reorientConnectionViewCommandClassName_feature", "_UI_EditPartCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditPartCandies_ReorientConnectionViewCommandClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -866,9 +866,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_initDiagramFileActionClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_initDiagramFileActionClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_InitDiagramFileActionClassName(),
+				 getString("_UI_EditorCandies_initDiagramFileActionClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_initDiagramFileActionClassName_feature", "_UI_EditorCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditorCandies_InitDiagramFileActionClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -886,9 +886,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_actionBarContributorClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_actionBarContributorClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_ActionBarContributorClassName(),
+				 getString("_UI_EditorCandies_actionBarContributorClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_actionBarContributorClassName_feature", "_UI_EditorCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditorCandies_ActionBarContributorClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -906,9 +906,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_creationWizardClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_creationWizardClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_CreationWizardClassName(),
+				 getString("_UI_EditorCandies_creationWizardClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_creationWizardClassName_feature", "_UI_EditorCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditorCandies_CreationWizardClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -926,9 +926,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_creationWizardPageClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_creationWizardPageClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_CreationWizardPageClassName(),
+				 getString("_UI_EditorCandies_creationWizardPageClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_creationWizardPageClassName_feature", "_UI_EditorCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditorCandies_CreationWizardPageClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -946,9 +946,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_diagramEditorUtilClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_diagramEditorUtilClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_DiagramEditorUtilClassName(),
+				 getString("_UI_EditorCandies_diagramEditorUtilClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_diagramEditorUtilClassName_feature", "_UI_EditorCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditorCandies_DiagramEditorUtilClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -966,9 +966,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_diagramFileCreatorClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_diagramFileCreatorClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_DiagramFileCreatorClassName(),
+				 getString("_UI_EditorCandies_diagramFileCreatorClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_diagramFileCreatorClassName_feature", "_UI_EditorCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditorCandies_DiagramFileCreatorClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -986,9 +986,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_matchingStrategyClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_matchingStrategyClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_MatchingStrategyClassName(),
+				 getString("_UI_EditorCandies_matchingStrategyClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_matchingStrategyClassName_feature", "_UI_EditorCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditorCandies_MatchingStrategyClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -1006,9 +1006,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_editPartProviderClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_editPartProviderClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_EditPartProviderClassName(),
+				 getString("_UI_ProviderClassNames_editPartProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_editPartProviderClassName_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_EditPartProviderClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -1026,9 +1026,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_metamodelSupportProviderClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_metamodelSupportProviderClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_MetamodelSupportProviderClassName(),
+				 getString("_UI_ProviderClassNames_metamodelSupportProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_metamodelSupportProviderClassName_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_MetamodelSupportProviderClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -1046,9 +1046,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_modelingAssistantProviderClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_modelingAssistantProviderClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_ModelingAssistantProviderClassName(),
+				 getString("_UI_ProviderClassNames_modelingAssistantProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_modelingAssistantProviderClassName_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_ModelingAssistantProviderClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -1066,9 +1066,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_propertyProviderClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_propertyProviderClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_PropertyProviderClassName(),
+				 getString("_UI_ProviderClassNames_propertyProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_propertyProviderClassName_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_PropertyProviderClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -1086,9 +1086,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_iconProviderClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_iconProviderClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_IconProviderClassName(),
+				 getString("_UI_ProviderClassNames_iconProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_iconProviderClassName_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_IconProviderClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -1106,9 +1106,9 @@ public class GenDiagramItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenDiagram_structuralFeatureParserClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_structuralFeatureParserClassName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_StructuralFeatureParserClassName(),
+				 getString("_UI_ProviderClassNames_structuralFeatureParserClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_structuralFeatureParserClassName_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_StructuralFeatureParserClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -1188,19 +1188,6 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
-			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
-			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
@@ -1210,6 +1197,13 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__BASE_ITEM_SEMANTIC_EDIT_POLICY_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME:
@@ -1222,13 +1216,19 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR:
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
+			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
+			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:
