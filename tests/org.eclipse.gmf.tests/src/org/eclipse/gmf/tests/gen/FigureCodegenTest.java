@@ -35,8 +35,8 @@ import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
 /**
+ * TODO generate project, compile and instaniate figures to make sure values are set (like figure's bg/fg color)
  * @author artem
- *
  */
 public class FigureCodegenTest extends TestCase {
 	private FigureGenerator figureGenerator;
