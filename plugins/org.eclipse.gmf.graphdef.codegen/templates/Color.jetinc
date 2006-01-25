@@ -1,0 +1,1 @@
+<%if (colorVal instanceof RGBColor) {%>new Color(null, <%=((RGBColor) colorVal).getRed()%>, <%=((RGBColor) colorVal).getGreen()%>, <%=((RGBColor) colorVal).getBlue()%>)<%} else if (colorVal instanceof ConstantColor) {%>ColorConstants.<%=((ConstantColor) colorVal).getValue().getLiteral()%><%}%>

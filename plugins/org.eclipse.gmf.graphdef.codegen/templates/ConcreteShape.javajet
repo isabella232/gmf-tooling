@@ -16,8 +16,8 @@ public class <%=shapeFig.getName()%> extends <%=fqnSwitch.doSwitch(shapeFig)%> {
 	public <%=shapeFig.getName()%>() {
 <%
 {
-Shape shapeFigure = shapeFig;
-String shapeVarName = "this";
+Shape figureInstance = shapeFig;
+String figureVarName = "this";
 %>
 <%@ include file="ShapeAttrs.jetinc" %>
 <%

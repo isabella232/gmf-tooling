@@ -15,9 +15,10 @@ public class <%=figure.getName()%> extends org.eclipse.gmf.runtime.draw2d.ui.fig
 	 * @generated
 	 */
 	public <%=figure.getName()%>() {
-<%Shape shapeFigure = figure;
-String shapeVarName = "this";%>
-<%@ include file="ShapeAttrs.jetinc" %>
+<% { // scope
+Shape figureInstance = figure;
+String figureVarName = "this";%>
+<%@ include file="ShapeAttrs.jetinc" %><% }// scope %>
 <%if (figure.getSourceDecoration() != null) {%>
 		setSourceDecoration(createSourceDecoration());
 <%}

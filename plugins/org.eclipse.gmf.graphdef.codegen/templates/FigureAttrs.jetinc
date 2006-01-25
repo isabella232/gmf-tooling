@@ -1,0 +1,8 @@
+<%Color colorVal;
+if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor())) {
+		colorVal = figureInstance.getForegroundColor();%>
+		<%=figureVarName%>.setForegroundColor(<%@ include file="Color.jetinc"%>);
+<%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor())) {
+		colorVal = figureInstance.getBackgroundColor();%>
+		<%=figureVarName%>.setBackgroundColor(<%@ include file="Color.jetinc"%>);
+<%}%>

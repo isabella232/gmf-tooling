@@ -2,18 +2,19 @@
 // FigureMarker:  figureMarker
 // String:        figureVarName
 if (figureMarker instanceof CustomFigure) {
+	CustomFigure figureInstance = (CustomFigure) figureMarker;
 %>
-		org.eclipse.draw2d.IFigure <%=figureVarName%> = new <%=((CustomFigure) figureMarker).getQualifiedClassName()%>();
+		<%=fqnSwitch.doSwitch(figureMarker)%> <%=figureVarName%> = new <%=fqnSwitch.doSwitch(figureMarker)%>();
 <%@ include file="FigureAttrs.jetinc"%>
 <%} else if (figureMarker instanceof Shape) {
-Shape shapeFigure = (Shape) figureMarker;
-String shapeVarName = figureVarName;%>
+Shape figureInstance = (Shape) figureMarker;%>
 		<%=fqnSwitch.doSwitch(figureMarker)%> <%=figureVarName%> = new <%=fqnSwitch.doSwitch(figureMarker)%>();
 <%@ include file="ShapeAttrs.jetinc"%>
 <%} else if (figureMarker instanceof FigureRef) {%>
 		org.eclipse.draw2d.IFigure <%=figureVarName%> = new <%=((FigureRef) figureMarker).getFigure().getName()%>();
-<%@ include file="FigureAttrs.jetinc"%>
-<%} else if (figureMarker instanceof Label) {%>
-		org.eclipse.draw2d.Label <%=figureVarName%> = new org.eclipse.draw2d.Label();
+<%} else if (figureMarker instanceof Label) {
+	Label figureInstance = (Label) figureMarker;
+%>
+		<%=fqnSwitch.doSwitch(figureMarker)%> <%=figureVarName%> = new <%=fqnSwitch.doSwitch(figureMarker)%>();
 		<%=figureVarName%>.setText("<%=((Label) figureMarker).getText()%>");
 <%@ include file="FigureAttrs.jetinc"%><%}%>

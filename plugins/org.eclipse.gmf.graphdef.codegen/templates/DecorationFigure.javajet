@@ -24,10 +24,5 @@ String decFigVarName = "this";%>
 <%if (scale != null) {%>
 		setScale(<%=scale.getX()%>, <%=scale.getY()%>);
 <%}%>
-<%
-Shape shapeFigure = (Shape) figure;
-String shapeVarName = "this";
-%>
-<%@ include file="ShapeAttrs.jetinc" %>
 	}
 }

@@ -1,5 +1,9 @@
 		<%=fqnSwitch.doSwitch(df)%> <%=decFigVarName%> = new <%=fqnSwitch.doSwitch(df)%>();
-<%@ include file="FigureAttrs.jetinc"%>
+<%  { // scope
+Figure figureInstance = df;
+String figureVarName = decFigVarName;
+%>
+<%@ include file="FigureAttrs.jetinc"%><%} // scope %>
 <% /*include FigureChildren*/ %>
 <%
 if ((df instanceof PolylineDecoration || df instanceof PolygonDecoration)) {
