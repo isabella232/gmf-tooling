@@ -59,8 +59,6 @@ final String INCOMING_TOKEN = "Incoming";
 <%
 for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	GenLink genLink = (GenLink) links.next();
-	//GenLinkConstraints linkConstraints = genLink.getCreationConstraints();
-	//String constraintsInstance = linkConstraints != null ? importManager.getImportedName(genDiagram.getLinkCreationConstraintsQualifiedClassName())+"."+linkConstraints.getConstraintsInstanceFieldName() : null;
 	
 	if (!genLink.isOutgoingCreationAllowed() && !genLink.isIncomingCreationAllowed()) {
 		continue;
@@ -121,7 +119,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	GenLink genLink = (GenLink) links.next();
 	GenLinkConstraints linkConstraints = genLink.getCreationConstraints();
-	String constraintsInstance = linkConstraints != null ? importManager.getImportedName(genDiagram.getLinkCreationConstraintsQualifiedClassName())+"."+linkConstraints.getConstraintsInstanceFieldName() : null;
 
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 //
@@ -223,7 +220,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			}
 %>
 <%			if(linkConstraints != null) { %>
-		if(!<%=constraintsInstance%>.canCreateLink(req, false)) {
+		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+"."+linkConstraints.getConstraintsInstanceFieldName()%>.canCreateLink(req, false)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <%			} // end of link constraints %>
@@ -294,7 +291,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		}
 		
 <%			if(linkConstraints != null) { %>
-		if(!<%=constraintsInstance%>.canCreateLink(req, true)) {
+		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+"."+linkConstraints.getConstraintsInstanceFieldName()%>.canCreateLink(req, true)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <%			} // end of link constraints %>				
@@ -383,7 +380,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 */
 	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
 <%			if(linkConstraints != null) { %>
-		if(!<%=constraintsInstance%>.canCreateLink(req, true)) {
+		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+"."+linkConstraints.getConstraintsInstanceFieldName()%>.canCreateLink(req, true)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <%			} // end of link constraints %>	
@@ -449,7 +446,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 			}
 %>
 <%			if(linkConstraints != null) { %>
-		if(!<%=constraintsInstance%>.canCreateLink(req, false)) {
+		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+"."+linkConstraints.getConstraintsInstanceFieldName()%>.canCreateLink(req, false)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <%			} // end of constraints %>		
@@ -598,7 +595,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		}
 <%			}%>
 <%			if(linkConstraints != null) { %>
-		if(!<%=constraintsInstance%>.canCreateLink(req, false)) {
+		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+"."+linkConstraints.getConstraintsInstanceFieldName()%>.canCreateLink(req, false)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <%			} // end of link constraints %>
@@ -652,7 +649,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		}
 <%			}%>
 <%			if(linkConstraints != null) { %>
-		if(!<%=constraintsInstance%>.canCreateLink(req, true)) {
+		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+"."+linkConstraints.getConstraintsInstanceFieldName()%>.canCreateLink(req, true)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <%			} // end of constraints %>		
@@ -676,7 +673,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 */
 	protected Command getCreateStart<%=namePart%>Command(CreateRelationshipRequest req) {
 <%			if(genLink.getCreationConstraints() != null) { %>
-		if(!<%=constraintsInstance%>.canCreateLink(req, true)) {
+		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+"."+linkConstraints.getConstraintsInstanceFieldName()%>.canCreateLink(req, true)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <%			} // end of link constraints %>
@@ -729,7 +726,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		}
 <%			}%>
 <%			if(linkConstraints != null) { %>
-		if(!<%=constraintsInstance%>.canCreateLink(req, false)) {
+		if(!<%=importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+"."+linkConstraints.getConstraintsInstanceFieldName()%>.canCreateLink(req, false)) {
 			return <%=importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand")%>.INSTANCE;			
 		}
 <%			} // end of constraints %>

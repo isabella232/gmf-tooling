@@ -652,8 +652,6 @@ final String INCOMING_TOKEN = "Incoming";
     
 for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	GenLink genLink = (GenLink) links.next();
-	//GenLinkConstraints linkConstraints = genLink.getCreationConstraints();
-	//String constraintsInstance = linkConstraints != null ? importManager.getImportedName(genDiagram.getLinkCreationConstraintsQualifiedClassName())+"."+linkConstraints.getConstraintsInstanceFieldName() : null;
 	
 	if (!genLink.isOutgoingCreationAllowed() && !genLink.isIncomingCreationAllowed()) {
 		continue;
@@ -719,7 +717,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	GenLink genLink = (GenLink) links.next();
 	GenLinkConstraints linkConstraints = genLink.getCreationConstraints();
-	String constraintsInstance = linkConstraints != null ? importManager.getImportedName(genDiagram.getLinkCreationConstraintsQualifiedClassName())+"."+linkConstraints.getConstraintsInstanceFieldName() : null;
 
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
 //
@@ -844,7 +841,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 
     			if(linkConstraints != null) { 
     stringBuffer.append(TEXT_99);
-    stringBuffer.append(constraintsInstance);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+"."+linkConstraints.getConstraintsInstanceFieldName());
     stringBuffer.append(TEXT_100);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
     stringBuffer.append(TEXT_101);
@@ -940,7 +937,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_133);
     			if(linkConstraints != null) { 
     stringBuffer.append(TEXT_134);
-    stringBuffer.append(constraintsInstance);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+"."+linkConstraints.getConstraintsInstanceFieldName());
     stringBuffer.append(TEXT_135);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
     stringBuffer.append(TEXT_136);
@@ -1028,7 +1025,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_170);
     			if(linkConstraints != null) { 
     stringBuffer.append(TEXT_171);
-    stringBuffer.append(constraintsInstance);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+"."+linkConstraints.getConstraintsInstanceFieldName());
     stringBuffer.append(TEXT_172);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
     stringBuffer.append(TEXT_173);
@@ -1119,7 +1116,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 
     			if(linkConstraints != null) { 
     stringBuffer.append(TEXT_204);
-    stringBuffer.append(constraintsInstance);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+"."+linkConstraints.getConstraintsInstanceFieldName());
     stringBuffer.append(TEXT_205);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
     stringBuffer.append(TEXT_206);
@@ -1280,7 +1277,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     			}
     			if(linkConstraints != null) { 
     stringBuffer.append(TEXT_254);
-    stringBuffer.append(constraintsInstance);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+"."+linkConstraints.getConstraintsInstanceFieldName());
     stringBuffer.append(TEXT_255);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
     stringBuffer.append(TEXT_256);
@@ -1351,7 +1348,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     			}
     			if(linkConstraints != null) { 
     stringBuffer.append(TEXT_281);
-    stringBuffer.append(constraintsInstance);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+"."+linkConstraints.getConstraintsInstanceFieldName());
     stringBuffer.append(TEXT_282);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
     stringBuffer.append(TEXT_283);
@@ -1383,7 +1380,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_292);
     			if(genLink.getCreationConstraints() != null) { 
     stringBuffer.append(TEXT_293);
-    stringBuffer.append(constraintsInstance);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+"."+linkConstraints.getConstraintsInstanceFieldName());
     stringBuffer.append(TEXT_294);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
     stringBuffer.append(TEXT_295);
@@ -1453,7 +1450,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     			}
     			if(linkConstraints != null) { 
     stringBuffer.append(TEXT_319);
-    stringBuffer.append(constraintsInstance);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getBaseItemSemanticEditPolicyQualifiedClassName())+"."+genDiagram.getLinkCreationConstraintsClassName()+"."+linkConstraints.getConstraintsInstanceFieldName());
     stringBuffer.append(TEXT_320);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gef.commands.UnexecutableCommand"));
     stringBuffer.append(TEXT_321);

@@ -335,6 +335,9 @@
     <modelFacet xsi:type="gmfgen:FeatureModelFacet">
       <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eSuperTypes"/>
     </modelFacet>
+    <creationConstraints>
+      <targetEnd body="self &lt;> oppositeEnd and not oppositeEnd.eSuperTypes->includes(self) and not self.eAllSuperTypes->includes(oppositeEnd)"/>
+    </creationConstraints>
   </links>
   <compartments visualID="5001" editPartClassName="EClass_attributesEditPart" itemSemanticEditPolicyClassName="EClass_attributesItemSemanticEditPolicy" notationViewFactoryClassName="EClass_attributesViewFactory" childNodes="//@childNodes.0" canonicalEditPolicyClassName="EClass_attributesCanonicalEditPolicy" title="attributes" node="//@topLevelNodes.0">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>

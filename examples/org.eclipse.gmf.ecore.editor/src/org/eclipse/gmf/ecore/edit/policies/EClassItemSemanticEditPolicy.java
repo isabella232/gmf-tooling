@@ -220,6 +220,9 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 	 * @generated
 	 */
 	protected Command getCreateStartOutgoingEClass_ESuperTypes3004Command(CreateRelationshipRequest req) {
+		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.EClassESuperTypes_3004.canCreateLink(req, false)) {
+			return UnexecutableCommand.INSTANCE;
+		}
 
 		return new Command() {
 		};
@@ -234,6 +237,9 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 		}
 		EClass element = (EClass) req.getSource();
 		if (element.getESuperTypes().contains(req.getTarget())) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		if (!EcoreBaseItemSemanticEditPolicy.LinkConstraints.EClassESuperTypes_3004.canCreateLink(req, false)) {
 			return UnexecutableCommand.INSTANCE;
 		}
 		SetRequest setReq = new SetRequest(req.getSource(), EcorePackage.eINSTANCE.getEClass_ESuperTypes(), req.getTarget());
