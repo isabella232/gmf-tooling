@@ -51,7 +51,8 @@ public class Ship_CargoCompartmentCanonicalEditPolicy extends CanonicalEditPolic
 	 * @generated
 	 */
 	protected boolean shouldDeleteView(View view) {
-		return view.getElement() != ((View) getHost().getModel()).getElement() && super.shouldDeleteView(view);
+		EObject domainModelElement = view.getElement();
+		return domainModelElement != null && domainModelElement != ((View) getHost().getModel()).getElement() && super.shouldDeleteView(view);
 	}
 
 	/**
