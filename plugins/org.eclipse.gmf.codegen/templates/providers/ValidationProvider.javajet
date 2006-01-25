@@ -1,0 +1,240 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="ValidationProviderGenerator"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+<%
+GenDiagram genDiagram = (GenDiagram)argument;
+ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());
+%>
+package <%=genDiagram.getProvidersPackageName()%>;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.Diagnostician;
+import org.eclipse.emf.validation.model.EvaluationMode;
+import org.eclipse.emf.validation.model.IConstraintStatus;
+import org.eclipse.emf.validation.service.ModelValidationService;
+import org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor;
+import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart;
+import org.eclipse.gmf.runtime.diagram.ui.providers.internal.DiagramContributionItemProvider;
+import org.eclipse.gmf.runtime.emf.core.edit.MRunnable;
+import org.eclipse.gmf.runtime.emf.core.util.EObjectUtil;
+import org.eclipse.gmf.runtime.emf.core.util.OperationUtil;
+import org.eclipse.gmf.runtime.emf.core.util.ResourceUtil;
+import org.eclipse.gmf.runtime.notation.Diagram;
+import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.ui.IWorkbenchPart;
+
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genDiagram.getValidationProviderClassName()%> extends DiagramContributionItemProvider {
+	/**
+	 * @generated
+	 */
+	protected IAction createAction(String actionId, IWorkbenchPartDescriptor partDescriptor) {
+		if (ValidateAction.VALIDATE_ACTION_KEY.equals(actionId)) {
+			return new ValidateAction(partDescriptor);
+		}
+		return super.createAction(actionId, partDescriptor);
+	}
+	
+	/**
+	 * @generated
+	 */
+	public static class ValidateAction extends Action {
+		/**
+		 * @generated
+		 */
+		public static final String MARKER_TYPE = "<%=genDiagram.getPluginID() + "." + genDiagram.getValidationDiagnosticMarkerType()%>"; //$NON-NLS-1$
+		/**
+		 * @generated
+		 */		
+		public static final String VALIDATE_ACTION_KEY = "validateAction"; //$NON-NLS-1$
+		/**
+		 * @generated
+		 */
+		private IWorkbenchPartDescriptor workbenchPartDescriptor;
+		/**
+		 * @generated
+		 */
+		public ValidateAction(IWorkbenchPartDescriptor workbenchPartDescriptor) {
+			setId(VALIDATE_ACTION_KEY);
+			setText("Validate");
+			this.workbenchPartDescriptor = workbenchPartDescriptor;
+		}
+		/**
+		 * @generated
+		 */
+		public void run() {
+			IWorkbenchPart workbenchPart = workbenchPartDescriptor.getPartPage().getActivePart();
+			if(workbenchPart instanceof IDiagramWorkbenchPart) {
+				final IDiagramWorkbenchPart part = (IDiagramWorkbenchPart)workbenchPart;
+				try {
+					OperationUtil.runAsRead(new MRunnable() {
+						public Object run() {
+							validate(part.getDiagram());
+							return null;
+						}
+					});
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		/**
+		 * @generated
+		 */
+		private void validate(Diagram diagram) {
+			IFile diagramFile = ResourceUtil.getFile(diagram.eResource());
+			try {
+				diagramFile.deleteMarkers(MARKER_TYPE, true, IResource.DEPTH_ZERO);
+			} catch (CoreException e) {
+				e.printStackTrace();
+			}
+			Diagnostic diagnostic = new Diagnostician() {
+				public String getObjectLabel(EObject eObject) {
+					return EObjectUtil.getQName(eObject, true);
+				}
+			}.validate(diagram.getElement());
+
+			IStatus status = ModelValidationService.getInstance().newValidator(EvaluationMode.BATCH).validate(diagram.getElement());
+			IStatus[] statuses = status.isMultiStatus() ? status.getChildren() : new IStatus[] { status };
+			
+			HashSet targets = new HashSet();
+			for (Iterator it = diagnostic.getChildren().iterator(); it.hasNext();) {
+				targets.add(getDiagnosticTarget((Diagnostic)it.next()));
+			}			for (int i = 0; i < statuses.length; i++) {
+				if(statuses[i] instanceof IConstraintStatus) {
+					targets.add(((IConstraintStatus)statuses[i]).getTarget());
+				}
+			}
+			
+			Map viewMap = buildElement2ViewMap(diagram, targets);
+			for (Iterator it = diagnostic.getChildren().iterator(); it.hasNext();) {
+				Diagnostic nextDiagnostic = (Diagnostic) it.next();
+				List data = nextDiagnostic.getData();
+				if (!data.isEmpty() && data.get(0) instanceof EObject) {
+					EObject element = (EObject)data.get(0);
+					View view = findTargetView(element, viewMap);
+					addMarker(diagramFile, view != null ? view : diagram, element, nextDiagnostic.getMessage(), diagnosticToStatusSeverity(nextDiagnostic.getSeverity()));
+				}
+			}
+
+			for (int i = 0; i < statuses.length; i++) {
+				if(statuses[i] instanceof IConstraintStatus) {
+					IConstraintStatus nextStatus = (IConstraintStatus) statuses[i];
+					View view = findTargetView(nextStatus.getTarget(), viewMap);
+					addMarker(diagramFile, view != null ? view : diagram, nextStatus.getTarget(), nextStatus.getMessage(), Diagnostic.ERROR);
+				}
+			}
+		}
+		/**
+		 * @generated
+		 */		
+		private View findTargetView(EObject targetElement, Map viewMap) {
+			for(EObject container = targetElement; container != null; container = container.eContainer()) {
+				if(viewMap.containsKey(container)) return (View)viewMap.get(container); 
+			}
+			return null;
+		}		
+		/**
+		 * @generated
+		 */
+		private Map buildElement2ViewMap(Diagram diagram, Set targets) {
+			HashMap map = new HashMap();
+			getElement2ViewMap(diagram, map, targets);
+			if(!targets.isEmpty()) {
+				Set path = new HashSet();
+				for (Iterator it = targets.iterator(); it.hasNext();) {
+					EObject nextNotMapped = (EObject) it.next();
+					for (EObject container = nextNotMapped.eContainer(); container != null; container = container.eContainer()) {
+						if(!map.containsKey(container)) { 
+							path.add(container);
+						} else break;
+					}
+				}
+				getElement2ViewMap(diagram, map, path);
+			}
+			return map;
+		}
+		/**
+		 * @generated
+		 */
+		private void getElement2ViewMap(View view, Map map, Set targets) {
+			String type = view.getType();
+			if ((type == null || "".equals(type)) && targets.remove(view.getElement())) { //$NON-NLS-1$
+				map.put(view.getElement(), view);
+			}
+			for (Iterator it = view.getChildren().iterator(); it.hasNext();) {
+				getElement2ViewMap((View) it.next(), map, targets);
+			}			
+			if (view instanceof Diagram) {
+				for (Iterator it = ((Diagram)view).getEdges().iterator(); it.hasNext();) {
+					getElement2ViewMap((View) it.next(), map, targets);
+				}
+			}
+		}
+		/**
+		 * @generated
+		 */
+		private void addMarker(IFile file, View view, EObject element, String message, int statusSeverity) {
+			try {
+				IMarker marker = file.createMarker(MARKER_TYPE);
+				marker.setAttribute(IMarker.MESSAGE, message);
+				marker.setAttribute(IMarker.LOCATION, EObjectUtil.getQName(element, true));
+				marker.setAttribute(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID, EObjectUtil.getID(view));
+				int markerSeverity = IMarker.SEVERITY_INFO;
+				if(statusSeverity == IStatus.WARNING) {
+					markerSeverity = IMarker.SEVERITY_WARNING;    						
+				} else if(statusSeverity == IStatus.ERROR || statusSeverity == IStatus.CANCEL) {
+					markerSeverity = IMarker.SEVERITY_ERROR;
+				}
+				marker.setAttribute(IMarker.SEVERITY, markerSeverity);				
+			} catch (CoreException e) {
+				e.printStackTrace();
+			}
+		}
+				
+		/**
+		 * @generated
+		 */		
+		private EObject getDiagnosticTarget(Diagnostic diagnostic) {
+			if(!diagnostic.getData().isEmpty()) {
+				Object target = diagnostic.getData().get(0);
+				return target instanceof EObject ? (EObject)target : null;
+			}
+			return null;
+		}
+		/**
+		 * @generated
+		 */
+		private int diagnosticToStatusSeverity(int diagnosticSeverity) {
+			if(diagnosticSeverity == Diagnostic.OK) {
+				return IStatus.OK;    						
+			} else if(diagnosticSeverity == Diagnostic.INFO) {
+				return IStatus.INFO;
+			} else if(diagnosticSeverity == Diagnostic.WARNING) {
+				return IStatus.WARNING; 
+			} else if(diagnosticSeverity == Diagnostic.ERROR || diagnosticSeverity == Diagnostic.CANCEL) {
+				return IStatus.ERROR; 
+			}
+			return IStatus.INFO;
+		}
+	}	
+}
+<%importManager.emitSortedImports();%>

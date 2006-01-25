@@ -108,6 +108,9 @@ public class GenDiagramItemProvider
 			addElementChooserClassNamePropertyDescriptor(object);
 			addContainsShortcutsToPropertyDescriptor(object);
 			addShortcutsProvidedForPropertyDescriptor(object);
+			addValidationProviderClassNamePropertyDescriptor(object);
+			addMarkerNavigationProviderClassNamePropertyDescriptor(object);
+			addValidationEnabledPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -428,6 +431,66 @@ public class GenDiagramItemProvider
 				 GMFGenPackage.eINSTANCE.getGenDiagram_ShortcutsProvidedFor(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Validation Provider Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addValidationProviderClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_validationProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_validationProviderClassName_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_ValidationProviderClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Marker Navigation Provider Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMarkerNavigationProviderClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_markerNavigationProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_markerNavigationProviderClassName_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_MarkerNavigationProviderClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Validation Enabled feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addValidationEnabledPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenDiagram_validationEnabled_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_validationEnabled_feature", "_UI_GenDiagram_type"),
+				 GMFGenPackage.eINSTANCE.getGenDiagram_ValidationEnabled(),
+				 true,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -1163,6 +1226,9 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR:
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:

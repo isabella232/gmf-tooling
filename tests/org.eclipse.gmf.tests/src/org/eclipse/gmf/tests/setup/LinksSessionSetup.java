@@ -69,7 +69,10 @@ public class LinksSessionSetup extends SessionSetup {
 	}
 	
 	protected DiaGenSource createGenModel() {
-		return new DiaGenSetup().init(getMapModel());
+		DiaGenSetup diaGenSetup = new DiaGenSetup().init(getMapModel());
+		// force generation of validation support 
+		diaGenSetup.getGenDiagram().setValidationEnabled(true);
+		return diaGenSetup;
 	}
 
 	protected MapDefSource createMapModel() {

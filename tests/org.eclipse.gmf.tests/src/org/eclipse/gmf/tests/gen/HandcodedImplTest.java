@@ -148,6 +148,9 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkClassName(state, "GenDiagram:LinkCreationConstraints", genDiagram.getLinkCreationConstraintsClassName(), genDiagram.getLinkCreationConstraintsQualifiedClassName());
 		checkClassName(state, "GenDiagram:CreateShortcutAction", genDiagram.getCreateShortcutActionClassName(), genDiagram.getCreateShortcutActionQualifiedClassName());
 		checkClassName(state, "GenDiagram:ElementChooser", genDiagram.getElementChooserClassName(), genDiagram.getElementChooserQualifiedClassName());
+		checkClassName(state, "GenDiagram:ValidationProvider", genDiagram.getValidationProviderClassName(), genDiagram.getValidationProviderQualifiedClassName());
+		checkClassName(state, "GenDiagram:MarkerNavigationProvider", genDiagram.getMarkerNavigationProviderClassName(), genDiagram.getMarkerNavigationProviderQualifiedClassName());		
+		
 		Palette palette = genDiagram.getPalette();
 		if (palette != null) {
 			checkClassName(state, "Palette:Factory", palette.getFactoryClassName(), palette.getFactoryQualifiedClassName());

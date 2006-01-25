@@ -644,6 +644,33 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getGenDiagram_ValidationProviderClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(52);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_MarkerNavigationProviderClassName() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(53);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenDiagram_ValidationEnabled() {
+		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(54);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getGenDiagram_EditorPackageName() {
 		return (EAttribute)genDiagramEClass.getEStructuralFeatures().get(11);
 	}
@@ -2277,6 +2304,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genDiagramEClass, GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME);
 		createEAttribute(genDiagramEClass, GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO);
 		createEAttribute(genDiagramEClass, GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR);
+		createEAttribute(genDiagramEClass, GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME);
+		createEAttribute(genDiagramEClass, GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME);
+		createEAttribute(genDiagramEClass, GEN_DIAGRAM__VALIDATION_ENABLED);
 
 		genCommonBaseEClass = createEClass(GEN_COMMON_BASE);
 		createEReference(genCommonBaseEClass, GEN_COMMON_BASE__DIAGRAM_RUN_TIME_CLASS);
@@ -2578,6 +2608,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenDiagram_ElementChooserClassName(), ecorePackage.getEString(), "elementChooserClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagram_ContainsShortcutsTo(), ecorePackage.getEString(), "containsShortcutsTo", null, 0, -1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenDiagram_ShortcutsProvidedFor(), ecorePackage.getEString(), "shortcutsProvidedFor", null, 0, -1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagram_ValidationProviderClassName(), ecorePackage.getEString(), "validationProviderClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagram_MarkerNavigationProviderClassName(), ecorePackage.getEString(), "markerNavigationProviderClassName", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenDiagram_ValidationEnabled(), ecorePackage.getEBoolean(), "validationEnabled", null, 0, 1, GenDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genDiagramEClass, theGenModelPackage.getGenModel(), "getEMFGenModel", 0, 1);
 
@@ -2662,6 +2695,12 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(genDiagramEClass, ecorePackage.getEBoolean(), "generateCreateShortcutAction", 0, 1);
 
 		addEOperation(genDiagramEClass, ecorePackage.getEBoolean(), "generateShortcutIcon", 0, 1);
+
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getValidationProviderQualifiedClassName", 0, 1);
+
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getValidationDiagnosticMarkerType", 0, 1);
+
+		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getMarkerNavigationProviderQualifiedClassName", 0, 1);
 
 		initEClass(genCommonBaseEClass, GenCommonBase.class, "GenCommonBase", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenCommonBase_DiagramRunTimeClass(), theGenModelPackage.getGenClass(), null, "diagramRunTimeClass", null, 1, 1, GenCommonBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2944,7 +2983,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																													
+		   });																																																																																																															
 	}
 
 	/**
@@ -2966,7 +3005,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "nodes->forAll(n : GenNode | self.links->forAll(l : GenLink | l.oclAsType(TypeLinkModelFacet).metaClass <> n.getDomainMetaClass()))"
-		   });																		
+		   });																				
 		addAnnotation
 		  (genNodeEClass, 
 		   source, 
@@ -3042,7 +3081,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																															
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																	
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 

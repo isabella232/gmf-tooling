@@ -101,6 +101,9 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getElementChooserClassName <em>Element Chooser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getContainsShortcutsTo <em>Contains Shortcuts To</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getShortcutsProvidedFor <em>Shortcuts Provided For</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getValidationProviderClassName <em>Validation Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMarkerNavigationProviderClassName <em>Marker Navigation Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isValidationEnabled <em>Validation Enabled</em>}</li>
  * </ul>
  * </p>
  *
@@ -1048,6 +1051,66 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	protected EList shortcutsProvidedFor = null;
 
+	/**
+	 * The default value of the '{@link #getValidationProviderClassName() <em>Validation Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValidationProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String VALIDATION_PROVIDER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getValidationProviderClassName() <em>Validation Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValidationProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String validationProviderClassName = VALIDATION_PROVIDER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getMarkerNavigationProviderClassName() <em>Marker Navigation Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMarkerNavigationProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String MARKER_NAVIGATION_PROVIDER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getMarkerNavigationProviderClassName() <em>Marker Navigation Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMarkerNavigationProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String markerNavigationProviderClassName = MARKER_NAVIGATION_PROVIDER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isValidationEnabled() <em>Validation Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isValidationEnabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean VALIDATION_ENABLED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isValidationEnabled() <em>Validation Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isValidationEnabled()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean validationEnabled = VALIDATION_ENABLED_EDEFAULT;
+
 	private static final String DIAGRAM_EDITOR_TOKEN = "gmf.editor";
 
 	/**
@@ -1615,6 +1678,71 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getValidationProviderClassNameGen() {
+		return validationProviderClassName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getValidationProviderClassName() {
+		String value = getValidationProviderClassNameGen();
+		if(isEmpty(value)) {
+			value = getDomainPackageCapName() + "ValidationProvider"; //$NON-NLS-1$						
+		}
+		return value;		
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setValidationProviderClassName(String newValidationProviderClassName) {
+		String oldValidationProviderClassName = validationProviderClassName;
+		validationProviderClassName = newValidationProviderClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME, oldValidationProviderClassName, validationProviderClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getMarkerNavigationProviderClassNameGen() {
+		return markerNavigationProviderClassName;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getMarkerNavigationProviderClassName() {
+		String value = getMarkerNavigationProviderClassNameGen();
+		if(isEmpty(value)) {
+			value = getDomainPackageCapName() + "MarkerNavigationProvider"; //$NON-NLS-1$						
+		}
+		return value;
+	}	
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getMarkerNavigationProviderQualifiedClassName() {
+		return getProvidersPackageName() + "." + getMarkerNavigationProviderClassName(); //$NON-NLS-1$
+	}	
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList getContainsShortcutsTo() {
 		if (containsShortcutsTo == null) {
 			containsShortcutsTo = new EDataTypeUniqueEList(String.class, this, GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO);
@@ -1632,6 +1760,27 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			shortcutsProvidedFor = new EDataTypeUniqueEList(String.class, this, GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR);
 		}
 		return shortcutsProvidedFor;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isValidationEnabled() {
+		return validationEnabled;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setValidationEnabled(boolean newValidationEnabled) {
+		boolean oldValidationEnabled = validationEnabled;
+		validationEnabled = newValidationEnabled;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED, oldValidationEnabled, validationEnabled));
 	}
 
 	/**
@@ -2612,6 +2761,36 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public String getValidationProviderQualifiedClassName() {
+		return getProvidersPackageName() + "." + getValidationProviderClassName(); //$NON-NLS-1$
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getValidationDiagnosticMarkerType() {
+		return "diagnostic"; //$NON-NLS-1$
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMarkerNavigationProviderClassName(String newMarkerNavigationProviderClassName) {
+		String oldMarkerNavigationProviderClassName = markerNavigationProviderClassName;
+		markerNavigationProviderClassName = newMarkerNavigationProviderClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME, oldMarkerNavigationProviderClassName, markerNavigationProviderClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public boolean generateCreateShortcutAction() {
 		return getContainsShortcutsTo().size() > 0;
 	}
@@ -2786,6 +2965,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getContainsShortcutsTo();
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR:
 				return getShortcutsProvidedFor();
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME:
+				return getValidationProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME:
+				return getMarkerNavigationProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
+				return isValidationEnabled() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -2963,6 +3148,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				getShortcutsProvidedFor().clear();
 				getShortcutsProvidedFor().addAll((Collection)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME:
+				setValidationProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME:
+				setMarkerNavigationProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
+				setValidationEnabled(((Boolean)newValue).booleanValue());
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -3133,6 +3327,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR:
 				getShortcutsProvidedFor().clear();
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME:
+				setValidationProviderClassName(VALIDATION_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME:
+				setMarkerNavigationProviderClassName(MARKER_NAVIGATION_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
+				setValidationEnabled(VALIDATION_ENABLED_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -3250,6 +3453,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return containsShortcutsTo != null && !containsShortcutsTo.isEmpty();
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR:
 				return shortcutsProvidedFor != null && !shortcutsProvidedFor.isEmpty();
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME:
+				return VALIDATION_PROVIDER_CLASS_NAME_EDEFAULT == null ? validationProviderClassName != null : !VALIDATION_PROVIDER_CLASS_NAME_EDEFAULT.equals(validationProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME:
+				return MARKER_NAVIGATION_PROVIDER_CLASS_NAME_EDEFAULT == null ? markerNavigationProviderClassName != null : !MARKER_NAVIGATION_PROVIDER_CLASS_NAME_EDEFAULT.equals(markerNavigationProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
+				return validationEnabled != VALIDATION_ENABLED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -3402,7 +3611,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		}
 		
 		requiredPlugins.addAll(getExpressionsRequiredPluginIDs());
-		requiredPlugins.addAll(getAuditRequiredPluginIDs());
+		requiredPlugins.addAll(getValidationRequiredPluginIDs());
 		return new BasicEList(requiredPlugins);
 	}
 
@@ -3658,6 +3867,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(containsShortcutsTo);
 		result.append(", shortcutsProvidedFor: ");
 		result.append(shortcutsProvidedFor);
+		result.append(", validationProviderClassName: ");
+		result.append(validationProviderClassName);
+		result.append(", markerNavigationProviderClassName: ");
+		result.append(markerNavigationProviderClassName);
+		result.append(", validationEnabled: ");
+		result.append(validationEnabled);
 		result.append(')');
 		return result.toString();
 	}
@@ -3719,8 +3934,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		return requiredIDs;
 	}
 	
-	private Set getAuditRequiredPluginIDs() {
-		if(getAudits() != null && getAudits().getAllAuditRules().size() > 0) {
+	private Set getValidationRequiredPluginIDs() {
+		if(isValidationEnabled() || (getAudits() != null && !getAudits().getAllAuditRules().isEmpty())) {
 			return Collections.singleton("org.eclipse.emf.validation"); //$NON-NLS-1$ 
 		}
 		return Collections.EMPTY_SET;

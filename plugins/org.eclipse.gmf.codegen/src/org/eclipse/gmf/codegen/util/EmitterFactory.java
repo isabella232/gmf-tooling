@@ -64,11 +64,13 @@ import org.eclipse.gmf.codegen.templates.providers.ElementTypesGenerator;
 import org.eclipse.gmf.codegen.templates.providers.IconProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.LabelTextViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.LabelViewFactoryGenerator;
+import org.eclipse.gmf.codegen.templates.providers.MarkerNavigationProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.MetamodelSupportProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.PropertyProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.SemanticHintsGenerator;
 import org.eclipse.gmf.codegen.templates.providers.StructuralFeatureParserGenerator;
+import org.eclipse.gmf.codegen.templates.providers.ValidationProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewProviderGenerator;
 import org.osgi.framework.Bundle;
@@ -241,6 +243,14 @@ public class EmitterFactory {
 	public static JETEmitter getIconProviderEmitter() throws JETException {
 		return initializeEmitter("/templates/providers/IconProvider.javajet", IconProviderGenerator.class);
 	}
+
+	public static JETEmitter getValidationProviderEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/ValidationProvider.javajet", ValidationProviderGenerator.class); //$NON-NLS-1$
+	}
+	
+	public static JETEmitter getMarkerNavigationProviderEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/MarkerNavigationProvider.javajet", MarkerNavigationProviderGenerator.class); //$NON-NLS-1$
+	}	
 
 	// editor
 

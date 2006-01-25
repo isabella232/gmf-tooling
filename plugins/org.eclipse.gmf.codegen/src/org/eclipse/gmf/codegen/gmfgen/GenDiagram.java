@@ -71,6 +71,9 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getElementChooserClassName <em>Element Chooser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getContainsShortcutsTo <em>Contains Shortcuts To</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getShortcutsProvidedFor <em>Shortcuts Provided For</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getValidationProviderClassName <em>Validation Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getMarkerNavigationProviderClassName <em>Marker Navigation Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isValidationEnabled <em>Validation Enabled</em>}</li>
  * </ul>
  * </p>
  *
@@ -576,6 +579,83 @@ public interface GenDiagram extends GenContainerBase {
 	 * @generated
 	 */
 	EList getShortcutsProvidedFor();
+
+	/**
+	 * Returns the value of the '<em><b>Validation Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Validation Provider Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Validation Provider Class Name</em>' attribute.
+	 * @see #setValidationProviderClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_ValidationProviderClassName()
+	 * @model
+	 * @generated
+	 */
+	String getValidationProviderClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getValidationProviderClassName <em>Validation Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Validation Provider Class Name</em>' attribute.
+	 * @see #getValidationProviderClassName()
+	 * @generated
+	 */
+	void setValidationProviderClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Marker Navigation Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Marker Navigation Provider Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Marker Navigation Provider Class Name</em>' attribute.
+	 * @see #setMarkerNavigationProviderClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_MarkerNavigationProviderClassName()
+	 * @model
+	 * @generated
+	 */
+	String getMarkerNavigationProviderClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getMarkerNavigationProviderClassName <em>Marker Navigation Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Marker Navigation Provider Class Name</em>' attribute.
+	 * @see #getMarkerNavigationProviderClassName()
+	 * @generated
+	 */
+	void setMarkerNavigationProviderClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Validation Enabled</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If enabled, ValidationAction is contributed by the editor plugin
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Validation Enabled</em>' attribute.
+	 * @see #setValidationEnabled(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_ValidationEnabled()
+	 * @model
+	 * @generated
+	 */
+	boolean isValidationEnabled();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isValidationEnabled <em>Validation Enabled</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Validation Enabled</em>' attribute.
+	 * @see #isValidationEnabled()
+	 * @generated
+	 */
+	void setValidationEnabled(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Editor Package Name</b></em>' attribute.
@@ -1472,6 +1552,33 @@ public interface GenDiagram extends GenContainerBase {
 	 * @generated
 	 */
 	boolean generateShortcutIcon();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getValidationProviderQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Gets diagnostic marker type ID local to the editor plugin. The editor pluginID should be used to fully-qualify this ID.
+	 * <!-- end-model-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getValidationDiagnosticMarkerType();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getMarkerNavigationProviderQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

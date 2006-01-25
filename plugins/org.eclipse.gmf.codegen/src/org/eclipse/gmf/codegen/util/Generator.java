@@ -155,6 +155,10 @@ public class Generator implements Runnable {
 			generateModelingAssistantProvider();
 			generatePropertyProvider();
 			generateIconProvider();
+			if(myDiagram.isValidationEnabled()) {
+				generateValidationProvider();
+				generateMarkerNavigationProvider();				
+			}
 
 			// editor
 			generateInitDiagramFileAction();
@@ -535,6 +539,22 @@ public class Generator implements Runnable {
 			myDiagram.getIconProviderClassName(),
 			myDiagram);
 	}
+	
+	private void generateValidationProvider() throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			EmitterFactory.getValidationProviderEmitter(),
+			myDiagram.getProvidersPackageName(),
+			myDiagram.getValidationProviderClassName(),
+			myDiagram);
+	}
+	
+	private void generateMarkerNavigationProvider() throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			EmitterFactory.getMarkerNavigationProviderEmitter(),
+			myDiagram.getProvidersPackageName(),
+			myDiagram.getMarkerNavigationProviderClassName(),
+			myDiagram);
+	}	
 
 	// notation view factories
 

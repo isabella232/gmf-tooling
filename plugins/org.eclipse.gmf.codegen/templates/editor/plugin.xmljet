@@ -171,6 +171,33 @@ final GenModel genModel = genDiagram.getEMFGenModel();
          <Priority name="Medium"/>
       </IconProvider>
    </extension>
+   
+<%if(genDiagram.isValidationEnabled()) {%>
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
+      <MarkerNavigationProvider class="<%=genDiagram.getMarkerNavigationProviderQualifiedClassName()%>">
+         <MarkerType name="<%=genDiagram.getPluginID() + "." + genDiagram.getValidationDiagnosticMarkerType()%>"/>
+         <Priority name="Medium"/>
+      </MarkerNavigationProvider>
+   </extension>
+
+   <extension id="ValidationContributionItemProvider" name="Validation"
+      point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+      <contributionItemProvider checkPluginLoaded="true"
+         class="<%=genDiagram.getValidationProviderQualifiedClassName()%>">
+         <Priority name="Medium"/>
+         <partContribution id="<%=genDiagram.getEditorQualifiedClassName()%>ID">
+            <partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
+            <partAction id="validateAction" menubarPath="/diagramMenu/validationGroup"/>
+         </partContribution>
+      </contributionItemProvider>
+   </extension>
+   
+   <extension id="<%=genDiagram.getValidationDiagnosticMarkerType()%>" name="<%=genDiagram.getPluginName()%> problems" point="org.eclipse.core.resources.markers">
+      <super type="org.eclipse.core.resources.problemmarker"/>   
+      <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
+      <persistent value="true"/>      
+   </extension>
+<%}%>
 
    <%@ include file="ConstraintProviders.jetinc"%>
 </plugin>
