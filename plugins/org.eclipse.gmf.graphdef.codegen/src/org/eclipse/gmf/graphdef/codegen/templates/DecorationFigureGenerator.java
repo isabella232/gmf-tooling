@@ -42,19 +42,23 @@ public class DecorationFigureGenerator
   protected final String TEXT_24 = ")";
   protected final String TEXT_25 = "ColorConstants.";
   protected final String TEXT_26 = ");";
-  protected final String TEXT_27 = NL + "\t\torg.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();";
-  protected final String TEXT_28 = NL + "\t\tpl.addPoint(";
-  protected final String TEXT_29 = ", ";
-  protected final String TEXT_30 = ");";
-  protected final String TEXT_31 = NL + "\t\t";
-  protected final String TEXT_32 = ".setTemplate(pl);";
-  protected final String TEXT_33 = NL + "\t\t";
-  protected final String TEXT_34 = ".setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));";
-  protected final String TEXT_35 = NL + "\t\tsetScale(";
-  protected final String TEXT_36 = ", ";
-  protected final String TEXT_37 = ");";
-  protected final String TEXT_38 = NL + "\t}" + NL + "}";
-  protected final String TEXT_39 = NL;
+  protected final String TEXT_27 = NL + "\t\t";
+  protected final String TEXT_28 = ".setPreferredSize(getMapMode().DPtoLP(";
+  protected final String TEXT_29 = "), getMapMode().DPtoLP(";
+  protected final String TEXT_30 = "));";
+  protected final String TEXT_31 = NL + "\t\torg.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();";
+  protected final String TEXT_32 = NL + "\t\tpl.addPoint(";
+  protected final String TEXT_33 = ", ";
+  protected final String TEXT_34 = ");";
+  protected final String TEXT_35 = NL + "\t\t";
+  protected final String TEXT_36 = ".setTemplate(pl);";
+  protected final String TEXT_37 = NL + "\t\t";
+  protected final String TEXT_38 = ".setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));";
+  protected final String TEXT_39 = NL + "\t\tsetScale(";
+  protected final String TEXT_40 = ", ";
+  protected final String TEXT_41 = ");";
+  protected final String TEXT_42 = NL + "\t}" + NL + "}";
+  protected final String TEXT_43 = NL;
 
   public String generate(Object argument)
   {
@@ -126,6 +130,15 @@ if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor())
     stringBuffer.append(((ConstantColor) colorVal).getValue().getLiteral());
     }
     stringBuffer.append(TEXT_26);
+    } if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_PreferredSize())) {
+		Dimension d = figureInstance.getPreferredSize();
+    stringBuffer.append(TEXT_27);
+    stringBuffer.append(figureVarName);
+    stringBuffer.append(TEXT_28);
+    stringBuffer.append(d.getDx());
+    stringBuffer.append(TEXT_29);
+    stringBuffer.append(d.getDy());
+    stringBuffer.append(TEXT_30);
     }
     } // scope 
      /*include FigureChildren*/ 
@@ -133,32 +146,32 @@ if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor())
 if ((df instanceof PolylineDecoration || df instanceof PolygonDecoration)) {
 	if (!((Polyline) df).getTemplate().isEmpty()) {
 
-    stringBuffer.append(TEXT_27);
+    stringBuffer.append(TEXT_31);
     		for (Iterator pointIt = ((Polyline) df).getTemplate().iterator(); pointIt.hasNext(); ) {
 		Point p = (Point) pointIt.next();
-    stringBuffer.append(TEXT_28);
-    stringBuffer.append(p.getX());
-    stringBuffer.append(TEXT_29);
-    stringBuffer.append(p.getY());
-    stringBuffer.append(TEXT_30);
-    		} /*for*/ 
-    stringBuffer.append(TEXT_31);
-    stringBuffer.append(decFigVarName);
     stringBuffer.append(TEXT_32);
-    	} /*!if getTemplate().isEmpty()*/ 
+    stringBuffer.append(p.getX());
     stringBuffer.append(TEXT_33);
-    stringBuffer.append(decFigVarName);
+    stringBuffer.append(p.getY());
     stringBuffer.append(TEXT_34);
+    		} /*for*/ 
+    stringBuffer.append(TEXT_35);
+    stringBuffer.append(decFigVarName);
+    stringBuffer.append(TEXT_36);
+    	} /*!if getTemplate().isEmpty()*/ 
+    stringBuffer.append(TEXT_37);
+    stringBuffer.append(decFigVarName);
+    stringBuffer.append(TEXT_38);
     } /*if instanceof */ 
     if (scale != null) {
-    stringBuffer.append(TEXT_35);
-    stringBuffer.append(scale.getX());
-    stringBuffer.append(TEXT_36);
-    stringBuffer.append(scale.getY());
-    stringBuffer.append(TEXT_37);
-    }
-    stringBuffer.append(TEXT_38);
     stringBuffer.append(TEXT_39);
+    stringBuffer.append(scale.getX());
+    stringBuffer.append(TEXT_40);
+    stringBuffer.append(scale.getY());
+    stringBuffer.append(TEXT_41);
+    }
+    stringBuffer.append(TEXT_42);
+    stringBuffer.append(TEXT_43);
     return stringBuffer.toString();
   }
 }

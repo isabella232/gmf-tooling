@@ -5,4 +5,7 @@ if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor())
 <%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor())) {
 		colorVal = figureInstance.getBackgroundColor();%>
 		<%=figureVarName%>.setBackgroundColor(<%@ include file="Color.jetinc"%>);
+<%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_PreferredSize())) {
+		Dimension d = figureInstance.getPreferredSize();%>
+		<%=figureVarName%>.setPreferredSize(getMapMode().DPtoLP(<%=d.getDx()%>), getMapMode().DPtoLP(<%=d.getDy()%>));
 <%}%>
