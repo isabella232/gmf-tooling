@@ -43,7 +43,7 @@ public class InitDiagramFileActionGenerator {
   protected final String TEXT_24 = "Children(";
   protected final String TEXT_25 = " viewObject, EObject modelObject) {";
   protected final String TEXT_26 = NL + "\t\tEObject nextValue;" + NL + "\t\t";
-  protected final String TEXT_27 = " nextNode;";
+  protected final String TEXT_27 = " nextNode;" + NL + "\t\tint nodeVID;";
   protected final String TEXT_28 = NL + "\t\t";
   protected final String TEXT_29 = " nextNode;";
   protected final String TEXT_30 = NL + "\t\tfor (";
@@ -51,7 +51,7 @@ public class InitDiagramFileActionGenerator {
   protected final String TEXT_32 = ".iterator(); values.hasNext();) {" + NL + "\t\t\tnextValue = (EObject) values.next();" + NL;
   protected final String TEXT_33 = NL + "\t\tnextValue = ";
   protected final String TEXT_34 = ";";
-  protected final String TEXT_35 = NL + "\t\tint nodeVID = ";
+  protected final String TEXT_35 = NL + "\t\tnodeVID = ";
   protected final String TEXT_36 = ".INSTANCE.getNodeVisualID(viewObject, nextValue, \"\");" + NL + "\t\tif (";
   protected final String TEXT_37 = " == nodeVID) {" + NL + "\t\t\tnextNode = ViewService.createNode(viewObject, nextValue, null, ";
   protected final String TEXT_38 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\t\tmyEObject2NodeMap.put(nextValue, nextNode);" + NL + "\t\t\tcreate";
