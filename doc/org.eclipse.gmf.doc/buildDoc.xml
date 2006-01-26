@@ -191,9 +191,11 @@
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.ui.properties/src">
 		    		<exclude name="org/eclipse/gmf/runtime/emf/ui/properties/internal/**"/>
 		    	</packageset>
+<!--	TODO: pass in version extension
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.ocl/src"/>
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.query/src"/>
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.query.ocl/src"/>
+-->		    	
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.clipboard.core/src">
 		    		<exclude name="org/eclipse/gmf/runtime/emf/clipboard/core/internal/**"/>
 		    	</packageset>
@@ -203,8 +205,10 @@
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.emf.type.ui/src">
 		    		<exclude name="org/eclipse/gmf/runtime/emf/type/ui/internal/**"/>
 		    	</packageset>
+<!--				
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.validation/src"/>
 		    	<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.emf.validation.ocl/src"/>
+-->				
 			</package-sets>
 			<package-groups>
 				<group title="Common Core Packages" packages="org.eclipse.gmf.runtime.common.core*"/>
