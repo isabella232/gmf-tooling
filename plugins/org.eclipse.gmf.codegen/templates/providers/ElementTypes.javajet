@@ -356,7 +356,13 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext(); ) {
 					this.query = <%=importManager.getImportedName("org.eclipse.emf.ocl.query.QueryFactory")%>.eINSTANCE.createQuery(expressionBody, contextClass);					
 				}
 				Object value = query.evaluate(contextInstance);
-				contextInstance.eSet(sFeature, value);		
+				if(sFeature.getEType() instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EEnum")%> && 
+					value instanceof <%=importManager.getImportedName("org.eclipse.emf.ecore.EEnumLiteral")%>) {
+					value = ((<%=importManager.getImportedName("org.eclipse.emf.ecore.EEnumLiteral")%>)value).getInstance();
+				} else if(value != null && sFeature.isMany()) {
+					value = new <%=importManager.getImportedName("org.eclipse.emf.common.util.BasicEList")%>((<%=importManager.getImportedName("java.util.Collection")%>)value);
+				}
+				contextInstance.eSet(sFeature, value);
 			}
 		} // end of FeatureInitializer
 				

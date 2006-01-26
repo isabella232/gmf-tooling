@@ -79,9 +79,14 @@ public class ElementTypesGenerator
   protected final String TEXT_60 = " context, " + NL + "\t\t\t\t";
   protected final String TEXT_61 = " sFeature) {" + NL + "\t\t\t\tthis.sFeature = sFeature;" + NL + "\t\t\t\tthis.expressionBody = expression;" + NL + "\t\t\t\tthis.contextClass\t= context;" + NL + "\t\t\t}" + NL + "\t\t\t/** " + NL + "\t\t\t * @generated" + NL + "\t\t\t */" + NL + "\t\t\tvoid init(";
   protected final String TEXT_62 = " contextInstance) {" + NL + "\t\t\t\tif(this.query == null) {" + NL + "\t\t\t\t\tthis.query = ";
-  protected final String TEXT_63 = ".eINSTANCE.createQuery(expressionBody, contextClass);\t\t\t\t\t" + NL + "\t\t\t\t}" + NL + "\t\t\t\tObject value = query.evaluate(contextInstance);" + NL + "\t\t\t\tcontextInstance.eSet(sFeature, value);\t\t" + NL + "\t\t\t}" + NL + "\t\t} // end of FeatureInitializer" + NL + "\t\t\t\t" + NL + "\t} // end of Initializers";
-  protected final String TEXT_64 = NL + "}";
-  protected final String TEXT_65 = NL;
+  protected final String TEXT_63 = ".eINSTANCE.createQuery(expressionBody, contextClass);\t\t\t\t\t" + NL + "\t\t\t\t}" + NL + "\t\t\t\tObject value = query.evaluate(contextInstance);" + NL + "\t\t\t\tif(sFeature.getEType() instanceof ";
+  protected final String TEXT_64 = " && " + NL + "\t\t\t\t\tvalue instanceof ";
+  protected final String TEXT_65 = ") {" + NL + "\t\t\t\t\tvalue = ((";
+  protected final String TEXT_66 = ")value).getInstance();" + NL + "\t\t\t\t} else if(value != null && sFeature.isMany()) {" + NL + "\t\t\t\t\tvalue = new ";
+  protected final String TEXT_67 = "((";
+  protected final String TEXT_68 = ")value);" + NL + "\t\t\t\t}" + NL + "\t\t\t\tcontextInstance.eSet(sFeature, value);" + NL + "\t\t\t}" + NL + "\t\t} // end of FeatureInitializer" + NL + "\t\t\t\t" + NL + "\t} // end of Initializers";
+  protected final String TEXT_69 = NL + "}";
+  protected final String TEXT_70 = NL;
 
   public String generate(Object argument)
   {
@@ -286,10 +291,20 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext(); ) {
     stringBuffer.append(TEXT_62);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.query.QueryFactory"));
     stringBuffer.append(TEXT_63);
-    }
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EEnum"));
     stringBuffer.append(TEXT_64);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EEnumLiteral"));
     stringBuffer.append(TEXT_65);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EEnumLiteral"));
+    stringBuffer.append(TEXT_66);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.util.BasicEList"));
+    stringBuffer.append(TEXT_67);
+    stringBuffer.append(importManager.getImportedName("java.util.Collection"));
+    stringBuffer.append(TEXT_68);
+    }
+    stringBuffer.append(TEXT_69);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_70);
     return stringBuffer.toString();
   }
 }

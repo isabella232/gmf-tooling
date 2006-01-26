@@ -16,7 +16,12 @@ import junit.framework.Assert;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.gmf.mappings.FeatureSeqInitializer;
+import org.eclipse.gmf.mappings.FeatureValueSpec;
+import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.LinkMapping;
+import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.tests.EPath;
 import org.eclipse.gmf.tests.Plugin;
 
@@ -77,6 +82,35 @@ public class LinksSessionSetup extends SessionSetup {
 
 	protected MapDefSource createMapModel() {
 		MapSetup mapDefSource = new MapSetup() {
+			/* Setup element initializers */
+			protected void setupNodeMapping(NodeMapping nme) {
+				if("Container".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$
+					String[][] data = new String[][] {
+							new String[] { "Container::enumAttr_Init", "TestEnum::LIT1" }, //$NON-NLS-1$ //$NON-NLS-2$
+							new String[] { "Container::reference_Init", "Bag { self }" }, //$NON-NLS-1$ //$NON-NLS-2$
+					};
+					setupInitializers(nme, data);					
+				} else if("Node".equals(nme.getDomainContext().getName())) { //$NON-NLS-1$
+					String[][] data = new String[][] { new String[] { 
+							"Node::integers_Init", "Sequence { 10, 20 }" } //$NON-NLS-1$ //$NON-NLS-2$
+					};
+					setupInitializers(nme, data);					
+				}
+			}
+			
+			private void setupInitializers(NodeMapping nme, String[][] data) {
+				FeatureSeqInitializer initializer = GMFMapFactory.eINSTANCE.createFeatureSeqInitializer();				
+				for (int i = 0; i < data.length; i++) {
+					FeatureValueSpec featureValueSpec = GMFMapFactory.eINSTANCE.createFeatureValueSpec();					
+					EStructuralFeature feature = (EStructuralFeature)
+						EPath.ECORE.lookup(nme.getDomainContext().getEPackage(), data[i][0]);					
+					featureValueSpec.setFeature(feature);
+					featureValueSpec.setBody(data[i][1]);
+					initializer.getInitializers().add(featureValueSpec);
+				}
+				nme.setDomainInitializer(initializer);				
+			}
+			
 			protected void setupClassLinkMapping(LinkMapping lme) {
 				addCreationConstraints(lme, null, "self.acceptLinkKind = oppositeEnd.acceptLinkKind"); //$NON-NLS-1$
 			}

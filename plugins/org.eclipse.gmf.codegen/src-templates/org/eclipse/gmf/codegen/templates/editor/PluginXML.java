@@ -291,7 +291,7 @@ if(rootContainer != null) {
     stringBuffer.append(rootCategoryId);
     stringBuffer.append(TEXT_76);
     
-	} 
+}
 
     stringBuffer.append(TEXT_77);
     stringBuffer.append(TEXT_78);
