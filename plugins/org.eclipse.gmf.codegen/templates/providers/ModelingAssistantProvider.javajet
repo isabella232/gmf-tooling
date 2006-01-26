@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.ui.services.modelingassistant.ModelingAssistantProvider;
 <%importManager.markImportLocation(stringBuffer);%>
 
@@ -22,10 +23,9 @@ public class <%=genDiagram.getModelingAssistantProviderClassName()%> extends Mod
 	 * @generated
 	 */
 	public List getTypesForPopupBar(IAdaptable host) {
-		Object editPart = host.getAdapter(IGraphicalEditPart.class);
+		IGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);
 <%
-Collection containers = genDiagram.getAllContainers();
-for (Iterator contents = containers.iterator(); contents.hasNext(); ) {
+for (Iterator contents = genDiagram.getAllContainers().iterator(); contents.hasNext(); ) {
 	GenContainerBase genContainer = (GenContainerBase) contents.next();
 	List children = new ArrayList(genContainer.getContainedNodes());
 	if (genContainer instanceof GenNode && ((GenNode) genContainer).isListLayout()) {
@@ -36,14 +36,14 @@ for (Iterator contents = containers.iterator(); contents.hasNext(); ) {
 	if (!children.isEmpty()) {
 %>
 		if (editPart instanceof <%=importManager.getImportedName(genContainer.getEditPartQualifiedClassName())%>) {
-			List children = new ArrayList();
+			List types = new ArrayList();
 <%
 			for (int i = 0; i < children.size(); i++) {
 				String id = ((GenNode) children.get(i)).getUniqueIdentifier();
 %>
-			children.add(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=id%>);
+			types.add(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=id%>);
 <%			}%>
-			return children;
+			return types;
 		}
 <%
 	}
@@ -52,25 +52,25 @@ for (Iterator contents = containers.iterator(); contents.hasNext(); ) {
 		return Collections.EMPTY_LIST;
 	}
 <%
-Map linksForSources = new HashMap();
-Map linksForTargets = new HashMap();
+Map outgoingLinks = new HashMap(); // source -> links going from the source
+Map incomingLinks = new HashMap(); // target -> links coming to the target
 for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	GenLink genLink = (GenLink) links.next();
 	for (Iterator sources = genLink.getSources().iterator(); sources.hasNext(); ) {
 		GenCommonBase source = (GenCommonBase) sources.next();
-		List value = (List) linksForSources.get(source);
+		Collection value = (Collection) outgoingLinks.get(source);
 		if (value == null) {
-			value = new ArrayList();
-			linksForSources.put(source, value);
+			value = new HashSet();
+			outgoingLinks.put(source, value);
 		}
 		value.add(genLink);
 	}
 	for (Iterator targets = genLink.getTargets().iterator(); targets.hasNext(); ) {
 		GenCommonBase target = (GenCommonBase) targets.next();
-		List value = (List) linksForTargets.get(target);
+		Collection value = (Collection) incomingLinks.get(target);
 		if (value == null) {
-			value = new ArrayList();
-			linksForTargets.put(target, value);
+			value = new HashSet();
+			incomingLinks.put(target, value);
 		}
 		value.add(genLink);
 	}
@@ -81,22 +81,21 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	public List getRelTypesOnSource(IAdaptable source) {
-<%if (!linksForSources.isEmpty()) {%>
-		Object sourceEditPart = source.getAdapter(IGraphicalEditPart.class);
+<%if (!outgoingLinks.isEmpty()) {%>
+		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
 <%
-	for (Iterator sources = linksForSources.keySet().iterator(); sources.hasNext(); ) {
+	for (Iterator sources = outgoingLinks.keySet().iterator(); sources.hasNext(); ) {
 		GenCommonBase source = (GenCommonBase) sources.next();
-		List sourceLinks = (List) linksForSources.get(source);
 %>
 		if (sourceEditPart instanceof <%=importManager.getImportedName(source.getEditPartQualifiedClassName())%>) {
-			List children = new ArrayList();
+			List types = new ArrayList();
 <%
-		for (Iterator links = sourceLinks.iterator(); links.hasNext(); ) {
+		for (Iterator links = ((Collection) outgoingLinks.get(source)).iterator(); links.hasNext(); ) {
 			GenLink genLink = (GenLink) links.next();
 %>
-			children.add(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>);
+			types.add(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>);
 <%		}%>
-			return children;
+			return types;
 		}
 <%
 	}
@@ -109,22 +108,21 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	public List getRelTypesOnTarget(IAdaptable target) {
-<%if (!linksForTargets.isEmpty()) {%>
-		Object targetEditPart = target.getAdapter(IGraphicalEditPart.class);
+<%if (!incomingLinks.isEmpty()) {%>
+		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
 <%
-	for (Iterator targets = linksForTargets.keySet().iterator(); targets.hasNext(); ) {
+	for (Iterator targets = incomingLinks.keySet().iterator(); targets.hasNext(); ) {
 		GenCommonBase target = (GenCommonBase) targets.next();
-		List targetLinks = (List) linksForTargets.get(target);
 %>
 		if (targetEditPart instanceof <%=importManager.getImportedName(target.getEditPartQualifiedClassName())%>) {
-			List children = new ArrayList();
+			List types = new ArrayList();
 <%
-		for (Iterator links = targetLinks.iterator(); links.hasNext(); ) {
+		for (Iterator links = ((Collection) incomingLinks.get(target)).iterator(); links.hasNext(); ) {
 			GenLink genLink = (GenLink) links.next();
 %>
-			children.add(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>);
+			types.add(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>);
 <%		}%>
-			return children;
+			return types;
 		}
 <%
 	}
@@ -137,30 +135,97 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 * @generated
 	 */
 	public List getRelTypesOnSourceAndTarget(IAdaptable source, IAdaptable target) {
-<%if (!linksForSources.isEmpty()) {%>
-		Object sourceEditPart = source.getAdapter(IGraphicalEditPart.class);
-		Object targetEditPart = target.getAdapter(IGraphicalEditPart.class);
+<%if (!outgoingLinks.isEmpty()) {%>
+		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
+		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
 <%
-	for (Iterator sources = linksForSources.keySet().iterator(); sources.hasNext(); ) {
+	for (Iterator sources = outgoingLinks.keySet().iterator(); sources.hasNext(); ) {
 		GenCommonBase source = (GenCommonBase) sources.next();
-		List sourceLinks = (List) linksForSources.get(source);
 %>
 		if (sourceEditPart instanceof <%=importManager.getImportedName(source.getEditPartQualifiedClassName())%>) {
-			List children = new ArrayList();
+			List types = new ArrayList();
 <%
-		for (Iterator links = sourceLinks.iterator(); links.hasNext(); ) {
+		for (Iterator links = ((Collection) outgoingLinks.get(source)).iterator(); links.hasNext(); ) {
 			GenLink genLink = (GenLink) links.next();
 			for (Iterator targets = genLink.getTargets().iterator(); targets.hasNext(); ) {
 				GenCommonBase target = (GenCommonBase) targets.next();
 %>
 			if (targetEditPart instanceof <%=importManager.getImportedName(target.getEditPartQualifiedClassName())%>) {
-				children.add(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>);
+				types.add(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>);
 			}
 <%
 			}
 		}
 %>
-			return children;
+			return types;
+		}
+<%
+	}
+}
+%>
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List getTypesForSource(IAdaptable target, IElementType relationshipType) {
+<%if (!incomingLinks.isEmpty()) {%>
+		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
+<%
+	for (Iterator targets = incomingLinks.keySet().iterator(); targets.hasNext(); ) {
+		GenCommonBase target = (GenCommonBase) targets.next();
+%>
+		if (targetEditPart instanceof <%=importManager.getImportedName(target.getEditPartQualifiedClassName())%>) {
+			List types = new ArrayList();
+<%
+		for (Iterator links = ((Collection) incomingLinks.get(target)).iterator(); links.hasNext(); ) {
+			GenLink genLink = (GenLink) links.next();
+			for (Iterator sources = genLink.getSources().iterator(); sources.hasNext(); ) {
+				GenCommonBase source = (GenCommonBase) sources.next();
+%>
+			if (relationshipType == <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>) {
+				types.add(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=source.getUniqueIdentifier()%>);
+			}
+<%
+			}
+		}
+%>
+			return types;
+		}
+<%
+	}
+}
+%>
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List getTypesForTarget(IAdaptable source, IElementType relationshipType) {
+<%if (!outgoingLinks.isEmpty()) {%>
+		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
+<%
+	for (Iterator sources = outgoingLinks.keySet().iterator(); sources.hasNext(); ) {
+		GenCommonBase source = (GenCommonBase) sources.next();
+%>
+		if (sourceEditPart instanceof <%=importManager.getImportedName(source.getEditPartQualifiedClassName())%>) {
+			List types = new ArrayList();
+<%
+		for (Iterator links = ((Collection) outgoingLinks.get(source)).iterator(); links.hasNext(); ) {
+			GenLink genLink = (GenLink) links.next();
+			for (Iterator targets = genLink.getTargets().iterator(); targets.hasNext(); ) {
+				GenCommonBase target = (GenCommonBase) targets.next();
+%>
+			if (relationshipType == <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genLink.getUniqueIdentifier()%>) {
+				types.add(<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=target.getUniqueIdentifier()%>);
+			}
+<%
+			}
+		}
+%>
+			return types;
 		}
 <%
 	}
