@@ -329,7 +329,7 @@ if (defSizeAttrs != null) {
     stringBuffer.append(TEXT_45);
     stringBuffer.append(height);
     stringBuffer.append(TEXT_46);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPluginQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_47);
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.Figure"));
     stringBuffer.append(TEXT_48);

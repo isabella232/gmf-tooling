@@ -314,7 +314,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_19);
     stringBuffer.append(genDiagram.getEMFGenModel().getModelName());
     stringBuffer.append(TEXT_20);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPluginQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_21);
     stringBuffer.append(genDiagram.getUniqueIdentifier());
     stringBuffer.append(TEXT_22);
@@ -367,7 +367,7 @@ for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.
     stringBuffer.append(TEXT_36);
     stringBuffer.append(nextChild.getVisualID());
     stringBuffer.append(TEXT_37);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPluginQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_38);
     stringBuffer.append(nextChild.getUniqueIdentifier());
     stringBuffer.append(TEXT_39);
@@ -571,7 +571,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
 
     stringBuffer.append(TEXT_99);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPluginQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_100);
     
 	} else {
@@ -591,7 +591,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_107);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil"));
     stringBuffer.append(TEXT_108);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPluginQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_109);
     
 		if (domainLinkTargetGenFeature.isListType()) {

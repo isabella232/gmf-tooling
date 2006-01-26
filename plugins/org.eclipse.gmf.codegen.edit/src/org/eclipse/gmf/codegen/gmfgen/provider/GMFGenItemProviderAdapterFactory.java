@@ -96,6 +96,28 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenPlugin} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenPluginItemProvider genPluginItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenPlugin}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenPluginAdapter() {
+		if (genPluginItemProvider == null) {
+			genPluginItemProvider = new GenPluginItemProvider(this);
+		}
+
+		return genPluginItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -786,6 +808,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	 */
 	public void dispose() {
 		if (genDiagramItemProvider != null) genDiagramItemProvider.dispose();
+		if (genPluginItemProvider != null) genPluginItemProvider.dispose();
 		if (genTopLevelNodeItemProvider != null) genTopLevelNodeItemProvider.dispose();
 		if (genChildNodeItemProvider != null) genChildNodeItemProvider.dispose();
 		if (genCompartmentItemProvider != null) genCompartmentItemProvider.dispose();

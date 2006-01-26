@@ -186,7 +186,7 @@ if (defSizeAttrs != null) {
 		decorationPane.setLayoutManager(new BorderLayout());
 		shapeContents.add(decorationPane, BorderLayout.BOTTOM);
 		
-		ImageFigureEx imageFigure = new ImageFigureEx(<%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.getInstance().getBundledImage("icons/shortcut.gif"));
+		ImageFigureEx imageFigure = new ImageFigureEx(<%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().getBundledImage("icons/shortcut.gif"));
 		decorationPane.add(imageFigure, BorderLayout.RIGHT);
 	}
 

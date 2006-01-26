@@ -7,11 +7,7 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
@@ -37,17 +33,13 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.GenNode;
+import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.PackageNames;
-import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ProviderClassNames;
 import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
-
-import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 
 /**
  * <!-- begin-user-doc -->
@@ -88,7 +80,6 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditorClassName <em>Editor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getInitDiagramFileActionClassName <em>Init Diagram File Action Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMatchingStrategyClassName <em>Matching Strategy Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPluginClassName <em>Plugin Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPreferenceInitializerClassName <em>Preference Initializer Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getVisualIDRegistryClassName <em>Visual ID Registry Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getElementChooserClassName <em>Element Chooser Class Name</em>}</li>
@@ -106,11 +97,8 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getAudits <em>Audits</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPalette <em>Palette</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPluginID <em>Plugin ID</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPluginName <em>Plugin Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getProviderName <em>Provider Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPlugin <em>Plugin</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isPrintingEnabled <em>Printing Enabled</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
  * </ul>
  * </p>
@@ -740,26 +728,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected String matchingStrategyClassName = MATCHING_STRATEGY_CLASS_NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getPluginClassName() <em>Plugin Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPluginClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String PLUGIN_CLASS_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getPluginClassName() <em>Plugin Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPluginClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String pluginClassName = PLUGIN_CLASS_NAME_EDEFAULT;
-
-	/**
 	 * The default value of the '{@link #getPreferenceInitializerClassName() <em>Preference Initializer Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1000,64 +968,14 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected Palette palette = null;
 
 	/**
-	 * The default value of the '{@link #getPluginID() <em>Plugin ID</em>}' attribute.
+	 * The cached value of the '{@link #getPlugin() <em>Plugin</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPluginID()
+	 * @see #getPlugin()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String PLUGIN_ID_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getPluginID() <em>Plugin ID</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPluginID()
-	 * @generated
-	 * @ordered
-	 */
-	protected String pluginID = PLUGIN_ID_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getPluginName() <em>Plugin Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPluginName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String PLUGIN_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getPluginName() <em>Plugin Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPluginName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String pluginName = PLUGIN_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getProviderName() <em>Provider Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getProviderName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String PROVIDER_NAME_EDEFAULT = "Sample Plugin Provider, Inc";
-
-	/**
-	 * The cached value of the '{@link #getProviderName() <em>Provider Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getProviderName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String providerName = PROVIDER_NAME_EDEFAULT;
+	protected GenPlugin plugin = null;
 
 	/**
 	 * The default value of the '{@link #isSameFileForDiagramAndModel() <em>Same File For Diagram And Model</em>}' attribute.
@@ -1080,26 +998,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected boolean sameFileForDiagramAndModel = SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isPrintingEnabled() <em>Printing Enabled</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isPrintingEnabled()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean PRINTING_ENABLED_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isPrintingEnabled() <em>Printing Enabled</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isPrintingEnabled()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean printingEnabled = PRINTING_ENABLED_EDEFAULT;
-
-	/**
 	 * The default value of the '{@link #getDiagramFileExtension() <em>Diagram File Extension</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1119,7 +1017,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	protected String diagramFileExtension = DIAGRAM_FILE_EXTENSION_EDEFAULT;
 
-	private static final String DIAGRAM_EDITOR_TOKEN = "gmf.editor";
+	static final String DIAGRAM_EDITOR_TOKEN = "gmf.editor";
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1363,6 +1261,49 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public GenPlugin getPlugin() {
+		return plugin;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetPlugin(GenPlugin newPlugin, NotificationChain msgs) {
+		GenPlugin oldPlugin = plugin;
+		plugin = newPlugin;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PLUGIN, oldPlugin, newPlugin);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPlugin(GenPlugin newPlugin) {
+		if (newPlugin != plugin) {
+			NotificationChain msgs = null;
+			if (plugin != null)
+				msgs = ((InternalEObject)plugin).eInverseRemove(this, GMFGenPackage.GEN_PLUGIN__DIAGRAM, GenPlugin.class, msgs);
+			if (newPlugin != null)
+				msgs = ((InternalEObject)newPlugin).eInverseAdd(this, GMFGenPackage.GEN_PLUGIN__DIAGRAM, GenPlugin.class, msgs);
+			msgs = basicSetPlugin(newPlugin, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PLUGIN, newPlugin, newPlugin));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getEditCommandsPackageNameGen() {
 		return editCommandsPackageName;
 	}
@@ -1463,106 +1404,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public GenDiagram getDiagram() {
 		return this;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getPluginName() {
-		return pluginName;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPluginName(String newPluginName) {
-		String oldPluginName = pluginName;
-		pluginName = newPluginName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME, oldPluginName, pluginName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getProviderName() {
-		return providerName;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setProviderName(String newProviderName) {
-		String oldProviderName = providerName;
-		providerName = newProviderName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME, oldProviderName, providerName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getPluginIDGen() {
-		return pluginID;
-	}
-
-	public String getPluginID() {
-		String value = getPluginIDGen();
-		if (value == null || value.length() == 0) {
-			return getEMFGenModel().getModelPluginID() + '.' + DIAGRAM_EDITOR_TOKEN;
-		}
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPluginID(String newPluginID) {
-		String oldPluginID = pluginID;
-		pluginID = newPluginID;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID, oldPluginID, pluginID));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getPluginClassNameGen() {
-		return pluginClassName;
-	}
-
-	public String getPluginClassName() {
-		String value = getPluginClassNameGen();
-		if (isEmpty(value)) {
-			value = getDomainPackageCapName() + "DiagramEditorPlugin";
-		}
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPluginClassName(String newPluginClassName) {
-		String oldPluginClassName = pluginClassName;
-		pluginClassName = newPluginClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME, oldPluginClassName, pluginClassName));
 	}
 
 	/**
@@ -2281,27 +2122,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isPrintingEnabled() {
-		return printingEnabled;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPrintingEnabled(boolean newPrintingEnabled) {
-		boolean oldPrintingEnabled = printingEnabled;
-		printingEnabled = newPrintingEnabled;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED, oldPrintingEnabled, printingEnabled));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getInitDiagramFileActionClassNameGen() {
 		return initDiagramFileActionClassName;
 	}
@@ -2724,15 +2544,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public String getPluginQualifiedClassName() {
-		return getEditorPackageName() + '.' + getPluginClassName();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
 	public String getPreferenceInitializerQualifiedClassName() {
 		return getEditorPackageName() + '.' + getPreferenceInitializerClassName();
 	}
@@ -2831,6 +2642,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				if (palette != null)
 					msgs = ((InternalEObject)palette).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_DIAGRAM__PALETTE, null, msgs);
 				return basicSetPalette((Palette)otherEnd, msgs);
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN:
+				if (plugin != null)
+					msgs = ((InternalEObject)plugin).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_DIAGRAM__PLUGIN, null, msgs);
+				return basicSetPlugin((GenPlugin)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -2854,6 +2669,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return basicSetAudits(null, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				return basicSetPalette(null, msgs);
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN:
+				return basicSetPlugin(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -2929,8 +2746,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getInitDiagramFileActionClassName();
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
 				return getMatchingStrategyClassName();
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
-				return getPluginClassName();
 			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
 				return getPreferenceInitializerClassName();
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
@@ -2967,16 +2782,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getAudits();
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				return getPalette();
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
-				return getPluginID();
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
-				return getPluginName();
-			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
-				return getProviderName();
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN:
+				return getPlugin();
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
 				return isSameFileForDiagramAndModel() ? Boolean.TRUE : Boolean.FALSE;
-			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
-				return isPrintingEnabled() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 				return getDiagramFileExtension();
 		}
@@ -3087,9 +2896,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
 				setMatchingStrategyClassName((String)newValue);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
-				setPluginClassName((String)newValue);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
 				setPreferenceInitializerClassName((String)newValue);
 				return;
@@ -3147,20 +2953,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				setPalette((Palette)newValue);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
-				setPluginID((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
-				setPluginName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
-				setProviderName((String)newValue);
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN:
+				setPlugin((GenPlugin)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
 				setSameFileForDiagramAndModel(((Boolean)newValue).booleanValue());
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
-				setPrintingEnabled(((Boolean)newValue).booleanValue());
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 				setDiagramFileExtension((String)newValue);
@@ -3272,9 +3069,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
 				setMatchingStrategyClassName(MATCHING_STRATEGY_CLASS_NAME_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
-				setPluginClassName(PLUGIN_CLASS_NAME_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
 				setPreferenceInitializerClassName(PREFERENCE_INITIALIZER_CLASS_NAME_EDEFAULT);
 				return;
@@ -3326,20 +3120,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				setPalette((Palette)null);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
-				setPluginID(PLUGIN_ID_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
-				setPluginName(PLUGIN_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
-				setProviderName(PROVIDER_NAME_EDEFAULT);
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN:
+				setPlugin((GenPlugin)null);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
 				setSameFileForDiagramAndModel(SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
-				setPrintingEnabled(PRINTING_ENABLED_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 				setDiagramFileExtension(DIAGRAM_FILE_EXTENSION_EDEFAULT);
@@ -3419,8 +3204,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT == null ? initDiagramFileActionClassName != null : !INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT.equals(initDiagramFileActionClassName);
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
 				return MATCHING_STRATEGY_CLASS_NAME_EDEFAULT == null ? matchingStrategyClassName != null : !MATCHING_STRATEGY_CLASS_NAME_EDEFAULT.equals(matchingStrategyClassName);
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
-				return PLUGIN_CLASS_NAME_EDEFAULT == null ? pluginClassName != null : !PLUGIN_CLASS_NAME_EDEFAULT.equals(pluginClassName);
 			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
 				return PREFERENCE_INITIALIZER_CLASS_NAME_EDEFAULT == null ? preferenceInitializerClassName != null : !PREFERENCE_INITIALIZER_CLASS_NAME_EDEFAULT.equals(preferenceInitializerClassName);
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
@@ -3455,16 +3238,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return audits != null;
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				return palette != null;
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
-				return PLUGIN_ID_EDEFAULT == null ? pluginID != null : !PLUGIN_ID_EDEFAULT.equals(pluginID);
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
-				return PLUGIN_NAME_EDEFAULT == null ? pluginName != null : !PLUGIN_NAME_EDEFAULT.equals(pluginName);
-			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
-				return PROVIDER_NAME_EDEFAULT == null ? providerName != null : !PROVIDER_NAME_EDEFAULT.equals(providerName);
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN:
+				return plugin != null;
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
 				return sameFileForDiagramAndModel != SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT;
-			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
-				return printingEnabled != PRINTING_ENABLED_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 				return DIAGRAM_FILE_EXTENSION_EDEFAULT == null ? diagramFileExtension != null : !DIAGRAM_FILE_EXTENSION_EDEFAULT.equals(diagramFileExtension);
 		}
@@ -3530,7 +3307,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__EDITOR_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__MATCHING_STRATEGY_CLASS_NAME;
-				case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__PLUGIN_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__PREFERENCE_INITIALIZER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__VISUAL_ID_REGISTRY_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__ELEMENT_CHOOSER_CLASS_NAME;
@@ -3615,7 +3391,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.EDITOR_CANDIES__EDITOR_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__MATCHING_STRATEGY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME;
-				case GMFGenPackage.EDITOR_CANDIES__PLUGIN_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__PREFERENCE_INITIALIZER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__VISUAL_ID_REGISTRY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__ELEMENT_CHOOSER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME;
@@ -3782,22 +3557,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public EList getRequiredPluginIDs() {
-		Collection requiredPlugins = new LinkedHashSet();
-		if (usesSVGShapes()) {
-			requiredPlugins.add("org.eclipse.gmf.diagramrt.gefsvg");
-		}
-		
-		requiredPlugins.addAll(getExpressionsRequiredPluginIDs());
-		requiredPlugins.addAll(getValidationRequiredPluginIDs());
-		return new BasicEList(requiredPlugins);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
 	public String getInitDiagramFileActionQualifiedClassName() {
 		return getEditorPackageName() + '.' + getInitDiagramFileActionClassName();
 	}
@@ -3937,17 +3696,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		return getProvidersPackageName();
 	}
 
-	private boolean usesSVGShapes() {
-/* couldn't tell now
-		for (Iterator it = getNodes().iterator(); it.hasNext();) {
-			if (((GenNode) it.next()).getViewmapURI() != null) {
-				return true;
-			}
-		}
-*/
-		return false;
-	}
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4019,8 +3767,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(initDiagramFileActionClassName);
 		result.append(", matchingStrategyClassName: ");
 		result.append(matchingStrategyClassName);
-		result.append(", pluginClassName: ");
-		result.append(pluginClassName);
 		result.append(", preferenceInitializerClassName: ");
 		result.append(preferenceInitializerClassName);
 		result.append(", visualIDRegistryClassName: ");
@@ -4039,16 +3785,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(markerNavigationProviderClassName);
 		result.append(", validationEnabled: ");
 		result.append(validationEnabled);
-		result.append(", pluginID: ");
-		result.append(pluginID);
-		result.append(", pluginName: ");
-		result.append(pluginName);
-		result.append(", providerName: ");
-		result.append(providerName);
 		result.append(", sameFileForDiagramAndModel: ");
 		result.append(sameFileForDiagramAndModel);
-		result.append(", printingEnabled: ");
-		result.append(printingEnabled);
 		result.append(", diagramFileExtension: ");
 		result.append(diagramFileExtension);
 		result.append(')');
@@ -4077,45 +3815,5 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			return name.toUpperCase();
 		}
 		return Character.toUpperCase(name.charAt(0)) + name.substring(1);
-	}
-
-	private Set getExpressionsRequiredPluginIDs() {
-		Set requiredIDs = new HashSet();
-		for (Iterator it = getAllNodes().iterator(); it.hasNext();) {
-			GenNode nextNode = (GenNode) it.next();
-			TypeModelFacet modelFacet = nextNode.getModelFacet();
-			if(modelFacet.getModelElementInitializer() != null) {
-				requiredIDs.addAll(modelFacet.getModelElementInitializer().getRequiredPluginIDs());
-			}
-			if(modelFacet.getModelElementSelector() != null) {
-				requiredIDs.addAll(modelFacet.getModelElementSelector().getRequiredPluginIDs());				
-			}
-		}
-		
-		for (Iterator it = getLinks().iterator(); it.hasNext();) {
-			GenLink nextLink = (GenLink) it.next();
-			LinkModelFacet modelFacet = nextLink.getModelFacet();
-			if(modelFacet instanceof TypeLinkModelFacet) {
-				TypeLinkModelFacet  typeModelFacet = (TypeLinkModelFacet)modelFacet;
-				if(typeModelFacet.getModelElementInitializer() != null) {
-					requiredIDs.addAll(typeModelFacet.getModelElementInitializer().getRequiredPluginIDs());
-				}
-				if(typeModelFacet.getModelElementSelector() != null) {
-					requiredIDs.addAll(typeModelFacet.getModelElementSelector().getRequiredPluginIDs());
-				}
-			}
-		}		
-		if(hasLinkCreationConstraints()) {
-			requiredIDs.add("org.eclipse.emf.ocl"); //$NON-NLS-1$			
-			requiredIDs.add("org.eclipse.emf.query.ocl"); //$NON-NLS-1$			
-		}
-		return requiredIDs;
-	}
-	
-	private Set getValidationRequiredPluginIDs() {
-		if(isValidationEnabled() || (getAudits() != null && !getAudits().getAllAuditRules().isEmpty())) {
-			return Collections.singleton("org.eclipse.emf.validation"); //$NON-NLS-1$ 
-		}
-		return Collections.EMPTY_SET;
 	}
 } //GenDiagramImpl

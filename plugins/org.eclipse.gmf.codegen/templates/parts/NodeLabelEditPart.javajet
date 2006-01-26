@@ -32,7 +32,7 @@ public class <%=label.getEditPartClassName()%> extends TextCompartmentEditPart {
 	 * @generated
 	 */
 	protected Image getLabelIcon(int index) {
-		ImageDescriptor descriptor = <%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.getInstance().getItemImageDescriptor(resolveSemanticElement());
+		ImageDescriptor descriptor = <%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemImageDescriptor(resolveSemanticElement());
 		if (descriptor == null) {
 			descriptor = ImageDescriptor.getMissingImageDescriptor();
 		}

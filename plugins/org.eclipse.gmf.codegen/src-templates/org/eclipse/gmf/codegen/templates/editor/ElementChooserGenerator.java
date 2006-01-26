@@ -57,11 +57,11 @@ for (Iterator it = genDiagram.getContainsShortcutsTo().iterator(); it.hasNext();
 }
 
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPluginQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPluginQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_11);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPluginQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_12);
     importManager.emitSortedImports();
     stringBuffer.append(TEXT_13);

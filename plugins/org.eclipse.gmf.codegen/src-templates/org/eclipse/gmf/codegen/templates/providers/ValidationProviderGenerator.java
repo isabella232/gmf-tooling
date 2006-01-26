@@ -36,7 +36,7 @@ ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());
     stringBuffer.append(TEXT_3);
     stringBuffer.append(genDiagram.getValidationProviderClassName());
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(genDiagram.getPluginID() + "." + genDiagram.getValidationDiagnosticMarkerType());
+    stringBuffer.append(genDiagram.getPlugin().getID() + "." + genDiagram.getValidationDiagnosticMarkerType());
     stringBuffer.append(TEXT_5);
     importManager.emitSortedImports();
     stringBuffer.append(TEXT_6);

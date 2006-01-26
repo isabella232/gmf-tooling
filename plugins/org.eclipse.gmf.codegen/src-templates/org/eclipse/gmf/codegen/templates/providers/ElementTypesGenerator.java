@@ -99,7 +99,7 @@ public class ElementTypesGenerator
     stringBuffer.append(genDiagram.getElementTypesClassName());
     stringBuffer.append(TEXT_6);
     
-String pluginClassName = importManager.getImportedName(genDiagram.getPluginQualifiedClassName());
+String pluginClassName = importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName());
 String semanticFactoryClassName = importManager.getImportedName(genDiagram.getDomainMetaModel().getQualifiedFactoryInterfaceName());
 
     stringBuffer.append(TEXT_7);

@@ -35,6 +35,15 @@ public interface GMFGenFactory extends EFactory {
 	GenDiagram createGenDiagram();
 
 	/**
+	 * Returns a new object of class '<em>Gen Plugin</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Plugin</em>'.
+	 * @generated
+	 */
+	GenPlugin createGenPlugin();
+
+	/**
 	 * Returns a new object of class '<em>Gen Top Level Node</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

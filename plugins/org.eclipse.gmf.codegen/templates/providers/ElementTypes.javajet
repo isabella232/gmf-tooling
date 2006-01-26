@@ -61,7 +61,7 @@ public class <%=genDiagram.getElementTypesClassName()%> {
 		}
 		if (element instanceof EClass) {
 <%
-String pluginClassName = importManager.getImportedName(genDiagram.getPluginQualifiedClassName());
+String pluginClassName = importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName());
 String semanticFactoryClassName = importManager.getImportedName(genDiagram.getDomainMetaModel().getQualifiedFactoryInterfaceName());
 %>
 			return <%=pluginClassName%>.getInstance().getItemImageDescriptor(

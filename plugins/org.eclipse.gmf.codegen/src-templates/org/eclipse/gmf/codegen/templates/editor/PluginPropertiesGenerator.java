@@ -21,11 +21,11 @@ public class PluginPropertiesGenerator
   public String generate(Object argument)
   {
     StringBuffer stringBuffer = new StringBuffer();
-    GenDiagram genDiagram = (GenDiagram) argument;
+    GenPlugin genPlugin = (GenPlugin) argument;
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(genDiagram.getPluginName());
+    stringBuffer.append(genPlugin.getName());
     stringBuffer.append(TEXT_2);
-    stringBuffer.append(genDiagram.getProviderName());
+    stringBuffer.append(genPlugin.getProvider());
     stringBuffer.append(TEXT_3);
     return stringBuffer.toString();
   }

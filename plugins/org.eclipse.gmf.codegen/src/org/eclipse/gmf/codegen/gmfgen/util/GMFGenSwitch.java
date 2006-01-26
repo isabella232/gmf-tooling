@@ -183,6 +183,12 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.GEN_PLUGIN: {
+				GenPlugin genPlugin = (GenPlugin)theEObject;
+				Object result = caseGenPlugin(genPlugin);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.GEN_COMMON_BASE: {
 				GenCommonBase genCommonBase = (GenCommonBase)theEObject;
 				Object result = caseGenCommonBase(genCommonBase);
@@ -594,6 +600,21 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseEditPartCandies(EditPartCandies object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Plugin</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Plugin</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenPlugin(GenPlugin object) {
 		return null;
 	}
 

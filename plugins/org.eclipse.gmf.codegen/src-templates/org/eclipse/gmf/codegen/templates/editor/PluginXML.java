@@ -98,7 +98,8 @@ public class PluginXML
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-final GenDiagram genDiagram = (GenDiagram) argument;
+final GenPlugin genPlugin = (GenPlugin) argument;
+final GenDiagram genDiagram = genPlugin.getDiagram();
 final GenModel genModel = genDiagram.getEMFGenModel();
 
     stringBuffer.append(TEXT_1);
@@ -136,7 +137,7 @@ final GenModel genModel = genDiagram.getEMFGenModel();
     stringBuffer.append(TEXT_17);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_18);
-    stringBuffer.append(genDiagram.getPluginID());
+    stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_19);
     stringBuffer.append(genDiagram.getDomainDiagramElement().getGenPackage().getPrefix().toLowerCase());
     stringBuffer.append(TEXT_20);
@@ -148,7 +149,7 @@ final GenModel genModel = genDiagram.getEMFGenModel();
     stringBuffer.append(TEXT_23);
     if (genDiagram.generateCreateShortcutAction()) {
     stringBuffer.append(TEXT_24);
-    stringBuffer.append(genDiagram.getPluginID());
+    stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_25);
     stringBuffer.append(genDiagram.getEditPartQualifiedClassName());
     stringBuffer.append(TEXT_26);
@@ -162,7 +163,7 @@ final GenModel genModel = genDiagram.getEMFGenModel();
     stringBuffer.append(TEXT_30);
     stringBuffer.append(genDiagram.getEditorQualifiedClassName());
     stringBuffer.append(TEXT_31);
-    if (genDiagram.isPrintingEnabled()) {
+    if (genPlugin.isPrintingEnabled()) {
     stringBuffer.append(TEXT_32);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_33);
@@ -196,7 +197,7 @@ final GenModel genModel = genDiagram.getEMFGenModel();
     stringBuffer.append(TEXT_47);
     stringBuffer.append(genDiagram.getMarkerNavigationProviderQualifiedClassName());
     stringBuffer.append(TEXT_48);
-    stringBuffer.append(genDiagram.getPluginID() + "." + genDiagram.getValidationDiagnosticMarkerType());
+    stringBuffer.append(genPlugin.getID() + "." + genDiagram.getValidationDiagnosticMarkerType());
     stringBuffer.append(TEXT_49);
     stringBuffer.append(genDiagram.getValidationProviderQualifiedClassName());
     stringBuffer.append(TEXT_50);
@@ -204,7 +205,7 @@ final GenModel genModel = genDiagram.getEMFGenModel();
     stringBuffer.append(TEXT_51);
     stringBuffer.append(genDiagram.getValidationDiagnosticMarkerType());
     stringBuffer.append(TEXT_52);
-    stringBuffer.append(genDiagram.getPluginName());
+    stringBuffer.append(genPlugin.getName());
     stringBuffer.append(TEXT_53);
     }
     stringBuffer.append(TEXT_54);
@@ -290,7 +291,7 @@ if(rootContainer != null) {
     stringBuffer.append(rootCategoryId);
     stringBuffer.append(TEXT_76);
     
-}
+	} 
 
     stringBuffer.append(TEXT_77);
     stringBuffer.append(TEXT_78);

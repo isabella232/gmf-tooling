@@ -32,8 +32,8 @@ public class ManifestGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-final GenDiagram genDiagram = (GenDiagram) argument;
-final GenModel genModel = genDiagram.getEMFGenModel();
+final GenPlugin genPlugin = (GenPlugin) argument;
+final GenModel genModel = genPlugin.getDiagram().getEMFGenModel();
 final Set requiredPluginIDs = new LinkedHashSet();
 requiredPluginIDs.add(genModel.getModelPluginID());
 requiredPluginIDs.add(genModel.getEditPluginID());
@@ -45,17 +45,17 @@ for (Iterator it = genModel.getAllUsedGenPackagesWithClassifiers().iterator(); i
 	}
 }
 
-requiredPluginIDs.addAll(genDiagram.getRequiredPluginIDs());
+requiredPluginIDs.addAll(genPlugin.getRequiredPluginIDs());
 Iterator requiredBundleIterator = requiredPluginIDs.iterator();
 
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(genDiagram.getPluginID());
+    stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_2);
-    stringBuffer.append(genDiagram.getPluginQualifiedClassName());
+    stringBuffer.append(genPlugin.getActivatorQualifiedClassName());
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(genDiagram.getEditorPackageName());
+    stringBuffer.append(genPlugin.getDiagram().getEditorPackageName());
     stringBuffer.append(TEXT_4);
-    if (genDiagram.isPrintingEnabled()) {
+    if (genPlugin.isPrintingEnabled()) {
     stringBuffer.append(TEXT_5);
     }
     stringBuffer.append(TEXT_6);

@@ -129,7 +129,7 @@ for (int i = 0; i < toolGroups.size(); i++) {
 <%
 }
 final String importedElementTypesClassName = importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName());
-final String importedPluginClassName = importManager.getImportedName(genDiagram.getPluginQualifiedClassName());
+final String importedPluginClassName = importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName());
 for (int i = 0; i < toolGroups.size(); i++) {
 	ToolGroup toolGroup = (ToolGroup) toolGroups.get(i);
 	List nodeCreationTools = toolGroup.getNodeTools();

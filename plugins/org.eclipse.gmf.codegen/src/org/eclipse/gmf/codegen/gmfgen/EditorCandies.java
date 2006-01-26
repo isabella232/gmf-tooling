@@ -25,7 +25,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getEditorClassName <em>Editor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getInitDiagramFileActionClassName <em>Init Diagram File Action Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getMatchingStrategyClassName <em>Matching Strategy Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getPluginClassName <em>Plugin Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getPreferenceInitializerClassName <em>Preference Initializer Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getVisualIDRegistryClassName <em>Visual ID Registry Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getElementChooserClassName <em>Element Chooser Class Name</em>}</li>
@@ -272,32 +271,6 @@ public interface EditorCandies extends EObject {
 	void setMatchingStrategyClassName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Plugin Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Plugin Class Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Plugin Class Name</em>' attribute.
-	 * @see #setPluginClassName(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEditorCandies_PluginClassName()
-	 * @model
-	 * @generated
-	 */
-	String getPluginClassName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getPluginClassName <em>Plugin Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Plugin Class Name</em>' attribute.
-	 * @see #getPluginClassName()
-	 * @generated
-	 */
-	void setPluginClassName(String value);
-
-	/**
 	 * Returns the value of the '<em><b>Preference Initializer Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -446,14 +419,6 @@ public interface EditorCandies extends EObject {
 	 * @generated
 	 */
 	String getMatchingStrategyQualifiedClassName();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	String getPluginQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

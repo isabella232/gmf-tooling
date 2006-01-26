@@ -93,7 +93,6 @@ public class GenDiagramItemProvider
 			addEditorClassNamePropertyDescriptor(object);
 			addInitDiagramFileActionClassNamePropertyDescriptor(object);
 			addMatchingStrategyClassNamePropertyDescriptor(object);
-			addPluginClassNamePropertyDescriptor(object);
 			addPreferenceInitializerClassNamePropertyDescriptor(object);
 			addVisualIDRegistryClassNamePropertyDescriptor(object);
 			addElementChooserClassNamePropertyDescriptor(object);
@@ -105,11 +104,7 @@ public class GenDiagramItemProvider
 			addValidationEnabledPropertyDescriptor(object);
 			addDomainMetaModelPropertyDescriptor(object);
 			addDomainDiagramElementPropertyDescriptor(object);
-			addPluginIDPropertyDescriptor(object);
-			addPluginNamePropertyDescriptor(object);
-			addProviderNamePropertyDescriptor(object);
 			addSameFileForDiagramAndModelPropertyDescriptor(object);
-			addPrintingEnabledPropertyDescriptor(object);
 			addDiagramFileExtensionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -229,86 +224,6 @@ public class GenDiagramItemProvider
 				 getString("_UI_PackageNames_editPoliciesPackageName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_editPoliciesPackageName_feature", "_UI_PackageNames_type"),
 				 GMFGenPackage.eINSTANCE.getPackageNames_EditPoliciesPackageName(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Plugin Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPluginNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenDiagram_pluginName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_pluginName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_PluginName(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Provider Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addProviderNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenDiagram_providerName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_providerName_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_ProviderName(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Plugin ID feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPluginIDPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenDiagram_pluginID_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_pluginID_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_PluginID(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Plugin Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPluginClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_EditorCandies_pluginClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_pluginClassName_feature", "_UI_EditorCandies_type"),
-				 GMFGenPackage.eINSTANCE.getEditorCandies_PluginClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -836,26 +751,6 @@ public class GenDiagramItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Printing Enabled feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPrintingEnabledPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenDiagram_printingEnabled_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_printingEnabled_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_PrintingEnabled(),
-				 true,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Init Diagram File Action Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1132,6 +1027,7 @@ public class GenDiagramItemProvider
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Compartments());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Audits());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Palette());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Plugin());
 		}
 		return childrenFeatures;
 	}
@@ -1213,7 +1109,6 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
@@ -1223,11 +1118,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_ID:
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__PROVIDER_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
-			case GMFGenPackage.GEN_DIAGRAM__PRINTING_ENABLED:
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
@@ -1237,6 +1128,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
 			case GMFGenPackage.GEN_DIAGRAM__AUDITS:
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
+			case GMFGenPackage.GEN_DIAGRAM__PLUGIN:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -1282,6 +1174,11 @@ public class GenDiagramItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenDiagram_Palette(),
 				 GMFGenFactory.eINSTANCE.createPalette()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenDiagram_Plugin(),
+				 GMFGenFactory.eINSTANCE.createGenPlugin()));
 	}
 
 	/**

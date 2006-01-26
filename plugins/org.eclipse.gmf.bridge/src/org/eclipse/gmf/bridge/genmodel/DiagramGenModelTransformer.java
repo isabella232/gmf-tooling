@@ -41,6 +41,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
@@ -120,6 +121,13 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return myGenModel;
 	}
 
+	private GenPlugin getGenPlugin() {
+		if (getGenDiagram().getPlugin() == null) {
+			getGenDiagram().setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
+		}
+		return getGenDiagram().getPlugin();
+	}
+
 	private Palette getGenPalette() {
 		Palette p = getGenDiagram().getPalette();
 		if (p == null) {
@@ -138,7 +146,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		getGenDiagram().setDomainDiagramElement(findGenClass(mapping.getDomainMetaElement()));
 		getGenDiagram().setDiagramRunTimeClass(findRunTimeClass(mapping));
 		getGenDiagram().setVisualID(myVisualIDs.get(getGenDiagram()));
-		getGenDiagram().setPluginName(mapping.getDomainModel().getName() + " Plugin");
+		getGenPlugin().setName(mapping.getDomainModel().getName() + " Plugin");
 		getGenDiagram().setViewmap(myViewmaps.create(mapping.getDiagramCanvas()));
 
 		// set class names

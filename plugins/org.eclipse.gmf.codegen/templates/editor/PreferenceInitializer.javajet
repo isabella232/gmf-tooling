@@ -15,6 +15,6 @@ public class <%=genDiagram.getPreferenceInitializerClassName()%> extends Diagram
 	 * @generated
 	 */
 	protected IPreferenceStore getPreferenceStore() {
-		return <%=genDiagram.getPluginQualifiedClassName()%>.getInstance().getPreferenceStore();
+		return <%=genDiagram.getPlugin().getActivatorQualifiedClassName()%>.getInstance().getPreferenceStore();
 	}
 }

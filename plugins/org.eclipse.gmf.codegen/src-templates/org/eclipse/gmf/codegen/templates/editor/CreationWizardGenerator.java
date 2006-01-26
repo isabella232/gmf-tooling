@@ -38,7 +38,7 @@ public class CreationWizardGenerator
     stringBuffer.append(TEXT_4);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(genDiagram.getPluginQualifiedClassName());
+    stringBuffer.append(genDiagram.getPlugin().getActivatorQualifiedClassName());
     stringBuffer.append(TEXT_6);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_7);

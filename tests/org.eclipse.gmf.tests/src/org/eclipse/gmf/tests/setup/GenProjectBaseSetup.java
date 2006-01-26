@@ -52,9 +52,9 @@ public class GenProjectBaseSetup {
 		Generator generator = new Generator(d);		
 		generator.run();
 		hookGeneratorStatus(generator.getRunStatus());
-		rtWorkspace.updateClassPath(ResourcesPlugin.getWorkspace().getRoot().getProject(d.getPluginID()));
+		rtWorkspace.updateClassPath(ResourcesPlugin.getWorkspace().getRoot().getProject(d.getPlugin().getID()));
 		
-		projectsToInit.add(d.getPluginID());
+		projectsToInit.add(d.getPlugin().getID());
 		for (Iterator it = projectsToInit.iterator(); it.hasNext();) {
 			String pluginID = (String) it.next();
 			IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginID);

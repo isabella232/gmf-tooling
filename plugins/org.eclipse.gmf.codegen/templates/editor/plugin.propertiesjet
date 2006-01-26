@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="PluginPropertiesGenerator"
     imports="org.eclipse.gmf.codegen.gmfgen.*"%>
-<%GenDiagram genDiagram = (GenDiagram) argument;%>
-pluginName=<%=genDiagram.getPluginName()%>
-providerName=<%=genDiagram.getProviderName()%>
+<%GenPlugin genPlugin = (GenPlugin) argument;%>
+pluginName=<%=genPlugin.getName()%>
+providerName=<%=genPlugin.getProvider()%>

@@ -44,7 +44,8 @@ public class PluginGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-GenDiagram genDiagram = (GenDiagram) argument;
+GenPlugin genPlugin = (GenPlugin) argument;
+GenDiagram genDiagram = genPlugin.getDiagram();
 GenModel genModel = genDiagram.getEMFGenModel();
 
     stringBuffer.append(TEXT_1);
@@ -54,15 +55,15 @@ GenModel genModel = genDiagram.getEMFGenModel();
     stringBuffer.append(TEXT_3);
     importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(genDiagram.getPluginClassName());
+    stringBuffer.append(genPlugin.getActivatorClassName());
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(genDiagram.getPluginID());
+    stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_6);
     stringBuffer.append(genDiagram.getEditorQualifiedClassName());
     stringBuffer.append(TEXT_7);
-    stringBuffer.append(genDiagram.getPluginClassName());
+    stringBuffer.append(genPlugin.getActivatorClassName());
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(genDiagram.getPluginClassName());
+    stringBuffer.append(genPlugin.getActivatorClassName());
     stringBuffer.append(TEXT_9);
     
 GenPackage genPackage = genDiagram.getDomainMetaModel();
@@ -79,7 +80,7 @@ String domainPackageEditPluginClassName = importManager.getImportedName(genPacka
     stringBuffer.append(TEXT_13);
     stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
     stringBuffer.append(TEXT_14);
-    stringBuffer.append(genDiagram.getPluginClassName());
+    stringBuffer.append(genPlugin.getActivatorClassName());
     stringBuffer.append(TEXT_15);
     
 List genPackages = genModel.getAllGenPackagesWithClassifiers();

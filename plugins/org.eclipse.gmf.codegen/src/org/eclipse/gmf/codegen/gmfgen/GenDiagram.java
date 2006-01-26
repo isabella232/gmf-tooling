@@ -27,11 +27,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getAudits <em>Audits</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPalette <em>Palette</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPluginID <em>Plugin ID</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPluginName <em>Plugin Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getProviderName <em>Provider Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPlugin <em>Plugin</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isPrintingEnabled <em>Printing Enabled</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
  * </ul>
  * </p>
@@ -224,83 +221,32 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	void setPalette(Palette value);
 
 	/**
-	 * Returns the value of the '<em><b>Plugin Name</b></em>' attribute.
+	 * Returns the value of the '<em><b>Plugin</b></em>' containment reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getDiagram <em>Diagram</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Plugin Name</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Plugin</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Plugin Name</em>' attribute.
-	 * @see #setPluginName(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_PluginName()
-	 * @model
+	 * @return the value of the '<em>Plugin</em>' containment reference.
+	 * @see #setPlugin(GenPlugin)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_Plugin()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPlugin#getDiagram
+	 * @model opposite="diagram" containment="true" required="true"
 	 * @generated
 	 */
-	String getPluginName();
+	GenPlugin getPlugin();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPluginName <em>Plugin Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPlugin <em>Plugin</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Plugin Name</em>' attribute.
-	 * @see #getPluginName()
+	 * @param value the new value of the '<em>Plugin</em>' containment reference.
+	 * @see #getPlugin()
 	 * @generated
 	 */
-	void setPluginName(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Provider Name</b></em>' attribute.
-	 * The default value is <code>"Sample Plugin Provider, Inc"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Provider Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Provider Name</em>' attribute.
-	 * @see #setProviderName(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_ProviderName()
-	 * @model default="Sample Plugin Provider, Inc"
-	 * @generated
-	 */
-	String getProviderName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getProviderName <em>Provider Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Provider Name</em>' attribute.
-	 * @see #getProviderName()
-	 * @generated
-	 */
-	void setProviderName(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Plugin ID</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Plugin ID</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Plugin ID</em>' attribute.
-	 * @see #setPluginID(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_PluginID()
-	 * @model
-	 * @generated
-	 */
-	String getPluginID();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPluginID <em>Plugin ID</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Plugin ID</em>' attribute.
-	 * @see #getPluginID()
-	 * @generated
-	 */
-	void setPluginID(String value);
+	void setPlugin(GenPlugin value);
 
 	/**
 	 * Returns the value of the '<em><b>Diagram File Extension</b></em>' attribute.
@@ -354,32 +300,6 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	void setSameFileForDiagramAndModel(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Printing Enabled</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Printing Enabled</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Printing Enabled</em>' attribute.
-	 * @see #setPrintingEnabled(boolean)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_PrintingEnabled()
-	 * @model
-	 * @generated
-	 */
-	boolean isPrintingEnabled();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isPrintingEnabled <em>Printing Enabled</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Printing Enabled</em>' attribute.
-	 * @see #isPrintingEnabled()
-	 * @generated
-	 */
-	void setPrintingEnabled(boolean value);
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -413,17 +333,6 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @generated
 	 */
 	EList getAllContainers();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Computed additional dependencies of generated plug-in
-	 * <!-- end-model-doc -->
-	 * @model kind="operation" type="java.lang.String"
-	 * @generated
-	 */
-	EList getRequiredPluginIDs();
 
 	/**
 	 * <!-- begin-user-doc -->

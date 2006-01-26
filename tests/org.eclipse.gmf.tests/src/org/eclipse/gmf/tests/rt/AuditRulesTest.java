@@ -65,7 +65,7 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 		this.audits = mapping.getAudits();
 		assertNotNull("Requires mapping with audit rules", audits); //$NON-NLS-1$
 		final GenDiagram genDiagram = getSetup().getGenModel().getGenDiagram();
-		auditAssert = new AuditAssert(genDiagram.getPluginID(), genDiagram.getDomainMetaModel());
+		auditAssert = new AuditAssert(genDiagram.getPlugin().getID(), genDiagram.getDomainMetaModel());
 	}
 
 	public void testAuditConstraints() throws Exception {		

@@ -752,25 +752,25 @@ public class Generator implements Runnable {
 		doGenerateJavaClass(
 			EmitterFactory.getPluginClassEmitter(),
 			myDiagram.getEditorPackageName(), 
-			myDiagram.getPluginClassName(),
-			myDiagram
+			myDiagram.getPlugin().getActivatorClassName(),
+			myDiagram.getPlugin()
 		);
 	}
 
 	private void generatePluginXml() throws JETException, InterruptedException {
-		doGenerateFile(EmitterFactory.getPluginXmlEmitter(), new Path("plugin.xml"));
+		doGenerateFile(EmitterFactory.getPluginXmlEmitter(), new Path("plugin.xml"), myDiagram.getPlugin());
 	}
 
 	private void generatePluginProperties() throws JETException, InterruptedException {
-		doGenerateFile(EmitterFactory.getPluginPropertiesEmitter(), new Path("plugin.properties"));
+		doGenerateFile(EmitterFactory.getPluginPropertiesEmitter(), new Path("plugin.properties"), myDiagram.getPlugin());
 	}
 
 	private void generateBundleManifest() throws JETException, InterruptedException {
-		doGenerateFile(EmitterFactory.getBundleManifestEmitter(), new Path("META-INF/MANIFEST.MF"));
+		doGenerateFile(EmitterFactory.getBundleManifestEmitter(), new Path("META-INF/MANIFEST.MF"), myDiagram.getPlugin());
 	}
 
 	private void generateBuildProperties() throws JETException, InterruptedException {
-		doGenerateFile(EmitterFactory.getBuildPropertiesEmitter(), new Path("build.properties"));
+		doGenerateFile(EmitterFactory.getBuildPropertiesEmitter(), new Path("build.properties"), myDiagram);
 	}
 	
 	private void generateShortcutIcon() throws InterruptedException {
@@ -802,17 +802,18 @@ public class Generator implements Runnable {
 	 * Generate ordinary file. No merge is performed at the moment.
 	 * @param emitter template to use
 	 * @param filePath - project-relative path to file, e.g. META-INF/MANIFEST.MF
+	 * @param param TODO
 	 * @throws JETException
 	 * @throws InterruptedException
 	 */
-	private void doGenerateFile(JETEmitter emitter, IPath filePath) throws JETException, InterruptedException {
+	private void doGenerateFile(JETEmitter emitter, IPath filePath, Object param) throws JETException, InterruptedException {
 		assert !myDestProject.getName().equals(filePath.segment(0));
 		IProgressMonitor pm = getNextStepMonitor();
 		try {
 			pm.beginTask(filePath.lastSegment(), 4);
 			IPath containerPath = myDestProject.getFullPath().append(filePath.removeLastSegments(1));
 			CodeGenUtil.findOrCreateContainer(containerPath, false, (IPath) null, new SubProgressMonitor(pm, 1));
-			String genText = emitter.generate(new SubProgressMonitor(pm, 1), new Object[] { myDiagram });
+			String genText = emitter.generate(new SubProgressMonitor(pm, 1), new Object[] { param });
 			IFile f = myDestProject.getFile(filePath);
 			// FIXME merge!
 			if (f.exists()) {
@@ -858,7 +859,7 @@ public class Generator implements Runnable {
 	}
 
 	private void initializeEditorProject() throws UnexpectedBehaviourException, InterruptedException {
-		myDestProject = ResourcesPlugin.getWorkspace().getRoot().getProject(myDiagram.getPluginID());
+		myDestProject = ResourcesPlugin.getWorkspace().getRoot().getProject(myDiagram.getPlugin().getID());
 		final Path srcPath = new Path('/' + myDestProject.getName() + "/src"); //$NON-NLS-1$
 		final Path projectLocation = null; // use default
 		final List referencedProjects = createReferencedProjectsList();

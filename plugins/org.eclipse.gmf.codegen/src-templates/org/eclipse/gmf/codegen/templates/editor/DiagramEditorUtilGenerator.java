@@ -29,8 +29,8 @@ public class DiagramEditorUtilGenerator
   protected final String TEXT_11 = ".getInstance().getLog().log(status);" + NL + "\t\t}" + NL + "" + NL + "\t\tif (notationModel != null) {" + NL + "\t\t\tfinal Resource notationModelParam = notationModel;" + NL + "\t\t\tfinal String kindParam = kind;" + NL + "\t\t\tOperationUtil.runAsUnchecked(new MRunnable() {" + NL + "" + NL + "\t\t\t\tpublic Object run() {";
   protected final String TEXT_12 = NL + "\t\t\t\t\tEObject model = EObjectUtil.create(";
   protected final String TEXT_13 = ".eINSTANCE.get";
-  protected final String TEXT_14 = "());" + NL + "\t\t\t\t\tDiagram diagram = ViewService.createDiagram(model, kindParam, new PreferencesHint(";
-  protected final String TEXT_15 = ".EDITOR_ID));" + NL + "\t\t\t\t\tif (diagram != null) {" + NL + "\t\t\t\t\t\tnotationModelParam.getContents().add(diagram);";
+  protected final String TEXT_14 = "());" + NL + "\t\t\t\t\tDiagram diagram = ViewService.createDiagram(model, kindParam, ";
+  protected final String TEXT_15 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\t\t\t\tif (diagram != null) {" + NL + "\t\t\t\t\t\tnotationModelParam.getContents().add(diagram);";
   protected final String TEXT_16 = NL + "\t\t\t\t\t\tnotationModelParam.getContents().add(model);";
   protected final String TEXT_17 = NL + "\t\t\t\t\t\tmodelResource.getContents().add(model);" + NL + "\t\t\t\t\t\tResourceUtil.save(modelResource);";
   protected final String TEXT_18 = NL + "\t\t\t\t\t\tdiagram.setName(newDiagramFile.getName());" + NL + "\t\t\t\t\t\tdiagram.setElement(model);" + NL + "\t\t\t\t\t\tResourceUtil.save(notationModelParam);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t\treturn null;" + NL + "\t\t\t\t}" + NL + "\t\t\t});" + NL + "\t\t}" + NL + "" + NL + "\t\treturn newDiagramFile;" + NL + "\t}" + NL + "}";
@@ -57,9 +57,9 @@ public class DiagramEditorUtilGenerator
     stringBuffer.append(TEXT_8);
     }
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(genDiagram.getPluginClassName());
+    stringBuffer.append(genDiagram.getPlugin().getActivatorClassName());
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(genDiagram.getPluginClassName());
+    stringBuffer.append(genDiagram.getPlugin().getActivatorClassName());
     stringBuffer.append(TEXT_11);
     
 GenPackage genPackage = genDiagram.getDomainMetaModel();
@@ -70,7 +70,7 @@ String domainPackageInterfaceName = importManager.getImportedName(genPackage.get
     stringBuffer.append(TEXT_13);
     stringBuffer.append(genDiagram.getDomainDiagramElement().getClassifierAccessorName());
     stringBuffer.append(TEXT_14);
-    stringBuffer.append(genDiagram.getPluginClassName());
+    stringBuffer.append(genDiagram.getPlugin().getActivatorClassName());
     stringBuffer.append(TEXT_15);
     if (genDiagram.isSameFileForDiagramAndModel()) {
     stringBuffer.append(TEXT_16);

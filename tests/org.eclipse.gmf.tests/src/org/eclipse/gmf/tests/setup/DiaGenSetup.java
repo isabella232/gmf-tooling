@@ -71,6 +71,7 @@ public class DiaGenSetup implements DiaGenSource {
 		myGenDiagram.setPalette(createPalette());
 		myGenDiagram.setViewmap(createDiagramViewmap());
 		myGenDiagram.setVisualID(99);
+		myGenDiagram.setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
 
 		myNodeA = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
 		myNodeA.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getNode()));

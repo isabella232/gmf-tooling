@@ -1,7 +1,8 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="PluginGenerator"
     imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.ImportUtil"%>
 <%
-GenDiagram genDiagram = (GenDiagram) argument;
+GenPlugin genPlugin = (GenPlugin) argument;
+GenDiagram genDiagram = genPlugin.getDiagram();
 GenModel genModel = genDiagram.getEMFGenModel();
 %>
 package <%=genDiagram.getEditorPackageName()%>;
@@ -28,12 +29,12 @@ import org.osgi.framework.BundleContext;
 /**
  * @generated
  */
-public class <%=genDiagram.getPluginClassName()%> extends AbstractUIPlugin {
+public class <%=genPlugin.getActivatorClassName()%> extends AbstractUIPlugin {
 
 	/**
 	 * @generated
 	 */
-	public static final String ID = "<%=genDiagram.getPluginID()%>"; //$NON-NLS-1$
+	public static final String ID = "<%=genPlugin.getID()%>"; //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -48,7 +49,7 @@ public class <%=genDiagram.getPluginClassName()%> extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
-	private static <%=genDiagram.getPluginClassName()%> instance;
+	private static <%=genPlugin.getActivatorClassName()%> instance;
 
 	/**
 	 * @generated
@@ -58,7 +59,7 @@ public class <%=genDiagram.getPluginClassName()%> extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
-	public <%=genDiagram.getPluginClassName()%>() {
+	public <%=genPlugin.getActivatorClassName()%>() {
 	}
 
 	/**
@@ -93,7 +94,7 @@ String domainPackageEditPluginClassName = importManager.getImportedName(genPacka
 	/**
 	 * @generated
 	 */
-	public static <%=genDiagram.getPluginClassName()%> getInstance() {
+	public static <%=genPlugin.getActivatorClassName()%> getInstance() {
 		return instance;
 	}
 

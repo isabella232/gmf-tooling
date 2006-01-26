@@ -60,7 +60,7 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends DiagramCon
 		/**
 		 * @generated
 		 */
-		public static final String MARKER_TYPE = "<%=genDiagram.getPluginID() + "." + genDiagram.getValidationDiagnosticMarkerType()%>"; //$NON-NLS-1$
+		public static final String MARKER_TYPE = "<%=genDiagram.getPlugin().getID() + "." + genDiagram.getValidationDiagnosticMarkerType()%>"; //$NON-NLS-1$
 		/**
 		 * @generated
 		 */		

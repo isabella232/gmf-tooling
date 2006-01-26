@@ -138,7 +138,7 @@ for (Iterator it = genDiagram.getContainsShortcutsTo().iterator(); it.hasNext();
 	private class ModelElementsTreeContentProvider implements ITreeContentProvider {
 		
 		private ITreeContentProvider myWorkbenchContentProvider = new WorkbenchContentProvider();
-		private AdapterFactoryContentProvider myAdapterFctoryContentProvier = new AdapterFactoryContentProvider(<%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.getInstance().getItemProvidersAdapterFactory());
+		private AdapterFactoryContentProvider myAdapterFctoryContentProvier = new AdapterFactoryContentProvider(<%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemProvidersAdapterFactory());
 		
 		/**
 		 * @generated
@@ -229,7 +229,7 @@ for (Iterator it = genDiagram.getContainsShortcutsTo().iterator(); it.hasNext();
 	private class ModelElementsTreeLabelProvider implements ILabelProvider {
 		
 		private WorkbenchLabelProvider myWorkbenchLabelProvider = new WorkbenchLabelProvider();
-		private AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new AdapterFactoryLabelProvider(<%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.getInstance().getItemProvidersAdapterFactory());
+		private AdapterFactoryLabelProvider myAdapterFactoryLabelProvider = new AdapterFactoryLabelProvider(<%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemProvidersAdapterFactory());
 		
 		/**
 		 * @generated
@@ -314,7 +314,7 @@ for (Iterator it = genDiagram.getContainsShortcutsTo().iterator(); it.hasNext();
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				if (selection.size() == 1 && selection.getFirstElement() instanceof EObject) {
 					mySelectedModelElement = (EObject) selection.getFirstElement();
-					setOkButtonEnabled(ViewService.getInstance().provides(Node.class, new EObjectAdapter(mySelectedModelElement), myView, null, ViewUtil.APPEND, true, <%=importManager.getImportedName(genDiagram.getPluginQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT));
+					setOkButtonEnabled(ViewService.getInstance().provides(Node.class, new EObjectAdapter(mySelectedModelElement), myView, null, ViewUtil.APPEND, true, <%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT));
 					return;
 				}
 			}

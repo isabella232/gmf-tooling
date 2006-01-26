@@ -95,8 +95,8 @@ public class <%=genDiagram.getDiagramEditorUtilClassName()%> extends IDEEditorUt
 			String completeFileName = newDiagramFile.getLocation().toOSString();
 			notationModel = ResourceUtil.create(completeFileName, null);
 		} catch (Exception e) {
-			IStatus status = new Status(IStatus.ERROR, <%=genDiagram.getPluginClassName()%>.ID, 0, e.getMessage(), e);
-			<%=genDiagram.getPluginClassName()%>.getInstance().getLog().log(status);
+			IStatus status = new Status(IStatus.ERROR, <%=genDiagram.getPlugin().getActivatorClassName()%>.ID, 0, e.getMessage(), e);
+			<%=genDiagram.getPlugin().getActivatorClassName()%>.getInstance().getLog().log(status);
 		}
 
 		if (notationModel != null) {
@@ -110,7 +110,7 @@ GenPackage genPackage = genDiagram.getDomainMetaModel();
 String domainPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 %>
 					EObject model = EObjectUtil.create(<%=domainPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>());
-					Diagram diagram = ViewService.createDiagram(model, kindParam, new PreferencesHint(<%=genDiagram.getPluginClassName()%>.EDITOR_ID));
+					Diagram diagram = ViewService.createDiagram(model, kindParam, <%=genDiagram.getPlugin().getActivatorClassName()%>.DIAGRAM_PREFERENCES_HINT);
 					if (diagram != null) {
 						notationModelParam.getContents().add(diagram);
 <%if (genDiagram.isSameFileForDiagramAndModel()) {%>

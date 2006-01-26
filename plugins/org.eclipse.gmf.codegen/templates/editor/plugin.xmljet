@@ -1,7 +1,8 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="PluginXML"
     imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.*"%>
 <%
-final GenDiagram genDiagram = (GenDiagram) argument;
+final GenPlugin genPlugin = (GenPlugin) argument;
+final GenDiagram genDiagram = genPlugin.getDiagram();
 final GenModel genModel = genDiagram.getEMFGenModel();
 %>
 <?xml version="1.0" encoding="UTF-8"?>
@@ -54,7 +55,7 @@ final GenModel genModel = genDiagram.getEMFGenModel();
 
    <extension point="org.eclipse.ui.popupMenus">
       <objectContribution
-            id="<%=genDiagram.getPluginID()%>.ui.objectContribution.IFile1"
+            id="<%=genPlugin.getID()%>.ui.objectContribution.IFile1"
             nameFilter="*.<%=genDiagram.getDomainDiagramElement().getGenPackage().getPrefix().toLowerCase()%>"
             objectClass="org.eclipse.core.resources.IFile">
          <action
@@ -68,7 +69,7 @@ final GenModel genModel = genDiagram.getEMFGenModel();
 <%if (genDiagram.generateCreateShortcutAction()) {%>
       <objectContribution
             adaptable="false"
-            id="<%=genDiagram.getPluginID()%>.ui.objectContribution.FileEditorInputProxy1"
+            id="<%=genPlugin.getID()%>.ui.objectContribution.FileEditorInputProxy1"
             objectClass="<%=genDiagram.getEditPartQualifiedClassName()%>">
          <action
                class="<%=genDiagram.getCreateShortcutActionQualifiedClassName()%>"
@@ -95,7 +96,7 @@ final GenModel genModel = genDiagram.getEMFGenModel();
             </ElementType>
          </ViewId>
       </GlobalActionHandlerProvider>
-<%if (genDiagram.isPrintingEnabled()) {%>
+<%if (genPlugin.isPrintingEnabled()) {%>
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.printing.render.providers.DiagramWithPrintGlobalActionHandlerProvider"
          id="<%=genModel.getModelName()%>PresentationPrint">
@@ -175,7 +176,7 @@ final GenModel genModel = genDiagram.getEMFGenModel();
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
       <MarkerNavigationProvider class="<%=genDiagram.getMarkerNavigationProviderQualifiedClassName()%>">
-         <MarkerType name="<%=genDiagram.getPluginID() + "." + genDiagram.getValidationDiagnosticMarkerType()%>"/>
+         <MarkerType name="<%=genPlugin.getID() + "." + genDiagram.getValidationDiagnosticMarkerType()%>"/>
          <Priority name="Medium"/>
       </MarkerNavigationProvider>
    </extension>
@@ -192,7 +193,7 @@ final GenModel genModel = genDiagram.getEMFGenModel();
       </contributionItemProvider>
    </extension>
    
-   <extension id="<%=genDiagram.getValidationDiagnosticMarkerType()%>" name="<%=genDiagram.getPluginName()%> problems" point="org.eclipse.core.resources.markers">
+   <extension id="<%=genDiagram.getValidationDiagnosticMarkerType()%>" name="<%=genPlugin.getName()%> problems" point="org.eclipse.core.resources.markers">
       <super type="org.eclipse.core.resources.problemmarker"/>   
       <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
       <persistent value="true"/>      

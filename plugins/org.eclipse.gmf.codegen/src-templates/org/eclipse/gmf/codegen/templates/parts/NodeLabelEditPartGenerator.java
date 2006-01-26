@@ -67,7 +67,7 @@ boolean isParentFlowLayout = !label.getNode().isListLayout();
     stringBuffer.append(TEXT_5);
     stringBuffer.append(label.getEditPartClassName());
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPluginQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_7);
     
 GenPackage genPackage = genDiagram.getDomainMetaModel();

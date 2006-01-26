@@ -12,6 +12,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.gmf.codegen.gmfgen.*;
+
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
@@ -89,6 +91,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case GMFGenPackage.GEN_DIAGRAM: return createGenDiagram();
+			case GMFGenPackage.GEN_PLUGIN: return createGenPlugin();
 			case GMFGenPackage.GEN_TOP_LEVEL_NODE: return createGenTopLevelNode();
 			case GMFGenPackage.GEN_CHILD_NODE: return createGenChildNode();
 			case GMFGenPackage.GEN_COMPARTMENT: return createGenCompartment();
@@ -161,6 +164,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenDiagram createGenDiagram() {
 		GenDiagramImpl genDiagram = new GenDiagramImpl();
 		return genDiagram;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenPlugin createGenPlugin() {
+		GenPluginImpl genPlugin = new GenPluginImpl();
+		return genPlugin;
 	}
 
 	/**
