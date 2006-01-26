@@ -24,9 +24,7 @@ public class <%=genDiagram.getModelingAssistantProviderClassName()%> extends Mod
 	public List getTypesForPopupBar(IAdaptable host) {
 		Object editPart = host.getAdapter(IGraphicalEditPart.class);
 <%
-List containers = new ArrayList();
-containers.add(genDiagram);
-containers.addAll(genDiagram.getAllNodes());
+Collection containers = genDiagram.getAllContainers();
 for (Iterator contents = containers.iterator(); contents.hasNext(); ) {
 	GenContainerBase genContainer = (GenContainerBase) contents.next();
 	List children = new ArrayList(genContainer.getContainedNodes());

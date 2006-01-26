@@ -160,32 +160,32 @@ public class TaiPanElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Aquatory_79 = new MetamodelType("Aquatory_79", null, "Aquatory_79", TaiPanPackage.eINSTANCE.getAquatory(), new NullEditHelper());
+	public static final IMetamodelType Aquatory_79 = new MetamodelType("Aquatory_79", null, "Aquatory", TaiPanPackage.eINSTANCE.getAquatory(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Item_2001 = new MetamodelType("Item_2001", null, "Item_2001", TaiPanPackage.eINSTANCE.getItem(), new NullEditHelper());
+	public static final IMetamodelType Item_2001 = new MetamodelType("Item_2001", null, "Item", TaiPanPackage.eINSTANCE.getItem(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Port_1001 = new MetamodelType("Port_1001", null, "Port_1001", TaiPanPackage.eINSTANCE.getPort(), new NullEditHelper());
+	public static final IMetamodelType Port_1001 = new MetamodelType("Port_1001", null, "Port", TaiPanPackage.eINSTANCE.getPort(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Ship_1002 = new MetamodelType("Ship_1002", null, "Ship_1002", TaiPanPackage.eINSTANCE.getShip(), new NullEditHelper());
+	public static final IMetamodelType Ship_1002 = new MetamodelType("Ship_1002", null, "Ship", TaiPanPackage.eINSTANCE.getShip(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType ShipDestination_3001 = new MetamodelType("ShipDestination_3001", null, "ShipDestination_3001", null, new NullEditHelper());
+	public static final IMetamodelType ShipDestination_3001 = new MetamodelType("ShipDestination_3001", null, "ShipDestination", null, new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Route_3002 = new MetamodelType("Route_3002", null, "Route_3002", TaiPanPackage.eINSTANCE.getRoute(), new NullEditHelper());
+	public static final IMetamodelType Route_3002 = new MetamodelType("Route_3002", null, "Route", TaiPanPackage.eINSTANCE.getRoute(), new NullEditHelper());
 
 	/**
 	 * @generated

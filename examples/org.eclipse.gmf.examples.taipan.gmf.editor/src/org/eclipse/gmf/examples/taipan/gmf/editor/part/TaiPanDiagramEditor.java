@@ -18,6 +18,7 @@ import org.eclipse.gef.LayerConstants;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.editor.FileDiagramEditor;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.ide.IGotoMarker;
 import org.eclipse.gef.palette.PaletteRoot;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.TaiPanEditPartFactory;
@@ -25,7 +26,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.TaiPanEditPartFacto
 /**
  * @generated
  */
-public class TaiPanDiagramEditor extends FileDiagramEditor {
+public class TaiPanDiagramEditor extends FileDiagramEditor implements IGotoMarker {
 
 	/**
 	 * @generated

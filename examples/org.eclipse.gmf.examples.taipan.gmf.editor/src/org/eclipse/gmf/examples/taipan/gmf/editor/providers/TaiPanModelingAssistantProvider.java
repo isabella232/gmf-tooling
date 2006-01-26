@@ -17,7 +17,10 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_CargoCompartmentEditPart;
+
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.emf.ui.services.modelingassistant.ModelingAssistantProvider;
 
@@ -31,15 +34,75 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 	 */
 	public List getTypesForPopupBar(IAdaptable host) {
 		Object editPart = host.getAdapter(IGraphicalEditPart.class);
+		if (editPart instanceof ShipEditPart) {
+			List children = new ArrayList();
+			children.add(TaiPanElementTypes.Item_2001);
+			return children;
+		}
+		if (editPart instanceof Ship_CargoCompartmentEditPart) {
+			List children = new ArrayList();
+			children.add(TaiPanElementTypes.Item_2001);
+			return children;
+		}
 		if (editPart instanceof AquatoryEditPart) {
 			List children = new ArrayList();
 			children.add(TaiPanElementTypes.Port_1001);
 			children.add(TaiPanElementTypes.Ship_1002);
 			return children;
 		}
-		if (editPart instanceof ShipEditPart) {
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List getRelTypesOnSource(IAdaptable source) {
+		Object sourceEditPart = source.getAdapter(IGraphicalEditPart.class);
+		if (sourceEditPart instanceof PortEditPart) {
 			List children = new ArrayList();
-			children.add(TaiPanElementTypes.Item_2001);
+			children.add(TaiPanElementTypes.Route_3002);
+			return children;
+		}
+		if (sourceEditPart instanceof ShipEditPart) {
+			List children = new ArrayList();
+			children.add(TaiPanElementTypes.ShipDestination_3001);
+			return children;
+		}
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List getRelTypesOnTarget(IAdaptable target) {
+		Object targetEditPart = target.getAdapter(IGraphicalEditPart.class);
+		if (targetEditPart instanceof PortEditPart) {
+			List children = new ArrayList();
+			children.add(TaiPanElementTypes.ShipDestination_3001);
+			children.add(TaiPanElementTypes.Route_3002);
+			return children;
+		}
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List getRelTypesOnSourceAndTarget(IAdaptable source, IAdaptable target) {
+		Object sourceEditPart = source.getAdapter(IGraphicalEditPart.class);
+		Object targetEditPart = target.getAdapter(IGraphicalEditPart.class);
+		if (sourceEditPart instanceof PortEditPart) {
+			List children = new ArrayList();
+			if (targetEditPart instanceof PortEditPart) {
+				children.add(TaiPanElementTypes.Route_3002);
+			}
+			return children;
+		}
+		if (sourceEditPart instanceof ShipEditPart) {
+			List children = new ArrayList();
+			if (targetEditPart instanceof PortEditPart) {
+				children.add(TaiPanElementTypes.ShipDestination_3001);
+			}
 			return children;
 		}
 		return Collections.EMPTY_LIST;

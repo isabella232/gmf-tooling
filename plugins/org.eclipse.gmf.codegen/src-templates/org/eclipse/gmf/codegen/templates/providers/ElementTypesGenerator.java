@@ -160,7 +160,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
     stringBuffer.append(TEXT_23);
     stringBuffer.append(genDiagram.getUniqueIdentifier());
     stringBuffer.append(TEXT_24);
-    stringBuffer.append(genDiagram.getUniqueIdentifier());
+    stringBuffer.append(genDiagram.getClassNamePrefix());
     stringBuffer.append(TEXT_25);
     stringBuffer.append(semanticPackageInterfaceName);
     stringBuffer.append(TEXT_26);
@@ -198,7 +198,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
     stringBuffer.append(TEXT_29);
     stringBuffer.append(id);
     stringBuffer.append(TEXT_30);
-    stringBuffer.append(id);
+    stringBuffer.append(((GenCommonBase) next).getClassNamePrefix());
     stringBuffer.append(TEXT_31);
     	if (semanticEntityInterfaceName != null) {
     stringBuffer.append(TEXT_32);

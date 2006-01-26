@@ -185,113 +185,113 @@ public class EcoreElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EPackage_79 = new MetamodelType("EPackage_79", null, "EPackage_79", EcorePackage.eINSTANCE.getEPackage(), new NullEditHelper());
+	public static final IMetamodelType EPackage_79 = new MetamodelType("EPackage_79", null, "EPackage", EcorePackage.eINSTANCE.getEPackage(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EAttribute_2001 = new MetamodelType("EAttribute_2001", null, "EAttribute_2001", EcorePackage.eINSTANCE.getEAttribute(), new NullEditHelper());
+	public static final IMetamodelType EAttribute_2001 = new MetamodelType("EAttribute_2001", null, "EAttribute", EcorePackage.eINSTANCE.getEAttribute(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EOperation_2002 = new MetamodelType("EOperation_2002", null, "EOperation_2002", EcorePackage.eINSTANCE.getEOperation(), new NullEditHelper());
+	public static final IMetamodelType EOperation_2002 = new MetamodelType("EOperation_2002", null, "EOperation", EcorePackage.eINSTANCE.getEOperation(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EAnnotation_2003 = new MetamodelType("EAnnotation_2003", null, "EAnnotation_2003", EcorePackage.eINSTANCE.getEAnnotation(), new NullEditHelper());
+	public static final IMetamodelType EAnnotation_2003 = new MetamodelType("EAnnotation_2003", null, "EAnnotation", EcorePackage.eINSTANCE.getEAnnotation(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EClass_2004 = new MetamodelType("EClass_2004", null, "EClass_2004", EcorePackage.eINSTANCE.getEClass(), new NullEditHelper());
+	public static final IMetamodelType EClass_2004 = new MetamodelType("EClass_2004", null, "EClass", EcorePackage.eINSTANCE.getEClass(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EPackage_2005 = new MetamodelType("EPackage_2005", null, "EPackage_2005", EcorePackage.eINSTANCE.getEPackage(), new NullEditHelper());
+	public static final IMetamodelType EPackage_2005 = new MetamodelType("EPackage_2005", null, "EPackage", EcorePackage.eINSTANCE.getEPackage(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EDataType_2006 = new MetamodelType("EDataType_2006", null, "EDataType_2006", EcorePackage.eINSTANCE.getEDataType(), new NullEditHelper());
+	public static final IMetamodelType EDataType_2006 = new MetamodelType("EDataType_2006", null, "EDataType", EcorePackage.eINSTANCE.getEDataType(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EEnum_2007 = new MetamodelType("EEnum_2007", null, "EEnum_2007", EcorePackage.eINSTANCE.getEEnum(), new NullEditHelper());
+	public static final IMetamodelType EEnum_2007 = new MetamodelType("EEnum_2007", null, "EEnum", EcorePackage.eINSTANCE.getEEnum(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EAnnotation_2008 = new MetamodelType("EAnnotation_2008", null, "EAnnotation_2008", EcorePackage.eINSTANCE.getEAnnotation(), new NullEditHelper());
+	public static final IMetamodelType EAnnotation_2008 = new MetamodelType("EAnnotation_2008", null, "EAnnotation", EcorePackage.eINSTANCE.getEAnnotation(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EStringToStringMapEntry_2009 = new MetamodelType("EStringToStringMapEntry_2009", null, "EStringToStringMapEntry_2009", EcorePackage.eINSTANCE
+	public static final IMetamodelType EStringToStringMapEntry_2009 = new MetamodelType("EStringToStringMapEntry_2009", null, "EStringToStringMapEntry", EcorePackage.eINSTANCE
 			.getEStringToStringMapEntry(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EAnnotation_2010 = new MetamodelType("EAnnotation_2010", null, "EAnnotation_2010", EcorePackage.eINSTANCE.getEAnnotation(), new NullEditHelper());
+	public static final IMetamodelType EAnnotation_2010 = new MetamodelType("EAnnotation_2010", null, "EAnnotation", EcorePackage.eINSTANCE.getEAnnotation(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EEnumLiteral_2011 = new MetamodelType("EEnumLiteral_2011", null, "EEnumLiteral_2011", EcorePackage.eINSTANCE.getEEnumLiteral(), new NullEditHelper());
+	public static final IMetamodelType EEnumLiteral_2011 = new MetamodelType("EEnumLiteral_2011", null, "EEnumLiteral", EcorePackage.eINSTANCE.getEEnumLiteral(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EAnnotation_2012 = new MetamodelType("EAnnotation_2012", null, "EAnnotation_2012", EcorePackage.eINSTANCE.getEAnnotation(), new NullEditHelper());
+	public static final IMetamodelType EAnnotation_2012 = new MetamodelType("EAnnotation_2012", null, "EAnnotation", EcorePackage.eINSTANCE.getEAnnotation(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EClass_1001 = new MetamodelType("EClass_1001", null, "EClass_1001", EcorePackage.eINSTANCE.getEClass(), new NullEditHelper());
+	public static final IMetamodelType EClass_1001 = new MetamodelType("EClass_1001", null, "EClass", EcorePackage.eINSTANCE.getEClass(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EPackage_1002 = new MetamodelType("EPackage_1002", null, "EPackage_1002", EcorePackage.eINSTANCE.getEPackage(), new NullEditHelper());
+	public static final IMetamodelType EPackage_1002 = new MetamodelType("EPackage_1002", null, "EPackage", EcorePackage.eINSTANCE.getEPackage(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EAnnotation_1003 = new MetamodelType("EAnnotation_1003", null, "EAnnotation_1003", EcorePackage.eINSTANCE.getEAnnotation(), new NullEditHelper());
+	public static final IMetamodelType EAnnotation_1003 = new MetamodelType("EAnnotation_1003", null, "EAnnotation", EcorePackage.eINSTANCE.getEAnnotation(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EDataType_1004 = new MetamodelType("EDataType_1004", null, "EDataType_1004", EcorePackage.eINSTANCE.getEDataType(), new NullEditHelper());
+	public static final IMetamodelType EDataType_1004 = new MetamodelType("EDataType_1004", null, "EDataType", EcorePackage.eINSTANCE.getEDataType(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EEnum_1005 = new MetamodelType("EEnum_1005", null, "EEnum_1005", EcorePackage.eINSTANCE.getEEnum(), new NullEditHelper());
+	public static final IMetamodelType EEnum_1005 = new MetamodelType("EEnum_1005", null, "EEnum", EcorePackage.eINSTANCE.getEEnum(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EAnnotationReferences_3001 = new MetamodelType("EAnnotationReferences_3001", null, "EAnnotationReferences_3001", null, new NullEditHelper());
+	public static final IMetamodelType EAnnotationReferences_3001 = new MetamodelType("EAnnotationReferences_3001", null, "EAnnotationReferences", null, new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EReference_3002 = new MetamodelType("EReference_3002", null, "EReference_3002", EcorePackage.eINSTANCE.getEReference(), new NullEditHelper());
+	public static final IMetamodelType EReference_3002 = new MetamodelType("EReference_3002", null, "EReference", EcorePackage.eINSTANCE.getEReference(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EReference_3003 = new MetamodelType("EReference_3003", null, "EReference_3003", EcorePackage.eINSTANCE.getEReference(), new NullEditHelper());
+	public static final IMetamodelType EReference_3003 = new MetamodelType("EReference_3003", null, "EReference", EcorePackage.eINSTANCE.getEReference(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EClassESuperTypes_3004 = new MetamodelType("EClassESuperTypes_3004", null, "EClassESuperTypes_3004", null, new NullEditHelper());
+	public static final IMetamodelType EClassESuperTypes_3004 = new MetamodelType("EClassESuperTypes_3004", null, "EClassESuperTypes", null, new NullEditHelper());
 
 	/**
 	 * @generated

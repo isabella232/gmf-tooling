@@ -171,8 +171,8 @@ final GenModel genModel = genDiagram.getEMFGenModel();
          <Priority name="Medium"/>
       </IconProvider>
    </extension>
-   
 <%if(genDiagram.isValidationEnabled()) {%>
+
    <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
       <MarkerNavigationProvider class="<%=genDiagram.getMarkerNavigationProviderQualifiedClassName()%>">
          <MarkerType name="<%=genDiagram.getPluginID() + "." + genDiagram.getValidationDiagnosticMarkerType()%>"/>
@@ -198,6 +198,5 @@ final GenModel genModel = genDiagram.getEMFGenModel();
       <persistent value="true"/>      
    </extension>
 <%}%>
-
    <%@ include file="ConstraintProviders.jetinc"%>
 </plugin>

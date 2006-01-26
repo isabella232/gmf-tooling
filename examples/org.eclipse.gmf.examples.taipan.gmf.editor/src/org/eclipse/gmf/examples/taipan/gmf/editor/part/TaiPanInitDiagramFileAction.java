@@ -261,10 +261,11 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	private void createCargoCompartment_5001Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
+		int nodeVID;
 		for (Iterator values = ((Ship) modelObject).getCargo().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (2001 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
@@ -280,10 +281,11 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	private void createAquatory_79Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
+		int nodeVID;
 		for (Iterator values = ((Aquatory) modelObject).getPorts().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (1001 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
@@ -293,7 +295,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 		for (Iterator values = ((Aquatory) modelObject).getShips().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = TaiPanVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (1002 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);

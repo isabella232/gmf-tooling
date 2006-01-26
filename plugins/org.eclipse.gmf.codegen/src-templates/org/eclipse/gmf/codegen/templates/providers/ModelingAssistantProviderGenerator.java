@@ -70,9 +70,7 @@ public class ModelingAssistantProviderGenerator
     stringBuffer.append(genDiagram.getModelingAssistantProviderClassName());
     stringBuffer.append(TEXT_5);
     
-List containers = new ArrayList();
-containers.add(genDiagram);
-containers.addAll(genDiagram.getAllNodes());
+Collection containers = genDiagram.getAllContainers();
 for (Iterator contents = containers.iterator(); contents.hasNext(); ) {
 	GenContainerBase genContainer = (GenContainerBase) contents.next();
 	List children = new ArrayList(genContainer.getContainedNodes());

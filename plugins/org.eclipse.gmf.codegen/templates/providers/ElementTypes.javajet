@@ -174,7 +174,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	 * @generated
 	 */
 	public static final IMetamodelType <%=genDiagram.getUniqueIdentifier()%> = new MetamodelType(
-		"<%=genDiagram.getUniqueIdentifier()%>", null, "<%=genDiagram.getUniqueIdentifier()%>",
+		"<%=genDiagram.getUniqueIdentifier()%>", null, "<%=genDiagram.getClassNamePrefix()%>",
 		<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>(),
 		new NullEditHelper());
 <%
@@ -208,7 +208,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType <%=id%> = new MetamodelType("<%=id%>", null, "<%=id%>",
+	public static final IMetamodelType <%=id%> = new MetamodelType("<%=id%>", null, "<%=((GenCommonBase) next).getClassNamePrefix()%>",
 <%	if (semanticEntityInterfaceName != null) {%>
 		<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticEntityInterfaceName%>(),
 <%	} else { %>

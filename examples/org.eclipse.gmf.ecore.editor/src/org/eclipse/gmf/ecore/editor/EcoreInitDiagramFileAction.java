@@ -399,10 +399,11 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	private void createAttributes_5001Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
+		int nodeVID;
 		for (Iterator values = ((EClass) modelObject).getEAttributes().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (2001 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
@@ -418,10 +419,11 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	private void createOperations_5002Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
+		int nodeVID;
 		for (Iterator values = ((EClass) modelObject).getEOperations().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (2002 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
@@ -437,10 +439,11 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	private void createClass_annotations_5003Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
+		int nodeVID;
 		for (Iterator values = ((EModelElement) modelObject).getEAnnotations().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (2003 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
@@ -456,10 +459,11 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	private void createClasses_5004Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
+		int nodeVID;
 		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (2004 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
@@ -475,10 +479,11 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	private void createPackages_5005Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
+		int nodeVID;
 		for (Iterator values = ((EPackage) modelObject).getESubpackages().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (2005 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
@@ -494,10 +499,11 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	private void createData_types_5006Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
+		int nodeVID;
 		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (2006 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
@@ -513,10 +519,11 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	private void createEnums_5007Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
+		int nodeVID;
 		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (2007 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
@@ -532,10 +539,11 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	private void createPackage_annotations_5008Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
+		int nodeVID;
 		for (Iterator values = ((EModelElement) modelObject).getEAnnotations().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (2008 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
@@ -551,10 +559,11 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	private void createDetails_5009Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
+		int nodeVID;
 		for (Iterator values = ((EAnnotation) modelObject).getDetails().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (2009 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
@@ -570,10 +579,11 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	private void createData_type_annotations_5010Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
+		int nodeVID;
 		for (Iterator values = ((EModelElement) modelObject).getEAnnotations().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (2010 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
@@ -589,10 +599,11 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	private void createLiterals_5011Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
+		int nodeVID;
 		for (Iterator values = ((EEnum) modelObject).getELiterals().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (2011 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
@@ -608,10 +619,11 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	private void createEnum_annotations_5012Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
+		int nodeVID;
 		for (Iterator values = ((EModelElement) modelObject).getEAnnotations().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (2012 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
@@ -627,10 +639,11 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	private void createEPackage_79Children(View viewObject, EObject modelObject) {
 		EObject nextValue;
 		Node nextNode;
+		int nodeVID;
 		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (1001 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
@@ -640,7 +653,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 		for (Iterator values = ((EPackage) modelObject).getESubpackages().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (1002 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
@@ -650,7 +663,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 		for (Iterator values = ((EModelElement) modelObject).getEAnnotations().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (1003 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
@@ -660,7 +673,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (1004 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
@@ -670,7 +683,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 		for (Iterator values = ((EPackage) modelObject).getEClassifiers().iterator(); values.hasNext();) {
 			nextValue = (EObject) values.next();
 
-			int nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
+			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 			if (1005 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
