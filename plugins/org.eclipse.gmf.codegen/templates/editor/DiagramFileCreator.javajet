@@ -1,10 +1,14 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="DiagramFileCreatorGenerator"
-    imports="org.eclipse.gmf.codegen.gmfgen.*"%>
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.ImportUtil"%>
 <%GenDiagram genDiagram = (GenDiagram) argument;%>
 package <%=genDiagram.getEditorPackageName()%>;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.util.IDEEditorFileCreator;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
+<%
+ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());
+importManager.markImportLocation(stringBuffer);
+%>
 
 /**
  * @generated
@@ -29,4 +33,46 @@ public class <%=genDiagram.getDiagramFileCreatorClassName()%> extends IDEEditorF
 	public String getExtension() {
 		return ".<%=genDiagram.getDiagramFileExtension()%>"; //$NON-NLS-1$
 	}
+	
+<%if (!genDiagram.isSameFileForDiagramAndModel()) {%>
+	/**
+	 * @generated
+	 */
+	public String getUniqueFileName(<%=importManager.getImportedName("org.eclipse.core.runtime.IPath")%> containerPath, String fileName) {
+		int nFileNumber = 1;
+		fileName = removeExtensionFromFileName(fileName);
+		String newFileName = fileName;
+		
+		<%=importManager.getImportedName("org.eclipse.core.runtime.IPath")%> diagramFilePath = containerPath.append(appendExtensionToFileName(newFileName));
+		<%=importManager.getImportedName("org.eclipse.core.runtime.IPath")%> modelFilePath = containerPath.append(appendExtensionToModelFileName(newFileName));
+		<%=importManager.getImportedName("org.eclipse.core.resources.IWorkspaceRoot")%> workspaceRoot = <%=importManager.getImportedName("org.eclipse.core.resources.ResourcesPlugin")%>.getWorkspace().getRoot();
+		
+		while (workspaceRoot.exists(diagramFilePath) || workspaceRoot.exists(modelFilePath)) {
+			nFileNumber++;
+			newFileName = fileName + nFileNumber;
+			diagramFilePath = containerPath.append(appendExtensionToFileName(newFileName));
+			modelFilePath = containerPath.append(appendExtensionToModelFileName(newFileName));
+		}
+		return newFileName;
+	}
+	
+	/**
+	 * @generated
+	 */
+	private String removeExtensionFromFileName(String fileName) {
+		if (fileName.endsWith(getExtension())) {
+			return fileName.substring(0, fileName.length() - getExtension().length());
+		}
+		return fileName;
+	}
+	
+	/**
+	 * @generated
+	 */
+	private String appendExtensionToModelFileName(String fileName) {
+		return fileName + ".<%=genDiagram.getDomainDiagramElement().getGenPackage().getPrefix().toLowerCase()%>";
+	}
+	
+<%}%>
 }
+<%importManager.emitSortedImports();%>

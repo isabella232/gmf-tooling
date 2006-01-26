@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.ui.services.modelingassistant.ModelingAssistantProvider;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation2EditPart;
 import org.eclipse.gmf.ecore.edit.parts.EAnnotation3EditPart;
@@ -40,107 +41,107 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 	 * @generated
 	 */
 	public List getTypesForPopupBar(IAdaptable host) {
-		Object editPart = host.getAdapter(IGraphicalEditPart.class);
+		IGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);
 		if (editPart instanceof EClassEditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EAttribute_2001);
-			children.add(EcoreElementTypes.EOperation_2002);
-			children.add(EcoreElementTypes.EAnnotation_2003);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EAttribute_2001);
+			types.add(EcoreElementTypes.EOperation_2002);
+			types.add(EcoreElementTypes.EAnnotation_2003);
+			return types;
 		}
 		if (editPart instanceof EPackage2EditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EClass_2004);
-			children.add(EcoreElementTypes.EPackage_2005);
-			children.add(EcoreElementTypes.EDataType_2006);
-			children.add(EcoreElementTypes.EEnum_2007);
-			children.add(EcoreElementTypes.EAnnotation_2008);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EClass_2004);
+			types.add(EcoreElementTypes.EPackage_2005);
+			types.add(EcoreElementTypes.EDataType_2006);
+			types.add(EcoreElementTypes.EEnum_2007);
+			types.add(EcoreElementTypes.EAnnotation_2008);
+			return types;
 		}
 		if (editPart instanceof EAnnotation3EditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EStringToStringMapEntry_2009);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EStringToStringMapEntry_2009);
+			return types;
 		}
 		if (editPart instanceof EDataType2EditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EAnnotation_2010);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EAnnotation_2010);
+			return types;
 		}
 		if (editPart instanceof EEnum2EditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EEnumLiteral_2011);
-			children.add(EcoreElementTypes.EAnnotation_2012);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EEnumLiteral_2011);
+			types.add(EcoreElementTypes.EAnnotation_2012);
+			return types;
 		}
 		if (editPart instanceof EClass_attributesEditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EAttribute_2001);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EAttribute_2001);
+			return types;
 		}
 		if (editPart instanceof EClass_operationsEditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EOperation_2002);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EOperation_2002);
+			return types;
 		}
 		if (editPart instanceof EClass_classannotationsEditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EAnnotation_2003);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EAnnotation_2003);
+			return types;
 		}
 		if (editPart instanceof EPackage_classesEditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EClass_2004);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EClass_2004);
+			return types;
 		}
 		if (editPart instanceof EPackage_packagesEditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EPackage_2005);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EPackage_2005);
+			return types;
 		}
 		if (editPart instanceof EPackage_datatypesEditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EDataType_2006);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EDataType_2006);
+			return types;
 		}
 		if (editPart instanceof EPackage_enumsEditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EEnum_2007);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EEnum_2007);
+			return types;
 		}
 		if (editPart instanceof EPackage_packageannotationsEditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EAnnotation_2008);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EAnnotation_2008);
+			return types;
 		}
 		if (editPart instanceof EAnnotation_detailsEditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EStringToStringMapEntry_2009);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EStringToStringMapEntry_2009);
+			return types;
 		}
 		if (editPart instanceof EDataType_datatypeannotationsEditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EAnnotation_2010);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EAnnotation_2010);
+			return types;
 		}
 		if (editPart instanceof EEnum_literalsEditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EEnumLiteral_2011);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EEnumLiteral_2011);
+			return types;
 		}
 		if (editPart instanceof EEnum_enumannotationsEditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EAnnotation_2012);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EAnnotation_2012);
+			return types;
 		}
 		if (editPart instanceof EPackageEditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EClass_1001);
-			children.add(EcoreElementTypes.EPackage_1002);
-			children.add(EcoreElementTypes.EAnnotation_1003);
-			children.add(EcoreElementTypes.EDataType_1004);
-			children.add(EcoreElementTypes.EEnum_1005);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EClass_1001);
+			types.add(EcoreElementTypes.EPackage_1002);
+			types.add(EcoreElementTypes.EAnnotation_1003);
+			types.add(EcoreElementTypes.EDataType_1004);
+			types.add(EcoreElementTypes.EEnum_1005);
+			return types;
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -149,45 +150,45 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 	 * @generated
 	 */
 	public List getRelTypesOnSource(IAdaptable source) {
-		Object sourceEditPart = source.getAdapter(IGraphicalEditPart.class);
-		if (sourceEditPart instanceof EClassEditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EReference_3002);
-			children.add(EcoreElementTypes.EReference_3003);
-			children.add(EcoreElementTypes.EClassESuperTypes_3004);
-			return children;
+		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
+		if (sourceEditPart instanceof EAnnotationEditPart) {
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EAnnotationReferences_3001);
+			return types;
 		}
 		if (sourceEditPart instanceof EAnnotation4EditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EAnnotationReferences_3001);
-			return children;
-		}
-		if (sourceEditPart instanceof EAnnotation2EditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EAnnotationReferences_3001);
-			return children;
-		}
-		if (sourceEditPart instanceof EAnnotationEditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EAnnotationReferences_3001);
-			return children;
-		}
-		if (sourceEditPart instanceof EAnnotation5EditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EAnnotationReferences_3001);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EAnnotationReferences_3001);
+			return types;
 		}
 		if (sourceEditPart instanceof EAnnotation3EditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EAnnotationReferences_3001);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EAnnotationReferences_3001);
+			return types;
+		}
+		if (sourceEditPart instanceof EClassEditPart) {
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EReference_3003);
+			types.add(EcoreElementTypes.EReference_3002);
+			types.add(EcoreElementTypes.EClassESuperTypes_3004);
+			return types;
+		}
+		if (sourceEditPart instanceof EAnnotation5EditPart) {
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EAnnotationReferences_3001);
+			return types;
 		}
 		if (sourceEditPart instanceof EClass2EditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EReference_3002);
-			children.add(EcoreElementTypes.EReference_3003);
-			children.add(EcoreElementTypes.EClassESuperTypes_3004);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EReference_3003);
+			types.add(EcoreElementTypes.EReference_3002);
+			types.add(EcoreElementTypes.EClassESuperTypes_3004);
+			return types;
+		}
+		if (sourceEditPart instanceof EAnnotation2EditPart) {
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EAnnotationReferences_3001);
+			return types;
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -196,16 +197,16 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 	 * @generated
 	 */
 	public List getRelTypesOnTarget(IAdaptable target) {
-		Object targetEditPart = target.getAdapter(IGraphicalEditPart.class);
+		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
 		if (targetEditPart instanceof EClassEditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EClassESuperTypes_3004);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EClassESuperTypes_3004);
+			return types;
 		}
 		if (targetEditPart instanceof EClass2EditPart) {
-			List children = new ArrayList();
-			children.add(EcoreElementTypes.EClassESuperTypes_3004);
-			return children;
+			List types = new ArrayList();
+			types.add(EcoreElementTypes.EClassESuperTypes_3004);
+			return types;
 		}
 		return Collections.EMPTY_LIST;
 	}
@@ -214,47 +215,123 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 	 * @generated
 	 */
 	public List getRelTypesOnSourceAndTarget(IAdaptable source, IAdaptable target) {
-		Object sourceEditPart = source.getAdapter(IGraphicalEditPart.class);
-		Object targetEditPart = target.getAdapter(IGraphicalEditPart.class);
-		if (sourceEditPart instanceof EClassEditPart) {
-			List children = new ArrayList();
-			if (targetEditPart instanceof EClassEditPart) {
-				children.add(EcoreElementTypes.EClassESuperTypes_3004);
-			}
-			if (targetEditPart instanceof EClass2EditPart) {
-				children.add(EcoreElementTypes.EClassESuperTypes_3004);
-			}
-			return children;
+		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
+		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
+		if (sourceEditPart instanceof EAnnotationEditPart) {
+			List types = new ArrayList();
+			return types;
 		}
 		if (sourceEditPart instanceof EAnnotation4EditPart) {
-			List children = new ArrayList();
-			return children;
-		}
-		if (sourceEditPart instanceof EAnnotation2EditPart) {
-			List children = new ArrayList();
-			return children;
-		}
-		if (sourceEditPart instanceof EAnnotationEditPart) {
-			List children = new ArrayList();
-			return children;
-		}
-		if (sourceEditPart instanceof EAnnotation5EditPart) {
-			List children = new ArrayList();
-			return children;
+			List types = new ArrayList();
+			return types;
 		}
 		if (sourceEditPart instanceof EAnnotation3EditPart) {
-			List children = new ArrayList();
-			return children;
+			List types = new ArrayList();
+			return types;
 		}
-		if (sourceEditPart instanceof EClass2EditPart) {
-			List children = new ArrayList();
+		if (sourceEditPart instanceof EClassEditPart) {
+			List types = new ArrayList();
 			if (targetEditPart instanceof EClassEditPart) {
-				children.add(EcoreElementTypes.EClassESuperTypes_3004);
+				types.add(EcoreElementTypes.EClassESuperTypes_3004);
 			}
 			if (targetEditPart instanceof EClass2EditPart) {
-				children.add(EcoreElementTypes.EClassESuperTypes_3004);
+				types.add(EcoreElementTypes.EClassESuperTypes_3004);
 			}
-			return children;
+			return types;
+		}
+		if (sourceEditPart instanceof EAnnotation5EditPart) {
+			List types = new ArrayList();
+			return types;
+		}
+		if (sourceEditPart instanceof EClass2EditPart) {
+			List types = new ArrayList();
+			if (targetEditPart instanceof EClassEditPart) {
+				types.add(EcoreElementTypes.EClassESuperTypes_3004);
+			}
+			if (targetEditPart instanceof EClass2EditPart) {
+				types.add(EcoreElementTypes.EClassESuperTypes_3004);
+			}
+			return types;
+		}
+		if (sourceEditPart instanceof EAnnotation2EditPart) {
+			List types = new ArrayList();
+			return types;
+		}
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List getTypesForSource(IAdaptable target, IElementType relationshipType) {
+		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
+		if (targetEditPart instanceof EClassEditPart) {
+			List types = new ArrayList();
+			if (relationshipType == EcoreElementTypes.EClassESuperTypes_3004) {
+				types.add(EcoreElementTypes.EClass_1001);
+			}
+			if (relationshipType == EcoreElementTypes.EClassESuperTypes_3004) {
+				types.add(EcoreElementTypes.EClass_2004);
+			}
+			return types;
+		}
+		if (targetEditPart instanceof EClass2EditPart) {
+			List types = new ArrayList();
+			if (relationshipType == EcoreElementTypes.EClassESuperTypes_3004) {
+				types.add(EcoreElementTypes.EClass_1001);
+			}
+			if (relationshipType == EcoreElementTypes.EClassESuperTypes_3004) {
+				types.add(EcoreElementTypes.EClass_2004);
+			}
+			return types;
+		}
+		return Collections.EMPTY_LIST;
+	}
+
+	/**
+	 * @generated
+	 */
+	public List getTypesForTarget(IAdaptable source, IElementType relationshipType) {
+		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
+		if (sourceEditPart instanceof EAnnotationEditPart) {
+			List types = new ArrayList();
+			return types;
+		}
+		if (sourceEditPart instanceof EAnnotation4EditPart) {
+			List types = new ArrayList();
+			return types;
+		}
+		if (sourceEditPart instanceof EAnnotation3EditPart) {
+			List types = new ArrayList();
+			return types;
+		}
+		if (sourceEditPart instanceof EClassEditPart) {
+			List types = new ArrayList();
+			if (relationshipType == EcoreElementTypes.EClassESuperTypes_3004) {
+				types.add(EcoreElementTypes.EClass_1001);
+			}
+			if (relationshipType == EcoreElementTypes.EClassESuperTypes_3004) {
+				types.add(EcoreElementTypes.EClass_2004);
+			}
+			return types;
+		}
+		if (sourceEditPart instanceof EAnnotation5EditPart) {
+			List types = new ArrayList();
+			return types;
+		}
+		if (sourceEditPart instanceof EClass2EditPart) {
+			List types = new ArrayList();
+			if (relationshipType == EcoreElementTypes.EClassESuperTypes_3004) {
+				types.add(EcoreElementTypes.EClass_1001);
+			}
+			if (relationshipType == EcoreElementTypes.EClassESuperTypes_3004) {
+				types.add(EcoreElementTypes.EClass_2004);
+			}
+			return types;
+		}
+		if (sourceEditPart instanceof EAnnotation2EditPart) {
+			List types = new ArrayList();
+			return types;
 		}
 		return Collections.EMPTY_LIST;
 	}

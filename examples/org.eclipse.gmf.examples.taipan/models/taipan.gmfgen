@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gmfgen:GenDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel" visualID="79" editPartClassName="AquatoryEditPart" itemSemanticEditPolicyClassName="AquatoryItemSemanticEditPolicy" notationViewFactoryClassName="AquatoryViewFactory" pluginName="taipan Plugin" canonicalEditPolicyClassName="AquatoryCanonicalEditPolicy">
+<gmfgen:GenDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel" visualID="79" editPartClassName="AquatoryEditPart" itemSemanticEditPolicyClassName="AquatoryItemSemanticEditPolicy" notationViewFactoryClassName="AquatoryViewFactory" canonicalEditPolicyClassName="AquatoryCanonicalEditPolicy">
   <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
   <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
   <domainMetaModel href="taipan.genmodel#//taipan"/>
   <domainDiagramElement href="taipan.genmodel#//taipan/Aquatory"/>
   <childNodes visualID="2001" editPartClassName="ItemEditPart" itemSemanticEditPolicyClassName="ItemItemSemanticEditPolicy" notationViewFactoryClassName="ItemViewFactory" canonicalEditPolicyClassName="ItemCanonicalEditPolicy" graphicalNodeEditPolicyClassName="ItemGraphicalNodeEditPolicy" containers="//@compartments.0">
     <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+    <viewmap xsi:type="gmfgen:InnerClassViewmap" className="innerLabel" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class innerLabel extends org.eclipse.draw2d.Label {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public innerLabel() {&#xD;&#xA;&#x9;&#x9;super();&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
     <modelFacet>
       <metaClass href="taipan.genmodel#//taipan/Item"/>
       <containmentMetaFeature href="taipan.genmodel#//taipan/Ship/cargo"/>
@@ -97,4 +97,5 @@
       <linkTools titleKey="Route" descriptionKey="Create Route link" entryID="2002" genLink="//@links.1"/>
     </groups>
   </palette>
+  <plugin name="taipan Plugin"/>
 </gmfgen:GenDiagram>

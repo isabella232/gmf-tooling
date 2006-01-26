@@ -22,6 +22,8 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 
+import org.eclipse.core.resources.ResourcesPlugin;
+
 /**
  * @generated
  */
@@ -64,4 +66,26 @@ public class TaiPanCreationWizardPage extends EditorWizardPage {
 	protected String getDiagramKind() {
 		return "TaiPan"; //$NON-NLS-1$
 	}
+
+	/**
+	 * @generated
+	 */
+	protected boolean validatePage() {
+		if (super.validatePage()) {
+			String fileName = getFileName();
+			if (fileName == null) {
+				return false;
+			}
+			// appending file extension to correctly process file names including "." symbol
+			IPath path = getContainerFullPath().append(getDiagramFileCreator().appendExtensionToFileName(fileName));
+			path = path.removeFileExtension().addFileExtension("taipan"); //$NON-NLS-1$
+			if (ResourcesPlugin.getWorkspace().getRoot().exists(path)) {
+				setErrorMessage("Model File already exists: " + path.lastSegment());
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
+
 }

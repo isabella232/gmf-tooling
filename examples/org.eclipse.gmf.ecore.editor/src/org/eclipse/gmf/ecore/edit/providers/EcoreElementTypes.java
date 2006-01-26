@@ -14,6 +14,12 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.swt.graphics.Image;
+import java.util.Collection;
+
+import org.eclipse.emf.common.util.BasicEList;
+
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -434,6 +440,11 @@ public class EcoreElementTypes {
 					this.query = QueryFactory.eINSTANCE.createQuery(expressionBody, contextClass);
 				}
 				Object value = query.evaluate(contextInstance);
+				if (sFeature.getEType() instanceof EEnum && value instanceof EEnumLiteral) {
+					value = ((EEnumLiteral) value).getInstance();
+				} else if (value != null && sFeature.isMany()) {
+					value = new BasicEList((Collection) value);
+				}
 				contextInstance.eSet(sFeature, value);
 			}
 		} // end of FeatureInitializer

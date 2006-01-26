@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gmfgen:GenDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel" visualID="79" editPartClassName="EPackageEditPart" itemSemanticEditPolicyClassName="EPackageItemSemanticEditPolicy" notationViewFactoryClassName="EPackageViewFactory" editCommandsPackageName="org.eclipse.gmf.ecore.editor.edit.commands" editPartsPackageName="org.eclipse.gmf.ecore.edit.parts" editPoliciesPackageName="org.eclipse.gmf.ecore.edit.policies" editorPackageName="org.eclipse.gmf.ecore.editor" providersPackageName="org.eclipse.gmf.ecore.edit.providers" notationViewFactoriesPackageName="org.eclipse.gmf.ecore.editor.view.factories" pluginID="org.eclipse.gmf.ecore.editor" pluginName="ECore Sample Diagram Plugin" providerName="Eclipse.org" printingEnabled="true" canonicalEditPolicyClassName="EPackageCanonicalEditPolicy">
+<gmfgen:GenDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel" visualID="79" editPartClassName="EPackageEditPart" itemSemanticEditPolicyClassName="EPackageItemSemanticEditPolicy" notationViewFactoryClassName="EPackageViewFactory" editCommandsPackageName="org.eclipse.gmf.ecore.editor.edit.commands" editPartsPackageName="org.eclipse.gmf.ecore.edit.parts" editPoliciesPackageName="org.eclipse.gmf.ecore.edit.policies" editorPackageName="org.eclipse.gmf.ecore.editor" providersPackageName="org.eclipse.gmf.ecore.edit.providers" notationViewFactoriesPackageName="org.eclipse.gmf.ecore.editor.view.factories" canonicalEditPolicyClassName="EPackageCanonicalEditPolicy">
   <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
   <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
+  <containsShortcutsTo>ecore</containsShortcutsTo>
+  <shortcutsProvidedFor>Ecore</shortcutsProvidedFor>
   <domainMetaModel href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore"/>
   <domainDiagramElement href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage"/>
   <childNodes visualID="2001" editPartClassName="EAttributeEditPart" itemSemanticEditPolicyClassName="EAttributeItemSemanticEditPolicy" notationViewFactoryClassName="EAttributeViewFactory" canonicalEditPolicyClassName="EAttributeCanonicalEditPolicy" graphicalNodeEditPolicyClassName="EAttributeGraphicalNodeEditPolicy" containers="//@compartments.0">
@@ -408,6 +410,5 @@
       <linkTools titleKey="Generalization" descriptionKey="Create Generalization link" entryID="2004" genLink="//@links.3"/>
     </groups>
   </palette>
-  <containsShortcutsTo>ecore</containsShortcutsTo>
-  <shortcutsProvidedFor>Ecore</shortcutsProvidedFor>
+  <plugin iD="org.eclipse.gmf.ecore.editor" name="ECore Sample Diagram Plugin" provider="Eclipse.org" printingEnabled="true"/>
 </gmfgen:GenDiagram>
