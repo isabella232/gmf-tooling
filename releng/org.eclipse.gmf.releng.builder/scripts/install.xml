@@ -57,16 +57,36 @@
 	</target>
 
 	<target name="installEMF" unless="emfExists" depends="checkEMFInstalled">
-<!-- 
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfFeatureId}" />
-			<property name="version" value="${fullEmfVersion}" />
+			<property name="version" value="${emfUpdateVersion}" />
 			<property name="updateSite" value="${emfUpdateSite}" />
 		</ant>
--->
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${emfOCLFeatureId}" />
+			<property name="version" value="${emfOCLUpdateVersion}" />
+			<property name="updateSite" value="${emfOCLUpdateSite}" />
+		</ant>
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${emfQueryFeatureId}" />
+			<property name="version" value="${emfQueryUpdateVersion}" />
+			<property name="updateSite" value="${emfQueryUpdateSite}" />
+		</ant>
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${emfValidationFeatureId}" />
+			<property name="version" value="${emfValidationUpdateVersion}" />
+			<property name="updateSite" value="${emfValidationUpdateSite}" />
+		</ant>
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${emfTransactionFeatureId}" />
+			<property name="version" value="${emfTransactionUpdateVersion}" />
+			<property name="updateSite" value="${emfTransactionUpdateSite}" />
+		</ant>
+<!-- Alternative, download zip method
 		<available file="${baseLocationRoot}/${emfZipName}" property="emfZipExists" />
 		<antcall target="getEMF"/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfZipName}" />
+-->		
 	</target>
 	
 	<target name="getEMF" unless="emfZipExists">
@@ -78,9 +98,16 @@
 	</target>
 	
 	<target name="installEMFExamples" unless="emfExampleExists" depends="checkEMFExamplesInstalled">
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${emfExamplesFeatureId}" />
+			<property name="version" value="${emfUpdateVersion}" />
+			<property name="updateSite" value="${emfUpdateSite}" />
+		</ant>
+<!-- Alternative, download zip method
 		<available file="${baseLocationRoot}/${emfExamplesZipName}" property="emfExamplesZipExists" />
 		<antcall target="getEMFExamples"/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfExamplesZipName}" />
+-->
 	</target>
 	
 	<target name="getEMFExamples" unless="emfExamplesZipExists">
@@ -113,16 +140,16 @@
 	</target>
 
 	<target name="installUML2" unless="uml2Exists" depends="checkUML2Installed">
-<!--
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${uml2FeatureId}" />
-			<property name="version" value="${uml2Version}" />
+			<property name="version" value="${uml2UpdateVersion}" />
 			<property name="updateSite" value="${uml2UpdateSite}" />
 		</ant>
--->
+<!-- Alternative, download zip method
 		<available file="${baseLocationRoot}/${uml2ZipName}" property="uml2ZipExists" />
 		<antcall target="getUML2"/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${uml2ZipName}" />	
+-->
 	</target>
 			
 	<target name="getUML2" unless="uml2ZipExists">

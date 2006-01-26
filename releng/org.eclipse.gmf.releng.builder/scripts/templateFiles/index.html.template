@@ -49,6 +49,22 @@
       <td>(<a href="@gefDownloadPage@">build page</>, <a href="@gefUpdateSite@">update site</a>)</td>
     </tr>
     <tr>
+      <td>EMF OCL build @emfOCLBuildId@:</td>
+      <td>(<a href="@emfOCLDownloadPage@">build page</>, <a href="@emfOCLUpdateSite@">update site</a>)</td>
+    </tr>
+    <tr>
+      <td>EMF Validation build @emfValidationBuildId@:</td>
+      <td>(<a href="@emfValidationDownloadPage@">build page</>, <a href="@emfValidationUpdateSite@">update site</a>)</td>
+    </tr>
+    <tr>
+      <td>EMF Query build @emfQueryBuildId@:</td>
+      <td>(<a href="@emfQueryDownloadPage@">build page</>, <a href="@emfQueryUpdateSite@">update site</a>)</td>
+    </tr>
+    <tr>
+      <td>EMF Transaction build @emfTransactionBuildId@:</td>
+      <td>(<a href="@emfTransactionDownloadPage@">build page</>, <a href="@emfTransactionUpdateSite@">update site</a>)</td>
+    </tr>    
+    <tr>
       <td>UML2 Build @uml2Version@:</td>
       <td>(<a href="@uml2DownloadPage@">build page</>, <a href="@uml2UpdateSite@">update site</a>) (Note: only needed for unit tests)</td>
     </tr>
