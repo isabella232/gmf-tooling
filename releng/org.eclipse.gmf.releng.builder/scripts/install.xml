@@ -233,6 +233,6 @@
 
 	<target name="installAntlr" unless="antlrExists">
 		<antcall target="getAntlr"/>
-		<copy file="${baseLocationRoot}/antlr.jar" todir="${buildDirectory}/plugins/antlr_${antlrVersion}.${emfQueryBuildType}${emfQueryBuildDate}${emfQueryBuildTime}/lib"/>
+		<copy file="${baseLocationRoot}/antlr.jar" todir="${baseLocation}/plugins/antlr_${antlrVersion}.${emfOCLBuildType}${emfOCLBuildDate}${emfOCLBuildTime}/lib"/>
 	</target>
 </project>

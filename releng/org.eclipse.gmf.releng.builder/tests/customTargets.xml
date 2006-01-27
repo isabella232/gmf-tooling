@@ -87,7 +87,7 @@ tag="${mapsCheckoutTag}" />
 		<ant antfile="${scripts}/install.xml" target="installGMF" />
 		<ant antfile="${scripts}/install.xml" target="installExamples" />
 		<!-- TODO: Remove when dependency gone -->
-		<copy file="${baseLocationRoot}/antlr.jar" todir="${baseLocation}/plugins/antlr_2.7.2/lib"/>
+		<ant antfile="${scripts}/install.xml" target="installAntlr" />
 	</target>
 	
 	<!-- ===================================================================== -->
