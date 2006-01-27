@@ -74,11 +74,23 @@
 			<property name="version" value="${emfQueryUpdateVersion}" />
 			<property name="updateSite" value="${emfQueryUpdateSite}" />
 		</ant>
+		<echo message="Installing EMF Query OCL"/>
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${emfQueryOCLFeatureId}" />
+			<property name="version" value="${emfQueryOCLUpdateVersion}" />
+			<property name="updateSite" value="${emfQueryOCLUpdateSite}" />
+		</ant>
 		<echo message="Installing EMF Validation"/>
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfValidationFeatureId}" />
 			<property name="version" value="${emfValidationUpdateVersion}" />
 			<property name="updateSite" value="${emfValidationUpdateSite}" />
+		</ant>
+		<echo message="Installing EMF Validation OCL"/>
+		<ant antfile="${scripts}/update.xml" target="installFeature">
+			<property name="featureId" value="${emfValidationOCLFeatureId}" />
+			<property name="version" value="${emfValidationOCLUpdateVersion}" />
+			<property name="updateSite" value="${emfValidationOCLUpdateSite}" />
 		</ant>
 		<echo message="Installing EMF Transaction"/>
 		<ant antfile="${scripts}/update.xml" target="installFeature">
