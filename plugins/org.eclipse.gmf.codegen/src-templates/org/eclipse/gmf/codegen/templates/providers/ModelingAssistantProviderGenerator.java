@@ -127,8 +127,8 @@ for (Iterator contents = genDiagram.getAllContainers().iterator(); contents.hasN
 
     stringBuffer.append(TEXT_12);
     
-Map outgoingLinks = new HashMap(); // source -> links going from the source
-Map incomingLinks = new HashMap(); // target -> links coming to the target
+Map outgoingLinks = new LinkedHashMap(); // source -> links going from the source
+Map incomingLinks = new LinkedHashMap(); // target -> links coming to the target
 for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	GenLink genLink = (GenLink) links.next();
 	for (Iterator sources = genLink.getSources().iterator(); sources.hasNext(); ) {
