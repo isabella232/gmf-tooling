@@ -39,10 +39,16 @@ public class <%=genDiagram.getModelingAssistantProviderClassName()%> extends Mod
 <%
 for (Iterator contents = genDiagram.getAllContainers().iterator(); contents.hasNext(); ) {
 	GenContainerBase genContainer = (GenContainerBase) contents.next();
+	if (genContainer instanceof GenCompartment && ((GenCompartment) genContainer).isListLayout()) {
+		continue;
+	}
 	List children = new ArrayList(genContainer.getContainedNodes());
-	if (genContainer instanceof GenNode && ((GenNode) genContainer).isListLayout()) {
+	if (genContainer instanceof GenNode) {
 		for (Iterator compartments = ((GenNode) genContainer).getCompartments().iterator(); compartments.hasNext(); ) {
-			children.addAll(((GenCompartment) compartments.next()).getContainedNodes());
+			GenCompartment compartment = (GenCompartment) compartments.next();
+			if (compartment.isListLayout()) {
+				children.addAll(compartment.getContainedNodes());
+			}
 		}
 	}
 	if (!children.isEmpty()) {
