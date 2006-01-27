@@ -19,26 +19,22 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.PortEditPart;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.ShipEditPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.Ship_CargoCompartmentEditPart;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
-
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.emf.ui.services.modelingassistant.ModelingAssistantProvider;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 
 /**
  * @generated
@@ -51,11 +47,6 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 	public List getTypesForPopupBar(IAdaptable host) {
 		IGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);
 		if (editPart instanceof ShipEditPart) {
-			List types = new ArrayList();
-			types.add(TaiPanElementTypes.Item_2001);
-			return types;
-		}
-		if (editPart instanceof Ship_CargoCompartmentEditPart) {
 			List types = new ArrayList();
 			types.add(TaiPanElementTypes.Item_2001);
 			return types;
@@ -94,8 +85,8 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
 		if (targetEditPart instanceof PortEditPart) {
 			List types = new ArrayList();
-			types.add(TaiPanElementTypes.ShipDestination_3001);
 			types.add(TaiPanElementTypes.Route_3002);
+			types.add(TaiPanElementTypes.ShipDestination_3001);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -131,11 +122,11 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
 		if (targetEditPart instanceof PortEditPart) {
 			List types = new ArrayList();
-			if (relationshipType == TaiPanElementTypes.ShipDestination_3001) {
-				types.add(TaiPanElementTypes.Ship_1002);
-			}
 			if (relationshipType == TaiPanElementTypes.Route_3002) {
 				types.add(TaiPanElementTypes.Port_1001);
+			}
+			if (relationshipType == TaiPanElementTypes.ShipDestination_3001) {
+				types.add(TaiPanElementTypes.Ship_1002);
 			}
 			return types;
 		}

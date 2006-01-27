@@ -61,13 +61,25 @@
       </objectContribution>  
       <objectContribution
             adaptable="false"
-            id="org.eclipse.gmf.ecore.editor.ui.objectContribution.FileEditorInputProxy1"
+            id="org.eclipse.gmf.ecore.editor.ui.objectContribution.EPackageEditPart1"
             objectClass="org.eclipse.gmf.ecore.edit.parts.EPackageEditPart">
          <action
                class="org.eclipse.gmf.ecore.editor.EcoreCreateShortcutAction"
                enablesFor="1"
                id="org.eclipse.gmf.ecore.editor.EcoreCreateShortcutActionID"
-               label="Create Shortcut"
+               label="Create Shortcut..."
+               menubarPath="additions">
+         </action>
+      </objectContribution>                      
+      <objectContribution
+            adaptable="false"
+            id="org.eclipse.gmf.ecore.editor.ui.objectContribution.EPackageEditPart2"
+            objectClass="org.eclipse.gmf.ecore.edit.parts.EPackageEditPart">
+         <action
+               class="org.eclipse.gmf.ecore.editor.EcoreLoadResourceAction"
+               enablesFor="1"
+               id="org.eclipse.gmf.ecore.editor.EcoreLoadResourceActionID"
+               label="Load Resource..."
                menubarPath="additions">
          </action>
       </objectContribution>                      

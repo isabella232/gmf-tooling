@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getPreferenceInitializerClassName <em>Preference Initializer Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getVisualIDRegistryClassName <em>Visual ID Registry Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getElementChooserClassName <em>Element Chooser Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getLoadResourceActionClassName <em>Load Resource Action Class Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -349,6 +350,32 @@ public interface EditorCandies extends EObject {
 	void setElementChooserClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Load Resource Action Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Load Resource Action Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Load Resource Action Class Name</em>' attribute.
+	 * @see #setLoadResourceActionClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEditorCandies_LoadResourceActionClassName()
+	 * @model
+	 * @generated
+	 */
+	String getLoadResourceActionClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getLoadResourceActionClassName <em>Load Resource Action Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Load Resource Action Class Name</em>' attribute.
+	 * @see #getLoadResourceActionClassName()
+	 * @generated
+	 */
+	void setLoadResourceActionClassName(String value);
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @model kind="operation"
@@ -443,5 +470,13 @@ public interface EditorCandies extends EObject {
 	 * @generated
 	 */
 	String getElementChooserQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getLoadResourceActionQualifiedClassName();
 
 } // EditorCandies

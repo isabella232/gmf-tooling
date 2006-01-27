@@ -83,6 +83,7 @@ import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPreferenceInitializerClassName <em>Preference Initializer Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getVisualIDRegistryClassName <em>Visual ID Registry Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getElementChooserClassName <em>Element Chooser Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getLoadResourceActionClassName <em>Load Resource Action Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreateShortcutActionClassName <em>Create Shortcut Action Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getContainsShortcutsTo <em>Contains Shortcuts To</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getShortcutsProvidedFor <em>Shortcuts Provided For</em>}</li>
@@ -786,6 +787,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String elementChooserClassName = ELEMENT_CHOOSER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getLoadResourceActionClassName() <em>Load Resource Action Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLoadResourceActionClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String LOAD_RESOURCE_ACTION_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getLoadResourceActionClassName() <em>Load Resource Action Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLoadResourceActionClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String loadResourceActionClassName = LOAD_RESOURCE_ACTION_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getCreateShortcutActionClassName() <em>Create Shortcut Action Class Name</em>}' attribute.
@@ -1520,6 +1541,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		elementChooserClassName = newElementChooserClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME, oldElementChooserClassName, elementChooserClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getLoadResourceActionClassNameGen() {
+		return loadResourceActionClassName;
+	}
+
+	public String getLoadResourceActionClassName() {
+		String value = getLoadResourceActionClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "LoadResourceAction"; //$NON-NLS-1$
+		}
+		return value;
+	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLoadResourceActionClassName(String newLoadResourceActionClassName) {
+		String oldLoadResourceActionClassName = loadResourceActionClassName;
+		loadResourceActionClassName = newLoadResourceActionClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME, oldLoadResourceActionClassName, loadResourceActionClassName));
 	}
 
 	/**
@@ -2580,6 +2630,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public String getLoadResourceActionQualifiedClassName() {
+		return getEditorPackageName() + '.' + getLoadResourceActionClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public String getValidationProviderQualifiedClassName() {
 		return getProvidersPackageName() + "." + getValidationProviderClassName(); //$NON-NLS-1$
 	}
@@ -2752,6 +2811,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getVisualIDRegistryClassName();
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
 				return getElementChooserClassName();
+			case GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME:
+				return getLoadResourceActionClassName();
 			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
 				return getCreateShortcutActionClassName();
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
@@ -2904,6 +2965,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
 				setElementChooserClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME:
+				setLoadResourceActionClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
 				setCreateShortcutActionClassName((String)newValue);
@@ -3078,6 +3142,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
 				setElementChooserClassName(ELEMENT_CHOOSER_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME:
+				setLoadResourceActionClassName(LOAD_RESOURCE_ACTION_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
 				setCreateShortcutActionClassName(CREATE_SHORTCUT_ACTION_CLASS_NAME_EDEFAULT);
 				return;
@@ -3210,6 +3277,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return VISUAL_ID_REGISTRY_CLASS_NAME_EDEFAULT == null ? visualIDRegistryClassName != null : !VISUAL_ID_REGISTRY_CLASS_NAME_EDEFAULT.equals(visualIDRegistryClassName);
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
 				return ELEMENT_CHOOSER_CLASS_NAME_EDEFAULT == null ? elementChooserClassName != null : !ELEMENT_CHOOSER_CLASS_NAME_EDEFAULT.equals(elementChooserClassName);
+			case GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME:
+				return LOAD_RESOURCE_ACTION_CLASS_NAME_EDEFAULT == null ? loadResourceActionClassName != null : !LOAD_RESOURCE_ACTION_CLASS_NAME_EDEFAULT.equals(loadResourceActionClassName);
 			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
 				return CREATE_SHORTCUT_ACTION_CLASS_NAME_EDEFAULT == null ? createShortcutActionClassName != null : !CREATE_SHORTCUT_ACTION_CLASS_NAME_EDEFAULT.equals(createShortcutActionClassName);
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
@@ -3310,6 +3379,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__PREFERENCE_INITIALIZER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__VISUAL_ID_REGISTRY_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__ELEMENT_CHOOSER_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__LOAD_RESOURCE_ACTION_CLASS_NAME;
 				default: return -1;
 			}
 		}
@@ -3394,6 +3464,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.EDITOR_CANDIES__PREFERENCE_INITIALIZER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__VISUAL_ID_REGISTRY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__ELEMENT_CHOOSER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME;
+				case GMFGenPackage.EDITOR_CANDIES__LOAD_RESOURCE_ACTION_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME;
 				default: return -1;
 			}
 		}
@@ -3773,6 +3844,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(visualIDRegistryClassName);
 		result.append(", elementChooserClassName: ");
 		result.append(elementChooserClassName);
+		result.append(", loadResourceActionClassName: ");
+		result.append(loadResourceActionClassName);
 		result.append(", createShortcutActionClassName: ");
 		result.append(createShortcutActionClassName);
 		result.append(", containsShortcutsTo: ");

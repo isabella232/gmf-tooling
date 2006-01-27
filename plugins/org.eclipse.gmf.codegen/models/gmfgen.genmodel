@@ -100,6 +100,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/preferenceInitializerClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/visualIDRegistryClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/elementChooserClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/loadResourceActionClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getActionBarContributorQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getCreationWizardQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getCreationWizardPageQualifiedClassName"/>
@@ -112,6 +113,7 @@
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getPreferenceInitializerQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getVisualIDRegistryQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getElementChooserQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getLoadResourceActionQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//EditPartCandies">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditPartCandies/reorientConnectionViewCommandClassName"/>

@@ -59,6 +59,18 @@
                id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanInitDiagramFileActionID">
          </action>
       </objectContribution>  
+      <objectContribution
+            adaptable="false"
+            id="org.eclipse.gmf.examples.taipan.gmf.editor.ui.objectContribution.AquatoryEditPart2"
+            objectClass="org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart">
+         <action
+               class="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanLoadResourceAction"
+               enablesFor="1"
+               id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanLoadResourceActionID"
+               label="Load Resource..."
+               menubarPath="additions">
+         </action>
+      </objectContribution>                      
   </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">

@@ -170,6 +170,7 @@ public class Generator implements Runnable {
 			generateCreationWizardPage();
 			generateEditor();
 			generateCreateShortcutAction();
+			generateLoadResourceAction();
 			generateElementChooser();
 			generateDocumentProvider();
 			generateActionBarContributor();
@@ -199,7 +200,6 @@ public class Generator implements Runnable {
 			myExceptions = null;
 		}
 	}
-
 
 	/**
 	 * Provides information about success/failures during {@link #run()}
@@ -696,6 +696,15 @@ public class Generator implements Runnable {
 				EmitterFactory.getCreateShortcutActionEmitter(),
 				myDiagram.getEditorPackageName(), 
 				myDiagram.getCreateShortcutActionClassName(),
+				myDiagram
+			);
+	}
+	
+	private void generateLoadResourceAction() throws JETException, InterruptedException {
+		doGenerateJavaClass(
+				EmitterFactory.getLoadResourceActionEmitter(),
+				myDiagram.getEditorPackageName(), 
+				myDiagram.getLoadResourceActionClassName(),
 				myDiagram
 			);
 	}

@@ -29,6 +29,7 @@ import org.eclipse.gmf.codegen.templates.editor.DocumentProviderGenerator;
 import org.eclipse.gmf.codegen.templates.editor.EditorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ElementChooserGenerator;
 import org.eclipse.gmf.codegen.templates.editor.InitDiagramFileActionGenerator;
+import org.eclipse.gmf.codegen.templates.editor.LoadResourceActionGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ManifestGenerator;
 import org.eclipse.gmf.codegen.templates.editor.MatchingStrategyGenerator;
 import org.eclipse.gmf.codegen.templates.editor.PaletteFactoryGenerator;
@@ -290,6 +291,10 @@ public class EmitterFactory {
 		return initializeEmitter("/templates/editor/CreateShortcutAction.javajet", CreateShortcutActionGenerator.class);
 	}
 
+	public static JETEmitter getLoadResourceActionEmitter() throws JETException {
+		return initializeEmitter("/templates/editor/LoadResourceAction.javajet", LoadResourceActionGenerator.class);
+	}
+	
 	public static JETEmitter getElementChooserEmitter() throws JETException {
 		return initializeEmitter("/templates/editor/ElementChooser.javajet", ElementChooserGenerator.class);
 	}

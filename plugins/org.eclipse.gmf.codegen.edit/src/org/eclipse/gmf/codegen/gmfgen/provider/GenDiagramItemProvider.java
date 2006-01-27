@@ -96,6 +96,7 @@ public class GenDiagramItemProvider
 			addPreferenceInitializerClassNamePropertyDescriptor(object);
 			addVisualIDRegistryClassNamePropertyDescriptor(object);
 			addElementChooserClassNamePropertyDescriptor(object);
+			addLoadResourceActionClassNamePropertyDescriptor(object);
 			addCreateShortcutActionClassNamePropertyDescriptor(object);
 			addContainsShortcutsToPropertyDescriptor(object);
 			addShortcutsProvidedForPropertyDescriptor(object);
@@ -304,6 +305,26 @@ public class GenDiagramItemProvider
 				 getString("_UI_EditorCandies_elementChooserClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_elementChooserClassName_feature", "_UI_EditorCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditorCandies_ElementChooserClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Load Resource Action Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLoadResourceActionClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EditorCandies_loadResourceActionClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_loadResourceActionClassName_feature", "_UI_EditorCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditorCandies_LoadResourceActionClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -1112,6 +1133,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__VISUAL_ID_REGISTRY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_CHOOSER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__LOAD_RESOURCE_ACTION_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CREATE_SHORTCUT_ACTION_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR:
