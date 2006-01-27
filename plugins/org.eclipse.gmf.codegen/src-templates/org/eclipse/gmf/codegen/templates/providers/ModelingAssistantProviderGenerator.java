@@ -18,7 +18,7 @@ public class ModelingAssistantProviderGenerator
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "package ";
   protected final String TEXT_2 = ";" + NL;
-  protected final String TEXT_3 = NL + "import java.util.ArrayList;" + NL + "import java.util.Collections;" + NL + "import java.util.List;" + NL + "" + NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.IElementType;" + NL + "import org.eclipse.gmf.runtime.emf.ui.services.modelingassistant.ModelingAssistantProvider;";
+  protected final String TEXT_3 = NL + "import java.util.ArrayList;" + NL + "import java.util.Collection;" + NL + "import java.util.Collections;" + NL + "import java.util.HashSet;" + NL + "import java.util.Iterator;" + NL + "import java.util.List;" + NL + "" + NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;" + NL + "import org.eclipse.gmf.runtime.emf.type.core.IElementType;" + NL + "import org.eclipse.gmf.runtime.emf.ui.services.modelingassistant.ModelingAssistantProvider;" + NL + "import org.eclipse.gmf.runtime.notation.Diagram;" + NL + "import org.eclipse.jface.viewers.ILabelProvider;" + NL + "import org.eclipse.jface.window.Window;" + NL + "import org.eclipse.swt.widgets.Display;" + NL + "import org.eclipse.swt.widgets.Shell;" + NL + "import org.eclipse.ui.dialogs.ElementListSelectionDialog;" + NL + "import org.eclipse.emf.ecore.EObject;" + NL + "import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;";
   protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_5 = " extends ModelingAssistantProvider {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic List getTypesForPopupBar(IAdaptable host) {" + NL + "\t\tIGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);";
   protected final String TEXT_6 = NL + "\t\tif (editPart instanceof ";
@@ -73,8 +73,9 @@ public class ModelingAssistantProviderGenerator
   protected final String TEXT_55 = ".";
   protected final String TEXT_56 = ");" + NL + "\t\t\t}";
   protected final String TEXT_57 = NL + "\t\t\treturn types;" + NL + "\t\t}";
-  protected final String TEXT_58 = NL + "\t\treturn Collections.EMPTY_LIST;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_59 = NL;
+  protected final String TEXT_58 = NL + "\t\treturn Collections.EMPTY_LIST;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic EObject selectExistingElementForSource(IAdaptable target, IElementType relationshipType) {" + NL + "\t\treturn selectExistingElement(target, getTypesForSource(target, relationshipType));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic EObject selectExistingElementForTarget(IAdaptable source, IElementType relationshipType) {" + NL + "\t\treturn selectExistingElement(source, getTypesForTarget(source, relationshipType));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected EObject selectExistingElement(IAdaptable host, Collection types) {" + NL + "\t\tif (types.isEmpty()) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\tIGraphicalEditPart editPart = (IGraphicalEditPart) host.getAdapter(IGraphicalEditPart.class);" + NL + "\t\tif (editPart == null) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\tDiagram diagram = (Diagram) editPart.getRoot().getContents().getModel();" + NL + "\t\tCollection elements = new HashSet();" + NL + "\t\tfor (Iterator it = diagram.getElement().eAllContents(); it.hasNext();) {" + NL + "\t\t\tEObject element = (EObject) it.next();" + NL + "\t\t\tif (isApplicableElement(element, types)) {" + NL + "\t\t\t\telements.add(element);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\tif (elements.isEmpty()) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn selectElement((EObject[]) elements.toArray(new EObject[elements.size()]));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean isApplicableElement(EObject element, Collection types) {" + NL + "\t\tIElementType type = ElementTypeRegistry.getInstance().getElementType(element);" + NL + "\t\treturn types.contains(type);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected EObject selectElement(EObject[] elements) {" + NL + "\t\tShell shell = Display.getCurrent().getActiveShell();" + NL + "\t\tILabelProvider labelProvider = new AdapterFactoryLabelProvider(";
+  protected final String TEXT_59 = ".getInstance().getItemProvidersAdapterFactory());" + NL + "\t\tElementListSelectionDialog dialog = new ElementListSelectionDialog(shell, labelProvider);" + NL + "\t\tdialog.setMessage(\"Available domain model elements:\");" + NL + "\t\tdialog.setTitle(\"Select domain model element\");" + NL + "\t\tdialog.setMultipleSelection(false);" + NL + "\t\tdialog.setElements(elements);" + NL + "\t\tEObject selected = null;" + NL + "\t\tif (dialog.open() == Window.OK) {" + NL + "\t\t\tselected = (EObject) dialog.getFirstResult();" + NL + "\t\t}" + NL + "\t\treturn selected;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_60 = NL;
 
   public String generate(Object argument)
   {
@@ -295,8 +296,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 }
 
     stringBuffer.append(TEXT_58);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_59);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_60);
     return stringBuffer.toString();
   }
 }
