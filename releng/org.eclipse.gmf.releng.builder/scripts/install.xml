@@ -62,21 +62,25 @@
 			<property name="version" value="${emfUpdateVersion}" />
 			<property name="updateSite" value="${emfUpdateSite}" />
 		</ant>
+		<echo message="Installing EMF OCL"/>
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfOCLFeatureId}" />
 			<property name="version" value="${emfOCLUpdateVersion}" />
 			<property name="updateSite" value="${emfOCLUpdateSite}" />
 		</ant>
+		<echo message="Installing EMF Query"/>
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfQueryFeatureId}" />
 			<property name="version" value="${emfQueryUpdateVersion}" />
 			<property name="updateSite" value="${emfQueryUpdateSite}" />
 		</ant>
+		<echo message="Installing EMF Validation"/>
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfValidationFeatureId}" />
 			<property name="version" value="${emfValidationUpdateVersion}" />
 			<property name="updateSite" value="${emfValidationUpdateSite}" />
 		</ant>
+		<echo message="Installing EMF Transaction"/>
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfTransactionFeatureId}" />
 			<property name="version" value="${emfTransactionUpdateVersion}" />
@@ -217,6 +221,6 @@
 
 	<target name="installAntlr" unless="antlrExists">
 		<antcall target="getAntlr"/>
-		<copy file="${baseLocationRoot}/antlr.jar" todir="${buildDirectory}/plugins/antlr/lib"/>
+		<copy file="${baseLocationRoot}/antlr.jar" todir="${buildDirectory}/plugins/antlr_${antlrVersion}.${emfQueryBuildType}${emfQueryBuildDate}${emfQueryBuildTime}/lib"/>
 	</target>
 </project>
