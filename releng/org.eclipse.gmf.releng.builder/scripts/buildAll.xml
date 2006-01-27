@@ -190,8 +190,25 @@
 
 			<!--  Insert url for supported EMF -->
 			<replacefilter token="@emfVersion@" value="${emfVersion}" />
+			<replacefilter token="@emfBuildId@" value="${emfBuildId}" />
 			<replacefilter token="@emfUpdateSite@" value="${emfUpdateSite}" />
 			<replacefilter token="@emfDownloadPage@" value="${emfDownloadPage}" />
+			
+			<replacefilter token="@emfOCLBuildId@" value="${emfOCLBuildId}" />
+			<replacefilter token="@emfOCLDownloadPage@" value="${emfOCLDownloadPage}" />
+			<replacefilter token="@emfOCLUpdateSite@" value="${emfOCLUpdateSite}" />
+			
+			<replacefilter token="@emfValidationBuildId@" value="${emfValidationBuildId}" />
+			<replacefilter token="@emfValidationDownloadPage@" value="${emfValidationDownloadPage}" />
+			<replacefilter token="@emfValidationUpdateSite@" value="${emfValidationUpdateSite}" />
+
+			<replacefilter token="@emfQueryBuildId@" value="${emfQueryBuildId}" />
+			<replacefilter token="@emfQueryDownloadPage@" value="${emfQueryDownloadPage}" />
+			<replacefilter token="@emfQueryUpdateSite@" value="${emfQueryUpdateSite}" />
+			
+			<replacefilter token="@emfTransactionBuildId@" value="${emfTransactionBuildId}" />
+			<replacefilter token="@emfTransactionDownloadPage@" value="${emfTransactionDownloadPage}" />
+			<replacefilter token="@emfTransactionUpdateSite@" value="${emfTransactionUpdateSite}" />
 
 			<!--  Insert url for supported GEF -->
 			<replacefilter token="@gefVersion@" value="${gefVersion}" />
