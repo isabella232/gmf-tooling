@@ -308,6 +308,13 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.LABEL_MODEL_FACET: {
+				LabelModelFacet labelModelFacet = (LabelModelFacet)theEObject;
+				Object result = caseLabelModelFacet(labelModelFacet);
+				if (result == null) result = caseModelFacet(labelModelFacet);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.TYPE_MODEL_FACET: {
 				TypeModelFacet typeModelFacet = (TypeModelFacet)theEObject;
 				Object result = caseTypeModelFacet(typeModelFacet);
@@ -320,6 +327,15 @@ public class GMFGenSwitch {
 				Object result = caseFeatureModelFacet(featureModelFacet);
 				if (result == null) result = caseModelFacet(featureModelFacet);
 				if (result == null) result = caseLinkModelFacet(featureModelFacet);
+				if (result == null) result = caseLabelModelFacet(featureModelFacet);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET: {
+				CompositeFeatureModelFacet compositeFeatureModelFacet = (CompositeFeatureModelFacet)theEObject;
+				Object result = caseCompositeFeatureModelFacet(compositeFeatureModelFacet);
+				if (result == null) result = caseModelFacet(compositeFeatureModelFacet);
+				if (result == null) result = caseLabelModelFacet(compositeFeatureModelFacet);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -844,6 +860,21 @@ public class GMFGenSwitch {
 	}
 
 	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Label Model Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Label Model Facet</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseLabelModelFacet(LabelModelFacet object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpretting the object as an instance of '<em>Type Model Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -870,6 +901,21 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseFeatureModelFacet(FeatureModelFacet object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Composite Feature Model Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Composite Feature Model Facet</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseCompositeFeatureModelFacet(CompositeFeatureModelFacet object) {
 		return null;
 	}
 

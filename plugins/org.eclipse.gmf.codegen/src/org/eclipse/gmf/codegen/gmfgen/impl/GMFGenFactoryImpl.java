@@ -101,6 +101,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_LINK_LABEL: return createGenLinkLabel();
 			case GMFGenPackage.TYPE_MODEL_FACET: return createTypeModelFacet();
 			case GMFGenPackage.FEATURE_MODEL_FACET: return createFeatureModelFacet();
+			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET: return createCompositeFeatureModelFacet();
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET: return createTypeLinkModelFacet();
 			case GMFGenPackage.COLOR_ATTRIBUTES: return createColorAttributes();
 			case GMFGenPackage.SHAPE_ATTRIBUTES: return createShapeAttributes();
@@ -264,6 +265,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public FeatureModelFacet createFeatureModelFacet() {
 		FeatureModelFacetImpl featureModelFacet = new FeatureModelFacetImpl();
 		return featureModelFacet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CompositeFeatureModelFacet createCompositeFeatureModelFacet() {
+		CompositeFeatureModelFacetImpl compositeFeatureModelFacet = new CompositeFeatureModelFacetImpl();
+		return compositeFeatureModelFacet;
 	}
 
 	/**

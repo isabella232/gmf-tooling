@@ -63,7 +63,9 @@ import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getModelingAssistantProviderClassName <em>Modeling Assistant Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPropertyProviderClassName <em>Property Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getIconProviderClassName <em>Icon Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getAbstractParserClassName <em>Abstract Parser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getStructuralFeatureParserClassName <em>Structural Feature Parser Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getStructuralFeaturesParserClassName <em>Structural Features Parser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getReorientConnectionViewCommandClassName <em>Reorient Connection View Command Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartFactoryClassName <em>Edit Part Factory Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getBaseExternalNodeLabelEditPartClassName <em>Base External Node Label Edit Part Class Name</em>}</li>
@@ -389,6 +391,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected String iconProviderClassName = ICON_PROVIDER_CLASS_NAME_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getAbstractParserClassName() <em>Abstract Parser Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAbstractParserClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ABSTRACT_PARSER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getAbstractParserClassName() <em>Abstract Parser Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAbstractParserClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String abstractParserClassName = ABSTRACT_PARSER_CLASS_NAME_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getStructuralFeatureParserClassName() <em>Structural Feature Parser Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -407,6 +429,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String structuralFeatureParserClassName = STRUCTURAL_FEATURE_PARSER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getStructuralFeaturesParserClassName() <em>Structural Features Parser Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStructuralFeaturesParserClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String STRUCTURAL_FEATURES_PARSER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getStructuralFeaturesParserClassName() <em>Structural Features Parser Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStructuralFeaturesParserClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String structuralFeaturesParserClassName = STRUCTURAL_FEATURES_PARSER_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getReorientConnectionViewCommandClassName() <em>Reorient Connection View Command Class Name</em>}' attribute.
@@ -2520,6 +2562,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getAbstractParserClassNameGen() {
+		return abstractParserClassName;
+	}
+
+	public String getAbstractParserClassName() {
+		String value = getAbstractParserClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "AbstractParser"; //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAbstractParserClassName(String newAbstractParserClassName) {
+		String oldAbstractParserClassName = abstractParserClassName;
+		abstractParserClassName = newAbstractParserClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME, oldAbstractParserClassName, abstractParserClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getStructuralFeatureParserClassNameGen() {
 		return structuralFeatureParserClassName;
 	}
@@ -2542,6 +2613,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		structuralFeatureParserClassName = newStructuralFeatureParserClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME, oldStructuralFeatureParserClassName, structuralFeatureParserClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getStructuralFeaturesParserClassNameGen() {
+		return structuralFeaturesParserClassName;
+	}
+
+	public String getStructuralFeaturesParserClassName() {
+		String value = getStructuralFeaturesParserClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "StructuralFeaturesParser"; //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStructuralFeaturesParserClassName(String newStructuralFeaturesParserClassName) {
+		String oldStructuralFeaturesParserClassName = structuralFeaturesParserClassName;
+		structuralFeaturesParserClassName = newStructuralFeaturesParserClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURES_PARSER_CLASS_NAME, oldStructuralFeaturesParserClassName, structuralFeaturesParserClassName));
 	}
 
 	/**
@@ -2771,8 +2871,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getPropertyProviderClassName();
 			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
 				return getIconProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME:
+				return getAbstractParserClassName();
 			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
 				return getStructuralFeatureParserClassName();
+			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURES_PARSER_CLASS_NAME:
+				return getStructuralFeaturesParserClassName();
 			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
 				return getReorientConnectionViewCommandClassName();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
@@ -2906,8 +3010,14 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
 				setIconProviderClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME:
+				setAbstractParserClassName((String)newValue);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
 				setStructuralFeatureParserClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURES_PARSER_CLASS_NAME:
+				setStructuralFeaturesParserClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
 				setReorientConnectionViewCommandClassName((String)newValue);
@@ -3082,8 +3192,14 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
 				setIconProviderClassName(ICON_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME:
+				setAbstractParserClassName(ABSTRACT_PARSER_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
 				setStructuralFeatureParserClassName(STRUCTURAL_FEATURE_PARSER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURES_PARSER_CLASS_NAME:
+				setStructuralFeaturesParserClassName(STRUCTURAL_FEATURES_PARSER_CLASS_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
 				setReorientConnectionViewCommandClassName(REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT);
@@ -3237,8 +3353,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return PROPERTY_PROVIDER_CLASS_NAME_EDEFAULT == null ? propertyProviderClassName != null : !PROPERTY_PROVIDER_CLASS_NAME_EDEFAULT.equals(propertyProviderClassName);
 			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
 				return ICON_PROVIDER_CLASS_NAME_EDEFAULT == null ? iconProviderClassName != null : !ICON_PROVIDER_CLASS_NAME_EDEFAULT.equals(iconProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME:
+				return ABSTRACT_PARSER_CLASS_NAME_EDEFAULT == null ? abstractParserClassName != null : !ABSTRACT_PARSER_CLASS_NAME_EDEFAULT.equals(abstractParserClassName);
 			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
 				return STRUCTURAL_FEATURE_PARSER_CLASS_NAME_EDEFAULT == null ? structuralFeatureParserClassName != null : !STRUCTURAL_FEATURE_PARSER_CLASS_NAME_EDEFAULT.equals(structuralFeatureParserClassName);
+			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURES_PARSER_CLASS_NAME:
+				return STRUCTURAL_FEATURES_PARSER_CLASS_NAME_EDEFAULT == null ? structuralFeaturesParserClassName != null : !STRUCTURAL_FEATURES_PARSER_CLASS_NAME_EDEFAULT.equals(structuralFeaturesParserClassName);
 			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
 				return REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT == null ? reorientConnectionViewCommandClassName != null : !REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME_EDEFAULT.equals(reorientConnectionViewCommandClassName);
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
@@ -3344,7 +3464,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__MODELING_ASSISTANT_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__PROPERTY_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__ICON_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__ABSTRACT_PARSER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__STRUCTURAL_FEATURE_PARSER_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURES_PARSER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__STRUCTURAL_FEATURES_PARSER_CLASS_NAME;
 				default: return -1;
 			}
 		}
@@ -3429,7 +3551,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__MODELING_ASSISTANT_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__PROPERTY_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__ICON_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.PROVIDER_CLASS_NAMES__ABSTRACT_PARSER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__STRUCTURAL_FEATURE_PARSER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME;
+				case GMFGenPackage.PROVIDER_CLASS_NAMES__STRUCTURAL_FEATURES_PARSER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURES_PARSER_CLASS_NAME;
 				default: return -1;
 			}
 		}
@@ -3682,8 +3806,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public String getAbstractParserQualifiedClassName() {
+		return getProvidersPackageName() + '.' + getAbstractParserClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public String getStructuralFeatureParserQualifiedClassName() {
 		return getProvidersPackageName() + '.' + getStructuralFeatureParserClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getStructuralFeaturesParserQualifiedClassName() {
+		return getProvidersPackageName() + '.' + getStructuralFeaturesParserClassName();
 	}
 
 	/**
@@ -3804,8 +3946,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(propertyProviderClassName);
 		result.append(", iconProviderClassName: ");
 		result.append(iconProviderClassName);
+		result.append(", abstractParserClassName: ");
+		result.append(abstractParserClassName);
 		result.append(", structuralFeatureParserClassName: ");
 		result.append(structuralFeatureParserClassName);
+		result.append(", structuralFeaturesParserClassName: ");
+		result.append(structuralFeaturesParserClassName);
 		result.append(", reorientConnectionViewCommandClassName: ");
 		result.append(reorientConnectionViewCommandClassName);
 		result.append(", editPartFactoryClassName: ");

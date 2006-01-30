@@ -60,6 +60,7 @@ import org.eclipse.gmf.codegen.templates.policies.LinkItemSemanticEditPolicyGene
 import org.eclipse.gmf.codegen.templates.policies.NodeGraphicalNodeEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.NodeItemSemanticEditPolicyGenerator;
 import org.eclipse.gmf.codegen.templates.policies.ReferenceConnectionEditPolicyGenerator;
+import org.eclipse.gmf.codegen.templates.providers.AbstractParserGenerator;
 import org.eclipse.gmf.codegen.templates.providers.EditPartProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ElementTypesGenerator;
 import org.eclipse.gmf.codegen.templates.providers.IconProviderGenerator;
@@ -71,6 +72,7 @@ import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGene
 import org.eclipse.gmf.codegen.templates.providers.PropertyProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.SemanticHintsGenerator;
 import org.eclipse.gmf.codegen.templates.providers.StructuralFeatureParserGenerator;
+import org.eclipse.gmf.codegen.templates.providers.StructuralFeaturesParserGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ValidationProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ViewProviderGenerator;
@@ -197,8 +199,16 @@ public class EmitterFactory {
 	
 	// providers
 
+	public static JETEmitter getAbstractParserEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/AbstractParser.javajet", AbstractParserGenerator.class);
+	}
+
 	public static JETEmitter getStructuralFeatureParserEmitter() throws JETException {
 		return initializeEmitter("/templates/providers/StructuralFeatureParser.javajet", StructuralFeatureParserGenerator.class);
+	}
+
+	public static JETEmitter getStructuralFeaturesParserEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/StructuralFeaturesParser.javajet", StructuralFeaturesParserGenerator.class);
 	}
 
 	public static JETEmitter getSemanticHintsEmitter() throws JETException {

@@ -6,15 +6,23 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.util.Iterator;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenLabel;
+
+import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
 
 /**
  * <!-- begin-user-doc -->
@@ -59,7 +67,7 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * @generated
 	 * @ordered
 	 */
-	protected FeatureModelFacet modelFacet = null;
+	protected LabelModelFacet modelFacet = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -105,7 +113,7 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureModelFacet getModelFacet() {
+	public LabelModelFacet getModelFacet() {
 		return modelFacet;
 	}
 
@@ -114,8 +122,8 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetModelFacet(FeatureModelFacet newModelFacet, NotificationChain msgs) {
-		FeatureModelFacet oldModelFacet = modelFacet;
+	public NotificationChain basicSetModelFacet(LabelModelFacet newModelFacet, NotificationChain msgs) {
+		LabelModelFacet oldModelFacet = modelFacet;
 		modelFacet = newModelFacet;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LABEL__MODEL_FACET, oldModelFacet, newModelFacet);
@@ -129,7 +137,7 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setModelFacet(FeatureModelFacet newModelFacet) {
+	public void setModelFacet(LabelModelFacet newModelFacet) {
 		if (newModelFacet != modelFacet) {
 			NotificationChain msgs = null;
 			if (modelFacet != null)
@@ -148,8 +156,8 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public GenFeature getMetaFeature() {
-		return getModelFacet() == null ? null : getModelFacet().getMetaFeature();
+	public String getSemanticHintFieldName() {
+		return GenCommonBaseImpl.asJavaConstantName(getUniqueIdentifier()) + "_TEXT"; //$NON-NLS-1$
 	}
 
 	/**
@@ -157,8 +165,17 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public String getSemanticHintFieldName() {
-		return GenCommonBaseImpl.asJavaConstantName(getUniqueIdentifier()) + "_TEXT"; //$NON-NLS-1$
+	public EList getMetaFeatures() {
+		EList metaFeatures = new BasicEList();
+		if (getModelFacet() instanceof FeatureModelFacet) {
+			GenFeature metaFeature = ((FeatureModelFacet) getModelFacet()).getMetaFeature();
+			if (metaFeature != null) {
+				metaFeatures.add(metaFeature);
+			}
+		} else if (getModelFacet() instanceof CompositeFeatureModelFacet) {
+			metaFeatures.addAll(((CompositeFeatureModelFacet) getModelFacet()).getMetaFeatures());
+		}
+		return metaFeatures;
 	}
 
 	/**
@@ -200,7 +217,7 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 				setReadOnly(((Boolean)newValue).booleanValue());
 				return;
 			case GMFGenPackage.GEN_LABEL__MODEL_FACET:
-				setModelFacet((FeatureModelFacet)newValue);
+				setModelFacet((LabelModelFacet)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -217,7 +234,7 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 				setReadOnly(READ_ONLY_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_LABEL__MODEL_FACET:
-				setModelFacet((FeatureModelFacet)null);
+				setModelFacet((LabelModelFacet)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -256,9 +273,13 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 	protected abstract String getHostName();
 
 	protected String getFeatureCapName() {
-		GenFeature metaFeature = getMetaFeature();
-		if (metaFeature != null) {
-			return metaFeature.getCapName();
+		StringBuffer sb = new StringBuffer();
+		for (Iterator it = getMetaFeatures().iterator(); it.hasNext();) {
+			GenFeature metaFeature = (GenFeature) it.next();
+			sb.append(metaFeature.getCapName());
+		}
+		if (sb.length() > 0) {
+			return sb.toString();
 		}
 		return "Label$" + hashCode();
 	}

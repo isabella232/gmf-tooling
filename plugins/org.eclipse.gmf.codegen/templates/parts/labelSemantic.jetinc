@@ -1,0 +1,38 @@
+<%
+{
+	GenPackage genPackage = genDiagram.getDomainMetaModel();
+	String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
+	FeatureModelFacet modelFacet = (FeatureModelFacet) genLabel.getModelFacet();
+	String featureName = modelFacet.getMetaFeature().getName();
+	String parserClassName = importManager.getImportedName(genDiagram.getStructuralFeatureParserQualifiedClassName());
+%>
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParser")%> getParser() {
+		if (parser == null) {
+			parser = new <%=parserClassName%>(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=accessorName%>().getEStructuralFeature("<%=featureName%>"));
+<%	if (modelFacet.getViewPattern() != null && modelFacet.getViewPattern().length() != 0) {%>
+			((<%=parserClassName%>) parser).setViewPattern("<%=modelFacet.getViewPattern()%>");
+<%
+	}
+	if (modelFacet.getEditPattern() != null && modelFacet.getEditPattern().length() != 0) {
+%>
+			((<%=parserClassName%>) parser).setEditPattern("<%=modelFacet.getEditPattern()%>");
+<%	}%>
+		}
+		return parser;
+	}
+<%	if (genLabel.isReadOnly()) {%>
+
+	/**
+	 * @generated
+	 */
+	protected boolean isEditable() {
+		return false;
+	}
+<%
+	}
+}
+%>

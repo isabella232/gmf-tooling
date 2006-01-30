@@ -6,8 +6,7 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
-
-import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,7 +29,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  * @model abstract="true"
  * @generated
  */
-public interface GenLabel extends GenCommonBase{
+public interface GenLabel extends GenCommonBase {
 	/**
 	 * Returns the value of the '<em><b>Read Only</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -66,12 +65,12 @@ public interface GenLabel extends GenCommonBase{
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Model Facet</em>' containment reference.
-	 * @see #setModelFacet(FeatureModelFacet)
+	 * @see #setModelFacet(LabelModelFacet)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLabel_ModelFacet()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	FeatureModelFacet getModelFacet();
+	LabelModelFacet getModelFacet();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenLabel#getModelFacet <em>Model Facet</em>}' containment reference.
@@ -81,15 +80,7 @@ public interface GenLabel extends GenCommonBase{
 	 * @see #getModelFacet()
 	 * @generated
 	 */
-	void setModelFacet(FeatureModelFacet value);
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	GenFeature getMetaFeature();
+	void setModelFacet(LabelModelFacet value);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -98,5 +89,16 @@ public interface GenLabel extends GenCommonBase{
 	 * @generated
 	 */
 	String getSemanticHintFieldName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Returns structural features that provide label content
+	 * <!-- end-model-doc -->
+	 * @model kind="operation" type="org.eclipse.emf.codegen.ecore.genmodel.GenFeature"
+	 * @generated
+	 */
+	EList getMetaFeatures();
 
 } // GenLabel

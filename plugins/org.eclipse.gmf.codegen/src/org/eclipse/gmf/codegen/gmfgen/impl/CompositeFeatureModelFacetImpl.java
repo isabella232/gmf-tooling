@@ -6,37 +6,41 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
+
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.BasicEList;
+
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
+import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Feature Model Facet</b></em>'.
+ * An implementation of the model object '<em><b>Composite Feature Model Facet</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureModelFacetImpl#getViewPattern <em>View Pattern</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureModelFacetImpl#getEditPattern <em>Edit Pattern</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureModelFacetImpl#getMetaFeature <em>Meta Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.CompositeFeatureModelFacetImpl#getViewPattern <em>View Pattern</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.CompositeFeatureModelFacetImpl#getEditPattern <em>Edit Pattern</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.CompositeFeatureModelFacetImpl#getMetaFeatures <em>Meta Features</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class FeatureModelFacetImpl extends EObjectImpl implements FeatureModelFacet {
+public class CompositeFeatureModelFacetImpl extends EObjectImpl implements CompositeFeatureModelFacet {
 	/**
 	 * The default value of the '{@link #getViewPattern() <em>View Pattern</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -78,21 +82,21 @@ public class FeatureModelFacetImpl extends EObjectImpl implements FeatureModelFa
 	protected String editPattern = EDIT_PATTERN_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getMetaFeature() <em>Meta Feature</em>}' reference.
+	 * The cached value of the '{@link #getMetaFeatures() <em>Meta Features</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getMetaFeature()
+	 * @see #getMetaFeatures()
 	 * @generated
 	 * @ordered
 	 */
-	protected GenFeature metaFeature = null;
+	protected EList metaFeatures = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected FeatureModelFacetImpl() {
+	protected CompositeFeatureModelFacetImpl() {
 		super();
 	}
 
@@ -102,7 +106,7 @@ public class FeatureModelFacetImpl extends EObjectImpl implements FeatureModelFa
 	 * @generated
 	 */
 	protected EClass eStaticClass() {
-		return GMFGenPackage.eINSTANCE.getFeatureModelFacet();
+		return GMFGenPackage.eINSTANCE.getCompositeFeatureModelFacet();
 	}
 
 	/**
@@ -123,7 +127,7 @@ public class FeatureModelFacetImpl extends EObjectImpl implements FeatureModelFa
 		String oldViewPattern = viewPattern;
 		viewPattern = newViewPattern;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.FEATURE_MODEL_FACET__VIEW_PATTERN, oldViewPattern, viewPattern));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__VIEW_PATTERN, oldViewPattern, viewPattern));
 	}
 
 	/**
@@ -144,7 +148,7 @@ public class FeatureModelFacetImpl extends EObjectImpl implements FeatureModelFa
 		String oldEditPattern = editPattern;
 		editPattern = newEditPattern;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.FEATURE_MODEL_FACET__EDIT_PATTERN, oldEditPattern, editPattern));
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__EDIT_PATTERN, oldEditPattern, editPattern));
 	}
 
 	/**
@@ -152,63 +156,11 @@ public class FeatureModelFacetImpl extends EObjectImpl implements FeatureModelFa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenFeature getMetaFeature() {
-		if (metaFeature != null && metaFeature.eIsProxy()) {
-			InternalEObject oldMetaFeature = (InternalEObject)metaFeature;
-			metaFeature = (GenFeature)eResolveProxy(oldMetaFeature);
-			if (metaFeature != oldMetaFeature) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.FEATURE_MODEL_FACET__META_FEATURE, oldMetaFeature, metaFeature));
-			}
+	public EList getMetaFeatures() {
+		if (metaFeatures == null) {
+			metaFeatures = new EObjectResolvingEList(GenFeature.class, this, GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__META_FEATURES);
 		}
-		return metaFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenFeature basicGetMetaFeature() {
-		return metaFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setMetaFeature(GenFeature newMetaFeature) {
-		GenFeature oldMetaFeature = metaFeature;
-		metaFeature = newMetaFeature;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.FEATURE_MODEL_FACET__META_FEATURE, oldMetaFeature, metaFeature));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public EList getSourceTypes() {
-		EList sources = new BasicEList();
-		if (getMetaFeature() != null) {
-			sources.add(getMetaFeature().getGenClass());
-		}
-		return sources;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public EList getTargetTypes() {
-		EList targets = new BasicEList();
-		if (getMetaFeature() != null) {
-			targets.add(getMetaFeature().getTypeGenClass());
-		}
-		return targets;
+		return metaFeatures;
 	}
 
 	/**
@@ -218,13 +170,12 @@ public class FeatureModelFacetImpl extends EObjectImpl implements FeatureModelFa
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GMFGenPackage.FEATURE_MODEL_FACET__VIEW_PATTERN:
+			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__VIEW_PATTERN:
 				return getViewPattern();
-			case GMFGenPackage.FEATURE_MODEL_FACET__EDIT_PATTERN:
+			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__EDIT_PATTERN:
 				return getEditPattern();
-			case GMFGenPackage.FEATURE_MODEL_FACET__META_FEATURE:
-				if (resolve) return getMetaFeature();
-				return basicGetMetaFeature();
+			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__META_FEATURES:
+				return getMetaFeatures();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -236,14 +187,15 @@ public class FeatureModelFacetImpl extends EObjectImpl implements FeatureModelFa
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case GMFGenPackage.FEATURE_MODEL_FACET__VIEW_PATTERN:
+			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__VIEW_PATTERN:
 				setViewPattern((String)newValue);
 				return;
-			case GMFGenPackage.FEATURE_MODEL_FACET__EDIT_PATTERN:
+			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__EDIT_PATTERN:
 				setEditPattern((String)newValue);
 				return;
-			case GMFGenPackage.FEATURE_MODEL_FACET__META_FEATURE:
-				setMetaFeature((GenFeature)newValue);
+			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__META_FEATURES:
+				getMetaFeatures().clear();
+				getMetaFeatures().addAll((Collection)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -256,14 +208,14 @@ public class FeatureModelFacetImpl extends EObjectImpl implements FeatureModelFa
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.FEATURE_MODEL_FACET__VIEW_PATTERN:
+			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__VIEW_PATTERN:
 				setViewPattern(VIEW_PATTERN_EDEFAULT);
 				return;
-			case GMFGenPackage.FEATURE_MODEL_FACET__EDIT_PATTERN:
+			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__EDIT_PATTERN:
 				setEditPattern(EDIT_PATTERN_EDEFAULT);
 				return;
-			case GMFGenPackage.FEATURE_MODEL_FACET__META_FEATURE:
-				setMetaFeature((GenFeature)null);
+			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__META_FEATURES:
+				getMetaFeatures().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -276,12 +228,12 @@ public class FeatureModelFacetImpl extends EObjectImpl implements FeatureModelFa
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.FEATURE_MODEL_FACET__VIEW_PATTERN:
+			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__VIEW_PATTERN:
 				return VIEW_PATTERN_EDEFAULT == null ? viewPattern != null : !VIEW_PATTERN_EDEFAULT.equals(viewPattern);
-			case GMFGenPackage.FEATURE_MODEL_FACET__EDIT_PATTERN:
+			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__EDIT_PATTERN:
 				return EDIT_PATTERN_EDEFAULT == null ? editPattern != null : !EDIT_PATTERN_EDEFAULT.equals(editPattern);
-			case GMFGenPackage.FEATURE_MODEL_FACET__META_FEATURE:
-				return metaFeature != null;
+			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__META_FEATURES:
+				return metaFeatures != null && !metaFeatures.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -292,15 +244,10 @@ public class FeatureModelFacetImpl extends EObjectImpl implements FeatureModelFa
 	 * @generated
 	 */
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
-		if (baseClass == LinkModelFacet.class) {
-			switch (derivedFeatureID) {
-				default: return -1;
-			}
-		}
 		if (baseClass == LabelModelFacet.class) {
 			switch (derivedFeatureID) {
-				case GMFGenPackage.FEATURE_MODEL_FACET__VIEW_PATTERN: return GMFGenPackage.LABEL_MODEL_FACET__VIEW_PATTERN;
-				case GMFGenPackage.FEATURE_MODEL_FACET__EDIT_PATTERN: return GMFGenPackage.LABEL_MODEL_FACET__EDIT_PATTERN;
+				case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__VIEW_PATTERN: return GMFGenPackage.LABEL_MODEL_FACET__VIEW_PATTERN;
+				case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__EDIT_PATTERN: return GMFGenPackage.LABEL_MODEL_FACET__EDIT_PATTERN;
 				default: return -1;
 			}
 		}
@@ -313,15 +260,10 @@ public class FeatureModelFacetImpl extends EObjectImpl implements FeatureModelFa
 	 * @generated
 	 */
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
-		if (baseClass == LinkModelFacet.class) {
-			switch (baseFeatureID) {
-				default: return -1;
-			}
-		}
 		if (baseClass == LabelModelFacet.class) {
 			switch (baseFeatureID) {
-				case GMFGenPackage.LABEL_MODEL_FACET__VIEW_PATTERN: return GMFGenPackage.FEATURE_MODEL_FACET__VIEW_PATTERN;
-				case GMFGenPackage.LABEL_MODEL_FACET__EDIT_PATTERN: return GMFGenPackage.FEATURE_MODEL_FACET__EDIT_PATTERN;
+				case GMFGenPackage.LABEL_MODEL_FACET__VIEW_PATTERN: return GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__VIEW_PATTERN;
+				case GMFGenPackage.LABEL_MODEL_FACET__EDIT_PATTERN: return GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__EDIT_PATTERN;
 				default: return -1;
 			}
 		}
@@ -345,4 +287,4 @@ public class FeatureModelFacetImpl extends EObjectImpl implements FeatureModelFa
 		return result.toString();
 	}
 
-} //FeatureModelFacetImpl
+} //CompositeFeatureModelFacetImpl

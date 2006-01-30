@@ -179,11 +179,17 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseLinkModelFacet(LinkModelFacet object) {
 				return createLinkModelFacetAdapter();
 			}
+			public Object caseLabelModelFacet(LabelModelFacet object) {
+				return createLabelModelFacetAdapter();
+			}
 			public Object caseTypeModelFacet(TypeModelFacet object) {
 				return createTypeModelFacetAdapter();
 			}
 			public Object caseFeatureModelFacet(FeatureModelFacet object) {
 				return createFeatureModelFacetAdapter();
+			}
+			public Object caseCompositeFeatureModelFacet(CompositeFeatureModelFacet object) {
+				return createCompositeFeatureModelFacetAdapter();
 			}
 			public Object caseTypeLinkModelFacet(TypeLinkModelFacet object) {
 				return createTypeLinkModelFacetAdapter();
@@ -609,6 +615,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.LabelModelFacet <em>Label Model Facet</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.LabelModelFacet
+	 * @generated
+	 */
+	public Adapter createLabelModelFacetAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet <em>Type Model Facet</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -633,6 +653,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createFeatureModelFacetAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet <em>Composite Feature Model Facet</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet
+	 * @generated
+	 */
+	public Adapter createCompositeFeatureModelFacetAdapter() {
 		return null;
 	}
 

@@ -1,14 +1,13 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="NodeLabelEditPartGenerator"
 	imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
 <%
-GenNodeLabel label = (GenNodeLabel) argument;
-GenDiagram genDiagram = label.getDiagram();
-boolean isParentFlowLayout = !label.getNode().isListLayout();
+GenNodeLabel genLabel = (GenNodeLabel) argument;
+GenDiagram genDiagram = genLabel.getDiagram();
+boolean isParentFlowLayout = !genLabel.getNode().isListLayout();
 %>
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
-import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -18,12 +17,12 @@ import org.eclipse.swt.graphics.Image;
 /**
  * @generated
  */
-public class <%=label.getEditPartClassName()%> extends TextCompartmentEditPart {
+public class <%=genLabel.getEditPartClassName()%> extends TextCompartmentEditPart {
 
 	/**
 	 * @generated
 	 */
-	public <%=label.getEditPartClassName()%>(View view) {
+	public <%=genLabel.getEditPartClassName()%>(View view) {
 		super(view);
 		setNumIcons(1);
 	}
@@ -39,32 +38,10 @@ public class <%=label.getEditPartClassName()%> extends TextCompartmentEditPart {
 		return descriptor.createImage();
 	}
 <%
-GenPackage genPackage = genDiagram.getDomainMetaModel();
-String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
-String accessorName = label.getNode().getDomainMetaClass().getClassifierAccessorName();
+String accessorName = genLabel.getNode().getDomainMetaClass().getClassifierAccessorName();
 %>
-
-	/**
-	 * @generated
-	 */
-	public IParser getParser() {
-		if (parser == null) {
-			parser = new <%=importManager.getImportedName(genDiagram.getStructuralFeatureParserQualifiedClassName())%>(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=accessorName%>().getEStructuralFeature("<%=label.getMetaFeature().getName()%>"));
-		}
-		return parser;
-	}
-<%if (label.isReadOnly()) {%>
-
-	/**
-	 * @generated
-	 */
-	protected boolean isEditable() {
-		return false;
-	}
-<%
-}
-if (isParentFlowLayout) {
-%>
+<%@ include file="labelSemantic.jetinc"%>
+<%if (isParentFlowLayout) {%>
 
 	/**
 	 * @generated
@@ -72,7 +49,6 @@ if (isParentFlowLayout) {
 	protected void refreshVisuals() {
 		super.refreshVisuals();
 		refreshBounds();
-		
 	}
 
 	/**
@@ -88,7 +64,7 @@ if (isParentFlowLayout) {
 			refreshBounds();
 		} 
 	}
-	
+
 	/**
 	 * @generated
 	 */
@@ -101,8 +77,6 @@ if (isParentFlowLayout) {
 		<%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%> loc = new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Point")%>(x, y);
 		((<%=importManager.getImportedName("org.eclipse.gef.GraphicalEditPart")%>) getParent()).setLayoutConstraint(this, getFigure(), new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle")%>(loc, size));
 	}
-<%
-}
-%>
+<%}%>
 }
 <%importManager.emitSortedImports();%>

@@ -12,7 +12,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -23,17 +25,18 @@ import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
-import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class FeatureModelFacetItemProvider
+public class CompositeFeatureModelFacetItemProvider
 	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
@@ -47,7 +50,7 @@ public class FeatureModelFacetItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureModelFacetItemProvider(AdapterFactory adapterFactory) {
+	public CompositeFeatureModelFacetItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -63,7 +66,7 @@ public class FeatureModelFacetItemProvider
 
 			addViewPatternPropertyDescriptor(object);
 			addEditPatternPropertyDescriptor(object);
-			addMetaFeaturePropertyDescriptor(object);
+			addMetaFeaturesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -109,19 +112,19 @@ public class FeatureModelFacetItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Meta Feature feature.
+	 * This adds a property descriptor for the Meta Features feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addMetaFeaturePropertyDescriptor(Object object) {
+	protected void addMetaFeaturesPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_FeatureModelFacet_metaFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureModelFacet_metaFeature_feature", "_UI_FeatureModelFacet_type"),
-				 GMFGenPackage.eINSTANCE.getFeatureModelFacet_MetaFeature(),
+				 getString("_UI_CompositeFeatureModelFacet_metaFeatures_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CompositeFeatureModelFacet_metaFeatures_feature", "_UI_CompositeFeatureModelFacet_type"),
+				 GMFGenPackage.eINSTANCE.getCompositeFeatureModelFacet_MetaFeatures(),
 				 true,
 				 null,
 				 null,
@@ -129,13 +132,13 @@ public class FeatureModelFacetItemProvider
 	}
 
 	/**
-	 * This returns FeatureModelFacet.gif.
+	 * This returns CompositeFeatureModelFacet.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/FeatureModelFacet");
+		return getResourceLocator().getImage("full/obj16/CompositeFeatureModelFacet");
 	}
 
 	/**
@@ -145,10 +148,10 @@ public class FeatureModelFacetItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((FeatureModelFacet)object).getViewPattern();
+		String label = ((CompositeFeatureModelFacet)object).getViewPattern();
 		return label == null || label.length() == 0 ?
-			getString("_UI_FeatureModelFacet_type") :
-			getString("_UI_FeatureModelFacet_type") + " " + label;
+			getString("_UI_CompositeFeatureModelFacet_type") :
+			getString("_UI_CompositeFeatureModelFacet_type") + " " + label;
 	}
 
 	/**
@@ -161,9 +164,9 @@ public class FeatureModelFacetItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(FeatureModelFacet.class)) {
-			case GMFGenPackage.FEATURE_MODEL_FACET__VIEW_PATTERN:
-			case GMFGenPackage.FEATURE_MODEL_FACET__EDIT_PATTERN:
+		switch (notification.getFeatureID(CompositeFeatureModelFacet.class)) {
+			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__VIEW_PATTERN:
+			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET__EDIT_PATTERN:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

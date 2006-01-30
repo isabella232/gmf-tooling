@@ -7,7 +7,6 @@ GenDiagram genDiagram = genChildNode.getDiagram();
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
-import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListItemEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
@@ -24,22 +23,6 @@ public class <%=genChildNode.getEditPartClassName()%> extends ListItemEditPart {
 	public <%=genChildNode.getEditPartClassName()%>(View view) {
 		super(view);
 	}
-<%
-GenPackage genPackage = genDiagram.getDomainMetaModel();
-String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
-String semanticChildNodeInterfaceName = genChildNode.getDomainMetaClass().getClassifierAccessorName();
-GenNodeLabel label = (GenNodeLabel) genChildNode.getLabels().get(0);
-%>
-
-	/**
-	 * @generated
-	 */
-	public IParser getParser() {
-		if (parser == null) {
-			parser = new <%=importManager.getImportedName(genDiagram.getStructuralFeatureParserQualifiedClassName())%>(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticChildNodeInterfaceName%>().getEStructuralFeature("<%=label.getMetaFeature().getName()%>"));
-		}
-		return parser;
-	}
 
 	/**
 	 * @generated
@@ -48,5 +31,11 @@ GenNodeLabel label = (GenNodeLabel) genChildNode.getLabels().get(0);
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genChildNode.getItemSemanticEditPolicyQualifiedClassName())%>());
 	}
+
+<%
+GenNodeLabel genLabel = (GenNodeLabel) genChildNode.getLabels().get(0);
+String accessorName = genChildNode.getDomainMetaClass().getClassifierAccessorName();
+%>
+<%@ include file="labelSemantic.jetinc"%>
 }
 <%importManager.emitSortedImports();%>

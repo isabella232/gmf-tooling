@@ -28,7 +28,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  * @model
  * @generated
  */
-public interface FeatureModelFacet extends ModelFacet, LinkModelFacet {
+public interface FeatureModelFacet extends ModelFacet, LinkModelFacet, LabelModelFacet {
 	/**
 	 * Returns the value of the '<em><b>Meta Feature</b></em>' reference.
 	 * <!-- begin-user-doc -->

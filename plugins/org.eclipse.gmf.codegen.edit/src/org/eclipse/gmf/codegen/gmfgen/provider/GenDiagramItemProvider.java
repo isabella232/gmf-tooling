@@ -76,7 +76,9 @@ public class GenDiagramItemProvider
 			addModelingAssistantProviderClassNamePropertyDescriptor(object);
 			addPropertyProviderClassNamePropertyDescriptor(object);
 			addIconProviderClassNamePropertyDescriptor(object);
+			addAbstractParserClassNamePropertyDescriptor(object);
 			addStructuralFeatureParserClassNamePropertyDescriptor(object);
+			addStructuralFeaturesParserClassNamePropertyDescriptor(object);
 			addReorientConnectionViewCommandClassNamePropertyDescriptor(object);
 			addEditPartFactoryClassNamePropertyDescriptor(object);
 			addBaseExternalNodeLabelEditPartClassNamePropertyDescriptor(object);
@@ -1012,6 +1014,26 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Abstract Parser Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAbstractParserClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ProviderClassNames_abstractParserClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_abstractParserClassName_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_AbstractParserClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Structural Feature Parser Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1025,6 +1047,26 @@ public class GenDiagramItemProvider
 				 getString("_UI_ProviderClassNames_structuralFeatureParserClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_structuralFeatureParserClassName_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_StructuralFeatureParserClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Structural Features Parser Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStructuralFeaturesParserClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ProviderClassNames_structuralFeaturesParserClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_structuralFeaturesParserClassName_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_StructuralFeaturesParserClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -1113,7 +1155,9 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURES_PARSER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_FACTORY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__BASE_EXTERNAL_NODE_LABEL_EDIT_PART_CLASS_NAME:

@@ -109,7 +109,9 @@ public class Generator implements Runnable {
 
 			// edit parts, edit policies and providers
 			generateSemanticHints();
+			generateAbstractParser();
 			generateStructuralFeatureParser();
+			generateStructuralFeaturesParser();
 			generateBaseItemSemanticEditPolicy();
 			generateBaseGraphicalNodeEditPolicy();
 			generateReferenceConnectionEditPolicy();
@@ -463,11 +465,29 @@ public class Generator implements Runnable {
 
 	// providers
 
+	private void generateAbstractParser() throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			EmitterFactory.getAbstractParserEmitter(),
+			myDiagram.getProvidersPackageName(),
+			myDiagram.getAbstractParserClassName(),
+			myDiagram
+		);
+	}
+
 	private void generateStructuralFeatureParser() throws JETException, InterruptedException {
 		doGenerateJavaClass(
 			EmitterFactory.getStructuralFeatureParserEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getStructuralFeatureParserClassName(),
+			myDiagram
+		);
+	}
+
+	private void generateStructuralFeaturesParser() throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			EmitterFactory.getStructuralFeaturesParserEmitter(),
+			myDiagram.getProvidersPackageName(),
+			myDiagram.getStructuralFeaturesParserClassName(),
 			myDiagram
 		);
 	}

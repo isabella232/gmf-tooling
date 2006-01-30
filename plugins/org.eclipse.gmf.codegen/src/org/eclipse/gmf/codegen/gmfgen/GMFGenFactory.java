@@ -125,6 +125,15 @@ public interface GMFGenFactory extends EFactory {
 	FeatureModelFacet createFeatureModelFacet();
 
 	/**
+	 * Returns a new object of class '<em>Composite Feature Model Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Composite Feature Model Facet</em>'.
+	 * @generated
+	 */
+	CompositeFeatureModelFacet createCompositeFeatureModelFacet();
+
+	/**
 	 * Returns a new object of class '<em>Type Link Model Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
