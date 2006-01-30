@@ -14,12 +14,16 @@
 	</target>
 
 	<target name="main" depends="init,checkArgs">
+		<!-- Note: for now, overriding calculated qualifier for continuous and nightly builds, 
+		     as these builds are not tagged as are integration and stable builds. -->
+		<property file="label.properties"/>
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
 			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building sdk..." />
 		<ant antfile="build.xml" target="main">
@@ -27,12 +31,14 @@
 			<property name="wipe" value="true" />
 			<property name="copyRuntime" value="true" />
 			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building examples..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="examples" />
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building tests..." />
 		<ant antfile="build.xml" target="main">
@@ -40,16 +46,21 @@
 			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 	</target>
 
 	<target name="nightly" depends="init,checkArgs">
+		<!-- Note: for now, overriding calculated qualifier for continuous and nightly builds,
+		     as these builds are not tagged as are integration and stable builds. -->
+		<property file="label.properties"/>
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
 			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building sdk..." />
 		<ant antfile="build.xml" target="main">
@@ -57,12 +68,14 @@
 			<property name="wipe" value="true" />
 			<property name="copyRuntime" value="true" />
 			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building examples..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="examples" />
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building tests..." />
 		<ant antfile="build.xml" target="main">
@@ -70,6 +83,7 @@
 			<property name="cleanBase" value="true" />
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<antcall target="publish" />
 		<property file="label.properties" />
