@@ -11,14 +11,17 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.Ship_CargoCompartmentCanonicalEditPolicy;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.Ship_CargoCompartmentItemSemanticEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.emf.common.notify.Notification;
+
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.Ship_CargoCompartmentCanonicalEditPolicy;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.Ship_CargoCompartmentItemSemanticEditPolicy;
+
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ListCompartmentEditPart;
+
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.DragDropEditPolicy;
 
 /**
  * @generated

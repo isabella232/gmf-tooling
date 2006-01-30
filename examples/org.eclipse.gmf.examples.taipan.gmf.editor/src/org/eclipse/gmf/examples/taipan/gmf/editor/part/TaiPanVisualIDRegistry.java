@@ -28,8 +28,10 @@ import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;
 
 /**
- * This registry is used to determine which type of visual object should be created for the corresponding Diagram, Node, ChildNode or Link represented by a domain model object.
- * 
+ * This registry is used to determine which type of visual object should be
+ * created for the corresponding Diagram, Node, ChildNode or Link represented 
+ * by a domain model object.
+ *
  * @generated
  */
 public class TaiPanVisualIDRegistry {
@@ -177,8 +179,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to check some additional conditions here.
-	 * 
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
+	 *
 	 * @generated
 	 */
 	private boolean isDiagramAquatory_79(Aquatory element) {
@@ -186,8 +189,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to handle some specific situations not covered by default logic.
-	 * 
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
 	 * @generated
 	 */
 	private int getUnrecognizedDiagramID(EObject domainElement) {
@@ -195,8 +199,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to check some additional conditions here.
-	 * 
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
+	 *
 	 * @generated
 	 */
 	private boolean isNodePort_1001(Port element) {
@@ -204,8 +209,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to check some additional conditions here.
-	 * 
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
+	 *
 	 * @generated
 	 */
 	private boolean isNodeShip_1002(Ship element) {
@@ -213,8 +219,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to check some additional conditions here.
-	 * 
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
+	 *
 	 * @generated
 	 */
 	private boolean isNodeItem_2001(Item element) {
@@ -222,8 +229,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to handle some specific situations not covered by default logic.
-	 * 
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
 	 * @generated
 	 */
 	private int getUnrecognizedPort_1001ChildNodeID(String semanticHint) {
@@ -231,8 +239,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to handle some specific situations not covered by default logic.
-	 * 
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
 	 * @generated
 	 */
 	private int getUnrecognizedPort_1001ChildNodeID(EObject domainElement) {
@@ -240,8 +249,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to handle some specific situations not covered by default logic.
-	 * 
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
 	 * @generated
 	 */
 	private int getUnrecognizedShip_1002ChildNodeID(String semanticHint) {
@@ -249,8 +259,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to handle some specific situations not covered by default logic.
-	 * 
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
 	 * @generated
 	 */
 	private int getUnrecognizedShip_1002ChildNodeID(EObject domainElement) {
@@ -258,8 +269,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to handle some specific situations not covered by default logic.
-	 * 
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
 	 * @generated
 	 */
 	private int getUnrecognizedItem_2001ChildNodeID(String semanticHint) {
@@ -267,8 +279,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to handle some specific situations not covered by default logic.
-	 * 
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
 	 * @generated
 	 */
 	private int getUnrecognizedItem_2001ChildNodeID(EObject domainElement) {
@@ -276,8 +289,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to handle some specific situations not covered by default logic.
-	 * 
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
 	 * @generated
 	 */
 	private int getUnrecognizedCargoCompartment_5001ChildNodeID(String semanticHint) {
@@ -285,8 +299,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to handle some specific situations not covered by default logic.
-	 * 
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
 	 * @generated
 	 */
 	private int getUnrecognizedCargoCompartment_5001ChildNodeID(EObject domainElement) {
@@ -294,8 +309,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to handle some specific situations not covered by default logic.
-	 * 
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
 	 * @generated
 	 */
 	private int getUnrecognizedAquatory_79ChildNodeID(String semanticHint) {
@@ -303,8 +319,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to handle some specific situations not covered by default logic.
-	 * 
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
 	 * @generated
 	 */
 	private int getUnrecognizedAquatory_79ChildNodeID(EObject domainElement) {
@@ -312,8 +329,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to handle some specific situations not covered by default logic.
-	 * 
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
 	 * @generated
 	 */
 	private int getUnrecognizedShipDestination_3001LinkLabelID(String semanticHint) {
@@ -321,8 +339,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to handle some specific situations not covered by default logic.
-	 * 
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
 	 * @generated
 	 */
 	private int getUnrecognizedRoute_3002LinkLabelID(String semanticHint) {
@@ -330,8 +349,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to handle some specific situations not covered by default logic.
-	 * 
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
 	 * @generated
 	 */
 	private int getUnrecognizedRoute_3002LinkLabelTextID(String semanticHint) {
@@ -339,8 +359,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to handle some specific situations not covered by default logic.
-	 * 
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
 	 * @generated
 	 */
 	private int getUnrecognizedLinkWithClassID(EObject domainElement) {
@@ -348,8 +369,9 @@ public class TaiPanVisualIDRegistry {
 	}
 
 	/**
-	 * User can change implementation of this method to check some additional conditions here.
-	 * 
+	 * User can change implementation of this method to check some additional 
+	 * conditions here.
+	 *
 	 * @generated
 	 */
 	private boolean isLinkWithClassRoute_3002(Route element) {

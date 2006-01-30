@@ -102,9 +102,10 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	}
 
 	/**
-	 * For now we are skipping links which was generated based on "GenLinkReferenceOnly" classes since they do not handle any domain model objects inside, so we can not process them using
+	 * For now we are skipping links which was generated based on "GenLinkReferenceOnly" classes
+	 * since they do not handle any domain model objects inside, so we can not process them using
 	 * CanonicalConnectionEditPolicy class
-	 * 
+	 *
 	 * @generated
 	 */
 	protected boolean shouldIncludeConnection(Edge connector, Collection children) {

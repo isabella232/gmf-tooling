@@ -15,7 +15,7 @@
     <labels visualID="4003" editPartClassName="Item_articleEditPart" itemSemanticEditPolicyClassName="Item_articleItemSemanticEditPolicy" notationViewFactoryClassName="Item_articleViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet" viewPattern="[{0}]" editPattern="-{0}">
         <metaFeature href="taipan.genmodel#//taipan/Item/article"/>
       </modelFacet>
     </labels>
@@ -31,7 +31,7 @@
     <labels visualID="4001" editPartClassName="Port_locationEditPart" itemSemanticEditPolicyClassName="Port_locationItemSemanticEditPolicy" notationViewFactoryClassName="Port_locationViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="taipan.genmodel#//taipan/Port/location"/>
       </modelFacet>
     </labels>
@@ -47,7 +47,7 @@
     <labels visualID="4002" editPartClassName="Ship_nameEditPart" itemSemanticEditPolicyClassName="Ship_nameItemSemanticEditPolicy" notationViewFactoryClassName="Ship_nameViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="taipan.genmodel#//taipan/Ship/name"/>
       </modelFacet>
     </labels>
@@ -72,14 +72,14 @@
     <labels visualID="4004" editPartClassName="Route_descriptionEditPart" itemSemanticEditPolicyClassName="Route_descriptionItemSemanticEditPolicy" notationViewFactoryClassName="Route_descriptionViewFactory" textEditPartClassName="Route_descriptionTextEditPart" textNotationViewFactoryClassName="Route_descriptionTextViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet" viewPattern="">
         <metaFeature href="taipan.genmodel#//taipan/Route/description"/>
       </modelFacet>
     </labels>
     <labels visualID="4009" readOnly="true">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet" viewPattern="reliability: {0}" editPattern="">
         <metaFeature href="taipan.genmodel#//taipan/Route/reliability"/>
       </modelFacet>
     </labels>

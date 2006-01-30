@@ -319,7 +319,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	}
 
 	/**
-	 * @generated
+	 *@generated
 	 */
 	private void storeLinks(EObject container) {
 		EClass containerMetaclass = container.eClass();
@@ -344,7 +344,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	}
 
 	/**
-	 * @generated
+	 *@generated
 	 */
 	private void storeFeatureModelFacetLinks(EObject container, EClass containerMetaclass) {
 		if (-1 != containerMetaclass.getFeatureID(TaiPanPackage.eINSTANCE.getShip_Destination())) {

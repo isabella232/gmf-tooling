@@ -11,13 +11,13 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanStructuralFeatureParser;
+
+import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 
 /**
  * @generated
@@ -32,21 +32,19 @@ public class RouteReliabilityLinkLabelTextEditPart extends TextCompartmentEditPa
 	}
 
 	/**
-	 * @generated NOT
+	 * @generated
 	 */
 	public IParser getParser() {
 		if (parser == null) {
-			parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getRoute().getEStructuralFeature("reliability")) {
-
-				public String getPrintString(IAdaptable adapter, int flags) {
-					double r = Double.parseDouble(super.getPrintString(adapter, flags));
-					return "reliability: " + r * 100 + "%";
-				}
-			};
+			parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getRoute().getEStructuralFeature("reliability"));
+			((TaiPanStructuralFeatureParser) parser).setViewPattern("reliability: {0}");
 		}
 		return parser;
 	}
 
+	/**
+	 * @generated
+	 */
 	protected boolean isEditable() {
 		return false;
 	}

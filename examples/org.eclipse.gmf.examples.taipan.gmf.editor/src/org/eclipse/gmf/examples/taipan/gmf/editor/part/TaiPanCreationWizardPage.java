@@ -21,7 +21,6 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreat
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
-
 import org.eclipse.core.resources.ResourcesPlugin;
 
 /**
