@@ -102,8 +102,8 @@ public class AllTests {
 				}
 			}
 			if (m == null) {
-				String methodInvocation = NeedsSetup.METHOD_NAME + "(" + config.getClass().getSimpleName() + " arg);";
-				return new ConfigurationFailedCase(theClass.getCanonicalName() + " has no method compatible with " + methodInvocation);
+				String methodInvocation = NeedsSetup.METHOD_NAME + "(" + config.getClass().getName() + " arg);";
+				return new ConfigurationFailedCase(theClass.getName() + " has no method compatible with " + methodInvocation);
 			}
 			final Object[] args = new Object[] { config };
 			for (Enumeration en = suite.tests(); en.hasMoreElements(); ) {
@@ -111,11 +111,11 @@ public class AllTests {
 				m.invoke(nextTest, args);
 			}
 		} catch (SecurityException ex) {
-			return new ConfigurationFailedCase(theClass.getCanonicalName() + ": " + ex.getMessage());
+			return new ConfigurationFailedCase(theClass.getName() + ": " + ex.getMessage());
 		} catch (IllegalAccessException ex) {
-			return new ConfigurationFailedCase(theClass.getCanonicalName() + ": " + ex.getMessage());
+			return new ConfigurationFailedCase(theClass.getName() + ": " + ex.getMessage());
 		} catch (InvocationTargetException ex) {
-			return new ConfigurationFailedCase(theClass.getCanonicalName() + ": " + ex.getMessage());
+			return new ConfigurationFailedCase(theClass.getName() + ": " + ex.getMessage());
 		}
 		return suite;
 	}
