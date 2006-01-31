@@ -73,7 +73,6 @@
 				target="main" uselogger="true" usedebug="false" usequiet="true">
 				<property name="fetchTag" value="HEAD" />
 				<property name="buildType" value="C" />
-				<property name="forceContextQualifier" value="C${cctimestamp}" />
 			</ant>
 		</schedule>
 
@@ -134,25 +133,19 @@
 				dest="${cc.publish}/nightly/" />
 		</publishers>
 	</project>
-	
+<!--	
 	<project name="integration" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
 				file="${logs}/integration/buildstatus.txt" />
 		</listeners>
 
-		<!-- Bootstrappers are run every time the build runs, 
-			*before* the modification checks -->
 		<bootstrappers></bootstrappers>
 
-		<!-- Defines where cruise looks for changes, to decide
-			whether to run the build -->
 		<modificationset>
 			<alwaysbuild /> 
 		</modificationset>
 
-		<!-- Configures the actual build loop, how often and which
-			build file/target -->
 		<schedule>
 			<ant time="0300" antscript="build.${ext}" buildfile="buildAll.xml"
 				target="integration" uselogger="true" usedebug="false" usequiet="true">				
@@ -161,12 +154,10 @@
 			</ant>
 		</schedule>
 
-		<!-- directory to write build logs to -->
 		<log dir="${logs}/integration">
 			<merge dir="${artifacts}/cc" />
 		</log>
 
-		<!-- Publishers are run *after* a build completes -->
 		<publishers>
 			<htmlemail buildresultsurl="${reporting.url}/buildresults/integration"
 			logdir="${logs}/integration">
@@ -176,5 +167,5 @@
 				dest="${cc.publish}/integration/" />
 		</publishers>
 	</project>
-
+-->
 </cruisecontrol>
