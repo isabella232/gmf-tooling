@@ -37,15 +37,9 @@ public class RouteReliabilityLinkLabelTextEditPart extends TextCompartmentEditPa
 	public IParser getParser() {
 		if (parser == null) {
 			parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getRoute().getEStructuralFeature("reliability"));
-			((TaiPanStructuralFeatureParser) parser).setViewPattern("reliability: {0}");
+			((TaiPanStructuralFeatureParser) parser).setViewPattern("reliability: {0,number,percent}");
+			((TaiPanStructuralFeatureParser) parser).setEditPattern("{0,number,percent}");
 		}
 		return parser;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected boolean isEditable() {
-		return false;
 	}
 }

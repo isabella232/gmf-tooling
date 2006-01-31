@@ -109,7 +109,7 @@ public class TaiPanVisualIDRegistry {
 			}
 			return getUnrecognizedShip_1002ChildNodeID(domainElement);
 		case 2001:
-			if (TaiPanSemanticHints.Item_2001Labels.ITEMARTICLE_4003_TEXT.equals(semanticHint)) {
+			if (TaiPanSemanticHints.Item_2001Labels.ITEMARTICLEQUANTITY_4003_TEXT.equals(semanticHint)) {
 				return 4003;
 			}
 			if (semanticHint != null && !"".equals(semanticHint)) {

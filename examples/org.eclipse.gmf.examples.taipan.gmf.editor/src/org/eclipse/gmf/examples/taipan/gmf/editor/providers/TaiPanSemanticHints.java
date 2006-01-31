@@ -36,7 +36,7 @@ public class TaiPanSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String ITEMARTICLE_4003_TEXT = "ItemArticle_4003Text";
+		public static final String ITEMARTICLEQUANTITY_4003_TEXT = "ItemArticleQuantity_4003Text";
 	}
 
 	/**
