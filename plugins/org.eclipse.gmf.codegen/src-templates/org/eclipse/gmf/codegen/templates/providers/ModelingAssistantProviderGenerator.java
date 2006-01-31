@@ -135,7 +135,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		GenCommonBase source = (GenCommonBase) sources.next();
 		Collection value = (Collection) outgoingLinks.get(source);
 		if (value == null) {
-			value = new HashSet();
+			value = new LinkedHashSet();
 			outgoingLinks.put(source, value);
 		}
 		value.add(genLink);
@@ -144,7 +144,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		GenCommonBase target = (GenCommonBase) targets.next();
 		Collection value = (Collection) incomingLinks.get(target);
 		if (value == null) {
-			value = new HashSet();
+			value = new LinkedHashSet();
 			incomingLinks.put(target, value);
 		}
 		value.add(genLink);
