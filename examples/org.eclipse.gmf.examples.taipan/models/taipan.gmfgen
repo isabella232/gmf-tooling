@@ -15,8 +15,9 @@
     <labels visualID="4003" editPartClassName="Item_articleEditPart" itemSemanticEditPolicyClassName="Item_articleItemSemanticEditPolicy" notationViewFactoryClassName="Item_articleViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet xsi:type="gmfgen:FeatureModelFacet" viewPattern="[{0}]" editPattern="-{0}">
-        <metaFeature href="taipan.genmodel#//taipan/Item/article"/>
+      <modelFacet xsi:type="gmfgen:CompositeFeatureModelFacet" viewPattern="- {0} [{1,number,integer}]" editPattern="{0}:{1,number,integer}">
+        <metaFeatures href="taipan.genmodel#//taipan/Item/article"/>
+        <metaFeatures href="taipan.genmodel#//taipan/Item/quantity"/>
       </modelFacet>
     </labels>
   </childNodes>
@@ -76,10 +77,10 @@
         <metaFeature href="taipan.genmodel#//taipan/Route/description"/>
       </modelFacet>
     </labels>
-    <labels visualID="4009" readOnly="true">
+    <labels visualID="4009">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet xsi:type="gmfgen:FeatureModelFacet" viewPattern="reliability: {0}" editPattern="">
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet" viewPattern="reliability: {0,number,percent}" editPattern="{0,number,percent}">
         <metaFeature href="taipan.genmodel#//taipan/Route/reliability"/>
       </modelFacet>
     </labels>
