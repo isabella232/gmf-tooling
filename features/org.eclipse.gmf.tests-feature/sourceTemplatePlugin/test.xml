@@ -12,6 +12,11 @@
 	<property file="${buildRoot}/tests/pluginVersions.properties"/>
 
 	<target name="runtests" depends="" description="Executes the junit tests for a specified plug-in.">
+		<!-- Check to see if forcing qualifier context.  If so, override the version found in pluginVersions.properties -->
+		<condition property="qualifiedVersion" value="${forceContextQualifier}">
+			<isset property="forceContextQualifier"/>
+		</condition>
+		<property name="qualifiedVersion" value="${qualifier}"/>
 		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="true" timeout="600000">
 			<assertions>
 				<enable/>
@@ -19,7 +24,7 @@
 			<arg value="-application" />
 			<arg value="org.eclipse.ant.core.antRunner" />
 			<arg value="-file" />
-			<arg value="${basedir}/src/${testPlugin}_${gmfVersion}${qualifier}/test.xml" />
+			<arg value="${basedir}/src/${testPlugin}_${gmfVersion}${qualifiedVersion}/test.xml" />
 			<arg value="-logger" />
 			<arg value="org.apache.tools.ant.DefaultLogger" />
 			<arg value="-Dos=${baseos}" />
@@ -33,6 +38,8 @@
 		<move file="${baseLocation}/${testPlugin}.xml" tofile="${basedir}/testresults/xml/${testPlugin}.xml" />
 	</target>
 
+	<!-- For each, the qualifier value is what's found in generated pluginVersions.properties file. Typically, 
+	     it is the build id (e.g. I20060131-0200) -->
 	<target name="all" description="Runs the test.xml of the test plugins">
 		<antcall target="runtests">
 			<param name="testPlugin" value="org.eclipse.gmf.tests" />
