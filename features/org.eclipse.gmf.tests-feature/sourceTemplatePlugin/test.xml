@@ -13,7 +13,7 @@
 
 	<target name="runtests" depends="" description="Executes the junit tests for a specified plug-in.">
 		<!-- Check to see if forcing qualifier context.  If so, override the version found in pluginVersions.properties -->
-		<condition property="qualifiedVersion" value="${forceContextQualifier}">
+		<condition property="qualifiedVersion" value=".${forceContextQualifier}">
 			<isset property="forceContextQualifier"/>
 		</condition>
 		<property name="qualifiedVersion" value="${qualifier}"/>
