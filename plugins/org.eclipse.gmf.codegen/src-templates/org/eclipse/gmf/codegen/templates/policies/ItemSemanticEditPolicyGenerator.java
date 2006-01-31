@@ -46,18 +46,20 @@ public class ItemSemanticEditPolicyGenerator {
   protected final String TEXT_27 = " env = ";
   protected final String TEXT_28 = ".ECORE_INSTANCE.createClassifierContext(constraint.context);" + NL + "\t\t\t\tif(oppositeEndDecl != null) env.addElement(oppositeEndDecl.getName(), oppositeEndDecl, true);" + NL + "\t\t\t\tif(varLinkObject != null) env.addElement(LINK_VAR, varLinkObject, true);\t\t\t" + NL + "" + NL + "\t\t\t\treturn ";
   protected final String TEXT_29 = ".eINSTANCE.createQuery(" + NL + "\t\t\t\t\t";
-  protected final String TEXT_30 = ".createInvariant(env, constraint.body, true));" + NL + "\t\t\t} catch (Exception e) {" + NL + "\t\t\t\te.printStackTrace();" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated " + NL + "\t\t */\t\t" + NL + "\t\tprivate static boolean evaluate(";
-  protected final String TEXT_31 = " query, Object sourceEnd, Object oppositeEnd, Object link, boolean clearEnv) {" + NL + "\t\t\t";
-  protected final String TEXT_32 = " evalEnv = query.getEvaluationEnvironment();" + NL + "\t\t\tevalEnv.replace(OPPOSITE_END_VAR, oppositeEnd);" + NL + "\t\t\tevalEnv.replace(LINK_VAR, link);\t\t" + NL + "\t\t\ttry {" + NL + "\t\t\t\tObject val = query.evaluate(sourceEnd);\t\t\t" + NL + "\t\t\t\treturn (val instanceof Boolean) ? ((Boolean)val).booleanValue() : false;" + NL + "\t\t\t} catch(Exception e) {\t\t" + NL + "\t\t\t\te.printStackTrace();\t\t\t" + NL + "\t\t\t\tif(evalEnv != null) evalEnv.clear();\t\t\t" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t} finally {" + NL + "\t\t\t\tif(clearEnv) evalEnv.clear();" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated " + NL + "\t\t */\t\t" + NL + "\t\tprivate static ";
-  protected final String TEXT_33 = " createVar(String name, ";
-  protected final String TEXT_34 = " type) {" + NL + "\t\t\t";
-  protected final String TEXT_35 = " var = ";
-  protected final String TEXT_36 = ".eINSTANCE.createVariableDeclaration();" + NL + "\t\t\tvar.setName(name);" + NL + "\t\t\tvar.setType(";
-  protected final String TEXT_37 = ".getOclType(type));\t\t" + NL + "\t\t\treturn var;" + NL + "\t\t}\t" + NL + "\t}" + NL + "\t/**" + NL + "\t * @generated " + NL + "\t */\t" + NL + "\tstatic class LinkEndConstraint {" + NL + "\t\tfinal ";
-  protected final String TEXT_38 = " context;" + NL + "\t\tfinal String body;" + NL + "\t\tLinkEndConstraint(String body, ";
-  protected final String TEXT_39 = " context) {" + NL + "\t\t\tthis.context = context;" + NL + "\t\t\tthis.body = body;" + NL + "\t\t}" + NL + "\t}";
-  protected final String TEXT_40 = "\t" + NL + "}";
-  protected final String TEXT_41 = NL;
+  protected final String TEXT_30 = ".createInvariant(env, constraint.body, true));" + NL + "\t\t\t} catch (Exception e) {" + NL + "\t\t\t\t";
+  protected final String TEXT_31 = ".getInstance().logError(null, e);" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated " + NL + "\t\t */\t\t" + NL + "\t\tprivate static boolean evaluate(";
+  protected final String TEXT_32 = " query, Object sourceEnd, Object oppositeEnd, Object link, boolean clearEnv) {" + NL + "\t\t\t";
+  protected final String TEXT_33 = " evalEnv = query.getEvaluationEnvironment();" + NL + "\t\t\tevalEnv.replace(OPPOSITE_END_VAR, oppositeEnd);" + NL + "\t\t\tevalEnv.replace(LINK_VAR, link);\t\t" + NL + "\t\t\ttry {" + NL + "\t\t\t\tObject val = query.evaluate(sourceEnd);\t\t\t" + NL + "\t\t\t\treturn (val instanceof Boolean) ? ((Boolean)val).booleanValue() : false;" + NL + "\t\t\t} catch(Exception e) {\t" + NL + "\t\t\t\t";
+  protected final String TEXT_34 = ".getInstance().logError(null, e);\t" + NL + "\t\t\t\tif(evalEnv != null) evalEnv.clear();\t\t\t" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t} finally {" + NL + "\t\t\t\tif(clearEnv) evalEnv.clear();" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated " + NL + "\t\t */\t\t" + NL + "\t\tprivate static ";
+  protected final String TEXT_35 = " createVar(String name, ";
+  protected final String TEXT_36 = " type) {" + NL + "\t\t\t";
+  protected final String TEXT_37 = " var = ";
+  protected final String TEXT_38 = ".eINSTANCE.createVariableDeclaration();" + NL + "\t\t\tvar.setName(name);" + NL + "\t\t\tvar.setType(";
+  protected final String TEXT_39 = ".getOclType(type));\t\t" + NL + "\t\t\treturn var;" + NL + "\t\t}\t" + NL + "\t}" + NL + "\t/**" + NL + "\t * @generated " + NL + "\t */\t" + NL + "\tstatic class LinkEndConstraint {" + NL + "\t\tfinal ";
+  protected final String TEXT_40 = " context;" + NL + "\t\tfinal String body;" + NL + "\t\tLinkEndConstraint(String body, ";
+  protected final String TEXT_41 = " context) {" + NL + "\t\t\tthis.context = context;" + NL + "\t\t\tthis.body = body;" + NL + "\t\t}" + NL + "\t}";
+  protected final String TEXT_42 = "\t" + NL + "}";
+  protected final String TEXT_43 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
 		StringBuffer result = new StringBuffer();
@@ -233,28 +235,32 @@ if(diagram.hasLinkCreationConstraints()) {
     stringBuffer.append(TEXT_29);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.util.ExpressionsUtil"));
     stringBuffer.append(TEXT_30);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.query.Query"));
+    stringBuffer.append(importManager.getImportedName(diagram.getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_31);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.parser.EvaluationEnvironment"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.query.Query"));
     stringBuffer.append(TEXT_32);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.parser.EvaluationEnvironment"));
     stringBuffer.append(TEXT_33);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClassifier"));
+    stringBuffer.append(importManager.getImportedName(diagram.getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_34);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration"));
     stringBuffer.append(TEXT_35);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.ExpressionsFactory"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClassifier"));
     stringBuffer.append(TEXT_36);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.parser.EcoreEnvironment"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration"));
     stringBuffer.append(TEXT_37);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClassifier"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.ExpressionsFactory"));
     stringBuffer.append(TEXT_38);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClassifier"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.parser.EcoreEnvironment"));
     stringBuffer.append(TEXT_39);
-    } //end of LinkConstraints 
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClassifier"));
     stringBuffer.append(TEXT_40);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClassifier"));
     stringBuffer.append(TEXT_41);
+    } //end of LinkConstraints 
+    stringBuffer.append(TEXT_42);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_43);
     return stringBuffer.toString();
   }
 }

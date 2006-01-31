@@ -121,15 +121,15 @@ public class EcoreModelingAssistantProvider extends ModelingAssistantProvider {
 		if (sourceEditPart instanceof EClassEditPart) {
 			List types = new ArrayList();
 			types.add(EcoreElementTypes.EReference_3002);
-			types.add(EcoreElementTypes.EClassESuperTypes_3004);
 			types.add(EcoreElementTypes.EReference_3003);
+			types.add(EcoreElementTypes.EClassESuperTypes_3004);
 			return types;
 		}
 		if (sourceEditPart instanceof EClass2EditPart) {
 			List types = new ArrayList();
 			types.add(EcoreElementTypes.EReference_3002);
-			types.add(EcoreElementTypes.EClassESuperTypes_3004);
 			types.add(EcoreElementTypes.EReference_3003);
+			types.add(EcoreElementTypes.EClassESuperTypes_3004);
 			return types;
 		}
 		return Collections.EMPTY_LIST;

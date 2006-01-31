@@ -41,6 +41,8 @@ import org.eclipse.emf.ocl.parser.EvaluationEnvironment;
 import org.eclipse.emf.ocl.query.Query;
 import org.eclipse.emf.ocl.query.QueryFactory;
 
+import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
+
 /**
  * @generated
  */
@@ -311,7 +313,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 
 				return QueryFactory.eINSTANCE.createQuery(ExpressionsUtil.createInvariant(env, constraint.body, true));
 			} catch (Exception e) {
-				e.printStackTrace();
+				EcoreDiagramEditorPlugin.getInstance().logError(null, e);
 				return null;
 			}
 		}
@@ -327,7 +329,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 				Object val = query.evaluate(sourceEnd);
 				return (val instanceof Boolean) ? ((Boolean) val).booleanValue() : false;
 			} catch (Exception e) {
-				e.printStackTrace();
+				EcoreDiagramEditorPlugin.getInstance().logError(null, e);
 				if (evalEnv != null)
 					evalEnv.clear();
 				return false;

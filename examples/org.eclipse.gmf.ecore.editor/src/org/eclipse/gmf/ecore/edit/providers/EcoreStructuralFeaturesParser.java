@@ -2,7 +2,9 @@ package org.eclipse.gmf.ecore.edit.providers;
 
 import java.text.FieldPosition;
 import java.text.MessageFormat;
-import java.util.Collections;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.notify.Notification;
@@ -16,39 +18,18 @@ import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeModelCommand;
 /**
  * @generated
  */
-public class EcoreStructuralFeatureParser extends EcoreAbstractParser {
+public class EcoreStructuralFeaturesParser extends EcoreAbstractParser {
 
 	/**
 	 * @generated
 	 */
-	private static final MessageFormat DEFAULT_PROCESSOR = new MessageFormat("{0}");
+	private List features;
 
 	/**
 	 * @generated
 	 */
-	private EStructuralFeature feature;
-
-	/**
-	 * @generated
-	 */
-	public EcoreStructuralFeatureParser(EStructuralFeature feature) {
-		this.feature = feature;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected MessageFormat getViewProcessor() {
-		MessageFormat processor = super.getViewProcessor();
-		return processor == null ? DEFAULT_PROCESSOR : processor;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected MessageFormat getEditProcessor() {
-		MessageFormat processor = super.getEditProcessor();
-		return processor == null ? DEFAULT_PROCESSOR : processor;
+	public EcoreStructuralFeaturesParser(List features) {
+		this.features = features;
 	}
 
 	/**
@@ -56,15 +37,19 @@ public class EcoreStructuralFeatureParser extends EcoreAbstractParser {
 	 */
 	protected String getStringByPattern(IAdaptable adapter, int flags, String pattern, MessageFormat processor) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
-		Object value = element.eGet(feature);
-		return processor.format(new Object[] { value }, new StringBuffer(), new FieldPosition(0)).toString();
+		List values = new ArrayList(features.size());
+		for (Iterator it = features.iterator(); it.hasNext();) {
+			Object value = element.eGet((EStructuralFeature) it.next());
+			values.add(value);
+		}
+		return processor.format(values.toArray(new Object[values.size()]), new StringBuffer(), new FieldPosition(0)).toString();
 	}
 
 	/**
 	 * @generated
 	 */
 	protected IParserEditStatus validateNewValues(Object[] values) {
-		return values.length == 1 ? ParserEditStatus.EDITABLE_STATUS : ParserEditStatus.UNEDITABLE_STATUS;
+		return values.length == features.size() ? ParserEditStatus.EDITABLE_STATUS : ParserEditStatus.UNEDITABLE_STATUS;
 	}
 
 	/**
@@ -72,8 +57,12 @@ public class EcoreStructuralFeatureParser extends EcoreAbstractParser {
 	 */
 	public ICommand getParseCommand(IAdaptable adapter, Object[] newValues) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
-		ICommand command = getModificationCommand(element, feature, newValues[0]);
-		return new CompositeModelCommand(command.getLabel(), Collections.singletonList(command));
+		CompositeModelCommand command = new CompositeModelCommand("Set Values");
+		for (int i = 0; i < newValues.length; i++) {
+			EStructuralFeature feature = (EStructuralFeature) features.get(i);
+			command.compose(getModificationCommand(element, feature, newValues[i]));
+		}
+		return command;
 	}
 
 	/**
@@ -81,7 +70,8 @@ public class EcoreStructuralFeatureParser extends EcoreAbstractParser {
 	 */
 	public boolean isAffectingEvent(Object event, int flags) {
 		if (event instanceof Notification) {
-			if (feature == ((Notification) event).getFeature()) {
+			Object feature = ((Notification) event).getFeature();
+			if (features.contains(feature)) {
 				return true;
 			}
 		}

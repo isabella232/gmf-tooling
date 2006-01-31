@@ -404,7 +404,7 @@ public class TaiPanVisualIDRegistry {
 		try {
 			return Integer.parseInt(visualID);
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to parse \"visualID\" annotation: " + visualID, e);
 		}
 		return -1;
 	}

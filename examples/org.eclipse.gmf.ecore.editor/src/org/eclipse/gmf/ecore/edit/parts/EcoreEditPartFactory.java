@@ -7,6 +7,8 @@ import org.eclipse.emf.ecore.EAnnotation;
 
 import org.eclipse.gmf.ecore.edit.providers.EcoreSemanticHints;
 
+import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
+
 /**
  * @generated
  */
@@ -43,7 +45,7 @@ public class EcoreEditPartFactory implements EditPartFactory {
 		try {
 			return Integer.parseInt(visualID);
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			EcoreDiagramEditorPlugin.getInstance().logError("Unable to parse \"visualID\" annotation: " + visualID, e);
 		}
 		return -1;
 	}

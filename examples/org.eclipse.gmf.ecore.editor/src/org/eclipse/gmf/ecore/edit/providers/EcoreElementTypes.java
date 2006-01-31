@@ -337,7 +337,7 @@ public class EcoreElementTypes {
 		 */
 		public ICommand getEditCommand(IEditCommandRequest req) {
 			if (!(req instanceof ConfigureRequest)) {
-				System.err.println("unserved request " + req);
+				EcoreDiagramEditorPlugin.getInstance().logError("unserved request " + req);
 			}
 			return null;
 		}

@@ -17,7 +17,7 @@
     <labels visualID="4002" editPartClassName="EAttribute_nameEditPart" itemSemanticEditPolicyClassName="EAttribute_nameItemSemanticEditPolicy" notationViewFactoryClassName="EAttribute_nameViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </modelFacet>
     </labels>
@@ -33,7 +33,7 @@
     <labels visualID="4003" editPartClassName="EOperation_nameEditPart" itemSemanticEditPolicyClassName="EOperation_nameItemSemanticEditPolicy" notationViewFactoryClassName="EOperation_nameViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </modelFacet>
     </labels>
@@ -49,7 +49,7 @@
     <labels visualID="4004" editPartClassName="EAnnotation_sourceEditPart" itemSemanticEditPolicyClassName="EAnnotation_sourceItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_sourceViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
       </modelFacet>
     </labels>
@@ -65,7 +65,7 @@
     <labels visualID="4006" editPartClassName="EClass_name2EditPart" itemSemanticEditPolicyClassName="EClass_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EClass_name2ViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </modelFacet>
     </labels>
@@ -81,7 +81,7 @@
     <labels visualID="4007" editPartClassName="EPackage_name2EditPart" itemSemanticEditPolicyClassName="EPackage_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_name2ViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </modelFacet>
     </labels>
@@ -97,7 +97,7 @@
     <labels visualID="4008" editPartClassName="EDataType_nameEditPart" itemSemanticEditPolicyClassName="EDataType_nameItemSemanticEditPolicy" notationViewFactoryClassName="EDataType_nameViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </modelFacet>
     </labels>
@@ -113,7 +113,7 @@
     <labels visualID="4009" editPartClassName="EEnum_nameEditPart" itemSemanticEditPolicyClassName="EEnum_nameItemSemanticEditPolicy" notationViewFactoryClassName="EEnum_nameViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </modelFacet>
     </labels>
@@ -129,7 +129,7 @@
     <labels visualID="4010" editPartClassName="EAnnotation_source2EditPart" itemSemanticEditPolicyClassName="EAnnotation_source2ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_source2ViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
       </modelFacet>
     </labels>
@@ -145,7 +145,7 @@
     <labels visualID="4012" editPartClassName="EStringToStringMapEntry_keyEditPart" itemSemanticEditPolicyClassName="EStringToStringMapEntry_keyItemSemanticEditPolicy" notationViewFactoryClassName="EStringToStringMapEntry_keyViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EStringToStringMapEntry/key"/>
       </modelFacet>
     </labels>
@@ -161,7 +161,7 @@
     <labels visualID="4014" editPartClassName="EAnnotation_source4EditPart" itemSemanticEditPolicyClassName="EAnnotation_source4ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_source4ViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
       </modelFacet>
     </labels>
@@ -177,7 +177,7 @@
     <labels visualID="4016" editPartClassName="EEnumLiteral_nameEditPart" itemSemanticEditPolicyClassName="EEnumLiteral_nameItemSemanticEditPolicy" notationViewFactoryClassName="EEnumLiteral_nameViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </modelFacet>
     </labels>
@@ -193,7 +193,7 @@
     <labels visualID="4017" editPartClassName="EAnnotation_source5EditPart" itemSemanticEditPolicyClassName="EAnnotation_source5ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_source5ViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
       </modelFacet>
     </labels>
@@ -209,7 +209,7 @@
     <labels visualID="4001" editPartClassName="EClass_nameEditPart" itemSemanticEditPolicyClassName="EClass_nameItemSemanticEditPolicy" notationViewFactoryClassName="EClass_nameViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </modelFacet>
     </labels>
@@ -225,7 +225,7 @@
     <labels visualID="4005" editPartClassName="EPackage_nameEditPart" itemSemanticEditPolicyClassName="EPackage_nameItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_nameViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </modelFacet>
     </labels>
@@ -241,7 +241,7 @@
     <labels visualID="4011" editPartClassName="EAnnotation_source3EditPart" itemSemanticEditPolicyClassName="EAnnotation_source3ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_source3ViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
       </modelFacet>
     </labels>
@@ -257,7 +257,7 @@
     <labels visualID="4013" editPartClassName="EDataType_name2EditPart" itemSemanticEditPolicyClassName="EDataType_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EDataType_name2ViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </modelFacet>
     </labels>
@@ -273,7 +273,7 @@
     <labels visualID="4015" editPartClassName="EEnum_name2EditPart" itemSemanticEditPolicyClassName="EEnum_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EEnum_name2ViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </modelFacet>
     </labels>
@@ -303,7 +303,7 @@
     <labels visualID="4018" editPartClassName="EReference_nameEditPart" itemSemanticEditPolicyClassName="EReference_nameItemSemanticEditPolicy" notationViewFactoryClassName="EReference_nameViewFactory" textEditPartClassName="EReference_nameTextEditPart" textNotationViewFactoryClassName="EReference_nameTextViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </modelFacet>
     </labels>
@@ -326,7 +326,7 @@
     <labels visualID="4019" editPartClassName="EReference_name2EditPart" itemSemanticEditPolicyClassName="EReference_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EReference_name2ViewFactory" textEditPartClassName="EReference_name2TextEditPart" textNotationViewFactoryClassName="EReference_name2TextViewFactory">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet>
+      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
         <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
       </modelFacet>
     </labels>
@@ -391,11 +391,11 @@
   </compartments>
   <palette>
     <groups titleKey="Nodes" descriptionKey="Diagram Nodes" entryID="1">
-      <nodeTools titleKey="EClass" descriptionKey="Create Class" entryID="1001" genNode="//@topLevelNodes.0 //@childNodes.3"/>
-      <nodeTools titleKey="EPackage" descriptionKey="Create Package" entryID="1004" genNode="//@topLevelNodes.1 //@childNodes.4"/>
-      <nodeTools titleKey="EAnnotation" descriptionKey="Create Annotation" entryID="1005" genNode="//@topLevelNodes.2 //@childNodes.2 //@childNodes.7 //@childNodes.9 //@childNodes.11"/>
-      <nodeTools titleKey="EDataType" descriptionKey="Create DataType" entryID="1007" genNode="//@topLevelNodes.3 //@childNodes.5"/>
-      <nodeTools titleKey="EEnum" descriptionKey="Create Enumeration" entryID="1008" genNode="//@topLevelNodes.4 //@childNodes.6"/>
+      <nodeTools titleKey="EClass" descriptionKey="Create Class" entryID="1001" genNode="//@topLevelNodes.0"/>
+      <nodeTools titleKey="EPackage" descriptionKey="Create Package" entryID="1004" genNode="//@topLevelNodes.1"/>
+      <nodeTools titleKey="EAnnotation" descriptionKey="Create Annotation" entryID="1005" genNode="//@topLevelNodes.2"/>
+      <nodeTools titleKey="EDataType" descriptionKey="Create DataType" entryID="1007" genNode="//@topLevelNodes.3"/>
+      <nodeTools titleKey="EEnum" descriptionKey="Create Enumeration" entryID="1008" genNode="//@topLevelNodes.4"/>
     </groups>
     <groups titleKey="Child Nodes" descriptionKey="Child Nodes" entryID="2">
       <nodeTools titleKey="EAttribute" descriptionKey="Create Attribute" entryID="1002" genNode="//@childNodes.0"/>

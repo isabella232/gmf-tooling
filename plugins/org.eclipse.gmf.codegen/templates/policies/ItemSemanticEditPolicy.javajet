@@ -315,7 +315,7 @@ if(diagram.hasLinkCreationConstraints()) {
 				return <%=importManager.getImportedName("org.eclipse.emf.ocl.query.QueryFactory")%>.eINSTANCE.createQuery(
 					<%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.util.ExpressionsUtil")%>.createInvariant(env, constraint.body, true));
 			} catch (Exception e) {
-				e.printStackTrace();
+				<%=importManager.getImportedName(diagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError(null, e);
 				return null;
 			}
 		}
@@ -330,8 +330,8 @@ if(diagram.hasLinkCreationConstraints()) {
 			try {
 				Object val = query.evaluate(sourceEnd);			
 				return (val instanceof Boolean) ? ((Boolean)val).booleanValue() : false;
-			} catch(Exception e) {		
-				e.printStackTrace();			
+			} catch(Exception e) {	
+				<%=importManager.getImportedName(diagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError(null, e);	
 				if(evalEnv != null) evalEnv.clear();			
 				return false;
 			} finally {

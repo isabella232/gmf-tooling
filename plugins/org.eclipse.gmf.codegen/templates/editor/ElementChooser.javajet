@@ -159,7 +159,7 @@ for (Iterator it = genDiagram.getContainsShortcutsTo().iterator(); it.hasNext();
 					try {
 						ResourceUtil.load(modelResource);
 					} catch (Exception e) {
-						e.printStackTrace();
+						<%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Error while loading resource: " + resourcePath, e);
 						return null;
 					}
 				}

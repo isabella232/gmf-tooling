@@ -171,7 +171,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 				try {
 					IDE.openEditor(myPart.getSite().getPage(), destFile);
 				} catch (PartInitException ex) {
-					ex.printStackTrace();
+					TaiPanDiagramEditorPlugin.getInstance().logError("Unable to open editor", ex);
 				}
 				return null;
 			}
@@ -191,7 +191,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 			try {
 				ResourceUtil.load(modelResource);
 			} catch (Exception e) {
-				e.printStackTrace();
+				TaiPanDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + resourcePath, e);
 				return null;
 			}
 		}
@@ -207,7 +207,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 		try {
 			resource.save(Collections.EMPTY_MAP);
 		} catch (IOException ex) {
-			ex.printStackTrace();
+			TaiPanDiagramEditorPlugin.getInstance().logError("Save operation failed for: " + filePath, ex);
 		}
 	}
 

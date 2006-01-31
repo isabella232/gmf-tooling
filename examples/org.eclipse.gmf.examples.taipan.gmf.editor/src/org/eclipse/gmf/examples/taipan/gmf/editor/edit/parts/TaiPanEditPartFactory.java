@@ -16,6 +16,8 @@ import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.emf.ecore.EAnnotation;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
 
 /**
@@ -54,7 +56,7 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 		try {
 			return Integer.parseInt(visualID);
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			TaiPanDiagramEditorPlugin.getInstance().logError("Unable to parse \"visualID\" annotation: " + visualID, e);
 		}
 		return -1;
 	}

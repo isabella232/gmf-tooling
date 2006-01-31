@@ -92,7 +92,7 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends DiagramCon
 						}
 					});
 				}catch (Exception e) {
-					e.printStackTrace();
+					<%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError(null, e);
 				}
 			}
 		}
@@ -104,7 +104,7 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends DiagramCon
 			try {
 				diagramFile.deleteMarkers(MARKER_TYPE, true, IResource.DEPTH_ZERO);
 			} catch (CoreException e) {
-				e.printStackTrace();
+				<%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError(null, e);
 			}
 			Diagnostic diagnostic = new Diagnostician() {
 				public String getObjectLabel(EObject eObject) {
@@ -206,7 +206,7 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends DiagramCon
 				}
 				marker.setAttribute(IMarker.SEVERITY, markerSeverity);				
 			} catch (CoreException e) {
-				e.printStackTrace();
+				<%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError(null, e);
 			}
 		}
 				

@@ -209,7 +209,7 @@ public class TaiPanElementTypes {
 		 */
 		public ICommand getEditCommand(IEditCommandRequest req) {
 			if (!(req instanceof ConfigureRequest)) {
-				System.err.println("unserved request " + req);
+				TaiPanDiagramEditorPlugin.getInstance().logError("unserved request " + req);
 			}
 			return null;
 		}

@@ -161,7 +161,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				try {
 					IDE.openEditor(myPart.getSite().getPage(), destFile);
 				} catch (PartInitException ex) {
-					ex.printStackTrace();
+					EcoreDiagramEditorPlugin.getInstance().logError("Unable to open editor", ex);
 				}
 				return null;
 			}
@@ -181,7 +181,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 			try {
 				ResourceUtil.load(modelResource);
 			} catch (Exception e) {
-				e.printStackTrace();
+				EcoreDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + resourcePath, e);
 				return null;
 			}
 		}
@@ -197,7 +197,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 		try {
 			resource.save(Collections.EMPTY_MAP);
 		} catch (IOException ex) {
-			ex.printStackTrace();
+			EcoreDiagramEditorPlugin.getInstance().logError("Save operation failed for: " + filePath, ex);
 		}
 	}
 

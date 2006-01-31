@@ -236,7 +236,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 		 */
 		public ICommand getEditCommand(IEditCommandRequest req) {
 			if (!(req instanceof ConfigureRequest)) {
-				System.err.println("unserved request " + req);
+				<%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("unserved request " + req);
 			}
 			return null;
 		}

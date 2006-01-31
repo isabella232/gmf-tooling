@@ -147,7 +147,7 @@ public class EcoreElementChooserDialog extends Dialog {
 					try {
 						ResourceUtil.load(modelResource);
 					} catch (Exception e) {
-						e.printStackTrace();
+						EcoreDiagramEditorPlugin.getInstance().logError("Error while loading resource: " + resourcePath, e);
 						return null;
 					}
 				}

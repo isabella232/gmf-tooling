@@ -14,6 +14,9 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -164,4 +167,58 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 		}
 		return image;
 	}
+
+	/**
+	 * @generated
+	 */
+	public void logError(String error) {
+		logError(error, null);
+	}
+
+	/**
+	 * @param throwable actual error or null could be passed
+	 * @generated
+	 */
+	public void logError(String error, Throwable throwable) {
+		if (error == null && throwable != null) {
+			error = throwable.getMessage();
+		}
+		getLog().log(new Status(IStatus.ERROR, TaiPanDiagramEditorPlugin.ID, IStatus.OK, error, throwable));
+		debug(error, throwable);
+	}
+
+	/**
+	 * @generated
+	 */
+	public void logInfo(String message) {
+		logInfo(message, null);
+	}
+
+	/**
+	 * @param throwable actual error or null could be passed
+	 * @generated
+	 */
+	public void logInfo(String message, Throwable throwable) {
+		if (message == null && message != null) {
+			message = throwable.getMessage();
+		}
+		getLog().log(new Status(IStatus.INFO, TaiPanDiagramEditorPlugin.ID, IStatus.OK, message, throwable));
+		debug(message, throwable);
+	}
+
+	/**
+	 * @generated
+	 */
+	private void debug(String message, Throwable throwable) {
+		if (!isDebugging()) {
+			return;
+		}
+		if (message != null) {
+			System.err.println(message);
+		}
+		if (throwable != null) {
+			throwable.printStackTrace();
+		}
+	}
+
 }
