@@ -215,9 +215,13 @@ tag="${mapsCheckoutTag}" />
 	<target name="test" unless="skipTests">
 		<antcall target="installTests"/>
 		<property file="${buildRoot}/tests/featureVersions.properties"/>
-	  	<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}.${org.eclipse.gmf.tests}/test.xml"
-	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}.${org.eclipse.gmf.tests}" />
-		<move file="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}.${org.eclipse.gmf.tests}/testresults" todir="${artifacts}/${buildLabel}" failonerror="false"/>
+		<condition property="qualifiedVersion" value=".${forceContextQualifier}">
+			<isset property="forceContextQualifier"/>
+		</condition>
+		<property name="qualifiedVersion" value=".${org.eclipse.gmf.tests}"/>		
+	  	<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}${qualifiedVersion}/test.xml"
+	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}${qualifiedVersion}" />
+		<move file="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}${qualifiedVersion}/testresults" todir="${artifacts}/${buildLabel}" failonerror="false"/>
 	</target>
 	
 	<target name="installTests" unless="testsExist">		
