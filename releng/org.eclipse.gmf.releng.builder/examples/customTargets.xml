@@ -162,10 +162,11 @@
 		<antcall target="publish"/>
 		<antcall target="generateUpdateSite"/>
 		<!-- Uninstall GMF from base. -->
-		<echo message="Uninstalling GMF from base..."/>
+		<echo message="Uninstalling GMF SDK from base..."/>
+		<property file="${buildRoot}/sdk/featureVersions.properties"/>
 		<ant antfile="${scripts}/update.xml" target="uninstall">
 			<property name="featureId" value="org.eclipse.gmf.sdk" />
-			<property name="version" value="${gmfVersion}" />
+			<property name="version" value="${gmfVersion}.${org.eclipse.gmf.sdk}" />
 		</ant>
 	</target>
 		

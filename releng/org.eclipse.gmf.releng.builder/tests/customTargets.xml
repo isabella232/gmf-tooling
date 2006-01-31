@@ -173,13 +173,15 @@ tag="${mapsCheckoutTag}" />
 		  </copy>
 		<!-- Uninstall GMF from base. -->
 		<echo message="Uninstalling GMF from base..."/>
+		<property file="${buildRoot}/sdk/featureVersions.properties"/>
 		<ant antfile="${scripts}/update.xml" target="uninstall">
 			<property name="featureId" value="org.eclipse.gmf.sdk" />
-			<property name="version" value="${gmfVersion}" />
+			<property name="version" value="${gmfVersion}.${org.eclipse.gmf.sdk}" />
 		</ant>
+		<property file="${buildRoot}/examples/featureVersions.properties"/>
 		<ant antfile="${scripts}/update.xml" target="uninstall">
 			<property name="featureId" value="org.eclipse.gmf.examples" />
-			<property name="version" value="${gmfVersion}" />
+			<property name="version" value="${gmfVersion}.${org.eclipse.gmf.examples}" />
 		</ant>		
 	</target>
 		
@@ -212,13 +214,14 @@ tag="${mapsCheckoutTag}" />
 	<!-- ===================================================================== -->
 	<target name="test" unless="skipTests">
 		<antcall target="installTests"/>
-	  	<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}/test.xml"
-	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}" />
-		<move file="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}/testresults" todir="${artifacts}/${buildLabel}" failonerror="false"/>
+		<property file="${buildRoot}/tests/featureVersions.properties"/>
+	  	<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}.${org.eclipse.gmf.tests}/test.xml"
+	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}.${org.eclipse.gmf.tests}" />
+		<move file="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}.${org.eclipse.gmf.tests}/testresults" todir="${artifacts}/${buildLabel}" failonerror="false"/>
 	</target>
 	
 	<target name="installTests" unless="testsExist">		
-    	<antcall target="installTestsFromMirror"/>
+<!--    	<antcall target="installTestsFromMirror"/> TODO: restore when updating site.xml takes place during build -->
 		<antcall target="installTestsFromZip"/>
 	</target>
 	
@@ -231,13 +234,14 @@ tag="${mapsCheckoutTag}" />
 		<copy todir="${localUpdateSitePath}/plugins">
 			<fileset dir="${buildUpdateSitePath}/plugins"/>
 		</copy>
+		<property file="${buildRoot}/tests/featureVersions.properties"/>
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="${product}" />
-			<property name="version" value="${gmfVersion}" />
+			<property name="version" value="${gmfVersion}.${org.eclipse.gmf.tests}" />
 		</ant>
 	</target>
 	
-	<target name="installTestsFromZip" unless="usingMirror">
+	<target name="installTestsFromZip" unless=""> <!-- restore usingMirror -->
 		<echo message="Installing GMF tests from zip file..."/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-tests-${buildId}.zip" />
 	</target>

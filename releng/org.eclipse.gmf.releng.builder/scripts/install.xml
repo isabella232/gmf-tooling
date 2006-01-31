@@ -173,45 +173,51 @@
 	</target>
 	
 	<target name="checkGMFInstalled">
-		<available file="${baseLocation}/features/org.eclipse.gmf.sdk_${gmfVersion}/feature.xml" property="gmfExists" />
+		<property file="${buildRoot}/sdk/featureVersions.properties"/>
+		<available file="${baseLocation}/features/org.eclipse.gmf.sdk_${gmfVersion}.${org.eclipse.gmf.sdk}/feature.xml" property="gmfExists" />
 	</target>
 
 	<target name="installGMF" unless="gmfExists" depends="checkGMFInstalled">
-		<antcall target="installGMFfromMirror" />
+<!-- TODO: restore install from mirror capability after devising a way to update site.xml -->		
+<!--	<antcall target="installGMFfromMirror" /> -->
 		<antcall target="installGMFfromZip" />
 	</target>
 
 	<target name="installGMFfromMirror" if="usingMirror">
 		<echo message="Installing GMF for testing from local mirror..." />
+		<property file="${buildRoot}/sdk/featureVersions.properties"/>
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="org.eclipse.gmf.sdk" />
-			<property name="version" value="${gmfVersion}" />
+			<property name="version" value="${gmfVersion}.${org.eclipse.gmf.sdk}" />
 		</ant>
 	</target>
 
-	<target name="installGMFfromZip" unless="usingMirror">
+	<target name="installGMFfromZip" unless=""> <!-- TODO: restore usingMirror -->
 		<echo message="Installing GMF for testing from zip file..." />
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-sdk-${buildId}.zip" />
 	</target>
 	
 	<target name="checkExamplesInstalled">
-		<available file="${baseLocation}/features/org.eclipse.gmf.examples_${gmfVersion}/feature.xml" property="examplesExists" />
+		<property file="${buildRoot}/examples/featureVersions.properties"/>
+		<available file="${baseLocation}/features/org.eclipse.gmf.examples_${gmfVersion}.${org.eclipse.gmf.examples}/feature.xml" property="examplesExists" />
 	</target>
 
 	<target name="installExamples" unless="examplesExists" depends="checkExamplesInstalled">
-		<antcall target="installExamplesfromMirror" />
+		<!-- TODO: restore install from mirror capability after devising a way to update site.xml -->		
+		<!--	<antcall target="installExamplesfromMirror" /> -->
 		<antcall target="installExamplesfromZip" />
 	</target>
 
 	<target name="installExamplesfromMirror" if="usingMirror">
 		<echo message="Installing GMF Examples for testing from local mirror..." />
+		<property file="${buildRoot}/examples/featureVersions.properties"/>
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="org.eclipse.gmf.examples" />
-			<property name="version" value="${gmfVersion}" />
+			<property name="version" value="${gmfVersion}.${org.eclipse.gmf.examples}" />
 		</ant>
 	</target>
 
-	<target name="installExamplesfromZip" unless="usingMirror">
+	<target name="installExamplesfromZip" unless=""> <!-- TODO: restore usingMirror -->
 		<echo message="Installing GMF Examples for testing from zip file..." />
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-examples-${buildId}.zip" />
 	</target>
