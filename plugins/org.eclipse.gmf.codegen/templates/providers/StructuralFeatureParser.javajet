@@ -68,16 +68,26 @@ public class <%=genDiagram.getStructuralFeatureParserClassName()%> extends <%=im
 	/**
 	 * @generated
 	 */
-	protected IParserEditStatus validateNewValues(Object[] values) {
-		return values.length == 1 ? ParserEditStatus.EDITABLE_STATUS : ParserEditStatus.UNEDITABLE_STATUS;
+	protected IParserEditStatus validateValues(Object[] values) {
+		if (values.length > 1) {
+			return ParserEditStatus.UNEDITABLE_STATUS;
+		}
+		Object value = values.length == 1 ? values[0] : null;
+		value = getValidNewValue(feature, value);
+		if (value instanceof InvalidValue) {
+			return new ParserEditStatus(<%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.ID,
+				IParserEditStatus.UNEDITABLE, value.toString());
+		}
+		return ParserEditStatus.EDITABLE_STATUS;
 	}
 
 	/**
 	 * @generated
 	 */
-	public ICommand getParseCommand(IAdaptable adapter, Object[] newValues) {
+	public ICommand getParseCommand(IAdaptable adapter, Object[] values) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
-		ICommand command = getModificationCommand(element, feature, newValues[0]);
+		Object value = values.length == 1 ? values[0] : null;
+		ICommand command = getModificationCommand(element, feature, value);
 		return new CompositeModelCommand(command.getLabel(), Collections.singletonList(command));
 	}
 
