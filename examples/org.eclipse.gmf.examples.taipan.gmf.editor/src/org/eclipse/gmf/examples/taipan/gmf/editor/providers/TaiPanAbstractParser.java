@@ -15,6 +15,8 @@ import java.text.MessageFormat;
 import java.text.ParsePosition;
 
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
@@ -152,11 +154,11 @@ public abstract class TaiPanAbstractParser implements IParser {
 	 * @generated
 	 */
 	public ICommand getParseCommand(IAdaptable adapter, String newString, int flags) {
-		Object[] newValues = getEditProcessor().parse(newString, new ParsePosition(0));
-		if (newValues == null || validateNewValues(newValues).getCode() != IParserEditStatus.EDITABLE) {
+		Object[] values = getEditProcessor().parse(newString, new ParsePosition(0));
+		if (values == null || validateNewValues(values).getCode() != IParserEditStatus.EDITABLE) {
 			return UnexecutableCommand.INSTANCE;
 		}
-		return getParseCommand(adapter, newValues);
+		return getParseCommand(adapter, values);
 	}
 
 	/**
@@ -175,7 +177,101 @@ public abstract class TaiPanAbstractParser implements IParser {
 	 * @generated
 	 */
 	protected ICommand getModificationCommand(EObject element, EStructuralFeature feature, Object value) {
+		value = getValidNewValue(feature, value);
+		if (value instanceof InvalidValue) {
+			return UnexecutableCommand.INSTANCE;
+		}
 		SetRequest request = new SetRequest(element, feature, value);
 		return new SetValueCommand(request);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Object getValidNewValue(EStructuralFeature feature, Object value) {
+		EClassifier type = feature.getEType();
+		if (type instanceof EDataType) {
+			Class iClass = type.getInstanceClass();
+			if (Boolean.TYPE.equals(iClass)) {
+				if (value instanceof Boolean) {
+					// ok
+				} else if (value instanceof String) {
+					value = Boolean.valueOf((String) value);
+				} else {
+					value = new InvalidValue("Value of type Boolean is expected");
+				}
+			} else if (Character.TYPE.equals(iClass)) {
+				if (value instanceof Character) {
+					// ok
+				} else {
+					value = new InvalidValue("Value of type Character is expected");
+				}
+			} else if (Byte.TYPE.equals(iClass)) {
+				if (value instanceof Byte) {
+					// ok
+				} else if (value instanceof Number) {
+					value = new Byte(((Number) value).byteValue());
+				} else {
+					value = new InvalidValue("Value of type Byte is expected");
+				}
+			} else if (Short.TYPE.equals(iClass)) {
+				if (value instanceof Short) {
+					// ok
+				} else if (value instanceof Number) {
+					value = new Short(((Number) value).shortValue());
+				} else {
+					value = new InvalidValue("Value of type Short is expected");
+				}
+			} else if (Integer.TYPE.equals(iClass)) {
+				if (value instanceof Integer) {
+					// ok
+				} else if (value instanceof Number) {
+					value = new Integer(((Number) value).intValue());
+				} else {
+					value = new InvalidValue("Value of type Integer is expected");
+				}
+			} else if (Long.TYPE.equals(iClass)) {
+				if (value instanceof Long) {
+					// ok
+				} else if (value instanceof Number) {
+					value = new Long(((Number) value).longValue());
+				} else {
+					value = new InvalidValue("Value of type Long is expected");
+				}
+			} else if (Float.TYPE.equals(iClass)) {
+				if (value instanceof Float) {
+					// ok
+				} else if (value instanceof Number) {
+					value = new Float(((Number) value).floatValue());
+				} else {
+					value = new InvalidValue("Value of type Float is expected");
+				}
+			} else if (Double.TYPE.equals(iClass)) {
+				if (value instanceof Double) {
+					// ok
+				} else if (value instanceof Number) {
+					value = new Double(((Number) value).doubleValue());
+				} else {
+					value = new InvalidValue("Value of type Double is expected");
+				}
+			}
+		}
+		return value;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected class InvalidValue {
+
+		private String description;
+
+		public InvalidValue(String description) {
+			this.description = description;
+		}
+
+		public String toString() {
+			return description;
+		}
 	}
 }

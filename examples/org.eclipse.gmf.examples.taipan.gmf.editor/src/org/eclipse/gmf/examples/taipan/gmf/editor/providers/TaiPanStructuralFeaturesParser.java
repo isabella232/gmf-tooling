@@ -26,6 +26,8 @@ import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeModelCommand;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
+
 /**
  * @generated
  */
@@ -59,19 +61,28 @@ public class TaiPanStructuralFeaturesParser extends TaiPanAbstractParser {
 	/**
 	 * @generated
 	 */
-	protected IParserEditStatus validateNewValues(Object[] values) {
-		return values.length == features.size() ? ParserEditStatus.EDITABLE_STATUS : ParserEditStatus.UNEDITABLE_STATUS;
+	protected IParserEditStatus validateValues(Object[] values) {
+		if (values.length != features.size()) {
+			return ParserEditStatus.UNEDITABLE_STATUS;
+		}
+		for (int i = 0; i < values.length; i++) {
+			Object value = getValidNewValue((EStructuralFeature) features.get(i), values[i]);
+			if (value instanceof InvalidValue) {
+				return new ParserEditStatus(TaiPanDiagramEditorPlugin.ID, IParserEditStatus.UNEDITABLE, value.toString());
+			}
+		}
+		return ParserEditStatus.EDITABLE_STATUS;
 	}
 
 	/**
 	 * @generated
 	 */
-	public ICommand getParseCommand(IAdaptable adapter, Object[] newValues) {
+	public ICommand getParseCommand(IAdaptable adapter, Object[] values) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
 		CompositeModelCommand command = new CompositeModelCommand("Set Values");
-		for (int i = 0; i < newValues.length; i++) {
+		for (int i = 0; i < values.length; i++) {
 			EStructuralFeature feature = (EStructuralFeature) features.get(i);
-			command.compose(getModificationCommand(element, feature, newValues[i]));
+			command.compose(getModificationCommand(element, feature, values[i]));
 		}
 		return command;
 	}
