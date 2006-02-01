@@ -216,7 +216,6 @@ if(diagram.hasLinkCreationConstraints()) {
 			String targetConstraint = linkConstraints.getTargetEnd() != null ? linkConstraints.getTargetEnd().getBody(): null;
 			GenClass srcContext = linkConstraints.getSourceEndContextClass();
 			GenClass targetContext = linkConstraints.getTargetEndContextClass();
-			GenClass linkClass = linkConstraints.getLinkClass();
 %>
 		/**
 		 * @generated 
@@ -227,8 +226,7 @@ if(diagram.hasLinkCreationConstraints()) {
 				<%=(srcContext!=null) ? getMetaClassAccessor(srcContext, importManager) : null%>),
 			new LinkEndConstraint(
 				<%=targetConstraint != null ? "\"" + targetConstraint + "\"" : null%>, //$NON-NLS-1$
-				<%=(targetContext!=null) ? getMetaClassAccessor(targetContext, importManager) : null%>),
-				<%=(linkClass!=null) ? getMetaClassAccessor(linkClass, importManager) : null%>);
+				<%=(targetContext!=null) ? getMetaClassAccessor(targetContext, importManager) : null%>));
 <%
 		} // end of LinkConstraints if
 	} // end of link iteration
@@ -240,19 +238,11 @@ if(diagram.hasLinkCreationConstraints()) {
 		/**
 		 * @generated 
 		 */	
-		private static final String LINK_VAR = "link"; //$NON-NLS-1$	
-		/**
-		 * @generated 
-		 */	
 		private <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> varOppositeEndToSource;
 		/**
 		 * @generated 
 		 */	
 		private <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> varOppositeEndToTarget;
-		/**
-		 * @generated 
-		 */	
-		private <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> varLinkObject;
 		/**
 		 * @generated 
 		 */	
@@ -264,11 +254,7 @@ if(diagram.hasLinkCreationConstraints()) {
 		/**
 		 * @generated 
 		 */		
-		public <%=diagram.getLinkCreationConstraintsClassName()%>(LinkEndConstraint sourceEnd, LinkEndConstraint targetEnd, <%=importManager.getImportedName("org.eclipse.emf.ecore.EClassifier")%> linkClass) {
-			if(linkClass != null) {
-				this.varLinkObject = createVar(LINK_VAR, linkClass);
-			}
-			
+		public <%=diagram.getLinkCreationConstraintsClassName()%>(LinkEndConstraint sourceEnd, LinkEndConstraint targetEnd) {			
 			if(sourceEnd != null && sourceEnd.context != null && sourceEnd.body != null) {				
 				if(targetEnd != null && targetEnd.context != null) {
 					this.varOppositeEndToTarget = createVar(OPPOSITE_END_VAR, targetEnd.context);			
@@ -290,15 +276,15 @@ if(diagram.hasLinkCreationConstraints()) {
 		public boolean canCreateLink(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest")%> req, boolean isBackDirected) {
 			Object source = req.getSource();
 			Object target = req.getTarget();
-			Object link = req.getNewElement(); 
+
 			Query sourceConstraint = isBackDirected ? targetEndInv : srcEndInv;
 			Query targetConstraint = null;
 			if(req.getTarget() != null) {
 				targetConstraint = isBackDirected ? srcEndInv : targetEndInv;
 			}
-			boolean isSourceAccepted = sourceConstraint != null ? evaluate(sourceConstraint, source, target, link, false) : true;
+			boolean isSourceAccepted = sourceConstraint != null ? evaluate(sourceConstraint, source, target, false) : true;
 			if(isSourceAccepted && targetConstraint != null) {
-				return evaluate(targetConstraint, target, source, link, true);
+				return evaluate(targetConstraint, target, source, true);
 			}
 			return isSourceAccepted;
 		}
@@ -306,14 +292,20 @@ if(diagram.hasLinkCreationConstraints()) {
 		/**
 		 * @generated 
 		 */	
-		private Query createQuery(LinkEndConstraint constraint, <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> oppositeEndDecl) {
-			try {
-				<%=importManager.getImportedName("org.eclipse.emf.ocl.parser.Environment")%> env = <%=importManager.getImportedName("org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory")%>.ECORE_INSTANCE.createClassifierContext(constraint.context);
-				if(oppositeEndDecl != null) env.addElement(oppositeEndDecl.getName(), oppositeEndDecl, true);
-				if(varLinkObject != null) env.addElement(LINK_VAR, varLinkObject, true);			
-
-				return <%=importManager.getImportedName("org.eclipse.emf.ocl.query.QueryFactory")%>.eINSTANCE.createQuery(
-					<%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.util.ExpressionsUtil")%>.createInvariant(env, constraint.body, true));
+		private Query createQuery(LinkEndConstraint constraint, final <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> oppositeEndDecl) {
+			try {			
+				<%=importManager.getImportedName("org.eclipse.emf.ocl.helper.IOclHelper")%> oclHelper = 
+					<%=importManager.getImportedName("org.eclipse.emf.ocl.helper.HelperUtil")%>.createOclHelper(new <%=importManager.getImportedName("org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory")%>() {
+					public <%=importManager.getImportedName("org.eclipse.emf.ocl.parser.Environment")%> createClassifierContext(Object context) {
+						<%=importManager.getImportedName("org.eclipse.emf.ocl.parser.Environment")%> env = super.createClassifierContext(context);
+						if(oppositeEndDecl != null) {
+							env.addElement(oppositeEndDecl.getName(), oppositeEndDecl, true);
+						}
+						return env;
+					}
+				});
+				oclHelper.setContext(constraint.context);
+				return <%=importManager.getImportedName("org.eclipse.emf.ocl.query.QueryFactory")%>.eINSTANCE.createQuery(oclHelper.createInvariant(constraint.body));
 			} catch (Exception e) {
 				<%=importManager.getImportedName(diagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError(null, e);
 				return null;
@@ -323,10 +315,9 @@ if(diagram.hasLinkCreationConstraints()) {
 		/**
 		 * @generated 
 		 */		
-		private static boolean evaluate(<%=importManager.getImportedName("org.eclipse.emf.ocl.query.Query")%> query, Object sourceEnd, Object oppositeEnd, Object link, boolean clearEnv) {
+		private static boolean evaluate(<%=importManager.getImportedName("org.eclipse.emf.ocl.query.Query")%> query, Object sourceEnd, Object oppositeEnd, boolean clearEnv) {
 			<%=importManager.getImportedName("org.eclipse.emf.ocl.parser.EvaluationEnvironment")%> evalEnv = query.getEvaluationEnvironment();
 			evalEnv.replace(OPPOSITE_END_VAR, oppositeEnd);
-			evalEnv.replace(LINK_VAR, link);		
 			try {
 				Object val = query.evaluate(sourceEnd);			
 				return (val instanceof Boolean) ? ((Boolean)val).booleanValue() : false;
