@@ -6,7 +6,7 @@ feature@org.eclipse.gmf.tests=I20060202-1415,:pserver:anonymous@dev.eclipse.org:
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf.tests=I20060202-1415,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests
 plugin@org.eclipse.gmf.tests.runtime.common.core=I20060202-1415,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.core
-plugin@org.eclipse.gmf.tests.runtime.common.ui.services=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services
+plugin@org.eclipse.gmf.tests.runtime.common.ui.services=I20060202-1415,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services
 plugin@org.eclipse.gmf.tests.runtime.common.ui.services.action=I20060129-1145,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services.action
 plugin@org.eclipse.gmf.tests.runtime.common.ui.services.provider=I20060129-1145,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services.provider
 plugin@org.eclipse.gmf.tests.runtime.common.ui=I20060202-1415,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui
