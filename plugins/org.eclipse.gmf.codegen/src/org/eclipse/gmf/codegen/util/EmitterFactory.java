@@ -69,6 +69,7 @@ import org.eclipse.gmf.codegen.templates.providers.LabelViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.MarkerNavigationProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.MetamodelSupportProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGenerator;
+import org.eclipse.gmf.codegen.templates.providers.ParserProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.PropertyProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.SemanticHintsGenerator;
 import org.eclipse.gmf.codegen.templates.providers.StructuralFeatureParserGenerator;
@@ -253,6 +254,10 @@ public class EmitterFactory {
 
 	public static JETEmitter getIconProviderEmitter() throws JETException {
 		return initializeEmitter("/templates/providers/IconProvider.javajet", IconProviderGenerator.class);
+	}
+
+	public static JETEmitter getParserProviderEmitter() throws JETException {
+		return initializeEmitter("/templates/providers/ParserProvider.javajet", ParserProviderGenerator.class);
 	}
 
 	public static JETEmitter getValidationProviderEmitter() throws JETException {

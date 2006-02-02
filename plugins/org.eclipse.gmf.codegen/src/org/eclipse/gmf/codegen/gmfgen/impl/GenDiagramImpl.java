@@ -63,6 +63,7 @@ import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getModelingAssistantProviderClassName <em>Modeling Assistant Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPropertyProviderClassName <em>Property Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getIconProviderClassName <em>Icon Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getParserProviderClassName <em>Parser Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getAbstractParserClassName <em>Abstract Parser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getStructuralFeatureParserClassName <em>Structural Feature Parser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getStructuralFeaturesParserClassName <em>Structural Features Parser Class Name</em>}</li>
@@ -389,6 +390,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String iconProviderClassName = ICON_PROVIDER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getParserProviderClassName() <em>Parser Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getParserProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String PARSER_PROVIDER_CLASS_NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getParserProviderClassName() <em>Parser Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getParserProviderClassName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String parserProviderClassName = PARSER_PROVIDER_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getAbstractParserClassName() <em>Abstract Parser Class Name</em>}' attribute.
@@ -2562,6 +2583,35 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getParserProviderClassNameGen() {
+		return parserProviderClassName;
+	}
+
+	public String getParserProviderClassName() {
+		String value = getParserProviderClassNameGen();
+		if (isEmpty(value)) {
+			value = getDomainPackageCapName() + "ParserProvider"; //$NON-NLS-1$
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setParserProviderClassName(String newParserProviderClassName) {
+		String oldParserProviderClassName = parserProviderClassName;
+		parserProviderClassName = newParserProviderClassName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_CLASS_NAME, oldParserProviderClassName, parserProviderClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getAbstractParserClassNameGen() {
 		return abstractParserClassName;
 	}
@@ -2871,6 +2921,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getPropertyProviderClassName();
 			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
 				return getIconProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_CLASS_NAME:
+				return getParserProviderClassName();
 			case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME:
 				return getAbstractParserClassName();
 			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
@@ -3009,6 +3061,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
 				setIconProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_CLASS_NAME:
+				setParserProviderClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME:
 				setAbstractParserClassName((String)newValue);
@@ -3192,6 +3247,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
 				setIconProviderClassName(ICON_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_CLASS_NAME:
+				setParserProviderClassName(PARSER_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME:
 				setAbstractParserClassName(ABSTRACT_PARSER_CLASS_NAME_EDEFAULT);
 				return;
@@ -3353,6 +3411,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return PROPERTY_PROVIDER_CLASS_NAME_EDEFAULT == null ? propertyProviderClassName != null : !PROPERTY_PROVIDER_CLASS_NAME_EDEFAULT.equals(propertyProviderClassName);
 			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
 				return ICON_PROVIDER_CLASS_NAME_EDEFAULT == null ? iconProviderClassName != null : !ICON_PROVIDER_CLASS_NAME_EDEFAULT.equals(iconProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_CLASS_NAME:
+				return PARSER_PROVIDER_CLASS_NAME_EDEFAULT == null ? parserProviderClassName != null : !PARSER_PROVIDER_CLASS_NAME_EDEFAULT.equals(parserProviderClassName);
 			case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME:
 				return ABSTRACT_PARSER_CLASS_NAME_EDEFAULT == null ? abstractParserClassName != null : !ABSTRACT_PARSER_CLASS_NAME_EDEFAULT.equals(abstractParserClassName);
 			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
@@ -3464,6 +3524,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__MODELING_ASSISTANT_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__PROPERTY_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__ICON_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__PARSER_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__ABSTRACT_PARSER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__STRUCTURAL_FEATURE_PARSER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURES_PARSER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__STRUCTURAL_FEATURES_PARSER_CLASS_NAME;
@@ -3551,6 +3612,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__MODELING_ASSISTANT_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__PROPERTY_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__ICON_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.PROVIDER_CLASS_NAMES__PARSER_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__ABSTRACT_PARSER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__STRUCTURAL_FEATURE_PARSER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__STRUCTURAL_FEATURES_PARSER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURES_PARSER_CLASS_NAME;
@@ -3806,6 +3868,15 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
+	public String getParserProviderQualifiedClassName() {
+		return getProvidersPackageName() + '.' + getParserProviderClassName();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
 	public String getAbstractParserQualifiedClassName() {
 		return getProvidersPackageName() + '.' + getAbstractParserClassName();
 	}
@@ -3946,6 +4017,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(propertyProviderClassName);
 		result.append(", iconProviderClassName: ");
 		result.append(iconProviderClassName);
+		result.append(", parserProviderClassName: ");
+		result.append(parserProviderClassName);
 		result.append(", abstractParserClassName: ");
 		result.append(abstractParserClassName);
 		result.append(", structuralFeatureParserClassName: ");

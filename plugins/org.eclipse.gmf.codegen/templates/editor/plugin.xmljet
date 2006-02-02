@@ -184,6 +184,12 @@ final GenModel genModel = genDiagram.getEMFGenModel();
          <Priority name="Medium"/>
       </IconProvider>
    </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
+      <ParserProvider class="<%=genDiagram.getParserProviderQualifiedClassName()%>">
+         <Priority name="Medium"/>
+      </ParserProvider>
+   </extension>
 <%if(genDiagram.isValidationEnabled()) {%>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">

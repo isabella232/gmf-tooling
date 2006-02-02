@@ -1,0 +1,178 @@
+<%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="ParserProviderGenerator"
+	imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+<%GenDiagram genDiagram = (GenDiagram) argument;%>
+package <%=genDiagram.getProvidersPackageName()%>;
+
+<%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
+import org.eclipse.gmf.runtime.common.core.service.IOperation;
+import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;
+import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
+import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
+import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
+import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=genDiagram.getParserProviderClassName()%> extends AbstractProvider implements IParserProvider {
+<%
+Map labels = new LinkedHashMap(); // Gen[Node|Link] -> List : GenLabel
+Map labelMethodNames = new HashMap(); // GenLabel -> String
+String semanticPackageInterfaceName = importManager.getImportedName(genDiagram.getDomainMetaModel().getQualifiedPackageInterfaceName());
+for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
+	Object next = contents.next();
+	if (next instanceof GenLabel) {
+		GenLabel genLabel = (GenLabel) next;
+		GenCommonBase genHost;
+		String accessorName;
+		if (genLabel instanceof GenNodeLabel) {
+			genHost = ((GenNodeLabel) genLabel).getNode();
+			accessorName = ((GenNode) genHost).getDomainMetaClass().getClassifierAccessorName();
+		} else if (genLabel instanceof GenLinkLabel) {
+			genHost = ((GenLinkLabel) genLabel).getLink();
+			LinkModelFacet linkModelFacet = ((GenLink) genHost).getModelFacet();
+			if (linkModelFacet instanceof TypeLinkModelFacet) {
+				accessorName = ((TypeLinkModelFacet) linkModelFacet).getMetaClass().getClassifierAccessorName();
+			} else {
+				accessorName = ((FeatureModelFacet) linkModelFacet).getMetaFeature().getGenClass().getClassifierAccessorName();
+			}
+		} else {
+			continue;
+		}
+		LabelModelFacet modelFacet = genLabel.getModelFacet();
+		List labelsList = (List) labels.get(genHost);
+		if (labelsList == null) {
+			labelsList = new ArrayList();
+			labels.put(genHost, labelsList);
+		}
+		labelsList.add(genLabel);
+		String baseName = genHost.getClassNamePrefix() + genLabel.getSemanticHintFieldName();
+		char c = baseName.charAt(0);
+		baseName = baseName.substring(1) + "Parser";
+		String fieldName = Character.toLowerCase(c) + baseName;
+		String methodName = Character.toUpperCase(c) + baseName;
+		labelMethodNames.put(genLabel, methodName);
+%>
+
+	/**
+	 * @generated
+	 */
+	private IParser <%=fieldName%>;
+
+	/**
+	 * @generated
+	 */
+	private IParser get<%=methodName%>() {
+		if (<%=fieldName%> == null) {
+			<%=fieldName%> = create<%=methodName%>();
+		}
+		return <%=fieldName%>;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected IParser create<%=methodName%>() {
+<%
+		String parserClassName;
+		if (modelFacet instanceof FeatureModelFacet) {
+			parserClassName = importManager.getImportedName(genDiagram.getStructuralFeatureParserQualifiedClassName());
+			String featureName = ((FeatureModelFacet) modelFacet).getMetaFeature().getName();
+%>
+		<%=parserClassName%> parser = new <%=parserClassName%>(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=accessorName%>().getEStructuralFeature("<%=featureName%>"));
+<%
+		} else if (modelFacet instanceof CompositeFeatureModelFacet) {
+			parserClassName = importManager.getImportedName(genDiagram.getStructuralFeaturesParserQualifiedClassName());
+			java.util.List features = ((CompositeFeatureModelFacet) modelFacet).getMetaFeatures();
+%>
+		<%=importManager.getImportedName("java.util.List")%> features = new <%=importManager.getImportedName("java.util.ArrayList")%>(<%=features.size()%>);
+<%
+			for (java.util.Iterator it = features.iterator(); it.hasNext(); ) {
+				String featureName = ((GenFeature) it.next()).getName();
+%>
+		features.add(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=accessorName%>().getEStructuralFeature("<%=featureName%>"));
+<%			}%>
+		<%=parserClassName%> parser = new <%=parserClassName%>(features);
+<%
+		} else {
+			throw new IllegalArgumentException();
+		}
+		if (modelFacet.getViewPattern() != null && modelFacet.getViewPattern().length() != 0) {
+%>
+		((<%=parserClassName%>) parser).setViewPattern("<%=modelFacet.getViewPattern()%>");
+<%
+		}
+		if (modelFacet.getEditPattern() != null && modelFacet.getEditPattern().length() != 0) {
+%>
+		((<%=parserClassName%>) parser).setEditPattern("<%=modelFacet.getEditPattern()%>");
+<%		}%>
+		return parser;
+	}
+<%
+	}
+}
+%>
+
+	/**
+	 * @generated
+	 */
+	protected IParser getParser(EObject element, String viewType) {
+		IElementType type = ElementTypeRegistry.getInstance().getElementType(element);
+<%
+for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
+	GenCommonBase genHost = (GenCommonBase) it1.next();
+	List labelsList = (List) labels.get(genHost);
+%>
+		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genHost.getUniqueIdentifier()%> == type) {
+<%
+	if (genHost instanceof GenChildNode && ((GenChildNode) genHost).isListContainerEntry()) {
+		GenLabel genLabel = (GenLabel) labelsList.get(0);
+%>
+			return get<%=labelMethodNames.get(genLabel)%>();
+<%
+	} else {
+		for (Iterator it2 = labelsList.iterator(); it2.hasNext(); ) {
+			GenLabel genLabel = (GenLabel) it2.next();
+%>
+			if (<%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%>.<%=genHost.getUniqueIdentifier()%>Labels.<%=genLabel.getSemanticHintFieldName()%>.equals(viewType)) {
+				return get<%=labelMethodNames.get(genLabel)%>();
+			}
+<%
+		}
+	}
+%>
+		}
+<%}%>
+		return null;
+	}
+
+	/**
+	 * @generated
+	 */
+	public IParser getParser(IAdaptable hint) {
+		String viewType = (String) hint.getAdapter(String.class);
+		EObject element = (EObject) hint.getAdapter(EObject.class);
+		return getParser(element, viewType);
+	}
+
+	/**
+	 * @generated
+	 */
+	public boolean provides(IOperation operation) {
+		if (operation instanceof GetParserOperation) {
+			IAdaptable hint = ((GetParserOperation) operation).getHint();
+			String viewType = (String) hint.getAdapter(String.class);
+			EObject element = (EObject) hint.getAdapter(EObject.class);
+			return getParser(element, viewType) != null;
+		}
+		return false;
+	}
+}
+<%importManager.emitSortedImports();%>

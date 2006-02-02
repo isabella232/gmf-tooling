@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="ExternalNodeLabelTextEditPartGenerator"
-	imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
 <%
 GenExternalNodeLabel genLabel = (GenExternalNodeLabel) argument;
 GenDiagram genDiagram = genLabel.getDiagram();
@@ -22,9 +22,6 @@ public class <%=genLabel.getTextEditPartClassName()%> extends TextCompartmentEdi
 	public <%=genLabel.getTextEditPartClassName()%>(View view) {
 		super(view);
 	}
-<%
-String accessorName = genLabel.getNode().getDomainMetaClass().getClassifierAccessorName();
-%>
 <%@ include file="labelSemantic.jetinc"%>
 }
 <%importManager.emitSortedImports();%>

@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getModelingAssistantProviderClassName <em>Modeling Assistant Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getPropertyProviderClassName <em>Property Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getIconProviderClassName <em>Icon Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getParserProviderClassName <em>Parser Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getAbstractParserClassName <em>Abstract Parser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getStructuralFeatureParserClassName <em>Structural Feature Parser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getStructuralFeaturesParserClassName <em>Structural Features Parser Class Name</em>}</li>
@@ -244,6 +245,32 @@ public interface ProviderClassNames extends EObject {
 	void setIconProviderClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Parser Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Parser Provider Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Parser Provider Class Name</em>' attribute.
+	 * @see #setParserProviderClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getProviderClassNames_ParserProviderClassName()
+	 * @model
+	 * @generated
+	 */
+	String getParserProviderClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getParserProviderClassName <em>Parser Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Parser Provider Class Name</em>' attribute.
+	 * @see #getParserProviderClassName()
+	 * @generated
+	 */
+	void setParserProviderClassName(String value);
+
+	/**
 	 * Returns the value of the '<em><b>Abstract Parser Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -384,6 +411,14 @@ public interface ProviderClassNames extends EObject {
 	 * @generated
 	 */
 	String getIconProviderQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getParserProviderQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

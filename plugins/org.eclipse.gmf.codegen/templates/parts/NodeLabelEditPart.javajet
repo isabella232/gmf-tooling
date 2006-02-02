@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="NodeLabelEditPartGenerator"
-	imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
 <%
 GenNodeLabel genLabel = (GenNodeLabel) argument;
 GenDiagram genDiagram = genLabel.getDiagram();
@@ -37,9 +37,6 @@ public class <%=genLabel.getEditPartClassName()%> extends TextCompartmentEditPar
 		}
 		return descriptor.createImage();
 	}
-<%
-String accessorName = genLabel.getNode().getDomainMetaClass().getClassifierAccessorName();
-%>
 <%@ include file="labelSemantic.jetinc"%>
 <%if (isParentFlowLayout) {%>
 

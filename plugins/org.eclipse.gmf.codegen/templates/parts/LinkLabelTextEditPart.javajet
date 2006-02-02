@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="LinkLabelTextEditPartGenerator"
-	imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
 <%
 GenLinkLabel genLabel = (GenLinkLabel) argument;
 GenDiagram genDiagram = genLabel.getDiagram();
@@ -22,16 +22,6 @@ public class <%=genLabel.getTextEditPartClassName()%> extends TextCompartmentEdi
 	public <%=genLabel.getTextEditPartClassName()%>(View view) {
 		super(view);
 	}
-<%
-String accessorName;
-if (genLabel.getLink().getModelFacet() instanceof TypeLinkModelFacet) {
-	TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLabel.getLink().getModelFacet();
-	accessorName = modelFacet.getMetaClass().getClassifierAccessorName();
-} else {
-	FeatureModelFacet modelFacet = (FeatureModelFacet) genLabel.getLink().getModelFacet();
-	accessorName = modelFacet.getMetaFeature().getGenClass().getClassifierAccessorName();
-}
-%>
 <%@ include file="labelSemantic.jetinc"%>
 }
 <%importManager.emitSortedImports();%>

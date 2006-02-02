@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="ChildNodeEditPartGenerator"
-	imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
 <%
 GenNode genChildNode = (GenNode) argument;
 GenDiagram genDiagram = genChildNode.getDiagram();
@@ -34,7 +34,6 @@ public class <%=genChildNode.getEditPartClassName()%> extends ListItemEditPart {
 
 <%
 GenNodeLabel genLabel = (GenNodeLabel) genChildNode.getLabels().get(0);
-String accessorName = genChildNode.getDomainMetaClass().getClassifierAccessorName();
 %>
 <%@ include file="labelSemantic.jetinc"%>
 }

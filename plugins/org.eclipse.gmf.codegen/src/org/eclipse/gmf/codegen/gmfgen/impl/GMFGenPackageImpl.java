@@ -742,7 +742,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProviderClassNames_AbstractParserClassName() {
+	public EAttribute getProviderClassNames_ParserProviderClassName() {
 		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -751,7 +751,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProviderClassNames_StructuralFeatureParserClassName() {
+	public EAttribute getProviderClassNames_AbstractParserClassName() {
 		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -760,8 +760,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProviderClassNames_StructuralFeaturesParserClassName() {
+	public EAttribute getProviderClassNames_StructuralFeatureParserClassName() {
 		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getProviderClassNames_StructuralFeaturesParserClassName() {
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -2520,6 +2529,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__MODELING_ASSISTANT_PROVIDER_CLASS_NAME);
 		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__PROPERTY_PROVIDER_CLASS_NAME);
 		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__ICON_PROVIDER_CLASS_NAME);
+		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__PARSER_PROVIDER_CLASS_NAME);
 		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__ABSTRACT_PARSER_CLASS_NAME);
 		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__STRUCTURAL_FEATURE_PARSER_CLASS_NAME);
 		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__STRUCTURAL_FEATURES_PARSER_CLASS_NAME);
@@ -2881,6 +2891,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getProviderClassNames_ModelingAssistantProviderClassName(), ecorePackage.getEString(), "modelingAssistantProviderClassName", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProviderClassNames_PropertyProviderClassName(), ecorePackage.getEString(), "propertyProviderClassName", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProviderClassNames_IconProviderClassName(), ecorePackage.getEString(), "iconProviderClassName", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getProviderClassNames_ParserProviderClassName(), ecorePackage.getEString(), "parserProviderClassName", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProviderClassNames_AbstractParserClassName(), ecorePackage.getEString(), "abstractParserClassName", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProviderClassNames_StructuralFeatureParserClassName(), ecorePackage.getEString(), "structuralFeatureParserClassName", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProviderClassNames_StructuralFeaturesParserClassName(), ecorePackage.getEString(), "structuralFeaturesParserClassName", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2900,6 +2911,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(providerClassNamesEClass, ecorePackage.getEString(), "getPropertyProviderQualifiedClassName", 0, 1);
 
 		addEOperation(providerClassNamesEClass, ecorePackage.getEString(), "getIconProviderQualifiedClassName", 0, 1);
+
+		addEOperation(providerClassNamesEClass, ecorePackage.getEString(), "getParserProviderQualifiedClassName", 0, 1);
 
 		addEOperation(providerClassNamesEClass, ecorePackage.getEString(), "getAbstractParserQualifiedClassName", 0, 1);
 

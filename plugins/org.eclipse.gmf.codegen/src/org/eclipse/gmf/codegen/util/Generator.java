@@ -157,6 +157,7 @@ public class Generator implements Runnable {
 			generateModelingAssistantProvider();
 			generatePropertyProvider();
 			generateIconProvider();
+			generateParserProvider();
 			if(myDiagram.isValidationEnabled()) {
 				generateValidationProvider();
 				generateMarkerNavigationProvider();				
@@ -557,6 +558,14 @@ public class Generator implements Runnable {
 			EmitterFactory.getIconProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getIconProviderClassName(),
+			myDiagram);
+	}
+
+	private void generateParserProvider() throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			EmitterFactory.getParserProviderEmitter(),
+			myDiagram.getProvidersPackageName(),
+			myDiagram.getParserProviderClassName(),
 			myDiagram);
 	}
 	

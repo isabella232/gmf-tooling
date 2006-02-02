@@ -133,6 +133,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkClassName(state, "ProviderClassNames:ModelingAssistantProvider", genDiagram.getModelingAssistantProviderClassName(), genDiagram.getModelingAssistantProviderQualifiedClassName());
 		checkClassName(state, "ProviderClassNames:PropertyProvider", genDiagram.getPropertyProviderClassName(), genDiagram.getPropertyProviderQualifiedClassName());
 		checkClassName(state, "ProviderClassNames:IconProvider", genDiagram.getIconProviderClassName(), genDiagram.getIconProviderQualifiedClassName());
+		checkClassName(state, "ProviderClassNames:ParserProvider", genDiagram.getParserProviderClassName(), genDiagram.getParserProviderQualifiedClassName());
 		checkClassName(state, "ProviderClassNames:AbstractParser", genDiagram.getAbstractParserClassName(), genDiagram.getAbstractParserQualifiedClassName());
 		checkClassName(state, "ProviderClassNames:StructuralFeatureParser", genDiagram.getStructuralFeatureParserClassName(), genDiagram.getStructuralFeatureParserQualifiedClassName());
 		checkClassName(state, "ProviderClassNames:StructuralFeaturesParser", genDiagram.getStructuralFeaturesParserClassName(), genDiagram.getStructuralFeaturesParserQualifiedClassName());

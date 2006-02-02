@@ -76,6 +76,7 @@ public class GenDiagramItemProvider
 			addModelingAssistantProviderClassNamePropertyDescriptor(object);
 			addPropertyProviderClassNamePropertyDescriptor(object);
 			addIconProviderClassNamePropertyDescriptor(object);
+			addParserProviderClassNamePropertyDescriptor(object);
 			addAbstractParserClassNamePropertyDescriptor(object);
 			addStructuralFeatureParserClassNamePropertyDescriptor(object);
 			addStructuralFeaturesParserClassNamePropertyDescriptor(object);
@@ -1014,6 +1015,26 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Parser Provider Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addParserProviderClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ProviderClassNames_parserProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_parserProviderClassName_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_ParserProviderClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Abstract Parser Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1155,6 +1176,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURES_PARSER_CLASS_NAME:

@@ -66,39 +66,40 @@ public class PluginXML
   protected final String TEXT_49 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </MetaModelProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders\">" + NL + "      <modelingAssistantProvider class=\"";
   protected final String TEXT_50 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </modelingAssistantProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.common.ui.services.properties.propertiesProviders\">" + NL + "      <PropertiesProvider" + NL + "            verifyPluginLoaded=\"false\"" + NL + "            class=\"";
   protected final String TEXT_51 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </PropertiesProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.common.ui.services.iconProviders\">" + NL + "      <IconProvider class=\"";
-  protected final String TEXT_52 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </IconProvider>" + NL + "   </extension>";
-  protected final String TEXT_53 = NL + NL + "   <extension point=\"org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders\">" + NL + "      <MarkerNavigationProvider class=\"";
-  protected final String TEXT_54 = "\">" + NL + "         <MarkerType name=\"";
-  protected final String TEXT_55 = "\"/>" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </MarkerNavigationProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension id=\"ValidationContributionItemProvider\" name=\"Validation\"" + NL + "      point=\"org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders\">" + NL + "      <contributionItemProvider checkPluginLoaded=\"true\"" + NL + "         class=\"";
-  protected final String TEXT_56 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "         <partContribution id=\"";
-  protected final String TEXT_57 = "ID\">" + NL + "            <partMenuGroup menubarPath=\"/diagramMenu/\" id=\"validationGroup\"/>" + NL + "            <partAction id=\"validateAction\" menubarPath=\"/diagramMenu/validationGroup\"/>" + NL + "         </partContribution>" + NL + "      </contributionItemProvider>" + NL + "   </extension>" + NL + "   " + NL + "   <extension id=\"";
-  protected final String TEXT_58 = "\" name=\"";
-  protected final String TEXT_59 = " problems\" point=\"org.eclipse.core.resources.markers\">" + NL + "      <super type=\"org.eclipse.core.resources.problemmarker\"/>   " + NL + "      <super type=\"org.eclipse.gmf.runtime.common.ui.services.marker\"/>" + NL + "      <persistent value=\"true\"/>      " + NL + "   </extension>";
-  protected final String TEXT_60 = NL + "   ";
-  protected final String TEXT_61 = NL + "<extension point=\"org.eclipse.emf.validation.constraintProviders\">";
-  protected final String TEXT_62 = NL + "\t<category" + NL + "\t\tid=\"";
-  protected final String TEXT_63 = "\"" + NL + "\t\tmandatory=\"false\"" + NL + "\t\tname=\"";
-  protected final String TEXT_64 = "\">" + NL + "\t<![CDATA[";
-  protected final String TEXT_65 = "]]>" + NL + "\t</category>\t\t";
-  protected final String TEXT_66 = NL + "\t<constraintProvider cache=\"true\">" + NL + "\t\t<package namespaceUri=\"";
-  protected final String TEXT_67 = "\"/>";
-  protected final String TEXT_68 = NL + "\t\t<constraints categories=\"";
-  protected final String TEXT_69 = "\">" + NL + "\t\t\t<constraint id=\"";
-  protected final String TEXT_70 = "\"" + NL + "\t\t\t\tlang=\"OCL\" ";
-  protected final String TEXT_71 = NL + "\t\t\t\tname=\"";
-  protected final String TEXT_72 = "\"" + NL + "\t\t\t\tseverity=\"";
-  protected final String TEXT_73 = "\" statusCode=\"";
-  protected final String TEXT_74 = "\">" + NL + "\t\t\t\t<![CDATA[";
-  protected final String TEXT_75 = "]]>" + NL + "\t            <description><![CDATA[";
-  protected final String TEXT_76 = "]]></description>" + NL + "\t            <message><![CDATA[";
-  protected final String TEXT_77 = "]]></message>" + NL + "\t\t\t\t<target class=\"";
-  protected final String TEXT_78 = "\"/>\t\t\t\t" + NL + "\t\t\t</constraint>" + NL + "\t\t</constraints>";
-  protected final String TEXT_79 = NL + "\t</constraintProvider>" + NL + "</extension>" + NL + "" + NL + "<extension point=\"org.eclipse.emf.validation.constraintBindings\">" + NL + "\t<clientContext default=\"true\" id=\"";
-  protected final String TEXT_80 = ".clientContext\">" + NL + "\t\t<enablement/>" + NL + "\t</clientContext>" + NL + "\t<binding category=\"";
-  protected final String TEXT_81 = "\"" + NL + "\t\tcontext=\"";
-  protected final String TEXT_82 = ".clientContext\"/>" + NL + "</extension>";
-  protected final String TEXT_83 = NL + "</plugin>";
-  protected final String TEXT_84 = NL;
+  protected final String TEXT_52 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </IconProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.common.ui.services.parserProviders\">" + NL + "      <ParserProvider class=\"";
+  protected final String TEXT_53 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </ParserProvider>" + NL + "   </extension>";
+  protected final String TEXT_54 = NL + NL + "   <extension point=\"org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders\">" + NL + "      <MarkerNavigationProvider class=\"";
+  protected final String TEXT_55 = "\">" + NL + "         <MarkerType name=\"";
+  protected final String TEXT_56 = "\"/>" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </MarkerNavigationProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension id=\"ValidationContributionItemProvider\" name=\"Validation\"" + NL + "      point=\"org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders\">" + NL + "      <contributionItemProvider checkPluginLoaded=\"true\"" + NL + "         class=\"";
+  protected final String TEXT_57 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "         <partContribution id=\"";
+  protected final String TEXT_58 = "ID\">" + NL + "            <partMenuGroup menubarPath=\"/diagramMenu/\" id=\"validationGroup\"/>" + NL + "            <partAction id=\"validateAction\" menubarPath=\"/diagramMenu/validationGroup\"/>" + NL + "         </partContribution>" + NL + "      </contributionItemProvider>" + NL + "   </extension>" + NL + "   " + NL + "   <extension id=\"";
+  protected final String TEXT_59 = "\" name=\"";
+  protected final String TEXT_60 = " problems\" point=\"org.eclipse.core.resources.markers\">" + NL + "      <super type=\"org.eclipse.core.resources.problemmarker\"/>   " + NL + "      <super type=\"org.eclipse.gmf.runtime.common.ui.services.marker\"/>" + NL + "      <persistent value=\"true\"/>      " + NL + "   </extension>";
+  protected final String TEXT_61 = NL + "   ";
+  protected final String TEXT_62 = NL + "<extension point=\"org.eclipse.emf.validation.constraintProviders\">";
+  protected final String TEXT_63 = NL + "\t<category" + NL + "\t\tid=\"";
+  protected final String TEXT_64 = "\"" + NL + "\t\tmandatory=\"false\"" + NL + "\t\tname=\"";
+  protected final String TEXT_65 = "\">" + NL + "\t<![CDATA[";
+  protected final String TEXT_66 = "]]>" + NL + "\t</category>\t\t";
+  protected final String TEXT_67 = NL + "\t<constraintProvider cache=\"true\">" + NL + "\t\t<package namespaceUri=\"";
+  protected final String TEXT_68 = "\"/>";
+  protected final String TEXT_69 = NL + "\t\t<constraints categories=\"";
+  protected final String TEXT_70 = "\">" + NL + "\t\t\t<constraint id=\"";
+  protected final String TEXT_71 = "\"" + NL + "\t\t\t\tlang=\"OCL\" ";
+  protected final String TEXT_72 = NL + "\t\t\t\tname=\"";
+  protected final String TEXT_73 = "\"" + NL + "\t\t\t\tseverity=\"";
+  protected final String TEXT_74 = "\" statusCode=\"";
+  protected final String TEXT_75 = "\">" + NL + "\t\t\t\t<![CDATA[";
+  protected final String TEXT_76 = "]]>" + NL + "\t            <description><![CDATA[";
+  protected final String TEXT_77 = "]]></description>" + NL + "\t            <message><![CDATA[";
+  protected final String TEXT_78 = "]]></message>" + NL + "\t\t\t\t<target class=\"";
+  protected final String TEXT_79 = "\"/>\t\t\t\t" + NL + "\t\t\t</constraint>" + NL + "\t\t</constraints>";
+  protected final String TEXT_80 = NL + "\t</constraintProvider>" + NL + "</extension>" + NL + "" + NL + "<extension point=\"org.eclipse.emf.validation.constraintBindings\">" + NL + "\t<clientContext default=\"true\" id=\"";
+  protected final String TEXT_81 = ".clientContext\">" + NL + "\t\t<enablement/>" + NL + "\t</clientContext>" + NL + "\t<binding category=\"";
+  protected final String TEXT_82 = "\"" + NL + "\t\tcontext=\"";
+  protected final String TEXT_83 = ".clientContext\"/>" + NL + "</extension>";
+  protected final String TEXT_84 = NL + "</plugin>";
+  protected final String TEXT_85 = NL;
 
   public String generate(Object argument)
   {
@@ -211,28 +212,30 @@ final GenModel genModel = genDiagram.getEMFGenModel();
     stringBuffer.append(TEXT_51);
     stringBuffer.append(genDiagram.getIconProviderQualifiedClassName());
     stringBuffer.append(TEXT_52);
-    if(genDiagram.isValidationEnabled()) {
+    stringBuffer.append(genDiagram.getParserProviderQualifiedClassName());
     stringBuffer.append(TEXT_53);
-    stringBuffer.append(genDiagram.getMarkerNavigationProviderQualifiedClassName());
+    if(genDiagram.isValidationEnabled()) {
     stringBuffer.append(TEXT_54);
-    stringBuffer.append(genPlugin.getID() + "." + genDiagram.getValidationDiagnosticMarkerType());
+    stringBuffer.append(genDiagram.getMarkerNavigationProviderQualifiedClassName());
     stringBuffer.append(TEXT_55);
-    stringBuffer.append(genDiagram.getValidationProviderQualifiedClassName());
+    stringBuffer.append(genPlugin.getID() + "." + genDiagram.getValidationDiagnosticMarkerType());
     stringBuffer.append(TEXT_56);
-    stringBuffer.append(genDiagram.getEditorQualifiedClassName());
+    stringBuffer.append(genDiagram.getValidationProviderQualifiedClassName());
     stringBuffer.append(TEXT_57);
-    stringBuffer.append(genDiagram.getValidationDiagnosticMarkerType());
+    stringBuffer.append(genDiagram.getEditorQualifiedClassName());
     stringBuffer.append(TEXT_58);
-    stringBuffer.append(genPlugin.getName());
+    stringBuffer.append(genDiagram.getValidationDiagnosticMarkerType());
     stringBuffer.append(TEXT_59);
-    }
+    stringBuffer.append(genPlugin.getName());
     stringBuffer.append(TEXT_60);
+    }
+    stringBuffer.append(TEXT_61);
     
 GenAuditContainer rootContainer = genDiagram.getAudits();
 if(rootContainer != null) {
 	java.util.List containers = rootContainer != null ? rootContainer.getAllAuditContainers() : java.util.Collections.EMPTY_LIST;
 
-    stringBuffer.append(TEXT_61);
+    stringBuffer.append(TEXT_62);
     
 	java.util.HashMap idMap = new java.util.HashMap();
 	for(int i = 0; i < containers.size(); i++) {
@@ -250,20 +253,20 @@ if(rootContainer != null) {
 		}
 		pathMap.put(category, id.toString());
 
-    stringBuffer.append(TEXT_62);
-    stringBuffer.append(id.toString());
     stringBuffer.append(TEXT_63);
-    stringBuffer.append(category.getName() != null ? category.getName() : id.toString());
+    stringBuffer.append(id.toString());
     stringBuffer.append(TEXT_64);
-    stringBuffer.append(category.getDescription() != null ? category.getDescription():"");
+    stringBuffer.append(category.getName() != null ? category.getName() : id.toString());
     stringBuffer.append(TEXT_65);
+    stringBuffer.append(category.getDescription() != null ? category.getDescription():"");
+    stringBuffer.append(TEXT_66);
     
 	} // end of categories loop
 	String rootCategoryId = (String)pathMap.get(rootContainer);
 
-    stringBuffer.append(TEXT_66);
-    stringBuffer.append(genDiagram.getDomainMetaModel().getNSURI());
     stringBuffer.append(TEXT_67);
+    stringBuffer.append(genDiagram.getDomainMetaModel().getNSURI());
+    stringBuffer.append(TEXT_68);
     
 	int rulePos = 0;
 	for(java.util.Iterator catIt = containers.iterator(); catIt.hasNext(); rulePos++) {
@@ -276,43 +279,43 @@ if(rootContainer != null) {
 			String name = audit.getName() != null ? audit.getName() : audit.getId();
 			String message = audit.getMessage() != null ? audit.getMessage() : name + " audit violated";
 
-    stringBuffer.append(TEXT_68);
-    stringBuffer.append(pathMap.get(category));
     stringBuffer.append(TEXT_69);
-    stringBuffer.append(audit.getId());
+    stringBuffer.append(pathMap.get(category));
     stringBuffer.append(TEXT_70);
-    stringBuffer.append(modeAttr);
+    stringBuffer.append(audit.getId());
     stringBuffer.append(TEXT_71);
-    stringBuffer.append(name);
+    stringBuffer.append(modeAttr);
     stringBuffer.append(TEXT_72);
-    stringBuffer.append(audit.getSeverity().getName());
+    stringBuffer.append(name);
     stringBuffer.append(TEXT_73);
-    stringBuffer.append(Integer.toString(200 + rulePos));
+    stringBuffer.append(audit.getSeverity().getName());
     stringBuffer.append(TEXT_74);
-    stringBuffer.append(audit.getRule() != null ? audit.getRule().getBody() : "");
+    stringBuffer.append(Integer.toString(200 + rulePos));
     stringBuffer.append(TEXT_75);
-    stringBuffer.append(audit.getDescription() != null ? audit.getDescription():"");
+    stringBuffer.append(audit.getRule() != null ? audit.getRule().getBody() : "");
     stringBuffer.append(TEXT_76);
-    stringBuffer.append(message);
+    stringBuffer.append(audit.getDescription() != null ? audit.getDescription():"");
     stringBuffer.append(TEXT_77);
-    stringBuffer.append(targetClassName);
+    stringBuffer.append(message);
     stringBuffer.append(TEXT_78);
+    stringBuffer.append(targetClassName);
+    stringBuffer.append(TEXT_79);
     
 		} // end of audits in category
 	} // end of category loop
 
-    stringBuffer.append(TEXT_79);
-    stringBuffer.append(rootCategoryId);
     stringBuffer.append(TEXT_80);
     stringBuffer.append(rootCategoryId);
     stringBuffer.append(TEXT_81);
     stringBuffer.append(rootCategoryId);
     stringBuffer.append(TEXT_82);
+    stringBuffer.append(rootCategoryId);
+    stringBuffer.append(TEXT_83);
     
 }
 
-    stringBuffer.append(TEXT_83);
     stringBuffer.append(TEXT_84);
+    stringBuffer.append(TEXT_85);
     return stringBuffer.toString();
   }
 }

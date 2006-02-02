@@ -55,6 +55,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/modelingAssistantProviderClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/propertyProviderClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/iconProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/parserProviderClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/abstractParserClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/structuralFeatureParserClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/structuralFeaturesParserClassName"/>
@@ -66,6 +67,7 @@
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getModelingAssistantProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getPropertyProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getIconProviderQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getParserProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getAbstractParserQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getStructuralFeatureParserQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getStructuralFeaturesParserQualifiedClassName"/>
