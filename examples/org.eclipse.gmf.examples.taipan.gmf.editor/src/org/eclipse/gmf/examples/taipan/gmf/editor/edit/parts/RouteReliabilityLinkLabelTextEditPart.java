@@ -13,11 +13,6 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-
-import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanStructuralFeatureParser;
-
-import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 
 /**
  * @generated
@@ -31,15 +26,4 @@ public class RouteReliabilityLinkLabelTextEditPart extends TextCompartmentEditPa
 		super(view);
 	}
 
-	/**
-	 * @generated
-	 */
-	public IParser getParser() {
-		if (parser == null) {
-			parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getRoute().getEStructuralFeature("reliability"));
-			((TaiPanStructuralFeatureParser) parser).setViewPattern("reliability: {0,number,percent}");
-			((TaiPanStructuralFeatureParser) parser).setEditPattern("{0,number,percent}");
-		}
-		return parser;
-	}
 }

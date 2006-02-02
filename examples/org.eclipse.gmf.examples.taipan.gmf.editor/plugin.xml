@@ -151,5 +151,11 @@
          <Priority name="Medium"/>
       </IconProvider>
    </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
+      <ParserProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanParserProvider">
+         <Priority name="Medium"/>
+      </ParserProvider>
+   </extension>
    
 </plugin>
