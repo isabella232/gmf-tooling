@@ -292,14 +292,15 @@ if(diagram.hasLinkCreationConstraints()) {
 		/**
 		 * @generated 
 		 */	
-		private Query createQuery(LinkEndConstraint constraint, final <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> oppositeEndDecl) {
+		private Query createQuery(LinkEndConstraint constraint, <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> oppositeEndDecl) {
+			final <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> oppositeEndDeclLocal = oppositeEndDecl;
 			try {			
 				<%=importManager.getImportedName("org.eclipse.emf.ocl.helper.IOclHelper")%> oclHelper = 
 					<%=importManager.getImportedName("org.eclipse.emf.ocl.helper.HelperUtil")%>.createOclHelper(new <%=importManager.getImportedName("org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory")%>() {
 					public <%=importManager.getImportedName("org.eclipse.emf.ocl.parser.Environment")%> createClassifierContext(Object context) {
 						<%=importManager.getImportedName("org.eclipse.emf.ocl.parser.Environment")%> env = super.createClassifierContext(context);
-						if(oppositeEndDecl != null) {
-							env.addElement(oppositeEndDecl.getName(), oppositeEndDecl, true);
+						if(oppositeEndDeclLocal != null) {
+							env.addElement(oppositeEndDeclLocal.getName(), oppositeEndDeclLocal, true);
 						}
 						return env;
 					}
