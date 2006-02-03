@@ -15,7 +15,7 @@
     <labels visualID="4003" editPartClassName="Review_titleEditPart" itemSemanticEditPolicyClassName="Review_titleItemSemanticEditPolicy" notationViewFactoryClassName="Review_titleViewFactory">
       <diagramRunTimeClass href="../../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
+      <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
         <metaFeature href="library.genmodel#//library/Review/title"/>
       </modelFacet>
     </labels>
@@ -31,7 +31,7 @@
     <labels visualID="4001" editPartClassName="Writer_nameEditPart" itemSemanticEditPolicyClassName="Writer_nameItemSemanticEditPolicy" notationViewFactoryClassName="Writer_nameViewFactory">
       <diagramRunTimeClass href="../../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
+      <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
         <metaFeature href="library.genmodel#//library/Writer/name"/>
       </modelFacet>
     </labels>
@@ -47,7 +47,7 @@
     <labels visualID="4002" editPartClassName="Book_titleEditPart" itemSemanticEditPolicyClassName="Book_titleItemSemanticEditPolicy" notationViewFactoryClassName="Book_titleViewFactory">
       <diagramRunTimeClass href="../../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
+      <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
         <metaFeature href="library.genmodel#//library/Book/title"/>
       </modelFacet>
     </labels>
@@ -64,7 +64,7 @@
     <labels visualID="4004" editPartClassName="Opinion_textEditPart" itemSemanticEditPolicyClassName="Opinion_textItemSemanticEditPolicy" notationViewFactoryClassName="Opinion_textViewFactory" textEditPartClassName="Opinion_textTextEditPart" textNotationViewFactoryClassName="Opinion_textTextViewFactory">
       <diagramRunTimeClass href="../../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
       <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-      <modelFacet xsi:type="gmfgen:FeatureModelFacet">
+      <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
         <metaFeature href="library.genmodel#//library/Opinion/text"/>
       </modelFacet>
     </labels>
@@ -72,7 +72,7 @@
   <links visualID="3002" editPartClassName="AuthorEditPart" itemSemanticEditPolicyClassName="AuthorItemSemanticEditPolicy" notationViewFactoryClassName="AuthorViewFactory">
     <diagramRunTimeClass href="../../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
     <viewmap xsi:type="gmfgen:InnerClassViewmap" className="ConnectionLine" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ConnectionLine extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ConnectionLine() {&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
-    <modelFacet xsi:type="gmfgen:FeatureModelFacet">
+    <modelFacet xsi:type="gmfgen:FeatureLinkModelFacet">
       <metaFeature href="library.genmodel#//library/Book/author"/>
     </modelFacet>
   </links>
