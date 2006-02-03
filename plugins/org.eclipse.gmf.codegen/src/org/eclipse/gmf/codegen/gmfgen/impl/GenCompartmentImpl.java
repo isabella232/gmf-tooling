@@ -450,7 +450,7 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 
 	public String getClassNamePrefix() {
 		if (getTitle() == null) {
-			return "GenContainer$" + hashCode();
+			return "Compartment" + hashCode();
 		}
 		char[] chars = getTitle().toCharArray();
 		for (int i = 0; i < chars.length; i++) {

@@ -281,7 +281,7 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 		if (sb.length() > 0) {
 			return sb.toString();
 		}
-		return "Label$" + hashCode();
+		return "Label" + hashCode();
 	}
 
 	public String getClassNamePrefix() {

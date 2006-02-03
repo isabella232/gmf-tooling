@@ -374,7 +374,7 @@ public abstract class GenNodeImpl extends GenChildContainerImpl implements GenNo
 	}
 
 	public String getClassNamePrefix() {
-		return getDomainMetaClass() == null ? "GenNode$" + hashCode() : getDomainMetaClass().getName();
+		return getDomainMetaClass() == null ? "Node" + hashCode() : getDomainMetaClass().getName();
 	}
 
 	public String getUniqueIdentifier() {
