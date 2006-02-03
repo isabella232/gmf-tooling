@@ -103,6 +103,9 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.FEATURE_MODEL_FACET: return createFeatureModelFacet();
 			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET: return createCompositeFeatureModelFacet();
 			case GMFGenPackage.TYPE_LINK_MODEL_FACET: return createTypeLinkModelFacet();
+			case GMFGenPackage.FEATURE_LINK_MODEL_FACET: return createFeatureLinkModelFacet();
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET: return createFeatureLabelModelFacet();
+			case GMFGenPackage.COMPOSITE_FEATURE_LABEL_MODEL_FACET: return createCompositeFeatureLabelModelFacet();
 			case GMFGenPackage.COLOR_ATTRIBUTES: return createColorAttributes();
 			case GMFGenPackage.SHAPE_ATTRIBUTES: return createShapeAttributes();
 			case GMFGenPackage.DEFAULT_SIZE_ATTRIBUTES: return createDefaultSizeAttributes();
@@ -272,6 +275,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public FeatureLabelModelFacet createFeatureLabelModelFacet() {
+		FeatureLabelModelFacetImpl featureLabelModelFacet = new FeatureLabelModelFacetImpl();
+		return featureLabelModelFacet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public CompositeFeatureModelFacet createCompositeFeatureModelFacet() {
 		CompositeFeatureModelFacetImpl compositeFeatureModelFacet = new CompositeFeatureModelFacetImpl();
 		return compositeFeatureModelFacet;
@@ -282,9 +295,29 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public CompositeFeatureLabelModelFacet createCompositeFeatureLabelModelFacet() {
+		CompositeFeatureLabelModelFacetImpl compositeFeatureLabelModelFacet = new CompositeFeatureLabelModelFacetImpl();
+		return compositeFeatureLabelModelFacet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public TypeLinkModelFacet createTypeLinkModelFacet() {
 		TypeLinkModelFacetImpl typeLinkModelFacet = new TypeLinkModelFacetImpl();
 		return typeLinkModelFacet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FeatureLinkModelFacet createFeatureLinkModelFacet() {
+		FeatureLinkModelFacetImpl featureLinkModelFacet = new FeatureLinkModelFacetImpl();
+		return featureLinkModelFacet;
 	}
 
 	/**

@@ -28,7 +28,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface CompositeFeatureModelFacet extends ModelFacet, LabelModelFacet {
+public interface CompositeFeatureModelFacet extends ModelFacet {
 	/**
 	 * Returns the value of the '<em><b>Meta Features</b></em>' reference list.
 	 * The list contents are of type {@link org.eclipse.emf.codegen.ecore.genmodel.GenFeature}.

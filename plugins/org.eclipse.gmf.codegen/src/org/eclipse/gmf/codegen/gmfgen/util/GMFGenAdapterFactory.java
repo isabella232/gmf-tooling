@@ -194,6 +194,15 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseTypeLinkModelFacet(TypeLinkModelFacet object) {
 				return createTypeLinkModelFacetAdapter();
 			}
+			public Object caseFeatureLinkModelFacet(FeatureLinkModelFacet object) {
+				return createFeatureLinkModelFacetAdapter();
+			}
+			public Object caseFeatureLabelModelFacet(FeatureLabelModelFacet object) {
+				return createFeatureLabelModelFacetAdapter();
+			}
+			public Object caseCompositeFeatureLabelModelFacet(CompositeFeatureLabelModelFacet object) {
+				return createCompositeFeatureLabelModelFacetAdapter();
+			}
 			public Object caseAttributes(Attributes object) {
 				return createAttributesAdapter();
 			}
@@ -657,6 +666,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet <em>Feature Label Model Facet</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet
+	 * @generated
+	 */
+	public Adapter createFeatureLabelModelFacetAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet <em>Composite Feature Model Facet</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -671,6 +694,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet <em>Composite Feature Label Model Facet</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet
+	 * @generated
+	 */
+	public Adapter createCompositeFeatureLabelModelFacetAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet <em>Type Link Model Facet</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -681,6 +718,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTypeLinkModelFacetAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet <em>Feature Link Model Facet</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet
+	 * @generated
+	 */
+	public Adapter createFeatureLinkModelFacetAdapter() {
 		return null;
 	}
 

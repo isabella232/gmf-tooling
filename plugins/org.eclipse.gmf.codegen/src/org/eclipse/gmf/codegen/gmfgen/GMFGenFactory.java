@@ -125,6 +125,15 @@ public interface GMFGenFactory extends EFactory {
 	FeatureModelFacet createFeatureModelFacet();
 
 	/**
+	 * Returns a new object of class '<em>Feature Label Model Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Feature Label Model Facet</em>'.
+	 * @generated
+	 */
+	FeatureLabelModelFacet createFeatureLabelModelFacet();
+
+	/**
 	 * Returns a new object of class '<em>Composite Feature Model Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -134,6 +143,15 @@ public interface GMFGenFactory extends EFactory {
 	CompositeFeatureModelFacet createCompositeFeatureModelFacet();
 
 	/**
+	 * Returns a new object of class '<em>Composite Feature Label Model Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Composite Feature Label Model Facet</em>'.
+	 * @generated
+	 */
+	CompositeFeatureLabelModelFacet createCompositeFeatureLabelModelFacet();
+
+	/**
 	 * Returns a new object of class '<em>Type Link Model Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -141,6 +159,15 @@ public interface GMFGenFactory extends EFactory {
 	 * @generated
 	 */
 	TypeLinkModelFacet createTypeLinkModelFacet();
+
+	/**
+	 * Returns a new object of class '<em>Feature Link Model Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Feature Link Model Facet</em>'.
+	 * @generated
+	 */
+	FeatureLinkModelFacet createFeatureLinkModelFacet();
 
 	/**
 	 * Returns a new object of class '<em>Color Attributes</em>'.

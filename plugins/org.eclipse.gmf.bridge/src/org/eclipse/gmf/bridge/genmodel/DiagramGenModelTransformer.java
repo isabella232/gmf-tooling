@@ -25,7 +25,8 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
-import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
@@ -171,7 +172,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		genNode.setModelFacet(createModelFacet(nme));
 		genNode.setVisualID(myVisualIDs.get(genNode));
 		if (nme.getEditFeature() != null) {
-			FeatureModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureModelFacet();
+			FeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
 			modelFacet.setMetaFeature(findGenFeature(nme.getEditFeature()));
 			GenNodeLabel label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
 			label.setModelFacet(modelFacet);
@@ -208,7 +209,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		myNamingStrategy.feed(childNode, childNodeMapping);
 
 		if (childNodeMapping.getEditFeature() != null) {
-			FeatureModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureModelFacet();
+			FeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
 			modelFacet.setMetaFeature(findGenFeature(childNodeMapping.getEditFeature()));
 			GenNodeLabel label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
 			label.setModelFacet(modelFacet);
@@ -289,7 +290,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		EAttribute editFeature = lme.getLabelEditFeature();
 		if (editFeature != null) {
-			FeatureModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureModelFacet();
+			FeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
 			modelFacet.setMetaFeature(findGenFeature(lme.getLabelEditFeature()));
 			GenLinkLabel label = GMFGenFactory.eINSTANCE.createGenLinkLabel();
 			label.setModelFacet(modelFacet);
@@ -439,7 +440,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			setupAux(mf, lme.getDomainSpecialization(), lme.getDomainInitializer());
 			return mf;
 		} else {
-			FeatureModelFacet mf = GMFGenFactory.eINSTANCE.createFeatureModelFacet();
+			FeatureLinkModelFacet mf = GMFGenFactory.eINSTANCE.createFeatureLinkModelFacet();
 			mf.setMetaFeature(findGenFeature(lme.getLinkMetaFeature()));
 			return mf;
 		}

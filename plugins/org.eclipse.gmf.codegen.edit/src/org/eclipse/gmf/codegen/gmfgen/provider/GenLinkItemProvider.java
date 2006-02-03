@@ -209,12 +209,12 @@ public class GenLinkItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenLink_ModelFacet(),
-				 GMFGenFactory.eINSTANCE.createFeatureModelFacet()));
+				 GMFGenFactory.eINSTANCE.createTypeLinkModelFacet()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenLink_ModelFacet(),
-				 GMFGenFactory.eINSTANCE.createTypeLinkModelFacet()));
+				 GMFGenFactory.eINSTANCE.createFeatureLinkModelFacet()));
 
 		newChildDescriptors.add
 			(createChildParameter

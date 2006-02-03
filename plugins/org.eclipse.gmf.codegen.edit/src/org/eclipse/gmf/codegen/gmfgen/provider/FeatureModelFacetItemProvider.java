@@ -19,11 +19,7 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
-import org.eclipse.emf.edit.provider.ViewerNotification;
-
-import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
@@ -61,51 +57,9 @@ public class FeatureModelFacetItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addViewPatternPropertyDescriptor(object);
-			addEditPatternPropertyDescriptor(object);
 			addMetaFeaturePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the View Pattern feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addViewPatternPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_LabelModelFacet_viewPattern_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LabelModelFacet_viewPattern_feature", "_UI_LabelModelFacet_type"),
-				 GMFGenPackage.eINSTANCE.getLabelModelFacet_ViewPattern(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Edit Pattern feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addEditPatternPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_LabelModelFacet_editPattern_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LabelModelFacet_editPattern_feature", "_UI_LabelModelFacet_type"),
-				 GMFGenPackage.eINSTANCE.getLabelModelFacet_EditPattern(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -145,10 +99,7 @@ public class FeatureModelFacetItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((FeatureModelFacet)object).getViewPattern();
-		return label == null || label.length() == 0 ?
-			getString("_UI_FeatureModelFacet_type") :
-			getString("_UI_FeatureModelFacet_type") + " " + label;
+		return getString("_UI_FeatureModelFacet_type");
 	}
 
 	/**
@@ -160,13 +111,6 @@ public class FeatureModelFacetItemProvider
 	 */
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(FeatureModelFacet.class)) {
-			case GMFGenPackage.FEATURE_MODEL_FACET__VIEW_PATTERN:
-			case GMFGenPackage.FEATURE_MODEL_FACET__EDIT_PATTERN:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-		}
 		super.notifyChanged(notification);
 	}
 

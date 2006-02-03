@@ -64,10 +64,13 @@ public interface GenLabel extends GenCommonBase {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * If model facet is not specified then custom parser should be provided for the label
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Model Facet</em>' containment reference.
 	 * @see #setModelFacet(LabelModelFacet)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLabel_ModelFacet()
-	 * @model containment="true" required="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	LabelModelFacet getModelFacet();

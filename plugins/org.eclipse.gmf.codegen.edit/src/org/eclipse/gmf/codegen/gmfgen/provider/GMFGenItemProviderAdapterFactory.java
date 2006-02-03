@@ -360,6 +360,72 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FeatureLinkModelFacetItemProvider featureLinkModelFacetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createFeatureLinkModelFacetAdapter() {
+		if (featureLinkModelFacetItemProvider == null) {
+			featureLinkModelFacetItemProvider = new FeatureLinkModelFacetItemProvider(this);
+		}
+
+		return featureLinkModelFacetItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected FeatureLabelModelFacetItemProvider featureLabelModelFacetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createFeatureLabelModelFacetAdapter() {
+		if (featureLabelModelFacetItemProvider == null) {
+			featureLabelModelFacetItemProvider = new FeatureLabelModelFacetItemProvider(this);
+		}
+
+		return featureLabelModelFacetItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CompositeFeatureLabelModelFacetItemProvider compositeFeatureLabelModelFacetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createCompositeFeatureLabelModelFacetAdapter() {
+		if (compositeFeatureLabelModelFacetItemProvider == null) {
+			compositeFeatureLabelModelFacetItemProvider = new CompositeFeatureLabelModelFacetItemProvider(this);
+		}
+
+		return compositeFeatureLabelModelFacetItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ColorAttributes} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -842,6 +908,9 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (featureModelFacetItemProvider != null) featureModelFacetItemProvider.dispose();
 		if (compositeFeatureModelFacetItemProvider != null) compositeFeatureModelFacetItemProvider.dispose();
 		if (typeLinkModelFacetItemProvider != null) typeLinkModelFacetItemProvider.dispose();
+		if (featureLinkModelFacetItemProvider != null) featureLinkModelFacetItemProvider.dispose();
+		if (featureLabelModelFacetItemProvider != null) featureLabelModelFacetItemProvider.dispose();
+		if (compositeFeatureLabelModelFacetItemProvider != null) compositeFeatureLabelModelFacetItemProvider.dispose();
 		if (colorAttributesItemProvider != null) colorAttributesItemProvider.dispose();
 		if (shapeAttributesItemProvider != null) shapeAttributesItemProvider.dispose();
 		if (defaultSizeAttributesItemProvider != null) defaultSizeAttributesItemProvider.dispose();

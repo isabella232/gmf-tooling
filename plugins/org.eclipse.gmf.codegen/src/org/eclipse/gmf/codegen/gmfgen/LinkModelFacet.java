@@ -15,7 +15,7 @@ import org.eclipse.emf.common.util.EList;
  * <!-- end-user-doc -->
  *
  * <!-- begin-model-doc -->
- * Model facets that may support links should extends this interface
+ * Model facet of links
  * <!-- end-model-doc -->
  *
  *

@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
@@ -550,8 +550,8 @@ public class GenLinkImpl extends GenCommonBaseImpl implements GenLink {
 
 	public String getClassNamePrefix() {
 		LinkModelFacet aModelFacet = getModelFacet();
-		if (aModelFacet instanceof FeatureModelFacet) {
-			GenFeature metaFeature = ((FeatureModelFacet) aModelFacet).getMetaFeature();
+		if (aModelFacet instanceof FeatureLinkModelFacet) {
+			GenFeature metaFeature = ((FeatureLinkModelFacet) aModelFacet).getMetaFeature();
 			return metaFeature.getGenClass().getName() + metaFeature.getCapName();
 		} else if (aModelFacet instanceof TypeLinkModelFacet) {
 			GenClass metaClass = ((TypeLinkModelFacet) aModelFacet).getMetaClass();
