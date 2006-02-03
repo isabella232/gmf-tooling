@@ -1,9 +1,22 @@
 package org.eclipse.gmf.ecore.edit.policies;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ocl.expressions.ExpressionsFactory;
+import org.eclipse.emf.ocl.expressions.VariableDeclaration;
+import org.eclipse.emf.ocl.helper.HelperUtil;
+import org.eclipse.emf.ocl.helper.IOclHelper;
+import org.eclipse.emf.ocl.parser.EcoreEnvironment;
+import org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory;
+import org.eclipse.emf.ocl.parser.Environment;
+import org.eclipse.emf.ocl.parser.EvaluationEnvironment;
+import org.eclipse.emf.ocl.query.Query;
+import org.eclipse.emf.ocl.query.QueryFactory;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.UnexecutableCommand;
+import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
@@ -25,23 +38,6 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelations
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EcorePackage;
-
-import org.eclipse.emf.ocl.expressions.ExpressionsFactory;
-import org.eclipse.emf.ocl.expressions.VariableDeclaration;
-
-import org.eclipse.emf.ocl.expressions.util.ExpressionsUtil;
-
-import org.eclipse.emf.ocl.parser.EcoreEnvironment;
-import org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory;
-import org.eclipse.emf.ocl.parser.Environment;
-import org.eclipse.emf.ocl.parser.EvaluationEnvironment;
-
-import org.eclipse.emf.ocl.query.Query;
-import org.eclipse.emf.ocl.query.QueryFactory;
-
-import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
 
 /**
  * @generated
@@ -221,17 +217,12 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 */
 		public static final LinkConstraints EClassESuperTypes_3004 = new LinkConstraints(new LinkEndConstraint(null, //$NON-NLS-1$
 				EcorePackage.eINSTANCE.getEClass()), new LinkEndConstraint("self <> oppositeEnd and not oppositeEnd.eSuperTypes->includes(self) and not self.eAllSuperTypes->includes(oppositeEnd)", //$NON-NLS-1$
-				EcorePackage.eINSTANCE.getEClass()), null);
+				EcorePackage.eINSTANCE.getEClass()));
 
 		/**
 		 * @generated 
 		 */
 		private static final String OPPOSITE_END_VAR = "oppositeEnd"; //$NON-NLS-1$
-
-		/**
-		 * @generated 
-		 */
-		private static final String LINK_VAR = "link"; //$NON-NLS-1$	
 
 		/**
 		 * @generated 
@@ -246,11 +237,6 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated 
 		 */
-		private VariableDeclaration varLinkObject;
-
-		/**
-		 * @generated 
-		 */
 		private Query srcEndInv;
 
 		/**
@@ -261,11 +247,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated 
 		 */
-		public LinkConstraints(LinkEndConstraint sourceEnd, LinkEndConstraint targetEnd, EClassifier linkClass) {
-			if (linkClass != null) {
-				this.varLinkObject = createVar(LINK_VAR, linkClass);
-			}
-
+		public LinkConstraints(LinkEndConstraint sourceEnd, LinkEndConstraint targetEnd) {
 			if (sourceEnd != null && sourceEnd.context != null && sourceEnd.body != null) {
 				if (targetEnd != null && targetEnd.context != null) {
 					this.varOppositeEndToTarget = createVar(OPPOSITE_END_VAR, targetEnd.context);
@@ -287,15 +269,15 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		public boolean canCreateLink(CreateRelationshipRequest req, boolean isBackDirected) {
 			Object source = req.getSource();
 			Object target = req.getTarget();
-			Object link = req.getNewElement();
+
 			Query sourceConstraint = isBackDirected ? targetEndInv : srcEndInv;
 			Query targetConstraint = null;
 			if (req.getTarget() != null) {
 				targetConstraint = isBackDirected ? srcEndInv : targetEndInv;
 			}
-			boolean isSourceAccepted = sourceConstraint != null ? evaluate(sourceConstraint, source, target, link, false) : true;
+			boolean isSourceAccepted = sourceConstraint != null ? evaluate(sourceConstraint, source, target, false) : true;
 			if (isSourceAccepted && targetConstraint != null) {
-				return evaluate(targetConstraint, target, source, link, true);
+				return evaluate(targetConstraint, target, source, true);
 			}
 			return isSourceAccepted;
 		}
@@ -304,14 +286,20 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		 * @generated 
 		 */
 		private Query createQuery(LinkEndConstraint constraint, VariableDeclaration oppositeEndDecl) {
+			final VariableDeclaration oppositeEndDeclLocal = oppositeEndDecl;
 			try {
-				Environment env = EcoreEnvironmentFactory.ECORE_INSTANCE.createClassifierContext(constraint.context);
-				if (oppositeEndDecl != null)
-					env.addElement(oppositeEndDecl.getName(), oppositeEndDecl, true);
-				if (varLinkObject != null)
-					env.addElement(LINK_VAR, varLinkObject, true);
+				IOclHelper oclHelper = HelperUtil.createOclHelper(new EcoreEnvironmentFactory() {
 
-				return QueryFactory.eINSTANCE.createQuery(ExpressionsUtil.createInvariant(env, constraint.body, true));
+					public Environment createClassifierContext(Object context) {
+						Environment env = super.createClassifierContext(context);
+						if (oppositeEndDeclLocal != null) {
+							env.addElement(oppositeEndDeclLocal.getName(), oppositeEndDeclLocal, true);
+						}
+						return env;
+					}
+				});
+				oclHelper.setContext(constraint.context);
+				return QueryFactory.eINSTANCE.createQuery(oclHelper.createInvariant(constraint.body));
 			} catch (Exception e) {
 				EcoreDiagramEditorPlugin.getInstance().logError(null, e);
 				return null;
@@ -321,10 +309,9 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		/**
 		 * @generated 
 		 */
-		private static boolean evaluate(Query query, Object sourceEnd, Object oppositeEnd, Object link, boolean clearEnv) {
+		private static boolean evaluate(Query query, Object sourceEnd, Object oppositeEnd, boolean clearEnv) {
 			EvaluationEnvironment evalEnv = query.getEvaluationEnvironment();
 			evalEnv.replace(OPPOSITE_END_VAR, oppositeEnd);
-			evalEnv.replace(LINK_VAR, link);
 			try {
 				Object val = query.evaluate(sourceEnd);
 				return (val instanceof Boolean) ? ((Boolean) val).booleanValue() : false;

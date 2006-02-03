@@ -5,7 +5,6 @@ import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.icon.GetIconOperation;
 import org.eclipse.gmf.runtime.common.ui.services.icon.IIconProvider;
-import org.eclipse.gmf.runtime.common.ui.services.icon.IconOptions;
 import org.eclipse.swt.graphics.Image;
 
 /**
@@ -25,8 +24,7 @@ public class EcoreIconProvider extends AbstractProvider implements IIconProvider
 	 */
 	public boolean provides(IOperation operation) {
 		if (operation instanceof GetIconOperation) {
-			IAdaptable hint = ((GetIconOperation) operation).getHint();
-			return getIcon(hint, IconOptions.NONE.intValue()) != null;
+			return ((GetIconOperation) operation).execute(this) != null;
 		}
 		return false;
 	}

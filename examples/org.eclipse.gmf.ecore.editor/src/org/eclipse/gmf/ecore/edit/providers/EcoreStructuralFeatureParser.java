@@ -13,6 +13,8 @@ import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeModelCommand;
 
+import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
+
 /**
  * @generated
  */
@@ -63,16 +65,25 @@ public class EcoreStructuralFeatureParser extends EcoreAbstractParser {
 	/**
 	 * @generated
 	 */
-	protected IParserEditStatus validateNewValues(Object[] values) {
-		return values.length == 1 ? ParserEditStatus.EDITABLE_STATUS : ParserEditStatus.UNEDITABLE_STATUS;
+	protected IParserEditStatus validateValues(Object[] values) {
+		if (values.length > 1) {
+			return ParserEditStatus.UNEDITABLE_STATUS;
+		}
+		Object value = values.length == 1 ? values[0] : null;
+		value = getValidNewValue(feature, value);
+		if (value instanceof InvalidValue) {
+			return new ParserEditStatus(EcoreDiagramEditorPlugin.ID, IParserEditStatus.UNEDITABLE, value.toString());
+		}
+		return ParserEditStatus.EDITABLE_STATUS;
 	}
 
 	/**
 	 * @generated
 	 */
-	public ICommand getParseCommand(IAdaptable adapter, Object[] newValues) {
+	public ICommand getParseCommand(IAdaptable adapter, Object[] values) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
-		ICommand command = getModificationCommand(element, feature, newValues[0]);
+		Object value = values.length == 1 ? values[0] : null;
+		ICommand command = getModificationCommand(element, feature, value);
 		return new CompositeModelCommand(command.getLabel(), Collections.singletonList(command));
 	}
 
