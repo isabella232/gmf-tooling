@@ -13,10 +13,10 @@
 
 	<target name="runtests" depends="" description="Executes the junit tests for a specified plug-in.">
 		<!-- Check to see if forcing qualifier context.  If so, override the version found in pluginVersions.properties -->
-		<condition property="qualifiedVersion" value=".${forceContextQualifier}">
+		<condition property="qVersion" value=".${forceContextQualifier}">
 			<isset property="forceContextQualifier"/>
 		</condition>
-		<property name="qualifiedVersion" value="${qualifier}"/>
+		<property name="qVersion" value="${qualifier}"/>
 		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="true" timeout="600000">
 			<assertions>
 				<enable/>
@@ -24,7 +24,7 @@
 			<arg value="-application" />
 			<arg value="org.eclipse.ant.core.antRunner" />
 			<arg value="-file" />
-			<arg value="${basedir}/src/${testPlugin}_${gmfVersion}${qualifiedVersion}/test.xml" />
+			<arg value="${basedir}/src/${testPlugin}_${gmfVersion}${qVersion}/test.xml" />
 			<arg value="-logger" />
 			<arg value="org.apache.tools.ant.DefaultLogger" />
 			<arg value="-Dos=${baseos}" />
