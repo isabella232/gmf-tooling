@@ -13,14 +13,12 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
 
@@ -58,37 +56,50 @@ public class PolylineConnectionItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addSourceDecorationPropertyDescriptor(object);
+			addTargetDecorationPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * This adds a property descriptor for the Source Decoration feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Collection getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getPolylineConnection_SourceDecoration());
-			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getPolylineConnection_TargetDecoration());
-		}
-		return childrenFeatures;
+	protected void addSourceDecorationPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_PolylineConnection_sourceDecoration_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PolylineConnection_sourceDecoration_feature", "_UI_PolylineConnection_type"),
+				 GMFGraphPackage.eINSTANCE.getPolylineConnection_SourceDecoration(),
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
+	 * This adds a property descriptor for the Target Decoration feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
+	protected void addTargetDecorationPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_PolylineConnection_targetDecoration_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_PolylineConnection_targetDecoration_feature", "_UI_PolylineConnection_type"),
+				 GMFGraphPackage.eINSTANCE.getPolylineConnection_TargetDecoration(),
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -123,13 +134,6 @@ public class PolylineConnectionItemProvider
 	 */
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
-
-		switch (notification.getFeatureID(PolylineConnection.class)) {
-			case GMFGraphPackage.POLYLINE_CONNECTION__SOURCE_DECORATION:
-			case GMFGraphPackage.POLYLINE_CONNECTION__TARGET_DECORATION:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-				return;
-		}
 		super.notifyChanged(notification);
 	}
 
@@ -142,36 +146,6 @@ public class PolylineConnectionItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getPolylineConnection_SourceDecoration(),
-				 GMFGraphFactory.eINSTANCE.createPolylineDecoration()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getPolylineConnection_SourceDecoration(),
-				 GMFGraphFactory.eINSTANCE.createPolygonDecoration()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getPolylineConnection_SourceDecoration(),
-				 GMFGraphFactory.eINSTANCE.createCustomDecoration()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getPolylineConnection_TargetDecoration(),
-				 GMFGraphFactory.eINSTANCE.createPolylineDecoration()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getPolylineConnection_TargetDecoration(),
-				 GMFGraphFactory.eINSTANCE.createPolygonDecoration()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGraphPackage.eINSTANCE.getPolylineConnection_TargetDecoration(),
-				 GMFGraphFactory.eINSTANCE.createCustomDecoration()));
 	}
 
 	/**
@@ -185,9 +159,6 @@ public class PolylineConnectionItemProvider
 		Object childObject = child;
 
 		boolean qualify =
-			childFeature == GMFGraphPackage.eINSTANCE.getFigure_Children() ||
-			childFeature == GMFGraphPackage.eINSTANCE.getPolylineConnection_SourceDecoration() ||
-			childFeature == GMFGraphPackage.eINSTANCE.getPolylineConnection_TargetDecoration() ||
 			childFeature == GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor() ||
 			childFeature == GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor() ||
 			childFeature == GMFGraphPackage.eINSTANCE.getFigure_MaximumSize() ||

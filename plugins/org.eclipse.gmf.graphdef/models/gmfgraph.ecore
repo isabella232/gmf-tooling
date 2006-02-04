@@ -176,10 +176,8 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="org.eclipse.draw2d.PolylineConnection"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceDecoration" eType="#//DecorationFigure"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="targetDecoration" eType="#//DecorationFigure"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceDecoration" eType="#//DecorationFigure"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetDecoration" eType="#//DecorationFigure"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PolylineDecoration" eSuperTypes="#//Polyline #//DecorationFigure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

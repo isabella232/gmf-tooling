@@ -130,8 +130,8 @@
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//Polygon"/>
     <genClasses ecoreClass="gmfgraph.ecore#//PolylineConnection">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//PolylineConnection/sourceDecoration"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//PolylineConnection/targetDecoration"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//PolylineConnection/sourceDecoration"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//PolylineConnection/targetDecoration"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//PolylineDecoration"/>
     <genClasses ecoreClass="gmfgraph.ecore#//PolygonDecoration"/>

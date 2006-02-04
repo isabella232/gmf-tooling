@@ -5,9 +5,8 @@
     <figures xsi:type="gmfgraph:Rectangle" name="SimpleRectangle">
       <border xsi:type="gmfgraph:CustomBorder" qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.RectangularDropShadowLineBorder" bundleName="org.eclipse.gmf.runtime.draw2d.ui"/>
     </figures>
-    <figures xsi:type="gmfgraph:PolylineConnection" name="SolidLineWDstArrowFigure">
-      <targetDecoration xsi:type="gmfgraph:PolylineDecoration" name="ArrowDecoration"/>
-    </figures>
+    <figures xsi:type="gmfgraph:PolylineConnection" name="SolidLineWDstArrowFigure" targetDecoration="ArrowDecoration"/>
+    <figures xsi:type="gmfgraph:PolylineDecoration" name="ArrowDecoration"/>
   </figures>
   <nodes name="StateMachine Node" figure="RoundedRectangle"/>
   <connections name="SolidLineWDstArrow" figure="SolidLineWDstArrowFigure"/>

@@ -2822,7 +2822,7 @@ public interface GMFGraphPackage extends EPackage {
 	int POLYLINE_CONNECTION__TEMPLATE = POLYLINE__TEMPLATE;
 
 	/**
-	 * The feature id for the '<em><b>Source Decoration</b></em>' containment reference.
+	 * The feature id for the '<em><b>Source Decoration</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2831,7 +2831,7 @@ public interface GMFGraphPackage extends EPackage {
 	int POLYLINE_CONNECTION__SOURCE_DECORATION = POLYLINE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Target Decoration</b></em>' containment reference.
+	 * The feature id for the '<em><b>Target Decoration</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4996,10 +4996,10 @@ public interface GMFGraphPackage extends EPackage {
 	EClass getPolylineConnection();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.PolylineConnection#getSourceDecoration <em>Source Decoration</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.gmfgraph.PolylineConnection#getSourceDecoration <em>Source Decoration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Source Decoration</em>'.
+	 * @return the meta object for the reference '<em>Source Decoration</em>'.
 	 * @see org.eclipse.gmf.gmfgraph.PolylineConnection#getSourceDecoration()
 	 * @see #getPolylineConnection()
 	 * @generated
@@ -5007,10 +5007,10 @@ public interface GMFGraphPackage extends EPackage {
 	EReference getPolylineConnection_SourceDecoration();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.PolylineConnection#getTargetDecoration <em>Target Decoration</em>}'.
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.gmfgraph.PolylineConnection#getTargetDecoration <em>Target Decoration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Target Decoration</em>'.
+	 * @return the meta object for the reference '<em>Target Decoration</em>'.
 	 * @see org.eclipse.gmf.gmfgraph.PolylineConnection#getTargetDecoration()
 	 * @see #getPolylineConnection()
 	 * @generated

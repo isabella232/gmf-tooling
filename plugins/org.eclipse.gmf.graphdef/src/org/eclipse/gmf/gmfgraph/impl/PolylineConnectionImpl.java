@@ -7,7 +7,6 @@
 package org.eclipse.gmf.gmfgraph.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -31,7 +30,7 @@ import org.eclipse.gmf.gmfgraph.PolylineConnection;
  */
 public class PolylineConnectionImpl extends PolylineImpl implements PolylineConnection {
 	/**
-	 * The cached value of the '{@link #getSourceDecoration() <em>Source Decoration</em>}' containment reference.
+	 * The cached value of the '{@link #getSourceDecoration() <em>Source Decoration</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getSourceDecoration()
@@ -41,7 +40,7 @@ public class PolylineConnectionImpl extends PolylineImpl implements PolylineConn
 	protected DecorationFigure sourceDecoration = null;
 
 	/**
-	 * The cached value of the '{@link #getTargetDecoration() <em>Target Decoration</em>}' containment reference.
+	 * The cached value of the '{@link #getTargetDecoration() <em>Target Decoration</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getTargetDecoration()
@@ -74,6 +73,14 @@ public class PolylineConnectionImpl extends PolylineImpl implements PolylineConn
 	 * @generated
 	 */
 	public DecorationFigure getSourceDecoration() {
+		if (sourceDecoration != null && sourceDecoration.eIsProxy()) {
+			InternalEObject oldSourceDecoration = (InternalEObject)sourceDecoration;
+			sourceDecoration = (DecorationFigure)eResolveProxy(oldSourceDecoration);
+			if (sourceDecoration != oldSourceDecoration) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGraphPackage.POLYLINE_CONNECTION__SOURCE_DECORATION, oldSourceDecoration, sourceDecoration));
+			}
+		}
 		return sourceDecoration;
 	}
 
@@ -82,14 +89,8 @@ public class PolylineConnectionImpl extends PolylineImpl implements PolylineConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetSourceDecoration(DecorationFigure newSourceDecoration, NotificationChain msgs) {
-		DecorationFigure oldSourceDecoration = sourceDecoration;
-		sourceDecoration = newSourceDecoration;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGraphPackage.POLYLINE_CONNECTION__SOURCE_DECORATION, oldSourceDecoration, newSourceDecoration);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	public DecorationFigure basicGetSourceDecoration() {
+		return sourceDecoration;
 	}
 
 	/**
@@ -98,17 +99,10 @@ public class PolylineConnectionImpl extends PolylineImpl implements PolylineConn
 	 * @generated
 	 */
 	public void setSourceDecoration(DecorationFigure newSourceDecoration) {
-		if (newSourceDecoration != sourceDecoration) {
-			NotificationChain msgs = null;
-			if (sourceDecoration != null)
-				msgs = ((InternalEObject)sourceDecoration).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGraphPackage.POLYLINE_CONNECTION__SOURCE_DECORATION, null, msgs);
-			if (newSourceDecoration != null)
-				msgs = ((InternalEObject)newSourceDecoration).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGraphPackage.POLYLINE_CONNECTION__SOURCE_DECORATION, null, msgs);
-			msgs = basicSetSourceDecoration(newSourceDecoration, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.POLYLINE_CONNECTION__SOURCE_DECORATION, newSourceDecoration, newSourceDecoration));
+		DecorationFigure oldSourceDecoration = sourceDecoration;
+		sourceDecoration = newSourceDecoration;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.POLYLINE_CONNECTION__SOURCE_DECORATION, oldSourceDecoration, sourceDecoration));
 	}
 
 	/**
@@ -117,6 +111,14 @@ public class PolylineConnectionImpl extends PolylineImpl implements PolylineConn
 	 * @generated
 	 */
 	public DecorationFigure getTargetDecoration() {
+		if (targetDecoration != null && targetDecoration.eIsProxy()) {
+			InternalEObject oldTargetDecoration = (InternalEObject)targetDecoration;
+			targetDecoration = (DecorationFigure)eResolveProxy(oldTargetDecoration);
+			if (targetDecoration != oldTargetDecoration) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGraphPackage.POLYLINE_CONNECTION__TARGET_DECORATION, oldTargetDecoration, targetDecoration));
+			}
+		}
 		return targetDecoration;
 	}
 
@@ -125,14 +127,8 @@ public class PolylineConnectionImpl extends PolylineImpl implements PolylineConn
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetTargetDecoration(DecorationFigure newTargetDecoration, NotificationChain msgs) {
-		DecorationFigure oldTargetDecoration = targetDecoration;
-		targetDecoration = newTargetDecoration;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGraphPackage.POLYLINE_CONNECTION__TARGET_DECORATION, oldTargetDecoration, newTargetDecoration);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	public DecorationFigure basicGetTargetDecoration() {
+		return targetDecoration;
 	}
 
 	/**
@@ -141,32 +137,10 @@ public class PolylineConnectionImpl extends PolylineImpl implements PolylineConn
 	 * @generated
 	 */
 	public void setTargetDecoration(DecorationFigure newTargetDecoration) {
-		if (newTargetDecoration != targetDecoration) {
-			NotificationChain msgs = null;
-			if (targetDecoration != null)
-				msgs = ((InternalEObject)targetDecoration).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGraphPackage.POLYLINE_CONNECTION__TARGET_DECORATION, null, msgs);
-			if (newTargetDecoration != null)
-				msgs = ((InternalEObject)newTargetDecoration).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGraphPackage.POLYLINE_CONNECTION__TARGET_DECORATION, null, msgs);
-			msgs = basicSetTargetDecoration(newTargetDecoration, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.POLYLINE_CONNECTION__TARGET_DECORATION, newTargetDecoration, newTargetDecoration));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case GMFGraphPackage.POLYLINE_CONNECTION__SOURCE_DECORATION:
-				return basicSetSourceDecoration(null, msgs);
-			case GMFGraphPackage.POLYLINE_CONNECTION__TARGET_DECORATION:
-				return basicSetTargetDecoration(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
+		DecorationFigure oldTargetDecoration = targetDecoration;
+		targetDecoration = newTargetDecoration;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.POLYLINE_CONNECTION__TARGET_DECORATION, oldTargetDecoration, targetDecoration));
 	}
 
 	/**
@@ -177,9 +151,11 @@ public class PolylineConnectionImpl extends PolylineImpl implements PolylineConn
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.POLYLINE_CONNECTION__SOURCE_DECORATION:
-				return getSourceDecoration();
+				if (resolve) return getSourceDecoration();
+				return basicGetSourceDecoration();
 			case GMFGraphPackage.POLYLINE_CONNECTION__TARGET_DECORATION:
-				return getTargetDecoration();
+				if (resolve) return getTargetDecoration();
+				return basicGetTargetDecoration();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
