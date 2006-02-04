@@ -371,6 +371,7 @@ public class EmitterFactory {
 			emitter.addVariable("EMF_COMMON", "org.eclipse.emf.common");
 			emitter.addVariable("EMF_ECORE", "org.eclipse.emf.ecore");
 			emitter.addVariable("GMF_COMMON", "org.eclipse.gmf.common");
+			emitter.addVariable("GMF_CODEGEN", "org.eclipse.gmf.codegen");
 
 			if (usePrecompiledTemplates()) {
 				Method m = precompiledTemplate.getMethod("generate", new Class[] {Object.class});
