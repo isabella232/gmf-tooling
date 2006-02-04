@@ -67,6 +67,13 @@ http://www.eclipse.org/legal/epl-v10.html
    </requires>
 
    <plugin
+         id="org.eclipse.gmf.common"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
          id="org.eclipse.gmf.codegen"
          download-size="0"
          install-size="0"

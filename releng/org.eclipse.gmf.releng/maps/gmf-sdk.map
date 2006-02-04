@@ -5,6 +5,7 @@ feature@org.eclipse.gmf.sdk=I20060203-0830,:pserver:anonymous@dev.eclipse.org:/c
 
 !*** GMF plug-ins ***************************************************************************
 plugin@org.eclipse.gmf.sdk=I20060203-0830,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.sdk
+plugin@org.eclipse.gmf.common=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.common
 plugin@org.eclipse.gmf.bridge=I20060203-0830,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.bridge
 plugin@org.eclipse.gmf.codegen=I20060203-0830,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen
 plugin@org.eclipse.gmf.codegen.edit=I20060203-0830,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.eclipse.gmf.codegen.edit
