@@ -15,6 +15,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.emf.common.util.BasicMonitor;
+import org.eclipse.gmf.common.codegen.NullImportAssistant;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.DecorationFigure;
 import org.eclipse.gmf.gmfgraph.Figure;
@@ -66,6 +67,7 @@ public class FigureGenerator {
 			emitter.addVariable("A", "org.eclipse.gmf.graphdef");
 			emitter.addVariable("B", "org.eclipse.emf.ecore");
 			emitter.addVariable("C", "org.eclipse.emf.common");
+			emitter.addVariable("D", "org.eclipse.gmf.common");
 		} catch (JETException ex) {
 			ex.printStackTrace();
 			// ignore for now
@@ -93,6 +95,7 @@ public class FigureGenerator {
 	}
 
 	private String generate(Figure fig, JETEmitter emitter) throws JETException {
-		return emitter.generate(new BasicMonitor.Printing(System.out), new Object[] {fig});
+		Object argument = new Object[] {fig, new NullImportAssistant()};
+		return emitter.generate(new BasicMonitor.Printing(System.out), new Object[] {argument});
 	}
 }

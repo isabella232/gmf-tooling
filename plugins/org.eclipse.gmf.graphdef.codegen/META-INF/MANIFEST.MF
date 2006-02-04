@@ -8,5 +8,6 @@ Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  org.eclipse.gmf.graphdef;visibility:=reexport,
- org.eclipse.emf.codegen
+ org.eclipse.emf.codegen,
+ org.eclipse.gmf.common
 Export-Package: org.eclipse.gmf.graphdef.codegen

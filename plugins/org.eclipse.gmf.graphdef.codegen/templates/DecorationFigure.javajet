@@ -1,17 +1,21 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="DecorationFigureGenerator"
-	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* java.util.*"%>
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* java.util.*"%>
 <%
-DecorationFigure figure = (DecorationFigure) argument;
+Object[] args = (Object[]) argument;
+DecorationFigure figure = (DecorationFigure) args[0];
+final ImportAssistant importManager = (ImportAssistant) args[1];
 assert false == figure instanceof CustomFigure;
 final Point scale;
 scale = null; //XXX
 final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
 %>
 
+<%importManager.markImportLocation(stringBuffer);%>
+
 /**
  * @generated
  */
-class <%=figure.getName()%> extends <%=fqnSwitch.doSwitch(figure)%> {
+class <%=figure.getName()%> extends <%=importManager.getImportedName((String) fqnSwitch.doSwitch(figure))%> {
 
 	/**
 	 * @generated
@@ -25,4 +29,4 @@ String decFigVarName = "this";%>
 		setScale(<%=scale.getX()%>, <%=scale.getY()%>);
 <%}%>
 	}
-}
+}<%importManager.emitSortedImports();%>

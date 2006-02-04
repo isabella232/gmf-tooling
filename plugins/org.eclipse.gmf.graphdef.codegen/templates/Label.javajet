@@ -1,14 +1,18 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="LabelGenerator"
-	imports="org.eclipse.gmf.gmfgraph.*"%>
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.common.codegen.*"%>
 
 <%
-Label figure = (Label) argument;
+Object[] args = (Object[]) argument;
+Label figure = (Label) args[0];
+final ImportAssistant importManager = (ImportAssistant) args[1];
 %>
+
+<%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
-public class <%=figure.getName()%> extends org.eclipse.draw2d.Label {
+public class <%=figure.getName()%> extends <%=importManager.getImportedName("org.eclipse.draw2d.Label")%> {
 
 	/**
 	 * @generated
@@ -17,4 +21,4 @@ public class <%=figure.getName()%> extends org.eclipse.draw2d.Label {
 		super();
 	}
 
-}
+}<%importManager.emitSortedImports();%>

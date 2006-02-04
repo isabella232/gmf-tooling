@@ -1,14 +1,18 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="CustomFigureGenerator"
-	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* java.util.*"%>
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* java.util.*"%>
 <%
-CustomFigure figure = (CustomFigure) argument;
+Object[] args = (Object[]) argument;
+CustomFigure figure = (CustomFigure) args[0];
+final ImportAssistant importManager = (ImportAssistant) args[1];
 final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
 %>
+
+<%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
  */
-public class <%=figure.getName()%> extends <%=figure.getQualifiedClassName()%> {
+public class <%=figure.getName()%> extends <%=importManager.getImportedName(figure.getQualifiedClassName())%> {
 
 	/**
 	 * @generated
@@ -18,4 +22,4 @@ public class <%=figure.getName()%> extends <%=figure.getQualifiedClassName()%> {
 <%String parentFigureVarName = "this";%>
 <%@ include file="FigureChildren.jetinc" %>
 	}
-}
+}<%importManager.emitSortedImports();%>
