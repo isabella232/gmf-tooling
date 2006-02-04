@@ -1,10 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: GMF Commons Plug-in
+Bundle-Name: GMF Tooling Commons Plug-in
 Bundle-SymbolicName: org.eclipse.gmf.common
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.qualifier
 Bundle-Localization: plugin
 Export-Package: org.eclipse.gmf.common,
  org.eclipse.gmf.common.codegen
 Require-Bundle: org.eclipse.emf.codegen,
  org.eclipse.emf.codegen.ecore
+Bundle-Vendor: Eclipse.org
