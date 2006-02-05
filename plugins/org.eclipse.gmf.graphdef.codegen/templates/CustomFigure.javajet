@@ -1,10 +1,11 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="CustomFigureGenerator"
-	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* java.util.*"%>
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.Dispatcher java.util.*"%>
 <%
 Object[] args = (Object[]) argument;
 CustomFigure figure = (CustomFigure) args[0];
 final ImportAssistant importManager = (ImportAssistant) args[1];
 final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
+final Dispatcher dispatcher = (Dispatcher) args[2];
 %>
 
 <%importManager.markImportLocation(stringBuffer);%>

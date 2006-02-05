@@ -9,7 +9,7 @@ if (figureMarker instanceof CustomFigure) {
 <%} else if (figureMarker instanceof Shape) {
 Shape figureInstance = (Shape) figureMarker;%>
 		<%=fqnSwitch.doSwitch(figureMarker)%> <%=figureVarName%> = new <%=fqnSwitch.doSwitch(figureMarker)%>();
-<%@ include file="ShapeAttrs.jetinc"%>
+<%=dispatcher.dispatch("ShapeAttrs", dispatcher.create(figureInstance, figureVarName, importManager, fqnSwitch))%>
 <%} else if (figureMarker instanceof FigureRef) {%>
 		org.eclipse.draw2d.IFigure <%=figureVarName%> = new <%=((FigureRef) figureMarker).getFigure().getName()%>();
 <%} else if (figureMarker instanceof Label) {

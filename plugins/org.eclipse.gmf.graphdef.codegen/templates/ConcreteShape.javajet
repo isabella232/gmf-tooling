@@ -1,10 +1,11 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="ShapeGenerator"
-	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* java.util.*"%>
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.Dispatcher java.util.*"%>
 <%
 Object[] args = (Object[]) argument;
 Shape shapeFig = (Shape) args[0];
 final ImportAssistant importManager = (ImportAssistant) args[1];
 final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
+final Dispatcher dispatcher = (Dispatcher) args[2];
 %>
 
 <%importManager.markImportLocation(stringBuffer);%>
@@ -18,14 +19,9 @@ public class <%=shapeFig.getName()%> extends <%=importManager.getImportedName((S
 	 * @generated
 	 */
 	public <%=shapeFig.getName()%>() {
+<%=dispatcher.dispatch("ShapeAttrs", dispatcher.create(shapeFig, "this", importManager, fqnSwitch))%>
 <%
-{
-Shape figureInstance = shapeFig;
-String figureVarName = "this";
-%>
-<%@ include file="ShapeAttrs.jetinc" %>
-<%
-}for (Iterator it = shapeFig.getResolvedChildren().iterator(); it.hasNext();) {
+for (Iterator it = shapeFig.getResolvedChildren().iterator(); it.hasNext();) {
 		Figure next = (Figure) it.next();%>
 		setFigure<%=next.getName()%>(createFigure<%=next.getName()%>());
 		add(getFigure<%=next.getName()%>());
