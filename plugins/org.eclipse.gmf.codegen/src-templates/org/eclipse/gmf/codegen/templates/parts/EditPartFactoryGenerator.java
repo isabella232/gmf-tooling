@@ -2,7 +2,7 @@ package org.eclipse.gmf.codegen.templates.parts;
 
 import java.util.*;
 import org.eclipse.gmf.codegen.gmfgen.*;
-import org.eclipse.gmf.codegen.util.*;
+import org.eclipse.gmf.common.codegen.*;
 
 public class EditPartFactoryGenerator
 {

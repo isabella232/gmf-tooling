@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="ViewFactoryGenerator"
-	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.*"%>
+	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%GenCommonBase genElement = (GenCommonBase) argument;%>
 <%GenDiagram genDiagram = genElement.getDiagram();%>
 package <%=genDiagram.getNotationViewFactoriesPackageName()%>;

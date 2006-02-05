@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.policies" class="ItemSemanticEditPolicyGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.*"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.*"
 	skeleton="../common.skeleton" %>
 <%GenDiagram diagram = (GenDiagram) argument;%>
 package <%=diagram.getEditPoliciesPackageName()%>;

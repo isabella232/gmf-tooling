@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="VisualIDRegistryGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.common.codegen.*"%>
 <%
 GenDiagram genDiagram = (GenDiagram) argument;
 List genLinks = genDiagram.getLinks();

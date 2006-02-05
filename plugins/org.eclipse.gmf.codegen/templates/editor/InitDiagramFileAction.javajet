@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="InitDiagramFileActionGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.codegen.util.ImportUtil"
+	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.common.codegen.*"
 	skeleton="../common.skeleton"%>
 <%
 GenDiagram genDiagram = (GenDiagram) argument;

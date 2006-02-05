@@ -1,7 +1,7 @@
 package org.eclipse.gmf.codegen.templates.policies;
 
 import org.eclipse.gmf.codegen.gmfgen.*;
-import org.eclipse.gmf.codegen.util.*;
+import org.eclipse.gmf.common.codegen.*;
 import org.eclipse.emf.codegen.ecore.genmodel.*;
 import java.util.*;
 

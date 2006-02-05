@@ -3,7 +3,7 @@ package org.eclipse.gmf.codegen.templates.editor;
 import java.util.*;
 import org.eclipse.emf.codegen.ecore.genmodel.*;
 import org.eclipse.gmf.codegen.gmfgen.*;
-import org.eclipse.gmf.codegen.util.ImportUtil;
+import org.eclipse.gmf.common.codegen.*;
 
 public class PluginGenerator
 {

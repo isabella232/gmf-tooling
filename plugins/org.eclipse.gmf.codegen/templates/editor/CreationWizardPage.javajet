@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="CreationWizardPageGenerator"
-    imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.codegen.util.ImportUtil"%>
+    imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%GenDiagram genDiagram = (GenDiagram) argument;%>
 <%GenModel genModel = genDiagram.getEMFGenModel();%>
 package <%=genDiagram.getEditorPackageName()%>;

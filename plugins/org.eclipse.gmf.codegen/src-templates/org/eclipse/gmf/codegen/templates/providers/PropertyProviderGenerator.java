@@ -2,7 +2,7 @@ package org.eclipse.gmf.codegen.templates.providers;
 
 import org.eclipse.emf.codegen.ecore.genmodel.*;
 import org.eclipse.gmf.codegen.gmfgen.*;
-import org.eclipse.gmf.codegen.util.*;
+import org.eclipse.gmf.common.codegen.*;
 
 public class PropertyProviderGenerator
 {
