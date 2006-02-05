@@ -10,4 +10,12 @@ public class UnexpectedBehaviourException extends Exception {
 	public UnexpectedBehaviourException(String message) {
 		super(message);
 	}
+
+	public UnexpectedBehaviourException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
+	public UnexpectedBehaviourException(Throwable cause) {
+		super(cause);
+	}
 }
