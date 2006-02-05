@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: GMF Graphical Definition
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.gmf.graphdef; singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: Eclipse.org
+Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.emf.ecore
 Export-Package: org.eclipse.gmf.gmfgraph,

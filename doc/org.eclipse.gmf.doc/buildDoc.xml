@@ -264,6 +264,7 @@
 
 		<javadoc-subsystem subsystem="tooling" tocTitle="Generation Framework">
 			<package-sets>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.common/src"/>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.tooldef/src"/>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.tooldef.edit/src"/>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.map/src"/>
