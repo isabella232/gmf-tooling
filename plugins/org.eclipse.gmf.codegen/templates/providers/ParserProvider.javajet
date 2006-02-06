@@ -112,7 +112,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 		}
 		if (viewPattern != null && viewPattern.length() != 0) {
 %>
-		((<%=parserClassName%>) parser).setViewPattern("<%=viewPattern%>");
+		parser.setViewPattern("<%=viewPattern%>");
 <%
 		}
 		if (editPattern == null || editPattern.length() == 0) {
@@ -120,7 +120,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 		}
 		if (editPattern != null && editPattern.length() != 0) {
 %>
-		((<%=parserClassName%>) parser).setEditPattern("<%=editPattern%>");
+		parser.setEditPattern("<%=editPattern%>");
 <%		}%>
 		return parser;
 	}
