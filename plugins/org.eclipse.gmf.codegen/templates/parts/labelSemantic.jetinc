@@ -18,4 +18,23 @@ if (genLabel.getModelFacet() instanceof TextLabelModelFacet) {
 	protected String getLabelText() {
 		return "<%=modelFacet.getText()%>";
 	}
-<%}%>
+<%
+} else if (genLabel.getModelFacet() instanceof FeatureLabelModelFacet) {
+	String defaultText = ((FeatureLabelModelFacet) genLabel.getModelFacet()).getDefaultText();
+	if (defaultText != null) {
+%>
+
+	/**
+	 * @generated
+	 */
+	protected String getLabelText() {
+		String text = super.getLabelText();
+		if (text == null || text.length() == 0) {
+			return "<%=defaultText%>";
+		}
+		return text;
+	}
+<%
+	}
+}
+%>

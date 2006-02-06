@@ -26,8 +26,10 @@ public class ChildNodeEditPartGenerator
   protected final String TEXT_9 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean isEditable() {" + NL + "\t\treturn false;" + NL + "\t}";
   protected final String TEXT_10 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getLabelText() {" + NL + "\t\treturn \"";
   protected final String TEXT_11 = "\";" + NL + "\t}";
-  protected final String TEXT_12 = NL + "}";
-  protected final String TEXT_13 = NL;
+  protected final String TEXT_12 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getLabelText() {" + NL + "\t\tString text = super.getLabelText();" + NL + "\t\tif (text == null || text.length() == 0) {" + NL + "\t\t\treturn \"";
+  protected final String TEXT_13 = "\";" + NL + "\t\t}" + NL + "\t\treturn text;" + NL + "\t}";
+  protected final String TEXT_14 = NL + "}";
+  protected final String TEXT_15 = NL;
 
   public String generate(Object argument)
   {
@@ -63,10 +65,21 @@ if (genLabel.getModelFacet() instanceof TextLabelModelFacet) {
     stringBuffer.append(TEXT_10);
     stringBuffer.append(modelFacet.getText());
     stringBuffer.append(TEXT_11);
-    }
+    
+} else if (genLabel.getModelFacet() instanceof FeatureLabelModelFacet) {
+	String defaultText = ((FeatureLabelModelFacet) genLabel.getModelFacet()).getDefaultText();
+	if (defaultText != null) {
+
     stringBuffer.append(TEXT_12);
-    importManager.emitSortedImports();
+    stringBuffer.append(defaultText);
     stringBuffer.append(TEXT_13);
+    
+	}
+}
+
+    stringBuffer.append(TEXT_14);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_15);
     return stringBuffer.toString();
   }
 }

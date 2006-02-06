@@ -1764,7 +1764,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureLabelModelFacet_ViewPattern() {
+	public EAttribute getFeatureLabelModelFacet_DefaultText() {
 		return (EAttribute)featureLabelModelFacetEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1773,8 +1773,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFeatureLabelModelFacet_EditPattern() {
+	public EAttribute getFeatureLabelModelFacet_ViewPattern() {
 		return (EAttribute)featureLabelModelFacetEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFeatureLabelModelFacet_EditPattern() {
+		return (EAttribute)featureLabelModelFacetEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2768,6 +2777,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		featureLinkModelFacetEClass = createEClass(FEATURE_LINK_MODEL_FACET);
 
 		featureLabelModelFacetEClass = createEClass(FEATURE_LABEL_MODEL_FACET);
+		createEAttribute(featureLabelModelFacetEClass, FEATURE_LABEL_MODEL_FACET__DEFAULT_TEXT);
 		createEAttribute(featureLabelModelFacetEClass, FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN);
 		createEAttribute(featureLabelModelFacetEClass, FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN);
 
@@ -3269,6 +3279,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(featureLinkModelFacetEClass, FeatureLinkModelFacet.class, "FeatureLinkModelFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(featureLabelModelFacetEClass, FeatureLabelModelFacet.class, "FeatureLabelModelFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getFeatureLabelModelFacet_DefaultText(), ecorePackage.getEString(), "defaultText", null, 0, 1, FeatureLabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureLabelModelFacet_ViewPattern(), ecorePackage.getEString(), "viewPattern", null, 0, 1, FeatureLabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFeatureLabelModelFacet_EditPattern(), ecorePackage.getEString(), "editPattern", null, 0, 1, FeatureLabelModelFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -3444,7 +3455,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																														
+		   });																																																																																																																															
 	}
 
 	/**
@@ -3520,7 +3531,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "targetMetaFeature.genClass.ecoreClass.isSuperTypeOf(metaClass.ecoreClass)"
-		   });																														
+		   });																															
 		addAnnotation
 		  (getGenFeatureSeqInitializer_Initializers(), 
 		   source, 
@@ -3548,7 +3559,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "documentation", "Don\'t use it as it\'s misleading in case of domain model classes residing in several packages"
-		   });																																																																																																																								
+		   });																																																																																																																									
 	}
 
 	/**
@@ -3565,7 +3576,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "metaClass.ecoreClass"
-		   });																						
+		   });																							
 		addAnnotation
 		  (valueExpressionEClass, 
 		   source, 

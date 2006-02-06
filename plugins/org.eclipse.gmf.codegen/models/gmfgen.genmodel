@@ -243,6 +243,7 @@
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/childMetaFeature"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/modelElementSelector"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/modelElementInitializer"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//TypeModelFacet/isPhantomElement"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//FeatureModelFacet">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//FeatureModelFacet/metaFeature"/>
@@ -256,6 +257,7 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//FeatureLinkModelFacet"/>
     <genClasses ecoreClass="gmfgen.ecore#//FeatureLabelModelFacet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/defaultText"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/viewPattern"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//FeatureLabelModelFacet/editPattern"/>
     </genClasses>

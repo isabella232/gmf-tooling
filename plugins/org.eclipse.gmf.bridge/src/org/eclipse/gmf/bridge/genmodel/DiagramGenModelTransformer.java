@@ -211,6 +211,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if (childNodeMapping.getEditFeature() != null) {
 			FeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
 			modelFacet.setMetaFeature(findGenFeature(childNodeMapping.getEditFeature()));
+			modelFacet.setDefaultText("<...>");
 			GenNodeLabel label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
 			label.setModelFacet(modelFacet);
 			label.setVisualID(myVisualIDs.get(label));

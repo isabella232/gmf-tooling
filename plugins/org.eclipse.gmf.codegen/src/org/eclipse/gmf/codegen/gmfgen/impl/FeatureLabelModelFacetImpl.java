@@ -22,6 +22,7 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getDefaultText <em>Default Text</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getViewPattern <em>View Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.FeatureLabelModelFacetImpl#getEditPattern <em>Edit Pattern</em>}</li>
  * </ul>
@@ -30,6 +31,26 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
  * @generated
  */
 public class FeatureLabelModelFacetImpl extends FeatureModelFacetImpl implements FeatureLabelModelFacet {
+	/**
+	 * The default value of the '{@link #getDefaultText() <em>Default Text</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDefaultText()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DEFAULT_TEXT_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDefaultText() <em>Default Text</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDefaultText()
+	 * @generated
+	 * @ordered
+	 */
+	protected String defaultText = DEFAULT_TEXT_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #getViewPattern() <em>View Pattern</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -93,6 +114,27 @@ public class FeatureLabelModelFacetImpl extends FeatureModelFacetImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getDefaultText() {
+		return defaultText;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDefaultText(String newDefaultText) {
+		String oldDefaultText = defaultText;
+		defaultText = newDefaultText;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.FEATURE_LABEL_MODEL_FACET__DEFAULT_TEXT, oldDefaultText, defaultText));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getViewPattern() {
 		return viewPattern;
 	}
@@ -137,6 +179,8 @@ public class FeatureLabelModelFacetImpl extends FeatureModelFacetImpl implements
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__DEFAULT_TEXT:
+				return getDefaultText();
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				return getViewPattern();
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN:
@@ -152,6 +196,9 @@ public class FeatureLabelModelFacetImpl extends FeatureModelFacetImpl implements
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__DEFAULT_TEXT:
+				setDefaultText((String)newValue);
+				return;
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				setViewPattern((String)newValue);
 				return;
@@ -169,6 +216,9 @@ public class FeatureLabelModelFacetImpl extends FeatureModelFacetImpl implements
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__DEFAULT_TEXT:
+				setDefaultText(DEFAULT_TEXT_EDEFAULT);
+				return;
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				setViewPattern(VIEW_PATTERN_EDEFAULT);
 				return;
@@ -186,6 +236,8 @@ public class FeatureLabelModelFacetImpl extends FeatureModelFacetImpl implements
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__DEFAULT_TEXT:
+				return DEFAULT_TEXT_EDEFAULT == null ? defaultText != null : !DEFAULT_TEXT_EDEFAULT.equals(defaultText);
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 				return VIEW_PATTERN_EDEFAULT == null ? viewPattern != null : !VIEW_PATTERN_EDEFAULT.equals(viewPattern);
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN:
@@ -203,7 +255,9 @@ public class FeatureLabelModelFacetImpl extends FeatureModelFacetImpl implements
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (viewPattern: ");
+		result.append(" (defaultText: ");
+		result.append(defaultText);
+		result.append(", viewPattern: ");
 		result.append(viewPattern);
 		result.append(", editPattern: ");
 		result.append(editPattern);

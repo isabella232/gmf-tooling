@@ -19,6 +19,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getDefaultText <em>Default Text</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getViewPattern <em>View Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getEditPattern <em>Edit Pattern</em>}</li>
  * </ul>
@@ -29,6 +30,31 @@ package org.eclipse.gmf.codegen.gmfgen;
  * @generated
  */
 public interface FeatureLabelModelFacet extends FeatureModelFacet, LabelModelFacet {
+	/**
+	 * Returns the value of the '<em><b>Default Text</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Default text that should be displayed when produced text is an empty string
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Default Text</em>' attribute.
+	 * @see #setDefaultText(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getFeatureLabelModelFacet_DefaultText()
+	 * @model
+	 * @generated
+	 */
+	String getDefaultText();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getDefaultText <em>Default Text</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Default Text</em>' attribute.
+	 * @see #getDefaultText()
+	 * @generated
+	 */
+	void setDefaultText(String value);
+
 	/**
 	 * Returns the value of the '<em><b>View Pattern</b></em>' attribute.
 	 * <!-- begin-user-doc -->

@@ -493,10 +493,11 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Model facet of an EClass"/>
     </eAnnotations>
+    <eOperations name="isPhantomElement" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="metaClass" lowerBound="1"
         eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="containmentMetaFeature"
-        lowerBound="1" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature">
+        eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
         <details key="ocl" value="containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference).containment"/>
       </eAnnotations>
@@ -504,8 +505,7 @@
         <details key="ocl" value="containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(metaClass.ecoreClass)"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="childMetaFeature" lowerBound="1"
-        eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="childMetaFeature" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenFeature">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Usually the same as containmentMetaFeature, unless you need to distinguish where to put and where to get from"/>
       </eAnnotations>
@@ -569,6 +569,11 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Model facet of label based on an EStructuralFeature"/>
     </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultText" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Default text that should be displayed when produced text is an empty string"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="viewPattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Pattern for java.text.MessageFormat to produce label on diagram"/>

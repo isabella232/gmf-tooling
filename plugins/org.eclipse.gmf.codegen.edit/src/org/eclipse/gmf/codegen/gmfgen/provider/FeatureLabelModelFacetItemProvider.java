@@ -63,10 +63,31 @@ public class FeatureLabelModelFacetItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addDefaultTextPropertyDescriptor(object);
 			addViewPatternPropertyDescriptor(object);
 			addEditPatternPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Default Text feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDefaultTextPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_FeatureLabelModelFacet_defaultText_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_FeatureLabelModelFacet_defaultText_feature", "_UI_FeatureLabelModelFacet_type"),
+				 GMFGenPackage.eINSTANCE.getFeatureLabelModelFacet_DefaultText(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -126,7 +147,7 @@ public class FeatureLabelModelFacetItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((FeatureLabelModelFacet)object).getViewPattern();
+		String label = ((FeatureLabelModelFacet)object).getDefaultText();
 		return label == null || label.length() == 0 ?
 			getString("_UI_FeatureLabelModelFacet_type") :
 			getString("_UI_FeatureLabelModelFacet_type") + " " + label;
@@ -143,6 +164,7 @@ public class FeatureLabelModelFacetItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(FeatureLabelModelFacet.class)) {
+			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__DEFAULT_TEXT:
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN:
 			case GMFGenPackage.FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

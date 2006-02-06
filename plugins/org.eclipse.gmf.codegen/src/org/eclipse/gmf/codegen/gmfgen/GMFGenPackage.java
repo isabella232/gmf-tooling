@@ -3084,13 +3084,22 @@ public interface GMFGenPackage extends EPackage {
 	int FEATURE_LABEL_MODEL_FACET__META_FEATURE = FEATURE_MODEL_FACET__META_FEATURE;
 
 	/**
+	 * The feature id for the '<em><b>Default Text</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_LABEL_MODEL_FACET__DEFAULT_TEXT = FEATURE_MODEL_FACET_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>View Pattern</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN = FEATURE_MODEL_FACET_FEATURE_COUNT + 0;
+	int FEATURE_LABEL_MODEL_FACET__VIEW_PATTERN = FEATURE_MODEL_FACET_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Edit Pattern</b></em>' attribute.
@@ -3099,7 +3108,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN = FEATURE_MODEL_FACET_FEATURE_COUNT + 1;
+	int FEATURE_LABEL_MODEL_FACET__EDIT_PATTERN = FEATURE_MODEL_FACET_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Feature Label Model Facet</em>' class.
@@ -3108,7 +3117,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_LABEL_MODEL_FACET_FEATURE_COUNT = FEATURE_MODEL_FACET_FEATURE_COUNT + 2;
+	int FEATURE_LABEL_MODEL_FACET_FEATURE_COUNT = FEATURE_MODEL_FACET_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Meta Features</b></em>' reference list.
@@ -5865,6 +5874,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getFeatureLabelModelFacet();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getDefaultText <em>Default Text</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Default Text</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getDefaultText()
+	 * @see #getFeatureLabelModelFacet()
+	 * @generated
+	 */
+	EAttribute getFeatureLabelModelFacet_DefaultText();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet#getViewPattern <em>View Pattern</em>}'.
