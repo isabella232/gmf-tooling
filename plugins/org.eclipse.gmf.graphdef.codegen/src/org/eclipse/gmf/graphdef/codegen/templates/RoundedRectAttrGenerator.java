@@ -1,0 +1,49 @@
+package org.eclipse.gmf.graphdef.codegen.templates;
+
+import org.eclipse.gmf.gmfgraph.*;
+import org.eclipse.gmf.common.codegen.*;
+import org.eclipse.gmf.graphdef.codegen.Dispatcher;
+
+public class RoundedRectAttrGenerator
+{
+  protected static String nl;
+  public static synchronized RoundedRectAttrGenerator create(String lineSeparator)
+  {
+    nl = lineSeparator;
+    RoundedRectAttrGenerator result = new RoundedRectAttrGenerator();
+    nl = null;
+    return result;
+  }
+
+  protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
+  protected final String TEXT_1 = "";
+  protected final String TEXT_2 = NL;
+  protected final String TEXT_3 = ".setCornerDimensions(new ";
+  protected final String TEXT_4 = "(getMapMode().DPtoLP(";
+  protected final String TEXT_5 = "), getMapMode().DPtoLP(";
+  protected final String TEXT_6 = ")));";
+
+  public String generate(Object argument)
+  {
+    StringBuffer stringBuffer = new StringBuffer();
+    
+Dispatcher.Args args = (Dispatcher.Args) argument;
+final RoundedRectangle figureInstance = (RoundedRectangle) args.getFigure();
+final String figureVarName = args.getVariableName();
+final ImportAssistant importManager = args.getImportManager();
+final Dispatcher dispatcher = args.getDispatcher();
+
+    stringBuffer.append(TEXT_1);
+    stringBuffer.append(dispatcher.dispatch("Shape", args));
+    stringBuffer.append(TEXT_2);
+    stringBuffer.append(figureVarName);
+    stringBuffer.append(TEXT_3);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension"));
+    stringBuffer.append(TEXT_4);
+    stringBuffer.append(figureInstance.getCornerWidth());
+    stringBuffer.append(TEXT_5);
+    stringBuffer.append(figureInstance.getCornerHeight());
+    stringBuffer.append(TEXT_6);
+    return stringBuffer.toString();
+  }
+}

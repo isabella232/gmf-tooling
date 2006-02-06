@@ -68,8 +68,16 @@ public class YAEmitterFactory {
 	 * from constructor, object may not be fully initialized, don't use this
 	 * method for anything but cache instantiation.
 	 */
-	protected Map/* <Object, JETEmitter> */createCache() {
+	protected Map/*<Object, JETEmitter>*/ createCache() {
 		return new HashMap();
+	}
+
+	/**
+	 * @param key
+	 * @return <code>true</code> if template for the key passes is known to this factory
+	 */
+	public boolean checkEmitter(Object key) {
+		return checkCache(key) != null || myTemplates.getTemplatePath(key) != null;
 	}
 
 	/**

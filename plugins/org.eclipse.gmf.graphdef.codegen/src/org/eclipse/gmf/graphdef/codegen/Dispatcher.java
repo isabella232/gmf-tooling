@@ -20,7 +20,7 @@ import org.eclipse.gmf.gmfgraph.util.GMFGraphSwitch;
  */
 public abstract class Dispatcher {
 
-	public abstract String dispatch(Object arg, Object[] orginalArgs);
+	public abstract String dispatch(Object key, Object argument);
 
 	public abstract String dispatch(Object key, Args args);
 

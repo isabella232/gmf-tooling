@@ -1,0 +1,19 @@
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="FigureAttrGenerator"
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.Dispatcher"%>
+<%
+Dispatcher.Args args = (Dispatcher.Args) argument;
+final Figure figureInstance = args.getFigure();
+final String figureVarName = args.getVariableName();
+final ImportAssistant importManager = args.getImportManager();
+%>
+<%Color colorVal;
+if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor())) {
+		colorVal = figureInstance.getForegroundColor();%>
+		<%=figureVarName%>.setForegroundColor(<%@ include file="../Color.jetinc"%>);
+<%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor())) {
+		colorVal = figureInstance.getBackgroundColor();%>
+		<%=figureVarName%>.setBackgroundColor(<%@ include file="../Color.jetinc"%>);
+<%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_PreferredSize())) {
+		Dimension d = figureInstance.getPreferredSize();%>
+		<%=figureVarName%>.setPreferredSize(getMapMode().DPtoLP(<%=d.getDx()%>), getMapMode().DPtoLP(<%=d.getDy()%>));
+<%}%>

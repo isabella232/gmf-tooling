@@ -1,0 +1,21 @@
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="PolylineDecorationAttrGenerator"
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.Dispatcher java.util.*"%>
+<%
+Dispatcher.Args args = (Dispatcher.Args) argument;
+// not PolylineDecoration, as we use same template from PolygonDecoration
+final Polyline figureInstance = (Polyline) args.getFigure();
+final String figureVarName = args.getVariableName();
+final ImportAssistant importManager = args.getImportManager();
+final Dispatcher dispatcher = args.getDispatcher();
+%>
+// dispatchNext?
+<%=dispatcher.dispatch("Shape", args)%>
+<%if (!figureInstance.getTemplate().isEmpty()) {%>
+		<%=importManager.getImportedName("org.eclipse.draw2d.geometry.PointList")%> pl = new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.PointList")%>();
+<%		for (Iterator pointIt = figureInstance.getTemplate().iterator(); pointIt.hasNext(); ) {
+		Point p = (Point) pointIt.next();%>
+		pl.addPoint(<%=p.getX()%>, <%=p.getY()%>);
+<%		} /*for*/ %>
+		<%=figureVarName%>.setTemplate(pl);
+		<%=figureVarName%>.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));
+<%	} /*!if getTemplate().isEmpty()*/ %>

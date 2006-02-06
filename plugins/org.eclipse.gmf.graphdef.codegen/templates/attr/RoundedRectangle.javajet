@@ -1,0 +1,11 @@
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="RoundedRectAttrGenerator"
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.Dispatcher"%>
+<%
+Dispatcher.Args args = (Dispatcher.Args) argument;
+final RoundedRectangle figureInstance = (RoundedRectangle) args.getFigure();
+final String figureVarName = args.getVariableName();
+final ImportAssistant importManager = args.getImportManager();
+final Dispatcher dispatcher = args.getDispatcher();
+%>
+<%=dispatcher.dispatch("Shape", args)%>
+<%=figureVarName%>.setCornerDimensions(new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%>(getMapMode().DPtoLP(<%=figureInstance.getCornerWidth()%>), getMapMode().DPtoLP(<%=figureInstance.getCornerHeight()%>)));

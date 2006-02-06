@@ -1,0 +1,24 @@
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="TopFigureGenerator"
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.Dispatcher"%>
+<%
+Object[] args = (Object[]) argument;
+Figure figure = (Figure) args[0];
+final ImportAssistant importManager = (ImportAssistant) args[1];
+final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
+final Dispatcher dispatcher = (Dispatcher) args[2];
+%>
+
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=figure.getName()%> extends <%=importManager.getImportedName((String) fqnSwitch.doSwitch(figure))%> {
+	/**
+	 * @generated
+	 */
+	public <%=figure.getName()%>() {
+		<%=dispatcher.dispatch(figure, dispatcher.create(figure, "this", importManager, fqnSwitch))%>
+		<%=dispatcher.dispatch("Children", new Object[] {figure.getChildren(), importManager, fqnSwitch, dispatcher, "this"})%>
+	}
+}<%importManager.emitSortedImports();%>

@@ -12,19 +12,18 @@
 package org.eclipse.gmf.internal.graphdef.codegen;
 
 /**
- * XXX hm, it's possible to have only one JETEmitter per key. What if we'd like to reference same emitter with different keys?
- * TODO CompositeTemplateRegistry?
- * TODO move to gmf.common
+ * Logic of key extraction and prioritization.
  * @author artem
+ * @see KeyChain
  */
-public interface TemplateRegistry {
+public class KeyMap/*<T,E>*/ {
 
-	String getTemplatePath(Object key);
-
-	boolean hasGeneratorClass(Object key);
-
-	Class getGeneratorClass(Object key);
-
-	void clean();
-
+	/**
+	 * Default implementation just returns the key itself as sole item in the chain 
+	 * @param key
+	 * @return key chain with sole item that is key itself.
+	 */
+	public KeyChain/*<T,E>*/ map(Object/*<T>*/ key) {
+		return new ArrayKeyChain(key, key);
+	}
 }

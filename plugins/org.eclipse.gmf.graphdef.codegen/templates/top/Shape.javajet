@@ -1,0 +1,61 @@
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="TopShapeGenerator" 
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.Dispatcher java.util.*"%>
+<%
+Object[] args = (Object[]) argument;
+Shape figure = (Shape) args[0];
+final ImportAssistant importManager = (ImportAssistant) args[1];
+final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
+final Dispatcher dispatcher = (Dispatcher) args[2];
+%>
+
+<%importManager.markImportLocation(stringBuffer);%>
+
+/**
+ * @generated
+ */
+public class <%=figure.getName()%> extends <%=importManager.getImportedName((String) fqnSwitch.doSwitch(figure))%> {
+	/**
+	 * @generated
+	 */
+	public <%=figure.getName()%>() {
+		<%=dispatcher.dispatch(figure, dispatcher.create(figure, "this", importManager, fqnSwitch))%>
+<%
+for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext();) {
+		Figure next = (Figure) it.next();%>
+		setFigure<%=next.getName()%>(createFigure<%=next.getName()%>());
+		add(getFigure<%=next.getName()%>());
+<%}%>
+	}
+
+<%
+int fc = 0;
+for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext(); fc++) {
+	Figure next = (Figure) it.next();%>
+
+	private IFigure f<%=next.getName()%>; 
+
+	/**
+	 * @generated
+	 */
+	public IFigure getFigure<%=next.getName()%>() {
+		return f<%=next.getName()%>;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setFigure<%=next.getName()%>(IFigure figure) {
+		f<%=next.getName()%> = figure;
+	}
+
+	/**
+	 * @generated
+	 */
+	private IFigure createFigure<%=next.getName()%>() {
+<%=dispatcher.dispatch("instantiate", dispatcher.create(next, "rv", importManager, fqnSwitch))%>
+<%=dispatcher.dispatch("Children", new Object[] {next.getChildren(), importManager, fqnSwitch, dispatcher, "rv"})%>
+		return rv;
+	}
+
+<%}%>
+}<%importManager.emitSortedImports();%>
