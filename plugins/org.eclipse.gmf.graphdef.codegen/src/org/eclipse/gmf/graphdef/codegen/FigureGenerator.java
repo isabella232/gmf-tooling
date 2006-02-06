@@ -11,8 +11,6 @@
  */
 package org.eclipse.gmf.graphdef.codegen;
 
-import java.util.ArrayList;
-
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
@@ -63,12 +61,13 @@ public class FigureGenerator {
 	public FigureGenerator(String aPackageName, ImportAssistant importManager, GMFGraphSwitch figureNameSwitch) {
 		packageName = aPackageName;
 		final Bundle thisBundle = Platform.getBundle("org.eclipse.gmf.graphdef.codegen");
-		final ArrayList variables = new ArrayList();
-		variables.add("org.eclipse.gmf.graphdef");
-		variables.add("org.eclipse.emf.ecore");
-		variables.add("org.eclipse.emf.common");
-		variables.add("org.eclipse.gmf.common");
-		variables.add("org.eclipse.gmf.graphdef.codegen");
+		final String[] variables = new String[] {
+				"org.eclipse.gmf.graphdef",
+				"org.eclipse.emf.ecore",
+				"org.eclipse.emf.common",
+				"org.eclipse.gmf.common",
+				"org.eclipse.gmf.graphdef.codegen"
+		};
 
 		KeyMap keyMap = new HierarchyKeyMap() {
 			/*

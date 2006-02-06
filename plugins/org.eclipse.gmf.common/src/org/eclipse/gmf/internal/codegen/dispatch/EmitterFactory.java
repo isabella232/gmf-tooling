@@ -14,10 +14,8 @@ package org.eclipse.gmf.internal.codegen.dispatch;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.codegen.jet.JETEmitter;
@@ -37,25 +35,29 @@ public class EmitterFactory {
 
 	private final boolean myUsePrecompiled;
 
-	private final List/* <String> */myVariables;
+	private final String[] myVariables;
 
 	private final Map myCache;
 
+	public EmitterFactory(URL baseURL, TemplateRegistry templates) {
+		this(baseURL, templates, true, null, true);
+	}
+
 	/**
-	 * FIXME variables - either String[] or wrap as UnmodifiableList
-	 * 
-	 * @param baseURL
-	 * @param templates
-	 * @param usePrecompiled
-	 * @param variables
+	 * XXX perhaps, baseURL should be URL[] to handle external/dynamic templates?
+	 * @param baseURL base location to resolve template path taken from TemplateRegistry
+	 * @param templates registry with templates
+	 * @param usePrecompiled whether or not respect class from TemplateRegistry (if there's one specified)
+	 * @param variables dependencies (plugin identifiers) of code generators
+	 * @param cache when <code>true</code>, remembers JETEmitter for key
 	 */
-	public EmitterFactory(URL baseURL, TemplateRegistry templates, boolean usePrecompiled, List/* <String> */variables, boolean cache) {
+	public EmitterFactory(URL baseURL, TemplateRegistry templates, boolean usePrecompiled, String[] variables, boolean cache) {
 		assert baseURL != null && templates != null;
-		assert variables == null || !variables.contains(null);
+		assert variables == null || !Arrays.asList(variables).contains(null);
 		myBaseURL = baseURL;
 		myTemplates = templates;
 		myUsePrecompiled = usePrecompiled;
-		myVariables = variables == null ? Collections.EMPTY_LIST : variables;
+		myVariables = variables == null ? new String[0] : variables;
 		if (cache) {
 			myCache = createCache();
 		} else {
@@ -140,8 +142,8 @@ public class EmitterFactory {
 	}
 
 	private void feedVariables(JETEmitter em) throws JETException {
-		for (Iterator it = myVariables.iterator(); it.hasNext();) {
-			em.addVariable(null, (String) it.next());
+		for (int i = 0; i < myVariables.length; i++) {
+			em.addVariable(null, myVariables[i]);
 		}
 	}
 
