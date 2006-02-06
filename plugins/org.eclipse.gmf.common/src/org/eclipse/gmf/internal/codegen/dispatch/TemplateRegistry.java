@@ -14,7 +14,6 @@ package org.eclipse.gmf.internal.codegen.dispatch;
 /**
  * XXX hm, it's possible to have only one JETEmitter per key. What if we'd like to reference same emitter with different keys?
  * TODO CompositeTemplateRegistry?
- * TODO move to gmf.common
  * @author artem
  */
 public interface TemplateRegistry {
