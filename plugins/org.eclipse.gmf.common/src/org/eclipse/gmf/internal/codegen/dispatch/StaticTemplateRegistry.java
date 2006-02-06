@@ -9,7 +9,7 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.internal.graphdef.codegen;
+package org.eclipse.gmf.internal.codegen.dispatch;
 
 import java.util.HashMap;
 import java.util.Map;

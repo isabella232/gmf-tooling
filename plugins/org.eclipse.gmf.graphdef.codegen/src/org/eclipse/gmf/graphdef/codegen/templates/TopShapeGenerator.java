@@ -3,7 +3,7 @@ package org.eclipse.gmf.graphdef.codegen.templates;
 import org.eclipse.gmf.gmfgraph.*;
 import org.eclipse.gmf.gmfgraph.util.*;
 import org.eclipse.gmf.common.codegen.*;
-import org.eclipse.gmf.graphdef.codegen.Dispatcher;
+import org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher;
 import java.util.*;
 
 public class TopShapeGenerator
@@ -48,8 +48,8 @@ public class TopShapeGenerator
 Object[] args = (Object[]) argument;
 Shape figure = (Shape) args[0];
 final ImportAssistant importManager = (ImportAssistant) args[1];
-final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
-final Dispatcher dispatcher = (Dispatcher) args[2];
+final GMFGraphSwitch fqnSwitch = (GMFGraphSwitch) args[2];
+final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
 
     stringBuffer.append(TEXT_1);
     importManager.markImportLocation(stringBuffer);
@@ -60,7 +60,7 @@ final Dispatcher dispatcher = (Dispatcher) args[2];
     stringBuffer.append(TEXT_4);
     stringBuffer.append(figure.getName());
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(dispatcher.dispatch(figure, dispatcher.create(figure, "this", importManager, fqnSwitch)));
+    stringBuffer.append(dispatcher.dispatch(figure, dispatcher.create(figure, "this")));
     
 for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext();) {
 		Figure next = (Figure) it.next();
@@ -91,9 +91,9 @@ for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext(); fc++) 
     stringBuffer.append(next.getName());
     stringBuffer.append(TEXT_17);
     stringBuffer.append(TEXT_18);
-    stringBuffer.append(dispatcher.dispatch("instantiate", dispatcher.create(next, "rv", importManager, fqnSwitch)));
+    stringBuffer.append(dispatcher.dispatch("instantiate", dispatcher.create(next, "rv")));
     stringBuffer.append(TEXT_19);
-    stringBuffer.append(dispatcher.dispatch("Children", new Object[] {next.getChildren(), importManager, fqnSwitch, dispatcher, "rv"}));
+    stringBuffer.append(dispatcher.dispatch("Children", new Object[] {next.getChildren(), dispatcher, "rv"}));
     stringBuffer.append(TEXT_20);
     }
     stringBuffer.append(TEXT_21);

@@ -3,7 +3,7 @@ package org.eclipse.gmf.graphdef.codegen.templates;
 import org.eclipse.gmf.gmfgraph.*;
 import org.eclipse.gmf.gmfgraph.util.*;
 import org.eclipse.gmf.common.codegen.*;
-import org.eclipse.gmf.graphdef.codegen.Dispatcher;
+import org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher;
 
 public class TopConnectionGenerator
 {
@@ -44,8 +44,8 @@ public class TopConnectionGenerator
 Object[] args = (Object[]) argument;
 PolylineConnection figure = (PolylineConnection) args[0];
 final ImportAssistant importManager = (ImportAssistant) args[1];
-final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
-final Dispatcher dispatcher = (Dispatcher) args[2];
+final GMFGraphSwitch fqnSwitch = (GMFGraphSwitch) args[2];
+final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
 
     stringBuffer.append(TEXT_1);
     importManager.markImportLocation(stringBuffer);
@@ -57,7 +57,7 @@ final Dispatcher dispatcher = (Dispatcher) args[2];
     stringBuffer.append(figure.getName());
     stringBuffer.append(TEXT_5);
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(dispatcher.dispatch("Shape", dispatcher.create(figure, "this", importManager, fqnSwitch)));
+    stringBuffer.append(dispatcher.dispatch("Shape", dispatcher.create(figure, "this")));
     if (figure.getSourceDecoration() != null) {
     stringBuffer.append(TEXT_7);
     }
@@ -71,7 +71,7 @@ if (figure.getTargetDecoration() != null) {
     stringBuffer.append(className);
     stringBuffer.append(TEXT_11);
     stringBuffer.append(TEXT_12);
-    stringBuffer.append(dispatcher.dispatch("instantiate", dispatcher.create(figure.getSourceDecoration(), "df", importManager, fqnSwitch)));
+    stringBuffer.append(dispatcher.dispatch("instantiate", dispatcher.create(figure.getSourceDecoration(), "df")));
     stringBuffer.append(TEXT_13);
     } /*if sourceDecoration != null */ 
     stringBuffer.append(TEXT_14);
@@ -81,7 +81,7 @@ if (figure.getTargetDecoration() != null) {
     stringBuffer.append(className);
     stringBuffer.append(TEXT_16);
     stringBuffer.append(TEXT_17);
-    stringBuffer.append(dispatcher.dispatch("instantiate", dispatcher.create(figure.getTargetDecoration(), "df", importManager, fqnSwitch)));
+    stringBuffer.append(dispatcher.dispatch("instantiate", dispatcher.create(figure.getTargetDecoration(), "df")));
     stringBuffer.append(TEXT_18);
     }
     stringBuffer.append(TEXT_19);

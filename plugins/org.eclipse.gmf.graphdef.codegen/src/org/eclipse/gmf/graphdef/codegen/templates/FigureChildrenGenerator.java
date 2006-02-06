@@ -1,9 +1,7 @@
 package org.eclipse.gmf.graphdef.codegen.templates;
 
 import org.eclipse.gmf.gmfgraph.*;
-import org.eclipse.gmf.gmfgraph.util.*;
-import org.eclipse.gmf.common.codegen.*;
-import org.eclipse.gmf.graphdef.codegen.Dispatcher;
+import org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher;
 import java.util.*;
 
 public class FigureChildrenGenerator
@@ -31,10 +29,8 @@ public class FigureChildrenGenerator
     
 Object[] args = (Object[]) argument;
 List/*<Figure>*/ figureChildren = (List) args[0];
-final ImportAssistant importManager = (ImportAssistant) args[1];
-final GMFGraphSwitch fqnSwitch = (GMFGraphSwitch) args[2];
-final Dispatcher dispatcher = (Dispatcher) args[3];
-String parentFigureVarName = (String) args[4];
+final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[1];
+String parentFigureVarName = (String) args[2];
 
     stringBuffer.append(TEXT_1);
     
@@ -55,7 +51,7 @@ while (!l.isEmpty()) {
 	}
 	final String figureVarName = "fig" + (figureCount++);
     stringBuffer.append(TEXT_2);
-    stringBuffer.append(dispatcher.dispatch("instantiate", dispatcher.create((Figure) figureMarker, figureVarName, importManager, fqnSwitch)));
+    stringBuffer.append(dispatcher.dispatch("instantiate", dispatcher.create((Figure) figureMarker, figureVarName)));
     stringBuffer.append(TEXT_3);
     stringBuffer.append(parentFigureVarName);
     stringBuffer.append(TEXT_4);

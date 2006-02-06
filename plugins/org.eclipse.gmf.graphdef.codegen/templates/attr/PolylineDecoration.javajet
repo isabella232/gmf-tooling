@@ -1,12 +1,12 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="PolylineDecorationAttrGenerator"
-	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.Dispatcher java.util.*"%>
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher java.util.*"%>
 <%
-Dispatcher.Args args = (Dispatcher.Args) argument;
+GraphDefDispatcher.Args args = (GraphDefDispatcher.Args) argument;
 // not PolylineDecoration, as we use same template from PolygonDecoration
 final Polyline figureInstance = (Polyline) args.getFigure();
 final String figureVarName = args.getVariableName();
-final ImportAssistant importManager = args.getImportManager();
-final Dispatcher dispatcher = args.getDispatcher();
+final GraphDefDispatcher dispatcher = args.getDispatcher();
+final ImportAssistant importManager = dispatcher.getImportManager();
 %>
 // dispatchNext?
 <%=dispatcher.dispatch("Shape", args)%>

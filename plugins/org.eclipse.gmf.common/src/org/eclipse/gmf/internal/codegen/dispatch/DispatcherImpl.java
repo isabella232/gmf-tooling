@@ -9,7 +9,7 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.internal.graphdef.codegen;
+package org.eclipse.gmf.internal.codegen.dispatch;
 
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -18,24 +18,25 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
-import org.eclipse.gmf.graphdef.codegen.Dispatcher;
 
 /**
+ * TODO collect errors and provide accessor - e.g. FigureGenerator could check 
+ * whether {@link #dispatch(Object, Object)} was a success. 
  * @author artem
  */
-public class DispatcherImpl extends Dispatcher {
+public class DispatcherImpl implements Dispatcher {
 
-	private final YAEmitterFactory myFactory;
+	private final EmitterFactory myFactory;
 
 	private final KeyMap myKeyMap;
 
-	public DispatcherImpl(YAEmitterFactory factory, KeyMap keyMap) {
+	public DispatcherImpl(EmitterFactory factory, KeyMap keyMap) {
 		myFactory = factory;
 		myKeyMap = keyMap;
 	}
 
 	public String dispatch(Object key, Object argument) {
-		final String pluginID = "org.eclipse.gmf.graphdef.codegen";
+		final String pluginID = "org.eclipse.gmf.common";
 		final ILog traceFacility = Platform.getLog(Platform.getBundle(pluginID));
 		try {
 			StringBuffer errors = new StringBuffer();
@@ -66,10 +67,6 @@ public class DispatcherImpl extends Dispatcher {
 			traceFacility.log(new Status(Status.ERROR, pluginID, 0, ex.getMessage(), ex));
 			return "ERROR: " + formatError(ex);
 		}
-	}
-
-	public String dispatch(Object key, Args args) {
-		return dispatch(key, (Object) args);
 	}
 
 	private static String formatError(Exception ex) {

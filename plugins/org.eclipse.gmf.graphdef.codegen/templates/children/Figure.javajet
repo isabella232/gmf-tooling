@@ -1,12 +1,10 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="FigureChildrenGenerator"
-	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.Dispatcher java.util.*"%>
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher java.util.*"%>
 <%
 Object[] args = (Object[]) argument;
 List/*<Figure>*/ figureChildren = (List) args[0];
-final ImportAssistant importManager = (ImportAssistant) args[1];
-final GMFGraphSwitch fqnSwitch = (GMFGraphSwitch) args[2];
-final Dispatcher dispatcher = (Dispatcher) args[3];
-String parentFigureVarName = (String) args[4];
+final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[1];
+String parentFigureVarName = (String) args[2];
 %>
 
 <%
@@ -27,7 +25,7 @@ while (!l.isEmpty()) {
 	}
 	final String figureVarName = "fig" + (figureCount++);%>
 		// FIXME instantiate - FigureRef - dispatch to 'instantiate' template?
-		<%=dispatcher.dispatch("instantiate", dispatcher.create((Figure) figureMarker, figureVarName, importManager, fqnSwitch))%>
+		<%=dispatcher.dispatch("instantiate", dispatcher.create((Figure) figureMarker, figureVarName))%>
 		<%=parentFigureVarName%>.add(<%=figureVarName%>);
 <%
 if (_nxt instanceof Figure && !((Figure) _nxt).getChildren().isEmpty()) {

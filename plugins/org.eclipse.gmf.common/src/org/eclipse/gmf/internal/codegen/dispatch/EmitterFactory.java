@@ -9,7 +9,7 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.internal.graphdef.codegen;
+package org.eclipse.gmf.internal.codegen.dispatch;
 
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
@@ -29,7 +29,7 @@ import org.eclipse.gmf.common.UnexpectedBehaviourException;
  * 
  * @author artem
  */
-public class YAEmitterFactory {
+public class EmitterFactory {
 
 	private final URL myBaseURL;
 
@@ -49,7 +49,7 @@ public class YAEmitterFactory {
 	 * @param usePrecompiled
 	 * @param variables
 	 */
-	public YAEmitterFactory(URL baseURL, TemplateRegistry templates, boolean usePrecompiled, List/* <String> */variables, boolean cache) {
+	public EmitterFactory(URL baseURL, TemplateRegistry templates, boolean usePrecompiled, List/* <String> */variables, boolean cache) {
 		assert baseURL != null && templates != null;
 		assert variables == null || !variables.contains(null);
 		myBaseURL = baseURL;

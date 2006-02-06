@@ -1,11 +1,11 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="NewFigureGenerator"
-	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.Dispatcher"%>
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher"%>
 <%
-Dispatcher.Args args = (Dispatcher.Args) argument;
+GraphDefDispatcher.Args args = (GraphDefDispatcher.Args) argument;
 final Figure figureInstance = args.getFigure();
 final String figureVarName = args.getVariableName();
-final ImportAssistant importManager = args.getImportManager();
-final String figureClassName = importManager.getImportedName((String) args.getFQNSwitch().doSwitch(figureInstance));
+final GraphDefDispatcher dispatcher = args.getDispatcher();
+final String figureClassName = dispatcher.getImportManager().getImportedName((String) dispatcher.getFQNSwitch().doSwitch(figureInstance));
 
 // PRODUCES instance AND (!) initializes attributes
 %>

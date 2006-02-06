@@ -1,11 +1,11 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="TopConnectionGenerator"
-	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.Dispatcher"%>
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher"%>
 <%
 Object[] args = (Object[]) argument;
 PolylineConnection figure = (PolylineConnection) args[0];
 final ImportAssistant importManager = (ImportAssistant) args[1];
-final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
-final Dispatcher dispatcher = (Dispatcher) args[2];
+final GMFGraphSwitch fqnSwitch = (GMFGraphSwitch) args[2];
+final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
 %>
 
 <%importManager.markImportLocation(stringBuffer);%>
@@ -19,7 +19,7 @@ public class <%=figure.getName()%> extends <%=importManager.getImportedName("org
 	 * @generated
 	 */
 	public <%=figure.getName()%>() {
-<%=dispatcher.dispatch("Shape", dispatcher.create(figure, "this", importManager, fqnSwitch))%>
+<%=dispatcher.dispatch("Shape", dispatcher.create(figure, "this"))%>
 <%if (figure.getSourceDecoration() != null) {%>
 		setSourceDecoration(createSourceDecoration());
 <%}
@@ -34,7 +34,7 @@ if (figure.getTargetDecoration() != null) {%>
 	 * @generated
 	 */
 	private <%=className%> createSourceDecoration() {
-<%=dispatcher.dispatch("instantiate", dispatcher.create(figure.getSourceDecoration(), "df", importManager, fqnSwitch))%>
+<%=dispatcher.dispatch("instantiate", dispatcher.create(figure.getSourceDecoration(), "df"))%>
 		return df;
 	}
 <%} /*if sourceDecoration != null */ %>
@@ -45,7 +45,7 @@ if (figure.getTargetDecoration() != null) {%>
 	 * @generated
 	 */
 	private <%=className%> createTargetDecoration() {
-<%=dispatcher.dispatch("instantiate", dispatcher.create(figure.getTargetDecoration(), "df", importManager, fqnSwitch))%>
+<%=dispatcher.dispatch("instantiate", dispatcher.create(figure.getTargetDecoration(), "df"))%>
 		return df;
 	}
 <%}%>

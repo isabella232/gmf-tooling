@@ -2,7 +2,7 @@ package org.eclipse.gmf.graphdef.codegen.templates;
 
 import org.eclipse.gmf.gmfgraph.*;
 import org.eclipse.gmf.common.codegen.*;
-import org.eclipse.gmf.graphdef.codegen.Dispatcher;
+import org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher;
 
 public class ShapeAttrGenerator
 {
@@ -40,11 +40,11 @@ public class ShapeAttrGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-Dispatcher.Args args = (Dispatcher.Args) argument;
+GraphDefDispatcher.Args args = (GraphDefDispatcher.Args) argument;
 final Shape figureInstance = (Shape) args.getFigure();
 final String figureVarName = args.getVariableName();
-final ImportAssistant importManager = args.getImportManager();
-final Dispatcher dispatcher = args.getDispatcher();
+final GraphDefDispatcher dispatcher = args.getDispatcher();
+final ImportAssistant importManager = dispatcher.getImportManager();
 
     
 // PERHAPS, do this with reflection?

@@ -25,6 +25,8 @@ import org.eclipse.gmf.gmfgraph.PolylineConnection;
 import org.eclipse.gmf.gmfgraph.PolylineDecoration;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.Shape;
+import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
+import org.eclipse.gmf.gmfgraph.util.GMFGraphSwitch;
 import org.eclipse.gmf.graphdef.codegen.templates.FigureAttrGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.FigureChildrenGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.LabelAttrGenerator;
@@ -37,13 +39,12 @@ import org.eclipse.gmf.graphdef.codegen.templates.ShapeAttrGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.TopConnectionGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.TopFigureGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.TopShapeGenerator;
-import org.eclipse.gmf.internal.graphdef.codegen.DispatcherImpl;
-import org.eclipse.gmf.internal.graphdef.codegen.HierarchyKeyMap;
-import org.eclipse.gmf.internal.graphdef.codegen.KeyChain;
-import org.eclipse.gmf.internal.graphdef.codegen.KeyMap;
-import org.eclipse.gmf.internal.graphdef.codegen.StaticTemplateRegistry;
-import org.eclipse.gmf.internal.graphdef.codegen.TemplateRegistry;
-import org.eclipse.gmf.internal.graphdef.codegen.YAEmitterFactory;
+import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
+import org.eclipse.gmf.internal.codegen.dispatch.HierarchyKeyMap;
+import org.eclipse.gmf.internal.codegen.dispatch.KeyChain;
+import org.eclipse.gmf.internal.codegen.dispatch.KeyMap;
+import org.eclipse.gmf.internal.codegen.dispatch.StaticTemplateRegistry;
+import org.eclipse.gmf.internal.codegen.dispatch.TemplateRegistry;
 import org.osgi.framework.Bundle;
 
 /**
@@ -52,14 +53,14 @@ import org.osgi.framework.Bundle;
  */
 public class FigureGenerator {
 	private final String packageName;
-	private Dispatcher myTopDispatcher;
-	private Dispatcher myInnerDispatcher;
+	private GraphDefDispatcher myTopDispatcher;
+	private GraphDefDispatcher myInnerDispatcher;
 
 	public FigureGenerator() {
-		this(null);
+		this(null, new NullImportAssistant(), new FigureQualifiedNameSwitch());
 	}
 
-	public FigureGenerator(String aPackageName) {
+	public FigureGenerator(String aPackageName, ImportAssistant importManager, GMFGraphSwitch figureNameSwitch) {
 		packageName = aPackageName;
 		final Bundle thisBundle = Platform.getBundle("org.eclipse.gmf.graphdef.codegen");
 		final ArrayList variables = new ArrayList();
@@ -81,10 +82,10 @@ public class FigureGenerator {
 				}
 			}
 		};
-		YAEmitterFactory topFactory = new YAEmitterFactory(thisBundle.getEntry("/"), fillTopLevel(), true, variables, true);
-		myTopDispatcher = new DispatcherImpl(topFactory, keyMap);
-		YAEmitterFactory innerFactory = new YAEmitterFactory(thisBundle.getEntry("/"), fillAttrs(), true, variables, true);
-		myInnerDispatcher = new DispatcherImpl(innerFactory, keyMap);
+		EmitterFactory topFactory = new EmitterFactory(thisBundle.getEntry("/"), fillTopLevel(), true, variables, true);
+		myTopDispatcher = new GraphDefDispatcher(topFactory, keyMap, importManager, figureNameSwitch);
+		EmitterFactory innerFactory = new EmitterFactory(thisBundle.getEntry("/"), fillAttrs(), true, variables, true);
+		myInnerDispatcher = new GraphDefDispatcher(innerFactory, keyMap, importManager, figureNameSwitch);
 	}
 
 	/**
@@ -128,12 +129,9 @@ public class FigureGenerator {
 	}
 
 	public String go(Figure fig) throws JETException {
-		return go(fig, new NullImportAssistant());
-	}
-
-	public String go(Figure fig, ImportAssistant importManager) {
 		String res = null;
-		res = myTopDispatcher.dispatch(fig, new Object[] {fig, importManager, myInnerDispatcher});
+		Object args = new Object[] {fig, myTopDispatcher.getImportManager(), myTopDispatcher.getFQNSwitch(), myInnerDispatcher};
+		res = myTopDispatcher.dispatch(fig, args);
 		if (res == null) {
 			throw new IllegalStateException();
 		}

@@ -1,7 +1,7 @@
 package org.eclipse.gmf.graphdef.codegen.templates;
 
 import org.eclipse.gmf.gmfgraph.*;
-import org.eclipse.gmf.graphdef.codegen.Dispatcher;
+import org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher;
 
 public class LabelAttrGenerator
 {
@@ -23,10 +23,10 @@ public class LabelAttrGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-Dispatcher.Args args = (Dispatcher.Args) argument;
+GraphDefDispatcher.Args args = (GraphDefDispatcher.Args) argument;
 final Label figureInstance = (Label) args.getFigure();
 final String figureVarName = args.getVariableName();
-final Dispatcher dispatcher = args.getDispatcher();
+final GraphDefDispatcher dispatcher = args.getDispatcher();
 
     if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getLabel_Text())) {
     stringBuffer.append(TEXT_1);

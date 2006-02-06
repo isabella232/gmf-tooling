@@ -1,8 +1,7 @@
 package org.eclipse.gmf.graphdef.codegen.templates;
 
 import org.eclipse.gmf.gmfgraph.*;
-import org.eclipse.gmf.common.codegen.*;
-import org.eclipse.gmf.graphdef.codegen.Dispatcher;
+import org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher;
 
 public class NewFigureGenerator
 {
@@ -26,11 +25,11 @@ public class NewFigureGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-Dispatcher.Args args = (Dispatcher.Args) argument;
+GraphDefDispatcher.Args args = (GraphDefDispatcher.Args) argument;
 final Figure figureInstance = args.getFigure();
 final String figureVarName = args.getVariableName();
-final ImportAssistant importManager = args.getImportManager();
-final String figureClassName = importManager.getImportedName((String) args.getFQNSwitch().doSwitch(figureInstance));
+final GraphDefDispatcher dispatcher = args.getDispatcher();
+final String figureClassName = dispatcher.getImportManager().getImportedName((String) dispatcher.getFQNSwitch().doSwitch(figureInstance));
 
 // PRODUCES instance AND (!) initializes attributes
 

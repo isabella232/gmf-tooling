@@ -1,6 +1,6 @@
 package org.eclipse.gmf.graphdef.codegen.templates;
 
-import org.eclipse.gmf.graphdef.codegen.Dispatcher;
+import org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher;
 
 public class PolygonDecorationAttrGenerator
 {
@@ -20,8 +20,8 @@ public class PolygonDecorationAttrGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-Dispatcher.Args args = (Dispatcher.Args) argument;
-final Dispatcher dispatcher = args.getDispatcher();
+GraphDefDispatcher.Args args = (GraphDefDispatcher.Args) argument;
+final GraphDefDispatcher dispatcher = args.getDispatcher();
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(dispatcher.dispatch("PolylineDecoration", args));

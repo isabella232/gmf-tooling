@@ -14,6 +14,7 @@ package org.eclipse.gmf.tests.gen;
 import junit.framework.TestCase;
 
 import org.eclipse.emf.codegen.jet.JETException;
+import org.eclipse.gmf.common.codegen.ImportUtil;
 import org.eclipse.gmf.gmfgraph.ConnectionFigure;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.Ellipse;
@@ -27,6 +28,7 @@ import org.eclipse.gmf.gmfgraph.PolygonDecoration;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
+import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
 import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.core.dom.AST;
@@ -62,7 +64,7 @@ public class FigureCodegenTest extends TestCase {
 	}
 
 	public void testGenFigureWithoutPackageStmt() {
-		figureGenerator = new FigureGenerator(null);
+		figureGenerator = new FigureGenerator();
 		testGenComplexShape();
 	}
 
@@ -179,7 +181,8 @@ public class FigureCodegenTest extends TestCase {
 
 	private FigureGenerator getGenerator() {
 		if (figureGenerator == null) {
-			figureGenerator = new FigureGenerator("org.eclipse.gmf.tests.sample.figures");
+			String packageName = "org.eclipse.gmf.tests.sample.figures";
+			figureGenerator = new FigureGenerator(packageName, new ImportUtil(packageName), new FigureQualifiedNameSwitch());
 		}
 		return figureGenerator;
 	}

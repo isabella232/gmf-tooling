@@ -1,10 +1,10 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="LabelAttrGenerator"
-	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.Dispatcher"%>
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher"%>
 <%
-Dispatcher.Args args = (Dispatcher.Args) argument;
+GraphDefDispatcher.Args args = (GraphDefDispatcher.Args) argument;
 final Label figureInstance = (Label) args.getFigure();
 final String figureVarName = args.getVariableName();
-final Dispatcher dispatcher = args.getDispatcher();
+final GraphDefDispatcher dispatcher = args.getDispatcher();
 %>
 <%if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getLabel_Text())) {%>
 <%=figureVarName%>.setText("<%=figureInstance.getText()%>");

@@ -9,7 +9,7 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.internal.graphdef.codegen;
+package org.eclipse.gmf.internal.codegen.dispatch;
 
 /**
  * Although it's more straightforward just to override hasNext/next then to perform checks in advance, 

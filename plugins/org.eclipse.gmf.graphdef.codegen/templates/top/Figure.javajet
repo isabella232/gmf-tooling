@@ -1,11 +1,11 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="TopFigureGenerator"
-	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.Dispatcher"%>
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher"%>
 <%
 Object[] args = (Object[]) argument;
 Figure figure = (Figure) args[0];
 final ImportAssistant importManager = (ImportAssistant) args[1];
-final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
-final Dispatcher dispatcher = (Dispatcher) args[2];
+final GMFGraphSwitch fqnSwitch = (GMFGraphSwitch) args[2];
+final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
 %>
 
 <%importManager.markImportLocation(stringBuffer);%>
@@ -18,7 +18,7 @@ public class <%=figure.getName()%> extends <%=importManager.getImportedName((Str
 	 * @generated
 	 */
 	public <%=figure.getName()%>() {
-		<%=dispatcher.dispatch(figure, dispatcher.create(figure, "this", importManager, fqnSwitch))%>
-		<%=dispatcher.dispatch("Children", new Object[] {figure.getChildren(), importManager, fqnSwitch, dispatcher, "this"})%>
+		<%=dispatcher.dispatch(figure, dispatcher.create(figure, "this"))%>
+		<%=dispatcher.dispatch("Children", new Object[] {figure.getChildren(), dispatcher, "this"})%>
 	}
 }<%importManager.emitSortedImports();%>

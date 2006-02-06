@@ -2,7 +2,7 @@ package org.eclipse.gmf.graphdef.codegen.templates;
 
 import org.eclipse.gmf.gmfgraph.*;
 import org.eclipse.gmf.common.codegen.*;
-import org.eclipse.gmf.graphdef.codegen.Dispatcher;
+import org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher;
 
 public class PolylineAttrGenerator
 {
@@ -27,11 +27,11 @@ public class PolylineAttrGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-Dispatcher.Args args = (Dispatcher.Args) argument;
+GraphDefDispatcher.Args args = (GraphDefDispatcher.Args) argument;
 final Polyline figureInstance = (Polyline) args.getFigure();
 final String figureVarName = args.getVariableName();
-final ImportAssistant importManager = args.getImportManager();
-final Dispatcher dispatcher = args.getDispatcher();
+final GraphDefDispatcher dispatcher = args.getDispatcher();
+final ImportAssistant importManager = dispatcher.getImportManager();
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(dispatcher.dispatch("Shape", args));

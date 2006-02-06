@@ -3,7 +3,7 @@ package org.eclipse.gmf.graphdef.codegen.templates;
 import org.eclipse.gmf.gmfgraph.*;
 import org.eclipse.gmf.gmfgraph.util.*;
 import org.eclipse.gmf.common.codegen.*;
-import org.eclipse.gmf.graphdef.codegen.Dispatcher;
+import org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher;
 
 public class TopFigureGenerator
 {
@@ -33,8 +33,8 @@ public class TopFigureGenerator
 Object[] args = (Object[]) argument;
 Figure figure = (Figure) args[0];
 final ImportAssistant importManager = (ImportAssistant) args[1];
-final GMFGraphSwitch fqnSwitch = new FigureQualifiedNameSwitch();
-final Dispatcher dispatcher = (Dispatcher) args[2];
+final GMFGraphSwitch fqnSwitch = (GMFGraphSwitch) args[2];
+final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
 
     stringBuffer.append(TEXT_1);
     importManager.markImportLocation(stringBuffer);
@@ -45,9 +45,9 @@ final Dispatcher dispatcher = (Dispatcher) args[2];
     stringBuffer.append(TEXT_4);
     stringBuffer.append(figure.getName());
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(dispatcher.dispatch(figure, dispatcher.create(figure, "this", importManager, fqnSwitch)));
+    stringBuffer.append(dispatcher.dispatch(figure, dispatcher.create(figure, "this")));
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(dispatcher.dispatch("Children", new Object[] {figure.getChildren(), importManager, fqnSwitch, dispatcher, "this"}));
+    stringBuffer.append(dispatcher.dispatch("Children", new Object[] {figure.getChildren(), dispatcher, "this"}));
     stringBuffer.append(TEXT_7);
     importManager.emitSortedImports();
     stringBuffer.append(TEXT_8);

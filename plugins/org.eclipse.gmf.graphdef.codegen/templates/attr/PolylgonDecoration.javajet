@@ -1,7 +1,7 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="PolygonDecorationAttrGenerator"
-	imports="org.eclipse.gmf.graphdef.codegen.Dispatcher"%>
+	imports="org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher"%>
 <%
-Dispatcher.Args args = (Dispatcher.Args) argument;
-final Dispatcher dispatcher = args.getDispatcher();
+GraphDefDispatcher.Args args = (GraphDefDispatcher.Args) argument;
+final GraphDefDispatcher dispatcher = args.getDispatcher();
 %>
 <%=dispatcher.dispatch("PolylineDecoration", args)%>
