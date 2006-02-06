@@ -12,6 +12,7 @@
 package org.eclipse.gmf.codegen.util;
 
 import java.io.ByteArrayInputStream;
+import java.lang.ref.SoftReference;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -82,8 +83,19 @@ public class Generator implements Runnable {
 	private IStatus myRunStatus = Status.CANCEL_STATUS;
 	private List/*<IStatus>*/ myExceptions;
 
+	private CodegenEmitters myEmitters;
+
+	private static SoftReference/*<CodegenEmitters>*/ myCachedEmitters; 
+
 	public Generator(GenDiagram diagram) {
 		myDiagram = diagram;
+		CodegenEmitters old = myCachedEmitters == null ? null : (CodegenEmitters) myCachedEmitters.get();
+		if (old == null) {
+			myEmitters = new CodegenEmitters(true);
+			myCachedEmitters = new SoftReference(myEmitters);
+		} else {
+			myEmitters = old;
+		}
 	}
 
 	public void run(IProgressMonitor progress) throws InterruptedException {
@@ -256,7 +268,7 @@ public class Generator implements Runnable {
 
 	private void generateReorientConnectionViewCommand() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getReorientConnectionViewCommandEmitter(),
+			myEmitters.getReorientConnectionViewCommandEmitter(),
 			myDiagram.getEditCommandsPackageName(),
 			myDiagram.getReorientConnectionViewCommandClassName(),
 			myDiagram
@@ -267,7 +279,7 @@ public class Generator implements Runnable {
 
 	private void generateDiagramEditPart() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getDiagramEditPartEmitter(),
+			myEmitters.getDiagramEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			myDiagram.getEditPartClassName(),
 			myDiagram
@@ -276,7 +288,7 @@ public class Generator implements Runnable {
 
 	private void generateDiagramExternalNodeLabelEditPart() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getDiagramExternalNodeLabelEditPartEmitter(),
+			myEmitters.getDiagramExternalNodeLabelEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			myDiagram.getBaseExternalNodeLabelEditPartClassName(),
 			myDiagram
@@ -285,7 +297,7 @@ public class Generator implements Runnable {
 
 	private void generateNodeEditPart(GenNode genNode) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getNodeEditPartEmitter(),
+			myEmitters.getNodeEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			genNode.getEditPartClassName(),
 			genNode
@@ -294,7 +306,7 @@ public class Generator implements Runnable {
 
 	private void generateNodeLabelEditPart(GenNodeLabel label) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getNodeLabelEditPartEmitter(),
+			myEmitters.getNodeLabelEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			label.getEditPartClassName(),
 			label
@@ -303,7 +315,7 @@ public class Generator implements Runnable {
 
 	private void generateExternalNodeLabelEditPart(GenExternalNodeLabel label) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getExternalNodeLabelEditPartEmitter(),
+			myEmitters.getExternalNodeLabelEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			label.getEditPartClassName(),
 			label
@@ -312,7 +324,7 @@ public class Generator implements Runnable {
 
 	private void generateExternalNodeLabelTextEditPart(GenExternalNodeLabel label) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getExternalNodeLabelTextEditPartEmitter(),
+			myEmitters.getExternalNodeLabelTextEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			label.getTextEditPartClassName(),
 			label
@@ -321,7 +333,7 @@ public class Generator implements Runnable {
 
 	private void generateListContainerNodeEditPart(GenNode genChildNode) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getChildNodeEditPartEmitter(),
+			myEmitters.getChildNodeEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			genChildNode.getEditPartClassName(),
 			genChildNode
@@ -330,7 +342,7 @@ public class Generator implements Runnable {
 	
 	private void generateCompartmentEditPart(GenCompartment genCompartment) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getCompartmentEditPartEmitter(),
+			myEmitters.getCompartmentEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			genCompartment.getEditPartClassName(),
 			genCompartment
@@ -339,7 +351,7 @@ public class Generator implements Runnable {
 
 	private void generateLinkEditPart(GenLink genLink) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getLinkEditPartEmitter(),
+			myEmitters.getLinkEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			genLink.getEditPartClassName(),
 			genLink
@@ -348,7 +360,7 @@ public class Generator implements Runnable {
 
 	private void generateLinkLabelEditPart(GenLinkLabel label) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getLinkLabelEditPartEmitter(),
+			myEmitters.getLinkLabelEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			label.getEditPartClassName(),
 			label
@@ -357,7 +369,7 @@ public class Generator implements Runnable {
 
 	private void generateLinkLabelTextEditPart(GenLinkLabel label) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getLinkLabelTextEditPartEmitter(),
+			myEmitters.getLinkLabelTextEditPartEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			label.getTextEditPartClassName(),
 			label
@@ -366,7 +378,7 @@ public class Generator implements Runnable {
 
 	private void generateEditPartFactory() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getEditPartFactoryEmitter(),
+			myEmitters.getEditPartFactoryEmitter(),
 			myDiagram.getEditPartsPackageName(),
 			myDiagram.getEditPartFactoryClassName(),
 			myDiagram
@@ -377,7 +389,7 @@ public class Generator implements Runnable {
 
 	private void generateBaseItemSemanticEditPolicy() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getBaseItemSemanticEditPolicyEmitter(),
+			myEmitters.getBaseItemSemanticEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			myDiagram.getBaseItemSemanticEditPolicyClassName(),
 			myDiagram
@@ -386,7 +398,7 @@ public class Generator implements Runnable {
 
 	private void generateBaseGraphicalNodeEditPolicy() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getBaseGraphicalNodeEditPolicyEmitter(),
+			myEmitters.getBaseGraphicalNodeEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			myDiagram.getBaseGraphicalNodeEditPolicyClassName(),
 			myDiagram
@@ -395,7 +407,7 @@ public class Generator implements Runnable {
 
 	private void generateReferenceConnectionEditPolicy() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getReferenceConnectionEditPolicyEmitter(),
+			myEmitters.getReferenceConnectionEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			myDiagram.getReferenceConnectionEditPolicyClassName(),
 			myDiagram
@@ -404,7 +416,7 @@ public class Generator implements Runnable {
 
 	private void generateDiagramCanonicalEditPolicy() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getDiagramCanonicalEditPolicyEmitter(),
+			myEmitters.getDiagramCanonicalEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			myDiagram.getCanonicalEditPolicyClassName(),
 			myDiagram
@@ -413,7 +425,7 @@ public class Generator implements Runnable {
 
 	private void generateChildContainerCanonicalEditPolicy(GenChildContainer genContainer) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getChildContainerCanonicalEditPolicyEmitter(),
+			myEmitters.getChildContainerCanonicalEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			genContainer.getCanonicalEditPolicyClassName(),
 			genContainer
@@ -422,7 +434,7 @@ public class Generator implements Runnable {
 
 	private void generateDiagramItemSemanticEditPolicy() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getDiagramItemSemanticEditPolicyEmitter(),
+			myEmitters.getDiagramItemSemanticEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			myDiagram.getItemSemanticEditPolicyClassName(),
 			myDiagram
@@ -431,7 +443,7 @@ public class Generator implements Runnable {
 
 	private void generateCompartmentItemSemanticEditPolicy(GenCompartment genCompartment) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getCompartmentItemSemanticEditPolicyEmitter(),
+			myEmitters.getCompartmentItemSemanticEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			genCompartment.getItemSemanticEditPolicyClassName(),
 			genCompartment
@@ -440,7 +452,7 @@ public class Generator implements Runnable {
 
 	private void generateNodeGraphicalNodeEditPolicy(GenNode genNode) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getNodeGraphicalNodeEditPolicyEmitter(),
+			myEmitters.getNodeGraphicalNodeEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			genNode.getGraphicalNodeEditPolicyClassName(),
 			genNode
@@ -449,7 +461,7 @@ public class Generator implements Runnable {
 
 	private void generateNodeItemSemanticEditPolicy(GenNode genNode) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getNodeItemSemanticEditPolicyEmitter(),
+			myEmitters.getNodeItemSemanticEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			genNode.getItemSemanticEditPolicyClassName(),
 			genNode
@@ -458,7 +470,7 @@ public class Generator implements Runnable {
 
 	private void generateLinkItemSemanticEditPolicy(GenLink genLink) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getLinkItemSemanticEditPolicyEmitter(),
+			myEmitters.getLinkItemSemanticEditPolicyEmitter(),
 			myDiagram.getEditPoliciesPackageName(),
 			genLink.getItemSemanticEditPolicyClassName(),
 			genLink
@@ -469,7 +481,7 @@ public class Generator implements Runnable {
 
 	private void generateAbstractParser() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getAbstractParserEmitter(),
+			myEmitters.getAbstractParserEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getAbstractParserClassName(),
 			myDiagram
@@ -478,7 +490,7 @@ public class Generator implements Runnable {
 
 	private void generateStructuralFeatureParser() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getStructuralFeatureParserEmitter(),
+			myEmitters.getStructuralFeatureParserEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getStructuralFeatureParserClassName(),
 			myDiagram
@@ -487,7 +499,7 @@ public class Generator implements Runnable {
 
 	private void generateStructuralFeaturesParser() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getStructuralFeaturesParserEmitter(),
+			myEmitters.getStructuralFeaturesParserEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getStructuralFeaturesParserClassName(),
 			myDiagram
@@ -496,7 +508,7 @@ public class Generator implements Runnable {
 
 	private void generateSemanticHints() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getSemanticHintsEmitter(),
+			myEmitters.getSemanticHintsEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getSemanticHintsClassName(),
 			myDiagram
@@ -505,7 +517,7 @@ public class Generator implements Runnable {
 
 	private void generateElementTypes() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getElementTypesEmitter(),
+			myEmitters.getElementTypesEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getElementTypesClassName(),
 			myDiagram
@@ -514,7 +526,7 @@ public class Generator implements Runnable {
 
 	private void generateViewProvider() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getViewProviderEmitter(),
+			myEmitters.getViewProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getNotationViewProviderClassName(),
 			myDiagram
@@ -523,7 +535,7 @@ public class Generator implements Runnable {
 
 	private void generateEditPartProvider() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getEditPartProviderEmitter(),
+			myEmitters.getEditPartProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getEditPartProviderClassName(),
 			myDiagram
@@ -532,7 +544,7 @@ public class Generator implements Runnable {
 	
 	private void generateMetamodelSupportProvider() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getMetamodelSupportProviderEmitter(),
+			myEmitters.getMetamodelSupportProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getMetamodelSupportProviderClassName(),
 			myDiagram);
@@ -540,7 +552,7 @@ public class Generator implements Runnable {
 
 	private void generateModelingAssistantProvider() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getModelingAssistantProviderEmitter(),
+			myEmitters.getModelingAssistantProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getModelingAssistantProviderClassName(),
 			myDiagram);
@@ -548,7 +560,7 @@ public class Generator implements Runnable {
 
 	private void generatePropertyProvider() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getPropertyProviderEmitter(),
+			myEmitters.getPropertyProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getPropertyProviderClassName(),
 			myDiagram);
@@ -556,7 +568,7 @@ public class Generator implements Runnable {
 
 	private void generateIconProvider() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getIconProviderEmitter(),
+			myEmitters.getIconProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getIconProviderClassName(),
 			myDiagram);
@@ -564,7 +576,7 @@ public class Generator implements Runnable {
 
 	private void generateParserProvider() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getParserProviderEmitter(),
+			myEmitters.getParserProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getParserProviderClassName(),
 			myDiagram);
@@ -572,7 +584,7 @@ public class Generator implements Runnable {
 	
 	private void generateValidationProvider() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getValidationProviderEmitter(),
+			myEmitters.getValidationProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getValidationProviderClassName(),
 			myDiagram);
@@ -580,7 +592,7 @@ public class Generator implements Runnable {
 	
 	private void generateMarkerNavigationProvider() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getMarkerNavigationProviderEmitter(),
+			myEmitters.getMarkerNavigationProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getMarkerNavigationProviderClassName(),
 			myDiagram);
@@ -590,7 +602,7 @@ public class Generator implements Runnable {
 
 	private void generateViewFactory(GenCommonBase genElement) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getViewFactoryEmitter(),
+			myEmitters.getViewFactoryEmitter(),
 			myDiagram.getNotationViewFactoriesPackageName(),
 			genElement.getNotationViewFactoryClassName(),
 			genElement
@@ -599,7 +611,7 @@ public class Generator implements Runnable {
 
 	private void generateLinkLabelViewFactory(GenLinkLabel label) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getLabelViewFactoryEmitter(),
+			myEmitters.getLabelViewFactoryEmitter(),
 			myDiagram.getNotationViewFactoriesPackageName(),
 			label.getNotationViewFactoryClassName(),
 			label
@@ -608,7 +620,7 @@ public class Generator implements Runnable {
 
 	private void generateLinkLabelTextViewFactory(GenLinkLabel label) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getLabelTextViewFactoryEmitter(),
+			myEmitters.getLabelTextViewFactoryEmitter(),
 			myDiagram.getNotationViewFactoriesPackageName(),
 			label.getTextNotationViewFactoryClassName(),
 			label
@@ -617,7 +629,7 @@ public class Generator implements Runnable {
 
 	private void generateExternalNodeLabelViewFactory(GenExternalNodeLabel label) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getLabelViewFactoryEmitter(),
+			myEmitters.getLabelViewFactoryEmitter(),
 			myDiagram.getNotationViewFactoriesPackageName(),
 			label.getNotationViewFactoryClassName(),
 			label
@@ -626,7 +638,7 @@ public class Generator implements Runnable {
 
 	private void generateExternalNodeLabelTextViewFactory(GenExternalNodeLabel label) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getLabelTextViewFactoryEmitter(),
+			myEmitters.getLabelTextViewFactoryEmitter(),
 			myDiagram.getNotationViewFactoriesPackageName(),
 			label.getTextNotationViewFactoryClassName(),
 			label
@@ -635,7 +647,7 @@ public class Generator implements Runnable {
 
 	private void generateNodeLabelTextViewFactory(GenNodeLabel label) throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getLabelTextViewFactoryEmitter(),
+			myEmitters.getLabelTextViewFactoryEmitter(),
 			myDiagram.getNotationViewFactoriesPackageName(),
 			label.getNotationViewFactoryClassName(),
 			label
@@ -646,7 +658,7 @@ public class Generator implements Runnable {
 
 	private void generateInitDiagramFileAction() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getInitDiagramFileActionEmitter(),
+			myEmitters.getInitDiagramFileActionEmitter(),
 			myDiagram.getEditorPackageName(),
 			myDiagram.getInitDiagramFileActionClassName(),
 			myDiagram);
@@ -657,7 +669,7 @@ public class Generator implements Runnable {
 			return;
 		}
 		doGenerateJavaClass(
-			EmitterFactory.getPaletteEmitter(),
+			myEmitters.getPaletteEmitter(),
 			myDiagram.getPalette().getPackageName(),
 			myDiagram.getPalette().getFactoryClassName(),
 			myDiagram
@@ -666,7 +678,7 @@ public class Generator implements Runnable {
 
 	private void generateDiagramEditorUtil() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getDiagramEditorUtilEmitter(),
+			myEmitters.getDiagramEditorUtilEmitter(),
 			myDiagram.getEditorPackageName(),
 			myDiagram.getDiagramEditorUtilClassName(),
 			myDiagram
@@ -675,7 +687,7 @@ public class Generator implements Runnable {
 
 	private void generateDiagramFileCreator() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getDiagramFileCreatorEmitter(),
+			myEmitters.getDiagramFileCreatorEmitter(),
 			myDiagram.getEditorPackageName(),
 			myDiagram.getDiagramFileCreatorClassName(),
 			myDiagram
@@ -684,7 +696,7 @@ public class Generator implements Runnable {
 	
 	private void generateVisualIDRegistry() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getVisualIDRegistryEmitter(),
+			myEmitters.getVisualIDRegistryEmitter(),
 			myDiagram.getEditorPackageName(),
 			myDiagram.getVisualIDRegistryClassName(),
 			myDiagram
@@ -693,7 +705,7 @@ public class Generator implements Runnable {
 
 	private void generateCreationWizard() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getCreationWizardEmitter(),
+			myEmitters.getCreationWizardEmitter(),
 			myDiagram.getEditorPackageName(),
 			myDiagram.getCreationWizardClassName(),
 			myDiagram
@@ -702,7 +714,7 @@ public class Generator implements Runnable {
 
 	private void generateCreationWizardPage() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getCreationWizardPageEmitter(),
+			myEmitters.getCreationWizardPageEmitter(),
 			myDiagram.getEditorPackageName(),
 			myDiagram.getCreationWizardPageClassName(),
 			myDiagram
@@ -711,7 +723,7 @@ public class Generator implements Runnable {
 
 	private void generateEditor() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getEditorEmitter(),
+			myEmitters.getEditorEmitter(),
 			myDiagram.getEditorPackageName(),
 			myDiagram.getEditorClassName(),
 			myDiagram
@@ -723,7 +735,7 @@ public class Generator implements Runnable {
 			return;
 		}
 		doGenerateJavaClass(
-				EmitterFactory.getCreateShortcutActionEmitter(),
+				myEmitters.getCreateShortcutActionEmitter(),
 				myDiagram.getEditorPackageName(), 
 				myDiagram.getCreateShortcutActionClassName(),
 				myDiagram
@@ -732,7 +744,7 @@ public class Generator implements Runnable {
 	
 	private void generateLoadResourceAction() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-				EmitterFactory.getLoadResourceActionEmitter(),
+				myEmitters.getLoadResourceActionEmitter(),
 				myDiagram.getEditorPackageName(), 
 				myDiagram.getLoadResourceActionClassName(),
 				myDiagram
@@ -744,7 +756,7 @@ public class Generator implements Runnable {
 			return;
 		}
 		doGenerateJavaClass(
-				EmitterFactory.getElementChooserEmitter(),
+				myEmitters.getElementChooserEmitter(),
 				myDiagram.getEditorPackageName(), 
 				myDiagram.getElementChooserClassName(),
 				myDiagram
@@ -753,7 +765,7 @@ public class Generator implements Runnable {
 	
 	private void generateDocumentProvider() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getDocumentProviderEmitter(),
+			myEmitters.getDocumentProviderEmitter(),
 			myDiagram.getEditorPackageName(),
 			myDiagram.getDocumentProviderClassName(),
 			myDiagram
@@ -762,7 +774,7 @@ public class Generator implements Runnable {
 
 	private void generateActionBarContributor() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getActionBarContributorEmitter(),
+			myEmitters.getActionBarContributorEmitter(),
 			myDiagram.getEditorPackageName(),
 			myDiagram.getActionBarContributorClassName(),
 			myDiagram
@@ -771,7 +783,7 @@ public class Generator implements Runnable {
 
 	private void generateMatchingStrategy() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getMatchingStrategyEmitter(),
+			myEmitters.getMatchingStrategyEmitter(),
 			myDiagram.getEditorPackageName(),
 			myDiagram.getMatchingStrategyClassName(),
 			myDiagram
@@ -780,7 +792,7 @@ public class Generator implements Runnable {
 
 	private void generatePreferencesInitializer() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getPreferencesInitializerEmitter(),
+			myEmitters.getPreferencesInitializerEmitter(),
 			myDiagram.getEditorPackageName(),
 			myDiagram.getPreferenceInitializerClassName(),
 			myDiagram
@@ -789,7 +801,7 @@ public class Generator implements Runnable {
 
 	private void generatePluginClass() throws JETException, InterruptedException {
 		doGenerateJavaClass(
-			EmitterFactory.getPluginClassEmitter(),
+			myEmitters.getPluginClassEmitter(),
 			myDiagram.getEditorPackageName(), 
 			myDiagram.getPlugin().getActivatorClassName(),
 			myDiagram.getPlugin()
@@ -797,19 +809,19 @@ public class Generator implements Runnable {
 	}
 
 	private void generatePluginXml() throws JETException, InterruptedException {
-		doGenerateFile(EmitterFactory.getPluginXmlEmitter(), new Path("plugin.xml"), myDiagram.getPlugin());
+		doGenerateFile(myEmitters.getPluginXmlEmitter(), new Path("plugin.xml"), myDiagram.getPlugin());
 	}
 
 	private void generatePluginProperties() throws JETException, InterruptedException {
-		doGenerateFile(EmitterFactory.getPluginPropertiesEmitter(), new Path("plugin.properties"), myDiagram.getPlugin());
+		doGenerateFile(myEmitters.getPluginPropertiesEmitter(), new Path("plugin.properties"), myDiagram.getPlugin());
 	}
 
 	private void generateBundleManifest() throws JETException, InterruptedException {
-		doGenerateFile(EmitterFactory.getBundleManifestEmitter(), new Path("META-INF/MANIFEST.MF"), myDiagram.getPlugin());
+		doGenerateFile(myEmitters.getBundleManifestEmitter(), new Path("META-INF/MANIFEST.MF"), myDiagram.getPlugin());
 	}
 
 	private void generateBuildProperties() throws JETException, InterruptedException {
-		doGenerateFile(EmitterFactory.getBuildPropertiesEmitter(), new Path("build.properties"), myDiagram);
+		doGenerateFile(myEmitters.getBuildPropertiesEmitter(), new Path("build.properties"), myDiagram);
 	}
 	
 	private void generateShortcutIcon() throws InterruptedException {
@@ -824,9 +836,9 @@ public class Generator implements Runnable {
 			CodeGenUtil.findOrCreateContainer(containerPath, false, (IPath) null, new SubProgressMonitor(pm, 1));
 			IFile f = myDestProject.getFile(iconPath);
 			if (f.exists()) {
-				f.setContents(new ByteArrayInputStream(EmitterFactory.getShortcutImageEmitter().generateGif()), true, true, new SubProgressMonitor(pm, 1));
+				f.setContents(new ByteArrayInputStream(myEmitters.getShortcutImageEmitter().generateGif()), true, true, new SubProgressMonitor(pm, 1));
 			} else {
-				f.create(new ByteArrayInputStream(EmitterFactory.getShortcutImageEmitter().generateGif()), true, new SubProgressMonitor(pm, 1));
+				f.create(new ByteArrayInputStream(myEmitters.getShortcutImageEmitter().generateGif()), true, new SubProgressMonitor(pm, 1));
 			}
 			f.getParent().refreshLocal(IResource.DEPTH_ONE, new SubProgressMonitor(pm, 1));
 		} catch (CoreException ex) {
@@ -988,7 +1000,7 @@ public class Generator implements Runnable {
 
 	private JControlModel getJControlModel() {
 		if (myJControlModel == null) {
-			myJControlModel = new JControlModel(EmitterFactory.getJMergeControlFile().toString());
+			myJControlModel = new JControlModel(myEmitters.getJMergeControlFile().toString());
 		}
 		return myJControlModel;
 	}
