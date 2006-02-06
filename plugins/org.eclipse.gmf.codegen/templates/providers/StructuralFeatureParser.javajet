@@ -62,6 +62,7 @@ public class <%=genDiagram.getStructuralFeatureParserClassName()%> extends <%=im
 	protected String getStringByPattern(IAdaptable adapter, int flags, String pattern, MessageFormat processor) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
 		Object value = element.eGet(feature);
+		value = getValidValue(feature, value);
 		return processor.format(new Object[] { value }, new StringBuffer(), new FieldPosition(0)).toString();
 	}
 

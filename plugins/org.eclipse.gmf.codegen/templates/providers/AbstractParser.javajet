@@ -182,6 +182,22 @@ public abstract class <%=genDiagram.getAbstractParserClassName()%> implements IP
 	/**
 	 * @generated
 	 */
+	protected Object getValidValue(EStructuralFeature feature, Object value) {
+		EClassifier type = feature.getEType();
+		if (type instanceof EDataType) {
+			Class iClass = type.getInstanceClass();
+			if (String.class.equals(iClass)) {
+				if (value == null) {
+					value = "";
+				}
+			}
+		}
+		return value;
+	}
+
+	/**
+	 * @generated
+	 */
 	protected Object getValidNewValue(EStructuralFeature feature, Object value) {
 		EClassifier type = feature.getEType();
 		if (type instanceof EDataType) {
