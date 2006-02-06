@@ -43,6 +43,7 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 				}
 				return super.getElementToDestroy();
 			}
+
 		});
 	}
 

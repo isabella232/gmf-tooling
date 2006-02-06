@@ -14,7 +14,6 @@ import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeModelCommand;
-
 import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
 
 /**
@@ -41,7 +40,9 @@ public class EcoreStructuralFeaturesParser extends EcoreAbstractParser {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
 		List values = new ArrayList(features.size());
 		for (Iterator it = features.iterator(); it.hasNext();) {
-			Object value = element.eGet((EStructuralFeature) it.next());
+			EStructuralFeature feature = (EStructuralFeature) it.next();
+			Object value = element.eGet(feature);
+			value = getValidValue(feature, value);
 			values.add(value);
 		}
 		return processor.format(values.toArray(new Object[values.size()]), new StringBuffer(), new FieldPosition(0)).toString();

@@ -33,7 +33,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenFeature;
  * @model
  * @generated
  */
-public interface TypeModelFacet extends ModelFacet{
+public interface TypeModelFacet extends ModelFacet {
 	/**
 	 * Returns the value of the '<em><b>Meta Class</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -71,8 +71,7 @@ public interface TypeModelFacet extends ModelFacet{
 	 * @return the value of the '<em>Containment Meta Feature</em>' reference.
 	 * @see #setContainmentMetaFeature(GenFeature)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeModelFacet_ContainmentMetaFeature()
-	 * @model required="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference).containment'"
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference).containment'"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='containmentMetaFeature.ecoreFeature.oclAsType(ecore::EReference).eReferenceType.isSuperTypeOf(metaClass.ecoreClass)'"
 	 * @generated
 	 */
@@ -98,7 +97,7 @@ public interface TypeModelFacet extends ModelFacet{
 	 * @return the value of the '<em>Child Meta Feature</em>' reference.
 	 * @see #setChildMetaFeature(GenFeature)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeModelFacet_ChildMetaFeature()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	GenFeature getChildMetaFeature();
@@ -165,5 +164,13 @@ public interface TypeModelFacet extends ModelFacet{
 	 * @generated
 	 */
 	void setModelElementInitializer(GenElementInitializer value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	boolean isPhantomElement();
 
 } // TypeModelFacet

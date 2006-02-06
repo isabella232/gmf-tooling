@@ -1,9 +1,9 @@
 package org.eclipse.gmf.ecore.edit.parts;
 
-import org.eclipse.gmf.ecore.edit.policies.EEnumItemSemanticEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.ListItemEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.ecore.edit.policies.EEnumItemSemanticEditPolicy;
 
 /**
  * @generated

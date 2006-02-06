@@ -55,6 +55,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 				}
 				return super.getElementToDestroy();
 			}
+
 		});
 	}
 

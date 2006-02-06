@@ -27,6 +27,7 @@ public class EStringToStringMapEntryItemSemanticEditPolicy extends EcoreBaseItem
 				}
 				return super.getElementToDestroy();
 			}
+
 		});
 	}
 

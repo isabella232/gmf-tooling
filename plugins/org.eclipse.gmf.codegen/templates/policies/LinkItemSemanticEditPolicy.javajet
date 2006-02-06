@@ -20,7 +20,22 @@ public class <%=genLink.getItemSemanticEditPolicyClassName()%> extends <%=import
 	 * @generated
 	 */
 	protected Command getDestroyReferenceCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyReferenceRequest")%> req) {
-		return getMSLWrapper(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand")%>(req));
+		return getMSLWrapper(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.DestroyReferenceCommand")%>(req)<%
+	FeatureModelFacet modelFacet = (FeatureModelFacet) genLink.getModelFacet();
+	if (modelFacet.getMetaFeature().isContains()) {
+// Processing "phantom" objects
+%> {
+		
+			protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CommandResult")%> doExecute(<%=importManager.getImportedName("org.eclipse.core.runtime.IProgressMonitor")%> progressMonitor) {
+				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> referencedObject = getReferencedObject();
+				<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> resource = referencedObject.eResource();
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CommandResult")%> result = super.doExecute(progressMonitor);
+				resource.getContents().add(referencedObject);
+				return result;
+			}
+		}<%
+	}
+%>);
 	}
 <%} else if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {%>
 

@@ -38,6 +38,7 @@ public class ItemItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 				}
 				return super.getElementToDestroy();
 			}
+
 		});
 	}
 

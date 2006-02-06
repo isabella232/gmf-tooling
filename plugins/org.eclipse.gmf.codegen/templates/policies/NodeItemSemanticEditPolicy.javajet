@@ -35,6 +35,7 @@ if (genNode.getChildNodes().size() > 0) {
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
 		return getMSLWrapper(new MSLDestroyElementCommand(req) {
+		
 			protected EObject getElementToDestroy() {
 				View view = (View) getHost().getModel();
 				EAnnotation annotation = view.getEAnnotation("Shortcutted"); //$NON-NLS-1$
@@ -42,7 +43,43 @@ if (genNode.getChildNodes().size() > 0) {
 					return view;
 				}
 				return super.getElementToDestroy();
+			}		
+
+<%
+	if (genNode.getModelFacet().isPhantomElement()) {
+%>
+			protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CommandResult")%> doExecute(<%=importManager.getImportedName("org.eclipse.core.runtime.IProgressMonitor")%> progressMonitor) {
+				EObject eObject = getElementToDestroy();
+				if (eObject.eContainer() != null) {
+					return super.doExecute(progressMonitor);
+				} else {
+					<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.edit.MObjectState")%> elementState = <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.util.EObjectUtil")%>.getState(eObject);
+					if (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.edit.MObjectState")%>.DETACHED != elementState) {
+						<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> resource = eObject.eResource();
+						if (resource == null) {
+							return newErrorCommandResult("No resource for the object: " + eObject);
+						}
+						
+						<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain")%> domain = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain")%>) <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain")%>.getEditingDomain(resource);
+						if (domain == null) {
+							domain = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain")%>) <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain")%>.INSTANCE;
+						}
+						<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.services.metamodel.IMetamodelSupport")%> metaModel = <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.util.MSLUtil")%>.getMetaModel(eObject);
+						if ((metaModel != null) && (!metaModel.canDestroy(eObject))) {
+							return newOKCommandResult();
+						}
+						eObject.eNotify(new <%=importManager.getImportedName("org.eclipse.emf.ecore.impl.ENotificationImpl")%>((<%=importManager.getImportedName("org.eclipse.emf.ecore.InternalEObject")%>) eObject, <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.EventTypes")%>.PRE_DESTROY, (<%=importManager.getImportedName("org.eclipse.emf.ecore.EStructuralFeature")%>) null, eObject, eObject));
+						<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.util.MSLUtil")%>.teardownContainment(domain, eObject, 0);
+						<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.util.MSLUtil")%>.sendDestroyEvent(domain, eObject);
+						resource.getContents().remove(eObject);
+					}
+				}
+				return newOKCommandResult();
 			}
+			
+<%
+	}
+%>
 		});
 	}
 <%

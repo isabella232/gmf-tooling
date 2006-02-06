@@ -149,7 +149,7 @@ public class AbstractNodeMappingItemProvider
 				 getString("_UI_DomainmetainformationPropertyCategory"),
 				 null) {
 				protected Collection getComboBoxObjects(Object object) {
-					ScopeUtil scopeUtil = new ScopeUtil((AbstractNodeMapping) object);
+					ScopeUtil scopeUtil = new ScopeUtil((AbstractNodeMapping) object, true);
 					if (scopeUtil.isDevisable()) {
 						return scopeUtil.getPossibleContainments();
 					} else {

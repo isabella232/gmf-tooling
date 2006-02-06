@@ -17,6 +17,9 @@ if (genNodes.size() > 0) {
 for (Iterator it = genNodes.iterator(); it.hasNext();) {
 	GenNode nextNode = (GenNode) it.next();
 	TypeModelFacet typeModelFacet = nextNode.getModelFacet();
+	if (typeModelFacet.isPhantomElement()) {
+		continue;
+	}
 	GenFeature childMetaFeature = typeModelFacet.getChildMetaFeature();
 	if (childMetaFeature.isListType()) {
 %>	

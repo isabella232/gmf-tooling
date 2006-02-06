@@ -13,8 +13,8 @@ package org.eclipse.gmf.mappings.presentation;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.eclipse.emf.ecore.EReference;
@@ -26,9 +26,15 @@ import org.eclipse.gmf.mappings.MappingEntry;
  */
 public class ScopeUtil {
 	private final MappingEntry entry;
+	private boolean myCouldBeUnsed;
 
 	public ScopeUtil(MappingEntry anEntry) {
+		this(anEntry, false);
+	}
+	
+	public ScopeUtil(MappingEntry anEntry, boolean couldBeUnset) {
 		entry = anEntry;
+		myCouldBeUnsed = couldBeUnset;
 	}
 
 	public boolean isDevisable() {
@@ -41,7 +47,7 @@ public class ScopeUtil {
 	 */
 	public Collection/*<EReference>*/ getPossibleContainments() {
 		if (entry.getDomainMetaElement() != null) {
-			Set features = new HashSet();
+			Set features = new LinkedHashSet();
 			Iterator wholeWorld;
 			if (entry.getDomainMetaElement().eResource() == null) {
 				wholeWorld = entry.getDomainMetaElement().getEPackage().eAllContents();
@@ -56,6 +62,9 @@ public class ScopeUtil {
 						features.add(ref);
 					}
 				}
+			}
+			if (myCouldBeUnsed) {
+				features.add(null);
 			}
 			return features;
 		}

@@ -238,7 +238,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 		if (nextNode != null) {
 			createClass_annotations_5003Children(nextNode, modelObject);
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -266,7 +266,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 		if (nextNode != null) {
 			createPackage_annotations_5008Children(nextNode, modelObject);
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -278,7 +278,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 		if (nextNode != null) {
 			createDetails_5009Children(nextNode, modelObject);
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -290,7 +290,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 		if (nextNode != null) {
 			createData_type_annotations_5010Children(nextNode, modelObject);
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -306,91 +306,91 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 		if (nextNode != null) {
 			createEnum_annotations_5012Children(nextNode, modelObject);
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
 	 * @generated
 	 */
 	private void createEAttribute_2001Children(View viewObject, EObject modelObject) {
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
 	 * @generated
 	 */
 	private void createEOperation_2002Children(View viewObject, EObject modelObject) {
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
 	 * @generated
 	 */
 	private void createEAnnotation_2003Children(View viewObject, EObject modelObject) {
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
 	 * @generated
 	 */
 	private void createEClass_2004Children(View viewObject, EObject modelObject) {
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
 	 * @generated
 	 */
 	private void createEPackage_2005Children(View viewObject, EObject modelObject) {
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
 	 * @generated
 	 */
 	private void createEDataType_2006Children(View viewObject, EObject modelObject) {
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
 	 * @generated
 	 */
 	private void createEEnum_2007Children(View viewObject, EObject modelObject) {
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
 	 * @generated
 	 */
 	private void createEAnnotation_2008Children(View viewObject, EObject modelObject) {
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
 	 * @generated
 	 */
 	private void createEStringToStringMapEntry_2009Children(View viewObject, EObject modelObject) {
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
 	 * @generated
 	 */
 	private void createEAnnotation_2010Children(View viewObject, EObject modelObject) {
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
 	 * @generated
 	 */
 	private void createEEnumLiteral_2011Children(View viewObject, EObject modelObject) {
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
 	 * @generated
 	 */
 	private void createEAnnotation_2012Children(View viewObject, EObject modelObject) {
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -410,7 +410,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEAttribute_2001Children(nextNode, nextValue);
 			}
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -430,7 +430,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEOperation_2002Children(nextNode, nextValue);
 			}
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -450,7 +450,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEAnnotation_2003Children(nextNode, nextValue);
 			}
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -470,7 +470,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEClass_2004Children(nextNode, nextValue);
 			}
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -490,7 +490,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEPackage_2005Children(nextNode, nextValue);
 			}
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -510,7 +510,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEDataType_2006Children(nextNode, nextValue);
 			}
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -530,7 +530,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEEnum_2007Children(nextNode, nextValue);
 			}
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -550,7 +550,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEAnnotation_2008Children(nextNode, nextValue);
 			}
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -570,7 +570,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEStringToStringMapEntry_2009Children(nextNode, nextValue);
 			}
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -590,7 +590,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEAnnotation_2010Children(nextNode, nextValue);
 			}
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -610,7 +610,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEEnumLiteral_2011Children(nextNode, nextValue);
 			}
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -630,7 +630,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEAnnotation_2012Children(nextNode, nextValue);
 			}
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -690,7 +690,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				createEEnum_1005Children(nextNode, nextValue);
 			}
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -709,9 +709,9 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	/**
 	 *@generated
 	 */
-	private void storeLinks(EObject container) {
+	private void storeLinks(EObject container, Diagram diagram) {
 		EClass containerMetaclass = container.eClass();
-		storeFeatureModelFacetLinks(container, containerMetaclass);
+		storeFeatureModelFacetLinks(container, containerMetaclass, diagram);
 		storeTypeModelFacetLinks(container, containerMetaclass);
 	}
 
@@ -744,7 +744,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	/**
 	 *@generated
 	 */
-	private void storeFeatureModelFacetLinks(EObject container, EClass containerMetaclass) {
+	private void storeFeatureModelFacetLinks(EObject container, EClass containerMetaclass, Diagram diagram) {
 		if (-1 != containerMetaclass.getFeatureID(EcorePackage.eINSTANCE.getEAnnotation_References())) {
 			((Collection) myLinkVID2EObjectMap.get(new Integer(3001))).add(container);
 		}

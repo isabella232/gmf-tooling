@@ -233,7 +233,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	 * @generated
 	 */
 	private void createPort_1001Children(View viewObject, EObject modelObject) {
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -245,14 +245,14 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 		if (nextNode != null) {
 			createCargoCompartment_5001Children(nextNode, modelObject);
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
 	 * @generated
 	 */
 	private void createItem_2001Children(View viewObject, EObject modelObject) {
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -272,7 +272,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 				createItem_2001Children(nextNode, nextValue);
 			}
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -302,7 +302,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 				createShip_1002Children(nextNode, nextValue);
 			}
 		}
-		storeLinks(modelObject);
+		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
@@ -321,9 +321,9 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	/**
 	 *@generated
 	 */
-	private void storeLinks(EObject container) {
+	private void storeLinks(EObject container, Diagram diagram) {
 		EClass containerMetaclass = container.eClass();
-		storeFeatureModelFacetLinks(container, containerMetaclass);
+		storeFeatureModelFacetLinks(container, containerMetaclass, diagram);
 		storeTypeModelFacetLinks(container, containerMetaclass);
 	}
 
@@ -346,7 +346,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	/**
 	 *@generated
 	 */
-	private void storeFeatureModelFacetLinks(EObject container, EClass containerMetaclass) {
+	private void storeFeatureModelFacetLinks(EObject container, EClass containerMetaclass, Diagram diagram) {
 		if (-1 != containerMetaclass.getFeatureID(TaiPanPackage.eINSTANCE.getShip_Destination())) {
 			((Collection) myLinkVID2EObjectMap.get(new Integer(3001))).add(container);
 		}

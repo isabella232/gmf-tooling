@@ -1,22 +1,9 @@
 package org.eclipse.gmf.ecore.edit.policies;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ocl.expressions.ExpressionsFactory;
-import org.eclipse.emf.ocl.expressions.VariableDeclaration;
-import org.eclipse.emf.ocl.helper.HelperUtil;
-import org.eclipse.emf.ocl.helper.IOclHelper;
-import org.eclipse.emf.ocl.parser.EcoreEnvironment;
-import org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory;
-import org.eclipse.emf.ocl.parser.Environment;
-import org.eclipse.emf.ocl.parser.EvaluationEnvironment;
-import org.eclipse.emf.ocl.query.Query;
-import org.eclipse.emf.ocl.query.QueryFactory;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.UnexecutableCommand;
-import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.commands.DeleteCommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
@@ -38,6 +25,24 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientReferenceRelations
 import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EcorePackage;
+
+import org.eclipse.emf.ocl.expressions.ExpressionsFactory;
+import org.eclipse.emf.ocl.expressions.VariableDeclaration;
+
+import org.eclipse.emf.ocl.helper.HelperUtil;
+import org.eclipse.emf.ocl.helper.IOclHelper;
+
+import org.eclipse.emf.ocl.parser.EcoreEnvironment;
+import org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory;
+import org.eclipse.emf.ocl.parser.Environment;
+import org.eclipse.emf.ocl.parser.EvaluationEnvironment;
+
+import org.eclipse.emf.ocl.query.Query;
+import org.eclipse.emf.ocl.query.QueryFactory;
+
+import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
 
 /**
  * @generated

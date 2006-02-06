@@ -36,6 +36,7 @@ public class EAttributeItemSemanticEditPolicy extends EcoreBaseItemSemanticEditP
 				}
 				return super.getElementToDestroy();
 			}
+
 		});
 	}
 

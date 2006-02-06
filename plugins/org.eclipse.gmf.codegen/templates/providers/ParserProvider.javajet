@@ -4,9 +4,6 @@
 package <%=genDiagram.getProvidersPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
@@ -97,7 +94,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 <%
 		} else if (modelFacet instanceof CompositeFeatureLabelModelFacet) {
 			parserClassName = importManager.getImportedName(genDiagram.getStructuralFeaturesParserQualifiedClassName());
-			java.util.List features = ((CompositeFeatureLabelModelFacet) modelFacet).getMetaFeatures();
+			List features = ((CompositeFeatureLabelModelFacet) modelFacet).getMetaFeatures();
 			viewPattern = ((CompositeFeatureLabelModelFacet) modelFacet).getViewPattern();
 			editPattern = ((CompositeFeatureLabelModelFacet) modelFacet).getEditPattern();
 %>

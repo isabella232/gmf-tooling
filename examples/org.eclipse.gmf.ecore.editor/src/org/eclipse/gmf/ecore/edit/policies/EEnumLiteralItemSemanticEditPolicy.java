@@ -36,6 +36,7 @@ public class EEnumLiteralItemSemanticEditPolicy extends EcoreBaseItemSemanticEdi
 				}
 				return super.getElementToDestroy();
 			}
+
 		});
 	}
 

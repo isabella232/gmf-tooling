@@ -6,56 +6,60 @@
 GenPackage genPackage = genDiagram.getDomainMetaModel();
 for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 	GenNode genChildNode = (GenNode) nodes.next();
-	TypeModelFacet modelFacet = genChildNode.getModelFacet();
-	GenFeature containmentMetaFeature = modelFacet.getContainmentMetaFeature();
-	GenFeature childMetaFeature = modelFacet.getChildMetaFeature();
-	int upperContainmentBound = containmentMetaFeature.getEcoreFeature().getUpperBound();
-	int upperChildBound = childMetaFeature.getEcoreFeature().getUpperBound();
-	boolean processChildMetafeature = !childMetaFeature.equals(containmentMetaFeature) && upperChildBound > 0;
 %>
 		if (<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genChildNode.getUniqueIdentifier()%> == req.getElementType()) {
 <%
-	if (upperContainmentBound > 0 || processChildMetafeature) {
-		String containerInterfaceName = importManager.getImportedName(containerGenClass.getQualifiedInterfaceName());
+	TypeModelFacet modelFacet = genChildNode.getModelFacet();
+	GenFeature containmentMetaFeature = modelFacet.getContainmentMetaFeature();
+	GenFeature childMetaFeature = modelFacet.getChildMetaFeature();
+	if (!modelFacet.isPhantomElement()) {
+		int upperContainmentBound = containmentMetaFeature.getEcoreFeature().getUpperBound();
+		int upperChildBound = childMetaFeature.getEcoreFeature().getUpperBound();
+		boolean processChildMetafeature = !childMetaFeature.equals(containmentMetaFeature) && upperChildBound > 0;
+		if (upperContainmentBound > 0 || processChildMetafeature) {
+			String containerInterfaceName = importManager.getImportedName(containerGenClass.getQualifiedInterfaceName());
 %>		
 			<%=containerInterfaceName%> container = (<%=containerInterfaceName%>) (req.getContainer() instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%> ? ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.View")%>) req.getContainer()).getElement() : req.getContainer());
 <%
-		if (upperContainmentBound > 0) {
-			if (upperContainmentBound == 1) {
+			if (upperContainmentBound > 0) {
+				if (upperContainmentBound == 1) {
 %>
 			if (<%=getFeatureValueGetter("container", containmentMetaFeature, false, importManager)%> != null) {
 <%
-			} else {
+				} else {
 %>
 			if (<%=getFeatureValueGetter("container", containmentMetaFeature, false, importManager)%>.size() >= <%=upperContainmentBound%>) {
 <%
-			}
+				}
 %>
 				return super.getCreateCommand(req);
 			}
 <%
-		}
+			}
 		
-		if (processChildMetafeature) {
-			if (upperChildBound == 1) {
+			if (processChildMetafeature) {
+				if (upperChildBound == 1) {
 %>
 			if (<%=getFeatureValueGetter("container", childMetaFeature, false, importManager)%> != null) {
 <%
-			} else {
+				} else {
 %>
 			if (<%=getFeatureValueGetter("container", childMetaFeature, false, importManager)%>.size() >= <%=upperChildBound%>) {
 <%
-			}
+				}
 %>
 				return super.getCreateCommand(req);
 			}
 <%
+			}
 		}
-	}
 %>
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(<%=importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=modelFacet.getContainmentMetaFeature().getFeatureAccessorName()%>());
 			}
+<%
+	}
+%>
 			return getMSLWrapper(new Create<%=genChildNode.getUniqueIdentifier()%>Command(req));
 		}
 <%
@@ -99,7 +103,7 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 			return container;
 		}
 <%
-	boolean processChildMetafeature = !modelFacet.getChildMetaFeature().isDerived() && !modelFacet.getChildMetaFeature().equals(modelFacet.getContainmentMetaFeature());
+	boolean processChildMetafeature = !modelFacet.isPhantomElement() && !modelFacet.getChildMetaFeature().isDerived() && !modelFacet.getChildMetaFeature().equals(modelFacet.getContainmentMetaFeature());
 	if (modelFacet.getModelElementInitializer() != null || processChildMetafeature) { 
 		String metaClassName = importManager.getImportedName(modelFacet.getMetaClass().getQualifiedInterfaceName());
 %>
@@ -139,6 +143,48 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 %>
 			}
 			return newElement;
+		}
+<%
+	}
+	
+	if (modelFacet.isPhantomElement()) {
+%>
+
+		/**
+		 * @generated
+		 */
+		public boolean isExecutable() {
+			if (getEClass() != null) {
+				return getEClass().isSuperTypeOf(getEClassToEdit());
+			}
+			return true;
+		}
+		
+		/**
+		 * @generated
+		 */
+		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EReference")%> getContainmentFeature() {
+			return null;
+		}
+		
+		/**
+		 * @generated
+		 */
+		protected <%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> doDefaultElementCreation() {
+			// Uncomment to put "phantom" objects into the diagram file.		
+			//<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> resource = ((CreateElementRequest) getRequest()).getContainer().eResource();
+			//if (resource == null) {
+			//	return null;
+			//}
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> resource = getElementToEdit().eResource();
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> eClass = getElementType().getEClass();
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain")%> domain = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain")%>) <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain")%>.getEditingDomain(resource);
+			if (domain == null) {
+				domain = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain")%>) <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain")%>.INSTANCE;
+			}
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> eObject = <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.util.MSLUtil")%>.create(domain, eClass, true);
+			resource.getContents().add(eObject);
+			return eObject;
 		}
 <%
 	}

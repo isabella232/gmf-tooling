@@ -1,10 +1,10 @@
 package org.eclipse.gmf.ecore.edit.parts;
 
-import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
 
 /**
  * @generated

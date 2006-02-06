@@ -36,6 +36,7 @@ public class EAnnotation3ItemSemanticEditPolicy extends EcoreBaseItemSemanticEdi
 				}
 				return super.getElementToDestroy();
 			}
+
 		});
 	}
 

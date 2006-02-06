@@ -12,7 +12,6 @@ import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeModelCommand;
-
 import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
 
 /**
@@ -59,6 +58,7 @@ public class EcoreStructuralFeatureParser extends EcoreAbstractParser {
 	protected String getStringByPattern(IAdaptable adapter, int flags, String pattern, MessageFormat processor) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
 		Object value = element.eGet(feature);
+		value = getValidValue(feature, value);
 		return processor.format(new Object[] { value }, new StringBuffer(), new FieldPosition(0)).toString();
 	}
 

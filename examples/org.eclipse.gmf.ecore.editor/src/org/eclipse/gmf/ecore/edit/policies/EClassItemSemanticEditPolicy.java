@@ -41,6 +41,7 @@ public class EClassItemSemanticEditPolicy extends EcoreBaseItemSemanticEditPolic
 				}
 				return super.getElementToDestroy();
 			}
+
 		});
 	}
 
