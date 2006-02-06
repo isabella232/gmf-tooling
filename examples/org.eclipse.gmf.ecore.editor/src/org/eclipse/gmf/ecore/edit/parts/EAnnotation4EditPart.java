@@ -25,4 +25,14 @@ public class EAnnotation4EditPart extends ListItemEditPart {
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EAnnotation4ItemSemanticEditPolicy());
 	}
 
+	/**
+	 * @generated
+	 */
+	protected String getLabelText() {
+		String text = super.getLabelText();
+		if (text == null || text.length() == 0) {
+			return "<...>";
+		}
+		return text;
+	}
 }

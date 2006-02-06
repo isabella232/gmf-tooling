@@ -25,4 +25,14 @@ public class EStringToStringMapEntryEditPart extends ListItemEditPart {
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EStringToStringMapEntryItemSemanticEditPolicy());
 	}
 
+	/**
+	 * @generated
+	 */
+	protected String getLabelText() {
+		String text = super.getLabelText();
+		if (text == null || text.length() == 0) {
+			return "<...>";
+		}
+		return text;
+	}
 }
