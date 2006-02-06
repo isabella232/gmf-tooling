@@ -163,14 +163,28 @@ public class TaiPanDocumentProvider extends FileDiagramDocumentProvider {
 				public boolean matches(Notification notification) {
 					Diagram diagram = document.getDiagram();
 					Object notifier = notification.getNotifier();
-					if (diagram != null && notifier instanceof Resource) {
-						Resource notifierResource = (Resource) notifier;
+					Resource resource = null;
+					if (notifier instanceof EObject) {
+						resource = ((EObject) notifier).eResource();
+					} else if (notifier instanceof Resource) {
+						resource = (Resource) notifier;
+					}
+					if (diagram != null && resource != null) {
 						Set externalResources = getReferencedResources(diagram);
 						for (Iterator it = externalResources.iterator(); it.hasNext();) {
 							Resource nextResource = (Resource) it.next();
-							if (notifierResource == nextResource) {
-								return notification.getEventType() == Notification.SET && notification.getFeatureID(Resource.class) == Resource.RESOURCE__IS_MODIFIED
-										&& notification.getNewBooleanValue() == true;
+							if (resource == nextResource) {
+								if (notifier == resource) {
+									return notification.getEventType() == Notification.SET && notification.getFeatureID(Resource.class) == Resource.RESOURCE__IS_MODIFIED
+											&& notification.getNewBooleanValue() == true;
+								} else {
+									/*
+									 * Handling notification from the objects stored in this resource it is necessary 
+									 * if setTrackingModification(true) was not called. I.e. now for all the objects 
+									 * stored in external resources. 
+									 */
+									return true;
+								}
 							}
 						}
 					}

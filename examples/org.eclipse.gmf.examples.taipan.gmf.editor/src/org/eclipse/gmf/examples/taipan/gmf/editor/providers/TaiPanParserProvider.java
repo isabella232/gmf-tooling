@@ -53,8 +53,8 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 		features.add(TaiPanPackage.eINSTANCE.getItem().getEStructuralFeature("article"));
 		features.add(TaiPanPackage.eINSTANCE.getItem().getEStructuralFeature("quantity"));
 		TaiPanStructuralFeaturesParser parser = new TaiPanStructuralFeaturesParser(features);
-		((TaiPanStructuralFeaturesParser) parser).setViewPattern("- {0} [{1,number,integer}]");
-		((TaiPanStructuralFeaturesParser) parser).setEditPattern("{0}:{1,number,integer}");
+		parser.setViewPattern("- {0} [{1,number,integer}]");
+		parser.setEditPattern("{0}:{1,number,integer}");
 		return parser;
 	}
 
@@ -147,8 +147,8 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	protected IParser createRouteROUTERELIABILITY_4009_TEXTParser() {
 		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getRoute().getEStructuralFeature("reliability"));
-		((TaiPanStructuralFeatureParser) parser).setViewPattern("reliability: {0,number,percent}");
-		((TaiPanStructuralFeatureParser) parser).setEditPattern("{0,number,percent}");
+		parser.setViewPattern("reliability: {0,number,percent}");
+		parser.setEditPattern("{0,number,percent}");
 		return parser;
 	}
 

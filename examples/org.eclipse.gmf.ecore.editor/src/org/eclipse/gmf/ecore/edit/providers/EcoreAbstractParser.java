@@ -6,6 +6,8 @@ import java.text.ParsePosition;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
@@ -258,6 +260,17 @@ public abstract class EcoreAbstractParser implements IParser {
 					value = new Double(((Number) value).doubleValue());
 				} else {
 					value = new InvalidValue("Value of type Double is expected");
+				}
+			} else if (type instanceof EEnum) {
+				if (value instanceof String) {
+					EEnumLiteral literal = ((EEnum) type).getEEnumLiteralByLiteral((String) value);
+					if (literal == null) {
+						value = new InvalidValue("Unknown literal: " + value);
+					} else {
+						value = literal.getInstance();
+					}
+				} else {
+					value = new InvalidValue("Value of type String is expected");
 				}
 			}
 		}
