@@ -164,7 +164,7 @@ public abstract class TaiPanAbstractParser implements IParser {
 	/**
 	 * @generated
 	 */
-	protected abstract ICommand getParseCommand(IAdaptable adapter, Object[] newValues);
+	protected abstract ICommand getParseCommand(IAdaptable adapter, Object[] values);
 
 	/**
 	 * @generated
@@ -183,6 +183,22 @@ public abstract class TaiPanAbstractParser implements IParser {
 		}
 		SetRequest request = new SetRequest(element, feature, value);
 		return new SetValueCommand(request);
+	}
+
+	/**
+	 * @generated
+	 */
+	protected Object getValidValue(EStructuralFeature feature, Object value) {
+		EClassifier type = feature.getEType();
+		if (type instanceof EDataType) {
+			Class iClass = type.getInstanceClass();
+			if (String.class.equals(iClass)) {
+				if (value == null) {
+					value = "";
+				}
+			}
+		}
+		return value;
 	}
 
 	/**
