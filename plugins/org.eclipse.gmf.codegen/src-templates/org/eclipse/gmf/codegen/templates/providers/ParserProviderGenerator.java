@@ -107,7 +107,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 			throw new IllegalArgumentException("Unknown label type: " + genLabel);
 		}
 		LabelModelFacet modelFacet = genLabel.getModelFacet();
-		if (modelFacet == null) {
+		if (modelFacet == null || modelFacet instanceof TextLabelModelFacet) {
 			continue; // custom parser
 		}
 		List labelsList = (List) labels.get(genHost);

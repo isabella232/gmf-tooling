@@ -315,6 +315,14 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.TEXT_LABEL_MODEL_FACET: {
+				TextLabelModelFacet textLabelModelFacet = (TextLabelModelFacet)theEObject;
+				Object result = caseTextLabelModelFacet(textLabelModelFacet);
+				if (result == null) result = caseLabelModelFacet(textLabelModelFacet);
+				if (result == null) result = caseModelFacet(textLabelModelFacet);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.TYPE_MODEL_FACET: {
 				TypeModelFacet typeModelFacet = (TypeModelFacet)theEObject;
 				Object result = caseTypeModelFacet(typeModelFacet);
@@ -895,6 +903,21 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseLabelModelFacet(LabelModelFacet object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Text Label Model Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Text Label Model Facet</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseTextLabelModelFacet(TextLabelModelFacet object) {
 		return null;
 	}
 

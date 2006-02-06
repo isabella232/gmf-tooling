@@ -234,6 +234,9 @@
       <genOperations ecoreOperation="gmfgen.ecore#//LinkModelFacet/getTargetTypes"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//LabelModelFacet"/>
+    <genClasses ecoreClass="gmfgen.ecore#//TextLabelModelFacet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//TextLabelModelFacet/text"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//TypeModelFacet">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/metaClass"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//TypeModelFacet/containmentMetaFeature"/>

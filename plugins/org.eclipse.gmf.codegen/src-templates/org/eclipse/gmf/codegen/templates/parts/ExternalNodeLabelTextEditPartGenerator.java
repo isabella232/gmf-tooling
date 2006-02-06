@@ -23,8 +23,10 @@ public class ExternalNodeLabelTextEditPartGenerator
   protected final String TEXT_6 = "(View view) {" + NL + "\t\tsuper(view);" + NL + "\t}";
   protected final String TEXT_7 = NL;
   protected final String TEXT_8 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean isEditable() {" + NL + "\t\treturn false;" + NL + "\t}";
-  protected final String TEXT_9 = NL + "}";
-  protected final String TEXT_10 = NL;
+  protected final String TEXT_9 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getLabelText() {" + NL + "\t\treturn \"";
+  protected final String TEXT_10 = "\";" + NL + "\t}";
+  protected final String TEXT_11 = NL + "}";
+  protected final String TEXT_12 = NL;
 
   public String generate(Object argument)
   {
@@ -45,12 +47,20 @@ GenDiagram genDiagram = genLabel.getDiagram();
     stringBuffer.append(genLabel.getTextEditPartClassName());
     stringBuffer.append(TEXT_6);
     stringBuffer.append(TEXT_7);
-    if (genLabel.isReadOnly()) {
+    if (genLabel.isReadOnly() || genLabel.getModelFacet() instanceof TextLabelModelFacet) {
     stringBuffer.append(TEXT_8);
-    }
+    
+}
+if (genLabel.getModelFacet() instanceof TextLabelModelFacet) {
+	TextLabelModelFacet modelFacet = (TextLabelModelFacet) genLabel.getModelFacet();
+
     stringBuffer.append(TEXT_9);
-    importManager.emitSortedImports();
+    stringBuffer.append(modelFacet.getText());
     stringBuffer.append(TEXT_10);
+    }
+    stringBuffer.append(TEXT_11);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_12);
     return stringBuffer.toString();
   }
 }

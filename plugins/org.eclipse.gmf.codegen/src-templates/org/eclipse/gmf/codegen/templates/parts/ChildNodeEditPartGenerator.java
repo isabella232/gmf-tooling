@@ -24,8 +24,10 @@ public class ChildNodeEditPartGenerator
   protected final String TEXT_7 = "());" + NL + "\t}" + NL;
   protected final String TEXT_8 = NL;
   protected final String TEXT_9 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected boolean isEditable() {" + NL + "\t\treturn false;" + NL + "\t}";
-  protected final String TEXT_10 = NL + "}";
-  protected final String TEXT_11 = NL;
+  protected final String TEXT_10 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getLabelText() {" + NL + "\t\treturn \"";
+  protected final String TEXT_11 = "\";" + NL + "\t}";
+  protected final String TEXT_12 = NL + "}";
+  protected final String TEXT_13 = NL;
 
   public String generate(Object argument)
   {
@@ -51,12 +53,20 @@ GenDiagram genDiagram = genChildNode.getDiagram();
 GenNodeLabel genLabel = (GenNodeLabel) genChildNode.getLabels().get(0);
 
     stringBuffer.append(TEXT_8);
-    if (genLabel.isReadOnly()) {
+    if (genLabel.isReadOnly() || genLabel.getModelFacet() instanceof TextLabelModelFacet) {
     stringBuffer.append(TEXT_9);
-    }
+    
+}
+if (genLabel.getModelFacet() instanceof TextLabelModelFacet) {
+	TextLabelModelFacet modelFacet = (TextLabelModelFacet) genLabel.getModelFacet();
+
     stringBuffer.append(TEXT_10);
-    importManager.emitSortedImports();
+    stringBuffer.append(modelFacet.getText());
     stringBuffer.append(TEXT_11);
+    }
+    stringBuffer.append(TEXT_12);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_13);
     return stringBuffer.toString();
   }
 }

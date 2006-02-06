@@ -12,7 +12,9 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -20,20 +22,22 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenLabel;
+import org.eclipse.gmf.codegen.gmfgen.TextLabelModelFacet;
+
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenLabel} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.TextLabelModelFacet} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class GenLabelItemProvider
-	extends GenCommonBaseItemProvider
+public class TextLabelModelFacetItemProvider
+	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -46,7 +50,7 @@ public class GenLabelItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenLabelItemProvider(AdapterFactory adapterFactory) {
+	public TextLabelModelFacetItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -60,45 +64,39 @@ public class GenLabelItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addReadOnlyPropertyDescriptor(object);
+			addTextPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Read Only feature.
+	 * This adds a property descriptor for the Text feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addReadOnlyPropertyDescriptor(Object object) {
+	protected void addTextPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_GenLabel_readOnly_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenLabel_readOnly_feature", "_UI_GenLabel_type"),
-				 GMFGenPackage.eINSTANCE.getGenLabel_ReadOnly(),
+				 getString("_UI_TextLabelModelFacet_text_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_TextLabelModelFacet_text_feature", "_UI_TextLabelModelFacet_type"),
+				 GMFGenPackage.eINSTANCE.getTextLabelModelFacet_Text(),
 				 true,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+	 * This returns TextLabelModelFacet.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Collection getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenLabel_ModelFacet());
-		}
-		return childrenFeatures;
+	public Object getImage(Object object) {
+		return getResourceLocator().getImage("full/obj16/TextLabelModelFacet");
 	}
 
 	/**
@@ -108,10 +106,10 @@ public class GenLabelItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((GenLabel)object).getEditPartClassName();
+		String label = ((TextLabelModelFacet)object).getText();
 		return label == null || label.length() == 0 ?
-			getString("_UI_GenLabel_type") :
-			getString("_UI_GenLabel_type") + " " + label;
+			getString("_UI_TextLabelModelFacet_type") :
+			getString("_UI_TextLabelModelFacet_type") + " " + label;
 	}
 
 	/**
@@ -124,12 +122,9 @@ public class GenLabelItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(GenLabel.class)) {
-			case GMFGenPackage.GEN_LABEL__READ_ONLY:
+		switch (notification.getFeatureID(TextLabelModelFacet.class)) {
+			case GMFGenPackage.TEXT_LABEL_MODEL_FACET__TEXT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case GMFGenPackage.GEN_LABEL__MODEL_FACET:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -144,21 +139,6 @@ public class GenLabelItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenLabel_ModelFacet(),
-				 GMFGenFactory.eINSTANCE.createTextLabelModelFacet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenLabel_ModelFacet(),
-				 GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenLabel_ModelFacet(),
-				 GMFGenFactory.eINSTANCE.createCompositeFeatureLabelModelFacet()));
 	}
 
 	/**

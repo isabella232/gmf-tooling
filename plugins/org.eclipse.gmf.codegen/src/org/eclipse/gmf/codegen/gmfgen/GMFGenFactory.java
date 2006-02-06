@@ -107,6 +107,15 @@ public interface GMFGenFactory extends EFactory {
 	GenLinkLabel createGenLinkLabel();
 
 	/**
+	 * Returns a new object of class '<em>Text Label Model Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Text Label Model Facet</em>'.
+	 * @generated
+	 */
+	TextLabelModelFacet createTextLabelModelFacet();
+
+	/**
 	 * Returns a new object of class '<em>Type Model Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

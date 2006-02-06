@@ -1,9 +1,21 @@
-<%if (genLabel.isReadOnly()) {%>
+<%if (genLabel.isReadOnly() || genLabel.getModelFacet() instanceof TextLabelModelFacet) {%>
 
 	/**
 	 * @generated
 	 */
 	protected boolean isEditable() {
 		return false;
+	}
+<%
+}
+if (genLabel.getModelFacet() instanceof TextLabelModelFacet) {
+	TextLabelModelFacet modelFacet = (TextLabelModelFacet) genLabel.getModelFacet();
+%>
+
+	/**
+	 * @generated
+	 */
+	protected String getLabelText() {
+		return "<%=modelFacet.getText()%>";
 	}
 <%}%>
