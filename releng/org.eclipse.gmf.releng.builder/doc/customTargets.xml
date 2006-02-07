@@ -117,7 +117,7 @@
 	<!-- ===================================================================== -->
 	<!-- Steps to do before running the build.xmls for the elements being built. -->
 	<!-- ===================================================================== -->
-	<target name="preProcess">
+	<target name="preProcess" unless="skipJavadoc">
 		<!-- Retrieve doclet -->
 		<cvs command="checkout -r HEAD org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet" 
 		     cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" 

@@ -31,6 +31,7 @@
 			<property name="wipe" value="true" />
 			<property name="copyRuntime" value="true" />
 			<property name="mapsCheckoutTag" value="${stable}" />
+			<property name="skipJavadoc" value="true"/>
 			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
 		<echo message="Building examples..." />

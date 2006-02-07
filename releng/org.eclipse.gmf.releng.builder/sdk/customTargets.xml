@@ -145,7 +145,10 @@
 		<!-- TODO: Remove when dependency gone -->
 		<available file="${buildDirectory}/plugins/antlr/lib/antlr.jar" property="antlrExists" />
 		<ant antfile="${scripts}/install.xml" target="installAntlr" />
-		
+		<antcall target="runJavadoc"/>		
+	</target>
+	
+	<target name="runJavadoc" unless="skipJavadoc">
 		<!-- Retrieve doclet -->
 		<cvs command="checkout -r HEAD org.eclipse.gmf/doc/org.eclipse.gmf.runtime.doclet" 
 		     cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" 
