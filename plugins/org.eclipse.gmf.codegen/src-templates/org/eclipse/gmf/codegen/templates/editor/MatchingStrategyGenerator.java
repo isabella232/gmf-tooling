@@ -24,7 +24,7 @@ public class MatchingStrategyGenerator
     StringBuffer stringBuffer = new StringBuffer();
     GenDiagram diagram = (GenDiagram) argument;
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(diagram.getEditorPackageName());
+    stringBuffer.append(diagram.getEditorGen().getEditor().getPackageName());
     stringBuffer.append(TEXT_2);
     stringBuffer.append(diagram.getMatchingStrategyClassName());
     stringBuffer.append(TEXT_3);

@@ -92,6 +92,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 		switch (eClass.getClassifierID()) {
 			case GMFGenPackage.GEN_EDITOR_GENERATOR: return createGenEditorGenerator();
 			case GMFGenPackage.GEN_DIAGRAM: return createGenDiagram();
+			case GMFGenPackage.GEN_EDITOR_VIEW: return createGenEditorView();
 			case GMFGenPackage.GEN_PLUGIN: return createGenPlugin();
 			case GMFGenPackage.GEN_TOP_LEVEL_NODE: return createGenTopLevelNode();
 			case GMFGenPackage.GEN_CHILD_NODE: return createGenChildNode();
@@ -180,6 +181,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenDiagram createGenDiagram() {
 		GenDiagramImpl genDiagram = new GenDiagramImpl();
 		return genDiagram;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenEditorView createGenEditorView() {
+		GenEditorViewImpl genEditorView = new GenEditorViewImpl();
+		return genEditorView;
 	}
 
 	/**

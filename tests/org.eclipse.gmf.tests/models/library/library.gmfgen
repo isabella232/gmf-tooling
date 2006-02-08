@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gmfgen:GenEditorGenerator xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel">
   <domainGenModel href="library.genmodel#/"/>
+  <editor/>
 <diagram visualID="79" editPartClassName="LibraryEditPart" itemSemanticEditPolicyClassName="LibraryItemSemanticEditPolicy" notationViewFactoryClassName="LibraryViewFactory" canonicalEditPolicyClassName="LibraryCanonicalEditPolicy">
   <diagramRunTimeClass href="../../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
   <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>

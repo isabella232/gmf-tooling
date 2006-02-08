@@ -3,12 +3,12 @@
 <%
 GenDiagram genDiagram = (GenDiagram) argument;
 GenEditorGenerator editorGen = genDiagram.getEditorGen();%>
-package <%=genDiagram.getEditorPackageName()%>;
+package <%=editorGen.getEditor().getPackageName()%>;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.util.IDEEditorFileCreator;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 <%
-ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());
+ImportUtil importManager = new ImportUtil(editorGen.getEditor().getPackageName());
 importManager.markImportLocation(stringBuffer);
 %>
 

@@ -211,6 +211,7 @@ public class GenEditorGeneratorItemProvider
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenEditorGenerator_Audits());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenEditorGenerator_Diagram());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenEditorGenerator_Plugin());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenEditorGenerator_Editor());
 		}
 		return childrenFeatures;
 	}
@@ -271,6 +272,7 @@ public class GenEditorGeneratorItemProvider
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS:
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM:
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN:
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__EDITOR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -301,6 +303,11 @@ public class GenEditorGeneratorItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenEditorGenerator_Plugin(),
 				 GMFGenFactory.eINSTANCE.createGenPlugin()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenEditorGenerator_Editor(),
+				 GMFGenFactory.eINSTANCE.createGenEditorView()));
 	}
 
 	/**

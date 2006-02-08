@@ -319,7 +319,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 * @generated NOT
 	 */
 	public String getActivatorQualifiedClassName() {
-		return getDiagram().getEditorPackageName() + '.' + getActivatorClassName();
+		return getEditorGen().getEditor().getPackageName() + '.' + getActivatorClassName();
 	}
 
 	private Set getExpressionsRequiredPluginIDs() {

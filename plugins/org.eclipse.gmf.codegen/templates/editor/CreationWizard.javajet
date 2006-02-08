@@ -2,7 +2,7 @@
     imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.*"%>
 <%GenDiagram genDiagram = (GenDiagram) argument;%>
 <%GenModel genModel = genDiagram.getEditorGen().getDomainGenModel();%>
-package <%=genDiagram.getEditorPackageName()%>;
+package <%=genDiagram.getEditorGen().getEditor().getPackageName()%>;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.wizards.EditorCreationWizard;
 import org.eclipse.jface.viewers.IStructuredSelection;

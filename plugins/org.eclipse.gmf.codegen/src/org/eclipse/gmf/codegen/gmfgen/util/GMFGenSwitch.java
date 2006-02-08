@@ -147,6 +147,12 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.GEN_EDITOR_VIEW: {
+				GenEditorView genEditorView = (GenEditorView)theEObject;
+				Object result = caseGenEditorView(genEditorView);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.BATCH_VALIDATION: {
 				BatchValidation batchValidation = (BatchValidation)theEObject;
 				Object result = caseBatchValidation(batchValidation);
@@ -564,6 +570,21 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseGenDiagram(GenDiagram object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Editor View</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Editor View</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenEditorView(GenEditorView object) {
 		return null;
 	}
 

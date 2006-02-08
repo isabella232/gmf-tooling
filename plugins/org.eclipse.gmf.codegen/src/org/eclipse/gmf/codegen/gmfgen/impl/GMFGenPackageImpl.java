@@ -40,6 +40,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
@@ -96,6 +97,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	private EClass genDiagramEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genEditorViewEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -602,7 +610,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenEditorGenerator_DomainGenModel() {
+	public EReference getGenEditorGenerator_Editor() {
 		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -611,8 +619,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_PackageNamePrefix() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(4);
+	public EReference getGenEditorGenerator_DomainGenModel() {
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -620,7 +628,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_ModelID() {
+	public EAttribute getGenEditorGenerator_PackageNamePrefix() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -629,7 +637,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_SameFileForDiagramAndModel() {
+	public EAttribute getGenEditorGenerator_ModelID() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -638,7 +646,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_DiagramFileExtension() {
+	public EAttribute getGenEditorGenerator_SameFileForDiagramAndModel() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -647,8 +655,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_DomainFileExtension() {
+	public EAttribute getGenEditorGenerator_DiagramFileExtension() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenEditorGenerator_DomainFileExtension() {
+		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(9);
 	}
 
 	/**
@@ -721,6 +738,60 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EReference getGenDiagram_Palette() {
 		return (EReference)genDiagramEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenEditorView() {
+		return genEditorViewEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenEditorView_EditorGen() {
+		return (EReference)genEditorViewEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenEditorView_PackageName() {
+		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenEditorView_ActionBarContributorClassName() {
+		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenEditorView_ClassName() {
+		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenEditorView_ID() {
+		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -953,7 +1024,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPackageNames_EditorPackageName() {
+	public EAttribute getPackageNames_ProvidersPackageName() {
 		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -962,17 +1033,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPackageNames_ProvidersPackageName() {
-		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getPackageNames_NotationViewFactoriesPackageName() {
-		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)packageNamesEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -998,7 +1060,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_ActionBarContributorClassName() {
+	public EAttribute getEditorCandies_CreationWizardClassName() {
 		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -1007,7 +1069,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_CreationWizardClassName() {
+	public EAttribute getEditorCandies_CreationWizardPageClassName() {
 		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1016,7 +1078,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_CreationWizardPageClassName() {
+	public EAttribute getEditorCandies_DiagramEditorUtilClassName() {
 		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1025,7 +1087,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_DiagramEditorUtilClassName() {
+	public EAttribute getEditorCandies_DiagramFileCreatorClassName() {
 		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1034,7 +1096,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_DiagramFileCreatorClassName() {
+	public EAttribute getEditorCandies_DocumentProviderClassName() {
 		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -1043,7 +1105,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_DocumentProviderClassName() {
+	public EAttribute getEditorCandies_InitDiagramFileActionClassName() {
 		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -1052,7 +1114,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_EditorClassName() {
+	public EAttribute getEditorCandies_MatchingStrategyClassName() {
 		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -1061,7 +1123,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_InitDiagramFileActionClassName() {
+	public EAttribute getEditorCandies_PreferenceInitializerClassName() {
 		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -1070,7 +1132,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_MatchingStrategyClassName() {
+	public EAttribute getEditorCandies_VisualIDRegistryClassName() {
 		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -1079,7 +1141,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_PreferenceInitializerClassName() {
+	public EAttribute getEditorCandies_ElementChooserClassName() {
 		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -1088,26 +1150,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_VisualIDRegistryClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(10);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getEditorCandies_ElementChooserClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(11);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getEditorCandies_LoadResourceActionClassName() {
-		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(12);
+		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -2672,6 +2716,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__AUDITS);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__DIAGRAM);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__PLUGIN);
+		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__EDITOR);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL);
 		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__PACKAGE_NAME_PREFIX);
 		createEAttribute(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__MODEL_ID);
@@ -2687,6 +2732,13 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genDiagramEClass, GEN_DIAGRAM__LINKS);
 		createEReference(genDiagramEClass, GEN_DIAGRAM__COMPARTMENTS);
 		createEReference(genDiagramEClass, GEN_DIAGRAM__PALETTE);
+
+		genEditorViewEClass = createEClass(GEN_EDITOR_VIEW);
+		createEReference(genEditorViewEClass, GEN_EDITOR_VIEW__EDITOR_GEN);
+		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__PACKAGE_NAME);
+		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ACTION_BAR_CONTRIBUTOR_CLASS_NAME);
+		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__CLASS_NAME);
+		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ID);
 
 		batchValidationEClass = createEClass(BATCH_VALIDATION);
 		createEAttribute(batchValidationEClass, BATCH_VALIDATION__VALIDATION_PROVIDER_CLASS_NAME);
@@ -2716,20 +2768,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(packageNamesEClass, PACKAGE_NAMES__EDIT_COMMANDS_PACKAGE_NAME);
 		createEAttribute(packageNamesEClass, PACKAGE_NAMES__EDIT_PARTS_PACKAGE_NAME);
 		createEAttribute(packageNamesEClass, PACKAGE_NAMES__EDIT_POLICIES_PACKAGE_NAME);
-		createEAttribute(packageNamesEClass, PACKAGE_NAMES__EDITOR_PACKAGE_NAME);
 		createEAttribute(packageNamesEClass, PACKAGE_NAMES__PROVIDERS_PACKAGE_NAME);
 		createEAttribute(packageNamesEClass, PACKAGE_NAMES__NOTATION_VIEW_FACTORIES_PACKAGE_NAME);
 
 		linkConstraintsEClass = createEClass(LINK_CONSTRAINTS);
 
 		editorCandiesEClass = createEClass(EDITOR_CANDIES);
-		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__ACTION_BAR_CONTRIBUTOR_CLASS_NAME);
 		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__CREATION_WIZARD_CLASS_NAME);
 		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__CREATION_WIZARD_PAGE_CLASS_NAME);
 		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__DIAGRAM_EDITOR_UTIL_CLASS_NAME);
 		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__DIAGRAM_FILE_CREATOR_CLASS_NAME);
 		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__DOCUMENT_PROVIDER_CLASS_NAME);
-		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__EDITOR_CLASS_NAME);
 		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME);
 		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__MATCHING_STRATEGY_CLASS_NAME);
 		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__PREFERENCE_INITIALIZER_CLASS_NAME);
@@ -3039,6 +3088,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEReference(getGenEditorGenerator_Audits(), this.getGenAuditContainer(), null, "audits", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_Diagram(), this.getGenDiagram(), this.getGenDiagram_EditorGen(), "diagram", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_Plugin(), this.getGenPlugin(), this.getGenPlugin_EditorGen(), "plugin", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenEditorGenerator_Editor(), this.getGenEditorView(), this.getGenEditorView_EditorGen(), "editor", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_DomainGenModel(), theGenModelPackage.getGenModel(), null, "domainGenModel", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorGenerator_PackageNamePrefix(), ecorePackage.getEString(), "packageNamePrefix", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorGenerator_ModelID(), ecorePackage.getEString(), "modelID", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3064,6 +3114,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getElementInitializersClassName", 0, 1);
 
 		addEOperation(genDiagramEClass, ecorePackage.getEString(), "getElementInitializersPackageName", 0, 1);
+
+		initEClass(genEditorViewEClass, GenEditorView.class, "GenEditorView", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenEditorView_EditorGen(), this.getGenEditorGenerator(), this.getGenEditorGenerator_Editor(), "editorGen", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenEditorView_PackageName(), ecorePackage.getEString(), "packageName", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenEditorView_ActionBarContributorClassName(), ecorePackage.getEString(), "actionBarContributorClassName", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenEditorView_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenEditorView_ID(), ecorePackage.getEString(), "iD", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		addEOperation(genEditorViewEClass, ecorePackage.getEString(), "getActionBarContributorQualifiedClassName", 0, 1);
+
+		addEOperation(genEditorViewEClass, ecorePackage.getEString(), "getQualifiedClassName", 0, 1);
 
 		initEClass(batchValidationEClass, BatchValidation.class, "BatchValidation", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getBatchValidation_ValidationProviderClassName(), ecorePackage.getEString(), "validationProviderClassName", null, 0, 1, BatchValidation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3129,7 +3190,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getPackageNames_EditCommandsPackageName(), ecorePackage.getEString(), "editCommandsPackageName", null, 0, 1, PackageNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPackageNames_EditPartsPackageName(), ecorePackage.getEString(), "editPartsPackageName", null, 0, 1, PackageNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPackageNames_EditPoliciesPackageName(), ecorePackage.getEString(), "editPoliciesPackageName", null, 0, 1, PackageNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPackageNames_EditorPackageName(), ecorePackage.getEString(), "editorPackageName", null, 0, 1, PackageNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPackageNames_ProvidersPackageName(), ecorePackage.getEString(), "providersPackageName", null, 0, 1, PackageNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPackageNames_NotationViewFactoriesPackageName(), ecorePackage.getEString(), "notationViewFactoriesPackageName", null, 0, 1, PackageNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -3142,21 +3202,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(linkConstraintsEClass, ecorePackage.getEString(), "getLinkCreationConstraintsQualifiedClassName", 1, 1);
 
 		initEClass(editorCandiesEClass, EditorCandies.class, "EditorCandies", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getEditorCandies_ActionBarContributorClassName(), ecorePackage.getEString(), "actionBarContributorClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditorCandies_CreationWizardClassName(), ecorePackage.getEString(), "creationWizardClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditorCandies_CreationWizardPageClassName(), ecorePackage.getEString(), "creationWizardPageClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditorCandies_DiagramEditorUtilClassName(), ecorePackage.getEString(), "diagramEditorUtilClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditorCandies_DiagramFileCreatorClassName(), ecorePackage.getEString(), "diagramFileCreatorClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditorCandies_DocumentProviderClassName(), ecorePackage.getEString(), "documentProviderClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getEditorCandies_EditorClassName(), ecorePackage.getEString(), "editorClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditorCandies_InitDiagramFileActionClassName(), ecorePackage.getEString(), "initDiagramFileActionClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditorCandies_MatchingStrategyClassName(), ecorePackage.getEString(), "matchingStrategyClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditorCandies_PreferenceInitializerClassName(), ecorePackage.getEString(), "preferenceInitializerClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditorCandies_VisualIDRegistryClassName(), ecorePackage.getEString(), "visualIDRegistryClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditorCandies_ElementChooserClassName(), ecorePackage.getEString(), "elementChooserClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditorCandies_LoadResourceActionClassName(), ecorePackage.getEString(), "loadResourceActionClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		addEOperation(editorCandiesEClass, ecorePackage.getEString(), "getActionBarContributorQualifiedClassName", 0, 1);
 
 		addEOperation(editorCandiesEClass, ecorePackage.getEString(), "getCreationWizardQualifiedClassName", 0, 1);
 
@@ -3167,8 +3223,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(editorCandiesEClass, ecorePackage.getEString(), "getDiagramFileCreatorQualifiedClassName", 0, 1);
 
 		addEOperation(editorCandiesEClass, ecorePackage.getEString(), "getDocumentProviderQualifiedClassName", 0, 1);
-
-		addEOperation(editorCandiesEClass, ecorePackage.getEString(), "getEditorQualifiedClassName", 0, 1);
 
 		addEOperation(editorCandiesEClass, ecorePackage.getEString(), "getInitDiagramFileActionQualifiedClassName", 0, 1);
 
@@ -3527,7 +3581,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																
+		   });																																																																																																																																	
 	}
 
 	/**
@@ -3543,7 +3597,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "import", "platform:/resource/org.eclipse.gmf.runtime.notation/model/notation.ecore"
-		   });							
+		   });								
 		addAnnotation
 		  (genDiagramEClass, 
 		   source, 
@@ -3625,7 +3679,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																									
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																										
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 

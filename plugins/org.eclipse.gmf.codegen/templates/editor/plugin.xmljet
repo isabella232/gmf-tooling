@@ -32,14 +32,14 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
 
    <extension point="org.eclipse.ui.editors">
      <editor
-        id="<%=genDiagram.getEditorQualifiedClassName()%>ID"
+        id="<%=editorGen.getEditor().getID()%>"
         name="<%=genModel.getModelName()%> Diagram Editor"
         icon="../<%=genModel.getEditorPluginID()%>/icons/full/obj16/<%=domainMetaModel.getPrefix()%>ModelFile.gif"
         extensions="<%=editorGen.getDiagramFileExtension()%>"
         default="true"
-        class="<%=genDiagram.getEditorQualifiedClassName()%>"
+        class="<%=editorGen.getEditor().getQualifiedClassName()%>"
         matchingStrategy="<%=genDiagram.getMatchingStrategyQualifiedClassName()%>"
-        contributorClass="<%=genDiagram.getActionBarContributorQualifiedClassName()%>">
+        contributorClass="<%=editorGen.getEditor().getActionBarContributorQualifiedClassName()%>">
      </editor>
    </extension>
 
@@ -102,7 +102,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
          class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
          id="<%=genModel.getModelName()%>Presentation">
          <Priority name="Medium"/>
-         <ViewId id="<%=genDiagram.getEditorQualifiedClassName()%>ID">
+         <ViewId id="<%=editorGen.getEditor().getID()%>">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="delete"/>
             </ElementType>
@@ -116,7 +116,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
          class="org.eclipse.gmf.runtime.diagram.ui.printing.render.providers.DiagramWithPrintGlobalActionHandlerProvider"
          id="<%=genModel.getModelName()%>PresentationPrint">
          <Priority name="Medium"/>
-         <ViewId id="<%=genDiagram.getEditorQualifiedClassName()%>ID">
+         <ViewId id="<%=editorGen.getEditor().getID()%>">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="print"/>
             </ElementType>
@@ -127,7 +127,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
          class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
          id="<%=genModel.getModelName()%>PresentationIDE">
          <Priority name="Medium"/>
-         <ViewId id="<%=genDiagram.getEditorQualifiedClassName()%>ID">
+         <ViewId id="<%=editorGen.getEditor().getID()%>">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="bookmark"/>
             </ElementType>
@@ -137,7 +137,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
             class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
             id="<%=genModel.getModelName()%>Render">
          <Priority name="Medium"/>
-         <ViewId id="<%=genDiagram.getEditorQualifiedClassName()%>ID">
+         <ViewId id="<%=editorGen.getEditor().getID()%>">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="cut"/>
                <GlobalActionId actionId="copy"/>
@@ -207,7 +207,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
       <contributionItemProvider checkPluginLoaded="true"
          class="<%=genDiagram.getValidationProviderQualifiedClassName()%>">
          <Priority name="Medium"/>
-         <partContribution id="<%=genDiagram.getEditorQualifiedClassName()%>ID">
+         <partContribution id="<%=editorGen.getEditor().getID()%>">
             <partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
             <partAction id="validateAction" menubarPath="/diagramMenu/validationGroup"/>
          </partContribution>

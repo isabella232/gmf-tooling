@@ -16,13 +16,11 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getActionBarContributorClassName <em>Action Bar Contributor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getCreationWizardClassName <em>Creation Wizard Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getCreationWizardPageClassName <em>Creation Wizard Page Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDiagramEditorUtilClassName <em>Diagram Editor Util Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDiagramFileCreatorClassName <em>Diagram File Creator Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDocumentProviderClassName <em>Document Provider Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getEditorClassName <em>Editor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getInitDiagramFileActionClassName <em>Init Diagram File Action Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getMatchingStrategyClassName <em>Matching Strategy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getPreferenceInitializerClassName <em>Preference Initializer Class Name</em>}</li>
@@ -37,32 +35,6 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface EditorCandies extends EObject {
-	/**
-	 * Returns the value of the '<em><b>Action Bar Contributor Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Action Bar Contributor Class Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Action Bar Contributor Class Name</em>' attribute.
-	 * @see #setActionBarContributorClassName(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEditorCandies_ActionBarContributorClassName()
-	 * @model
-	 * @generated
-	 */
-	String getActionBarContributorClassName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getActionBarContributorClassName <em>Action Bar Contributor Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Action Bar Contributor Class Name</em>' attribute.
-	 * @see #getActionBarContributorClassName()
-	 * @generated
-	 */
-	void setActionBarContributorClassName(String value);
-
 	/**
 	 * Returns the value of the '<em><b>Creation Wizard Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -192,32 +164,6 @@ public interface EditorCandies extends EObject {
 	 * @generated
 	 */
 	void setDocumentProviderClassName(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Editor Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Editor Class Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Editor Class Name</em>' attribute.
-	 * @see #setEditorClassName(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEditorCandies_EditorClassName()
-	 * @model
-	 * @generated
-	 */
-	String getEditorClassName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getEditorClassName <em>Editor Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Editor Class Name</em>' attribute.
-	 * @see #getEditorClassName()
-	 * @generated
-	 */
-	void setEditorClassName(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Init Diagram File Action Class Name</b></em>' attribute.
@@ -381,14 +327,6 @@ public interface EditorCandies extends EObject {
 	 * @model kind="operation"
 	 * @generated
 	 */
-	String getActionBarContributorQualifiedClassName();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
 	String getCreationWizardQualifiedClassName();
 
 	/**
@@ -422,14 +360,6 @@ public interface EditorCandies extends EObject {
 	 * @generated
 	 */
 	String getDocumentProviderQualifiedClassName();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	String getEditorQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

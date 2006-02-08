@@ -3,7 +3,7 @@
 <%
 GenDiagram genDiagram = (GenDiagram) argument;
 GenEditorGenerator editorGen = genDiagram.getEditorGen();%>
-package <%=genDiagram.getEditorPackageName()%>;
+package <%=genDiagram.getEditorGen().getEditor().getPackageName()%>;
 
 import java.io.InputStream;
 
@@ -16,7 +16,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 <%
-ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());
+ImportUtil importManager = new ImportUtil(genDiagram.getEditorGen().getEditor().getPackageName());
 importManager.markImportLocation(stringBuffer);
 %>
 

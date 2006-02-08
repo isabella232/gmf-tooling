@@ -23,13 +23,13 @@ public class PreferencesInitializerGenerator
   public String generate(Object argument)
   {
     StringBuffer stringBuffer = new StringBuffer();
-    GenDiagram genDiagram = (GenDiagram) argument;
+    GenEditorGenerator editorGen = (GenEditorGenerator) argument;
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(genDiagram.getEditorPackageName());
+    stringBuffer.append(editorGen.getEditor().getPackageName());
     stringBuffer.append(TEXT_2);
-    stringBuffer.append(genDiagram.getPreferenceInitializerClassName());
+    stringBuffer.append(editorGen.getDiagram().getPreferenceInitializerClassName());
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
+    stringBuffer.append(editorGen.getPlugin().getActivatorQualifiedClassName());
     stringBuffer.append(TEXT_4);
     stringBuffer.append(TEXT_5);
     return stringBuffer.toString();

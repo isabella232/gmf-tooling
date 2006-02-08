@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicEList;
@@ -50,7 +49,6 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditCommandsPackageName <em>Edit Commands Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartsPackageName <em>Edit Parts Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPoliciesPackageName <em>Edit Policies Package Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditorPackageName <em>Editor Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getProvidersPackageName <em>Providers Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getNotationViewFactoriesPackageName <em>Notation View Factories Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getElementTypesClassName <em>Element Types Class Name</em>}</li>
@@ -72,13 +70,11 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getBaseGraphicalNodeEditPolicyClassName <em>Base Graphical Node Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getReferenceConnectionEditPolicyClassName <em>Reference Connection Edit Policy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCanonicalEditPolicyClassName <em>Canonical Edit Policy Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getActionBarContributorClassName <em>Action Bar Contributor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreationWizardClassName <em>Creation Wizard Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCreationWizardPageClassName <em>Creation Wizard Page Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDiagramEditorUtilClassName <em>Diagram Editor Util Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDiagramFileCreatorClassName <em>Diagram File Creator Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDocumentProviderClassName <em>Document Provider Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditorClassName <em>Editor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getInitDiagramFileActionClassName <em>Init Diagram File Action Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMatchingStrategyClassName <em>Matching Strategy Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPreferenceInitializerClassName <em>Preference Initializer Class Name</em>}</li>
@@ -164,26 +160,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String editPoliciesPackageName = EDIT_POLICIES_PACKAGE_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getEditorPackageName() <em>Editor Package Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEditorPackageName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String EDITOR_PACKAGE_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getEditorPackageName() <em>Editor Package Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEditorPackageName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String editorPackageName = EDITOR_PACKAGE_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getProvidersPackageName() <em>Providers Package Name</em>}' attribute.
@@ -606,26 +582,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected String canonicalEditPolicyClassName = CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getActionBarContributorClassName() <em>Action Bar Contributor Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getActionBarContributorClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String ACTION_BAR_CONTRIBUTOR_CLASS_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getActionBarContributorClassName() <em>Action Bar Contributor Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getActionBarContributorClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String actionBarContributorClassName = ACTION_BAR_CONTRIBUTOR_CLASS_NAME_EDEFAULT;
-
-	/**
 	 * The default value of the '{@link #getCreationWizardClassName() <em>Creation Wizard Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -724,26 +680,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String documentProviderClassName = DOCUMENT_PROVIDER_CLASS_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getEditorClassName() <em>Editor Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEditorClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String EDITOR_CLASS_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getEditorClassName() <em>Editor Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEditorClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String editorClassName = EDITOR_CLASS_NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getInitDiagramFileActionClassName() <em>Init Diagram File Action Class Name</em>}' attribute.
@@ -1555,35 +1491,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getEditorPackageNameGen() {
-		return editorPackageName;
-	}
-
-	public String getEditorPackageName() {
-		String value = getEditorPackageNameGen();
-		if (isEmpty(value)) {
-			value = getEditorGen().getPackageNamePrefix() + ".part";
-		}
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setEditorPackageName(String newEditorPackageName) {
-		String oldEditorPackageName = editorPackageName;
-		editorPackageName = newEditorPackageName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME, oldEditorPackageName, editorPackageName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getProvidersPackageNameGen() {
 		return providersPackageName;
 	}
@@ -1635,35 +1542,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		notationViewFactoriesPackageName = newNotationViewFactoriesPackageName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME, oldNotationViewFactoriesPackageName, notationViewFactoriesPackageName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getEditorClassNameGen() {
-		return editorClassName;
-	}
-
-	public String getEditorClassName() {
-		String value = getEditorClassNameGen();
-		if (isEmpty(value)) {
-			value = getDomainPackageCapName() + "DiagramEditor"; //$NON-NLS-1$
-		}
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setEditorClassName(String newEditorClassName) {
-		String oldEditorClassName = editorClassName;
-		editorClassName = newEditorClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME, oldEditorClassName, editorClassName));
 	}
 
 	/**
@@ -2012,35 +1890,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		initDiagramFileActionClassName = newInitDiagramFileActionClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME, oldInitDiagramFileActionClassName, initDiagramFileActionClassName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getActionBarContributorClassNameGen() {
-		return actionBarContributorClassName;
-	}
-
-	public String getActionBarContributorClassName() {
-		String value = getActionBarContributorClassNameGen();
-		if (isEmpty(value)) {
-			value = getDomainPackageCapName() + "DiagramActionBarContributor"; //$NON-NLS-1$
-		}
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setActionBarContributorClassName(String newActionBarContributorClassName) {
-		String oldActionBarContributorClassName = actionBarContributorClassName;
-		actionBarContributorClassName = newActionBarContributorClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME, oldActionBarContributorClassName, actionBarContributorClassName));
 	}
 
 	/**
@@ -2656,8 +2505,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getEditPartsPackageName();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
 				return getEditPoliciesPackageName();
-			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
-				return getEditorPackageName();
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
 				return getProvidersPackageName();
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME:
@@ -2700,8 +2547,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getReferenceConnectionEditPolicyClassName();
 			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
 				return getCanonicalEditPolicyClassName();
-			case GMFGenPackage.GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME:
-				return getActionBarContributorClassName();
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
 				return getCreationWizardClassName();
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME:
@@ -2712,8 +2557,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getDiagramFileCreatorClassName();
 			case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME:
 				return getDocumentProviderClassName();
-			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
-				return getEditorClassName();
 			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
 				return getInitDiagramFileActionClassName();
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
@@ -2776,9 +2619,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
 				setEditPoliciesPackageName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
-				setEditorPackageName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
 				setProvidersPackageName((String)newValue);
@@ -2843,9 +2683,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
 				setCanonicalEditPolicyClassName((String)newValue);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME:
-				setActionBarContributorClassName((String)newValue);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
 				setCreationWizardClassName((String)newValue);
 				return;
@@ -2860,9 +2697,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME:
 				setDocumentProviderClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
-				setEditorClassName((String)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
 				setInitDiagramFileActionClassName((String)newValue);
@@ -2947,9 +2781,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
 				setEditPoliciesPackageName(EDIT_POLICIES_PACKAGE_NAME_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
-				setEditorPackageName(EDITOR_PACKAGE_NAME_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
 				setProvidersPackageName(PROVIDERS_PACKAGE_NAME_EDEFAULT);
 				return;
@@ -3013,9 +2844,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
 				setCanonicalEditPolicyClassName(CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME:
-				setActionBarContributorClassName(ACTION_BAR_CONTRIBUTOR_CLASS_NAME_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
 				setCreationWizardClassName(CREATION_WIZARD_CLASS_NAME_EDEFAULT);
 				return;
@@ -3030,9 +2858,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME:
 				setDocumentProviderClassName(DOCUMENT_PROVIDER_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
-				setEditorClassName(EDITOR_CLASS_NAME_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
 				setInitDiagramFileActionClassName(INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT);
@@ -3107,8 +2932,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return EDIT_PARTS_PACKAGE_NAME_EDEFAULT == null ? editPartsPackageName != null : !EDIT_PARTS_PACKAGE_NAME_EDEFAULT.equals(editPartsPackageName);
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
 				return EDIT_POLICIES_PACKAGE_NAME_EDEFAULT == null ? editPoliciesPackageName != null : !EDIT_POLICIES_PACKAGE_NAME_EDEFAULT.equals(editPoliciesPackageName);
-			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
-				return EDITOR_PACKAGE_NAME_EDEFAULT == null ? editorPackageName != null : !EDITOR_PACKAGE_NAME_EDEFAULT.equals(editorPackageName);
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
 				return PROVIDERS_PACKAGE_NAME_EDEFAULT == null ? providersPackageName != null : !PROVIDERS_PACKAGE_NAME_EDEFAULT.equals(providersPackageName);
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME:
@@ -3151,8 +2974,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? referenceConnectionEditPolicyClassName != null : !REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(referenceConnectionEditPolicyClassName);
 			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
 				return CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT == null ? canonicalEditPolicyClassName != null : !CANONICAL_EDIT_POLICY_CLASS_NAME_EDEFAULT.equals(canonicalEditPolicyClassName);
-			case GMFGenPackage.GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME:
-				return ACTION_BAR_CONTRIBUTOR_CLASS_NAME_EDEFAULT == null ? actionBarContributorClassName != null : !ACTION_BAR_CONTRIBUTOR_CLASS_NAME_EDEFAULT.equals(actionBarContributorClassName);
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
 				return CREATION_WIZARD_CLASS_NAME_EDEFAULT == null ? creationWizardClassName != null : !CREATION_WIZARD_CLASS_NAME_EDEFAULT.equals(creationWizardClassName);
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME:
@@ -3163,8 +2984,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return DIAGRAM_FILE_CREATOR_CLASS_NAME_EDEFAULT == null ? diagramFileCreatorClassName != null : !DIAGRAM_FILE_CREATOR_CLASS_NAME_EDEFAULT.equals(diagramFileCreatorClassName);
 			case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME:
 				return DOCUMENT_PROVIDER_CLASS_NAME_EDEFAULT == null ? documentProviderClassName != null : !DOCUMENT_PROVIDER_CLASS_NAME_EDEFAULT.equals(documentProviderClassName);
-			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
-				return EDITOR_CLASS_NAME_EDEFAULT == null ? editorClassName != null : !EDITOR_CLASS_NAME_EDEFAULT.equals(editorClassName);
 			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
 				return INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT == null ? initDiagramFileActionClassName != null : !INIT_DIAGRAM_FILE_ACTION_CLASS_NAME_EDEFAULT.equals(initDiagramFileActionClassName);
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
@@ -3218,7 +3037,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME: return GMFGenPackage.PACKAGE_NAMES__EDIT_COMMANDS_PACKAGE_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME: return GMFGenPackage.PACKAGE_NAMES__EDIT_PARTS_PACKAGE_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME: return GMFGenPackage.PACKAGE_NAMES__EDIT_POLICIES_PACKAGE_NAME;
-				case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME: return GMFGenPackage.PACKAGE_NAMES__EDITOR_PACKAGE_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME: return GMFGenPackage.PACKAGE_NAMES__PROVIDERS_PACKAGE_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME: return GMFGenPackage.PACKAGE_NAMES__NOTATION_VIEW_FACTORIES_PACKAGE_NAME;
 				default: return -1;
@@ -3260,13 +3078,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		}
 		if (baseClass == EditorCandies.class) {
 			switch (derivedFeatureID) {
-				case GMFGenPackage.GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__ACTION_BAR_CONTRIBUTOR_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_PAGE_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__DIAGRAM_EDITOR_UTIL_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__DIAGRAM_FILE_CREATOR_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__DOCUMENT_PROVIDER_CLASS_NAME;
-				case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__EDITOR_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__MATCHING_STRATEGY_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME: return GMFGenPackage.EDITOR_CANDIES__PREFERENCE_INITIALIZER_CLASS_NAME;
@@ -3306,7 +3122,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.PACKAGE_NAMES__EDIT_COMMANDS_PACKAGE_NAME: return GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME;
 				case GMFGenPackage.PACKAGE_NAMES__EDIT_PARTS_PACKAGE_NAME: return GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME;
 				case GMFGenPackage.PACKAGE_NAMES__EDIT_POLICIES_PACKAGE_NAME: return GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME;
-				case GMFGenPackage.PACKAGE_NAMES__EDITOR_PACKAGE_NAME: return GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME;
 				case GMFGenPackage.PACKAGE_NAMES__PROVIDERS_PACKAGE_NAME: return GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME;
 				case GMFGenPackage.PACKAGE_NAMES__NOTATION_VIEW_FACTORIES_PACKAGE_NAME: return GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME;
 				default: return -1;
@@ -3348,13 +3163,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		}
 		if (baseClass == EditorCandies.class) {
 			switch (baseFeatureID) {
-				case GMFGenPackage.EDITOR_CANDIES__ACTION_BAR_CONTRIBUTOR_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__CREATION_WIZARD_PAGE_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__DIAGRAM_EDITOR_UTIL_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__DIAGRAM_FILE_CREATOR_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__DOCUMENT_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME;
-				case GMFGenPackage.EDITOR_CANDIES__EDITOR_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__MATCHING_STRATEGY_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME;
 				case GMFGenPackage.EDITOR_CANDIES__PREFERENCE_INITIALIZER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME;
@@ -3420,15 +3233,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		return getLinkCreationConstraintsClassName();
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public String getEditorQualifiedClassName() {
-		return getEditorPackageName() + '.' + getEditorClassName();
-	}
-	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3614,15 +3418,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public String getActionBarContributorQualifiedClassName() {
-		return getEditorPackageName() + '.' + getActionBarContributorClassName();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
 	public String getCreationWizardQualifiedClassName() {
 		return getEditorPackageName() + '.' + getCreationWizardClassName();
 	}
@@ -3705,8 +3500,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(editPartsPackageName);
 		result.append(", editPoliciesPackageName: ");
 		result.append(editPoliciesPackageName);
-		result.append(", editorPackageName: ");
-		result.append(editorPackageName);
 		result.append(", providersPackageName: ");
 		result.append(providersPackageName);
 		result.append(", notationViewFactoriesPackageName: ");
@@ -3749,8 +3542,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(referenceConnectionEditPolicyClassName);
 		result.append(", canonicalEditPolicyClassName: ");
 		result.append(canonicalEditPolicyClassName);
-		result.append(", actionBarContributorClassName: ");
-		result.append(actionBarContributorClassName);
 		result.append(", creationWizardClassName: ");
 		result.append(creationWizardClassName);
 		result.append(", creationWizardPageClassName: ");
@@ -3761,8 +3552,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(diagramFileCreatorClassName);
 		result.append(", documentProviderClassName: ");
 		result.append(documentProviderClassName);
-		result.append(", editorClassName: ");
-		result.append(editorClassName);
 		result.append(", initDiagramFileActionClassName: ");
 		result.append(initDiagramFileActionClassName);
 		result.append(", matchingStrategyClassName: ");
@@ -3796,11 +3585,11 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	String getDomainPackageCapName() {
-		String name = CodeGenUtil.validJavaIdentifier(getEditorGen().getDomainGenModel().getModelName());
-		if (name.length() < 2) {
-			return name.toUpperCase();
-		}
-		return Character.toUpperCase(name.charAt(0)) + name.substring(1);
+		return ((GenEditorGeneratorImpl) getEditorGen()).getDomainModelCapName();
+	}
+
+	private String getEditorPackageName() {
+		return getEditorGen().getEditor().getPackageName();
 	}
 
 	public String getMetaPackageName(ImportAssistant importManager) {

@@ -1,9 +1,9 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="LoadResourceActionGenerator"
     imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%GenDiagram genDiagram = (GenDiagram) argument;%>
-package <%=genDiagram.getEditorPackageName()%>;
+package <%=genDiagram.getEditorGen().getEditor().getPackageName()%>;
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());%>
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditorGen().getEditor().getPackageName());%>
 import org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog;
 import org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain;
 import org.eclipse.jface.action.IAction;

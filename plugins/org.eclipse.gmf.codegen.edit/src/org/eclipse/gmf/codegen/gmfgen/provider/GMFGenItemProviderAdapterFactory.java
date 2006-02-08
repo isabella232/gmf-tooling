@@ -118,6 +118,28 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenEditorView} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenEditorViewItemProvider genEditorViewItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenEditorView}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenEditorViewAdapter() {
+		if (genEditorViewItemProvider == null) {
+			genEditorViewItemProvider = new GenEditorViewItemProvider(this);
+		}
+
+		return genEditorViewItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenPlugin} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -941,6 +963,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	public void dispose() {
 		if (genEditorGeneratorItemProvider != null) genEditorGeneratorItemProvider.dispose();
 		if (genDiagramItemProvider != null) genDiagramItemProvider.dispose();
+		if (genEditorViewItemProvider != null) genEditorViewItemProvider.dispose();
 		if (genPluginItemProvider != null) genPluginItemProvider.dispose();
 		if (genTopLevelNodeItemProvider != null) genTopLevelNodeItemProvider.dispose();
 		if (genChildNodeItemProvider != null) genChildNodeItemProvider.dispose();

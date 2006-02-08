@@ -65,7 +65,6 @@ public class GenDiagramItemProvider
 			addEditCommandsPackageNamePropertyDescriptor(object);
 			addEditPartsPackageNamePropertyDescriptor(object);
 			addEditPoliciesPackageNamePropertyDescriptor(object);
-			addEditorPackageNamePropertyDescriptor(object);
 			addProvidersPackageNamePropertyDescriptor(object);
 			addNotationViewFactoriesPackageNamePropertyDescriptor(object);
 			addElementTypesClassNamePropertyDescriptor(object);
@@ -87,13 +86,11 @@ public class GenDiagramItemProvider
 			addBaseGraphicalNodeEditPolicyClassNamePropertyDescriptor(object);
 			addReferenceConnectionEditPolicyClassNamePropertyDescriptor(object);
 			addCanonicalEditPolicyClassNamePropertyDescriptor(object);
-			addActionBarContributorClassNamePropertyDescriptor(object);
 			addCreationWizardClassNamePropertyDescriptor(object);
 			addCreationWizardPageClassNamePropertyDescriptor(object);
 			addDiagramEditorUtilClassNamePropertyDescriptor(object);
 			addDiagramFileCreatorClassNamePropertyDescriptor(object);
 			addDocumentProviderClassNamePropertyDescriptor(object);
-			addEditorClassNamePropertyDescriptor(object);
 			addInitDiagramFileActionClassNamePropertyDescriptor(object);
 			addMatchingStrategyClassNamePropertyDescriptor(object);
 			addPreferenceInitializerClassNamePropertyDescriptor(object);
@@ -412,26 +409,6 @@ public class GenDiagramItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Editor Package Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addEditorPackageNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_PackageNames_editorPackageName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_editorPackageName_feature", "_UI_PackageNames_type"),
-				 GMFGenPackage.eINSTANCE.getPackageNames_EditorPackageName(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Providers Package Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -465,26 +442,6 @@ public class GenDiagramItemProvider
 				 getString("_UI_PackageNames_notationViewFactoriesPackageName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_PackageNames_notationViewFactoriesPackageName_feature", "_UI_PackageNames_type"),
 				 GMFGenPackage.eINSTANCE.getPackageNames_NotationViewFactoriesPackageName(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Editor Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addEditorClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_EditorCandies_editorClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_editorClassName_feature", "_UI_EditorCandies_type"),
-				 GMFGenPackage.eINSTANCE.getEditorCandies_EditorClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -725,26 +682,6 @@ public class GenDiagramItemProvider
 				 getString("_UI_EditorCandies_initDiagramFileActionClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_initDiagramFileActionClassName_feature", "_UI_EditorCandies_type"),
 				 GMFGenPackage.eINSTANCE.getEditorCandies_InitDiagramFileActionClassName(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Action Bar Contributor Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addActionBarContributorClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_EditorCandies_actionBarContributorClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_actionBarContributorClassName_feature", "_UI_EditorCandies_type"),
-				 GMFGenPackage.eINSTANCE.getEditorCandies_ActionBarContributorClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -1100,7 +1037,6 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_COMMANDS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PARTS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_POLICIES_PACKAGE_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__EDITOR_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PROVIDERS_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_FACTORIES_PACKAGE_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
@@ -1122,13 +1058,11 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__BASE_GRAPHICAL_NODE_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__REFERENCE_CONNECTION_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__ACTION_BAR_CONTRIBUTOR_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__EDITOR_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__INIT_DIAGRAM_FILE_ACTION_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__MATCHING_STRATEGY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PREFERENCE_INITIALIZER_CLASS_NAME:

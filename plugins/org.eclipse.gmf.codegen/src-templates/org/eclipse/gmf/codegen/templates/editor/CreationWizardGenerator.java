@@ -30,7 +30,7 @@ public class CreationWizardGenerator
     GenDiagram genDiagram = (GenDiagram) argument;
     GenModel genModel = genDiagram.getEditorGen().getDomainGenModel();
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(genDiagram.getEditorPackageName());
+    stringBuffer.append(genDiagram.getEditorGen().getEditor().getPackageName());
     stringBuffer.append(TEXT_2);
     stringBuffer.append(genDiagram.getCreationWizardClassName());
     stringBuffer.append(TEXT_3);

@@ -19,7 +19,7 @@ public class PluginXML
   protected final String TEXT_2 = "\"/>" + NL + "   </extension>" + NL + "" + NL + "  <extension point=\"org.eclipse.team.core.fileTypes\">" + NL + "      <fileTypes" + NL + "         type=\"text\"" + NL + "         extension=\"";
   protected final String TEXT_3 = "\">" + NL + "      </fileTypes>" + NL + "  </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.emf.ecore.extension_parser\">" + NL + "      <parser" + NL + "         type=\"";
   protected final String TEXT_4 = "\"" + NL + "         class=\"org.eclipse.gmf.runtime.emf.core.resources.MResourceFactory\">" + NL + "      </parser>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.ui.editors\">" + NL + "     <editor" + NL + "        id=\"";
-  protected final String TEXT_5 = "ID\"" + NL + "        name=\"";
+  protected final String TEXT_5 = "\"" + NL + "        name=\"";
   protected final String TEXT_6 = " Diagram Editor\"" + NL + "        icon=\"../";
   protected final String TEXT_7 = "/icons/full/obj16/";
   protected final String TEXT_8 = "ModelFile.gif\"" + NL + "        extensions=\"";
@@ -51,15 +51,15 @@ public class PluginXML
   protected final String TEXT_34 = "\"" + NL + "               enablesFor=\"1\"" + NL + "               id=\"";
   protected final String TEXT_35 = "ID\"" + NL + "               label=\"Load Resource...\"" + NL + "               menubarPath=\"additions\">" + NL + "         </action>" + NL + "      </objectContribution>                      " + NL + "  </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders\">" + NL + "      <GlobalActionHandlerProvider" + NL + "         class=\"org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider\"" + NL + "         id=\"";
   protected final String TEXT_36 = "Presentation\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "         <ViewId id=\"";
-  protected final String TEXT_37 = "ID\">" + NL + "            <ElementType class=\"org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart\">" + NL + "               <GlobalActionId actionId=\"delete\"/>" + NL + "            </ElementType>" + NL + "            <ElementType class=\"org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart\">" + NL + "               <GlobalActionId actionId=\"save\"/>" + NL + "            </ElementType>" + NL + "         </ViewId>" + NL + "      </GlobalActionHandlerProvider>";
+  protected final String TEXT_37 = "\">" + NL + "            <ElementType class=\"org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart\">" + NL + "               <GlobalActionId actionId=\"delete\"/>" + NL + "            </ElementType>" + NL + "            <ElementType class=\"org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart\">" + NL + "               <GlobalActionId actionId=\"save\"/>" + NL + "            </ElementType>" + NL + "         </ViewId>" + NL + "      </GlobalActionHandlerProvider>";
   protected final String TEXT_38 = NL + "      <GlobalActionHandlerProvider" + NL + "         class=\"org.eclipse.gmf.runtime.diagram.ui.printing.render.providers.DiagramWithPrintGlobalActionHandlerProvider\"" + NL + "         id=\"";
   protected final String TEXT_39 = "PresentationPrint\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "         <ViewId id=\"";
-  protected final String TEXT_40 = "ID\">" + NL + "            <ElementType class=\"org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart\">" + NL + "               <GlobalActionId actionId=\"print\"/>" + NL + "            </ElementType>" + NL + "         </ViewId>" + NL + "      </GlobalActionHandlerProvider>";
+  protected final String TEXT_40 = "\">" + NL + "            <ElementType class=\"org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart\">" + NL + "               <GlobalActionId actionId=\"print\"/>" + NL + "            </ElementType>" + NL + "         </ViewId>" + NL + "      </GlobalActionHandlerProvider>";
   protected final String TEXT_41 = NL + "      <GlobalActionHandlerProvider" + NL + "         class=\"org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider\"" + NL + "         id=\"";
   protected final String TEXT_42 = "PresentationIDE\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "         <ViewId id=\"";
-  protected final String TEXT_43 = "ID\">" + NL + "            <ElementType class=\"org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart\">" + NL + "               <GlobalActionId actionId=\"bookmark\"/>" + NL + "            </ElementType>" + NL + "         </ViewId>" + NL + "      </GlobalActionHandlerProvider>" + NL + "      <GlobalActionHandlerProvider" + NL + "            class=\"org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider\"" + NL + "            id=\"";
+  protected final String TEXT_43 = "\">" + NL + "            <ElementType class=\"org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart\">" + NL + "               <GlobalActionId actionId=\"bookmark\"/>" + NL + "            </ElementType>" + NL + "         </ViewId>" + NL + "      </GlobalActionHandlerProvider>" + NL + "      <GlobalActionHandlerProvider" + NL + "            class=\"org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider\"" + NL + "            id=\"";
   protected final String TEXT_44 = "Render\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "         <ViewId id=\"";
-  protected final String TEXT_45 = "ID\">" + NL + "            <ElementType class=\"org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart\">" + NL + "               <GlobalActionId actionId=\"cut\"/>" + NL + "               <GlobalActionId actionId=\"copy\"/>" + NL + "               <GlobalActionId actionId=\"paste\"/>" + NL + "            </ElementType>" + NL + "         </ViewId>" + NL + "      </GlobalActionHandlerProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.diagram.core.viewProviders\">" + NL + "      <viewProvider class=\"";
+  protected final String TEXT_45 = "\">" + NL + "            <ElementType class=\"org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart\">" + NL + "               <GlobalActionId actionId=\"cut\"/>" + NL + "               <GlobalActionId actionId=\"copy\"/>" + NL + "               <GlobalActionId actionId=\"paste\"/>" + NL + "            </ElementType>" + NL + "         </ViewId>" + NL + "      </GlobalActionHandlerProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.diagram.core.viewProviders\">" + NL + "      <viewProvider class=\"";
   protected final String TEXT_46 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "         <context viewClass=\"org.eclipse.gmf.runtime.notation.Diagram\" semanticHints=\"";
   protected final String TEXT_47 = "\"/>" + NL + "         <context viewClass=\"org.eclipse.gmf.runtime.notation.Node\" semanticHints=\"\"/>" + NL + "         <context viewClass=\"org.eclipse.gmf.runtime.notation.Edge\" semanticHints=\"\"/>" + NL + "      </viewProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.diagram.ui.editpartProviders\">" + NL + "      <editpartProvider class=\"";
   protected final String TEXT_48 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </editpartProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension point=\"org.eclipse.gmf.runtime.emf.core.MetaModelProviders\">" + NL + "      <MetaModelProvider class=\"";
@@ -72,7 +72,7 @@ public class PluginXML
   protected final String TEXT_55 = "\">" + NL + "         <MarkerType name=\"";
   protected final String TEXT_56 = "\"/>" + NL + "         <Priority name=\"Medium\"/>" + NL + "      </MarkerNavigationProvider>" + NL + "   </extension>" + NL + "" + NL + "   <extension id=\"ValidationContributionItemProvider\" name=\"Validation\"" + NL + "      point=\"org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders\">" + NL + "      <contributionItemProvider checkPluginLoaded=\"true\"" + NL + "         class=\"";
   protected final String TEXT_57 = "\">" + NL + "         <Priority name=\"Medium\"/>" + NL + "         <partContribution id=\"";
-  protected final String TEXT_58 = "ID\">" + NL + "            <partMenuGroup menubarPath=\"/diagramMenu/\" id=\"validationGroup\"/>" + NL + "            <partAction id=\"validateAction\" menubarPath=\"/diagramMenu/validationGroup\"/>" + NL + "         </partContribution>" + NL + "      </contributionItemProvider>" + NL + "   </extension>" + NL + "   " + NL + "   <extension id=\"";
+  protected final String TEXT_58 = "\">" + NL + "            <partMenuGroup menubarPath=\"/diagramMenu/\" id=\"validationGroup\"/>" + NL + "            <partAction id=\"validateAction\" menubarPath=\"/diagramMenu/validationGroup\"/>" + NL + "         </partContribution>" + NL + "      </contributionItemProvider>" + NL + "   </extension>" + NL + "   " + NL + "   <extension id=\"";
   protected final String TEXT_59 = "\" name=\"";
   protected final String TEXT_60 = " problems\" point=\"org.eclipse.core.resources.markers\">" + NL + "      <super type=\"org.eclipse.core.resources.problemmarker\"/>   " + NL + "      <super type=\"org.eclipse.gmf.runtime.common.ui.services.marker\"/>" + NL + "      <persistent value=\"true\"/>      " + NL + "   </extension>";
   protected final String TEXT_61 = NL + "   ";
@@ -119,7 +119,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
     stringBuffer.append(TEXT_3);
     stringBuffer.append(editorGen.getDiagramFileExtension());
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(genDiagram.getEditorQualifiedClassName());
+    stringBuffer.append(editorGen.getEditor().getID());
     stringBuffer.append(TEXT_5);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_6);
@@ -129,11 +129,11 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
     stringBuffer.append(TEXT_8);
     stringBuffer.append(editorGen.getDiagramFileExtension());
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(genDiagram.getEditorQualifiedClassName());
+    stringBuffer.append(editorGen.getEditor().getQualifiedClassName());
     stringBuffer.append(TEXT_10);
     stringBuffer.append(genDiagram.getMatchingStrategyQualifiedClassName());
     stringBuffer.append(TEXT_11);
-    stringBuffer.append(genDiagram.getActionBarContributorQualifiedClassName());
+    stringBuffer.append(editorGen.getEditor().getActionBarContributorQualifiedClassName());
     stringBuffer.append(TEXT_12);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_13);
@@ -183,23 +183,23 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
     stringBuffer.append(TEXT_35);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_36);
-    stringBuffer.append(genDiagram.getEditorQualifiedClassName());
+    stringBuffer.append(editorGen.getEditor().getID());
     stringBuffer.append(TEXT_37);
     if (genPlugin.isPrintingEnabled()) {
     stringBuffer.append(TEXT_38);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_39);
-    stringBuffer.append(genDiagram.getEditorQualifiedClassName());
+    stringBuffer.append(editorGen.getEditor().getID());
     stringBuffer.append(TEXT_40);
     }
     stringBuffer.append(TEXT_41);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_42);
-    stringBuffer.append(genDiagram.getEditorQualifiedClassName());
+    stringBuffer.append(editorGen.getEditor().getID());
     stringBuffer.append(TEXT_43);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_44);
-    stringBuffer.append(genDiagram.getEditorQualifiedClassName());
+    stringBuffer.append(editorGen.getEditor().getID());
     stringBuffer.append(TEXT_45);
     stringBuffer.append(genDiagram.getNotationViewProviderQualifiedClassName());
     stringBuffer.append(TEXT_46);
@@ -225,7 +225,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
     stringBuffer.append(TEXT_56);
     stringBuffer.append(genDiagram.getValidationProviderQualifiedClassName());
     stringBuffer.append(TEXT_57);
-    stringBuffer.append(genDiagram.getEditorQualifiedClassName());
+    stringBuffer.append(editorGen.getEditor().getID());
     stringBuffer.append(TEXT_58);
     stringBuffer.append(genDiagram.getValidationDiagnosticMarkerType());
     stringBuffer.append(TEXT_59);

@@ -6,10 +6,10 @@ final String modelID = genDiagram.getEditorGen().getModelID();
 List genLinks = genDiagram.getLinks();
 Collection allContainers = genDiagram.getAllContainers();
 %>
-package <%=genDiagram.getEditorPackageName()%>;
+package <%=genDiagram.getEditorGen().getEditor().getPackageName()%>;
 
 <%
-ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());
+ImportUtil importManager = new ImportUtil(genDiagram.getEditorGen().getEditor().getPackageName());
 
 importManager.addImport("org.eclipse.emf.ecore.EClass");
 importManager.addImport("org.eclipse.emf.ecore.EObject");

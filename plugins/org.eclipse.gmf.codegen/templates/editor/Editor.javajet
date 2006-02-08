@@ -1,9 +1,12 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="EditorGenerator"
     imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
-<%GenDiagram genDiagram = (GenDiagram) argument;%>
-package <%=genDiagram.getEditorPackageName()%>;
+<%
+final GenEditorView genEditor = (GenEditorView) argument;
+final GenDiagram genDiagram = genEditor.getEditorGen().getDiagram();
+%>
+package <%=genEditor.getPackageName()%>;
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());%>
+<%ImportUtil importManager = new ImportUtil(genEditor.getPackageName());%>
 import org.eclipse.draw2d.DelegatingLayout;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.LayeredPane;
@@ -17,12 +20,12 @@ import org.eclipse.ui.ide.IGotoMarker;
 /**
  * @generated
  */
-public class <%=genDiagram.getEditorClassName()%> extends FileDiagramEditor implements IGotoMarker {
+public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements IGotoMarker {
 
 	/**
 	 * @generated
 	 */
-	public <%=genDiagram.getEditorClassName()%>() {
+	public <%=genEditor.getClassName()%>() {
 		super(<%=genDiagram.getPalette() != null%>);
 	}
 

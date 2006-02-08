@@ -24,15 +24,15 @@ public class ActionBarContributorGenerator
   public String generate(Object argument)
   {
     StringBuffer stringBuffer = new StringBuffer();
-    GenDiagram diagram = (GenDiagram) argument;
+    GenEditorView editorView = (GenEditorView) argument;
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(diagram.getEditorPackageName());
+    stringBuffer.append(editorView.getPackageName());
     stringBuffer.append(TEXT_2);
-    stringBuffer.append(diagram.getActionBarContributorClassName());
+    stringBuffer.append(editorView.getActionBarContributorClassName());
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(diagram.getEditorClassName());
+    stringBuffer.append(editorView.getClassName());
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(diagram.getEditorGen().getPlugin().getActivatorClassName());
+    stringBuffer.append(editorView.getEditorGen().getPlugin().getActivatorClassName());
     stringBuffer.append(TEXT_5);
     stringBuffer.append(TEXT_6);
     return stringBuffer.toString();

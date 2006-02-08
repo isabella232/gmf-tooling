@@ -5,9 +5,9 @@ final GenPlugin genPlugin = (GenPlugin) argument;
 final GenDiagram genDiagram = genPlugin.getEditorGen().getDiagram();
 final GenModel genModel = genPlugin.getEditorGen().getDomainGenModel();
 %>
-package <%=genDiagram.getEditorPackageName()%>;
+package <%=genDiagram.getEditorGen().getEditor().getPackageName()%>;
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());%>
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditorGen().getEditor().getPackageName());%>
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class <%=genPlugin.getActivatorClassName()%> extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
-	public static final String EDITOR_ID = "<%=genDiagram.getEditorQualifiedClassName()%>ID";
+	public static final String EDITOR_ID = "<%=genPlugin.getEditorGen().getEditor().getID()%>";
 
 	/**
 	 * @generated

@@ -53,7 +53,7 @@ Iterator requiredBundleIterator = requiredPluginIDs.iterator();
     stringBuffer.append(TEXT_2);
     stringBuffer.append(genPlugin.getActivatorQualifiedClassName());
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(genPlugin.getEditorGen().getDiagram().getEditorPackageName());
+    stringBuffer.append(genPlugin.getEditorGen().getEditor().getPackageName());
     stringBuffer.append(TEXT_4);
     if (genPlugin.isPrintingEnabled()) {
     stringBuffer.append(TEXT_5);

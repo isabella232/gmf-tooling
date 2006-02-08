@@ -30,9 +30,9 @@ public class LoadResourceActionGenerator
     StringBuffer stringBuffer = new StringBuffer();
     GenDiagram genDiagram = (GenDiagram) argument;
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(genDiagram.getEditorPackageName());
+    stringBuffer.append(genDiagram.getEditorGen().getEditor().getPackageName());
     stringBuffer.append(TEXT_2);
-    ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());
+    ImportUtil importManager = new ImportUtil(genDiagram.getEditorGen().getEditor().getPackageName());
     stringBuffer.append(TEXT_3);
     importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_4);

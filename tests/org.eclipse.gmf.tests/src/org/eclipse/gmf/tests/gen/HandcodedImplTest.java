@@ -27,6 +27,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
@@ -100,7 +101,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkPackageName(state, "PackageNames:editCommands", genDiagram.getEditCommandsPackageName());
 		checkPackageName(state, "PackageNames:editParts", genDiagram.getEditPartsPackageName());
 		checkPackageName(state, "PackageNames:editPolicies", genDiagram.getEditPoliciesPackageName());
-		checkPackageName(state, "PackageNames:editor", genDiagram.getEditorPackageName());
+		checkPackageName(state, "GenEditorView:packageName", genDiagram.getEditorGen().getEditor().getPackageName());
 		checkPackageName(state, "PackageNames:providers", genDiagram.getProvidersPackageName());
 		checkPackageName(state, "PackageNames:notationViewFactories", genDiagram.getNotationViewFactoriesPackageName());
 
@@ -116,6 +117,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 	public void testClassNames() {
 		GenDiagram genDiagram = myGenModel;
 		Set state = new HashSet();
+		GenEditorView  genEditor = myGenModel.getEditorGen().getEditor();
 
 		// class names check
 		checkClassName(state, "EditPartCandies:ReorientConnectionViewCommand", genDiagram.getReorientConnectionViewCommandClassName(), genDiagram.getReorientConnectionViewCommandQualifiedClassName());
@@ -137,13 +139,13 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkClassName(state, "ProviderClassNames:AbstractParser", genDiagram.getAbstractParserClassName(), genDiagram.getAbstractParserQualifiedClassName());
 		checkClassName(state, "ProviderClassNames:StructuralFeatureParser", genDiagram.getStructuralFeatureParserClassName(), genDiagram.getStructuralFeatureParserQualifiedClassName());
 		checkClassName(state, "ProviderClassNames:StructuralFeaturesParser", genDiagram.getStructuralFeaturesParserClassName(), genDiagram.getStructuralFeaturesParserQualifiedClassName());
-		checkClassName(state, "EditorCandies:ActionBarContributor", genDiagram.getActionBarContributorClassName(), genDiagram.getActionBarContributorQualifiedClassName());
+		checkClassName(state, "GenEditorView:ActionBarContributor", genEditor.getActionBarContributorClassName(), genEditor.getActionBarContributorQualifiedClassName());
 		checkClassName(state, "EditorCandies:CreationWizard", genDiagram.getCreationWizardClassName(), genDiagram.getCreationWizardQualifiedClassName());
 		checkClassName(state, "EditorCandies:CreationWizardPage", genDiagram.getCreationWizardPageClassName(), genDiagram.getCreationWizardPageQualifiedClassName());
 		checkClassName(state, "EditorCandies:DiagramEditorUtil", genDiagram.getDiagramEditorUtilClassName(), genDiagram.getDiagramEditorUtilQualifiedClassName());
 		checkClassName(state, "EditorCandies:DiagramFileCreator", genDiagram.getDiagramFileCreatorClassName(), genDiagram.getDiagramFileCreatorQualifiedClassName());
 		checkClassName(state, "EditorCandies:DocumentProvider", genDiagram.getDocumentProviderClassName(), genDiagram.getDocumentProviderQualifiedClassName());
-		checkClassName(state, "EditorCandies:Editor", genDiagram.getEditorClassName(), genDiagram.getEditorQualifiedClassName());
+		checkClassName(state, "GenEditorView:className", genEditor.getClassName(), genEditor.getQualifiedClassName());
 		checkClassName(state, "EditorCandies:InitDiagramFileAction", genDiagram.getInitDiagramFileActionClassName(), genDiagram.getInitDiagramFileActionQualifiedClassName());
 		checkClassName(state, "EditorCandies:MatchingStrategy", genDiagram.getMatchingStrategyClassName(), genDiagram.getMatchingStrategyQualifiedClassName());
 		checkClassName(state, "EditorCandies:PreferenceInitializer", genDiagram.getPreferenceInitializerClassName(), genDiagram.getPreferenceInitializerQualifiedClassName());

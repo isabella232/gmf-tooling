@@ -23,6 +23,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/audits"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/diagram"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/plugin"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/editor"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/domainGenModel"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/packageNamePrefix"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/modelID"/>
@@ -43,6 +44,15 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getAllContainers"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getElementInitializersClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenDiagram/getElementInitializersPackageName"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenEditorView">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorView/editorGen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorView/packageName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorView/actionBarContributorClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorView/className"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorView/iD"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenEditorView/getActionBarContributorQualifiedClassName"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenEditorView/getQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//BatchValidation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationProviderClassName"/>
@@ -90,7 +100,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editCommandsPackageName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editPartsPackageName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editPoliciesPackageName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/editorPackageName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/providersPackageName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//PackageNames/notationViewFactoriesPackageName"/>
     </genClasses>
@@ -100,26 +109,22 @@
       <genOperations ecoreOperation="gmfgen.ecore#//LinkConstraints/getLinkCreationConstraintsQualifiedClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//EditorCandies">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/actionBarContributorClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/creationWizardClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/creationWizardPageClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/diagramEditorUtilClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/diagramFileCreatorClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/documentProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/editorClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/initDiagramFileActionClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/matchingStrategyClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/preferenceInitializerClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/visualIDRegistryClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/elementChooserClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//EditorCandies/loadResourceActionClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getActionBarContributorQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getCreationWizardQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getCreationWizardPageQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getDiagramEditorUtilQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getDiagramFileCreatorQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getDocumentProviderQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getEditorQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getInitDiagramFileActionQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getMatchingStrategyQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//EditorCandies/getPreferenceInitializerQualifiedClassName"/>

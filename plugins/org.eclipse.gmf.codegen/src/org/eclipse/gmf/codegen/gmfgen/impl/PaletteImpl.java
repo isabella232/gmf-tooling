@@ -225,7 +225,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	public String getPackageName() {
 		String value = getPackageNameGen();
 		if (GenCommonBaseImpl.isEmpty(value)) {
-			value = getDiagram().getEditorPackageName();
+			value = getDiagram().getEditorGen().getEditor().getPackageName();
 		}
 		return value;
 	}

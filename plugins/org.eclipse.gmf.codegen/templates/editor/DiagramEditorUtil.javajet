@@ -3,9 +3,9 @@
 <%
 GenDiagram genDiagram = (GenDiagram) argument;
 GenEditorGenerator editorGen = genDiagram.getEditorGen();%>
-package <%=genDiagram.getEditorPackageName()%>;
+package <%=editorGen.getEditor().getPackageName()%>;
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());%>
+<%ImportUtil importManager = new ImportUtil(editorGen.getEditor().getPackageName());%>
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.resources.IFile;

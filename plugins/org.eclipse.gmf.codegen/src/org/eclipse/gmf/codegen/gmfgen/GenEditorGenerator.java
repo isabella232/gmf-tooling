@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getAudits <em>Audits</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPlugin <em>Plugin</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getEditor <em>Editor</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDomainGenModel <em>Domain Gen Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPackageNamePrefix <em>Package Name Prefix</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getModelID <em>Model ID</em>}</li>
@@ -114,6 +115,34 @@ public interface GenEditorGenerator extends EObject {
 	 * @generated
 	 */
 	void setPlugin(GenPlugin value);
+
+	/**
+	 * Returns the value of the '<em><b>Editor</b></em>' containment reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView#getEditorGen <em>Editor Gen</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Editor</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Editor</em>' containment reference.
+	 * @see #setEditor(GenEditorView)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorGenerator_Editor()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorView#getEditorGen
+	 * @model opposite="editorGen" containment="true" required="true"
+	 * @generated
+	 */
+	GenEditorView getEditor();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getEditor <em>Editor</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Editor</em>' containment reference.
+	 * @see #getEditor()
+	 * @generated
+	 */
+	void setEditor(GenEditorView value);
 
 	/**
 	 * Returns the value of the '<em><b>Domain Gen Model</b></em>' reference.
@@ -224,6 +253,9 @@ public interface GenEditorGenerator extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Distinct even when sameFileForDiagramAndModel is true. On init diagram, we just copy domain model element to new file with that extension. I won't try to set this equal to domainFileExtension
+	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Diagram File Extension</em>' attribute.
 	 * @see #setDiagramFileExtension(String)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorGenerator_DiagramFileExtension()

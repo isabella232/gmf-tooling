@@ -34,17 +34,20 @@ public class EditorGenerator
   public String generate(Object argument)
   {
     StringBuffer stringBuffer = new StringBuffer();
-    GenDiagram genDiagram = (GenDiagram) argument;
+    
+final GenEditorView genEditor = (GenEditorView) argument;
+final GenDiagram genDiagram = genEditor.getEditorGen().getDiagram();
+
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(genDiagram.getEditorPackageName());
+    stringBuffer.append(genEditor.getPackageName());
     stringBuffer.append(TEXT_2);
-    ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());
+    ImportUtil importManager = new ImportUtil(genEditor.getPackageName());
     stringBuffer.append(TEXT_3);
     importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(genDiagram.getEditorClassName());
+    stringBuffer.append(genEditor.getClassName());
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(genDiagram.getEditorClassName());
+    stringBuffer.append(genEditor.getClassName());
     stringBuffer.append(TEXT_6);
     stringBuffer.append(genDiagram.getPalette() != null);
     stringBuffer.append(TEXT_7);

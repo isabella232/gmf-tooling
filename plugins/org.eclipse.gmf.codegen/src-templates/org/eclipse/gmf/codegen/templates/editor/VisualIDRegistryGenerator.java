@@ -130,10 +130,10 @@ List genLinks = genDiagram.getLinks();
 Collection allContainers = genDiagram.getAllContainers();
 
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(genDiagram.getEditorPackageName());
+    stringBuffer.append(genDiagram.getEditorGen().getEditor().getPackageName());
     stringBuffer.append(TEXT_2);
     
-ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());
+ImportUtil importManager = new ImportUtil(genDiagram.getEditorGen().getEditor().getPackageName());
 
 importManager.addImport("org.eclipse.emf.ecore.EClass");
 importManager.addImport("org.eclipse.emf.ecore.EObject");

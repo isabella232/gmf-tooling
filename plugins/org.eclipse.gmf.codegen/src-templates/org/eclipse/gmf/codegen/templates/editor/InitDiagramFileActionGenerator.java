@@ -259,7 +259,7 @@ public class InitDiagramFileActionGenerator {
     
 final GenDiagram genDiagram = (GenDiagram) argument;
 final GenEditorGenerator editorGen = genDiagram.getEditorGen();
-final ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());
+final ImportUtil importManager = new ImportUtil(editorGen.getEditor().getPackageName());
 final String pluginActivatorClass = importManager.getImportedName(editorGen.getPlugin().getActivatorQualifiedClassName());
 final String modelID = editorGen.getModelID();
 List genLinks = genDiagram.getLinks();
@@ -278,7 +278,7 @@ for (Iterator topLevelNodes = genDiagram.getTopLevelNodes().iterator(); topLevel
 boolean generateGetCompartment = false;
 
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(genDiagram.getEditorPackageName());
+    stringBuffer.append(editorGen.getEditor().getPackageName());
     stringBuffer.append(TEXT_2);
     
 importManager.addImport("java.io.IOException");

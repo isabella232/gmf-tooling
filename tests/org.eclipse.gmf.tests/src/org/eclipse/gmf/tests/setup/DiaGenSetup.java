@@ -69,6 +69,7 @@ public class DiaGenSetup implements DiaGenSource {
 		GenEditorGenerator genBurden = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
 		myGenDiagram.setDomainDiagramElement(gmm.findGenClass(domainSource.getDiagramElement()));
 		genBurden.setDomainGenModel(myGenDiagram.getDomainDiagramElement().getGenModel());
+		genBurden.setEditor(GMFGenFactory.eINSTANCE.createGenEditorView());
 		myGenDiagram.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getDiagram()));
 		myGenDiagram.setPalette(createPalette());
 		myGenDiagram.setViewmap(createDiagramViewmap());

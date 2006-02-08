@@ -1,7 +1,7 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="PreferencesInitializerGenerator"
     imports="org.eclipse.gmf.codegen.gmfgen.*"%>
-<%GenDiagram genDiagram = (GenDiagram) argument;%>
-package <%=genDiagram.getEditorPackageName()%>;
+<%GenEditorGenerator editorGen = (GenEditorGenerator) argument;%>
+package <%=editorGen.getEditor().getPackageName()%>;
 
 import org.eclipse.gmf.runtime.diagram.ui.preferences.DiagramPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -9,12 +9,12 @@ import org.eclipse.jface.preference.IPreferenceStore;
 /**
  * @generated
  */
-public class <%=genDiagram.getPreferenceInitializerClassName()%> extends DiagramPreferenceInitializer {
+public class <%=editorGen.getDiagram().getPreferenceInitializerClassName()%> extends DiagramPreferenceInitializer {
 
 	/**
 	 * @generated
 	 */
 	protected IPreferenceStore getPreferenceStore() {
-		return <%=genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()%>.getInstance().getPreferenceStore();
+		return <%=editorGen.getPlugin().getActivatorQualifiedClassName()%>.getInstance().getPreferenceStore();
 	}
 }

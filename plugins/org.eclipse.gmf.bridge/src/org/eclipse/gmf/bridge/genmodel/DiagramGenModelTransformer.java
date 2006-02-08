@@ -120,6 +120,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if (myGenModel == null) {
 			myGenModel = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
 		}
+		// init editor as well - transformer does not set any property to it, just make sure it's not null
+		if (myGenModel.getEditor() == null) {
+			myGenModel.setEditor(GMFGenFactory.eINSTANCE.createGenEditorView());
+		}
 		return myGenModel;
 	}
 

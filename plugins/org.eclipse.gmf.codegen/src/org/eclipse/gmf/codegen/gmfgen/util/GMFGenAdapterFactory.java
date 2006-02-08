@@ -113,6 +113,9 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGenDiagram(GenDiagram object) {
 				return createGenDiagramAdapter();
 			}
+			public Object caseGenEditorView(GenEditorView object) {
+				return createGenEditorViewAdapter();
+			}
 			public Object caseBatchValidation(BatchValidation object) {
 				return createBatchValidationAdapter();
 			}
@@ -318,6 +321,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGenDiagramAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorView <em>Gen Editor View</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorView
+	 * @generated
+	 */
+	public Adapter createGenEditorViewAdapter() {
 		return null;
 	}
 
