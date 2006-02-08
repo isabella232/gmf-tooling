@@ -98,11 +98,11 @@
 			<property name="version" value="${emfTransactionUpdateVersion}" />
 			<property name="updateSite" value="${emfTransactionUpdateSite}" />
 		</ant>
-		<echo message="Installing EMF Workbench"/>
+		<echo message="Installing EMF Workspace"/>
 		<ant antfile="${scripts}/update.xml" target="installFeature">
-			<property name="featureId" value="${emfWorkbenchFeatureId}" />
-			<property name="version" value="${emfWorkbenchUpdateVersion}" />
-			<property name="updateSite" value="${emfWorkbenchUpdateSite}" />
+			<property name="featureId" value="${emfWorkspaceFeatureId}" />
+			<property name="version" value="${emfWorkspaceUpdateVersion}" />
+			<property name="updateSite" value="${emfWorkspaceUpdateSite}" />
 		</ant>
 <!-- Alternative, download zip method
 		<available file="${baseLocationRoot}/${emfZipName}" property="emfZipExists" />
