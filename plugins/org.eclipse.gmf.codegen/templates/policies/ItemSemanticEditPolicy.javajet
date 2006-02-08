@@ -2,7 +2,7 @@
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.*"
 	skeleton="../common.skeleton" %>
 <%
-GenDiagram diagram = (GenDiagram) argument;
+GenDiagram diagram = (GenDiagram) ((Object[]) argument)[0];
 ImportUtil importManager = new ImportUtil(diagram.getEditPoliciesPackageName());
 String pluginActivatorClass = importManager.getImportedName(diagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
 %>

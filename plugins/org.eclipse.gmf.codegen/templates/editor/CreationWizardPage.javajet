@@ -1,9 +1,11 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="CreationWizardPageGenerator"
     imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
-GenDiagram genDiagram = (GenDiagram) argument;
-GenEditorGenerator editorGen = genDiagram.getEditorGen();%>
-package <%=genDiagram.getEditorGen().getEditor().getPackageName()%>;
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final GenEditorGenerator editorGen = genDiagram.getEditorGen();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+
+importManager.emitPackageStatement(stringBuffer);%>
 
 import java.io.InputStream;
 
@@ -15,10 +17,8 @@ import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreat
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
-<%
-ImportUtil importManager = new ImportUtil(genDiagram.getEditorGen().getEditor().getPackageName());
-importManager.markImportLocation(stringBuffer);
-%>
+
+<%importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated

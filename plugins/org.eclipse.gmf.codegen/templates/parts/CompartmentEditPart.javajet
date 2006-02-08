@@ -2,7 +2,7 @@
 	imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"
 	skeleton="../common.skeleton"%>
 <%
-GenCompartment genCompartment = (GenCompartment) argument;
+GenCompartment genCompartment = (GenCompartment) ((Object[]) argument)[0];
 GenDiagram genDiagram = genCompartment.getDiagram();
 %>
 package <%=genDiagram.getEditPartsPackageName()%>;

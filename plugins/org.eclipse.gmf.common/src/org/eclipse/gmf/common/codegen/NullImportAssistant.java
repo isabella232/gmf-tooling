@@ -16,6 +16,31 @@ package org.eclipse.gmf.common.codegen;
  * @author artem
  */
 public class NullImportAssistant implements ImportAssistant {
+	private final String myPackageName;
+
+	/**
+	 * No-op assistant with no package statement
+	 */
+	public NullImportAssistant() {
+		this("");
+	}
+	
+	public NullImportAssistant(String packageName) {
+		myPackageName = packageName;
+	}
+
+	public String getPackageName() {
+		return myPackageName;
+	}
+
+	public void emitPackageStatement(StringBuffer stringBuffer) {
+		if (myPackageName == null || myPackageName.trim().length() == 0) {
+			return;
+		}
+		stringBuffer.append("package ");
+		stringBuffer.append(myPackageName);
+		stringBuffer.append(';');
+	}
 
 	/*
 	 * NO-OP

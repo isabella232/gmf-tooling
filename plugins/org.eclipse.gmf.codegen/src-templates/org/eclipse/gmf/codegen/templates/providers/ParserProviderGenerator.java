@@ -70,7 +70,7 @@ public class ParserProviderGenerator
   public String generate(Object argument)
   {
     StringBuffer stringBuffer = new StringBuffer();
-    GenDiagram genDiagram = (GenDiagram) argument;
+    GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getProvidersPackageName());
     stringBuffer.append(TEXT_2);

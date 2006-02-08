@@ -1,11 +1,12 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="DiagramEditorUtilGenerator"
     imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
-GenDiagram genDiagram = (GenDiagram) argument;
-GenEditorGenerator editorGen = genDiagram.getEditorGen();%>
-package <%=editorGen.getEditor().getPackageName()%>;
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final GenEditorGenerator editorGen = genDiagram.getEditorGen();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 
-<%ImportUtil importManager = new ImportUtil(editorGen.getEditor().getPackageName());%>
+importManager.emitPackageStatement(stringBuffer);%>
+
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.resources.IFile;

@@ -99,7 +99,7 @@ public class DiagramItemSemanticEditPolicyGenerator {
   protected final String TEXT_80 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Command getDuplicateCommand(DuplicateElementsRequest req) {" + NL + "\t\treturn getMSLWrapper(new DuplicateAnythingCommand(req));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class DuplicateAnythingCommand extends DuplicateEObjectsCommand {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic DuplicateAnythingCommand(DuplicateElementsRequest req) {" + NL + "\t\t\tsuper(req.getLabel(), req.getElementsToBeDuplicated(), req.getAllDuplicatedElementsMap());" + NL + "\t\t}" + NL + "\t}" + NL + "}";
   protected final String TEXT_81 = NL;
 
-	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
+	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
 		if (feature.getGenClass().isExternalInterface()) {
 // Using EMF reflective method to access feature value
@@ -143,7 +143,7 @@ public class DiagramItemSemanticEditPolicyGenerator {
 		return result.toString();
 	}
 	
-	protected final String getFeatureValueSetterPrefix(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
+	protected final String getFeatureValueSetterPrefix(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
 		if (feature.getGenClass().isExternalInterface()) {
 // Using EMF reflective method to access feature value
@@ -186,7 +186,7 @@ public class DiagramItemSemanticEditPolicyGenerator {
 		return result.toString();
 	}
  
-	protected final String getMetaClassAccessor(GenClass genClass, ImportUtil importManager) {
+	protected final String getMetaClassAccessor(GenClass genClass, ImportAssistant importManager) {
 		StringBuffer buf = new StringBuffer();
 		buf.append(importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()))
 			.append(".eINSTANCE.get") //$NON-NLS-1$
@@ -199,7 +199,7 @@ public class DiagramItemSemanticEditPolicyGenerator {
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-GenDiagram genDiagram = (GenDiagram) argument;
+GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getEditPoliciesPackageName());

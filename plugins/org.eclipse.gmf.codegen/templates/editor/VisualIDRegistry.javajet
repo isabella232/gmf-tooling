@@ -1,16 +1,15 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="VisualIDRegistryGenerator"
 	imports="org.eclipse.gmf.codegen.gmfgen.* java.util.* org.eclipse.gmf.common.codegen.*"%>
 <%
-final GenDiagram genDiagram = (GenDiagram) argument;
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final String modelID = genDiagram.getEditorGen().getModelID();
-List genLinks = genDiagram.getLinks();
-Collection allContainers = genDiagram.getAllContainers();
-%>
-package <%=genDiagram.getEditorGen().getEditor().getPackageName()%>;
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+final List genLinks = genDiagram.getLinks();
+final Collection allContainers = genDiagram.getAllContainers();
+
+importManager.emitPackageStatement(stringBuffer);%>
 
 <%
-ImportUtil importManager = new ImportUtil(genDiagram.getEditorGen().getEditor().getPackageName());
-
 importManager.addImport("org.eclipse.emf.ecore.EClass");
 importManager.addImport("org.eclipse.emf.ecore.EObject");
 importManager.addImport("org.eclipse.gmf.runtime.notation.View");

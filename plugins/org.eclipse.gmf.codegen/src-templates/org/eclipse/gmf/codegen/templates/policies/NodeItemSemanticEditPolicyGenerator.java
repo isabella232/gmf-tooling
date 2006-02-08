@@ -382,7 +382,7 @@ public class NodeItemSemanticEditPolicyGenerator {
   protected final String TEXT_363 = NL + "}";
   protected final String TEXT_364 = NL;
 
-	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
+	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
 		if (feature.getGenClass().isExternalInterface()) {
 // Using EMF reflective method to access feature value
@@ -426,7 +426,7 @@ public class NodeItemSemanticEditPolicyGenerator {
 		return result.toString();
 	}
 	
-	protected final String getFeatureValueSetterPrefix(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
+	protected final String getFeatureValueSetterPrefix(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
 		if (feature.getGenClass().isExternalInterface()) {
 // Using EMF reflective method to access feature value
@@ -469,7 +469,7 @@ public class NodeItemSemanticEditPolicyGenerator {
 		return result.toString();
 	}
  
-	protected final String getMetaClassAccessor(GenClass genClass, ImportUtil importManager) {
+	protected final String getMetaClassAccessor(GenClass genClass, ImportAssistant importManager) {
 		StringBuffer buf = new StringBuffer();
 		buf.append(importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()))
 			.append(".eINSTANCE.get") //$NON-NLS-1$
@@ -482,7 +482,7 @@ public class NodeItemSemanticEditPolicyGenerator {
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-GenNode genNode = (GenNode) argument;
+GenNode genNode = (GenNode) ((Object[]) argument)[0];
 GenDiagram genDiagram = genNode.getDiagram();
 
     stringBuffer.append(TEXT_1);

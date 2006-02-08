@@ -140,7 +140,7 @@ public class ChildContainerCanonicalEditPolicyGenerator {
   protected final String TEXT_121 = NL + NL + "}";
   protected final String TEXT_122 = NL;
 
-	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
+	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
 		if (feature.getGenClass().isExternalInterface()) {
 // Using EMF reflective method to access feature value
@@ -184,7 +184,7 @@ public class ChildContainerCanonicalEditPolicyGenerator {
 		return result.toString();
 	}
 	
-	protected final String getFeatureValueSetterPrefix(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
+	protected final String getFeatureValueSetterPrefix(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
 		if (feature.getGenClass().isExternalInterface()) {
 // Using EMF reflective method to access feature value
@@ -227,7 +227,7 @@ public class ChildContainerCanonicalEditPolicyGenerator {
 		return result.toString();
 	}
  
-	protected final String getMetaClassAccessor(GenClass genClass, ImportUtil importManager) {
+	protected final String getMetaClassAccessor(GenClass genClass, ImportAssistant importManager) {
 		StringBuffer buf = new StringBuffer();
 		buf.append(importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()))
 			.append(".eINSTANCE.get") //$NON-NLS-1$
@@ -240,7 +240,7 @@ public class ChildContainerCanonicalEditPolicyGenerator {
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-GenChildContainer genContainer = (GenChildContainer) argument;
+GenChildContainer genContainer = (GenChildContainer) ((Object[]) argument)[0];
 GenDiagram genDiagram = genContainer.getDiagram();
 
     stringBuffer.append(TEXT_1);

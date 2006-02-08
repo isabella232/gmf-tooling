@@ -1,8 +1,11 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="CreationWizardGenerator"
-    imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.*"%>
-<%GenDiagram genDiagram = (GenDiagram) argument;%>
-<%GenModel genModel = genDiagram.getEditorGen().getDomainGenModel();%>
-package <%=genDiagram.getEditorGen().getEditor().getPackageName()%>;
+    imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final GenModel genModel = genDiagram.getEditorGen().getDomainGenModel();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+
+importManager.emitPackageStatement(stringBuffer);%>
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.wizards.EditorCreationWizard;
 import org.eclipse.jface.viewers.IStructuredSelection;

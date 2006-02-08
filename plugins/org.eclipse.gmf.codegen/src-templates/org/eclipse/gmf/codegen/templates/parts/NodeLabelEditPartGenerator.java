@@ -51,7 +51,7 @@ public class NodeLabelEditPartGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-GenNodeLabel genLabel = (GenNodeLabel) argument;
+GenNodeLabel genLabel = (GenNodeLabel) ((Object[]) argument)[0];
 GenDiagram genDiagram = genLabel.getDiagram();
 boolean isParentFlowLayout = !genLabel.getNode().isListLayout();
 

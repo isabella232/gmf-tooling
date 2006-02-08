@@ -1,6 +1,7 @@
 package org.eclipse.gmf.codegen.templates.editor;
 
 import org.eclipse.gmf.codegen.gmfgen.*;
+import org.eclipse.gmf.common.codegen.*;
 
 public class ActionBarContributorGenerator
 {
@@ -14,27 +15,28 @@ public class ActionBarContributorGenerator
   }
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
-  protected final String TEXT_1 = "package ";
-  protected final String TEXT_2 = ";" + NL + "" + NL + "import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramActionBarContributor;" + NL + "" + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_3 = " extends DiagramActionBarContributor {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Class getEditorClass() {" + NL + "\t\treturn ";
-  protected final String TEXT_4 = ".class;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getEditorId() {" + NL + "\t\treturn ";
-  protected final String TEXT_5 = ".ID;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_6 = NL;
+  protected final String TEXT_1 = NL + "import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramActionBarContributor;" + NL + "" + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
+  protected final String TEXT_2 = " extends DiagramActionBarContributor {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Class getEditorClass() {" + NL + "\t\treturn ";
+  protected final String TEXT_3 = ".class;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getEditorId() {" + NL + "\t\treturn ";
+  protected final String TEXT_4 = ".ID;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_5 = NL;
 
   public String generate(Object argument)
   {
     StringBuffer stringBuffer = new StringBuffer();
-    GenEditorView editorView = (GenEditorView) argument;
+    
+final GenEditorView editorView = (GenEditorView) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+
+importManager.emitPackageStatement(stringBuffer);
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(editorView.getPackageName());
-    stringBuffer.append(TEXT_2);
     stringBuffer.append(editorView.getActionBarContributorClassName());
+    stringBuffer.append(TEXT_2);
+    stringBuffer.append(editorView.getClassName());
     stringBuffer.append(TEXT_3);
     stringBuffer.append(editorView.getClassName());
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(editorView.getClassName());
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(TEXT_6);
     return stringBuffer.toString();
   }
 }

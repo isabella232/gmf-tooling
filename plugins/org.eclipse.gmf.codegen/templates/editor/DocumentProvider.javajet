@@ -1,9 +1,11 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="DocumentProviderGenerator"
     imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
-<%GenDiagram genDiagram = (GenDiagram) argument;%>
-package <%=genDiagram.getEditorGen().getEditor().getPackageName()%>;
+<%
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditorGen().getEditor().getPackageName());%>
+importManager.emitPackageStatement(stringBuffer);%>
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;

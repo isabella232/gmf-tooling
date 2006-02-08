@@ -31,7 +31,7 @@ public class LinkLabelEditPartGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-GenLinkLabel genLabel = (GenLinkLabel) argument;
+GenLinkLabel genLabel = (GenLinkLabel) ((Object[]) argument)[0];
 GenDiagram genDiagram = genLabel.getDiagram();
 
     stringBuffer.append(TEXT_1);

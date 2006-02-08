@@ -1,6 +1,7 @@
 package org.eclipse.gmf.codegen.templates.editor;
 
 import org.eclipse.gmf.codegen.gmfgen.*;
+import org.eclipse.gmf.common.codegen.*;
 
 public class MatchingStrategyGenerator
 {
@@ -14,21 +15,22 @@ public class MatchingStrategyGenerator
   }
 
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
-  protected final String TEXT_1 = "package ";
-  protected final String TEXT_2 = ";" + NL + "" + NL + "import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditorMatchingStrategy;" + NL + "" + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_3 = " extends DiagramDocumentEditorMatchingStrategy {}";
-  protected final String TEXT_4 = NL;
+  protected final String TEXT_1 = NL + "import org.eclipse.gmf.runtime.diagram.ui.resources.editor.parts.DiagramDocumentEditorMatchingStrategy;" + NL + "" + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
+  protected final String TEXT_2 = " extends DiagramDocumentEditorMatchingStrategy {}";
+  protected final String TEXT_3 = NL;
 
   public String generate(Object argument)
   {
     StringBuffer stringBuffer = new StringBuffer();
-    GenDiagram diagram = (GenDiagram) argument;
+    
+GenDiagram diagram = (GenDiagram) ((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+
+importManager.emitPackageStatement(stringBuffer);
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(diagram.getEditorGen().getEditor().getPackageName());
-    stringBuffer.append(TEXT_2);
     stringBuffer.append(diagram.getMatchingStrategyClassName());
+    stringBuffer.append(TEXT_2);
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(TEXT_4);
     return stringBuffer.toString();
   }
 }

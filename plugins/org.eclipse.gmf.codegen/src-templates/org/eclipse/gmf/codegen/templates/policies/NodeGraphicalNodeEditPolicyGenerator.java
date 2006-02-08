@@ -37,7 +37,7 @@ public class NodeGraphicalNodeEditPolicyGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-GenNode genNode = (GenNode) argument;
+GenNode genNode = (GenNode) ((Object[]) argument)[0];
 GenDiagram genDiagram = genNode.getDiagram();
 
     stringBuffer.append(TEXT_1);

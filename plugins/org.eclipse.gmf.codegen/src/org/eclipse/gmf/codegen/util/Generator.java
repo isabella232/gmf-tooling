@@ -51,6 +51,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
+import org.eclipse.gmf.common.codegen.ImportUtil;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
@@ -956,7 +957,8 @@ public class Generator implements Runnable {
 		IProgressMonitor pm = getNextStepMonitor();
 		try {
 			pm.beginTask(className, 4);
-			String genText = emitter.generate(new SubProgressMonitor(pm, 1), new Object[] { input });
+			final Object emitterArg = new Object[] {input, new ImportUtil(packageName)};
+			String genText = emitter.generate(new SubProgressMonitor(pm, 1), new Object[] { emitterArg });
 			IPackageFragment pf = myDestRoot.createPackageFragment(packageName, true, new SubProgressMonitor(pm, 1));
 			ICompilationUnit cu = pf.getCompilationUnit(className + ".java"); //$NON-NLS-1$
 			if (cu.exists()) {

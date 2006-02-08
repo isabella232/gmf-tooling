@@ -62,7 +62,7 @@ public class ViewProviderGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-GenDiagram genDiagram = (GenDiagram) argument;
+GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 List genLinks = genDiagram.getLinks();
 
     stringBuffer.append(TEXT_1);

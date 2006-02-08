@@ -1,14 +1,15 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="DiagramFileCreatorGenerator"
     imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
-GenDiagram genDiagram = (GenDiagram) argument;
-GenEditorGenerator editorGen = genDiagram.getEditorGen();%>
-package <%=editorGen.getEditor().getPackageName()%>;
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+final GenEditorGenerator editorGen = genDiagram.getEditorGen();
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
+
+importManager.emitPackageStatement(stringBuffer);%>
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.util.IDEEditorFileCreator;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.util.DiagramFileCreator;
 <%
-ImportUtil importManager = new ImportUtil(editorGen.getEditor().getPackageName());
 importManager.markImportLocation(stringBuffer);
 %>
 

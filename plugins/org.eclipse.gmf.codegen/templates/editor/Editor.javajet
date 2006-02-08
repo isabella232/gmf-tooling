@@ -1,12 +1,12 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="EditorGenerator"
     imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
-final GenEditorView genEditor = (GenEditorView) argument;
+final GenEditorView genEditor = (GenEditorView) ((Object[]) argument)[0];
 final GenDiagram genDiagram = genEditor.getEditorGen().getDiagram();
-%>
-package <%=genEditor.getPackageName()%>;
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 
-<%ImportUtil importManager = new ImportUtil(genEditor.getPackageName());%>
+importManager.emitPackageStatement(stringBuffer);%>
+
 import org.eclipse.draw2d.DelegatingLayout;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.LayeredPane;

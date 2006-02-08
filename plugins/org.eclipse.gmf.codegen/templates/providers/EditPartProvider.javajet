@@ -1,6 +1,6 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="EditPartProviderGenerator"
     imports="org.eclipse.gmf.codegen.gmfgen.*"%>
-<%GenDiagram genDiagram = (GenDiagram) argument;%>
+<%GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];%>
 package <%=genDiagram.getProvidersPackageName()%>;
 
 import java.lang.ref.WeakReference;

@@ -55,7 +55,7 @@ public class EditPartFactoryGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-final GenDiagram genDiagram = (GenDiagram) argument;
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final String modelID = genDiagram.getEditorGen().getModelID();
 
     stringBuffer.append(TEXT_1);

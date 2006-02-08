@@ -1,7 +1,7 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="LabelTextViewFactoryGenerator"
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
-GenLabel label = (GenLabel) argument;
+GenLabel label = (GenLabel) ((Object[]) argument)[0];
 GenDiagram genDiagram = label.getDiagram();
 ImportUtil importManager = new ImportUtil(genDiagram.getNotationViewFactoriesPackageName());
 %>

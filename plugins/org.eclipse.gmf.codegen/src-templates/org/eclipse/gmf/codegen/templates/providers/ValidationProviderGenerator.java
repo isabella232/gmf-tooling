@@ -30,7 +30,7 @@ public class ValidationProviderGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-GenDiagram genDiagram = (GenDiagram)argument;
+GenDiagram genDiagram = (GenDiagram)((Object[]) argument)[0];
 ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());
 String pluginActivatorClass = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
 

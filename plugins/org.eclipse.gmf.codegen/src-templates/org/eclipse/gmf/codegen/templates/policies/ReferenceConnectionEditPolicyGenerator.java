@@ -25,7 +25,7 @@ public class ReferenceConnectionEditPolicyGenerator
   public String generate(Object argument)
   {
     StringBuffer stringBuffer = new StringBuffer();
-    GenDiagram diagram = (GenDiagram) argument;
+    GenDiagram diagram = (GenDiagram) ((Object[]) argument)[0];
     stringBuffer.append(TEXT_1);
     stringBuffer.append(diagram.getEditPoliciesPackageName());
     stringBuffer.append(TEXT_2);

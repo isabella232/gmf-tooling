@@ -26,7 +26,7 @@ public class MetamodelSupportProviderGenerator
   public String generate(Object argument)
   {
     StringBuffer stringBuffer = new StringBuffer();
-    GenDiagram diagram = (GenDiagram) argument;
+    GenDiagram diagram = (GenDiagram) ((Object[]) argument)[0];
     stringBuffer.append(TEXT_1);
     stringBuffer.append(diagram.getProvidersPackageName());
     stringBuffer.append(TEXT_2);

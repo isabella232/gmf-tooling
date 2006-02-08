@@ -98,7 +98,7 @@ public class CompartmentItemSemanticEditPolicyGenerator {
   protected final String TEXT_79 = NL + NL + "}";
   protected final String TEXT_80 = NL;
 
-	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
+	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
 		if (feature.getGenClass().isExternalInterface()) {
 // Using EMF reflective method to access feature value
@@ -142,7 +142,7 @@ public class CompartmentItemSemanticEditPolicyGenerator {
 		return result.toString();
 	}
 	
-	protected final String getFeatureValueSetterPrefix(String containerName, GenFeature feature, boolean isContainerEObject, ImportUtil importManager) {
+	protected final String getFeatureValueSetterPrefix(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
 		if (feature.getGenClass().isExternalInterface()) {
 // Using EMF reflective method to access feature value
@@ -185,7 +185,7 @@ public class CompartmentItemSemanticEditPolicyGenerator {
 		return result.toString();
 	}
  
-	protected final String getMetaClassAccessor(GenClass genClass, ImportUtil importManager) {
+	protected final String getMetaClassAccessor(GenClass genClass, ImportAssistant importManager) {
 		StringBuffer buf = new StringBuffer();
 		buf.append(importManager.getImportedName(genClass.getGenPackage().getQualifiedPackageInterfaceName()))
 			.append(".eINSTANCE.get") //$NON-NLS-1$
@@ -198,7 +198,7 @@ public class CompartmentItemSemanticEditPolicyGenerator {
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-GenCompartment genCompartment = (GenCompartment) argument;
+GenCompartment genCompartment = (GenCompartment) ((Object[]) argument)[0];
 GenDiagram genDiagram = genCompartment.getDiagram();
 
     stringBuffer.append(TEXT_1);

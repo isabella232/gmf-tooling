@@ -2,9 +2,9 @@
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.common.codegen.*"
 	skeleton="../common.skeleton"%>
 <%
-final GenDiagram genDiagram = (GenDiagram) argument;
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final GenEditorGenerator editorGen = genDiagram.getEditorGen();
-final ImportUtil importManager = new ImportUtil(editorGen.getEditor().getPackageName());
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 final String pluginActivatorClass = importManager.getImportedName(editorGen.getPlugin().getActivatorQualifiedClassName());
 final String modelID = editorGen.getModelID();
 List genLinks = genDiagram.getLinks();
@@ -21,8 +21,8 @@ for (Iterator topLevelNodes = genDiagram.getTopLevelNodes().iterator(); topLevel
 }
 
 boolean generateGetCompartment = false;
-%>
-package <%=editorGen.getEditor().getPackageName()%>;
+
+importManager.emitPackageStatement(stringBuffer);%>
 
 <%
 importManager.addImport("java.io.IOException");

@@ -25,7 +25,7 @@ public class MarkerNavigationProviderGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-GenDiagram genDiagram = (GenDiagram)argument;
+GenDiagram genDiagram = (GenDiagram)((Object[]) argument)[0];
 ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());
 
     stringBuffer.append(TEXT_1);

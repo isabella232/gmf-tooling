@@ -22,6 +22,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  */
 public class ImportUtil implements ImportAssistant {
 	private final ImportManager myImportManager;
+	private final String myPackageName;
 
 	private StringBuffer importStringBuffer;
 
@@ -29,6 +30,20 @@ public class ImportUtil implements ImportAssistant {
 
 	public ImportUtil(String compilationUnitPackage) {
 		myImportManager = new ImportManager(compilationUnitPackage);
+		myPackageName = compilationUnitPackage;
+	}
+
+	public String getPackageName() {
+		return myPackageName;
+	}
+
+	public void emitPackageStatement(StringBuffer stringBuffer) {
+		if (myPackageName == null || myPackageName.trim().length() == 0) {
+			return;
+		}
+		stringBuffer.append("package ");
+		stringBuffer.append(myPackageName);
+		stringBuffer.append(';');
 	}
 
 	public void markImportLocation(StringBuffer stringBuffer, GenPackage genPackage) {

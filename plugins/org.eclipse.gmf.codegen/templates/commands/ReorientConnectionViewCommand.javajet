@@ -1,6 +1,6 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.commands" class="ReorientConnectionViewCommandGenerator"
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
-<%GenDiagram genDiagram = (GenDiagram) argument;%>
+<%GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];%>
 package <%=genDiagram.getEditCommandsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditCommandsPackageName());%>

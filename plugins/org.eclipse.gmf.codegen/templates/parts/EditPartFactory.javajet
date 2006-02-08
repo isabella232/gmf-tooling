@@ -1,7 +1,7 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="EditPartFactoryGenerator" 
 	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
-final GenDiagram genDiagram = (GenDiagram) argument;
+final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final String modelID = genDiagram.getEditorGen().getModelID();
 %>
 package <%=genDiagram.getEditPartsPackageName()%>;

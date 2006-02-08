@@ -41,7 +41,7 @@ public class LinkEditPartGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-GenLink genLink = (GenLink) argument;
+GenLink genLink = (GenLink) ((Object[]) argument)[0];
 GenDiagram genDiagram = genLink.getDiagram();
 
     stringBuffer.append(TEXT_1);

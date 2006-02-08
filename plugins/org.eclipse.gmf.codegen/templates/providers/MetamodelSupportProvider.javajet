@@ -1,6 +1,6 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="MetamodelSupportProviderGenerator"
     imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
-<%GenDiagram diagram = (GenDiagram) argument;%>
+<%GenDiagram diagram = (GenDiagram) ((Object[]) argument)[0];%>
 package <%=diagram.getProvidersPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(diagram.getProvidersPackageName());%>

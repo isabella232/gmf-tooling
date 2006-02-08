@@ -34,7 +34,7 @@ public class ExternalNodeLabelTextEditPartGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-GenExternalNodeLabel genLabel = (GenExternalNodeLabel) argument;
+GenExternalNodeLabel genLabel = (GenExternalNodeLabel) ((Object[]) argument)[0];
 GenDiagram genDiagram = genLabel.getDiagram();
 
     stringBuffer.append(TEXT_1);

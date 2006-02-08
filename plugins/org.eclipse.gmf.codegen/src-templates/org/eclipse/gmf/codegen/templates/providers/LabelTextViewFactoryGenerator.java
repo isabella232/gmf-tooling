@@ -30,7 +30,7 @@ public class LabelTextViewFactoryGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-GenLabel label = (GenLabel) argument;
+GenLabel label = (GenLabel) ((Object[]) argument)[0];
 GenDiagram genDiagram = label.getDiagram();
 ImportUtil importManager = new ImportUtil(genDiagram.getNotationViewFactoriesPackageName());
 
