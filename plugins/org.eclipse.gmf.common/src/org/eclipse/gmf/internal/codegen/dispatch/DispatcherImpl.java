@@ -70,6 +70,6 @@ public class DispatcherImpl implements Dispatcher {
 	}
 
 	private static String formatError(Exception ex) {
-		return ex.getClass().getSimpleName() + ": " + ex.getMessage();
+		return ex.getClass().getName() + ": " + ex.getMessage();
 	}
 }

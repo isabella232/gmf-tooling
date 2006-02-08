@@ -186,9 +186,9 @@ public class CodegenEmitters {
 			return myFactory.acquireEmitter(key);
 		} catch (NoSuchTemplateException ex) {
 			// FIXME rethrow as UnexpectedBehaviour()
-			throw new JETException(ex.getClass().getSimpleName(), ex);
+			throw new JETException(ex.getClass().getName(), ex);
 		} catch (UnexpectedBehaviourException ex) {
-			throw new JETException(ex.getClass().getSimpleName(), ex);
+			throw new JETException(ex.getClass().getName(), ex);
 		}
 	}
 

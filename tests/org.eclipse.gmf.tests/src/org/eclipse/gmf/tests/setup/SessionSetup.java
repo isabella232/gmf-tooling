@@ -115,7 +115,7 @@ public class SessionSetup implements TestConfiguration {
 	}
 
 	public void cleanup() throws Exception {
-		System.err.println(getClass().getSimpleName() + ":uses:" + myUses);
+		System.err.println(getClass().getName() + ":uses:" + myUses);
 		if (myProject != null) {
 			myProject.uninstall();
 		}
