@@ -21,6 +21,6 @@ public class <%=editorView.getActionBarContributorClassName()%> extends DiagramA
 	 * @generated
 	 */
 	protected String getEditorId() {
-		return <%=editorView.getEditorGen().getPlugin().getActivatorClassName()%>.EDITOR_ID;
+		return <%=editorView.getClassName()%>.ID;
 	}
 }

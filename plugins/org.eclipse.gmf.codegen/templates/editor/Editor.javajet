@@ -25,6 +25,11 @@ public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements 
 	/**
 	 * @generated
 	 */
+	public static final String ID = "<%=genEditor.getID()%>";
+
+	/**
+	 * @generated
+	 */
 	public <%=genEditor.getClassName()%>() {
 		super(<%=genDiagram.getPalette() != null%>);
 	}

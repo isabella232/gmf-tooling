@@ -42,12 +42,7 @@ public class <%=genPlugin.getActivatorClassName()%> extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
-	public static final String EDITOR_ID = "<%=genPlugin.getEditorGen().getEditor().getID()%>";
-
-	/**
-	 * @generated
-	 */
-	public static final PreferencesHint DIAGRAM_PREFERENCES_HINT = new PreferencesHint(EDITOR_ID);
+	public static final PreferencesHint DIAGRAM_PREFERENCES_HINT = new PreferencesHint(ID);
 
 	/**
 	 * @generated
