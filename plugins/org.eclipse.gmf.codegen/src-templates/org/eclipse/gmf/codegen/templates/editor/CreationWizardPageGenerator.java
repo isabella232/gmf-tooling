@@ -57,7 +57,7 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_8);
     stringBuffer.append(genDiagram.getDiagramFileCreatorClassName());
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(genModel.getModelName());
+    stringBuffer.append(genDiagram.getEditorGen().getModelID());
     stringBuffer.append(TEXT_10);
     if (!genDiagram.isSameFileForDiagramAndModel()) {
     stringBuffer.append(TEXT_11);

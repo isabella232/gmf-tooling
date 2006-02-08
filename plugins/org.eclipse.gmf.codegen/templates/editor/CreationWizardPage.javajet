@@ -58,7 +58,7 @@ public class <%=genDiagram.getCreationWizardPageClassName()%> extends EditorWiza
 	 * @generated
 	 */
 	protected String getDiagramKind() {
-		return "<%=genModel.getModelName()%>"; //$NON-NLS-1$
+		return "<%=genDiagram.getEditorGen().getModelID()%>"; //$NON-NLS-1$
 	}
 	
 <%if (!genDiagram.isSameFileForDiagramAndModel()) {%>

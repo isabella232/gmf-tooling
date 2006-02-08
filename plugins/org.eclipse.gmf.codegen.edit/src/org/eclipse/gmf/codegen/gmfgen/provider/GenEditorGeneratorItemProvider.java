@@ -23,6 +23,7 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
@@ -67,6 +68,8 @@ public class GenEditorGeneratorItemProvider
 			super.getPropertyDescriptors(object);
 
 			addDomainGenModelPropertyDescriptor(object);
+			addPackageNamePrefixPropertyDescriptor(object);
+			addModelIDPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -87,6 +90,46 @@ public class GenEditorGeneratorItemProvider
 				 GMFGenPackage.eINSTANCE.getGenEditorGenerator_DomainGenModel(),
 				 true,
 				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Package Name Prefix feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPackageNamePrefixPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenEditorGenerator_packageNamePrefix_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorGenerator_packageNamePrefix_feature", "_UI_GenEditorGenerator_type"),
+				 GMFGenPackage.eINSTANCE.getGenEditorGenerator_PackageNamePrefix(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Model ID feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addModelIDPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenEditorGenerator_modelID_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorGenerator_modelID_feature", "_UI_GenEditorGenerator_type"),
+				 GMFGenPackage.eINSTANCE.getGenEditorGenerator_ModelID(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -138,7 +181,10 @@ public class GenEditorGeneratorItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		return getString("_UI_GenEditorGenerator_type");
+		String label = ((GenEditorGenerator)object).getPackageNamePrefix();
+		return label == null || label.length() == 0 ?
+			getString("_UI_GenEditorGenerator_type") :
+			getString("_UI_GenEditorGenerator_type") + " " + label;
 	}
 
 	/**
@@ -152,6 +198,10 @@ public class GenEditorGeneratorItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(GenEditorGenerator.class)) {
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__PACKAGE_NAME_PREFIX:
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ID:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS:
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM:
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN:

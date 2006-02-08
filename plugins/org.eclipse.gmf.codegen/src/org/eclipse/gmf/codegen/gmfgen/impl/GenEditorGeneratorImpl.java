@@ -7,6 +7,7 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -30,6 +31,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getPlugin <em>Plugin</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getDomainGenModel <em>Domain Gen Model</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getPackageNamePrefix <em>Package Name Prefix</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getModelID <em>Model ID</em>}</li>
  * </ul>
  * </p>
  *
@@ -75,6 +78,46 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @ordered
 	 */
 	protected GenModel domainGenModel = null;
+
+	/**
+	 * The default value of the '{@link #getPackageNamePrefix() <em>Package Name Prefix</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPackageNamePrefix()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String PACKAGE_NAME_PREFIX_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getPackageNamePrefix() <em>Package Name Prefix</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPackageNamePrefix()
+	 * @generated
+	 * @ordered
+	 */
+	protected String packageNamePrefix = PACKAGE_NAME_PREFIX_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getModelID() <em>Model ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getModelID()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String MODEL_ID_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getModelID() <em>Model ID</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getModelID()
+	 * @generated
+	 * @ordered
+	 */
+	protected String modelID = MODEL_ID_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -266,6 +309,68 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getPackageNamePrefixGen() {
+		return packageNamePrefix;
+	}
+
+	public String getPackageNamePrefix() {
+		String value = getPackageNamePrefixGen();
+		if (value == null || value.trim().length() == 0) {
+			if (getDomainGenModel() == null || getDomainGenModel().getGenPackages().isEmpty()) {
+				return "";
+			}
+			// TODO primary genPackage?
+			return ((GenPackage) getDomainGenModel().getGenPackages().get(0)).getBasePackage();
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPackageNamePrefix(String newPackageNamePrefix) {
+		String oldPackageNamePrefix = packageNamePrefix;
+		packageNamePrefix = newPackageNamePrefix;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__PACKAGE_NAME_PREFIX, oldPackageNamePrefix, packageNamePrefix));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getModelIDGen() {
+		return modelID;
+	}
+
+	public String getModelID() {
+		String value = getModelIDGen();
+		if (value == null || value.trim().length() == 0) {
+			return getDomainGenModel().getModelName();
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setModelID(String newModelID) {
+		String oldModelID = modelID;
+		modelID = newModelID;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ID, oldModelID, modelID));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM:
@@ -313,6 +418,10 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL:
 				if (resolve) return getDomainGenModel();
 				return basicGetDomainGenModel();
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__PACKAGE_NAME_PREFIX:
+				return getPackageNamePrefix();
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ID:
+				return getModelID();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -335,6 +444,12 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL:
 				setDomainGenModel((GenModel)newValue);
+				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__PACKAGE_NAME_PREFIX:
+				setPackageNamePrefix((String)newValue);
+				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ID:
+				setModelID((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -359,6 +474,12 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL:
 				setDomainGenModel((GenModel)null);
 				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__PACKAGE_NAME_PREFIX:
+				setPackageNamePrefix(PACKAGE_NAME_PREFIX_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ID:
+				setModelID(MODEL_ID_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -378,8 +499,29 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return plugin != null;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL:
 				return domainGenModel != null;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__PACKAGE_NAME_PREFIX:
+				return PACKAGE_NAME_PREFIX_EDEFAULT == null ? packageNamePrefix != null : !PACKAGE_NAME_PREFIX_EDEFAULT.equals(packageNamePrefix);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ID:
+				return MODEL_ID_EDEFAULT == null ? modelID != null : !MODEL_ID_EDEFAULT.equals(modelID);
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (packageNamePrefix: ");
+		result.append(packageNamePrefix);
+		result.append(", modelID: ");
+		result.append(modelID);
+		result.append(')');
+		return result.toString();
 	}
 
 } //GenEditorGeneratorImpl

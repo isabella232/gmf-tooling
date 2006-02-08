@@ -149,7 +149,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
    <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
       <viewProvider class="<%=genDiagram.getNotationViewProviderQualifiedClassName()%>">
          <Priority name="Medium"/>
-         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="<%=genModel.getModelName()%>"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="<%=genPlugin.getEditorGen().getModelID()%>"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints=""/>
       </viewProvider>

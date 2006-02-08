@@ -125,7 +125,7 @@ public class VisualIDRegistryGenerator
     StringBuffer stringBuffer = new StringBuffer();
     
 final GenDiagram genDiagram = (GenDiagram) argument;
-final String modelID = genDiagram.getEditorGen().getDomainGenModel().getModelName();
+final String modelID = genDiagram.getEditorGen().getModelID();
 List genLinks = genDiagram.getLinks();
 Collection allContainers = genDiagram.getAllContainers();
 

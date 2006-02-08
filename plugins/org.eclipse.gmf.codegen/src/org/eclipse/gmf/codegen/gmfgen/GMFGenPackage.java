@@ -109,13 +109,31 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL = 3;
 
 	/**
+	 * The feature id for the '<em><b>Package Name Prefix</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_EDITOR_GENERATOR__PACKAGE_NAME_PREFIX = 4;
+
+	/**
+	 * The feature id for the '<em><b>Model ID</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_EDITOR_GENERATOR__MODEL_ID = 5;
+
+	/**
 	 * The number of structural features of the '<em>Gen Editor Generator</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR_FEATURE_COUNT = 4;
+	int GEN_EDITOR_GENERATOR_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl <em>Gen Common Base</em>}' class.
@@ -4520,6 +4538,28 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenEditorGenerator_DomainGenModel();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPackageNamePrefix <em>Package Name Prefix</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Package Name Prefix</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPackageNamePrefix()
+	 * @see #getGenEditorGenerator()
+	 * @generated
+	 */
+	EAttribute getGenEditorGenerator_PackageNamePrefix();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getModelID <em>Model ID</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Model ID</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getModelID()
+	 * @see #getGenEditorGenerator()
+	 * @generated
+	 */
+	EAttribute getGenEditorGenerator_ModelID();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram <em>Gen Diagram</em>}'.

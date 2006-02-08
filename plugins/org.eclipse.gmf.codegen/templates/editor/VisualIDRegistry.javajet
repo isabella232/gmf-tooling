@@ -2,7 +2,7 @@
 	imports="org.eclipse.gmf.codegen.gmfgen.* java.util.* org.eclipse.gmf.common.codegen.*"%>
 <%
 final GenDiagram genDiagram = (GenDiagram) argument;
-final String modelID = genDiagram.getEditorGen().getDomainGenModel().getModelName();
+final String modelID = genDiagram.getEditorGen().getModelID();
 List genLinks = genDiagram.getLinks();
 Collection allContainers = genDiagram.getAllContainers();
 %>

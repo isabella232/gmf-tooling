@@ -153,6 +153,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		GenPackage primaryPackage = findGenPackage(mapping.getDomainModel());
 		getGenEssence().setDomainGenModel(primaryPackage == null ? null : primaryPackage.getGenModel());
+		if (getGenEssence().getDomainGenModel() != null) {
+			getGenEssence().setModelID(getGenEssence().getDomainGenModel().getModelName());
+		}
 		getGenDiagram().setDomainDiagramElement(findGenClass(mapping.getDomainMetaElement()));
 		getGenDiagram().setDiagramRunTimeClass(findRunTimeClass(mapping));
 		getGenDiagram().setVisualID(myVisualIDs.get(getGenDiagram()));

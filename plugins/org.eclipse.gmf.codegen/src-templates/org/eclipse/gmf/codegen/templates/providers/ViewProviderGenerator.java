@@ -1,7 +1,6 @@
 package org.eclipse.gmf.codegen.templates.providers;
 
 import java.util.*;
-import org.eclipse.emf.codegen.ecore.genmodel.*;
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.common.codegen.*;
 
@@ -64,7 +63,6 @@ public class ViewProviderGenerator
     StringBuffer stringBuffer = new StringBuffer();
     
 GenDiagram genDiagram = (GenDiagram) argument;
-GenModel genModel = genDiagram.getEditorGen().getDomainGenModel();
 List genLinks = genDiagram.getLinks();
 
     stringBuffer.append(TEXT_1);
@@ -76,7 +74,7 @@ List genLinks = genDiagram.getLinks();
     stringBuffer.append(TEXT_4);
     stringBuffer.append(genDiagram.getNotationViewProviderClassName());
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(genModel.getModelName());
+    stringBuffer.append(genDiagram.getEditorGen().getModelID());
     stringBuffer.append(TEXT_6);
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_7);

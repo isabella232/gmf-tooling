@@ -261,7 +261,7 @@ public class InitDiagramFileActionGenerator {
 final GenDiagram genDiagram = (GenDiagram) argument;
 final ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());
 final String pluginActivatorClass = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
-final String modelID = genDiagram.getEditorGen().getDomainGenModel().getModelName();
+final String modelID = genDiagram.getEditorGen().getModelID();
 List genLinks = genDiagram.getLinks();
 
 // Collecting all phantom elements

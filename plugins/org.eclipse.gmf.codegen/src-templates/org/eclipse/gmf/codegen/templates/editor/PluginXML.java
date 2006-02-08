@@ -202,7 +202,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
     stringBuffer.append(TEXT_45);
     stringBuffer.append(genDiagram.getNotationViewProviderQualifiedClassName());
     stringBuffer.append(TEXT_46);
-    stringBuffer.append(genModel.getModelName());
+    stringBuffer.append(genPlugin.getEditorGen().getModelID());
     stringBuffer.append(TEXT_47);
     stringBuffer.append(genDiagram.getEditPartProviderQualifiedClassName());
     stringBuffer.append(TEXT_48);

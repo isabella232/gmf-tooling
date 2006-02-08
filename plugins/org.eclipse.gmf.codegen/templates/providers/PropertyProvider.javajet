@@ -1,8 +1,7 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="PropertyProviderGenerator"
-    imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
 GenDiagram genDiagram = (GenDiagram) argument;
-GenModel genModel = genDiagram.getEditorGen().getDomainGenModel();
 %>
 package <%=genDiagram.getProvidersPackageName()%>;
 
@@ -57,7 +56,7 @@ public class <%=genDiagram.getPropertyProviderClassName()%> extends GenericEMFPr
 				view = (View) editPart.getModel();
 			}
 		}
-		if (view != null && "<%=genModel.getModelName()%>".equals(getModelID(view))) {
+		if (view != null && "<%=genDiagram.getEditorGen().getModelID()%>".equals(getModelID(view))) {
 			return view.getElement();
 		}
 		return null;

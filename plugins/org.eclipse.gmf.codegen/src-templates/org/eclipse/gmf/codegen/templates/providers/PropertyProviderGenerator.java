@@ -1,6 +1,5 @@
 package org.eclipse.gmf.codegen.templates.providers;
 
-import org.eclipse.emf.codegen.ecore.genmodel.*;
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.common.codegen.*;
 
@@ -32,7 +31,6 @@ public class PropertyProviderGenerator
     StringBuffer stringBuffer = new StringBuffer();
     
 GenDiagram genDiagram = (GenDiagram) argument;
-GenModel genModel = genDiagram.getEditorGen().getDomainGenModel();
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getProvidersPackageName());
@@ -43,7 +41,7 @@ GenModel genModel = genDiagram.getEditorGen().getDomainGenModel();
     stringBuffer.append(TEXT_4);
     stringBuffer.append(genDiagram.getPropertyProviderClassName());
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(genModel.getModelName());
+    stringBuffer.append(genDiagram.getEditorGen().getModelID());
     stringBuffer.append(TEXT_6);
     stringBuffer.append(TEXT_7);
     stringBuffer.append(TEXT_8);
