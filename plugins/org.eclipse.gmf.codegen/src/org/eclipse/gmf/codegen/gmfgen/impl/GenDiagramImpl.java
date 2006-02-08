@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -1026,8 +1025,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	protected Palette palette = null;
 
-	static final String DIAGRAM_EDITOR_TOKEN = "gmf.editor";
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1196,7 +1193,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getEditCommandsPackageName() {
 		String value = getEditCommandsPackageNameGen();
 		if (isEmpty(value)) {
-			value = getPackageNamePrefix() + ".edit.commands";
+			value = getEditorGen().getPackageNamePrefix() + ".edit.commands";
 		}
 		return value;
 	}
@@ -1225,7 +1222,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getEditPartsPackageName() {
 		String value = getEditPartsPackageNameGen();
 		if (isEmpty(value)) {
-			value = getPackageNamePrefix() + ".edit.parts";
+			value = getEditorGen().getPackageNamePrefix() + ".edit.parts";
 		}
 		return value;
 	}
@@ -1254,7 +1251,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getEditPoliciesPackageName() {
 		String value = getEditPoliciesPackageNameGen();
 		if (isEmpty(value)) {
-			value = getPackageNamePrefix() + ".edit.policies";
+			value = getEditorGen().getPackageNamePrefix() + ".edit.policies";
 		}
 		return value;
 	}
@@ -1565,7 +1562,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getEditorPackageName() {
 		String value = getEditorPackageNameGen();
 		if (isEmpty(value)) {
-			value = getPackageNamePrefix() + ".part";
+			value = getEditorGen().getPackageNamePrefix() + ".part";
 		}
 		return value;
 	}
@@ -1594,7 +1591,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getProvidersPackageName() {
 		String value = getProvidersPackageNameGen();
 		if (isEmpty(value)) {
-			value = getPackageNamePrefix() + ".providers";
+			value = getEditorGen().getPackageNamePrefix() + ".providers";
 		}
 		return value;
 	}
@@ -1623,7 +1620,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getNotationViewFactoriesPackageName() {
 		String value = getNotationViewFactoriesPackageNameGen();
 		if (isEmpty(value)) {
-			value = getPackageNamePrefix() + ".view.factories";
+			value = getEditorGen().getPackageNamePrefix() + ".view.factories";
 		}
 		return value;
 	}
@@ -3796,19 +3793,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 
 	public String getUniqueIdentifier() {
 		return getDomainDiagramElement().getInterfaceName() + "_" + getVisualID();
-	}
-
-	/**
-	 * @see org.eclipse.emf.codegen.ecore.genmodel.impl.GenPackageImpl#getQualifiedPackageName()
-	 */
-	private String getPackageNamePrefix() {
-		GenPackage primaryPackage = (GenPackage) getEditorGen().getDomainGenModel().getGenPackages().get(0);
-		String prefix = CodeGenUtil.safeName(primaryPackage.getPackageName());
-		String basePackage = primaryPackage.getBasePackage();
-		if (basePackage != null && basePackage.length() > 0) {
-			prefix = basePackage + '.' + prefix;
-		}
-		return prefix + '.' + DIAGRAM_EDITOR_TOKEN;
 	}
 
 	String getDomainPackageCapName() {

@@ -377,12 +377,13 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	}
 
 	public String getPackageNamePrefix() {
+		// @see org.eclipse.emf.codegen.ecore.genmodel.impl.GenPackageImpl#getQualifiedPackageName()
 		String value = getPackageNamePrefixGen();
 		if (value == null || value.trim().length() == 0) {
 			if (getPrimaryGenPackage() == null) {
 				return "";
 			}
-			return getPrimaryGenPackage().getBasePackage();
+			return getPrimaryGenPackage().getQualifiedPackageName() + ".diagram";
 		}
 		return value;
 	}
