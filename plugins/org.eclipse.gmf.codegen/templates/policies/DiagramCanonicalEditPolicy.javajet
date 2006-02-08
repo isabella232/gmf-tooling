@@ -23,12 +23,15 @@ import org.eclipse.emf.ecore.EObject;
  */
 public class <%=genDiagram.getCanonicalEditPolicyClassName()%> extends CanonicalConnectionEditPolicy {
 <%
-String modelElementInterfaceName = importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName());
+GenClass modelElementInterface = genDiagram.getDomainDiagramElement();
 {
 	Collection genNodes = genDiagram.getTopLevelNodes();
 %>
 <%@ include file="getSemanticChildrenList.jetinc"%>
-<%}%>
+<%
+}
+String modelElementInterfaceName = importManager.getImportedName(modelElementInterface.getQualifiedInterfaceName());
+%>
 
 	/**
 	 * @generated
@@ -89,5 +92,15 @@ for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
 	protected boolean shouldIncludeConnection(Edge connector, Collection children) {
 		return super.shouldIncludeConnection(connector, children) && connector.getElement() != null;
 	}
+<%
+{
+	GenClass domainMetaclass = genDiagram.getDomainDiagramElement();
+	GenContainerBase genContainerBase = genDiagram;
+%>
+<%@ include file="refreshSemantic.jetinc" %>
+<%
+}
+%>
+
 }
 <%importManager.emitSortedImports();%>

@@ -267,9 +267,7 @@ public class Generator implements Runnable {
 	
 	private void generateChildContainer(GenChildContainer childContainer) throws JETException, InterruptedException {
 		generateViewFactory(childContainer);
-		if (!childContainer.getChildNodes().isEmpty()) {
-			generateChildContainerCanonicalEditPolicy(childContainer);
-		}
+		generateChildContainerCanonicalEditPolicy(childContainer);
 	}
 
 	// commands

@@ -3,11 +3,12 @@
 		 * @generated
 		 */
 		protected <%=importManager.getImportedName("java.util.List")%> getSemanticChildrenList() {
-			<%=modelElementInterfaceName%> modelElement = (<%=modelElementInterfaceName%>) ((View) getHost().getModel()).getElement();
 			List result = new <%=importManager.getImportedName("java.util.LinkedList")%>();
 <%
 if (genNodes.size() > 0) {
+	String modelElementInterfaceName = importManager.getImportedName(modelElementInterface.getQualifiedInterfaceName());
 %>
+			<%=modelElementInterfaceName%> modelElement = (<%=modelElementInterfaceName%>) ((View) getHost().getModel()).getElement();
 			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> nextValue;
 			int nodeVID;
 <%
@@ -51,6 +52,6 @@ for (Iterator it = genNodes.iterator(); it.hasNext();) {
 		 * @generated
 		 */
 		protected boolean shouldDeleteView(View view) {
-			EObject domainModelElement = view.getElement();
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> domainModelElement = view.getElement();
 			return domainModelElement != null && domainModelElement != ((View) getHost().getModel()).getElement() && super.shouldDeleteView(view);
 		}

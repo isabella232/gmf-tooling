@@ -28,7 +28,7 @@ public class <%=genContainer.getCanonicalEditPolicyClassName()%> extends Canonic
 	} else {
 		throw new IllegalArgumentException(String.valueOf(genContainer));
 	}
-	String modelElementInterfaceName = importManager.getImportedName(containerNode.getModelFacet().getMetaClass().getQualifiedInterfaceName());
+	GenClass modelElementInterface = containerNode.getModelFacet().getMetaClass();
 %>
 <%@ include file="getSemanticChildrenList.jetinc"%>
 <%}%>
@@ -39,5 +39,15 @@ public class <%=genContainer.getCanonicalEditPolicyClassName()%> extends Canonic
 	protected String getFactoryHint(IAdaptable elementAdapter) {
 		return "";
 	}
+<%
+if (genContainer instanceof GenNode) {
+	GenClass domainMetaclass = ((GenNode) genContainer).getModelFacet().getMetaClass();
+	GenContainerBase genContainerBase = genContainer;
+%>
+<%@ include file="refreshSemantic.jetinc"%>
+<%
+}
+%>
+
 }
 <%importManager.emitSortedImports();%>
