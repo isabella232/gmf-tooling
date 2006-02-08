@@ -60,7 +60,7 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 		assertNotNull("GenEditorGenerator is expected as result of mapping transformation", transfromationResult);
 		assertNotNull("GenDiagram is expected to be set...", transfromationResult.getDiagram());
 		assertNotNull("... as well as GenPlugin is expected to be set", transfromationResult.getPlugin());
-		assertNotNull("Diagram filename extension not set", transfromationResult.getDiagram().getDiagramFileExtension());
+		assertNotNull("Diagram filename extension not set", transfromationResult.getDiagramFileExtension());
 		// FIXME add more
 
 		GenNode genNode = (GenNode) findGenBaseElement(transfromationResult.getDiagram().getTopLevelNodes(), getEditPartNameStrategy().get(getNodeMapping()));

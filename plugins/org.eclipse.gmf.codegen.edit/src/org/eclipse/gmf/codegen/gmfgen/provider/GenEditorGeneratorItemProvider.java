@@ -70,6 +70,9 @@ public class GenEditorGeneratorItemProvider
 			addDomainGenModelPropertyDescriptor(object);
 			addPackageNamePrefixPropertyDescriptor(object);
 			addModelIDPropertyDescriptor(object);
+			addSameFileForDiagramAndModelPropertyDescriptor(object);
+			addDiagramFileExtensionPropertyDescriptor(object);
+			addDomainFileExtensionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -128,6 +131,66 @@ public class GenEditorGeneratorItemProvider
 				 getString("_UI_GenEditorGenerator_modelID_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorGenerator_modelID_feature", "_UI_GenEditorGenerator_type"),
 				 GMFGenPackage.eINSTANCE.getGenEditorGenerator_ModelID(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Same File For Diagram And Model feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSameFileForDiagramAndModelPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenEditorGenerator_sameFileForDiagramAndModel_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorGenerator_sameFileForDiagramAndModel_feature", "_UI_GenEditorGenerator_type"),
+				 GMFGenPackage.eINSTANCE.getGenEditorGenerator_SameFileForDiagramAndModel(),
+				 true,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Diagram File Extension feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDiagramFileExtensionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenEditorGenerator_diagramFileExtension_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorGenerator_diagramFileExtension_feature", "_UI_GenEditorGenerator_type"),
+				 GMFGenPackage.eINSTANCE.getGenEditorGenerator_DiagramFileExtension(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Domain File Extension feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDomainFileExtensionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenEditorGenerator_domainFileExtension_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorGenerator_domainFileExtension_feature", "_UI_GenEditorGenerator_type"),
+				 GMFGenPackage.eINSTANCE.getGenEditorGenerator_DomainFileExtension(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -200,6 +263,9 @@ public class GenEditorGeneratorItemProvider
 		switch (notification.getFeatureID(GenEditorGenerator.class)) {
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PACKAGE_NAME_PREFIX:
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ID:
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_FILE_EXTENSION:
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS:

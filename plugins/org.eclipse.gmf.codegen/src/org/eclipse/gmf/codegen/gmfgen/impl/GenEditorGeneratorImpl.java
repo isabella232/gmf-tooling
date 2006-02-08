@@ -33,6 +33,9 @@ import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getDomainGenModel <em>Domain Gen Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getPackageNamePrefix <em>Package Name Prefix</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getModelID <em>Model ID</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getDomainFileExtension <em>Domain File Extension</em>}</li>
  * </ul>
  * </p>
  *
@@ -118,6 +121,66 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @ordered
 	 */
 	protected String modelID = MODEL_ID_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isSameFileForDiagramAndModel() <em>Same File For Diagram And Model</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSameFileForDiagramAndModel()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isSameFileForDiagramAndModel() <em>Same File For Diagram And Model</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isSameFileForDiagramAndModel()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean sameFileForDiagramAndModel = SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDiagramFileExtension() <em>Diagram File Extension</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDiagramFileExtension()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DIAGRAM_FILE_EXTENSION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDiagramFileExtension() <em>Diagram File Extension</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDiagramFileExtension()
+	 * @generated
+	 * @ordered
+	 */
+	protected String diagramFileExtension = DIAGRAM_FILE_EXTENSION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDomainFileExtension() <em>Domain File Extension</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainFileExtension()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DOMAIN_FILE_EXTENSION_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDomainFileExtension() <em>Domain File Extension</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDomainFileExtension()
+	 * @generated
+	 * @ordered
+	 */
+	protected String domainFileExtension = DOMAIN_FILE_EXTENSION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -316,13 +379,22 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	public String getPackageNamePrefix() {
 		String value = getPackageNamePrefixGen();
 		if (value == null || value.trim().length() == 0) {
-			if (getDomainGenModel() == null || getDomainGenModel().getGenPackages().isEmpty()) {
+			if (getPrimaryGenPackage() == null) {
 				return "";
 			}
-			// TODO primary genPackage?
-			return ((GenPackage) getDomainGenModel().getGenPackages().get(0)).getBasePackage();
+			return getPrimaryGenPackage().getBasePackage();
 		}
 		return value;
+	}
+
+	/**
+	 * Assume first genPackage in the domainGenModel to be primary
+	 */
+	private GenPackage getPrimaryGenPackage() {
+		if (getDomainGenModel() == null || getDomainGenModel().getGenPackages().isEmpty()) {
+			return null;
+		}
+		return (GenPackage) getDomainGenModel().getGenPackages().get(0);
 	}
 
 	/**
@@ -364,6 +436,88 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 		modelID = newModelID;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ID, oldModelID, modelID));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSameFileForDiagramAndModel() {
+		return sameFileForDiagramAndModel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSameFileForDiagramAndModel(boolean newSameFileForDiagramAndModel) {
+		boolean oldSameFileForDiagramAndModel = sameFileForDiagramAndModel;
+		sameFileForDiagramAndModel = newSameFileForDiagramAndModel;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__SAME_FILE_FOR_DIAGRAM_AND_MODEL, oldSameFileForDiagramAndModel, sameFileForDiagramAndModel));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getDiagramFileExtensionGen() {
+		return diagramFileExtension;
+	}
+
+	public String getDiagramFileExtension() {
+		String value = getDiagramFileExtensionGen();
+		if (value == null || value.length() == 0) {
+			return getDomainFileExtension() + "_diagram";
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDiagramFileExtension(String newDiagramFileExtension) {
+		String oldDiagramFileExtension = diagramFileExtension;
+		diagramFileExtension = newDiagramFileExtension;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_FILE_EXTENSION, oldDiagramFileExtension, diagramFileExtension));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getDomainFileExtensionGen() {
+		return domainFileExtension;
+	}
+
+	public String getDomainFileExtension() {
+		String value = getDiagramFileExtensionGen();
+		if (value == null || value.trim().length() == 0) {
+			if (getPrimaryGenPackage() == null) {
+				return "";
+			}
+			return getPrimaryGenPackage().getPrefix().toLowerCase();
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDomainFileExtension(String newDomainFileExtension) {
+		String oldDomainFileExtension = domainFileExtension;
+		domainFileExtension = newDomainFileExtension;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION, oldDomainFileExtension, domainFileExtension));
 	}
 
 	/**
@@ -422,6 +576,12 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return getPackageNamePrefix();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ID:
 				return getModelID();
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
+				return isSameFileForDiagramAndModel() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_FILE_EXTENSION:
+				return getDiagramFileExtension();
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION:
+				return getDomainFileExtension();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -450,6 +610,15 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ID:
 				setModelID((String)newValue);
+				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
+				setSameFileForDiagramAndModel(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_FILE_EXTENSION:
+				setDiagramFileExtension((String)newValue);
+				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION:
+				setDomainFileExtension((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -480,6 +649,15 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ID:
 				setModelID(MODEL_ID_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
+				setSameFileForDiagramAndModel(SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_FILE_EXTENSION:
+				setDiagramFileExtension(DIAGRAM_FILE_EXTENSION_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION:
+				setDomainFileExtension(DOMAIN_FILE_EXTENSION_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -503,6 +681,12 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return PACKAGE_NAME_PREFIX_EDEFAULT == null ? packageNamePrefix != null : !PACKAGE_NAME_PREFIX_EDEFAULT.equals(packageNamePrefix);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__MODEL_ID:
 				return MODEL_ID_EDEFAULT == null ? modelID != null : !MODEL_ID_EDEFAULT.equals(modelID);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
+				return sameFileForDiagramAndModel != SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_FILE_EXTENSION:
+				return DIAGRAM_FILE_EXTENSION_EDEFAULT == null ? diagramFileExtension != null : !DIAGRAM_FILE_EXTENSION_EDEFAULT.equals(diagramFileExtension);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION:
+				return DOMAIN_FILE_EXTENSION_EDEFAULT == null ? domainFileExtension != null : !DOMAIN_FILE_EXTENSION_EDEFAULT.equals(domainFileExtension);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -520,6 +704,12 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 		result.append(packageNamePrefix);
 		result.append(", modelID: ");
 		result.append(modelID);
+		result.append(", sameFileForDiagramAndModel: ");
+		result.append(sameFileForDiagramAndModel);
+		result.append(", diagramFileExtension: ");
+		result.append(diagramFileExtension);
+		result.append(", domainFileExtension: ");
+		result.append(domainFileExtension);
 		result.append(')');
 		return result.toString();
 	}

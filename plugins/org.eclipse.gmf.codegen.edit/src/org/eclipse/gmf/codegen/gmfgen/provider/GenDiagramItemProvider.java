@@ -107,8 +107,6 @@ public class GenDiagramItemProvider
 			addMarkerNavigationProviderClassNamePropertyDescriptor(object);
 			addValidationEnabledPropertyDescriptor(object);
 			addDomainDiagramElementPropertyDescriptor(object);
-			addSameFileForDiagramAndModelPropertyDescriptor(object);
-			addDiagramFileExtensionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -694,26 +692,6 @@ public class GenDiagramItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Diagram File Extension feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDiagramFileExtensionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenDiagram_diagramFileExtension_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_diagramFileExtension_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_DiagramFileExtension(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Reorient Connection View Command Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -729,26 +707,6 @@ public class GenDiagramItemProvider
 				 GMFGenPackage.eINSTANCE.getEditPartCandies_ReorientConnectionViewCommandClassName(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Same File For Diagram And Model feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addSameFileForDiagramAndModelPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenDiagram_sameFileForDiagramAndModel_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_sameFileForDiagramAndModel_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_SameFileForDiagramAndModel(),
-				 true,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -1183,8 +1141,6 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
-			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:

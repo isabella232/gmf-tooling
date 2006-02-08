@@ -99,8 +99,6 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getLinks <em>Links</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCompartments <em>Compartments</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPalette <em>Palette</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
  * </ul>
  * </p>
  *
@@ -1027,46 +1025,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected Palette palette = null;
-
-	/**
-	 * The default value of the '{@link #isSameFileForDiagramAndModel() <em>Same File For Diagram And Model</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSameFileForDiagramAndModel()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isSameFileForDiagramAndModel() <em>Same File For Diagram And Model</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSameFileForDiagramAndModel()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean sameFileForDiagramAndModel = SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getDiagramFileExtension() <em>Diagram File Extension</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDiagramFileExtension()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String DIAGRAM_FILE_EXTENSION_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getDiagramFileExtension() <em>Diagram File Extension</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDiagramFileExtension()
-	 * @generated
-	 * @ordered
-	 */
-	protected String diagramFileExtension = DIAGRAM_FILE_EXTENSION_EDEFAULT;
 
 	static final String DIAGRAM_EDITOR_TOKEN = "gmf.editor";
 
@@ -2006,35 +1964,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getDiagramFileExtensionGen() {
-		return diagramFileExtension;
-	}
-
-	public String getDiagramFileExtension() {
-		String value = getDiagramFileExtensionGen();
-		if (value == null || value.length() == 0) {
-			return getEditorGen().getDomainGenModel().getModelName().toLowerCase() + "_diagram";
-		}
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDiagramFileExtension(String newDiagramFileExtension) {
-		String oldDiagramFileExtension = diagramFileExtension;
-		diagramFileExtension = newDiagramFileExtension;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION, oldDiagramFileExtension, diagramFileExtension));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getReorientConnectionViewCommandClassNameGen() {
 		return reorientConnectionViewCommandClassName;
 	}
@@ -2057,27 +1986,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		reorientConnectionViewCommandClassName = newReorientConnectionViewCommandClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__REORIENT_CONNECTION_VIEW_COMMAND_CLASS_NAME, oldReorientConnectionViewCommandClassName, reorientConnectionViewCommandClassName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isSameFileForDiagramAndModel() {
-		return sameFileForDiagramAndModel;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSameFileForDiagramAndModel(boolean newSameFileForDiagramAndModel) {
-		boolean oldSameFileForDiagramAndModel = sameFileForDiagramAndModel;
-		sameFileForDiagramAndModel = newSameFileForDiagramAndModel;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL, oldSameFileForDiagramAndModel, sameFileForDiagramAndModel));
 	}
 
 	/**
@@ -2848,10 +2756,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getCompartments();
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				return getPalette();
-			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
-				return isSameFileForDiagramAndModel() ? Boolean.TRUE : Boolean.FALSE;
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
-				return getDiagramFileExtension();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -3023,12 +2927,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				setPalette((Palette)newValue);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
-				setSameFileForDiagramAndModel(((Boolean)newValue).booleanValue());
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
-				setDiagramFileExtension((String)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -3193,12 +3091,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				setPalette((Palette)null);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
-				setSameFileForDiagramAndModel(SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
-				setDiagramFileExtension(DIAGRAM_FILE_EXTENSION_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -3314,10 +3206,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return compartments != null && !compartments.isEmpty();
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				return palette != null;
-			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
-				return sameFileForDiagramAndModel != SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT;
-			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
-				return DIAGRAM_FILE_EXTENSION_EDEFAULT == null ? diagramFileExtension != null : !DIAGRAM_FILE_EXTENSION_EDEFAULT.equals(diagramFileExtension);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -3902,10 +3790,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(markerNavigationProviderClassName);
 		result.append(", validationEnabled: ");
 		result.append(validationEnabled);
-		result.append(", sameFileForDiagramAndModel: ");
-		result.append(sameFileForDiagramAndModel);
-		result.append(", diagramFileExtension: ");
-		result.append(diagramFileExtension);
 		result.append(')');
 		return result.toString();
 	}

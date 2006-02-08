@@ -37,7 +37,9 @@ public class DiagramEditorUtilGenerator
   public String generate(Object argument)
   {
     StringBuffer stringBuffer = new StringBuffer();
-    GenDiagram genDiagram = (GenDiagram) argument;
+    
+GenDiagram genDiagram = (GenDiagram) argument;
+GenEditorGenerator editorGen = genDiagram.getEditorGen();
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getEditorPackageName());
     stringBuffer.append(TEXT_2);
@@ -49,13 +51,13 @@ public class DiagramEditorUtilGenerator
     stringBuffer.append(TEXT_5);
     stringBuffer.append(genDiagram.getDiagramEditorUtilClassName());
     stringBuffer.append(TEXT_6);
-    if (!genDiagram.isSameFileForDiagramAndModel()) {
+    if (!editorGen.isSameFileForDiagramAndModel()) {
     stringBuffer.append(TEXT_7);
-    stringBuffer.append(genDiagram.getDomainDiagramElement().getGenPackage().getPrefix().toLowerCase());
+    stringBuffer.append(editorGen.getDomainFileExtension());
     stringBuffer.append(TEXT_8);
     }
     stringBuffer.append(TEXT_9);
-    if (!genDiagram.isSameFileForDiagramAndModel()) {
+    if (!editorGen.isSameFileForDiagramAndModel()) {
     stringBuffer.append(TEXT_10);
     }
     stringBuffer.append(TEXT_11);
@@ -63,7 +65,7 @@ public class DiagramEditorUtilGenerator
     stringBuffer.append(TEXT_12);
     stringBuffer.append(genDiagram.getDomainDiagramElement().getClassifierAccessorName());
     stringBuffer.append(TEXT_13);
-    if (!genDiagram.isSameFileForDiagramAndModel()) {
+    if (!editorGen.isSameFileForDiagramAndModel()) {
     stringBuffer.append(TEXT_14);
     } else {
     stringBuffer.append(TEXT_15);

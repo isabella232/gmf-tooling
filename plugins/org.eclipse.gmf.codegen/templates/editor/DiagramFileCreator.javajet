@@ -1,6 +1,8 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="DiagramFileCreatorGenerator"
     imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
-<%GenDiagram genDiagram = (GenDiagram) argument;%>
+<%
+GenDiagram genDiagram = (GenDiagram) argument;
+GenEditorGenerator editorGen = genDiagram.getEditorGen();%>
 package <%=genDiagram.getEditorPackageName()%>;
 
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.util.IDEEditorFileCreator;
@@ -31,10 +33,10 @@ public class <%=genDiagram.getDiagramFileCreatorClassName()%> extends IDEEditorF
 	 * @generated
 	 */
 	public String getExtension() {
-		return ".<%=genDiagram.getDiagramFileExtension()%>"; //$NON-NLS-1$
+		return ".<%=editorGen.getDiagramFileExtension()%>"; //$NON-NLS-1$
 	}
 	
-<%if (!genDiagram.isSameFileForDiagramAndModel()) {%>
+<%if (!editorGen.isSameFileForDiagramAndModel()) {%>
 	/**
 	 * @generated
 	 */
@@ -70,7 +72,7 @@ public class <%=genDiagram.getDiagramFileCreatorClassName()%> extends IDEEditorF
 	 * @generated
 	 */
 	private String appendExtensionToModelFileName(String fileName) {
-		return fileName + ".<%=genDiagram.getDomainDiagramElement().getGenPackage().getPrefix().toLowerCase()%>";
+		return fileName + ".<%=editorGen.getDomainFileExtension()%>";
 	}
 	
 <%}%>

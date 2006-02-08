@@ -2,8 +2,9 @@
     imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.*"%>
 <%
 final GenPlugin genPlugin = (GenPlugin) argument;
-final GenDiagram genDiagram = genPlugin.getEditorGen().getDiagram();
-final GenModel genModel = genPlugin.getEditorGen().getDomainGenModel();
+final GenEditorGenerator editorGen = genPlugin.getEditorGen();
+final GenDiagram genDiagram = editorGen.getDiagram();
+final GenModel genModel = editorGen.getDomainGenModel();
 // XXX just treat the first genPackage as primary - genModel.getGenPackages().get(0)?
 final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPackage();
 %>
@@ -18,13 +19,13 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
   <extension point="org.eclipse.team.core.fileTypes">
       <fileTypes
          type="text"
-         extension="<%=genDiagram.getDiagramFileExtension()%>">
+         extension="<%=editorGen.getDiagramFileExtension()%>">
       </fileTypes>
   </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
       <parser
-         type="<%=genDiagram.getDiagramFileExtension()%>"
+         type="<%=editorGen.getDiagramFileExtension()%>"
          class="org.eclipse.gmf.runtime.emf.core.resources.MResourceFactory">
       </parser>
    </extension>
@@ -34,7 +35,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
         id="<%=genDiagram.getEditorQualifiedClassName()%>ID"
         name="<%=genModel.getModelName()%> Diagram Editor"
         icon="../<%=genModel.getEditorPluginID()%>/icons/full/obj16/<%=domainMetaModel.getPrefix()%>ModelFile.gif"
-        extensions="<%=genDiagram.getDiagramFileExtension()%>"
+        extensions="<%=editorGen.getDiagramFileExtension()%>"
         default="true"
         class="<%=genDiagram.getEditorQualifiedClassName()%>"
         matchingStrategy="<%=genDiagram.getMatchingStrategyQualifiedClassName()%>"
@@ -58,10 +59,10 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
    <extension point="org.eclipse.ui.popupMenus">
       <objectContribution
             id="<%=genPlugin.getID()%>.ui.objectContribution.IFile1"
-            nameFilter="*.<%=genDiagram.getDomainDiagramElement().getGenPackage().getPrefix().toLowerCase()%>"
+            nameFilter="*.<%=editorGen.getDomainFileExtension()%>"
             objectClass="org.eclipse.core.resources.IFile">
          <action
-               label="Initialize <%=genDiagram.getDiagramFileExtension()%> diagram file"
+               label="Initialize <%=editorGen.getDiagramFileExtension()%> diagram file"
                class="<%=genDiagram.getInitDiagramFileActionQualifiedClassName()%>"
                menubarPath="additions"
                enablesFor="1"

@@ -127,13 +127,40 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_EDITOR_GENERATOR__MODEL_ID = 5;
 
 	/**
+	 * The feature id for the '<em><b>Same File For Diagram And Model</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_EDITOR_GENERATOR__SAME_FILE_FOR_DIAGRAM_AND_MODEL = 6;
+
+	/**
+	 * The feature id for the '<em><b>Diagram File Extension</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_EDITOR_GENERATOR__DIAGRAM_FILE_EXTENSION = 7;
+
+	/**
+	 * The feature id for the '<em><b>Domain File Extension</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION = 8;
+
+	/**
 	 * The number of structural features of the '<em>Gen Editor Generator</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR_FEATURE_COUNT = 6;
+	int GEN_EDITOR_GENERATOR_FEATURE_COUNT = 9;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl <em>Gen Common Base</em>}' class.
@@ -823,31 +850,13 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_DIAGRAM__PALETTE = GEN_CONTAINER_BASE_FEATURE_COUNT + 50;
 
 	/**
-	 * The feature id for the '<em><b>Same File For Diagram And Model</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL = GEN_CONTAINER_BASE_FEATURE_COUNT + 51;
-
-	/**
-	 * The feature id for the '<em><b>Diagram File Extension</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION = GEN_CONTAINER_BASE_FEATURE_COUNT + 52;
-
-	/**
 	 * The number of structural features of the '<em>Gen Diagram</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM_FEATURE_COUNT = GEN_CONTAINER_BASE_FEATURE_COUNT + 53;
+	int GEN_DIAGRAM_FEATURE_COUNT = GEN_CONTAINER_BASE_FEATURE_COUNT + 51;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation <em>Batch Validation</em>}' class.
@@ -4562,6 +4571,39 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getGenEditorGenerator_ModelID();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Same File For Diagram And Model</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#isSameFileForDiagramAndModel()
+	 * @see #getGenEditorGenerator()
+	 * @generated
+	 */
+	EAttribute getGenEditorGenerator_SameFileForDiagramAndModel();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDiagramFileExtension <em>Diagram File Extension</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Diagram File Extension</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDiagramFileExtension()
+	 * @see #getGenEditorGenerator()
+	 * @generated
+	 */
+	EAttribute getGenEditorGenerator_DiagramFileExtension();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDomainFileExtension <em>Domain File Extension</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Domain File Extension</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDomainFileExtension()
+	 * @see #getGenEditorGenerator()
+	 * @generated
+	 */
+	EAttribute getGenEditorGenerator_DomainFileExtension();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram <em>Gen Diagram</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4647,17 +4689,6 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenDiagram_Palette();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDiagramFileExtension <em>Diagram File Extension</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Diagram File Extension</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDiagramFileExtension()
-	 * @see #getGenDiagram()
-	 * @generated
-	 */
-	EAttribute getGenDiagram_DiagramFileExtension();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation <em>Batch Validation</em>}'.
@@ -5288,17 +5319,6 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenPlugin_ActivatorClassName();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Same File For Diagram And Model</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#isSameFileForDiagramAndModel()
-	 * @see #getGenDiagram()
-	 * @generated
-	 */
-	EAttribute getGenDiagram_SameFileForDiagramAndModel();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenCommonBase <em>Gen Common Base</em>}'.

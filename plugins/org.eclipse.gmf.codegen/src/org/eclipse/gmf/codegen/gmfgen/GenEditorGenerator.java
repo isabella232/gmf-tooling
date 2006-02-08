@@ -23,6 +23,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDomainGenModel <em>Domain Gen Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPackageNamePrefix <em>Package Name Prefix</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getModelID <em>Model ID</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDomainFileExtension <em>Domain File Extension</em>}</li>
  * </ul>
  * </p>
  *
@@ -187,5 +190,81 @@ public interface GenEditorGenerator extends EObject {
 	 * @generated
 	 */
 	void setModelID(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Same File For Diagram And Model</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Specified whether editor should create separate file for domain elements if diagram file references no domain model
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Same File For Diagram And Model</em>' attribute.
+	 * @see #setSameFileForDiagramAndModel(boolean)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorGenerator_SameFileForDiagramAndModel()
+	 * @model
+	 * @generated
+	 */
+	boolean isSameFileForDiagramAndModel();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Same File For Diagram And Model</em>' attribute.
+	 * @see #isSameFileForDiagramAndModel()
+	 * @generated
+	 */
+	void setSameFileForDiagramAndModel(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Diagram File Extension</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Diagram File Extension</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Diagram File Extension</em>' attribute.
+	 * @see #setDiagramFileExtension(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorGenerator_DiagramFileExtension()
+	 * @model
+	 * @generated
+	 */
+	String getDiagramFileExtension();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDiagramFileExtension <em>Diagram File Extension</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Diagram File Extension</em>' attribute.
+	 * @see #getDiagramFileExtension()
+	 * @generated
+	 */
+	void setDiagramFileExtension(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Domain File Extension</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * By default, genModel.genPackage[0].getPrefix().toLowerCase(), as in emf/templates/editor/pluign.xmljet
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Domain File Extension</em>' attribute.
+	 * @see #setDomainFileExtension(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorGenerator_DomainFileExtension()
+	 * @model
+	 * @generated
+	 */
+	String getDomainFileExtension();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDomainFileExtension <em>Domain File Extension</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Domain File Extension</em>' attribute.
+	 * @see #getDomainFileExtension()
+	 * @generated
+	 */
+	void setDomainFileExtension(String value);
 
 } // GenEditorGenerator

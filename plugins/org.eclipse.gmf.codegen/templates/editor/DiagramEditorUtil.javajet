@@ -1,6 +1,8 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="DiagramEditorUtilGenerator"
     imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
-<%GenDiagram genDiagram = (GenDiagram) argument;%>
+<%
+GenDiagram genDiagram = (GenDiagram) argument;
+GenEditorGenerator editorGen = genDiagram.getEditorGen();%>
 package <%=genDiagram.getEditorPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());%>
@@ -57,18 +59,18 @@ public class <%=genDiagram.getDiagramEditorUtilClassName()%> extends IDEEditorUt
 
 		IPath diagramFilePath = diagramFile.getLocation();
 		final Resource diagramResource = editingDomain.createResource(diagramFilePath.toOSString());
-<%if (!genDiagram.isSameFileForDiagramAndModel()) {%>
-		IPath modelFilePath = diagramFilePath.removeFileExtension().addFileExtension("<%=genDiagram.getDomainDiagramElement().getGenPackage().getPrefix().toLowerCase()%>"); //$NON-NLS-1$
+<%if (!editorGen.isSameFileForDiagramAndModel()) {%>
+		IPath modelFilePath = diagramFilePath.removeFileExtension().addFileExtension("<%=editorGen.getDomainFileExtension()%>"); //$NON-NLS-1$
 		final Resource modelResource = editingDomain.createResource(modelFilePath.toOSString());
 <%}%>
 
-		if (diagramResource != null<%if (!genDiagram.isSameFileForDiagramAndModel()) {%> && modelResource != null<%}%>) {
+		if (diagramResource != null<%if (!editorGen.isSameFileForDiagramAndModel()) {%> && modelResource != null<%}%>) {
 			final String kindParam = kind;
 			editingDomain.runAsUnchecked(new MRunnable() {
 
 				public Object run() {
 					EObject model = editingDomain.create(<%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>());
-<%if (!genDiagram.isSameFileForDiagramAndModel()) {%>					
+<%if (!editorGen.isSameFileForDiagramAndModel()) {%>					
 					modelResource.getContents().add(model);
 					editingDomain.saveResource(modelResource);
 <%} else {%>

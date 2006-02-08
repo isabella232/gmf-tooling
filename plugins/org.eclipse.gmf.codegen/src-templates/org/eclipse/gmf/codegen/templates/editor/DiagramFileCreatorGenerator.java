@@ -34,7 +34,9 @@ public class DiagramFileCreatorGenerator
   public String generate(Object argument)
   {
     StringBuffer stringBuffer = new StringBuffer();
-    GenDiagram genDiagram = (GenDiagram) argument;
+    
+GenDiagram genDiagram = (GenDiagram) argument;
+GenEditorGenerator editorGen = genDiagram.getEditorGen();
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getEditorPackageName());
     stringBuffer.append(TEXT_2);
@@ -49,9 +51,9 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_5);
     stringBuffer.append(genDiagram.getDiagramFileCreatorClassName());
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(genDiagram.getDiagramFileExtension());
+    stringBuffer.append(editorGen.getDiagramFileExtension());
     stringBuffer.append(TEXT_7);
-    if (!genDiagram.isSameFileForDiagramAndModel()) {
+    if (!editorGen.isSameFileForDiagramAndModel()) {
     stringBuffer.append(TEXT_8);
     stringBuffer.append(importManager.getImportedName("org.eclipse.core.runtime.IPath"));
     stringBuffer.append(TEXT_9);
@@ -63,7 +65,7 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_12);
     stringBuffer.append(importManager.getImportedName("org.eclipse.core.resources.ResourcesPlugin"));
     stringBuffer.append(TEXT_13);
-    stringBuffer.append(genDiagram.getDomainDiagramElement().getGenPackage().getPrefix().toLowerCase());
+    stringBuffer.append(editorGen.getDomainFileExtension());
     stringBuffer.append(TEXT_14);
     }
     stringBuffer.append(TEXT_15);

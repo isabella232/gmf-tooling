@@ -106,17 +106,18 @@ public class PluginXML
     StringBuffer stringBuffer = new StringBuffer();
     
 final GenPlugin genPlugin = (GenPlugin) argument;
-final GenDiagram genDiagram = genPlugin.getEditorGen().getDiagram();
-final GenModel genModel = genPlugin.getEditorGen().getDomainGenModel();
+final GenEditorGenerator editorGen = genPlugin.getEditorGen();
+final GenDiagram genDiagram = editorGen.getDiagram();
+final GenModel genModel = editorGen.getDomainGenModel();
 // XXX just treat the first genPackage as primary - genModel.getGenPackages().get(0)?
 final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPackage();
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getPreferenceInitializerQualifiedClassName());
     stringBuffer.append(TEXT_2);
-    stringBuffer.append(genDiagram.getDiagramFileExtension());
+    stringBuffer.append(editorGen.getDiagramFileExtension());
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(genDiagram.getDiagramFileExtension());
+    stringBuffer.append(editorGen.getDiagramFileExtension());
     stringBuffer.append(TEXT_4);
     stringBuffer.append(genDiagram.getEditorQualifiedClassName());
     stringBuffer.append(TEXT_5);
@@ -126,7 +127,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
     stringBuffer.append(TEXT_7);
     stringBuffer.append(domainMetaModel.getPrefix());
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(genDiagram.getDiagramFileExtension());
+    stringBuffer.append(editorGen.getDiagramFileExtension());
     stringBuffer.append(TEXT_9);
     stringBuffer.append(genDiagram.getEditorQualifiedClassName());
     stringBuffer.append(TEXT_10);
@@ -148,9 +149,9 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
     stringBuffer.append(TEXT_18);
     stringBuffer.append(genPlugin.getID());
     stringBuffer.append(TEXT_19);
-    stringBuffer.append(genDiagram.getDomainDiagramElement().getGenPackage().getPrefix().toLowerCase());
+    stringBuffer.append(editorGen.getDomainFileExtension());
     stringBuffer.append(TEXT_20);
-    stringBuffer.append(genDiagram.getDiagramFileExtension());
+    stringBuffer.append(editorGen.getDiagramFileExtension());
     stringBuffer.append(TEXT_21);
     stringBuffer.append(genDiagram.getInitDiagramFileActionQualifiedClassName());
     stringBuffer.append(TEXT_22);

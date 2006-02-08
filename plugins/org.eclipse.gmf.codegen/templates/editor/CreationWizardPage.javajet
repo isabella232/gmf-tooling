@@ -1,7 +1,8 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="CreationWizardPageGenerator"
-    imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
-<%GenDiagram genDiagram = (GenDiagram) argument;%>
-<%GenModel genModel = genDiagram.getEditorGen().getDomainGenModel();%>
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+<%
+GenDiagram genDiagram = (GenDiagram) argument;
+GenEditorGenerator editorGen = genDiagram.getEditorGen();%>
 package <%=genDiagram.getEditorPackageName()%>;
 
 import java.io.InputStream;
@@ -29,8 +30,8 @@ public class <%=genDiagram.getCreationWizardPageClassName()%> extends EditorWiza
 	 */
 	public <%=genDiagram.getCreationWizardPageClassName()%>(IWorkbench workbench, IStructuredSelection selection) {
 		super("CreationWizardPage", workbench, selection); //$NON-NLS-1$
-		setTitle("Create <%=genModel.getModelName()%> Diagram"); //$NON-NLS-1$
-		setDescription("Create a new <%=genModel.getModelName()%> diagram."); //$NON-NLS-1$
+		setTitle("Create <%=editorGen.getDomainGenModel().getModelName()%> Diagram"); //$NON-NLS-1$
+		setDescription("Create a new <%=editorGen.getDomainGenModel().getModelName()%> diagram."); //$NON-NLS-1$
 	}
 
 	/**
@@ -58,10 +59,10 @@ public class <%=genDiagram.getCreationWizardPageClassName()%> extends EditorWiza
 	 * @generated
 	 */
 	protected String getDiagramKind() {
-		return "<%=genDiagram.getEditorGen().getModelID()%>"; //$NON-NLS-1$
+		return "<%=editorGen.getModelID()%>"; //$NON-NLS-1$
 	}
 	
-<%if (!genDiagram.isSameFileForDiagramAndModel()) {%>
+<%if (!editorGen.isSameFileForDiagramAndModel()) {%>
 	/**
 	 * @generated
 	 */
@@ -73,7 +74,7 @@ public class <%=genDiagram.getCreationWizardPageClassName()%> extends EditorWiza
 			}
 			// appending file extension to correctly process file names including "." symbol
 			IPath path = getContainerFullPath().append(getDiagramFileCreator().appendExtensionToFileName(fileName));
-			path = path.removeFileExtension().addFileExtension("<%=genDiagram.getDomainDiagramElement().getGenPackage().getPrefix().toLowerCase()%>"); //$NON-NLS-1$
+			path = path.removeFileExtension().addFileExtension("<%=editorGen.getDomainFileExtension()%>"); //$NON-NLS-1$
 			if (<%=importManager.getImportedName("org.eclipse.core.resources.ResourcesPlugin")%>.getWorkspace().getRoot().exists(path)) {
 				setErrorMessage("Model File already exists: " + path.lastSegment());
 				return false;
