@@ -2,7 +2,7 @@
     imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.*"%>
 <%
 final GenPlugin genPlugin = (GenPlugin) argument;
-final GenModel genModel = genPlugin.getDiagram().getEMFGenModel();
+final GenModel genModel = genPlugin.getEditorGen().getDomainGenModel();
 final Set requiredPluginIDs = new LinkedHashSet();
 requiredPluginIDs.add(genModel.getModelPluginID());
 requiredPluginIDs.add(genModel.getEditPluginID());
@@ -26,7 +26,7 @@ Bundle-ClassPath: .
 Bundle-Activator: <%=genPlugin.getActivatorQualifiedClassName()%>
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: <%=genPlugin.getDiagram().getEditorPackageName()%>
+Export-Package: <%=genPlugin.getEditorGen().getDiagram().getEditorPackageName()%>
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.jface,

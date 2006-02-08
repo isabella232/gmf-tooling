@@ -1,6 +1,5 @@
 package org.eclipse.gmf.codegen.templates.editor;
 
-import org.eclipse.emf.codegen.ecore.genmodel.*;
 import org.eclipse.gmf.codegen.gmfgen.*;
 import org.eclipse.gmf.common.codegen.*;
 
@@ -26,15 +25,14 @@ public class DiagramEditorUtilGenerator
   protected final String TEXT_8 = "\"); //$NON-NLS-1$" + NL + "\t\tfinal Resource modelResource = editingDomain.createResource(modelFilePath.toOSString());";
   protected final String TEXT_9 = NL + NL + "\t\tif (diagramResource != null";
   protected final String TEXT_10 = " && modelResource != null";
-  protected final String TEXT_11 = ") {" + NL + "\t\t\tfinal String kindParam = kind;" + NL + "\t\t\teditingDomain.runAsUnchecked(new MRunnable() {" + NL + "" + NL + "\t\t\t\tpublic Object run() {";
-  protected final String TEXT_12 = NL + "\t\t\t\t\tEObject model = editingDomain.create(";
-  protected final String TEXT_13 = ".eINSTANCE.get";
-  protected final String TEXT_14 = "());";
-  protected final String TEXT_15 = "\t\t\t\t\t" + NL + "\t\t\t\t\tmodelResource.getContents().add(model);" + NL + "\t\t\t\t\teditingDomain.saveResource(modelResource);";
-  protected final String TEXT_16 = NL + "\t\t\t\t\tdiagramResource.getContents.add(model);";
-  protected final String TEXT_17 = NL + "\t\t\t\t\tDiagram diagram = ViewService.createDiagram(model, kindParam, ";
-  protected final String TEXT_18 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\t\t\t\tif (diagram != null) {" + NL + "\t\t\t\t\t\tdiagramResource.getContents().add(diagram);" + NL + "\t\t\t\t\t\tdiagram.setName(diagramFile.getName());" + NL + "\t\t\t\t\t\tdiagram.setElement(model);" + NL + "\t\t\t\t\t\teditingDomain.saveResource(diagramResource);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t\treturn null;" + NL + "\t\t\t\t}" + NL + "" + NL + "\t\t\t});" + NL + "\t\t}" + NL + "" + NL + "\t\treturn diagramFile;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_19 = NL;
+  protected final String TEXT_11 = ") {" + NL + "\t\t\tfinal String kindParam = kind;" + NL + "\t\t\teditingDomain.runAsUnchecked(new MRunnable() {" + NL + "" + NL + "\t\t\t\tpublic Object run() {" + NL + "\t\t\t\t\tEObject model = editingDomain.create(";
+  protected final String TEXT_12 = ".eINSTANCE.get";
+  protected final String TEXT_13 = "());";
+  protected final String TEXT_14 = "\t\t\t\t\t" + NL + "\t\t\t\t\tmodelResource.getContents().add(model);" + NL + "\t\t\t\t\teditingDomain.saveResource(modelResource);";
+  protected final String TEXT_15 = NL + "\t\t\t\t\tdiagramResource.getContents.add(model);";
+  protected final String TEXT_16 = NL + "\t\t\t\t\tDiagram diagram = ViewService.createDiagram(model, kindParam, ";
+  protected final String TEXT_17 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\t\t\t\tif (diagram != null) {" + NL + "\t\t\t\t\t\tdiagramResource.getContents().add(diagram);" + NL + "\t\t\t\t\t\tdiagram.setName(diagramFile.getName());" + NL + "\t\t\t\t\t\tdiagram.setElement(model);" + NL + "\t\t\t\t\t\teditingDomain.saveResource(diagramResource);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t\treturn null;" + NL + "\t\t\t\t}" + NL + "" + NL + "\t\t\t});" + NL + "\t\t}" + NL + "" + NL + "\t\treturn diagramFile;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_18 = NL;
 
   public String generate(Object argument)
   {
@@ -61,25 +59,20 @@ public class DiagramEditorUtilGenerator
     stringBuffer.append(TEXT_10);
     }
     stringBuffer.append(TEXT_11);
-    
-GenPackage genPackage = genDiagram.getDomainMetaModel();
-String domainPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
-
+    stringBuffer.append(genDiagram.getMetaPackageName(importManager));
     stringBuffer.append(TEXT_12);
-    stringBuffer.append(domainPackageInterfaceName);
-    stringBuffer.append(TEXT_13);
     stringBuffer.append(genDiagram.getDomainDiagramElement().getClassifierAccessorName());
-    stringBuffer.append(TEXT_14);
+    stringBuffer.append(TEXT_13);
     if (!genDiagram.isSameFileForDiagramAndModel()) {
-    stringBuffer.append(TEXT_15);
+    stringBuffer.append(TEXT_14);
     } else {
-    stringBuffer.append(TEXT_16);
+    stringBuffer.append(TEXT_15);
     }
+    stringBuffer.append(TEXT_16);
+    stringBuffer.append(genDiagram.getEditorGen().getPlugin().getActivatorClassName());
     stringBuffer.append(TEXT_17);
-    stringBuffer.append(genDiagram.getPlugin().getActivatorClassName());
-    stringBuffer.append(TEXT_18);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_19);
+    stringBuffer.append(TEXT_18);
     return stringBuffer.toString();
   }
 }

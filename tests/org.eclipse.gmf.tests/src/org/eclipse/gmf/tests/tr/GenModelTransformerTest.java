@@ -17,7 +17,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
-import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
@@ -35,7 +35,7 @@ import org.eclipse.gmf.tests.Utils;
 public abstract class GenModelTransformerTest extends AbstractMappingTransformerTest {
 
 	private NamingStrategy myNamingStrategy;
-	private GenDiagram transfromationResult; 
+	private GenEditorGenerator transfromationResult; 
 
 	public GenModelTransformerTest(String name) {
 		super(name);
@@ -57,21 +57,23 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 	}
 
 	public void testGenModelTransform() {
-		assertNotNull("GenDiagram is expected as result of mapping transformation", transfromationResult);
-		assertNotNull("Diagram filename extension not set", transfromationResult.getDiagramFileExtension());
+		assertNotNull("GenEditorGenerator is expected as result of mapping transformation", transfromationResult);
+		assertNotNull("GenDiagram is expected to be set...", transfromationResult.getDiagram());
+		assertNotNull("... as well as GenPlugin is expected to be set", transfromationResult.getPlugin());
+		assertNotNull("Diagram filename extension not set", transfromationResult.getDiagram().getDiagramFileExtension());
 		// FIXME add more
 
-		GenNode genNode = (GenNode) findGenBaseElement(transfromationResult.getTopLevelNodes(), getEditPartNameStrategy().get(getNodeMapping()));
+		GenNode genNode = (GenNode) findGenBaseElement(transfromationResult.getDiagram().getTopLevelNodes(), getEditPartNameStrategy().get(getNodeMapping()));
 		assertNotNull("Result model contains no GenNode for nodeMapping", genNode);
 		// FIXME add more
 
-		GenLink genLink = (GenLink) findGenBaseElement(transfromationResult.getLinks(), getEditPartNameStrategy().get(getLinkMapping()));
+		GenLink genLink = (GenLink) findGenBaseElement(transfromationResult.getDiagram().getLinks(), getEditPartNameStrategy().get(getLinkMapping()));
 		assertNotNull("Result model contains no GenLink for linkMapping", genLink);
 		// FIXME add more
 	}
 
 	public void testCreatedPalette() {
-		Palette palette = transfromationResult.getPalette();
+		Palette palette = transfromationResult.getDiagram().getPalette();
 		for (Iterator itN = getMapping().getNodes().iterator(); itN.hasNext();) {
 			NodeMapping nodeMapping = (NodeMapping) (itN.next());
 			assertEquals(nodeMapping.getTool() != null ? 1 : 0, countUses(nodeMapping, palette));

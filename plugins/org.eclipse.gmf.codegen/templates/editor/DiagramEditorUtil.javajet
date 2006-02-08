@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="DiagramEditorUtilGenerator"
-    imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%GenDiagram genDiagram = (GenDiagram) argument;%>
 package <%=genDiagram.getEditorPackageName()%>;
 
@@ -67,18 +67,14 @@ public class <%=genDiagram.getDiagramEditorUtilClassName()%> extends IDEEditorUt
 			editingDomain.runAsUnchecked(new MRunnable() {
 
 				public Object run() {
-<%
-GenPackage genPackage = genDiagram.getDomainMetaModel();
-String domainPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
-%>
-					EObject model = editingDomain.create(<%=domainPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>());
+					EObject model = editingDomain.create(<%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>());
 <%if (!genDiagram.isSameFileForDiagramAndModel()) {%>					
 					modelResource.getContents().add(model);
 					editingDomain.saveResource(modelResource);
 <%} else {%>
 					diagramResource.getContents.add(model);
 <%}%>
-					Diagram diagram = ViewService.createDiagram(model, kindParam, <%=genDiagram.getPlugin().getActivatorClassName()%>.DIAGRAM_PREFERENCES_HINT);
+					Diagram diagram = ViewService.createDiagram(model, kindParam, <%=genDiagram.getEditorGen().getPlugin().getActivatorClassName()%>.DIAGRAM_PREFERENCES_HINT);
 					if (diagram != null) {
 						diagramResource.getContents().add(diagram);
 						diagram.setName(diagramFile.getName());

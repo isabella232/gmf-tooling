@@ -2,7 +2,7 @@
     imports="org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
 GenDiagram genDiagram = (GenDiagram) argument;
-GenModel genModel = genDiagram.getEMFGenModel();
+GenModel genModel = genDiagram.getEditorGen().getDomainGenModel();
 %>
 package <%=genDiagram.getProvidersPackageName()%>;
 

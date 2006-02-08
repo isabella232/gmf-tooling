@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.notify.Notification;
@@ -27,19 +26,19 @@ import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
 import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
 import org.eclipse.gmf.codegen.gmfgen.EditorCandies;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
-import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.PackageNames;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ProviderClassNames;
 import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
+import org.eclipse.gmf.common.codegen.ImportAssistant;
 
 /**
  * <!-- begin-user-doc -->
@@ -93,15 +92,13 @@ import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getValidationProviderClassName <em>Validation Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMarkerNavigationProviderClassName <em>Marker Navigation Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isValidationEnabled <em>Validation Enabled</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDomainMetaModel <em>Domain Meta Model</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditorGen <em>Editor Gen</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDomainDiagramElement <em>Domain Diagram Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getChildNodes <em>Child Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getTopLevelNodes <em>Top Level Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getLinks <em>Links</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getCompartments <em>Compartments</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getAudits <em>Audits</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPalette <em>Palette</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPlugin <em>Plugin</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
  * </ul>
@@ -972,16 +969,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected boolean validationEnabled = VALIDATION_ENABLED_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getDomainMetaModel() <em>Domain Meta Model</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDomainMetaModel()
-	 * @generated
-	 * @ordered
-	 */
-	protected GenPackage domainMetaModel = null;
-
-	/**
 	 * The cached value of the '{@link #getDomainDiagramElement() <em>Domain Diagram Element</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1032,16 +1019,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected EList compartments = null;
 
 	/**
-	 * The cached value of the '{@link #getAudits() <em>Audits</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAudits()
-	 * @generated
-	 * @ordered
-	 */
-	protected GenAuditContainer audits = null;
-
-	/**
 	 * The cached value of the '{@link #getPalette() <em>Palette</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1050,16 +1027,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected Palette palette = null;
-
-	/**
-	 * The cached value of the '{@link #getPlugin() <em>Plugin</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPlugin()
-	 * @generated
-	 * @ordered
-	 */
-	protected GenPlugin plugin = null;
 
 	/**
 	 * The default value of the '{@link #isSameFileForDiagramAndModel() <em>Same File For Diagram And Model</em>}' attribute.
@@ -1128,44 +1095,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public EList getContainedNodes() {
 		return getTopLevelNodes();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenPackage getDomainMetaModel() {
-		if (domainMetaModel != null && domainMetaModel.eIsProxy()) {
-			InternalEObject oldDomainMetaModel = (InternalEObject)domainMetaModel;
-			domainMetaModel = (GenPackage)eResolveProxy(oldDomainMetaModel);
-			if (domainMetaModel != oldDomainMetaModel) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL, oldDomainMetaModel, domainMetaModel));
-			}
-		}
-		return domainMetaModel;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenPackage basicGetDomainMetaModel() {
-		return domainMetaModel;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDomainMetaModel(GenPackage newDomainMetaModel) {
-		GenPackage oldDomainMetaModel = domainMetaModel;
-		domainMetaModel = newDomainMetaModel;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL, oldDomainMetaModel, domainMetaModel));
 	}
 
 	/**
@@ -1259,49 +1188,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenAuditContainer getAudits() {
-		return audits;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetAudits(GenAuditContainer newAudits, NotificationChain msgs) {
-		GenAuditContainer oldAudits = audits;
-		audits = newAudits;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__AUDITS, oldAudits, newAudits);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setAudits(GenAuditContainer newAudits) {
-		if (newAudits != audits) {
-			NotificationChain msgs = null;
-			if (audits != null)
-				msgs = ((InternalEObject)audits).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_DIAGRAM__AUDITS, null, msgs);
-			if (newAudits != null)
-				msgs = ((InternalEObject)newAudits).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_DIAGRAM__AUDITS, null, msgs);
-			msgs = basicSetAudits(newAudits, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__AUDITS, newAudits, newAudits));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Palette getPalette() {
 		return palette;
 	}
@@ -1338,49 +1224,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PALETTE, newPalette, newPalette));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenPlugin getPlugin() {
-		return plugin;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetPlugin(GenPlugin newPlugin, NotificationChain msgs) {
-		GenPlugin oldPlugin = plugin;
-		plugin = newPlugin;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PLUGIN, oldPlugin, newPlugin);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPlugin(GenPlugin newPlugin) {
-		if (newPlugin != plugin) {
-			NotificationChain msgs = null;
-			if (plugin != null)
-				msgs = ((InternalEObject)plugin).eInverseRemove(this, GMFGenPackage.GEN_PLUGIN__DIAGRAM, GenPlugin.class, msgs);
-			if (newPlugin != null)
-				msgs = ((InternalEObject)newPlugin).eInverseAdd(this, GMFGenPackage.GEN_PLUGIN__DIAGRAM, GenPlugin.class, msgs);
-			msgs = basicSetPlugin(newPlugin, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PLUGIN, newPlugin, newPlugin));
 	}
 
 	/**
@@ -1471,15 +1314,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	public String getClassNamePrefix() {
-		String prefix;
 		if (getDomainDiagramElement() != null) {
-			prefix = getDomainDiagramElement().getName();
+			return  getDomainDiagramElement().getName();
 		} else {
-			char[] v = getDomainMetaModel().getEcorePackage().getName().toCharArray();
-			v[0] = Character.toUpperCase(v[0]);
-			prefix = new String(v);
+			return getEditorGen().getDomainGenModel().getModelName();
 		}
-		return prefix;
+		// XXX NPE in gmfgen editor when neither domainGenModel nor domainDiagramElement has been set?
 	}
 
 	public String getClassNameSuffux() {
@@ -1743,6 +1583,16 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		validationEnabled = newValidationEnabled;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED, oldValidationEnabled, validationEnabled));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenEditorGenerator getEditorGen() {
+		if (eContainerFeatureID != GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN) return null;
+		return (GenEditorGenerator)eContainer();
 	}
 
 	/**
@@ -2163,7 +2013,7 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	public String getDiagramFileExtension() {
 		String value = getDiagramFileExtensionGen();
 		if (value == null || value.length() == 0) {
-			return getEMFGenModel().getModelName().toLowerCase() + "_diagram";
+			return getEditorGen().getDomainGenModel().getModelName().toLowerCase() + "_diagram";
 		}
 		return value;
 	}
@@ -2699,15 +2549,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public GenModel getEMFGenModel() {
-		return getDomainMetaModel().getGenModel();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
 	public EList getAllNodes() {
 		EList result = new BasicEList();
 		result.addAll(getTopLevelNodes());
@@ -2839,6 +2680,10 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:
 				return ((InternalEList)getChildNodes()).basicAdd(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
@@ -2851,10 +2696,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				if (palette != null)
 					msgs = ((InternalEObject)palette).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_DIAGRAM__PALETTE, null, msgs);
 				return basicSetPalette((Palette)otherEnd, msgs);
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN:
-				if (plugin != null)
-					msgs = ((InternalEObject)plugin).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_DIAGRAM__PLUGIN, null, msgs);
-				return basicSetPlugin((GenPlugin)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -2866,6 +2707,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
+				return eBasicSetContainer(null, GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:
 				return ((InternalEList)getChildNodes()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
@@ -2874,14 +2717,23 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return ((InternalEList)getLinks()).basicRemove(otherEnd, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
 				return ((InternalEList)getCompartments()).basicRemove(otherEnd, msgs);
-			case GMFGenPackage.GEN_DIAGRAM__AUDITS:
-				return basicSetAudits(null, msgs);
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				return basicSetPalette(null, msgs);
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN:
-				return basicSetPlugin(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM, GenEditorGenerator.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -2981,9 +2833,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getMarkerNavigationProviderClassName();
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
 				return isValidationEnabled() ? Boolean.TRUE : Boolean.FALSE;
-			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
-				if (resolve) return getDomainMetaModel();
-				return basicGetDomainMetaModel();
+			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
+				return getEditorGen();
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
 				if (resolve) return getDomainDiagramElement();
 				return basicGetDomainDiagramElement();
@@ -2995,12 +2846,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getLinks();
 			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
 				return getCompartments();
-			case GMFGenPackage.GEN_DIAGRAM__AUDITS:
-				return getAudits();
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				return getPalette();
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN:
-				return getPlugin();
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
 				return isSameFileForDiagramAndModel() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
@@ -3154,9 +3001,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
 				setValidationEnabled(((Boolean)newValue).booleanValue());
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
-				setDomainMetaModel((GenPackage)newValue);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
 				setDomainDiagramElement((GenClass)newValue);
 				return;
@@ -3176,14 +3020,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				getCompartments().clear();
 				getCompartments().addAll((Collection)newValue);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__AUDITS:
-				setAudits((GenAuditContainer)newValue);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				setPalette((Palette)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN:
-				setPlugin((GenPlugin)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
 				setSameFileForDiagramAndModel(((Boolean)newValue).booleanValue());
@@ -3337,9 +3175,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
 				setValidationEnabled(VALIDATION_ENABLED_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
-				setDomainMetaModel((GenPackage)null);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
 				setDomainDiagramElement((GenClass)null);
 				return;
@@ -3355,14 +3190,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
 				getCompartments().clear();
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__AUDITS:
-				setAudits((GenAuditContainer)null);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				setPalette((Palette)null);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN:
-				setPlugin((GenPlugin)null);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
 				setSameFileForDiagramAndModel(SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT);
@@ -3471,8 +3300,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return MARKER_NAVIGATION_PROVIDER_CLASS_NAME_EDEFAULT == null ? markerNavigationProviderClassName != null : !MARKER_NAVIGATION_PROVIDER_CLASS_NAME_EDEFAULT.equals(markerNavigationProviderClassName);
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
 				return validationEnabled != VALIDATION_ENABLED_EDEFAULT;
-			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_META_MODEL:
-				return domainMetaModel != null;
+			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
+				return getEditorGen() != null;
 			case GMFGenPackage.GEN_DIAGRAM__DOMAIN_DIAGRAM_ELEMENT:
 				return domainDiagramElement != null;
 			case GMFGenPackage.GEN_DIAGRAM__CHILD_NODES:
@@ -3483,12 +3312,8 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return links != null && !links.isEmpty();
 			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
 				return compartments != null && !compartments.isEmpty();
-			case GMFGenPackage.GEN_DIAGRAM__AUDITS:
-				return audits != null;
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
 				return palette != null;
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN:
-				return plugin != null;
 			case GMFGenPackage.GEN_DIAGRAM__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
 				return sameFileForDiagramAndModel != SAME_FILE_FOR_DIAGRAM_AND_MODEL_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_EXTENSION:
@@ -4093,8 +3918,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @see org.eclipse.emf.codegen.ecore.genmodel.impl.GenPackageImpl#getQualifiedPackageName()
 	 */
 	private String getPackageNamePrefix() {
-		String prefix = CodeGenUtil.safeName(getDomainMetaModel().getPackageName());
-		String basePackage = getDomainMetaModel().getBasePackage();
+		GenPackage primaryPackage = (GenPackage) getEditorGen().getDomainGenModel().getGenPackages().get(0);
+		String prefix = CodeGenUtil.safeName(primaryPackage.getPackageName());
+		String basePackage = primaryPackage.getBasePackage();
 		if (basePackage != null && basePackage.length() > 0) {
 			prefix = basePackage + '.' + prefix;
 		}
@@ -4102,10 +3928,14 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	}
 
 	String getDomainPackageCapName() {
-		String name = CodeGenUtil.validJavaIdentifier(getEMFGenModel().getModelName());
+		String name = CodeGenUtil.validJavaIdentifier(getEditorGen().getDomainGenModel().getModelName());
 		if (name.length() < 2) {
 			return name.toUpperCase();
 		}
 		return Character.toUpperCase(name.charAt(0)) + name.substring(1);
+	}
+
+	public String getMetaPackageName(ImportAssistant importManager) {
+		return importManager.getImportedName(getDomainDiagramElement().getGenPackage().getQualifiedPackageInterfaceName());
 	}
 } //GenDiagramImpl

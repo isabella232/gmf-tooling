@@ -32,7 +32,7 @@ public class ActionBarContributorGenerator
     stringBuffer.append(TEXT_3);
     stringBuffer.append(diagram.getEditorClassName());
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(diagram.getPlugin().getActivatorClassName());
+    stringBuffer.append(diagram.getEditorGen().getPlugin().getActivatorClassName());
     stringBuffer.append(TEXT_5);
     stringBuffer.append(TEXT_6);
     return stringBuffer.toString();

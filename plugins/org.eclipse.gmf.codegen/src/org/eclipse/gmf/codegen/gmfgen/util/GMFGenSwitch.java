@@ -126,6 +126,12 @@ public class GMFGenSwitch {
 	 */
 	protected Object doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
+			case GMFGenPackage.GEN_EDITOR_GENERATOR: {
+				GenEditorGenerator genEditorGenerator = (GenEditorGenerator)theEObject;
+				Object result = caseGenEditorGenerator(genEditorGenerator);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.GEN_DIAGRAM: {
 				GenDiagram genDiagram = (GenDiagram)theEObject;
 				Object result = caseGenDiagram(genDiagram);
@@ -529,6 +535,21 @@ public class GMFGenSwitch {
 			}
 			default: return defaultCase(theEObject);
 		}
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Editor Generator</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Editor Generator</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenEditorGenerator(GenEditorGenerator object) {
+		return null;
 	}
 
 	/**

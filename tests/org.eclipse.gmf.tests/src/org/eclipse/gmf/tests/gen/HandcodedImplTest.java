@@ -161,7 +161,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		} else {
 			state.add("Palette:Factory");
 		}
-		GenPlugin genPlugin = genDiagram.getPlugin();
+		GenPlugin genPlugin = genDiagram.getEditorGen().getPlugin();
 		checkClassName(state, "GenPlugin:Activator", genPlugin.getActivatorClassName(), genPlugin.getActivatorQualifiedClassName());
 
 		for (GenCommonBaseIterator entities = new GenCommonBaseIterator(genDiagram); entities.hasNext();) {

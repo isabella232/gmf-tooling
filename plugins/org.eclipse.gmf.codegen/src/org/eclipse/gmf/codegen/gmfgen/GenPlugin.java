@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getDiagram <em>Diagram</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getEditorGen <em>Editor Gen</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getID <em>ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getProvider <em>Provider</em>}</li>
@@ -33,21 +33,21 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface GenPlugin extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Diagram</b></em>' container reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPlugin <em>Plugin</em>}'.
+	 * Returns the value of the '<em><b>Editor Gen</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPlugin <em>Plugin</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Diagram</em>' container reference isn't clear,
+	 * If the meaning of the '<em>Editor Gen</em>' container reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Diagram</em>' container reference.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenPlugin_Diagram()
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPlugin
+	 * @return the value of the '<em>Editor Gen</em>' container reference.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenPlugin_EditorGen()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPlugin
 	 * @model opposite="plugin" changeable="false"
 	 * @generated
 	 */
-	GenDiagram getDiagram();
+	GenEditorGenerator getEditorGen();
 
 	/**
 	 * Returns the value of the '<em><b>ID</b></em>' attribute.

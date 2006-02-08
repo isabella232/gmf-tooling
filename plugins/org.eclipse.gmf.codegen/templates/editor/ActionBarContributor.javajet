@@ -21,6 +21,6 @@ public class <%=diagram.getActionBarContributorClassName()%> extends DiagramActi
 	 * @generated
 	 */
 	protected String getEditorId() {
-		return <%=diagram.getPlugin().getActivatorClassName()%>.EDITOR_ID;
+		return <%=diagram.getEditorGen().getPlugin().getActivatorClassName()%>.EDITOR_ID;
 	}
 }

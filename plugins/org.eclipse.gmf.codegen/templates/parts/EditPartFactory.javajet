@@ -1,6 +1,9 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.parts" class="EditPartFactoryGenerator" 
 	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
-<%GenDiagram genDiagram = (GenDiagram) argument;%>
+<%
+final GenDiagram genDiagram = (GenDiagram) argument;
+final String modelID = genDiagram.getEditorGen().getDomainGenModel().getModelName();
+%>
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
@@ -29,7 +32,7 @@ public class <%=genDiagram.getEditPartFactoryClassName()%> implements EditPartFa
 	public EditPart createEditPart(EditPart context, Object model) {
 		if (model instanceof View) {
 			View view = (View) model;
-			if (!"<%=genDiagram.getEMFGenModel().getModelName()%>".equals(getModelID(view))) {
+			if (!"<%=modelID%>".equals(getModelID(view))) {
 				return null;
 			}
 			

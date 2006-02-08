@@ -302,7 +302,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 }
 
     stringBuffer.append(TEXT_58);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_59);
     importManager.emitSortedImports();
     stringBuffer.append(TEXT_60);

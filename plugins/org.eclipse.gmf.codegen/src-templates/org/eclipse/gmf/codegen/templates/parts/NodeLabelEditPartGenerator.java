@@ -66,7 +66,7 @@ boolean isParentFlowLayout = !genLabel.getNode().isListLayout();
     stringBuffer.append(TEXT_5);
     stringBuffer.append(genLabel.getEditPartClassName());
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_7);
     stringBuffer.append(TEXT_8);
     if (genLabel.isReadOnly() || genLabel.getModelFacet() instanceof TextLabelModelFacet) {

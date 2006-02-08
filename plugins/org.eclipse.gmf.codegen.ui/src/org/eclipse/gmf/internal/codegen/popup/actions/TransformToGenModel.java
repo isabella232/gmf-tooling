@@ -36,7 +36,7 @@ import org.eclipse.gmf.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.SpecificDiagramRunTimeModelHelper;
-import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
 import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
 import org.eclipse.gmf.mappings.Mapping;
@@ -121,31 +121,31 @@ public class TransformToGenModel implements IObjectActionDelegate {
 			protected IStatus run(IProgressMonitor monitor) {
 				monitor.beginTask(getName(), 3);
 				try {
-					GenDiagram genDiagram = transform(mapping);
+					GenEditorGenerator genEditor = transform(mapping);
 					monitor.worked(1);
 					if (monitor.isCanceled()) {
 						return Status.CANCEL_STATUS;
 					}
 
-					save(genDiagram);
+					save(genEditor);
 					monitor.worked(1);
 					if (monitor.isCanceled()) {
 						return Status.CANCEL_STATUS;
 					}
 					
-					return validate(genDiagram);
+					return validate(genEditor);
 				} catch (IOException ex) {
 					return CodeGenUIPlugin.createError("", ex);
 				} finally {
 					monitor.done();
 				}
 			}
-			private GenDiagram transform(Mapping m) {
+			private GenEditorGenerator transform(Mapping m) {
 				t.transform(m);
 				return t.getResult();
 			}
-			private IStatus validate(GenDiagram gd) {
-				Diagnostic d = Diagnostician.INSTANCE.validate(gd);
+			private IStatus validate(GenEditorGenerator genBurdern) {
+				Diagnostic d = Diagnostician.INSTANCE.validate(genBurdern);
 				if (d.getSeverity() == Diagnostic.OK) {
 					return Status.OK_STATUS;
 				}
@@ -155,9 +155,9 @@ public class TransformToGenModel implements IObjectActionDelegate {
 					return BasicDiagnostic.toIStatus(d);
 				}
 			}
-			private void save(GenDiagram gd) throws IOException {
+			private void save(GenEditorGenerator genBurdern) throws IOException {
 				Resource dgmmRes = resSet.createResource(getGenModelURI());
-				dgmmRes.getContents().add(gd);				
+				dgmmRes.getContents().add(genBurdern);				
 				dgmmRes.save(getSaveOptions());
 			}
 		}.schedule();

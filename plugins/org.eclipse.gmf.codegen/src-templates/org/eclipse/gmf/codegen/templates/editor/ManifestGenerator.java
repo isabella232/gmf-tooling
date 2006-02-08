@@ -33,7 +33,7 @@ public class ManifestGenerator
     StringBuffer stringBuffer = new StringBuffer();
     
 final GenPlugin genPlugin = (GenPlugin) argument;
-final GenModel genModel = genPlugin.getDiagram().getEMFGenModel();
+final GenModel genModel = genPlugin.getEditorGen().getDomainGenModel();
 final Set requiredPluginIDs = new LinkedHashSet();
 requiredPluginIDs.add(genModel.getModelPluginID());
 requiredPluginIDs.add(genModel.getEditPluginID());
@@ -53,7 +53,7 @@ Iterator requiredBundleIterator = requiredPluginIDs.iterator();
     stringBuffer.append(TEXT_2);
     stringBuffer.append(genPlugin.getActivatorQualifiedClassName());
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(genPlugin.getDiagram().getEditorPackageName());
+    stringBuffer.append(genPlugin.getEditorGen().getDiagram().getEditorPackageName());
     stringBuffer.append(TEXT_4);
     if (genPlugin.isPrintingEnabled()) {
     stringBuffer.append(TEXT_5);

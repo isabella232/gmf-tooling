@@ -83,7 +83,6 @@ public class ParserProviderGenerator
     
 Map labels = new LinkedHashMap(); // Gen[Node|Link] -> List : GenLabel
 Map labelMethodNames = new HashMap(); // GenLabel -> String
-String semanticPackageInterfaceName = importManager.getImportedName(genDiagram.getDomainMetaModel().getQualifiedPackageInterfaceName());
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();
 	if (next instanceof GenLabel) {
@@ -145,6 +144,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 			String featureName = ((FeatureLabelModelFacet) modelFacet).getMetaFeature().getName();
 			viewPattern = ((FeatureLabelModelFacet) modelFacet).getViewPattern();
 			editPattern = ((FeatureLabelModelFacet) modelFacet).getEditPattern();
+			String semanticPackageInterfaceName = importManager.getImportedName(((FeatureLabelModelFacet) modelFacet).getMetaFeature().getGenPackage().getQualifiedPackageInterfaceName());
 
     stringBuffer.append(TEXT_14);
     stringBuffer.append(parserClassName);
@@ -173,7 +173,9 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
     stringBuffer.append(TEXT_23);
     
 			for (java.util.Iterator it = features.iterator(); it.hasNext(); ) {
-				String featureName = ((GenFeature) it.next()).getName();
+				GenFeature nextGenFeature = (GenFeature) it.next(); 
+				String featureName = nextGenFeature.getName();
+				String semanticPackageInterfaceName = importManager.getImportedName(nextGenFeature.getGenPackage().getQualifiedPackageInterfaceName());
 
     stringBuffer.append(TEXT_24);
     stringBuffer.append(semanticPackageInterfaceName);

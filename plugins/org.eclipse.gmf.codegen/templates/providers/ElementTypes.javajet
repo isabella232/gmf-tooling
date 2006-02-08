@@ -61,11 +61,11 @@ public class <%=genDiagram.getElementTypesClassName()%> {
 		}
 		if (element instanceof EClass) {
 <%
-String pluginClassName = importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName());
-String semanticFactoryClassName = importManager.getImportedName(genDiagram.getDomainMetaModel().getQualifiedFactoryInterfaceName());
+String pluginClassName = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
 %>
+			EClass eClass = (EClass) element;
 			return <%=pluginClassName%>.getInstance().getItemImageDescriptor(
-				<%=semanticFactoryClassName%>.eINSTANCE.create((EClass) element));
+				eClass.getEPackage().getEFactoryInstance().create(eClass));
 		}
 		// TODO : support structural features
 		return null;
@@ -125,10 +125,6 @@ String semanticFactoryClassName = importManager.getImportedName(genDiagram.getDo
 		}
 		return getImage(element);
 	}
-<%
-GenPackage genPackage = genDiagram.getDomainMetaModel();
-String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
-%>
 
 	/**
 	 * Returns 'type' of the ecore object associated with the hint.
@@ -138,7 +134,7 @@ String semanticPackageInterfaceName = importManager.getImportedName(genPackage.g
 	public static ENamedElement getElement(IAdaptable hint) {
 		Object type = hint.getAdapter(IElementType.class);
 		if (<%=genDiagram.getUniqueIdentifier()%> == type) {
-			return <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>();
+			return <%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>();
 <%
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();
@@ -153,12 +149,14 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	}
 	if (modelFacet instanceof TypeModelFacet) {
 		GenClass metaClass = ((TypeModelFacet) modelFacet).getMetaClass();
+		String semanticPackageInterfaceName = importManager.getImportedName(metaClass.getGenPackage().getQualifiedPackageInterfaceName());
 %>
 		} else if (<%=id%> == type) {
 			return <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=metaClass.getClassifierAccessorName()%>();
 <%
 	} else if (modelFacet instanceof FeatureModelFacet) {
 		GenFeature metaFeature = ((FeatureModelFacet) modelFacet).getMetaFeature();
+		String semanticPackageInterfaceName = importManager.getImportedName(metaFeature.getGenPackage().getQualifiedPackageInterfaceName());
 %>
 		} else if (<%=id%> == type) {
 			return <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>();
@@ -175,7 +173,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	 */
 	public static final IMetamodelType <%=genDiagram.getUniqueIdentifier()%> = new MetamodelType(
 		"<%=genDiagram.getUniqueIdentifier()%>", null, "<%=genDiagram.getClassNamePrefix()%>",
-		<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>(),
+		<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>(),
 		new NullEditHelper());
 <%
 List types = new ArrayList();
@@ -186,15 +184,18 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	String id;
 	TypeModelFacet typeModelFacet = null;
 	String semanticEntityInterfaceName = null;
+	String semanticPackageInterfaceName = null;
 	if (next instanceof GenNode) {
 		id = ((GenNode) next).getUniqueIdentifier();
 		typeModelFacet = ((GenNode) next).getModelFacet();
 		semanticEntityInterfaceName = typeModelFacet.getMetaClass().getClassifierAccessorName();
+		semanticPackageInterfaceName = importManager.getImportedName(typeModelFacet.getMetaClass().getGenPackage().getQualifiedPackageInterfaceName());
 	} else if (next instanceof GenLink) {
 		id = ((GenLink) next).getUniqueIdentifier();
 		if (((GenLink) next).getModelFacet() instanceof TypeLinkModelFacet) {
 			typeModelFacet = (TypeLinkModelFacet) ((GenLink) next).getModelFacet();
 			semanticEntityInterfaceName = typeModelFacet.getMetaClass().getClassifierAccessorName();
+			semanticPackageInterfaceName = importManager.getImportedName(typeModelFacet.getMetaClass().getGenPackage().getQualifiedPackageInterfaceName());
 		}
 	} else {
 		continue;
@@ -236,7 +237,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 		 */
 		public ICommand getEditCommand(IEditCommandRequest req) {
 			if (!(req instanceof ConfigureRequest)) {
-				<%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("unserved request " + req);
+				<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("unserved request " + req);
 			}
 			return null;
 		}

@@ -123,7 +123,7 @@ if (isDiagram) {
 
     stringBuffer.append(TEXT_14);
     stringBuffer.append(TEXT_15);
-    stringBuffer.append(genDiagram.getEMFGenModel().getModelName());
+    stringBuffer.append(genDiagram.getEditorGen().getDomainGenModel().getModelName());
     stringBuffer.append(TEXT_16);
     stringBuffer.append(genElement.getVisualID());
     stringBuffer.append(TEXT_17);

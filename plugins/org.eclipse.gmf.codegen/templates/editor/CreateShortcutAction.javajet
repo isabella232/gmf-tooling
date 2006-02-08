@@ -60,7 +60,7 @@ public class <%=genDiagram.getCreateShortcutActionClassName()%> implements IObje
 		
 		OperationUtil.runAsUnchecked(new MRunnable() {
 			public Object run() {
-				Node shortcutNode = ViewService.createNode(view, selectedElement, null, <%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
+				Node shortcutNode = ViewService.createNode(view, selectedElement, null, <%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
 				EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
 				annotation.setSource("Shortcutted"); //$NON-NLS-1$
 				shortcutNode.getEAnnotations().add(annotation);

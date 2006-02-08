@@ -15,18 +15,15 @@ import java.util.Set;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
@@ -41,7 +38,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPluginImpl#getDiagram <em>Diagram</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPluginImpl#getEditorGen <em>Editor Gen</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPluginImpl#getID <em>ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPluginImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPluginImpl#getProvider <em>Provider</em>}</li>
@@ -176,15 +173,15 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenDiagram getDiagram() {
-		if (eContainerFeatureID != GMFGenPackage.GEN_PLUGIN__DIAGRAM) return null;
-		return (GenDiagram)eContainer();
+	public GenEditorGenerator getEditorGen() {
+		if (eContainerFeatureID != GMFGenPackage.GEN_PLUGIN__EDITOR_GEN) return null;
+		return (GenEditorGenerator)eContainer();
 	}
 
 	public String getID() {
 		String value = getIDGen();
 		if (value == null || value.length() == 0) {
-			return getDiagram().getEMFGenModel().getModelPluginID() + '.' + GenDiagramImpl.DIAGRAM_EDITOR_TOKEN;
+			return getEditorGen().getDomainGenModel().getModelPluginID() + '.' + GenDiagramImpl.DIAGRAM_EDITOR_TOKEN;
 		}
 		return value;
 	}
@@ -276,6 +273,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	public String getActivatorClassName() {
 		String value = getActivatorClassNameGen();
 		if (value == null || value.trim().length() == 0) {
+			// FIXME is it really required to have domainPackageCapName there?
 			value = ((GenDiagramImpl) getDiagram()).getDomainPackageCapName() + "DiagramEditorPlugin";
 		}
 		return value;
@@ -358,7 +356,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	}
 	
 	private Set getValidationRequiredPluginIDs() {
-		if(getDiagram().isValidationEnabled() || (getDiagram().getAudits() != null && !getDiagram().getAudits().getAllAuditRules().isEmpty())) {
+		if(getDiagram().isValidationEnabled() || (getEditorGen().getAudits() != null && !getEditorGen().getAudits().getAllAuditRules().isEmpty())) {
 			return Collections.singleton("org.eclipse.emf.validation"); //$NON-NLS-1$ 
 		}
 		return Collections.EMPTY_SET;
@@ -371,10 +369,10 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_PLUGIN__DIAGRAM:
+			case GMFGenPackage.GEN_PLUGIN__EDITOR_GEN:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_PLUGIN__DIAGRAM, msgs);
+				return eBasicSetContainer(otherEnd, GMFGenPackage.GEN_PLUGIN__EDITOR_GEN, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -386,8 +384,8 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_PLUGIN__DIAGRAM:
-				return eBasicSetContainer(null, GMFGenPackage.GEN_PLUGIN__DIAGRAM, msgs);
+			case GMFGenPackage.GEN_PLUGIN__EDITOR_GEN:
+				return eBasicSetContainer(null, GMFGenPackage.GEN_PLUGIN__EDITOR_GEN, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -399,8 +397,8 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 */
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
-			case GMFGenPackage.GEN_PLUGIN__DIAGRAM:
-				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_DIAGRAM__PLUGIN, GenDiagram.class, msgs);
+			case GMFGenPackage.GEN_PLUGIN__EDITOR_GEN:
+				return eInternalContainer().eInverseRemove(this, GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN, GenEditorGenerator.class, msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
@@ -412,8 +410,8 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_PLUGIN__DIAGRAM:
-				return getDiagram();
+			case GMFGenPackage.GEN_PLUGIN__EDITOR_GEN:
+				return getEditorGen();
 			case GMFGenPackage.GEN_PLUGIN__ID:
 				return getID();
 			case GMFGenPackage.GEN_PLUGIN__NAME:
@@ -487,8 +485,8 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GMFGenPackage.GEN_PLUGIN__DIAGRAM:
-				return getDiagram() != null;
+			case GMFGenPackage.GEN_PLUGIN__EDITOR_GEN:
+				return getEditorGen() != null;
 			case GMFGenPackage.GEN_PLUGIN__ID:
 				return ID_EDEFAULT == null ? iD != null : !ID_EDEFAULT.equals(iD);
 			case GMFGenPackage.GEN_PLUGIN__NAME:
@@ -526,4 +524,7 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 		return result.toString();
 	}
 
+	private GenDiagram getDiagram() {
+		return getEditorGen().getDiagram();
+	}
 } //GenPluginImpl

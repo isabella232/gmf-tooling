@@ -258,7 +258,10 @@ public class InitDiagramFileActionGenerator {
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-GenDiagram genDiagram = (GenDiagram) argument;
+final GenDiagram genDiagram = (GenDiagram) argument;
+final ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());
+final String pluginActivatorClass = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
+final String modelID = genDiagram.getEditorGen().getDomainGenModel().getModelName();
 List genLinks = genDiagram.getLinks();
 
 // Collecting all phantom elements
@@ -278,8 +281,6 @@ boolean generateGetCompartment = false;
     stringBuffer.append(genDiagram.getEditorPackageName());
     stringBuffer.append(TEXT_2);
     
-ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());
-
 importManager.addImport("java.io.IOException");
 importManager.addImport("java.util.Collections");
 importManager.addImport("java.util.HashMap");
@@ -316,7 +317,7 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_4);
     stringBuffer.append(genDiagram.getDiagramFileExtension());
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(pluginActivatorClass);
     stringBuffer.append(TEXT_6);
     if (genDiagram.isSameFileForDiagramAndModel()) {
     stringBuffer.append(TEXT_7);
@@ -326,11 +327,11 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_9);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.util.URI"));
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(pluginActivatorClass);
     stringBuffer.append(TEXT_11);
     } else {
     stringBuffer.append(TEXT_12);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(pluginActivatorClass);
     stringBuffer.append(TEXT_13);
     }
     stringBuffer.append(TEXT_14);
@@ -338,7 +339,7 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_15);
     }
     stringBuffer.append(TEXT_16);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(pluginActivatorClass);
     stringBuffer.append(TEXT_17);
     stringBuffer.append(importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName()));
     stringBuffer.append(TEXT_18);
@@ -357,9 +358,9 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 }
 
     stringBuffer.append(TEXT_23);
-    stringBuffer.append(genDiagram.getEMFGenModel().getModelName());
+    stringBuffer.append(modelID);
     stringBuffer.append(TEXT_24);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(pluginActivatorClass);
     stringBuffer.append(TEXT_25);
     stringBuffer.append(genDiagram.getUniqueIdentifier());
     stringBuffer.append(TEXT_26);
@@ -378,7 +379,7 @@ if (!genClass2Phantom.isEmpty()) {
     stringBuffer.append(TEXT_30);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node"));
     stringBuffer.append(TEXT_31);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(pluginActivatorClass);
     stringBuffer.append(TEXT_32);
     stringBuffer.append(phantomNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_33);
@@ -443,7 +444,7 @@ for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.
     stringBuffer.append(TEXT_49);
     stringBuffer.append(nextChild.getVisualID());
     stringBuffer.append(TEXT_50);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(pluginActivatorClass);
     stringBuffer.append(TEXT_51);
     stringBuffer.append(nextChild.getUniqueIdentifier());
     stringBuffer.append(TEXT_52);
@@ -591,7 +592,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_95);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node"));
     stringBuffer.append(TEXT_96);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(pluginActivatorClass);
     stringBuffer.append(TEXT_97);
     stringBuffer.append(phantomNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_98);
@@ -691,7 +692,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
 
     stringBuffer.append(TEXT_125);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(pluginActivatorClass);
     stringBuffer.append(TEXT_126);
     
 	} else {
@@ -711,7 +712,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_133);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil"));
     stringBuffer.append(TEXT_134);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(pluginActivatorClass);
     stringBuffer.append(TEXT_135);
     
 		if (domainLinkTargetGenFeature.isListType()) {

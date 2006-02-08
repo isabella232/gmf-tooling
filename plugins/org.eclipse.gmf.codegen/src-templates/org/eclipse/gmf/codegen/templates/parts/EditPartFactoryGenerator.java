@@ -54,7 +54,10 @@ public class EditPartFactoryGenerator
   public String generate(Object argument)
   {
     StringBuffer stringBuffer = new StringBuffer();
-    GenDiagram genDiagram = (GenDiagram) argument;
+    
+final GenDiagram genDiagram = (GenDiagram) argument;
+final String modelID = genDiagram.getEditorGen().getDomainGenModel().getModelName();
+
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getEditPartsPackageName());
     stringBuffer.append(TEXT_2);
@@ -72,9 +75,9 @@ public class EditPartFactoryGenerator
     stringBuffer.append(TEXT_10);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation"));
     stringBuffer.append(TEXT_11);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_12);
-    stringBuffer.append(genDiagram.getEMFGenModel().getModelName());
+    stringBuffer.append(modelID);
     stringBuffer.append(TEXT_13);
     
 for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.hasNext();) {

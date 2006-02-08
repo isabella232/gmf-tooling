@@ -26,6 +26,15 @@ public interface GMFGenFactory extends EFactory {
 	GMFGenFactory eINSTANCE = org.eclipse.gmf.codegen.gmfgen.impl.GMFGenFactoryImpl.init();
 
 	/**
+	 * Returns a new object of class '<em>Gen Editor Generator</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Editor Generator</em>'.
+	 * @generated
+	 */
+	GenEditorGenerator createGenEditorGenerator();
+
+	/**
 	 * Returns a new object of class '<em>Gen Diagram</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

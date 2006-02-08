@@ -509,7 +509,6 @@ if (genNode.getChildNodes().size() > 0) {
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest"));
     stringBuffer.append(TEXT_11);
     
-GenPackage genPackage = genDiagram.getDomainMetaModel();
 for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 	GenNode genChildNode = (GenNode) nodes.next();
 
@@ -583,7 +582,7 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 		}
 
     stringBuffer.append(TEXT_32);
-    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
+    stringBuffer.append(importManager.getImportedName(modelFacet.getContainmentMetaFeature().getGenPackage().getQualifiedPackageInterfaceName()));
     stringBuffer.append(TEXT_33);
     stringBuffer.append(modelFacet.getContainmentMetaFeature().getFeatureAccessorName());
     stringBuffer.append(TEXT_34);
@@ -611,7 +610,7 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
     stringBuffer.append(TEXT_41);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClass"));
     stringBuffer.append(TEXT_42);
-    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
+    stringBuffer.append(importManager.getImportedName(containerGenClass.getGenPackage().getQualifiedPackageInterfaceName()));
     stringBuffer.append(TEXT_43);
     stringBuffer.append(containerGenClass.getClassifierAccessorName());
     stringBuffer.append(TEXT_44);
@@ -759,7 +758,6 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 
     stringBuffer.append(TEXT_101);
     
-GenPackage genPackage = genDiagram.getDomainMetaModel();
 GenClass nodeMetaClass = genNode.getModelFacet().getMetaClass();
 final String OUTGOING_TOKEN = "Outgoing";
 final String INCOMING_TOKEN = "Incoming";
@@ -909,7 +907,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_115);
     stringBuffer.append(containerClassName);
     stringBuffer.append(TEXT_116);
-    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
+    stringBuffer.append(importManager.getImportedName(containmentFeature.getGenClass().getGenPackage().getQualifiedPackageInterfaceName()));
     stringBuffer.append(TEXT_117);
     stringBuffer.append(containmentFeature.getGenClass().getClassifierAccessorName());
     stringBuffer.append(TEXT_118);
@@ -997,7 +995,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_147);
     stringBuffer.append(containerClassName);
     stringBuffer.append(TEXT_148);
-    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
+    stringBuffer.append(importManager.getImportedName(containmentFeature.getGenClass().getGenPackage().getQualifiedPackageInterfaceName()));
     stringBuffer.append(TEXT_149);
     stringBuffer.append(containmentFeature.getGenClass().getClassifierAccessorName());
     stringBuffer.append(TEXT_150);
@@ -1047,7 +1045,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 
      // create semantic command 
     stringBuffer.append(TEXT_166);
-    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
+    stringBuffer.append(importManager.getImportedName(containmentFeature.getGenPackage().getQualifiedPackageInterfaceName()));
     stringBuffer.append(TEXT_167);
     stringBuffer.append(containmentFeature.getFeatureAccessorName());
     stringBuffer.append(TEXT_168);
@@ -1071,7 +1069,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_177);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClass"));
     stringBuffer.append(TEXT_178);
-    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
+    stringBuffer.append(importManager.getImportedName(containmentFeature.getGenClass().getGenPackage().getQualifiedPackageInterfaceName()));
     stringBuffer.append(TEXT_179);
     stringBuffer.append(containmentFeature.getGenClass().getClassifierAccessorName());
     stringBuffer.append(TEXT_180);
@@ -1182,7 +1180,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_220);
     stringBuffer.append(containerClassName);
     stringBuffer.append(TEXT_221);
-    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
+    stringBuffer.append(importManager.getImportedName(containmentFeature.getGenClass().getGenPackage().getQualifiedPackageInterfaceName()));
     stringBuffer.append(TEXT_222);
     stringBuffer.append(containmentFeature.getGenClass().getClassifierAccessorName());
     stringBuffer.append(TEXT_223);
@@ -1240,7 +1238,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_242);
      // create semantic command 
     stringBuffer.append(TEXT_243);
-    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
+    stringBuffer.append(importManager.getImportedName(modelFacet.getContainmentMetaFeature().getGenPackage().getQualifiedPackageInterfaceName()));
     stringBuffer.append(TEXT_244);
     stringBuffer.append(modelFacet.getContainmentMetaFeature().getFeatureAccessorName());
     stringBuffer.append(TEXT_245);
@@ -1256,7 +1254,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_250);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClass"));
     stringBuffer.append(TEXT_251);
-    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
+    stringBuffer.append(importManager.getImportedName(containmentFeature.getGenClass().getGenPackage().getQualifiedPackageInterfaceName()));
     stringBuffer.append(TEXT_252);
     stringBuffer.append(containmentFeature.getGenClass().getClassifierAccessorName());
     stringBuffer.append(TEXT_253);
@@ -1476,7 +1474,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_321);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest"));
     stringBuffer.append(TEXT_322);
-    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
+    stringBuffer.append(importManager.getImportedName(metaFeature.getGenPackage().getQualifiedPackageInterfaceName()));
     stringBuffer.append(TEXT_323);
     stringBuffer.append(metaFeature.getFeatureAccessorName());
     stringBuffer.append(TEXT_324);
@@ -1577,7 +1575,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_358);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest"));
     stringBuffer.append(TEXT_359);
-    stringBuffer.append(importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName()));
+    stringBuffer.append(importManager.getImportedName(metaFeature.getGenPackage().getQualifiedPackageInterfaceName()));
     stringBuffer.append(TEXT_360);
     stringBuffer.append(metaFeature.getFeatureAccessorName());
     stringBuffer.append(TEXT_361);

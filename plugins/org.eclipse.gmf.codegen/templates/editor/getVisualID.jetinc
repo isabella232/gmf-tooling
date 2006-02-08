@@ -13,7 +13,7 @@
 		try {
 			return Integer.parseInt(visualID);
 		} catch (NumberFormatException e) {
-			<%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to parse \"visualID\" annotation: " + visualID, e);
+			<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to parse \"visualID\" annotation: " + visualID, e);
 		}
 		return -1;
 	}

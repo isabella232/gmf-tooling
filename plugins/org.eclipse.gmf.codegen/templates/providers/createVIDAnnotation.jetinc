@@ -1,5 +1,5 @@
 EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
 annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 view.getEAnnotations().add(annotation);
-annotation.getDetails().put("modelID", "<%=genDiagram.getEMFGenModel().getModelName()%>"); //$NON-NLS-1$
+annotation.getDetails().put("modelID", "<%=genDiagram.getEditorGen().getDomainGenModel().getModelName()%>"); //$NON-NLS-1$
 annotation.getDetails().put("visualID", "<%=genElement.getVisualID()%>"); //$NON-NLS-1$

@@ -64,7 +64,7 @@ public class ViewProviderGenerator
     StringBuffer stringBuffer = new StringBuffer();
     
 GenDiagram genDiagram = (GenDiagram) argument;
-GenModel genModel = genDiagram.getEMFGenModel();
+GenModel genModel = genDiagram.getEditorGen().getDomainGenModel();
 List genLinks = genDiagram.getLinks();
 
     stringBuffer.append(TEXT_1);

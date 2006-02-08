@@ -106,7 +106,6 @@ public class GenDiagramItemProvider
 			addValidationProviderClassNamePropertyDescriptor(object);
 			addMarkerNavigationProviderClassNamePropertyDescriptor(object);
 			addValidationEnabledPropertyDescriptor(object);
-			addDomainMetaModelPropertyDescriptor(object);
 			addDomainDiagramElementPropertyDescriptor(object);
 			addSameFileForDiagramAndModelPropertyDescriptor(object);
 			addDiagramFileExtensionPropertyDescriptor(object);
@@ -128,26 +127,6 @@ public class GenDiagramItemProvider
 				 getString("_UI_GenContainerBase_containedNodes_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenContainerBase_containedNodes_feature", "_UI_GenContainerBase_type"),
 				 GMFGenPackage.eINSTANCE.getGenContainerBase_ContainedNodes(),
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Domain Meta Model feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDomainMetaModelPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenDiagram_domainMetaModel_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenDiagram_domainMetaModel_feature", "_UI_GenDiagram_type"),
-				 GMFGenPackage.eINSTANCE.getGenDiagram_DomainMetaModel(),
 				 true,
 				 null,
 				 null,
@@ -1109,9 +1088,7 @@ public class GenDiagramItemProvider
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_TopLevelNodes());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Links());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Compartments());
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Audits());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Palette());
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenDiagram_Plugin());
 		}
 		return childrenFeatures;
 	}
@@ -1214,9 +1191,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__TOP_LEVEL_NODES:
 			case GMFGenPackage.GEN_DIAGRAM__LINKS:
 			case GMFGenPackage.GEN_DIAGRAM__COMPARTMENTS:
-			case GMFGenPackage.GEN_DIAGRAM__AUDITS:
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE:
-			case GMFGenPackage.GEN_DIAGRAM__PLUGIN:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -1255,18 +1230,8 @@ public class GenDiagramItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenDiagram_Audits(),
-				 GMFGenFactory.eINSTANCE.createGenAuditContainer()));
-
-		newChildDescriptors.add
-			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenDiagram_Palette(),
 				 GMFGenFactory.eINSTANCE.createPalette()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenDiagram_Plugin(),
-				 GMFGenFactory.eINSTANCE.createGenPlugin()));
 	}
 
 	/**

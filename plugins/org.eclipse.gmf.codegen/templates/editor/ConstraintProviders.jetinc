@@ -1,5 +1,5 @@
 <%
-GenAuditContainer rootContainer = genDiagram.getAudits();
+GenAuditContainer rootContainer = genDiagram.getEditorGen().getAudits();
 if(rootContainer != null) {
 	java.util.List containers = rootContainer != null ? rootContainer.getAllAuditContainers() : java.util.Collections.EMPTY_LIST;
 %>
@@ -32,7 +32,7 @@ if(rootContainer != null) {
 	String rootCategoryId = (String)pathMap.get(rootContainer);
 %>
 	<constraintProvider cache="true">
-		<package namespaceUri="<%=genDiagram.getDomainMetaModel().getNSURI()%>"/>
+		<package namespaceUri="<%=domainMetaModel.getNSURI()%>"/>
 <%
 	int rulePos = 0;
 	for(java.util.Iterator catIt = containers.iterator(); catIt.hasNext(); rulePos++) {

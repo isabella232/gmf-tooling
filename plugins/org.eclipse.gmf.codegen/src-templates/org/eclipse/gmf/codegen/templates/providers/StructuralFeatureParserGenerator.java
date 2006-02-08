@@ -42,7 +42,7 @@ public class StructuralFeatureParserGenerator
     stringBuffer.append(TEXT_6);
     stringBuffer.append(genDiagram.getStructuralFeatureParserClassName());
     stringBuffer.append(TEXT_7);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_8);
     importManager.emitSortedImports();
     stringBuffer.append(TEXT_9);

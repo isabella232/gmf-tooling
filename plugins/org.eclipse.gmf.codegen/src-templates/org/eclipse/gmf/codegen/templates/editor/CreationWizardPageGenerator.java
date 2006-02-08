@@ -36,7 +36,7 @@ public class CreationWizardPageGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     GenDiagram genDiagram = (GenDiagram) argument;
-    GenModel genModel = genDiagram.getEMFGenModel();
+    GenModel genModel = genDiagram.getEditorGen().getDomainGenModel();
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getEditorPackageName());
     stringBuffer.append(TEXT_2);

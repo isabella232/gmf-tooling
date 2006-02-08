@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
@@ -41,7 +42,8 @@ public class DiaGenFileSetup implements DiaGenSource {
 	public DiaGenFileSetup init(URI sourceURI) {
 		ResourceSet srcResSet = new ResourceSetImpl();
  		Resource srcRes = srcResSet.getResource(sourceURI, true);
- 		myGenDiagram = (GenDiagram) srcRes.getContents().get(0);
+ 		GenEditorGenerator editorGen = (GenEditorGenerator) srcRes.getContents().get(0);
+ 		myGenDiagram = editorGen.getDiagram();
  		// FIXME somehow select particular link - protected find()
  		for (Iterator it = myGenDiagram.getLinks().iterator(); it.hasNext();) {
  			GenLink next = (GenLink) it.next();

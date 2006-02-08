@@ -89,7 +89,7 @@ public class RTSetup implements RTSource {
 		b.setHeight(0);
 		myNode.setLayoutConstraint(b);
 
-		myCanvas.setType(genSource.getGenDiagram().getEMFGenModel().getModelName());
+		myCanvas.setType(genSource.getGenDiagram().getEditorGen().getDomainGenModel().getModelName());
 
 		affixVisualID(myCanvas, genSource.getGenDiagram());
 		affixVisualID(myNode, genSource.getNodeA());
@@ -122,7 +122,7 @@ public class RTSetup implements RTSource {
 	private void affixVisualID(View view, GenCommonBase genBase) {
 		EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
 		annotation.setSource("ViewIdentifier");
-		annotation.getDetails().put("modelID", String.valueOf(genBase.getDiagram().getEMFGenModel().getModelName()));
+		annotation.getDetails().put("modelID", String.valueOf(genBase.getDiagram().getEditorGen().getDomainGenModel().getModelName()));
 		annotation.getDetails().put("visualID", String.valueOf(genBase.getVisualID()));
 		view.getEAnnotations().add(annotation);
 	}

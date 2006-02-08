@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.util.Generator;
 import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
 import org.eclipse.jface.action.IAction;
@@ -53,7 +54,7 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 	private IWorkbenchPart myPart;
 
 	private IStatus myRunStatus;
-	private GenDiagram myGenModel;
+	private GenEditorGenerator myGenModel;
 
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
 		myPart = targetPart;
@@ -119,7 +120,7 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 		return myRunStatus;
 	}
 
-	private GenDiagram getGenModel() {
+	private GenEditorGenerator getGenModel() {
 		return myGenModel;
 	}
 
@@ -127,8 +128,15 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 		URI selected = URI.createPlatformResourceURI(mySelection.getFullPath().toString());
 		ResourceSet srcResSet = new ResourceSetImpl();
 		Resource srcRes = srcResSet.getResource(selected, true);
-		myGenModel = (GenDiagram) srcRes.getContents().get(0);
-		myGenModel.getEMFGenModel().reconcile();
+		Object root = srcRes.getContents().get(0);
+		if (root instanceof GenDiagram) {
+			myGenModel = ((GenDiagram) root).getEditorGen();
+		} else if (root instanceof GenEditorGenerator) {
+			myGenModel = (GenEditorGenerator) root;
+		}
+		if (myGenModel != null && myGenModel.getDomainGenModel() != null) {
+			myGenModel.getDomainGenModel().reconcile();
+		}
 	}
 
 	private void unloadGenModel() {

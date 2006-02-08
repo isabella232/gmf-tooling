@@ -22,7 +22,6 @@ public class <%=genDiagram.getParserProviderClassName()%> extends AbstractProvid
 <%
 Map labels = new LinkedHashMap(); // Gen[Node|Link] -> List : GenLabel
 Map labelMethodNames = new HashMap(); // GenLabel -> String
-String semanticPackageInterfaceName = importManager.getImportedName(genDiagram.getDomainMetaModel().getQualifiedPackageInterfaceName());
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();
 	if (next instanceof GenLabel) {
@@ -89,6 +88,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 			String featureName = ((FeatureLabelModelFacet) modelFacet).getMetaFeature().getName();
 			viewPattern = ((FeatureLabelModelFacet) modelFacet).getViewPattern();
 			editPattern = ((FeatureLabelModelFacet) modelFacet).getEditPattern();
+			String semanticPackageInterfaceName = importManager.getImportedName(((FeatureLabelModelFacet) modelFacet).getMetaFeature().getGenPackage().getQualifiedPackageInterfaceName());
 %>
 		<%=parserClassName%> parser = new <%=parserClassName%>(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=accessorName%>().getEStructuralFeature("<%=featureName%>"));
 <%
@@ -101,7 +101,9 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 		<%=importManager.getImportedName("java.util.List")%> features = new <%=importManager.getImportedName("java.util.ArrayList")%>(<%=features.size()%>);
 <%
 			for (java.util.Iterator it = features.iterator(); it.hasNext(); ) {
-				String featureName = ((GenFeature) it.next()).getName();
+				GenFeature nextGenFeature = (GenFeature) it.next(); 
+				String featureName = nextGenFeature.getName();
+				String semanticPackageInterfaceName = importManager.getImportedName(nextGenFeature.getGenPackage().getQualifiedPackageInterfaceName());
 %>
 		features.add(<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=accessorName%>().getEStructuralFeature("<%=featureName%>"));
 <%			}%>

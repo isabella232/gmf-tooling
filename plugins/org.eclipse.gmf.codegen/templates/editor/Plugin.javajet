@@ -1,9 +1,9 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="PluginGenerator"
     imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
-GenPlugin genPlugin = (GenPlugin) argument;
-GenDiagram genDiagram = genPlugin.getDiagram();
-GenModel genModel = genDiagram.getEMFGenModel();
+final GenPlugin genPlugin = (GenPlugin) argument;
+final GenDiagram genDiagram = genPlugin.getEditorGen().getDiagram();
+final GenModel genModel = genPlugin.getEditorGen().getDomainGenModel();
 %>
 package <%=genDiagram.getEditorPackageName()%>;
 
@@ -72,10 +72,11 @@ public class <%=genPlugin.getActivatorClassName()%> extends AbstractUIPlugin {
 		super.start(context);
 		instance = this;
 		PreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT, getPreferenceStore());
+		//FIXME itemProviderAF, metaPackage and editPlugin are only for package of diagramMetaElement
 <%
-GenPackage genPackage = genDiagram.getDomainMetaModel();
+GenPackage genPackage = genDiagram.getDomainDiagramElement().getGenPackage();
 String domainPackageIPAFInterfaceName = importManager.getImportedName(genPackage.getQualifiedItemProviderAdapterFactoryClassName());
-String domainPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
+String domainPackageInterfaceName = genDiagram.getMetaPackageName(importManager);
 String domainPackageEditPluginClassName = importManager.getImportedName(genPackage.getQualifiedEditPluginClassName());
 %>
 		MSLAdapterFactoryManager.register(new <%=domainPackageIPAFInterfaceName%>());

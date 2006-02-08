@@ -107,6 +107,9 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 */
 	protected GMFGenSwitch modelSwitch =
 		new GMFGenSwitch() {
+			public Object caseGenEditorGenerator(GenEditorGenerator object) {
+				return createGenEditorGeneratorAdapter();
+			}
 			public Object caseGenDiagram(GenDiagram object) {
 				return createGenDiagramAdapter();
 			}
@@ -289,6 +292,20 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 		return (Adapter)modelSwitch.doSwitch((EObject)target);
 	}
 
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator <em>Gen Editor Generator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator
+	 * @generated
+	 */
+	public Adapter createGenEditorGeneratorAdapter() {
+		return null;
+	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram <em>Gen Diagram</em>}'.

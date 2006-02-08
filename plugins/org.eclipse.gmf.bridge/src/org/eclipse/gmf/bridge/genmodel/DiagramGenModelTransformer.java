@@ -34,6 +34,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
@@ -86,7 +87,7 @@ import org.eclipse.gmf.tooldef.ToolContainer;
  */
 public class DiagramGenModelTransformer extends MappingTransformer {
 
-	private GenDiagram myGenModel;
+	private GenEditorGenerator myGenModel;
 	private GenModelMatcher myGenModelMatch;
 	private final DiagramRunTimeModelHelper myDRTHelper;
 	private final ViewmapProducer myViewmaps = new InnerClassViewmapProducer();
@@ -111,22 +112,29 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		myGenModelMatch = new GenModelMatcher(emfGenModel);
 	}
 
-	public GenDiagram getResult() {
-		return getGenDiagram();
+	public GenEditorGenerator getResult() {
+		return getGenEssence();
 	}
 
-	private GenDiagram getGenDiagram() {
+	private GenEditorGenerator getGenEssence() {
 		if (myGenModel == null) {
-			myGenModel = GMFGenFactory.eINSTANCE.createGenDiagram();
+			myGenModel = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
 		}
 		return myGenModel;
 	}
 
-	private GenPlugin getGenPlugin() {
-		if (getGenDiagram().getPlugin() == null) {
-			getGenDiagram().setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
+	private GenDiagram getGenDiagram() {
+		if (getGenEssence().getDiagram() == null) {
+			getGenEssence().setDiagram(GMFGenFactory.eINSTANCE.createGenDiagram());
 		}
-		return getGenDiagram().getPlugin();
+		return getGenEssence().getDiagram();
+	}
+
+	private GenPlugin getGenPlugin() {
+		if (getGenEssence().getPlugin() == null) {
+			getGenEssence().setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
+		}
+		return getGenEssence().getPlugin();
 	}
 
 	private Palette getGenPalette() {
@@ -143,7 +151,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if (myGenModelMatch == null) {
 			myGenModelMatch = new GenModelMatcher(mapping.getDomainModel());
 		}
-		getGenDiagram().setDomainMetaModel(findGenPackage(mapping.getDomainModel()));
+		GenPackage primaryPackage = findGenPackage(mapping.getDomainModel());
+		getGenEssence().setDomainGenModel(primaryPackage == null ? null : primaryPackage.getGenModel());
 		getGenDiagram().setDomainDiagramElement(findGenClass(mapping.getDomainMetaElement()));
 		getGenDiagram().setDiagramRunTimeClass(findRunTimeClass(mapping));
 		getGenDiagram().setVisualID(myVisualIDs.get(getGenDiagram()));
@@ -157,7 +166,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if(mapping.eContainer() != null) {
 			AuditContainer audits = ((Mapping)mapping.eContainer()).getAudits();
 			if(audits != null) {
-				getGenDiagram().setAudits(createGenAuditContainer(audits));
+				getGenEssence().setAudits(createGenAuditContainer(audits));
 			}
 		}
 	}

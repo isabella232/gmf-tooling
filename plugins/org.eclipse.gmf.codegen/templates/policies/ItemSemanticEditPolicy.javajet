@@ -1,10 +1,13 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.policies" class="ItemSemanticEditPolicyGenerator"
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.*"
 	skeleton="../common.skeleton" %>
-<%GenDiagram diagram = (GenDiagram) argument;%>
+<%
+GenDiagram diagram = (GenDiagram) argument;
+ImportUtil importManager = new ImportUtil(diagram.getEditPoliciesPackageName());
+String pluginActivatorClass = importManager.getImportedName(diagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
+%>
 package <%=diagram.getEditPoliciesPackageName()%>;
 
-<%ImportUtil importManager = new ImportUtil(diagram.getEditPoliciesPackageName());%>
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
@@ -308,7 +311,7 @@ if(diagram.hasLinkCreationConstraints()) {
 				oclHelper.setContext(constraint.context);
 				return <%=importManager.getImportedName("org.eclipse.emf.ocl.query.QueryFactory")%>.eINSTANCE.createQuery(oclHelper.createInvariant(constraint.body));
 			} catch (Exception e) {
-				<%=importManager.getImportedName(diagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError(null, e);
+				<%=pluginActivatorClass%>.getInstance().logError(null, e);
 				return null;
 			}
 		}
@@ -323,7 +326,7 @@ if(diagram.hasLinkCreationConstraints()) {
 				Object val = query.evaluate(sourceEnd);			
 				return (val instanceof Boolean) ? ((Boolean)val).booleanValue() : false;
 			} catch(Exception e) {	
-				<%=importManager.getImportedName(diagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError(null, e);	
+				<%=pluginActivatorClass%>.getInstance().logError(null, e);	
 				if(evalEnv != null) evalEnv.clear();			
 				return false;
 			} finally {

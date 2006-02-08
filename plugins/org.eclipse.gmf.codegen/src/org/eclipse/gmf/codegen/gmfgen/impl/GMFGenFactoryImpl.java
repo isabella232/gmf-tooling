@@ -90,6 +90,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 */
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
+			case GMFGenPackage.GEN_EDITOR_GENERATOR: return createGenEditorGenerator();
 			case GMFGenPackage.GEN_DIAGRAM: return createGenDiagram();
 			case GMFGenPackage.GEN_PLUGIN: return createGenPlugin();
 			case GMFGenPackage.GEN_TOP_LEVEL_NODE: return createGenTopLevelNode();
@@ -159,6 +160,16 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenEditorGenerator createGenEditorGenerator() {
+		GenEditorGeneratorImpl genEditorGenerator = new GenEditorGeneratorImpl();
+		return genEditorGenerator;
 	}
 
 	/**

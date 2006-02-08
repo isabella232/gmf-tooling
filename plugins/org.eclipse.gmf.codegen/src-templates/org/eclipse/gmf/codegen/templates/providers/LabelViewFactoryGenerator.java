@@ -47,7 +47,7 @@ public class LabelViewFactoryGenerator
     GenCommonBase genElement = label;
     stringBuffer.append(TEXT_6);
     stringBuffer.append(TEXT_7);
-    stringBuffer.append(genDiagram.getEMFGenModel().getModelName());
+    stringBuffer.append(genDiagram.getEditorGen().getDomainGenModel().getModelName());
     stringBuffer.append(TEXT_8);
     stringBuffer.append(genElement.getVisualID());
     stringBuffer.append(TEXT_9);

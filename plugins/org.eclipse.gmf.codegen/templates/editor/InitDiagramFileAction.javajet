@@ -2,7 +2,10 @@
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.common.codegen.*"
 	skeleton="../common.skeleton"%>
 <%
-GenDiagram genDiagram = (GenDiagram) argument;
+final GenDiagram genDiagram = (GenDiagram) argument;
+final ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());
+final String pluginActivatorClass = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
+final String modelID = genDiagram.getEditorGen().getDomainGenModel().getModelName();
 List genLinks = genDiagram.getLinks();
 
 // Collecting all phantom elements
@@ -21,8 +24,6 @@ boolean generateGetCompartment = false;
 package <%=genDiagram.getEditorPackageName()%>;
 
 <%
-ImportUtil importManager = new ImportUtil(genDiagram.getEditorPackageName());
-
 importManager.addImport("java.io.IOException");
 importManager.addImport("java.util.Collections");
 importManager.addImport("java.util.HashMap");
@@ -151,7 +152,7 @@ public class <%=genDiagram.getInitDiagramFileActionClassName()%> implements IObj
 				try {
 					IDE.openEditor(myPart.getSite().getPage(), destFile);
 				} catch (PartInitException ex) {
-					<%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to open editor", ex);
+					<%=pluginActivatorClass%>.getInstance().logError("Unable to open editor", ex);
 				}
 				return null;
 			}
@@ -169,7 +170,7 @@ public class <%=genDiagram.getInitDiagramFileActionClassName()%> implements IObj
 			resource.load(Collections.EMPTY_MAP);
 			return (EObject) resource.getContents().get(0);
 		} catch (IOException ex) {
-			<%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to load resource: " + mySelection.getFullPath().toString(), ex);
+			<%=pluginActivatorClass%>.getInstance().logError("Unable to load resource: " + mySelection.getFullPath().toString(), ex);
 		}
 		return null;
 <%} else {%>
@@ -182,7 +183,7 @@ public class <%=genDiagram.getInitDiagramFileActionClassName()%> implements IObj
 			try {
 				ResourceUtil.load(modelResource);
 			} catch (Exception e) {
-				<%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to load resource: " + resourcePath, e);
+				<%=pluginActivatorClass%>.getInstance().logError("Unable to load resource: " + resourcePath, e);
 				return null;
 			}
 		}
@@ -202,7 +203,7 @@ public class <%=genDiagram.getInitDiagramFileActionClassName()%> implements IObj
 		try {
 			resource.save(Collections.EMPTY_MAP);
 		} catch (IOException ex) {
-			<%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Save operation failed for: " + filePath, ex);
+			<%=pluginActivatorClass%>.getInstance().logError("Save operation failed for: " + filePath, ex);
 		}
 	}
 	
@@ -222,7 +223,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 <%
 }
 %>
-		Diagram diagram = ViewService.createDiagram(diagramModel, "<%=genDiagram.getEMFGenModel().getModelName()%>", <%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
+		Diagram diagram = ViewService.createDiagram(diagramModel, "<%=modelID%>", <%=pluginActivatorClass%>.DIAGRAM_PREFERENCES_HINT);
 		create<%=genDiagram.getUniqueIdentifier()%>Children(diagram, diagramModel);
 <%
 if (!genClass2Phantom.isEmpty()) {
@@ -240,7 +241,7 @@ if (!genClass2Phantom.isEmpty()) {
 %>
 			nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(diagram, nextResourceObject, "");
 			if (<%=phantomNode.getVisualID()%> == nodeVID) {
-				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> nextNode = ViewService.createNode(diagram, nextResourceObject, null, <%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> nextNode = ViewService.createNode(diagram, nextResourceObject, null, <%=pluginActivatorClass%>.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextResourceObject, nextNode);
 				create<%=phantomNode.getUniqueIdentifier()%>Children(nextNode, nextResourceObject);
 				continue;
@@ -302,7 +303,7 @@ for (Iterator containers = genDiagram.getAllContainers().iterator(); containers.
 %>
 		nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
 		if (<%=nextChild.getVisualID()%> == nodeVID) {
-			nextNode = ViewService.createNode(viewObject, nextValue, null, <%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
+			nextNode = ViewService.createNode(viewObject, nextValue, null, <%=pluginActivatorClass%>.DIAGRAM_PREFERENCES_HINT);
 			myEObject2NodeMap.put(nextValue, nextNode);
 			create<%=nextChild.getUniqueIdentifier()%>Children(nextNode, nextValue);
 		}
@@ -436,7 +437,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 %>
 			int nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(diagram, nextValue, "");
 			if (<%=phantomNode.getVisualID()%> == nodeVID) {
-				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> nextNode = ViewService.createNode(diagram, nextValue, null, <%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> nextNode = ViewService.createNode(diagram, nextValue, null, <%=pluginActivatorClass%>.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
 				create<%=phantomNode.getUniqueIdentifier()%>Children(nextNode, nextValue);
 			}
@@ -535,7 +536,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 <%
 	if (nextLink.getModelFacet() instanceof TypeLinkModelFacet) {
 %>
-				ViewService.createEdge(srcNode, dstNode, linkElement, null, <%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
+				ViewService.createEdge(srcNode, dstNode, linkElement, null, <%=pluginActivatorClass%>.DIAGRAM_PREFERENCES_HINT);
 			}
 <%
 	} else {
@@ -547,7 +548,7 @@ for (Iterator it = genLinks.iterator(); it.hasNext();) {
 							}
 							return null;
 						}
-					}, srcNode.getDiagram(), "", <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, <%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.DIAGRAM_PREFERENCES_HINT);
+					}, srcNode.getDiagram(), "", <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, <%=pluginActivatorClass%>.DIAGRAM_PREFERENCES_HINT);
 					if (edge != null) {
 						edge.setSource(srcNode);
 						edge.setTarget(dstNode);

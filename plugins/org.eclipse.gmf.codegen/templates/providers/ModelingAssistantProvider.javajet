@@ -304,7 +304,7 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	 */
 	protected EObject selectElement(EObject[] elements) {
 		Shell shell = Display.getCurrent().getActiveShell();
-		ILabelProvider labelProvider = new AdapterFactoryLabelProvider(<%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemProvidersAdapterFactory());
+		ILabelProvider labelProvider = new AdapterFactoryLabelProvider(<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemProvidersAdapterFactory());
 		ElementListSelectionDialog dialog = new ElementListSelectionDialog(shell, labelProvider);
 		dialog.setMessage("Available domain model elements:");
 		dialog.setTitle("Select domain model element");

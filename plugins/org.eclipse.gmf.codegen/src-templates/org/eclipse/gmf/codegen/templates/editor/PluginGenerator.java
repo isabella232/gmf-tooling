@@ -25,7 +25,7 @@ public class PluginGenerator
   protected final String TEXT_6 = "\"; //$NON-NLS-1$" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final String EDITOR_ID = \"";
   protected final String TEXT_7 = "ID\";" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final PreferencesHint DIAGRAM_PREFERENCES_HINT = new PreferencesHint(EDITOR_ID);" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static ";
   protected final String TEXT_8 = " instance;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate ComposedAdapterFactory adapterFactory;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
-  protected final String TEXT_9 = "() {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void start(BundleContext context) throws Exception {" + NL + "\t\tsuper.start(context);" + NL + "\t\tinstance = this;" + NL + "\t\tPreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT, getPreferenceStore());";
+  protected final String TEXT_9 = "() {" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void start(BundleContext context) throws Exception {" + NL + "\t\tsuper.start(context);" + NL + "\t\tinstance = this;" + NL + "\t\tPreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT, getPreferenceStore());" + NL + "\t\t//FIXME itemProviderAF, metaPackage and editPlugin are only for package of diagramMetaElement";
   protected final String TEXT_10 = NL + "\t\tMSLAdapterFactoryManager.register(new ";
   protected final String TEXT_11 = "());" + NL + "\t\tMSLMetaModelManager.register(";
   protected final String TEXT_12 = ".eINSTANCE, ";
@@ -46,9 +46,9 @@ public class PluginGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-GenPlugin genPlugin = (GenPlugin) argument;
-GenDiagram genDiagram = genPlugin.getDiagram();
-GenModel genModel = genDiagram.getEMFGenModel();
+final GenPlugin genPlugin = (GenPlugin) argument;
+final GenDiagram genDiagram = genPlugin.getEditorGen().getDiagram();
+final GenModel genModel = genPlugin.getEditorGen().getDomainGenModel();
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getEditorPackageName());
@@ -68,9 +68,9 @@ GenModel genModel = genDiagram.getEMFGenModel();
     stringBuffer.append(genPlugin.getActivatorClassName());
     stringBuffer.append(TEXT_9);
     
-GenPackage genPackage = genDiagram.getDomainMetaModel();
+GenPackage genPackage = genDiagram.getDomainDiagramElement().getGenPackage();
 String domainPackageIPAFInterfaceName = importManager.getImportedName(genPackage.getQualifiedItemProviderAdapterFactoryClassName());
-String domainPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
+String domainPackageInterfaceName = genDiagram.getMetaPackageName(importManager);
 String domainPackageEditPluginClassName = importManager.getImportedName(genPackage.getQualifiedEditPluginClassName());
 
     stringBuffer.append(TEXT_10);

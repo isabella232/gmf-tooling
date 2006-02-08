@@ -30,6 +30,7 @@ import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
@@ -65,13 +66,15 @@ public class DiaGenSetup implements DiaGenSource {
 		assert runtimeModel != null;
 		final GenModelMatcher gmm = new GenModelMatcher(Utils.createGenModel(domainSource.getModel(), pluginID));
 		myGenDiagram = GMFGenFactory.eINSTANCE.createGenDiagram();
+		GenEditorGenerator genBurden = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
 		myGenDiagram.setDomainDiagramElement(gmm.findGenClass(domainSource.getDiagramElement()));
-		myGenDiagram.setDomainMetaModel(gmm.findGenPackage(domainSource.getModel()));
+		genBurden.setDomainGenModel(myGenDiagram.getDomainDiagramElement().getGenModel());
 		myGenDiagram.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getDiagram()));
 		myGenDiagram.setPalette(createPalette());
 		myGenDiagram.setViewmap(createDiagramViewmap());
 		myGenDiagram.setVisualID(99);
-		myGenDiagram.setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
+		genBurden.setDiagram(myGenDiagram);
+		genBurden.setPlugin(GMFGenFactory.eINSTANCE.createGenPlugin());
 
 		myNodeA = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
 		myNodeA.setDiagramRunTimeClass(Utils.findGenClass(runtimeModel, NotationPackage.eINSTANCE.getNode()));
@@ -151,7 +154,7 @@ public class DiaGenSetup implements DiaGenSource {
 		Assert.assertTrue("Need (fake) genModel for transformation to work", gmaStatus.isOK());
 		t.setEMFGenModel(gma.model());
 		t.transform(mapSource.getMapping());
-		myGenDiagram = t.getResult();
+		myGenDiagram = t.getResult().getDiagram();
 		uniquenessDispenser.forget();
 		NamingStrategy epns = namingMediator.getEditPart();
 		final String aNodeEPName = epns.get(mapSource.getNodeA());
@@ -184,7 +187,7 @@ public class DiaGenSetup implements DiaGenSource {
 	}
 
 	private void confineInResource() {
-		new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/DiaGenSetup")).getContents().add(myGenDiagram);
+		new ResourceImpl(URI.createURI("uri://org.eclipse.gmf/tests/DiaGenSetup")).getContents().add(myGenDiagram.getEditorGen());
 	}
 	
 	public final GenDiagram getGenDiagram() {

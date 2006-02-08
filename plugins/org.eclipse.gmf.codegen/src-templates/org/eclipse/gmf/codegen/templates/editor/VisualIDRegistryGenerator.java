@@ -1,7 +1,6 @@
 package org.eclipse.gmf.codegen.templates.editor;
 
 import org.eclipse.gmf.codegen.gmfgen.*;
-import org.eclipse.emf.codegen.ecore.genmodel.*;
 import java.util.*;
 import org.eclipse.gmf.common.codegen.*;
 
@@ -125,7 +124,8 @@ public class VisualIDRegistryGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     
-GenDiagram genDiagram = (GenDiagram) argument;
+final GenDiagram genDiagram = (GenDiagram) argument;
+final String modelID = genDiagram.getEditorGen().getDomainGenModel().getModelName();
 List genLinks = genDiagram.getLinks();
 Collection allContainers = genDiagram.getAllContainers();
 
@@ -150,14 +150,12 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(genDiagram.getVisualIDRegistryClassName());
     stringBuffer.append(TEXT_6);
     
-GenPackage genPackage = genDiagram.getDomainMetaModel();
-String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 {
 	String classifierAccessorName = genDiagram.getDomainDiagramElement().getClassifierAccessorName();
 	String interfaceName = importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName());
 
     stringBuffer.append(TEXT_7);
-    stringBuffer.append(semanticPackageInterfaceName);
+    stringBuffer.append(genDiagram.getMetaPackageName(importManager));
     stringBuffer.append(TEXT_8);
     stringBuffer.append(classifierAccessorName);
     stringBuffer.append(TEXT_9);
@@ -171,12 +169,12 @@ String semanticPackageInterfaceName = importManager.getImportedName(genPackage.g
 }
 
     stringBuffer.append(TEXT_13);
-    stringBuffer.append(genDiagram.getEMFGenModel().getModelName());
+    stringBuffer.append(modelID);
     stringBuffer.append(TEXT_14);
     
 for (Iterator it = genDiagram.getShortcutsProvidedFor().iterator(); it.hasNext();) { 
 	String nextDomainModelName = (String) it.next();
-	if (genDiagram.getEMFGenModel().getModelName().equals(nextDomainModelName)) {
+	if (modelID.equals(nextDomainModelName)) {
 		continue;
 	}
 
@@ -187,7 +185,7 @@ for (Iterator it = genDiagram.getShortcutsProvidedFor().iterator(); it.hasNext()
 }
 
     stringBuffer.append(TEXT_17);
-    stringBuffer.append(genDiagram.getEMFGenModel().getModelName());
+    stringBuffer.append(modelID);
     stringBuffer.append(TEXT_18);
     stringBuffer.append(genDiagram.getVisualID());
     stringBuffer.append(TEXT_19);
@@ -243,8 +241,9 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
     	
 	for (Iterator childNodes = nextContainer.getContainedNodes().iterator(); childNodes.hasNext();) {
 		GenNode childNode = (GenNode) childNodes.next();
-		String classifierAccessorName = childNode.getDomainMetaClass().getClassifierAccessorName();
-		String interfaceName = importManager.getImportedName(childNode.getDomainMetaClass().getQualifiedInterfaceName());
+		final String classifierAccessorName = childNode.getDomainMetaClass().getClassifierAccessorName();
+		final String interfaceName = importManager.getImportedName(childNode.getDomainMetaClass().getQualifiedInterfaceName());
+		final String semanticPackageInterfaceName = importManager.getImportedName(childNode.getDomainMetaClass().getGenPackage().getQualifiedPackageInterfaceName()); 
 
     stringBuffer.append(TEXT_33);
     stringBuffer.append(semanticPackageInterfaceName);
@@ -330,9 +329,10 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 for (int i = 0; i < genLinks.size(); i++) {
 	GenLink genLink = (GenLink) genLinks.get(i);
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
-		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
-		String semanticLinkInterfaceName = modelFacet.getMetaClass().getClassifierAccessorName();
-		String qualifiedInterfaceName = modelFacet.getMetaClass().getQualifiedInterfaceName();
+		final TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+		final String semanticLinkInterfaceName = modelFacet.getMetaClass().getClassifierAccessorName();
+		final String qualifiedInterfaceName = modelFacet.getMetaClass().getQualifiedInterfaceName();
+		final String semanticPackageInterfaceName = importManager.getImportedName(modelFacet.getMetaClass().getGenPackage().getQualifiedPackageInterfaceName());
 
     stringBuffer.append(TEXT_58);
     stringBuffer.append(semanticPackageInterfaceName);
@@ -429,7 +429,7 @@ for (int i = 0; i < genLinks.size(); i++) {
     stringBuffer.append(TEXT_89);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation"));
     stringBuffer.append(TEXT_90);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_91);
     
 int selectorCounter = 0;
@@ -467,7 +467,7 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext();) {
     stringBuffer.append(TEXT_99);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OclConstraintCondition"));
     stringBuffer.append(TEXT_100);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_101);
     }
     stringBuffer.append(TEXT_102);

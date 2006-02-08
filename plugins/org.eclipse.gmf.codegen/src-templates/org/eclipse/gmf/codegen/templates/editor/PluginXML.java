@@ -106,8 +106,10 @@ public class PluginXML
     StringBuffer stringBuffer = new StringBuffer();
     
 final GenPlugin genPlugin = (GenPlugin) argument;
-final GenDiagram genDiagram = genPlugin.getDiagram();
-final GenModel genModel = genDiagram.getEMFGenModel();
+final GenDiagram genDiagram = genPlugin.getEditorGen().getDiagram();
+final GenModel genModel = genPlugin.getEditorGen().getDomainGenModel();
+// XXX just treat the first genPackage as primary - genModel.getGenPackages().get(0)?
+final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPackage();
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getPreferenceInitializerQualifiedClassName());
@@ -122,7 +124,7 @@ final GenModel genModel = genDiagram.getEMFGenModel();
     stringBuffer.append(TEXT_6);
     stringBuffer.append(genModel.getEditorPluginID());
     stringBuffer.append(TEXT_7);
-    stringBuffer.append(genDiagram.getDomainMetaModel().getPrefix());
+    stringBuffer.append(domainMetaModel.getPrefix());
     stringBuffer.append(TEXT_8);
     stringBuffer.append(genDiagram.getDiagramFileExtension());
     stringBuffer.append(TEXT_9);
@@ -136,7 +138,7 @@ final GenModel genModel = genDiagram.getEMFGenModel();
     stringBuffer.append(TEXT_13);
     stringBuffer.append(genModel.getEditorPluginID());
     stringBuffer.append(TEXT_14);
-    stringBuffer.append(genDiagram.getDomainMetaModel().getPrefix());
+    stringBuffer.append(domainMetaModel.getPrefix());
     stringBuffer.append(TEXT_15);
     stringBuffer.append(genDiagram.getCreationWizardQualifiedClassName());
     stringBuffer.append(TEXT_16);
@@ -231,7 +233,7 @@ final GenModel genModel = genDiagram.getEMFGenModel();
     }
     stringBuffer.append(TEXT_61);
     
-GenAuditContainer rootContainer = genDiagram.getAudits();
+GenAuditContainer rootContainer = genDiagram.getEditorGen().getAudits();
 if(rootContainer != null) {
 	java.util.List containers = rootContainer != null ? rootContainer.getAllAuditContainers() : java.util.Collections.EMPTY_LIST;
 
@@ -265,7 +267,7 @@ if(rootContainer != null) {
 	String rootCategoryId = (String)pathMap.get(rootContainer);
 
     stringBuffer.append(TEXT_67);
-    stringBuffer.append(genDiagram.getDomainMetaModel().getNSURI());
+    stringBuffer.append(domainMetaModel.getNSURI());
     stringBuffer.append(TEXT_68);
     
 	int rulePos = 0;

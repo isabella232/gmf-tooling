@@ -42,7 +42,7 @@ public class <%=diagram.getMetamodelSupportProviderClassName()%> extends Abstrac
 	 */
 	public boolean provides(IOperation operation) {
 		if (operation instanceof GetMetamodelSupportOperation) {
-			return <%=importManager.getImportedName(diagram.getDomainMetaModel().getQualifiedPackageInterfaceName())%>.eINSTANCE == ((GetMetamodelSupportOperation) operation).getEPackage();
+			return <%=diagram.getMetaPackageName(importManager)%>.eINSTANCE == ((GetMetamodelSupportOperation) operation).getEPackage();
 		}
 		return false;
 	}

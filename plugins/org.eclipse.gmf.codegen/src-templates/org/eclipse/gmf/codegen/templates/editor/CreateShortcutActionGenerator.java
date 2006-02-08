@@ -47,7 +47,7 @@ public class CreateShortcutActionGenerator
     stringBuffer.append(TEXT_7);
     stringBuffer.append(importManager.getImportedName(genDiagram.getElementChooserQualifiedClassName()));
     stringBuffer.append(TEXT_8);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_9);
     stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_10);

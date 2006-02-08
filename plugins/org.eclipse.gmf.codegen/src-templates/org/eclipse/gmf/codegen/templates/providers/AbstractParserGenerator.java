@@ -36,7 +36,7 @@ public class AbstractParserGenerator
     stringBuffer.append(TEXT_4);
     stringBuffer.append(genDiagram.getAbstractParserClassName());
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_6);
     importManager.emitSortedImports();
     stringBuffer.append(TEXT_7);

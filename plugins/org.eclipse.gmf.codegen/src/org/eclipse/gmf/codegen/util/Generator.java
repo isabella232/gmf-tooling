@@ -42,6 +42,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
@@ -87,6 +88,13 @@ public class Generator implements Runnable {
 
 	private static SoftReference/*<CodegenEmitters>*/ myCachedEmitters; 
 
+	public Generator(GenEditorGenerator genModel) {
+		this(genModel.getDiagram());
+	}
+
+	/**
+	 * @deprecated use {@link #Generator(GenEditorGenerator) } instead
+	 */
 	public Generator(GenDiagram diagram) {
 		myDiagram = diagram;
 		CodegenEmitters old = myCachedEmitters == null ? null : (CodegenEmitters) myCachedEmitters.get();
@@ -803,21 +811,21 @@ public class Generator implements Runnable {
 		doGenerateJavaClass(
 			myEmitters.getPluginClassEmitter(),
 			myDiagram.getEditorPackageName(), 
-			myDiagram.getPlugin().getActivatorClassName(),
-			myDiagram.getPlugin()
+			myDiagram.getEditorGen().getPlugin().getActivatorClassName(),
+			myDiagram.getEditorGen().getPlugin()
 		);
 	}
 
 	private void generatePluginXml() throws JETException, InterruptedException {
-		doGenerateFile(myEmitters.getPluginXmlEmitter(), new Path("plugin.xml"), myDiagram.getPlugin());
+		doGenerateFile(myEmitters.getPluginXmlEmitter(), new Path("plugin.xml"), myDiagram.getEditorGen().getPlugin());
 	}
 
 	private void generatePluginProperties() throws JETException, InterruptedException {
-		doGenerateFile(myEmitters.getPluginPropertiesEmitter(), new Path("plugin.properties"), myDiagram.getPlugin());
+		doGenerateFile(myEmitters.getPluginPropertiesEmitter(), new Path("plugin.properties"), myDiagram.getEditorGen().getPlugin());
 	}
 
 	private void generateBundleManifest() throws JETException, InterruptedException {
-		doGenerateFile(myEmitters.getBundleManifestEmitter(), new Path("META-INF/MANIFEST.MF"), myDiagram.getPlugin());
+		doGenerateFile(myEmitters.getBundleManifestEmitter(), new Path("META-INF/MANIFEST.MF"), myDiagram.getEditorGen().getPlugin());
 	}
 
 	private void generateBuildProperties() throws JETException, InterruptedException {
@@ -910,7 +918,7 @@ public class Generator implements Runnable {
 	}
 
 	private void initializeEditorProject() throws UnexpectedBehaviourException, InterruptedException {
-		myDestProject = ResourcesPlugin.getWorkspace().getRoot().getProject(myDiagram.getPlugin().getID());
+		myDestProject = ResourcesPlugin.getWorkspace().getRoot().getProject(myDiagram.getEditorGen().getPlugin().getID());
 		final Path srcPath = new Path('/' + myDestProject.getName() + "/src"); //$NON-NLS-1$
 		final Path projectLocation = null; // use default
 		final List referencedProjects = createReferencedProjectsList();

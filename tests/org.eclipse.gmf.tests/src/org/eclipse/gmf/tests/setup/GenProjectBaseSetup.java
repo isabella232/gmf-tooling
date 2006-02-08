@@ -24,6 +24,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.util.Generator;
 import org.eclipse.gmf.tests.CompileUtil;
@@ -43,18 +44,20 @@ public class GenProjectBaseSetup {
 		projectsToInit.clear(); // just in case
 		compileUtil = new CompileUtil();
 		final GenDiagram d = diaGenSource.getGenDiagram();
-		d.getEMFGenModel().setCanGenerate(true);
-		d.getEMFGenModel().generate(new NullProgressMonitor());
-		projectsToInit.add(d.getEMFGenModel().getModelPluginID());
-		d.getEMFGenModel().generateEdit(new NullProgressMonitor());
-		projectsToInit.add(d.getEMFGenModel().getEditPluginID());
+		final GenModel domainGenModel = d.getEditorGen().getDomainGenModel();
+		domainGenModel.setCanGenerate(true);
+		domainGenModel.generate(new NullProgressMonitor());
+		projectsToInit.add(domainGenModel.getModelPluginID());
+		domainGenModel.generateEdit(new NullProgressMonitor());
+		projectsToInit.add(domainGenModel.getEditPluginID());
 		
 		Generator generator = new Generator(d);		
 		generator.run();
 		hookGeneratorStatus(generator.getRunStatus());
-		rtWorkspace.updateClassPath(ResourcesPlugin.getWorkspace().getRoot().getProject(d.getPlugin().getID()));
+		final String gmfEditorId = d.getEditorGen().getPlugin().getID();
+		rtWorkspace.updateClassPath(ResourcesPlugin.getWorkspace().getRoot().getProject(gmfEditorId));
 		
-		projectsToInit.add(d.getPlugin().getID());
+		projectsToInit.add(gmfEditorId);
 		for (Iterator it = projectsToInit.iterator(); it.hasNext();) {
 			String pluginID = (String) it.next();
 			IProject p = ResourcesPlugin.getWorkspace().getRoot().getProject(pluginID);

@@ -36,7 +36,7 @@ public class MetamodelSupportProviderGenerator
     stringBuffer.append(TEXT_4);
     stringBuffer.append(diagram.getMetamodelSupportProviderClassName());
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(importManager.getImportedName(diagram.getDomainMetaModel().getQualifiedPackageInterfaceName()));
+    stringBuffer.append(diagram.getMetaPackageName(importManager));
     stringBuffer.append(TEXT_6);
     importManager.emitSortedImports();
     stringBuffer.append(TEXT_7);

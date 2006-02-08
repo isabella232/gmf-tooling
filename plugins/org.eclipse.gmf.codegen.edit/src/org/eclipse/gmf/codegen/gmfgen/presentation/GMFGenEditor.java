@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.provider.GenModelItemProviderAdapterFactory;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
@@ -58,6 +59,7 @@ import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.emf.edit.ui.view.ExtendedPropertySheetPage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.provider.GMFGenItemProviderAdapterFactory;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -703,9 +705,15 @@ public class GMFGenEditor
 			//
 			// [vano] reconcile genModel for domain
 			Resource res = editingDomain.loadResource(URI.createPlatformResourceURI(modelFile.getFile().getFullPath().toString()).toString());
-			GenDiagram gd = (GenDiagram) res.getContents().get(0);
-			if (gd.getEMFGenModel() != null) {
-				gd.getEMFGenModel().reconcile();
+			Object o = res.getContents().get(0);
+			GenModel toReload = null;
+			if (o instanceof GenDiagram) {
+				toReload = ((GenDiagram) o).getEditorGen().getDomainGenModel();
+			} else if (o instanceof GenEditorGenerator) {
+				toReload = ((GenEditorGenerator) o).getDomainGenModel();
+			}
+			if (toReload != null) {
+				toReload.reconcile();
 			}
 		}
 		catch (Exception exception) {

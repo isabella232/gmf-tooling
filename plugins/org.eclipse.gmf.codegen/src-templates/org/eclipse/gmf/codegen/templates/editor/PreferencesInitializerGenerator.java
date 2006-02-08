@@ -29,7 +29,7 @@ public class PreferencesInitializerGenerator
     stringBuffer.append(TEXT_2);
     stringBuffer.append(genDiagram.getPreferenceInitializerClassName());
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(genDiagram.getPlugin().getActivatorQualifiedClassName());
+    stringBuffer.append(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
     stringBuffer.append(TEXT_4);
     stringBuffer.append(TEXT_5);
     return stringBuffer.toString();

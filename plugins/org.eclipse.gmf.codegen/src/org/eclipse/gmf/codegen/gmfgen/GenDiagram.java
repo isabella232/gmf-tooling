@@ -7,9 +7,8 @@
 package org.eclipse.gmf.codegen.gmfgen;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
-import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.gmf.common.codegen.ImportAssistant;
 
 /**
  * <!-- begin-user-doc -->
@@ -19,15 +18,13 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDomainMetaModel <em>Domain Meta Model</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getEditorGen <em>Editor Gen</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDomainDiagramElement <em>Domain Diagram Element</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getChildNodes <em>Child Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getTopLevelNodes <em>Top Level Nodes</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getLinks <em>Links</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getCompartments <em>Compartments</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getAudits <em>Audits</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPalette <em>Palette</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPlugin <em>Plugin</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
  * </ul>
@@ -39,31 +36,21 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClassNames, LinkConstraints, EditPartCandies, EditorCandies, Shortcuts, BatchValidation {
 	/**
-	 * Returns the value of the '<em><b>Domain Meta Model</b></em>' reference.
+	 * Returns the value of the '<em><b>Editor Gen</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDiagram <em>Diagram</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Domain Meta Model</em>' reference isn't clear,
+	 * If the meaning of the '<em>Editor Gen</em>' container reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Domain Meta Model</em>' reference.
-	 * @see #setDomainMetaModel(GenPackage)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_DomainMetaModel()
-	 * @model required="true"
-	 *        annotation="http://www.eclipse.org/gmf/2006/deprecated documentation='Don\'t use it as it\'s misleading in case of domain model classes residing in several packages'"
+	 * @return the value of the '<em>Editor Gen</em>' container reference.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_EditorGen()
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDiagram
+	 * @model opposite="diagram" changeable="false"
 	 * @generated
 	 */
-	GenPackage getDomainMetaModel();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getDomainMetaModel <em>Domain Meta Model</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Domain Meta Model</em>' reference.
-	 * @see #getDomainMetaModel()
-	 * @generated
-	 */
-	void setDomainMetaModel(GenPackage value);
+	GenEditorGenerator getEditorGen();
 
 	/**
 	 * Returns the value of the '<em><b>Domain Diagram Element</b></em>' reference.
@@ -164,35 +151,6 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	EList getCompartments();
 
 	/**
-	 * Returns the value of the '<em><b>Audits</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Audits</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Domain meta-model  audit rules definitions
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Audits</em>' containment reference.
-	 * @see #setAudits(GenAuditContainer)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_Audits()
-	 * @model containment="true"
-	 * @generated
-	 */
-	GenAuditContainer getAudits();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getAudits <em>Audits</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Audits</em>' containment reference.
-	 * @see #getAudits()
-	 * @generated
-	 */
-	void setAudits(GenAuditContainer value);
-
-	/**
 	 * Returns the value of the '<em><b>Palette</b></em>' containment reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.Palette#getDiagram <em>Diagram</em>}'.
 	 * <!-- begin-user-doc -->
@@ -219,34 +177,6 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 * @generated
 	 */
 	void setPalette(Palette value);
-
-	/**
-	 * Returns the value of the '<em><b>Plugin</b></em>' containment reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getDiagram <em>Diagram</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Plugin</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Plugin</em>' containment reference.
-	 * @see #setPlugin(GenPlugin)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenDiagram_Plugin()
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenPlugin#getDiagram
-	 * @model opposite="diagram" containment="true" required="true"
-	 * @generated
-	 */
-	GenPlugin getPlugin();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPlugin <em>Plugin</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Plugin</em>' containment reference.
-	 * @see #getPlugin()
-	 * @generated
-	 */
-	void setPlugin(GenPlugin value);
 
 	/**
 	 * Returns the value of the '<em><b>Diagram File Extension</b></em>' attribute.
@@ -302,17 +232,6 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * == domainMetaModel.getGenModel()
-	 * <!-- end-model-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	GenModel getEMFGenModel();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
 	 * @model kind="operation" type="org.eclipse.gmf.codegen.gmfgen.GenNode"
 	 * @generated
 	 */
@@ -356,4 +275,12 @@ public interface GenDiagram extends GenContainerBase, PackageNames, ProviderClas
 	 */
 	String getElementInitializersPackageName();
 
+	// Custom additions, to ease template authoring
+
+	/**
+	 * Shorthand for <code>importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedPackageInterfaceName())</code>
+	 * NOTE: genPackage for domainDiagramElement only (not editor-wide domain model!), don't use it for
+	 * features/classes/references found in GenLink/GenNodes!
+	 */
+	String getMetaPackageName(ImportAssistant importManager);
 } // GenDiagram

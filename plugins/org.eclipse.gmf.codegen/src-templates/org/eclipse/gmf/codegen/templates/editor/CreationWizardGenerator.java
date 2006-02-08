@@ -28,7 +28,7 @@ public class CreationWizardGenerator
   {
     StringBuffer stringBuffer = new StringBuffer();
     GenDiagram genDiagram = (GenDiagram) argument;
-    GenModel genModel = genDiagram.getEMFGenModel();
+    GenModel genModel = genDiagram.getEditorGen().getDomainGenModel();
     stringBuffer.append(TEXT_1);
     stringBuffer.append(genDiagram.getEditorPackageName());
     stringBuffer.append(TEXT_2);
@@ -38,7 +38,7 @@ public class CreationWizardGenerator
     stringBuffer.append(TEXT_4);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(genDiagram.getPlugin().getActivatorQualifiedClassName());
+    stringBuffer.append(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
     stringBuffer.append(TEXT_6);
     stringBuffer.append(genModel.getModelName());
     stringBuffer.append(TEXT_7);

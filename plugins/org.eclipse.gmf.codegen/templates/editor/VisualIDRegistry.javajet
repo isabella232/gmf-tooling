@@ -1,7 +1,8 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="VisualIDRegistryGenerator"
-	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.* org.eclipse.gmf.common.codegen.*"%>
+	imports="org.eclipse.gmf.codegen.gmfgen.* java.util.* org.eclipse.gmf.common.codegen.*"%>
 <%
-GenDiagram genDiagram = (GenDiagram) argument;
+final GenDiagram genDiagram = (GenDiagram) argument;
+final String modelID = genDiagram.getEditorGen().getDomainGenModel().getModelName();
 List genLinks = genDiagram.getLinks();
 Collection allContainers = genDiagram.getAllContainers();
 %>
@@ -45,13 +46,11 @@ public class <%=genDiagram.getVisualIDRegistryClassName()%> {
 	 */
 	public int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
 <%
-GenPackage genPackage = genDiagram.getDomainMetaModel();
-String semanticPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
 {
 	String classifierAccessorName = genDiagram.getDomainDiagramElement().getClassifierAccessorName();
 	String interfaceName = importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName());
 %>
-		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=classifierAccessorName%>().equals(domainElementMetaclass) && (domainElement != null ? isDiagram<%=genDiagram.getUniqueIdentifier()%>((<%=interfaceName%>) domainElement) : true)) {
+		if (<%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE.get<%=classifierAccessorName%>().equals(domainElementMetaclass) && (domainElement != null ? isDiagram<%=genDiagram.getUniqueIdentifier()%>((<%=interfaceName%>) domainElement) : true)) {
 			return <%=genDiagram.getVisualID()%>;
 		}
 		return getUnrecognizedDiagramID(domainElement);
@@ -76,11 +75,11 @@ String semanticPackageInterfaceName = importManager.getImportedName(genPackage.g
 	 */
 	public int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {
 		String containerModelID = getModelID(containerView);
-		if (!"<%=genDiagram.getEMFGenModel().getModelName()%>".equals(containerModelID)
+		if (!"<%=modelID%>".equals(containerModelID)
 <%
 for (Iterator it = genDiagram.getShortcutsProvidedFor().iterator(); it.hasNext();) { 
 	String nextDomainModelName = (String) it.next();
-	if (genDiagram.getEMFGenModel().getModelName().equals(nextDomainModelName)) {
+	if (modelID.equals(nextDomainModelName)) {
 		continue;
 	}
 %>			
@@ -92,7 +91,7 @@ for (Iterator it = genDiagram.getShortcutsProvidedFor().iterator(); it.hasNext()
 			return -1;
 		}
 		int containerVisualID;
-		if ("<%=genDiagram.getEMFGenModel().getModelName()%>".equals(containerModelID)) {
+		if ("<%=modelID%>".equals(containerModelID)) {
 			containerVisualID = getVisualID(containerView);
 		} else {
 			if (containerView instanceof Diagram) {
@@ -146,8 +145,9 @@ for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 <%	
 	for (Iterator childNodes = nextContainer.getContainedNodes().iterator(); childNodes.hasNext();) {
 		GenNode childNode = (GenNode) childNodes.next();
-		String classifierAccessorName = childNode.getDomainMetaClass().getClassifierAccessorName();
-		String interfaceName = importManager.getImportedName(childNode.getDomainMetaClass().getQualifiedInterfaceName());
+		final String classifierAccessorName = childNode.getDomainMetaClass().getClassifierAccessorName();
+		final String interfaceName = importManager.getImportedName(childNode.getDomainMetaClass().getQualifiedInterfaceName());
+		final String semanticPackageInterfaceName = importManager.getImportedName(childNode.getDomainMetaClass().getGenPackage().getQualifiedPackageInterfaceName()); 
 %>		
 			if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=classifierAccessorName%>().equals(domainElementMetaclass) && (domainElement != null ? isNode<%=childNode.getUniqueIdentifier()%>((<%=interfaceName%>) domainElement) : true)) {
 				return <%=childNode.getVisualID()%>;
@@ -226,9 +226,10 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 for (int i = 0; i < genLinks.size(); i++) {
 	GenLink genLink = (GenLink) genLinks.get(i);
 	if (genLink.getModelFacet() instanceof TypeLinkModelFacet) {
-		TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
-		String semanticLinkInterfaceName = modelFacet.getMetaClass().getClassifierAccessorName();
-		String qualifiedInterfaceName = modelFacet.getMetaClass().getQualifiedInterfaceName();
+		final TypeLinkModelFacet modelFacet = (TypeLinkModelFacet) genLink.getModelFacet();
+		final String semanticLinkInterfaceName = modelFacet.getMetaClass().getClassifierAccessorName();
+		final String qualifiedInterfaceName = modelFacet.getMetaClass().getQualifiedInterfaceName();
+		final String semanticPackageInterfaceName = importManager.getImportedName(modelFacet.getMetaClass().getGenPackage().getQualifiedPackageInterfaceName());
 %>
 		if (<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticLinkInterfaceName%>().equals(domainElementMetaclass) && (domainElement != null ? isLinkWithClass<%=genLink.getUniqueIdentifier()%>((<%=importManager.getImportedName(qualifiedInterfaceName)%>) domainElement) : true)) {
 			return <%=genLink.getVisualID()%>;
@@ -450,7 +451,7 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext();) {
 					Boolean result = (object != null) ? evaluate(object) : Boolean.FALSE;
 					return result.booleanValue();
 				} catch(IllegalArgumentException e) {
-					<%=importManager.getImportedName(genDiagram.getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError(null, e);
+					<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError(null, e);
 					return false;
 				}
 			}
