@@ -12,15 +12,23 @@
 package org.eclipse.gmf.tests.gen;
 
 import java.io.IOException;
+import java.util.HashSet;
 
 import junit.framework.TestCase;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.tests.Plugin;
+import org.eclipse.gmf.tests.setup.DiaDefSetup;
 import org.eclipse.gmf.tests.setup.DiaGenFileSetup;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
+import org.eclipse.gmf.tests.setup.DomainModelSource;
 import org.eclipse.gmf.tests.setup.GenProjectBaseSetup;
+import org.eclipse.gmf.tests.setup.MapDefSource;
+import org.eclipse.gmf.tests.setup.MapSetup;
+import org.eclipse.gmf.tests.setup.MultiPackageGenSetup;
+import org.eclipse.gmf.tests.setup.MultiplePackagesDomainModelSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
+import org.eclipse.gmf.tests.setup.ToolDefSetup;
 
 public class CompilationTest extends TestCase {
 
@@ -48,6 +56,20 @@ public class CompilationTest extends TestCase {
 			Plugin.logError("Unexpected exception:", ex);
 			fail("Hm, looks like unexpected..." + ex.getMessage());
 		}
+	}
+
+	public void testCompileMultiPackageDomain() throws Exception {
+		DomainModelSource ds = new MultiplePackagesDomainModelSetup().init();
+		MapDefSource ms = new MapSetup().init(new DiaDefSetup(null).init(), ds, new ToolDefSetup());
+
+		final HashSet additionalPacks = new HashSet(8);
+		additionalPacks.add(ds.getNodeA().getEClass().getEPackage());
+		additionalPacks.add(ds.getNodeB().getEClass().getEPackage());
+		additionalPacks.add(ds.getLinkAsClass().getEClass().getEPackage());
+
+		DiaGenSource gmfGenSource = new MultiPackageGenSetup(additionalPacks).init(ms);
+
+		new GenProjectBaseSetup().generateAndCompile(SessionSetup.getRuntimeWorkspaceSetup(), gmfGenSource);
 	}
 
 	protected void tearDown() throws Exception {

@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.gmf.bridge.genmodel.BasicDiagramRunTimeModelHelper;
 import org.eclipse.gmf.bridge.genmodel.BasicGenModelAccess;
@@ -150,10 +151,7 @@ public class DiaGenSetup implements DiaGenSource {
 		final CollectingDispenser uniquenessDispenser = new CollectingDispenser();
 		final GenModelNamingMediatorImpl namingMediator = new GenModelNamingMediatorImpl(uniquenessDispenser);
 		DiagramGenModelTransformer t = new DiagramGenModelTransformer(drth, namingMediator);
-		BasicGenModelAccess gma = new BasicGenModelAccess(mapSource.getCanvas().getDomainModel());
-		IStatus gmaStatus = gma.createDummy();
-		Assert.assertTrue("Need (fake) genModel for transformation to work", gmaStatus.isOK());
-		t.setEMFGenModel(gma.model());
+		t.setEMFGenModel(initGenModel(mapSource.getCanvas().getDomainModel()));
 		t.transform(mapSource.getMapping());
 		myGenDiagram = t.getResult().getDiagram();
 		uniquenessDispenser.forget();
@@ -185,6 +183,13 @@ public class DiaGenSetup implements DiaGenSource {
 		assert myLinkD != null;
 		confineInResource();
 		return this;
+	}
+
+	protected GenModel initGenModel(EPackage domainModel) {
+		BasicGenModelAccess gma = new BasicGenModelAccess(domainModel);
+		IStatus gmaStatus = gma.createDummy();
+		Assert.assertTrue("Need (fake) genModel for transformation to work", gmaStatus.isOK());
+		return gma.model();
 	}
 
 	private void confineInResource() {

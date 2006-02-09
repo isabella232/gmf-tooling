@@ -12,11 +12,13 @@
 package org.eclipse.gmf.tests.setup;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import junit.framework.TestCase;
 
 import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Connection;
@@ -89,11 +91,25 @@ public class TestSetupTest extends TestCase {
 
 	public void testDomainModelSetup() {
 		DomainModelSetup s = new DomainModelSetup().init();
-		doAssert(Diagnostician.INSTANCE.validate(s.getDiagramElement()));
-		doAssert(Diagnostician.INSTANCE.validate(s.getNodeA().getEClass()));
-		doAssert(Diagnostician.INSTANCE.validate(s.getLinkAsRef()));
-		doAssert(Diagnostician.INSTANCE.validate(s.getLinkAsClass().getEClass()));
-		doAssert(Diagnostician.INSTANCE.validate(s.getModel()));
+		doDomainSourceTests(s);
+	}
+
+	public void testMultiPackageSetup() throws Exception {
+		DomainModelSource s = new MultiplePackagesDomainModelSetup().init();
+		doDomainSourceTests(s);
+		final HashSet additionalPacks = new HashSet(8);
+		additionalPacks.add(s.getNodeA().getEClass().getEPackage());
+		additionalPacks.add(s.getNodeB().getEClass().getEPackage());
+		additionalPacks.add(s.getLinkAsClass().getEClass().getEPackage());
+
+		DiaDefSource gmfGraph = new DiaDefFileSetup().init(Assistant.getBasicGraphDef());
+		ToolDefSource toolDef = new ToolDefSetup();
+		MapDefSource mapSource = new MapSetup().init(gmfGraph, s, toolDef);
+		final Resource resource = s.getModel().eResource();
+		resource.getContents().add(mapSource.getMapping());
+		resource.getContents().add(toolDef.getRegistry());
+		doAssert("Map", Diagnostician.INSTANCE.validate(mapSource.getCanvas()));
+		doDiaGenTests(new MultiPackageGenSetup(additionalPacks).init(mapSource));
 	}
 
 	public void testDiaGenSetupDM() {
@@ -117,6 +133,14 @@ public class TestSetupTest extends TestCase {
 		doAssert("GenLink", d);
 		d = Diagnostician.INSTANCE.validate(s.getGenDiagram());
 		doAssert("GenDiagram", d);
+	}
+
+	private static void doDomainSourceTests(DomainModelSource s) {
+		doAssert(Diagnostician.INSTANCE.validate(s.getDiagramElement()));
+		doAssert(Diagnostician.INSTANCE.validate(s.getNodeA().getEClass()));
+		doAssert(Diagnostician.INSTANCE.validate(s.getLinkAsRef()));
+		doAssert(Diagnostician.INSTANCE.validate(s.getLinkAsClass().getEClass()));
+		doAssert(Diagnostician.INSTANCE.validate(s.getModel()));
 	}
 
 	private static void doAssert(Diagnostic d) {

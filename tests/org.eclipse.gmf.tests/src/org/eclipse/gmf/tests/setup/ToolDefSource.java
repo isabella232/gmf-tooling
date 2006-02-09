@@ -15,6 +15,7 @@ import org.eclipse.gmf.tooldef.AbstractTool;
 import org.eclipse.gmf.tooldef.ContextMenu;
 import org.eclipse.gmf.tooldef.MainMenu;
 import org.eclipse.gmf.tooldef.Palette;
+import org.eclipse.gmf.tooldef.ToolRegistry;
 
 /**
  * @author artem
@@ -22,6 +23,7 @@ import org.eclipse.gmf.tooldef.Palette;
  */
 public interface ToolDefSource {
 
+	ToolRegistry getRegistry();
 	MainMenu getMainMenu();
 	ContextMenu getNodeContextMenu();
 	AbstractTool getNodeCreationTool();

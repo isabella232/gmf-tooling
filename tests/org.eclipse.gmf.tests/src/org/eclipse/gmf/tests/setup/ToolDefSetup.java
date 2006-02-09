@@ -32,6 +32,7 @@ public class ToolDefSetup implements ToolDefSource {
 	private final ContextMenu myNodeMenu;
 	private final AbstractTool myNodeTool;
 	private final AbstractTool myLinkTool;
+	private ToolRegistry myRegistry;
 
 	public ToolDefSetup() {
 		myMainMenu = GMFToolFactory.eINSTANCE.createMainMenu();
@@ -59,11 +60,11 @@ public class ToolDefSetup implements ToolDefSource {
 		p.getTools().add(myNodeTool);
 		p.getTools().add(myLinkTool);
 
-		ToolRegistry registry = GMFToolFactory.eINSTANCE.createToolRegistry();
-		registry.getSharedActions().add(shared);
-		registry.getAllMenus().add(myMainMenu);
-		registry.getAllMenus().add(myNodeMenu);
-		registry.setPalette(p);
+		myRegistry = GMFToolFactory.eINSTANCE.createToolRegistry();
+		myRegistry.getSharedActions().add(shared);
+		myRegistry.getAllMenus().add(myMainMenu);
+		myRegistry.getAllMenus().add(myNodeMenu);
+		myRegistry.setPalette(p);
 	}
 
 	private CreationTool createTool(String title) {
@@ -81,6 +82,10 @@ public class ToolDefSetup implements ToolDefSource {
 		a.setKind(ActionKind.CREATE_LITERAL);
 		a.setTitle(name);
 		return a;
+	}
+
+	public ToolRegistry getRegistry() {
+		return myRegistry;
 	}
 
 	public MainMenu getMainMenu() {
