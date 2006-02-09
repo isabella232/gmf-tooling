@@ -134,7 +134,7 @@
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
-      <viewProvider class="org.eclipse.gmf.ecore.edit.providers.EcoreViewProvider">
+      <viewProvider class="org.eclipse.gmf.ecore.providers.EcoreViewProvider">
          <Priority name="Medium"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Ecore"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
@@ -143,19 +143,19 @@
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
-      <editpartProvider class="org.eclipse.gmf.ecore.edit.providers.EcoreEditPartProvider">
+      <editpartProvider class="org.eclipse.gmf.ecore.providers.EcoreEditPartProvider">
          <Priority name="Medium"/>
       </editpartProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.core.compatibility.MetaModelProviders">
-      <MetaModelProvider class="org.eclipse.gmf.ecore.edit.providers.EcoreMetaModelSupportProvider">
+      <MetaModelProvider class="org.eclipse.gmf.ecore.providers.EcoreMetaModelSupportProvider">
          <Priority name="Medium"/>
       </MetaModelProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
-      <modelingAssistantProvider class="org.eclipse.gmf.ecore.edit.providers.EcoreModelingAssistantProvider">
+      <modelingAssistantProvider class="org.eclipse.gmf.ecore.providers.EcoreModelingAssistantProvider">
          <Priority name="Medium"/>
       </modelingAssistantProvider>
    </extension>
@@ -163,19 +163,19 @@
    <extension point="org.eclipse.gmf.runtime.common.ui.services.properties.propertiesProviders">
       <PropertiesProvider
             verifyPluginLoaded="false"
-            class="org.eclipse.gmf.ecore.edit.providers.EcorePropertyProvider">
+            class="org.eclipse.gmf.ecore.providers.EcorePropertyProvider">
          <Priority name="Medium"/>
       </PropertiesProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
-      <IconProvider class="org.eclipse.gmf.ecore.edit.providers.EcoreIconProvider">
+      <IconProvider class="org.eclipse.gmf.ecore.providers.EcoreIconProvider">
          <Priority name="Medium"/>
       </IconProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
-      <ParserProvider class="org.eclipse.gmf.ecore.edit.providers.EcoreParserProvider">
+      <ParserProvider class="org.eclipse.gmf.ecore.providers.EcoreParserProvider">
          <Priority name="Medium"/>
       </ParserProvider>
    </extension>

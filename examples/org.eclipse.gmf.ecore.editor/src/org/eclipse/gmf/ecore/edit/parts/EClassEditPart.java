@@ -22,10 +22,10 @@ import org.eclipse.gmf.ecore.edit.policies.EClassCanonicalEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EClassGraphicalNodeEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EClassItemSemanticEditPolicy;
 
-import org.eclipse.gmf.ecore.edit.providers.EcoreElementTypes;
-import org.eclipse.gmf.ecore.edit.providers.EcoreSemanticHints;
-
 import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
+
+import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
+import org.eclipse.gmf.ecore.providers.EcoreSemanticHints;
 
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
 

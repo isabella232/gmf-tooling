@@ -4,7 +4,7 @@ import org.eclipse.draw2d.ConnectionLocator;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.ecore.edit.providers.EcoreSemanticHints;
+import org.eclipse.gmf.ecore.providers.EcoreSemanticHints;
 
 /**
  * @generated

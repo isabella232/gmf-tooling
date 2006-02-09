@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.query.ocl.conditions.OclConstraintCondition;
 
-import org.eclipse.gmf.ecore.edit.providers.EcoreSemanticHints;
+import org.eclipse.gmf.ecore.providers.EcoreSemanticHints;
 
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.View;

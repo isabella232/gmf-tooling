@@ -15,7 +15,7 @@ import java.util.List;
 
 import org.eclipse.gef.palette.PaletteSeparator;
 
-import org.eclipse.gmf.ecore.edit.providers.EcoreElementTypes;
+import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
 import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeConnectionTool;
 import org.eclipse.gmf.runtime.diagram.ui.tools.UnspecifiedTypeCreationTool;

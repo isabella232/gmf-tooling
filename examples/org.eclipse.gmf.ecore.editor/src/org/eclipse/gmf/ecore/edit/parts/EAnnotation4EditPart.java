@@ -7,7 +7,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.gmf.ecore.edit.policies.EAnnotation4ItemSemanticEditPolicy;
 
-import org.eclipse.gmf.ecore.edit.providers.EcoreElementTypes;
+import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserService;

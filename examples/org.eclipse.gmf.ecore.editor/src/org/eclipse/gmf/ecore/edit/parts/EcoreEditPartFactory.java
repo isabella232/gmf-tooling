@@ -5,9 +5,9 @@ import org.eclipse.gef.EditPartFactory;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.emf.ecore.EAnnotation;
 
-import org.eclipse.gmf.ecore.edit.providers.EcoreSemanticHints;
-
 import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
+
+import org.eclipse.gmf.ecore.providers.EcoreSemanticHints;
 
 /**
  * @generated

@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.gef.commands.UnexecutableCommand;
 
-import org.eclipse.gmf.ecore.edit.providers.EcoreElementTypes;
+import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 

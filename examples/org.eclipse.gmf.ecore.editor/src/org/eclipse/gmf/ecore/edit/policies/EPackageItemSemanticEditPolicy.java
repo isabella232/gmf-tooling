@@ -10,7 +10,7 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.emf.ecore.EcorePackage;
 
-import org.eclipse.gmf.ecore.edit.providers.EcoreElementTypes;
+import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
 /**
  * @generated

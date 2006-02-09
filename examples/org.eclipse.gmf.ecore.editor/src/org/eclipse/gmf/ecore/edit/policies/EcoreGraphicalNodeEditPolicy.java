@@ -8,7 +8,7 @@ import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.GraphicalNodeEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewAndElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-import org.eclipse.gmf.ecore.editor.edit.commands.EcoreReorientConnectionViewCommand;
+import org.eclipse.gmf.ecore.edit.commands.EcoreReorientConnectionViewCommand;
 
 /**
  * @generated
