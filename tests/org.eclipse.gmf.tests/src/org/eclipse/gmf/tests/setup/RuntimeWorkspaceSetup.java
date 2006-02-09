@@ -107,6 +107,7 @@ public class RuntimeWorkspaceSetup {
 					"org.eclipse.gmf.runtime.emf.clipboard.core",
 					"org.eclipse.emf.validation",
 					"org.eclipse.gmf.runtime.emf.core",
+					"org.eclipse.gmf.runtime.emf.core.compatibility",
 					"org.eclipse.gmf.runtime.common.ui.services.action",
 					"org.eclipse.gmf.runtime.common.ui.action",
 					"org.eclipse.gmf.runtime.common.ui.action.ide",
@@ -128,6 +129,9 @@ public class RuntimeWorkspaceSetup {
 					"org.eclipse.emf.ocl", //$NON-NLS-1$
 					"org.eclipse.emf.query", //$NON-NLS-1$	
 					"org.eclipse.emf.query.ocl", //$NON-NLS-1$
+					//
+					"org.eclipse.emf.edit",
+					"org.eclipse.emf.transaction",
 			});
 		}
 		return this;
