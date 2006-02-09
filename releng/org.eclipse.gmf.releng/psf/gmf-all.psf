@@ -76,6 +76,7 @@
 		<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/features/org.eclipse.gmf.tests-feature,org.eclipse.gmf.tests-feature"/>
 		<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.core,org.eclipse.gmf.tests.runtime.common.core"/>
 		<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui,org.eclipse.gmf.tests.runtime.common.ui"/>
+		<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services,org.eclipse.gmf.tests.runtime.common.ui.services"/>
 		<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services.action,org.eclipse.gmf.tests.runtime.common.ui.services.action"/>
 		<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.common.ui.services.provider,org.eclipse.gmf.tests.runtime.common.ui.services.provider"/>
 		<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/technology,org.eclipse.gmf/tests/org.eclipse.gmf.tests.runtime.diagram.ui,org.eclipse.gmf.tests.runtime.diagram.ui"/>
