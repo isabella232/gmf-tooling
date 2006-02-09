@@ -11,10 +11,13 @@
  */
 package org.eclipse.gmf.bridge.genmodel;
 
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -23,20 +26,24 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModelFactory;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
  * @author artem
- *
  */
 public class BasicGenModelAccess implements GenModelAccess {
 	private final EPackage model;
-	private GenModel genModel; 
-	private final List/*<URI>*/ locations = new LinkedList();
+
+	private GenModel genModel;
+
+	private final List/* <URI> */locations = new LinkedList();
+
 	private boolean needUnload;
 
 	public BasicGenModelAccess(EPackage aModel) {
@@ -53,8 +60,9 @@ public class BasicGenModelAccess implements GenModelAccess {
 	}
 
 	/**
-	 * Useful when nsURI changed over time to reference old URI of the model. 
+	 * Useful when nsURI changed over time to reference old URI of the model.
 	 * Otherwise {@link #fromExtpoint()} is enough.
+	 * 
 	 * @param nsURI
 	 * @return uri registered in ecore's extpoint, if any
 	 */
@@ -71,17 +79,17 @@ public class BasicGenModelAccess implements GenModelAccess {
 		if (genModelURI.equals(domainModelURI)) {
 			return null;
 		}
-		// XXX should keep distinct resourceSet with URI to use different rs while loading?  
-/*
-		// @see org.eclipse.emf.importer.ModelImporter.getExternalGenModels()
-		Resource genModelResource = rs.getResource(genModelURI, false);
-		if (genModelResource == null) {
-			genModelResource = rs.getResource(genModelURI, true);
-			if (genModelResource != null) {
-				return (GenModel) genModelResource.getContents().get(0);
-			}
-		}
-*/
+		// XXX should keep distinct resourceSet with URI to use different rs
+		// while loading?
+		/*
+		 * //
+		 * 
+		 * @see org.eclipse.emf.importer.ModelImporter.getExternalGenModels()
+		 *      Resource genModelResource = rs.getResource(genModelURI, false);
+		 *      if (genModelResource == null) { genModelResource =
+		 *      rs.getResource(genModelURI, true); if (genModelResource != null) {
+		 *      return (GenModel) genModelResource.getContents().get(0); } }
+		 */
 		return genModelURI;
 	}
 
@@ -105,7 +113,7 @@ public class BasicGenModelAccess implements GenModelAccess {
 	public IStatus load() {
 		assert !locations.isEmpty(); // XXX if isEmpty() initDefault?
 		ResourceSet rs = model.eResource() == null || model.eResource().getResourceSet() == null ? new ResourceSetImpl() : model.eResource().getResourceSet();
-		for (Iterator/*<URI>*/ it = locations.iterator(); it.hasNext();) {
+		for (Iterator/* <URI> */it = locations.iterator(); it.hasNext();) {
 			try {
 				URI uri = (URI) it.next();
 				Resource r = rs.getResource(uri, false);
@@ -135,20 +143,43 @@ public class BasicGenModelAccess implements GenModelAccess {
 	}
 
 	public IStatus createDummy() {
+		return createDummy(false, Collections.EMPTY_LIST);
+	}
+
+	public IStatus createDummy(boolean includeAllReferencedPackages, Collection/*<EPackage>*/ additionalPackages) {
 		String pluginID = "org.sample." + model.getName();
-        genModel = GenModelFactory.eINSTANCE.createGenModel();
-        genModel.initialize(Collections.singleton(model));
-        GenPackage genPackage = (GenPackage) genModel.getGenPackages().get(0);
-        genModel.setModelName(model.getName() + "Gen");
-        genModel.setModelPluginID(pluginID);
-        genModel.setModelDirectory("/" + pluginID + "/src/");
-        genModel.setEditDirectory(genModel.getModelDirectory());
-        Resource r = new ResourceSetImpl().createResource(URI.createGenericURI("uri", pluginID, null));
-        r.getContents().add(genModel);
-        
-        // need different prefix to avoid name collisions with code generated for domain model
-        genPackage.setPrefix(model.getName() + "Gen");
-        return Status.OK_STATUS;
+		genModel = GenModelFactory.eINSTANCE.createGenModel();
+		if (includeAllReferencedPackages) {
+			HashSet allPacks = new HashSet();
+			allPacks.add(model);
+			allPacks.addAll(additionalPackages);
+			// TODO override method in crossReferencer to get only EClasses
+			Map m = EcoreUtil.ExternalCrossReferencer.find(model);
+			for (Iterator it = m.keySet().iterator(); it.hasNext(); ) {
+				Object next = it.next();
+				if (next instanceof EClass) {
+					allPacks.add(((EClass) next).getEPackage());
+				}
+			}
+			genModel.initialize(allPacks);
+		} else {
+			genModel.initialize(Collections.singleton(model));
+		}
+		genModel.setModelName(model.getName() + "Gen");
+		genModel.setModelPluginID(pluginID);
+		genModel.setModelDirectory("/" + pluginID + "/src/");
+		genModel.setEditDirectory(genModel.getModelDirectory());
+		Resource r = new ResourceSetImpl().createResource(URI.createGenericURI("uri", pluginID, null));
+		r.getContents().add(genModel);
+
+		// need different prefix to avoid name collisions with code generated
+		// for domain model
+		
+		for (Iterator it = genModel.getGenPackages().iterator(); it.hasNext();) {
+			GenPackage genPackage = (GenPackage) it.next();
+			genPackage.setPrefix(genPackage.getEcorePackage().getName() + "Gen");
+		}
+		return Status.OK_STATUS;
 	}
 
 	protected void registerLocation(URI location) {
