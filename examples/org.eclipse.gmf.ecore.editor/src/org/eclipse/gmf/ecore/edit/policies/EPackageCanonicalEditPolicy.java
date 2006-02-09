@@ -23,8 +23,8 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected List getSemanticChildrenList() {
-		EPackage modelElement = (EPackage) ((View) getHost().getModel()).getElement();
 		List result = new LinkedList();
+		EPackage modelElement = (EPackage) ((View) getHost().getModel()).getElement();
 		EObject nextValue;
 		int nodeVID;
 		for (Iterator it = modelElement.getEClassifiers().iterator(); it.hasNext();) {
@@ -123,4 +123,20 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	protected boolean shouldIncludeConnection(Edge connector, Collection children) {
 		return super.shouldIncludeConnection(connector, children) && connector.getElement() != null;
 	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshSemantic() {
+		super.refreshSemantic();
+		refreshReferenceOnlyConnections();
+	}
+
+	/**
+	 * @generated
+	 */
+	private void refreshReferenceOnlyConnections() {
+		// TODO: implement this method
+	}
+
 }

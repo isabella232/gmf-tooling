@@ -38,3 +38,35 @@ if (genLabel.getModelFacet() instanceof TextLabelModelFacet) {
 	}
 }
 %>
+
+	/**
+	 * @generated
+	 */
+	public <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParser")%> getParser() {
+		if (parser == null) {
+			String parserHint = ((View)getModel()).getType();
+<%
+GenCommonBase genHost;
+if (genLabel instanceof GenNodeLabel) {
+	genHost = ((GenNodeLabel) genLabel).getNode();
+} else if (genLabel instanceof GenLinkLabel) {
+	genHost = ((GenLinkLabel) genLabel).getLink();
+} else {
+	throw new IllegalArgumentException("Unknown label type: " + genLabel);
+}
+%>
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> element = resolveSemanticElement();
+			if (element != null) {
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter")%> hintAdapter = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter")%>(element, parserHint) {
+					public Object getAdapter(Class adapter) {
+						if (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>.class.equals(adapter)) {
+							return <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genHost.getUniqueIdentifier()%>;
+						}
+						return super.getAdapter(adapter);
+					}
+				};
+				parser = <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserService")%>.getInstance().getParser(hintAdapter);
+			}
+		}
+		return parser;
+	}

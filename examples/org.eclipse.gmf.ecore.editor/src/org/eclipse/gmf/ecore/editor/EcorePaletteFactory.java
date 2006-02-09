@@ -136,6 +136,7 @@ public class EcorePaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EClass_1001);
+		elementTypes.add(EcoreElementTypes.EClass_2004);
 		return new ToolEntry("EClass", "Create Class", smallImage, largeImage) {
 
 			public Tool createTool() {
@@ -159,6 +160,7 @@ public class EcorePaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EPackage_1002);
+		elementTypes.add(EcoreElementTypes.EPackage_2005);
 		return new ToolEntry("EPackage", "Create Package", smallImage, largeImage) {
 
 			public Tool createTool() {
@@ -182,6 +184,10 @@ public class EcorePaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EAnnotation_1003);
+		elementTypes.add(EcoreElementTypes.EAnnotation_2003);
+		elementTypes.add(EcoreElementTypes.EAnnotation_2008);
+		elementTypes.add(EcoreElementTypes.EAnnotation_2010);
+		elementTypes.add(EcoreElementTypes.EAnnotation_2012);
 		return new ToolEntry("EAnnotation", "Create Annotation", smallImage, largeImage) {
 
 			public Tool createTool() {
@@ -205,6 +211,7 @@ public class EcorePaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EDataType_1004);
+		elementTypes.add(EcoreElementTypes.EDataType_2006);
 		return new ToolEntry("EDataType", "Create DataType", smallImage, largeImage) {
 
 			public Tool createTool() {
@@ -228,6 +235,7 @@ public class EcorePaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EEnum_1005);
+		elementTypes.add(EcoreElementTypes.EEnum_2007);
 		return new ToolEntry("EEnum", "Create Enumeration", smallImage, largeImage) {
 
 			public Tool createTool() {

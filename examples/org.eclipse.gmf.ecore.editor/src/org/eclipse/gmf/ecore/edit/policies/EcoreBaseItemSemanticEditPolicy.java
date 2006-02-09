@@ -65,7 +65,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		if (shouldProceed) {
 			if (completedRequest instanceof DestroyRequest) {
 				ICommand deleteCommand = new DeleteCommand((View) getHost().getModel());
-				semanticCommand.chain(new EtoolsProxyCommand(deleteCommand));
+				semanticCommand = semanticCommand.chain(new EtoolsProxyCommand(deleteCommand));
 			}
 			return semanticCommand;
 		}

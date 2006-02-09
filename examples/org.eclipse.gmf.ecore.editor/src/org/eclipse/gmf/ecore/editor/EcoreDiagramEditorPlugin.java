@@ -5,13 +5,16 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-
 import org.eclipse.emf.common.notify.AdapterFactory;
+import org.eclipse.emf.ecore.EcorePackage;
+import org.eclipse.emf.ecore.provider.EcoreEditPlugin;
+import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
+import org.eclipse.gmf.ecore.edit.providers.EcoreElementTypes;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.gmf.runtime.emf.core.internal.util.MSLAdapterFactoryManager;
 import org.eclipse.gmf.runtime.emf.core.internal.util.MSLMetaModelManager;
@@ -19,12 +22,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.eclipse.emf.ecore.EcorePackage;
-
-import org.eclipse.emf.ecore.provider.EcoreEditPlugin;
-import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
-
-import org.eclipse.gmf.ecore.edit.providers.EcoreElementTypes;
 
 /**
  * @generated
@@ -39,12 +36,7 @@ public class EcoreDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
-	public static final String EDITOR_ID = "org.eclipse.gmf.ecore.editor.EcoreDiagramEditorID";
-
-	/**
-	 * @generated
-	 */
-	public static final PreferencesHint DIAGRAM_PREFERENCES_HINT = new PreferencesHint(EDITOR_ID);
+	public static final PreferencesHint DIAGRAM_PREFERENCES_HINT = new PreferencesHint(ID);
 
 	/**
 	 * @generated
@@ -69,6 +61,7 @@ public class EcoreDiagramEditorPlugin extends AbstractUIPlugin {
 		super.start(context);
 		instance = this;
 		PreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT, getPreferenceStore());
+		//FIXME itemProviderAF, metaPackage and editPlugin are only for package of diagramMetaElement
 		MSLAdapterFactoryManager.register(new EcoreItemProviderAdapterFactory());
 		MSLMetaModelManager.register(EcorePackage.eINSTANCE, EcoreEditPlugin.INSTANCE);
 		EcoreElementTypes.register();

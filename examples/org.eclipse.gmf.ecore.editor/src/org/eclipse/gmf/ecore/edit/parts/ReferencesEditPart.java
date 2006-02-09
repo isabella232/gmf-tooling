@@ -56,5 +56,4 @@ public class ReferencesEditPart extends ConnectionNodeEditPart {
 		}
 
 	}
-
 }

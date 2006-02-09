@@ -134,8 +134,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	/**
 	 * @generated
 	 */
-	protected IParser getParser(EObject element, String viewType) {
-		IElementType type = ElementTypeRegistry.getInstance().getElementType(element);
+	protected IParser getParser(IElementType type, String viewType) {
 <%
 for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
 	GenCommonBase genHost = (GenCommonBase) it1.next();
@@ -169,8 +168,12 @@ for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
 	 */
 	public IParser getParser(IAdaptable hint) {
 		String viewType = (String) hint.getAdapter(String.class);
-		EObject element = (EObject) hint.getAdapter(EObject.class);
-		return getParser(element, viewType);
+		IElementType type = (IElementType) hint.getAdapter(IElementType.class);
+		if (type == null) {
+			EObject element = (EObject) hint.getAdapter(EObject.class);
+			type = ElementTypeRegistry.getInstance().getElementType(element);
+		}
+		return getParser(type, viewType);
 	}
 
 	/**
@@ -180,8 +183,12 @@ for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
 		if (operation instanceof GetParserOperation) {
 			IAdaptable hint = ((GetParserOperation) operation).getHint();
 			String viewType = (String) hint.getAdapter(String.class);
-			EObject element = (EObject) hint.getAdapter(EObject.class);
-			return getParser(element, viewType) != null;
+			IElementType type = (IElementType) hint.getAdapter(IElementType.class);
+			if (type == null) {
+				EObject element = (EObject) hint.getAdapter(EObject.class);
+				type = ElementTypeRegistry.getInstance().getElementType(element);
+			}
+			return getParser(type, viewType) != null;
 		}
 		return false;
 	}

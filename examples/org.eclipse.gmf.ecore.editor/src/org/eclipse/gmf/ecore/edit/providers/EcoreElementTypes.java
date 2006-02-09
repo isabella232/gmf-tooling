@@ -21,7 +21,6 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ocl.query.Query;
@@ -72,7 +71,8 @@ public class EcoreElementTypes {
 			element = ((EStructuralFeature) element).getEContainingClass();
 		}
 		if (element instanceof EClass) {
-			return EcoreDiagramEditorPlugin.getInstance().getItemImageDescriptor(EcoreFactory.eINSTANCE.create((EClass) element));
+			EClass eClass = (EClass) element;
+			return EcoreDiagramEditorPlugin.getInstance().getItemImageDescriptor(eClass.getEPackage().getEFactoryInstance().create(eClass));
 		}
 		// TODO : support structural features
 		return null;

@@ -148,7 +148,7 @@
       </editpartProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.emf.core.MetaModelProviders">
+   <extension point="org.eclipse.gmf.runtime.emf.core.compatibility.MetaModelProviders">
       <MetaModelProvider class="org.eclipse.gmf.ecore.edit.providers.EcoreMetaModelSupportProvider">
          <Priority name="Medium"/>
       </MetaModelProvider>

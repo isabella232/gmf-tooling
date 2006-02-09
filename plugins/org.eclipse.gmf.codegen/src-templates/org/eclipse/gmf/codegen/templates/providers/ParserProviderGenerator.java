@@ -52,7 +52,7 @@ public class ParserProviderGenerator
   protected final String TEXT_33 = NL + "\t\tparser.setEditPattern(\"";
   protected final String TEXT_34 = "\");";
   protected final String TEXT_35 = NL + "\t\treturn parser;" + NL + "\t}";
-  protected final String TEXT_36 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected IParser getParser(EObject element, String viewType) {" + NL + "\t\tIElementType type = ElementTypeRegistry.getInstance().getElementType(element);";
+  protected final String TEXT_36 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected IParser getParser(IElementType type, String viewType) {";
   protected final String TEXT_37 = NL + "\t\tif (";
   protected final String TEXT_38 = ".";
   protected final String TEXT_39 = " == type) {";
@@ -64,7 +64,7 @@ public class ParserProviderGenerator
   protected final String TEXT_45 = ".equals(viewType)) {" + NL + "\t\t\t\treturn get";
   protected final String TEXT_46 = "();" + NL + "\t\t\t}";
   protected final String TEXT_47 = NL + "\t\t}";
-  protected final String TEXT_48 = NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic IParser getParser(IAdaptable hint) {" + NL + "\t\tString viewType = (String) hint.getAdapter(String.class);" + NL + "\t\tEObject element = (EObject) hint.getAdapter(EObject.class);" + NL + "\t\treturn getParser(element, viewType);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic boolean provides(IOperation operation) {" + NL + "\t\tif (operation instanceof GetParserOperation) {" + NL + "\t\t\tIAdaptable hint = ((GetParserOperation) operation).getHint();" + NL + "\t\t\tString viewType = (String) hint.getAdapter(String.class);" + NL + "\t\t\tEObject element = (EObject) hint.getAdapter(EObject.class);" + NL + "\t\t\treturn getParser(element, viewType) != null;" + NL + "\t\t}" + NL + "\t\treturn false;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_48 = NL + "\t\treturn null;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic IParser getParser(IAdaptable hint) {" + NL + "\t\tString viewType = (String) hint.getAdapter(String.class);" + NL + "\t\tIElementType type = (IElementType) hint.getAdapter(IElementType.class);" + NL + "\t\tif (type == null) {" + NL + "\t\t\tEObject element = (EObject) hint.getAdapter(EObject.class);" + NL + "\t\t\ttype = ElementTypeRegistry.getInstance().getElementType(element);" + NL + "\t\t}" + NL + "\t\treturn getParser(type, viewType);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic boolean provides(IOperation operation) {" + NL + "\t\tif (operation instanceof GetParserOperation) {" + NL + "\t\t\tIAdaptable hint = ((GetParserOperation) operation).getHint();" + NL + "\t\t\tString viewType = (String) hint.getAdapter(String.class);" + NL + "\t\t\tIElementType type = (IElementType) hint.getAdapter(IElementType.class);" + NL + "\t\t\tif (type == null) {" + NL + "\t\t\t\tEObject element = (EObject) hint.getAdapter(EObject.class);" + NL + "\t\t\t\ttype = ElementTypeRegistry.getInstance().getElementType(element);" + NL + "\t\t\t}" + NL + "\t\t\treturn getParser(type, viewType) != null;" + NL + "\t\t}" + NL + "\t\treturn false;" + NL + "\t}" + NL + "}";
   protected final String TEXT_49 = NL;
 
   public String generate(Object argument)

@@ -21,8 +21,8 @@ public class EClass_classannotationsCanonicalEditPolicy extends CanonicalEditPol
 	 * @generated
 	 */
 	protected List getSemanticChildrenList() {
-		EClass modelElement = (EClass) ((View) getHost().getModel()).getElement();
 		List result = new LinkedList();
+		EClass modelElement = (EClass) ((View) getHost().getModel()).getElement();
 		EObject nextValue;
 		int nodeVID;
 		for (Iterator it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
@@ -49,4 +49,5 @@ public class EClass_classannotationsCanonicalEditPolicy extends CanonicalEditPol
 	protected String getFactoryHint(IAdaptable elementAdapter) {
 		return "";
 	}
+
 }

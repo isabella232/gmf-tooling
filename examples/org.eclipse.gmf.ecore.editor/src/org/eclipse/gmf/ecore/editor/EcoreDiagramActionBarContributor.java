@@ -18,6 +18,6 @@ public class EcoreDiagramActionBarContributor extends DiagramActionBarContributo
 	 * @generated
 	 */
 	protected String getEditorId() {
-		return EcoreDiagramEditorPlugin.EDITOR_ID;
+		return EcoreDiagramEditor.ID;
 	}
 }

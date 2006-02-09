@@ -18,6 +18,7 @@ import org.eclipse.gef.Request;
 
 import org.eclipse.gef.commands.Command;
 
+import org.eclipse.gmf.ecore.edit.policies.EDataType2CanonicalEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EDataType2GraphicalNodeEditPolicy;
 import org.eclipse.gmf.ecore.edit.policies.EDataType2ItemSemanticEditPolicy;
 
@@ -77,6 +78,7 @@ public class EDataType2EditPart extends ShapeNodeEditPart {
 				return null;
 			}
 		});
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new EDataType2CanonicalEditPolicy());
 	}
 
 	/**
@@ -176,4 +178,5 @@ public class EDataType2EditPart extends ShapeNodeEditPart {
 		}
 
 	}
+
 }

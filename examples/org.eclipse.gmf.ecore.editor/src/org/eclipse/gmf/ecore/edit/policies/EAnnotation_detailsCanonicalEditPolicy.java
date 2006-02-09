@@ -21,8 +21,8 @@ public class EAnnotation_detailsCanonicalEditPolicy extends CanonicalEditPolicy 
 	 * @generated
 	 */
 	protected List getSemanticChildrenList() {
-		EAnnotation modelElement = (EAnnotation) ((View) getHost().getModel()).getElement();
 		List result = new LinkedList();
+		EAnnotation modelElement = (EAnnotation) ((View) getHost().getModel()).getElement();
 		EObject nextValue;
 		int nodeVID;
 		for (Iterator it = modelElement.getDetails().iterator(); it.hasNext();) {
@@ -49,4 +49,5 @@ public class EAnnotation_detailsCanonicalEditPolicy extends CanonicalEditPolicy 
 	protected String getFactoryHint(IAdaptable elementAdapter) {
 		return "";
 	}
+
 }

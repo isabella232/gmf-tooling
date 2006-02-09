@@ -20,6 +20,11 @@ public class EcoreDiagramEditor extends FileDiagramEditor implements IGotoMarker
 	/**
 	 * @generated
 	 */
+	public static final String ID = "org.eclipse.gmf.ecore.editor.EcoreDiagramEditorID";
+
+	/**
+	 * @generated
+	 */
 	public EcoreDiagramEditor() {
 		super(true);
 	}

@@ -27,8 +27,17 @@ public class ExternalNodeLabelTextEditPartGenerator
   protected final String TEXT_10 = "\";" + NL + "\t}";
   protected final String TEXT_11 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getLabelText() {" + NL + "\t\tString text = super.getLabelText();" + NL + "\t\tif (text == null || text.length() == 0) {" + NL + "\t\t\treturn \"";
   protected final String TEXT_12 = "\";" + NL + "\t\t}" + NL + "\t\treturn text;" + NL + "\t}";
-  protected final String TEXT_13 = NL + "}";
-  protected final String TEXT_14 = NL;
+  protected final String TEXT_13 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
+  protected final String TEXT_14 = " getParser() {" + NL + "\t\tif (parser == null) {" + NL + "\t\t\tString parserHint = ((View)getModel()).getType();";
+  protected final String TEXT_15 = NL + "\t\t\t";
+  protected final String TEXT_16 = " element = resolveSemanticElement();" + NL + "\t\t\tif (element != null) {" + NL + "\t\t\t\t";
+  protected final String TEXT_17 = " hintAdapter = new ";
+  protected final String TEXT_18 = "(element, parserHint) {" + NL + "\t\t\t\t\tpublic Object getAdapter(Class adapter) {" + NL + "\t\t\t\t\t\tif (";
+  protected final String TEXT_19 = ".class.equals(adapter)) {" + NL + "\t\t\t\t\t\t\treturn ";
+  protected final String TEXT_20 = ".";
+  protected final String TEXT_21 = ";" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\treturn super.getAdapter(adapter);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t};" + NL + "\t\t\t\tparser = ";
+  protected final String TEXT_22 = ".getInstance().getParser(hintAdapter);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn parser;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_23 = NL;
 
   public String generate(Object argument)
   {
@@ -72,8 +81,35 @@ if (genLabel.getModelFacet() instanceof TextLabelModelFacet) {
 }
 
     stringBuffer.append(TEXT_13);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParser"));
     stringBuffer.append(TEXT_14);
+    
+GenCommonBase genHost;
+if (genLabel instanceof GenNodeLabel) {
+	genHost = ((GenNodeLabel) genLabel).getNode();
+} else if (genLabel instanceof GenLinkLabel) {
+	genHost = ((GenLinkLabel) genLabel).getLink();
+} else {
+	throw new IllegalArgumentException("Unknown label type: " + genLabel);
+}
+
+    stringBuffer.append(TEXT_15);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
+    stringBuffer.append(TEXT_16);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter"));
+    stringBuffer.append(TEXT_17);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter"));
+    stringBuffer.append(TEXT_18);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType"));
+    stringBuffer.append(TEXT_19);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
+    stringBuffer.append(TEXT_20);
+    stringBuffer.append(genHost.getUniqueIdentifier());
+    stringBuffer.append(TEXT_21);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserService"));
+    stringBuffer.append(TEXT_22);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_23);
     return stringBuffer.toString();
   }
 }

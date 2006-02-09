@@ -162,7 +162,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
       </editpartProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.emf.core.MetaModelProviders">
+   <extension point="org.eclipse.gmf.runtime.emf.core.compatibility.MetaModelProviders">
       <MetaModelProvider class="<%=genDiagram.getMetamodelSupportProviderQualifiedClassName()%>">
          <Priority name="Medium"/>
       </MetaModelProvider>

@@ -21,8 +21,8 @@ public class EEnum_enumannotationsCanonicalEditPolicy extends CanonicalEditPolic
 	 * @generated
 	 */
 	protected List getSemanticChildrenList() {
-		EEnum modelElement = (EEnum) ((View) getHost().getModel()).getElement();
 		List result = new LinkedList();
+		EEnum modelElement = (EEnum) ((View) getHost().getModel()).getElement();
 		EObject nextValue;
 		int nodeVID;
 		for (Iterator it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
@@ -49,4 +49,5 @@ public class EEnum_enumannotationsCanonicalEditPolicy extends CanonicalEditPolic
 	protected String getFactoryHint(IAdaptable elementAdapter) {
 		return "";
 	}
+
 }

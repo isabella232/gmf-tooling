@@ -71,11 +71,6 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	/**
 	 * @generated
 	 */
-	private static final String FILE_EXT = "ecore_diagram";
-
-	/**
-	 * @generated
-	 */
 	private IWorkbenchPart myPart;
 
 	/**
@@ -128,7 +123,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 		if (!status.isOK()) {
 			return status.getMessage();
 		}
-		if (mySelection.getParent().getFile(new Path(newText).addFileExtension(FILE_EXT)).exists()) {
+		if (mySelection.getParent().getFile(new Path(newText).addFileExtension("editorGen.getDiagramFileExtension()")).exists()) {
 			return "File already exists, choose another name";
 		}
 		return null;
@@ -139,7 +134,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	 */
 	public void run(IAction action) {
 		final InputDialog outputFileNameDialog = new InputDialog(getShell(), "Diagram file name", "Please provide diagram file name", mySelection.getProjectRelativePath().removeFileExtension()
-				.addFileExtension(FILE_EXT).lastSegment(), this);
+				.addFileExtension("editorGen.getDiagramFileExtension()").lastSegment(), this);
 		if (outputFileNameDialog.open() != InputDialog.OK) {
 			return;
 		}

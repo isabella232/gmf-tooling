@@ -61,10 +61,9 @@ public class ESuperTypesEditPart extends ConnectionNodeEditPart {
 		 */
 		private org.eclipse.draw2d.PolylineDecoration createTargetDecoration() {
 			org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();
+			// dispatchNext?
 
-			df.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));
 			return df;
 		}
 	}
-
 }

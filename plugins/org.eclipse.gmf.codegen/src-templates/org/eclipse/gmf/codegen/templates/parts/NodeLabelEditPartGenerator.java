@@ -28,24 +28,34 @@ public class NodeLabelEditPartGenerator
   protected final String TEXT_11 = "\";" + NL + "\t}";
   protected final String TEXT_12 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected String getLabelText() {" + NL + "\t\tString text = super.getLabelText();" + NL + "\t\tif (text == null || text.length() == 0) {" + NL + "\t\t\treturn \"";
   protected final String TEXT_13 = "\";" + NL + "\t\t}" + NL + "\t\treturn text;" + NL + "\t}";
-  protected final String TEXT_14 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshVisuals() {" + NL + "\t\tsuper.refreshVisuals();" + NL + "\t\trefreshBounds();" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void handleNotificationEvent(";
-  protected final String TEXT_15 = " notification) {" + NL + "\t\tsuper.handleNotificationEvent(notification);" + NL + "\t\tObject feature = notification.getFeature();" + NL + "\t\tif (";
-  protected final String TEXT_16 = ".eINSTANCE.getSize_Width().equals(feature)" + NL + "\t\t\t|| ";
-  protected final String TEXT_17 = ".eINSTANCE.getSize_Height().equals(feature)" + NL + "\t\t\t|| ";
-  protected final String TEXT_18 = ".eINSTANCE.getLocation_X().equals(feature)" + NL + "\t\t\t|| ";
-  protected final String TEXT_19 = ".eINSTANCE.getLocation_Y().equals(feature)) {" + NL + "\t\t\trefreshBounds();" + NL + "\t\t} " + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshBounds() {" + NL + "\t\tint width = ((Integer) getStructuralFeatureValue(";
-  protected final String TEXT_20 = ".eINSTANCE.getSize_Width())).intValue();" + NL + "\t\tint height = ((Integer) getStructuralFeatureValue(";
-  protected final String TEXT_21 = ".eINSTANCE.getSize_Height())).intValue();" + NL + "\t\t";
-  protected final String TEXT_22 = " size = new ";
-  protected final String TEXT_23 = "(width, height);" + NL + "\t\tint x = ((Integer) getStructuralFeatureValue(";
-  protected final String TEXT_24 = ".eINSTANCE.getLocation_X())).intValue();" + NL + "\t\tint y = ((Integer) getStructuralFeatureValue(";
-  protected final String TEXT_25 = ".eINSTANCE.getLocation_Y())).intValue();" + NL + "\t\t";
-  protected final String TEXT_26 = " loc = new ";
-  protected final String TEXT_27 = "(x, y);" + NL + "\t\t((";
-  protected final String TEXT_28 = ") getParent()).setLayoutConstraint(this, getFigure(), new ";
-  protected final String TEXT_29 = "(loc, size));" + NL + "\t}";
-  protected final String TEXT_30 = NL + "}";
-  protected final String TEXT_31 = NL;
+  protected final String TEXT_14 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
+  protected final String TEXT_15 = " getParser() {" + NL + "\t\tif (parser == null) {" + NL + "\t\t\tString parserHint = ((View)getModel()).getType();";
+  protected final String TEXT_16 = NL + "\t\t\t";
+  protected final String TEXT_17 = " element = resolveSemanticElement();" + NL + "\t\t\tif (element != null) {" + NL + "\t\t\t\t";
+  protected final String TEXT_18 = " hintAdapter = new ";
+  protected final String TEXT_19 = "(element, parserHint) {" + NL + "\t\t\t\t\tpublic Object getAdapter(Class adapter) {" + NL + "\t\t\t\t\t\tif (";
+  protected final String TEXT_20 = ".class.equals(adapter)) {" + NL + "\t\t\t\t\t\t\treturn ";
+  protected final String TEXT_21 = ".";
+  protected final String TEXT_22 = ";" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\treturn super.getAdapter(adapter);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t};" + NL + "\t\t\t\tparser = ";
+  protected final String TEXT_23 = ".getInstance().getParser(hintAdapter);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn parser;" + NL + "\t}";
+  protected final String TEXT_24 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshVisuals() {" + NL + "\t\tsuper.refreshVisuals();" + NL + "\t\trefreshBounds();" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void handleNotificationEvent(";
+  protected final String TEXT_25 = " notification) {" + NL + "\t\tsuper.handleNotificationEvent(notification);" + NL + "\t\tObject feature = notification.getFeature();" + NL + "\t\tif (";
+  protected final String TEXT_26 = ".eINSTANCE.getSize_Width().equals(feature)" + NL + "\t\t\t|| ";
+  protected final String TEXT_27 = ".eINSTANCE.getSize_Height().equals(feature)" + NL + "\t\t\t|| ";
+  protected final String TEXT_28 = ".eINSTANCE.getLocation_X().equals(feature)" + NL + "\t\t\t|| ";
+  protected final String TEXT_29 = ".eINSTANCE.getLocation_Y().equals(feature)) {" + NL + "\t\t\trefreshBounds();" + NL + "\t\t} " + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected void refreshBounds() {" + NL + "\t\tint width = ((Integer) getStructuralFeatureValue(";
+  protected final String TEXT_30 = ".eINSTANCE.getSize_Width())).intValue();" + NL + "\t\tint height = ((Integer) getStructuralFeatureValue(";
+  protected final String TEXT_31 = ".eINSTANCE.getSize_Height())).intValue();" + NL + "\t\t";
+  protected final String TEXT_32 = " size = new ";
+  protected final String TEXT_33 = "(width, height);" + NL + "\t\tint x = ((Integer) getStructuralFeatureValue(";
+  protected final String TEXT_34 = ".eINSTANCE.getLocation_X())).intValue();" + NL + "\t\tint y = ((Integer) getStructuralFeatureValue(";
+  protected final String TEXT_35 = ".eINSTANCE.getLocation_Y())).intValue();" + NL + "\t\t";
+  protected final String TEXT_36 = " loc = new ";
+  protected final String TEXT_37 = "(x, y);" + NL + "\t\t((";
+  protected final String TEXT_38 = ") getParent()).setLayoutConstraint(this, getFigure(), new ";
+  protected final String TEXT_39 = "(loc, size));" + NL + "\t}";
+  protected final String TEXT_40 = NL + "}";
+  protected final String TEXT_41 = NL;
 
   public String generate(Object argument)
   {
@@ -91,42 +101,70 @@ if (genLabel.getModelFacet() instanceof TextLabelModelFacet) {
 	}
 }
 
-    if (isParentFlowLayout) {
     stringBuffer.append(TEXT_14);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.notify.Notification"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.IParser"));
     stringBuffer.append(TEXT_15);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    
+GenCommonBase genHost;
+if (genLabel instanceof GenNodeLabel) {
+	genHost = ((GenNodeLabel) genLabel).getNode();
+} else if (genLabel instanceof GenLinkLabel) {
+	genHost = ((GenLinkLabel) genLabel).getLink();
+} else {
+	throw new IllegalArgumentException("Unknown label type: " + genLabel);
+}
+
     stringBuffer.append(TEXT_16);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
     stringBuffer.append(TEXT_17);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter"));
     stringBuffer.append(TEXT_18);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter"));
     stringBuffer.append(TEXT_19);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType"));
     stringBuffer.append(TEXT_20);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName()));
     stringBuffer.append(TEXT_21);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension"));
+    stringBuffer.append(genHost.getUniqueIdentifier());
     stringBuffer.append(TEXT_22);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserService"));
     stringBuffer.append(TEXT_23);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    if (isParentFlowLayout) {
     stringBuffer.append(TEXT_24);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.common.notify.Notification"));
     stringBuffer.append(TEXT_25);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Point"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_26);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Point"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_27);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.GraphicalEditPart"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_28);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_29);
-    }
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_30);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
     stringBuffer.append(TEXT_31);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension"));
+    stringBuffer.append(TEXT_32);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension"));
+    stringBuffer.append(TEXT_33);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(TEXT_34);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.notation.NotationPackage"));
+    stringBuffer.append(TEXT_35);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Point"));
+    stringBuffer.append(TEXT_36);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Point"));
+    stringBuffer.append(TEXT_37);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.GraphicalEditPart"));
+    stringBuffer.append(TEXT_38);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Rectangle"));
+    stringBuffer.append(TEXT_39);
+    }
+    stringBuffer.append(TEXT_40);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_41);
     return stringBuffer.toString();
   }
 }

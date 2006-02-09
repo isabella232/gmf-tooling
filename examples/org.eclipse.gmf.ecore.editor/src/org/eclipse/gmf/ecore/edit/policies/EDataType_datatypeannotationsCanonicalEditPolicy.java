@@ -21,8 +21,8 @@ public class EDataType_datatypeannotationsCanonicalEditPolicy extends CanonicalE
 	 * @generated
 	 */
 	protected List getSemanticChildrenList() {
-		EDataType modelElement = (EDataType) ((View) getHost().getModel()).getElement();
 		List result = new LinkedList();
+		EDataType modelElement = (EDataType) ((View) getHost().getModel()).getElement();
 		EObject nextValue;
 		int nodeVID;
 		for (Iterator it = modelElement.getEAnnotations().iterator(); it.hasNext();) {
@@ -49,4 +49,5 @@ public class EDataType_datatypeannotationsCanonicalEditPolicy extends CanonicalE
 	protected String getFactoryHint(IAdaptable elementAdapter) {
 		return "";
 	}
+
 }
