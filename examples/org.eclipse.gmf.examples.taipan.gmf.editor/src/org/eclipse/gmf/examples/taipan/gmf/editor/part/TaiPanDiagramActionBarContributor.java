@@ -29,6 +29,6 @@ public class TaiPanDiagramActionBarContributor extends DiagramActionBarContribut
 	 * @generated
 	 */
 	protected String getEditorId() {
-		return TaiPanDiagramEditorPlugin.EDITOR_ID;
+		return TaiPanDiagramEditor.ID;
 	}
 }

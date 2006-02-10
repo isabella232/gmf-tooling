@@ -73,7 +73,8 @@ public class TaiPanElementTypes {
 			element = ((EStructuralFeature) element).getEContainingClass();
 		}
 		if (element instanceof EClass) {
-			return TaiPanDiagramEditorPlugin.getInstance().getItemImageDescriptor(TaiPanFactory.eINSTANCE.create((EClass) element));
+			EClass eClass = (EClass) element;
+			return TaiPanDiagramEditorPlugin.getInstance().getItemImageDescriptor(eClass.getEPackage().getEFactoryInstance().create(eClass));
 		}
 		// TODO : support structural features
 		return null;

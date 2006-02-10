@@ -31,6 +31,11 @@ public class TaiPanDiagramEditor extends FileDiagramEditor implements IGotoMarke
 	/**
 	 * @generated
 	 */
+	public static final String ID = "org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID";
+
+	/**
+	 * @generated
+	 */
 	public TaiPanDiagramEditor() {
 		super(true);
 	}

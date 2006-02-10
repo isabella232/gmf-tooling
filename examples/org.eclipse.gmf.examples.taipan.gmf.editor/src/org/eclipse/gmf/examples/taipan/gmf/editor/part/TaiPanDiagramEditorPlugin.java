@@ -50,12 +50,7 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 	/**
 	 * @generated
 	 */
-	public static final String EDITOR_ID = "org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID";
-
-	/**
-	 * @generated
-	 */
-	public static final PreferencesHint DIAGRAM_PREFERENCES_HINT = new PreferencesHint(EDITOR_ID);
+	public static final PreferencesHint DIAGRAM_PREFERENCES_HINT = new PreferencesHint(ID);
 
 	/**
 	 * @generated
@@ -80,6 +75,7 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 		super.start(context);
 		instance = this;
 		PreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT, getPreferenceStore());
+		//FIXME itemProviderAF, metaPackage and editPlugin are only for package of diagramMetaElement
 		MSLAdapterFactoryManager.register(new TaiPanItemProviderAdapterFactory());
 		MSLMetaModelManager.register(TaiPanPackage.eINSTANCE, TaiPanEditPlugin.INSTANCE);
 		TaiPanElementTypes.register();

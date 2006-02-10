@@ -37,6 +37,8 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.ReorientRelationshipReques
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.View;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
+
 /**
  * @generated
  */
@@ -58,7 +60,7 @@ public class TaiPanBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		if (shouldProceed) {
 			if (completedRequest instanceof DestroyRequest) {
 				ICommand deleteCommand = new DeleteCommand((View) getHost().getModel());
-				semanticCommand.chain(new EtoolsProxyCommand(deleteCommand));
+				semanticCommand = semanticCommand.chain(new EtoolsProxyCommand(deleteCommand));
 			}
 			return semanticCommand;
 		}

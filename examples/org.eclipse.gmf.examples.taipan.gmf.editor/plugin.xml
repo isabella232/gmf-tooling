@@ -126,7 +126,7 @@
       </editpartProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.emf.core.MetaModelProviders">
+   <extension point="org.eclipse.gmf.runtime.emf.core.compatibility.MetaModelProviders">
       <MetaModelProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanMetaModelSupportProvider">
          <Priority name="Medium"/>
       </MetaModelProvider>

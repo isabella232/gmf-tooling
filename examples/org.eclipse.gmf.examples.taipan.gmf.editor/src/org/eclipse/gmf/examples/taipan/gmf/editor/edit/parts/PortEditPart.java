@@ -26,6 +26,7 @@ import org.eclipse.draw2d.Figure;
 
 import org.eclipse.gef.EditPart;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortCanonicalEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortGraphicalNodeEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortItemSemanticEditPolicy;
 
@@ -59,6 +60,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 		super.createDefaultEditPolicies();
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new PortItemSemanticEditPolicy());
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new PortGraphicalNodeEditPolicy());
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new PortCanonicalEditPolicy());
 	}
 
 	/**
@@ -179,11 +181,10 @@ public class PortEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		private IFigure createFigureboxName() {
+			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
+			rv.setText("");
 
-			org.eclipse.draw2d.Label rv0 = new org.eclipse.draw2d.Label();
-			rv0.setText("");
-
-			return rv0;
+			return rv;
 		}
 
 	}

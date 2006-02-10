@@ -33,8 +33,8 @@ public class Ship_CargoCompartmentCanonicalEditPolicy extends CanonicalEditPolic
 	 * @generated
 	 */
 	protected List getSemanticChildrenList() {
-		Ship modelElement = (Ship) ((View) getHost().getModel()).getElement();
 		List result = new LinkedList();
+		Ship modelElement = (Ship) ((View) getHost().getModel()).getElement();
 		EObject nextValue;
 		int nodeVID;
 		for (Iterator it = modelElement.getCargo().iterator(); it.hasNext();) {
@@ -61,4 +61,5 @@ public class Ship_CargoCompartmentCanonicalEditPolicy extends CanonicalEditPolic
 	protected String getFactoryHint(IAdaptable elementAdapter) {
 		return "";
 	}
+
 }

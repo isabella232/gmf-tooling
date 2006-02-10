@@ -34,8 +34,8 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected List getSemanticChildrenList() {
-		Aquatory modelElement = (Aquatory) ((View) getHost().getModel()).getElement();
 		List result = new LinkedList();
+		Aquatory modelElement = (Aquatory) ((View) getHost().getModel()).getElement();
 		EObject nextValue;
 		int nodeVID;
 		for (Iterator it = modelElement.getPorts().iterator(); it.hasNext();) {
@@ -111,4 +111,20 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	protected boolean shouldIncludeConnection(Edge connector, Collection children) {
 		return super.shouldIncludeConnection(connector, children) && connector.getElement() != null;
 	}
+
+	/**
+	 * @generated
+	 */
+	protected void refreshSemantic() {
+		super.refreshSemantic();
+		refreshReferenceOnlyConnections();
+	}
+
+	/**
+	 * @generated
+	 */
+	private void refreshReferenceOnlyConnections() {
+		// TODO: implement this method
+	}
+
 }

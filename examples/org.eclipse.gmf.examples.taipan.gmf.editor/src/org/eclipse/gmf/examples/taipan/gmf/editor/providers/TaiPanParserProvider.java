@@ -155,8 +155,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	/**
 	 * @generated
 	 */
-	protected IParser getParser(EObject element, String viewType) {
-		IElementType type = ElementTypeRegistry.getInstance().getElementType(element);
+	protected IParser getParser(IElementType type, String viewType) {
 		if (TaiPanElementTypes.Item_2001 == type) {
 			return getItemITEMARTICLEQUANTITY_4003_TEXTParser();
 		}
@@ -186,8 +185,12 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	public IParser getParser(IAdaptable hint) {
 		String viewType = (String) hint.getAdapter(String.class);
-		EObject element = (EObject) hint.getAdapter(EObject.class);
-		return getParser(element, viewType);
+		IElementType type = (IElementType) hint.getAdapter(IElementType.class);
+		if (type == null) {
+			EObject element = (EObject) hint.getAdapter(EObject.class);
+			type = ElementTypeRegistry.getInstance().getElementType(element);
+		}
+		return getParser(type, viewType);
 	}
 
 	/**
@@ -197,8 +200,12 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 		if (operation instanceof GetParserOperation) {
 			IAdaptable hint = ((GetParserOperation) operation).getHint();
 			String viewType = (String) hint.getAdapter(String.class);
-			EObject element = (EObject) hint.getAdapter(EObject.class);
-			return getParser(element, viewType) != null;
+			IElementType type = (IElementType) hint.getAdapter(IElementType.class);
+			if (type == null) {
+				EObject element = (EObject) hint.getAdapter(EObject.class);
+				type = ElementTypeRegistry.getInstance().getElementType(element);
+			}
+			return getParser(type, viewType) != null;
 		}
 		return false;
 	}

@@ -29,6 +29,7 @@ import org.eclipse.gef.Request;
 
 import org.eclipse.gef.commands.Command;
 
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipCanonicalEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipGraphicalNodeEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.ShipItemSemanticEditPolicy;
 
@@ -88,6 +89,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 				return null;
 			}
 		});
+		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ShipCanonicalEditPolicy());
 	}
 
 	/**
@@ -208,11 +210,10 @@ public class ShipEditPart extends ShapeNodeEditPart {
 		 * @generated
 		 */
 		private IFigure createFigureboxName() {
+			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
+			rv.setText("");
 
-			org.eclipse.draw2d.Label rv0 = new org.eclipse.draw2d.Label();
-			rv0.setText("");
-
-			return rv0;
+			return rv;
 		}
 
 	}
