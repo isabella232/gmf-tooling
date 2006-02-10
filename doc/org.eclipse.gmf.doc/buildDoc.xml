@@ -176,6 +176,9 @@
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.draw2d.ui.render/src">
 		    		<exclude name="org/eclipse/gmf/runtime/draw2d/ui/render/internal/**"/>
 		    	</packageset>
+				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.draw2d.ui.render.awt/src">
+					<exclude name="org/eclipse/gmf/runtime/draw2d/ui/render/awt/internal/**"/>
+				</packageset>
 				<packageset dir="${buildRoot}/sdk/plugins/org.eclipse.gmf.runtime.gef.ui/src">
 		    		<exclude name="org/eclipse/gmf/runtime/gef/ui/internal/**"/>
 		    	</packageset>
