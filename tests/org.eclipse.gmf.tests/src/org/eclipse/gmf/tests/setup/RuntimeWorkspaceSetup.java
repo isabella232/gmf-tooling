@@ -12,6 +12,8 @@
 package org.eclipse.gmf.tests.setup;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,17 +23,16 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.ecore.Generator;
-import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.jdt.core.IClasspathContainer;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -63,7 +64,7 @@ public class RuntimeWorkspaceSetup {
 	/**
 	 * Copy of <code>PDECore.CLASSPATH_CONTAINER_ID</code>
 	 */
-	private static final String PLUGIN_CONTAINER_ID = "org.eclipse.pde.core.requiredPlugins";
+	private static final String PLUGIN_CONTAINER_ID = "org.eclipse.pde.core.requiredPlugins"; //$NON-NLS-1$
 
 	private boolean isDevLaunchMode;
 
@@ -94,51 +95,51 @@ public class RuntimeWorkspaceSetup {
 			// Need to get some gmf source code into target workspace 
 			importDevPluginsIntoRunTimeWorkspace(new String[] {
 //					"org.apache.batik",
-					"org.eclipse.gmf.runtime.notation",
-					"org.eclipse.gmf.runtime.notation.edit",
-					"org.eclipse.wst.common.ui.properties",
-					"org.eclipse.gmf.runtime.common.core",
-					"org.eclipse.gmf.runtime.common.ui",
-					"org.eclipse.gmf.runtime.draw2d.ui",
-					"org.eclipse.gmf.runtime.draw2d.ui.render",
-					"org.eclipse.gmf.runtime.gef.ui",
-					"org.eclipse.gmf.runtime.common.ui.services",
-					"org.eclipse.gmf.runtime.emf.type.core",
-					"org.eclipse.gmf.runtime.emf.clipboard.core",
-					"org.eclipse.emf.validation",
-					"org.eclipse.gmf.runtime.emf.core",
-					"org.eclipse.gmf.runtime.emf.core.compatibility",
-					"org.eclipse.gmf.runtime.common.ui.services.action",
-					"org.eclipse.gmf.runtime.common.ui.action",
-					"org.eclipse.gmf.runtime.common.ui.action.ide",
-					"org.eclipse.gmf.runtime.emf.ui",
-					"org.eclipse.gmf.runtime.emf.commands.core",
-					"org.eclipse.gmf.runtime.diagram.core",
-					"org.eclipse.gmf.runtime.diagram.ui",
-					"org.eclipse.gmf.runtime.common.ui.services.properties",
-					"org.eclipse.gmf.runtime.emf.ui.properties",
-					"org.eclipse.gmf.runtime.diagram.ui.actions",
-					"org.eclipse.gmf.runtime.diagram.ui.properties",
-					"org.eclipse.gmf.runtime.diagram.ui.providers",
-					"org.eclipse.gmf.runtime.diagram.ui.providers.ide",
-					"org.eclipse.gmf.runtime.diagram.ui.render",
-					"org.eclipse.gmf.runtime.diagram.ui.resources.editor",
-					"org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide",
-					"org.eclipse.gmf.runtime.notation.providers",
-//					"antlr", //$NON-NLS-1$					
+					"org.eclipse.gmf.runtime.notation", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.notation.edit", //$NON-NLS-1$
+					"org.eclipse.wst.common.ui.properties", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.common.core", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.common.ui", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.draw2d.ui", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.draw2d.ui.render", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.gef.ui", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.common.ui.services", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.emf.type.core", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.emf.clipboard.core", //$NON-NLS-1$
+					"org.eclipse.emf.validation", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.emf.core", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.emf.core.compatibility", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.common.ui.services.action", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.common.ui.action", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.common.ui.action.ide", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.emf.ui", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.emf.commands.core", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.diagram.core", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.diagram.ui", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.common.ui.services.properties", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.emf.ui.properties", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.diagram.ui.actions", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.diagram.ui.properties", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.diagram.ui.providers", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.diagram.ui.providers.ide", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.diagram.ui.render", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.diagram.ui.resources.editor", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide", //$NON-NLS-1$
+					"org.eclipse.gmf.runtime.notation.providers", //$NON-NLS-1$
+					"antlr", //$NON-NLS-1$					
 					"org.eclipse.emf.ocl", //$NON-NLS-1$
 					"org.eclipse.emf.query", //$NON-NLS-1$	
 					"org.eclipse.emf.query.ocl", //$NON-NLS-1$
 					//
-					"org.eclipse.emf.edit",
-					"org.eclipse.emf.transaction",
+					"org.eclipse.emf.edit", //$NON-NLS-1$
+					"org.eclipse.emf.transaction", //$NON-NLS-1$
 			});
 		}
 		return this;
 	}
 
 	public static IProject getSOSProject() {
-		return ResourcesPlugin.getWorkspace().getRoot().getProject(".SOSProject");
+		return ResourcesPlugin.getWorkspace().getRoot().getProject(".SOSProject"); //$NON-NLS-1$
 	}
 
 	/**
@@ -154,21 +155,34 @@ public class RuntimeWorkspaceSetup {
 		IProject p = getSOSProject();
 		final Path srcPath = new Path('/' + p.getName() + "/src"); //$NON-NLS-1$
 		Generator.createEMFProject(srcPath, null, Collections.EMPTY_LIST, new NullProgressMonitor(), Generator.EMF_PLUGIN_PROJECT_STYLE, null);
-		URL[] urls = getDevPluginsLocations(pluginIDs);
-		for (int i = 0; i < urls.length; i++) {
-			IPath path = new Path(urls[i].getPath());
-			IFolder f = p.getFolder(path.lastSegment().replace('.', '_'));
-			f.createLink(path.append("bin/"), IResource.REPLACE, new NullProgressMonitor());
-		}
 		
 		StringBuffer pluginXmlContent = new StringBuffer();
-		pluginXmlContent.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?eclipse version=\"3.0\"?>\n<plugin ");
-		pluginXmlContent.append(" version=\"1.0.0\" name='%providerName' id='");
+		pluginXmlContent.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<?eclipse version=\"3.0\"?>\n<plugin "); //$NON-NLS-1$
+		pluginXmlContent.append(" version=\"1.0.0\" name='%providerName' id='"); //$NON-NLS-1$
 		pluginXmlContent.append(p.getName());
-		pluginXmlContent.append("'>\n<requires>\n");
-		pluginXmlContent.append("<import plugin='org.eclipse.jface.text' export='true'/>");
-		pluginXmlContent.append("</requires>\n</plugin>");
-		p.getFile("plugin.xml").create(new ByteArrayInputStream(pluginXmlContent.toString().getBytes()), true, new NullProgressMonitor());
+		pluginXmlContent.append("'>\n<requires>\n"); //$NON-NLS-1$
+		pluginXmlContent.append("<import plugin='org.eclipse.jface.text' export='true'/>\n"); //$NON-NLS-1$
+
+		ClasspathEntry[] classpathEntries = getClasspathEntries(pluginIDs);
+		for (int i = 0; i < classpathEntries.length; i++) {
+			classpathEntries[i].importTo(p, pluginXmlContent);
+		}
+
+		pluginXmlContent.append("</requires>\n</plugin>"); //$NON-NLS-1$
+		p.getFile("plugin.xml").create(new ByteArrayInputStream(pluginXmlContent.toString().getBytes()), true, new NullProgressMonitor()); //$NON-NLS-1$
+	}
+
+	private ClasspathEntry[] getClasspathEntries(String[] pluginIDs) {
+		ArrayList/*<ClasspathEntry>*/ entries = new ArrayList/*<ClasspathEntry>*/(pluginIDs.length); 
+		for (int i = 0; i < pluginIDs.length; i++) {
+			ClasspathEntry nextEntry = new ClasspathEntry(pluginIDs[i]);
+			if (nextEntry.isValid()) {
+				entries.add(nextEntry);				
+			} else {
+				System.out.println("Bundle " + pluginIDs[i] + " is missing, skipped."); //$NON-NLS-1$ //$NON-NLS-2$
+			}
+		}
+		return (ClasspathEntry[]) entries.toArray(new ClasspathEntry[entries.size()]);
 	}
 
 	private IJavaProject asJavaProject(IProject p) {
@@ -194,22 +208,23 @@ public class RuntimeWorkspaceSetup {
 		final IJavaProject sosJavaPrj = asJavaProject(getSOSProject());
 		IClasspathEntry[] cpOrig = asJavaProject(diagramProj).getRawClasspath();
 		ArrayList rv = new ArrayList(10 + cpOrig.length + members.length);
-		rv.addAll(Arrays.asList(cpOrig));
 		IClasspathContainer c = JavaCore.getClasspathContainer(new Path(PLUGIN_CONTAINER_ID), sosJavaPrj);
 		if (c != null) {
 			IClasspathEntry[] cpAdd = c.getClasspathEntries();
 			rv.addAll(Arrays.asList(cpAdd));
 		}
 		for (int i = 0; i < members.length; i++) {
-			if (members[i].getType() != IResource.FOLDER || !members[i].isLinked()) {
+			if (!members[i].isLinked()) {
 				continue;
 			}
 			rv.add(JavaCore.newLibraryEntry(members[i].getFullPath(), null, null));
 		}
-		IPath antlrPath = new Path(getDevPluginsLocations(new String[] {"antlr"})[0].getPath());
-		rv.add(JavaCore.newLibraryEntry(antlrPath.append("lib/antlr.jar"), null, null));
 
 		final Set uniqueClassPathEntries = new HashSet();
+		IClasspathEntry[] cpOrigResolved = asJavaProject(diagramProj).getResolvedClasspath(true);
+		for (int i = 0; i < cpOrigResolved.length; i++) {
+			uniqueClassPathEntries.add(cpOrigResolved[i].getPath());
+		}
 		for (Iterator it = rv.iterator(); it.hasNext();) {
 			IClasspathEntry next = (IClasspathEntry) it.next();
 			if (uniqueClassPathEntries.contains(next.getPath())) {
@@ -218,26 +233,10 @@ public class RuntimeWorkspaceSetup {
 				uniqueClassPathEntries.add(next.getPath());
 			}
 		}
+		rv.addAll(Arrays.asList(cpOrig));
+		
 		IClasspathEntry[] cpNew = (IClasspathEntry[]) rv.toArray(new IClasspathEntry[rv.size()]);
 		asJavaProject(diagramProj).setRawClasspath(cpNew, new NullProgressMonitor());
-	}
-
-	private URL[] getDevPluginsLocations(String[] pluginIDs) {
-		ArrayList/*<URL>*/ urls = new ArrayList/*<URL>*/(pluginIDs.length); 
-		for (int i = 0; i < pluginIDs.length; i++) {
-			try {
-				Bundle b = Platform.getBundle(pluginIDs[i]);
-				if (b != null) {
-					urls.add(Platform.resolve(b.getEntry("/")));
-				} else {
-					System.err.println("Bundle " + pluginIDs[i] + " is missing, skipped.");
-				}
-			} catch (Exception ex) {
-				Plugin.logError("Error looking for " + pluginIDs[i] + " plug-in:", ex);
-				ex.printStackTrace();
-			}
-		}
-		return (URL[]) urls.toArray(new URL[urls.size()]);
 	}
 
 	/**
@@ -251,5 +250,87 @@ public class RuntimeWorkspaceSetup {
 			options.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_4);
 			JavaCore.setOptions(options);
 		}
+	}
+	
+	private class ClasspathEntry {
+		
+		private String myPluginID;
+		private URL myBundleURL;
+		private String myRelativePath;
+		private File myBundleFile;
+		private File myClassesContainerFile;
+
+		private ClasspathEntry(String pluginID) {
+			myPluginID = pluginID;
+		}
+
+		public void importTo(IProject p, StringBuffer pluginXmlContent) {
+			if (!getClassesContainerFile().exists()) {
+				pluginXmlContent.append("<import plugin='"); //$NON-NLS-1$
+				pluginXmlContent.append(myPluginID);
+				pluginXmlContent.append("' export='true'/>\n"); //$NON-NLS-1$
+			} else {
+				if (getClassesContainerFile().isDirectory()) {
+					String entryName = getBundleFile().getName().replace('.', '_');
+					IFolder folder = p.getFolder(entryName);
+					try {
+						folder.createLink(new Path(getClassesContainerFile().getAbsolutePath()), IResource.REPLACE, new NullProgressMonitor());
+					} catch (CoreException e) {
+						e.printStackTrace();
+					}
+				} else if (getClassesContainerFile().isFile()) {
+					String entryName = getClassesContainerFile().getName();
+					IFile file = p.getFile(entryName);
+					try {
+						file.createLink(new Path(getClassesContainerFile().getAbsolutePath()), IResource.REPLACE, new NullProgressMonitor());
+					} catch (CoreException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		
+		private File getClassesContainerFile() {
+			if (myClassesContainerFile == null) {
+				myClassesContainerFile = new File(getBundleFile(), getRelativePath());
+			}
+			return myClassesContainerFile;
+		}
+		
+		private File getBundleFile() {
+			if (myBundleFile == null) {
+				myBundleFile = new File(getBundleURL().getFile());
+			}
+			return myBundleFile;
+		}
+		
+		private String getRelativePath() {
+			if (myRelativePath == null) {
+				if ("antlr".equals(myPluginID)) { //$NON-NLS-1$
+					myRelativePath = "/lib/antlr.jar"; //$NON-NLS-1$
+				}
+				else {
+					myRelativePath = "/bin/"; //$NON-NLS-1$
+				}
+			}
+			return myRelativePath;
+		}
+		
+		private URL getBundleURL() {
+			if (myBundleURL == null) {
+				Bundle bundle = Platform.getBundle(myPluginID);
+				try {
+					myBundleURL = Platform.resolve(bundle.getEntry("/")); //$NON-NLS-1$
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			return myBundleURL;
+		}
+		
+		public boolean isValid() {
+			return getBundleURL() != null;
+		}
+		
 	}
 }
