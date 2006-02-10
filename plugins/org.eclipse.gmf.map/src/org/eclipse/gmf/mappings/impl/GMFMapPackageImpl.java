@@ -693,6 +693,15 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getElementInitializer_MappingEntry() {
+		return (EReference)elementInitializerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFeatureSeqInitializer() {
 		return featureSeqInitializerEClass;
 	}
@@ -722,6 +731,15 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 */
 	public EReference getFeatureValueSpec_Feature() {
 		return (EReference)featureValueSpecEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFeatureValueSpec_FeatureSeqInitializer() {
+		return (EReference)featureValueSpecEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1027,12 +1045,14 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		createEAttribute(valueExpressionEClass, VALUE_EXPRESSION__LANGUAGE);
 
 		elementInitializerEClass = createEClass(ELEMENT_INITIALIZER);
+		createEReference(elementInitializerEClass, ELEMENT_INITIALIZER__MAPPING_ENTRY);
 
 		featureSeqInitializerEClass = createEClass(FEATURE_SEQ_INITIALIZER);
 		createEReference(featureSeqInitializerEClass, FEATURE_SEQ_INITIALIZER__INITIALIZERS);
 
 		featureValueSpecEClass = createEClass(FEATURE_VALUE_SPEC);
 		createEReference(featureValueSpecEClass, FEATURE_VALUE_SPEC__FEATURE);
+		createEReference(featureValueSpecEClass, FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER);
 
 		menuOwnerEClass = createEClass(MENU_OWNER);
 		createEReference(menuOwnerEClass, MENU_OWNER__CONTEXT_MENU);
@@ -1119,7 +1139,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEClass(mappingEntryEClass, MappingEntry.class, "MappingEntry", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMappingEntry_DomainMetaElement(), ecorePackage.getEClass(), null, "domainMetaElement", null, 0, 1, MappingEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMappingEntry_DomainSpecialization(), this.getConstraint(), null, "domainSpecialization", null, 0, 1, MappingEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getMappingEntry_DomainInitializer(), this.getElementInitializer(), null, "domainInitializer", null, 0, 1, MappingEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMappingEntry_DomainInitializer(), this.getElementInitializer(), this.getElementInitializer_MappingEntry(), "domainInitializer", null, 0, 1, MappingEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMappingEntry_ContainmentFeature(), ecorePackage.getEReference(), null, "containmentFeature", null, 0, 1, MappingEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(mappingEntryEClass, ecorePackage.getEClass(), "getDomainContext", 0, 1);
@@ -1170,12 +1190,14 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEAttribute(getValueExpression_Language(), ecorePackage.getEString(), "language", "ocl", 0, 1, ValueExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(elementInitializerEClass, ElementInitializer.class, "ElementInitializer", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getElementInitializer_MappingEntry(), this.getMappingEntry(), this.getMappingEntry_DomainInitializer(), "mappingEntry", null, 1, 1, ElementInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureSeqInitializerEClass, FeatureSeqInitializer.class, "FeatureSeqInitializer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFeatureSeqInitializer_Initializers(), this.getFeatureValueSpec(), null, "initializers", null, 1, -1, FeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureSeqInitializer_Initializers(), this.getFeatureValueSpec(), this.getFeatureValueSpec_FeatureSeqInitializer(), "initializers", null, 1, -1, FeatureSeqInitializer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(featureValueSpecEClass, FeatureValueSpec.class, "FeatureValueSpec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeatureValueSpec_Feature(), ecorePackage.getEStructuralFeature(), null, "feature", null, 1, 1, FeatureValueSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFeatureValueSpec_FeatureSeqInitializer(), this.getFeatureSeqInitializer(), this.getFeatureSeqInitializer_Initializers(), "featureSeqInitializer", null, 1, 1, FeatureValueSpec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(menuOwnerEClass, MenuOwner.class, "MenuOwner", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMenuOwner_ContextMenu(), theGMFToolPackage.getContextMenu(), null, "contextMenu", null, 0, 1, MenuOwner.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1217,10 +1239,10 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		// Create annotations
 		// http://www.eclipse.org/emf/2004/EmfaticAnnotationMap
 		createEmfaticAnnotationMapAnnotations();
-		// http://www.eclipse.org/gmf/2005/constraints/meta
-		createMetaAnnotations();
 		// http://www.eclipse.org/gmf/2005/constraints
 		createConstraintsAnnotations();
+		// http://www.eclipse.org/gmf/2005/constraints/meta
+		createMetaAnnotations();
 	}
 
 	/**
@@ -1237,7 +1259,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																																								
+		   });																																																																
 	}
 
 	/**
@@ -1247,33 +1269,33 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";					
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";						
 		addAnnotation
 		  (getMappingEntry_DomainSpecialization(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
 			 "ocl", "self.getDomainContext()"
-		   });				
+		   });			
 		addAnnotation
 		  (getMappingEntry_DomainInitializer(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
 			 "ocl", "self.getDomainContext()"
-		   });														
+		   });																				
 		addAnnotation
 		  (constraintEClass, 
 		   source, 
 		   new String[] {
 			 "def", "Constraint"
-		   });					
+		   });						
 		addAnnotation
 		  (getLinkConstraints_SourceEnd(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
-			 "ocl", "if linkMapping.domainMetaElement.oclIsUndefined() then linkMapping.linkMetaFeature.eContainingClass else linkMapping.containmentFeature.eContainingClass endif"
+			 "ocl", "let lm:LinkMapping=linkMapping in if lm.sourceMetaFeature.oclIsUndefined() then (if lm.containmentFeature.oclIsUndefined() then lm.linkMetaFeature.eContainingClass else lm.containmentFeature.eContainingClass endif) else lm.sourceMetaFeature.oclAsType(ecore::EReference).eReferenceType endif"
 		   });		
 		addAnnotation
 		  (getLinkConstraints_SourceEnd(), 
@@ -1296,7 +1318,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "def", "variable",
 			 "name", "oppositeEnd",
-			 "type.ocl", "if linkMapping.domainMetaElement.oclIsUndefined() then linkMapping.linkMetaFeature.eContainingClass else linkMapping.containmentFeature.eContainingClass endif"
+			 "type.ocl", "let lm:LinkMapping=linkMapping in if lm.sourceMetaFeature.oclIsUndefined() then (if lm.containmentFeature.oclIsUndefined() then lm.linkMetaFeature.eContainingClass else lm.containmentFeature.eContainingClass endif) else lm.sourceMetaFeature.oclAsType(ecore::EReference).eReferenceType endif"
 		   });		
 		addAnnotation
 		  (valueExpressionEClass, 
@@ -1327,7 +1349,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   source, 
 		   new String[] {
 			 "def", "type"
-		   });										
+		   });											
 		addAnnotation
 		  (getAuditRule_Rule(), 
 		   source, 
@@ -1344,49 +1366,112 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * @generated
 	 */
 	protected void createConstraintsAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints";							
+		String source = "http://www.eclipse.org/gmf/2005/constraints";			
+		addAnnotation
+		  (mappingEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "nodes->forAll(n|n.containmentFeature.oclIsUndefined() and not n.domainMetaElement.oclIsUndefined() implies links->exists(let r:ecore::EReference= linkMetaFeature.oclAsType(ecore::EReference) in r.containment and r.eReferenceType.isSuperTypeOf(n.domainMetaElement)))",
+			 "description", "Phantom nodes that are not targeted by a link mapping exist"
+		   });							
 		addAnnotation
 		  (getMappingEntry_DomainInitializer(), 
 		   source, 
 		   new String[] {
-			 "ocl", "let i : FeatureSeqInitializer = domainInitializer.oclAsType( FeatureSeqInitializer) in i.oclIsUndefined() or i.initializers.feature.eContainingClass->forAll(c|c.isSuperTypeOf(domainMetaElement))"
-		   });			
+			 "ocl", "not domainInitializer.oclIsUndefined() implies not domainMetaElement.oclIsUndefined()",
+			 "description", "\'Domain Element\' must be set in mapping with \'Element Initializers\'"
+		   });		
 		addAnnotation
 		  (getMappingEntry_ContainmentFeature(), 
 		   source, 
 		   new String[] {
-			 "ocl", "containmentFeature.oclIsUndefined() or (containmentFeature.containment and containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement))"
+			 "ocl", "not containmentFeature.oclIsUndefined() implies containmentFeature.containment",
+			 "description", "Containment EReference expected"
+		   });		
+		addAnnotation
+		  (abstractNodeMappingEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "not (domainMetaElement.oclIsUndefined()  and containmentFeature.oclIsUndefined())",
+			 "description", "Either domain meta element or containment feature must be set in node mapping"
+		   });		
+		addAnnotation
+		  (abstractNodeMappingEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "not domainMetaElement.oclIsUndefined() implies containmentFeature.oclIsUndefined() or containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement)",
+			 "description", "\'Domain Element\' must be the same or extend the type referenced by \'Containment Feature\'"
 		   });		
 		addAnnotation
 		  (getAbstractNodeMapping_EditFeature(), 
 		   source, 
 		   new String[] {
-			 "ocl", "editFeature.oclIsUndefined() or (not domainMetaElement.oclIsUndefined() and editFeature.eContainingClass.isSuperTypeOf(domainMetaElement)) or containmentFeature.eType.oclAsType(ecore::EClass).eAllAttributes->includes(editFeature)"
-		   });					
+			 "ocl", "not editFeature.oclIsUndefined() implies getDomainContext().oclIsUndefined() or editFeature.eContainingClass.isSuperTypeOf(getDomainContext())",
+			 "description", "The Edit Feature must be owned by the domain context EClass or its super type"
+		   });				
+		addAnnotation
+		  (childNodeMappingEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "not containmentFeature.oclIsUndefined() ",
+			 "description", "The child node mapping containmentFeature must be set"
+		   });			
+		addAnnotation
+		  (linkMappingEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "domainMetaElement.oclIsUndefined() implies containmentFeature.oclIsUndefined() and sourceMetaFeature.oclIsUndefined()",
+			 "description", "Link mapping without \'Domain Element\' class does not use \'Containment Feature\' and \'Source Feature\'"
+		   });		
+		addAnnotation
+		  (linkMappingEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "not domainMetaElement.oclIsUndefined()  implies containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement)",
+			 "description", "\'Containment Feature\' must reference the same class or super type of \'Domain Element\' EClass"
+		   });		
 		addAnnotation
 		  (getLinkMapping_LabelEditFeature(), 
 		   source, 
 		   new String[] {
-			 "ocl", "labelEditFeature.oclIsUndefined() or labelEditFeature.eContainingClass.isSuperTypeOf(domainMetaElement)"
+			 "ocl", "not labelEditFeature.oclIsUndefined() implies getDomainContext().oclIsUndefined() or labelEditFeature.eContainingClass.isSuperTypeOf(getDomainContext())",
+			 "description", "\'Label Edit Feature\' must be owned by the domain context EClass or its super type"
 		   });			
 		addAnnotation
 		  (getLinkMapping_LabelDisplayFeature(), 
 		   source, 
 		   new String[] {
-			 "ocl", "labelDisplayFeature.oclIsUndefined() or labelDisplayFeature.eContainingClass.isSuperTypeOf(domainMetaElement)"
+			 "ocl", "not labelDisplayFeature.oclIsUndefined() implies getDomainContext().oclIsUndefined() or labelDisplayFeature.eContainingClass.isSuperTypeOf(getDomainContext())",
+			 "description", "\'Label Display Feature\' must be owned by the domain context EClass or its super type"
 		   });		
 		addAnnotation
 		  (getLinkMapping_SourceMetaFeature(), 
 		   source, 
 		   new String[] {
-			 "ocl", "domainMetaElement.oclIsUndefined() or sourceMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)"
+			 "ocl", "not domainMetaElement.oclIsUndefined() implies sourceMetaFeature.oclIsUndefined() or sourceMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)",
+			 "description", "\'Source Feature\' must be owned by the link \'Domain Element\' or its super type"
 		   });		
 		addAnnotation
 		  (getLinkMapping_LinkMetaFeature(), 
 		   source, 
 		   new String[] {
-			 "ocl", "domainMetaElement.oclIsUndefined() or linkMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)"
-		   });																																								
+			 "ocl", "not(domainMetaElement.oclIsUndefined() or linkMetaFeature.oclIsUndefined()) implies linkMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)",
+			 "description", "\'Target Feature\' must be owned by the link \'Domain Element\' or its super type"
+		   });						
+		addAnnotation
+		  (linkConstraintsEClass, 
+		   source, 
+		   new String[] {
+			 "ocl", "not (sourceEnd.oclIsUndefined() and targetEnd.oclIsUndefined())",
+			 "description", "Either \'sourceEnd\' or \'targetEnd\' constraint must be specified"
+		   });																						
+		addAnnotation
+		  (getFeatureValueSpec_Feature(), 
+		   source, 
+		   new String[] {
+			 "ocl", "feature.eContainingClass.isSuperTypeOf(featureSeqInitializer.mappingEntry.getDomainContext())",
+			 "description", "Initialized \'Feature\' must be owned by \'Domain Element\' or its super type"
+		   });																
 	}
 
 } //GMFMapPackageImpl

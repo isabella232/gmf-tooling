@@ -32,7 +32,8 @@ import org.eclipse.gmf.gmfgraph.Connection;
  * </p>
  *
  * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='domainMetaElement.oclIsUndefined() implies containmentFeature.oclIsUndefined() and sourceMetaFeature.oclIsUndefined()' description='Link mapping without \'Domain Element\' class does not use \'Containment Feature\' and \'Source Feature\''"
+ *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not domainMetaElement.oclIsUndefined()  implies containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement)' description='\'Containment Feature\' must reference the same class or super type of \'Domain Element\' EClass'"
  * @generated
  */
 public interface LinkMapping extends MappingEntry, MenuOwner, ToolOwner, AppearanceSteward {
@@ -73,7 +74,7 @@ public interface LinkMapping extends MappingEntry, MenuOwner, ToolOwner, Appeara
 	 * @return the value of the '<em>Label Edit Feature</em>' reference.
 	 * @see #setLabelEditFeature(EAttribute)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping_LabelEditFeature()
-	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='labelEditFeature.oclIsUndefined() or labelEditFeature.eContainingClass.isSuperTypeOf(domainMetaElement)'"
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not labelEditFeature.oclIsUndefined() implies getDomainContext().oclIsUndefined() or labelEditFeature.eContainingClass.isSuperTypeOf(getDomainContext())' description='\'Label Edit Feature\' must be owned by the domain context EClass or its super type'"
 	 * @generated
 	 */
 	EAttribute getLabelEditFeature();
@@ -102,7 +103,7 @@ public interface LinkMapping extends MappingEntry, MenuOwner, ToolOwner, Appeara
 	 * @return the value of the '<em>Label Display Feature</em>' reference.
 	 * @see #setLabelDisplayFeature(EAttribute)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping_LabelDisplayFeature()
-	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='labelDisplayFeature.oclIsUndefined() or labelDisplayFeature.eContainingClass.isSuperTypeOf(domainMetaElement)'"
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not labelDisplayFeature.oclIsUndefined() implies getDomainContext().oclIsUndefined() or labelDisplayFeature.eContainingClass.isSuperTypeOf(getDomainContext())' description='\'Label Display Feature\' must be owned by the domain context EClass or its super type'"
 	 * @generated
 	 */
 	EAttribute getLabelDisplayFeature();
@@ -128,7 +129,7 @@ public interface LinkMapping extends MappingEntry, MenuOwner, ToolOwner, Appeara
 	 * @return the value of the '<em>Source Meta Feature</em>' reference.
 	 * @see #setSourceMetaFeature(EStructuralFeature)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping_SourceMetaFeature()
-	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='domainMetaElement.oclIsUndefined() or sourceMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)'"
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not domainMetaElement.oclIsUndefined() implies sourceMetaFeature.oclIsUndefined() or sourceMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)' description='\'Source Feature\' must be owned by the link \'Domain Element\' or its super type'"
 	 * @generated
 	 */
 	EStructuralFeature getSourceMetaFeature();
@@ -155,7 +156,7 @@ public interface LinkMapping extends MappingEntry, MenuOwner, ToolOwner, Appeara
 	 * @see #setLinkMetaFeature(EStructuralFeature)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping_LinkMetaFeature()
 	 * @model required="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='domainMetaElement.oclIsUndefined() or linkMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not(domainMetaElement.oclIsUndefined() or linkMetaFeature.oclIsUndefined()) implies linkMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)' description='\'Target Feature\' must be owned by the link \'Domain Element\' or its super type'"
 	 * @generated
 	 */
 	EStructuralFeature getLinkMetaFeature();

@@ -27,10 +27,10 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkConstraints()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not (sourceEnd.oclIsUndefined() and targetEnd.oclIsUndefined())' description='Either \'sourceEnd\' or \'targetEnd\' constraint must be specified'"
  * @generated
  */
-public interface LinkConstraints extends EObject{
+public interface LinkConstraints extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Link Mapping</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.LinkMapping#getCreationConstraints <em>Creation Constraints</em>}'.
@@ -58,7 +58,7 @@ public interface LinkConstraints extends EObject{
 	 * @see #setSourceEnd(Constraint)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkConstraints_SourceEnd()
 	 * @model containment="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='if linkMapping.domainMetaElement.oclIsUndefined() then linkMapping.linkMetaFeature.eContainingClass else linkMapping.containmentFeature.eContainingClass endif'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='let lm:LinkMapping=linkMapping in if lm.sourceMetaFeature.oclIsUndefined() then (if lm.containmentFeature.oclIsUndefined() then lm.linkMetaFeature.eContainingClass else lm.containmentFeature.eContainingClass endif) else lm.sourceMetaFeature.oclAsType(ecore::EReference).eReferenceType endif'"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='variable' name='oppositeEnd' type.ocl='linkMapping.linkMetaFeature.eType'"
 	 * @generated
 	 */
@@ -86,7 +86,7 @@ public interface LinkConstraints extends EObject{
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkConstraints_TargetEnd()
 	 * @model containment="true"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='linkMapping.linkMetaFeature.eType.oclAsType(ecore::EClass)'"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='variable' name='oppositeEnd' type.ocl='if linkMapping.domainMetaElement.oclIsUndefined() then linkMapping.linkMetaFeature.eContainingClass else linkMapping.containmentFeature.eContainingClass endif'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='variable' name='oppositeEnd' type.ocl='let lm:LinkMapping=linkMapping in if lm.sourceMetaFeature.oclIsUndefined() then (if lm.containmentFeature.oclIsUndefined() then lm.linkMetaFeature.eContainingClass else lm.containmentFeature.eContainingClass endif) else lm.sourceMetaFeature.oclAsType(ecore::EReference).eReferenceType endif'"
 	 * @generated
 	 */
 	Constraint getTargetEnd();

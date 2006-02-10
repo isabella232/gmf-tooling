@@ -27,7 +27,7 @@ import org.eclipse.gmf.gmfgraph.Child;
  * </p>
  *
  * @see org.eclipse.gmf.mappings.GMFMapPackage#getChildNodeMapping()
- * @model
+ * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not containmentFeature.oclIsUndefined() ' description='The child node mapping containmentFeature must be set'"
  * @generated
  */
 public interface ChildNodeMapping extends AbstractNodeMapping {

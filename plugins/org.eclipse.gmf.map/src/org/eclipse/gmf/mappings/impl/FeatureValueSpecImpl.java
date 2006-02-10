@@ -7,10 +7,13 @@
 package org.eclipse.gmf.mappings.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 
@@ -22,6 +25,7 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.mappings.impl.FeatureValueSpecImpl#getFeature <em>Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.FeatureValueSpecImpl#getFeatureSeqInitializer <em>Feature Seq Initializer</em>}</li>
  * </ul>
  * </p>
  *
@@ -99,11 +103,85 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public FeatureSeqInitializer getFeatureSeqInitializer() {
+		if (eContainerFeatureID != GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER) return null;
+		return (FeatureSeqInitializer)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setFeatureSeqInitializer(FeatureSeqInitializer newFeatureSeqInitializer) {
+		if (newFeatureSeqInitializer != eInternalContainer() || (eContainerFeatureID != GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER && newFeatureSeqInitializer != null)) {
+			if (EcoreUtil.isAncestor(this, newFeatureSeqInitializer))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newFeatureSeqInitializer != null)
+				msgs = ((InternalEObject)newFeatureSeqInitializer).eInverseAdd(this, GMFMapPackage.FEATURE_SEQ_INITIALIZER__INITIALIZERS, FeatureSeqInitializer.class, msgs);
+			msgs = eBasicSetContainer((InternalEObject)newFeatureSeqInitializer, GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER, newFeatureSeqInitializer, newFeatureSeqInitializer));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
+				return eBasicSetContainer(null, GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
+				return eInternalContainer().eInverseRemove(this, GMFMapPackage.FEATURE_SEQ_INITIALIZER__INITIALIZERS, FeatureSeqInitializer.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE:
 				if (resolve) return getFeature();
 				return basicGetFeature();
+			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
+				return getFeatureSeqInitializer();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -117,6 +195,9 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE:
 				setFeature((EStructuralFeature)newValue);
+				return;
+			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
+				setFeatureSeqInitializer((FeatureSeqInitializer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -132,6 +213,9 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE:
 				setFeature((EStructuralFeature)null);
 				return;
+			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
+				setFeatureSeqInitializer((FeatureSeqInitializer)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -145,6 +229,8 @@ public class FeatureValueSpecImpl extends ValueExpressionImpl implements Feature
 		switch (featureID) {
 			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE:
 				return feature != null;
+			case GMFMapPackage.FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER:
+				return getFeatureSeqInitializer() != null;
 		}
 		return super.eIsSet(featureID);
 	}

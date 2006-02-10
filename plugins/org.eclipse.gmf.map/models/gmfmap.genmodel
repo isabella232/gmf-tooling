@@ -88,12 +88,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//ValueExpression/body"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//ValueExpression/language"/>
     </genClasses>
-    <genClasses ecoreClass="gmfmap.ecore#//ElementInitializer"/>
+    <genClasses ecoreClass="gmfmap.ecore#//ElementInitializer">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ElementInitializer/mappingEntry"/>
+    </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//FeatureSeqInitializer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureSeqInitializer/initializers"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//FeatureValueSpec">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureValueSpec/feature"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//FeatureValueSpec/featureSeqInitializer"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//MenuOwner">
       <genFeatures notify="false" createChild="false" propertyCategory="Visual representation"

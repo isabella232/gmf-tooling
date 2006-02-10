@@ -84,6 +84,7 @@ public interface MappingEntry extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Domain Initializer</b></em>' containment reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.ElementInitializer#getMappingEntry <em>Mapping Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
@@ -92,9 +93,10 @@ public interface MappingEntry extends EObject {
 	 * @return the value of the '<em>Domain Initializer</em>' containment reference.
 	 * @see #setDomainInitializer(ElementInitializer)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMappingEntry_DomainInitializer()
-	 * @model containment="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='let i : FeatureSeqInitializer = domainInitializer.oclAsType( FeatureSeqInitializer) in i.oclIsUndefined() or i.initializers.feature.eContainingClass->forAll(c|c.isSuperTypeOf(domainMetaElement))'"
+	 * @see org.eclipse.gmf.mappings.ElementInitializer#getMappingEntry
+	 * @model opposite="mappingEntry" containment="true"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='self.getDomainContext()'"
+	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not domainInitializer.oclIsUndefined() implies not domainMetaElement.oclIsUndefined()' description='\'Domain Element\' must be set in mapping with \'Element Initializers\''"
 	 * @generated
 	 */
 	ElementInitializer getDomainInitializer();
@@ -120,7 +122,7 @@ public interface MappingEntry extends EObject {
 	 * @return the value of the '<em>Containment Feature</em>' reference.
 	 * @see #setContainmentFeature(EReference)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMappingEntry_ContainmentFeature()
-	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='containmentFeature.oclIsUndefined() or (containmentFeature.containment and containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement))'"
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not containmentFeature.oclIsUndefined() implies containmentFeature.containment' description='Containment EReference expected'"
 	 * @generated
 	 */
 	EReference getContainmentFeature();

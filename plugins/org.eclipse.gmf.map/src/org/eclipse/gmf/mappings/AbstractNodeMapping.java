@@ -25,6 +25,8 @@ import org.eclipse.emf.ecore.EAttribute;
  *
  * @see org.eclipse.gmf.mappings.GMFMapPackage#getAbstractNodeMapping()
  * @model abstract="true"
+ *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not (domainMetaElement.oclIsUndefined()  and containmentFeature.oclIsUndefined())' description='Either domain meta element or containment feature must be set in node mapping'"
+ *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not domainMetaElement.oclIsUndefined() implies containmentFeature.oclIsUndefined() or containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement)' description='\'Domain Element\' must be the same or extend the type referenced by \'Containment Feature\''"
  * @generated
  */
 public interface AbstractNodeMapping extends MappingEntry, MenuOwner, ToolOwner, AppearanceSteward {
@@ -39,7 +41,7 @@ public interface AbstractNodeMapping extends MappingEntry, MenuOwner, ToolOwner,
 	 * @return the value of the '<em>Edit Feature</em>' reference.
 	 * @see #setEditFeature(EAttribute)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getAbstractNodeMapping_EditFeature()
-	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='editFeature.oclIsUndefined() or (not domainMetaElement.oclIsUndefined() and editFeature.eContainingClass.isSuperTypeOf(domainMetaElement)) or containmentFeature.eType.oclAsType(ecore::EClass).eAllAttributes->includes(editFeature)'"
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not editFeature.oclIsUndefined() implies getDomainContext().oclIsUndefined() or editFeature.eContainingClass.isSuperTypeOf(getDomainContext())' description='The Edit Feature must be owned by the domain context EClass or its super type'"
 	 * @generated
 	 */
 	EAttribute getEditFeature();

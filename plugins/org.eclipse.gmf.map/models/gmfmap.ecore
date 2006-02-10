@@ -8,6 +8,10 @@
     <details key="constraintsMeta" value="http://www.eclipse.org/gmf/2005/constraints/meta"/>
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="Mapping">
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="nodes->forAll(n|n.containmentFeature.oclIsUndefined() and not n.domainMetaElement.oclIsUndefined() implies links->exists(let r:ecore::EReference= linkMetaFeature.oclAsType(ecore::EReference) in r.containment and r.eReferenceType.isSuperTypeOf(n.domainMetaElement)))"/>
+      <details key="description" value="Phantom nodes that are not targeted by a link mapping exist"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" lowerBound="1" upperBound="-1"
         eType="#//NodeMapping" containment="true" resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
@@ -38,29 +42,40 @@
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainInitializer" eType="#//ElementInitializer"
-        containment="true">
+        containment="true" eOpposite="#//ElementInitializer/mappingEntry">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Initializer for the domain model element associated with mapping"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="let i : FeatureSeqInitializer = domainInitializer.oclAsType( FeatureSeqInitializer) in i.oclIsUndefined() or i.initializers.feature.eContainingClass->forAll(c|c.isSuperTypeOf(domainMetaElement))"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
         <details key="def" value="context"/>
         <details key="ocl" value="self.getDomainContext()"/>
       </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="not domainInitializer.oclIsUndefined() implies not domainMetaElement.oclIsUndefined()"/>
+        <details key="description" value="'Domain Element' must be set in mapping with 'Element Initializers'"/>
+      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="containmentFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EReference">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="containmentFeature.oclIsUndefined() or (containmentFeature.containment and containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement))"/>
+        <details key="ocl" value="not containmentFeature.oclIsUndefined() implies containmentFeature.containment"/>
+        <details key="description" value="Containment EReference expected"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractNodeMapping" abstract="true"
       eSuperTypes="#//MappingEntry #//MenuOwner #//ToolOwner #//AppearanceSteward">
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="not (domainMetaElement.oclIsUndefined()  and containmentFeature.oclIsUndefined())"/>
+      <details key="description" value="Either domain meta element or containment feature must be set in node mapping"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="not domainMetaElement.oclIsUndefined() implies containmentFeature.oclIsUndefined() or containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement)"/>
+      <details key="description" value="'Domain Element' must be the same or extend the type referenced by 'Containment Feature'"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="editFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EAttribute">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="editFeature.oclIsUndefined() or (not domainMetaElement.oclIsUndefined() and editFeature.eContainingClass.isSuperTypeOf(domainMetaElement)) or containmentFeature.eType.oclAsType(ecore::EClass).eAllAttributes->includes(editFeature)"/>
+        <details key="ocl" value="not editFeature.oclIsUndefined() implies getDomainContext().oclIsUndefined() or editFeature.eContainingClass.isSuperTypeOf(getDomainContext())"/>
+        <details key="description" value="The Edit Feature must be owned by the domain context EClass or its super type"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="childMappings" upperBound="-1"
@@ -78,6 +93,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="ChildNodeMapping" eSuperTypes="#//AbstractNodeMapping">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Inner element"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="not containmentFeature.oclIsUndefined() "/>
+      <details key="description" value="The child node mapping containmentFeature must be set"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramNode" lowerBound="1"
         eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Child"/>
@@ -98,11 +117,20 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Connection element"/>
     </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="domainMetaElement.oclIsUndefined() implies containmentFeature.oclIsUndefined() and sourceMetaFeature.oclIsUndefined()"/>
+      <details key="description" value="Link mapping without 'Domain Element' class does not use 'Containment Feature' and 'Source Feature'"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="not domainMetaElement.oclIsUndefined()  implies containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement)"/>
+      <details key="description" value="'Containment Feature' must reference the same class or super type of 'Domain Element' EClass"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramLink" lowerBound="1"
         eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Connection"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="labelEditFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EAttribute">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="labelEditFeature.oclIsUndefined() or labelEditFeature.eContainingClass.isSuperTypeOf(domainMetaElement)"/>
+        <details key="ocl" value="not labelEditFeature.oclIsUndefined() implies getDomainContext().oclIsUndefined() or labelEditFeature.eContainingClass.isSuperTypeOf(getDomainContext())"/>
+        <details key="description" value="'Label Edit Feature' must be owned by the domain context EClass or its super type"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="labelDisplayFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EAttribute">
@@ -110,18 +138,21 @@
         <details key="documentation" value="By default, same as editFeature, once latter is set"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="labelDisplayFeature.oclIsUndefined() or labelDisplayFeature.eContainingClass.isSuperTypeOf(domainMetaElement)"/>
+        <details key="ocl" value="not labelDisplayFeature.oclIsUndefined() implies getDomainContext().oclIsUndefined() or labelDisplayFeature.eContainingClass.isSuperTypeOf(getDomainContext())"/>
+        <details key="description" value="'Label Display Feature' must be owned by the domain context EClass or its super type"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourceMetaFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStructuralFeature">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="domainMetaElement.oclIsUndefined() or sourceMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)"/>
+        <details key="ocl" value="not domainMetaElement.oclIsUndefined() implies sourceMetaFeature.oclIsUndefined() or sourceMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)"/>
+        <details key="description" value="'Source Feature' must be owned by the link 'Domain Element' or its super type"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="linkMetaFeature" lowerBound="1"
         eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStructuralFeature">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="domainMetaElement.oclIsUndefined() or linkMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)"/>
+        <details key="ocl" value="not(domainMetaElement.oclIsUndefined() or linkMetaFeature.oclIsUndefined()) implies linkMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)"/>
+        <details key="description" value="'Target Feature' must be owned by the link 'Domain Element' or its super type"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="creationConstraints" eType="#//LinkConstraints"
@@ -154,6 +185,10 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Groups constraints on the link source and target end"/>
     </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+      <details key="ocl" value="not (sourceEnd.oclIsUndefined() and targetEnd.oclIsUndefined())"/>
+      <details key="description" value="Either 'sourceEnd' or 'targetEnd' constraint must be specified"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="linkMapping" lowerBound="1"
         eType="#//LinkMapping" changeable="false" eOpposite="#//LinkMapping/creationConstraints">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -167,7 +202,7 @@
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
         <details key="def" value="context"/>
-        <details key="ocl" value="if linkMapping.domainMetaElement.oclIsUndefined() then linkMapping.linkMetaFeature.eContainingClass else linkMapping.containmentFeature.eContainingClass endif"/>
+        <details key="ocl" value="let lm:LinkMapping=linkMapping in if lm.sourceMetaFeature.oclIsUndefined() then (if lm.containmentFeature.oclIsUndefined() then lm.linkMetaFeature.eContainingClass else lm.containmentFeature.eContainingClass endif) else lm.sourceMetaFeature.oclAsType(ecore::EReference).eReferenceType endif"/>
       </eAnnotations>
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
         <details key="def" value="variable"/>
@@ -187,7 +222,7 @@
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
         <details key="def" value="variable"/>
         <details key="name" value="oppositeEnd"/>
-        <details key="type.ocl" value="if linkMapping.domainMetaElement.oclIsUndefined() then linkMapping.linkMetaFeature.eContainingClass else linkMapping.containmentFeature.eContainingClass endif"/>
+        <details key="type.ocl" value="let lm:LinkMapping=linkMapping in if lm.sourceMetaFeature.oclIsUndefined() then (if lm.containmentFeature.oclIsUndefined() then lm.linkMetaFeature.eContainingClass else lm.containmentFeature.eContainingClass endif) else lm.sourceMetaFeature.oclAsType(ecore::EReference).eReferenceType endif"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -220,13 +255,15 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Base class for initializers of domain model elements"/>
     </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mappingEntry" lowerBound="1"
+        eType="#//MappingEntry" eOpposite="#//MappingEntry/domainInitializer"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureSeqInitializer" eSuperTypes="#//ElementInitializer">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Feature sequence initializer"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="initializers" lowerBound="1"
-        upperBound="-1" eType="#//FeatureValueSpec" containment="true">
+        upperBound="-1" eType="#//FeatureValueSpec" containment="true" eOpposite="#//FeatureValueSpec/featureSeqInitializer">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Value specifications as initializers for individual features which should be initialized in the order given by this list"/>
       </eAnnotations>
@@ -247,7 +284,13 @@
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
         <details key="def" value="type"/>
       </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
+        <details key="ocl" value="feature.eContainingClass.isSuperTypeOf(featureSeqInitializer.mappingEntry.getDomainContext())"/>
+        <details key="description" value="Initialized 'Feature' must be owned by 'Domain Element' or its super type"/>
+      </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureSeqInitializer"
+        lowerBound="1" eType="#//FeatureSeqInitializer" eOpposite="#//FeatureSeqInitializer/initializers"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MenuOwner" interface="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="contextMenu" eType="ecore:EClass ../../org.eclipse.gmf.tooldef/models/tooldef.ecore#//ContextMenu"/>

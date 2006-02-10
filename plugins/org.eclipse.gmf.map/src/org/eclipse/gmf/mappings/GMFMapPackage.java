@@ -931,13 +931,22 @@ public interface GMFMapPackage extends EPackage {
 	int ELEMENT_INITIALIZER = 11;
 
 	/**
+	 * The feature id for the '<em><b>Mapping Entry</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENT_INITIALIZER__MAPPING_ENTRY = 0;
+
+	/**
 	 * The number of structural features of the '<em>Element Initializer</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ELEMENT_INITIALIZER_FEATURE_COUNT = 0;
+	int ELEMENT_INITIALIZER_FEATURE_COUNT = 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.FeatureSeqInitializerImpl <em>Feature Seq Initializer</em>}' class.
@@ -948,6 +957,15 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	int FEATURE_SEQ_INITIALIZER = 12;
+
+	/**
+	 * The feature id for the '<em><b>Mapping Entry</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_SEQ_INITIALIZER__MAPPING_ENTRY = ELEMENT_INITIALIZER__MAPPING_ENTRY;
 
 	/**
 	 * The feature id for the '<em><b>Initializers</b></em>' containment reference list.
@@ -1005,13 +1023,22 @@ public interface GMFMapPackage extends EPackage {
 	int FEATURE_VALUE_SPEC__FEATURE = VALUE_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Feature Seq Initializer</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FEATURE_VALUE_SPEC__FEATURE_SEQ_INITIALIZER = VALUE_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Feature Value Spec</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FEATURE_VALUE_SPEC_FEATURE_COUNT = VALUE_EXPRESSION_FEATURE_COUNT + 1;
+	int FEATURE_VALUE_SPEC_FEATURE_COUNT = VALUE_EXPRESSION_FEATURE_COUNT + 2;
 
 
 	/**
@@ -1799,6 +1826,17 @@ public interface GMFMapPackage extends EPackage {
 	EClass getElementInitializer();
 
 	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.ElementInitializer#getMappingEntry <em>Mapping Entry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Mapping Entry</em>'.
+	 * @see org.eclipse.gmf.mappings.ElementInitializer#getMappingEntry()
+	 * @see #getElementInitializer()
+	 * @generated
+	 */
+	EReference getElementInitializer_MappingEntry();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.FeatureSeqInitializer <em>Feature Seq Initializer</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1839,6 +1877,17 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFeatureValueSpec_Feature();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.FeatureValueSpec#getFeatureSeqInitializer <em>Feature Seq Initializer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Feature Seq Initializer</em>'.
+	 * @see org.eclipse.gmf.mappings.FeatureValueSpec#getFeatureSeqInitializer()
+	 * @see #getFeatureValueSpec()
+	 * @generated
+	 */
+	EReference getFeatureValueSpec_FeatureSeqInitializer();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.MenuOwner <em>Menu Owner</em>}'.

@@ -28,10 +28,11 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface FeatureSeqInitializer extends ElementInitializer{
+public interface FeatureSeqInitializer extends ElementInitializer {
 	/**
 	 * Returns the value of the '<em><b>Initializers</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.mappings.FeatureValueSpec}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.FeatureValueSpec#getFeatureSeqInitializer <em>Feature Seq Initializer</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Initializers</em>' containment reference list isn't clear,
@@ -43,7 +44,8 @@ public interface FeatureSeqInitializer extends ElementInitializer{
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Initializers</em>' containment reference list.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getFeatureSeqInitializer_Initializers()
-	 * @model type="org.eclipse.gmf.mappings.FeatureValueSpec" containment="true" required="true"
+	 * @see org.eclipse.gmf.mappings.FeatureValueSpec#getFeatureSeqInitializer
+	 * @model type="org.eclipse.gmf.mappings.FeatureValueSpec" opposite="featureSeqInitializer" containment="true" required="true"
 	 * @generated
 	 */
 	EList getInitializers();
