@@ -51,6 +51,3 @@ fragment@org.eclipse.gmf.runtime.common.ui.printing.win32=I20060209-1815,:pserve
 !*** Third-party dependencies ***
 !*** TODO: move to its own feature and include? ***
 plugin@org.apache.batik=I20060209-1815,:pserver:anonymous@dev.eclipse.org:/cvsroot/technology,,org.eclipse.gmf/plugins/org.apache.batik
-
-!*** TODO: remove when moved to Platform ***
-plugin@org.eclipse.wst.common.ui.properties=v20060131_0000,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,wst/components/common/plugins/org.eclipse.wst.common.ui.properties

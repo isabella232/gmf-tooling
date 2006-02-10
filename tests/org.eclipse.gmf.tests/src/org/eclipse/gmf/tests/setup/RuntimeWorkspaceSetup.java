@@ -97,7 +97,6 @@ public class RuntimeWorkspaceSetup {
 //					"org.apache.batik",
 					"org.eclipse.gmf.runtime.notation", //$NON-NLS-1$
 					"org.eclipse.gmf.runtime.notation.edit", //$NON-NLS-1$
-					"org.eclipse.wst.common.ui.properties", //$NON-NLS-1$
 					"org.eclipse.gmf.runtime.common.core", //$NON-NLS-1$
 					"org.eclipse.gmf.runtime.common.ui", //$NON-NLS-1$
 					"org.eclipse.gmf.runtime.draw2d.ui", //$NON-NLS-1$
