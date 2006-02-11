@@ -20,18 +20,23 @@
 	</target>
 	
 	<target name="main" depends="checkArgs,init">
+		<antcall target="cleanLocal"/>
 		<ant antfile="build.xml" dir="${pde.build.scripts}">
 			<property name="builder" value="${basedir}/../${component}"/>
 		</ant>
 		<antcall target="publishLocal"/>
 	</target>
 	
-	<target name="publishLocal" if="useMirror">
-		<echo message="Creating local update site at ${buildUpdateSitePath}"/>
+	<target name="cleanLocal" if="useMirror">
+		<!-- Clean out old update jars... only publishing latest build artifacts for GMF on local mirror -->
+		<delete dir="${buildUpdateSitePath}"/>
+		<mkdir dir="${buildUpdateSitePath}"/>
 		<delete>
-		    <fileset dir="${buildUpdateSitePath}" excludes="**/*.jar"/>
+		    <fileset dir="${localUpdateSitePath}" includes="**/org.eclipse.gmf*.jar,**/org.apache.batik*.jar"/>
 		</delete>
-		<cvs cvsRoot=":pserver:anonymous@dev.eclipse.org:/cvsroot/technology" command="export -r HEAD -d updates" package="org.eclipse.gmf/releng/org.eclipse.gmf.updatesite" dest="${buildRoot}/" />
+	</target>
+	
+	<target name="publishLocal" if="useMirror">
 		<copy todir="${localUpdateSitePath}/features">
 		    <fileset dir="${buildUpdateSitePath}/features"/>
 		</copy>
@@ -55,36 +60,36 @@
 	</target>
 	
 	<target name="create.label.properties" unless="label.properties.present">
-			<tstamp/>
-			<property name="date" value="${DSTAMP}" />
-			<property name="time" value="${TSTAMP}" />
-			<property name="timestamp" value="${date}${time}" />
-			<property name="buildType" value="N" />	
-			<property name="buildId" value="${buildType}${date}" />
+		<tstamp/>
+		<property name="date" value="${DSTAMP}" />
+		<property name="time" value="${TSTAMP}" />
+		<property name="timestamp" value="${date}${time}" />
+		<property name="buildType" value="N" />	
+		<property name="buildId" value="${buildType}${date}" />
 
-			<!--this naming convention used by php scripts on download server-->
-			<property name="buildLabel" value="${buildType}-${buildId}-${timestamp}" />
+		<!--this naming convention used by php scripts on download server-->
+		<property name="buildLabel" value="${buildType}-${buildId}-${timestamp}" />
 
-			<!--store the build label information in a file-->
-			<echo file="label.properties" append="true" >
-			date=${date}
-			</echo>	
-			<echo file="label.properties" append="true" >
-			time=${time}
-			</echo>
-			<echo file="label.properties" append="true" >
-			buildType=${buildType}
-			</echo>
-			<echo file="label.properties" append="true" >
-			buildId=${buildId}
-			</echo>
-			<echo file="label.properties" append="true" >
-			timestamp=${timestamp}
-			</echo>
-			<echo file="label.properties" append="true" >
-			buildLabel=${buildLabel}
-			</echo>
-		</target>
+		<!--store the build label information in a file-->
+		<echo file="label.properties" append="true" >
+		date=${date}
+		</echo>	
+		<echo file="label.properties" append="true" >
+		time=${time}
+		</echo>
+		<echo file="label.properties" append="true" >
+		buildType=${buildType}
+		</echo>
+		<echo file="label.properties" append="true" >
+		buildId=${buildId}
+		</echo>
+		<echo file="label.properties" append="true" >
+		timestamp=${timestamp}
+		</echo>
+		<echo file="label.properties" append="true" >
+		buildLabel=${buildLabel}
+		</echo>
+	</target>
 	
 	<target name="wipe" if="wipe">
 		<delete dir="${buildDirectory}"/>
@@ -98,7 +103,7 @@
 		<echo message="  -DbuildRoot=location of the build (component appended to form buildDirectory)"/>
 		<echo message="  -DbaseLocation=the location of the eclipse install to build against"/>
 		<echo message="  -Dclean=true will force an update of all sources"/>
-		<echo message="  -DbuildType=[N|I|S|R] will set the type of build"/>
+		<echo message="  -DbuildType=[C|N|I|S|R] will set the type of build"/>
 	</target>
 
 </project>
