@@ -213,7 +213,7 @@ tag="${mapsCheckoutTag}" />
 	<!-- Steps to do to test the build results -->
 	<!-- ===================================================================== -->
 	<target name="test" unless="skipTests">
-		<antcall target="installTests"/>
+		<ant antfile="${scripts}/install.xml" target="installTests"/>
 		<property file="${buildRoot}/tests/featureVersions.properties"/>
 		<condition property="qualifiedVersion" value=".${forceContextQualifier}">
 			<isset property="forceContextQualifier"/>
@@ -222,32 +222,6 @@ tag="${mapsCheckoutTag}" />
 	  	<ant antfile="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}${qualifiedVersion}/test.xml"
 	  		 dir="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}${qualifiedVersion}" />
 		<move file="${baseLocation}/plugins/org.eclipse.gmf.tests.source_${gmfVersion}${qualifiedVersion}/testresults" todir="${artifacts}/${buildLabel}" failonerror="false"/>
-	</target>
-	
-	<target name="installTests" unless="testsExist">		
-<!--    	<antcall target="installTestsFromMirror"/> TODO: restore when updating site.xml takes place during build -->
-		<antcall target="installTestsFromZip"/>
-	</target>
-	
-	<target name="installTestsFromMirror" if="usingMirror">
-		<echo message="Installing GMF tests for execution..."/>
-		<!-- Publish new jars to local update site -->
-		<copy todir="${localUpdateSitePath}/features">
-		    <fileset dir="${buildUpdateSitePath}/features"/>
-		</copy>
-		<copy todir="${localUpdateSitePath}/plugins">
-			<fileset dir="${buildUpdateSitePath}/plugins"/>
-		</copy>
-		<property file="${buildRoot}/tests/featureVersions.properties"/>
-		<ant antfile="${scripts}/update.xml" target="install">
-			<property name="featureId" value="${product}" />
-			<property name="version" value="${gmfVersion}.${org.eclipse.gmf.tests}" />
-		</ant>
-	</target>
-	
-	<target name="installTestsFromZip" unless=""> <!-- restore usingMirror -->
-		<echo message="Installing GMF tests from zip file..."/>
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-tests-${buildId}.zip" />
 	</target>
 
 	<!-- ===================================================================== -->

@@ -12,6 +12,7 @@
 	</target>
 	
 	<target name="mirror" if="usingMirror">
+		<echo message="Mirroring ${featureId} ${version} from ${updateSite}"/>
 		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
@@ -29,6 +30,7 @@
 	</target>
 	
 	<target name="install" if="usingMirror">
+		<echo message="Installing ${featureId} ${version} locally from ${localUpdateSite}"/>
 		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
@@ -44,6 +46,7 @@
 	</target>
 	
 	<target name="installRemote" unless="usingMirror">
+		<echo message="Installing ${featureId} ${version} remotely from ${updateSite}"/>
 		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
@@ -60,6 +63,7 @@
 	
 	<target name="uninstall" if="usingMirror">
 		<!-- First, must disable the feature -->
+		<echo message="Disabling ${featureId} ${version}"/>
 		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			
@@ -71,6 +75,7 @@
 			<arg value="${version}"/>
 		</java>
 		<!-- Now, uninstall -->
+		<echo message="Uninstalling ${featureId} ${version}"/>
 		<java jar="${baseLocation}/startup.jar" fork="true" failonerror="false">
 			<arg value="-application"/>
 			<arg value="org.eclipse.update.core.standaloneUpdate"/>			

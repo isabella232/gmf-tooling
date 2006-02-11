@@ -3,6 +3,16 @@
 	<condition property="isWindows">
 		<os family="windows"/>
     </condition>
+	<property file="build.properties"/>
+	<condition property="mirrorAvailable">
+		<http url="${localUpdateSite}/site.xml"/>
+	</condition>
+	<condition property="usingMirror">
+		<and>
+			<isset property="mirrorAvailable"/>
+			<isset property="useMirror"/>
+		</and>
+	</condition>
 	
 	<target name="getBaseComponentZip" if="isWindows">
 		<available file="${baseLocationRoot}/${eclipseArchiveName}.${archiveType}" property="baseZipPresent"/>
@@ -52,53 +62,73 @@
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${testingFrameworkZipName}" />
 	</target>
 	
+	<target name="installTests">		
+<!-- 	<antcall target="installTestsFromMirror"/> TODO: restore when updating site.xml takes place during build -->
+		<antcall target="installTestsFromZip"/>
+	</target>
+	
+	<target name="installTestsFromMirror" if="usingMirror">
+		<echo message="Installing GMF tests for execution..."/>
+		<!-- Publish new jars to local update site -->
+		<copy todir="${localUpdateSitePath}/features">
+		    <fileset dir="${buildUpdateSitePath}/features"/>
+		</copy>
+		<copy todir="${localUpdateSitePath}/plugins">
+			<fileset dir="${buildUpdateSitePath}/plugins"/>
+		</copy>
+		<property file="${buildRoot}/tests/featureVersions.properties"/>
+		<ant antfile="${scripts}/update.xml" target="install">
+			<property name="featureId" value="${product}" />
+			<property name="version" value="${gmfVersion}.${org.eclipse.gmf.tests}" />
+		</ant>
+	</target>
+	
+	<target name="installTestsFromZip" unless=""> <!-- restore usingMirror -->
+		<echo message="Installing GMF tests from zip file..."/>
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${artifacts}/${buildLabel}/GMF-tests-${buildId}.zip" />
+	</target>
+	
 	<target name="checkEMFInstalled">
-		<available file="${baseLocation}/plugins/org.eclipse.emf_${fullEmfVersion}.jar" property="emfExists" />
+		<available file="${baseLocation}/plugins/org.eclipse.emf_${emfUpdateVersion}.jar" property="emfExists" />
 	</target>
 
+	<!-- This installs EMFT as well. TODO: do check installed for EMFT components as well. -->
 	<target name="installEMF" unless="emfExists" depends="checkEMFInstalled">
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfFeatureId}" />
 			<property name="version" value="${emfUpdateVersion}" />
 			<property name="updateSite" value="${emfUpdateSite}" />
 		</ant>
-		<echo message="Installing EMF OCL"/>
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfOCLFeatureId}" />
 			<property name="version" value="${emfOCLUpdateVersion}" />
 			<property name="updateSite" value="${emfOCLUpdateSite}" />
 		</ant>
-		<echo message="Installing EMF Query"/>
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfQueryFeatureId}" />
 			<property name="version" value="${emfQueryUpdateVersion}" />
 			<property name="updateSite" value="${emfQueryUpdateSite}" />
 		</ant>
-		<echo message="Installing EMF Query OCL"/>
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfQueryOCLFeatureId}" />
 			<property name="version" value="${emfQueryOCLUpdateVersion}" />
 			<property name="updateSite" value="${emfQueryOCLUpdateSite}" />
 		</ant>
-		<echo message="Installing EMF Validation"/>
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfValidationFeatureId}" />
 			<property name="version" value="${emfValidationUpdateVersion}" />
 			<property name="updateSite" value="${emfValidationUpdateSite}" />
 		</ant>
-		<echo message="Installing EMF Validation OCL"/>
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfValidationOCLFeatureId}" />
 			<property name="version" value="${emfValidationOCLUpdateVersion}" />
 			<property name="updateSite" value="${emfValidationOCLUpdateSite}" />
 		</ant>
-		<echo message="Installing EMF Transaction"/>
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfTransactionFeatureId}" />
 			<property name="version" value="${emfTransactionUpdateVersion}" />
 			<property name="updateSite" value="${emfTransactionUpdateSite}" />
 		</ant>
-		<echo message="Installing EMF Workspace"/>
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfWorkspaceFeatureId}" />
 			<property name="version" value="${emfWorkspaceUpdateVersion}" />
@@ -158,7 +188,7 @@
 	</target>
 	
 	<target name="checkUML2Installed">
-		<available file="${baseLocation}/plugins/org.eclipse.uml2_${uml2Version}.jar" property="uml2Exists" />
+		<available file="${baseLocation}/plugins/org.eclipse.uml2_${uml2UpdateVersion}.jar" property="uml2Exists" />
 	</target>
 
 	<target name="installUML2" unless="uml2Exists" depends="checkUML2Installed">
@@ -190,7 +220,6 @@
 	</target>
 
 	<target name="installGMFfromMirror" if="usingMirror">
-		<echo message="Installing GMF for testing from local mirror..." />
 		<property file="${buildRoot}/sdk/featureVersions.properties"/>
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="org.eclipse.gmf.sdk" />
@@ -215,7 +244,6 @@
 	</target>
 
 	<target name="installExamplesfromMirror" if="usingMirror">
-		<echo message="Installing GMF Examples for testing from local mirror..." />
 		<property file="${buildRoot}/examples/featureVersions.properties"/>
 		<ant antfile="${scripts}/update.xml" target="install">
 			<property name="featureId" value="org.eclipse.gmf.examples" />
@@ -246,5 +274,24 @@
 	<target name="installAntlr" unless="antlrExists">
 		<antcall target="getAntlr"/>
 		<copy file="${baseLocationRoot}/antlr.jar" todir="${baseLocation}/plugins/antlr_${antlrVersion}.${emfOCLBuildType}${emfOCLBuildDate}${emfOCLBuildTime}/lib"/>
+	</target>
+	
+	<!-- Creates a development target for your workspace -->
+	<target name="createDevTarget">
+		<!-- Override the base location root (pass in your own) : this is the folder above 'eclipse' -->
+		<property name="baseLocationRoot" value="/gmf/targets/integration"/>
+		<property name="baseLocation" value="${baseLocationRoot}/eclipse"/>
+		<delete dir="${baseLocation}"/>
+		<mkdir dir="${baseLocationRoot}"/>
+		<echo message="Mirror status: ${usingMirror}"/>
+		<!-- Assume builder is sibling of releng -->
+		<property file="../../org.eclipse.gmf.releng/maps/build.cfg"/>		
+		<antcall target="installBase" />
+		<antcall target="installTestingFramework" />
+		<antcall target="installGEF" />
+		<antcall target="installEMF" />	
+		<antcall target="installEMFExamples" />
+		<antcall target="installUML2" />
+		<antcall target="installAntlr" />
 	</target>
 </project>

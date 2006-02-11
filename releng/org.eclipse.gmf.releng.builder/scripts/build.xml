@@ -8,25 +8,16 @@
 		<touch file="${user.home}/.cvspass" />
 		<available file="label.properties" property="label.properties.present"/>
 		<antcall target="create.label.properties"/>
-		<property file="label.properties" />
-		<condition property="mirrorAvailable">
-			<http url="${localUpdateSite}/site.xml"/>
-		</condition>
-		<condition property="usingMirror">
-			<and>
-				<isset property="mirrorAvailable"/>
-				<isset property="useMirror"/>
-			</and>
-		</condition>
+		<property file="label.properties" />		
 		<antcall target="initCC"/>
-		</target>
-		
-		<target name="initCC">
-			<copy todir="${ccwebapplocation}">
-			    <fileset dir="${scripts}/css"/>
-			    <fileset dir="${scripts}/xsl"/>
-			</copy>
-		</target>
+	</target>
+	
+	<target name="initCC">
+		<copy todir="${ccwebapplocation}">
+		    <fileset dir="${scripts}/css"/>
+		    <fileset dir="${scripts}/xsl"/>
+		</copy>
+	</target>
 	
 	<target name="main" depends="checkArgs,init">
 		<ant antfile="build.xml" dir="${pde.build.scripts}">
