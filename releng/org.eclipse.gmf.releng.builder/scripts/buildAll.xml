@@ -17,6 +17,7 @@
 		<!-- Note: for now, overriding calculated qualifier for continuous and nightly builds, 
 		     as these builds are not tagged as are integration and stable builds. -->
 		<property file="label.properties"/>
+		<ant antfile="build.xml" target="cleanLocal"/>
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
@@ -49,12 +50,14 @@
 			<property name="mapsCheckoutTag" value="${stable}" />
 			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
+		<ant antfile="build.xml" target="publishLocal"/>
 	</target>
 
 	<target name="nightly" depends="init,checkArgs">
 		<!-- Note: for now, overriding calculated qualifier for continuous and nightly builds,
 		     as these builds are not tagged as are integration and stable builds. -->
 		<property file="label.properties"/>
+		<ant antfile="build.xml" target="cleanLocal"/>
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
@@ -86,6 +89,7 @@
 			<property name="mapsCheckoutTag" value="${stable}" />
 			<property name="forceContextQualifier" value="${buildId}-${time}" />
 		</ant>
+		<ant antfile="build.xml" target="publishLocal"/>
 		<antcall target="publish" />
 		<property file="label.properties" />
 		<property file="build.properties" />
@@ -102,6 +106,7 @@
 	</target>
 	
 	<target name="integration" depends="init,checkArgs">
+		<ant antfile="build.xml" target="cleanLocal"/>
 		<echo message="Building runtime..." />
 		<ant antfile="build.xml" target="main">
 			<property name="component" value="runtime" />
@@ -129,10 +134,12 @@
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${integration}" />
 		</ant>
+		<ant antfile="build.xml" target="publishLocal"/>
 		<antcall target="publish" />
 	</target>
 	
 	<target name="stable" depends="init,checkArgs">
+		<ant antfile="build.xml" target="cleanLocal"/>
 		<property name="buildType" value="S" />
 		<property name="buildId" value="${stable}" />
 		<echo message="Building runtime..." />
@@ -162,6 +169,7 @@
 			<property name="wipe" value="true" />
 			<property name="mapsCheckoutTag" value="${stable}" />
 		</ant>
+		<ant antfile="build.xml" target="publishLocal"/>
 		<antcall target="publish" />
 		<property file="label.properties" />
 		<property file="build.properties" />

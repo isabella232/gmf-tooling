@@ -20,11 +20,9 @@
 	</target>
 	
 	<target name="main" depends="checkArgs,init">
-		<antcall target="cleanLocal"/>
 		<ant antfile="build.xml" dir="${pde.build.scripts}">
 			<property name="builder" value="${basedir}/../${component}"/>
 		</ant>
-		<antcall target="publishLocal"/>
 	</target>
 	
 	<target name="cleanLocal" if="useMirror">
