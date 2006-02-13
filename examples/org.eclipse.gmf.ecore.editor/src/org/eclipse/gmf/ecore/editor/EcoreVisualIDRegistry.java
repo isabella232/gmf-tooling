@@ -14,7 +14,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 
-import org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition;
+import org.eclipse.emf.query.ocl.conditions.OclConstraintCondition;
 
 import org.eclipse.gmf.ecore.providers.EcoreSemanticHints;
 
@@ -1371,7 +1371,7 @@ public class EcoreVisualIDRegistry {
 			/**
 			 * @generated	
 			 */
-			private OCLConstraintCondition condition;
+			private OclConstraintCondition condition;
 
 			/**
 			 * @generated	
@@ -1404,7 +1404,7 @@ public class EcoreVisualIDRegistry {
 			private Boolean evaluate(EObject context) {
 				this.evalContext = context.eClass();
 				if (condition == null) {
-					condition = new OCLConstraintCondition(body, evalContext);
+					condition = new OclConstraintCondition(body, evalContext);
 				}
 				if (condition != null) {
 					return booleanCast(condition.evaluate(context));

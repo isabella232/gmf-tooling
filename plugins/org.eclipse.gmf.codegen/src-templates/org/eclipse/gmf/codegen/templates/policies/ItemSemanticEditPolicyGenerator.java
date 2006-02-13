@@ -162,7 +162,6 @@ public class ItemSemanticEditPolicyGenerator {
     
 GenDiagram diagram = (GenDiagram) ((Object[]) argument)[0];
 ImportUtil importManager = new ImportUtil(diagram.getEditPoliciesPackageName());
-String pluginActivatorClass = importManager.getImportedName(diagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(diagram.getEditPoliciesPackageName());
@@ -173,6 +172,7 @@ String pluginActivatorClass = importManager.getImportedName(diagram.getEditorGen
     stringBuffer.append(TEXT_4);
     
 if(diagram.hasLinkCreationConstraints()) {
+	String pluginActivatorClass = importManager.getImportedName(diagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
 
     stringBuffer.append(TEXT_5);
     stringBuffer.append(diagram.getLinkCreationConstraintsClassName());
@@ -223,7 +223,7 @@ if(diagram.hasLinkCreationConstraints()) {
     stringBuffer.append(TEXT_22);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration"));
     stringBuffer.append(TEXT_23);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.helper.IOCLHelper"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.helper.IOclHelper"));
     stringBuffer.append(TEXT_24);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.helper.HelperUtil"));
     stringBuffer.append(TEXT_25);
