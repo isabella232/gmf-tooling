@@ -33,7 +33,7 @@ final Figure figureInstance = argsBundle.getFigure();
 // merely makes sure layoutData present
 // and parent figure got chance to have layout initialized 
 
-if (gmfLayoutData != null && figureInstance.getParent() != null && figureInstance.getParent().getLayout() != null) {
+if (gmfLayoutData != null && figureInstance.eContainer() instanceof Figure && ((Figure) figureInstance.eContainer()).getLayout() != null) {
     stringBuffer.append(TEXT_1);
     stringBuffer.append(dispatcher.dispatch(gmfLayoutData, argsBundle));
     stringBuffer.append(TEXT_2);

@@ -11,6 +11,6 @@ final Figure figureInstance = argsBundle.getFigure();
 // merely makes sure layoutData present
 // and parent figure got chance to have layout initialized 
 
-if (gmfLayoutData != null && figureInstance.getParent() != null && figureInstance.getParent().getLayout() != null) {%>
+if (gmfLayoutData != null && figureInstance.eContainer() instanceof Figure && ((Figure) figureInstance.eContainer()).getLayout() != null) {%>
 <%=dispatcher.dispatch(gmfLayoutData, argsBundle)%>			
 <%}%>
