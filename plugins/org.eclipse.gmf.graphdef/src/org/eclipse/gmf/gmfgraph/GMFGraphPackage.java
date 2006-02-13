@@ -549,6 +549,43 @@ public interface GMFGraphPackage extends EPackage {
 	int GRADIENT_FACET_FEATURE_COUNT = VISUAL_FACET_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Layoutable <em>Layoutable</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.Layoutable
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLayoutable()
+	 * @generated
+	 */
+	int LAYOUTABLE = 48;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LAYOUTABLE__LAYOUT_DATA = 0;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LAYOUTABLE__LAYOUT = 1;
+
+	/**
+	 * The number of structural features of the '<em>Layoutable</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LAYOUTABLE_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.FigureMarker <em>Figure Marker</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -559,13 +596,31 @@ public interface GMFGraphPackage extends EPackage {
 	int FIGURE_MARKER = 11;
 
 	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE_MARKER__LAYOUT_DATA = LAYOUTABLE__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE_MARKER__LAYOUT = LAYOUTABLE__LAYOUT;
+
+	/**
 	 * The number of structural features of the '<em>Figure Marker</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE_MARKER_FEATURE_COUNT = 0;
+	int FIGURE_MARKER_FEATURE_COUNT = LAYOUTABLE_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Figure <em>Figure</em>}' class.
@@ -576,6 +631,24 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	int FIGURE = 12;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE__LAYOUT_DATA = FIGURE_MARKER__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE__LAYOUT = FIGURE_MARKER__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -695,22 +768,13 @@ public interface GMFGraphPackage extends EPackage {
 	int FIGURE__SIZE = FIGURE_MARKER_FEATURE_COUNT + 12;
 
 	/**
-	 * The feature id for the '<em><b>Layout Manager</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIGURE__LAYOUT_MANAGER = FIGURE_MARKER_FEATURE_COUNT + 13;
-
-	/**
 	 * The number of structural features of the '<em>Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE_FEATURE_COUNT = FIGURE_MARKER_FEATURE_COUNT + 14;
+	int FIGURE_FEATURE_COUNT = FIGURE_MARKER_FEATURE_COUNT + 13;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.FigureRefImpl <em>Figure Ref</em>}' class.
@@ -721,6 +785,24 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	int FIGURE_REF = 13;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE_REF__LAYOUT_DATA = FIGURE_MARKER__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE_REF__LAYOUT = FIGURE_MARKER__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Figure</b></em>' reference.
@@ -749,6 +831,24 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	int CONNECTION_FIGURE = 14;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FIGURE__LAYOUT_DATA = FIGURE__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FIGURE__LAYOUT = FIGURE__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -868,15 +968,6 @@ public interface GMFGraphPackage extends EPackage {
 	int CONNECTION_FIGURE__SIZE = FIGURE__SIZE;
 
 	/**
-	 * The feature id for the '<em><b>Layout Manager</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION_FIGURE__LAYOUT_MANAGER = FIGURE__LAYOUT_MANAGER;
-
-	/**
 	 * The number of structural features of the '<em>Connection Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -894,6 +985,24 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	int DECORATION_FIGURE = 15;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECORATION_FIGURE__LAYOUT_DATA = FIGURE__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECORATION_FIGURE__LAYOUT = FIGURE__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1013,15 +1122,6 @@ public interface GMFGraphPackage extends EPackage {
 	int DECORATION_FIGURE__SIZE = FIGURE__SIZE;
 
 	/**
-	 * The feature id for the '<em><b>Layout Manager</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DECORATION_FIGURE__LAYOUT_MANAGER = FIGURE__LAYOUT_MANAGER;
-
-	/**
 	 * The number of structural features of the '<em>Decoration Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1039,6 +1139,24 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	int SHAPE = 16;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE__LAYOUT_DATA = FIGURE__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE__LAYOUT = FIGURE__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1158,15 +1276,6 @@ public interface GMFGraphPackage extends EPackage {
 	int SHAPE__SIZE = FIGURE__SIZE;
 
 	/**
-	 * The feature id for the '<em><b>Layout Manager</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SHAPE__LAYOUT_MANAGER = FIGURE__LAYOUT_MANAGER;
-
-	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1247,6 +1356,24 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	int LABEL = 17;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL__LAYOUT_DATA = FIGURE__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL__LAYOUT = FIGURE__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1366,15 +1493,6 @@ public interface GMFGraphPackage extends EPackage {
 	int LABEL__SIZE = FIGURE__SIZE;
 
 	/**
-	 * The feature id for the '<em><b>Layout Manager</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LABEL__LAYOUT_MANAGER = FIGURE__LAYOUT_MANAGER;
-
-	/**
 	 * The feature id for the '<em><b>Text</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1401,6 +1519,24 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	int LABELED_CONTAINER = 18;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABELED_CONTAINER__LAYOUT_DATA = FIGURE__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABELED_CONTAINER__LAYOUT = FIGURE__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1520,15 +1656,6 @@ public interface GMFGraphPackage extends EPackage {
 	int LABELED_CONTAINER__SIZE = FIGURE__SIZE;
 
 	/**
-	 * The feature id for the '<em><b>Layout Manager</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LABELED_CONTAINER__LAYOUT_MANAGER = FIGURE__LAYOUT_MANAGER;
-
-	/**
 	 * The number of structural features of the '<em>Labeled Container</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1546,6 +1673,24 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	int RECTANGLE = 19;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGLE__LAYOUT_DATA = SHAPE__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGLE__LAYOUT = SHAPE__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1665,15 +1810,6 @@ public interface GMFGraphPackage extends EPackage {
 	int RECTANGLE__SIZE = SHAPE__SIZE;
 
 	/**
-	 * The feature id for the '<em><b>Layout Manager</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RECTANGLE__LAYOUT_MANAGER = SHAPE__LAYOUT_MANAGER;
-
-	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1754,6 +1890,24 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	int ROUNDED_RECTANGLE = 20;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROUNDED_RECTANGLE__LAYOUT_DATA = SHAPE__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROUNDED_RECTANGLE__LAYOUT = SHAPE__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1873,15 +2027,6 @@ public interface GMFGraphPackage extends EPackage {
 	int ROUNDED_RECTANGLE__SIZE = SHAPE__SIZE;
 
 	/**
-	 * The feature id for the '<em><b>Layout Manager</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ROUNDED_RECTANGLE__LAYOUT_MANAGER = SHAPE__LAYOUT_MANAGER;
-
-	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1980,6 +2125,24 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	int ELLIPSE = 21;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELLIPSE__LAYOUT_DATA = SHAPE__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELLIPSE__LAYOUT = SHAPE__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2099,15 +2262,6 @@ public interface GMFGraphPackage extends EPackage {
 	int ELLIPSE__SIZE = SHAPE__SIZE;
 
 	/**
-	 * The feature id for the '<em><b>Layout Manager</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ELLIPSE__LAYOUT_MANAGER = SHAPE__LAYOUT_MANAGER;
-
-	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2188,6 +2342,24 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	int POLYLINE = 22;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE__LAYOUT_DATA = SHAPE__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE__LAYOUT = SHAPE__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2307,15 +2479,6 @@ public interface GMFGraphPackage extends EPackage {
 	int POLYLINE__SIZE = SHAPE__SIZE;
 
 	/**
-	 * The feature id for the '<em><b>Layout Manager</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int POLYLINE__LAYOUT_MANAGER = SHAPE__LAYOUT_MANAGER;
-
-	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2405,6 +2568,24 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	int POLYGON = 23;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON__LAYOUT_DATA = POLYLINE__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON__LAYOUT = POLYLINE__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2524,15 +2705,6 @@ public interface GMFGraphPackage extends EPackage {
 	int POLYGON__SIZE = POLYLINE__SIZE;
 
 	/**
-	 * The feature id for the '<em><b>Layout Manager</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int POLYGON__LAYOUT_MANAGER = POLYLINE__LAYOUT_MANAGER;
-
-	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2622,6 +2794,24 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	int POLYLINE_CONNECTION = 24;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_CONNECTION__LAYOUT_DATA = POLYLINE__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_CONNECTION__LAYOUT = POLYLINE__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2741,15 +2931,6 @@ public interface GMFGraphPackage extends EPackage {
 	int POLYLINE_CONNECTION__SIZE = POLYLINE__SIZE;
 
 	/**
-	 * The feature id for the '<em><b>Layout Manager</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int POLYLINE_CONNECTION__LAYOUT_MANAGER = POLYLINE__LAYOUT_MANAGER;
-
-	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2857,6 +3038,24 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	int POLYLINE_DECORATION = 25;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_DECORATION__LAYOUT_DATA = POLYLINE__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_DECORATION__LAYOUT = POLYLINE__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2976,15 +3175,6 @@ public interface GMFGraphPackage extends EPackage {
 	int POLYLINE_DECORATION__SIZE = POLYLINE__SIZE;
 
 	/**
-	 * The feature id for the '<em><b>Layout Manager</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int POLYLINE_DECORATION__LAYOUT_MANAGER = POLYLINE__LAYOUT_MANAGER;
-
-	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3074,6 +3264,24 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	int POLYGON_DECORATION = 26;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON_DECORATION__LAYOUT_DATA = POLYGON__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON_DECORATION__LAYOUT = POLYGON__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3193,15 +3401,6 @@ public interface GMFGraphPackage extends EPackage {
 	int POLYGON_DECORATION__SIZE = POLYGON__SIZE;
 
 	/**
-	 * The feature id for the '<em><b>Layout Manager</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int POLYGON_DECORATION__LAYOUT_MANAGER = POLYGON__LAYOUT_MANAGER;
-
-	/**
 	 * The feature id for the '<em><b>Outline</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3311,13 +3510,22 @@ public interface GMFGraphPackage extends EPackage {
 	int CUSTOM_CLASS__BUNDLE_NAME = 1;
 
 	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CLASS__ATTRIBUTES = 2;
+
+	/**
 	 * The number of structural features of the '<em>Custom Class</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_CLASS_FEATURE_COUNT = 2;
+	int CUSTOM_CLASS_FEATURE_COUNT = 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl <em>Custom Figure</em>}' class.
@@ -3328,6 +3536,24 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	int CUSTOM_FIGURE = 28;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_FIGURE__LAYOUT_DATA = FIGURE__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_FIGURE__LAYOUT = FIGURE__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3447,15 +3673,6 @@ public interface GMFGraphPackage extends EPackage {
 	int CUSTOM_FIGURE__SIZE = FIGURE__SIZE;
 
 	/**
-	 * The feature id for the '<em><b>Layout Manager</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CUSTOM_FIGURE__LAYOUT_MANAGER = FIGURE__LAYOUT_MANAGER;
-
-	/**
 	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3474,13 +3691,22 @@ public interface GMFGraphPackage extends EPackage {
 	int CUSTOM_FIGURE__BUNDLE_NAME = FIGURE_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_FIGURE__ATTRIBUTES = FIGURE_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Custom Figure</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_FIGURE_FEATURE_COUNT = FIGURE_FEATURE_COUNT + 2;
+	int CUSTOM_FIGURE_FEATURE_COUNT = FIGURE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.CustomDecorationImpl <em>Custom Decoration</em>}' class.
@@ -3491,6 +3717,24 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	int CUSTOM_DECORATION = 29;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_DECORATION__LAYOUT_DATA = CUSTOM_FIGURE__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_DECORATION__LAYOUT = CUSTOM_FIGURE__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3610,15 +3854,6 @@ public interface GMFGraphPackage extends EPackage {
 	int CUSTOM_DECORATION__SIZE = CUSTOM_FIGURE__SIZE;
 
 	/**
-	 * The feature id for the '<em><b>Layout Manager</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CUSTOM_DECORATION__LAYOUT_MANAGER = CUSTOM_FIGURE__LAYOUT_MANAGER;
-
-	/**
 	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3635,6 +3870,15 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int CUSTOM_DECORATION__BUNDLE_NAME = CUSTOM_FIGURE__BUNDLE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_DECORATION__ATTRIBUTES = CUSTOM_FIGURE__ATTRIBUTES;
 
 	/**
 	 * The number of structural features of the '<em>Custom Decoration</em>' class.
@@ -3654,6 +3898,24 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	int CUSTOM_CONNECTION = 30;
+
+	/**
+	 * The feature id for the '<em><b>Layout Data</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CONNECTION__LAYOUT_DATA = CUSTOM_FIGURE__LAYOUT_DATA;
+
+	/**
+	 * The feature id for the '<em><b>Layout</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CONNECTION__LAYOUT = CUSTOM_FIGURE__LAYOUT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3773,15 +4035,6 @@ public interface GMFGraphPackage extends EPackage {
 	int CUSTOM_CONNECTION__SIZE = CUSTOM_FIGURE__SIZE;
 
 	/**
-	 * The feature id for the '<em><b>Layout Manager</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CUSTOM_CONNECTION__LAYOUT_MANAGER = CUSTOM_FIGURE__LAYOUT_MANAGER;
-
-	/**
 	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3798,6 +4051,15 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int CUSTOM_CONNECTION__BUNDLE_NAME = CUSTOM_FIGURE__BUNDLE_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CONNECTION__ATTRIBUTES = CUSTOM_FIGURE__ATTRIBUTES;
 
 	/**
 	 * The number of structural features of the '<em>Custom Connection</em>' class.
@@ -3974,7 +4236,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 45;
+	int FONT_STYLE = 55;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.PointImpl <em>Point</em>}' class.
@@ -4255,13 +4517,454 @@ public interface GMFGraphPackage extends EPackage {
 	int CUSTOM_BORDER__BUNDLE_NAME = BORDER_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_BORDER__ATTRIBUTES = BORDER_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Custom Border</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CUSTOM_BORDER_FEATURE_COUNT = BORDER_FEATURE_COUNT + 2;
+	int CUSTOM_BORDER_FEATURE_COUNT = BORDER_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.LayoutData <em>Layout Data</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.LayoutData
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLayoutData()
+	 * @generated
+	 */
+	int LAYOUT_DATA = 44;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LAYOUT_DATA__OWNER = 0;
+
+	/**
+	 * The number of structural features of the '<em>Layout Data</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LAYOUT_DATA_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.GridLayoutDataImpl <em>Grid Layout Data</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.GridLayoutDataImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getGridLayoutData()
+	 * @generated
+	 */
+	int GRID_LAYOUT_DATA = 46;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.BorderLayoutDataImpl <em>Border Layout Data</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.BorderLayoutDataImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getBorderLayoutData()
+	 * @generated
+	 */
+	int BORDER_LAYOUT_DATA = 47;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.CustomLayoutImpl <em>Custom Layout</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.CustomLayoutImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomLayout()
+	 * @generated
+	 */
+	int CUSTOM_LAYOUT = 50;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Layout <em>Layout</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.Layout
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLayout()
+	 * @generated
+	 */
+	int LAYOUT = 49;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.CustomLayoutDataImpl <em>Custom Layout Data</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.CustomLayoutDataImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomLayoutData()
+	 * @generated
+	 */
+	int CUSTOM_LAYOUT_DATA = 45;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_LAYOUT_DATA__OWNER = LAYOUT_DATA__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_LAYOUT_DATA__QUALIFIED_CLASS_NAME = LAYOUT_DATA_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Bundle Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_LAYOUT_DATA__BUNDLE_NAME = LAYOUT_DATA_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_LAYOUT_DATA__ATTRIBUTES = LAYOUT_DATA_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Custom Layout Data</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_LAYOUT_DATA_FEATURE_COUNT = LAYOUT_DATA_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_LAYOUT_DATA__OWNER = LAYOUT_DATA__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Grab Excess Horizontal Space</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_LAYOUT_DATA__GRAB_EXCESS_HORIZONTAL_SPACE = LAYOUT_DATA_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Grab Excess Vertical Space</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_LAYOUT_DATA__GRAB_EXCESS_VERTICAL_SPACE = LAYOUT_DATA_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Vertical Alignment</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_LAYOUT_DATA__VERTICAL_ALIGNMENT = LAYOUT_DATA_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Horizontal Alignment</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_LAYOUT_DATA__HORIZONTAL_ALIGNMENT = LAYOUT_DATA_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Vertical Span</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_LAYOUT_DATA__VERTICAL_SPAN = LAYOUT_DATA_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Horizontal Span</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_LAYOUT_DATA__HORIZONTAL_SPAN = LAYOUT_DATA_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Horizontal Indent</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_LAYOUT_DATA__HORIZONTAL_INDENT = LAYOUT_DATA_FEATURE_COUNT + 6;
+
+	/**
+	 * The feature id for the '<em><b>Size Hint</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_LAYOUT_DATA__SIZE_HINT = LAYOUT_DATA_FEATURE_COUNT + 7;
+
+	/**
+	 * The number of structural features of the '<em>Grid Layout Data</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_LAYOUT_DATA_FEATURE_COUNT = LAYOUT_DATA_FEATURE_COUNT + 8;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BORDER_LAYOUT_DATA__OWNER = LAYOUT_DATA__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Alignment</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BORDER_LAYOUT_DATA__ALIGNMENT = LAYOUT_DATA_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Vertical</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BORDER_LAYOUT_DATA__VERTICAL = LAYOUT_DATA_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Border Layout Data</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BORDER_LAYOUT_DATA_FEATURE_COUNT = LAYOUT_DATA_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Layout</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LAYOUT_FEATURE_COUNT = 0;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_LAYOUT__QUALIFIED_CLASS_NAME = LAYOUT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Bundle Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_LAYOUT__BUNDLE_NAME = LAYOUT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_LAYOUT__ATTRIBUTES = LAYOUT_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Custom Layout</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_LAYOUT_FEATURE_COUNT = LAYOUT_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.GridLayoutImpl <em>Grid Layout</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.GridLayoutImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getGridLayout()
+	 * @generated
+	 */
+	int GRID_LAYOUT = 51;
+
+	/**
+	 * The feature id for the '<em><b>Num Columns</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_LAYOUT__NUM_COLUMNS = LAYOUT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Equal Width</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_LAYOUT__EQUAL_WIDTH = LAYOUT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Margins</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_LAYOUT__MARGINS = LAYOUT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Spacing</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_LAYOUT__SPACING = LAYOUT_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Grid Layout</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GRID_LAYOUT_FEATURE_COUNT = LAYOUT_FEATURE_COUNT + 4;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.BorderLayoutImpl <em>Border Layout</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.BorderLayoutImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getBorderLayout()
+	 * @generated
+	 */
+	int BORDER_LAYOUT = 52;
+
+	/**
+	 * The feature id for the '<em><b>Spacing</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BORDER_LAYOUT__SPACING = LAYOUT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Border Layout</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BORDER_LAYOUT_FEATURE_COUNT = LAYOUT_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.CustomAttributeImpl <em>Custom Attribute</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.CustomAttributeImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getCustomAttribute()
+	 * @generated
+	 */
+	int CUSTOM_ATTRIBUTE = 53;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_ATTRIBUTE__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_ATTRIBUTE__VALUE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Direct Access</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_ATTRIBUTE__DIRECT_ACCESS = 2;
+
+	/**
+	 * The feature id for the '<em><b>Multi Statement Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_ATTRIBUTE__MULTI_STATEMENT_VALUE = 3;
+
+	/**
+	 * The number of structural features of the '<em>Custom Attribute</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_ATTRIBUTE_FEATURE_COUNT = 4;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.ColorConstants <em>Color Constants</em>}' enum.
@@ -4271,7 +4974,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getColorConstants()
 	 * @generated
 	 */
-	int COLOR_CONSTANTS = 44;
+	int COLOR_CONSTANTS = 54;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Direction <em>Direction</em>}' enum.
@@ -4281,7 +4984,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getDirection()
 	 * @generated
 	 */
-	int DIRECTION = 46;
+	int DIRECTION = 56;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.LineKind <em>Line Kind</em>}' enum.
@@ -4291,7 +4994,18 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLineKind()
 	 * @generated
 	 */
-	int LINE_KIND = 47;
+	int LINE_KIND = 57;
+
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Alignment <em>Alignment</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.Alignment
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getAlignment()
+	 * @generated
+	 */
+	int ALIGNMENT = 58;
 
 
 	/**
@@ -4733,17 +5447,6 @@ public interface GMFGraphPackage extends EPackage {
 	EReference getFigure_Size();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.Figure#getLayoutManager <em>Layout Manager</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Layout Manager</em>'.
-	 * @see org.eclipse.gmf.gmfgraph.Figure#getLayoutManager()
-	 * @see #getFigure()
-	 * @generated
-	 */
-	EAttribute getFigure_LayoutManager();
-
-	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.FigureRef <em>Figure Ref</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5068,6 +5771,17 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getCustomClass_BundleName();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.gmfgraph.CustomClass#getAttributes <em>Attributes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Attributes</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.CustomClass#getAttributes()
+	 * @see #getCustomClass()
+	 * @generated
+	 */
+	EReference getCustomClass_Attributes();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.CustomFigure <em>Custom Figure</em>}'.
@@ -5460,6 +6174,348 @@ public interface GMFGraphPackage extends EPackage {
 	EClass getCustomBorder();
 
 	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.LayoutData <em>Layout Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Layout Data</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.LayoutData
+	 * @generated
+	 */
+	EClass getLayoutData();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.gmfgraph.LayoutData#getOwner <em>Owner</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Owner</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.LayoutData#getOwner()
+	 * @see #getLayoutData()
+	 * @generated
+	 */
+	EReference getLayoutData_Owner();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.CustomLayoutData <em>Custom Layout Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Custom Layout Data</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.CustomLayoutData
+	 * @generated
+	 */
+	EClass getCustomLayoutData();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.GridLayoutData <em>Grid Layout Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Grid Layout Data</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.GridLayoutData
+	 * @generated
+	 */
+	EClass getGridLayoutData();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.GridLayoutData#isGrabExcessHorizontalSpace <em>Grab Excess Horizontal Space</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Grab Excess Horizontal Space</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.GridLayoutData#isGrabExcessHorizontalSpace()
+	 * @see #getGridLayoutData()
+	 * @generated
+	 */
+	EAttribute getGridLayoutData_GrabExcessHorizontalSpace();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.GridLayoutData#isGrabExcessVerticalSpace <em>Grab Excess Vertical Space</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Grab Excess Vertical Space</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.GridLayoutData#isGrabExcessVerticalSpace()
+	 * @see #getGridLayoutData()
+	 * @generated
+	 */
+	EAttribute getGridLayoutData_GrabExcessVerticalSpace();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.GridLayoutData#getVerticalAlignment <em>Vertical Alignment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Vertical Alignment</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.GridLayoutData#getVerticalAlignment()
+	 * @see #getGridLayoutData()
+	 * @generated
+	 */
+	EAttribute getGridLayoutData_VerticalAlignment();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.GridLayoutData#getHorizontalAlignment <em>Horizontal Alignment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Horizontal Alignment</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.GridLayoutData#getHorizontalAlignment()
+	 * @see #getGridLayoutData()
+	 * @generated
+	 */
+	EAttribute getGridLayoutData_HorizontalAlignment();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.GridLayoutData#getVerticalSpan <em>Vertical Span</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Vertical Span</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.GridLayoutData#getVerticalSpan()
+	 * @see #getGridLayoutData()
+	 * @generated
+	 */
+	EAttribute getGridLayoutData_VerticalSpan();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.GridLayoutData#getHorizontalSpan <em>Horizontal Span</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Horizontal Span</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.GridLayoutData#getHorizontalSpan()
+	 * @see #getGridLayoutData()
+	 * @generated
+	 */
+	EAttribute getGridLayoutData_HorizontalSpan();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.GridLayoutData#getHorizontalIndent <em>Horizontal Indent</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Horizontal Indent</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.GridLayoutData#getHorizontalIndent()
+	 * @see #getGridLayoutData()
+	 * @generated
+	 */
+	EAttribute getGridLayoutData_HorizontalIndent();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.GridLayoutData#getSizeHint <em>Size Hint</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Size Hint</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.GridLayoutData#getSizeHint()
+	 * @see #getGridLayoutData()
+	 * @generated
+	 */
+	EReference getGridLayoutData_SizeHint();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.BorderLayoutData <em>Border Layout Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Border Layout Data</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.BorderLayoutData
+	 * @generated
+	 */
+	EClass getBorderLayoutData();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.BorderLayoutData#getAlignment <em>Alignment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Alignment</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.BorderLayoutData#getAlignment()
+	 * @see #getBorderLayoutData()
+	 * @generated
+	 */
+	EAttribute getBorderLayoutData_Alignment();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.BorderLayoutData#isVertical <em>Vertical</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Vertical</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.BorderLayoutData#isVertical()
+	 * @see #getBorderLayoutData()
+	 * @generated
+	 */
+	EAttribute getBorderLayoutData_Vertical();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.Layoutable <em>Layoutable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Layoutable</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Layoutable
+	 * @generated
+	 */
+	EClass getLayoutable();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.Layoutable#getLayoutData <em>Layout Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Layout Data</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Layoutable#getLayoutData()
+	 * @see #getLayoutable()
+	 * @generated
+	 */
+	EReference getLayoutable_LayoutData();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.Layoutable#getLayout <em>Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Layout</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Layoutable#getLayout()
+	 * @see #getLayoutable()
+	 * @generated
+	 */
+	EReference getLayoutable_Layout();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.Layout <em>Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Layout</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Layout
+	 * @generated
+	 */
+	EClass getLayout();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.CustomLayout <em>Custom Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Custom Layout</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.CustomLayout
+	 * @generated
+	 */
+	EClass getCustomLayout();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.GridLayout <em>Grid Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Grid Layout</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.GridLayout
+	 * @generated
+	 */
+	EClass getGridLayout();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.GridLayout#getNumColumns <em>Num Columns</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Num Columns</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.GridLayout#getNumColumns()
+	 * @see #getGridLayout()
+	 * @generated
+	 */
+	EAttribute getGridLayout_NumColumns();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.GridLayout#isEqualWidth <em>Equal Width</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Equal Width</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.GridLayout#isEqualWidth()
+	 * @see #getGridLayout()
+	 * @generated
+	 */
+	EAttribute getGridLayout_EqualWidth();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.GridLayout#getMargins <em>Margins</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Margins</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.GridLayout#getMargins()
+	 * @see #getGridLayout()
+	 * @generated
+	 */
+	EReference getGridLayout_Margins();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.GridLayout#getSpacing <em>Spacing</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Spacing</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.GridLayout#getSpacing()
+	 * @see #getGridLayout()
+	 * @generated
+	 */
+	EReference getGridLayout_Spacing();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.BorderLayout <em>Border Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Border Layout</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.BorderLayout
+	 * @generated
+	 */
+	EClass getBorderLayout();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.BorderLayout#getSpacing <em>Spacing</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Spacing</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.BorderLayout#getSpacing()
+	 * @see #getBorderLayout()
+	 * @generated
+	 */
+	EReference getBorderLayout_Spacing();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.CustomAttribute <em>Custom Attribute</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Custom Attribute</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.CustomAttribute
+	 * @generated
+	 */
+	EClass getCustomAttribute();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.CustomAttribute#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.CustomAttribute#getName()
+	 * @see #getCustomAttribute()
+	 * @generated
+	 */
+	EAttribute getCustomAttribute_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.CustomAttribute#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.CustomAttribute#getValue()
+	 * @see #getCustomAttribute()
+	 * @generated
+	 */
+	EAttribute getCustomAttribute_Value();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.CustomAttribute#isDirectAccess <em>Direct Access</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Direct Access</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.CustomAttribute#isDirectAccess()
+	 * @see #getCustomAttribute()
+	 * @generated
+	 */
+	EAttribute getCustomAttribute_DirectAccess();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.CustomAttribute#isMultiStatementValue <em>Multi Statement Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Multi Statement Value</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.CustomAttribute#isMultiStatementValue()
+	 * @see #getCustomAttribute()
+	 * @generated
+	 */
+	EAttribute getCustomAttribute_MultiStatementValue();
+
+	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.gmfgraph.ColorConstants <em>Color Constants</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5488,6 +6544,16 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getLineKind();
+
+	/**
+	 * Returns the meta object for enum '{@link org.eclipse.gmf.gmfgraph.Alignment <em>Alignment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Alignment</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.Alignment
+	 * @generated
+	 */
+	EEnum getAlignment();
 
 	/**
 	 * Returns the factory that creates the instances of the model.

@@ -12,7 +12,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.BasicFont;
+import org.eclipse.gmf.gmfgraph.BorderLayout;
+import org.eclipse.gmf.gmfgraph.BorderLayoutData;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Child;
 import org.eclipse.gmf.gmfgraph.ColorConstants;
@@ -20,10 +23,13 @@ import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.CompoundBorder;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
+import org.eclipse.gmf.gmfgraph.CustomAttribute;
 import org.eclipse.gmf.gmfgraph.CustomBorder;
 import org.eclipse.gmf.gmfgraph.CustomConnection;
 import org.eclipse.gmf.gmfgraph.CustomDecoration;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
+import org.eclipse.gmf.gmfgraph.CustomLayout;
+import org.eclipse.gmf.gmfgraph.CustomLayoutData;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Direction;
 import org.eclipse.gmf.gmfgraph.Ellipse;
@@ -34,6 +40,8 @@ import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.GeneralFacet;
 import org.eclipse.gmf.gmfgraph.GradientFacet;
+import org.eclipse.gmf.gmfgraph.GridLayout;
+import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.Insets;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.LabeledContainer;
@@ -126,6 +134,13 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 			case GMFGraphPackage.MARGIN_BORDER: return createMarginBorder();
 			case GMFGraphPackage.COMPOUND_BORDER: return createCompoundBorder();
 			case GMFGraphPackage.CUSTOM_BORDER: return createCustomBorder();
+			case GMFGraphPackage.CUSTOM_LAYOUT_DATA: return createCustomLayoutData();
+			case GMFGraphPackage.GRID_LAYOUT_DATA: return createGridLayoutData();
+			case GMFGraphPackage.BORDER_LAYOUT_DATA: return createBorderLayoutData();
+			case GMFGraphPackage.CUSTOM_LAYOUT: return createCustomLayout();
+			case GMFGraphPackage.GRID_LAYOUT: return createGridLayout();
+			case GMFGraphPackage.BORDER_LAYOUT: return createBorderLayout();
+			case GMFGraphPackage.CUSTOM_ATTRIBUTE: return createCustomAttribute();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -146,6 +161,8 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 				return createDirectionFromString(eDataType, initialValue);
 			case GMFGraphPackage.LINE_KIND:
 				return createLineKindFromString(eDataType, initialValue);
+			case GMFGraphPackage.ALIGNMENT:
+				return createAlignmentFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -166,6 +183,8 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 				return convertDirectionToString(eDataType, instanceValue);
 			case GMFGraphPackage.LINE_KIND:
 				return convertLineKindToString(eDataType, instanceValue);
+			case GMFGraphPackage.ALIGNMENT:
+				return convertAlignmentToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -496,6 +515,76 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public CustomLayoutData createCustomLayoutData() {
+		CustomLayoutDataImpl customLayoutData = new CustomLayoutDataImpl();
+		return customLayoutData;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GridLayoutData createGridLayoutData() {
+		GridLayoutDataImpl gridLayoutData = new GridLayoutDataImpl();
+		return gridLayoutData;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BorderLayoutData createBorderLayoutData() {
+		BorderLayoutDataImpl borderLayoutData = new BorderLayoutDataImpl();
+		return borderLayoutData;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CustomLayout createCustomLayout() {
+		CustomLayoutImpl customLayout = new CustomLayoutImpl();
+		return customLayout;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GridLayout createGridLayout() {
+		GridLayoutImpl gridLayout = new GridLayoutImpl();
+		return gridLayout;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BorderLayout createBorderLayout() {
+		BorderLayoutImpl borderLayout = new BorderLayoutImpl();
+		return borderLayout;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CustomAttribute createCustomAttribute() {
+		CustomAttributeImpl customAttribute = new CustomAttributeImpl();
+		return customAttribute;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ColorConstants createColorConstantsFromString(EDataType eDataType, String initialValue) {
 		ColorConstants result = ColorConstants.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -568,6 +657,26 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	 * @generated
 	 */
 	public String convertLineKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Alignment createAlignmentFromString(EDataType eDataType, String initialValue) {
+		Alignment result = Alignment.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertAlignmentToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

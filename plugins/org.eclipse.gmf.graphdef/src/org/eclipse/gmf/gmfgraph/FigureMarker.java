@@ -7,7 +7,6 @@
 package org.eclipse.gmf.gmfgraph;
 
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,5 +22,5 @@ import org.eclipse.emf.ecore.EObject;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface FigureMarker extends EObject {
+public interface FigureMarker extends Layoutable {
 } // FigureMarker

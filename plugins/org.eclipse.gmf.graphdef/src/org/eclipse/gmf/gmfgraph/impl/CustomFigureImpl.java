@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.gmfgraph.Border;
 import org.eclipse.gmf.gmfgraph.Color;
+import org.eclipse.gmf.gmfgraph.CustomAttribute;
 import org.eclipse.gmf.gmfgraph.CustomClass;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.Dimension;
@@ -28,6 +29,8 @@ import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Identity;
 import org.eclipse.gmf.gmfgraph.Insets;
+import org.eclipse.gmf.gmfgraph.Layout;
+import org.eclipse.gmf.gmfgraph.LayoutData;
 import org.eclipse.gmf.gmfgraph.Point;
 
 /**
@@ -37,6 +40,8 @@ import org.eclipse.gmf.gmfgraph.Point;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getLayoutData <em>Layout Data</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getLayout <em>Layout</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getParent <em>Parent</em>}</li>
@@ -50,15 +55,35 @@ import org.eclipse.gmf.gmfgraph.Point;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getBorder <em>Border</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getSize <em>Size</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getLayoutManager <em>Layout Manager</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getQualifiedClassName <em>Qualified Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getBundleName <em>Bundle Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomFigureImpl#getAttributes <em>Attributes</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
+	/**
+	 * The cached value of the '{@link #getLayoutData() <em>Layout Data</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLayoutData()
+	 * @generated
+	 * @ordered
+	 */
+	protected LayoutData layoutData = null;
+
+	/**
+	 * The cached value of the '{@link #getLayout() <em>Layout</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLayout()
+	 * @generated
+	 * @ordered
+	 */
+	protected Layout layout = null;
+
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -190,26 +215,6 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 	protected Point size = null;
 
 	/**
-	 * The default value of the '{@link #getLayoutManager() <em>Layout Manager</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLayoutManager()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String LAYOUT_MANAGER_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getLayoutManager() <em>Layout Manager</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLayoutManager()
-	 * @generated
-	 * @ordered
-	 */
-	protected String layoutManager = LAYOUT_MANAGER_EDEFAULT;
-
-	/**
 	 * The default value of the '{@link #getQualifiedClassName() <em>Qualified Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -250,6 +255,16 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 	protected String bundleName = BUNDLE_NAME_EDEFAULT;
 
 	/**
+	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAttributes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList attributes = null;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -265,6 +280,92 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 	 */
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getCustomFigure();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LayoutData getLayoutData() {
+		return layoutData;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetLayoutData(LayoutData newLayoutData, NotificationChain msgs) {
+		LayoutData oldLayoutData = layoutData;
+		layoutData = newLayoutData;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGraphPackage.CUSTOM_FIGURE__LAYOUT_DATA, oldLayoutData, newLayoutData);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLayoutData(LayoutData newLayoutData) {
+		if (newLayoutData != layoutData) {
+			NotificationChain msgs = null;
+			if (layoutData != null)
+				msgs = ((InternalEObject)layoutData).eInverseRemove(this, GMFGraphPackage.LAYOUT_DATA__OWNER, LayoutData.class, msgs);
+			if (newLayoutData != null)
+				msgs = ((InternalEObject)newLayoutData).eInverseAdd(this, GMFGraphPackage.LAYOUT_DATA__OWNER, LayoutData.class, msgs);
+			msgs = basicSetLayoutData(newLayoutData, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.CUSTOM_FIGURE__LAYOUT_DATA, newLayoutData, newLayoutData));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Layout getLayout() {
+		return layout;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetLayout(Layout newLayout, NotificationChain msgs) {
+		Layout oldLayout = layout;
+		layout = newLayout;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGraphPackage.CUSTOM_FIGURE__LAYOUT, oldLayout, newLayout);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLayout(Layout newLayout) {
+		if (newLayout != layout) {
+			NotificationChain msgs = null;
+			if (layout != null)
+				msgs = ((InternalEObject)layout).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGraphPackage.CUSTOM_FIGURE__LAYOUT, null, msgs);
+			if (newLayout != null)
+				msgs = ((InternalEObject)newLayout).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGraphPackage.CUSTOM_FIGURE__LAYOUT, null, msgs);
+			msgs = basicSetLayout(newLayout, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.CUSTOM_FIGURE__LAYOUT, newLayout, newLayout));
 	}
 
 	/**
@@ -745,27 +846,6 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getLayoutManager() {
-		return layoutManager;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setLayoutManager(String newLayoutManager) {
-		String oldLayoutManager = layoutManager;
-		layoutManager = newLayoutManager;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.CUSTOM_FIGURE__LAYOUT_MANAGER, oldLayoutManager, layoutManager));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getQualifiedClassName() {
 		return qualifiedClassName;
 	}
@@ -808,8 +888,24 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList getAttributes() {
+		if (attributes == null) {
+			attributes = new EObjectContainmentEList(CustomAttribute.class, this, GMFGraphPackage.CUSTOM_FIGURE__ATTRIBUTES);
+		}
+		return attributes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT_DATA:
+				if (layoutData != null)
+					msgs = ((InternalEObject)layoutData).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGraphPackage.CUSTOM_FIGURE__LAYOUT_DATA, null, msgs);
+				return basicSetLayoutData((LayoutData)otherEnd, msgs);
 			case GMFGraphPackage.CUSTOM_FIGURE__PARENT:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
@@ -825,6 +921,10 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT_DATA:
+				return basicSetLayoutData(null, msgs);
+			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT:
+				return basicSetLayout(null, msgs);
 			case GMFGraphPackage.CUSTOM_FIGURE__CHILDREN:
 				return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.CUSTOM_FIGURE__PARENT:
@@ -849,6 +949,8 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 				return basicSetLocation(null, msgs);
 			case GMFGraphPackage.CUSTOM_FIGURE__SIZE:
 				return basicSetSize(null, msgs);
+			case GMFGraphPackage.CUSTOM_FIGURE__ATTRIBUTES:
+				return ((InternalEList)getAttributes()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -873,6 +975,10 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT_DATA:
+				return getLayoutData();
+			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT:
+				return getLayout();
 			case GMFGraphPackage.CUSTOM_FIGURE__NAME:
 				return getName();
 			case GMFGraphPackage.CUSTOM_FIGURE__CHILDREN:
@@ -899,12 +1005,12 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 				return getLocation();
 			case GMFGraphPackage.CUSTOM_FIGURE__SIZE:
 				return getSize();
-			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT_MANAGER:
-				return getLayoutManager();
 			case GMFGraphPackage.CUSTOM_FIGURE__QUALIFIED_CLASS_NAME:
 				return getQualifiedClassName();
 			case GMFGraphPackage.CUSTOM_FIGURE__BUNDLE_NAME:
 				return getBundleName();
+			case GMFGraphPackage.CUSTOM_FIGURE__ATTRIBUTES:
+				return getAttributes();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -916,6 +1022,12 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT_DATA:
+				setLayoutData((LayoutData)newValue);
+				return;
+			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT:
+				setLayout((Layout)newValue);
+				return;
 			case GMFGraphPackage.CUSTOM_FIGURE__NAME:
 				setName((String)newValue);
 				return;
@@ -953,14 +1065,15 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 			case GMFGraphPackage.CUSTOM_FIGURE__SIZE:
 				setSize((Point)newValue);
 				return;
-			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT_MANAGER:
-				setLayoutManager((String)newValue);
-				return;
 			case GMFGraphPackage.CUSTOM_FIGURE__QUALIFIED_CLASS_NAME:
 				setQualifiedClassName((String)newValue);
 				return;
 			case GMFGraphPackage.CUSTOM_FIGURE__BUNDLE_NAME:
 				setBundleName((String)newValue);
+				return;
+			case GMFGraphPackage.CUSTOM_FIGURE__ATTRIBUTES:
+				getAttributes().clear();
+				getAttributes().addAll((Collection)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -973,6 +1086,12 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT_DATA:
+				setLayoutData((LayoutData)null);
+				return;
+			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT:
+				setLayout((Layout)null);
+				return;
 			case GMFGraphPackage.CUSTOM_FIGURE__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -1009,14 +1128,14 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 			case GMFGraphPackage.CUSTOM_FIGURE__SIZE:
 				setSize((Point)null);
 				return;
-			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT_MANAGER:
-				setLayoutManager(LAYOUT_MANAGER_EDEFAULT);
-				return;
 			case GMFGraphPackage.CUSTOM_FIGURE__QUALIFIED_CLASS_NAME:
 				setQualifiedClassName(QUALIFIED_CLASS_NAME_EDEFAULT);
 				return;
 			case GMFGraphPackage.CUSTOM_FIGURE__BUNDLE_NAME:
 				setBundleName(BUNDLE_NAME_EDEFAULT);
+				return;
+			case GMFGraphPackage.CUSTOM_FIGURE__ATTRIBUTES:
+				getAttributes().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -1029,6 +1148,10 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT_DATA:
+				return layoutData != null;
+			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT:
+				return layout != null;
 			case GMFGraphPackage.CUSTOM_FIGURE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GMFGraphPackage.CUSTOM_FIGURE__CHILDREN:
@@ -1055,12 +1178,12 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 				return location != null;
 			case GMFGraphPackage.CUSTOM_FIGURE__SIZE:
 				return size != null;
-			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT_MANAGER:
-				return LAYOUT_MANAGER_EDEFAULT == null ? layoutManager != null : !LAYOUT_MANAGER_EDEFAULT.equals(layoutManager);
 			case GMFGraphPackage.CUSTOM_FIGURE__QUALIFIED_CLASS_NAME:
 				return QUALIFIED_CLASS_NAME_EDEFAULT == null ? qualifiedClassName != null : !QUALIFIED_CLASS_NAME_EDEFAULT.equals(qualifiedClassName);
 			case GMFGraphPackage.CUSTOM_FIGURE__BUNDLE_NAME:
 				return BUNDLE_NAME_EDEFAULT == null ? bundleName != null : !BUNDLE_NAME_EDEFAULT.equals(bundleName);
+			case GMFGraphPackage.CUSTOM_FIGURE__ATTRIBUTES:
+				return attributes != null && !attributes.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1081,6 +1204,7 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 			switch (derivedFeatureID) {
 				case GMFGraphPackage.CUSTOM_FIGURE__QUALIFIED_CLASS_NAME: return GMFGraphPackage.CUSTOM_CLASS__QUALIFIED_CLASS_NAME;
 				case GMFGraphPackage.CUSTOM_FIGURE__BUNDLE_NAME: return GMFGraphPackage.CUSTOM_CLASS__BUNDLE_NAME;
+				case GMFGraphPackage.CUSTOM_FIGURE__ATTRIBUTES: return GMFGraphPackage.CUSTOM_CLASS__ATTRIBUTES;
 				default: return -1;
 			}
 		}
@@ -1103,6 +1227,7 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 			switch (baseFeatureID) {
 				case GMFGraphPackage.CUSTOM_CLASS__QUALIFIED_CLASS_NAME: return GMFGraphPackage.CUSTOM_FIGURE__QUALIFIED_CLASS_NAME;
 				case GMFGraphPackage.CUSTOM_CLASS__BUNDLE_NAME: return GMFGraphPackage.CUSTOM_FIGURE__BUNDLE_NAME;
+				case GMFGraphPackage.CUSTOM_CLASS__ATTRIBUTES: return GMFGraphPackage.CUSTOM_FIGURE__ATTRIBUTES;
 				default: return -1;
 			}
 		}
@@ -1120,8 +1245,6 @@ public class CustomFigureImpl extends EObjectImpl implements CustomFigure {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
-		result.append(", layoutManager: ");
-		result.append(layoutManager);
 		result.append(", qualifiedClassName: ");
 		result.append(qualifiedClassName);
 		result.append(", bundleName: ");

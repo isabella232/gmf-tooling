@@ -12,6 +12,8 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.Border;
+import org.eclipse.gmf.gmfgraph.BorderLayout;
+import org.eclipse.gmf.gmfgraph.BorderLayoutData;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Child;
 import org.eclipse.gmf.gmfgraph.Color;
@@ -20,11 +22,14 @@ import org.eclipse.gmf.gmfgraph.CompoundBorder;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.ConnectionFigure;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
+import org.eclipse.gmf.gmfgraph.CustomAttribute;
 import org.eclipse.gmf.gmfgraph.CustomBorder;
 import org.eclipse.gmf.gmfgraph.CustomClass;
 import org.eclipse.gmf.gmfgraph.CustomConnection;
 import org.eclipse.gmf.gmfgraph.CustomDecoration;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
+import org.eclipse.gmf.gmfgraph.CustomLayout;
+import org.eclipse.gmf.gmfgraph.CustomLayoutData;
 import org.eclipse.gmf.gmfgraph.DecorationFigure;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.Dimension;
@@ -37,10 +42,15 @@ import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.GeneralFacet;
 import org.eclipse.gmf.gmfgraph.GradientFacet;
+import org.eclipse.gmf.gmfgraph.GridLayout;
+import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.Identity;
 import org.eclipse.gmf.gmfgraph.Insets;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.LabeledContainer;
+import org.eclipse.gmf.gmfgraph.Layout;
+import org.eclipse.gmf.gmfgraph.LayoutData;
+import org.eclipse.gmf.gmfgraph.Layoutable;
 import org.eclipse.gmf.gmfgraph.LineBorder;
 import org.eclipse.gmf.gmfgraph.MarginBorder;
 import org.eclipse.gmf.gmfgraph.Node;
@@ -242,6 +252,36 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseCustomBorder(CustomBorder object) {
 				return createCustomBorderAdapter();
+			}
+			public Object caseLayoutData(LayoutData object) {
+				return createLayoutDataAdapter();
+			}
+			public Object caseCustomLayoutData(CustomLayoutData object) {
+				return createCustomLayoutDataAdapter();
+			}
+			public Object caseGridLayoutData(GridLayoutData object) {
+				return createGridLayoutDataAdapter();
+			}
+			public Object caseBorderLayoutData(BorderLayoutData object) {
+				return createBorderLayoutDataAdapter();
+			}
+			public Object caseLayoutable(Layoutable object) {
+				return createLayoutableAdapter();
+			}
+			public Object caseLayout(Layout object) {
+				return createLayoutAdapter();
+			}
+			public Object caseCustomLayout(CustomLayout object) {
+				return createCustomLayoutAdapter();
+			}
+			public Object caseGridLayout(GridLayout object) {
+				return createGridLayoutAdapter();
+			}
+			public Object caseBorderLayout(BorderLayout object) {
+				return createBorderLayoutAdapter();
+			}
+			public Object caseCustomAttribute(CustomAttribute object) {
+				return createCustomAttributeAdapter();
 			}
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
@@ -874,6 +914,146 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCustomBorderAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.LayoutData <em>Layout Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.LayoutData
+	 * @generated
+	 */
+	public Adapter createLayoutDataAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.CustomLayoutData <em>Custom Layout Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.CustomLayoutData
+	 * @generated
+	 */
+	public Adapter createCustomLayoutDataAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.GridLayoutData <em>Grid Layout Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.GridLayoutData
+	 * @generated
+	 */
+	public Adapter createGridLayoutDataAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.BorderLayoutData <em>Border Layout Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.BorderLayoutData
+	 * @generated
+	 */
+	public Adapter createBorderLayoutDataAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.Layoutable <em>Layoutable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.Layoutable
+	 * @generated
+	 */
+	public Adapter createLayoutableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.Layout <em>Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.Layout
+	 * @generated
+	 */
+	public Adapter createLayoutAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.CustomLayout <em>Custom Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.CustomLayout
+	 * @generated
+	 */
+	public Adapter createCustomLayoutAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.GridLayout <em>Grid Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.GridLayout
+	 * @generated
+	 */
+	public Adapter createGridLayoutAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.BorderLayout <em>Border Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.BorderLayout
+	 * @generated
+	 */
+	public Adapter createBorderLayoutAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.CustomAttribute <em>Custom Attribute</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.CustomAttribute
+	 * @generated
+	 */
+	public Adapter createCustomAttributeAdapter() {
 		return null;
 	}
 

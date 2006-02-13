@@ -61,8 +61,8 @@ public class ShapeItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addLayoutPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
-			addLayoutManagerPropertyDescriptor(object);
 			addOutlinePropertyDescriptor(object);
 			addFillPropertyDescriptor(object);
 			addLineWidthPropertyDescriptor(object);
@@ -72,6 +72,26 @@ public class ShapeItemProvider
 			addResolvedChildrenPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Layout feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLayoutPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Layoutable_layout_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Layoutable_layout_feature", "_UI_Layoutable_type"),
+				 GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -88,26 +108,6 @@ public class ShapeItemProvider
 				 getString("_UI_Identity_name_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Identity_name_feature", "_UI_Identity_type"),
 				 GMFGraphPackage.eINSTANCE.getIdentity_Name(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Layout Manager feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addLayoutManagerPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Figure_layoutManager_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Figure_layoutManager_feature", "_UI_Figure_type"),
-				 GMFGraphPackage.eINSTANCE.getFigure_LayoutManager(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -265,6 +265,8 @@ public class ShapeItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getLayoutable_Layout());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Children());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor());
@@ -317,7 +319,6 @@ public class ShapeItemProvider
 
 		switch (notification.getFeatureID(Shape.class)) {
 			case GMFGraphPackage.SHAPE__NAME:
-			case GMFGraphPackage.SHAPE__LAYOUT_MANAGER:
 			case GMFGraphPackage.SHAPE__OUTLINE:
 			case GMFGraphPackage.SHAPE__FILL:
 			case GMFGraphPackage.SHAPE__LINE_WIDTH:
@@ -326,6 +327,7 @@ public class ShapeItemProvider
 			case GMFGraphPackage.SHAPE__XOR_OUTLINE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
+			case GMFGraphPackage.SHAPE__LAYOUT_DATA:
 			case GMFGraphPackage.SHAPE__CHILDREN:
 			case GMFGraphPackage.SHAPE__FOREGROUND_COLOR:
 			case GMFGraphPackage.SHAPE__BACKGROUND_COLOR:
@@ -352,6 +354,36 @@ public class ShapeItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(),
+				 GMFGraphFactory.eINSTANCE.createCustomLayoutData()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(),
+				 GMFGraphFactory.eINSTANCE.createGridLayoutData()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(),
+				 GMFGraphFactory.eINSTANCE.createBorderLayoutData()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 GMFGraphFactory.eINSTANCE.createCustomLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 GMFGraphFactory.eINSTANCE.createGridLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 GMFGraphFactory.eINSTANCE.createBorderLayout()));
 
 		newChildDescriptors.add
 			(createChildParameter

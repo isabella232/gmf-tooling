@@ -12,8 +12,11 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
+import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.Border;
+import org.eclipse.gmf.gmfgraph.BorderLayout;
+import org.eclipse.gmf.gmfgraph.BorderLayoutData;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Child;
 import org.eclipse.gmf.gmfgraph.Color;
@@ -23,11 +26,14 @@ import org.eclipse.gmf.gmfgraph.CompoundBorder;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.ConnectionFigure;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
+import org.eclipse.gmf.gmfgraph.CustomAttribute;
 import org.eclipse.gmf.gmfgraph.CustomBorder;
 import org.eclipse.gmf.gmfgraph.CustomClass;
 import org.eclipse.gmf.gmfgraph.CustomConnection;
 import org.eclipse.gmf.gmfgraph.CustomDecoration;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
+import org.eclipse.gmf.gmfgraph.CustomLayout;
+import org.eclipse.gmf.gmfgraph.CustomLayoutData;
 import org.eclipse.gmf.gmfgraph.DecorationFigure;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.Dimension;
@@ -43,10 +49,15 @@ import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.GeneralFacet;
 import org.eclipse.gmf.gmfgraph.GradientFacet;
+import org.eclipse.gmf.gmfgraph.GridLayout;
+import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.Identity;
 import org.eclipse.gmf.gmfgraph.Insets;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.LabeledContainer;
+import org.eclipse.gmf.gmfgraph.Layout;
+import org.eclipse.gmf.gmfgraph.LayoutData;
+import org.eclipse.gmf.gmfgraph.Layoutable;
 import org.eclipse.gmf.gmfgraph.LineBorder;
 import org.eclipse.gmf.gmfgraph.LineKind;
 import org.eclipse.gmf.gmfgraph.MarginBorder;
@@ -383,6 +394,76 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass layoutDataEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass customLayoutDataEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass gridLayoutDataEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass borderLayoutDataEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass layoutableEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass layoutEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass customLayoutEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass gridLayoutEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass borderLayoutEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass customAttributeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum colorConstantsEEnum = null;
 
 	/**
@@ -405,6 +486,13 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * @generated
 	 */
 	private EEnum lineKindEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum alignmentEEnum = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -848,15 +936,6 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getFigure_LayoutManager() {
-		return (EAttribute)figureEClass.getEStructuralFeatures().get(12);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getFigureRef() {
 		return figureRefEClass;
 	}
@@ -1129,6 +1208,15 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 */
 	public EAttribute getCustomClass_BundleName() {
 		return (EAttribute)customClassEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCustomClass_Attributes() {
+		return (EReference)customClassEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1469,6 +1557,294 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getLayoutData() {
+		return layoutDataEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLayoutData_Owner() {
+		return (EReference)layoutDataEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCustomLayoutData() {
+		return customLayoutDataEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGridLayoutData() {
+		return gridLayoutDataEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGridLayoutData_GrabExcessHorizontalSpace() {
+		return (EAttribute)gridLayoutDataEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGridLayoutData_GrabExcessVerticalSpace() {
+		return (EAttribute)gridLayoutDataEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGridLayoutData_VerticalAlignment() {
+		return (EAttribute)gridLayoutDataEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGridLayoutData_HorizontalAlignment() {
+		return (EAttribute)gridLayoutDataEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGridLayoutData_VerticalSpan() {
+		return (EAttribute)gridLayoutDataEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGridLayoutData_HorizontalSpan() {
+		return (EAttribute)gridLayoutDataEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGridLayoutData_HorizontalIndent() {
+		return (EAttribute)gridLayoutDataEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGridLayoutData_SizeHint() {
+		return (EReference)gridLayoutDataEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getBorderLayoutData() {
+		return borderLayoutDataEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBorderLayoutData_Alignment() {
+		return (EAttribute)borderLayoutDataEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getBorderLayoutData_Vertical() {
+		return (EAttribute)borderLayoutDataEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLayoutable() {
+		return layoutableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLayoutable_LayoutData() {
+		return (EReference)layoutableEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLayoutable_Layout() {
+		return (EReference)layoutableEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLayout() {
+		return layoutEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCustomLayout() {
+		return customLayoutEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGridLayout() {
+		return gridLayoutEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGridLayout_NumColumns() {
+		return (EAttribute)gridLayoutEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGridLayout_EqualWidth() {
+		return (EAttribute)gridLayoutEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGridLayout_Margins() {
+		return (EReference)gridLayoutEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGridLayout_Spacing() {
+		return (EReference)gridLayoutEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getBorderLayout() {
+		return borderLayoutEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBorderLayout_Spacing() {
+		return (EReference)borderLayoutEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCustomAttribute() {
+		return customAttributeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCustomAttribute_Name() {
+		return (EAttribute)customAttributeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCustomAttribute_Value() {
+		return (EAttribute)customAttributeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCustomAttribute_DirectAccess() {
+		return (EAttribute)customAttributeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getCustomAttribute_MultiStatementValue() {
+		return (EAttribute)customAttributeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getColorConstants() {
 		return colorConstantsEEnum;
 	}
@@ -1489,6 +1865,15 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 */
 	public EEnum getLineKind() {
 		return lineKindEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getAlignment() {
+		return alignmentEEnum;
 	}
 
 	/**
@@ -1572,7 +1957,6 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		createEReference(figureEClass, FIGURE__BORDER);
 		createEReference(figureEClass, FIGURE__LOCATION);
 		createEReference(figureEClass, FIGURE__SIZE);
-		createEAttribute(figureEClass, FIGURE__LAYOUT_MANAGER);
 
 		figureRefEClass = createEClass(FIGURE_REF);
 		createEReference(figureRefEClass, FIGURE_REF__FIGURE);
@@ -1619,6 +2003,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		customClassEClass = createEClass(CUSTOM_CLASS);
 		createEAttribute(customClassEClass, CUSTOM_CLASS__QUALIFIED_CLASS_NAME);
 		createEAttribute(customClassEClass, CUSTOM_CLASS__BUNDLE_NAME);
+		createEReference(customClassEClass, CUSTOM_CLASS__ATTRIBUTES);
 
 		customFigureEClass = createEClass(CUSTOM_FIGURE);
 
@@ -1672,11 +2057,54 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		customBorderEClass = createEClass(CUSTOM_BORDER);
 
+		layoutDataEClass = createEClass(LAYOUT_DATA);
+		createEReference(layoutDataEClass, LAYOUT_DATA__OWNER);
+
+		customLayoutDataEClass = createEClass(CUSTOM_LAYOUT_DATA);
+
+		gridLayoutDataEClass = createEClass(GRID_LAYOUT_DATA);
+		createEAttribute(gridLayoutDataEClass, GRID_LAYOUT_DATA__GRAB_EXCESS_HORIZONTAL_SPACE);
+		createEAttribute(gridLayoutDataEClass, GRID_LAYOUT_DATA__GRAB_EXCESS_VERTICAL_SPACE);
+		createEAttribute(gridLayoutDataEClass, GRID_LAYOUT_DATA__VERTICAL_ALIGNMENT);
+		createEAttribute(gridLayoutDataEClass, GRID_LAYOUT_DATA__HORIZONTAL_ALIGNMENT);
+		createEAttribute(gridLayoutDataEClass, GRID_LAYOUT_DATA__VERTICAL_SPAN);
+		createEAttribute(gridLayoutDataEClass, GRID_LAYOUT_DATA__HORIZONTAL_SPAN);
+		createEAttribute(gridLayoutDataEClass, GRID_LAYOUT_DATA__HORIZONTAL_INDENT);
+		createEReference(gridLayoutDataEClass, GRID_LAYOUT_DATA__SIZE_HINT);
+
+		borderLayoutDataEClass = createEClass(BORDER_LAYOUT_DATA);
+		createEAttribute(borderLayoutDataEClass, BORDER_LAYOUT_DATA__ALIGNMENT);
+		createEAttribute(borderLayoutDataEClass, BORDER_LAYOUT_DATA__VERTICAL);
+
+		layoutableEClass = createEClass(LAYOUTABLE);
+		createEReference(layoutableEClass, LAYOUTABLE__LAYOUT_DATA);
+		createEReference(layoutableEClass, LAYOUTABLE__LAYOUT);
+
+		layoutEClass = createEClass(LAYOUT);
+
+		customLayoutEClass = createEClass(CUSTOM_LAYOUT);
+
+		gridLayoutEClass = createEClass(GRID_LAYOUT);
+		createEAttribute(gridLayoutEClass, GRID_LAYOUT__NUM_COLUMNS);
+		createEAttribute(gridLayoutEClass, GRID_LAYOUT__EQUAL_WIDTH);
+		createEReference(gridLayoutEClass, GRID_LAYOUT__MARGINS);
+		createEReference(gridLayoutEClass, GRID_LAYOUT__SPACING);
+
+		borderLayoutEClass = createEClass(BORDER_LAYOUT);
+		createEReference(borderLayoutEClass, BORDER_LAYOUT__SPACING);
+
+		customAttributeEClass = createEClass(CUSTOM_ATTRIBUTE);
+		createEAttribute(customAttributeEClass, CUSTOM_ATTRIBUTE__NAME);
+		createEAttribute(customAttributeEClass, CUSTOM_ATTRIBUTE__VALUE);
+		createEAttribute(customAttributeEClass, CUSTOM_ATTRIBUTE__DIRECT_ACCESS);
+		createEAttribute(customAttributeEClass, CUSTOM_ATTRIBUTE__MULTI_STATEMENT_VALUE);
+
 		// Create enums
 		colorConstantsEEnum = createEEnum(COLOR_CONSTANTS);
 		fontStyleEEnum = createEEnum(FONT_STYLE);
 		directionEEnum = createEEnum(DIRECTION);
 		lineKindEEnum = createEEnum(LINE_KIND);
+		alignmentEEnum = createEEnum(ALIGNMENT);
 	}
 
 	/**
@@ -1712,6 +2140,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		childEClass.getESuperTypes().add(this.getDiagramElement());
 		generalFacetEClass.getESuperTypes().add(this.getVisualFacet());
 		gradientFacetEClass.getESuperTypes().add(this.getVisualFacet());
+		figureMarkerEClass.getESuperTypes().add(this.getLayoutable());
 		figureEClass.getESuperTypes().add(this.getFigureMarker());
 		figureEClass.getESuperTypes().add(this.getIdentity());
 		figureRefEClass.getESuperTypes().add(this.getFigureMarker());
@@ -1744,6 +2173,14 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		compoundBorderEClass.getESuperTypes().add(this.getBorder());
 		customBorderEClass.getESuperTypes().add(this.getBorder());
 		customBorderEClass.getESuperTypes().add(this.getCustomClass());
+		customLayoutDataEClass.getESuperTypes().add(this.getLayoutData());
+		customLayoutDataEClass.getESuperTypes().add(this.getCustomClass());
+		gridLayoutDataEClass.getESuperTypes().add(this.getLayoutData());
+		borderLayoutDataEClass.getESuperTypes().add(this.getLayoutData());
+		customLayoutEClass.getESuperTypes().add(this.getLayout());
+		customLayoutEClass.getESuperTypes().add(this.getCustomClass());
+		gridLayoutEClass.getESuperTypes().add(this.getLayout());
+		borderLayoutEClass.getESuperTypes().add(this.getLayout());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(canvasEClass, Canvas.class, "Canvas", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1799,7 +2236,6 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEReference(getFigure_Border(), this.getBorder(), null, "border", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFigure_Location(), this.getPoint(), null, "location", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFigure_Size(), this.getPoint(), null, "size", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getFigure_LayoutManager(), ecorePackage.getEString(), "layoutManager", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(figureRefEClass, FigureRef.class, "FigureRef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFigureRef_Figure(), this.getFigure(), null, "figure", null, 1, 1, FigureRef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1846,6 +2282,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEClass(customClassEClass, CustomClass.class, "CustomClass", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCustomClass_QualifiedClassName(), ecorePackage.getEString(), "qualifiedClassName", null, 0, 1, CustomClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCustomClass_BundleName(), ecorePackage.getEString(), "bundleName", null, 0, 1, CustomClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCustomClass_Attributes(), this.getCustomAttribute(), null, "attributes", null, 0, -1, CustomClass.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(customFigureEClass, CustomFigure.class, "CustomFigure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1899,6 +2336,48 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 
 		initEClass(customBorderEClass, CustomBorder.class, "CustomBorder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		initEClass(layoutDataEClass, LayoutData.class, "LayoutData", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLayoutData_Owner(), this.getLayoutable(), this.getLayoutable_LayoutData(), "owner", null, 1, 1, LayoutData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(customLayoutDataEClass, CustomLayoutData.class, "CustomLayoutData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(gridLayoutDataEClass, GridLayoutData.class, "GridLayoutData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGridLayoutData_GrabExcessHorizontalSpace(), ecorePackage.getEBoolean(), "grabExcessHorizontalSpace", "false", 1, 1, GridLayoutData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGridLayoutData_GrabExcessVerticalSpace(), ecorePackage.getEBoolean(), "grabExcessVerticalSpace", "false", 1, 1, GridLayoutData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGridLayoutData_VerticalAlignment(), this.getAlignment(), "verticalAlignment", "CENTER", 1, 1, GridLayoutData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGridLayoutData_HorizontalAlignment(), this.getAlignment(), "horizontalAlignment", "CENTER", 1, 1, GridLayoutData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGridLayoutData_VerticalSpan(), ecorePackage.getEInt(), "verticalSpan", "1", 1, 1, GridLayoutData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGridLayoutData_HorizontalSpan(), ecorePackage.getEInt(), "horizontalSpan", "1", 1, 1, GridLayoutData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGridLayoutData_HorizontalIndent(), ecorePackage.getEInt(), "horizontalIndent", null, 1, 1, GridLayoutData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGridLayoutData_SizeHint(), this.getDimension(), null, "sizeHint", null, 0, 1, GridLayoutData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(borderLayoutDataEClass, BorderLayoutData.class, "BorderLayoutData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getBorderLayoutData_Alignment(), this.getAlignment(), "alignment", "CENTER", 1, 1, BorderLayoutData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getBorderLayoutData_Vertical(), ecorePackage.getEBoolean(), "vertical", "false", 0, 1, BorderLayoutData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(layoutableEClass, Layoutable.class, "Layoutable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLayoutable_LayoutData(), this.getLayoutData(), this.getLayoutData_Owner(), "layoutData", "", 0, 1, Layoutable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLayoutable_Layout(), this.getLayout(), null, "layout", null, 0, 1, Layoutable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(layoutEClass, Layout.class, "Layout", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(customLayoutEClass, CustomLayout.class, "CustomLayout", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(gridLayoutEClass, GridLayout.class, "GridLayout", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGridLayout_NumColumns(), ecorePackage.getEInt(), "numColumns", "1", 1, 1, GridLayout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGridLayout_EqualWidth(), ecorePackage.getEBoolean(), "equalWidth", "true", 1, 1, GridLayout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGridLayout_Margins(), this.getDimension(), null, "margins", null, 0, 1, GridLayout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGridLayout_Spacing(), this.getDimension(), null, "spacing", null, 0, 1, GridLayout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(borderLayoutEClass, BorderLayout.class, "BorderLayout", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getBorderLayout_Spacing(), this.getDimension(), null, "spacing", null, 0, 1, BorderLayout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(customAttributeEClass, CustomAttribute.class, "CustomAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getCustomAttribute_Name(), ecorePackage.getEString(), "name", null, 1, 1, CustomAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCustomAttribute_Value(), ecorePackage.getEString(), "value", "null", 1, 1, CustomAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCustomAttribute_DirectAccess(), ecorePackage.getEBoolean(), "directAccess", "false", 1, 1, CustomAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getCustomAttribute_MultiStatementValue(), ecorePackage.getEBoolean(), "multiStatementValue", "false", 1, 1, CustomAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(colorConstantsEEnum, ColorConstants.class, "ColorConstants");
 		addEEnumLiteral(colorConstantsEEnum, ColorConstants.WHITE_LITERAL);
@@ -1942,6 +2421,12 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		addEEnumLiteral(lineKindEEnum, LineKind.LINE_DASHDOT_LITERAL);
 		addEEnumLiteral(lineKindEEnum, LineKind.LINE_DASHDOTDOT_LITERAL);
 		addEEnumLiteral(lineKindEEnum, LineKind.LINE_CUSTOM_LITERAL);
+
+		initEEnum(alignmentEEnum, Alignment.class, "Alignment");
+		addEEnumLiteral(alignmentEEnum, Alignment.BEGINNING_LITERAL);
+		addEEnumLiteral(alignmentEEnum, Alignment.CENTER_LITERAL);
+		addEEnumLiteral(alignmentEEnum, Alignment.END_LITERAL);
+		addEEnumLiteral(alignmentEEnum, Alignment.FILL_LITERAL);
 
 		// Create resource
 		createResource(eNS_URI);

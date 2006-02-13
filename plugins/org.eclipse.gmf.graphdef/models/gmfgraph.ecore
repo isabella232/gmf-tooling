@@ -65,7 +65,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="GradientFacet" eSuperTypes="#//VisualFacet">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="#//Direction"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FigureMarker" interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="FigureMarker" interface="true" eSuperTypes="#//Layoutable">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Anything you could combine visual representation from. Ordinary GEF figures, custom-defined or references to defined elsewhere."/>
     </eAnnotations>
@@ -97,7 +97,6 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="size" eType="#//Point"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="layoutManager" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FigureRef" eSuperTypes="#//FigureMarker">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -192,6 +191,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="CustomClass" interface="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="qualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="bundleName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
+        eType="#//CustomAttribute" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CustomFigure" eSuperTypes="#//Figure #//CustomClass">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -299,5 +300,73 @@
     <eLiterals name="LINE_DASHDOT" value="4"/>
     <eLiterals name="LINE_DASHDOTDOT" value="5"/>
     <eLiterals name="LINE_CUSTOM" value="6"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LayoutData" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owner" lowerBound="1" eType="#//Layoutable"
+        eOpposite="#//Layoutable/layoutData"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomLayoutData" eSuperTypes="#//LayoutData #//CustomClass"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GridLayoutData" eSuperTypes="#//LayoutData">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="grabExcessHorizontalSpace"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="grabExcessVerticalSpace"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="verticalAlignment" lowerBound="1"
+        eType="#//Alignment" defaultValueLiteral="CENTER"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="horizontalAlignment" lowerBound="1"
+        eType="#//Alignment" defaultValueLiteral="CENTER"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="verticalSpan" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="horizontalSpan" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="horizontalIndent" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sizeHint" eType="#//Dimension"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BorderLayoutData" eSuperTypes="#//LayoutData">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alignment" lowerBound="1"
+        eType="#//Alignment" defaultValueLiteral="CENTER"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="vertical" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="Alignment">
+    <eLiterals name="BEGINNING"/>
+    <eLiterals name="CENTER" value="1"/>
+    <eLiterals name="END" value="2"/>
+    <eLiterals name="FILL" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Layoutable" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="layoutData" eType="#//LayoutData"
+        defaultValueLiteral="" containment="true" eOpposite="#//LayoutData/owner"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="layout" eType="#//Layout"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Layout" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomLayout" eSuperTypes="#//Layout #//CustomClass"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GridLayout" eSuperTypes="#//Layout">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numColumns" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="equalWidth" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="margins" eType="#//Dimension"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="spacing" eType="#//Dimension"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BorderLayout" eSuperTypes="#//Layout">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="spacing" eType="#//Dimension"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomAttribute">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="null"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="directAccess" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="multiStatementValue" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -27,6 +27,8 @@ import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Identity;
 import org.eclipse.gmf.gmfgraph.Insets;
 import org.eclipse.gmf.gmfgraph.Label;
+import org.eclipse.gmf.gmfgraph.Layout;
+import org.eclipse.gmf.gmfgraph.LayoutData;
 import org.eclipse.gmf.gmfgraph.Point;
 
 /**
@@ -36,6 +38,8 @@ import org.eclipse.gmf.gmfgraph.Point;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getLayoutData <em>Layout Data</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getLayout <em>Layout</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getParent <em>Parent</em>}</li>
@@ -49,7 +53,6 @@ import org.eclipse.gmf.gmfgraph.Point;
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getBorder <em>Border</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getSize <em>Size</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getLayoutManager <em>Layout Manager</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getText <em>Text</em>}</li>
  * </ul>
  * </p>
@@ -57,6 +60,26 @@ import org.eclipse.gmf.gmfgraph.Point;
  * @generated
  */
 public class LabelImpl extends EObjectImpl implements Label {
+	/**
+	 * The cached value of the '{@link #getLayoutData() <em>Layout Data</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLayoutData()
+	 * @generated
+	 * @ordered
+	 */
+	protected LayoutData layoutData = null;
+
+	/**
+	 * The cached value of the '{@link #getLayout() <em>Layout</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLayout()
+	 * @generated
+	 * @ordered
+	 */
+	protected Layout layout = null;
+
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -188,26 +211,6 @@ public class LabelImpl extends EObjectImpl implements Label {
 	protected Point size = null;
 
 	/**
-	 * The default value of the '{@link #getLayoutManager() <em>Layout Manager</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLayoutManager()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String LAYOUT_MANAGER_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getLayoutManager() <em>Layout Manager</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLayoutManager()
-	 * @generated
-	 * @ordered
-	 */
-	protected String layoutManager = LAYOUT_MANAGER_EDEFAULT;
-
-	/**
 	 * The default value of the '{@link #getText() <em>Text</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -243,6 +246,92 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 */
 	protected EClass eStaticClass() {
 		return GMFGraphPackage.eINSTANCE.getLabel();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LayoutData getLayoutData() {
+		return layoutData;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetLayoutData(LayoutData newLayoutData, NotificationChain msgs) {
+		LayoutData oldLayoutData = layoutData;
+		layoutData = newLayoutData;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGraphPackage.LABEL__LAYOUT_DATA, oldLayoutData, newLayoutData);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLayoutData(LayoutData newLayoutData) {
+		if (newLayoutData != layoutData) {
+			NotificationChain msgs = null;
+			if (layoutData != null)
+				msgs = ((InternalEObject)layoutData).eInverseRemove(this, GMFGraphPackage.LAYOUT_DATA__OWNER, LayoutData.class, msgs);
+			if (newLayoutData != null)
+				msgs = ((InternalEObject)newLayoutData).eInverseAdd(this, GMFGraphPackage.LAYOUT_DATA__OWNER, LayoutData.class, msgs);
+			msgs = basicSetLayoutData(newLayoutData, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.LABEL__LAYOUT_DATA, newLayoutData, newLayoutData));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Layout getLayout() {
+		return layout;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetLayout(Layout newLayout, NotificationChain msgs) {
+		Layout oldLayout = layout;
+		layout = newLayout;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGraphPackage.LABEL__LAYOUT, oldLayout, newLayout);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setLayout(Layout newLayout) {
+		if (newLayout != layout) {
+			NotificationChain msgs = null;
+			if (layout != null)
+				msgs = ((InternalEObject)layout).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGraphPackage.LABEL__LAYOUT, null, msgs);
+			if (newLayout != null)
+				msgs = ((InternalEObject)newLayout).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGraphPackage.LABEL__LAYOUT, null, msgs);
+			msgs = basicSetLayout(newLayout, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.LABEL__LAYOUT, newLayout, newLayout));
 	}
 
 	/**
@@ -723,27 +812,6 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getLayoutManager() {
-		return layoutManager;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setLayoutManager(String newLayoutManager) {
-		String oldLayoutManager = layoutManager;
-		layoutManager = newLayoutManager;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGraphPackage.LABEL__LAYOUT_MANAGER, oldLayoutManager, layoutManager));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getText() {
 		return text;
 	}
@@ -767,6 +835,10 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGraphPackage.LABEL__LAYOUT_DATA:
+				if (layoutData != null)
+					msgs = ((InternalEObject)layoutData).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGraphPackage.LABEL__LAYOUT_DATA, null, msgs);
+				return basicSetLayoutData((LayoutData)otherEnd, msgs);
 			case GMFGraphPackage.LABEL__PARENT:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
@@ -782,6 +854,10 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGraphPackage.LABEL__LAYOUT_DATA:
+				return basicSetLayoutData(null, msgs);
+			case GMFGraphPackage.LABEL__LAYOUT:
+				return basicSetLayout(null, msgs);
 			case GMFGraphPackage.LABEL__CHILDREN:
 				return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.LABEL__PARENT:
@@ -830,6 +906,10 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGraphPackage.LABEL__LAYOUT_DATA:
+				return getLayoutData();
+			case GMFGraphPackage.LABEL__LAYOUT:
+				return getLayout();
 			case GMFGraphPackage.LABEL__NAME:
 				return getName();
 			case GMFGraphPackage.LABEL__CHILDREN:
@@ -856,8 +936,6 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return getLocation();
 			case GMFGraphPackage.LABEL__SIZE:
 				return getSize();
-			case GMFGraphPackage.LABEL__LAYOUT_MANAGER:
-				return getLayoutManager();
 			case GMFGraphPackage.LABEL__TEXT:
 				return getText();
 		}
@@ -871,6 +949,12 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGraphPackage.LABEL__LAYOUT_DATA:
+				setLayoutData((LayoutData)newValue);
+				return;
+			case GMFGraphPackage.LABEL__LAYOUT:
+				setLayout((Layout)newValue);
+				return;
 			case GMFGraphPackage.LABEL__NAME:
 				setName((String)newValue);
 				return;
@@ -908,9 +992,6 @@ public class LabelImpl extends EObjectImpl implements Label {
 			case GMFGraphPackage.LABEL__SIZE:
 				setSize((Point)newValue);
 				return;
-			case GMFGraphPackage.LABEL__LAYOUT_MANAGER:
-				setLayoutManager((String)newValue);
-				return;
 			case GMFGraphPackage.LABEL__TEXT:
 				setText((String)newValue);
 				return;
@@ -925,6 +1006,12 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGraphPackage.LABEL__LAYOUT_DATA:
+				setLayoutData((LayoutData)null);
+				return;
+			case GMFGraphPackage.LABEL__LAYOUT:
+				setLayout((Layout)null);
+				return;
 			case GMFGraphPackage.LABEL__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -961,9 +1048,6 @@ public class LabelImpl extends EObjectImpl implements Label {
 			case GMFGraphPackage.LABEL__SIZE:
 				setSize((Point)null);
 				return;
-			case GMFGraphPackage.LABEL__LAYOUT_MANAGER:
-				setLayoutManager(LAYOUT_MANAGER_EDEFAULT);
-				return;
 			case GMFGraphPackage.LABEL__TEXT:
 				setText(TEXT_EDEFAULT);
 				return;
@@ -978,6 +1062,10 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGraphPackage.LABEL__LAYOUT_DATA:
+				return layoutData != null;
+			case GMFGraphPackage.LABEL__LAYOUT:
+				return layout != null;
 			case GMFGraphPackage.LABEL__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GMFGraphPackage.LABEL__CHILDREN:
@@ -1004,8 +1092,6 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return location != null;
 			case GMFGraphPackage.LABEL__SIZE:
 				return size != null;
-			case GMFGraphPackage.LABEL__LAYOUT_MANAGER:
-				return LAYOUT_MANAGER_EDEFAULT == null ? layoutManager != null : !LAYOUT_MANAGER_EDEFAULT.equals(layoutManager);
 			case GMFGraphPackage.LABEL__TEXT:
 				return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
 		}
@@ -1053,8 +1139,6 @@ public class LabelImpl extends EObjectImpl implements Label {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
-		result.append(", layoutManager: ");
-		result.append(layoutManager);
 		result.append(", text: ");
 		result.append(text);
 		result.append(')');

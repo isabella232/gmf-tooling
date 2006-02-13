@@ -11,8 +11,11 @@
  */
 package org.eclipse.gmf.gmfgraph.util;
 
+import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.CustomClass;
 import org.eclipse.gmf.gmfgraph.Ellipse;
+import org.eclipse.gmf.gmfgraph.GridLayout;
+import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.LabeledContainer;
 import org.eclipse.gmf.gmfgraph.Polygon;
@@ -31,6 +34,18 @@ public class FigureQualifiedNameSwitch extends GMFGraphSwitch {
 
 	public Object caseCustomClass(CustomClass object) {
 		return object.getQualifiedClassName();
+	}
+
+	public Object caseGridLayout(GridLayout object) {
+		return "org.eclipse.gmf.internal.codegen.draw2d.GridLayout";
+	}
+
+	public Object caseGridLayoutData(GridLayoutData object) {
+		return "org.eclipse.gmf.internal.codegen.draw2d.GridLayoutData";
+	}
+
+	public Object caseBorderLayout(BorderLayout object) {
+		return "org.eclipse.draw2d.BorderLayout";
 	}
 
 	public Object caseLabel(Label object) {

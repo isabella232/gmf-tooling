@@ -1,0 +1,10 @@
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="InitCustomLayoutDataGenerator"
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.*"%>
+<%
+GraphDefDispatcher.LayoutArgs args = (GraphDefDispatcher.LayoutArgs) argument;
+final CustomLayoutData layoutData = (CustomLayoutData) args.getData();
+final GraphDefDispatcher dispatcher = args.getDispatcher();
+final String layoutImplClassName = dispatcher.getImportManager().getImportedName((String) dispatcher.getFQNSwitch().doSwitch(layoutData));
+%>
+<%=layoutImplClassName%> <%=args.getLayoutVariableName()%> = new <%=layoutImplClassName%>();
+<%=dispatcher.dispatch("customAttributes", new Object[] {layoutData, dispatcher, args.getLayoutVariableName()})%>

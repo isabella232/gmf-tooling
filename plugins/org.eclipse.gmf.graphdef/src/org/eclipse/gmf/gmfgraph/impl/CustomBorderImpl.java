@@ -6,10 +6,18 @@
  */
 package org.eclipse.gmf.gmfgraph.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.gmf.gmfgraph.CustomAttribute;
 import org.eclipse.gmf.gmfgraph.CustomBorder;
 import org.eclipse.gmf.gmfgraph.CustomClass;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
@@ -23,6 +31,7 @@ import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
  * <ul>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomBorderImpl#getQualifiedClassName <em>Qualified Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomBorderImpl#getBundleName <em>Bundle Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.CustomBorderImpl#getAttributes <em>Attributes</em>}</li>
  * </ul>
  * </p>
  *
@@ -68,6 +77,16 @@ public class CustomBorderImpl extends EObjectImpl implements CustomBorder {
 	 * @ordered
 	 */
 	protected String bundleName = BUNDLE_NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAttributes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList attributes = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -134,12 +153,39 @@ public class CustomBorderImpl extends EObjectImpl implements CustomBorder {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList getAttributes() {
+		if (attributes == null) {
+			attributes = new EObjectContainmentEList(CustomAttribute.class, this, GMFGraphPackage.CUSTOM_BORDER__ATTRIBUTES);
+		}
+		return attributes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFGraphPackage.CUSTOM_BORDER__ATTRIBUTES:
+				return ((InternalEList)getAttributes()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFGraphPackage.CUSTOM_BORDER__QUALIFIED_CLASS_NAME:
 				return getQualifiedClassName();
 			case GMFGraphPackage.CUSTOM_BORDER__BUNDLE_NAME:
 				return getBundleName();
+			case GMFGraphPackage.CUSTOM_BORDER__ATTRIBUTES:
+				return getAttributes();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -156,6 +202,10 @@ public class CustomBorderImpl extends EObjectImpl implements CustomBorder {
 				return;
 			case GMFGraphPackage.CUSTOM_BORDER__BUNDLE_NAME:
 				setBundleName((String)newValue);
+				return;
+			case GMFGraphPackage.CUSTOM_BORDER__ATTRIBUTES:
+				getAttributes().clear();
+				getAttributes().addAll((Collection)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -174,6 +224,9 @@ public class CustomBorderImpl extends EObjectImpl implements CustomBorder {
 			case GMFGraphPackage.CUSTOM_BORDER__BUNDLE_NAME:
 				setBundleName(BUNDLE_NAME_EDEFAULT);
 				return;
+			case GMFGraphPackage.CUSTOM_BORDER__ATTRIBUTES:
+				getAttributes().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -189,6 +242,8 @@ public class CustomBorderImpl extends EObjectImpl implements CustomBorder {
 				return QUALIFIED_CLASS_NAME_EDEFAULT == null ? qualifiedClassName != null : !QUALIFIED_CLASS_NAME_EDEFAULT.equals(qualifiedClassName);
 			case GMFGraphPackage.CUSTOM_BORDER__BUNDLE_NAME:
 				return BUNDLE_NAME_EDEFAULT == null ? bundleName != null : !BUNDLE_NAME_EDEFAULT.equals(bundleName);
+			case GMFGraphPackage.CUSTOM_BORDER__ATTRIBUTES:
+				return attributes != null && !attributes.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -203,6 +258,7 @@ public class CustomBorderImpl extends EObjectImpl implements CustomBorder {
 			switch (derivedFeatureID) {
 				case GMFGraphPackage.CUSTOM_BORDER__QUALIFIED_CLASS_NAME: return GMFGraphPackage.CUSTOM_CLASS__QUALIFIED_CLASS_NAME;
 				case GMFGraphPackage.CUSTOM_BORDER__BUNDLE_NAME: return GMFGraphPackage.CUSTOM_CLASS__BUNDLE_NAME;
+				case GMFGraphPackage.CUSTOM_BORDER__ATTRIBUTES: return GMFGraphPackage.CUSTOM_CLASS__ATTRIBUTES;
 				default: return -1;
 			}
 		}
@@ -219,6 +275,7 @@ public class CustomBorderImpl extends EObjectImpl implements CustomBorder {
 			switch (baseFeatureID) {
 				case GMFGraphPackage.CUSTOM_CLASS__QUALIFIED_CLASS_NAME: return GMFGraphPackage.CUSTOM_BORDER__QUALIFIED_CLASS_NAME;
 				case GMFGraphPackage.CUSTOM_CLASS__BUNDLE_NAME: return GMFGraphPackage.CUSTOM_BORDER__BUNDLE_NAME;
+				case GMFGraphPackage.CUSTOM_CLASS__ATTRIBUTES: return GMFGraphPackage.CUSTOM_BORDER__ATTRIBUTES;
 				default: return -1;
 			}
 		}

@@ -61,10 +61,30 @@ public class LabeledContainerItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addLayoutPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
-			addLayoutManagerPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Layout feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLayoutPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Layoutable_layout_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Layoutable_layout_feature", "_UI_Layoutable_type"),
+				 GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -88,26 +108,6 @@ public class LabeledContainerItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Layout Manager feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addLayoutManagerPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Figure_layoutManager_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Figure_layoutManager_feature", "_UI_Figure_type"),
-				 GMFGraphPackage.eINSTANCE.getFigure_LayoutManager(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -118,6 +118,8 @@ public class LabeledContainerItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getLayoutable_Layout());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Children());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor());
@@ -180,9 +182,9 @@ public class LabeledContainerItemProvider
 
 		switch (notification.getFeatureID(LabeledContainer.class)) {
 			case GMFGraphPackage.LABELED_CONTAINER__NAME:
-			case GMFGraphPackage.LABELED_CONTAINER__LAYOUT_MANAGER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
+			case GMFGraphPackage.LABELED_CONTAINER__LAYOUT_DATA:
 			case GMFGraphPackage.LABELED_CONTAINER__CHILDREN:
 			case GMFGraphPackage.LABELED_CONTAINER__FOREGROUND_COLOR:
 			case GMFGraphPackage.LABELED_CONTAINER__BACKGROUND_COLOR:
@@ -209,6 +211,36 @@ public class LabeledContainerItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(),
+				 GMFGraphFactory.eINSTANCE.createCustomLayoutData()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(),
+				 GMFGraphFactory.eINSTANCE.createGridLayoutData()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(),
+				 GMFGraphFactory.eINSTANCE.createBorderLayoutData()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 GMFGraphFactory.eINSTANCE.createCustomLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 GMFGraphFactory.eINSTANCE.createGridLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 GMFGraphFactory.eINSTANCE.createBorderLayout()));
 
 		newChildDescriptors.add
 			(createChildParameter

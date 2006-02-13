@@ -1,0 +1,16 @@
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="NewLayoutDataGenerator"
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.*"%>
+<%
+// NOTE: this code expects that constrainted figure is already added to its parent
+
+GraphDefDispatcher.LayoutArgs argsBundle = (GraphDefDispatcher.LayoutArgs) argument;
+final GraphDefDispatcher dispatcher = argsBundle.getDispatcher();
+final LayoutData gmfLayoutData = argsBundle.getData();
+final Figure figureInstance = argsBundle.getFigure();
+
+// merely makes sure layoutData present
+// and parent figure got chance to have layout initialized 
+
+if (gmfLayoutData != null && figureInstance.getParent() != null && figureInstance.getParent().getLayout() != null) {%>
+<%=dispatcher.dispatch(gmfLayoutData, argsBundle)%>			
+<%}%>

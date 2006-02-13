@@ -13,6 +13,8 @@ package org.eclipse.gmf.graphdef.codegen;
 
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.Layout;
+import org.eclipse.gmf.gmfgraph.LayoutData;
 import org.eclipse.gmf.gmfgraph.util.GMFGraphSwitch;
 import org.eclipse.gmf.internal.codegen.dispatch.DispatcherImpl;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
@@ -30,7 +32,7 @@ public class GraphDefDispatcher extends DispatcherImpl {
 		myImportManager = importManager;
 		myFqnSwitch = fqnSwitch;
 	}
-
+	
 	public ImportAssistant getImportManager() {
 		return myImportManager;
 	}
@@ -38,10 +40,21 @@ public class GraphDefDispatcher extends DispatcherImpl {
 	public GMFGraphSwitch getFQNSwitch() {
 		return myFqnSwitch;
 	}
-
-
+	
 	public Args create(Figure figure, String figureVarName) {
 		return new Args(this, figure, figureVarName);
+	}
+
+	public LayoutArgs createLayoutArgs(Args inherit, String layoutVarName) {
+		return new LayoutArgs(inherit, layoutVarName);
+	}
+
+	public LayoutArgs createLayoutArgs(Args inherit) {
+		return new LayoutArgs(inherit);
+	}
+
+	public LayoutArgs createLayoutArgs(Figure figure, String figureVarName, String layoutVarName) {
+		return new LayoutArgs(this, figure, figureVarName, layoutVarName);
 	}
 
 	public static class Args {
@@ -55,6 +68,10 @@ public class GraphDefDispatcher extends DispatcherImpl {
 			myFigureVarName = figureVarName;
 		}
 
+		protected Args(Args other) {
+			this(other.getDispatcher(), other.getFigure(), other.getVariableName());
+		}
+
 		public Figure getFigure() {
 			return myFigure;
 		}
@@ -65,6 +82,42 @@ public class GraphDefDispatcher extends DispatcherImpl {
 
 		public GraphDefDispatcher getDispatcher() {
 			return myOwner;
+		}
+	}
+
+	public static class LayoutArgs extends Args {
+		private final String myLayoutVariableName;
+
+		/**
+		 * @param layoutVariableName
+		 *            may be either name of layout manager or figure constraint,
+		 *            because there are no contexts requiring both of names in the
+		 *            same time
+		 */
+		public LayoutArgs(Args inherit, String layoutVariableName) {
+			super(inherit);
+			myLayoutVariableName = layoutVariableName;
+		}
+
+		public LayoutArgs(Args args) {
+			this(args, args.getVariableName() + "Layout");
+		}
+
+		public LayoutArgs(GraphDefDispatcher owner, Figure figure, String figureVarName, String layoutVarName) {
+			super(owner, figure, figureVarName);
+			myLayoutVariableName = layoutVarName;
+		}
+
+		public Layout getLayout() {
+			return getFigure().getLayout();
+		}
+
+		public LayoutData getData() {
+			return getFigure().getLayoutData();
+		}
+
+		public String getLayoutVariableName() {
+			return myLayoutVariableName;
 		}
 	}
 }

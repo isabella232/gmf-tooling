@@ -1,7 +1,7 @@
 package org.eclipse.gmf.graphdef.codegen.templates;
 
 import org.eclipse.gmf.gmfgraph.*;
-import org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher;
+import org.eclipse.gmf.graphdef.codegen.*;
 
 public class NewFigureGenerator
 {
@@ -20,6 +20,8 @@ public class NewFigureGenerator
   protected final String TEXT_3 = " = new ";
   protected final String TEXT_4 = "();";
   protected final String TEXT_5 = NL;
+  protected final String TEXT_6 = NL;
+  protected final String TEXT_7 = NL;
 
   public String generate(Object argument)
   {
@@ -42,6 +44,9 @@ final String figureClassName = dispatcher.getImportManager().getImportedName((St
     stringBuffer.append(TEXT_4);
     stringBuffer.append(TEXT_5);
     stringBuffer.append(args.getDispatcher().dispatch(figureInstance, args));
+    stringBuffer.append(TEXT_6);
+    stringBuffer.append(args.getDispatcher().dispatch("createLayout", dispatcher.createLayoutArgs(args)));
+    stringBuffer.append(TEXT_7);
     return stringBuffer.toString();
   }
 }

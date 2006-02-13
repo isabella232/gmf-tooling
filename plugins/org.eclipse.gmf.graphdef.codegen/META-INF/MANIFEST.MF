@@ -1,13 +1,15 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: %pluginName
+Bundle-Name: Graphical Definition Code Generator
 Bundle-SymbolicName: org.eclipse.gmf.graphdef.codegen;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: %providerName
+Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.gmf.graphdef;visibility:=reexport,
- org.eclipse.gmf.common,
  org.eclipse.emf.ecore,
- org.eclipse.emf.codegen
+ org.eclipse.gmf.common, 
+ org.eclipse.gmf.graphdef;visibility:=reexport,
+ org.eclipse.emf.codegen,
+ org.eclipse.draw2d
+ 
 Export-Package: org.eclipse.gmf.graphdef.codegen

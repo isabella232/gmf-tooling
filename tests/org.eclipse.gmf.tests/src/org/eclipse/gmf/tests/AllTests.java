@@ -23,6 +23,7 @@ import org.eclipse.gmf.tests.gef.DiagramNodeTest;
 import org.eclipse.gmf.tests.gen.AuditHandcodedTest;
 import org.eclipse.gmf.tests.gen.CompilationTest;
 import org.eclipse.gmf.tests.gen.FigureCodegenTest;
+import org.eclipse.gmf.tests.gen.FigureLayoutTest;
 import org.eclipse.gmf.tests.gen.HandcodedImplTest;
 import org.eclipse.gmf.tests.gen.ToolDefHandocodedImplTest;
 import org.eclipse.gmf.tests.gen.ViewmapProducersTest;
@@ -50,6 +51,7 @@ public class AllTests {
 		suite.addTest(feed(HandcodedImplTest.class, sessionSetup)); // then, check handcoded implementations are in place
 
 		suite.addTestSuite(FigureCodegenTest.class);
+		suite.addTestSuite(FigureLayoutTest.class);
 		suite.addTestSuite(ViewmapProducersTest.class);
 		suite.addTestSuite(ToolDefHandocodedImplTest.class);
 		suite.addTestSuite(AuditHandcodedTest.class);		

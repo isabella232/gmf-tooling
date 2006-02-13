@@ -6,6 +6,7 @@
  */
 package org.eclipse.gmf.gmfgraph;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -18,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.gmf.gmfgraph.CustomClass#getQualifiedClassName <em>Qualified Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.CustomClass#getBundleName <em>Bundle Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.CustomClass#getAttributes <em>Attributes</em>}</li>
  * </ul>
  * </p>
  *
@@ -77,5 +79,21 @@ public interface CustomClass extends EObject {
 	 * @generated
 	 */
 	void setBundleName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Attributes</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.gmfgraph.CustomAttribute}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Attributes</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Attributes</em>' containment reference list.
+	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getCustomClass_Attributes()
+	 * @model type="org.eclipse.gmf.gmfgraph.CustomAttribute" containment="true"
+	 * @generated
+	 */
+	EList getAttributes();
 
 } // CustomClass

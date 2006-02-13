@@ -1,0 +1,17 @@
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="InitBorderLayoutGenerator"
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.*"%>
+<%
+GraphDefDispatcher.LayoutArgs argsBundle = (GraphDefDispatcher.LayoutArgs) argument;
+final BorderLayout gmfLayout = (BorderLayout) argsBundle.getLayout();
+final String layouterVarName = argsBundle.getLayoutVariableName();
+%>
+
+<%
+Dimension spacing = gmfLayout.getSpacing();
+if (spacing != null){
+%>
+		<%=layouterVarName%>.setHorizontalSpacing(<%=spacing.getDx()%>);
+		<%=layouterVarName%>.setVerticalSpacing(<%=spacing.getDy()%>);
+<%
+}
+%>

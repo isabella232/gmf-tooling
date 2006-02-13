@@ -15,7 +15,13 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.common.codegen.NullImportAssistant;
+import org.eclipse.gmf.gmfgraph.BorderLayout;
+import org.eclipse.gmf.gmfgraph.BorderLayoutData;
+import org.eclipse.gmf.gmfgraph.CustomLayout;
+import org.eclipse.gmf.gmfgraph.CustomLayoutData;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.GridLayout;
+import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.PolygonDecoration;
 import org.eclipse.gmf.gmfgraph.Polyline;
@@ -25,10 +31,19 @@ import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.gmfgraph.util.GMFGraphSwitch;
+import org.eclipse.gmf.graphdef.codegen.templates.CustomClassAttributesGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.FigureAttrGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.FigureChildrenGenerator;
+import org.eclipse.gmf.graphdef.codegen.templates.InitBorderLayoutDataGenerator;
+import org.eclipse.gmf.graphdef.codegen.templates.InitBorderLayoutGenerator;
+import org.eclipse.gmf.graphdef.codegen.templates.InitCustomLayoutDataGenerator;
+import org.eclipse.gmf.graphdef.codegen.templates.InitCustomLayoutGenerator;
+import org.eclipse.gmf.graphdef.codegen.templates.InitGridLayoutDataGenerator;
+import org.eclipse.gmf.graphdef.codegen.templates.InitGridLayoutGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.LabelAttrGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.NewFigureGenerator;
+import org.eclipse.gmf.graphdef.codegen.templates.NewLayoutDataGenerator;
+import org.eclipse.gmf.graphdef.codegen.templates.NewLayoutGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.PolygonDecorationAttrGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.PolylineAttrGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.PolylineDecorationAttrGenerator;
@@ -101,7 +116,7 @@ public class FigureGenerator {
 		tr.put(Figure.class, "/templates/top/Figure.javajet", TopFigureGenerator.class);
 		return tr;
 	}
-
+	
 	// XXX NOTE, the fact we use "instantiate" and "Children" strings
 	// helps us to postpone resolution of the next problem (one we make these twwo overridable):
 	// it's not possible to tell from single dispatcher.dispatch(Figure, args) what's the intention - 
@@ -124,6 +139,19 @@ public class FigureGenerator {
 		tr.put("Shape", "/templates/attr/Shape.javajet", ShapeAttrGenerator.class);
 		tr.put("Figure", "/templates/attr/Figure.javajet", FigureAttrGenerator.class);
 		tr.put("PolylineDecoration", "/templates/attr/PolylineDecoration.javajet", PolylineDecorationAttrGenerator.class);
+
+		// Custom attributes support
+		tr.put("customAttributes", "/templates/attr/CustomConfigurableClass.javajet", CustomClassAttributesGenerator.class);
+		// Layout related dispatching chain.  
+		tr.put("createLayout", "/templates/new/Layout.javajet", NewLayoutGenerator.class);
+		tr.put(GridLayout.class, "/templates/layout/GridLayout.javajet", InitGridLayoutGenerator.class);
+		tr.put(BorderLayout.class, "/templates/layout/BorderLayout.javajet", InitBorderLayoutGenerator.class);
+		tr.put(CustomLayout.class, "/templates/layout/CustomLayout.javajet", InitCustomLayoutGenerator.class);
+		
+		tr.put("createLayoutData", "/templates/new/LayoutData.javajet", NewLayoutDataGenerator.class);
+		tr.put(GridLayoutData.class, "/templates/layoutData/GridLayoutData.javajet", InitGridLayoutDataGenerator.class);
+		tr.put(BorderLayoutData.class, "/templates/layoutData/BorderLayoutData.javajet", InitBorderLayoutDataGenerator.class);
+		tr.put(CustomLayoutData.class, "/templates/layoutData/CustomLayoutData.javajet", InitCustomLayoutDataGenerator.class);
 		return tr;
 	}
 

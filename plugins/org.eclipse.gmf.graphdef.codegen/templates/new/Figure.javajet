@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="NewFigureGenerator"
-	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher"%>
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.*"%>
 <%
 GraphDefDispatcher.Args args = (GraphDefDispatcher.Args) argument;
 final Figure figureInstance = args.getFigure();
@@ -11,3 +11,4 @@ final String figureClassName = dispatcher.getImportManager().getImportedName((St
 %>
 <%=figureClassName%> <%=figureVarName%> = new <%=figureClassName%>();
 <%=args.getDispatcher().dispatch(figureInstance, args)%>
+<%=args.getDispatcher().dispatch("createLayout", dispatcher.createLayoutArgs(args))%>

@@ -1,7 +1,7 @@
 package org.eclipse.gmf.graphdef.codegen.templates;
 
 import org.eclipse.gmf.gmfgraph.*;
-import org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher;
+import org.eclipse.gmf.graphdef.codegen.*;
 import java.util.*;
 
 public class FigureChildrenGenerator
@@ -19,9 +19,10 @@ public class FigureChildrenGenerator
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = NL + "\t\t// FIXME instantiate - FigureRef - dispatch to 'instantiate' template?" + NL + "\t\t";
   protected final String TEXT_3 = NL + "\t\t";
-  protected final String TEXT_4 = ".add(";
-  protected final String TEXT_5 = ");";
-  protected final String TEXT_6 = NL;
+  protected final String TEXT_4 = NL + "\t\t";
+  protected final String TEXT_5 = ".add(";
+  protected final String TEXT_6 = ");" + NL + "\t\t";
+  protected final String TEXT_7 = NL;
 
   public String generate(Object argument)
   {
@@ -49,14 +50,19 @@ while (!l.isEmpty()) {
 	if (figureMarker instanceof FigureRef) {
 		throw new IllegalStateException("FIXME: sorry, don't support FigureRef for a while");
 	}
-	final String figureVarName = "fig" + (figureCount++);
+	final String figureVarName = "fig" + figureCount;
+	final String layoutDataVarName = "layData" + figureCount;
+	figureCount++;
     stringBuffer.append(TEXT_2);
-    stringBuffer.append(dispatcher.dispatch("instantiate", dispatcher.create((Figure) figureMarker, figureVarName)));
+    GraphDefDispatcher.Args dargs = dispatcher.create((Figure) figureMarker, figureVarName);
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(parentFigureVarName);
+    stringBuffer.append(dispatcher.dispatch("instantiate", dargs));
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(figureVarName);
+    stringBuffer.append(parentFigureVarName);
     stringBuffer.append(TEXT_5);
+    stringBuffer.append(figureVarName);
+    stringBuffer.append(TEXT_6);
+    stringBuffer.append(dispatcher.dispatch("createLayoutData", dispatcher.createLayoutArgs(dargs, layoutDataVarName)));
     
 if (_nxt instanceof Figure && !((Figure) _nxt).getChildren().isEmpty()) {
 	l.addFirst(marker);
@@ -66,7 +72,7 @@ if (_nxt instanceof Figure && !((Figure) _nxt).getChildren().isEmpty()) {
 } // if
 } // while
 
-    stringBuffer.append(TEXT_6);
+    stringBuffer.append(TEXT_7);
     return stringBuffer.toString();
   }
 }

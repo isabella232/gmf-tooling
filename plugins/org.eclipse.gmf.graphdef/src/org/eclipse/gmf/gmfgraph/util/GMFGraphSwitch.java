@@ -12,6 +12,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.Border;
+import org.eclipse.gmf.gmfgraph.BorderLayout;
+import org.eclipse.gmf.gmfgraph.BorderLayoutData;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Child;
 import org.eclipse.gmf.gmfgraph.Color;
@@ -20,11 +22,14 @@ import org.eclipse.gmf.gmfgraph.CompoundBorder;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.ConnectionFigure;
 import org.eclipse.gmf.gmfgraph.ConstantColor;
+import org.eclipse.gmf.gmfgraph.CustomAttribute;
 import org.eclipse.gmf.gmfgraph.CustomBorder;
 import org.eclipse.gmf.gmfgraph.CustomClass;
 import org.eclipse.gmf.gmfgraph.CustomConnection;
 import org.eclipse.gmf.gmfgraph.CustomDecoration;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
+import org.eclipse.gmf.gmfgraph.CustomLayout;
+import org.eclipse.gmf.gmfgraph.CustomLayoutData;
 import org.eclipse.gmf.gmfgraph.DecorationFigure;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.Dimension;
@@ -37,10 +42,15 @@ import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.GeneralFacet;
 import org.eclipse.gmf.gmfgraph.GradientFacet;
+import org.eclipse.gmf.gmfgraph.GridLayout;
+import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.Identity;
 import org.eclipse.gmf.gmfgraph.Insets;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.LabeledContainer;
+import org.eclipse.gmf.gmfgraph.Layout;
+import org.eclipse.gmf.gmfgraph.LayoutData;
+import org.eclipse.gmf.gmfgraph.Layoutable;
 import org.eclipse.gmf.gmfgraph.LineBorder;
 import org.eclipse.gmf.gmfgraph.MarginBorder;
 import org.eclipse.gmf.gmfgraph.Node;
@@ -212,6 +222,7 @@ public class GMFGraphSwitch {
 			case GMFGraphPackage.FIGURE_MARKER: {
 				FigureMarker figureMarker = (FigureMarker)theEObject;
 				Object result = caseFigureMarker(figureMarker);
+				if (result == null) result = caseLayoutable(figureMarker);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -220,6 +231,7 @@ public class GMFGraphSwitch {
 				Object result = caseFigure(figure);
 				if (result == null) result = caseFigureMarker(figure);
 				if (result == null) result = caseIdentity(figure);
+				if (result == null) result = caseLayoutable(figure);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -227,6 +239,7 @@ public class GMFGraphSwitch {
 				FigureRef figureRef = (FigureRef)theEObject;
 				Object result = caseFigureRef(figureRef);
 				if (result == null) result = caseFigureMarker(figureRef);
+				if (result == null) result = caseLayoutable(figureRef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -236,6 +249,7 @@ public class GMFGraphSwitch {
 				if (result == null) result = caseFigure(connectionFigure);
 				if (result == null) result = caseFigureMarker(connectionFigure);
 				if (result == null) result = caseIdentity(connectionFigure);
+				if (result == null) result = caseLayoutable(connectionFigure);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -245,6 +259,7 @@ public class GMFGraphSwitch {
 				if (result == null) result = caseFigure(decorationFigure);
 				if (result == null) result = caseFigureMarker(decorationFigure);
 				if (result == null) result = caseIdentity(decorationFigure);
+				if (result == null) result = caseLayoutable(decorationFigure);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -254,6 +269,7 @@ public class GMFGraphSwitch {
 				if (result == null) result = caseFigure(shape);
 				if (result == null) result = caseFigureMarker(shape);
 				if (result == null) result = caseIdentity(shape);
+				if (result == null) result = caseLayoutable(shape);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -263,6 +279,7 @@ public class GMFGraphSwitch {
 				if (result == null) result = caseFigure(label);
 				if (result == null) result = caseFigureMarker(label);
 				if (result == null) result = caseIdentity(label);
+				if (result == null) result = caseLayoutable(label);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -272,6 +289,7 @@ public class GMFGraphSwitch {
 				if (result == null) result = caseFigure(labeledContainer);
 				if (result == null) result = caseFigureMarker(labeledContainer);
 				if (result == null) result = caseIdentity(labeledContainer);
+				if (result == null) result = caseLayoutable(labeledContainer);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -282,6 +300,7 @@ public class GMFGraphSwitch {
 				if (result == null) result = caseFigure(rectangle);
 				if (result == null) result = caseFigureMarker(rectangle);
 				if (result == null) result = caseIdentity(rectangle);
+				if (result == null) result = caseLayoutable(rectangle);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -292,6 +311,7 @@ public class GMFGraphSwitch {
 				if (result == null) result = caseFigure(roundedRectangle);
 				if (result == null) result = caseFigureMarker(roundedRectangle);
 				if (result == null) result = caseIdentity(roundedRectangle);
+				if (result == null) result = caseLayoutable(roundedRectangle);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -302,6 +322,7 @@ public class GMFGraphSwitch {
 				if (result == null) result = caseFigure(ellipse);
 				if (result == null) result = caseFigureMarker(ellipse);
 				if (result == null) result = caseIdentity(ellipse);
+				if (result == null) result = caseLayoutable(ellipse);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -312,6 +333,7 @@ public class GMFGraphSwitch {
 				if (result == null) result = caseFigure(polyline);
 				if (result == null) result = caseFigureMarker(polyline);
 				if (result == null) result = caseIdentity(polyline);
+				if (result == null) result = caseLayoutable(polyline);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -323,6 +345,7 @@ public class GMFGraphSwitch {
 				if (result == null) result = caseFigure(polygon);
 				if (result == null) result = caseFigureMarker(polygon);
 				if (result == null) result = caseIdentity(polygon);
+				if (result == null) result = caseLayoutable(polygon);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -335,6 +358,7 @@ public class GMFGraphSwitch {
 				if (result == null) result = caseFigure(polylineConnection);
 				if (result == null) result = caseFigureMarker(polylineConnection);
 				if (result == null) result = caseIdentity(polylineConnection);
+				if (result == null) result = caseLayoutable(polylineConnection);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -347,6 +371,7 @@ public class GMFGraphSwitch {
 				if (result == null) result = caseFigure(polylineDecoration);
 				if (result == null) result = caseFigureMarker(polylineDecoration);
 				if (result == null) result = caseIdentity(polylineDecoration);
+				if (result == null) result = caseLayoutable(polylineDecoration);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -360,6 +385,7 @@ public class GMFGraphSwitch {
 				if (result == null) result = caseShape(polygonDecoration);
 				if (result == null) result = caseFigureMarker(polygonDecoration);
 				if (result == null) result = caseIdentity(polygonDecoration);
+				if (result == null) result = caseLayoutable(polygonDecoration);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -376,6 +402,7 @@ public class GMFGraphSwitch {
 				if (result == null) result = caseCustomClass(customFigure);
 				if (result == null) result = caseFigureMarker(customFigure);
 				if (result == null) result = caseIdentity(customFigure);
+				if (result == null) result = caseLayoutable(customFigure);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -388,6 +415,7 @@ public class GMFGraphSwitch {
 				if (result == null) result = caseCustomClass(customDecoration);
 				if (result == null) result = caseFigureMarker(customDecoration);
 				if (result == null) result = caseIdentity(customDecoration);
+				if (result == null) result = caseLayoutable(customDecoration);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -400,6 +428,7 @@ public class GMFGraphSwitch {
 				if (result == null) result = caseCustomClass(customConnection);
 				if (result == null) result = caseFigureMarker(customConnection);
 				if (result == null) result = caseIdentity(customConnection);
+				if (result == null) result = caseLayoutable(customConnection);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -485,6 +514,74 @@ public class GMFGraphSwitch {
 				Object result = caseCustomBorder(customBorder);
 				if (result == null) result = caseBorder(customBorder);
 				if (result == null) result = caseCustomClass(customBorder);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.LAYOUT_DATA: {
+				LayoutData layoutData = (LayoutData)theEObject;
+				Object result = caseLayoutData(layoutData);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.CUSTOM_LAYOUT_DATA: {
+				CustomLayoutData customLayoutData = (CustomLayoutData)theEObject;
+				Object result = caseCustomLayoutData(customLayoutData);
+				if (result == null) result = caseLayoutData(customLayoutData);
+				if (result == null) result = caseCustomClass(customLayoutData);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.GRID_LAYOUT_DATA: {
+				GridLayoutData gridLayoutData = (GridLayoutData)theEObject;
+				Object result = caseGridLayoutData(gridLayoutData);
+				if (result == null) result = caseLayoutData(gridLayoutData);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.BORDER_LAYOUT_DATA: {
+				BorderLayoutData borderLayoutData = (BorderLayoutData)theEObject;
+				Object result = caseBorderLayoutData(borderLayoutData);
+				if (result == null) result = caseLayoutData(borderLayoutData);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.LAYOUTABLE: {
+				Layoutable layoutable = (Layoutable)theEObject;
+				Object result = caseLayoutable(layoutable);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.LAYOUT: {
+				Layout layout = (Layout)theEObject;
+				Object result = caseLayout(layout);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.CUSTOM_LAYOUT: {
+				CustomLayout customLayout = (CustomLayout)theEObject;
+				Object result = caseCustomLayout(customLayout);
+				if (result == null) result = caseLayout(customLayout);
+				if (result == null) result = caseCustomClass(customLayout);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.GRID_LAYOUT: {
+				GridLayout gridLayout = (GridLayout)theEObject;
+				Object result = caseGridLayout(gridLayout);
+				if (result == null) result = caseLayout(gridLayout);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.BORDER_LAYOUT: {
+				BorderLayout borderLayout = (BorderLayout)theEObject;
+				Object result = caseBorderLayout(borderLayout);
+				if (result == null) result = caseLayout(borderLayout);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGraphPackage.CUSTOM_ATTRIBUTE: {
+				CustomAttribute customAttribute = (CustomAttribute)theEObject;
+				Object result = caseCustomAttribute(customAttribute);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1149,6 +1246,156 @@ public class GMFGraphSwitch {
 	 * @generated
 	 */
 	public Object caseCustomBorder(CustomBorder object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Layout Data</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Layout Data</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseLayoutData(LayoutData object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Custom Layout Data</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Custom Layout Data</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseCustomLayoutData(CustomLayoutData object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Grid Layout Data</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Grid Layout Data</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGridLayoutData(GridLayoutData object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Border Layout Data</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Border Layout Data</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseBorderLayoutData(BorderLayoutData object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Layoutable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Layoutable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseLayoutable(Layoutable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Layout</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Layout</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseLayout(Layout object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Custom Layout</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Custom Layout</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseCustomLayout(CustomLayout object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Grid Layout</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Grid Layout</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGridLayout(GridLayout object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Border Layout</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Border Layout</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseBorderLayout(BorderLayout object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Custom Attribute</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Custom Attribute</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseCustomAttribute(CustomAttribute object) {
 		return null;
 	}
 

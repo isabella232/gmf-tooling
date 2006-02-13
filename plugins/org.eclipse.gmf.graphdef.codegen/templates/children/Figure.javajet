@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="FigureChildrenGenerator"
-	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher java.util.*"%>
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.* java.util.*"%>
 <%
 Object[] args = (Object[]) argument;
 List/*<Figure>*/ figureChildren = (List) args[0];
@@ -23,10 +23,14 @@ while (!l.isEmpty()) {
 	if (figureMarker instanceof FigureRef) {
 		throw new IllegalStateException("FIXME: sorry, don't support FigureRef for a while");
 	}
-	final String figureVarName = "fig" + (figureCount++);%>
+	final String figureVarName = "fig" + figureCount;
+	final String layoutDataVarName = "layData" + figureCount;
+	figureCount++;%>
 		// FIXME instantiate - FigureRef - dispatch to 'instantiate' template?
-		<%=dispatcher.dispatch("instantiate", dispatcher.create((Figure) figureMarker, figureVarName))%>
+		<%GraphDefDispatcher.Args dargs = dispatcher.create((Figure) figureMarker, figureVarName);%>
+		<%=dispatcher.dispatch("instantiate", dargs)%>
 		<%=parentFigureVarName%>.add(<%=figureVarName%>);
+		<%=dispatcher.dispatch("createLayoutData", dispatcher.createLayoutArgs(dargs, layoutDataVarName))%>
 <%
 if (_nxt instanceof Figure && !((Figure) _nxt).getChildren().isEmpty()) {
 	l.addFirst(marker);

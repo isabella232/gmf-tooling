@@ -1,0 +1,25 @@
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="InitGridLayoutGenerator"
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.*"%>
+<%
+GraphDefDispatcher.LayoutArgs argsBundle = (GraphDefDispatcher.LayoutArgs) argument;
+final GridLayout gmfLayout = (GridLayout) argsBundle.getLayout();
+final String layouterVarName = argsBundle.getLayoutVariableName();
+%>
+		<%=layouterVarName%>.numColumns = <%=gmfLayout.getNumColumns()%>;
+		<%=layouterVarName%>.makeColumnsEqualWidth = <%=gmfLayout.isEqualWidth()%>;
+<%
+Dimension margins = gmfLayout.getMargins();
+if (margins != null){
+%>
+		<%=layouterVarName%>.marginWidth = <%=margins.getDx()%>;
+		<%=layouterVarName%>.marginHeight = <%=margins.getDy()%>;
+<%
+}
+Dimension spacing = gmfLayout.getSpacing();
+if (spacing != null){
+%>
+		<%=layouterVarName%>.horizontalSpacing = <%=spacing.getDx()%>;
+		<%=layouterVarName%>.verticalSpacing = <%=spacing.getDy()%>;
+<%
+}
+%>

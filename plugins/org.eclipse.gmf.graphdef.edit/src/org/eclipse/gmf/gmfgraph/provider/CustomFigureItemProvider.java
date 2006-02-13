@@ -61,12 +61,32 @@ public class CustomFigureItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addLayoutPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
-			addLayoutManagerPropertyDescriptor(object);
 			addQualifiedClassNamePropertyDescriptor(object);
 			addBundleNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Layout feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addLayoutPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Layoutable_layout_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Layoutable_layout_feature", "_UI_Layoutable_type"),
+				 GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -83,26 +103,6 @@ public class CustomFigureItemProvider
 				 getString("_UI_Identity_name_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Identity_name_feature", "_UI_Identity_type"),
 				 GMFGraphPackage.eINSTANCE.getIdentity_Name(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Layout Manager feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addLayoutManagerPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Figure_layoutManager_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Figure_layoutManager_feature", "_UI_Figure_type"),
-				 GMFGraphPackage.eINSTANCE.getFigure_LayoutManager(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -160,6 +160,8 @@ public class CustomFigureItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getLayoutable_Layout());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Children());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_BackgroundColor());
@@ -171,6 +173,7 @@ public class CustomFigureItemProvider
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Border());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Location());
 			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getFigure_Size());
+			childrenFeatures.add(GMFGraphPackage.eINSTANCE.getCustomClass_Attributes());
 		}
 		return childrenFeatures;
 	}
@@ -222,11 +225,11 @@ public class CustomFigureItemProvider
 
 		switch (notification.getFeatureID(CustomFigure.class)) {
 			case GMFGraphPackage.CUSTOM_FIGURE__NAME:
-			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT_MANAGER:
 			case GMFGraphPackage.CUSTOM_FIGURE__QUALIFIED_CLASS_NAME:
 			case GMFGraphPackage.CUSTOM_FIGURE__BUNDLE_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
+			case GMFGraphPackage.CUSTOM_FIGURE__LAYOUT_DATA:
 			case GMFGraphPackage.CUSTOM_FIGURE__CHILDREN:
 			case GMFGraphPackage.CUSTOM_FIGURE__FOREGROUND_COLOR:
 			case GMFGraphPackage.CUSTOM_FIGURE__BACKGROUND_COLOR:
@@ -238,6 +241,7 @@ public class CustomFigureItemProvider
 			case GMFGraphPackage.CUSTOM_FIGURE__BORDER:
 			case GMFGraphPackage.CUSTOM_FIGURE__LOCATION:
 			case GMFGraphPackage.CUSTOM_FIGURE__SIZE:
+			case GMFGraphPackage.CUSTOM_FIGURE__ATTRIBUTES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -253,6 +257,36 @@ public class CustomFigureItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(),
+				 GMFGraphFactory.eINSTANCE.createCustomLayoutData()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(),
+				 GMFGraphFactory.eINSTANCE.createGridLayoutData()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(),
+				 GMFGraphFactory.eINSTANCE.createBorderLayoutData()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 GMFGraphFactory.eINSTANCE.createCustomLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 GMFGraphFactory.eINSTANCE.createGridLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 GMFGraphFactory.eINSTANCE.createBorderLayout()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -393,6 +427,11 @@ public class CustomFigureItemProvider
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getFigure_Size(),
 				 GMFGraphFactory.eINSTANCE.createPoint()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getCustomClass_Attributes(),
+				 GMFGraphFactory.eINSTANCE.createCustomAttribute()));
 	}
 
 	/**

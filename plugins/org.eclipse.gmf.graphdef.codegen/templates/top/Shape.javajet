@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="TopShapeGenerator" 
-	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.GraphDefDispatcher java.util.*"%>
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.gmfgraph.util.* org.eclipse.gmf.common.codegen.* org.eclipse.gmf.graphdef.codegen.* java.util.*"%>
 <%
 Object[] args = (Object[]) argument;
 Shape figure = (Shape) args[0];
@@ -18,12 +18,20 @@ public class <%=figure.getName()%> extends <%=importManager.getImportedName((Str
 	 * @generated
 	 */
 	public <%=figure.getName()%>() {
-		<%=dispatcher.dispatch(figure, dispatcher.create(figure, "this"))%>
+<%
+GraphDefDispatcher.LayoutArgs dispatcherArgs = dispatcher.createLayoutArgs(figure, "this", "myGenLayoutManager");
+%>	
+		<%=dispatcher.dispatch("createLayout", dispatcherArgs)%>
+		<%=dispatcher.dispatch(figure, dispatcherArgs)%>
 <%
 for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext();) {
-		Figure next = (Figure) it.next();%>
-		setFigure<%=next.getName()%>(createFigure<%=next.getName()%>());
-		add(getFigure<%=next.getName()%>());
+		Figure next = (Figure) it.next();
+		final String childVarName = "child" + next.getName();%>
+		
+		org.eclipse.draw2d.IFigure <%=childVarName%> = createFigure<%=next.getName()%>();
+		setFigure<%=next.getName()%>(<%=childVarName%>);
+		add(<%=childVarName%>);
+		<%=dispatcher.dispatch("createLayoutData", dispatcher.createLayoutArgs(next, childVarName, "layout" + next.getName()))%>		
 <%}%>
 	}
 

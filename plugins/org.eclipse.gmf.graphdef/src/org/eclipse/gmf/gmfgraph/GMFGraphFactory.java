@@ -314,6 +314,69 @@ public interface GMFGraphFactory extends EFactory {
 	CustomBorder createCustomBorder();
 
 	/**
+	 * Returns a new object of class '<em>Custom Layout Data</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Custom Layout Data</em>'.
+	 * @generated
+	 */
+	CustomLayoutData createCustomLayoutData();
+
+	/**
+	 * Returns a new object of class '<em>Grid Layout Data</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Grid Layout Data</em>'.
+	 * @generated
+	 */
+	GridLayoutData createGridLayoutData();
+
+	/**
+	 * Returns a new object of class '<em>Border Layout Data</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Border Layout Data</em>'.
+	 * @generated
+	 */
+	BorderLayoutData createBorderLayoutData();
+
+	/**
+	 * Returns a new object of class '<em>Custom Layout</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Custom Layout</em>'.
+	 * @generated
+	 */
+	CustomLayout createCustomLayout();
+
+	/**
+	 * Returns a new object of class '<em>Grid Layout</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Grid Layout</em>'.
+	 * @generated
+	 */
+	GridLayout createGridLayout();
+
+	/**
+	 * Returns a new object of class '<em>Border Layout</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Border Layout</em>'.
+	 * @generated
+	 */
+	BorderLayout createBorderLayout();
+
+	/**
+	 * Returns a new object of class '<em>Custom Attribute</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Custom Attribute</em>'.
+	 * @generated
+	 */
+	CustomAttribute createCustomAttribute();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

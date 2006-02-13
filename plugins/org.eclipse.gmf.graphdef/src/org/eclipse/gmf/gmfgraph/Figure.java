@@ -32,7 +32,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getBorder <em>Border</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getLocation <em>Location</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getSize <em>Size</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getLayoutManager <em>Layout Manager</em>}</li>
  * </ul>
  * </p>
  *
@@ -333,31 +332,5 @@ public interface Figure extends FigureMarker, Identity {
 	 * @generated
 	 */
 	void setSize(Point value);
-
-	/**
-	 * Returns the value of the '<em><b>Layout Manager</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Layout Manager</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Layout Manager</em>' attribute.
-	 * @see #setLayoutManager(String)
-	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getFigure_LayoutManager()
-	 * @model
-	 * @generated
-	 */
-	String getLayoutManager();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.gmfgraph.Figure#getLayoutManager <em>Layout Manager</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Layout Manager</em>' attribute.
-	 * @see #getLayoutManager()
-	 * @generated
-	 */
-	void setLayoutManager(String value);
 
 } // Figure
