@@ -43,16 +43,20 @@ importManager.addImport("org.eclipse.gmf.runtime.emf.core.util.ResourceUtil");
 importManager.addImport("org.eclipse.gmf.runtime.notation.Diagram");
 importManager.addImport("org.eclipse.jface.action.IAction");
 importManager.addImport("org.eclipse.jface.dialogs.IInputValidator");
-importManager.addImport("org.eclipse.jface.dialogs.InputDialog");
 importManager.addImport("org.eclipse.jface.dialogs.MessageDialog");
 importManager.addImport("org.eclipse.jface.viewers.ISelection");
 importManager.addImport("org.eclipse.jface.viewers.IStructuredSelection");
+importManager.addImport("org.eclipse.jface.viewers.StructuredSelection");
 importManager.addImport("org.eclipse.swt.widgets.Shell");
 importManager.addImport("org.eclipse.ui.IObjectActionDelegate");
 importManager.addImport("org.eclipse.ui.IWorkbenchPart");
 importManager.addImport("org.eclipse.ui.PartInitException");
 importManager.addImport("org.eclipse.ui.ide.IDE");
 importManager.addImport("org.eclipse.gmf.runtime.diagram.core.services.ViewService");
+importManager.addImport("org.eclipse.jface.dialogs.IDialogSettings");
+importManager.addImport("org.eclipse.jface.wizard.WizardDialog");
+importManager.addImport("org.eclipse.jface.wizard.Wizard");
+importManager.addImport("org.eclipse.ui.dialogs.WizardNewFileCreationPage");
 
 importManager.markImportLocation(stringBuffer);
 %>
@@ -70,7 +74,12 @@ public class <%=genDiagram.getInitDiagramFileActionClassName()%> implements IObj
 	/**
 	 * @generated
 	 */
-	private IFile mySelection;
+	private IFile mySelectedModelFile;
+	
+	/**
+	 * @generated
+	 */
+	private IStructuredSelection mySelection;
     
 	/**
 	 * @generated
@@ -100,12 +109,14 @@ public class <%=genDiagram.getInitDiagramFileActionClassName()%> implements IObj
      * @generated
      */
 	public void selectionChanged(IAction action, ISelection selection) {
-		mySelection = null;
+		mySelectedModelFile = null;
+		mySelection = StructuredSelection.EMPTY;
 		action.setEnabled(false);
 		if (selection instanceof IStructuredSelection == false || selection.isEmpty()) {
 			return;
 		}
-		mySelection = (IFile) ((IStructuredSelection) selection).getFirstElement();
+		mySelection = (IStructuredSelection) selection;
+		mySelectedModelFile = (IFile) ((IStructuredSelection) selection).getFirstElement();
 		action.setEnabled(true);
 	}
 	
@@ -117,7 +128,7 @@ public class <%=genDiagram.getInitDiagramFileActionClassName()%> implements IObj
 		if (!status.isOK()) {
 			return status.getMessage();
 		}
-		if (mySelection.getParent().getFile(new Path(newText).addFileExtension("editorGen.getDiagramFileExtension()")).exists()) {
+		if (mySelectedModelFile.getParent().getFile(new Path(newText).addFileExtension("editorGen.getDiagramFileExtension()")).exists()) {
 			return "File already exists, choose another name";
 		}
 		return null;
@@ -127,50 +138,94 @@ public class <%=genDiagram.getInitDiagramFileActionClassName()%> implements IObj
      * @generated
      */
 	public void run(IAction action) {
-		final InputDialog outputFileNameDialog = new InputDialog(getShell(), "Diagram file name", "Please provide diagram file name", mySelection.getProjectRelativePath().removeFileExtension().addFileExtension("editorGen.getDiagramFileExtension()").lastSegment(), this);
-		if (outputFileNameDialog.open() != InputDialog.OK) {
-			return;
+		NewDiagramFileWizard wizard = new NewDiagramFileWizard();
+        IDialogSettings pluginDialogSettings = <%=pluginActivatorClass%>.getInstance().getDialogSettings();
+        IDialogSettings initDiagramFileSettings = pluginDialogSettings.getSection("InisDiagramFile"); //$NON-NLS-1$
+        if (initDiagramFileSettings == null) {
+        	initDiagramFileSettings = pluginDialogSettings.addNewSection("InisDiagramFile"); //$NON-NLS-1$
+        }
+        wizard.setDialogSettings(initDiagramFileSettings);
+		wizard.setForcePreviousAndNextButtons(false);
+		wizard.setWindowTitle("Initialize new <%=genDiagram.getEditorGen().getModelID()%> diagram file");
+
+        WizardDialog dialog = new WizardDialog(myPart.getSite().getShell(), wizard);
+        dialog.create();
+        dialog.getShell().setSize(Math.max(500, dialog.getShell().getSize().x), 500);
+        dialog.open();
+	}
+
+    /**
+     * @generated
+     */
+	private class NewDiagramFileWizard extends Wizard {
+		
+	    /**
+    	 * @generated
+		 */
+		private WizardNewFileCreationPage myFileCreationPage;
+		
+	    /**
+	     * @generated
+	     */
+		public void addPages() {
+			myFileCreationPage = new WizardNewFileCreationPage("Initialize new Ecore diagram file", mySelection);
+			myFileCreationPage.setFileName(mySelectedModelFile.getProjectRelativePath().removeFileExtension().addFileExtension("<%=editorGen.getDiagramFileExtension()%>").lastSegment());
+			myFileCreationPage.setTitle("Diagram file");
+			myFileCreationPage.setDescription("Create new diagram and initialize it using specified <%=genDiagram.getEditorGen().getModelID()%> model content");
+			addPage(myFileCreationPage);
 		}
-		final EObject diagramModelObject = load();
-		if (diagramModelObject == null) {
-			MessageDialog.openError(getShell(), "Error", "Failed to load user model");
-			return;
-		}
-		OperationUtil.runAsUnchecked(new MRunnable() {
-			public Object run() {
-				EObject diagram = create(diagramModelObject);
-				if (diagram == null) {
-					MessageDialog.openError(getShell(), "Error", "Failed to create diagram object");
+
+	    /**
+	     * @generated
+	     */
+		public boolean performFinish() {
+			final EObject diagramModelObject = load();
+			if (diagramModelObject == null) {
+				MessageDialog.openError(getShell(), "Error", "Failed to load user model");
+				return false;
+			}
+			
+			myFileCreationPage.getFileName();
+			
+			OperationUtil.runAsUnchecked(new MRunnable() {
+
+				public Object run() {
+					EObject diagram = create(diagramModelObject);
+					if (diagram == null) {
+						MessageDialog.openError(getShell(), "Error", "Failed to create diagram object");
+						return null;
+					}
+					IFile destFile = myFileCreationPage.createNewFile();
+					save(destFile.getLocation().toOSString(), diagram);
+					try {
+						IDE.openEditor(myPart.getSite().getPage(), destFile);
+					} catch (PartInitException ex) {
+						<%=pluginActivatorClass%>.getInstance().logError("Unable to open editor", ex);
+					}
 					return null;
 				}
-				IFile destFile = mySelection.getParent().getFile(new Path(outputFileNameDialog.getValue()));
-				save(destFile.getLocation().toOSString(), diagram);
-				try {
-					IDE.openEditor(myPart.getSite().getPage(), destFile);
-				} catch (PartInitException ex) {
-					<%=pluginActivatorClass%>.getInstance().logError("Unable to open editor", ex);
-				}
-				return null;
-			}
-		});
+			});
+			return true;
+		}
+		
 	}
-	
+
     /**
      * @generated
      */
 	private EObject load() {
 <%if (editorGen.isSameFileForDiagramAndModel()) {%>
 		<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.ResourceSet")%> resourceSet = new <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.impl.ResourceSetImpl")%>();
-		Resource resource = resourceSet.getResource(<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createPlatformResourceURI(mySelection.getFullPath().toString()), true);
+		Resource resource = resourceSet.getResource(<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createPlatformResourceURI(mySelectedModelFile.getFullPath().toString()), true);
 		try {
 			resource.load(Collections.EMPTY_MAP);
 			return (EObject) resource.getContents().get(0);
 		} catch (IOException ex) {
-			<%=pluginActivatorClass%>.getInstance().logError("Unable to load resource: " + mySelection.getFullPath().toString(), ex);
+			<%=pluginActivatorClass%>.getInstance().logError("Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex);
 		}
 		return null;
 <%} else {%>
-		String resourcePath = mySelection.getLocation().toOSString();
+		String resourcePath = mySelectedModelFile.getLocation().toOSString();
 		Resource modelResource = ResourceUtil.findResource(resourcePath);
 		if (modelResource == null) {
 			modelResource = ResourceUtil.create(resourcePath);

@@ -48,18 +48,24 @@ import org.eclipse.gmf.runtime.notation.View;
 
 import org.eclipse.jface.action.IAction;
 
+import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.IInputValidator;
-import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
+
+import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.jface.wizard.WizardDialog;
 
 import org.eclipse.swt.widgets.Shell;
 
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
+
+import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 
 import org.eclipse.ui.ide.IDE;
 
@@ -76,7 +82,12 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	/**
 	 * @generated
 	 */
-	private IFile mySelection;
+	private IFile mySelectedModelFile;
+
+	/**
+	 * @generated
+	 */
+	private IStructuredSelection mySelection;
 
 	/**
 	 * @generated
@@ -106,12 +117,14 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	 * @generated
 	 */
 	public void selectionChanged(IAction action, ISelection selection) {
-		mySelection = null;
+		mySelectedModelFile = null;
+		mySelection = StructuredSelection.EMPTY;
 		action.setEnabled(false);
 		if (selection instanceof IStructuredSelection == false || selection.isEmpty()) {
 			return;
 		}
-		mySelection = (IFile) ((IStructuredSelection) selection).getFirstElement();
+		mySelection = (IStructuredSelection) selection;
+		mySelectedModelFile = (IFile) ((IStructuredSelection) selection).getFirstElement();
 		action.setEnabled(true);
 	}
 
@@ -123,7 +136,7 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 		if (!status.isOK()) {
 			return status.getMessage();
 		}
-		if (mySelection.getParent().getFile(new Path(newText).addFileExtension("editorGen.getDiagramFileExtension()")).exists()) {
+		if (mySelectedModelFile.getParent().getFile(new Path(newText).addFileExtension("editorGen.getDiagramFileExtension()")).exists()) {
 			return "File already exists, choose another name";
 		}
 		return null;
@@ -133,41 +146,83 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	 * @generated
 	 */
 	public void run(IAction action) {
-		final InputDialog outputFileNameDialog = new InputDialog(getShell(), "Diagram file name", "Please provide diagram file name", mySelection.getProjectRelativePath().removeFileExtension()
-				.addFileExtension("editorGen.getDiagramFileExtension()").lastSegment(), this);
-		if (outputFileNameDialog.open() != InputDialog.OK) {
-			return;
+		NewDiagramFileWizard wizard = new NewDiagramFileWizard();
+		IDialogSettings pluginDialogSettings = EcoreDiagramEditorPlugin.getInstance().getDialogSettings();
+		IDialogSettings initDiagramFileSettings = pluginDialogSettings.getSection("InisDiagramFile"); //$NON-NLS-1$
+		if (initDiagramFileSettings == null) {
+			initDiagramFileSettings = pluginDialogSettings.addNewSection("InisDiagramFile"); //$NON-NLS-1$
 		}
-		final EObject diagramModelObject = load();
-		if (diagramModelObject == null) {
-			MessageDialog.openError(getShell(), "Error", "Failed to load user model");
-			return;
-		}
-		OperationUtil.runAsUnchecked(new MRunnable() {
+		wizard.setDialogSettings(initDiagramFileSettings);
+		wizard.setForcePreviousAndNextButtons(false);
+		wizard.setWindowTitle("Initialize new Ecore diagram file");
 
-			public Object run() {
-				EObject diagram = create(diagramModelObject);
-				if (diagram == null) {
-					MessageDialog.openError(getShell(), "Error", "Failed to create diagram object");
+		WizardDialog dialog = new WizardDialog(myPart.getSite().getShell(), wizard);
+		dialog.create();
+		dialog.getShell().setSize(Math.max(500, dialog.getShell().getSize().x), 500);
+		dialog.open();
+	}
+
+	/**
+	 * @generated
+	 */
+	private class NewDiagramFileWizard extends Wizard {
+
+		/**
+		 * @generated
+		 */
+		private WizardNewFileCreationPage myFileCreationPage;
+
+		/**
+		 * @generated
+		 */
+		public void addPages() {
+			myFileCreationPage = new WizardNewFileCreationPage("Initialize new Ecore diagram file", mySelection);
+			myFileCreationPage.setFileName(mySelectedModelFile.getProjectRelativePath().removeFileExtension().addFileExtension("ecore_diagram").lastSegment());
+			myFileCreationPage.setTitle("Diagram file");
+			myFileCreationPage.setDescription("Create new diagram and initialize it using specified Ecore model content");
+			addPage(myFileCreationPage);
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean performFinish() {
+			final EObject diagramModelObject = load();
+			if (diagramModelObject == null) {
+				MessageDialog.openError(getShell(), "Error", "Failed to load user model");
+				return false;
+			}
+
+			myFileCreationPage.getFileName();
+
+			OperationUtil.runAsUnchecked(new MRunnable() {
+
+				public Object run() {
+					EObject diagram = create(diagramModelObject);
+					if (diagram == null) {
+						MessageDialog.openError(getShell(), "Error", "Failed to create diagram object");
+						return null;
+					}
+					IFile destFile = myFileCreationPage.createNewFile();
+					save(destFile.getLocation().toOSString(), diagram);
+					try {
+						IDE.openEditor(myPart.getSite().getPage(), destFile);
+					} catch (PartInitException ex) {
+						EcoreDiagramEditorPlugin.getInstance().logError("Unable to open editor", ex);
+					}
 					return null;
 				}
-				IFile destFile = mySelection.getParent().getFile(new Path(outputFileNameDialog.getValue()));
-				save(destFile.getLocation().toOSString(), diagram);
-				try {
-					IDE.openEditor(myPart.getSite().getPage(), destFile);
-				} catch (PartInitException ex) {
-					EcoreDiagramEditorPlugin.getInstance().logError("Unable to open editor", ex);
-				}
-				return null;
-			}
-		});
+			});
+			return true;
+		}
+
 	}
 
 	/**
 	 * @generated
 	 */
 	private EObject load() {
-		String resourcePath = mySelection.getLocation().toOSString();
+		String resourcePath = mySelectedModelFile.getLocation().toOSString();
 		Resource modelResource = ResourceUtil.findResource(resourcePath);
 		if (modelResource == null) {
 			modelResource = ResourceUtil.create(resourcePath);

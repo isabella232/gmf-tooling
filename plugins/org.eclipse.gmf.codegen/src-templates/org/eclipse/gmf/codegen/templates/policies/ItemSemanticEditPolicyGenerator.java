@@ -223,7 +223,7 @@ if(diagram.hasLinkCreationConstraints()) {
     stringBuffer.append(TEXT_22);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration"));
     stringBuffer.append(TEXT_23);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.helper.IOclHelper"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.helper.IOCLHelper"));
     stringBuffer.append(TEXT_24);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.helper.HelperUtil"));
     stringBuffer.append(TEXT_25);
