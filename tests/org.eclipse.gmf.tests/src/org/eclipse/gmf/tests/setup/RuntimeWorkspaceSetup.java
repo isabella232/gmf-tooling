@@ -132,7 +132,6 @@ public class RuntimeWorkspaceSetup {
 					//
 					"org.eclipse.emf.edit", //$NON-NLS-1$
 					"org.eclipse.emf.transaction", //$NON-NLS-1$
-					"org.eclipse.ui.views.properties.tabbed", //$NON-NLS-1$
 			});
 		}
 		return this;
@@ -162,6 +161,7 @@ public class RuntimeWorkspaceSetup {
 		pluginXmlContent.append(p.getName());
 		pluginXmlContent.append("'>\n<requires>\n"); //$NON-NLS-1$
 		pluginXmlContent.append("<import plugin='org.eclipse.jface.text' export='true'/>\n"); //$NON-NLS-1$
+		pluginXmlContent.append("<import plugin='org.eclipse.ui.views.properties.tabbed' export='true'/>\n"); //$NON-NLS-1$
 
 		ClasspathEntry[] classpathEntries = getClasspathEntries(pluginIDs);
 		for (int i = 0; i < classpathEntries.length; i++) {
@@ -319,6 +319,9 @@ public class RuntimeWorkspaceSetup {
 		private URL getBundleURL() {
 			if (myBundleURL == null) {
 				Bundle bundle = Platform.getBundle(myPluginID);
+				if (bundle == null) {
+					throw new NullPointerException("No plugin '" + myPluginID + "' found in the platform");
+				}
 				try {
 					myBundleURL = Platform.resolve(bundle.getEntry("/")); //$NON-NLS-1$
 				} catch (IOException e) {
