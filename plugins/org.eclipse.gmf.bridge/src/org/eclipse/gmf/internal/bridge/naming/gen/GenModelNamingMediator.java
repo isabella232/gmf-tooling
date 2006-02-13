@@ -22,7 +22,9 @@ import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
+import org.eclipse.gmf.mappings.LinkLabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
+import org.eclipse.gmf.mappings.NodeLabelMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 
 /**
@@ -40,8 +42,8 @@ public interface GenModelNamingMediator {
 
 	void feed(GenCompartment genCompartment, CompartmentMapping mapping);
 
-	void feed(GenNodeLabel label, AbstractNodeMapping mapping);
+	void feed(GenNodeLabel label, AbstractNodeMapping mapping, NodeLabelMapping labelMapping);
 
-	void feed(GenLinkLabel label, LinkMapping mapping);
+	void feed(GenLinkLabel label, LinkMapping mapping, LinkLabelMapping labelMapping);
 
 }

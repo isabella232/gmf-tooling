@@ -200,6 +200,7 @@ public class AbstractNodeMappingItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_LabelMappings());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_ChildMappings());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_CompartmentMappings());
 		}
@@ -239,6 +240,7 @@ public class AbstractNodeMappingItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(AbstractNodeMapping.class)) {
+			case GMFMapPackage.ABSTRACT_NODE_MAPPING__LABEL_MAPPINGS:
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -256,6 +258,11 @@ public class AbstractNodeMappingItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_LabelMappings(),
+				 GMFMapFactory.eINSTANCE.createNodeLabelMapping()));
 
 		newChildDescriptors.add
 			(createChildParameter

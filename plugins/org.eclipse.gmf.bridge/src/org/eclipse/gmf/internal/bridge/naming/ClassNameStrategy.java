@@ -11,12 +11,18 @@
  */
 package org.eclipse.gmf.internal.bridge.naming;
 
+import java.util.Iterator;
+
 import org.eclipse.emf.codegen.util.CodeGenUtil;
+import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
+import org.eclipse.gmf.mappings.LabelMapping;
+import org.eclipse.gmf.mappings.LinkLabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
+import org.eclipse.gmf.mappings.NodeLabelMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 
 /**
@@ -74,23 +80,52 @@ public class ClassNameStrategy extends AbstractNamingStrategy {
 		return createClassName(cm.getParentNodeMapping().getDomainContext().getName() + '_' + cm.getCompartment().getName());
 	}
 
-	public String getForEditFeature(AbstractNodeMapping nme) {
-		if (nme.getDomainContext() == null) {
-			return super.getForEditFeature(nme);
+	private String getQualifier(LabelMapping mapping) {
+		String text = mapping.getText();
+		if (text != null && text.length() > 0) {
+			return text.length() > 8 ? text.substring(0, 8) : text;
 		}
-		return createClassName(nme.getDomainContext().getName() + '_' + nme.getEditFeature().getName());
+		assert mapping.getFeatures().size() > 0;
+		StringBuffer sb = new StringBuffer();
+		for (Iterator features = mapping.getFeatures().iterator(); features.hasNext();) {
+			EAttribute feature = (EAttribute) features.next();
+			if (sb.length() > 0) {
+				sb.append('_');
+			}
+			sb.append(feature.getName());
+		}
+		return sb.toString();
 	}
 
-	public String getForEditFeature(LinkMapping lme) {
+	public String getForEditFeature(AbstractNodeMapping nme, NodeLabelMapping labelMapping) {
+		if (nme.getDomainContext() == null) {
+			return super.getForEditFeature(nme, labelMapping);
+		}
+		String qualifier;
+		if (labelMapping == null) {
+			qualifier = nme.getEditFeature().getName();
+		} else {
+			qualifier = getQualifier(labelMapping);
+		}
+		return createClassName(nme.getDomainContext().getName() + '_' + qualifier);
+	}
+
+	public String getForEditFeature(LinkMapping lme, LinkLabelMapping labelMapping) {
 		if (lme.getLabelEditFeature() == null) {
-			return super.getForEditFeature(lme);
+			return super.getForEditFeature(lme, labelMapping);
+		}
+		String qualifier;
+		if (labelMapping == null) {
+			qualifier = lme.getLabelEditFeature().getName();
+		} else {
+			qualifier = getQualifier(labelMapping);
 		}
 		if (lme.getDomainMetaElement() != null) {
-			return createClassName(lme.getDomainMetaElement().getName() + '_' + lme.getLabelEditFeature().getName());
+			return createClassName(lme.getDomainMetaElement().getName() + '_' + qualifier);
 		} else if (lme.getLinkMetaFeature() != null) {
-			return createClassName(lme.getLinkMetaFeature().getName() + '_' + lme.getLabelEditFeature().getName());
+			return createClassName(lme.getLinkMetaFeature().getName() + '_' + qualifier);
 		}
-		return super.getForEditFeature(lme);
+		return super.getForEditFeature(lme, labelMapping);
 	}
 
 	protected String createClassName(String name) {

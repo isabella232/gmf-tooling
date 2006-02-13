@@ -6,6 +6,8 @@
  */
 package org.eclipse.gmf.mappings;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.gmfgraph.Connection;
@@ -25,6 +27,7 @@ import org.eclipse.gmf.gmfgraph.Connection;
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getDiagramLink <em>Diagram Link</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getLabelEditFeature <em>Label Edit Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getLabelDisplayFeature <em>Label Display Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getLabelMappings <em>Label Mappings</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getSourceMetaFeature <em>Source Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getLinkMetaFeature <em>Link Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LinkMapping#getCreationConstraints <em>Creation Constraints</em>}</li>
@@ -117,6 +120,24 @@ public interface LinkMapping extends MappingEntry, MenuOwner, ToolOwner, Appeara
 	 * @generated
 	 */
 	void setLabelDisplayFeature(EAttribute value);
+
+	/**
+	 * Returns the value of the '<em><b>Label Mappings</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.mappings.LinkLabelMapping}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.LinkLabelMapping#getLinkMapping <em>Link Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Label Mappings</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Label Mappings</em>' containment reference list.
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping_LabelMappings()
+	 * @see org.eclipse.gmf.mappings.LinkLabelMapping#getLinkMapping
+	 * @model type="org.eclipse.gmf.mappings.LinkLabelMapping" opposite="linkMapping" containment="true"
+	 * @generated
+	 */
+	EList getLabelMappings();
 
 	/**
 	 * Returns the value of the '<em><b>Source Meta Feature</b></em>' reference.

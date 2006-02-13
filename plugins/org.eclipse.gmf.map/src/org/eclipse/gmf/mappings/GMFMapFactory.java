@@ -71,6 +71,24 @@ public interface GMFMapFactory extends EFactory {
 	CanvasMapping createCanvasMapping();
 
 	/**
+	 * Returns a new object of class '<em>Node Label Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Node Label Mapping</em>'.
+	 * @generated
+	 */
+	NodeLabelMapping createNodeLabelMapping();
+
+	/**
+	 * Returns a new object of class '<em>Link Label Mapping</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Link Label Mapping</em>'.
+	 * @generated
+	 */
+	LinkLabelMapping createLinkLabelMapping();
+
+	/**
 	 * Returns a new object of class '<em>Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

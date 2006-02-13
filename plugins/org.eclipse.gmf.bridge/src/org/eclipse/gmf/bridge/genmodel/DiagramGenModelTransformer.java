@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
@@ -46,11 +47,14 @@ import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
+import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
+import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.TextLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
@@ -70,9 +74,12 @@ import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
+import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkConstraints;
+import org.eclipse.gmf.mappings.LinkLabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
+import org.eclipse.gmf.mappings.NodeLabelMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.mappings.ToolOwner;
@@ -197,7 +204,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			label.setViewmap(createLabelViewmap());
 
 			// set class names
-			myNamingStrategy.feed(label, nme);
+			myNamingStrategy.feed(label, nme, null);
 
 			genNode.getLabels().add(label);
 		}
@@ -235,7 +242,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			label.setViewmap(createLabelViewmap());
 
 			// set class names
-			myNamingStrategy.feed(label, childNodeMapping);
+			myNamingStrategy.feed(label, childNodeMapping, null);
 
 			childNode.getLabels().add(label);
 		}
@@ -271,6 +278,15 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 				genChildContainer = genNode;
 			}
 			process(childNodeMapping, genChildContainer);
+		}
+		for (Iterator labels = mapping.getLabelMappings().iterator(); labels.hasNext();) {
+			NodeLabelMapping labelMapping = (NodeLabelMapping) labels.next();
+			GenNodeLabel label = createNodeLabel(genNode, labelMapping);
+
+			// set class names
+			myNamingStrategy.feed(label, mapping, labelMapping);
+
+			genNode.getLabels().add(label);
 		}
 	}
 
@@ -316,7 +332,16 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			label.setViewmap(createLabelViewmap());
 
 			// set class names
-			myNamingStrategy.feed(label, lme);
+			myNamingStrategy.feed(label, lme, null);
+
+			gl.getLabels().add(label);
+		}
+		for (Iterator labels = lme.getLabelMappings().iterator(); labels.hasNext();) {
+			LinkLabelMapping labelMapping = (LinkLabelMapping) labels.next();
+			GenLinkLabel label = createLinkLabel(gl, labelMapping);
+
+			// set class names
+			myNamingStrategy.feed(label, lme, labelMapping);
 
 			gl.getLabels().add(label);
 		}
@@ -331,6 +356,70 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if(lme.getCreationConstraints() != null) {
 			gl.setCreationConstraints(createLinkCreationConstraints(lme.getCreationConstraints()));
 		}
+	}
+
+	private GenNodeLabel createNodeLabel(GenNode node, NodeLabelMapping mapping) {
+		GenNodeLabel label;
+		if (mapping.isExternal()) {
+			label = GMFGenFactory.eINSTANCE.createGenExternalNodeLabel();
+		} else {
+			label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
+		}
+		label.setVisualID(myVisualIDs.get(label));
+		label.setDiagramRunTimeClass(getNodeLabelRunTimeClass());
+		label.setViewmap(createLabelViewmap());
+		label.setModelFacet(createLabelModelFacet(mapping));
+		return label;
+	}
+
+	private GenLinkLabel createLinkLabel(GenLink link, LinkLabelMapping mapping) {
+		GenLinkLabel label = GMFGenFactory.eINSTANCE.createGenLinkLabel();
+		label.setVisualID(myVisualIDs.get(label));
+		label.setDiagramRunTimeClass(getLinkLabelRunTimeClass());
+		label.setViewmap(createLabelViewmap());
+		label.setModelFacet(createLabelModelFacet(mapping));
+		label.setAlignment(getLinkLabelAlignment(mapping.getAlignment()));
+		return label;
+	}
+
+	private LinkLabelAlignment getLinkLabelAlignment(org.eclipse.gmf.mappings.LinkLabelAlignment alignment) {
+		switch (alignment.getValue()) {
+		case org.eclipse.gmf.mappings.LinkLabelAlignment.SOURCE: return LinkLabelAlignment.SOURCE_LITERAL;
+		case org.eclipse.gmf.mappings.LinkLabelAlignment.MIDDLE: return LinkLabelAlignment.MIDDLE_LITERAL;
+		case org.eclipse.gmf.mappings.LinkLabelAlignment.TARGET: return LinkLabelAlignment.TARGET_LITERAL;
+		default: throw new IllegalStateException();
+		}
+	}
+
+	private LabelModelFacet createLabelModelFacet(LabelMapping mapping) {
+		String text = mapping.getText();
+		if (text != null && text.length() > 0) {
+			TextLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createTextLabelModelFacet();
+			modelFacet.setText(text);
+			return modelFacet;
+		}
+		if (mapping.getFeatures().size() == 1) {
+			FeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
+			modelFacet.setMetaFeature(findGenFeature((EAttribute) mapping.getFeatures().get(0)));
+			String defaultText = mapping.getDefaultText();
+			if (defaultText == null || defaultText.length() == 0) {
+				defaultText = "<...>";
+			}
+			modelFacet.setDefaultText(defaultText);
+			modelFacet.setViewPattern(mapping.getViewPattern());
+			modelFacet.setEditPattern(mapping.getEditPattern());
+			return modelFacet;
+		}
+		if (mapping.getFeatures().size() > 1) {
+			CompositeFeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createCompositeFeatureLabelModelFacet();
+			for (Iterator features = mapping.getFeatures().iterator(); features.hasNext();) {
+				modelFacet.getMetaFeatures().add(findGenFeature((EAttribute) features.next()));
+			}
+			modelFacet.setViewPattern(mapping.getViewPattern());
+			modelFacet.setEditPattern(mapping.getEditPattern());
+			return modelFacet;
+		}
+		throw new IllegalArgumentException("Model facet of a label is undefined " + mapping);
 	}
 
 	/**

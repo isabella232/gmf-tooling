@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EAttribute;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getEditFeature <em>Edit Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getLabelMappings <em>Label Mappings</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getChildMappings <em>Child Mappings</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AbstractNodeMapping#getCompartmentMappings <em>Compartment Mappings</em>}</li>
  * </ul>
@@ -55,6 +56,24 @@ public interface AbstractNodeMapping extends MappingEntry, MenuOwner, ToolOwner,
 	 * @generated
 	 */
 	void setEditFeature(EAttribute value);
+
+	/**
+	 * Returns the value of the '<em><b>Label Mappings</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.mappings.NodeLabelMapping}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.NodeLabelMapping#getNodeMapping <em>Node Mapping</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Label Mappings</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Label Mappings</em>' containment reference list.
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getAbstractNodeMapping_LabelMappings()
+	 * @see org.eclipse.gmf.mappings.NodeLabelMapping#getNodeMapping
+	 * @model type="org.eclipse.gmf.mappings.NodeLabelMapping" opposite="nodeMapping" containment="true"
+	 * @generated
+	 */
+	EList getLabelMappings();
 
 	/**
 	 * Returns the value of the '<em><b>Child Mappings</b></em>' containment reference list.
