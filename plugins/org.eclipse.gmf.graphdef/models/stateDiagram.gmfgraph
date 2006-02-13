@@ -6,7 +6,11 @@
       <border xsi:type="gmfgraph:CustomBorder" qualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.RectangularDropShadowLineBorder" bundleName="org.eclipse.gmf.runtime.draw2d.ui"/>
     </figures>
     <figures xsi:type="gmfgraph:PolylineConnection" name="SolidLineWDstArrowFigure" targetDecoration="ArrowDecoration"/>
-    <figures xsi:type="gmfgraph:PolylineDecoration" name="ArrowDecoration"/>
+    <figures xsi:type="gmfgraph:PolylineDecoration" name="ArrowDecoration">
+      <template x="-1" y="1"/>
+      <template/>
+      <template x="-1" y="-1"/>
+    </figures>
   </figures>
   <nodes name="StateMachine Node" figure="RoundedRectangle"/>
   <connections name="SolidLineWDstArrow" figure="SolidLineWDstArrowFigure"/>
