@@ -221,6 +221,13 @@ public abstract class TaiPanAbstractParser implements IParser {
 			} else if (Character.TYPE.equals(iClass)) {
 				if (value instanceof Character) {
 					// ok
+				} else if (value instanceof String) {
+					String s = (String) value;
+					if (s.length() == 0) {
+						value = null;
+					} else {
+						value = new Character(s.charAt(0));
+					}
 				} else {
 					value = new InvalidValue("Value of type Character is expected");
 				}
@@ -229,6 +236,17 @@ public abstract class TaiPanAbstractParser implements IParser {
 					// ok
 				} else if (value instanceof Number) {
 					value = new Byte(((Number) value).byteValue());
+				} else if (value instanceof String) {
+					String s = (String) value;
+					if (s.length() == 0) {
+						value = null;
+					} else {
+						try {
+							value = Byte.valueOf(s);
+						} catch (NumberFormatException nfe) {
+							value = new InvalidValue("String value does not convert to Byte value");
+						}
+					}
 				} else {
 					value = new InvalidValue("Value of type Byte is expected");
 				}
@@ -237,6 +255,17 @@ public abstract class TaiPanAbstractParser implements IParser {
 					// ok
 				} else if (value instanceof Number) {
 					value = new Short(((Number) value).shortValue());
+				} else if (value instanceof String) {
+					String s = (String) value;
+					if (s.length() == 0) {
+						value = null;
+					} else {
+						try {
+							value = Short.valueOf(s);
+						} catch (NumberFormatException nfe) {
+							value = new InvalidValue("String value does not convert to Short value");
+						}
+					}
 				} else {
 					value = new InvalidValue("Value of type Short is expected");
 				}
@@ -245,6 +274,17 @@ public abstract class TaiPanAbstractParser implements IParser {
 					// ok
 				} else if (value instanceof Number) {
 					value = new Integer(((Number) value).intValue());
+				} else if (value instanceof String) {
+					String s = (String) value;
+					if (s.length() == 0) {
+						value = null;
+					} else {
+						try {
+							value = Integer.valueOf(s);
+						} catch (NumberFormatException nfe) {
+							value = new InvalidValue("String value does not convert to Integer value");
+						}
+					}
 				} else {
 					value = new InvalidValue("Value of type Integer is expected");
 				}
@@ -253,6 +293,17 @@ public abstract class TaiPanAbstractParser implements IParser {
 					// ok
 				} else if (value instanceof Number) {
 					value = new Long(((Number) value).longValue());
+				} else if (value instanceof String) {
+					String s = (String) value;
+					if (s.length() == 0) {
+						value = null;
+					} else {
+						try {
+							value = Long.valueOf(s);
+						} catch (NumberFormatException nfe) {
+							value = new InvalidValue("String value does not convert to Long value");
+						}
+					}
 				} else {
 					value = new InvalidValue("Value of type Long is expected");
 				}
@@ -261,6 +312,17 @@ public abstract class TaiPanAbstractParser implements IParser {
 					// ok
 				} else if (value instanceof Number) {
 					value = new Float(((Number) value).floatValue());
+				} else if (value instanceof String) {
+					String s = (String) value;
+					if (s.length() == 0) {
+						value = null;
+					} else {
+						try {
+							value = Float.valueOf(s);
+						} catch (NumberFormatException nfe) {
+							value = new InvalidValue("String value does not convert to Float value");
+						}
+					}
 				} else {
 					value = new InvalidValue("Value of type Float is expected");
 				}
@@ -269,6 +331,17 @@ public abstract class TaiPanAbstractParser implements IParser {
 					// ok
 				} else if (value instanceof Number) {
 					value = new Double(((Number) value).doubleValue());
+				} else if (value instanceof String) {
+					String s = (String) value;
+					if (s.length() == 0) {
+						value = null;
+					} else {
+						try {
+							value = Double.valueOf(s);
+						} catch (NumberFormatException nfe) {
+							value = new InvalidValue("String value does not convert to Double value");
+						}
+					}
 				} else {
 					value = new InvalidValue("Value of type Double is expected");
 				}
