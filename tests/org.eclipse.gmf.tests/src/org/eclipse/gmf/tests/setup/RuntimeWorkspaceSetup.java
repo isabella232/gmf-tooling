@@ -132,6 +132,7 @@ public class RuntimeWorkspaceSetup {
 					//
 					"org.eclipse.emf.edit", //$NON-NLS-1$
 					"org.eclipse.emf.transaction", //$NON-NLS-1$
+					"org.eclipse.ui.views.properties.tabbed", //$NON-NLS-1$
 			});
 		}
 		return this;
