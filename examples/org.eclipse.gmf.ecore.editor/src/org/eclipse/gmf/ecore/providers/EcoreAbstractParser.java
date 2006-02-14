@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EEnumLiteral;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.core.command.UnexecutableCommand;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
@@ -24,6 +25,11 @@ import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
  * @generated
  */
 public abstract class EcoreAbstractParser implements IParser {
+
+	/**
+	 * @generated
+	 */
+	private TransactionalEditingDomain editingDomain;
 
 	/**
 	 * @generated
@@ -44,6 +50,20 @@ public abstract class EcoreAbstractParser implements IParser {
 	 * @generated
 	 */
 	private MessageFormat editProcessor;
+
+	/**
+	 * @generated
+	 */
+	public TransactionalEditingDomain getEditingDomain() {
+		return editingDomain;
+	}
+
+	/**
+	 * @generated
+	 */
+	public void setEditingDomain(TransactionalEditingDomain editingDomain) {
+		this.editingDomain = editingDomain;
+	}
 
 	/**
 	 * @generated

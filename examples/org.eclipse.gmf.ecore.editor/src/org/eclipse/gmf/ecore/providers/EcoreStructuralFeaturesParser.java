@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
-import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeModelCommand;
+import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
 import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
 
 /**
@@ -69,7 +69,7 @@ public class EcoreStructuralFeaturesParser extends EcoreAbstractParser {
 	 */
 	public ICommand getParseCommand(IAdaptable adapter, Object[] values) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
-		CompositeModelCommand command = new CompositeModelCommand("Set Values");
+		CompositeTransactionalCommand command = new CompositeTransactionalCommand(getEditingDomain(), "Set Values");
 		for (int i = 0; i < values.length; i++) {
 			EStructuralFeature feature = (EStructuralFeature) features.get(i);
 			command.compose(getModificationCommand(element, feature, values[i]));
