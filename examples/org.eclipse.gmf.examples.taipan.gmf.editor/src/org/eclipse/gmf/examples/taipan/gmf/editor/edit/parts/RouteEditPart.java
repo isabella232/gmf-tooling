@@ -62,5 +62,4 @@ public class RouteEditPart extends ConnectionNodeEditPart {
 		}
 
 	}
-
 }

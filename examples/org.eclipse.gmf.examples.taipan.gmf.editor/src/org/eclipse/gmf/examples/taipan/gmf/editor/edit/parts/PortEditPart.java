@@ -90,7 +90,9 @@ public class PortEditPart extends ShapeNodeEditPart {
 		figure.setLayoutManager(new StackLayout());
 		IFigure shape = createNodeShape();
 		figure.add(shape);
-		shape.setLayoutManager(new StackLayout());
+		if (shape.getLayoutManager() == null) {
+			shape.setLayoutManager(new StackLayout());
+		}
 
 		IFigure shapeContents = new Figure();
 		shape.add(shapeContents);
@@ -188,4 +190,5 @@ public class PortEditPart extends ShapeNodeEditPart {
 		}
 
 	}
+
 }

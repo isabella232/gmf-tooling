@@ -73,7 +73,9 @@ public class TaiPanElementTypes {
 		}
 		if (element instanceof EClass) {
 			EClass eClass = (EClass) element;
-			return TaiPanDiagramEditorPlugin.getInstance().getItemImageDescriptor(eClass.getEPackage().getEFactoryInstance().create(eClass));
+			if (!eClass.isAbstract()) {
+				return TaiPanDiagramEditorPlugin.getInstance().getItemImageDescriptor(eClass.getEPackage().getEFactoryInstance().create(eClass));
+			}
 		}
 		// TODO : support structural features
 		return null;

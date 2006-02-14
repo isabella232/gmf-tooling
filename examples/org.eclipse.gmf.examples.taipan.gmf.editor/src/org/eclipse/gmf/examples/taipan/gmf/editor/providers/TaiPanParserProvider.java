@@ -11,11 +11,12 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;
@@ -23,6 +24,9 @@ import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserProvider;
 import org.eclipse.gmf.runtime.emf.type.core.ElementTypeRegistry;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 /**
@@ -33,148 +37,178 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	/**
 	 * @generated
 	 */
-	private IParser itemITEMARTICLEQUANTITY_4003_TEXTParser;
+	private Map itemITEMARTICLEQUANTITY_4003_TEXTParsers;
 
 	/**
 	 * @generated
 	 */
-	private IParser getItemITEMARTICLEQUANTITY_4003_TEXTParser() {
-		if (itemITEMARTICLEQUANTITY_4003_TEXTParser == null) {
-			itemITEMARTICLEQUANTITY_4003_TEXTParser = createItemITEMARTICLEQUANTITY_4003_TEXTParser();
+	private IParser getItemITEMARTICLEQUANTITY_4003_TEXTParser(TransactionalEditingDomain editingDomain) {
+		if (itemITEMARTICLEQUANTITY_4003_TEXTParsers == null) {
+			itemITEMARTICLEQUANTITY_4003_TEXTParsers = new WeakHashMap();
 		}
-		return itemITEMARTICLEQUANTITY_4003_TEXTParser;
+		IParser parser = (IParser) itemITEMARTICLEQUANTITY_4003_TEXTParsers.get(editingDomain);
+		if (parser == null) {
+			parser = createItemITEMARTICLEQUANTITY_4003_TEXTParser(editingDomain);
+			itemITEMARTICLEQUANTITY_4003_TEXTParsers.put(editingDomain, parser);
+		}
+		return parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createItemITEMARTICLEQUANTITY_4003_TEXTParser() {
+	protected IParser createItemITEMARTICLEQUANTITY_4003_TEXTParser(TransactionalEditingDomain editingDomain) {
 		List features = new ArrayList(2);
 		features.add(TaiPanPackage.eINSTANCE.getItem().getEStructuralFeature("article"));
 		features.add(TaiPanPackage.eINSTANCE.getItem().getEStructuralFeature("quantity"));
 		TaiPanStructuralFeaturesParser parser = new TaiPanStructuralFeaturesParser(features);
 		parser.setViewPattern("- {0} [{1,number,integer}]");
 		parser.setEditPattern("{0}:{1,number,integer}");
+		parser.setEditingDomain(editingDomain);
 		return parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	private IParser portPORTLOCATION_4001_TEXTParser;
+	private Map portPORTLOCATION_4001_TEXTParsers;
 
 	/**
 	 * @generated
 	 */
-	private IParser getPortPORTLOCATION_4001_TEXTParser() {
-		if (portPORTLOCATION_4001_TEXTParser == null) {
-			portPORTLOCATION_4001_TEXTParser = createPortPORTLOCATION_4001_TEXTParser();
+	private IParser getPortPORTLOCATION_4001_TEXTParser(TransactionalEditingDomain editingDomain) {
+		if (portPORTLOCATION_4001_TEXTParsers == null) {
+			portPORTLOCATION_4001_TEXTParsers = new WeakHashMap();
 		}
-		return portPORTLOCATION_4001_TEXTParser;
+		IParser parser = (IParser) portPORTLOCATION_4001_TEXTParsers.get(editingDomain);
+		if (parser == null) {
+			parser = createPortPORTLOCATION_4001_TEXTParser(editingDomain);
+			portPORTLOCATION_4001_TEXTParsers.put(editingDomain, parser);
+		}
+		return parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createPortPORTLOCATION_4001_TEXTParser() {
+	protected IParser createPortPORTLOCATION_4001_TEXTParser(TransactionalEditingDomain editingDomain) {
 		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getPort().getEStructuralFeature("location"));
+		parser.setEditingDomain(editingDomain);
 		return parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	private IParser shipSHIPNAME_4002_TEXTParser;
+	private Map shipSHIPNAME_4002_TEXTParsers;
 
 	/**
 	 * @generated
 	 */
-	private IParser getShipSHIPNAME_4002_TEXTParser() {
-		if (shipSHIPNAME_4002_TEXTParser == null) {
-			shipSHIPNAME_4002_TEXTParser = createShipSHIPNAME_4002_TEXTParser();
+	private IParser getShipSHIPNAME_4002_TEXTParser(TransactionalEditingDomain editingDomain) {
+		if (shipSHIPNAME_4002_TEXTParsers == null) {
+			shipSHIPNAME_4002_TEXTParsers = new WeakHashMap();
 		}
-		return shipSHIPNAME_4002_TEXTParser;
+		IParser parser = (IParser) shipSHIPNAME_4002_TEXTParsers.get(editingDomain);
+		if (parser == null) {
+			parser = createShipSHIPNAME_4002_TEXTParser(editingDomain);
+			shipSHIPNAME_4002_TEXTParsers.put(editingDomain, parser);
+		}
+		return parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createShipSHIPNAME_4002_TEXTParser() {
+	protected IParser createShipSHIPNAME_4002_TEXTParser(TransactionalEditingDomain editingDomain) {
 		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getShip().getEStructuralFeature("name"));
+		parser.setEditingDomain(editingDomain);
 		return parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	private IParser routeROUTEDESCRIPTION_4004_TEXTParser;
+	private Map routeROUTEDESCRIPTION_4004_TEXTParsers;
 
 	/**
 	 * @generated
 	 */
-	private IParser getRouteROUTEDESCRIPTION_4004_TEXTParser() {
-		if (routeROUTEDESCRIPTION_4004_TEXTParser == null) {
-			routeROUTEDESCRIPTION_4004_TEXTParser = createRouteROUTEDESCRIPTION_4004_TEXTParser();
+	private IParser getRouteROUTEDESCRIPTION_4004_TEXTParser(TransactionalEditingDomain editingDomain) {
+		if (routeROUTEDESCRIPTION_4004_TEXTParsers == null) {
+			routeROUTEDESCRIPTION_4004_TEXTParsers = new WeakHashMap();
 		}
-		return routeROUTEDESCRIPTION_4004_TEXTParser;
+		IParser parser = (IParser) routeROUTEDESCRIPTION_4004_TEXTParsers.get(editingDomain);
+		if (parser == null) {
+			parser = createRouteROUTEDESCRIPTION_4004_TEXTParser(editingDomain);
+			routeROUTEDESCRIPTION_4004_TEXTParsers.put(editingDomain, parser);
+		}
+		return parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createRouteROUTEDESCRIPTION_4004_TEXTParser() {
+	protected IParser createRouteROUTEDESCRIPTION_4004_TEXTParser(TransactionalEditingDomain editingDomain) {
 		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getRoute().getEStructuralFeature("description"));
+		parser.setEditingDomain(editingDomain);
 		return parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	private IParser routeROUTERELIABILITY_4009_TEXTParser;
+	private Map routeROUTERELIABILITY_4009_TEXTParsers;
 
 	/**
 	 * @generated
 	 */
-	private IParser getRouteROUTERELIABILITY_4009_TEXTParser() {
-		if (routeROUTERELIABILITY_4009_TEXTParser == null) {
-			routeROUTERELIABILITY_4009_TEXTParser = createRouteROUTERELIABILITY_4009_TEXTParser();
+	private IParser getRouteROUTERELIABILITY_4009_TEXTParser(TransactionalEditingDomain editingDomain) {
+		if (routeROUTERELIABILITY_4009_TEXTParsers == null) {
+			routeROUTERELIABILITY_4009_TEXTParsers = new WeakHashMap();
 		}
-		return routeROUTERELIABILITY_4009_TEXTParser;
+		IParser parser = (IParser) routeROUTERELIABILITY_4009_TEXTParsers.get(editingDomain);
+		if (parser == null) {
+			parser = createRouteROUTERELIABILITY_4009_TEXTParser(editingDomain);
+			routeROUTERELIABILITY_4009_TEXTParsers.put(editingDomain, parser);
+		}
+		return parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createRouteROUTERELIABILITY_4009_TEXTParser() {
+	protected IParser createRouteROUTERELIABILITY_4009_TEXTParser(TransactionalEditingDomain editingDomain) {
 		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getRoute().getEStructuralFeature("reliability"));
 		parser.setViewPattern("reliability: {0,number,percent}");
 		parser.setEditPattern("{0,number,percent}");
+		parser.setEditingDomain(editingDomain);
 		return parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser getParser(IElementType type, String viewType) {
+	protected IParser getParser(IElementType type, String viewType, TransactionalEditingDomain editingDomain) {
 		if (TaiPanElementTypes.Item_2001 == type) {
-			return getItemITEMARTICLEQUANTITY_4003_TEXTParser();
+			return getItemITEMARTICLEQUANTITY_4003_TEXTParser(editingDomain);
 		}
 		if (TaiPanElementTypes.Port_1001 == type) {
 			if (TaiPanSemanticHints.Port_1001Labels.PORTLOCATION_4001_TEXT.equals(viewType)) {
-				return getPortPORTLOCATION_4001_TEXTParser();
+				return getPortPORTLOCATION_4001_TEXTParser(editingDomain);
 			}
 		}
 		if (TaiPanElementTypes.Ship_1002 == type) {
 			if (TaiPanSemanticHints.Ship_1002Labels.SHIPNAME_4002_TEXT.equals(viewType)) {
-				return getShipSHIPNAME_4002_TEXTParser();
+				return getShipSHIPNAME_4002_TEXTParser(editingDomain);
 			}
 		}
 		if (TaiPanElementTypes.Route_3002 == type) {
 			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4004_TEXT.equals(viewType)) {
-				return getRouteROUTEDESCRIPTION_4004_TEXTParser();
+				return getRouteROUTEDESCRIPTION_4004_TEXTParser(editingDomain);
 			}
 			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4009_TEXT.equals(viewType)) {
-				return getRouteROUTERELIABILITY_4009_TEXTParser();
+				return getRouteROUTERELIABILITY_4009_TEXTParser(editingDomain);
 			}
 		}
 		return null;
@@ -190,7 +224,8 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 			EObject element = (EObject) hint.getAdapter(EObject.class);
 			type = ElementTypeRegistry.getInstance().getElementType(element);
 		}
-		return getParser(type, viewType);
+		TransactionalEditingDomain editingDomain = (TransactionalEditingDomain) hint.getAdapter(TransactionalEditingDomain.class);
+		return getParser(type, viewType, editingDomain);
 	}
 
 	/**
@@ -198,14 +233,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	public boolean provides(IOperation operation) {
 		if (operation instanceof GetParserOperation) {
-			IAdaptable hint = ((GetParserOperation) operation).getHint();
-			String viewType = (String) hint.getAdapter(String.class);
-			IElementType type = (IElementType) hint.getAdapter(IElementType.class);
-			if (type == null) {
-				EObject element = (EObject) hint.getAdapter(EObject.class);
-				type = ElementTypeRegistry.getInstance().getElementType(element);
-			}
-			return getParser(type, viewType) != null;
+			return getParser(((GetParserOperation) operation).getHint()) != null;
 		}
 		return false;
 	}

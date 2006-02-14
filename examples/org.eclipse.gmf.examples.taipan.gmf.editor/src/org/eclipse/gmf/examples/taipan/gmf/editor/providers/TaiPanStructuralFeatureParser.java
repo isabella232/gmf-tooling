@@ -22,7 +22,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
-import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeModelCommand;
+import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 
 /**
@@ -95,7 +95,7 @@ public class TaiPanStructuralFeatureParser extends TaiPanAbstractParser {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
 		Object value = values.length == 1 ? values[0] : null;
 		ICommand command = getModificationCommand(element, feature, value);
-		return new CompositeModelCommand(command.getLabel(), Collections.singletonList(command));
+		return new CompositeTransactionalCommand(getEditingDomain(), command.getLabel(), Collections.singletonList(command));
 	}
 
 	/**

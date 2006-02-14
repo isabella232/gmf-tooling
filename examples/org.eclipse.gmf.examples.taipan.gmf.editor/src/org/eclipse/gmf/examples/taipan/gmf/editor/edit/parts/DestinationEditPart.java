@@ -66,5 +66,4 @@ public class DestinationEditPart extends ConnectionNodeEditPart {
 		}
 
 	}
-
 }

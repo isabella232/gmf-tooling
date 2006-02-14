@@ -20,7 +20,7 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 
-import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateElementCommand;
+import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
 
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 
@@ -47,7 +47,7 @@ public class Ship_CargoCompartmentItemSemanticEditPolicy extends TaiPanBaseItemS
 	/**
 	 * @generated
 	 */
-	private static class CreateItem_2001Command extends MSLCreateElementCommand {
+	private static class CreateItem_2001Command extends CreateElementCommand {
 
 		/**
 		 * @generated

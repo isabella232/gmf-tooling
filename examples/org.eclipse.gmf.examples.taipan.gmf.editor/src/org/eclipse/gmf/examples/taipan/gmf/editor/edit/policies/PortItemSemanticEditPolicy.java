@@ -12,7 +12,7 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLDestroyElementCommand;
+import org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
 import org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest;
 import org.eclipse.emf.ecore.EObject;
@@ -30,8 +30,7 @@ import org.eclipse.gmf.examples.taipan.TaiPanPackage;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 
-import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateRelationshipCommand;
-
+import org.eclipse.gmf.runtime.emf.type.core.commands.CreateRelationshipCommand;
 import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 
 import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
@@ -45,7 +44,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(DestroyElementRequest req) {
-		return getMSLWrapper(new MSLDestroyElementCommand(req) {
+		return getMSLWrapper(new DestroyElementCommand(req) {
 
 			protected EObject getElementToDestroy() {
 				View view = (View) getHost().getModel();
@@ -123,7 +122,7 @@ public class PortItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	/**
 	 * @generated
 	 */
-	private static class CreateIncomingRoute3002Command extends MSLCreateRelationshipCommand {
+	private static class CreateIncomingRoute3002Command extends CreateRelationshipCommand {
 
 		/**
 		 * @generated
