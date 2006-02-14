@@ -75,7 +75,7 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 	/**
 	 * @generated
 	 */
-	private static class Create<%=genChildNode.getUniqueIdentifier()%>Command extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateElementCommand")%> {
+	private static class Create<%=genChildNode.getUniqueIdentifier()%>Command extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand")%> {
 
 		/**
 		 * @generated

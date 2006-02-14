@@ -43,7 +43,7 @@ public class <%=genLink.getItemSemanticEditPolicyClassName()%> extends <%=import
 	 * @generated
 	 */
 	protected Command getDestroyElementCommand(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest")%> req) {
-		return getMSLWrapper(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.commands.core.commands.MSLDestroyElementCommand")%>(req));
+		return getMSLWrapper(new <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand")%>(req));
 	}
 <%}%>
 }

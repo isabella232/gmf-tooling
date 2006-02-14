@@ -320,7 +320,7 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
     stringBuffer.append(TEXT_37);
     stringBuffer.append(genChildNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_38);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateElementCommand"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand"));
     stringBuffer.append(TEXT_39);
     stringBuffer.append(genChildNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_40);

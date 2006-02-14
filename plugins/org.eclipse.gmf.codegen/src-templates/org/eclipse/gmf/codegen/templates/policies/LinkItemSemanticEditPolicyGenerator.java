@@ -85,7 +85,7 @@ GenDiagram genDiagram = genLink.getDiagram();
     stringBuffer.append(TEXT_17);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.requests.DestroyElementRequest"));
     stringBuffer.append(TEXT_18);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.commands.core.commands.MSLDestroyElementCommand"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.commands.DestroyElementCommand"));
     stringBuffer.append(TEXT_19);
     }
     stringBuffer.append(TEXT_20);
