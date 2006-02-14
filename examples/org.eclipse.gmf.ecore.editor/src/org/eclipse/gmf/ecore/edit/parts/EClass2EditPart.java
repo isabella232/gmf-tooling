@@ -5,6 +5,8 @@ import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+
 import org.eclipse.gmf.ecore.edit.policies.EClass2ItemSemanticEditPolicy;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
@@ -60,6 +62,8 @@ public class EClass2EditPart extends ListItemEditPart {
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
 							return EcoreElementTypes.EClass_2004;
+						} else if (TransactionalEditingDomain.class.equals(adapter)) {
+							return getEditingDomain();
 						}
 						return super.getAdapter(adapter);
 					}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="Ecore Canvas">
   <figures name="Ecore Figure Gallery">
-    <figures xsi:type="gmfgraph:Rectangle" name="RectangleFigure" layoutManager=""/>
+    <figures xsi:type="gmfgraph:Rectangle" name="RectangleFigure"/>
   </figures>
   <compartments name="attributes" figure="RectangleFigure" collapsible="true" needsTitle="true"/>
   <compartments name="operations" figure="RectangleFigure" collapsible="true" needsTitle="true"/>

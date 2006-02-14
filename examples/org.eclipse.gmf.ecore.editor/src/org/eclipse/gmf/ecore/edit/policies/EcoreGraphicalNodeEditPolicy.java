@@ -1,10 +1,12 @@
 package org.eclipse.gmf.ecore.edit.policies;
 
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gmf.runtime.common.core.command.CompositeCommand;
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
 import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.GraphicalNodeEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewAndElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -32,7 +34,8 @@ public class EcoreGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
 	protected Command getConnectionWithReorientedViewCompleteCommand(CreateConnectionRequest request) {
 		EtoolsProxyCommand c = (EtoolsProxyCommand) super.getConnectionCompleteCommand(request);
 		CompositeCommand cc = (CompositeCommand) c.getICommand();
-		EcoreReorientConnectionViewCommand rcvCommand = new EcoreReorientConnectionViewCommand(null);
+		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
+		EcoreReorientConnectionViewCommand rcvCommand = new EcoreReorientConnectionViewCommand(editingDomain, null);
 		rcvCommand.setEdgeAdaptor(getViewAdapter());
 		cc.compose(rcvCommand);
 		return c;

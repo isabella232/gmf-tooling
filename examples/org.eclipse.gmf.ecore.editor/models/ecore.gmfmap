@@ -174,7 +174,7 @@
   </links>
   <links>
     <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.2/@tools.3"/>
-    <diagramLink href="../../../plugin/org.eclipse.gmf.graphdef/models/classDiagram.gmfgraph#DashedConnectionWDstArrow"/>
+    <diagramLink href="../../../plugin/org.eclipse.gmf.graphdef/models/classDiagram.gmfgraph#SolidConnectionWDstClosedArrow"/>
     <linkMetaFeature xsi:type="ecore:EReference" href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/eSuperTypes"/>
     <creationConstraints>
       <targetEnd body="self &lt;> oppositeEnd and not oppositeEnd.eSuperTypes->includes(self) and not self.eAllSuperTypes->includes(oppositeEnd)"/>

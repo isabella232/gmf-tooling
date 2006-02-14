@@ -6,6 +6,8 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+
 import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
@@ -54,6 +56,8 @@ public class EClass_nameEditPart extends TextCompartmentEditPart {
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
 							return EcoreElementTypes.EClass_1001;
+						} else if (TransactionalEditingDomain.class.equals(adapter)) {
+							return getEditingDomain();
 						}
 						return super.getAdapter(adapter);
 					}

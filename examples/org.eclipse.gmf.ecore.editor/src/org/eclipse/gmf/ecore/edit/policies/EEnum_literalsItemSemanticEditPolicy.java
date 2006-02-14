@@ -8,7 +8,7 @@ import org.eclipse.gef.commands.Command;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
-import org.eclipse.gmf.runtime.emf.commands.core.commands.MSLCreateElementCommand;
+import org.eclipse.gmf.runtime.emf.type.core.commands.CreateElementCommand;
 
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateElementRequest;
 
@@ -35,7 +35,7 @@ public class EEnum_literalsItemSemanticEditPolicy extends EcoreBaseItemSemanticE
 	/**
 	 * @generated
 	 */
-	private static class CreateEEnumLiteral_2011Command extends MSLCreateElementCommand {
+	private static class CreateEEnumLiteral_2011Command extends CreateElementCommand {
 
 		/**
 		 * @generated
