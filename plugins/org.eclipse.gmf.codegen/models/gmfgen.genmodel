@@ -309,9 +309,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/body"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ValueExpression/language"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//ModelElementSelector">
-      <genOperations ecoreOperation="gmfgen.ecore#//ModelElementSelector/getRequiredPluginIDs"/>
-    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenConstraint"/>
     <genClasses ecoreClass="gmfgen.ecore#//Palette">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//Palette/diagram"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//Palette/groups"/>
@@ -348,7 +346,6 @@
     </genClasses>
     <genClasses image="false" ecoreClass="gmfgen.ecore#//GenElementInitializer">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenElementInitializer/typeModelFacet"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenElementInitializer/getRequiredPluginIDs"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenFeatureSeqInitializer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenFeatureSeqInitializer/initializers"/>

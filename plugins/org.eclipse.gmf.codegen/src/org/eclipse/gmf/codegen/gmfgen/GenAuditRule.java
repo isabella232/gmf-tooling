@@ -154,13 +154,13 @@ public interface GenAuditRule extends EObject {
 	 * A boolean type condition which if not satisfied indicates this audit rule violation. It is evaluated in the context of the target
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Rule</em>' containment reference.
-	 * @see #setRule(ValueExpression)
+	 * @see #setRule(GenConstraint)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditRule_Rule()
 	 * @model containment="true" required="true"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='target.ecoreClass'"
 	 * @generated
 	 */
-	ValueExpression getRule();
+	GenConstraint getRule();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getRule <em>Rule</em>}' containment reference.
@@ -170,7 +170,7 @@ public interface GenAuditRule extends EObject {
 	 * @see #getRule()
 	 * @generated
 	 */
-	void setRule(ValueExpression value);
+	void setRule(GenConstraint value);
 
 	/**
 	 * Returns the value of the '<em><b>Target</b></em>' reference.

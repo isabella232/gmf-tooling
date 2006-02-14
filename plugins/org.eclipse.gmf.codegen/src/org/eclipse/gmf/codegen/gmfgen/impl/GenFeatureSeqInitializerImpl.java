@@ -7,12 +7,9 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -76,24 +73,6 @@ public class GenFeatureSeqInitializerImpl extends GenElementInitializerImpl impl
 			initializers = new EObjectContainmentEList(GenFeatureValueSpec.class, this, GMFGenPackage.GEN_FEATURE_SEQ_INITIALIZER__INITIALIZERS);
 		}
 		return initializers;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	public EList getRequiredPluginIDs() {
-		HashSet ids = new HashSet();
-		for (Iterator it = getInitializers().iterator(); it.hasNext();) {
-			GenFeatureValueSpec valueSpec = (GenFeatureValueSpec) it.next();
-			// For now hardcode only the default support for OCL
-			// TODO - to be refactored to plugg-in other languages
-			if("ocl".equals(valueSpec.getLanguage())) { //$NON-NLS-1$
-				ids.add("org.eclipse.emf.query.ocl"); //$NON-NLS-1$
-			}
-		}
-		return new BasicEList(ids);
 	}
 
 	/**

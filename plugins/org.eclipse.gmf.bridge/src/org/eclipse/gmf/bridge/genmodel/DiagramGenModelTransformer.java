@@ -34,6 +34,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
@@ -51,14 +52,12 @@ import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.TextLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 import org.eclipse.gmf.codegen.gmfgen.Viewmap;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
@@ -568,11 +567,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		GenLinkConstraints genConstraints = GMFGenFactory.eINSTANCE.createGenLinkConstraints();
 		Constraint sourceConstraint = constraints.getSourceEnd();
 		if(sourceConstraint != null) {
-			genConstraints.setSourceEnd(createExpression(sourceConstraint.getBody(), sourceConstraint.getLanguage()));
+			genConstraints.setSourceEnd(createGenConstraint(sourceConstraint));
 		}
 		Constraint targetConstraint = constraints.getTargetEnd();
 		if(targetConstraint != null) {
-			genConstraints.setTargetEnd(createExpression(targetConstraint.getBody(), targetConstraint.getLanguage()));
+			genConstraints.setTargetEnd(createGenConstraint(targetConstraint));
 		}		
 		return genConstraints; 
 	}
@@ -591,7 +590,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private TypeModelFacet setupAux(TypeModelFacet typeModelFacet, Constraint spec, ElementInitializer init) {
 		// construct model element selector for domain EClass specializations if any exist
 		if(spec != null) {
-			typeModelFacet.setModelElementSelector(createModelElementSelector(spec));
+			typeModelFacet.setModelElementSelector(createGenConstraint(spec));
 		}
 		if(init != null) {
 			typeModelFacet.setModelElementInitializer(createElementInitializer(init));			
@@ -619,20 +618,14 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return null;
 	}
 	
-	private ValueExpression createExpression(String body, String lang) {
-		if(body == null) {
+
+	private GenConstraint createGenConstraint(Constraint constraint) {
+		if(constraint.getBody() == null) {
 			return null;
 		}
-		ValueExpression valueExpression = GMFGenFactory.eINSTANCE.createValueExpression();
-		valueExpression.setBody(body);
-		valueExpression.setLanguage(lang);
-		return valueExpression;
-	}
-	
-	private static ModelElementSelector createModelElementSelector(Constraint metaElementConstraint) {
-		ModelElementSelector modelElementSelector = GMFGenFactory.eINSTANCE.createModelElementSelector();
-		modelElementSelector.setBody(metaElementConstraint.getBody());
-		modelElementSelector.setLanguage(metaElementConstraint.getLanguage());		
+		GenConstraint modelElementSelector = GMFGenFactory.eINSTANCE.createGenConstraint();
+		modelElementSelector.setBody(constraint.getBody());
+		modelElementSelector.setLanguage(constraint.getLanguage());		
 		return modelElementSelector;
 	}
 	
@@ -664,7 +657,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		Constraint rule = audit.getRule();
 		if(rule != null) {
-			genAudit.setRule(createExpression(rule.getBody(), rule.getLanguage()));
+			genAudit.setRule(createGenConstraint(rule));
 		}
 
 		Severity severity = audit.getSeverity();

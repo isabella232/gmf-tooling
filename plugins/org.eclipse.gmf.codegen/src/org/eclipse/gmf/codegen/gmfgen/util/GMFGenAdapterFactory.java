@@ -13,19 +13,31 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.codegen.gmfgen.*;
 
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
+import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
+import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
+import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
+import org.eclipse.gmf.codegen.gmfgen.EditorCandies;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.ExternalLabel;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
+import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
@@ -36,15 +48,22 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
+import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.LinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 import org.eclipse.gmf.codegen.gmfgen.ModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
+import org.eclipse.gmf.codegen.gmfgen.PackageNames;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.ProviderClassNames;
 import org.eclipse.gmf.codegen.gmfgen.ShapeAttributes;
+import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
 import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
+import org.eclipse.gmf.codegen.gmfgen.TextLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
@@ -239,8 +258,8 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			public Object caseValueExpression(ValueExpression object) {
 				return createValueExpressionAdapter();
 			}
-			public Object caseModelElementSelector(ModelElementSelector object) {
-				return createModelElementSelectorAdapter();
+			public Object caseGenConstraint(GenConstraint object) {
+				return createGenConstraintAdapter();
 			}
 			public Object casePalette(Palette object) {
 				return createPaletteAdapter();
@@ -1081,16 +1100,16 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.ModelElementSelector <em>Model Element Selector</em>}'.
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.GenConstraint <em>Gen Constraint</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see org.eclipse.gmf.codegen.gmfgen.ModelElementSelector
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenConstraint
 	 * @generated
 	 */
-	public Adapter createModelElementSelectorAdapter() {
+	public Adapter createGenConstraintAdapter() {
 		return null;
 	}
 

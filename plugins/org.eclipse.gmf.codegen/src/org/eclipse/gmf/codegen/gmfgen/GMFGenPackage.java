@@ -3614,14 +3614,14 @@ public interface GMFGenPackage extends EPackage {
 	int VALUE_EXPRESSION_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.ModelElementSelectorImpl <em>Model Element Selector</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenConstraintImpl <em>Gen Constraint</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.codegen.gmfgen.impl.ModelElementSelectorImpl
-	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getModelElementSelector()
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenConstraintImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenConstraint()
 	 * @generated
 	 */
-	int MODEL_ELEMENT_SELECTOR = 44;
+	int GEN_CONSTRAINT = 44;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' attribute.
@@ -3630,7 +3630,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_ELEMENT_SELECTOR__BODY = VALUE_EXPRESSION__BODY;
+	int GEN_CONSTRAINT__BODY = VALUE_EXPRESSION__BODY;
 
 	/**
 	 * The feature id for the '<em><b>Language</b></em>' attribute.
@@ -3639,16 +3639,16 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_ELEMENT_SELECTOR__LANGUAGE = VALUE_EXPRESSION__LANGUAGE;
+	int GEN_CONSTRAINT__LANGUAGE = VALUE_EXPRESSION__LANGUAGE;
 
 	/**
-	 * The number of structural features of the '<em>Model Element Selector</em>' class.
+	 * The number of structural features of the '<em>Gen Constraint</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODEL_ELEMENT_SELECTOR_FEATURE_COUNT = VALUE_EXPRESSION_FEATURE_COUNT + 0;
+	int GEN_CONSTRAINT_FEATURE_COUNT = VALUE_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Diagram</b></em>' container reference.
@@ -6428,14 +6428,14 @@ public interface GMFGenPackage extends EPackage {
 	EAttribute getValueExpression_Language();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.ModelElementSelector <em>Model Element Selector</em>}'.
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenConstraint <em>Gen Constraint</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Model Element Selector</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.ModelElementSelector
+	 * @return the meta object for class '<em>Gen Constraint</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenConstraint
 	 * @generated
 	 */
-	EClass getModelElementSelector();
+	EClass getGenConstraint();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.Palette <em>Palette</em>}'.

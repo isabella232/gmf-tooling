@@ -120,13 +120,13 @@ public interface TypeModelFacet extends ModelFacet {
 	 * Selection criterion for domain model elements associated with this type model facet
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Model Element Selector</em>' containment reference.
-	 * @see #setModelElementSelector(ModelElementSelector)
+	 * @see #setModelElementSelector(GenConstraint)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getTypeModelFacet_ModelElementSelector()
 	 * @model containment="true"
 	 *        annotation="http://www.eclipse.org/gmf/2005/constraints/meta def='context' ocl='metaClass.ecoreClass'"
 	 * @generated
 	 */
-	ModelElementSelector getModelElementSelector();
+	GenConstraint getModelElementSelector();
 
 	/**
 	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet#getModelElementSelector <em>Model Element Selector</em>}' containment reference.
@@ -136,7 +136,7 @@ public interface TypeModelFacet extends ModelFacet {
 	 * @see #getModelElementSelector()
 	 * @generated
 	 */
-	void setModelElementSelector(ModelElementSelector value);
+	void setModelElementSelector(GenConstraint value);
 
 	/**
 	 * Returns the value of the '<em><b>Model Element Initializer</b></em>' containment reference.

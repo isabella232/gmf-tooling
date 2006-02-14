@@ -17,8 +17,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
+import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
-import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -70,7 +70,7 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 	 * @generated
 	 * @ordered
 	 */
-	protected ValueExpression rule = null;
+	protected GenConstraint rule = null;
 
 	/**
 	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
@@ -289,7 +289,7 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ValueExpression getRule() {
+	public GenConstraint getRule() {
 		return rule;
 	}
 
@@ -298,8 +298,8 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetRule(ValueExpression newRule, NotificationChain msgs) {
-		ValueExpression oldRule = rule;
+	public NotificationChain basicSetRule(GenConstraint newRule, NotificationChain msgs) {
+		GenConstraint oldRule = rule;
 		rule = newRule;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_AUDIT_RULE__RULE, oldRule, newRule);
@@ -313,7 +313,7 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setRule(ValueExpression newRule) {
+	public void setRule(GenConstraint newRule) {
 		if (newRule != rule) {
 			NotificationChain msgs = null;
 			if (rule != null)
@@ -522,7 +522,7 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 				setId((String)newValue);
 				return;
 			case GMFGenPackage.GEN_AUDIT_RULE__RULE:
-				setRule((ValueExpression)newValue);
+				setRule((GenConstraint)newValue);
 				return;
 			case GMFGenPackage.GEN_AUDIT_RULE__TARGET:
 				setTarget((GenClass)newValue);
@@ -560,7 +560,7 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 				setId(ID_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_AUDIT_RULE__RULE:
-				setRule((ValueExpression)null);
+				setRule((GenConstraint)null);
 				return;
 			case GMFGenPackage.GEN_AUDIT_RULE__TARGET:
 				setTarget((GenClass)null);

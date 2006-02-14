@@ -145,32 +145,12 @@ public class GenLinkConstraintsItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenLinkConstraints_SourceEnd(),
-				 GMFGenFactory.eINSTANCE.createValueExpression()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenLinkConstraints_SourceEnd(),
-				 GMFGenFactory.eINSTANCE.createModelElementSelector()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenLinkConstraints_SourceEnd(),
-				 GMFGenFactory.eINSTANCE.createGenFeatureValueSpec()));
+				 GMFGenFactory.eINSTANCE.createGenConstraint()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenLinkConstraints_TargetEnd(),
-				 GMFGenFactory.eINSTANCE.createValueExpression()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenLinkConstraints_TargetEnd(),
-				 GMFGenFactory.eINSTANCE.createModelElementSelector()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenLinkConstraints_TargetEnd(),
-				 GMFGenFactory.eINSTANCE.createGenFeatureValueSpec()));
+				 GMFGenFactory.eINSTANCE.createGenConstraint()));
 	}
 
 	/**

@@ -17,11 +17,11 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -47,7 +47,7 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * @generated
 	 * @ordered
 	 */
-	protected ValueExpression sourceEnd = null;
+	protected GenConstraint sourceEnd = null;
 
 	/**
 	 * The cached value of the '{@link #getTargetEnd() <em>Target End</em>}' containment reference.
@@ -57,7 +57,7 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * @generated
 	 * @ordered
 	 */
-	protected ValueExpression targetEnd = null;
+	protected GenConstraint targetEnd = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -113,7 +113,7 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ValueExpression getSourceEnd() {
+	public GenConstraint getSourceEnd() {
 		return sourceEnd;
 	}
 
@@ -122,8 +122,8 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetSourceEnd(ValueExpression newSourceEnd, NotificationChain msgs) {
-		ValueExpression oldSourceEnd = sourceEnd;
+	public NotificationChain basicSetSourceEnd(GenConstraint newSourceEnd, NotificationChain msgs) {
+		GenConstraint oldSourceEnd = sourceEnd;
 		sourceEnd = newSourceEnd;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK_CONSTRAINTS__SOURCE_END, oldSourceEnd, newSourceEnd);
@@ -137,7 +137,7 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSourceEnd(ValueExpression newSourceEnd) {
+	public void setSourceEnd(GenConstraint newSourceEnd) {
 		if (newSourceEnd != sourceEnd) {
 			NotificationChain msgs = null;
 			if (sourceEnd != null)
@@ -156,7 +156,7 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ValueExpression getTargetEnd() {
+	public GenConstraint getTargetEnd() {
 		return targetEnd;
 	}
 
@@ -165,8 +165,8 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetTargetEnd(ValueExpression newTargetEnd, NotificationChain msgs) {
-		ValueExpression oldTargetEnd = targetEnd;
+	public NotificationChain basicSetTargetEnd(GenConstraint newTargetEnd, NotificationChain msgs) {
+		GenConstraint oldTargetEnd = targetEnd;
 		targetEnd = newTargetEnd;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_LINK_CONSTRAINTS__TARGET_END, oldTargetEnd, newTargetEnd);
@@ -180,7 +180,7 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTargetEnd(ValueExpression newTargetEnd) {
+	public void setTargetEnd(GenConstraint newTargetEnd) {
 		if (newTargetEnd != targetEnd) {
 			NotificationChain msgs = null;
 			if (targetEnd != null)
@@ -332,10 +332,10 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 				setLink((GenLink)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS__SOURCE_END:
-				setSourceEnd((ValueExpression)newValue);
+				setSourceEnd((GenConstraint)newValue);
 				return;
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS__TARGET_END:
-				setTargetEnd((ValueExpression)newValue);
+				setTargetEnd((GenConstraint)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -352,10 +352,10 @@ public class GenLinkConstraintsImpl extends EObjectImpl implements GenLinkConstr
 				setLink((GenLink)null);
 				return;
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS__SOURCE_END:
-				setSourceEnd((ValueExpression)null);
+				setSourceEnd((GenConstraint)null);
 				return;
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS__TARGET_END:
-				setTargetEnd((ValueExpression)null);
+				setTargetEnd((GenConstraint)null);
 				return;
 		}
 		super.eUnset(featureID);

@@ -534,7 +534,7 @@
         <details key="documentation" value="Usually the same as containmentMetaFeature, unless you need to distinguish where to put and where to get from"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElementSelector" eType="#//ModelElementSelector"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelElementSelector" eType="#//GenConstraint"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Selection criterion for domain model elements associated with this type model facet"/>
@@ -703,14 +703,13 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ModelElementSelector" eSuperTypes="#//ValueExpression">
+  <eClassifiers xsi:type="ecore:EClass" name="GenConstraint" eSuperTypes="#//ValueExpression">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Represents an boolean type expression which is criterion for model element match"/>
+      <details key="documentation" value="Boolean type value expression which is to be evaluated in a context"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
       <details key="def" value="Constraint"/>
     </eAnnotations>
-    <eOperations name="getRequiredPluginIDs" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Palette">
     <eOperations name="getFactoryQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -761,11 +760,6 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Base class for initializers of domain model elements"/>
     </eAnnotations>
-    <eOperations name="getRequiredPluginIDs" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Gets IDs of plugins required by this initializer"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeModelFacet" lowerBound="1"
         eType="#//TypeModelFacet" changeable="false" eOpposite="#//TypeModelFacet/modelElementInitializer">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -857,7 +851,7 @@
         <details key="documentation" value="References the owning link of this constraints"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceEnd" eType="#//ValueExpression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceEnd" eType="#//GenConstraint"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Restriction enforced by the the source end, may reference variables 'oppositeEnd' pointing to targetEnd and 'link' denoting the link domainmetaElement instance if available."/>
@@ -872,7 +866,7 @@
         <details key="type.ocl" value="getTargetEndContextClass().ecoreClass"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="targetEnd" eType="#//ValueExpression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetEnd" eType="#//GenConstraint"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Restriction enforced by the the target end, may reference variables 'oppositeEnd' pointing to sourceEnd and 'link' denoting the link domainmetaElement instance if available."/>
@@ -939,7 +933,7 @@
         <details key="documentation" value="Unique identifier of this audit rule"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//ValueExpression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//GenConstraint"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="A boolean type condition which if not satisfied indicates this audit rule violation. It is evaluated in the context of the target"/>

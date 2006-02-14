@@ -209,7 +209,7 @@ public class TypeModelFacetItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getTypeModelFacet_ModelElementSelector(),
-				 GMFGenFactory.eINSTANCE.createModelElementSelector()));
+				 GMFGenFactory.eINSTANCE.createGenConstraint()));
 
 		newChildDescriptors.add
 			(createChildParameter

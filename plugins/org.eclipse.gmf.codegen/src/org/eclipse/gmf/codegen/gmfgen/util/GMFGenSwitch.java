@@ -13,19 +13,31 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.codegen.gmfgen.*;
 
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
+import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
+import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
+import org.eclipse.gmf.codegen.gmfgen.EditPartCandies;
+import org.eclipse.gmf.codegen.gmfgen.EditorCandies;
 import org.eclipse.gmf.codegen.gmfgen.EntryBase;
 import org.eclipse.gmf.codegen.gmfgen.ExternalLabel;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
+import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
@@ -36,15 +48,22 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
+import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.LinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 import org.eclipse.gmf.codegen.gmfgen.ModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
+import org.eclipse.gmf.codegen.gmfgen.PackageNames;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.ProviderClassNames;
 import org.eclipse.gmf.codegen.gmfgen.ShapeAttributes;
+import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
 import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
+import org.eclipse.gmf.codegen.gmfgen.TextLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
@@ -452,10 +471,10 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GMFGenPackage.MODEL_ELEMENT_SELECTOR: {
-				ModelElementSelector modelElementSelector = (ModelElementSelector)theEObject;
-				Object result = caseModelElementSelector(modelElementSelector);
-				if (result == null) result = caseValueExpression(modelElementSelector);
+			case GMFGenPackage.GEN_CONSTRAINT: {
+				GenConstraint genConstraint = (GenConstraint)theEObject;
+				Object result = caseGenConstraint(genConstraint);
+				if (result == null) result = caseValueExpression(genConstraint);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1384,17 +1403,17 @@ public class GMFGenSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Model Element Selector</em>'.
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Constraint</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Model Element Selector</em>'.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Constraint</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public Object caseModelElementSelector(ModelElementSelector object) {
+	public Object caseGenConstraint(GenConstraint object) {
 		return null;
 	}
 

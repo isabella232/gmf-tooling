@@ -445,7 +445,7 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext();) {
 	if (modelFacet == null || modelFacet.getModelElementSelector() == null) {
 		continue;
 	}
-	ModelElementSelector selector = modelFacet.getModelElementSelector();
+	GenConstraint selector = modelFacet.getModelElementSelector();
 	selectorCounter++;
 
     stringBuffer.append(TEXT_91);

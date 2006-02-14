@@ -341,13 +341,13 @@ public interface GMFGenFactory extends EFactory {
 	ValueExpression createValueExpression();
 
 	/**
-	 * Returns a new object of class '<em>Model Element Selector</em>'.
+	 * Returns a new object of class '<em>Gen Constraint</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Model Element Selector</em>'.
+	 * @return a new object of class '<em>Gen Constraint</em>'.
 	 * @generated
 	 */
-	ModelElementSelector createModelElementSelector();
+	GenConstraint createGenConstraint();
 
 	/**
 	 * Returns the package supported by this factory.

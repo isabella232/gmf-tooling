@@ -24,12 +24,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
-import org.eclipse.gmf.codegen.gmfgen.GenLink;
-import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
-import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -324,30 +320,16 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 
 	private Set getExpressionsRequiredPluginIDs() {
 		Set requiredIDs = new HashSet();
-		for (Iterator it = getDiagram().getAllNodes().iterator(); it.hasNext();) {
-			GenNode nextNode = (GenNode) it.next();
-			TypeModelFacet modelFacet = nextNode.getModelFacet();
-			if(modelFacet.getModelElementInitializer() != null) {
-				requiredIDs.addAll(modelFacet.getModelElementInitializer().getRequiredPluginIDs());
-			}
-			if(modelFacet.getModelElementSelector() != null) {
-				requiredIDs.addAll(modelFacet.getModelElementSelector().getRequiredPluginIDs());				
+		for(Iterator it = getDiagram().eAllContents(); it.hasNext();) {
+			Object nextObj = it.next();
+			if(nextObj instanceof ValueExpression) {				
+				String lang = ((ValueExpression)nextObj).getLanguage();
+				if("ocl".equals(lang)) { //$NON-NLS-1$
+					requiredIDs.add("org.eclipse.emf.query.ocl"); //$NON-NLS-1$
+				}
 			}
 		}
 		
-		for (Iterator it = getDiagram().getLinks().iterator(); it.hasNext();) {
-			GenLink nextLink = (GenLink) it.next();
-			LinkModelFacet modelFacet = nextLink.getModelFacet();
-			if(modelFacet instanceof TypeLinkModelFacet) {
-				TypeLinkModelFacet  typeModelFacet = (TypeLinkModelFacet)modelFacet;
-				if(typeModelFacet.getModelElementInitializer() != null) {
-					requiredIDs.addAll(typeModelFacet.getModelElementInitializer().getRequiredPluginIDs());
-				}
-				if(typeModelFacet.getModelElementSelector() != null) {
-					requiredIDs.addAll(typeModelFacet.getModelElementSelector().getRequiredPluginIDs());
-				}
-			}
-		}		
 		if(getDiagram().hasLinkCreationConstraints()) {
 			requiredIDs.add("org.eclipse.emf.ocl"); //$NON-NLS-1$			
 			requiredIDs.add("org.eclipse.emf.query.ocl"); //$NON-NLS-1$			

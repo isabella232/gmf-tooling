@@ -15,7 +15,11 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.gmf.codegen.gmfgen.*;
 
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
+import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.DefaultSizeAttributes;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
+import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
@@ -24,7 +28,10 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
+import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureValueSpec;
@@ -32,16 +39,17 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
-import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ShapeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
+import org.eclipse.gmf.codegen.gmfgen.TextLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
@@ -116,7 +124,7 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.SNIPPET_VIEWMAP: return createSnippetViewmap();
 			case GMFGenPackage.INNER_CLASS_VIEWMAP: return createInnerClassViewmap();
 			case GMFGenPackage.VALUE_EXPRESSION: return createValueExpression();
-			case GMFGenPackage.MODEL_ELEMENT_SELECTOR: return createModelElementSelector();
+			case GMFGenPackage.GEN_CONSTRAINT: return createGenConstraint();
 			case GMFGenPackage.PALETTE: return createPalette();
 			case GMFGenPackage.NODE_ENTRY: return createNodeEntry();
 			case GMFGenPackage.LINK_ENTRY: return createLinkEntry();
@@ -428,9 +436,9 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ModelElementSelector createModelElementSelector() {
-		ModelElementSelectorImpl modelElementSelector = new ModelElementSelectorImpl();
-		return modelElementSelector;
+	public GenConstraint createGenConstraint() {
+		GenConstraintImpl genConstraint = new GenConstraintImpl();
+		return genConstraint;
 	}
 
 	/**

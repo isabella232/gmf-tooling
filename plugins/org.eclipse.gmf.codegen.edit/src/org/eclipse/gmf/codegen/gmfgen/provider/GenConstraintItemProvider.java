@@ -12,22 +12,26 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
+
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
+
+import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
+
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ModelElementSelector} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenConstraint} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ModelElementSelectorItemProvider
+public class GenConstraintItemProvider
 	extends ValueExpressionItemProvider
 	implements	
 		IEditingDomainItemProvider,	
@@ -41,7 +45,7 @@ public class ModelElementSelectorItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ModelElementSelectorItemProvider(AdapterFactory adapterFactory) {
+	public GenConstraintItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -60,13 +64,13 @@ public class ModelElementSelectorItemProvider
 	}
 
 	/**
-	 * This returns ModelElementSelector.gif.
+	 * This returns GenConstraint.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/ModelElementSelector");
+		return getResourceLocator().getImage("full/obj16/GenConstraint");
 	}
 
 	/**
@@ -76,10 +80,10 @@ public class ModelElementSelectorItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((ModelElementSelector)object).getBody();
+		String label = ((GenConstraint)object).getBody();
 		return label == null || label.length() == 0 ?
-			getString("_UI_ModelElementSelector_type") :
-			getString("_UI_ModelElementSelector_type") + " " + label;
+			getString("_UI_GenConstraint_type") :
+			getString("_UI_GenConstraint_type") + " " + label;
 	}
 
 	/**

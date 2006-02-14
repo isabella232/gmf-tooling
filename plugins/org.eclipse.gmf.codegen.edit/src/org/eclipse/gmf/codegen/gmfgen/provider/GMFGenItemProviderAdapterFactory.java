@@ -844,25 +844,25 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ModelElementSelector} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenConstraint} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ModelElementSelectorItemProvider modelElementSelectorItemProvider;
+	protected GenConstraintItemProvider genConstraintItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.ModelElementSelector}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenConstraint}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Adapter createModelElementSelectorAdapter() {
-		if (modelElementSelectorItemProvider == null) {
-			modelElementSelectorItemProvider = new ModelElementSelectorItemProvider(this);
+	public Adapter createGenConstraintAdapter() {
+		if (genConstraintItemProvider == null) {
+			genConstraintItemProvider = new GenConstraintItemProvider(this);
 		}
 
-		return modelElementSelectorItemProvider;
+		return genConstraintItemProvider;
 	}
 
 	/**
@@ -987,7 +987,7 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (snippetViewmapItemProvider != null) snippetViewmapItemProvider.dispose();
 		if (innerClassViewmapItemProvider != null) innerClassViewmapItemProvider.dispose();
 		if (valueExpressionItemProvider != null) valueExpressionItemProvider.dispose();
-		if (modelElementSelectorItemProvider != null) modelElementSelectorItemProvider.dispose();
+		if (genConstraintItemProvider != null) genConstraintItemProvider.dispose();
 		if (paletteItemProvider != null) paletteItemProvider.dispose();
 		if (nodeEntryItemProvider != null) nodeEntryItemProvider.dispose();
 		if (linkEntryItemProvider != null) linkEntryItemProvider.dispose();

@@ -6,8 +6,6 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -46,16 +44,5 @@ public interface GenElementInitializer extends EObject {
 	 * @generated
 	 */
 	TypeModelFacet getTypeModelFacet();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Gets IDs of plugins required by this initializer
-	 * <!-- end-model-doc -->
-	 * @model kind="operation" type="java.lang.String"
-	 * @generated
-	 */
-	EList getRequiredPluginIDs();
 
 } // GenElementInitializer

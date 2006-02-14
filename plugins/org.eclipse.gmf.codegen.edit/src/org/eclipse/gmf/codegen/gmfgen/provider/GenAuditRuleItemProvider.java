@@ -315,17 +315,7 @@ public class GenAuditRuleItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenAuditRule_Rule(),
-				 GMFGenFactory.eINSTANCE.createValueExpression()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenAuditRule_Rule(),
-				 GMFGenFactory.eINSTANCE.createModelElementSelector()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenAuditRule_Rule(),
-				 GMFGenFactory.eINSTANCE.createGenFeatureValueSpec()));
+				 GMFGenFactory.eINSTANCE.createGenConstraint()));
 	}
 
 	/**

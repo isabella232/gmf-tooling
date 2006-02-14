@@ -15,8 +15,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
-import org.eclipse.gmf.codegen.gmfgen.ModelElementSelector;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 
 /**
@@ -75,7 +75,7 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 	 * @generated
 	 * @ordered
 	 */
-	protected ModelElementSelector modelElementSelector = null;
+	protected GenConstraint modelElementSelector = null;
 
 	/**
 	 * The cached value of the '{@link #getModelElementInitializer() <em>Model Element Initializer</em>}' containment reference.
@@ -232,7 +232,7 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ModelElementSelector getModelElementSelector() {
+	public GenConstraint getModelElementSelector() {
 		return modelElementSelector;
 	}
 
@@ -241,8 +241,8 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetModelElementSelector(ModelElementSelector newModelElementSelector, NotificationChain msgs) {
-		ModelElementSelector oldModelElementSelector = modelElementSelector;
+	public NotificationChain basicSetModelElementSelector(GenConstraint newModelElementSelector, NotificationChain msgs) {
+		GenConstraint oldModelElementSelector = modelElementSelector;
 		modelElementSelector = newModelElementSelector;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_SELECTOR, oldModelElementSelector, newModelElementSelector);
@@ -256,7 +256,7 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setModelElementSelector(ModelElementSelector newModelElementSelector) {
+	public void setModelElementSelector(GenConstraint newModelElementSelector) {
 		if (newModelElementSelector != modelElementSelector) {
 			NotificationChain msgs = null;
 			if (modelElementSelector != null)
@@ -393,7 +393,7 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 				setChildMetaFeature((GenFeature)newValue);
 				return;
 			case GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_SELECTOR:
-				setModelElementSelector((ModelElementSelector)newValue);
+				setModelElementSelector((GenConstraint)newValue);
 				return;
 			case GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_INITIALIZER:
 				setModelElementInitializer((GenElementInitializer)newValue);
@@ -419,7 +419,7 @@ public class TypeModelFacetImpl extends EObjectImpl implements TypeModelFacet {
 				setChildMetaFeature((GenFeature)null);
 				return;
 			case GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_SELECTOR:
-				setModelElementSelector((ModelElementSelector)null);
+				setModelElementSelector((GenConstraint)null);
 				return;
 			case GMFGenPackage.TYPE_MODEL_FACET__MODEL_ELEMENT_INITIALIZER:
 				setModelElementInitializer((GenElementInitializer)null);
