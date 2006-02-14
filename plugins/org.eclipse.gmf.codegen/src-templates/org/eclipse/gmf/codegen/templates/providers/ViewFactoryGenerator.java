@@ -18,14 +18,14 @@ public class ViewFactoryGenerator
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "package ";
   protected final String TEXT_2 = ";" + NL;
-  protected final String TEXT_3 = NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.emf.ecore.EAnnotation;" + NL + "import org.eclipse.emf.ecore.EcoreFactory;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.view.factories.*;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
+  protected final String TEXT_3 = NL + "import org.eclipse.core.runtime.IAdaptable;" + NL + "import org.eclipse.emf.ecore.EAnnotation;" + NL + "import org.eclipse.emf.ecore.EcoreFactory;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
   protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_5 = " extends ";
-  protected final String TEXT_6 = NL + "\tConnectionViewFactory";
-  protected final String TEXT_7 = NL + "\tAbstractLabelViewFactory";
-  protected final String TEXT_8 = NL + "    ListCompartmentViewFactory";
-  protected final String TEXT_9 = "    " + NL + "\tDiagramViewFactory";
-  protected final String TEXT_10 = NL + "\tAbstractShapeViewFactory";
+  protected final String TEXT_6 = NL + "\t";
+  protected final String TEXT_7 = NL + "\t";
+  protected final String TEXT_8 = NL + "    ";
+  protected final String TEXT_9 = "    " + NL + "\t";
+  protected final String TEXT_10 = NL + "\t";
   protected final String TEXT_11 = NL + "{" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */";
   protected final String TEXT_12 = NL + "\tprotected void decorateView(View view, IAdaptable semanticAdapter, String diagramKind){" + NL + "\t\tsuper.decorateView(view, semanticAdapter, diagramKind);";
   protected final String TEXT_13 = NL + "\tprotected void decorateView(View containerView, View view, IAdaptable semanticAdapter," + NL + "\t\t\tString semanticHint, int index, boolean persisted) {" + NL + "\t\tsuper.decorateView(containerView, view, semanticAdapter, semanticHint, index, persisted);";
@@ -100,14 +100,19 @@ boolean isFlowLayout = isCompartment && !((GenCompartment) genElement).getNode()
     stringBuffer.append(TEXT_5);
     if (isLink) {
     stringBuffer.append(TEXT_6);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.ConnectionViewFactory"));
     } else if (isLeaf) {
     stringBuffer.append(TEXT_7);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory"));
     } else if (isCompartment) {
     stringBuffer.append(TEXT_8);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.ListCompartmentViewFactory"));
     } else if (isDiagram) {
     stringBuffer.append(TEXT_9);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.DiagramViewFactory"));
     } else {
     stringBuffer.append(TEXT_10);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory"));
     }
     stringBuffer.append(TEXT_11);
     

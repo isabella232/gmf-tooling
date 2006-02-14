@@ -8,7 +8,6 @@ package <%=genDiagram.getNotationViewFactoriesPackageName()%>;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.gmf.runtime.diagram.ui.view.factories.*;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
 <%
@@ -26,15 +25,15 @@ boolean isFlowLayout = isCompartment && !((GenCompartment) genElement).getNode()
  */
 public class <%=genElement.getNotationViewFactoryClassName()%> extends 
 <%if (isLink) {%>
-	ConnectionViewFactory
+	<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.ConnectionViewFactory")%>
 <%} else if (isLeaf) {%>
-	AbstractLabelViewFactory
+	<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory")%>
 <%} else if (isCompartment) {%>
-    ListCompartmentViewFactory
+    <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.ListCompartmentViewFactory")%>
 <%} else if (isDiagram) {%>    
-	DiagramViewFactory
+	<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.DiagramViewFactory")%>
 <%} else {%>
-	AbstractShapeViewFactory
+	<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractShapeViewFactory")%>
 <%}%>
 {
 
