@@ -7,11 +7,8 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 
