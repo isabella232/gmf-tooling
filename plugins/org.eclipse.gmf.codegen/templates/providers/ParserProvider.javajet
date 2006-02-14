@@ -4,8 +4,12 @@
 package <%=genDiagram.getProvidersPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
+import java.util.Map;
+import java.util.WeakHashMap;
+
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;
@@ -55,7 +59,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 		String baseName = genHost.getClassNamePrefix() + genLabel.getSemanticHintFieldName();
 		char c = baseName.charAt(0);
 		baseName = baseName.substring(1) + "Parser";
-		String fieldName = Character.toLowerCase(c) + baseName;
+		String fieldName = Character.toLowerCase(c) + baseName + 's';
 		String methodName = Character.toUpperCase(c) + baseName;
 		labelMethodNames.put(genLabel, methodName);
 %>
@@ -63,22 +67,27 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	/**
 	 * @generated
 	 */
-	private IParser <%=fieldName%>;
+	private Map <%=fieldName%>;
 
 	/**
 	 * @generated
 	 */
-	private IParser get<%=methodName%>() {
+	private IParser get<%=methodName%>(TransactionalEditingDomain editingDomain) {
 		if (<%=fieldName%> == null) {
-			<%=fieldName%> = create<%=methodName%>();
+			<%=fieldName%> = new WeakHashMap();
 		}
-		return <%=fieldName%>;
+		IParser parser = (IParser) <%=fieldName%>.get(editingDomain);
+		if (parser == null) {
+			parser = create<%=methodName%>(editingDomain);
+			<%=fieldName%>.put(editingDomain, parser);
+		}
+		return parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser create<%=methodName%>() {
+	protected IParser create<%=methodName%>(TransactionalEditingDomain editingDomain) {
 <%
 		String parserClassName;
 		String viewPattern;
@@ -124,6 +133,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 %>
 		parser.setEditPattern("<%=editPattern%>");
 <%		}%>
+		parser.setEditingDomain(editingDomain);
 		return parser;
 	}
 <%
@@ -134,7 +144,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	/**
 	 * @generated
 	 */
-	protected IParser getParser(IElementType type, String viewType) {
+	protected IParser getParser(IElementType type, String viewType, TransactionalEditingDomain editingDomain) {
 <%
 for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
 	GenCommonBase genHost = (GenCommonBase) it1.next();
@@ -145,14 +155,14 @@ for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
 	if (genHost instanceof GenChildNode && ((GenChildNode) genHost).isListContainerEntry()) {
 		GenLabel genLabel = (GenLabel) labelsList.get(0);
 %>
-			return get<%=labelMethodNames.get(genLabel)%>();
+			return get<%=labelMethodNames.get(genLabel)%>(editingDomain);
 <%
 	} else {
 		for (Iterator it2 = labelsList.iterator(); it2.hasNext(); ) {
 			GenLabel genLabel = (GenLabel) it2.next();
 %>
 			if (<%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%>.<%=genHost.getUniqueIdentifier()%>Labels.<%=genLabel.getSemanticHintFieldName()%>.equals(viewType)) {
-				return get<%=labelMethodNames.get(genLabel)%>();
+				return get<%=labelMethodNames.get(genLabel)%>(editingDomain);
 			}
 <%
 		}
@@ -173,7 +183,8 @@ for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
 			EObject element = (EObject) hint.getAdapter(EObject.class);
 			type = ElementTypeRegistry.getInstance().getElementType(element);
 		}
-		return getParser(type, viewType);
+		TransactionalEditingDomain editingDomain = (TransactionalEditingDomain) hint.getAdapter(TransactionalEditingDomain.class);
+		return getParser(type, viewType, editingDomain);
 	}
 
 	/**
@@ -181,14 +192,7 @@ for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
 	 */
 	public boolean provides(IOperation operation) {
 		if (operation instanceof GetParserOperation) {
-			IAdaptable hint = ((GetParserOperation) operation).getHint();
-			String viewType = (String) hint.getAdapter(String.class);
-			IElementType type = (IElementType) hint.getAdapter(IElementType.class);
-			if (type == null) {
-				EObject element = (EObject) hint.getAdapter(EObject.class);
-				type = ElementTypeRegistry.getInstance().getElementType(element);
-			}
-			return getParser(type, viewType) != null;
+			return getParser(((GetParserOperation) operation).getHint()) != null;
 		}
 		return false;
 	}

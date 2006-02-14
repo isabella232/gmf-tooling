@@ -61,6 +61,8 @@ if (genLabel instanceof GenNodeLabel) {
 					public Object getAdapter(Class adapter) {
 						if (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>.class.equals(adapter)) {
 							return <%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.<%=genHost.getUniqueIdentifier()%>;
+						} else if (<%=importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain")%>.class.equals(adapter)) {
+							return getEditingDomain();
 						}
 						return super.getAdapter(adapter);
 					}

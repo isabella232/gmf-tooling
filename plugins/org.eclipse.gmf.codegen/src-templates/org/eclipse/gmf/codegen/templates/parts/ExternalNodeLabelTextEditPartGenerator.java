@@ -35,9 +35,10 @@ public class ExternalNodeLabelTextEditPartGenerator
   protected final String TEXT_18 = "(element, parserHint) {" + NL + "\t\t\t\t\tpublic Object getAdapter(Class adapter) {" + NL + "\t\t\t\t\t\tif (";
   protected final String TEXT_19 = ".class.equals(adapter)) {" + NL + "\t\t\t\t\t\t\treturn ";
   protected final String TEXT_20 = ".";
-  protected final String TEXT_21 = ";" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\treturn super.getAdapter(adapter);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t};" + NL + "\t\t\t\tparser = ";
-  protected final String TEXT_22 = ".getInstance().getParser(hintAdapter);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn parser;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_23 = NL;
+  protected final String TEXT_21 = ";" + NL + "\t\t\t\t\t\t} else if (";
+  protected final String TEXT_22 = ".class.equals(adapter)) {" + NL + "\t\t\t\t\t\t\treturn getEditingDomain();" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\treturn super.getAdapter(adapter);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t};" + NL + "\t\t\t\tparser = ";
+  protected final String TEXT_23 = ".getInstance().getParser(hintAdapter);" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\treturn parser;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_24 = NL;
 
   public String generate(Object argument)
   {
@@ -106,10 +107,12 @@ if (genLabel instanceof GenNodeLabel) {
     stringBuffer.append(TEXT_20);
     stringBuffer.append(genHost.getUniqueIdentifier());
     stringBuffer.append(TEXT_21);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserService"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.transaction.TransactionalEditingDomain"));
     stringBuffer.append(TEXT_22);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.common.ui.services.parser.ParserService"));
     stringBuffer.append(TEXT_23);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_24);
     return stringBuffer.toString();
   }
 }
