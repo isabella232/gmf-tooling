@@ -44,7 +44,7 @@ public class GenModelMatcher {
 		if (gma.load().isOK()) {
 			myEMFGenModel = gma.model();
 		} else {
-			throw new IllegalStateException();
+			throw new IllegalStateException("Can't find genModel for domain model with nsURI=" + domainModel.getNsURI());
 		}
 	}
 

@@ -14,6 +14,7 @@ package org.eclipse.gmf.bridge.genmodel;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 
 /**
  * @author artem
@@ -23,9 +24,10 @@ public interface GenModelAccess {
 
 	GenModel model();
 	IStatus load();
+	IStatus load(ResourceSet resourceSet);
 	void unload();
 
-	class Adapter implements GenModelAccess {
+	public class Adapter implements GenModelAccess {
 		private final GenModel model;
 
 		public Adapter(GenModel aModel) {
@@ -36,6 +38,9 @@ public interface GenModelAccess {
 		}
 		public IStatus load() {
 			return Status.OK_STATUS;
+		}
+		public IStatus load(ResourceSet rs) {
+			return load();
 		}
 		public void unload() {
 			// do nothing

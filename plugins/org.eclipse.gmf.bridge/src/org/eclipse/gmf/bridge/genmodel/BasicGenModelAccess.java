@@ -71,6 +71,9 @@ public class BasicGenModelAccess implements GenModelAccess {
 	}
 
 	protected final URI constructDefaultFromModel() {
+		if (model.eResource() == null || model.getNsURI() == null) {
+			return null;
+		}
 		URI domainModelURI = model.eResource().getURI();
 		if (model.getNsURI().equals(domainModelURI.toString())) {
 			return null;
@@ -111,8 +114,12 @@ public class BasicGenModelAccess implements GenModelAccess {
 	}
 
 	public IStatus load() {
-		assert !locations.isEmpty(); // XXX if isEmpty() initDefault?
 		ResourceSet rs = model.eResource() == null || model.eResource().getResourceSet() == null ? new ResourceSetImpl() : model.eResource().getResourceSet();
+		return load(rs);
+	}
+
+	public IStatus load(ResourceSet rs) {
+		assert !locations.isEmpty(); // XXX if isEmpty() initDefault?
 		for (Iterator/* <URI> */it = locations.iterator(); it.hasNext();) {
 			try {
 				URI uri = (URI) it.next();
@@ -136,8 +143,9 @@ public class BasicGenModelAccess implements GenModelAccess {
 	 * Use with care, model elements obtained earlier will become proxies.
 	 */
 	public void unload() {
-		if (needUnload) {
+		if (needUnload && genModel != null) {
 			genModel.eResource().unload();
+			genModel = null;
 		}
 		needUnload = false;
 	}
@@ -180,6 +188,10 @@ public class BasicGenModelAccess implements GenModelAccess {
 			genPackage.setPrefix(genPackage.getEcorePackage().getName() + "Gen");
 		}
 		return Status.OK_STATUS;
+	}
+
+	public boolean hasLocations() {
+		return locations != null && !locations.isEmpty();
 	}
 
 	protected void registerLocation(URI location) {

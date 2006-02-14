@@ -13,6 +13,8 @@ package org.eclipse.gmf.internal.codegen.popup.actions;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
@@ -27,14 +29,20 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.Diagnostician;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.gmf.bridge.genmodel.BasicDiagramRunTimeModelHelper;
+import org.eclipse.gmf.bridge.genmodel.BasicGenModelAccess;
 import org.eclipse.gmf.bridge.genmodel.DiagramGenModelTransformer;
 import org.eclipse.gmf.bridge.genmodel.DiagramRunTimeModelHelper;
+import org.eclipse.gmf.bridge.genmodel.FileGenModelAccess;
+import org.eclipse.gmf.bridge.genmodel.GenModelAccess;
 import org.eclipse.gmf.bridge.genmodel.SpecificDiagramRunTimeModelHelper;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
@@ -44,6 +52,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.MessageDialogWithToggle;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
@@ -51,6 +60,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.dialogs.ResourceSelectionDialog;
 
 /**
  * .gmfmap to .gmfgen
@@ -95,21 +105,23 @@ public class TransformToGenModel implements IObjectActionDelegate {
 			}
 		}
 
-		DiagramRunTimeModelHelper drtModelHelper = null;
-		URI specificRTGenModelURI = decideOnRunTimeModel();
-		if (specificRTGenModelURI != null) {
-			Resource drtGenModelRes = resSet.getResource(specificRTGenModelURI, true);
-			if (drtGenModelRes != null) {
-				GenModel drtGenModel = (GenModel) drtGenModelRes.getContents().get(0);
-				drtModelHelper = new SpecificDiagramRunTimeModelHelper(drtGenModel);
-			}
+		final GenModelDetector gmDetector = new GenModelDetector();
+		final IStatus findStatus = gmDetector.find(getShell(), mapping);
+		if (findStatus.getSeverity() == IStatus.CANCEL) {
+			return;
 		}
-		if (drtModelHelper == null) {
-			drtModelHelper = new BasicDiagramRunTimeModelHelper();
+		GenModel domainGenModel = null;
+		if (findStatus.isOK()) {
+			domainGenModel = gmDetector.get(resSet);
 		}
+
+		DiagramRunTimeModelHelper drtModelHelper = detectRunTimeModel(resSet);
 
 		//final ISchedulingRule rule = MultiRule.combine(myMapFile, myDestFile);
 		final DiagramGenModelTransformer t = new DiagramGenModelTransformer(drtModelHelper, new GenModelNamingMediatorImpl());
+		if (domainGenModel != null) {
+			t.setEMFGenModel(domainGenModel);
+		}
 
 		new Job(action.getText()) {
 			{
@@ -161,6 +173,22 @@ public class TransformToGenModel implements IObjectActionDelegate {
 				dgmmRes.save(getSaveOptions());
 			}
 		}.schedule();
+	}
+
+	private DiagramRunTimeModelHelper detectRunTimeModel(final ResourceSet resSet) {
+		DiagramRunTimeModelHelper drtModelHelper = null;
+		URI specificRTGenModelURI = decideOnRunTimeModel();
+		if (specificRTGenModelURI != null) {
+			Resource drtGenModelRes = resSet.getResource(specificRTGenModelURI, true);
+			if (drtGenModelRes != null) {
+				GenModel drtGenModel = (GenModel) drtGenModelRes.getContents().get(0);
+				drtModelHelper = new SpecificDiagramRunTimeModelHelper(drtGenModel);
+			}
+		}
+		if (drtModelHelper == null) {
+			drtModelHelper = new BasicDiagramRunTimeModelHelper();
+		}
+		return drtModelHelper;
 	}
 
 	protected Map getSaveOptions() {
@@ -227,5 +255,69 @@ public class TransformToGenModel implements IObjectActionDelegate {
 
 	private static IPreferenceStore getPreferences() {
 		return CodeGenUIPlugin.getDefault().getPreferenceStore();
+	}
+
+	private class GenModelDetector {
+		private GenModelAccess myGMAccess;
+
+		public IStatus find(Shell shell, Mapping mapping) { 
+			HashSet packages = new HashSet();
+			for (Iterator it = EcoreUtil.ExternalCrossReferencer.find(mapping).keySet().iterator(); it.hasNext();) {
+				Object next = it.next();
+				if (next instanceof EClass) {
+					packages.add(((EClass) next).getEPackage());
+				}
+			}
+			for (Iterator it = packages.iterator(); it.hasNext();) {
+				EPackage next = (EPackage) it.next();
+				if (next.getESuperPackage() != null && EcoreUtil.isAncestor(packages, next.getESuperPackage())) {
+					it.remove();
+				}
+			}
+			IFile workspaceFile;
+			if (packages.isEmpty()) {
+				MessageDialog.openWarning(shell, "Mapping without domain model", "Sorry, don't know yet how to deal with mapping that has no domain model"); // FIXME
+				return Status.CANCEL_STATUS;
+			} else if (packages.size() == 1) {
+				final EPackage solePack = (EPackage) packages.iterator().next();
+				BasicGenModelAccess gma = new BasicGenModelAccess(solePack);
+				gma.initDefault();
+				if (gma.load(new ResourceSetImpl()).isOK()) {
+					gma.unload();
+					myGMAccess = gma;
+					return Status.OK_STATUS;
+				} else {
+					workspaceFile = askGenModelFile(shell, "Can't find genmodel for package " + solePack.getName() + "(" + solePack.getNsURI() + ")");
+				}
+			} else {
+				workspaceFile = askGenModelFile(shell, "Need genmodel to cover all referenced domain packages (" + packages.size() + ")");
+			}
+			if (workspaceFile == null) {
+				return Status.CANCEL_STATUS;
+			}
+			myGMAccess = new FileGenModelAccess(workspaceFile);
+			return Status.OK_STATUS;
+		}
+
+		private IFile askGenModelFile(Shell shell, String message) {
+			ResourceSelectionDialog d = new ResourceSelectionDialog(shell, ResourcesPlugin.getWorkspace().getRoot(), message);
+			if (ResourceSelectionDialog.OK != d.open()) {
+				return null;
+			}
+			Object[] result = d.getResult();
+			if (result == null || result.length != 1 || false == result[0] instanceof IFile) {
+				MessageDialog.openError(shell, "GenModel selection", "Needs exactly one .genmodel file");
+				return null;
+			}
+			return (IFile) result[0];
+		}
+
+		public GenModel get(ResourceSet resSet) {
+			IStatus s = myGMAccess.load(resSet);
+			if (!s.isOK()) {
+				throw new IllegalStateException(s.getMessage(), s.getException());
+			}
+			return myGMAccess.model();
+		}
 	}
 }
