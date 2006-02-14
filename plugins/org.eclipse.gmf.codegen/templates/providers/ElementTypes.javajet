@@ -64,8 +64,9 @@ public class <%=genDiagram.getElementTypesClassName()%> {
 String pluginClassName = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
 %>
 			EClass eClass = (EClass) element;
-			return <%=pluginClassName%>.getInstance().getItemImageDescriptor(
-				eClass.getEPackage().getEFactoryInstance().create(eClass));
+			if (!eClass.isAbstract()) {
+				return <%=pluginClassName%>.getInstance().getItemImageDescriptor(eClass.getEPackage().getEFactoryInstance().create(eClass));
+			}
 		}
 		// TODO : support structural features
 		return null;
