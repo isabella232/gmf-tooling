@@ -4,11 +4,13 @@
 package <%=genDiagram.getEditCommandsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditCommandsPackageName());%>
-import java.util.Collection;
+import java.util.List;
+
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
-import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractModelCommand;
+import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.View;
 <%importManager.markImportLocation(stringBuffer);%>
@@ -16,7 +18,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class <%=genDiagram.getReorientConnectionViewCommandClassName()%> extends AbstractModelCommand {
+public class <%=genDiagram.getReorientConnectionViewCommandClassName()%> extends AbstractTransactionalCommand {
 
 	/**
 	 * @generated
@@ -26,19 +28,19 @@ public class <%=genDiagram.getReorientConnectionViewCommandClassName()%> extends
 	/**
 	 * @generated
 	 */
-	public <%=genDiagram.getReorientConnectionViewCommandClassName()%>(String label) {
-		super(label, null);
+	public <%=genDiagram.getReorientConnectionViewCommandClassName()%>(TransactionalEditingDomain editingDomain, String label) {
+		super(editingDomain, label, null);
 	}
 
 	/**
 	 * @generated
 	 */
-	public Collection getAffectedObjects() {
+	public List getAffectedFiles() {
 		View view = (View) edgeAdaptor.getAdapter(View.class);
 		if (view != null) {
-			return getWorkspaceFilesFor(view);
+			return getWorkspaceFiles(view);
 		}
-		return super.getAffectedObjects();
+		return super.getAffectedFiles();
 	}
 
 	/**
@@ -58,7 +60,7 @@ public class <%=genDiagram.getReorientConnectionViewCommandClassName()%> extends
 	/**
 	 * @generated
 	 */
-	protected CommandResult doExecute(IProgressMonitor progressMonitor) {
+	protected CommandResult doExecuteWithResult(IProgressMonitor progressMonitor, IAdaptable info) {
 		assert null != edgeAdaptor : "Null child in <%=genDiagram.getReorientConnectionViewCommandClassName()%>"; //$NON-NLS-1$
 		Edge edge = (Edge) getEdgeAdaptor().getAdapter(Edge.class);
 		assert null != edge : "Null edge in <%=genDiagram.getReorientConnectionViewCommandClassName()%>"; //$NON-NLS-1$
@@ -67,7 +69,7 @@ public class <%=genDiagram.getReorientConnectionViewCommandClassName()%> extends
 		edge.setSource(edge.getTarget());
 		edge.setTarget(tempView);
 
-		return newOKCommandResult();
+		return CommandResult.newOKCommandResult();
 	}
 }
 <%importManager.emitSortedImports();%>

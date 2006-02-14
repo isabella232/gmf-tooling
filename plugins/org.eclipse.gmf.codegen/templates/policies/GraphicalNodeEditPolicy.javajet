@@ -4,11 +4,13 @@
 package <%=genDiagram.getEditPoliciesPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPoliciesPackageName());%>
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gmf.runtime.common.core.command.CompositeCommand;
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
 import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.GraphicalNodeEditPolicy;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewAndElementRequest;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
@@ -37,8 +39,9 @@ public class <%=genDiagram.getBaseGraphicalNodeEditPolicyClassName()%> extends G
 	protected Command getConnectionWithReorientedViewCompleteCommand(CreateConnectionRequest request) {
 		EtoolsProxyCommand c = (EtoolsProxyCommand) super.getConnectionCompleteCommand(request);
 		CompositeCommand cc = (CompositeCommand) c.getICommand();
+		TransactionalEditingDomain editingDomain = ((IGraphicalEditPart) getHost()).getEditingDomain();
 		<%=importManager.getImportedName(genDiagram.getReorientConnectionViewCommandQualifiedClassName())%> rcvCommand =
-			new <%=importManager.getImportedName(genDiagram.getReorientConnectionViewCommandQualifiedClassName())%>(null);
+			new <%=importManager.getImportedName(genDiagram.getReorientConnectionViewCommandQualifiedClassName())%>(editingDomain, null);
 		rcvCommand.setEdgeAdaptor(getViewAdapter());
 		cc.compose(rcvCommand);
 		return c;
