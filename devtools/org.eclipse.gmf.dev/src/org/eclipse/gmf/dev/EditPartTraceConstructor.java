@@ -12,6 +12,7 @@
 package org.eclipse.gmf.dev;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -25,9 +26,9 @@ import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.GroupRequest;
 import org.eclipse.gmf.runtime.common.core.command.CompositeCommand;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
+import org.eclipse.gmf.runtime.diagram.ui.commands.CommandProxy;
 import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
 import org.eclipse.gmf.runtime.diagram.ui.commands.SemanticCreateCommand;
-import org.eclipse.gmf.runtime.diagram.ui.commands.XtoolsProxyCommand;
 import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
 import org.eclipse.gmf.runtime.emf.type.core.requests.IEditCommandRequest;
 
@@ -59,7 +60,7 @@ class EditPartTraceConstructor {
 			kids.add(new EditPartTraceRecord("resize direction " + cbRequest.getResizeDirection()));
 		}
 		if (request instanceof GroupRequest) {
-			List<? extends EditPart> editParts = (List<? extends EditPart>) ((GroupRequest) request).getEditParts();
+			List<? extends EditPart> editParts = ((GroupRequest) request).getEditParts();
 			if (editParts != null) {
 				for (EditPart editPart : editParts) {
 					kids.add(createEditPartNode(editPart));
@@ -195,7 +196,7 @@ class EditPartTraceConstructor {
 	private static String getImage(ICommand command) {
 		String id = DevPlugin.COMMANDX_IMAGE;
 		try {
-			if (command.isExecutable()) {
+			if (command.canExecute()) {
 				id = DevPlugin.COMMAND_IMAGE;
 			}
 		} catch (Exception e) {
@@ -211,12 +212,13 @@ class EditPartTraceConstructor {
 			kids.add(new EditPartTraceRecord("from " + DevUtils.getFullClassName(source)));
 		}
 		if (command instanceof CompositeCommand) {
-			for (ICommand subCommand : (List<? extends ICommand>) ((CompositeCommand) command).getCommands()) {
-				kids.add(createCommandNode(subCommand, event));
+			Iterator<? extends ICommand> subCommands = ((CompositeCommand) command).iterator();
+			while (subCommands.hasNext()) {
+				kids.add(createCommandNode(subCommands.next(), event));
 			}
 		}
-		if (command instanceof XtoolsProxyCommand) {
-			Command realCommand = ((XtoolsProxyCommand) command).getCommand();
+		if (command instanceof CommandProxy) {
+			Command realCommand = ((CommandProxy) command).getCommand();
 			if (realCommand != null) {
 				kids.add(createCommandNode(realCommand, event));
 			}
