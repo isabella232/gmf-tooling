@@ -846,13 +846,22 @@ public interface GMFMapPackage extends EPackage {
 	int LABEL_MAPPING = 8;
 
 	/**
+	 * The feature id for the '<em><b>Diagram Label</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_MAPPING__DIAGRAM_LABEL = 0;
+
+	/**
 	 * The feature id for the '<em><b>Features</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MAPPING__FEATURES = 0;
+	int LABEL_MAPPING__FEATURES = 1;
 
 	/**
 	 * The feature id for the '<em><b>Text</b></em>' attribute.
@@ -861,7 +870,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MAPPING__TEXT = 1;
+	int LABEL_MAPPING__TEXT = 2;
 
 	/**
 	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
@@ -870,7 +879,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MAPPING__READ_ONLY = 2;
+	int LABEL_MAPPING__READ_ONLY = 3;
 
 	/**
 	 * The feature id for the '<em><b>Default Text</b></em>' attribute.
@@ -879,7 +888,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MAPPING__DEFAULT_TEXT = 3;
+	int LABEL_MAPPING__DEFAULT_TEXT = 4;
 
 	/**
 	 * The feature id for the '<em><b>View Pattern</b></em>' attribute.
@@ -888,7 +897,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MAPPING__VIEW_PATTERN = 4;
+	int LABEL_MAPPING__VIEW_PATTERN = 5;
 
 	/**
 	 * The feature id for the '<em><b>Edit Pattern</b></em>' attribute.
@@ -897,7 +906,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MAPPING__EDIT_PATTERN = 5;
+	int LABEL_MAPPING__EDIT_PATTERN = 6;
 
 	/**
 	 * The number of structural features of the '<em>Label Mapping</em>' class.
@@ -906,7 +915,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MAPPING_FEATURE_COUNT = 6;
+	int LABEL_MAPPING_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.NodeLabelMappingImpl <em>Node Label Mapping</em>}' class.
@@ -917,6 +926,15 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	int NODE_LABEL_MAPPING = 9;
+
+	/**
+	 * The feature id for the '<em><b>Diagram Label</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NODE_LABEL_MAPPING__DIAGRAM_LABEL = LABEL_MAPPING__DIAGRAM_LABEL;
 
 	/**
 	 * The feature id for the '<em><b>Features</b></em>' reference list.
@@ -1008,6 +1026,15 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	int LINK_LABEL_MAPPING = 10;
+
+	/**
+	 * The feature id for the '<em><b>Diagram Label</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_LABEL_MAPPING__DIAGRAM_LABEL = LABEL_MAPPING__DIAGRAM_LABEL;
 
 	/**
 	 * The feature id for the '<em><b>Features</b></em>' reference list.
@@ -1997,6 +2024,17 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getLabelMapping();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.LabelMapping#getDiagramLabel <em>Diagram Label</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Diagram Label</em>'.
+	 * @see org.eclipse.gmf.mappings.LabelMapping#getDiagramLabel()
+	 * @see #getLabelMapping()
+	 * @generated
+	 */
+	EReference getLabelMapping_DiagramLabel();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.eclipse.gmf.mappings.LabelMapping#getFeatures <em>Features</em>}'.

@@ -62,6 +62,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Canvas/connections"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Canvas/compartments"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Canvas/children"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Canvas/labels"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//FigureGallery">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//FigureGallery/figures"/>
@@ -83,6 +84,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Compartment/needsTitle"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//Child"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//DiagramLabel"/>
     <genClasses ecoreClass="gmfgraph.ecore#//VisualFacet"/>
     <genClasses ecoreClass="gmfgraph.ecore#//GeneralFacet">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//GeneralFacet/identifier"/>

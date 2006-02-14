@@ -10,6 +10,8 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.gmfgraph.*;
+
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.Border;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
@@ -144,6 +146,9 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseChild(Child object) {
 				return createChildAdapter();
+			}
+			public Object caseDiagramLabel(DiagramLabel object) {
+				return createDiagramLabelAdapter();
 			}
 			public Object caseVisualFacet(VisualFacet object) {
 				return createVisualFacetAdapter();
@@ -410,6 +415,20 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createChildAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.DiagramLabel <em>Diagram Label</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.DiagramLabel
+	 * @generated
+	 */
+	public Adapter createDiagramLabelAdapter() {
 		return null;
 	}
 

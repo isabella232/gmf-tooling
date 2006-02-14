@@ -10,6 +10,8 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.eclipse.gmf.gmfgraph.DiagramLabel;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Label Mapping</b></em>'.
@@ -22,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.mappings.LabelMapping#getDiagramLabel <em>Diagram Label</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LabelMapping#getFeatures <em>Features</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LabelMapping#getText <em>Text</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LabelMapping#isReadOnly <em>Read Only</em>}</li>
@@ -36,6 +39,32 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface LabelMapping extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Diagram Label</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Diagram Label</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Diagram Label</em>' reference.
+	 * @see #setDiagramLabel(DiagramLabel)
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLabelMapping_DiagramLabel()
+	 * @model required="true"
+	 * @generated
+	 */
+	DiagramLabel getDiagramLabel();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.mappings.LabelMapping#getDiagramLabel <em>Diagram Label</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Diagram Label</em>' reference.
+	 * @see #getDiagramLabel()
+	 * @generated
+	 */
+	void setDiagramLabel(DiagramLabel value);
+
 	/**
 	 * Returns the value of the '<em><b>Features</b></em>' reference list.
 	 * The list contents are of type {@link org.eclipse.emf.ecore.EAttribute}.

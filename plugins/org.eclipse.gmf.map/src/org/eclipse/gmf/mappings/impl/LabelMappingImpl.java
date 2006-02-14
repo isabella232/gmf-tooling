@@ -15,10 +15,14 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
+import org.eclipse.gmf.gmfgraph.DiagramLabel;
 
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LabelMapping;
@@ -30,6 +34,7 @@ import org.eclipse.gmf.mappings.LabelMapping;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#getDiagramLabel <em>Diagram Label</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#getFeatures <em>Features</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#getText <em>Text</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#isReadOnly <em>Read Only</em>}</li>
@@ -42,6 +47,16 @@ import org.eclipse.gmf.mappings.LabelMapping;
  * @generated
  */
 public abstract class LabelMappingImpl extends EObjectImpl implements LabelMapping {
+	/**
+	 * The cached value of the '{@link #getDiagramLabel() <em>Diagram Label</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDiagramLabel()
+	 * @generated
+	 * @ordered
+	 */
+	protected DiagramLabel diagramLabel = null;
+
 	/**
 	 * The cached value of the '{@link #getFeatures() <em>Features</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -175,6 +190,44 @@ public abstract class LabelMappingImpl extends EObjectImpl implements LabelMappi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public DiagramLabel getDiagramLabel() {
+		if (diagramLabel != null && diagramLabel.eIsProxy()) {
+			InternalEObject oldDiagramLabel = (InternalEObject)diagramLabel;
+			diagramLabel = (DiagramLabel)eResolveProxy(oldDiagramLabel);
+			if (diagramLabel != oldDiagramLabel) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.LABEL_MAPPING__DIAGRAM_LABEL, oldDiagramLabel, diagramLabel));
+			}
+		}
+		return diagramLabel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DiagramLabel basicGetDiagramLabel() {
+		return diagramLabel;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDiagramLabel(DiagramLabel newDiagramLabel) {
+		DiagramLabel oldDiagramLabel = diagramLabel;
+		diagramLabel = newDiagramLabel;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LABEL_MAPPING__DIAGRAM_LABEL, oldDiagramLabel, diagramLabel));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList getFeatures() {
 		if (features == null) {
 			features = new EObjectResolvingEList(EAttribute.class, this, GMFMapPackage.LABEL_MAPPING__FEATURES);
@@ -294,6 +347,9 @@ public abstract class LabelMappingImpl extends EObjectImpl implements LabelMappi
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFMapPackage.LABEL_MAPPING__DIAGRAM_LABEL:
+				if (resolve) return getDiagramLabel();
+				return basicGetDiagramLabel();
 			case GMFMapPackage.LABEL_MAPPING__FEATURES:
 				return getFeatures();
 			case GMFMapPackage.LABEL_MAPPING__TEXT:
@@ -317,6 +373,9 @@ public abstract class LabelMappingImpl extends EObjectImpl implements LabelMappi
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFMapPackage.LABEL_MAPPING__DIAGRAM_LABEL:
+				setDiagramLabel((DiagramLabel)newValue);
+				return;
 			case GMFMapPackage.LABEL_MAPPING__FEATURES:
 				getFeatures().clear();
 				getFeatures().addAll((Collection)newValue);
@@ -347,6 +406,9 @@ public abstract class LabelMappingImpl extends EObjectImpl implements LabelMappi
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFMapPackage.LABEL_MAPPING__DIAGRAM_LABEL:
+				setDiagramLabel((DiagramLabel)null);
+				return;
 			case GMFMapPackage.LABEL_MAPPING__FEATURES:
 				getFeatures().clear();
 				return;
@@ -376,6 +438,8 @@ public abstract class LabelMappingImpl extends EObjectImpl implements LabelMappi
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFMapPackage.LABEL_MAPPING__DIAGRAM_LABEL:
+				return diagramLabel != null;
 			case GMFMapPackage.LABEL_MAPPING__FEATURES:
 				return features != null && !features.isEmpty();
 			case GMFMapPackage.LABEL_MAPPING__TEXT:

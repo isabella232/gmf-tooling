@@ -617,7 +617,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getLabelMapping_Features() {
+	public EReference getLabelMapping_DiagramLabel() {
 		return (EReference)labelMappingEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -626,8 +626,8 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLabelMapping_Text() {
-		return (EAttribute)labelMappingEClass.getEStructuralFeatures().get(1);
+	public EReference getLabelMapping_Features() {
+		return (EReference)labelMappingEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -635,7 +635,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLabelMapping_ReadOnly() {
+	public EAttribute getLabelMapping_Text() {
 		return (EAttribute)labelMappingEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -644,7 +644,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLabelMapping_DefaultText() {
+	public EAttribute getLabelMapping_ReadOnly() {
 		return (EAttribute)labelMappingEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -653,7 +653,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLabelMapping_ViewPattern() {
+	public EAttribute getLabelMapping_DefaultText() {
 		return (EAttribute)labelMappingEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -662,8 +662,17 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLabelMapping_EditPattern() {
+	public EAttribute getLabelMapping_ViewPattern() {
 		return (EAttribute)labelMappingEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLabelMapping_EditPattern() {
+		return (EAttribute)labelMappingEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1212,6 +1221,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		createEReference(canvasMappingEClass, CANVAS_MAPPING__TOOLBAR_CONTRIBUTIONS);
 
 		labelMappingEClass = createEClass(LABEL_MAPPING);
+		createEReference(labelMappingEClass, LABEL_MAPPING__DIAGRAM_LABEL);
 		createEReference(labelMappingEClass, LABEL_MAPPING__FEATURES);
 		createEAttribute(labelMappingEClass, LABEL_MAPPING__TEXT);
 		createEAttribute(labelMappingEClass, LABEL_MAPPING__READ_ONLY);
@@ -1378,6 +1388,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEReference(getCanvasMapping_ToolbarContributions(), theGMFToolPackage.getToolbar(), null, "toolbarContributions", null, 0, -1, CanvasMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(labelMappingEClass, LabelMapping.class, "LabelMapping", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLabelMapping_DiagramLabel(), theGMFGraphPackage.getDiagramLabel(), null, "diagramLabel", null, 1, 1, LabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLabelMapping_Features(), ecorePackage.getEAttribute(), null, "features", null, 0, -1, LabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLabelMapping_Text(), ecorePackage.getEString(), "text", null, 0, 1, LabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLabelMapping_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", null, 0, 1, LabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

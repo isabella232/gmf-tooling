@@ -36,6 +36,7 @@ import org.eclipse.gmf.gmfgraph.CustomLayout;
 import org.eclipse.gmf.gmfgraph.CustomLayoutData;
 import org.eclipse.gmf.gmfgraph.DecorationFigure;
 import org.eclipse.gmf.gmfgraph.DiagramElement;
+import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Direction;
 import org.eclipse.gmf.gmfgraph.Ellipse;
@@ -136,6 +137,13 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * @generated
 	 */
 	private EClass childEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass diagramLabelEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -621,6 +629,15 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getCanvas_Labels() {
+		return (EReference)canvasEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFigureGallery() {
 		return figureGalleryEClass;
 	}
@@ -749,6 +766,15 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 */
 	public EClass getChild() {
 		return childEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getDiagramLabel() {
+		return diagramLabelEClass;
 	}
 
 	/**
@@ -1910,6 +1936,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		createEReference(canvasEClass, CANVAS__CONNECTIONS);
 		createEReference(canvasEClass, CANVAS__COMPARTMENTS);
 		createEReference(canvasEClass, CANVAS__CHILDREN);
+		createEReference(canvasEClass, CANVAS__LABELS);
 
 		figureGalleryEClass = createEClass(FIGURE_GALLERY);
 		createEReference(figureGalleryEClass, FIGURE_GALLERY__FIGURES);
@@ -1932,6 +1959,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		createEAttribute(compartmentEClass, COMPARTMENT__NEEDS_TITLE);
 
 		childEClass = createEClass(CHILD);
+
+		diagramLabelEClass = createEClass(DIAGRAM_LABEL);
 
 		visualFacetEClass = createEClass(VISUAL_FACET);
 
@@ -2138,6 +2167,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		connectionEClass.getESuperTypes().add(this.getDiagramElement());
 		compartmentEClass.getESuperTypes().add(this.getDiagramElement());
 		childEClass.getESuperTypes().add(this.getDiagramElement());
+		diagramLabelEClass.getESuperTypes().add(this.getDiagramElement());
 		generalFacetEClass.getESuperTypes().add(this.getVisualFacet());
 		gradientFacetEClass.getESuperTypes().add(this.getVisualFacet());
 		figureMarkerEClass.getESuperTypes().add(this.getLayoutable());
@@ -2189,6 +2219,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEReference(getCanvas_Connections(), this.getConnection(), null, "connections", null, 0, -1, Canvas.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCanvas_Compartments(), this.getCompartment(), null, "compartments", null, 0, -1, Canvas.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCanvas_Children(), this.getChild(), null, "children", null, 0, -1, Canvas.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCanvas_Labels(), this.getDiagramLabel(), null, "labels", null, 0, -1, Canvas.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(figureGalleryEClass, FigureGallery.class, "FigureGallery", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFigureGallery_Figures(), this.getFigure(), null, "figures", null, 0, -1, FigureGallery.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2211,6 +2242,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEAttribute(getCompartment_NeedsTitle(), ecorePackage.getEBoolean(), "needsTitle", null, 0, 1, Compartment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(childEClass, Child.class, "Child", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(diagramLabelEClass, DiagramLabel.class, "DiagramLabel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(visualFacetEClass, VisualFacet.class, "VisualFacet", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

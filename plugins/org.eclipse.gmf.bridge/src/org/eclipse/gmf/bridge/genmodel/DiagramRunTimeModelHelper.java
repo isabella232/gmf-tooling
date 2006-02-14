@@ -14,7 +14,9 @@ package org.eclipse.gmf.bridge.genmodel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
+import org.eclipse.gmf.mappings.LinkLabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
+import org.eclipse.gmf.mappings.NodeLabelMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 
 /**
@@ -36,4 +38,8 @@ public interface DiagramRunTimeModelHelper {
 	public GenClass getNodeLabelDefault();
 
 	public GenClass getLinkLabelDefault();
+
+	public GenClass get(NodeLabelMapping mapping);
+
+	public GenClass get(LinkLabelMapping mapping);
 }

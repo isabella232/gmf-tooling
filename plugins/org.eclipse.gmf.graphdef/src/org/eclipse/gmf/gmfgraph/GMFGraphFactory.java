@@ -80,6 +80,15 @@ public interface GMFGraphFactory extends EFactory {
 	Child createChild();
 
 	/**
+	 * Returns a new object of class '<em>Diagram Label</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Diagram Label</em>'.
+	 * @generated
+	 */
+	DiagramLabel createDiagramLabel();
+
+	/**
 	 * Returns a new object of class '<em>General Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -62,6 +62,7 @@ public class LabelMappingItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addDiagramLabelPropertyDescriptor(object);
 			addFeaturesPropertyDescriptor(object);
 			addTextPropertyDescriptor(object);
 			addReadOnlyPropertyDescriptor(object);
@@ -70,6 +71,26 @@ public class LabelMappingItemProvider
 			addEditPatternPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Diagram Label feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDiagramLabelPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_LabelMapping_diagramLabel_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_LabelMapping_diagramLabel_feature", "_UI_LabelMapping_type"),
+				 GMFMapPackage.eINSTANCE.getLabelMapping_DiagramLabel(),
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**

@@ -366,7 +366,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
 		}
 		label.setVisualID(myVisualIDs.get(label));
-		label.setDiagramRunTimeClass(getNodeLabelRunTimeClass());
+		label.setDiagramRunTimeClass(findRunTimeClass(mapping));
 		label.setViewmap(createLabelViewmap());
 		label.setModelFacet(createLabelModelFacet(mapping));
 		return label;
@@ -375,7 +375,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	private GenLinkLabel createLinkLabel(GenLink link, LinkLabelMapping mapping) {
 		GenLinkLabel label = GMFGenFactory.eINSTANCE.createGenLinkLabel();
 		label.setVisualID(myVisualIDs.get(label));
-		label.setDiagramRunTimeClass(getLinkLabelRunTimeClass());
+		label.setDiagramRunTimeClass(findRunTimeClass(mapping));
 		label.setViewmap(createLabelViewmap());
 		label.setModelFacet(createLabelModelFacet(mapping));
 		label.setAlignment(getLinkLabelAlignment(mapping.getAlignment()));
@@ -456,6 +456,14 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private GenClass getLinkLabelRunTimeClass() {
 		return myDRTHelper.getLinkLabelDefault();
+	}
+
+	private GenClass findRunTimeClass(NodeLabelMapping mapping) {
+		return myDRTHelper.get(mapping);
+	}
+
+	private GenClass findRunTimeClass(LinkLabelMapping mapping) {
+		return myDRTHelper.get(mapping);
 	}
 
 	private void handleNodeTool(ToolOwner nme, GenNode genNode) {

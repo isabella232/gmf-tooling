@@ -206,6 +206,28 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.DiagramLabel} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected DiagramLabelItemProvider diagramLabelItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.DiagramLabel}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createDiagramLabelAdapter() {
+		if (diagramLabelItemProvider == null) {
+			diagramLabelItemProvider = new DiagramLabelItemProvider(this);
+		}
+
+		return diagramLabelItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.GeneralFacet} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1033,6 +1055,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 		if (connectionItemProvider != null) connectionItemProvider.dispose();
 		if (compartmentItemProvider != null) compartmentItemProvider.dispose();
 		if (childItemProvider != null) childItemProvider.dispose();
+		if (diagramLabelItemProvider != null) diagramLabelItemProvider.dispose();
 		if (generalFacetItemProvider != null) generalFacetItemProvider.dispose();
 		if (gradientFacetItemProvider != null) gradientFacetItemProvider.dispose();
 		if (figureRefItemProvider != null) figureRefItemProvider.dispose();

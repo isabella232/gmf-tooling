@@ -12,6 +12,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.gmf.gmfgraph.*;
+
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
@@ -108,6 +110,7 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 			case GMFGraphPackage.CONNECTION: return createConnection();
 			case GMFGraphPackage.COMPARTMENT: return createCompartment();
 			case GMFGraphPackage.CHILD: return createChild();
+			case GMFGraphPackage.DIAGRAM_LABEL: return createDiagramLabel();
 			case GMFGraphPackage.GENERAL_FACET: return createGeneralFacet();
 			case GMFGraphPackage.GRADIENT_FACET: return createGradientFacet();
 			case GMFGraphPackage.FIGURE_REF: return createFigureRef();
@@ -248,6 +251,16 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	public Child createChild() {
 		ChildImpl child = new ChildImpl();
 		return child;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DiagramLabel createDiagramLabel() {
+		DiagramLabelImpl diagramLabel = new DiagramLabelImpl();
+		return diagramLabel;
 	}
 
 	/**
