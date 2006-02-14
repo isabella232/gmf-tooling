@@ -343,7 +343,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Layoutable" interface="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="layoutData" eType="#//LayoutData"
-        defaultValueLiteral="" containment="true" eOpposite="#//LayoutData/owner"/>
+        containment="true" eOpposite="#//LayoutData/owner"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="layout" eType="#//Layout"
         containment="true"/>
   </eClassifiers>
