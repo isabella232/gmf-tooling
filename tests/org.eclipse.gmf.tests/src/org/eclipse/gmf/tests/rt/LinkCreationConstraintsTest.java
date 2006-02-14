@@ -16,7 +16,6 @@ import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
-import org.eclipse.gmf.tests.EPath;
 
 public class LinkCreationConstraintsTest extends RuntimeDiagramTestBase {
 
@@ -32,23 +31,23 @@ public class LinkCreationConstraintsTest extends RuntimeDiagramTestBase {
 						
 		Diagram diagram = (Diagram)getDiagramEditPart().getModel();		
 		Node sourceContainerNode = createNode(containerMetaType, diagram);
-		EPath.setStructuralFeature(sourceContainerNode.getElement(), "acceptLinkKind", null); //$NON-NLS-1$		
+		setBusinessElementStructuralFeature(sourceContainerNode, "acceptLinkKind", null); //$NON-NLS-1$		
 		
 		Node targetNode = createNode(nodeMetaType, diagram);		
 		assertNotNull(findEditPart(targetNode));
-		EPath.setStructuralFeature(sourceContainerNode.getElement(), "acceptLinkKind", null); //$NON-NLS-1$				
+		setBusinessElementStructuralFeature(sourceContainerNode, "acceptLinkKind", null); //$NON-NLS-1$				
 		assertFalse("Can start link without acceptedLinkKind", //$NON-NLS-1$
 				canStartLinkFrom(referenceLinkMetaType, sourceContainerNode));
 		
 		String linkKind = "kind1"; //$NON-NLS-1$
-		EPath.setStructuralFeature(sourceContainerNode.getElement(), "acceptLinkKind", linkKind); //$NON-NLS-1$
+		setBusinessElementStructuralFeature(sourceContainerNode, "acceptLinkKind", linkKind); //$NON-NLS-1$
 		assertTrue("Allow start link with acceptedLinkKind", //$NON-NLS-1$ 
 				canStartLinkFrom(referenceLinkMetaType, sourceContainerNode));		
 				
 		assertNull("Do not create link to node with different linkKind", //$NON-NLS-1$ 
 				createLink(referenceLinkMetaType, sourceContainerNode, targetNode));		
 		// set the same link kind to target node
-		EPath.setStructuralFeature(targetNode.getElement(), "acceptLinkKind", linkKind); //$NON-NLS-1$
+		setBusinessElementStructuralFeature(targetNode, "acceptLinkKind", linkKind); //$NON-NLS-1$
 		Edge link = createLink(referenceLinkMetaType, sourceContainerNode, targetNode);
 		assertNotNull("Link start should be allowed", link); //$NON-NLS-1$		
 		// once create, refect 2nd link creation due to multiplicity 0..1
@@ -61,13 +60,13 @@ public class LinkCreationConstraintsTest extends RuntimeDiagramTestBase {
 		assertNotNull("Should create link for nodes with equal acceptLinkKind", //$NON-NLS-1$ 
 				createLink(linkMetaType, sourceContainerNode, targetNode));
 		// set different acceptLinkKind
-		EPath.setStructuralFeature(sourceContainerNode.getElement(), "acceptLinkKind", null); //$NON-NLS-1$		
+		setBusinessElementStructuralFeature(sourceContainerNode, "acceptLinkKind", null); //$NON-NLS-1$		
 		assertTrue("Should start link with no restriction", //$NON-NLS-1$ 
 				canStartLinkFrom(linkMetaType, sourceContainerNode));
 		assertNull("Should not create link for nodes with different acceptLinkKind", //$NON-NLS-1$
 				createLink(linkMetaType, sourceContainerNode, targetNode));
 		// set the same acceptLinkKind to target node
-		EPath.setStructuralFeature(targetNode.getElement(), "acceptLinkKind", null); //$NON-NLS-1$
+		setBusinessElementStructuralFeature(targetNode, "acceptLinkKind", null); //$NON-NLS-1$
 		assertTrue(canStartLinkFrom(linkMetaType, sourceContainerNode));
 		assertNotNull("Should create link for nodes with equal acceptLinkKind", //$NON-NLS-1$ 
 				createLink(linkMetaType, sourceContainerNode, targetNode));		

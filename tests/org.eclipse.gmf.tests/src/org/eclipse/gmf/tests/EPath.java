@@ -19,10 +19,6 @@ import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.gmfgraph.Identity;
-import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
-import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeModelCommand;
-import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
-import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 
 /**
  * Utility class providing easy access and navigation to 
@@ -113,26 +109,6 @@ public class EPath {
 	}
 	
 	/**
-	 * Sets value of specified structural feature. 
-	 * @param instance the object holding the feature value
-	 * @param featureName the name of the structural feature to set.
-	 * @param value the value to set
-	 * @throws IllegalArgumentException if the given name does not refer existing feature
-	 */
-	public static void setStructuralFeature(EObject instance, String featureName, Object value) {
-		EObject resultObj = findFeature(instance.eClass(), featureName);
-		if(!(resultObj instanceof EStructuralFeature)) {
-			throw new IllegalArgumentException("Not existing feature: " + featureName); //$NON-NLS-1$
-		}
-		EStructuralFeature feature = (EStructuralFeature)resultObj;
-
-		SetRequest setReq = new SetRequest(instance, feature, value);		
-		CompositeModelCommand modelCmd = new CompositeModelCommand(setReq.getLabel());
-		modelCmd.compose(new SetValueCommand(setReq));
-		new EtoolsProxyCommand(modelCmd).execute();
-	}
-	
-	/**
 	 * Gets value of specified structural feature. 
 	 * @param instance the object holding the feature value
 	 * @param featureName the name of the structural feature to set.
@@ -140,7 +116,7 @@ public class EPath {
 	 * @throws IllegalArgumentException if the given name does not refer existing feature
 	 */	
 	public static Object getStructuralFeatureVal(EObject instance, String featureName) {		
-		EObject resultObj = findFeature(instance.eClass(), featureName);
+		EObject resultObj = findLocalFeature(instance.eClass(), featureName);
 		if(!(resultObj instanceof EStructuralFeature)) {
 			throw new IllegalArgumentException("Not existing feature: " + featureName); //$NON-NLS-1$
 		}
@@ -148,7 +124,18 @@ public class EPath {
 		return instance.eGet(feature);
 	}
 	
-	private static EStructuralFeature findFeature(EClass eClass, String name) {
+	/**
+	 * Looks for the given feature only the specified EClass. Note: No
+	 * super-types are included in this lookup.
+	 * 
+	 * @param eClass
+	 *            meta-class which contains the feature
+	 * @param name
+	 *            the featuren name
+	 * @return the feature object or <code>null</code> if not such feature is
+	 *         found
+	 */
+	public static EStructuralFeature findLocalFeature(EClass eClass, String name) {
 		for (Iterator it = eClass.getEAllStructuralFeatures().iterator(); it.hasNext();) {
 			EStructuralFeature nextFeature = (EStructuralFeature) it.next();
 			if(name.equals(nextFeature.getName())) {

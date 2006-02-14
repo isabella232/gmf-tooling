@@ -16,22 +16,31 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
+import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewAndElementRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
 import org.eclipse.gmf.runtime.diagram.ui.requests.EditCommandRequestWrapper;
-import org.eclipse.gmf.runtime.diagram.ui.requests.RequestConstants;
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateConnectionViewAndElementRequest.ConnectionViewAndElementDescriptor;
+import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.type.core.IMetamodelType;
+import org.eclipse.gmf.runtime.emf.type.core.commands.SetValueCommand;
 import org.eclipse.gmf.runtime.emf.type.core.requests.CreateRelationshipRequest;
+import org.eclipse.gmf.runtime.emf.type.core.requests.SetRequest;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.tests.EPath;
 import org.eclipse.gmf.tests.setup.DiaGenSource;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
@@ -174,5 +183,38 @@ public abstract class RuntimeDiagramTestBase extends GeneratedCanvasTest {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Sets structural feature value of the business element associated with the
+	 * given notation element.
+	 * 
+	 * @param view
+	 *            the notation element encapsulating the bussiness object
+	 *            containing the feature to be modified
+	 * @param featureName
+	 *            the name of the structural feature to set.
+	 * @param value
+	 *            the value to set
+	 * @throws IllegalArgumentException
+	 *             if the given name does not refer existing feature
+	 */
+	protected void setBusinessElementStructuralFeature(View view, String featureName, Object value) {
+		EObject instance = view.getElement();
+		assertNotNull("No business element bound to notation element", instance); //$NON-NLS-1$
+		EObject resultObj = EPath.findLocalFeature(instance.eClass(), featureName);
+		if (!(resultObj instanceof EStructuralFeature)) {
+			throw new IllegalArgumentException("Not existing feature: " + featureName); //$NON-NLS-1$
+		}
+
+		EStructuralFeature feature = (EStructuralFeature) resultObj;
+		SetRequest setReq = new SetRequest(instance, feature, value);
+		EditPart editPart = findEditPart(view);
+		assertTrue("IGraphicalEditPart expected", editPart instanceof IGraphicalEditPart); //$NON-NLS-1$
+
+		TransactionalEditingDomain txEditDomain = ((IGraphicalEditPart) editPart).getEditingDomain();
+		CompositeTransactionalCommand modelCmd = new CompositeTransactionalCommand(txEditDomain, "Set feature"); //$NON-NLS-1$
+		modelCmd.compose(new SetValueCommand(setReq));
+		new EtoolsProxyCommand(modelCmd).execute();
 	}
 }

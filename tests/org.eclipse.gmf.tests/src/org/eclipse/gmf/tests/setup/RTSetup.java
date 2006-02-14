@@ -115,6 +115,7 @@ public class RTSetup implements RTSource {
 			r.getContents().clear();
 		}
 		r.getContents().add(getCanvas());
+		r.getContents().add(diagramElement);
 
 		return this;
 	}
