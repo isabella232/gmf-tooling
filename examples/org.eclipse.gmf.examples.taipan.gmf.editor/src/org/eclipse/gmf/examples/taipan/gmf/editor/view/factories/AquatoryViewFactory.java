@@ -14,8 +14,8 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.view.factories;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.gmf.runtime.diagram.ui.view.factories.*;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.runtime.diagram.ui.view.factories.DiagramViewFactory;
 
 /**
  * @generated

@@ -15,8 +15,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
@@ -51,8 +49,6 @@ public class RouteReliabilityLinkLabelTextEditPart extends TextCompartmentEditPa
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
 							return TaiPanElementTypes.Route_3002;
-						} else if (TransactionalEditingDomain.class.equals(adapter)) {
-							return getEditingDomain();
 						}
 						return super.getAdapter(adapter);
 					}

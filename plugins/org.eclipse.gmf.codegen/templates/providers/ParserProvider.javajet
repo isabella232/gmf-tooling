@@ -4,12 +4,8 @@
 package <%=genDiagram.getProvidersPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
-import java.util.Map;
-import java.util.WeakHashMap;
-
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
 import org.eclipse.gmf.runtime.common.ui.services.parser.GetParserOperation;
@@ -59,7 +55,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 		String baseName = genHost.getClassNamePrefix() + genLabel.getSemanticHintFieldName();
 		char c = baseName.charAt(0);
 		baseName = baseName.substring(1) + "Parser";
-		String fieldName = Character.toLowerCase(c) + baseName + 's';
+		String fieldName = Character.toLowerCase(c) + baseName;
 		String methodName = Character.toUpperCase(c) + baseName;
 		labelMethodNames.put(genLabel, methodName);
 %>
@@ -67,27 +63,22 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	/**
 	 * @generated
 	 */
-	private Map <%=fieldName%>;
+	private IParser <%=fieldName%>;
 
 	/**
 	 * @generated
 	 */
-	private IParser get<%=methodName%>(TransactionalEditingDomain editingDomain) {
+	private IParser get<%=methodName%>() {
 		if (<%=fieldName%> == null) {
-			<%=fieldName%> = new WeakHashMap();
+			<%=fieldName%> = create<%=methodName%>();
 		}
-		IParser parser = (IParser) <%=fieldName%>.get(editingDomain);
-		if (parser == null) {
-			parser = create<%=methodName%>(editingDomain);
-			<%=fieldName%>.put(editingDomain, parser);
-		}
-		return parser;
+		return <%=fieldName%>;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser create<%=methodName%>(TransactionalEditingDomain editingDomain) {
+	protected IParser create<%=methodName%>() {
 <%
 		String parserClassName;
 		String viewPattern;
@@ -133,7 +124,6 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 %>
 		parser.setEditPattern("<%=editPattern%>");
 <%		}%>
-		parser.setEditingDomain(editingDomain);
 		return parser;
 	}
 <%
@@ -144,7 +134,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	/**
 	 * @generated
 	 */
-	protected IParser getParser(IElementType type, String viewType, TransactionalEditingDomain editingDomain) {
+	protected IParser getParser(IElementType type, String viewType) {
 <%
 for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
 	GenCommonBase genHost = (GenCommonBase) it1.next();
@@ -155,14 +145,14 @@ for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
 	if (genHost instanceof GenChildNode && ((GenChildNode) genHost).isListContainerEntry()) {
 		GenLabel genLabel = (GenLabel) labelsList.get(0);
 %>
-			return get<%=labelMethodNames.get(genLabel)%>(editingDomain);
+			return get<%=labelMethodNames.get(genLabel)%>();
 <%
 	} else {
 		for (Iterator it2 = labelsList.iterator(); it2.hasNext(); ) {
 			GenLabel genLabel = (GenLabel) it2.next();
 %>
 			if (<%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%>.<%=genHost.getUniqueIdentifier()%>Labels.<%=genLabel.getSemanticHintFieldName()%>.equals(viewType)) {
-				return get<%=labelMethodNames.get(genLabel)%>(editingDomain);
+				return get<%=labelMethodNames.get(genLabel)%>();
 			}
 <%
 		}
@@ -183,8 +173,7 @@ for (Iterator it1 = labels.keySet().iterator(); it1.hasNext(); ) {
 			EObject element = (EObject) hint.getAdapter(EObject.class);
 			type = ElementTypeRegistry.getInstance().getElementType(element);
 		}
-		TransactionalEditingDomain editingDomain = (TransactionalEditingDomain) hint.getAdapter(TransactionalEditingDomain.class);
-		return getParser(type, viewType, editingDomain);
+		return getParser(type, viewType);
 	}
 
 	/**

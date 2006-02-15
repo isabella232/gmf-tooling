@@ -19,7 +19,10 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
+import org.eclipse.gmf.runtime.common.core.command.UnexecutableCommand;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
@@ -93,9 +96,16 @@ public class TaiPanStructuralFeatureParser extends TaiPanAbstractParser {
 	 */
 	public ICommand getParseCommand(IAdaptable adapter, Object[] values) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
+		if (element == null) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(element);
+		if (editingDomain == null) {
+			return UnexecutableCommand.INSTANCE;
+		}
 		Object value = values.length == 1 ? values[0] : null;
 		ICommand command = getModificationCommand(element, feature, value);
-		return new CompositeTransactionalCommand(getEditingDomain(), command.getLabel(), Collections.singletonList(command));
+		return new CompositeTransactionalCommand(editingDomain, command.getLabel(), Collections.singletonList(command));
 	}
 
 	/**

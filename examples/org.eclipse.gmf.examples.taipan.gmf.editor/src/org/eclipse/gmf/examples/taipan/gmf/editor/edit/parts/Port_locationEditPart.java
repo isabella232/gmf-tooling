@@ -17,8 +17,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
@@ -67,8 +65,6 @@ public class Port_locationEditPart extends TextCompartmentEditPart {
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
 							return TaiPanElementTypes.Port_1001;
-						} else if (TransactionalEditingDomain.class.equals(adapter)) {
-							return getEditingDomain();
 						}
 						return super.getAdapter(adapter);
 					}
