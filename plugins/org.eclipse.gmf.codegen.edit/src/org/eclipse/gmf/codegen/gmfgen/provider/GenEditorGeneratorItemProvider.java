@@ -73,6 +73,8 @@ public class GenEditorGeneratorItemProvider
 			addSameFileForDiagramAndModelPropertyDescriptor(object);
 			addDiagramFileExtensionPropertyDescriptor(object);
 			addDomainFileExtensionPropertyDescriptor(object);
+			addDynamicTemplatesPropertyDescriptor(object);
+			addTemplateDirectoryPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -198,6 +200,46 @@ public class GenEditorGeneratorItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Dynamic Templates feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDynamicTemplatesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenEditorGenerator_dynamicTemplates_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorGenerator_dynamicTemplates_feature", "_UI_GenEditorGenerator_type"),
+				 GMFGenPackage.eINSTANCE.getGenEditorGenerator_DynamicTemplates(),
+				 true,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Template Directory feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addTemplateDirectoryPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenEditorGenerator_templateDirectory_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorGenerator_templateDirectory_feature", "_UI_GenEditorGenerator_type"),
+				 GMFGenPackage.eINSTANCE.getGenEditorGenerator_TemplateDirectory(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -267,6 +309,8 @@ public class GenEditorGeneratorItemProvider
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__SAME_FILE_FOR_DIAGRAM_AND_MODEL:
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM_FILE_EXTENSION:
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION:
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DYNAMIC_TEMPLATES:
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS:

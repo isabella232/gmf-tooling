@@ -163,13 +163,31 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION = 9;
 
 	/**
+	 * The feature id for the '<em><b>Dynamic Templates</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_EDITOR_GENERATOR__DYNAMIC_TEMPLATES = 10;
+
+	/**
+	 * The feature id for the '<em><b>Template Directory</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY = 11;
+
+	/**
 	 * The number of structural features of the '<em>Gen Editor Generator</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR_FEATURE_COUNT = 10;
+	int GEN_EDITOR_GENERATOR_FEATURE_COUNT = 12;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl <em>Gen Common Base</em>}' class.
@@ -4831,6 +4849,28 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenEditorGenerator_DomainFileExtension();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#isDynamicTemplates <em>Dynamic Templates</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Dynamic Templates</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#isDynamicTemplates()
+	 * @see #getGenEditorGenerator()
+	 * @generated
+	 */
+	EAttribute getGenEditorGenerator_DynamicTemplates();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getTemplateDirectory <em>Template Directory</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Template Directory</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getTemplateDirectory()
+	 * @see #getGenEditorGenerator()
+	 * @generated
+	 */
+	EAttribute getGenEditorGenerator_TemplateDirectory();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram <em>Gen Diagram</em>}'.

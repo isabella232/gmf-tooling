@@ -12,8 +12,6 @@
 package org.eclipse.gmf.internal.codegen.dispatch;
 
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,8 +27,6 @@ import org.eclipse.gmf.common.UnexpectedBehaviourException;
  */
 public class EmitterFactory {
 
-	private final URL myBaseURL;
-
 	private final TemplateRegistry myTemplates;
 
 	private final boolean myUsePrecompiled;
@@ -39,22 +35,23 @@ public class EmitterFactory {
 
 	private final Map myCache;
 
-	public EmitterFactory(URL baseURL, TemplateRegistry templates) {
-		this(baseURL, templates, true, null, true);
+	private String[] myTemplatePath;
+
+	public EmitterFactory(String[] templatePath, TemplateRegistry templates) {
+		this(templatePath, templates, true, null, true);
 	}
 
 	/**
-	 * XXX perhaps, baseURL should be URL[] to handle external/dynamic templates?
-	 * @param baseURL base location to resolve template path taken from TemplateRegistry
+	 * @param templatePath paths to the templates - allows loading external templates
 	 * @param templates registry with templates
 	 * @param usePrecompiled whether or not respect class from TemplateRegistry (if there's one specified)
 	 * @param variables dependencies (plugin identifiers) of code generators
 	 * @param cache when <code>true</code>, remembers JETEmitter for key
 	 */
-	public EmitterFactory(URL baseURL, TemplateRegistry templates, boolean usePrecompiled, String[] variables, boolean cache) {
-		assert baseURL != null && templates != null;
+	public EmitterFactory(String[] templatePath, TemplateRegistry templates, boolean usePrecompiled, String[] variables, boolean cache) {
+		assert templatePath != null && templatePath.length > 0 && templates != null;
 		assert variables == null || !Arrays.asList(variables).contains(null);
-		myBaseURL = baseURL;
+		myTemplatePath = templatePath;
 		myTemplates = templates;
 		myUsePrecompiled = usePrecompiled;
 		myVariables = variables == null ? new String[0] : variables;
@@ -101,14 +98,10 @@ public class EmitterFactory {
 	 */
 	public JETEmitter newEmitter(Object key) throws UnexpectedBehaviourException, NoSuchTemplateException, JETException {
 		JETEmitter em;
-		String fullPath = constructPath(key);
+		String relativePath = constructPath(key);
 		ClassLoader cl;
-		if (precompiledInUse(key)) {
-			cl = myTemplates.getGeneratorClass(key).getClassLoader();
-		} else {
-			cl = getClass().getClassLoader();
-		}
-		em = new JETEmitter(fullPath, cl);
+		cl = myTemplates.getGeneratorClass(key).getClassLoader();
+		em = new JETEmitter(myTemplatePath, relativePath, cl);
 		feedVariables(em);
 		initPrecompiled(key, em);
 		return em;
@@ -130,15 +123,11 @@ public class EmitterFactory {
 	}
 
 	private String constructPath(Object key) throws UnexpectedBehaviourException, NoSuchTemplateException {
-		try {
-			String path = myTemplates.getTemplatePath(key);
-			if (path == null) {
-				throw new NoSuchTemplateException(String.valueOf(key));
-			}
-			return new URL(myBaseURL, path).toString();
-		} catch (MalformedURLException ex) {
-			throw new UnexpectedBehaviourException(ex);
+		String path = myTemplates.getTemplatePath(key);
+		if (path == null) {
+			throw new NoSuchTemplateException(String.valueOf(key));
 		}
+		return path;
 	}
 
 	private void feedVariables(JETEmitter em) throws JETException {

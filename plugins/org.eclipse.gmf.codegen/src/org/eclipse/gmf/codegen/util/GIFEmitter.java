@@ -15,33 +15,30 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 
-import org.osgi.framework.Bundle;
+import org.eclipse.emf.codegen.jet.JETCompiler;
+import org.eclipse.emf.codegen.jet.JETException;
 
 
 public class GIFEmitter {
 	
-	private String myInputFile;
-	private Bundle myTemplatesBundle;
+	private String myLocation;
 
-	public GIFEmitter(String fileName, Bundle templatesBundle) {
-		myInputFile = fileName;
-		myTemplatesBundle = templatesBundle;
+	public GIFEmitter(String location) {
+		myLocation = location;
 	}
 	
-	public byte[] generateGif() {
+	public byte[] generateGif() throws JETException {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		try {
-			URL url = myTemplatesBundle.getEntry(myInputFile);
-			InputStream is = new BufferedInputStream(url.openStream());
+			InputStream is = new BufferedInputStream(JETCompiler.openStream(myLocation));
 			for (int next = is.read(); next != -1; next = is.read()) {
 				outputStream.write(next);
 			}
 			is.close();
 		} catch (IOException e) {
-			e.printStackTrace();
-		}			
+			throw new JETException(e);
+		}
 		return outputStream.toByteArray();
 	}
 

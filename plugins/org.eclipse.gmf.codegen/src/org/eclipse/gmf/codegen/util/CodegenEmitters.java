@@ -14,8 +14,10 @@ package org.eclipse.gmf.codegen.util;
 import java.net.URL;
 
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.codegen.jet.JETCompiler;
 import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.codegen.templates.commands.ReorientConnectionViewCommandGenerator;
 import org.eclipse.gmf.codegen.templates.editor.ActionBarContributorGenerator;
 import org.eclipse.gmf.codegen.templates.editor.BuildPropertiesGenerator;
@@ -92,8 +94,9 @@ import org.osgi.framework.Bundle;
 public class CodegenEmitters {
 	private static final String TEMPLATES_PLUGIN_ID = "org.eclipse.gmf.codegen";
 	private final EmitterFactory myFactory;
+	private final String[] myTemplatePath;
 
-	public CodegenEmitters(boolean usePrecompiled) {
+	public CodegenEmitters(boolean usePrecompiled, String templateDirectory) {
 		TemplateRegistry registry = initRegistry();
 		String[] variables = new String[] {
 		        "org.eclipse.emf.codegen",
@@ -103,72 +106,76 @@ public class CodegenEmitters {
 				"org.eclipse.gmf.common",
 				"org.eclipse.gmf.codegen"
 		};
-		myFactory = new EmitterFactory(getTemplatesBundle().getEntry("/"), registry, usePrecompiled, variables, true);
+		myTemplatePath = new String[] {
+				usePrecompiled ? null : templateDirectory != null && templateDirectory.indexOf(":") == -1 ? URI.createPlatformResourceURI(templateDirectory).toString() : templateDirectory,
+				getTemplatesBundle().getEntry("/templates/").toString()
+		};
+		myFactory = new EmitterFactory(getTemplatePath(), registry, usePrecompiled, variables, true);
 	}
 
 	private static TemplateRegistry initRegistry() {
 		final StaticTemplateRegistry tr = new StaticTemplateRegistry();
-		put(tr, "/templates/commands/ReorientConnectionViewCommand.javajet", ReorientConnectionViewCommandGenerator.class);
-		put(tr, "/templates/parts/DiagramEditPart.javajet", DiagramEditPartGenerator.class);
-		put(tr, "/templates/parts/DiagramExternalNodeLabelEditPart.javajet", DiagramExternalNodeLabelEditPartGenerator.class);
-		put(tr, "/templates/parts/NodeEditPart.javajet", NodeEditPartGenerator.class);
-		put(tr, "/templates/parts/NodeLabelEditPart.javajet", NodeLabelEditPartGenerator.class);
-		put(tr, "/templates/parts/ExternalNodeLabelEditPart.javajet", ExternalNodeLabelEditPartGenerator.class);
-		put(tr, "/templates/parts/ExternalNodeLabelTextEditPart.javajet", ExternalNodeLabelTextEditPartGenerator.class);
-		put(tr, "/templates/parts/ChildNodeEditPart.javajet", ChildNodeEditPartGenerator.class);
-		put(tr, "/templates/parts/CompartmentEditPart.javajet", CompartmentEditPartGenerator.class);
-		put(tr, "/templates/parts/LinkEditPart.javajet", LinkEditPartGenerator.class);
-		put(tr, "/templates/parts/LinkLabelEditPart.javajet", LinkLabelEditPartGenerator.class);
-		put(tr, "/templates/parts/LinkLabelTextEditPart.javajet", LinkLabelTextEditPartGenerator.class);
-		put(tr, "/templates/parts/EditPartFactory.javajet", EditPartFactoryGenerator.class);
-		put(tr, "/templates/policies/ItemSemanticEditPolicy.javajet", ItemSemanticEditPolicyGenerator.class);
-		put(tr, "/templates/policies/GraphicalNodeEditPolicy.javajet", GraphicalNodeEditPolicyGenerator.class);
-		put(tr, "/templates/policies/ReferenceConnectionEditPolicy.javajet", ReferenceConnectionEditPolicyGenerator.class);
-		put(tr, "/templates/policies/DiagramCanonicalEditPolicy.javajet", DiagramCanonicalEditPolicyGenerator.class);
-		put(tr, "/templates/policies/ChildContainerCanonicalEditPolicy.javajet", ChildContainerCanonicalEditPolicyGenerator.class);
-		put(tr, "/templates/policies/DiagramItemSemanticEditPolicy.javajet", DiagramItemSemanticEditPolicyGenerator.class);
-		put(tr, "/templates/policies/CompartmentItemSemanticEditPolicy.javajet", CompartmentItemSemanticEditPolicyGenerator.class);
-		put(tr, "/templates/policies/NodeGraphicalNodeEditPolicy.javajet", NodeGraphicalNodeEditPolicyGenerator.class);
-		put(tr, "/templates/policies/NodeItemSemanticEditPolicy.javajet", NodeItemSemanticEditPolicyGenerator.class);
-		put(tr, "/templates/policies/LinkItemSemanticEditPolicy.javajet", LinkItemSemanticEditPolicyGenerator.class);
-		put(tr, "/templates/providers/AbstractParser.javajet", AbstractParserGenerator.class);
-		put(tr, "/templates/providers/StructuralFeatureParser.javajet", StructuralFeatureParserGenerator.class);
-		put(tr, "/templates/providers/StructuralFeaturesParser.javajet", StructuralFeaturesParserGenerator.class);
-		put(tr, "/templates/providers/SemanticHints.javajet", SemanticHintsGenerator.class);
-		put(tr, "/templates/providers/ViewFactory.javajet", ViewFactoryGenerator.class);
-		put(tr, "/templates/providers/LabelViewFactory.javajet", LabelViewFactoryGenerator.class);
-		put(tr, "/templates/providers/LabelTextViewFactory.javajet", LabelTextViewFactoryGenerator.class);
-		put(tr, "/templates/providers/ElementTypes.javajet", ElementTypesGenerator.class);
-		put(tr, "/templates/providers/ViewProvider.javajet", ViewProviderGenerator.class);
-		put(tr, "/templates/providers/EditPartProvider.javajet", EditPartProviderGenerator.class);
-		put(tr, "/templates/providers/PaletteProvider.javajet", PaletteProviderGenerator.class);
-		put(tr, "/templates/providers/MetamodelSupportProvider.javajet", MetamodelSupportProviderGenerator.class);
-		put(tr, "/templates/providers/ModelingAssistantProvider.javajet", ModelingAssistantProviderGenerator.class);
-		put(tr, "/templates/providers/PropertyProvider.javajet", PropertyProviderGenerator.class);
-		put(tr, "/templates/providers/IconProvider.javajet", IconProviderGenerator.class);
-		put(tr, "/templates/providers/ParserProvider.javajet", ParserProviderGenerator.class);
-		put(tr, "/templates/providers/ValidationProvider.javajet", ValidationProviderGenerator.class); //$NON-NLS-1$
-		put(tr, "/templates/providers/MarkerNavigationProvider.javajet", MarkerNavigationProviderGenerator.class); //$NON-NLS-1$
-		put(tr, "/templates/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGenerator.class);
-		put(tr, "/templates/editor/PaletteFactory.javajet", PaletteFactoryGenerator.class);
-		put(tr, "/templates/editor/DiagramEditorUtil.javajet", DiagramEditorUtilGenerator.class);
-		put(tr, "/templates/editor/DiagramFileCreator.javajet", DiagramFileCreatorGenerator.class);
-		put(tr, "/templates/editor/VisualIDRegistry.javajet", VisualIDRegistryGenerator.class);
-		put(tr, "/templates/editor/CreationWizard.javajet", CreationWizardGenerator.class);
-		put(tr, "/templates/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
-		put(tr, "/templates/editor/Editor.javajet", EditorGenerator.class);
-		put(tr, "/templates/editor/CreateShortcutAction.javajet", CreateShortcutActionGenerator.class);
-		put(tr, "/templates/editor/LoadResourceAction.javajet", LoadResourceActionGenerator.class);
-		put(tr, "/templates/editor/ElementChooser.javajet", ElementChooserGenerator.class);
-		put(tr, "/templates/editor/DocumentProvider.javajet", DocumentProviderGenerator.class);
-		put(tr, "/templates/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
-		put(tr, "/templates/editor/MatchingStrategy.javajet", MatchingStrategyGenerator.class);
-		put(tr, "/templates/editor/PreferenceInitializer.javajet", PreferencesInitializerGenerator.class);
-		put(tr, "/templates/editor/Plugin.javajet", PluginGenerator.class);
-		put(tr, "/templates/editor/plugin.xmljet", PluginXML.class);
-		put(tr, "/templates/editor/plugin.propertiesjet", PluginPropertiesGenerator.class);
-		put(tr, "/templates/editor/manifest.mfjet", ManifestGenerator.class);
-		put(tr, "/templates/editor/build.propertiesjet", BuildPropertiesGenerator.class);
+		put(tr, "/commands/ReorientConnectionViewCommand.javajet", ReorientConnectionViewCommandGenerator.class);
+		put(tr, "/parts/DiagramEditPart.javajet", DiagramEditPartGenerator.class);
+		put(tr, "/parts/DiagramExternalNodeLabelEditPart.javajet", DiagramExternalNodeLabelEditPartGenerator.class);
+		put(tr, "/parts/NodeEditPart.javajet", NodeEditPartGenerator.class);
+		put(tr, "/parts/NodeLabelEditPart.javajet", NodeLabelEditPartGenerator.class);
+		put(tr, "/parts/ExternalNodeLabelEditPart.javajet", ExternalNodeLabelEditPartGenerator.class);
+		put(tr, "/parts/ExternalNodeLabelTextEditPart.javajet", ExternalNodeLabelTextEditPartGenerator.class);
+		put(tr, "/parts/ChildNodeEditPart.javajet", ChildNodeEditPartGenerator.class);
+		put(tr, "/parts/CompartmentEditPart.javajet", CompartmentEditPartGenerator.class);
+		put(tr, "/parts/LinkEditPart.javajet", LinkEditPartGenerator.class);
+		put(tr, "/parts/LinkLabelEditPart.javajet", LinkLabelEditPartGenerator.class);
+		put(tr, "/parts/LinkLabelTextEditPart.javajet", LinkLabelTextEditPartGenerator.class);
+		put(tr, "/parts/EditPartFactory.javajet", EditPartFactoryGenerator.class);
+		put(tr, "/policies/ItemSemanticEditPolicy.javajet", ItemSemanticEditPolicyGenerator.class);
+		put(tr, "/policies/GraphicalNodeEditPolicy.javajet", GraphicalNodeEditPolicyGenerator.class);
+		put(tr, "/policies/ReferenceConnectionEditPolicy.javajet", ReferenceConnectionEditPolicyGenerator.class);
+		put(tr, "/policies/DiagramCanonicalEditPolicy.javajet", DiagramCanonicalEditPolicyGenerator.class);
+		put(tr, "/policies/ChildContainerCanonicalEditPolicy.javajet", ChildContainerCanonicalEditPolicyGenerator.class);
+		put(tr, "/policies/DiagramItemSemanticEditPolicy.javajet", DiagramItemSemanticEditPolicyGenerator.class);
+		put(tr, "/policies/CompartmentItemSemanticEditPolicy.javajet", CompartmentItemSemanticEditPolicyGenerator.class);
+		put(tr, "/policies/NodeGraphicalNodeEditPolicy.javajet", NodeGraphicalNodeEditPolicyGenerator.class);
+		put(tr, "/policies/NodeItemSemanticEditPolicy.javajet", NodeItemSemanticEditPolicyGenerator.class);
+		put(tr, "/policies/LinkItemSemanticEditPolicy.javajet", LinkItemSemanticEditPolicyGenerator.class);
+		put(tr, "/providers/AbstractParser.javajet", AbstractParserGenerator.class);
+		put(tr, "/providers/StructuralFeatureParser.javajet", StructuralFeatureParserGenerator.class);
+		put(tr, "/providers/StructuralFeaturesParser.javajet", StructuralFeaturesParserGenerator.class);
+		put(tr, "/providers/SemanticHints.javajet", SemanticHintsGenerator.class);
+		put(tr, "/providers/ViewFactory.javajet", ViewFactoryGenerator.class);
+		put(tr, "/providers/LabelViewFactory.javajet", LabelViewFactoryGenerator.class);
+		put(tr, "/providers/LabelTextViewFactory.javajet", LabelTextViewFactoryGenerator.class);
+		put(tr, "/providers/ElementTypes.javajet", ElementTypesGenerator.class);
+		put(tr, "/providers/ViewProvider.javajet", ViewProviderGenerator.class);
+		put(tr, "/providers/EditPartProvider.javajet", EditPartProviderGenerator.class);
+		put(tr, "/providers/PaletteProvider.javajet", PaletteProviderGenerator.class);
+		put(tr, "/providers/MetamodelSupportProvider.javajet", MetamodelSupportProviderGenerator.class);
+		put(tr, "/providers/ModelingAssistantProvider.javajet", ModelingAssistantProviderGenerator.class);
+		put(tr, "/providers/PropertyProvider.javajet", PropertyProviderGenerator.class);
+		put(tr, "/providers/IconProvider.javajet", IconProviderGenerator.class);
+		put(tr, "/providers/ParserProvider.javajet", ParserProviderGenerator.class);
+		put(tr, "/providers/ValidationProvider.javajet", ValidationProviderGenerator.class); //$NON-NLS-1$
+		put(tr, "/providers/MarkerNavigationProvider.javajet", MarkerNavigationProviderGenerator.class); //$NON-NLS-1$
+		put(tr, "/editor/InitDiagramFileAction.javajet", InitDiagramFileActionGenerator.class);
+		put(tr, "/editor/PaletteFactory.javajet", PaletteFactoryGenerator.class);
+		put(tr, "/editor/DiagramEditorUtil.javajet", DiagramEditorUtilGenerator.class);
+		put(tr, "/editor/DiagramFileCreator.javajet", DiagramFileCreatorGenerator.class);
+		put(tr, "/editor/VisualIDRegistry.javajet", VisualIDRegistryGenerator.class);
+		put(tr, "/editor/CreationWizard.javajet", CreationWizardGenerator.class);
+		put(tr, "/editor/CreationWizardPage.javajet", CreationWizardPageGenerator.class);
+		put(tr, "/editor/Editor.javajet", EditorGenerator.class);
+		put(tr, "/editor/CreateShortcutAction.javajet", CreateShortcutActionGenerator.class);
+		put(tr, "/editor/LoadResourceAction.javajet", LoadResourceActionGenerator.class);
+		put(tr, "/editor/ElementChooser.javajet", ElementChooserGenerator.class);
+		put(tr, "/editor/DocumentProvider.javajet", DocumentProviderGenerator.class);
+		put(tr, "/editor/ActionBarContributor.javajet", ActionBarContributorGenerator.class);
+		put(tr, "/editor/MatchingStrategy.javajet", MatchingStrategyGenerator.class);
+		put(tr, "/editor/PreferenceInitializer.javajet", PreferencesInitializerGenerator.class);
+		put(tr, "/editor/Plugin.javajet", PluginGenerator.class);
+		put(tr, "/editor/plugin.xmljet", PluginXML.class);
+		put(tr, "/editor/plugin.propertiesjet", PluginPropertiesGenerator.class);
+		put(tr, "/editor/manifest.mfjet", ManifestGenerator.class);
+		put(tr, "/editor/build.propertiesjet", BuildPropertiesGenerator.class);
 		return tr;
 	}
 
@@ -194,6 +201,9 @@ public class CodegenEmitters {
 		}
 	}
 
+	private String[] getTemplatePath() {
+		return myTemplatePath;
+	}
 
 	private static Bundle getTemplatesBundle() {
 		return Platform.getBundle(TEMPLATES_PLUGIN_ID);
@@ -457,7 +467,11 @@ public class CodegenEmitters {
 		return retrieve(BuildPropertiesGenerator.class);
 	}
 	
-	public GIFEmitter getShortcutImageEmitter() {
-		return new GIFEmitter("/templates/editor/shortcut.gif", getTemplatesBundle());
+	public GIFEmitter getShortcutImageEmitter() throws JETException {
+		String templateLocation = JETCompiler.find(getTemplatePath(), "/editor/shortcut.gif");
+		if (templateLocation == null) {
+			throw new JETException("shortcut image template not found");
+		}
+		return new GIFEmitter(templateLocation);
 	}
 }

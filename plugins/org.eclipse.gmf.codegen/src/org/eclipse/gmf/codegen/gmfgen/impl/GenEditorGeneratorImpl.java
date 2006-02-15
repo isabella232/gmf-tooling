@@ -39,6 +39,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#isSameFileForDiagramAndModel <em>Same File For Diagram And Model</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getDiagramFileExtension <em>Diagram File Extension</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getDomainFileExtension <em>Domain File Extension</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#isDynamicTemplates <em>Dynamic Templates</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getTemplateDirectory <em>Template Directory</em>}</li>
  * </ul>
  * </p>
  *
@@ -194,6 +196,46 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @ordered
 	 */
 	protected String domainFileExtension = DOMAIN_FILE_EXTENSION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isDynamicTemplates() <em>Dynamic Templates</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDynamicTemplates()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean DYNAMIC_TEMPLATES_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isDynamicTemplates() <em>Dynamic Templates</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDynamicTemplates()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean dynamicTemplates = DYNAMIC_TEMPLATES_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getTemplateDirectory() <em>Template Directory</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTemplateDirectory()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TEMPLATE_DIRECTORY_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getTemplateDirectory() <em>Template Directory</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTemplateDirectory()
+	 * @generated
+	 * @ordered
+	 */
+	protected String templateDirectory = TEMPLATE_DIRECTORY_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -582,6 +624,48 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isDynamicTemplates() {
+		return dynamicTemplates;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDynamicTemplates(boolean newDynamicTemplates) {
+		boolean oldDynamicTemplates = dynamicTemplates;
+		dynamicTemplates = newDynamicTemplates;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__DYNAMIC_TEMPLATES, oldDynamicTemplates, dynamicTemplates));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getTemplateDirectory() {
+		return templateDirectory;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTemplateDirectory(String newTemplateDirectory) {
+		String oldTemplateDirectory = templateDirectory;
+		templateDirectory = newTemplateDirectory;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY, oldTemplateDirectory, templateDirectory));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM:
@@ -647,6 +731,10 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return getDiagramFileExtension();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION:
 				return getDomainFileExtension();
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DYNAMIC_TEMPLATES:
+				return isDynamicTemplates() ? Boolean.TRUE : Boolean.FALSE;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY:
+				return getTemplateDirectory();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -687,6 +775,12 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION:
 				setDomainFileExtension((String)newValue);
+				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DYNAMIC_TEMPLATES:
+				setDynamicTemplates(((Boolean)newValue).booleanValue());
+				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY:
+				setTemplateDirectory((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -729,6 +823,12 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION:
 				setDomainFileExtension(DOMAIN_FILE_EXTENSION_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DYNAMIC_TEMPLATES:
+				setDynamicTemplates(DYNAMIC_TEMPLATES_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY:
+				setTemplateDirectory(TEMPLATE_DIRECTORY_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -760,6 +860,10 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return DIAGRAM_FILE_EXTENSION_EDEFAULT == null ? diagramFileExtension != null : !DIAGRAM_FILE_EXTENSION_EDEFAULT.equals(diagramFileExtension);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION:
 				return DOMAIN_FILE_EXTENSION_EDEFAULT == null ? domainFileExtension != null : !DOMAIN_FILE_EXTENSION_EDEFAULT.equals(domainFileExtension);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__DYNAMIC_TEMPLATES:
+				return dynamicTemplates != DYNAMIC_TEMPLATES_EDEFAULT;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY:
+				return TEMPLATE_DIRECTORY_EDEFAULT == null ? templateDirectory != null : !TEMPLATE_DIRECTORY_EDEFAULT.equals(templateDirectory);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -783,6 +887,10 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 		result.append(diagramFileExtension);
 		result.append(", domainFileExtension: ");
 		result.append(domainFileExtension);
+		result.append(", dynamicTemplates: ");
+		result.append(dynamicTemplates);
+		result.append(", templateDirectory: ");
+		result.append(templateDirectory);
 		result.append(')');
 		return result.toString();
 	}

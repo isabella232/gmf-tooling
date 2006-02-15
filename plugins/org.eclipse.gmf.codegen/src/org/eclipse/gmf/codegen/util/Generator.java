@@ -104,7 +104,7 @@ public class Generator implements Runnable {
 		myEditorGen = myDiagram.getEditorGen();
 		CodegenEmitters old = myCachedEmitters == null ? null : (CodegenEmitters) myCachedEmitters.get();
 		if (old == null) {
-			myEmitters = new CodegenEmitters(true);
+			myEmitters = new CodegenEmitters(!myEditorGen.isDynamicTemplates(), myEditorGen.getTemplateDirectory());
 			myCachedEmitters = new SoftReference(myEmitters);
 		} else {
 			myEmitters = old;
@@ -847,7 +847,7 @@ public class Generator implements Runnable {
 		doGenerateFile(myEmitters.getBuildPropertiesEmitter(), new Path("build.properties"), myDiagram);
 	}
 	
-	private void generateShortcutIcon() throws InterruptedException {
+	private void generateShortcutIcon() throws InterruptedException, JETException {
 		if (!myDiagram.generateShortcutIcon()) {
 			return;
 		}
