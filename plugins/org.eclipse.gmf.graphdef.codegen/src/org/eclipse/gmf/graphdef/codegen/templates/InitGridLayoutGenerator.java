@@ -38,7 +38,7 @@ public class InitGridLayoutGenerator
     
 GraphDefDispatcher.LayoutArgs argsBundle = (GraphDefDispatcher.LayoutArgs) argument;
 final GridLayout gmfLayout = (GridLayout) argsBundle.getLayout();
-final String layouterVarName = argsBundle.getLayoutVariableName();
+final String layouterVarName = argsBundle.getManagerVariableName();
 
     stringBuffer.append(TEXT_1);
     stringBuffer.append(layouterVarName);

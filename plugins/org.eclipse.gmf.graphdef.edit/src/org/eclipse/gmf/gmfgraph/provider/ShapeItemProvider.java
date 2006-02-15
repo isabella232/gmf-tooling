@@ -372,6 +372,11 @@ public class ShapeItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(),
+				 GMFGraphFactory.eINSTANCE.createXYLayoutData()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
 				 GMFGraphFactory.eINSTANCE.createCustomLayout()));
 
@@ -384,6 +389,21 @@ public class ShapeItemProvider
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
 				 GMFGraphFactory.eINSTANCE.createBorderLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 GMFGraphFactory.eINSTANCE.createFlowLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 GMFGraphFactory.eINSTANCE.createXYLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 GMFGraphFactory.eINSTANCE.createStackLayout()));
 
 		newChildDescriptors.add
 			(createChildParameter

@@ -45,7 +45,7 @@ final String figureClassName = dispatcher.getImportManager().getImportedName((St
     stringBuffer.append(TEXT_5);
     stringBuffer.append(args.getDispatcher().dispatch(figureInstance, args));
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(args.getDispatcher().dispatch("createLayout", dispatcher.createLayoutArgs(args)));
+    stringBuffer.append(args.getDispatcher().dispatch("createLayout", dispatcher.getLayoutArgsFor(args)));
     stringBuffer.append(TEXT_7);
     return stringBuffer.toString();
   }

@@ -1,0 +1,33 @@
+
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="InitXYLayoutDataGenerator"
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.*"%>
+<%
+GraphDefDispatcher.LayoutArgs argsBundle = (GraphDefDispatcher.LayoutArgs) argument;
+final XYLayoutData gmfLayoutData = (XYLayoutData) argsBundle.getData();
+final String figureVarName = argsBundle.getVariableName();
+final GraphDefDispatcher dispatcher = argsBundle.getDispatcher();
+final String layoutConstraintVarName = argsBundle.getConstraintVariableName();
+final String layoutManagerVarName = argsBundle.getManagerVariableName();
+
+final String layoutImplClassName = dispatcher.getImportManager().getImportedName((String) dispatcher.getFQNSwitch().doSwitch(gmfLayoutData));
+%>
+			<%=layoutImplClassName%> <%=layoutConstraintVarName%> = new <%=layoutImplClassName%>();
+<%
+Point topLeft = gmfLayoutData.getTopLeft();
+if (topLeft != null){
+%>
+			<%=layoutConstraintVarName%>.x = <%=topLeft.getX()%>;
+			<%=layoutConstraintVarName%>.y = <%=topLeft.getY()%>;
+<%
+}
+%>
+<%
+Dimension size = gmfLayoutData.getSize();
+if (size != null){
+%>
+			<%=layoutConstraintVarName%>.width = <%=size.getDx()%>;
+			<%=layoutConstraintVarName%>.height = <%=size.getDy()%>;
+<%
+}
+%>
+			<%=layoutManagerVarName%>.setConstraint(<%=figureVarName%>, <%=layoutConstraintVarName%>);

@@ -386,6 +386,42 @@ public interface GMFGraphFactory extends EFactory {
 	CustomAttribute createCustomAttribute();
 
 	/**
+	 * Returns a new object of class '<em>Flow Layout</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Flow Layout</em>'.
+	 * @generated
+	 */
+	FlowLayout createFlowLayout();
+
+	/**
+	 * Returns a new object of class '<em>XY Layout</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>XY Layout</em>'.
+	 * @generated
+	 */
+	XYLayout createXYLayout();
+
+	/**
+	 * Returns a new object of class '<em>XY Layout Data</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>XY Layout Data</em>'.
+	 * @generated
+	 */
+	XYLayoutData createXYLayoutData();
+
+	/**
+	 * Returns a new object of class '<em>Stack Layout</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Stack Layout</em>'.
+	 * @generated
+	 */
+	StackLayout createStackLayout();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -5,4 +5,4 @@ GraphDefDispatcher.LayoutArgs argsBundle = (GraphDefDispatcher.LayoutArgs) argum
 final CustomLayout layout = (CustomLayout) argsBundle.getLayout();
 final GraphDefDispatcher dispatcher = argsBundle.getDispatcher();
 %>
-<%=dispatcher.dispatch("customAttributes", new Object[] {layout, dispatcher, argsBundle.getLayoutVariableName()} )%>
+<%=dispatcher.dispatch("customAttributes", new Object[] {layout, dispatcher, argsBundle.getManagerVariableName()} )%>

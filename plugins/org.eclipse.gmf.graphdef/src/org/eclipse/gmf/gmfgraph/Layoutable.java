@@ -28,7 +28,6 @@ import org.eclipse.emf.ecore.EObject;
 public interface Layoutable extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Layout Data</b></em>' containment reference.
-	 * The default value is <code>""</code>.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.gmfgraph.LayoutData#getOwner <em>Owner</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>

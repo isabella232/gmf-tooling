@@ -45,16 +45,16 @@ public class GraphDefDispatcher extends DispatcherImpl {
 		return new Args(this, figure, figureVarName);
 	}
 
-	public LayoutArgs createLayoutArgs(Args inherit, String layoutVarName) {
-		return new LayoutArgs(inherit, layoutVarName);
+	public LayoutArgs getLayoutArgsFor(Args prototype) {
+		return prototype instanceof LayoutArgs ? (LayoutArgs)prototype : new LayoutArgs(prototype);
 	}
 
-	public LayoutArgs createLayoutArgs(Args inherit) {
-		return new LayoutArgs(inherit);
+	public LayoutArgs createLayoutArgs(Figure figure, String figureVarName, String managerVarName, String constraintVarName) {
+		return new LayoutArgs(this, figure, figureVarName, managerVarName, constraintVarName);
 	}
 
-	public LayoutArgs createLayoutArgs(Figure figure, String figureVarName, String layoutVarName) {
-		return new LayoutArgs(this, figure, figureVarName, layoutVarName);
+	public LayoutArgs createLayoutArgs(Args inherit, String managerVarName, String constraintVarName) {
+		return new LayoutArgs(inherit, managerVarName, constraintVarName);
 	}
 
 	public static class Args {
@@ -87,25 +87,31 @@ public class GraphDefDispatcher extends DispatcherImpl {
 
 	public static class LayoutArgs extends Args {
 		private final String myLayoutVariableName;
+		private final String myLayoutDataVariableName;
 
 		/**
-		 * @param layoutVariableName
-		 *            may be either name of layout manager or figure constraint,
-		 *            because there are no contexts requiring both of names in the
-		 *            same time
+		 * @param managerVariableName
+		 *            name of layout manager variable defined somewhere in the
+		 *            generated code, should not be <code>null</code>
+		 * @param constraintVariableName
+		 *            optional name of the layout constraint variable, or
+		 *            <code>null</code> if current context does not contain
+		 *            constraint information.
 		 */
-		public LayoutArgs(Args inherit, String layoutVariableName) {
-			super(inherit);
-			myLayoutVariableName = layoutVariableName;
-		}
-
-		public LayoutArgs(Args args) {
-			this(args, args.getVariableName() + "Layout");
-		}
-
-		public LayoutArgs(GraphDefDispatcher owner, Figure figure, String figureVarName, String layoutVarName) {
+		private LayoutArgs(GraphDefDispatcher owner, Figure figure, String figureVarName, String managerVariableName, String constraintVariableName) {
 			super(owner, figure, figureVarName);
-			myLayoutVariableName = layoutVarName;
+			myLayoutVariableName = managerVariableName;
+			myLayoutDataVariableName = constraintVariableName;
+		}
+
+		private LayoutArgs(Args inherit, String managerVariableName, String constraintVariableName) {
+			super(inherit);
+			myLayoutVariableName = managerVariableName;
+			myLayoutDataVariableName = constraintVariableName;
+		}
+
+		private LayoutArgs(Args args) {
+			this(args, args.getVariableName() + "Layouter", args.getVariableName() + "Constraint");
 		}
 
 		public Layout getLayout() {
@@ -116,8 +122,12 @@ public class GraphDefDispatcher extends DispatcherImpl {
 			return getFigure().getLayoutData();
 		}
 
-		public String getLayoutVariableName() {
+		public String getManagerVariableName() {
 			return myLayoutVariableName;
+		}
+		
+		public String getConstraintVariableName() {
+			return myLayoutDataVariableName;
 		}
 	}
 }

@@ -51,18 +51,20 @@ while (!l.isEmpty()) {
 		throw new IllegalStateException("FIXME: sorry, don't support FigureRef for a while");
 	}
 	final String figureVarName = "fig" + figureCount;
+	final String layoutManagerVarName = "layouter" + figureCount;
 	final String layoutDataVarName = "layData" + figureCount;
 	figureCount++;
     stringBuffer.append(TEXT_2);
     GraphDefDispatcher.Args dargs = dispatcher.create((Figure) figureMarker, figureVarName);
+		GraphDefDispatcher.LayoutArgs layoutAwareArgs = dispatcher.createLayoutArgs(dargs, layoutManagerVarName, layoutDataVarName);
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(dispatcher.dispatch("instantiate", dargs));
+    stringBuffer.append(dispatcher.dispatch("instantiate", layoutAwareArgs));
     stringBuffer.append(TEXT_4);
     stringBuffer.append(parentFigureVarName);
     stringBuffer.append(TEXT_5);
     stringBuffer.append(figureVarName);
     stringBuffer.append(TEXT_6);
-    stringBuffer.append(dispatcher.dispatch("createLayoutData", dispatcher.createLayoutArgs(dargs, layoutDataVarName)));
+    stringBuffer.append(dispatcher.dispatch("createLayoutData", layoutAwareArgs));
     
 if (_nxt instanceof Figure && !((Figure) _nxt).getChildren().isEmpty()) {
 	l.addFirst(marker);

@@ -24,13 +24,15 @@ while (!l.isEmpty()) {
 		throw new IllegalStateException("FIXME: sorry, don't support FigureRef for a while");
 	}
 	final String figureVarName = "fig" + figureCount;
+	final String layoutManagerVarName = "layouter" + figureCount;
 	final String layoutDataVarName = "layData" + figureCount;
 	figureCount++;%>
 		// FIXME instantiate - FigureRef - dispatch to 'instantiate' template?
-		<%GraphDefDispatcher.Args dargs = dispatcher.create((Figure) figureMarker, figureVarName);%>
-		<%=dispatcher.dispatch("instantiate", dargs)%>
+		<%GraphDefDispatcher.Args dargs = dispatcher.create((Figure) figureMarker, figureVarName);
+		GraphDefDispatcher.LayoutArgs layoutAwareArgs = dispatcher.createLayoutArgs(dargs, layoutManagerVarName, layoutDataVarName);%>
+		<%=dispatcher.dispatch("instantiate", layoutAwareArgs)%>
 		<%=parentFigureVarName%>.add(<%=figureVarName%>);
-		<%=dispatcher.dispatch("createLayoutData", dispatcher.createLayoutArgs(dargs, layoutDataVarName))%>
+		<%=dispatcher.dispatch("createLayoutData", layoutAwareArgs)%>
 <%
 if (_nxt instanceof Figure && !((Figure) _nxt).getChildren().isEmpty()) {
 	l.addFirst(marker);

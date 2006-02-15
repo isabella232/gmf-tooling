@@ -144,6 +144,10 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 			case GMFGraphPackage.GRID_LAYOUT: return createGridLayout();
 			case GMFGraphPackage.BORDER_LAYOUT: return createBorderLayout();
 			case GMFGraphPackage.CUSTOM_ATTRIBUTE: return createCustomAttribute();
+			case GMFGraphPackage.FLOW_LAYOUT: return createFlowLayout();
+			case GMFGraphPackage.XY_LAYOUT: return createXYLayout();
+			case GMFGraphPackage.XY_LAYOUT_DATA: return createXYLayoutData();
+			case GMFGraphPackage.STACK_LAYOUT: return createStackLayout();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -591,6 +595,46 @@ public class GMFGraphFactoryImpl extends EFactoryImpl implements GMFGraphFactory
 	public CustomAttribute createCustomAttribute() {
 		CustomAttributeImpl customAttribute = new CustomAttributeImpl();
 		return customAttribute;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public FlowLayout createFlowLayout() {
+		FlowLayoutImpl flowLayout = new FlowLayoutImpl();
+		return flowLayout;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public XYLayout createXYLayout() {
+		XYLayoutImpl xyLayout = new XYLayoutImpl();
+		return xyLayout;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public XYLayoutData createXYLayoutData() {
+		XYLayoutDataImpl xyLayoutData = new XYLayoutDataImpl();
+		return xyLayoutData;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StackLayout createStackLayout() {
+		StackLayoutImpl stackLayout = new StackLayoutImpl();
+		return stackLayout;
 	}
 
 	/**

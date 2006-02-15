@@ -154,7 +154,7 @@ public class LabeledContainerItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/LabeledContainer");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/LabeledContainer"));
 	}
 
 	/**
@@ -229,6 +229,11 @@ public class LabeledContainerItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_LayoutData(),
+				 GMFGraphFactory.eINSTANCE.createXYLayoutData()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
 				 GMFGraphFactory.eINSTANCE.createCustomLayout()));
 
@@ -241,6 +246,21 @@ public class LabeledContainerItemProvider
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
 				 GMFGraphFactory.eINSTANCE.createBorderLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 GMFGraphFactory.eINSTANCE.createFlowLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 GMFGraphFactory.eINSTANCE.createXYLayout()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
+				 GMFGraphFactory.eINSTANCE.createStackLayout()));
 
 		newChildDescriptors.add
 			(createChildParameter

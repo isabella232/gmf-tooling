@@ -36,5 +36,5 @@ switch(alignment.getValue()){
 		throw new IllegalArgumentException("Unknown Alignment: " + gmfLayoutData.getAlignment());
 }
 %>
-		<%=figureVarName%>.getParent().getLayoutManager().setConstraint(<%=figureVarName%>, <%=dispatcher.getImportManager().getImportedName("org.eclipse.draw2d.BorderLayout")%>.<%=constantName%>);
+		<%=argsBundle.getManagerVariableName()%>.setConstraint(<%=figureVarName%>, <%=dispatcher.getImportManager().getImportedName("org.eclipse.draw2d.BorderLayout")%>.<%=constantName%>);
 

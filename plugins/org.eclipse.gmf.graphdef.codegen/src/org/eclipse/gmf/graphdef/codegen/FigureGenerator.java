@@ -20,6 +20,7 @@ import org.eclipse.gmf.gmfgraph.BorderLayoutData;
 import org.eclipse.gmf.gmfgraph.CustomLayout;
 import org.eclipse.gmf.gmfgraph.CustomLayoutData;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.GridLayout;
 import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.Label;
@@ -29,6 +30,7 @@ import org.eclipse.gmf.gmfgraph.PolylineConnection;
 import org.eclipse.gmf.gmfgraph.PolylineDecoration;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.Shape;
+import org.eclipse.gmf.gmfgraph.XYLayoutData;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.gmfgraph.util.GMFGraphSwitch;
 import org.eclipse.gmf.graphdef.codegen.templates.CustomClassAttributesGenerator;
@@ -38,8 +40,10 @@ import org.eclipse.gmf.graphdef.codegen.templates.InitBorderLayoutDataGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.InitBorderLayoutGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.InitCustomLayoutDataGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.InitCustomLayoutGenerator;
+import org.eclipse.gmf.graphdef.codegen.templates.InitFlowLayoutGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.InitGridLayoutDataGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.InitGridLayoutGenerator;
+import org.eclipse.gmf.graphdef.codegen.templates.InitXYLayoutDataGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.LabelAttrGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.NewFigureGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.NewLayoutDataGenerator;
@@ -147,11 +151,13 @@ public class FigureGenerator {
 		tr.put(GridLayout.class, "/templates/layout/GridLayout.javajet", InitGridLayoutGenerator.class);
 		tr.put(BorderLayout.class, "/templates/layout/BorderLayout.javajet", InitBorderLayoutGenerator.class);
 		tr.put(CustomLayout.class, "/templates/layout/CustomLayout.javajet", InitCustomLayoutGenerator.class);
+		tr.put(FlowLayout.class, "/templates/layout/FlowLayout.javajet", InitFlowLayoutGenerator.class);
 		
 		tr.put("createLayoutData", "/templates/new/LayoutData.javajet", NewLayoutDataGenerator.class);
 		tr.put(GridLayoutData.class, "/templates/layoutData/GridLayoutData.javajet", InitGridLayoutDataGenerator.class);
 		tr.put(BorderLayoutData.class, "/templates/layoutData/BorderLayoutData.javajet", InitBorderLayoutDataGenerator.class);
 		tr.put(CustomLayoutData.class, "/templates/layoutData/CustomLayoutData.javajet", InitCustomLayoutDataGenerator.class);
+		tr.put(XYLayoutData.class, "/templates/layoutData/XYLayoutData.javajet", InitXYLayoutDataGenerator.class);
 		return tr;
 	}
 

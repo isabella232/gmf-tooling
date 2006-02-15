@@ -17,7 +17,7 @@ public class InitBorderLayoutDataGenerator
   protected final String NL = nl == null ? (System.getProperties().getProperty("line.separator")) : nl;
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = NL + "\t\t";
-  protected final String TEXT_3 = ".getParent().getLayoutManager().setConstraint(";
+  protected final String TEXT_3 = ".setConstraint(";
   protected final String TEXT_4 = ", ";
   protected final String TEXT_5 = ".";
   protected final String TEXT_6 = ");" + NL;
@@ -63,7 +63,7 @@ switch(alignment.getValue()){
 }
 
     stringBuffer.append(TEXT_2);
-    stringBuffer.append(figureVarName);
+    stringBuffer.append(argsBundle.getManagerVariableName());
     stringBuffer.append(TEXT_3);
     stringBuffer.append(figureVarName);
     stringBuffer.append(TEXT_4);

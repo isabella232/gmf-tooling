@@ -19,7 +19,7 @@ public class <%=figure.getName()%> extends <%=importManager.getImportedName((Str
 	 */
 	public <%=figure.getName()%>() {
 <%
-GraphDefDispatcher.LayoutArgs dispatcherArgs = dispatcher.createLayoutArgs(figure, "this", "myGenLayoutManager");
+GraphDefDispatcher.LayoutArgs dispatcherArgs = dispatcher.createLayoutArgs(figure, "this", "myGenLayoutManager", null);
 %>	
 		<%=dispatcher.dispatch("createLayout", dispatcherArgs)%>
 		<%=dispatcher.dispatch(figure, dispatcherArgs)%>
@@ -31,7 +31,7 @@ for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext();) {
 		org.eclipse.draw2d.IFigure <%=childVarName%> = createFigure<%=next.getName()%>();
 		setFigure<%=next.getName()%>(<%=childVarName%>);
 		add(<%=childVarName%>);
-		<%=dispatcher.dispatch("createLayoutData", dispatcher.createLayoutArgs(next, childVarName, "layout" + next.getName()))%>		
+		<%=dispatcher.dispatch("createLayoutData", dispatcher.createLayoutArgs(next, childVarName, dispatcherArgs.getManagerVariableName(), "layoutData" + next.getName()))%>		
 <%}%>
 	}
 

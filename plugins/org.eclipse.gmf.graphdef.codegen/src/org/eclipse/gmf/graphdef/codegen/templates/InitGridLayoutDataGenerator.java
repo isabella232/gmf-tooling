@@ -39,7 +39,7 @@ public class InitGridLayoutDataGenerator
   protected final String TEXT_22 = ";" + NL + "\t\t\t";
   protected final String TEXT_23 = ".grabExcessVerticalSpace = ";
   protected final String TEXT_24 = ";" + NL + "\t\t\t";
-  protected final String TEXT_25 = ".getParent().getLayoutManager().setConstraint(";
+  protected final String TEXT_25 = ".setConstraint(";
   protected final String TEXT_26 = ", ";
   protected final String TEXT_27 = ");" + NL;
   protected final String TEXT_28 = NL;
@@ -52,7 +52,8 @@ GraphDefDispatcher.LayoutArgs argsBundle = (GraphDefDispatcher.LayoutArgs) argum
 final GridLayoutData gmfLayoutData = (GridLayoutData) argsBundle.getData();
 final String figureVarName = argsBundle.getVariableName();
 final GraphDefDispatcher dispatcher = argsBundle.getDispatcher();
-final String layoutConstraintVarName = argsBundle.getLayoutVariableName();
+final String layoutConstraintVarName = argsBundle.getConstraintVariableName();
+final String layoutManagerVarName = argsBundle.getManagerVariableName();
 
 final String layoutImplClassName = dispatcher.getImportManager().getImportedName((String) dispatcher.getFQNSwitch().doSwitch(gmfLayoutData));
 
@@ -108,7 +109,7 @@ if (sizeHint != null){
     stringBuffer.append(TEXT_23);
     stringBuffer.append(gmfLayoutData.isGrabExcessVerticalSpace());
     stringBuffer.append(TEXT_24);
-    stringBuffer.append(figureVarName);
+    stringBuffer.append(layoutManagerVarName);
     stringBuffer.append(TEXT_25);
     stringBuffer.append(figureVarName);
     stringBuffer.append(TEXT_26);

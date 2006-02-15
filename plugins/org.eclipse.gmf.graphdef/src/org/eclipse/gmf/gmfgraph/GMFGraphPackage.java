@@ -4291,7 +4291,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getFontStyle()
 	 * @generated
 	 */
-	int FONT_STYLE = 56;
+	int FONT_STYLE = 60;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.PointImpl <em>Point</em>}' class.
@@ -5022,6 +5022,172 @@ public interface GMFGraphPackage extends EPackage {
 	int CUSTOM_ATTRIBUTE_FEATURE_COUNT = 4;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.FlowLayoutImpl <em>Flow Layout</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.FlowLayoutImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getFlowLayout()
+	 * @generated
+	 */
+	int FLOW_LAYOUT = 55;
+
+	/**
+	 * The feature id for the '<em><b>Vertical</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_LAYOUT__VERTICAL = LAYOUT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Match Minor Size</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_LAYOUT__MATCH_MINOR_SIZE = LAYOUT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Force Single Line</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_LAYOUT__FORCE_SINGLE_LINE = LAYOUT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Major Alignment</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_LAYOUT__MAJOR_ALIGNMENT = LAYOUT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Minor Alignment</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_LAYOUT__MINOR_ALIGNMENT = LAYOUT_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Major Spacing</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_LAYOUT__MAJOR_SPACING = LAYOUT_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Minor Spacing</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_LAYOUT__MINOR_SPACING = LAYOUT_FEATURE_COUNT + 6;
+
+	/**
+	 * The number of structural features of the '<em>Flow Layout</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_LAYOUT_FEATURE_COUNT = LAYOUT_FEATURE_COUNT + 7;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.XYLayoutImpl <em>XY Layout</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.XYLayoutImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getXYLayout()
+	 * @generated
+	 */
+	int XY_LAYOUT = 56;
+
+	/**
+	 * The number of structural features of the '<em>XY Layout</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int XY_LAYOUT_FEATURE_COUNT = LAYOUT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.XYLayoutDataImpl <em>XY Layout Data</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.XYLayoutDataImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getXYLayoutData()
+	 * @generated
+	 */
+	int XY_LAYOUT_DATA = 57;
+
+	/**
+	 * The feature id for the '<em><b>Owner</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int XY_LAYOUT_DATA__OWNER = LAYOUT_DATA__OWNER;
+
+	/**
+	 * The feature id for the '<em><b>Top Left</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int XY_LAYOUT_DATA__TOP_LEFT = LAYOUT_DATA_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Size</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int XY_LAYOUT_DATA__SIZE = LAYOUT_DATA_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>XY Layout Data</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int XY_LAYOUT_DATA_FEATURE_COUNT = LAYOUT_DATA_FEATURE_COUNT + 2;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.StackLayoutImpl <em>Stack Layout</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.gmfgraph.impl.StackLayoutImpl
+	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getStackLayout()
+	 * @generated
+	 */
+	int STACK_LAYOUT = 58;
+
+	/**
+	 * The number of structural features of the '<em>Stack Layout</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STACK_LAYOUT_FEATURE_COUNT = LAYOUT_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.ColorConstants <em>Color Constants</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5029,7 +5195,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getColorConstants()
 	 * @generated
 	 */
-	int COLOR_CONSTANTS = 55;
+	int COLOR_CONSTANTS = 59;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Direction <em>Direction</em>}' enum.
@@ -5039,7 +5205,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getDirection()
 	 * @generated
 	 */
-	int DIRECTION = 57;
+	int DIRECTION = 61;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.LineKind <em>Line Kind</em>}' enum.
@@ -5049,7 +5215,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getLineKind()
 	 * @generated
 	 */
-	int LINE_KIND = 58;
+	int LINE_KIND = 62;
 
 
 	/**
@@ -5060,7 +5226,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @see org.eclipse.gmf.gmfgraph.impl.GMFGraphPackageImpl#getAlignment()
 	 * @generated
 	 */
-	int ALIGNMENT = 59;
+	int ALIGNMENT = 63;
 
 
 	/**
@@ -6590,6 +6756,145 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getCustomAttribute_MultiStatementValue();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.FlowLayout <em>Flow Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Flow Layout</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.FlowLayout
+	 * @generated
+	 */
+	EClass getFlowLayout();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.FlowLayout#isVertical <em>Vertical</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Vertical</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.FlowLayout#isVertical()
+	 * @see #getFlowLayout()
+	 * @generated
+	 */
+	EAttribute getFlowLayout_Vertical();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.FlowLayout#isMatchMinorSize <em>Match Minor Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Match Minor Size</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.FlowLayout#isMatchMinorSize()
+	 * @see #getFlowLayout()
+	 * @generated
+	 */
+	EAttribute getFlowLayout_MatchMinorSize();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.FlowLayout#isForceSingleLine <em>Force Single Line</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Force Single Line</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.FlowLayout#isForceSingleLine()
+	 * @see #getFlowLayout()
+	 * @generated
+	 */
+	EAttribute getFlowLayout_ForceSingleLine();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.FlowLayout#getMajorAlignment <em>Major Alignment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Major Alignment</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.FlowLayout#getMajorAlignment()
+	 * @see #getFlowLayout()
+	 * @generated
+	 */
+	EAttribute getFlowLayout_MajorAlignment();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.FlowLayout#getMinorAlignment <em>Minor Alignment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Minor Alignment</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.FlowLayout#getMinorAlignment()
+	 * @see #getFlowLayout()
+	 * @generated
+	 */
+	EAttribute getFlowLayout_MinorAlignment();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.FlowLayout#getMajorSpacing <em>Major Spacing</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Major Spacing</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.FlowLayout#getMajorSpacing()
+	 * @see #getFlowLayout()
+	 * @generated
+	 */
+	EAttribute getFlowLayout_MajorSpacing();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.gmfgraph.FlowLayout#getMinorSpacing <em>Minor Spacing</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Minor Spacing</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.FlowLayout#getMinorSpacing()
+	 * @see #getFlowLayout()
+	 * @generated
+	 */
+	EAttribute getFlowLayout_MinorSpacing();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.XYLayout <em>XY Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>XY Layout</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.XYLayout
+	 * @generated
+	 */
+	EClass getXYLayout();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.XYLayoutData <em>XY Layout Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>XY Layout Data</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.XYLayoutData
+	 * @generated
+	 */
+	EClass getXYLayoutData();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.XYLayoutData#getTopLeft <em>Top Left</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Top Left</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.XYLayoutData#getTopLeft()
+	 * @see #getXYLayoutData()
+	 * @generated
+	 */
+	EReference getXYLayoutData_TopLeft();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.XYLayoutData#getSize <em>Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Size</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.XYLayoutData#getSize()
+	 * @see #getXYLayoutData()
+	 * @generated
+	 */
+	EReference getXYLayoutData_Size();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.StackLayout <em>Stack Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Stack Layout</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.StackLayout
+	 * @generated
+	 */
+	EClass getStackLayout();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.gmfgraph.ColorConstants <em>Color Constants</em>}'.

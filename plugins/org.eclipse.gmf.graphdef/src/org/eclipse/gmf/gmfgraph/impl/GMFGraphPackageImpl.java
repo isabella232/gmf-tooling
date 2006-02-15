@@ -44,6 +44,7 @@ import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.FigureMarker;
 import org.eclipse.gmf.gmfgraph.FigureRef;
+import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.Font;
 import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
@@ -73,7 +74,11 @@ import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.Shape;
+import org.eclipse.gmf.gmfgraph.StackLayout;
 import org.eclipse.gmf.gmfgraph.VisualFacet;
+
+import org.eclipse.gmf.gmfgraph.XYLayout;
+import org.eclipse.gmf.gmfgraph.XYLayoutData;
 
 /**
  * <!-- begin-user-doc -->
@@ -466,6 +471,34 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * @generated
 	 */
 	private EClass customAttributeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass flowLayoutEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass xyLayoutEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass xyLayoutDataEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass stackLayoutEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1871,6 +1904,123 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getFlowLayout() {
+		return flowLayoutEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFlowLayout_Vertical() {
+		return (EAttribute)flowLayoutEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFlowLayout_MatchMinorSize() {
+		return (EAttribute)flowLayoutEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFlowLayout_ForceSingleLine() {
+		return (EAttribute)flowLayoutEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFlowLayout_MajorAlignment() {
+		return (EAttribute)flowLayoutEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFlowLayout_MinorAlignment() {
+		return (EAttribute)flowLayoutEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFlowLayout_MajorSpacing() {
+		return (EAttribute)flowLayoutEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getFlowLayout_MinorSpacing() {
+		return (EAttribute)flowLayoutEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getXYLayout() {
+		return xyLayoutEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getXYLayoutData() {
+		return xyLayoutDataEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getXYLayoutData_TopLeft() {
+		return (EReference)xyLayoutDataEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getXYLayoutData_Size() {
+		return (EReference)xyLayoutDataEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getStackLayout() {
+		return stackLayoutEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getColorConstants() {
 		return colorConstantsEEnum;
 	}
@@ -2128,6 +2278,23 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		createEAttribute(customAttributeEClass, CUSTOM_ATTRIBUTE__DIRECT_ACCESS);
 		createEAttribute(customAttributeEClass, CUSTOM_ATTRIBUTE__MULTI_STATEMENT_VALUE);
 
+		flowLayoutEClass = createEClass(FLOW_LAYOUT);
+		createEAttribute(flowLayoutEClass, FLOW_LAYOUT__VERTICAL);
+		createEAttribute(flowLayoutEClass, FLOW_LAYOUT__MATCH_MINOR_SIZE);
+		createEAttribute(flowLayoutEClass, FLOW_LAYOUT__FORCE_SINGLE_LINE);
+		createEAttribute(flowLayoutEClass, FLOW_LAYOUT__MAJOR_ALIGNMENT);
+		createEAttribute(flowLayoutEClass, FLOW_LAYOUT__MINOR_ALIGNMENT);
+		createEAttribute(flowLayoutEClass, FLOW_LAYOUT__MAJOR_SPACING);
+		createEAttribute(flowLayoutEClass, FLOW_LAYOUT__MINOR_SPACING);
+
+		xyLayoutEClass = createEClass(XY_LAYOUT);
+
+		xyLayoutDataEClass = createEClass(XY_LAYOUT_DATA);
+		createEReference(xyLayoutDataEClass, XY_LAYOUT_DATA__TOP_LEFT);
+		createEReference(xyLayoutDataEClass, XY_LAYOUT_DATA__SIZE);
+
+		stackLayoutEClass = createEClass(STACK_LAYOUT);
+
 		// Create enums
 		colorConstantsEEnum = createEEnum(COLOR_CONSTANTS);
 		fontStyleEEnum = createEEnum(FONT_STYLE);
@@ -2211,6 +2378,10 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		customLayoutEClass.getESuperTypes().add(this.getCustomClass());
 		gridLayoutEClass.getESuperTypes().add(this.getLayout());
 		borderLayoutEClass.getESuperTypes().add(this.getLayout());
+		flowLayoutEClass.getESuperTypes().add(this.getLayout());
+		xyLayoutEClass.getESuperTypes().add(this.getLayout());
+		xyLayoutDataEClass.getESuperTypes().add(this.getLayoutData());
+		stackLayoutEClass.getESuperTypes().add(this.getLayout());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(canvasEClass, Canvas.class, "Canvas", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2389,7 +2560,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEAttribute(getBorderLayoutData_Vertical(), ecorePackage.getEBoolean(), "vertical", "false", 0, 1, BorderLayoutData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(layoutableEClass, Layoutable.class, "Layoutable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getLayoutable_LayoutData(), this.getLayoutData(), this.getLayoutData_Owner(), "layoutData", "", 0, 1, Layoutable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLayoutable_LayoutData(), this.getLayoutData(), this.getLayoutData_Owner(), "layoutData", null, 0, 1, Layoutable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLayoutable_Layout(), this.getLayout(), null, "layout", null, 0, 1, Layoutable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(layoutEClass, Layout.class, "Layout", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2410,6 +2581,23 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEAttribute(getCustomAttribute_Value(), ecorePackage.getEString(), "value", "null", 1, 1, CustomAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCustomAttribute_DirectAccess(), ecorePackage.getEBoolean(), "directAccess", "false", 1, 1, CustomAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getCustomAttribute_MultiStatementValue(), ecorePackage.getEBoolean(), "multiStatementValue", "false", 1, 1, CustomAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(flowLayoutEClass, FlowLayout.class, "FlowLayout", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getFlowLayout_Vertical(), ecorePackage.getEBoolean(), "vertical", "false", 0, 1, FlowLayout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFlowLayout_MatchMinorSize(), ecorePackage.getEBoolean(), "matchMinorSize", "false", 0, 1, FlowLayout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFlowLayout_ForceSingleLine(), ecorePackage.getEBoolean(), "forceSingleLine", "false", 0, 1, FlowLayout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFlowLayout_MajorAlignment(), this.getAlignment(), "majorAlignment", "BEGINNING", 0, 1, FlowLayout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFlowLayout_MinorAlignment(), this.getAlignment(), "minorAlignment", "BEGINNING", 0, 1, FlowLayout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFlowLayout_MajorSpacing(), ecorePackage.getEInt(), "majorSpacing", "5", 0, 1, FlowLayout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFlowLayout_MinorSpacing(), ecorePackage.getEInt(), "minorSpacing", "5", 0, 1, FlowLayout.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(xyLayoutEClass, XYLayout.class, "XYLayout", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(xyLayoutDataEClass, XYLayoutData.class, "XYLayoutData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getXYLayoutData_TopLeft(), this.getPoint(), null, "topLeft", null, 1, 1, XYLayoutData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getXYLayoutData_Size(), this.getDimension(), null, "size", null, 1, 1, XYLayoutData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(stackLayoutEClass, StackLayout.class, "StackLayout", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(colorConstantsEEnum, ColorConstants.class, "ColorConstants");

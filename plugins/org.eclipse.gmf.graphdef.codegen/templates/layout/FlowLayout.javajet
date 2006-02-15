@@ -1,0 +1,47 @@
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.templates" class="InitFlowLayoutGenerator"
+	imports="org.eclipse.gmf.gmfgraph.* org.eclipse.gmf.graphdef.codegen.*"%>
+<%
+GraphDefDispatcher.LayoutArgs argsBundle = (GraphDefDispatcher.LayoutArgs) argument;
+final FlowLayout gmfLayout = (FlowLayout) argsBundle.getLayout();
+final String layouterVarName = argsBundle.getManagerVariableName();
+
+class AlignmentConverter {
+	public String convert(Alignment alignment){
+		if (alignment == null){
+			alignment = Alignment.BEGINNING_LITERAL;
+		}
+		switch (alignment.getValue()){
+			case Alignment.BEGINNING : 
+				return "ALIGN_LEFTTOP";
+			case Alignment.END :
+				return "ALIGN_RIGHTBOTTOM";
+			case Alignment.FILL:
+			case Alignment.CENTER:
+				return "ALIGN_CENTER";
+			default:
+				throw new IllegalArgumentException("Unknown alignment: " + alignment);
+		}
+	}
+}
+
+final AlignmentConverter alignmentConverter = new AlignmentConverter();
+%>
+		<%=layouterVarName%>.setStretchMinorAxis(<%=gmfLayout.isMatchMinorSize()%>);
+		<%=layouterVarName%>.setMinorAlignment(<%=alignmentConverter.convert(gmfLayout.getMinorAlignment())%>);
+<%
+if (gmfLayout.isForceSingleLine()){
+%>		
+		<%=layouterVarName%>.setSpacing(<%=gmfLayout.getMajorSpacing()%>);
+		<%=layouterVarName%>.setVertical(<%=gmfLayout.isVertical()%>);
+<%
+} else {
+%>
+		<%=layouterVarName%>.setMajorAlignment(<%=alignmentConverter.convert(gmfLayout.getMajorAlignment())%>);
+		<%=layouterVarName%>.setMajorSpacing(<%=gmfLayout.getMajorSpacing()%>);
+		<%=layouterVarName%>.setMinorSpacing(<%=gmfLayout.getMinorSpacing()%>);
+		<%=layouterVarName%>.setHorizontal(<%=!gmfLayout.isVertical()%>);
+<%
+} 
+%>
+
+

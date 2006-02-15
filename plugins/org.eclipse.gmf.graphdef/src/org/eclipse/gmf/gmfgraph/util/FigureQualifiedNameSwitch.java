@@ -14,6 +14,7 @@ package org.eclipse.gmf.gmfgraph.util;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.CustomClass;
 import org.eclipse.gmf.gmfgraph.Ellipse;
+import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.GridLayout;
 import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.Label;
@@ -25,6 +26,9 @@ import org.eclipse.gmf.gmfgraph.PolylineConnection;
 import org.eclipse.gmf.gmfgraph.PolylineDecoration;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
+import org.eclipse.gmf.gmfgraph.StackLayout;
+import org.eclipse.gmf.gmfgraph.XYLayout;
+import org.eclipse.gmf.gmfgraph.XYLayoutData;
 
 /**
  * @author artem
@@ -42,6 +46,22 @@ public class FigureQualifiedNameSwitch extends GMFGraphSwitch {
 
 	public Object caseGridLayoutData(GridLayoutData object) {
 		return "org.eclipse.gmf.internal.codegen.draw2d.GridLayoutData";
+	}
+	
+	public Object caseFlowLayout(FlowLayout object) {
+		return object.isForceSingleLine() ? "org.eclipse.draw2d.ToolbarLayout" : "org.eclipse.draw2d.FlowLayout";
+	}
+	
+	public Object caseXYLayout(XYLayout object) {
+		return "org.eclipse.draw2d.XYLayout";
+	}
+	
+	public Object caseXYLayoutData(XYLayoutData object) {
+		return "org.eclipse.draw2d.geometry.Rectangle";
+	}
+	
+	public Object caseStackLayout(StackLayout object) {
+		return "org.eclipse.draw2d.StackLayout";
 	}
 
 	public Object caseBorderLayout(BorderLayout object) {

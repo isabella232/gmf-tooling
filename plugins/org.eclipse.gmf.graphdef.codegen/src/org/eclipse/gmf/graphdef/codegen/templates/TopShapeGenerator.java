@@ -66,7 +66,7 @@ final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
     stringBuffer.append(figure.getName());
     stringBuffer.append(TEXT_5);
     
-GraphDefDispatcher.LayoutArgs dispatcherArgs = dispatcher.createLayoutArgs(figure, "this", "myGenLayoutManager");
+GraphDefDispatcher.LayoutArgs dispatcherArgs = dispatcher.createLayoutArgs(figure, "this", "myGenLayoutManager", null);
 
     stringBuffer.append(TEXT_6);
     stringBuffer.append(dispatcher.dispatch("createLayout", dispatcherArgs));
@@ -87,7 +87,7 @@ for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext();) {
     stringBuffer.append(TEXT_12);
     stringBuffer.append(childVarName);
     stringBuffer.append(TEXT_13);
-    stringBuffer.append(dispatcher.dispatch("createLayoutData", dispatcher.createLayoutArgs(next, childVarName, "layout" + next.getName())));
+    stringBuffer.append(dispatcher.dispatch("createLayoutData", dispatcher.createLayoutArgs(next, childVarName, dispatcherArgs.getManagerVariableName(), "layoutData" + next.getName())));
     stringBuffer.append(TEXT_14);
     }
     stringBuffer.append(TEXT_15);

@@ -231,5 +231,20 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//CustomAttribute/directAccess"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//CustomAttribute/multiStatementValue"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//FlowLayout">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//FlowLayout/vertical"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//FlowLayout/matchMinorSize"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//FlowLayout/forceSingleLine"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//FlowLayout/majorAlignment"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//FlowLayout/minorAlignment"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//FlowLayout/majorSpacing"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//FlowLayout/minorSpacing"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//XYLayout"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//XYLayoutData">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//XYLayoutData/topLeft"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//XYLayoutData/size"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgraph.ecore#//StackLayout"/>
   </genPackages>
 </genmodel:GenModel>

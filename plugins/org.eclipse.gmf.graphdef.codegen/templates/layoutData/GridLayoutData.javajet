@@ -6,7 +6,8 @@ GraphDefDispatcher.LayoutArgs argsBundle = (GraphDefDispatcher.LayoutArgs) argum
 final GridLayoutData gmfLayoutData = (GridLayoutData) argsBundle.getData();
 final String figureVarName = argsBundle.getVariableName();
 final GraphDefDispatcher dispatcher = argsBundle.getDispatcher();
-final String layoutConstraintVarName = argsBundle.getLayoutVariableName();
+final String layoutConstraintVarName = argsBundle.getConstraintVariableName();
+final String layoutManagerVarName = argsBundle.getManagerVariableName();
 
 final String layoutImplClassName = dispatcher.getImportManager().getImportedName((String) dispatcher.getFQNSwitch().doSwitch(gmfLayoutData));
 %>
@@ -27,5 +28,5 @@ if (sizeHint != null){
 			<%=layoutConstraintVarName%>.verticalSpan = <%=gmfLayoutData.getVerticalSpan()%>;
 			<%=layoutConstraintVarName%>.grabExcessHorizontalSpace = <%=gmfLayoutData.isGrabExcessHorizontalSpace()%>;
 			<%=layoutConstraintVarName%>.grabExcessVerticalSpace = <%=gmfLayoutData.isGrabExcessVerticalSpace()%>;
-			<%=figureVarName%>.getParent().getLayoutManager().setConstraint(<%=figureVarName%>, <%=layoutConstraintVarName%>);
+			<%=layoutManagerVarName%>.setConstraint(<%=figureVarName%>, <%=layoutConstraintVarName%>);
 

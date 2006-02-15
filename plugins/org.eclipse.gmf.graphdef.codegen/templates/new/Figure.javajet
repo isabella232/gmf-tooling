@@ -11,4 +11,4 @@ final String figureClassName = dispatcher.getImportManager().getImportedName((St
 %>
 <%=figureClassName%> <%=figureVarName%> = new <%=figureClassName%>();
 <%=args.getDispatcher().dispatch(figureInstance, args)%>
-<%=args.getDispatcher().dispatch("createLayout", dispatcher.createLayoutArgs(args))%>
+<%=args.getDispatcher().dispatch("createLayout", dispatcher.getLayoutArgsFor(args))%>

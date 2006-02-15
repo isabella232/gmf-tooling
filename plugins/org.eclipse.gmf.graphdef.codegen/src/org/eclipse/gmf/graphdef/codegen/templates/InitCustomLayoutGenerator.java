@@ -27,7 +27,7 @@ final CustomLayout layout = (CustomLayout) argsBundle.getLayout();
 final GraphDefDispatcher dispatcher = argsBundle.getDispatcher();
 
     stringBuffer.append(TEXT_1);
-    stringBuffer.append(dispatcher.dispatch("customAttributes", new Object[] {layout, dispatcher, argsBundle.getLayoutVariableName()} ));
+    stringBuffer.append(dispatcher.dispatch("customAttributes", new Object[] {layout, dispatcher, argsBundle.getManagerVariableName()} ));
     stringBuffer.append(TEXT_2);
     return stringBuffer.toString();
   }

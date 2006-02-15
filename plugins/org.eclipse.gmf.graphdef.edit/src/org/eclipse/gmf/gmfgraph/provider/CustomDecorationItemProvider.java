@@ -66,7 +66,7 @@ public class CustomDecorationItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/CustomDecoration");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/CustomDecoration"));
 	}
 
 	/**

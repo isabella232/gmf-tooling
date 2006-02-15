@@ -6,5 +6,6 @@ final CustomLayoutData layoutData = (CustomLayoutData) args.getData();
 final GraphDefDispatcher dispatcher = args.getDispatcher();
 final String layoutImplClassName = dispatcher.getImportManager().getImportedName((String) dispatcher.getFQNSwitch().doSwitch(layoutData));
 %>
-<%=layoutImplClassName%> <%=args.getLayoutVariableName()%> = new <%=layoutImplClassName%>();
-<%=dispatcher.dispatch("customAttributes", new Object[] {layoutData, dispatcher, args.getLayoutVariableName()})%>
+<%=layoutImplClassName%> <%=args.getConstraintVariableName()%> = new <%=layoutImplClassName%>();
+<%=dispatcher.dispatch("customAttributes", new Object[] {layoutData, dispatcher, args.getConstraintVariableName()})%>
+<%=args.getManagerVariableName()%>.setConstraint(<%=args.getVariableName()%>, <%=args.getConstraintVariableName()%>);

@@ -288,6 +288,18 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 			public Object caseCustomAttribute(CustomAttribute object) {
 				return createCustomAttributeAdapter();
 			}
+			public Object caseFlowLayout(FlowLayout object) {
+				return createFlowLayoutAdapter();
+			}
+			public Object caseXYLayout(XYLayout object) {
+				return createXYLayoutAdapter();
+			}
+			public Object caseXYLayoutData(XYLayoutData object) {
+				return createXYLayoutDataAdapter();
+			}
+			public Object caseStackLayout(StackLayout object) {
+				return createStackLayoutAdapter();
+			}
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -1073,6 +1085,62 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createCustomAttributeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.FlowLayout <em>Flow Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.FlowLayout
+	 * @generated
+	 */
+	public Adapter createFlowLayoutAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.XYLayout <em>XY Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.XYLayout
+	 * @generated
+	 */
+	public Adapter createXYLayoutAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.XYLayoutData <em>XY Layout Data</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.XYLayoutData
+	 * @generated
+	 */
+	public Adapter createXYLayoutDataAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.StackLayout <em>Stack Layout</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.StackLayout
+	 * @generated
+	 */
+	public Adapter createStackLayoutAdapter() {
 		return null;
 	}
 

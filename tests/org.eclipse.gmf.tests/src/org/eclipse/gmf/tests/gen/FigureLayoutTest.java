@@ -13,11 +13,14 @@ import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureMarker;
 import org.eclipse.gmf.gmfgraph.FigureRef;
+import org.eclipse.gmf.gmfgraph.FlowLayout;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.GridLayout;
 import org.eclipse.gmf.gmfgraph.GridLayoutData;
 import org.eclipse.gmf.gmfgraph.LayoutData;
+import org.eclipse.gmf.gmfgraph.RGBColor;
 import org.eclipse.gmf.gmfgraph.Rectangle;
+import org.eclipse.gmf.gmfgraph.XYLayoutData;
 
 public class FigureLayoutTest extends FigureCodegenTestBase {
 	public FigureLayoutTest(String name){
@@ -223,6 +226,90 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 		performTests(parent);
 	}
 	
+	public void testStackLayout(){
+		Figure group = createRGBGroup("Stack");
+		group.setLayout(GMFGraphFactory.eINSTANCE.createStackLayout());
+		performTests(group);
+	}
+	
+	public void testFlowLayout(){
+		Figure group = createRGBGroup("Flow");
+		FlowLayout flowLayout = GMFGraphFactory.eINSTANCE.createFlowLayout();
+		flowLayout.setVertical(false);
+		flowLayout.setForceSingleLine(false);
+		flowLayout.setMinorAlignment(Alignment.END_LITERAL);
+		flowLayout.setMajorAlignment(Alignment.FILL_LITERAL); // wrong one
+		flowLayout.setMinorSpacing(23);
+		flowLayout.setMinorSpacing(32);
+		group.setLayout(flowLayout);
+		performTests(group);
+	}
+
+	public void testToolbarLayoutUnusedAndIncorrectValues(){
+		Figure group = createRGBGroup("ToolbarBadConfig");
+		FlowLayout flowLayout = GMFGraphFactory.eINSTANCE.createFlowLayout();
+		flowLayout.setForceSingleLine(true);
+		flowLayout.setMinorSpacing(23456);
+		flowLayout.setMajorAlignment(Alignment.FILL_LITERAL);
+		group.setLayout(flowLayout);
+		performTests(group);
+	}
+
+	public void testToolbarLayout(){
+		Figure group = createRGBGroup("Toolbar");
+		FlowLayout flowLayout = GMFGraphFactory.eINSTANCE.createFlowLayout();
+		flowLayout.setForceSingleLine(true);
+		flowLayout.setMajorSpacing(11);
+		flowLayout.setMinorAlignment(Alignment.END_LITERAL); 
+		group.setLayout(flowLayout);
+		performTests(group);
+	}
+	
+	public void testXYLayout(){
+		Figure group = createRGBGroup("XY");
+		group.setLayout(GMFGraphFactory.eINSTANCE.createXYLayout());
+		
+		Figure left = (Figure) group.getChildren().get(0);
+		XYLayoutData leftDataCorrect =  GMFGraphFactory.eINSTANCE.createXYLayoutData();
+		leftDataCorrect.setTopLeft(GMFGraphFactory.eINSTANCE.createPoint());
+		leftDataCorrect.getTopLeft().setX(12);
+		leftDataCorrect.getTopLeft().setX(13);
+		leftDataCorrect.setSize(GMFGraphFactory.eINSTANCE.createDimension());
+		leftDataCorrect.getSize().setDx(20);
+		leftDataCorrect.getSize().setDy(30);
+		leftDataCorrect.setOwner(left);
+		
+		Figure right = (Figure) group.getChildren().get(1);
+		XYLayoutData rightDataIncomplete =  GMFGraphFactory.eINSTANCE.createXYLayoutData();
+		rightDataIncomplete.setSize(GMFGraphFactory.eINSTANCE.createDimension());
+		rightDataIncomplete.getSize().setDx(30);
+		rightDataIncomplete.getSize().setDy(20);
+		right.setLayoutData(rightDataIncomplete);
+		
+		performTests(group);
+		performTests(right);
+		performTests(left);
+	}
+
+	private Figure createRGBGroup(String rootName){
+		Figure parent = GMFGraphFactory.eINSTANCE.createRectangle();
+		setColor(parent, 0, 0, 255);
+		parent.setName(rootName);
+		
+		Figure greenEllipse = GMFGraphFactory.eINSTANCE.createEllipse();
+		greenEllipse.setName("GreenEllipse");
+		setColor(greenEllipse, 0, 255, 0);
+		
+		Figure redRRectangle = GMFGraphFactory.eINSTANCE.createRoundedRectangle();
+		redRRectangle.setName("RedRoundedRectangle");
+		setColor(redRRectangle, 255, 0, 0);
+		
+		parent.getChildren().add(greenEllipse);
+		parent.getChildren().add(redRRectangle);
+		
+		return parent;
+	}
+	
 	private Figure addPairOfChildRectnaglesAndReturnLeft(Figure parent){
 		GridLayout parentLayout = createGridLayoutAllProperties();
 		parentLayout.setNumColumns(2);
@@ -285,6 +372,14 @@ public class FigureLayoutTest extends FigureCodegenTestBase {
 		result.setAlignment(alignment);
 		result.setVertical(isVertical);
 		return result;
+	}
+	
+	private void setColor(Figure figure, int red, int green, int blue){
+		RGBColor color = GMFGraphFactory.eINSTANCE.createRGBColor();
+		color.setRed(red);
+		color.setGreen(green);
+		color.setBlue(blue);
+		figure.setForegroundColor(color);
 	}
 
 }
