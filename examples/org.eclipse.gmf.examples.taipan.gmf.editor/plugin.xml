@@ -9,14 +9,22 @@
   <extension point="org.eclipse.team.core.fileTypes">
       <fileTypes
          type="text"
+         extension="taipan">
+      </fileTypes>
+      <fileTypes
+         type="text"
          extension="taipan_diagram">
       </fileTypes>
   </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
       <parser
+         type="taipan"
+         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
+      </parser>
+      <parser
          type="taipan_diagram"
-         class="org.eclipse.gmf.runtime.emf.core.resources.MResourceFactory">
+         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
       </parser>
    </extension>
 
@@ -77,7 +85,7 @@
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
          id="TaiPanPresentation">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
          <ViewId id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="delete"/>
@@ -90,7 +98,7 @@
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
          id="TaiPanPresentationIDE">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
          <ViewId id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="bookmark"/>
@@ -100,7 +108,7 @@
       <GlobalActionHandlerProvider
             class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
             id="TaiPanRender">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
          <ViewId id="org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorID">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="cut"/>
@@ -113,7 +121,7 @@
 
    <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
       <viewProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanViewProvider">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="TaiPan"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints=""/>
@@ -122,19 +130,19 @@
 
    <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
       <editpartProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanEditPartProvider">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
       </editpartProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.core.compatibility.MetaModelProviders">
       <MetaModelProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanMetaModelSupportProvider">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
       </MetaModelProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
       <modelingAssistantProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanModelingAssistantProvider">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
       </modelingAssistantProvider>
    </extension>
 
@@ -142,19 +150,19 @@
       <PropertiesProvider
             verifyPluginLoaded="false"
             class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanPropertyProvider">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
       </PropertiesProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
       <IconProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanIconProvider">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
       </IconProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
       <ParserProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanParserProvider">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
       </ParserProvider>
    </extension>
    
