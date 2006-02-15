@@ -11,6 +11,9 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
+import java.util.IdentityHashMap;
+import java.util.Map;
+
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.ENamedElement;
@@ -41,6 +44,11 @@ public class TaiPanElementTypes {
 	 */
 	private TaiPanElementTypes() {
 	}
+
+	/**
+	 * @generated
+	 */
+	private static Map elements;
 
 	/**
 	 * @generated
@@ -143,20 +151,16 @@ public class TaiPanElementTypes {
 	 */
 	public static ENamedElement getElement(IAdaptable hint) {
 		Object type = hint.getAdapter(IElementType.class);
-		if (Aquatory_79 == type) {
-			return TaiPanPackage.eINSTANCE.getAquatory();
-		} else if (Item_2001 == type) {
-			return TaiPanPackage.eINSTANCE.getItem();
-		} else if (Port_1001 == type) {
-			return TaiPanPackage.eINSTANCE.getPort();
-		} else if (Ship_1002 == type) {
-			return TaiPanPackage.eINSTANCE.getShip();
-		} else if (ShipDestination_3001 == type) {
-			return TaiPanPackage.eINSTANCE.getShip_Destination();
-		} else if (Route_3002 == type) {
-			return TaiPanPackage.eINSTANCE.getRoute();
+		if (elements == null) {
+			elements = new IdentityHashMap();
+			elements.put(Aquatory_79, TaiPanPackage.eINSTANCE.getAquatory());
+			elements.put(Item_2001, TaiPanPackage.eINSTANCE.getItem());
+			elements.put(Port_1001, TaiPanPackage.eINSTANCE.getPort());
+			elements.put(Ship_1002, TaiPanPackage.eINSTANCE.getShip());
+			elements.put(ShipDestination_3001, TaiPanPackage.eINSTANCE.getShip_Destination());
+			elements.put(Route_3002, TaiPanPackage.eINSTANCE.getRoute());
 		}
-		return null;
+		return (ENamedElement) elements.get(type);
 	}
 
 	/**
