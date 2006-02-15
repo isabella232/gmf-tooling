@@ -4,25 +4,25 @@
    <description url="http://download.eclipse.org/technology/gmf/update-site/">
       A generative framework and runtime for developing graphical applications which leverage both the Eclipse Modeling Framework (EMF) and Graphical Editing Framework (GEF).
    </description>
-   <feature url="features/org.eclipse.gmf.sdk_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.sdk" version="1.0.0.I20060129-1145">
+   <feature url="features/org.eclipse.gmf.sdk_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.sdk" patch="false" version="1.0.0.I20060129-1145">
       <category name="Graphical Modeling Framework 1.0.0.I20060129-1145"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.tests_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.tests" version="1.0.0.I20060129-1145">
+   <feature url="features/org.eclipse.gmf.tests_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.tests" patch="false" version="1.0.0.I20060129-1145">
       <category name="Graphical Modeling Framework 1.0.0.I20060129-1145"/>
    </feature>
-   <feature url="features/org.eclipse.gmf_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf" version="1.0.0.I20060129-1145">
+   <feature url="features/org.eclipse.gmf_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf" patch="false" version="1.0.0.I20060129-1145">
       <category name="Graphical Modeling Framework 1.0.0.I20060129-1145"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.doc_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.doc" version="1.0.0.I20060129-1145">
+   <feature url="features/org.eclipse.gmf.doc_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.doc" patch="false" version="1.0.0.I20060129-1145">
       <category name="Graphical Modeling Framework 1.0.0.I20060129-1145"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.examples_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.examples" version="1.0.0.I20060129-1145">
+   <feature url="features/org.eclipse.gmf.examples_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.examples" patch="false" version="1.0.0.I20060129-1145">
       <category name="Graphical Modeling Framework 1.0.0.I20060129-1145"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.source_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.source" version="1.0.0.I20060129-1145">
+   <feature url="features/org.eclipse.gmf.source_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.source" patch="false" version="1.0.0.I20060129-1145">
       <category name="Graphical Modeling Framework 1.0.0.I20060129-1145"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.sdk.source_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.sdk.source" version="1.0.0.I20060129-1145">
+   <feature url="features/org.eclipse.gmf.sdk.source_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.sdk.source" patch="false" version="1.0.0.I20060129-1145">
       <category name="Graphical Modeling Framework 1.0.0.I20060129-1145"/>
    </feature>
    <category-def name="Graphical Modeling Framework 1.0.0.I20060129-1145" label="Graphical Modeling Framework 1.0.0.I20060129-1145">
@@ -30,25 +30,25 @@
          A generative framework and runtime for developing graphical applications which leverage both the Eclipse Modeling Framework (EMF) and Graphical Editing Framework (GEF).
       </description>
    </category-def>
-   <feature url="features/org.eclipse.gmf.sdk_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.sdk" version="1.0.0.I20060129-1145">
+   <feature url="features/org.eclipse.gmf.sdk_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.sdk" patch="false" version="1.0.0.I20060129-1145">
       <category name="Graphical Modeling Framework 1.0.0.I20060202-1415"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.tests_1.0.0.I20060202-1415.jar" id="org.eclipse.gmf.tests" version="1.0.0.I20060202-1415">
+   <feature url="features/org.eclipse.gmf.tests_1.0.0.I20060202-1415.jar" id="org.eclipse.gmf.tests" patch="false" version="1.0.0.I20060202-1415">
       <category name="Graphical Modeling Framework 1.0.0.I20060202-1415"/>
    </feature>
-   <feature url="features/org.eclipse.gmf_1.0.0.I20060202-1415.jar" id="org.eclipse.gmf" version="1.0.0.I20060202-1415">
+   <feature url="features/org.eclipse.gmf_1.0.0.I20060202-1415.jar" id="org.eclipse.gmf" patch="false" version="1.0.0.I20060202-1415">
       <category name="Graphical Modeling Framework 1.0.0.I20060202-1415"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.doc_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.doc" version="1.0.0.I20060202-1415">
+   <feature url="features/org.eclipse.gmf.doc_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.doc" patch="false" version="1.0.0.I20060202-1415">
       <category name="Graphical Modeling Framework 1.0.0.I20060202-1415"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.examples_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.examples" version="1.0.0.I20060202-1415">
+   <feature url="features/org.eclipse.gmf.examples_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.examples" patch="false" version="1.0.0.I20060202-1415">
       <category name="Graphical Modeling Framework 1.0.0.I20060202-1415"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.source_1.0.0.I20060202-1415.jar" id="org.eclipse.gmf.source" version="1.0.0.I20060202-1415">
+   <feature url="features/org.eclipse.gmf.source_1.0.0.I20060202-1415.jar" id="org.eclipse.gmf.source" patch="false" version="1.0.0.I20060202-1415">
       <category name="Graphical Modeling Framework 1.0.0.I20060202-1415"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.sdk.source_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.sdk.source" version="1.0.0.I20060202-1415">
+   <feature url="features/org.eclipse.gmf.sdk.source_1.0.0.I20060129-1145.jar" id="org.eclipse.gmf.sdk.source" patch="false" version="1.0.0.I20060202-1415">
       <category name="Graphical Modeling Framework 1.0.0.I20060202-1415"/>
    </feature>
    <category-def name="Graphical Modeling Framework 1.0.0.I20060202-1415" label="Graphical Modeling Framework 1.0.0.I20060202-1415">
@@ -56,25 +56,25 @@
          A generative framework and runtime for developing graphical applications which leverage both the Eclipse Modeling Framework (EMF) and Graphical Editing Framework (GEF).
       </description>
    </category-def>
-   <feature url="features/org.eclipse.gmf.sdk_1.0.0.I20060210-1715.jar" id="org.eclipse.gmf.sdk" version="1.0.0.I20060210-1715">
+   <feature url="features/org.eclipse.gmf.sdk_1.0.0.I20060210-1715.jar" id="org.eclipse.gmf.sdk" patch="false" version="1.0.0.I20060210-1715">
       <category name="Graphical Modeling Framework 1.0.0.I20060210-1715"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.tests_1.0.0.I20060210-1715.jar" id="org.eclipse.gmf.tests" version="1.0.0.I20060210-1715">
+   <feature url="features/org.eclipse.gmf.tests_1.0.0.I20060210-1715.jar" id="org.eclipse.gmf.tests" patch="false" version="1.0.0.I20060210-1715">
       <category name="Graphical Modeling Framework 1.0.0.I20060210-1715"/>
    </feature>
-   <feature url="features/org.eclipse.gmf_1.0.0.I20060210-1715.jar" id="org.eclipse.gmf" version="1.0.0.I20060210-1715">
+   <feature url="features/org.eclipse.gmf_1.0.0.I20060210-1715.jar" id="org.eclipse.gmf" patch="false" version="1.0.0.I20060210-1715">
       <category name="Graphical Modeling Framework 1.0.0.I20060210-1715"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.doc_1.0.0.I20060210-1715.jar" id="org.eclipse.gmf.doc" version="1.0.0.I20060210-1715">
+   <feature url="features/org.eclipse.gmf.doc_1.0.0.I20060210-1715.jar" id="org.eclipse.gmf.doc" patch="false" version="1.0.0.I20060210-1715">
       <category name="Graphical Modeling Framework 1.0.0.I20060210-1715"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.examples_1.0.0.I20060210-1715.jar" id="org.eclipse.gmf.examples" version="1.0.0.I20060210-1715">
+   <feature url="features/org.eclipse.gmf.examples_1.0.0.I20060210-1715.jar" id="org.eclipse.gmf.examples" patch="false" version="1.0.0.I20060210-1715">
       <category name="Graphical Modeling Framework 1.0.0.I20060210-1715"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.source_1.0.0.I20060210-1715.jar" id="org.eclipse.gmf.source" version="1.0.0.I20060210-1715">
+   <feature url="features/org.eclipse.gmf.source_1.0.0.I20060210-1715.jar" id="org.eclipse.gmf.source" patch="false" version="1.0.0.I20060210-1715">
       <category name="Graphical Modeling Framework 1.0.0.I20060210-1715"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.sdk.source_1.0.0.I20060210-1715.jar" id="org.eclipse.gmf.sdk.source" version="1.0.0.I20060210-1715">
+   <feature url="features/org.eclipse.gmf.sdk.source_1.0.0.I20060210-1715.jar" id="org.eclipse.gmf.sdk.source" patch="false" version="1.0.0.I20060210-1715">
       <category name="Graphical Modeling Framework 1.0.0.I20060210-1715"/>
    </feature>
    <archive path="features/org.eclipse.gmf_1.0.0.I20060210-1715.jar" url="http://www.eclipse.org/downloads/download.php?r=1&amp;file=/technology/gmf/update-site/features/org.eclipse.gmf_1.0.0.I20060210-1715.jar"/>

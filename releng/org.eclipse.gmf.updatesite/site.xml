@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<site>
+<site
+      mirrorsURL="test">
    <description url="http://download.eclipse.org/technology/gmf/update-site/">
       A generative framework and runtime for developing graphical applications which leverage both the Eclipse Modeling Framework (EMF) and Graphical Editing Framework (GEF).
    </description>
-   <feature url="features/org.eclipse.gmf.sdk_1.0.0.jar" id="org.eclipse.gmf.sdk" version="1.0.0">
+   <feature url="features/org.eclipse.gmf.sdk_1.0.0.jar" id="org.eclipse.gmf.sdk" version="1.0.0" patch="false">
       <category name="Graphical Modeling Framework 1.0M4"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.tests_1.0.0.jar" id="org.eclipse.gmf.tests" version="1.0.0">
+   <feature url="features/org.eclipse.gmf.tests_1.0.0.jar" id="org.eclipse.gmf.tests" version="1.0.0" patch="false">
       <category name="Graphical Modeling Framework 1.0M4"/>
    </feature>
-   <feature url="features/org.eclipse.gmf_1.0.0.jar" id="org.eclipse.gmf" version="1.0.0">
+   <feature url="features/org.eclipse.gmf_1.0.0.jar" id="org.eclipse.gmf" version="1.0.0" patch="false">
       <category name="Graphical Modeling Framework 1.0M4"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.doc_1.0.0.jar" id="org.eclipse.gmf.doc" version="1.0.0">
+   <feature url="features/org.eclipse.gmf.doc_1.0.0.jar" id="org.eclipse.gmf.doc" version="1.0.0" patch="false">
       <category name="Graphical Modeling Framework 1.0M4"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.examples_1.0.0.jar" id="org.eclipse.gmf.examples" version="1.0.0">
+   <feature url="features/org.eclipse.gmf.examples_1.0.0.jar" id="org.eclipse.gmf.examples" version="1.0.0" patch="false">
       <category name="Graphical Modeling Framework 1.0M4"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.source_1.0.0.jar" id="org.eclipse.gmf.source" version="1.0.0">
+   <feature url="features/org.eclipse.gmf.source_1.0.0.jar" id="org.eclipse.gmf.source" version="1.0.0" patch="false">
       <category name="Graphical Modeling Framework 1.0M4"/>
    </feature>
-   <feature url="features/org.eclipse.gmf.sdk.source_1.0.0.jar" id="org.eclipse.gmf.sdk.source" version="1.0.0">
+   <feature url="features/org.eclipse.gmf.sdk.source_1.0.0.jar" id="org.eclipse.gmf.sdk.source" version="1.0.0" patch="false">
       <category name="Graphical Modeling Framework 1.0M4"/>
    </feature>
    <category-def name="Graphical Modeling Framework 1.0M4" label="Graphical Modeling Framework 1.0M4">
