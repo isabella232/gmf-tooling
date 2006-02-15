@@ -19,12 +19,19 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getElementTypesClassName <em>Element Types Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getSemanticHintsClassName <em>Semantic Hints Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getNotationViewProviderClassName <em>Notation View Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getNotationViewProviderPriority <em>Notation View Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getEditPartProviderClassName <em>Edit Part Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getEditPartProviderPriority <em>Edit Part Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getMetamodelSupportProviderClassName <em>Metamodel Support Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getMetamodelSupportProviderPriority <em>Metamodel Support Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getModelingAssistantProviderClassName <em>Modeling Assistant Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getModelingAssistantProviderPriority <em>Modeling Assistant Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getPropertyProviderClassName <em>Property Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getPropertyProviderPriority <em>Property Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getIconProviderClassName <em>Icon Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getIconProviderPriority <em>Icon Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getParserProviderClassName <em>Parser Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getParserProviderPriority <em>Parser Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getAbstractParserClassName <em>Abstract Parser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getStructuralFeatureParserClassName <em>Structural Feature Parser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getStructuralFeaturesParserClassName <em>Structural Features Parser Class Name</em>}</li>
@@ -115,6 +122,35 @@ public interface ProviderClassNames extends EObject {
 	void setNotationViewProviderClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Notation View Provider Priority</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Notation View Provider Priority</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Notation View Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #setNotationViewProviderPriority(ProviderPriority)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getProviderClassNames_NotationViewProviderPriority()
+	 * @model
+	 * @generated
+	 */
+	ProviderPriority getNotationViewProviderPriority();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getNotationViewProviderPriority <em>Notation View Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Notation View Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #getNotationViewProviderPriority()
+	 * @generated
+	 */
+	void setNotationViewProviderPriority(ProviderPriority value);
+
+	/**
 	 * Returns the value of the '<em><b>Edit Part Provider Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -139,6 +175,35 @@ public interface ProviderClassNames extends EObject {
 	 * @generated
 	 */
 	void setEditPartProviderClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Edit Part Provider Priority</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Edit Part Provider Priority</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Edit Part Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #setEditPartProviderPriority(ProviderPriority)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getProviderClassNames_EditPartProviderPriority()
+	 * @model
+	 * @generated
+	 */
+	ProviderPriority getEditPartProviderPriority();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getEditPartProviderPriority <em>Edit Part Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Edit Part Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #getEditPartProviderPriority()
+	 * @generated
+	 */
+	void setEditPartProviderPriority(ProviderPriority value);
 
 	/**
 	 * Returns the value of the '<em><b>Metamodel Support Provider Class Name</b></em>' attribute.
@@ -167,6 +232,35 @@ public interface ProviderClassNames extends EObject {
 	void setMetamodelSupportProviderClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Metamodel Support Provider Priority</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Metamodel Support Provider Priority</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Metamodel Support Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #setMetamodelSupportProviderPriority(ProviderPriority)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getProviderClassNames_MetamodelSupportProviderPriority()
+	 * @model
+	 * @generated
+	 */
+	ProviderPriority getMetamodelSupportProviderPriority();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getMetamodelSupportProviderPriority <em>Metamodel Support Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Metamodel Support Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #getMetamodelSupportProviderPriority()
+	 * @generated
+	 */
+	void setMetamodelSupportProviderPriority(ProviderPriority value);
+
+	/**
 	 * Returns the value of the '<em><b>Modeling Assistant Provider Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -191,6 +285,35 @@ public interface ProviderClassNames extends EObject {
 	 * @generated
 	 */
 	void setModelingAssistantProviderClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Modeling Assistant Provider Priority</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Modeling Assistant Provider Priority</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Modeling Assistant Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #setModelingAssistantProviderPriority(ProviderPriority)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getProviderClassNames_ModelingAssistantProviderPriority()
+	 * @model
+	 * @generated
+	 */
+	ProviderPriority getModelingAssistantProviderPriority();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getModelingAssistantProviderPriority <em>Modeling Assistant Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Modeling Assistant Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #getModelingAssistantProviderPriority()
+	 * @generated
+	 */
+	void setModelingAssistantProviderPriority(ProviderPriority value);
 
 	/**
 	 * Returns the value of the '<em><b>Property Provider Class Name</b></em>' attribute.
@@ -219,6 +342,35 @@ public interface ProviderClassNames extends EObject {
 	void setPropertyProviderClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Property Provider Priority</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Property Provider Priority</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Property Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #setPropertyProviderPriority(ProviderPriority)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getProviderClassNames_PropertyProviderPriority()
+	 * @model
+	 * @generated
+	 */
+	ProviderPriority getPropertyProviderPriority();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getPropertyProviderPriority <em>Property Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Property Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #getPropertyProviderPriority()
+	 * @generated
+	 */
+	void setPropertyProviderPriority(ProviderPriority value);
+
+	/**
 	 * Returns the value of the '<em><b>Icon Provider Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -245,6 +397,35 @@ public interface ProviderClassNames extends EObject {
 	void setIconProviderClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Icon Provider Priority</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Icon Provider Priority</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Icon Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #setIconProviderPriority(ProviderPriority)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getProviderClassNames_IconProviderPriority()
+	 * @model
+	 * @generated
+	 */
+	ProviderPriority getIconProviderPriority();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getIconProviderPriority <em>Icon Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Icon Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #getIconProviderPriority()
+	 * @generated
+	 */
+	void setIconProviderPriority(ProviderPriority value);
+
+	/**
 	 * Returns the value of the '<em><b>Parser Provider Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -269,6 +450,35 @@ public interface ProviderClassNames extends EObject {
 	 * @generated
 	 */
 	void setParserProviderClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Parser Provider Priority</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Parser Provider Priority</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Parser Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #setParserProviderPriority(ProviderPriority)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getProviderClassNames_ParserProviderPriority()
+	 * @model
+	 * @generated
+	 */
+	ProviderPriority getParserProviderPriority();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getParserProviderPriority <em>Parser Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Parser Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #getParserProviderPriority()
+	 * @generated
+	 */
+	void setParserProviderPriority(ProviderPriority value);
 
 	/**
 	 * Returns the value of the '<em><b>Abstract Parser Class Name</b></em>' attribute.

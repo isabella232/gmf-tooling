@@ -17,7 +17,9 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getValidationProviderClassName <em>Validation Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getValidationProviderPriority <em>Validation Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getMarkerNavigationProviderClassName <em>Marker Navigation Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getMarkerNavigationProviderPriority <em>Marker Navigation Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#isValidationEnabled <em>Validation Enabled</em>}</li>
  * </ul>
  * </p>
@@ -54,6 +56,35 @@ public interface BatchValidation extends EObject {
 	void setValidationProviderClassName(String value);
 
 	/**
+	 * Returns the value of the '<em><b>Validation Provider Priority</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Validation Provider Priority</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Validation Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #setValidationProviderPriority(ProviderPriority)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getBatchValidation_ValidationProviderPriority()
+	 * @model
+	 * @generated
+	 */
+	ProviderPriority getValidationProviderPriority();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getValidationProviderPriority <em>Validation Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Validation Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #getValidationProviderPriority()
+	 * @generated
+	 */
+	void setValidationProviderPriority(ProviderPriority value);
+
+	/**
 	 * Returns the value of the '<em><b>Marker Navigation Provider Class Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -78,6 +109,35 @@ public interface BatchValidation extends EObject {
 	 * @generated
 	 */
 	void setMarkerNavigationProviderClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Marker Navigation Provider Priority</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Marker Navigation Provider Priority</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Marker Navigation Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #setMarkerNavigationProviderPriority(ProviderPriority)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getBatchValidation_MarkerNavigationProviderPriority()
+	 * @model
+	 * @generated
+	 */
+	ProviderPriority getMarkerNavigationProviderPriority();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.BatchValidation#getMarkerNavigationProviderPriority <em>Marker Navigation Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Marker Navigation Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #getMarkerNavigationProviderPriority()
+	 * @generated
+	 */
+	void setMarkerNavigationProviderPriority(ProviderPriority value);
 
 	/**
 	 * Returns the value of the '<em><b>Validation Enabled</b></em>' attribute.

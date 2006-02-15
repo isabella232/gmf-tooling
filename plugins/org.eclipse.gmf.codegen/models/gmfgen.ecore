@@ -106,8 +106,12 @@
     <eOperations name="getMarkerNavigationProviderQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationProviderPriority"
+        eType="#//ProviderPriority"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="markerNavigationProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="markerNavigationProviderPriority"
+        eType="#//ProviderPriority"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="validationEnabled" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="If enabled, ValidationAction is contributed by the editor plugin"/>
@@ -133,24 +137,44 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="notationViewProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="notationViewProviderPriority"
+        eType="#//ProviderPriority"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="editPartProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="editPartProviderPriority"
+        eType="#//ProviderPriority"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="metamodelSupportProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="metamodelSupportProviderPriority"
+        eType="#//ProviderPriority"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="modelingAssistantProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="modelingAssistantProviderPriority"
+        eType="#//ProviderPriority"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="propertyProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="propertyProviderPriority"
+        eType="#//ProviderPriority"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="iconProviderPriority" eType="#//ProviderPriority"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="parserProviderClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="parserProviderPriority"
+        eType="#//ProviderPriority"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="abstractParserClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="structuralFeatureParserClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="structuralFeaturesParserClassName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ProviderPriority">
+    <eLiterals name="Lowest"/>
+    <eLiterals name="Low" value="1"/>
+    <eLiterals name="Medium" value="2"/>
+    <eLiterals name="High" value="3"/>
+    <eLiterals name="Highest" value="4"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Shortcuts" interface="true">
     <eOperations name="getCreateShortcutActionQualifiedClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

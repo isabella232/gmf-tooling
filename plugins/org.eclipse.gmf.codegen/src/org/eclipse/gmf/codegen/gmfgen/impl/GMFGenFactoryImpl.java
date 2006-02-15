@@ -12,6 +12,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.gmf.codegen.gmfgen.*;
+
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
@@ -144,6 +146,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 */
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
+			case GMFGenPackage.PROVIDER_PRIORITY:
+				return createProviderPriorityFromString(eDataType, initialValue);
 			case GMFGenPackage.LINK_LABEL_ALIGNMENT:
 				return createLinkLabelAlignmentFromString(eDataType, initialValue);
 			case GMFGenPackage.GEN_SEVERITY:
@@ -160,6 +164,8 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	 */
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
+			case GMFGenPackage.PROVIDER_PRIORITY:
+				return convertProviderPriorityToString(eDataType, instanceValue);
 			case GMFGenPackage.LINK_LABEL_ALIGNMENT:
 				return convertLinkLabelAlignmentToString(eDataType, instanceValue);
 			case GMFGenPackage.GEN_SEVERITY:
@@ -527,6 +533,26 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenAuditRule createGenAuditRule() {
 		GenAuditRuleImpl genAuditRule = new GenAuditRuleImpl();
 		return genAuditRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProviderPriority createProviderPriorityFromString(EDataType eDataType, String initialValue) {
+		ProviderPriority result = ProviderPriority.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertProviderPriorityToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

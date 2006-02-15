@@ -70,12 +70,19 @@ public class GenDiagramItemProvider
 			addElementTypesClassNamePropertyDescriptor(object);
 			addSemanticHintsClassNamePropertyDescriptor(object);
 			addNotationViewProviderClassNamePropertyDescriptor(object);
+			addNotationViewProviderPriorityPropertyDescriptor(object);
 			addEditPartProviderClassNamePropertyDescriptor(object);
+			addEditPartProviderPriorityPropertyDescriptor(object);
 			addMetamodelSupportProviderClassNamePropertyDescriptor(object);
+			addMetamodelSupportProviderPriorityPropertyDescriptor(object);
 			addModelingAssistantProviderClassNamePropertyDescriptor(object);
+			addModelingAssistantProviderPriorityPropertyDescriptor(object);
 			addPropertyProviderClassNamePropertyDescriptor(object);
+			addPropertyProviderPriorityPropertyDescriptor(object);
 			addIconProviderClassNamePropertyDescriptor(object);
+			addIconProviderPriorityPropertyDescriptor(object);
 			addParserProviderClassNamePropertyDescriptor(object);
+			addParserProviderPriorityPropertyDescriptor(object);
 			addAbstractParserClassNamePropertyDescriptor(object);
 			addStructuralFeatureParserClassNamePropertyDescriptor(object);
 			addStructuralFeaturesParserClassNamePropertyDescriptor(object);
@@ -101,7 +108,9 @@ public class GenDiagramItemProvider
 			addContainsShortcutsToPropertyDescriptor(object);
 			addShortcutsProvidedForPropertyDescriptor(object);
 			addValidationProviderClassNamePropertyDescriptor(object);
+			addValidationProviderPriorityPropertyDescriptor(object);
 			addMarkerNavigationProviderClassNamePropertyDescriptor(object);
+			addMarkerNavigationProviderPriorityPropertyDescriptor(object);
 			addValidationEnabledPropertyDescriptor(object);
 			addDomainDiagramElementPropertyDescriptor(object);
 		}
@@ -369,6 +378,26 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Validation Provider Priority feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addValidationProviderPriorityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_BatchValidation_validationProviderPriority_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_validationProviderPriority_feature", "_UI_BatchValidation_type"),
+				 GMFGenPackage.eINSTANCE.getBatchValidation_ValidationProviderPriority(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Marker Navigation Provider Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -382,6 +411,26 @@ public class GenDiagramItemProvider
 				 getString("_UI_BatchValidation_markerNavigationProviderClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_markerNavigationProviderClassName_feature", "_UI_BatchValidation_type"),
 				 GMFGenPackage.eINSTANCE.getBatchValidation_MarkerNavigationProviderClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Marker Navigation Provider Priority feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMarkerNavigationProviderPriorityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_BatchValidation_markerNavigationProviderPriority_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_BatchValidation_markerNavigationProviderPriority_feature", "_UI_BatchValidation_type"),
+				 GMFGenPackage.eINSTANCE.getBatchValidation_MarkerNavigationProviderPriority(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -649,6 +698,26 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Notation View Provider Priority feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNotationViewProviderPriorityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ProviderClassNames_notationViewProviderPriority_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_notationViewProviderPriority_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_NotationViewProviderPriority(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Reorient Connection View Command Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -809,6 +878,26 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Edit Part Provider Priority feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addEditPartProviderPriorityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ProviderClassNames_editPartProviderPriority_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_editPartProviderPriority_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_EditPartProviderPriority(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Metamodel Support Provider Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -822,6 +911,26 @@ public class GenDiagramItemProvider
 				 getString("_UI_ProviderClassNames_metamodelSupportProviderClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_metamodelSupportProviderClassName_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_MetamodelSupportProviderClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Metamodel Support Provider Priority feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addMetamodelSupportProviderPriorityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ProviderClassNames_metamodelSupportProviderPriority_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_metamodelSupportProviderPriority_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_MetamodelSupportProviderPriority(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -849,6 +958,26 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Modeling Assistant Provider Priority feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addModelingAssistantProviderPriorityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ProviderClassNames_modelingAssistantProviderPriority_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_modelingAssistantProviderPriority_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_ModelingAssistantProviderPriority(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Property Provider Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -862,6 +991,26 @@ public class GenDiagramItemProvider
 				 getString("_UI_ProviderClassNames_propertyProviderClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_propertyProviderClassName_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_PropertyProviderClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Property Provider Priority feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPropertyProviderPriorityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ProviderClassNames_propertyProviderPriority_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_propertyProviderPriority_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_PropertyProviderPriority(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -889,6 +1038,26 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Icon Provider Priority feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addIconProviderPriorityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ProviderClassNames_iconProviderPriority_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_iconProviderPriority_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_IconProviderPriority(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Parser Provider Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -902,6 +1071,26 @@ public class GenDiagramItemProvider
 				 getString("_UI_ProviderClassNames_parserProviderClassName_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_parserProviderClassName_feature", "_UI_ProviderClassNames_type"),
 				 GMFGenPackage.eINSTANCE.getProviderClassNames_ParserProviderClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Parser Provider Priority feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addParserProviderPriorityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ProviderClassNames_parserProviderPriority_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_parserProviderPriority_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_ParserProviderPriority(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -1042,12 +1231,19 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURES_PARSER_CLASS_NAME:
@@ -1073,7 +1269,9 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__CONTAINS_SHORTCUTS_TO:
 			case GMFGenPackage.GEN_DIAGRAM__SHORTCUTS_PROVIDED_FOR:
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

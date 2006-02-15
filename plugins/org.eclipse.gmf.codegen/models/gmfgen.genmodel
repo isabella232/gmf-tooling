@@ -9,6 +9,13 @@
   <foreignModel>gmfgen.ecore</foreignModel>
   <genPackages prefix="GMFGen" basePackage="org.eclipse.gmf.codegen" disposableProviderFactory="true"
       literalsInterface="false" ecorePackage="gmfgen.ecore#/">
+    <genEnums ecoreEnum="gmfgen.ecore#//ProviderPriority">
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//ProviderPriority/Lowest"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//ProviderPriority/Low"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//ProviderPriority/Medium"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//ProviderPriority/High"/>
+      <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//ProviderPriority/Highest"/>
+    </genEnums>
     <genEnums ecoreEnum="gmfgen.ecore#//LinkLabelAlignment">
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LinkLabelAlignment/MIDDLE"/>
       <genEnumLiterals ecoreEnumLiteral="gmfgen.ecore#//LinkLabelAlignment/TARGET"/>
@@ -56,7 +63,9 @@
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//BatchValidation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationProviderPriority"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/markerNavigationProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/markerNavigationProviderPriority"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//BatchValidation/validationEnabled"/>
       <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getValidationProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//BatchValidation/getValidationDiagnosticMarkerType"/>
@@ -66,12 +75,19 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/elementTypesClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/semanticHintsClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/notationViewProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/notationViewProviderPriority"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/editPartProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/editPartProviderPriority"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/metamodelSupportProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/metamodelSupportProviderPriority"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/modelingAssistantProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/modelingAssistantProviderPriority"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/propertyProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/propertyProviderPriority"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/iconProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/iconProviderPriority"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/parserProviderClassName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/parserProviderPriority"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/abstractParserClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/structuralFeatureParserClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/structuralFeaturesParserClassName"/>

@@ -101,7 +101,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
          id="<%=genModel.getModelName()%>Presentation">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
          <ViewId id="<%=editorGen.getEditor().getID()%>">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="delete"/>
@@ -115,7 +115,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.printing.render.providers.DiagramWithPrintGlobalActionHandlerProvider"
          id="<%=genModel.getModelName()%>PresentationPrint">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
          <ViewId id="<%=editorGen.getEditor().getID()%>">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="print"/>
@@ -126,7 +126,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
          id="<%=genModel.getModelName()%>PresentationIDE">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
          <ViewId id="<%=editorGen.getEditor().getID()%>">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="bookmark"/>
@@ -136,7 +136,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
       <GlobalActionHandlerProvider
             class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
             id="<%=genModel.getModelName()%>Render">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
          <ViewId id="<%=editorGen.getEditor().getID()%>">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="cut"/>
@@ -149,7 +149,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
 
    <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
       <viewProvider class="<%=genDiagram.getNotationViewProviderQualifiedClassName()%>">
-         <Priority name="Medium"/>
+         <Priority name="<%=genDiagram.getNotationViewProviderPriority()%>"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="<%=genPlugin.getEditorGen().getModelID()%>"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints=""/>
@@ -158,19 +158,19 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
 
    <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
       <editpartProvider class="<%=genDiagram.getEditPartProviderQualifiedClassName()%>">
-         <Priority name="Medium"/>
+         <Priority name="<%=genDiagram.getEditPartProviderPriority()%>"/>
       </editpartProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.core.compatibility.MetaModelProviders">
       <MetaModelProvider class="<%=genDiagram.getMetamodelSupportProviderQualifiedClassName()%>">
-         <Priority name="Medium"/>
+         <Priority name="<%=genDiagram.getMetamodelSupportProviderPriority()%>"/>
       </MetaModelProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
       <modelingAssistantProvider class="<%=genDiagram.getModelingAssistantProviderQualifiedClassName()%>">
-         <Priority name="Medium"/>
+         <Priority name="<%=genDiagram.getModelingAssistantProviderPriority()%>"/>
       </modelingAssistantProvider>
    </extension>
 
@@ -178,19 +178,19 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
       <PropertiesProvider
             verifyPluginLoaded="false"
             class="<%=genDiagram.getPropertyProviderQualifiedClassName()%>">
-         <Priority name="Medium"/>
+         <Priority name="<%=genDiagram.getPropertyProviderPriority()%>"/>
       </PropertiesProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
       <IconProvider class="<%=genDiagram.getIconProviderQualifiedClassName()%>">
-         <Priority name="Medium"/>
+         <Priority name="<%=genDiagram.getIconProviderPriority()%>"/>
       </IconProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
       <ParserProvider class="<%=genDiagram.getParserProviderQualifiedClassName()%>">
-         <Priority name="Medium"/>
+         <Priority name="<%=genDiagram.getParserProviderPriority()%>"/>
       </ParserProvider>
    </extension>
 <%if(genDiagram.isValidationEnabled()) {%>
@@ -198,7 +198,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
    <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
       <MarkerNavigationProvider class="<%=genDiagram.getMarkerNavigationProviderQualifiedClassName()%>">
          <MarkerType name="<%=genPlugin.getID() + "." + genDiagram.getValidationDiagnosticMarkerType()%>"/>
-         <Priority name="Medium"/>
+         <Priority name="<%=genDiagram.getMarkerNavigationProviderPriority()%>"/>
       </MarkerNavigationProvider>
    </extension>
 
@@ -206,14 +206,14 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
       point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
       <contributionItemProvider checkPluginLoaded="true"
          class="<%=genDiagram.getValidationProviderQualifiedClassName()%>">
-         <Priority name="Medium"/>
+         <Priority name="<%=genDiagram.getValidationProviderPriority()%>"/>
          <partContribution id="<%=editorGen.getEditor().getID()%>">
             <partMenuGroup menubarPath="/diagramMenu/" id="validationGroup"/>
             <partAction id="validateAction" menubarPath="/diagramMenu/validationGroup"/>
          </partContribution>
       </contributionItemProvider>
    </extension>
-   
+
    <extension id="<%=genDiagram.getValidationDiagnosticMarkerType()%>" name="<%=genPlugin.getName()%> problems" point="org.eclipse.core.resources.markers">
       <super type="org.eclipse.core.resources.problemmarker"/>   
       <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>

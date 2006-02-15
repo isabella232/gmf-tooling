@@ -35,6 +35,7 @@ import org.eclipse.gmf.codegen.gmfgen.LinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.PackageNames;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ProviderClassNames;
+import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
 import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
 
@@ -54,12 +55,19 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getElementTypesClassName <em>Element Types Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getSemanticHintsClassName <em>Semantic Hints Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getNotationViewProviderClassName <em>Notation View Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getNotationViewProviderPriority <em>Notation View Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartProviderClassName <em>Edit Part Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartProviderPriority <em>Edit Part Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMetamodelSupportProviderClassName <em>Metamodel Support Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMetamodelSupportProviderPriority <em>Metamodel Support Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getModelingAssistantProviderClassName <em>Modeling Assistant Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getModelingAssistantProviderPriority <em>Modeling Assistant Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPropertyProviderClassName <em>Property Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPropertyProviderPriority <em>Property Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getIconProviderClassName <em>Icon Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getIconProviderPriority <em>Icon Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getParserProviderClassName <em>Parser Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getParserProviderPriority <em>Parser Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getAbstractParserClassName <em>Abstract Parser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getStructuralFeatureParserClassName <em>Structural Feature Parser Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getStructuralFeaturesParserClassName <em>Structural Features Parser Class Name</em>}</li>
@@ -85,7 +93,9 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getContainsShortcutsTo <em>Contains Shortcuts To</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getShortcutsProvidedFor <em>Shortcuts Provided For</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getValidationProviderClassName <em>Validation Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getValidationProviderPriority <em>Validation Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMarkerNavigationProviderClassName <em>Marker Navigation Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMarkerNavigationProviderPriority <em>Marker Navigation Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#isValidationEnabled <em>Validation Enabled</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditorGen <em>Editor Gen</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getDomainDiagramElement <em>Domain Diagram Element</em>}</li>
@@ -262,6 +272,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected String notationViewProviderClassName = NOTATION_VIEW_PROVIDER_CLASS_NAME_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getNotationViewProviderPriority() <em>Notation View Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNotationViewProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ProviderPriority NOTATION_VIEW_PROVIDER_PRIORITY_EDEFAULT = ProviderPriority.LOWEST_LITERAL;
+
+	/**
+	 * The cached value of the '{@link #getNotationViewProviderPriority() <em>Notation View Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNotationViewProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected ProviderPriority notationViewProviderPriority = NOTATION_VIEW_PROVIDER_PRIORITY_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getEditPartProviderClassName() <em>Edit Part Provider Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -280,6 +310,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String editPartProviderClassName = EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getEditPartProviderPriority() <em>Edit Part Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditPartProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ProviderPriority EDIT_PART_PROVIDER_PRIORITY_EDEFAULT = ProviderPriority.LOWEST_LITERAL;
+
+	/**
+	 * The cached value of the '{@link #getEditPartProviderPriority() <em>Edit Part Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getEditPartProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected ProviderPriority editPartProviderPriority = EDIT_PART_PROVIDER_PRIORITY_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getMetamodelSupportProviderClassName() <em>Metamodel Support Provider Class Name</em>}' attribute.
@@ -302,6 +352,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected String metamodelSupportProviderClassName = METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getMetamodelSupportProviderPriority() <em>Metamodel Support Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetamodelSupportProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ProviderPriority METAMODEL_SUPPORT_PROVIDER_PRIORITY_EDEFAULT = ProviderPriority.LOWEST_LITERAL;
+
+	/**
+	 * The cached value of the '{@link #getMetamodelSupportProviderPriority() <em>Metamodel Support Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetamodelSupportProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected ProviderPriority metamodelSupportProviderPriority = METAMODEL_SUPPORT_PROVIDER_PRIORITY_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getModelingAssistantProviderClassName() <em>Modeling Assistant Provider Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -320,6 +390,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String modelingAssistantProviderClassName = MODELING_ASSISTANT_PROVIDER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getModelingAssistantProviderPriority() <em>Modeling Assistant Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getModelingAssistantProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ProviderPriority MODELING_ASSISTANT_PROVIDER_PRIORITY_EDEFAULT = ProviderPriority.LOWEST_LITERAL;
+
+	/**
+	 * The cached value of the '{@link #getModelingAssistantProviderPriority() <em>Modeling Assistant Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getModelingAssistantProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected ProviderPriority modelingAssistantProviderPriority = MODELING_ASSISTANT_PROVIDER_PRIORITY_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPropertyProviderClassName() <em>Property Provider Class Name</em>}' attribute.
@@ -342,6 +432,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected String propertyProviderClassName = PROPERTY_PROVIDER_CLASS_NAME_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getPropertyProviderPriority() <em>Property Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPropertyProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ProviderPriority PROPERTY_PROVIDER_PRIORITY_EDEFAULT = ProviderPriority.LOWEST_LITERAL;
+
+	/**
+	 * The cached value of the '{@link #getPropertyProviderPriority() <em>Property Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPropertyProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected ProviderPriority propertyProviderPriority = PROPERTY_PROVIDER_PRIORITY_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getIconProviderClassName() <em>Icon Provider Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -362,6 +472,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected String iconProviderClassName = ICON_PROVIDER_CLASS_NAME_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getIconProviderPriority() <em>Icon Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIconProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ProviderPriority ICON_PROVIDER_PRIORITY_EDEFAULT = ProviderPriority.LOWEST_LITERAL;
+
+	/**
+	 * The cached value of the '{@link #getIconProviderPriority() <em>Icon Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIconProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected ProviderPriority iconProviderPriority = ICON_PROVIDER_PRIORITY_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getParserProviderClassName() <em>Parser Provider Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -380,6 +510,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String parserProviderClassName = PARSER_PROVIDER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getParserProviderPriority() <em>Parser Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getParserProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ProviderPriority PARSER_PROVIDER_PRIORITY_EDEFAULT = ProviderPriority.LOWEST_LITERAL;
+
+	/**
+	 * The cached value of the '{@link #getParserProviderPriority() <em>Parser Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getParserProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected ProviderPriority parserProviderPriority = PARSER_PROVIDER_PRIORITY_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getAbstractParserClassName() <em>Abstract Parser Class Name</em>}' attribute.
@@ -862,6 +1012,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	protected String validationProviderClassName = VALIDATION_PROVIDER_CLASS_NAME_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #getValidationProviderPriority() <em>Validation Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValidationProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ProviderPriority VALIDATION_PROVIDER_PRIORITY_EDEFAULT = ProviderPriority.LOWEST_LITERAL;
+
+	/**
+	 * The cached value of the '{@link #getValidationProviderPriority() <em>Validation Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getValidationProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected ProviderPriority validationProviderPriority = VALIDATION_PROVIDER_PRIORITY_EDEFAULT;
+
+	/**
 	 * The default value of the '{@link #getMarkerNavigationProviderClassName() <em>Marker Navigation Provider Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -880,6 +1050,26 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected String markerNavigationProviderClassName = MARKER_NAVIGATION_PROVIDER_CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getMarkerNavigationProviderPriority() <em>Marker Navigation Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMarkerNavigationProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final ProviderPriority MARKER_NAVIGATION_PROVIDER_PRIORITY_EDEFAULT = ProviderPriority.LOWEST_LITERAL;
+
+	/**
+	 * The cached value of the '{@link #getMarkerNavigationProviderPriority() <em>Marker Navigation Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMarkerNavigationProviderPriority()
+	 * @generated
+	 * @ordered
+	 */
+	protected ProviderPriority markerNavigationProviderPriority = MARKER_NAVIGATION_PROVIDER_PRIORITY_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #isValidationEnabled() <em>Validation Enabled</em>}' attribute.
@@ -1405,6 +1595,27 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ProviderPriority getValidationProviderPriority() {
+		return validationProviderPriority;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setValidationProviderPriority(ProviderPriority newValidationProviderPriority) {
+		ProviderPriority oldValidationProviderPriority = validationProviderPriority;
+		validationProviderPriority = newValidationProviderPriority == null ? VALIDATION_PROVIDER_PRIORITY_EDEFAULT : newValidationProviderPriority;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_PRIORITY, oldValidationProviderPriority, validationProviderPriority));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getMarkerNavigationProviderClassNameGen() {
 		return markerNavigationProviderClassName;
 	}
@@ -1839,6 +2050,27 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ProviderPriority getNotationViewProviderPriority() {
+		return notationViewProviderPriority;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNotationViewProviderPriority(ProviderPriority newNotationViewProviderPriority) {
+		ProviderPriority oldNotationViewProviderPriority = notationViewProviderPriority;
+		notationViewProviderPriority = newNotationViewProviderPriority == null ? NOTATION_VIEW_PROVIDER_PRIORITY_EDEFAULT : newNotationViewProviderPriority;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_PRIORITY, oldNotationViewProviderPriority, notationViewProviderPriority));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getReorientConnectionViewCommandClassNameGen() {
 		return reorientConnectionViewCommandClassName;
 	}
@@ -2071,6 +2303,27 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ProviderPriority getEditPartProviderPriority() {
+		return editPartProviderPriority;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setEditPartProviderPriority(ProviderPriority newEditPartProviderPriority) {
+		ProviderPriority oldEditPartProviderPriority = editPartProviderPriority;
+		editPartProviderPriority = newEditPartProviderPriority == null ? EDIT_PART_PROVIDER_PRIORITY_EDEFAULT : newEditPartProviderPriority;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_PRIORITY, oldEditPartProviderPriority, editPartProviderPriority));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getMetamodelSupportProviderClassNameGen() {
 		return metamodelSupportProviderClassName;
 	}
@@ -2093,6 +2346,27 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		metamodelSupportProviderClassName = newMetamodelSupportProviderClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME, oldMetamodelSupportProviderClassName, metamodelSupportProviderClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProviderPriority getMetamodelSupportProviderPriority() {
+		return metamodelSupportProviderPriority;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMetamodelSupportProviderPriority(ProviderPriority newMetamodelSupportProviderPriority) {
+		ProviderPriority oldMetamodelSupportProviderPriority = metamodelSupportProviderPriority;
+		metamodelSupportProviderPriority = newMetamodelSupportProviderPriority == null ? METAMODEL_SUPPORT_PROVIDER_PRIORITY_EDEFAULT : newMetamodelSupportProviderPriority;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_PRIORITY, oldMetamodelSupportProviderPriority, metamodelSupportProviderPriority));
 	}
 
 	/**
@@ -2129,6 +2403,27 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ProviderPriority getModelingAssistantProviderPriority() {
+		return modelingAssistantProviderPriority;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setModelingAssistantProviderPriority(ProviderPriority newModelingAssistantProviderPriority) {
+		ProviderPriority oldModelingAssistantProviderPriority = modelingAssistantProviderPriority;
+		modelingAssistantProviderPriority = newModelingAssistantProviderPriority == null ? MODELING_ASSISTANT_PROVIDER_PRIORITY_EDEFAULT : newModelingAssistantProviderPriority;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_PRIORITY, oldModelingAssistantProviderPriority, modelingAssistantProviderPriority));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getPropertyProviderClassNameGen() {
 		return propertyProviderClassName;
 	}
@@ -2151,6 +2446,27 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		propertyProviderClassName = newPropertyProviderClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME, oldPropertyProviderClassName, propertyProviderClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProviderPriority getPropertyProviderPriority() {
+		return propertyProviderPriority;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPropertyProviderPriority(ProviderPriority newPropertyProviderPriority) {
+		ProviderPriority oldPropertyProviderPriority = propertyProviderPriority;
+		propertyProviderPriority = newPropertyProviderPriority == null ? PROPERTY_PROVIDER_PRIORITY_EDEFAULT : newPropertyProviderPriority;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_PRIORITY, oldPropertyProviderPriority, propertyProviderPriority));
 	}
 
 	/**
@@ -2187,6 +2503,27 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ProviderPriority getIconProviderPriority() {
+		return iconProviderPriority;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIconProviderPriority(ProviderPriority newIconProviderPriority) {
+		ProviderPriority oldIconProviderPriority = iconProviderPriority;
+		iconProviderPriority = newIconProviderPriority == null ? ICON_PROVIDER_PRIORITY_EDEFAULT : newIconProviderPriority;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_PRIORITY, oldIconProviderPriority, iconProviderPriority));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getParserProviderClassNameGen() {
 		return parserProviderClassName;
 	}
@@ -2209,6 +2546,27 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		parserProviderClassName = newParserProviderClassName;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_CLASS_NAME, oldParserProviderClassName, parserProviderClassName));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProviderPriority getParserProviderPriority() {
+		return parserProviderPriority;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setParserProviderPriority(ProviderPriority newParserProviderPriority) {
+		ProviderPriority oldParserProviderPriority = parserProviderPriority;
+		parserProviderPriority = newParserProviderPriority == null ? PARSER_PROVIDER_PRIORITY_EDEFAULT : newParserProviderPriority;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_PRIORITY, oldParserProviderPriority, parserProviderPriority));
 	}
 
 	/**
@@ -2412,6 +2770,27 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ProviderPriority getMarkerNavigationProviderPriority() {
+		return markerNavigationProviderPriority;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMarkerNavigationProviderPriority(ProviderPriority newMarkerNavigationProviderPriority) {
+		ProviderPriority oldMarkerNavigationProviderPriority = markerNavigationProviderPriority;
+		markerNavigationProviderPriority = newMarkerNavigationProviderPriority == null ? MARKER_NAVIGATION_PROVIDER_PRIORITY_EDEFAULT : newMarkerNavigationProviderPriority;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_PRIORITY, oldMarkerNavigationProviderPriority, markerNavigationProviderPriority));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public boolean generateCreateShortcutAction() {
@@ -2515,18 +2894,32 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getSemanticHintsClassName();
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
 				return getNotationViewProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_PRIORITY:
+				return getNotationViewProviderPriority();
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
 				return getEditPartProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_PRIORITY:
+				return getEditPartProviderPriority();
 			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
 				return getMetamodelSupportProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_PRIORITY:
+				return getMetamodelSupportProviderPriority();
 			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
 				return getModelingAssistantProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_PRIORITY:
+				return getModelingAssistantProviderPriority();
 			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME:
 				return getPropertyProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_PRIORITY:
+				return getPropertyProviderPriority();
 			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
 				return getIconProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_PRIORITY:
+				return getIconProviderPriority();
 			case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_CLASS_NAME:
 				return getParserProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_PRIORITY:
+				return getParserProviderPriority();
 			case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME:
 				return getAbstractParserClassName();
 			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
@@ -2577,8 +2970,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getShortcutsProvidedFor();
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME:
 				return getValidationProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_PRIORITY:
+				return getValidationProviderPriority();
 			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME:
 				return getMarkerNavigationProviderClassName();
+			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_PRIORITY:
+				return getMarkerNavigationProviderPriority();
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
 				return isValidationEnabled() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
@@ -2635,23 +3032,44 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
 				setNotationViewProviderClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_PRIORITY:
+				setNotationViewProviderPriority((ProviderPriority)newValue);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
 				setEditPartProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_PRIORITY:
+				setEditPartProviderPriority((ProviderPriority)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
 				setMetamodelSupportProviderClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_PRIORITY:
+				setMetamodelSupportProviderPriority((ProviderPriority)newValue);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
 				setModelingAssistantProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_PRIORITY:
+				setModelingAssistantProviderPriority((ProviderPriority)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME:
 				setPropertyProviderClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_PRIORITY:
+				setPropertyProviderPriority((ProviderPriority)newValue);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
 				setIconProviderClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_PRIORITY:
+				setIconProviderPriority((ProviderPriority)newValue);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_CLASS_NAME:
 				setParserProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_PRIORITY:
+				setParserProviderPriority((ProviderPriority)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME:
 				setAbstractParserClassName((String)newValue);
@@ -2730,8 +3148,14 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME:
 				setValidationProviderClassName((String)newValue);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_PRIORITY:
+				setValidationProviderPriority((ProviderPriority)newValue);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME:
 				setMarkerNavigationProviderClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_PRIORITY:
+				setMarkerNavigationProviderPriority((ProviderPriority)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
 				setValidationEnabled(((Boolean)newValue).booleanValue());
@@ -2796,23 +3220,44 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
 				setNotationViewProviderClassName(NOTATION_VIEW_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_PRIORITY:
+				setNotationViewProviderPriority(NOTATION_VIEW_PROVIDER_PRIORITY_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
 				setEditPartProviderClassName(EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_PRIORITY:
+				setEditPartProviderPriority(EDIT_PART_PROVIDER_PRIORITY_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
 				setMetamodelSupportProviderClassName(METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_PRIORITY:
+				setMetamodelSupportProviderPriority(METAMODEL_SUPPORT_PROVIDER_PRIORITY_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
 				setModelingAssistantProviderClassName(MODELING_ASSISTANT_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_PRIORITY:
+				setModelingAssistantProviderPriority(MODELING_ASSISTANT_PROVIDER_PRIORITY_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME:
 				setPropertyProviderClassName(PROPERTY_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_PRIORITY:
+				setPropertyProviderPriority(PROPERTY_PROVIDER_PRIORITY_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
 				setIconProviderClassName(ICON_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_PRIORITY:
+				setIconProviderPriority(ICON_PROVIDER_PRIORITY_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_CLASS_NAME:
 				setParserProviderClassName(PARSER_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_PRIORITY:
+				setParserProviderPriority(PARSER_PROVIDER_PRIORITY_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME:
 				setAbstractParserClassName(ABSTRACT_PARSER_CLASS_NAME_EDEFAULT);
@@ -2889,8 +3334,14 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME:
 				setValidationProviderClassName(VALIDATION_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_PRIORITY:
+				setValidationProviderPriority(VALIDATION_PROVIDER_PRIORITY_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME:
 				setMarkerNavigationProviderClassName(MARKER_NAVIGATION_PROVIDER_CLASS_NAME_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_PRIORITY:
+				setMarkerNavigationProviderPriority(MARKER_NAVIGATION_PROVIDER_PRIORITY_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
 				setValidationEnabled(VALIDATION_ENABLED_EDEFAULT);
@@ -2942,18 +3393,32 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return SEMANTIC_HINTS_CLASS_NAME_EDEFAULT == null ? semanticHintsClassName != null : !SEMANTIC_HINTS_CLASS_NAME_EDEFAULT.equals(semanticHintsClassName);
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME:
 				return NOTATION_VIEW_PROVIDER_CLASS_NAME_EDEFAULT == null ? notationViewProviderClassName != null : !NOTATION_VIEW_PROVIDER_CLASS_NAME_EDEFAULT.equals(notationViewProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_PRIORITY:
+				return notationViewProviderPriority != NOTATION_VIEW_PROVIDER_PRIORITY_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
 				return EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT == null ? editPartProviderClassName != null : !EDIT_PART_PROVIDER_CLASS_NAME_EDEFAULT.equals(editPartProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_PRIORITY:
+				return editPartProviderPriority != EDIT_PART_PROVIDER_PRIORITY_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
 				return METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT == null ? metamodelSupportProviderClassName != null : !METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT.equals(metamodelSupportProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_PRIORITY:
+				return metamodelSupportProviderPriority != METAMODEL_SUPPORT_PROVIDER_PRIORITY_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
 				return MODELING_ASSISTANT_PROVIDER_CLASS_NAME_EDEFAULT == null ? modelingAssistantProviderClassName != null : !MODELING_ASSISTANT_PROVIDER_CLASS_NAME_EDEFAULT.equals(modelingAssistantProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_PRIORITY:
+				return modelingAssistantProviderPriority != MODELING_ASSISTANT_PROVIDER_PRIORITY_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME:
 				return PROPERTY_PROVIDER_CLASS_NAME_EDEFAULT == null ? propertyProviderClassName != null : !PROPERTY_PROVIDER_CLASS_NAME_EDEFAULT.equals(propertyProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_PRIORITY:
+				return propertyProviderPriority != PROPERTY_PROVIDER_PRIORITY_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME:
 				return ICON_PROVIDER_CLASS_NAME_EDEFAULT == null ? iconProviderClassName != null : !ICON_PROVIDER_CLASS_NAME_EDEFAULT.equals(iconProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_PRIORITY:
+				return iconProviderPriority != ICON_PROVIDER_PRIORITY_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_CLASS_NAME:
 				return PARSER_PROVIDER_CLASS_NAME_EDEFAULT == null ? parserProviderClassName != null : !PARSER_PROVIDER_CLASS_NAME_EDEFAULT.equals(parserProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_PRIORITY:
+				return parserProviderPriority != PARSER_PROVIDER_PRIORITY_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME:
 				return ABSTRACT_PARSER_CLASS_NAME_EDEFAULT == null ? abstractParserClassName != null : !ABSTRACT_PARSER_CLASS_NAME_EDEFAULT.equals(abstractParserClassName);
 			case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME:
@@ -3004,8 +3469,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return shortcutsProvidedFor != null && !shortcutsProvidedFor.isEmpty();
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME:
 				return VALIDATION_PROVIDER_CLASS_NAME_EDEFAULT == null ? validationProviderClassName != null : !VALIDATION_PROVIDER_CLASS_NAME_EDEFAULT.equals(validationProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_PRIORITY:
+				return validationProviderPriority != VALIDATION_PROVIDER_PRIORITY_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME:
 				return MARKER_NAVIGATION_PROVIDER_CLASS_NAME_EDEFAULT == null ? markerNavigationProviderClassName != null : !MARKER_NAVIGATION_PROVIDER_CLASS_NAME_EDEFAULT.equals(markerNavigationProviderClassName);
+			case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_PRIORITY:
+				return markerNavigationProviderPriority != MARKER_NAVIGATION_PROVIDER_PRIORITY_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED:
 				return validationEnabled != VALIDATION_ENABLED_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__EDITOR_GEN:
@@ -3047,12 +3516,19 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__ELEMENT_TYPES_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__SEMANTIC_HINTS_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__NOTATION_VIEW_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_PRIORITY: return GMFGenPackage.PROVIDER_CLASS_NAMES__NOTATION_VIEW_PROVIDER_PRIORITY;
 				case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__EDIT_PART_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_PRIORITY: return GMFGenPackage.PROVIDER_CLASS_NAMES__EDIT_PART_PROVIDER_PRIORITY;
 				case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_PRIORITY: return GMFGenPackage.PROVIDER_CLASS_NAMES__METAMODEL_SUPPORT_PROVIDER_PRIORITY;
 				case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__MODELING_ASSISTANT_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_PRIORITY: return GMFGenPackage.PROVIDER_CLASS_NAMES__MODELING_ASSISTANT_PROVIDER_PRIORITY;
 				case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__PROPERTY_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_PRIORITY: return GMFGenPackage.PROVIDER_CLASS_NAMES__PROPERTY_PROVIDER_PRIORITY;
 				case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__ICON_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_PRIORITY: return GMFGenPackage.PROVIDER_CLASS_NAMES__ICON_PROVIDER_PRIORITY;
 				case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__PARSER_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_PRIORITY: return GMFGenPackage.PROVIDER_CLASS_NAMES__PARSER_PROVIDER_PRIORITY;
 				case GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__ABSTRACT_PARSER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__STRUCTURAL_FEATURE_PARSER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURES_PARSER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__STRUCTURAL_FEATURES_PARSER_CLASS_NAME;
@@ -3103,7 +3579,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		if (baseClass == BatchValidation.class) {
 			switch (derivedFeatureID) {
 				case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME: return GMFGenPackage.BATCH_VALIDATION__VALIDATION_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_PRIORITY: return GMFGenPackage.BATCH_VALIDATION__VALIDATION_PROVIDER_PRIORITY;
 				case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME: return GMFGenPackage.BATCH_VALIDATION__MARKER_NAVIGATION_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_PRIORITY: return GMFGenPackage.BATCH_VALIDATION__MARKER_NAVIGATION_PROVIDER_PRIORITY;
 				case GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED: return GMFGenPackage.BATCH_VALIDATION__VALIDATION_ENABLED;
 				default: return -1;
 			}
@@ -3132,12 +3610,19 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__ELEMENT_TYPES_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__ELEMENT_TYPES_CLASS_NAME;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__SEMANTIC_HINTS_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__SEMANTIC_HINTS_CLASS_NAME;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__NOTATION_VIEW_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.PROVIDER_CLASS_NAMES__NOTATION_VIEW_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_PRIORITY;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__EDIT_PART_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.PROVIDER_CLASS_NAMES__EDIT_PART_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_PRIORITY;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.PROVIDER_CLASS_NAMES__METAMODEL_SUPPORT_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_PRIORITY;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__MODELING_ASSISTANT_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.PROVIDER_CLASS_NAMES__MODELING_ASSISTANT_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_PRIORITY;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__PROPERTY_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.PROVIDER_CLASS_NAMES__PROPERTY_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_PRIORITY;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__ICON_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.PROVIDER_CLASS_NAMES__ICON_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__ICON_PROVIDER_PRIORITY;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__PARSER_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.PROVIDER_CLASS_NAMES__PARSER_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__PARSER_PROVIDER_PRIORITY;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__ABSTRACT_PARSER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__ABSTRACT_PARSER_CLASS_NAME;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__STRUCTURAL_FEATURE_PARSER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURE_PARSER_CLASS_NAME;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__STRUCTURAL_FEATURES_PARSER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__STRUCTURAL_FEATURES_PARSER_CLASS_NAME;
@@ -3188,7 +3673,9 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		if (baseClass == BatchValidation.class) {
 			switch (baseFeatureID) {
 				case GMFGenPackage.BATCH_VALIDATION__VALIDATION_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.BATCH_VALIDATION__VALIDATION_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__VALIDATION_PROVIDER_PRIORITY;
 				case GMFGenPackage.BATCH_VALIDATION__MARKER_NAVIGATION_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_CLASS_NAME;
+				case GMFGenPackage.BATCH_VALIDATION__MARKER_NAVIGATION_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__MARKER_NAVIGATION_PROVIDER_PRIORITY;
 				case GMFGenPackage.BATCH_VALIDATION__VALIDATION_ENABLED: return GMFGenPackage.GEN_DIAGRAM__VALIDATION_ENABLED;
 				default: return -1;
 			}
@@ -3510,18 +3997,32 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(semanticHintsClassName);
 		result.append(", notationViewProviderClassName: ");
 		result.append(notationViewProviderClassName);
+		result.append(", notationViewProviderPriority: ");
+		result.append(notationViewProviderPriority);
 		result.append(", editPartProviderClassName: ");
 		result.append(editPartProviderClassName);
+		result.append(", editPartProviderPriority: ");
+		result.append(editPartProviderPriority);
 		result.append(", metamodelSupportProviderClassName: ");
 		result.append(metamodelSupportProviderClassName);
+		result.append(", metamodelSupportProviderPriority: ");
+		result.append(metamodelSupportProviderPriority);
 		result.append(", modelingAssistantProviderClassName: ");
 		result.append(modelingAssistantProviderClassName);
+		result.append(", modelingAssistantProviderPriority: ");
+		result.append(modelingAssistantProviderPriority);
 		result.append(", propertyProviderClassName: ");
 		result.append(propertyProviderClassName);
+		result.append(", propertyProviderPriority: ");
+		result.append(propertyProviderPriority);
 		result.append(", iconProviderClassName: ");
 		result.append(iconProviderClassName);
+		result.append(", iconProviderPriority: ");
+		result.append(iconProviderPriority);
 		result.append(", parserProviderClassName: ");
 		result.append(parserProviderClassName);
+		result.append(", parserProviderPriority: ");
+		result.append(parserProviderPriority);
 		result.append(", abstractParserClassName: ");
 		result.append(abstractParserClassName);
 		result.append(", structuralFeatureParserClassName: ");
@@ -3572,8 +4073,12 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(shortcutsProvidedFor);
 		result.append(", validationProviderClassName: ");
 		result.append(validationProviderClassName);
+		result.append(", validationProviderPriority: ");
+		result.append(validationProviderPriority);
 		result.append(", markerNavigationProviderClassName: ");
 		result.append(markerNavigationProviderClassName);
+		result.append(", markerNavigationProviderPriority: ");
+		result.append(markerNavigationProviderPriority);
 		result.append(", validationEnabled: ");
 		result.append(validationEnabled);
 		result.append(')');
