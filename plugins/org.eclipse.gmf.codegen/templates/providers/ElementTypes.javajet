@@ -4,6 +4,9 @@
 package <%=genDiagram.getProvidersPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>
+import java.util.IdentityHashMap;
+import java.util.Map;
+
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.ENamedElement;
@@ -29,6 +32,11 @@ public class <%=genDiagram.getElementTypesClassName()%> {
 	 * @generated
 	 */
 	private <%=genDiagram.getElementTypesClassName()%>() {}
+
+	/**
+	 * @generated
+	 */
+	private static Map elements;
 
 	/**
 	 * @generated
@@ -134,8 +142,9 @@ String pluginClassName = importManager.getImportedName(genDiagram.getEditorGen()
 	 */
 	public static ENamedElement getElement(IAdaptable hint) {
 		Object type = hint.getAdapter(IElementType.class);
-		if (<%=genDiagram.getUniqueIdentifier()%> == type) {
-			return <%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>();
+		if (elements == null) {
+			elements = new IdentityHashMap();
+			elements.put(<%=genDiagram.getUniqueIdentifier()%>, <%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>());
 <%
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();
@@ -152,21 +161,19 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 		GenClass metaClass = ((TypeModelFacet) modelFacet).getMetaClass();
 		String semanticPackageInterfaceName = importManager.getImportedName(metaClass.getGenPackage().getQualifiedPackageInterfaceName());
 %>
-		} else if (<%=id%> == type) {
-			return <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=metaClass.getClassifierAccessorName()%>();
+			elements.put(<%=id%>, <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=metaClass.getClassifierAccessorName()%>());
 <%
 	} else if (modelFacet instanceof FeatureModelFacet) {
 		GenFeature metaFeature = ((FeatureModelFacet) modelFacet).getMetaFeature();
 		String semanticPackageInterfaceName = importManager.getImportedName(metaFeature.getGenPackage().getQualifiedPackageInterfaceName());
 %>
-		} else if (<%=id%> == type) {
-			return <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>();
+			elements.put(<%=id%>, <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=metaFeature.getFeatureAccessorName()%>());
 <%
 	}
 }
 %>
 		}
-		return null;
+		return (ENamedElement) elements.get(type);
 	}
 
 	/**
