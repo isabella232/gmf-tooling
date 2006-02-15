@@ -19,7 +19,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.editor.FileDiagramEditor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.ide.IGotoMarker;
-import org.eclipse.gef.palette.PaletteRoot;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.TaiPanEditPartFactory;
 
@@ -38,15 +37,6 @@ public class TaiPanDiagramEditor extends FileDiagramEditor implements IGotoMarke
 	 */
 	public TaiPanDiagramEditor() {
 		super(true);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected PaletteRoot createPaletteRoot(PaletteRoot existingPaletteRoot) {
-		existingPaletteRoot = super.createPaletteRoot(existingPaletteRoot);
-		TaiPanPaletteFactory.fillPalette(existingPaletteRoot, getDiagram());
-		return existingPaletteRoot;
 	}
 
 	/**
