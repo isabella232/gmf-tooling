@@ -62,7 +62,6 @@ public class PaletteItemProvider
 			super.getPropertyDescriptors(object);
 
 			addFlyoutPropertyDescriptor(object);
-			addNeedZoomToolsPropertyDescriptor(object);
 			addPackageNamePropertyDescriptor(object);
 			addFactoryClassNamePropertyDescriptor(object);
 		}
@@ -83,26 +82,6 @@ public class PaletteItemProvider
 				 getString("_UI_Palette_flyout_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Palette_flyout_feature", "_UI_Palette_type"),
 				 GMFGenPackage.eINSTANCE.getPalette_Flyout(),
-				 true,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Need Zoom Tools feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNeedZoomToolsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Palette_needZoomTools_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Palette_needZoomTools_feature", "_UI_Palette_type"),
-				 GMFGenPackage.eINSTANCE.getPalette_NeedZoomTools(),
 				 true,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
@@ -200,7 +179,6 @@ public class PaletteItemProvider
 
 		switch (notification.getFeatureID(Palette.class)) {
 			case GMFGenPackage.PALETTE__FLYOUT:
-			case GMFGenPackage.PALETTE__NEED_ZOOM_TOOLS:
 			case GMFGenPackage.PALETTE__PACKAGE_NAME:
 			case GMFGenPackage.PALETTE__FACTORY_CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

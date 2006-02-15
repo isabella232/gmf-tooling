@@ -31,19 +31,9 @@ public class <%=genEditor.getClassName()%> extends FileDiagramEditor implements 
 	 * @generated
 	 */
 	public <%=genEditor.getClassName()%>() {
-		super(<%=genDiagram.getPalette() != null%>);
+		super(<%=genDiagram.getPalette() != null && genDiagram.getPalette().isFlyout()%>);
 	}
 
-<%if (genDiagram.getPalette() != null) {%>
-	/**
-	 * @generated
-	 */
-	protected <%=importManager.getImportedName("org.eclipse.gef.palette.PaletteRoot")%> createPaletteRoot(<%=importManager.getImportedName("org.eclipse.gef.palette.PaletteRoot")%> existingPaletteRoot) {
-		existingPaletteRoot = super.createPaletteRoot(existingPaletteRoot);
-		<%=importManager.getImportedName(genDiagram.getPalette().getFactoryQualifiedClassName())%>.fillPalette(existingPaletteRoot, getDiagram());
-		return existingPaletteRoot;
-	}
-<%}%>
 	/**
 	 * @generated
 	 */

@@ -179,6 +179,7 @@ public class Generator implements Runnable {
 			generateElementTypes();
 			generateViewProvider();
 			generateEditPartProvider();
+			generatePaletteProvider();
 			generateMetamodelSupportProvider();
 			generateModelingAssistantProvider();
 			generatePropertyProvider();
@@ -549,6 +550,15 @@ public class Generator implements Runnable {
 			myEmitters.getEditPartProviderEmitter(),
 			myDiagram.getProvidersPackageName(),
 			myDiagram.getEditPartProviderClassName(),
+			myDiagram
+		);
+	}
+
+	private void generatePaletteProvider() throws JETException, InterruptedException {
+		doGenerateJavaClass(
+			myEmitters.getPaletteProviderEmitter(),
+			myDiagram.getProvidersPackageName(),
+			myDiagram.getPaletteProviderClassName(),
 			myDiagram
 		);
 	}

@@ -131,6 +131,7 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 		checkClassName(state, "ProviderClassNames:SemanticHints", genDiagram.getSemanticHintsClassName(), genDiagram.getSemanticHintsQualifiedClassName());
 		checkClassName(state, "ProviderClassNames:NotationViewProvider", genDiagram.getNotationViewProviderClassName(), genDiagram.getNotationViewProviderQualifiedClassName());
 		checkClassName(state, "ProviderClassNames:EditPartProvider", genDiagram.getEditPartProviderClassName(), genDiagram.getEditPartProviderQualifiedClassName());
+		checkClassName(state, "ProviderClassNames:PaletteProvider", genDiagram.getPaletteProviderClassName(), genDiagram.getPaletteProviderQualifiedClassName());
 		checkClassName(state, "ProviderClassNames:MetamodelSupportProvider", genDiagram.getMetamodelSupportProviderClassName(), genDiagram.getMetamodelSupportProviderQualifiedClassName());
 		checkClassName(state, "ProviderClassNames:ModelingAssistantProvider", genDiagram.getModelingAssistantProviderClassName(), genDiagram.getModelingAssistantProviderQualifiedClassName());
 		checkClassName(state, "ProviderClassNames:PropertyProvider", genDiagram.getPropertyProviderClassName(), genDiagram.getPropertyProviderQualifiedClassName());

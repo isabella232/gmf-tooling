@@ -32,7 +32,6 @@ import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.PaletteImpl#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.PaletteImpl#getGroups <em>Groups</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.PaletteImpl#isFlyout <em>Flyout</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.PaletteImpl#isNeedZoomTools <em>Need Zoom Tools</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.PaletteImpl#getPackageName <em>Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.PaletteImpl#getFactoryClassName <em>Factory Class Name</em>}</li>
  * </ul>
@@ -59,7 +58,7 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean FLYOUT_EDEFAULT = false;
+	protected static final boolean FLYOUT_EDEFAULT = true;
 
 	/**
 	 * The cached value of the '{@link #isFlyout() <em>Flyout</em>}' attribute.
@@ -70,26 +69,6 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 	 * @ordered
 	 */
 	protected boolean flyout = FLYOUT_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #isNeedZoomTools() <em>Need Zoom Tools</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isNeedZoomTools()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean NEED_ZOOM_TOOLS_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isNeedZoomTools() <em>Need Zoom Tools</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isNeedZoomTools()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean needZoomTools = NEED_ZOOM_TOOLS_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getPackageName() <em>Package Name</em>}' attribute.
@@ -190,27 +169,6 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 		flyout = newFlyout;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.PALETTE__FLYOUT, oldFlyout, flyout));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isNeedZoomTools() {
-		return needZoomTools;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setNeedZoomTools(boolean newNeedZoomTools) {
-		boolean oldNeedZoomTools = needZoomTools;
-		needZoomTools = newNeedZoomTools;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.PALETTE__NEED_ZOOM_TOOLS, oldNeedZoomTools, needZoomTools));
 	}
 
 	/**
@@ -338,8 +296,6 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 				return getGroups();
 			case GMFGenPackage.PALETTE__FLYOUT:
 				return isFlyout() ? Boolean.TRUE : Boolean.FALSE;
-			case GMFGenPackage.PALETTE__NEED_ZOOM_TOOLS:
-				return isNeedZoomTools() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.PALETTE__PACKAGE_NAME:
 				return getPackageName();
 			case GMFGenPackage.PALETTE__FACTORY_CLASS_NAME:
@@ -361,9 +317,6 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 				return;
 			case GMFGenPackage.PALETTE__FLYOUT:
 				setFlyout(((Boolean)newValue).booleanValue());
-				return;
-			case GMFGenPackage.PALETTE__NEED_ZOOM_TOOLS:
-				setNeedZoomTools(((Boolean)newValue).booleanValue());
 				return;
 			case GMFGenPackage.PALETTE__PACKAGE_NAME:
 				setPackageName((String)newValue);
@@ -388,9 +341,6 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 			case GMFGenPackage.PALETTE__FLYOUT:
 				setFlyout(FLYOUT_EDEFAULT);
 				return;
-			case GMFGenPackage.PALETTE__NEED_ZOOM_TOOLS:
-				setNeedZoomTools(NEED_ZOOM_TOOLS_EDEFAULT);
-				return;
 			case GMFGenPackage.PALETTE__PACKAGE_NAME:
 				setPackageName(PACKAGE_NAME_EDEFAULT);
 				return;
@@ -414,8 +364,6 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 				return groups != null && !groups.isEmpty();
 			case GMFGenPackage.PALETTE__FLYOUT:
 				return flyout != FLYOUT_EDEFAULT;
-			case GMFGenPackage.PALETTE__NEED_ZOOM_TOOLS:
-				return needZoomTools != NEED_ZOOM_TOOLS_EDEFAULT;
 			case GMFGenPackage.PALETTE__PACKAGE_NAME:
 				return PACKAGE_NAME_EDEFAULT == null ? packageName != null : !PACKAGE_NAME_EDEFAULT.equals(packageName);
 			case GMFGenPackage.PALETTE__FACTORY_CLASS_NAME:
@@ -435,8 +383,6 @@ public class PaletteImpl extends EObjectImpl implements Palette {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (flyout: ");
 		result.append(flyout);
-		result.append(", needZoomTools: ");
-		result.append(needZoomTools);
 		result.append(", packageName: ");
 		result.append(packageName);
 		result.append(", factoryClassName: ");

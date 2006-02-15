@@ -170,6 +170,13 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
       </editpartProvider>
    </extension>
 
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.paletteProviders">
+      <paletteProvider class="<%=genDiagram.getPaletteProviderQualifiedClassName()%>">
+         <Priority name="<%=genDiagram.getPaletteProviderPriority()%>"/>
+         <editor id="<%=editorGen.getEditor().getID()%>"/>
+      </paletteProvider>
+   </extension>
+
    <extension point="org.eclipse.gmf.runtime.emf.core.compatibility.MetaModelProviders">
       <MetaModelProvider class="<%=genDiagram.getMetamodelSupportProviderQualifiedClassName()%>">
          <Priority name="<%=genDiagram.getMetamodelSupportProviderPriority()%>"/>

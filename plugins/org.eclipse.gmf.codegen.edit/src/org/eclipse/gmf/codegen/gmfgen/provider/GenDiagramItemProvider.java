@@ -73,6 +73,8 @@ public class GenDiagramItemProvider
 			addNotationViewProviderPriorityPropertyDescriptor(object);
 			addEditPartProviderClassNamePropertyDescriptor(object);
 			addEditPartProviderPriorityPropertyDescriptor(object);
+			addPaletteProviderClassNamePropertyDescriptor(object);
+			addPaletteProviderPriorityPropertyDescriptor(object);
 			addMetamodelSupportProviderClassNamePropertyDescriptor(object);
 			addMetamodelSupportProviderPriorityPropertyDescriptor(object);
 			addModelingAssistantProviderClassNamePropertyDescriptor(object);
@@ -898,6 +900,46 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Palette Provider Class Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPaletteProviderClassNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ProviderClassNames_paletteProviderClassName_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_paletteProviderClassName_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_PaletteProviderClassName(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Palette Provider Priority feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addPaletteProviderPriorityPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ProviderClassNames_paletteProviderPriority_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_paletteProviderPriority_feature", "_UI_ProviderClassNames_type"),
+				 GMFGenPackage.eINSTANCE.getProviderClassNames_PaletteProviderPriority(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Metamodel Support Provider Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1234,6 +1276,8 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__NOTATION_VIEW_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_PRIORITY:
+			case GMFGenPackage.GEN_DIAGRAM__PALETTE_PROVIDER_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__PALETTE_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:

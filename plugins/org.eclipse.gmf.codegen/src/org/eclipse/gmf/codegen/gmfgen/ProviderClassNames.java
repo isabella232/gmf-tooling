@@ -22,6 +22,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getNotationViewProviderPriority <em>Notation View Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getEditPartProviderClassName <em>Edit Part Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getEditPartProviderPriority <em>Edit Part Provider Priority</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getPaletteProviderClassName <em>Palette Provider Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getPaletteProviderPriority <em>Palette Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getMetamodelSupportProviderClassName <em>Metamodel Support Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getMetamodelSupportProviderPriority <em>Metamodel Support Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getModelingAssistantProviderClassName <em>Modeling Assistant Provider Class Name</em>}</li>
@@ -204,6 +206,61 @@ public interface ProviderClassNames extends EObject {
 	 * @generated
 	 */
 	void setEditPartProviderPriority(ProviderPriority value);
+
+	/**
+	 * Returns the value of the '<em><b>Palette Provider Class Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Palette Provider Class Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Palette Provider Class Name</em>' attribute.
+	 * @see #setPaletteProviderClassName(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getProviderClassNames_PaletteProviderClassName()
+	 * @model
+	 * @generated
+	 */
+	String getPaletteProviderClassName();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getPaletteProviderClassName <em>Palette Provider Class Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Palette Provider Class Name</em>' attribute.
+	 * @see #getPaletteProviderClassName()
+	 * @generated
+	 */
+	void setPaletteProviderClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Palette Provider Priority</b></em>' attribute.
+	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Palette Provider Priority</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Palette Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #setPaletteProviderPriority(ProviderPriority)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getProviderClassNames_PaletteProviderPriority()
+	 * @model
+	 * @generated
+	 */
+	ProviderPriority getPaletteProviderPriority();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getPaletteProviderPriority <em>Palette Provider Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Palette Provider Priority</em>' attribute.
+	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
+	 * @see #getPaletteProviderPriority()
+	 * @generated
+	 */
+	void setPaletteProviderPriority(ProviderPriority value);
 
 	/**
 	 * Returns the value of the '<em><b>Metamodel Support Provider Class Name</b></em>' attribute.
@@ -589,6 +646,14 @@ public interface ProviderClassNames extends EObject {
 	 * @generated
 	 */
 	String getEditPartProviderQualifiedClassName();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	String getPaletteProviderQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

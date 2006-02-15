@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Palette#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Palette#getGroups <em>Groups</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Palette#isFlyout <em>Flyout</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Palette#isNeedZoomTools <em>Need Zoom Tools</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Palette#getPackageName <em>Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.Palette#getFactoryClassName <em>Factory Class Name</em>}</li>
  * </ul>
@@ -30,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Palette extends EObject{
+public interface Palette extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Diagram</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram#getPalette <em>Palette</em>}'.
@@ -68,6 +67,7 @@ public interface Palette extends EObject{
 
 	/**
 	 * Returns the value of the '<em><b>Flyout</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Flyout</em>' attribute isn't clear,
@@ -77,7 +77,7 @@ public interface Palette extends EObject{
 	 * @return the value of the '<em>Flyout</em>' attribute.
 	 * @see #setFlyout(boolean)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getPalette_Flyout()
-	 * @model
+	 * @model default="true"
 	 * @generated
 	 */
 	boolean isFlyout();
@@ -91,32 +91,6 @@ public interface Palette extends EObject{
 	 * @generated
 	 */
 	void setFlyout(boolean value);
-
-	/**
-	 * Returns the value of the '<em><b>Need Zoom Tools</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Need Zoom Tools</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Need Zoom Tools</em>' attribute.
-	 * @see #setNeedZoomTools(boolean)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getPalette_NeedZoomTools()
-	 * @model
-	 * @generated
-	 */
-	boolean isNeedZoomTools();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.Palette#isNeedZoomTools <em>Need Zoom Tools</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Need Zoom Tools</em>' attribute.
-	 * @see #isNeedZoomTools()
-	 * @generated
-	 */
-	void setNeedZoomTools(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Package Name</b></em>' attribute.

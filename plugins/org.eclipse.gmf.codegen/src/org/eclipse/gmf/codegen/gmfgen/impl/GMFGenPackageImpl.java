@@ -924,7 +924,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProviderClassNames_MetamodelSupportProviderClassName() {
+	public EAttribute getProviderClassNames_PaletteProviderClassName() {
 		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -933,7 +933,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProviderClassNames_MetamodelSupportProviderPriority() {
+	public EAttribute getProviderClassNames_PaletteProviderPriority() {
 		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -942,7 +942,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProviderClassNames_ModelingAssistantProviderClassName() {
+	public EAttribute getProviderClassNames_MetamodelSupportProviderClassName() {
 		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -951,7 +951,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProviderClassNames_ModelingAssistantProviderPriority() {
+	public EAttribute getProviderClassNames_MetamodelSupportProviderPriority() {
 		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -960,7 +960,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProviderClassNames_PropertyProviderClassName() {
+	public EAttribute getProviderClassNames_ModelingAssistantProviderClassName() {
 		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -969,7 +969,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProviderClassNames_PropertyProviderPriority() {
+	public EAttribute getProviderClassNames_ModelingAssistantProviderPriority() {
 		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(11);
 	}
 
@@ -978,7 +978,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProviderClassNames_IconProviderClassName() {
+	public EAttribute getProviderClassNames_PropertyProviderClassName() {
 		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(12);
 	}
 
@@ -987,7 +987,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProviderClassNames_IconProviderPriority() {
+	public EAttribute getProviderClassNames_PropertyProviderPriority() {
 		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(13);
 	}
 
@@ -996,7 +996,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProviderClassNames_ParserProviderClassName() {
+	public EAttribute getProviderClassNames_IconProviderClassName() {
 		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(14);
 	}
 
@@ -1005,7 +1005,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProviderClassNames_ParserProviderPriority() {
+	public EAttribute getProviderClassNames_IconProviderPriority() {
 		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(15);
 	}
 
@@ -1014,7 +1014,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProviderClassNames_AbstractParserClassName() {
+	public EAttribute getProviderClassNames_ParserProviderClassName() {
 		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(16);
 	}
 
@@ -1023,7 +1023,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProviderClassNames_StructuralFeatureParserClassName() {
+	public EAttribute getProviderClassNames_ParserProviderPriority() {
 		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(17);
 	}
 
@@ -1032,8 +1032,26 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getProviderClassNames_StructuralFeaturesParserClassName() {
+	public EAttribute getProviderClassNames_AbstractParserClassName() {
 		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(18);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getProviderClassNames_StructuralFeatureParserClassName() {
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(19);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getProviderClassNames_StructuralFeaturesParserClassName() {
+		return (EAttribute)providerClassNamesEClass.getEStructuralFeatures().get(20);
 	}
 
 	/**
@@ -2310,7 +2328,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPalette_NeedZoomTools() {
+	public EAttribute getPalette_PackageName() {
 		return (EAttribute)paletteEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -2319,17 +2337,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getPalette_PackageName() {
-		return (EAttribute)paletteEClass.getEStructuralFeatures().get(4);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EAttribute getPalette_FactoryClassName() {
-		return (EAttribute)paletteEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)paletteEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -2852,6 +2861,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__NOTATION_VIEW_PROVIDER_PRIORITY);
 		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__EDIT_PART_PROVIDER_CLASS_NAME);
 		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__EDIT_PART_PROVIDER_PRIORITY);
+		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__PALETTE_PROVIDER_CLASS_NAME);
+		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__PALETTE_PROVIDER_PRIORITY);
 		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME);
 		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__METAMODEL_SUPPORT_PROVIDER_PRIORITY);
 		createEAttribute(providerClassNamesEClass, PROVIDER_CLASS_NAMES__MODELING_ASSISTANT_PROVIDER_CLASS_NAME);
@@ -3047,7 +3058,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(paletteEClass, PALETTE__DIAGRAM);
 		createEReference(paletteEClass, PALETTE__GROUPS);
 		createEAttribute(paletteEClass, PALETTE__FLYOUT);
-		createEAttribute(paletteEClass, PALETTE__NEED_ZOOM_TOOLS);
 		createEAttribute(paletteEClass, PALETTE__PACKAGE_NAME);
 		createEAttribute(paletteEClass, PALETTE__FACTORY_CLASS_NAME);
 
@@ -3254,6 +3264,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getProviderClassNames_NotationViewProviderPriority(), this.getProviderPriority(), "notationViewProviderPriority", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProviderClassNames_EditPartProviderClassName(), ecorePackage.getEString(), "editPartProviderClassName", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProviderClassNames_EditPartProviderPriority(), this.getProviderPriority(), "editPartProviderPriority", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getProviderClassNames_PaletteProviderClassName(), ecorePackage.getEString(), "paletteProviderClassName", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getProviderClassNames_PaletteProviderPriority(), this.getProviderPriority(), "paletteProviderPriority", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProviderClassNames_MetamodelSupportProviderClassName(), ecorePackage.getEString(), "metamodelSupportProviderClassName", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProviderClassNames_MetamodelSupportProviderPriority(), this.getProviderPriority(), "metamodelSupportProviderPriority", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getProviderClassNames_ModelingAssistantProviderClassName(), ecorePackage.getEString(), "modelingAssistantProviderClassName", null, 0, 1, ProviderClassNames.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3275,6 +3287,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		addEOperation(providerClassNamesEClass, ecorePackage.getEString(), "getNotationViewProviderQualifiedClassName", 0, 1);
 
 		addEOperation(providerClassNamesEClass, ecorePackage.getEString(), "getEditPartProviderQualifiedClassName", 0, 1);
+
+		addEOperation(providerClassNamesEClass, ecorePackage.getEString(), "getPaletteProviderQualifiedClassName", 0, 1);
 
 		addEOperation(providerClassNamesEClass, ecorePackage.getEString(), "getMetamodelSupportProviderQualifiedClassName", 0, 1);
 
@@ -3571,8 +3585,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(paletteEClass, Palette.class, "Palette", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPalette_Diagram(), this.getGenDiagram(), this.getGenDiagram_Palette(), "diagram", null, 1, 1, Palette.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPalette_Groups(), this.getToolGroup(), this.getToolGroup_Palette(), "groups", null, 1, -1, Palette.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPalette_Flyout(), ecorePackage.getEBoolean(), "flyout", null, 0, 1, Palette.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPalette_NeedZoomTools(), ecorePackage.getEBoolean(), "needZoomTools", null, 0, 1, Palette.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPalette_Flyout(), ecorePackage.getEBoolean(), "flyout", "true", 0, 1, Palette.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPalette_PackageName(), ecorePackage.getEString(), "packageName", null, 0, 1, Palette.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPalette_FactoryClassName(), ecorePackage.getEString(), "factoryClassName", null, 0, 1, Palette.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
