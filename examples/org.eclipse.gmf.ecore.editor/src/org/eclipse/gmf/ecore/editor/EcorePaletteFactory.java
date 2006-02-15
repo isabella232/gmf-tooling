@@ -1,14 +1,10 @@
 package org.eclipse.gmf.ecore.editor;
 
 import org.eclipse.gef.Tool;
-import org.eclipse.gef.palette.MarqueeToolEntry;
 import org.eclipse.gef.palette.PaletteContainer;
 import org.eclipse.gef.palette.PaletteDrawer;
-import org.eclipse.gef.palette.PaletteGroup;
 import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gef.palette.PanningSelectionToolEntry;
 import org.eclipse.gef.palette.ToolEntry;
-import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.jface.resource.ImageDescriptor;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,61 +24,10 @@ public class EcorePaletteFactory {
 	/**
 	 * @generated
 	 */
-	private Diagram diagram;
-
-	/**
-	 * @generated
-	 */
-	private EcorePaletteFactory(Diagram diagram) {
-		this.diagram = diagram;
-	}
-
-	/**
-	 * @generated
-	 */
-	protected final Diagram getDiagram() {
-		return diagram;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static PaletteRoot createPalette(Diagram diagram) {
-		PaletteRoot paletteRoot = new PaletteRoot();
-		EcorePaletteFactory factory = new EcorePaletteFactory(diagram);
-		PaletteContainer commonTools = factory.createCommonTools();
-		paletteRoot.add(commonTools);
-		paletteRoot.setDefaultEntry((ToolEntry) commonTools.getChildren().get(0));
-		factory.fillPalette(paletteRoot);
-		return paletteRoot;
-	}
-
-	/**
-	 * @generated
-	 */
-	public static void fillPalette(PaletteRoot paletteRoot, Diagram diagram) {
-		EcorePaletteFactory factory = new EcorePaletteFactory(diagram);
-		factory.fillPalette(paletteRoot);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void fillPalette(PaletteRoot paletteRoot) {
+	public void fillPalette(PaletteRoot paletteRoot) {
 		paletteRoot.add(createNodes1Group());
 		paletteRoot.add(createChildNodes2Group());
 		paletteRoot.add(createLinks3Group());
-	}
-
-	/**
-	 * @generated
-	 */
-	private PaletteContainer createCommonTools() {
-		PaletteGroup common = new PaletteGroup("Common");
-		ToolEntry selectionTool = new PanningSelectionToolEntry();
-		common.add(selectionTool);
-		common.add(new MarqueeToolEntry());
-		return common;
 	}
 
 	/**

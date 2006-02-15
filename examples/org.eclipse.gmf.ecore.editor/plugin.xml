@@ -9,14 +9,22 @@
   <extension point="org.eclipse.team.core.fileTypes">
       <fileTypes
          type="text"
+         extension="ecore">
+      </fileTypes>
+      <fileTypes
+         type="text"
          extension="ecore_diagram">
       </fileTypes>
   </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
       <parser
+         type="ecore"
+         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
+      </parser>
+      <parser
          type="ecore_diagram"
-         class="org.eclipse.gmf.runtime.emf.core.resources.MResourceFactory">
+         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
       </parser>
    </extension>
 
@@ -89,7 +97,7 @@
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
          id="EcorePresentation">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
          <ViewId id="org.eclipse.gmf.ecore.editor.EcoreDiagramEditorID">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="delete"/>
@@ -102,7 +110,7 @@
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.printing.render.providers.DiagramWithPrintGlobalActionHandlerProvider"
          id="EcorePresentationPrint">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
          <ViewId id="org.eclipse.gmf.ecore.editor.EcoreDiagramEditorID">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="print"/>
@@ -112,7 +120,7 @@
       <GlobalActionHandlerProvider
          class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
          id="EcorePresentationIDE">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
          <ViewId id="org.eclipse.gmf.ecore.editor.EcoreDiagramEditorID">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="bookmark"/>
@@ -122,7 +130,7 @@
       <GlobalActionHandlerProvider
             class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
             id="EcoreRender">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
          <ViewId id="org.eclipse.gmf.ecore.editor.EcoreDiagramEditorID">
             <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
                <GlobalActionId actionId="cut"/>
@@ -135,7 +143,7 @@
 
    <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
       <viewProvider class="org.eclipse.gmf.ecore.providers.EcoreViewProvider">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Ecore"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints=""/>
@@ -144,19 +152,26 @@
 
    <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
       <editpartProvider class="org.eclipse.gmf.ecore.providers.EcoreEditPartProvider">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
       </editpartProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.paletteProviders">
+      <paletteProvider class="org.eclipse.gmf.ecore.providers.EcorePaletteProvider">
+         <Priority name="Lowest"/>
+         <editor id="org.eclipse.gmf.ecore.editor.EcoreDiagramEditorID"/>
+      </paletteProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.core.compatibility.MetaModelProviders">
       <MetaModelProvider class="org.eclipse.gmf.ecore.providers.EcoreMetaModelSupportProvider">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
       </MetaModelProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
       <modelingAssistantProvider class="org.eclipse.gmf.ecore.providers.EcoreModelingAssistantProvider">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
       </modelingAssistantProvider>
    </extension>
 
@@ -164,19 +179,19 @@
       <PropertiesProvider
             verifyPluginLoaded="false"
             class="org.eclipse.gmf.ecore.providers.EcorePropertyProvider">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
       </PropertiesProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
       <IconProvider class="org.eclipse.gmf.ecore.providers.EcoreIconProvider">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
       </IconProvider>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
       <ParserProvider class="org.eclipse.gmf.ecore.providers.EcoreParserProvider">
-         <Priority name="Medium"/>
+         <Priority name="Lowest"/>
       </ParserProvider>
    </extension>
    

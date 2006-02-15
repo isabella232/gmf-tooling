@@ -8,8 +8,6 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.editor.FileDiagramEditor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.ide.IGotoMarker;
-import org.eclipse.gef.palette.PaletteRoot;
-
 import org.eclipse.gmf.ecore.edit.parts.EcoreEditPartFactory;
 
 /**
@@ -27,15 +25,6 @@ public class EcoreDiagramEditor extends FileDiagramEditor implements IGotoMarker
 	 */
 	public EcoreDiagramEditor() {
 		super(true);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected PaletteRoot createPaletteRoot(PaletteRoot existingPaletteRoot) {
-		existingPaletteRoot = super.createPaletteRoot(existingPaletteRoot);
-		EcorePaletteFactory.fillPalette(existingPaletteRoot, getDiagram());
-		return existingPaletteRoot;
 	}
 
 	/**

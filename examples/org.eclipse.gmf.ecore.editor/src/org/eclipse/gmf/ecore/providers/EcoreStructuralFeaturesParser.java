@@ -10,7 +10,10 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.gmf.runtime.common.core.command.ICommand;
+import org.eclipse.gmf.runtime.common.core.command.UnexecutableCommand;
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParserEditStatus;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserEditStatus;
 import org.eclipse.gmf.runtime.emf.commands.core.command.CompositeTransactionalCommand;
@@ -69,7 +72,14 @@ public class EcoreStructuralFeaturesParser extends EcoreAbstractParser {
 	 */
 	public ICommand getParseCommand(IAdaptable adapter, Object[] values) {
 		EObject element = (EObject) adapter.getAdapter(EObject.class);
-		CompositeTransactionalCommand command = new CompositeTransactionalCommand(getEditingDomain(), "Set Values");
+		if (element == null) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(element);
+		if (editingDomain == null) {
+			return UnexecutableCommand.INSTANCE;
+		}
+		CompositeTransactionalCommand command = new CompositeTransactionalCommand(editingDomain, "Set Values");
 		for (int i = 0; i < values.length; i++) {
 			EStructuralFeature feature = (EStructuralFeature) features.get(i);
 			command.compose(getModificationCommand(element, feature, values[i]));
