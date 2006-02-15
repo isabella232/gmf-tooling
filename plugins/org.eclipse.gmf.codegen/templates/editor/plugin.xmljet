@@ -19,14 +19,22 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
   <extension point="org.eclipse.team.core.fileTypes">
       <fileTypes
          type="text"
+         extension="<%=editorGen.getDomainFileExtension()%>">
+      </fileTypes>
+      <fileTypes
+         type="text"
          extension="<%=editorGen.getDiagramFileExtension()%>">
       </fileTypes>
   </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
       <parser
+         type="<%=editorGen.getDomainFileExtension()%>"
+         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
+      </parser>
+      <parser
          type="<%=editorGen.getDiagramFileExtension()%>"
-         class="org.eclipse.gmf.runtime.emf.core.resources.MResourceFactory">
+         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
       </parser>
    </extension>
 
