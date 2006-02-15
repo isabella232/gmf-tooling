@@ -315,7 +315,7 @@ public class TransformToGenModel implements IObjectActionDelegate {
 		public GenModel get(ResourceSet resSet) {
 			IStatus s = myGMAccess.load(resSet);
 			if (!s.isOK()) {
-				throw new IllegalStateException(s.getMessage(), s.getException());
+				throw new IllegalStateException(s.getMessage());
 			}
 			return myGMAccess.model();
 		}
