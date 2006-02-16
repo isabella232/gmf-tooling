@@ -4,30 +4,54 @@
 GraphDefDispatcher.LayoutArgs argsBundle = (GraphDefDispatcher.LayoutArgs) argument;
 final FlowLayout gmfLayout = (FlowLayout) argsBundle.getLayout();
 final String layouterVarName = argsBundle.getManagerVariableName();
+final GraphDefDispatcher dispatcher = argsBundle.getDispatcher();
+final String layouterClassName = dispatcher.getImportManager().getImportedName((String) dispatcher.getFQNSwitch().doSwitch(gmfLayout));
 
 class AlignmentConverter {
+	private final String myBegin;
+	private final String myCenter;
+	private final String myEnd;
+	
+	public AlignmentConverter(String begin, String center, String end){
+		myBegin = begin;
+		myCenter = center;
+		myEnd = end;
+	}
+	
 	public String convert(Alignment alignment){
 		if (alignment == null){
 			alignment = Alignment.BEGINNING_LITERAL;
 		}
 		switch (alignment.getValue()){
 			case Alignment.BEGINNING : 
-				return "ALIGN_LEFTTOP";
+				return myBegin;
 			case Alignment.END :
-				return "ALIGN_RIGHTBOTTOM";
+				return myEnd;
 			case Alignment.FILL:
 			case Alignment.CENTER:
-				return "ALIGN_CENTER";
+				return myCenter;
 			default:
 				throw new IllegalArgumentException("Unknown alignment: " + alignment);
 		}
 	}
 }
 
-final AlignmentConverter alignmentConverter = new AlignmentConverter();
+class AlignmentFacade {
+	public String convert(FlowLayout layout, Alignment alignment){
+		return getConverter(layout).convert(alignment);
+	}
+	
+	private AlignmentConverter getConverter(FlowLayout layout){
+		return layout.isForceSingleLine() ? 
+			new AlignmentConverter("ALIGN_TOPLEFT", "ALIGN_CENTER", "ALIGN_BOTTOMRIGHT") : 
+			new AlignmentConverter("ALIGN_LEFTTOP", "ALIGN_CENTER", "ALIGN_RIGHTBOTTOM");
+	}
+}
+
+final AlignmentFacade alignmentFacade = new AlignmentFacade();
 %>
 		<%=layouterVarName%>.setStretchMinorAxis(<%=gmfLayout.isMatchMinorSize()%>);
-		<%=layouterVarName%>.setMinorAlignment(<%=alignmentConverter.convert(gmfLayout.getMinorAlignment())%>);
+		<%=layouterVarName%>.setMinorAlignment(<%=layouterClassName%>.<%=alignmentFacade.convert(gmfLayout, gmfLayout.getMinorAlignment())%>);
 <%
 if (gmfLayout.isForceSingleLine()){
 %>		
@@ -36,7 +60,7 @@ if (gmfLayout.isForceSingleLine()){
 <%
 } else {
 %>
-		<%=layouterVarName%>.setMajorAlignment(<%=alignmentConverter.convert(gmfLayout.getMajorAlignment())%>);
+		<%=layouterVarName%>.setMajorAlignment(<%=layouterClassName%>.<%=alignmentFacade.convert(gmfLayout, gmfLayout.getMajorAlignment())%>);
 		<%=layouterVarName%>.setMajorSpacing(<%=gmfLayout.getMajorSpacing()%>);
 		<%=layouterVarName%>.setMinorSpacing(<%=gmfLayout.getMinorSpacing()%>);
 		<%=layouterVarName%>.setHorizontal(<%=!gmfLayout.isVertical()%>);
