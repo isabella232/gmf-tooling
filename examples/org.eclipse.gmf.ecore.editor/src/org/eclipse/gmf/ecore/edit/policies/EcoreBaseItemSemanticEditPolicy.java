@@ -34,7 +34,8 @@ import org.eclipse.emf.ocl.expressions.ExpressionsFactory;
 import org.eclipse.emf.ocl.expressions.VariableDeclaration;
 
 import org.eclipse.emf.ocl.helper.HelperUtil;
-import org.eclipse.emf.ocl.helper.IOclHelper;
+//import org.eclipse.emf.ocl.helper.IOclHelper;
+import org.eclipse.emf.ocl.helper.IOCLHelper;
 
 import org.eclipse.emf.ocl.parser.EcoreEnvironment;
 import org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory;
@@ -296,7 +297,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		private Query createQuery(LinkEndConstraint constraint, VariableDeclaration oppositeEndDecl) {
 			final VariableDeclaration oppositeEndDeclLocal = oppositeEndDecl;
 			try {
-				IOclHelper oclHelper = HelperUtil.createOclHelper(new EcoreEnvironmentFactory() {
+				IOCLHelper oclHelper = HelperUtil.createOclHelper(new EcoreEnvironmentFactory() {
 
 					public Environment createClassifierContext(Object context) {
 						Environment env = super.createClassifierContext(context);
