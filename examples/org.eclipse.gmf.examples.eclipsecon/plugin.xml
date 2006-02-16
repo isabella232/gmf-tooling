@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+  <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+    <factory 
+       uri = "uri://gmf/examples/eclipsecon" 
+       class = "org.eclipse.gmf.examples.eclipsecon.provider.EclipseconItemProviderAdapterFactory"
+       supportedTypes = 
+         "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+          org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+          org.eclipse.emf.edit.provider.ITreeItemContentProvider
+          org.eclipse.emf.edit.provider.IItemLabelProvider
+          org.eclipse.emf.edit.provider.IItemPropertySource" />
+  </extension>
+  
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package
+       uri = "uri://gmf/examples/eclipsecon"
+       class = "org.eclipse.gmf.examples.eclipsecon.EclipseconPackage"
+       genModel = "models/eclipsecon.genmodel" /> 
+  </extension>
+
+
+  <extension
+    point = "org.eclipse.ui.newWizards">
+    <category
+      id = "org.eclipse.emf.ecore.Wizard.category.ID"
+      name="%_UI_Wizard_category">
+    </category>
+    <wizard
+      id = "org.eclipse.gmf.examples.eclipsecon.presentation.EclipseconModelWizardID"
+      name = "%_UI_EclipseconModelWizard_label"
+      class = "org.eclipse.gmf.examples.eclipsecon.presentation.EclipseconModelWizard"
+      category = "org.eclipse.emf.ecore.Wizard.category.ID"
+      icon = "icons/full/obj16/EclipseconModelFile.gif">
+      <description>%_UI_EclipseconModelWizard_description</description>
+      <selection class = "org.eclipse.core.resources.IResource" />
+    </wizard>
+  </extension>
+
+  <extension point = "org.eclipse.ui.editors">
+    <editor
+        id = "org.eclipse.gmf.examples.eclipsecon.presentation.EclipseconEditorID"
+        name = "%_UI_EclipseconEditor_label"
+        icon = "icons/full/obj16/EclipseconModelFile.gif"
+        extensions = "eclipsecon"
+        class = "org.eclipse.gmf.examples.eclipsecon.presentation.EclipseconEditor" 
+        contributorClass="org.eclipse.gmf.examples.eclipsecon.presentation.EclipseconActionBarContributor" >
+    </editor>
+  </extension>    
+
+</plugin>

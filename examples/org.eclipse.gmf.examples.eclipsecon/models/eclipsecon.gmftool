@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmftool:ToolRegistry xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
+  <palette>
+    <tools xsi:type="gmftool:ToolGroup" title="nodes">
+      <tools xsi:type="gmftool:CreationTool" title="Schedule" description="Create new Schedule">
+        <smallIcon xsi:type="gmftool:DefaultImage"/>
+        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools xsi:type="gmftool:CreationTool" title="TimeSlot" description="Create new TimeSlot">
+        <smallIcon xsi:type="gmftool:DefaultImage"/>
+        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools xsi:type="gmftool:CreationTool" title="Presenter" description="Create new Presenter">
+        <smallIcon xsi:type="gmftool:DefaultImage"/>
+        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools xsi:type="gmftool:CreationTool" title="Tutorial" description="Create new Tutorial">
+        <smallIcon xsi:type="gmftool:DefaultImage"/>
+        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools xsi:type="gmftool:CreationTool" title="Resource" description="Create new resource">
+        <smallIcon xsi:type="gmftool:DefaultImage"/>
+        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      </tools>
+    </tools>
+    <tools xsi:type="gmftool:ToolGroup" title="links" description="">
+      <tools xsi:type="gmftool:CreationTool" title="Handout" description="Define hand-out material">
+        <smallIcon xsi:type="gmftool:DefaultImage"/>
+        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools xsi:type="gmftool:CreationTool" title="Presenter" description="Connect tutorial with presenter">
+        <smallIcon xsi:type="gmftool:DefaultImage"/>
+        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools xsi:type="gmftool:CreationTool" title="Assign time" description="Assign time">
+        <smallIcon xsi:type="gmftool:DefaultImage"/>
+        <largeIcon xsi:type="gmftool:DefaultImage"/>
+      </tools>
+    </tools>
+  </palette>
+</gmftool:ToolRegistry>

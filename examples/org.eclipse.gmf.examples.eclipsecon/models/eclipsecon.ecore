@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmi:id="_FvEGoJ5eEdqUXOXxYRVpzQ"
+    name="eclipsecon" nsURI="uri://gmf/examples/eclipsecon" nsPrefix="ec">
+  <eClassifiers xsi:type="ecore:EClass" xmi:id="_G11hcJ5eEdqUXOXxYRVpzQ" name="Schedule">
+    <eStructuralFeatures xsi:type="ecore:EReference" xmi:id="_kmGsQJ5eEdqUXOXxYRVpzQ"
+        name="slices" upperBound="5" eType="#_LixKoJ5eEdqUXOXxYRVpzQ" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dayNo" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" xmi:id="_LixKoJ5eEdqUXOXxYRVpzQ" name="TimeSlot">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="start" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="end" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" xmi:id="_Mj53gJ5eEdqUXOXxYRVpzQ" name="Tutorial">
+    <eStructuralFeatures xsi:type="ecore:EReference" xmi:id="_x9EGUJ5eEdqUXOXxYRVpzQ"
+        name="presenters" upperBound="2" eType="#_qvfFUJ5eEdqUXOXxYRVpzQ"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" xmi:id="_2JbZEJ5eEdqUXOXxYRVpzQ"
+        name="assigned" eType="#_LixKoJ5eEdqUXOXxYRVpzQ"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="handouts" upperBound="-1"
+        eType="#//Handout" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" xmi:id="_NvikMJ5eEdqUXOXxYRVpzQ" name="Conference">
+    <eStructuralFeatures xsi:type="ecore:EReference" xmi:id="_VGkcIJ5eEdqUXOXxYRVpzQ"
+        name="tutorials" upperBound="20" eType="#_Mj53gJ5eEdqUXOXxYRVpzQ" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" xmi:id="_YupWEJ5eEdqUXOXxYRVpzQ"
+        name="attendees" upperBound="-1" eType="#_RQvaEJ5eEdqUXOXxYRVpzQ" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" xmi:id="_izNyUJ5eEdqUXOXxYRVpzQ"
+        name="days" upperBound="2" eType="#_G11hcJ5eEdqUXOXxYRVpzQ" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="eclipsezilla" upperBound="-1"
+        eType="#//Resource" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" xmi:id="_RQvaEJ5eEdqUXOXxYRVpzQ" name="Participant">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" xmi:id="_bgxqAJ5fEdqUXOXxYRVpzQ"
+        name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" xmi:id="_qvfFUJ5eEdqUXOXxYRVpzQ" name="Presenter"
+      eSuperTypes="#_RQvaEJ5eEdqUXOXxYRVpzQ">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" xmi:id="_oicJgJ5fEdqUXOXxYRVpzQ"
+        name="bio" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="phone" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Handout">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//HandoutKind"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="eclipsezilla" eType="#//Resource"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="HandoutKind">
+    <eLiterals name="PRINTED"/>
+    <eLiterals name="CD"/>
+    <eLiterals name="MEM_KEY"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Resource">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="location" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>

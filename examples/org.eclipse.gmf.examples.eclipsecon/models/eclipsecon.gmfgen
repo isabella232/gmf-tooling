@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmfgen:GenEditorGenerator xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgen="http://www.eclipse.org/gmf/2005/GenModel" modelID="Eclipsecon">
+  <diagram visualID="79" editPartClassName="ConferenceEditPart" itemSemanticEditPolicyClassName="ConferenceItemSemanticEditPolicy" notationViewFactoryClassName="ConferenceViewFactory" canonicalEditPolicyClassName="ConferenceCanonicalEditPolicy">
+    <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
+    <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.FreeformLayer"/>
+    <domainDiagramElement href="eclipsecon.genmodel#//eclipsecon/Conference"/>
+    <childNodes visualID="2001" editPartClassName="TimeSlotEditPart" itemSemanticEditPolicyClassName="TimeSlotItemSemanticEditPolicy" notationViewFactoryClassName="TimeSlotViewFactory" canonicalEditPolicyClassName="TimeSlotCanonicalEditPolicy" graphicalNodeEditPolicyClassName="TimeSlotGraphicalNodeEditPolicy" containers="//@diagram/@topLevelNodes.1">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="SlotFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class SlotFigure extends org.eclipse.draw2d.RoundedRectangle {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public SlotFigure() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;this.setFill(true);&#xD;&#xA;&#x9;&#x9;this.setLineWidth(2);&#x9;&#x9;this.setForegroundColor(org.eclipse.draw2d.ColorConstants.cyan);&#xD;&#xA;this.setCornerDimensions(new org.eclipse.draw2d.geometry.Dimension(getMapMode().DPtoLP(20), getMapMode().DPtoLP(20)));&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
+      <modelFacet>
+        <metaClass href="eclipsecon.genmodel#//eclipsecon/TimeSlot"/>
+        <containmentMetaFeature href="eclipsecon.genmodel#//eclipsecon/Schedule/slices"/>
+        <childMetaFeature href="eclipsecon.genmodel#//eclipsecon/Schedule/slices"/>
+      </modelFacet>
+    </childNodes>
+    <topLevelNodes visualID="1001" editPartClassName="PresenterEditPart" itemSemanticEditPolicyClassName="PresenterItemSemanticEditPolicy" notationViewFactoryClassName="PresenterViewFactory" canonicalEditPolicyClassName="PresenterCanonicalEditPolicy" graphicalNodeEditPolicyClassName="PresenterGraphicalNodeEditPolicy">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="ActorFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ActorFigure extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ActorFigure() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.ToolbarLayout myGenLayoutManager = new org.eclipse.draw2d.ToolbarLayout();&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;myGenLayoutManager.setStretchMinorAxis(false);&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setMinorAlignment(ALIGN_LEFTTOP);&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setSpacing(5);&#xD;&#xA;&#x9;&#x9;myGenLayoutManager.setVertical(true);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;this.setLayoutManager(myGenLayoutManager);&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.IFigure childHead = createFigureHead();&#xD;&#xA;&#x9;&#x9;setFigureHead(childHead);&#xD;&#xA;&#x9;&#x9;add(childHead);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.IFigure childBody = createFigureBody();&#xD;&#xA;&#x9;&#x9;setFigureBody(childBody);&#xD;&#xA;&#x9;&#x9;add(childBody);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.IFigure childLabel = createFigureLabel();&#xD;&#xA;&#x9;&#x9;setFigureLabel(childLabel);&#xD;&#xA;&#x9;&#x9;add(childLabel);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;private IFigure fHead; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public IFigure getFigureHead() {&#xD;&#xA;&#x9;&#x9;return fHead;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setFigureHead(IFigure figure) {&#xD;&#xA;&#x9;&#x9;fHead = figure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private IFigure createFigureHead() {&#xD;&#xA;org.eclipse.draw2d.Ellipse rv = new org.eclipse.draw2d.Ellipse();&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;rv.setLineWidth(2);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return rv;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;private IFigure fBody; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public IFigure getFigureBody() {&#xD;&#xA;&#x9;&#x9;return fBody;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setFigureBody(IFigure figure) {&#xD;&#xA;&#x9;&#x9;fBody = figure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private IFigure createFigureBody() {&#xD;&#xA;org.eclipse.draw2d.Polygon rv = new org.eclipse.draw2d.Polygon();&#xD;&#xA;&#x9;&#x9;rv.setFill(true);&#xD;&#xA;&#x9;&#x9;rv.addPoint(new org.eclipse.draw2d.geometry.Point(30, 60));&#xD;&#xA;&#x9;&#x9;rv.addPoint(new org.eclipse.draw2d.geometry.Point(30, 85));&#xD;&#xA;&#x9;&#x9;rv.addPoint(new org.eclipse.draw2d.geometry.Point(0, 85));&#xD;&#xA;&#x9;&#x9;rv.addPoint(new org.eclipse.draw2d.geometry.Point(0, 88));&#xD;&#xA;&#x9;&#x9;rv.addPoint(new org.eclipse.draw2d.geometry.Point(30, 88));&#xD;&#xA;&#x9;&#x9;rv.addPoint(new org.eclipse.draw2d.geometry.Point(30, 160));&#xD;&#xA;&#x9;&#x9;rv.addPoint(new org.eclipse.draw2d.geometry.Point(0, 200));&#xD;&#xA;&#x9;&#x9;rv.addPoint(new org.eclipse.draw2d.geometry.Point(4, 200));&#xD;&#xA;&#x9;&#x9;rv.addPoint(new org.eclipse.draw2d.geometry.Point(31, 163));&#xD;&#xA;&#x9;&#x9;rv.addPoint(new org.eclipse.draw2d.geometry.Point(60, 200));&#xD;&#xA;&#x9;&#x9;rv.addPoint(new org.eclipse.draw2d.geometry.Point(64, 200));&#xD;&#xA;&#x9;&#x9;rv.addPoint(new org.eclipse.draw2d.geometry.Point(33, 160));&#xD;&#xA;&#x9;&#x9;rv.addPoint(new org.eclipse.draw2d.geometry.Point(33, 88));&#xD;&#xA;&#x9;&#x9;rv.addPoint(new org.eclipse.draw2d.geometry.Point(63, 88));&#xD;&#xA;&#x9;&#x9;rv.addPoint(new org.eclipse.draw2d.geometry.Point(63, 85));&#xD;&#xA;&#x9;&#x9;rv.addPoint(new org.eclipse.draw2d.geometry.Point(33, 85));&#xD;&#xA;&#x9;&#x9;rv.addPoint(new org.eclipse.draw2d.geometry.Point(33, 60));&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return rv;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;private IFigure fLabel; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public IFigure getFigureLabel() {&#xD;&#xA;&#x9;&#x9;return fLabel;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setFigureLabel(IFigure figure) {&#xD;&#xA;&#x9;&#x9;fLabel = figure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private IFigure createFigureLabel() {&#xD;&#xA;org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return rv;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
+      <modelFacet>
+        <metaClass href="eclipsecon.genmodel#//eclipsecon/Presenter"/>
+        <containmentMetaFeature href="eclipsecon.genmodel#//eclipsecon/Conference/attendees"/>
+        <childMetaFeature href="eclipsecon.genmodel#//eclipsecon/Conference/attendees"/>
+      </modelFacet>
+      <labels visualID="4001" editPartClassName="Presenter_nameEditPart" itemSemanticEditPolicyClassName="Presenter_nameItemSemanticEditPolicy" notationViewFactoryClassName="Presenter_nameViewFactory">
+        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
+          <metaFeature href="eclipsecon.genmodel#//eclipsecon/Participant/name"/>
+        </modelFacet>
+      </labels>
+    </topLevelNodes>
+    <topLevelNodes visualID="1002" editPartClassName="ScheduleEditPart" itemSemanticEditPolicyClassName="ScheduleItemSemanticEditPolicy" notationViewFactoryClassName="ScheduleViewFactory" childNodes="//@diagram/@childNodes.0" canonicalEditPolicyClassName="ScheduleCanonicalEditPolicy" listLayout="false" graphicalNodeEditPolicyClassName="ScheduleGraphicalNodeEditPolicy">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="ThickFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class ThickFigure extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public ThickFigure() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;this.setLineWidth(3);&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
+      <modelFacet>
+        <metaClass href="eclipsecon.genmodel#//eclipsecon/Schedule"/>
+        <containmentMetaFeature href="eclipsecon.genmodel#//eclipsecon/Conference/days"/>
+        <childMetaFeature href="eclipsecon.genmodel#//eclipsecon/Conference/days"/>
+      </modelFacet>
+    </topLevelNodes>
+    <topLevelNodes visualID="1003" editPartClassName="TutorialEditPart" itemSemanticEditPolicyClassName="TutorialItemSemanticEditPolicy" notationViewFactoryClassName="TutorialViewFactory" canonicalEditPolicyClassName="TutorialCanonicalEditPolicy" graphicalNodeEditPolicyClassName="TutorialGraphicalNodeEditPolicy">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="BasicRect" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class BasicRect extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public BasicRect() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
+      <modelFacet>
+        <metaClass href="eclipsecon.genmodel#//eclipsecon/Tutorial"/>
+        <containmentMetaFeature href="eclipsecon.genmodel#//eclipsecon/Conference/tutorials"/>
+        <childMetaFeature href="eclipsecon.genmodel#//eclipsecon/Conference/tutorials"/>
+      </modelFacet>
+      <labels visualID="4002" editPartClassName="Tutorial_titleEditPart" itemSemanticEditPolicyClassName="Tutorial_titleItemSemanticEditPolicy" notationViewFactoryClassName="Tutorial_titleViewFactory">
+        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
+          <metaFeature href="eclipsecon.genmodel#//eclipsecon/Tutorial/title"/>
+        </modelFacet>
+      </labels>
+    </topLevelNodes>
+    <topLevelNodes visualID="1004" editPartClassName="ResourceEditPart" itemSemanticEditPolicyClassName="ResourceItemSemanticEditPolicy" notationViewFactoryClassName="ResourceViewFactory" canonicalEditPolicyClassName="ResourceCanonicalEditPolicy" graphicalNodeEditPolicyClassName="ResourceGraphicalNodeEditPolicy">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="BasicRect" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class BasicRect extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public BasicRect() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
+      <modelFacet>
+        <metaClass href="eclipsecon.genmodel#//eclipsecon/Resource"/>
+        <containmentMetaFeature href="eclipsecon.genmodel#//eclipsecon/Conference/eclipsezilla"/>
+        <childMetaFeature href="eclipsecon.genmodel#//eclipsecon/Conference/eclipsezilla"/>
+      </modelFacet>
+      <labels visualID="4003" editPartClassName="Resource_nameEditPart" itemSemanticEditPolicyClassName="Resource_nameItemSemanticEditPolicy" notationViewFactoryClassName="Resource_nameViewFactory">
+        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
+          <metaFeature href="eclipsecon.genmodel#//eclipsecon/Resource/name"/>
+        </modelFacet>
+      </labels>
+      <labels visualID="4004" editPartClassName="Resource_locationEditPart" itemSemanticEditPolicyClassName="Resource_locationItemSemanticEditPolicy" notationViewFactoryClassName="Resource_locationViewFactory">
+        <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
+        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>" editPattern="">
+          <metaFeature href="eclipsecon.genmodel#//eclipsecon/Resource/location"/>
+        </modelFacet>
+      </labels>
+    </topLevelNodes>
+    <links visualID="3001" editPartClassName="HandoutEditPart" itemSemanticEditPolicyClassName="HandoutItemSemanticEditPolicy" notationViewFactoryClassName="HandoutViewFactory">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="SolidLineSquareDec" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class SolidLineSquareDec extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public SolidLineSquareDec() {&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}"/>
+      <modelFacet xsi:type="gmfgen:TypeLinkModelFacet">
+        <metaClass href="eclipsecon.genmodel#//eclipsecon/Handout"/>
+        <containmentMetaFeature href="eclipsecon.genmodel#//eclipsecon/Tutorial/handouts"/>
+        <childMetaFeature href="eclipsecon.genmodel#//eclipsecon/Tutorial/handouts"/>
+        <targetMetaFeature href="eclipsecon.genmodel#//eclipsecon/Handout/eclipsezilla"/>
+      </modelFacet>
+    </links>
+    <links visualID="3002" editPartClassName="PresentersEditPart" itemSemanticEditPolicyClassName="PresentersItemSemanticEditPolicy" notationViewFactoryClassName="PresentersViewFactory">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="DotLineNoDecorations" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class DotLineNoDecorations extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public DotLineNoDecorations() {&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DOT);&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;}"/>
+      <modelFacet xsi:type="gmfgen:FeatureLinkModelFacet">
+        <metaFeature href="eclipsecon.genmodel#//eclipsecon/Tutorial/presenters"/>
+      </modelFacet>
+    </links>
+    <links visualID="3003" editPartClassName="AssignedEditPart" itemSemanticEditPolicyClassName="AssignedItemSemanticEditPolicy" notationViewFactoryClassName="AssignedViewFactory">
+      <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="DashLineNoDecorations" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class DashLineNoDecorations extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public DashLineNoDecorations() {&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;this.setLineStyle(org.eclipse.draw2d.Graphics.LINE_DASH);&#xD;&#xA;&#x9;&#x9;setSourceDecoration(createSourceDecoration());&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.PolygonDecoration createSourceDecoration() {&#xD;&#xA;org.eclipse.draw2d.PolygonDecoration df = new org.eclipse.draw2d.PolygonDecoration();&#xD;&#xA;// dispatchNext?&#xD;&#xA;&#x9;&#x9;df.setFill(true);&#x9;&#x9;df.setForegroundColor(org.eclipse.draw2d.ColorConstants.black);&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();&#xD;&#xA;&#x9;&#x9;pl.addPoint(1, 0);&#xD;&#xA;&#x9;&#x9;pl.addPoint(1, 1);&#xD;&#xA;&#x9;&#x9;pl.addPoint(0, 1);&#xD;&#xA;&#x9;&#x9;pl.addPoint(0, 0);&#xD;&#xA;&#x9;&#x9;df.setTemplate(pl);&#xD;&#xA;&#x9;&#x9;df.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return df;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}"/>
+      <modelFacet xsi:type="gmfgen:FeatureLinkModelFacet">
+        <metaFeature href="eclipsecon.genmodel#//eclipsecon/Tutorial/assigned"/>
+      </modelFacet>
+    </links>
+    <palette>
+      <groups titleKey="nodes" entryID="1">
+        <nodeTools titleKey="Presenter" descriptionKey="Create new Presenter" entryID="1001" genNode="//@diagram/@topLevelNodes.0"/>
+        <nodeTools titleKey="Schedule" descriptionKey="Create new Schedule" entryID="1002" genNode="//@diagram/@topLevelNodes.1"/>
+        <nodeTools titleKey="TimeSlot" descriptionKey="Create new TimeSlot" entryID="1003" genNode="//@diagram/@childNodes.0"/>
+        <nodeTools titleKey="Tutorial" descriptionKey="Create new Tutorial" entryID="1004" genNode="//@diagram/@topLevelNodes.2"/>
+        <nodeTools titleKey="Resource" descriptionKey="Create new resource" entryID="1005" genNode="//@diagram/@topLevelNodes.3"/>
+      </groups>
+      <groups titleKey="links" descriptionKey="" entryID="2">
+        <linkTools titleKey="Handout" descriptionKey="Define hand-out material" entryID="2001" genLink="//@diagram/@links.0"/>
+        <linkTools titleKey="Presenter" descriptionKey="Connect tutorial with presenter" entryID="2002" genLink="//@diagram/@links.1"/>
+        <linkTools titleKey="Assign time" descriptionKey="Assign time" entryID="2003" genLink="//@diagram/@links.2"/>
+      </groups>
+    </palette>
+  </diagram>
+  <plugin name="EclipseCon Diagram Plugin"/>
+  <editor/>
+  <domainGenModel href="eclipsecon.genmodel#/"/>
+</gmfgen:GenEditorGenerator>

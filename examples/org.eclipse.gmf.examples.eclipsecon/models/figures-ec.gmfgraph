@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ASCII"?>
+<gmfgraph:FigureGallery xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="EclipseConFigures">
+  <figures xsi:type="gmfgraph:Rectangle" name="ActorFigure" fill="false" outline="false">
+    <layout xsi:type="gmfgraph:FlowLayout" vertical="true" forceSingleLine="true"/>
+    <children xsi:type="gmfgraph:Ellipse" name="Head" lineWidth="2">
+      <size x="60" y="60"/>
+    </children>
+    <children xsi:type="gmfgraph:Polygon" name="Body" fill="true">
+      <template x="30" y="60"/>
+      <template x="30" y="85"/>
+      <template y="85"/>
+      <template y="88"/>
+      <template x="30" y="88"/>
+      <template x="30" y="130"/>
+      <template y="170"/>
+      <template x="4" y="170"/>
+      <template x="31" y="133"/>
+      <template x="60" y="170"/>
+      <template x="64" y="170"/>
+      <template x="33" y="130"/>
+      <template x="33" y="88"/>
+      <template x="63" y="88"/>
+      <template x="63" y="85"/>
+      <template x="33" y="85"/>
+      <template x="33" y="60"/>
+    </children>
+    <children xsi:type="gmfgraph:Label" name="Label"/>
+  </figures>
+</gmfgraph:FigureGallery>

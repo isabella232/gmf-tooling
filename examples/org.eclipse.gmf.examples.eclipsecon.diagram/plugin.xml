@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <extension point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconDiagramPreferenceInitializer"/>
+   </extension>
+
+  <extension point="org.eclipse.team.core.fileTypes">
+      <fileTypes
+         type="text"
+         extension="eclipsecon">
+      </fileTypes>
+      <fileTypes
+         type="text"
+         extension="eclipsecon_diagram">
+      </fileTypes>
+  </extension>
+
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+         type="eclipsecon"
+         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
+      </parser>
+      <parser
+         type="eclipsecon_diagram"
+         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
+      </parser>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+     <editor
+        id="org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconDiagramEditorID"
+        name="Eclipsecon Diagram Editor"
+        icon="../org.eclipse.gmf.examples.eclipsecon/icons/full/obj16/EclipseconModelFile.gif"
+        extensions="eclipsecon_diagram"
+        default="true"
+        class="org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconDiagramEditor"
+        matchingStrategy="org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconMatchingStrategy"
+        contributorClass="org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconDiagramActionBarContributor">
+     </editor>
+   </extension>
+
+   <extension point="org.eclipse.ui.newWizards">
+  	  <wizard
+  	     name="Eclipsecon Diagram"
+  	     icon="../org.eclipse.gmf.examples.eclipsecon/icons/full/obj16/EclipseconModelFile.gif"
+  	     category="org.eclipse.ui.Examples"
+  	     class="org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconCreationWizard"
+  	     id="org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconCreationWizardID">
+  	  	 <description>
+  	  		Creates Eclipsecon diagram.
+  	  	 </description>  
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="org.eclipse.gmf.examples.eclipsecon.diagram.ui.objectContribution.IFile1"
+            nameFilter="*.eclipsecon"
+            objectClass="org.eclipse.core.resources.IFile">
+         <action
+               label="Initialize eclipsecon_diagram diagram file"
+               class="org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconInitDiagramFileAction"
+               menubarPath="additions"
+               enablesFor="1"
+               id="org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconInitDiagramFileActionID">
+         </action>
+      </objectContribution>  
+      <objectContribution
+            adaptable="false"
+            id="org.eclipse.gmf.examples.eclipsecon.diagram.ui.objectContribution.ConferenceEditPart2"
+            objectClass="org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts.ConferenceEditPart">
+         <action
+               class="org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconLoadResourceAction"
+               enablesFor="1"
+               id="org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconLoadResourceActionID"
+               label="Load Resource..."
+               menubarPath="additions">
+         </action>
+      </objectContribution>                      
+  </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.action.globalActionHandlerProviders">
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramGlobalActionHandlerProvider"
+         id="EclipseconPresentation">
+         <Priority name="Lowest"/>
+         <ViewId id="org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="delete"/>
+            </ElementType>
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart">
+               <GlobalActionId actionId="save"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+         class="org.eclipse.gmf.runtime.diagram.ui.providers.ide.providers.DiagramIDEGlobalActionHandlerProvider"
+         id="EclipseconPresentationIDE">
+         <Priority name="Lowest"/>
+         <ViewId id="org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="bookmark"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+      <GlobalActionHandlerProvider
+            class="org.eclipse.gmf.runtime.diagram.ui.render.providers.DiagramUIRenderGlobalActionHandlerProvider"
+            id="EclipseconRender">
+         <Priority name="Lowest"/>
+         <ViewId id="org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconDiagramEditorID">
+            <ElementType class="org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart">
+               <GlobalActionId actionId="cut"/>
+               <GlobalActionId actionId="copy"/>
+               <GlobalActionId actionId="paste"/>
+            </ElementType>
+         </ViewId>
+      </GlobalActionHandlerProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
+      <viewProvider class="org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconViewProvider">
+         <Priority name="Lowest"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Eclipsecon"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints=""/>
+      </viewProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
+      <editpartProvider class="org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconEditPartProvider">
+         <Priority name="Lowest"/>
+      </editpartProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.diagram.ui.paletteProviders">
+      <paletteProvider class="org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconPaletteProvider">
+         <Priority name="Lowest"/>
+         <editor id="org.eclipse.gmf.examples.eclipsecon.diagram.part.EclipseconDiagramEditorID"/>
+      </paletteProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.core.compatibility.MetaModelProviders">
+      <MetaModelProvider class="org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconMetaModelSupportProvider">
+         <Priority name="Lowest"/>
+      </MetaModelProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
+      <modelingAssistantProvider class="org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconModelingAssistantProvider">
+         <Priority name="Lowest"/>
+      </modelingAssistantProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.properties.propertiesProviders">
+      <PropertiesProvider
+            verifyPluginLoaded="false"
+            class="org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconPropertyProvider">
+         <Priority name="Lowest"/>
+      </PropertiesProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
+      <IconProvider class="org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconIconProvider">
+         <Priority name="Lowest"/>
+      </IconProvider>
+   </extension>
+
+   <extension point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
+      <ParserProvider class="org.eclipse.gmf.examples.eclipsecon.diagram.providers.EclipseconParserProvider">
+         <Priority name="Lowest"/>
+      </ParserProvider>
+   </extension>
+   
+</plugin>
