@@ -20,20 +20,22 @@ import java.text.MessageFormat;
  */
 public class DynamicTemplateRegistry implements TemplateRegistry {
 	private final String myPattern;
+	private ClassLoader myClassLoader;
 
 	/**
 	 * Uses simple pattern <code>"{0}"</code> (i.e. leave key as is) to initialize instance. 
 	 */
-	public DynamicTemplateRegistry() {
-		this("{0}");
+	public DynamicTemplateRegistry(ClassLoader classLoader) {
+		this("{0}", classLoader);
 	}
 
 	/**
 	 * Allows to add some prefix/suffix to the value of passed key. E.g. <code>"/templates-new/{0}.javajet"</code>
 	 * @param pattern string to pass to {@link MessageFormat}
 	 */
-	public DynamicTemplateRegistry(String pattern) {
+	public DynamicTemplateRegistry(String pattern, ClassLoader classLoader) {
 		myPattern = pattern;
+		myClassLoader = classLoader;
 	}
 
 	/**
@@ -41,6 +43,13 @@ public class DynamicTemplateRegistry implements TemplateRegistry {
 	 */
 	public String getTemplatePath(Object key) {
 		return MessageFormat.format(myPattern, new Object[] { key });
+	}
+	
+	/**
+	 * Return classloader of the key or own classloader if key is null
+	 */
+	public ClassLoader getTemplateClassLoader(Object key) {
+		return myClassLoader;
 	}
 
 	/**

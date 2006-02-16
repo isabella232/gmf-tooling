@@ -115,7 +115,7 @@ public class FigureGenerator {
 	}
 
 	private static TemplateRegistry fillTopLevel() {
-		StaticTemplateRegistry tr = new StaticTemplateRegistry();
+		StaticTemplateRegistry tr = new StaticTemplateRegistry(FigureGenerator.class.getClassLoader());
 		tr.put(PolylineConnection.class, "/PolylineConnection.javajet", TopConnectionGenerator.class);
 		tr.put(Shape.class, "/top/Shape.javajet", TopShapeGenerator.class);
 		tr.put(Figure.class, "/top/Figure.javajet", TopFigureGenerator.class);
@@ -128,7 +128,7 @@ public class FigureGenerator {
 	// whether to instantiate, look for children or initialize attributes
 	// Perhaps, we should have distinct methods in the Dispatcher, or add "hint" as another argument
 	private static TemplateRegistry fillAttrs() {
-		StaticTemplateRegistry tr = new StaticTemplateRegistry();
+		StaticTemplateRegistry tr = new StaticTemplateRegistry(FigureGenerator.class.getClassLoader());
 		tr.put(Figure.class, "/attr/Figure.javajet", FigureAttrGenerator.class);
 		tr.put(Shape.class, "/attr/Shape.javajet", ShapeAttrGenerator.class);
 		tr.put(Label.class, "/attr/Label.javajet", LabelAttrGenerator.class);

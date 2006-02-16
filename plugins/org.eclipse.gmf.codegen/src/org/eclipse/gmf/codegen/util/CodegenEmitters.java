@@ -113,7 +113,7 @@ public class CodegenEmitters {
 	}
 
 	private static TemplateRegistry initRegistry() {
-		final StaticTemplateRegistry tr = new StaticTemplateRegistry();
+		final StaticTemplateRegistry tr = new StaticTemplateRegistry(CodegenEmitters.class.getClassLoader());
 		put(tr, "/commands/ReorientConnectionViewCommand.javajet", ReorientConnectionViewCommandGenerator.class);
 		put(tr, "/parts/DiagramEditPart.javajet", DiagramEditPartGenerator.class);
 		put(tr, "/parts/DiagramExternalNodeLabelEditPart.javajet", DiagramExternalNodeLabelEditPartGenerator.class);

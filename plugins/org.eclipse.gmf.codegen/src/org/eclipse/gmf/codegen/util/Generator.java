@@ -15,9 +15,11 @@ import java.io.ByteArrayInputStream;
 import java.lang.ref.SoftReference;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -37,6 +39,7 @@ import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.emf.codegen.jmerge.JControlModel;
 import org.eclipse.emf.codegen.jmerge.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
@@ -90,7 +93,7 @@ public class Generator implements Runnable {
 
 	private CodegenEmitters myEmitters;
 
-	private static SoftReference/*<CodegenEmitters>*/ myCachedEmitters;
+	private static Map/*<URI, SoftReference>*/ myCachedURI2EmitterMap = new HashMap();
 
 	public Generator(GenEditorGenerator genModel) {
 		this(genModel.getDiagram());
@@ -102,10 +105,16 @@ public class Generator implements Runnable {
 	public Generator(GenDiagram diagram) {
 		myDiagram = diagram;
 		myEditorGen = myDiagram.getEditorGen();
-		CodegenEmitters old = myCachedEmitters == null ? null : (CodegenEmitters) myCachedEmitters.get();
+		URI resourceURI = myEditorGen.eResource().getURI();
+		if (myEditorGen.isDynamicTemplates()) {
+			myCachedURI2EmitterMap.remove(resourceURI);
+		}
+		CodegenEmitters old = myCachedURI2EmitterMap.containsKey(resourceURI) ? (CodegenEmitters) ((SoftReference) myCachedURI2EmitterMap.get(resourceURI)).get() : null;
 		if (old == null) {
 			myEmitters = new CodegenEmitters(!myEditorGen.isDynamicTemplates(), myEditorGen.getTemplateDirectory());
-			myCachedEmitters = new SoftReference(myEmitters);
+			if (!myEditorGen.isDynamicTemplates()) {
+				myCachedURI2EmitterMap.put(resourceURI, new SoftReference(myEmitters));
+			}
 		} else {
 			myEmitters = old;
 		}

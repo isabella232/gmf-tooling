@@ -100,7 +100,12 @@ public class EmitterFactory {
 		JETEmitter em;
 		String relativePath = constructPath(key);
 		ClassLoader cl;
-		cl = myTemplates.getGeneratorClass(key).getClassLoader();
+		if (precompiledInUse(key)) {
+			cl = myTemplates.getGeneratorClass(key).getClassLoader();
+		} else {
+			cl = myTemplates.getTemplateClassLoader(key);
+		}
+
 		em = new JETEmitter(myTemplatePath, relativePath, cl);
 		feedVariables(em);
 		initPrecompiled(key, em);

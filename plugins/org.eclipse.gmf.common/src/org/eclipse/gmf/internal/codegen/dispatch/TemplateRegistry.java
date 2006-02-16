@@ -19,6 +19,8 @@ package org.eclipse.gmf.internal.codegen.dispatch;
 public interface TemplateRegistry {
 
 	String getTemplatePath(Object key);
+	
+	ClassLoader getTemplateClassLoader(Object key);
 
 	boolean hasGeneratorClass(Object key);
 

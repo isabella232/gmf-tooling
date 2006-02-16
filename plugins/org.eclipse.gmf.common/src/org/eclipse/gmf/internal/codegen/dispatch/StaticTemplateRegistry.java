@@ -20,17 +20,38 @@ import java.util.Map;
 public class StaticTemplateRegistry implements TemplateRegistry {
 	private final Map pathMap = new HashMap/*<Object, String>*/();
 	private final Map classMap = new HashMap/*<Object,Class>*/();
+	private final Map classLoaderMap = new HashMap/*<Object, ClassLoader>*/();
+	private final ClassLoader myDefaultClassLoader;
+	
+	public StaticTemplateRegistry(ClassLoader defaultClassLoader) {
+		assert defaultClassLoader != null;
+		myDefaultClassLoader = defaultClassLoader;
+	}
 
 	public void put(Object key, String templatePath, Class generatorClass) {
+		put(key, templatePath, generatorClass, null);
+	}
+	
+	public void put(Object key, String templatePath, Class generatorClass, ClassLoader templateClassLoader) {
 		assert key != null && templatePath != null;
 		pathMap.put(key, templatePath);
 		if (generatorClass != null) {
 			classMap.put(key, generatorClass);
 		}
+		if (templateClassLoader != null) {
+			classLoaderMap.put(key, templateClassLoader);
+		}
 	}
 
 	public String getTemplatePath(Object key) {
 		return (String) pathMap.get(key);
+	}
+	
+	public ClassLoader getTemplateClassLoader(Object key) {
+		if (classLoaderMap.containsKey(key)) {
+			return (ClassLoader) classLoaderMap.get(key);
+		}
+		return myDefaultClassLoader;
 	}
 
 	public boolean hasGeneratorClass(Object key) {
