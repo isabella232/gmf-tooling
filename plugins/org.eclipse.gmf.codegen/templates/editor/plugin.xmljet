@@ -177,12 +177,6 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
       </paletteProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.emf.core.compatibility.MetaModelProviders">
-      <MetaModelProvider class="<%=genDiagram.getMetamodelSupportProviderQualifiedClassName()%>">
-         <Priority name="<%=genDiagram.getMetamodelSupportProviderPriority()%>"/>
-      </MetaModelProvider>
-   </extension>
-
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
       <modelingAssistantProvider class="<%=genDiagram.getModelingAssistantProviderQualifiedClassName()%>">
          <Priority name="<%=genDiagram.getModelingAssistantProviderPriority()%>"/>

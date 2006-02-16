@@ -68,7 +68,6 @@ import org.eclipse.gmf.codegen.templates.providers.IconProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.LabelTextViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.LabelViewFactoryGenerator;
 import org.eclipse.gmf.codegen.templates.providers.MarkerNavigationProviderGenerator;
-import org.eclipse.gmf.codegen.templates.providers.MetamodelSupportProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ModelingAssistantProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.PaletteProviderGenerator;
 import org.eclipse.gmf.codegen.templates.providers.ParserProviderGenerator;
@@ -149,7 +148,6 @@ public class CodegenEmitters {
 		put(tr, "/providers/ViewProvider.javajet", ViewProviderGenerator.class);
 		put(tr, "/providers/EditPartProvider.javajet", EditPartProviderGenerator.class);
 		put(tr, "/providers/PaletteProvider.javajet", PaletteProviderGenerator.class);
-		put(tr, "/providers/MetamodelSupportProvider.javajet", MetamodelSupportProviderGenerator.class);
 		put(tr, "/providers/ModelingAssistantProvider.javajet", ModelingAssistantProviderGenerator.class);
 		put(tr, "/providers/PropertyProvider.javajet", PropertyProviderGenerator.class);
 		put(tr, "/providers/IconProvider.javajet", IconProviderGenerator.class);
@@ -355,10 +353,6 @@ public class CodegenEmitters {
 
 	public JETEmitter getPaletteProviderEmitter() throws JETException {
 		return retrieve(PaletteProviderGenerator.class);
-	}
-
-	public JETEmitter getMetamodelSupportProviderEmitter() throws JETException {
-		return retrieve(MetamodelSupportProviderGenerator.class);
 	}
 
 	public JETEmitter getModelingAssistantProviderEmitter() throws JETException {

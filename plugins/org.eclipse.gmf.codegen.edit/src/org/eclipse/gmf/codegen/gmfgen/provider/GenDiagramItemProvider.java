@@ -75,8 +75,6 @@ public class GenDiagramItemProvider
 			addEditPartProviderPriorityPropertyDescriptor(object);
 			addPaletteProviderClassNamePropertyDescriptor(object);
 			addPaletteProviderPriorityPropertyDescriptor(object);
-			addMetamodelSupportProviderClassNamePropertyDescriptor(object);
-			addMetamodelSupportProviderPriorityPropertyDescriptor(object);
 			addModelingAssistantProviderClassNamePropertyDescriptor(object);
 			addModelingAssistantProviderPriorityPropertyDescriptor(object);
 			addPropertyProviderClassNamePropertyDescriptor(object);
@@ -940,46 +938,6 @@ public class GenDiagramItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Metamodel Support Provider Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addMetamodelSupportProviderClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ProviderClassNames_metamodelSupportProviderClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_metamodelSupportProviderClassName_feature", "_UI_ProviderClassNames_type"),
-				 GMFGenPackage.eINSTANCE.getProviderClassNames_MetamodelSupportProviderClassName(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Metamodel Support Provider Priority feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addMetamodelSupportProviderPriorityPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ProviderClassNames_metamodelSupportProviderPriority_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ProviderClassNames_metamodelSupportProviderPriority_feature", "_UI_ProviderClassNames_type"),
-				 GMFGenPackage.eINSTANCE.getProviderClassNames_MetamodelSupportProviderPriority(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Modeling Assistant Provider Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1278,8 +1236,6 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE_PROVIDER_PRIORITY:
-			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
-			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_PRIORITY:
 			case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME:

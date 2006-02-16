@@ -60,8 +60,6 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getEditPartProviderPriority <em>Edit Part Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPaletteProviderClassName <em>Palette Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPaletteProviderPriority <em>Palette Provider Priority</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMetamodelSupportProviderClassName <em>Metamodel Support Provider Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getMetamodelSupportProviderPriority <em>Metamodel Support Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getModelingAssistantProviderClassName <em>Modeling Assistant Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getModelingAssistantProviderPriority <em>Modeling Assistant Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramImpl#getPropertyProviderClassName <em>Property Provider Class Name</em>}</li>
@@ -372,46 +370,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * @ordered
 	 */
 	protected ProviderPriority paletteProviderPriority = PALETTE_PROVIDER_PRIORITY_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getMetamodelSupportProviderClassName() <em>Metamodel Support Provider Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMetamodelSupportProviderClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getMetamodelSupportProviderClassName() <em>Metamodel Support Provider Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMetamodelSupportProviderClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String metamodelSupportProviderClassName = METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getMetamodelSupportProviderPriority() <em>Metamodel Support Provider Priority</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMetamodelSupportProviderPriority()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final ProviderPriority METAMODEL_SUPPORT_PROVIDER_PRIORITY_EDEFAULT = ProviderPriority.LOWEST_LITERAL;
-
-	/**
-	 * The cached value of the '{@link #getMetamodelSupportProviderPriority() <em>Metamodel Support Provider Priority</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMetamodelSupportProviderPriority()
-	 * @generated
-	 * @ordered
-	 */
-	protected ProviderPriority metamodelSupportProviderPriority = METAMODEL_SUPPORT_PROVIDER_PRIORITY_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getModelingAssistantProviderClassName() <em>Modeling Assistant Provider Class Name</em>}' attribute.
@@ -2416,56 +2374,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getMetamodelSupportProviderClassNameGen() {
-		return metamodelSupportProviderClassName;
-	}
-
-	public String getMetamodelSupportProviderClassName() {
-		String value = getMetamodelSupportProviderClassNameGen();
-		if (isEmpty(value)) {
-			value = getDomainPackageCapName() + "MetaModelSupportProvider"; //$NON-NLS-1$
-		}
-		return value;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setMetamodelSupportProviderClassName(String newMetamodelSupportProviderClassName) {
-		String oldMetamodelSupportProviderClassName = metamodelSupportProviderClassName;
-		metamodelSupportProviderClassName = newMetamodelSupportProviderClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME, oldMetamodelSupportProviderClassName, metamodelSupportProviderClassName));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ProviderPriority getMetamodelSupportProviderPriority() {
-		return metamodelSupportProviderPriority;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setMetamodelSupportProviderPriority(ProviderPriority newMetamodelSupportProviderPriority) {
-		ProviderPriority oldMetamodelSupportProviderPriority = metamodelSupportProviderPriority;
-		metamodelSupportProviderPriority = newMetamodelSupportProviderPriority == null ? METAMODEL_SUPPORT_PROVIDER_PRIORITY_EDEFAULT : newMetamodelSupportProviderPriority;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_PRIORITY, oldMetamodelSupportProviderPriority, metamodelSupportProviderPriority));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getModelingAssistantProviderClassNameGen() {
 		return modelingAssistantProviderClassName;
 	}
@@ -2996,10 +2904,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return getPaletteProviderClassName();
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE_PROVIDER_PRIORITY:
 				return getPaletteProviderPriority();
-			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
-				return getMetamodelSupportProviderClassName();
-			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_PRIORITY:
-				return getMetamodelSupportProviderPriority();
 			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
 				return getModelingAssistantProviderClassName();
 			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_PRIORITY:
@@ -3142,12 +3046,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE_PROVIDER_PRIORITY:
 				setPaletteProviderPriority((ProviderPriority)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
-				setMetamodelSupportProviderClassName((String)newValue);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_PRIORITY:
-				setMetamodelSupportProviderPriority((ProviderPriority)newValue);
 				return;
 			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
 				setModelingAssistantProviderClassName((String)newValue);
@@ -3337,12 +3235,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE_PROVIDER_PRIORITY:
 				setPaletteProviderPriority(PALETTE_PROVIDER_PRIORITY_EDEFAULT);
 				return;
-			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
-				setMetamodelSupportProviderClassName(METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT);
-				return;
-			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_PRIORITY:
-				setMetamodelSupportProviderPriority(METAMODEL_SUPPORT_PROVIDER_PRIORITY_EDEFAULT);
-				return;
 			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
 				setModelingAssistantProviderClassName(MODELING_ASSISTANT_PROVIDER_CLASS_NAME_EDEFAULT);
 				return;
@@ -3511,10 +3403,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				return PALETTE_PROVIDER_CLASS_NAME_EDEFAULT == null ? paletteProviderClassName != null : !PALETTE_PROVIDER_CLASS_NAME_EDEFAULT.equals(paletteProviderClassName);
 			case GMFGenPackage.GEN_DIAGRAM__PALETTE_PROVIDER_PRIORITY:
 				return paletteProviderPriority != PALETTE_PROVIDER_PRIORITY_EDEFAULT;
-			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME:
-				return METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT == null ? metamodelSupportProviderClassName != null : !METAMODEL_SUPPORT_PROVIDER_CLASS_NAME_EDEFAULT.equals(metamodelSupportProviderClassName);
-			case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_PRIORITY:
-				return metamodelSupportProviderPriority != METAMODEL_SUPPORT_PROVIDER_PRIORITY_EDEFAULT;
 			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME:
 				return MODELING_ASSISTANT_PROVIDER_CLASS_NAME_EDEFAULT == null ? modelingAssistantProviderClassName != null : !MODELING_ASSISTANT_PROVIDER_CLASS_NAME_EDEFAULT.equals(modelingAssistantProviderClassName);
 			case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_PRIORITY:
@@ -3633,8 +3521,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_PRIORITY: return GMFGenPackage.PROVIDER_CLASS_NAMES__EDIT_PART_PROVIDER_PRIORITY;
 				case GMFGenPackage.GEN_DIAGRAM__PALETTE_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__PALETTE_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__PALETTE_PROVIDER_PRIORITY: return GMFGenPackage.PROVIDER_CLASS_NAMES__PALETTE_PROVIDER_PRIORITY;
-				case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME;
-				case GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_PRIORITY: return GMFGenPackage.PROVIDER_CLASS_NAMES__METAMODEL_SUPPORT_PROVIDER_PRIORITY;
 				case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__MODELING_ASSISTANT_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_PRIORITY: return GMFGenPackage.PROVIDER_CLASS_NAMES__MODELING_ASSISTANT_PROVIDER_PRIORITY;
 				case GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME: return GMFGenPackage.PROVIDER_CLASS_NAMES__PROPERTY_PROVIDER_CLASS_NAME;
@@ -3729,8 +3615,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__EDIT_PART_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__EDIT_PART_PROVIDER_PRIORITY;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__PALETTE_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__PALETTE_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__PALETTE_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__PALETTE_PROVIDER_PRIORITY;
-				case GMFGenPackage.PROVIDER_CLASS_NAMES__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_CLASS_NAME;
-				case GMFGenPackage.PROVIDER_CLASS_NAMES__METAMODEL_SUPPORT_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__METAMODEL_SUPPORT_PROVIDER_PRIORITY;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__MODELING_ASSISTANT_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_CLASS_NAME;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__MODELING_ASSISTANT_PROVIDER_PRIORITY: return GMFGenPackage.GEN_DIAGRAM__MODELING_ASSISTANT_PROVIDER_PRIORITY;
 				case GMFGenPackage.PROVIDER_CLASS_NAMES__PROPERTY_PROVIDER_CLASS_NAME: return GMFGenPackage.GEN_DIAGRAM__PROPERTY_PROVIDER_CLASS_NAME;
@@ -3958,15 +3842,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public String getMetamodelSupportProviderQualifiedClassName() {
-		return getProvidersPackageName() + '.' + getMetamodelSupportProviderClassName();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
 	public String getModelingAssistantProviderQualifiedClassName() {
 		return getProvidersPackageName() + '.' + getModelingAssistantProviderClassName();
 	}
@@ -4132,10 +4007,6 @@ public class GenDiagramImpl extends GenCommonBaseImpl implements GenDiagram {
 		result.append(paletteProviderClassName);
 		result.append(", paletteProviderPriority: ");
 		result.append(paletteProviderPriority);
-		result.append(", metamodelSupportProviderClassName: ");
-		result.append(metamodelSupportProviderClassName);
-		result.append(", metamodelSupportProviderPriority: ");
-		result.append(metamodelSupportProviderPriority);
 		result.append(", modelingAssistantProviderClassName: ");
 		result.append(modelingAssistantProviderClassName);
 		result.append(", modelingAssistantProviderPriority: ");

@@ -180,7 +180,6 @@ public class Generator implements Runnable {
 			generateViewProvider();
 			generateEditPartProvider();
 			generatePaletteProvider();
-			generateMetamodelSupportProvider();
 			generateModelingAssistantProvider();
 			generatePropertyProvider();
 			generateIconProvider();
@@ -563,14 +562,6 @@ public class Generator implements Runnable {
 		);
 	}
 	
-	private void generateMetamodelSupportProvider() throws JETException, InterruptedException {
-		doGenerateJavaClass(
-			myEmitters.getMetamodelSupportProviderEmitter(),
-			myDiagram.getProvidersPackageName(),
-			myDiagram.getMetamodelSupportProviderClassName(),
-			myDiagram);
-	}
-
 	private void generateModelingAssistantProvider() throws JETException, InterruptedException {
 		doGenerateJavaClass(
 			myEmitters.getModelingAssistantProviderEmitter(),

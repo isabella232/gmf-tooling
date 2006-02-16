@@ -24,8 +24,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getEditPartProviderPriority <em>Edit Part Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getPaletteProviderClassName <em>Palette Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getPaletteProviderPriority <em>Palette Provider Priority</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getMetamodelSupportProviderClassName <em>Metamodel Support Provider Class Name</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getMetamodelSupportProviderPriority <em>Metamodel Support Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getModelingAssistantProviderClassName <em>Modeling Assistant Provider Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getModelingAssistantProviderPriority <em>Modeling Assistant Provider Priority</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getPropertyProviderClassName <em>Property Provider Class Name</em>}</li>
@@ -261,61 +259,6 @@ public interface ProviderClassNames extends EObject {
 	 * @generated
 	 */
 	void setPaletteProviderPriority(ProviderPriority value);
-
-	/**
-	 * Returns the value of the '<em><b>Metamodel Support Provider Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Metamodel Support Provider Class Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Metamodel Support Provider Class Name</em>' attribute.
-	 * @see #setMetamodelSupportProviderClassName(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getProviderClassNames_MetamodelSupportProviderClassName()
-	 * @model
-	 * @generated
-	 */
-	String getMetamodelSupportProviderClassName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getMetamodelSupportProviderClassName <em>Metamodel Support Provider Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Metamodel Support Provider Class Name</em>' attribute.
-	 * @see #getMetamodelSupportProviderClassName()
-	 * @generated
-	 */
-	void setMetamodelSupportProviderClassName(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Metamodel Support Provider Priority</b></em>' attribute.
-	 * The literals are from the enumeration {@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Metamodel Support Provider Priority</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Metamodel Support Provider Priority</em>' attribute.
-	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
-	 * @see #setMetamodelSupportProviderPriority(ProviderPriority)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getProviderClassNames_MetamodelSupportProviderPriority()
-	 * @model
-	 * @generated
-	 */
-	ProviderPriority getMetamodelSupportProviderPriority();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderClassNames#getMetamodelSupportProviderPriority <em>Metamodel Support Provider Priority</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Metamodel Support Provider Priority</em>' attribute.
-	 * @see org.eclipse.gmf.codegen.gmfgen.ProviderPriority
-	 * @see #getMetamodelSupportProviderPriority()
-	 * @generated
-	 */
-	void setMetamodelSupportProviderPriority(ProviderPriority value);
 
 	/**
 	 * Returns the value of the '<em><b>Modeling Assistant Provider Class Name</b></em>' attribute.
@@ -654,14 +597,6 @@ public interface ProviderClassNames extends EObject {
 	 * @generated
 	 */
 	String getPaletteProviderQualifiedClassName();
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation"
-	 * @generated
-	 */
-	String getMetamodelSupportProviderQualifiedClassName();
 
 	/**
 	 * <!-- begin-user-doc -->

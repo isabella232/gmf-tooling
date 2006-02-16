@@ -1,12 +1,17 @@
 package org.eclipse.gmf.ecore.editor;
 
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.commands.operations.OperationHistoryFactory;
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
-import org.eclipse.gmf.runtime.emf.core.edit.MRunnable;
-import org.eclipse.gmf.runtime.emf.core.util.OperationUtil;
-import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.gmf.runtime.common.core.command.CommandResult;
+import org.eclipse.gmf.runtime.diagram.ui.commands.CreateCommand;
+import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest;
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
@@ -54,17 +59,26 @@ public class EcoreCreateShortcutAction implements IObjectActionDelegate {
 			return;
 		}
 
-		OperationUtil.runAsUnchecked(new MRunnable() {
+		CreateViewRequest.ViewDescriptor viewDescriptor = new CreateViewRequest.ViewDescriptor(new EObjectAdapter(selectedElement), EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+		CreateCommand command = new CreateCommand(mySelectedElement.getEditingDomain(), viewDescriptor, view) {
 
-			public Object run() {
-				Node shortcutNode = ViewService.createNode(view, selectedElement, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-				EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
-				annotation.setSource("Shortcutted"); //$NON-NLS-1$
-				shortcutNode.getEAnnotations().add(annotation);
-				return null;
+			protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+				CommandResult result = super.doExecuteWithResult(monitor, info);
+				View view = (View) ((IAdaptable) result.getReturnValue()).getAdapter(View.class);
+				if (view != null) {
+					EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
+					annotation.setSource("Shortcutted"); //$NON-NLS-1$
+					view.getEAnnotations().add(annotation);
+				}
+				return result;
 			}
-		});
 
+		};
+		try {
+			OperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);
+		} catch (ExecutionException e) {
+			EcoreDiagramEditorPlugin.getInstance().logError("Unable to create shortcut", e); //$NON-NLS-1$
+		}
 	}
 
 	/**

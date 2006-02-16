@@ -163,12 +163,6 @@
       </paletteProvider>
    </extension>
 
-   <extension point="org.eclipse.gmf.runtime.emf.core.compatibility.MetaModelProviders">
-      <MetaModelProvider class="org.eclipse.gmf.ecore.providers.EcoreMetaModelSupportProvider">
-         <Priority name="Lowest"/>
-      </MetaModelProvider>
-   </extension>
-
    <extension point="org.eclipse.gmf.runtime.emf.ui.modelingAssistantProviders">
       <modelingAssistantProvider class="org.eclipse.gmf.ecore.providers.EcoreModelingAssistantProvider">
          <Priority name="Lowest"/>

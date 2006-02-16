@@ -1,5 +1,8 @@
 package org.eclipse.gmf.ecore.providers;
 
+import java.util.IdentityHashMap;
+import java.util.Map;
+
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.ENamedElement;
@@ -40,6 +43,11 @@ public class EcoreElementTypes {
 	 */
 	private EcoreElementTypes() {
 	}
+
+	/**
+	 * @generated
+	 */
+	private static Map elements;
 
 	/**
 	 * @generated
@@ -142,52 +150,32 @@ public class EcoreElementTypes {
 	 */
 	public static ENamedElement getElement(IAdaptable hint) {
 		Object type = hint.getAdapter(IElementType.class);
-		if (EPackage_79 == type) {
-			return EcorePackage.eINSTANCE.getEPackage();
-		} else if (EAttribute_2001 == type) {
-			return EcorePackage.eINSTANCE.getEAttribute();
-		} else if (EOperation_2002 == type) {
-			return EcorePackage.eINSTANCE.getEOperation();
-		} else if (EAnnotation_2003 == type) {
-			return EcorePackage.eINSTANCE.getEAnnotation();
-		} else if (EClass_2004 == type) {
-			return EcorePackage.eINSTANCE.getEClass();
-		} else if (EPackage_2005 == type) {
-			return EcorePackage.eINSTANCE.getEPackage();
-		} else if (EDataType_2006 == type) {
-			return EcorePackage.eINSTANCE.getEDataType();
-		} else if (EEnum_2007 == type) {
-			return EcorePackage.eINSTANCE.getEEnum();
-		} else if (EAnnotation_2008 == type) {
-			return EcorePackage.eINSTANCE.getEAnnotation();
-		} else if (EStringToStringMapEntry_2009 == type) {
-			return EcorePackage.eINSTANCE.getEStringToStringMapEntry();
-		} else if (EAnnotation_2010 == type) {
-			return EcorePackage.eINSTANCE.getEAnnotation();
-		} else if (EEnumLiteral_2011 == type) {
-			return EcorePackage.eINSTANCE.getEEnumLiteral();
-		} else if (EAnnotation_2012 == type) {
-			return EcorePackage.eINSTANCE.getEAnnotation();
-		} else if (EClass_1001 == type) {
-			return EcorePackage.eINSTANCE.getEClass();
-		} else if (EPackage_1002 == type) {
-			return EcorePackage.eINSTANCE.getEPackage();
-		} else if (EAnnotation_1003 == type) {
-			return EcorePackage.eINSTANCE.getEAnnotation();
-		} else if (EDataType_1004 == type) {
-			return EcorePackage.eINSTANCE.getEDataType();
-		} else if (EEnum_1005 == type) {
-			return EcorePackage.eINSTANCE.getEEnum();
-		} else if (EAnnotationReferences_3001 == type) {
-			return EcorePackage.eINSTANCE.getEAnnotation_References();
-		} else if (EReference_3002 == type) {
-			return EcorePackage.eINSTANCE.getEReference();
-		} else if (EReference_3003 == type) {
-			return EcorePackage.eINSTANCE.getEReference();
-		} else if (EClassESuperTypes_3004 == type) {
-			return EcorePackage.eINSTANCE.getEClass_ESuperTypes();
+		if (elements == null) {
+			elements = new IdentityHashMap();
+			elements.put(EPackage_79, EcorePackage.eINSTANCE.getEPackage());
+			elements.put(EAttribute_2001, EcorePackage.eINSTANCE.getEAttribute());
+			elements.put(EOperation_2002, EcorePackage.eINSTANCE.getEOperation());
+			elements.put(EAnnotation_2003, EcorePackage.eINSTANCE.getEAnnotation());
+			elements.put(EClass_2004, EcorePackage.eINSTANCE.getEClass());
+			elements.put(EPackage_2005, EcorePackage.eINSTANCE.getEPackage());
+			elements.put(EDataType_2006, EcorePackage.eINSTANCE.getEDataType());
+			elements.put(EEnum_2007, EcorePackage.eINSTANCE.getEEnum());
+			elements.put(EAnnotation_2008, EcorePackage.eINSTANCE.getEAnnotation());
+			elements.put(EStringToStringMapEntry_2009, EcorePackage.eINSTANCE.getEStringToStringMapEntry());
+			elements.put(EAnnotation_2010, EcorePackage.eINSTANCE.getEAnnotation());
+			elements.put(EEnumLiteral_2011, EcorePackage.eINSTANCE.getEEnumLiteral());
+			elements.put(EAnnotation_2012, EcorePackage.eINSTANCE.getEAnnotation());
+			elements.put(EClass_1001, EcorePackage.eINSTANCE.getEClass());
+			elements.put(EPackage_1002, EcorePackage.eINSTANCE.getEPackage());
+			elements.put(EAnnotation_1003, EcorePackage.eINSTANCE.getEAnnotation());
+			elements.put(EDataType_1004, EcorePackage.eINSTANCE.getEDataType());
+			elements.put(EEnum_1005, EcorePackage.eINSTANCE.getEEnum());
+			elements.put(EAnnotationReferences_3001, EcorePackage.eINSTANCE.getEAnnotation_References());
+			elements.put(EReference_3002, EcorePackage.eINSTANCE.getEReference());
+			elements.put(EReference_3003, EcorePackage.eINSTANCE.getEReference());
+			elements.put(EClassESuperTypes_3004, EcorePackage.eINSTANCE.getEClass_ESuperTypes());
 		}
-		return null;
+		return (ENamedElement) elements.get(type);
 	}
 
 	/**

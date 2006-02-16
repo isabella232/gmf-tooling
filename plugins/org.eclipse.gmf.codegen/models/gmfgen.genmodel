@@ -82,8 +82,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/editPartProviderPriority"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/paletteProviderClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/paletteProviderPriority"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/metamodelSupportProviderClassName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/metamodelSupportProviderPriority"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/modelingAssistantProviderClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/modelingAssistantProviderPriority"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ProviderClassNames/propertyProviderClassName"/>
@@ -100,7 +98,6 @@
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getNotationViewProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getEditPartProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getPaletteProviderQualifiedClassName"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getMetamodelSupportProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getModelingAssistantProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getPropertyProviderQualifiedClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//ProviderClassNames/getIconProviderQualifiedClassName"/>
