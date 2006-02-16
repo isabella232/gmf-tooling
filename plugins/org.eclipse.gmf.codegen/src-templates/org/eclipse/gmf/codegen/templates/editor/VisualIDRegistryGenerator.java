@@ -463,11 +463,11 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext();) {
     stringBuffer.append(TEXT_97);
     if(selectorCounter > 0) { 
     stringBuffer.append(TEXT_98);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OclConstraintCondition"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition"));
     stringBuffer.append(TEXT_99);
     stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_100);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OclConstraintCondition"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition"));
     stringBuffer.append(TEXT_101);
     }
     stringBuffer.append(TEXT_102);

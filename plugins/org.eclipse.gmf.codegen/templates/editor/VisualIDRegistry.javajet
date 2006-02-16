@@ -428,7 +428,7 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext();) {
 			/**
 			* @generated	
 			*/						
-			private <%=importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OclConstraintCondition")%> condition;
+			private <%=importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition")%> condition;
 	
 			/**
 			* @generated	
@@ -461,7 +461,7 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext();) {
 			private Boolean evaluate(EObject context) {
 				this.evalContext = context.eClass();
 				if(condition == null) {					
-					condition = new <%=importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OclConstraintCondition")%>(body, evalContext);
+					condition = new <%=importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition")%>(body, evalContext);
 				}
 				if(condition != null) {
 					return booleanCast(condition.evaluate(context));

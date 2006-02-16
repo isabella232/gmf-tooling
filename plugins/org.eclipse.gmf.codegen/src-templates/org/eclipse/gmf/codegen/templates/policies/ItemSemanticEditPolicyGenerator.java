@@ -46,10 +46,10 @@ public class ItemSemanticEditPolicyGenerator {
   protected final String TEXT_27 = " createClassifierContext(Object context) {" + NL + "\t\t\t\t\t\t";
   protected final String TEXT_28 = " env = super.createClassifierContext(context);" + NL + "\t\t\t\t\t\tif(oppositeEndDeclLocal != null) {" + NL + "\t\t\t\t\t\t\tenv.addElement(oppositeEndDeclLocal.getName(), oppositeEndDeclLocal, true);" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\treturn env;" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t});" + NL + "\t\t\t\toclHelper.setContext(constraint.context);" + NL + "\t\t\t\treturn ";
   protected final String TEXT_29 = ".eINSTANCE.createQuery(oclHelper.createInvariant(constraint.body));" + NL + "\t\t\t} catch (Exception e) {" + NL + "\t\t\t\t";
-  protected final String TEXT_30 = ".getInstance().logError(null, e);" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated " + NL + "\t\t */\t\t" + NL + "\t\tprivate static boolean evaluate(";
+  protected final String TEXT_30 = ".getInstance().logError(\"Link constraint expression error\", e); //$NON-NLS-1$" + NL + "\t\t\t\treturn null;" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated " + NL + "\t\t */\t\t" + NL + "\t\tprivate static boolean evaluate(";
   protected final String TEXT_31 = " query, Object sourceEnd, Object oppositeEnd, boolean clearEnv) {" + NL + "\t\t\t";
   protected final String TEXT_32 = " evalEnv = query.getEvaluationEnvironment();" + NL + "\t\t\tevalEnv.replace(OPPOSITE_END_VAR, oppositeEnd);" + NL + "\t\t\ttry {" + NL + "\t\t\t\tObject val = query.evaluate(sourceEnd);\t\t\t" + NL + "\t\t\t\treturn (val instanceof Boolean) ? ((Boolean)val).booleanValue() : false;" + NL + "\t\t\t} catch(Exception e) {\t" + NL + "\t\t\t\t";
-  protected final String TEXT_33 = ".getInstance().logError(null, e);\t" + NL + "\t\t\t\tif(evalEnv != null) evalEnv.clear();\t\t\t" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t} finally {" + NL + "\t\t\t\tif(clearEnv) evalEnv.clear();" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated " + NL + "\t\t */\t\t" + NL + "\t\tprivate static ";
+  protected final String TEXT_33 = ".getInstance().logError(\"Link constraint evaluation error\", e); //$NON-NLS-1$" + NL + "\t\t\t\tif(evalEnv != null) evalEnv.clear();\t\t\t" + NL + "\t\t\t\treturn false;" + NL + "\t\t\t} finally {" + NL + "\t\t\t\tif(clearEnv) evalEnv.clear();" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t" + NL + "\t\t/**" + NL + "\t\t * @generated " + NL + "\t\t */\t\t" + NL + "\t\tprivate static ";
   protected final String TEXT_34 = " createVar(String name, ";
   protected final String TEXT_35 = " type) {" + NL + "\t\t\t";
   protected final String TEXT_36 = " var = ";
@@ -223,7 +223,7 @@ if(diagram.hasLinkCreationConstraints()) {
     stringBuffer.append(TEXT_22);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration"));
     stringBuffer.append(TEXT_23);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.helper.IOclHelper"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.helper.IOCLHelper"));
     stringBuffer.append(TEXT_24);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ocl.helper.HelperUtil"));
     stringBuffer.append(TEXT_25);
