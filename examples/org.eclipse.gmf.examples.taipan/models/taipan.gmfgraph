@@ -13,4 +13,5 @@
   <connections name="RouteLink" figure="line"/>
   <compartments name="CargoCompartment" figure="box" collapsible="true" needsTitle="true"/>
   <children name="ItemChild" figure="innerLabel"/>
+  <labels name="GenericLabel" figure="innerLabel"/>
 </gmfgraph:Canvas>
