@@ -7,6 +7,7 @@
 package org.eclipse.gmf.mappings.provider;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -204,10 +205,13 @@ public class LinkMappingItemProvider
 				 null) {
 						protected Collection getComboBoxObjects(Object object) {
 							if (object instanceof LinkMapping) {
+								List result = new ArrayList();
 								LinkMapping nm = (LinkMapping) object;
 								if (nm.getDomainMetaElement() != null) {
-									return nm.getDomainMetaElement().getEAllAttributes();
+									result.addAll(nm.getDomainMetaElement().getEAllAttributes());
 								}
+								result.add(null);
+								return result;
 							}
 							return Collections.EMPTY_LIST;
 						}

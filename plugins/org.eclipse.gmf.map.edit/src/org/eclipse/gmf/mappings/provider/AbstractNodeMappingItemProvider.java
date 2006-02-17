@@ -7,6 +7,7 @@
 package org.eclipse.gmf.mappings.provider;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -180,9 +181,12 @@ public class AbstractNodeMappingItemProvider
 				protected Collection getComboBoxObjects(Object object) {
 					if (object instanceof AbstractNodeMapping) {
 						AbstractNodeMapping nm = (AbstractNodeMapping) object;
+						List result = new ArrayList();
 						if (nm.getDomainMetaElement() != null) {
-							return nm.getDomainMetaElement().getEAllAttributes();
+							result.addAll(nm.getDomainMetaElement().getEAllAttributes());
 						}
+						result.add(null);
+						return result;
 					}
 					return Collections.EMPTY_LIST;
 				}
