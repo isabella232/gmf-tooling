@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getCreationWizardClassName <em>Creation Wizard Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getCreationWizardPageClassName <em>Creation Wizard Page Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getCreationWizardIconPath <em>Creation Wizard Icon Path</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDiagramEditorUtilClassName <em>Diagram Editor Util Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDiagramFileCreatorClassName <em>Diagram File Creator Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getDocumentProviderClassName <em>Document Provider Class Name</em>}</li>
@@ -86,6 +87,32 @@ public interface EditorCandies extends EObject {
 	 * @generated
 	 */
 	void setCreationWizardPageClassName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Creation Wizard Icon Path</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Creation Wizard Icon Path</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Creation Wizard Icon Path</em>' attribute.
+	 * @see #setCreationWizardIconPath(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getEditorCandies_CreationWizardIconPath()
+	 * @model
+	 * @generated
+	 */
+	String getCreationWizardIconPath();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.EditorCandies#getCreationWizardIconPath <em>Creation Wizard Icon Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Creation Wizard Icon Path</em>' attribute.
+	 * @see #getCreationWizardIconPath()
+	 * @generated
+	 */
+	void setCreationWizardIconPath(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Diagram Editor Util Class Name</b></em>' attribute.

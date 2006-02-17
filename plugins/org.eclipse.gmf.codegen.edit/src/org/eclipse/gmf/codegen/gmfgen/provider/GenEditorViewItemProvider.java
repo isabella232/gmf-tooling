@@ -67,6 +67,7 @@ public class GenEditorViewItemProvider
 			addPackageNamePropertyDescriptor(object);
 			addActionBarContributorClassNamePropertyDescriptor(object);
 			addClassNamePropertyDescriptor(object);
+			addIconPathPropertyDescriptor(object);
 			addIDPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -133,6 +134,26 @@ public class GenEditorViewItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Icon Path feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addIconPathPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenEditorView_iconPath_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenEditorView_iconPath_feature", "_UI_GenEditorView_type"),
+				 GMFGenPackage.eINSTANCE.getGenEditorView_IconPath(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the ID feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -189,6 +210,7 @@ public class GenEditorViewItemProvider
 			case GMFGenPackage.GEN_EDITOR_VIEW__PACKAGE_NAME:
 			case GMFGenPackage.GEN_EDITOR_VIEW__ACTION_BAR_CONTRIBUTOR_CLASS_NAME:
 			case GMFGenPackage.GEN_EDITOR_VIEW__CLASS_NAME:
+			case GMFGenPackage.GEN_EDITOR_VIEW__ICON_PATH:
 			case GMFGenPackage.GEN_EDITOR_VIEW__ID:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;

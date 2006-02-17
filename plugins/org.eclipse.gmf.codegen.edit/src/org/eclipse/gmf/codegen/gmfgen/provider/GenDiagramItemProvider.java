@@ -95,6 +95,7 @@ public class GenDiagramItemProvider
 			addCanonicalEditPolicyClassNamePropertyDescriptor(object);
 			addCreationWizardClassNamePropertyDescriptor(object);
 			addCreationWizardPageClassNamePropertyDescriptor(object);
+			addCreationWizardIconPathPropertyDescriptor(object);
 			addDiagramEditorUtilClassNamePropertyDescriptor(object);
 			addDiagramFileCreatorClassNamePropertyDescriptor(object);
 			addDocumentProviderClassNamePropertyDescriptor(object);
@@ -798,6 +799,26 @@ public class GenDiagramItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Creation Wizard Icon Path feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCreationWizardIconPathPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_EditorCandies_creationWizardIconPath_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_EditorCandies_creationWizardIconPath_feature", "_UI_EditorCandies_type"),
+				 GMFGenPackage.eINSTANCE.getEditorCandies_CreationWizardIconPath(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This adds a property descriptor for the Diagram Editor Util Class Name feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1256,6 +1277,7 @@ public class GenDiagramItemProvider
 			case GMFGenPackage.GEN_DIAGRAM__CANONICAL_EDIT_POLICY_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_PAGE_CLASS_NAME:
+			case GMFGenPackage.GEN_DIAGRAM__CREATION_WIZARD_ICON_PATH:
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_EDITOR_UTIL_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__DIAGRAM_FILE_CREATOR_CLASS_NAME:
 			case GMFGenPackage.GEN_DIAGRAM__DOCUMENT_PROVIDER_CLASS_NAME:

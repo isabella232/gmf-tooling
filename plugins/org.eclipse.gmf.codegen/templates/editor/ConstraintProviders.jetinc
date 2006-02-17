@@ -1,7 +1,9 @@
 <%
 GenAuditContainer rootContainer = genDiagram.getEditorGen().getAudits();
-if(rootContainer != null) {
+if (rootContainer != null && genDiagram.getDomainDiagramElement() != null) {
 	java.util.List containers = rootContainer != null ? rootContainer.getAllAuditContainers() : java.util.Collections.EMPTY_LIST;
+	// XXX just treat the first genPackage as primary - genModel.getGenPackages().get(0)?
+	GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPackage();
 %>
 <extension point="org.eclipse.emf.validation.constraintProviders">
 <%

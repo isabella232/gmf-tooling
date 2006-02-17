@@ -6,6 +6,7 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -27,6 +28,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl#getPackageName <em>Package Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl#getActionBarContributorClassName <em>Action Bar Contributor Class Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl#getClassName <em>Class Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl#getIconPath <em>Icon Path</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorViewImpl#getID <em>ID</em>}</li>
  * </ul>
  * </p>
@@ -93,6 +95,26 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	 * @ordered
 	 */
 	protected String className = CLASS_NAME_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getIconPath() <em>Icon Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIconPath()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String ICON_PATH_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getIconPath() <em>Icon Path</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIconPath()
+	 * @generated
+	 * @ordered
+	 */
+	protected String iconPath = ICON_PATH_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getID() <em>ID</em>}' attribute.
@@ -235,6 +257,36 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getIconPathGen() {
+		return iconPath;
+	}
+
+	public String getIconPath() {
+		String value = getIconPathGen();
+		if (GenCommonBaseImpl.isEmpty(value) && getEditorGen().getDiagram().getDomainDiagramElement() != null) {
+			GenPackage domainMetaModel = getEditorGen().getDiagram().getDomainDiagramElement().getGenPackage();
+			value = "../" + getEditorGen().getDomainGenModel().getEditorPluginID() + "/icons/full/obj16/" + domainMetaModel.getPrefix() + "ModelFile.gif";
+		}
+		return value;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIconPath(String newIconPath) {
+		String oldIconPath = iconPath;
+		iconPath = newIconPath;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_VIEW__ICON_PATH, oldIconPath, iconPath));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getIDGen() {
 		return iD;
 	}
@@ -333,6 +385,8 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 				return getActionBarContributorClassName();
 			case GMFGenPackage.GEN_EDITOR_VIEW__CLASS_NAME:
 				return getClassName();
+			case GMFGenPackage.GEN_EDITOR_VIEW__ICON_PATH:
+				return getIconPath();
 			case GMFGenPackage.GEN_EDITOR_VIEW__ID:
 				return getID();
 		}
@@ -354,6 +408,9 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 				return;
 			case GMFGenPackage.GEN_EDITOR_VIEW__CLASS_NAME:
 				setClassName((String)newValue);
+				return;
+			case GMFGenPackage.GEN_EDITOR_VIEW__ICON_PATH:
+				setIconPath((String)newValue);
 				return;
 			case GMFGenPackage.GEN_EDITOR_VIEW__ID:
 				setID((String)newValue);
@@ -378,6 +435,9 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 			case GMFGenPackage.GEN_EDITOR_VIEW__CLASS_NAME:
 				setClassName(CLASS_NAME_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_EDITOR_VIEW__ICON_PATH:
+				setIconPath(ICON_PATH_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_EDITOR_VIEW__ID:
 				setID(ID_EDEFAULT);
 				return;
@@ -400,6 +460,8 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 				return ACTION_BAR_CONTRIBUTOR_CLASS_NAME_EDEFAULT == null ? actionBarContributorClassName != null : !ACTION_BAR_CONTRIBUTOR_CLASS_NAME_EDEFAULT.equals(actionBarContributorClassName);
 			case GMFGenPackage.GEN_EDITOR_VIEW__CLASS_NAME:
 				return CLASS_NAME_EDEFAULT == null ? className != null : !CLASS_NAME_EDEFAULT.equals(className);
+			case GMFGenPackage.GEN_EDITOR_VIEW__ICON_PATH:
+				return ICON_PATH_EDEFAULT == null ? iconPath != null : !ICON_PATH_EDEFAULT.equals(iconPath);
 			case GMFGenPackage.GEN_EDITOR_VIEW__ID:
 				return ID_EDEFAULT == null ? iD != null : !ID_EDEFAULT.equals(iD);
 		}
@@ -421,6 +483,8 @@ public class GenEditorViewImpl extends EObjectImpl implements GenEditorView {
 		result.append(actionBarContributorClassName);
 		result.append(", className: ");
 		result.append(className);
+		result.append(", iconPath: ");
+		result.append(iconPath);
 		result.append(", iD: ");
 		result.append(iD);
 		result.append(')');

@@ -5,8 +5,6 @@ final GenPlugin genPlugin = (GenPlugin) argument;
 final GenEditorGenerator editorGen = genPlugin.getEditorGen();
 final GenDiagram genDiagram = editorGen.getDiagram();
 final GenModel genModel = editorGen.getDomainGenModel();
-// XXX just treat the first genPackage as primary - genModel.getGenPackages().get(0)?
-final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPackage();
 %>
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
@@ -42,7 +40,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
      <editor
         id="<%=editorGen.getEditor().getID()%>"
         name="<%=genModel.getModelName()%> Diagram Editor"
-        icon="../<%=genModel.getEditorPluginID()%>/icons/full/obj16/<%=domainMetaModel.getPrefix()%>ModelFile.gif"
+        icon="<%=editorGen.getEditor().getIconPath()%>"
         extensions="<%=editorGen.getDiagramFileExtension()%>"
         default="true"
         class="<%=editorGen.getEditor().getQualifiedClassName()%>"
@@ -54,7 +52,7 @@ final GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPa
    <extension point="org.eclipse.ui.newWizards">
   	  <wizard
   	     name="<%=genModel.getModelName()%> Diagram"
-  	     icon="../<%=genModel.getEditorPluginID()%>/icons/full/obj16/<%=domainMetaModel.getPrefix()%>ModelFile.gif"
+  	     icon="<%=genDiagram.getCreationWizardIconPath()%>"
   	     category="org.eclipse.ui.Examples"
   	     class="<%=genDiagram.getCreationWizardQualifiedClassName()%>"
   	     id="<%=genDiagram.getCreationWizardQualifiedClassName()%>ID">

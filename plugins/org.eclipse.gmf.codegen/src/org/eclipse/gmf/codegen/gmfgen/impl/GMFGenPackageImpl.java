@@ -816,8 +816,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorView_ID() {
+	public EAttribute getGenEditorView_IconPath() {
 		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenEditorView_ID() {
+		return (EAttribute)genEditorViewEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1185,7 +1194,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_DiagramEditorUtilClassName() {
+	public EAttribute getEditorCandies_CreationWizardIconPath() {
 		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1194,7 +1203,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_DiagramFileCreatorClassName() {
+	public EAttribute getEditorCandies_DiagramEditorUtilClassName() {
 		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -1203,7 +1212,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_DocumentProviderClassName() {
+	public EAttribute getEditorCandies_DiagramFileCreatorClassName() {
 		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -1212,7 +1221,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_InitDiagramFileActionClassName() {
+	public EAttribute getEditorCandies_DocumentProviderClassName() {
 		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -1221,7 +1230,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_MatchingStrategyClassName() {
+	public EAttribute getEditorCandies_InitDiagramFileActionClassName() {
 		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -1230,7 +1239,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_PreferenceInitializerClassName() {
+	public EAttribute getEditorCandies_MatchingStrategyClassName() {
 		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -1239,7 +1248,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_VisualIDRegistryClassName() {
+	public EAttribute getEditorCandies_PreferenceInitializerClassName() {
 		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -1248,7 +1257,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_ElementChooserClassName() {
+	public EAttribute getEditorCandies_VisualIDRegistryClassName() {
 		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -1257,8 +1266,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditorCandies_LoadResourceActionClassName() {
+	public EAttribute getEditorCandies_ElementChooserClassName() {
 		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getEditorCandies_LoadResourceActionClassName() {
+		return (EAttribute)editorCandiesEClass.getEStructuralFeatures().get(11);
 	}
 
 	/**
@@ -2847,6 +2865,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__PACKAGE_NAME);
 		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ACTION_BAR_CONTRIBUTOR_CLASS_NAME);
 		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__CLASS_NAME);
+		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ICON_PATH);
 		createEAttribute(genEditorViewEClass, GEN_EDITOR_VIEW__ID);
 
 		batchValidationEClass = createEClass(BATCH_VALIDATION);
@@ -2894,6 +2913,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		editorCandiesEClass = createEClass(EDITOR_CANDIES);
 		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__CREATION_WIZARD_CLASS_NAME);
 		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__CREATION_WIZARD_PAGE_CLASS_NAME);
+		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__CREATION_WIZARD_ICON_PATH);
 		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__DIAGRAM_EDITOR_UTIL_CLASS_NAME);
 		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__DIAGRAM_FILE_CREATOR_CLASS_NAME);
 		createEAttribute(editorCandiesEClass, EDITOR_CANDIES__DOCUMENT_PROVIDER_CLASS_NAME);
@@ -3240,6 +3260,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenEditorView_PackageName(), ecorePackage.getEString(), "packageName", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorView_ActionBarContributorClassName(), ecorePackage.getEString(), "actionBarContributorClassName", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorView_ClassName(), ecorePackage.getEString(), "className", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenEditorView_IconPath(), ecorePackage.getEString(), "iconPath", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenEditorView_ID(), ecorePackage.getEString(), "iD", null, 0, 1, GenEditorView.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		addEOperation(genEditorViewEClass, ecorePackage.getEString(), "getActionBarContributorQualifiedClassName", 0, 1);
@@ -3333,6 +3354,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEClass(editorCandiesEClass, EditorCandies.class, "EditorCandies", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getEditorCandies_CreationWizardClassName(), ecorePackage.getEString(), "creationWizardClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditorCandies_CreationWizardPageClassName(), ecorePackage.getEString(), "creationWizardPageClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getEditorCandies_CreationWizardIconPath(), ecorePackage.getEString(), "creationWizardIconPath", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditorCandies_DiagramEditorUtilClassName(), ecorePackage.getEString(), "diagramEditorUtilClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditorCandies_DiagramFileCreatorClassName(), ecorePackage.getEString(), "diagramFileCreatorClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEditorCandies_DocumentProviderClassName(), ecorePackage.getEString(), "documentProviderClassName", null, 0, 1, EditorCandies.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
