@@ -37,8 +37,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eclipsecon.ecore#_bgxqAJ5fEdqUXOXxYRVpzQ"/>
     </genClasses>
     <genClasses ecoreClass="eclipsecon.ecore#_qvfFUJ5eEdqUXOXxYRVpzQ">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eclipsecon.ecore#_oicJgJ5fEdqUXOXxYRVpzQ"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eclipsecon.ecore#//Presenter/phone"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference eclipsecon.ecore#//Presenter/profile"/>
     </genClasses>
     <genClasses ecoreClass="eclipsecon.ecore#//Handout">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eclipsecon.ecore#//Handout/kind"/>
@@ -47,6 +47,10 @@
     <genClasses ecoreClass="eclipsecon.ecore#//Resource">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eclipsecon.ecore#//Resource/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eclipsecon.ecore#//Resource/location"/>
+    </genClasses>
+    <genClasses ecoreClass="eclipsecon.ecore#//Profile">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute eclipsecon.ecore#//Profile/bio"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference eclipsecon.ecore#//Profile/eclipsezilla"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
