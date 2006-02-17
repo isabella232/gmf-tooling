@@ -144,8 +144,14 @@ String pluginClassName = importManager.getImportedName(genDiagram.getEditorGen()
 		Object type = hint.getAdapter(IElementType.class);
 		if (elements == null) {
 			elements = new IdentityHashMap();
-			elements.put(<%=genDiagram.getUniqueIdentifier()%>, <%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>());
 <%
+GenClass diagramElement = genDiagram.getDomainDiagramElement();
+if (diagramElement != null) {
+	String semanticPackageInterfaceName = importManager.getImportedName(diagramElement.getGenPackage().getQualifiedPackageInterfaceName());
+%>
+			elements.put(<%=genDiagram.getUniqueIdentifier()%>, <%=semanticPackageInterfaceName%>.eINSTANCE.get<%=diagramElement.getClassifierAccessorName()%>());
+<%
+}
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();
 	String id = null;
@@ -181,11 +187,18 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	 */
 	public static final IMetamodelType <%=genDiagram.getUniqueIdentifier()%> = new MetamodelType(
 		"<%=genDiagram.getUniqueIdentifier()%>", null, "<%=genDiagram.getClassNamePrefix()%>",
+<%if (genDiagram.getDomainDiagramElement() != null) {%>
 		<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getGenPackage().getQualifiedPackageInterfaceName())%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>(),
+<%} else {%>
+		null,
+<%}%>
 		new NullEditHelper());
 <%
 List types = new ArrayList();
-types.add(genDiagram.getUniqueIdentifier());
+// TODO : create diagram specialization type otherwise and register it
+if (genDiagram.getDomainDiagramElement() != null) {
+	types.add(genDiagram.getUniqueIdentifier());
+}
 int elementInitializerCount = 0;
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();

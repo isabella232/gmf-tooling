@@ -25,9 +25,11 @@ public class <%=genDiagram.getItemSemanticEditPolicyClassName()%> extends <%=imp
 <%
 Collection childNodes = genDiagram.getTopLevelNodes();
 GenClass containerGenClass = genDiagram.getDomainDiagramElement();
+if (containerGenClass != null) {
 %>
 
 <%@ include file="childContainerCreateCommand.jetinc"%>
+<%}%>
 
 	/**
 	 * @generated

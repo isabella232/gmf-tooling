@@ -7,6 +7,8 @@
 package org.eclipse.gmf.codegen.gmfgen;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -353,5 +355,16 @@ public interface GenEditorGenerator extends EObject {
 	 * @generated
 	 */
 	void setTemplateDirectory(String value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Returns all genpackages from domain genmodel
+	 * <!-- end-model-doc -->
+	 * @model type="org.eclipse.emf.codegen.ecore.genmodel.GenPackage"
+	 * @generated
+	 */
+	EList getAllDomainGenPackages(boolean withUsed);
 
 } // GenEditorGenerator

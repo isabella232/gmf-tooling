@@ -39,6 +39,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/domainFileExtension"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/dynamicTemplates"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/templateDirectory"/>
+      <genOperations ecoreOperation="gmfgen.ecore#//GenEditorGenerator/getAllDomainGenPackages">
+        <genParameters ecoreParameter="gmfgen.ecore#//GenEditorGenerator/getAllDomainGenPackages/withUsed"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenDiagram">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenDiagram/editorGen"/>

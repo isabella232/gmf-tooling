@@ -24,22 +24,23 @@ import org.eclipse.emf.ecore.EObject;
 public class <%=genDiagram.getCanonicalEditPolicyClassName()%> extends CanonicalConnectionEditPolicy {
 <%
 GenClass modelElementInterface = genDiagram.getDomainDiagramElement();
-{
+if (modelElementInterface != null) {
 	Collection genNodes = genDiagram.getTopLevelNodes();
 %>
 <%@ include file="getSemanticChildrenList.jetinc"%>
-<%
-}
-String modelElementInterfaceName = importManager.getImportedName(modelElementInterface.getQualifiedInterfaceName());
-%>
+<%}%>
 
 	/**
 	 * @generated
 	 */
 	protected List getSemanticConnectionsList() {
+		List result = new LinkedList();
+<%
+if (modelElementInterface != null) {
+	String modelElementInterfaceName = importManager.getImportedName(modelElementInterface.getQualifiedInterfaceName());
+%>
 		Diagram diagram = (Diagram) getHost().getModel();
 		<%=modelElementInterfaceName%> modelElement = (<%=modelElementInterfaceName%>) diagram.getElement();
-		List result = new LinkedList();
 		for (Iterator diagramElements = modelElement.eContents().iterator(); diagramElements.hasNext();) {
 			EObject nextDiagramElement = (EObject) diagramElements.next();
 			for (Iterator childElements = nextDiagramElement.eContents().iterator(); childElements.hasNext();) {
@@ -49,6 +50,7 @@ String modelElementInterfaceName = importManager.getImportedName(modelElementInt
 				}
 			}
 		}
+<%}%>
 		return result;
 	}
 
@@ -96,11 +98,12 @@ for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
 {
 	GenClass domainMetaclass = genDiagram.getDomainDiagramElement();
 	GenContainerBase genContainerBase = genDiagram;
+	if (domainMetaclass != null) {
 %>
 <%@ include file="refreshSemantic.jetinc" %>
 <%
+	}
 }
 %>
-
 }
 <%importManager.emitSortedImports();%>

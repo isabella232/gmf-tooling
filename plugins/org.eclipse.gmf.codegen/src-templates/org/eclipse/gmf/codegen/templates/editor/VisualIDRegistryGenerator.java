@@ -26,8 +26,8 @@ public class VisualIDRegistryGenerator
   protected final String TEXT_8 = "().equals(domainElementMetaclass) && (domainElement != null ? isDiagram";
   protected final String TEXT_9 = "((";
   protected final String TEXT_10 = ") domainElement) : true)) {" + NL + "\t\t\treturn ";
-  protected final String TEXT_11 = ";" + NL + "\t\t}" + NL + "\t\treturn getUnrecognizedDiagramID(domainElement);";
-  protected final String TEXT_12 = NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic int getNodeVisualID(View containerView, EObject domainElement, String semanticHint) {" + NL + "\t\tif (domainElement == null) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\tEClass domainElementMetaclass = domainElement.eClass();" + NL + "\t\treturn getNodeVisualID(containerView, domainElement, domainElementMetaclass, semanticHint);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {" + NL + "\t\tString containerModelID = getModelID(containerView);" + NL + "\t\tif (!\"";
+  protected final String TEXT_11 = ";" + NL + "\t\t}";
+  protected final String TEXT_12 = NL + "\t\treturn getUnrecognizedDiagramID(domainElement);" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic int getNodeVisualID(View containerView, EObject domainElement, String semanticHint) {" + NL + "\t\tif (domainElement == null) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\tEClass domainElementMetaclass = domainElement.eClass();" + NL + "\t\treturn getNodeVisualID(containerView, domainElement, domainElementMetaclass, semanticHint);" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic int getNodeVisualID(View containerView, EObject domainElement, EClass domainElementMetaclass, String semanticHint) {" + NL + "\t\tString containerModelID = getModelID(containerView);" + NL + "\t\tif (!\"";
   protected final String TEXT_13 = "\".equals(containerModelID)";
   protected final String TEXT_14 = "\t\t\t" + NL + "\t\t\t&& !\"";
   protected final String TEXT_15 = "\".equals(containerModelID)";
@@ -78,47 +78,49 @@ public class VisualIDRegistryGenerator
   protected final String TEXT_60 = "((";
   protected final String TEXT_61 = ") domainElement) : true)) {" + NL + "\t\t\treturn ";
   protected final String TEXT_62 = ";" + NL + "\t\t} else ";
-  protected final String TEXT_63 = NL + "\t\t{" + NL + "\t\t\treturn getUnrecognizedLinkWithClassID(domainElement);" + NL + "\t\t}" + NL + "\t}\t" + NL + "\t" + NL + "\t/**" + NL + "\t * User can change implementation of this method to check some additional " + NL + "\t * conditions here." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isDiagram";
-  protected final String TEXT_64 = "(";
-  protected final String TEXT_65 = " element) {" + NL + "\t\treturn true;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * User can change implementation of this method to handle some specific" + NL + "\t * situations not covered by default logic." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate int getUnrecognizedDiagramID(EObject domainElement) {" + NL + "\t\treturn -1;" + NL + "\t}";
-  protected final String TEXT_66 = NL + NL + "\t/**" + NL + "\t * User can change implementation of this method to check some additional " + NL + "\t * conditions here." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isNode";
-  protected final String TEXT_67 = "(";
-  protected final String TEXT_68 = " element) {" + NL + "\t\treturn ElementSelectors.";
-  protected final String TEXT_69 = ".matches(element);" + NL + "\t}\t";
-  protected final String TEXT_70 = NL;
-  protected final String TEXT_71 = NL + NL + "\t/**" + NL + "\t * User can change implementation of this method to handle some specific" + NL + "\t * situations not covered by default logic." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate int getUnrecognized";
-  protected final String TEXT_72 = "ChildNodeID(String semanticHint) {" + NL + "\t\treturn -1;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * User can change implementation of this method to handle some specific" + NL + "\t * situations not covered by default logic." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate int getUnrecognized";
-  protected final String TEXT_73 = "ChildNodeID(EObject domainElement) {" + NL + "\t\treturn -1;" + NL + "\t}";
-  protected final String TEXT_74 = NL + NL + "\t/**" + NL + "\t * User can change implementation of this method to handle some specific" + NL + "\t * situations not covered by default logic." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate int getUnrecognized";
-  protected final String TEXT_75 = "LinkLabelID(String semanticHint) {" + NL + "\t\treturn -1;" + NL + "\t}";
+  protected final String TEXT_63 = NL + "\t\t{" + NL + "\t\t\treturn getUnrecognizedLinkWithClassID(domainElement);" + NL + "\t\t}" + NL + "\t}\t" + NL;
+  protected final String TEXT_64 = NL + "\t/**" + NL + "\t * User can change implementation of this method to check some additional " + NL + "\t * conditions here." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isDiagram";
+  protected final String TEXT_65 = "(";
+  protected final String TEXT_66 = " element) {" + NL + "\t\treturn true;" + NL + "\t}";
+  protected final String TEXT_67 = NL + NL + "\t/**" + NL + "\t * User can change implementation of this method to handle some specific" + NL + "\t * situations not covered by default logic." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate int getUnrecognizedDiagramID(EObject domainElement) {" + NL + "\t\treturn -1;" + NL + "\t}";
+  protected final String TEXT_68 = NL + NL + "\t/**" + NL + "\t * User can change implementation of this method to check some additional " + NL + "\t * conditions here." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isNode";
+  protected final String TEXT_69 = "(";
+  protected final String TEXT_70 = " element) {" + NL + "\t\treturn ElementSelectors.";
+  protected final String TEXT_71 = ".matches(element);" + NL + "\t}\t";
+  protected final String TEXT_72 = NL;
+  protected final String TEXT_73 = NL + NL + "\t/**" + NL + "\t * User can change implementation of this method to handle some specific" + NL + "\t * situations not covered by default logic." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate int getUnrecognized";
+  protected final String TEXT_74 = "ChildNodeID(String semanticHint) {" + NL + "\t\treturn -1;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * User can change implementation of this method to handle some specific" + NL + "\t * situations not covered by default logic." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate int getUnrecognized";
+  protected final String TEXT_75 = "ChildNodeID(EObject domainElement) {" + NL + "\t\treturn -1;" + NL + "\t}";
   protected final String TEXT_76 = NL + NL + "\t/**" + NL + "\t * User can change implementation of this method to handle some specific" + NL + "\t * situations not covered by default logic." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate int getUnrecognized";
-  protected final String TEXT_77 = "LinkLabelTextID(String semanticHint) {" + NL + "\t\treturn -1;" + NL + "\t}";
-  protected final String TEXT_78 = NL + "\t\t" + NL + "\t/**" + NL + "\t * User can change implementation of this method to handle some specific" + NL + "\t * situations not covered by default logic." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate int getUnrecognizedLinkWithClassID(EObject domainElement) {" + NL + "\t\treturn -1;" + NL + "\t}";
-  protected final String TEXT_79 = NL + NL + "\t/**" + NL + "\t * User can change implementation of this method to check some additional " + NL + "\t * conditions here." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isLinkWithClass";
-  protected final String TEXT_80 = "(";
-  protected final String TEXT_81 = " element) {" + NL + "\t\treturn ElementSelectors.";
-  protected final String TEXT_82 = ".matches(element);" + NL + "\t}";
-  protected final String TEXT_83 = NL;
-  protected final String TEXT_84 = NL;
-  protected final String TEXT_85 = "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String getModelID(View containerView) {" + NL + "\t\t";
-  protected final String TEXT_86 = " annotation = containerView.getEAnnotation(\"ViewIdentifier\"); //$NON-NLS-1$" + NL + "\t\tif (annotation == null) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn (String) annotation.getDetails().get(\"modelID\"); //$NON-NLS-1$" + NL + "\t}" + NL;
-  protected final String TEXT_87 = NL;
-  protected final String TEXT_88 = "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate int getVisualID(View containerView) {" + NL + "\t\t";
-  protected final String TEXT_89 = " annotation = containerView.getEAnnotation(\"ViewIdentifier\"); //$NON-NLS-1$" + NL + "\t\tif (annotation == null) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\tString visualID = (String) annotation.getDetails().get(\"visualID\"); //$NON-NLS-1$" + NL + "\t\tif (visualID == null) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\ttry {" + NL + "\t\t\treturn Integer.parseInt(visualID);" + NL + "\t\t} catch (NumberFormatException e) {" + NL + "\t\t\t";
-  protected final String TEXT_90 = ".getInstance().logError(\"Unable to parse \\\"visualID\\\" annotation: \" + visualID, e);" + NL + "\t\t}" + NL + "\t\treturn -1;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class ElementSelectors {\t";
-  protected final String TEXT_91 = NL + NL + "\t\t/**" + NL + "\t\t * Element matching condition for ";
-  protected final String TEXT_92 = "." + NL + "\t\t * <pre>language: ";
-  protected final String TEXT_93 = "</pre>\t" + NL + "\t\t * <pre>body    : ";
-  protected final String TEXT_94 = "</pre>" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate static final Matcher ";
-  protected final String TEXT_95 = " = new Matcher(\"";
-  protected final String TEXT_96 = "\");";
-  protected final String TEXT_97 = NL + "\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate ElementSelectors() {" + NL + "\t\t}";
-  protected final String TEXT_98 = "\t\t\t" + NL + "\t\t/**" + NL + "\t\t* @generated\t" + NL + "\t\t*/" + NL + "\t\tstatic class Matcher {" + NL + "\t" + NL + "\t\t\t/**" + NL + "\t\t\t* @generated\t" + NL + "\t\t\t*/\t\t\t\t\t" + NL + "\t\t\tprivate EClass evalContext;" + NL + "\t" + NL + "\t\t\t/**" + NL + "\t\t\t* @generated\t" + NL + "\t\t\t*/\t\t\t\t\t\t" + NL + "\t\t\tprivate ";
-  protected final String TEXT_99 = " condition;" + NL + "\t" + NL + "\t\t\t/**" + NL + "\t\t\t* @generated\t" + NL + "\t\t\t*/\t\t\t\t\t\t" + NL + "\t\t\tprivate String body;\t\t" + NL + "\t\t\t\t\t" + NL + "\t\t\t/**" + NL + "\t\t\t* @generated\t" + NL + "\t\t\t*/\t\t\t\t" + NL + "\t\t\tMatcher(String expressionBody) {\t\t\t" + NL + "\t\t\t\tbody = expressionBody;" + NL + "\t\t\t}" + NL + "\t" + NL + "\t\t\t/**" + NL + "\t\t\t* @generated\t" + NL + "\t\t\t*/\t\t\t\t\t\t" + NL + "\t\t\tboolean matches(EObject object) {\t\t" + NL + "\t\t\t\ttry {" + NL + "\t\t\t\t\tBoolean result = (object != null) ? evaluate(object) : Boolean.FALSE;" + NL + "\t\t\t\t\treturn result.booleanValue();" + NL + "\t\t\t\t} catch(IllegalArgumentException e) {" + NL + "\t\t\t\t\t";
-  protected final String TEXT_100 = ".getInstance().logError(null, e);" + NL + "\t\t\t\t\treturn false;" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t" + NL + "\t\t\t/**" + NL + "\t\t\t* @generated\t" + NL + "\t\t\t*/\t\t" + NL + "\t\t\tprivate Boolean evaluate(EObject context) {" + NL + "\t\t\t\tthis.evalContext = context.eClass();" + NL + "\t\t\t\tif(condition == null) {\t\t\t\t\t" + NL + "\t\t\t\t\tcondition = new ";
-  protected final String TEXT_101 = "(body, evalContext);" + NL + "\t\t\t\t}" + NL + "\t\t\t\tif(condition != null) {" + NL + "\t\t\t\t\treturn booleanCast(condition.evaluate(context));" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn Boolean.FALSE;" + NL + "\t\t\t}" + NL + "\t" + NL + "\t\t\t/**" + NL + "\t\t\t* @generated\t" + NL + "\t\t\t*/\t\t\t\t\t" + NL + "\t\t\tprivate static Boolean booleanCast(Object value) {" + NL + "\t\t\t\tif(value == null) {" + NL + "\t\t\t\t\treturn null;" + NL + "\t\t\t\t} else if(value instanceof Boolean) {" + NL + "\t\t\t\t\t return (Boolean)value;\t" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn Boolean.FALSE;" + NL + "\t\t\t}" + NL + "\t\t} // end of Matcher";
-  protected final String TEXT_102 = "\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tstatic class AcceptAllMatcher {" + NL + "\t\t\t/**" + NL + "\t\t\t * @generated" + NL + "\t\t\t */\t\t" + NL + "\t\t\tstatic final AcceptAllMatcher INSTANCE = new AcceptAllMatcher();" + NL + "\t\t\t/**" + NL + "\t\t\t * @generated" + NL + "\t\t\t */\t\t\t\t\t" + NL + "\t\t\tboolean matches(Object element) {" + NL + "\t\t\t\treturn true;" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tstatic AcceptAllMatcher acceptAllMatcher() {" + NL + "\t\t\treturn AcceptAllMatcher.INSTANCE;" + NL + "\t\t}" + NL + "\t} // end of ElementSelectors" + NL + "}" + NL + "\t";
-  protected final String TEXT_103 = NL;
+  protected final String TEXT_77 = "LinkLabelID(String semanticHint) {" + NL + "\t\treturn -1;" + NL + "\t}";
+  protected final String TEXT_78 = NL + NL + "\t/**" + NL + "\t * User can change implementation of this method to handle some specific" + NL + "\t * situations not covered by default logic." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */\t" + NL + "\tprivate int getUnrecognized";
+  protected final String TEXT_79 = "LinkLabelTextID(String semanticHint) {" + NL + "\t\treturn -1;" + NL + "\t}";
+  protected final String TEXT_80 = NL + "\t\t" + NL + "\t/**" + NL + "\t * User can change implementation of this method to handle some specific" + NL + "\t * situations not covered by default logic." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate int getUnrecognizedLinkWithClassID(EObject domainElement) {" + NL + "\t\treturn -1;" + NL + "\t}";
+  protected final String TEXT_81 = NL + NL + "\t/**" + NL + "\t * User can change implementation of this method to check some additional " + NL + "\t * conditions here." + NL + "\t *" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isLinkWithClass";
+  protected final String TEXT_82 = "(";
+  protected final String TEXT_83 = " element) {" + NL + "\t\treturn ElementSelectors.";
+  protected final String TEXT_84 = ".matches(element);" + NL + "\t}";
+  protected final String TEXT_85 = NL;
+  protected final String TEXT_86 = NL;
+  protected final String TEXT_87 = "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate String getModelID(View containerView) {" + NL + "\t\t";
+  protected final String TEXT_88 = " annotation = containerView.getEAnnotation(\"ViewIdentifier\"); //$NON-NLS-1$" + NL + "\t\tif (annotation == null) {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\treturn (String) annotation.getDetails().get(\"modelID\"); //$NON-NLS-1$" + NL + "\t}" + NL;
+  protected final String TEXT_89 = NL;
+  protected final String TEXT_90 = "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate int getVisualID(View containerView) {" + NL + "\t\t";
+  protected final String TEXT_91 = " annotation = containerView.getEAnnotation(\"ViewIdentifier\"); //$NON-NLS-1$" + NL + "\t\tif (annotation == null) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\tString visualID = (String) annotation.getDetails().get(\"visualID\"); //$NON-NLS-1$" + NL + "\t\tif (visualID == null) {" + NL + "\t\t\treturn -1;" + NL + "\t\t}" + NL + "\t\ttry {" + NL + "\t\t\treturn Integer.parseInt(visualID);" + NL + "\t\t} catch (NumberFormatException e) {" + NL + "\t\t\t";
+  protected final String TEXT_92 = ".getInstance().logError(\"Unable to parse \\\"visualID\\\" annotation: \" + visualID, e);" + NL + "\t\t}" + NL + "\t\treturn -1;" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate static class ElementSelectors {\t";
+  protected final String TEXT_93 = NL + NL + "\t\t/**" + NL + "\t\t * Element matching condition for ";
+  protected final String TEXT_94 = "." + NL + "\t\t * <pre>language: ";
+  protected final String TEXT_95 = "</pre>\t" + NL + "\t\t * <pre>body    : ";
+  protected final String TEXT_96 = "</pre>" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate static final Matcher ";
+  protected final String TEXT_97 = " = new Matcher(\"";
+  protected final String TEXT_98 = "\");";
+  protected final String TEXT_99 = NL + "\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate ElementSelectors() {" + NL + "\t\t}";
+  protected final String TEXT_100 = "\t\t\t" + NL + "\t\t/**" + NL + "\t\t* @generated\t" + NL + "\t\t*/" + NL + "\t\tstatic class Matcher {" + NL + "\t" + NL + "\t\t\t/**" + NL + "\t\t\t* @generated\t" + NL + "\t\t\t*/\t\t\t\t\t" + NL + "\t\t\tprivate EClass evalContext;" + NL + "\t" + NL + "\t\t\t/**" + NL + "\t\t\t* @generated\t" + NL + "\t\t\t*/\t\t\t\t\t\t" + NL + "\t\t\tprivate ";
+  protected final String TEXT_101 = " condition;" + NL + "\t" + NL + "\t\t\t/**" + NL + "\t\t\t* @generated\t" + NL + "\t\t\t*/\t\t\t\t\t\t" + NL + "\t\t\tprivate String body;\t\t" + NL + "\t\t\t\t\t" + NL + "\t\t\t/**" + NL + "\t\t\t* @generated\t" + NL + "\t\t\t*/\t\t\t\t" + NL + "\t\t\tMatcher(String expressionBody) {\t\t\t" + NL + "\t\t\t\tbody = expressionBody;" + NL + "\t\t\t}" + NL + "\t" + NL + "\t\t\t/**" + NL + "\t\t\t* @generated\t" + NL + "\t\t\t*/\t\t\t\t\t\t" + NL + "\t\t\tboolean matches(EObject object) {\t\t" + NL + "\t\t\t\ttry {" + NL + "\t\t\t\t\tBoolean result = (object != null) ? evaluate(object) : Boolean.FALSE;" + NL + "\t\t\t\t\treturn result.booleanValue();" + NL + "\t\t\t\t} catch(IllegalArgumentException e) {" + NL + "\t\t\t\t\t";
+  protected final String TEXT_102 = ".getInstance().logError(null, e);" + NL + "\t\t\t\t\treturn false;" + NL + "\t\t\t\t}" + NL + "\t\t\t}" + NL + "\t" + NL + "\t\t\t/**" + NL + "\t\t\t* @generated\t" + NL + "\t\t\t*/\t\t" + NL + "\t\t\tprivate Boolean evaluate(EObject context) {" + NL + "\t\t\t\tthis.evalContext = context.eClass();" + NL + "\t\t\t\tif(condition == null) {\t\t\t\t\t" + NL + "\t\t\t\t\tcondition = new ";
+  protected final String TEXT_103 = "(body, evalContext);" + NL + "\t\t\t\t}" + NL + "\t\t\t\tif(condition != null) {" + NL + "\t\t\t\t\treturn booleanCast(condition.evaluate(context));" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn Boolean.FALSE;" + NL + "\t\t\t}" + NL + "\t" + NL + "\t\t\t/**" + NL + "\t\t\t* @generated\t" + NL + "\t\t\t*/\t\t\t\t\t" + NL + "\t\t\tprivate static Boolean booleanCast(Object value) {" + NL + "\t\t\t\tif(value == null) {" + NL + "\t\t\t\t\treturn null;" + NL + "\t\t\t\t} else if(value instanceof Boolean) {" + NL + "\t\t\t\t\t return (Boolean)value;\t" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn Boolean.FALSE;" + NL + "\t\t\t}" + NL + "\t\t} // end of Matcher";
+  protected final String TEXT_104 = "\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tstatic class AcceptAllMatcher {" + NL + "\t\t\t/**" + NL + "\t\t\t * @generated" + NL + "\t\t\t */\t\t" + NL + "\t\t\tstatic final AcceptAllMatcher INSTANCE = new AcceptAllMatcher();" + NL + "\t\t\t/**" + NL + "\t\t\t * @generated" + NL + "\t\t\t */\t\t\t\t\t" + NL + "\t\t\tboolean matches(Object element) {" + NL + "\t\t\t\treturn true;" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */\t\t" + NL + "\t\tstatic AcceptAllMatcher acceptAllMatcher() {" + NL + "\t\t\treturn AcceptAllMatcher.INSTANCE;" + NL + "\t\t}" + NL + "\t} // end of ElementSelectors" + NL + "}" + NL + "\t";
+  protected final String TEXT_105 = NL;
 
   public String generate(Object argument)
   {
@@ -148,7 +150,7 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(genDiagram.getVisualIDRegistryClassName());
     stringBuffer.append(TEXT_5);
     
-{
+if (genDiagram.getDomainDiagramElement() != null) {
 	String classifierAccessorName = genDiagram.getDomainDiagramElement().getClassifierAccessorName();
 	String interfaceName = importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName());
 
@@ -163,9 +165,7 @@ importManager.markImportLocation(stringBuffer);
     stringBuffer.append(TEXT_10);
     stringBuffer.append(genDiagram.getVisualID());
     stringBuffer.append(TEXT_11);
-    
-}
-
+    }
     stringBuffer.append(TEXT_12);
     stringBuffer.append(modelID);
     stringBuffer.append(TEXT_13);
@@ -348,10 +348,14 @@ for (int i = 0; i < genLinks.size(); i++) {
 	}
 
     stringBuffer.append(TEXT_63);
-    stringBuffer.append(genDiagram.getUniqueIdentifier());
+    if (genDiagram.getDomainDiagramElement() != null) {
     stringBuffer.append(TEXT_64);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName()));
+    stringBuffer.append(genDiagram.getUniqueIdentifier());
     stringBuffer.append(TEXT_65);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName()));
+    stringBuffer.append(TEXT_66);
+    }
+    stringBuffer.append(TEXT_67);
     
 String acceptAllMatcherAccessor = "acceptAllMatcher()"; //$NON-NLS-1$
 for (Iterator nodes = genDiagram.getAllNodes().iterator(); nodes.hasNext();) {
@@ -359,46 +363,46 @@ for (Iterator nodes = genDiagram.getAllNodes().iterator(); nodes.hasNext();) {
 	String qualifiedChildNodeInterfaceName = nextNode.getDomainMetaClass().getQualifiedInterfaceName();
 	String childNodeSelector = nextNode.getModelFacet() != null && nextNode.getModelFacet().getModelElementSelector() != null ? nextNode.getUniqueIdentifier() : acceptAllMatcherAccessor;
 
-    stringBuffer.append(TEXT_66);
-    stringBuffer.append(nextNode.getUniqueIdentifier());
-    stringBuffer.append(TEXT_67);
-    stringBuffer.append(importManager.getImportedName(qualifiedChildNodeInterfaceName));
     stringBuffer.append(TEXT_68);
-    stringBuffer.append(childNodeSelector);
+    stringBuffer.append(nextNode.getUniqueIdentifier());
     stringBuffer.append(TEXT_69);
+    stringBuffer.append(importManager.getImportedName(qualifiedChildNodeInterfaceName));
+    stringBuffer.append(TEXT_70);
+    stringBuffer.append(childNodeSelector);
+    stringBuffer.append(TEXT_71);
     
 }
 
-    stringBuffer.append(TEXT_70);
+    stringBuffer.append(TEXT_72);
     
 for (Iterator containers = allContainers.iterator(); containers.hasNext();) {
 	GenContainerBase nextContainer = (GenContainerBase) containers.next();
 
-    stringBuffer.append(TEXT_71);
-    stringBuffer.append(nextContainer.getUniqueIdentifier());
-    stringBuffer.append(TEXT_72);
-    stringBuffer.append(nextContainer.getUniqueIdentifier());
     stringBuffer.append(TEXT_73);
+    stringBuffer.append(nextContainer.getUniqueIdentifier());
+    stringBuffer.append(TEXT_74);
+    stringBuffer.append(nextContainer.getUniqueIdentifier());
+    stringBuffer.append(TEXT_75);
     
 }
 
 for (Iterator links = genLinks.iterator(); links.hasNext();) {
 	GenLink link = (GenLink) links.next();
 
-    stringBuffer.append(TEXT_74);
-    stringBuffer.append(link.getUniqueIdentifier());
-    stringBuffer.append(TEXT_75);
-    
-	if (link.getLabels().size() > 0) {
-
     stringBuffer.append(TEXT_76);
     stringBuffer.append(link.getUniqueIdentifier());
     stringBuffer.append(TEXT_77);
     
+	if (link.getLabels().size() > 0) {
+
+    stringBuffer.append(TEXT_78);
+    stringBuffer.append(link.getUniqueIdentifier());
+    stringBuffer.append(TEXT_79);
+    
 	}
 }
 
-    stringBuffer.append(TEXT_78);
+    stringBuffer.append(TEXT_80);
     
 for (int i = 0; i < genLinks.size(); i++) {
 	GenLink genLink = (GenLink) genLinks.get(i);
@@ -407,28 +411,28 @@ for (int i = 0; i < genLinks.size(); i++) {
 		String qualifiedInterfaceName = modelFacet.getMetaClass().getQualifiedInterfaceName();
 		String linkSelector = modelFacet.getModelElementSelector() != null ? genLink.getUniqueIdentifier() : acceptAllMatcherAccessor;		
 
-    stringBuffer.append(TEXT_79);
-    stringBuffer.append(genLink.getUniqueIdentifier());
-    stringBuffer.append(TEXT_80);
-    stringBuffer.append(importManager.getImportedName(qualifiedInterfaceName));
     stringBuffer.append(TEXT_81);
-    stringBuffer.append(linkSelector);
+    stringBuffer.append(genLink.getUniqueIdentifier());
     stringBuffer.append(TEXT_82);
+    stringBuffer.append(importManager.getImportedName(qualifiedInterfaceName));
+    stringBuffer.append(TEXT_83);
+    stringBuffer.append(linkSelector);
+    stringBuffer.append(TEXT_84);
     
 	}
 }
 
-    stringBuffer.append(TEXT_83);
-    stringBuffer.append(TEXT_84);
     stringBuffer.append(TEXT_85);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation"));
     stringBuffer.append(TEXT_86);
     stringBuffer.append(TEXT_87);
-    stringBuffer.append(TEXT_88);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation"));
+    stringBuffer.append(TEXT_88);
     stringBuffer.append(TEXT_89);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_90);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation"));
+    stringBuffer.append(TEXT_91);
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    stringBuffer.append(TEXT_92);
     
 int selectorCounter = 0;
 for (Iterator it = genDiagram.eAllContents(); it.hasNext();) {
@@ -448,31 +452,31 @@ for (Iterator it = genDiagram.eAllContents(); it.hasNext();) {
 	GenConstraint selector = modelFacet.getModelElementSelector();
 	selectorCounter++;
 
-    stringBuffer.append(TEXT_91);
-    stringBuffer.append(id);
-    stringBuffer.append(TEXT_92);
-    stringBuffer.append(selector.getLanguage());
     stringBuffer.append(TEXT_93);
-    stringBuffer.append(selector.getBody());
-    stringBuffer.append(TEXT_94);
     stringBuffer.append(id);
+    stringBuffer.append(TEXT_94);
+    stringBuffer.append(selector.getLanguage());
     stringBuffer.append(TEXT_95);
     stringBuffer.append(selector.getBody());
     stringBuffer.append(TEXT_96);
-    }
+    stringBuffer.append(id);
     stringBuffer.append(TEXT_97);
-    if(selectorCounter > 0) { 
+    stringBuffer.append(selector.getBody());
     stringBuffer.append(TEXT_98);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition"));
+    }
     stringBuffer.append(TEXT_99);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
+    if(selectorCounter > 0) { 
     stringBuffer.append(TEXT_100);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition"));
     stringBuffer.append(TEXT_101);
-    }
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_102);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName("org.eclipse.emf.query.ocl.conditions.OCLConstraintCondition"));
     stringBuffer.append(TEXT_103);
+    }
+    stringBuffer.append(TEXT_104);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_105);
     return stringBuffer.toString();
   }
 }

@@ -6,11 +6,16 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
+import java.util.List;
+
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -659,6 +664,35 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 		templateDirectory = newTemplateDirectory;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY, oldTemplateDirectory, templateDirectory));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList getAllDomainGenPackages(boolean withUsed) {
+		EList result = new BasicEList();
+		GenModel genModel = getDomainGenModel();
+		if (genModel != null) {
+			List genPackages = genModel.getAllGenPackagesWithClassifiers();
+			for (int i = 0; i < genPackages.size(); i++) {
+				GenPackage genPackage = (GenPackage) genPackages.get(i);
+				if (genPackage.getGenModel().hasEditSupport()) {
+					result.add(genPackage);
+				}
+			}
+			if (withUsed) {
+				genPackages = genModel.getAllUsedGenPackagesWithClassifiers();
+				for (int i = 0; i < genPackages.size(); i++) {
+					GenPackage genPackage = (GenPackage) genPackages.get(i);
+					if (genPackage.getGenModel().hasEditSupport()) {
+						result.add(genPackage);
+					}
+				}
+			}
+		}
+	    return new BasicEList.UnmodifiableEList(result.size(), result.toArray());
 	}
 
 	/**

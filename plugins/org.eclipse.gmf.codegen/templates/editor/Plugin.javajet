@@ -1,9 +1,9 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="PluginGenerator"
-    imports="java.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
+    imports="org.eclipse.emf.common.util.* org.eclipse.emf.codegen.ecore.genmodel.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
 final GenPlugin genPlugin = (GenPlugin) ((Object[]) argument)[0];
 final GenDiagram genDiagram = genPlugin.getEditorGen().getDiagram();
-final GenModel genModel = genPlugin.getEditorGen().getDomainGenModel();
+final EList genPackages = genPlugin.getEditorGen().getAllDomainGenPackages(true);
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 
 importManager.emitPackageStatement(stringBuffer);%>
@@ -21,8 +21,6 @@ import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
-import org.eclipse.gmf.runtime.emf.core.internal.util.MSLAdapterFactoryManager;
-import org.eclipse.gmf.runtime.emf.core.internal.util.MSLMetaModelManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -67,15 +65,16 @@ public class <%=genPlugin.getActivatorClassName()%> extends AbstractUIPlugin {
 		super.start(context);
 		instance = this;
 		PreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT, getPreferenceStore());
-		//FIXME itemProviderAF, metaPackage and editPlugin are only for package of diagramMetaElement
 <%
-GenPackage genPackage = genDiagram.getDomainDiagramElement().getGenPackage();
-String domainPackageIPAFInterfaceName = importManager.getImportedName(genPackage.getQualifiedItemProviderAdapterFactoryClassName());
-String domainPackageInterfaceName = genDiagram.getMetaPackageName(importManager);
-String domainPackageEditPluginClassName = importManager.getImportedName(genPackage.getQualifiedEditPluginClassName());
+for (int i = 0; i < genPackages.size(); i++) {
+	GenPackage genPackage = (GenPackage) genPackages.get(i);
+	String domainPackageIPAFInterfaceName = importManager.getImportedName(genPackage.getQualifiedItemProviderAdapterFactoryClassName());
+	String domainPackageInterfaceName = importManager.getImportedName(genPackage.getQualifiedPackageInterfaceName());
+	String domainPackageEditPluginClassName = importManager.getImportedName(genPackage.getQualifiedEditPluginClassName());
 %>
-		MSLAdapterFactoryManager.register(new <%=domainPackageIPAFInterfaceName%>());
-		MSLMetaModelManager.register(<%=domainPackageInterfaceName%>.eINSTANCE, <%=domainPackageEditPluginClassName%>.INSTANCE);
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.util.MSLAdapterFactoryManager")%>.register(new <%=domainPackageIPAFInterfaceName%>());
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.util.MetamodelManager")%>.register(<%=domainPackageInterfaceName%>.eINSTANCE, <%=domainPackageEditPluginClassName%>.INSTANCE);
+<%}%>
 		<%=importManager.getImportedName(genDiagram.getElementTypesQualifiedClassName())%>.register();
 		adapterFactory = createAdapterFactory();
 	}
@@ -111,25 +110,11 @@ String domainPackageEditPluginClassName = importManager.getImportedName(genPacka
 	 */
 	protected void fillItemProviderFactories(List factories) {
 <%
-List genPackages = genModel.getAllGenPackagesWithClassifiers();
 for (int i = 0; i < genPackages.size(); i++) {
-	genPackage = (GenPackage) genPackages.get(i);
-	if (genPackage.getGenModel().hasEditSupport()) {
+	GenPackage genPackage = (GenPackage) genPackages.get(i);
 %>
 		factories.add(new <%=importManager.getImportedName(genPackage.getQualifiedItemProviderAdapterFactoryClassName())%>());
-<%
-	}
-}
-genPackages = genModel.getAllUsedGenPackagesWithClassifiers();
-for (int i = 0; i < genPackages.size(); i++) {
-	genPackage = (GenPackage) genPackages.get(i);
-	if (genPackage.getGenModel().hasEditSupport()) {
-%>
-		factories.add(new <%=importManager.getImportedName(genPackage.getQualifiedItemProviderAdapterFactoryClassName())%>());
-<%
-	}
-}
-%>
+<%}%>
 		factories.add(new ResourceItemProviderAdapterFactory());
 		factories.add(new ReflectiveItemProviderAdapterFactory());
 	}

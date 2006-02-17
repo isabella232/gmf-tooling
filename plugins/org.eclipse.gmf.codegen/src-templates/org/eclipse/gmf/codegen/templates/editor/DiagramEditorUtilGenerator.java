@@ -23,14 +23,19 @@ public class DiagramEditorUtilGenerator
   protected final String TEXT_6 = "\"); //$NON-NLS-1$" + NL + "\t\tfinal Resource modelResource = editingDomain.createResource(modelFilePath.toOSString());";
   protected final String TEXT_7 = NL + NL + "\t\tif (diagramResource != null";
   protected final String TEXT_8 = " && modelResource != null";
-  protected final String TEXT_9 = ") {" + NL + "\t\t\tfinal String kindParam = kind;" + NL + "\t\t\teditingDomain.runAsUnchecked(new MRunnable() {" + NL + "" + NL + "\t\t\t\tpublic Object run() {" + NL + "\t\t\t\t\tEObject model = editingDomain.create(";
-  protected final String TEXT_10 = ".eINSTANCE.get";
-  protected final String TEXT_11 = "());";
-  protected final String TEXT_12 = "\t\t\t\t\t" + NL + "\t\t\t\t\tmodelResource.getContents().add(model);" + NL + "\t\t\t\t\teditingDomain.saveResource(modelResource);";
-  protected final String TEXT_13 = NL + "\t\t\t\t\tdiagramResource.getContents.add(model);";
-  protected final String TEXT_14 = NL + "\t\t\t\t\tDiagram diagram = ViewService.createDiagram(model, kindParam, ";
-  protected final String TEXT_15 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\t\t\t\tif (diagram != null) {" + NL + "\t\t\t\t\t\tdiagramResource.getContents().add(diagram);" + NL + "\t\t\t\t\t\tdiagram.setName(diagramFile.getName());" + NL + "\t\t\t\t\t\tdiagram.setElement(model);" + NL + "\t\t\t\t\t\teditingDomain.saveResource(diagramResource);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t\treturn null;" + NL + "\t\t\t\t}" + NL + "" + NL + "\t\t\t});" + NL + "\t\t}" + NL + "" + NL + "\t\treturn diagramFile;" + NL + "\t}" + NL + "}";
-  protected final String TEXT_16 = NL;
+  protected final String TEXT_9 = ") {" + NL + "\t\t\tfinal String kindParam = kind;" + NL + "\t\t\teditingDomain.runAsUnchecked(new MRunnable() {" + NL + "" + NL + "\t\t\t\tpublic Object run() {";
+  protected final String TEXT_10 = NL + "\t\t\t\t\tEObject model = editingDomain.create(";
+  protected final String TEXT_11 = ".eINSTANCE.get";
+  protected final String TEXT_12 = "());";
+  protected final String TEXT_13 = NL + "\t\t\t\t\tmodelResource.getContents().add(model);" + NL + "\t\t\t\t\teditingDomain.saveResource(modelResource);";
+  protected final String TEXT_14 = NL + "\t\t\t\t\tdiagramResource.getContents.add(model);";
+  protected final String TEXT_15 = NL + "\t\t\t\t\tDiagram diagram = ViewService.createDiagram(";
+  protected final String TEXT_16 = NL + "\t\t\t\t\tmodel, ";
+  protected final String TEXT_17 = NL + "\t\t\t\t\tkindParam, ";
+  protected final String TEXT_18 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\t\t\t\tif (diagram != null) {" + NL + "\t\t\t\t\t\tdiagramResource.getContents().add(diagram);" + NL + "\t\t\t\t\t\tdiagram.setName(diagramFile.getName());";
+  protected final String TEXT_19 = NL + "\t\t\t\t\t\tdiagram.setElement(model);";
+  protected final String TEXT_20 = NL + "\t\t\t\t\t\teditingDomain.saveResource(diagramResource);" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t\treturn null;" + NL + "\t\t\t\t}" + NL + "" + NL + "\t\t\t});" + NL + "\t\t}" + NL + "" + NL + "\t\treturn diagramFile;" + NL + "\t}" + NL + "}";
+  protected final String TEXT_21 = NL;
 
   public String generate(Object argument)
   {
@@ -48,30 +53,46 @@ importManager.emitPackageStatement(stringBuffer);
     stringBuffer.append(TEXT_3);
     stringBuffer.append(genDiagram.getDiagramEditorUtilClassName());
     stringBuffer.append(TEXT_4);
-    if (!editorGen.isSameFileForDiagramAndModel()) {
+    
+final boolean standaloneDomainModel = !editorGen.isSameFileForDiagramAndModel() && genDiagram.getDomainDiagramElement() != null;
+if (standaloneDomainModel) {
+
     stringBuffer.append(TEXT_5);
     stringBuffer.append(editorGen.getDomainFileExtension());
     stringBuffer.append(TEXT_6);
     }
     stringBuffer.append(TEXT_7);
-    if (!editorGen.isSameFileForDiagramAndModel()) {
+    if (standaloneDomainModel) {
     stringBuffer.append(TEXT_8);
     }
     stringBuffer.append(TEXT_9);
-    stringBuffer.append(genDiagram.getMetaPackageName(importManager));
+    if (genDiagram.getDomainDiagramElement() != null) {
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(genDiagram.getDomainDiagramElement().getClassifierAccessorName());
+    stringBuffer.append(genDiagram.getMetaPackageName(importManager));
     stringBuffer.append(TEXT_11);
-    if (!editorGen.isSameFileForDiagramAndModel()) {
+    stringBuffer.append(genDiagram.getDomainDiagramElement().getClassifierAccessorName());
     stringBuffer.append(TEXT_12);
-    } else {
+    	if (standaloneDomainModel) {
     stringBuffer.append(TEXT_13);
-    }
+    	} else {
     stringBuffer.append(TEXT_14);
-    stringBuffer.append(genDiagram.getEditorGen().getPlugin().getActivatorClassName());
+    
+	}
+}
+
     stringBuffer.append(TEXT_15);
-    importManager.emitSortedImports();
+    if (genDiagram.getDomainDiagramElement() != null) {
     stringBuffer.append(TEXT_16);
+    }
+    stringBuffer.append(TEXT_17);
+    stringBuffer.append(genDiagram.getEditorGen().getPlugin().getActivatorClassName());
+    stringBuffer.append(TEXT_18);
+    if (genDiagram.getDomainDiagramElement() != null) {
+    stringBuffer.append(TEXT_19);
+    }
+    stringBuffer.append(TEXT_20);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_21);
     return stringBuffer.toString();
   }
 }

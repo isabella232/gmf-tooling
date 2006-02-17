@@ -60,28 +60,41 @@ public class <%=genDiagram.getDiagramEditorUtilClassName()%> extends IDEEditorUt
 
 		IPath diagramFilePath = diagramFile.getLocation();
 		final Resource diagramResource = editingDomain.createResource(diagramFilePath.toOSString());
-<%if (!editorGen.isSameFileForDiagramAndModel()) {%>
+<%
+final boolean standaloneDomainModel = !editorGen.isSameFileForDiagramAndModel() && genDiagram.getDomainDiagramElement() != null;
+if (standaloneDomainModel) {
+%>
 		IPath modelFilePath = diagramFilePath.removeFileExtension().addFileExtension("<%=editorGen.getDomainFileExtension()%>"); //$NON-NLS-1$
 		final Resource modelResource = editingDomain.createResource(modelFilePath.toOSString());
 <%}%>
 
-		if (diagramResource != null<%if (!editorGen.isSameFileForDiagramAndModel()) {%> && modelResource != null<%}%>) {
+		if (diagramResource != null<%if (standaloneDomainModel) {%> && modelResource != null<%}%>) {
 			final String kindParam = kind;
 			editingDomain.runAsUnchecked(new MRunnable() {
 
 				public Object run() {
+<%if (genDiagram.getDomainDiagramElement() != null) {%>
 					EObject model = editingDomain.create(<%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE.get<%=genDiagram.getDomainDiagramElement().getClassifierAccessorName()%>());
-<%if (!editorGen.isSameFileForDiagramAndModel()) {%>					
+<%	if (standaloneDomainModel) {%>
 					modelResource.getContents().add(model);
 					editingDomain.saveResource(modelResource);
-<%} else {%>
+<%	} else {%>
 					diagramResource.getContents.add(model);
+<%
+	}
+}
+%>
+					Diagram diagram = ViewService.createDiagram(
+<%if (genDiagram.getDomainDiagramElement() != null) {%>
+					model, 
 <%}%>
-					Diagram diagram = ViewService.createDiagram(model, kindParam, <%=genDiagram.getEditorGen().getPlugin().getActivatorClassName()%>.DIAGRAM_PREFERENCES_HINT);
+					kindParam, <%=genDiagram.getEditorGen().getPlugin().getActivatorClassName()%>.DIAGRAM_PREFERENCES_HINT);
 					if (diagram != null) {
 						diagramResource.getContents().add(diagram);
 						diagram.setName(diagramFile.getName());
+<%if (genDiagram.getDomainDiagramElement() != null) {%>
 						diagram.setElement(model);
+<%}%>
 						editingDomain.saveResource(diagramResource);
 					}
 					return null;

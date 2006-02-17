@@ -215,6 +215,7 @@ GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
     
 Collection childNodes = genDiagram.getTopLevelNodes();
 GenClass containerGenClass = genDiagram.getDomainDiagramElement();
+if (containerGenClass != null) {
 
     stringBuffer.append(TEXT_7);
     stringBuffer.append(TEXT_8);
@@ -423,6 +424,7 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 	}
 
     stringBuffer.append(TEXT_79);
+    }
     }
     stringBuffer.append(TEXT_80);
     importManager.emitSortedImports();

@@ -45,17 +45,15 @@ public class <%=genDiagram.getVisualIDRegistryClassName()%> {
 	 */
 	public int getDiagramVisualID(EObject domainElement, EClass domainElementMetaclass) {
 <%
-{
+if (genDiagram.getDomainDiagramElement() != null) {
 	String classifierAccessorName = genDiagram.getDomainDiagramElement().getClassifierAccessorName();
 	String interfaceName = importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName());
 %>
 		if (<%=genDiagram.getMetaPackageName(importManager)%>.eINSTANCE.get<%=classifierAccessorName%>().equals(domainElementMetaclass) && (domainElement != null ? isDiagram<%=genDiagram.getUniqueIdentifier()%>((<%=interfaceName%>) domainElement) : true)) {
 			return <%=genDiagram.getVisualID()%>;
 		}
+<%}%>
 		return getUnrecognizedDiagramID(domainElement);
-<%
-}
-%>
 	}
 
 	/**
@@ -241,7 +239,8 @@ for (int i = 0; i < genLinks.size(); i++) {
 			return getUnrecognizedLinkWithClassID(domainElement);
 		}
 	}	
-	
+
+<%if (genDiagram.getDomainDiagramElement() != null) {%>
 	/**
 	 * User can change implementation of this method to check some additional 
 	 * conditions here.
@@ -251,6 +250,7 @@ for (int i = 0; i < genLinks.size(); i++) {
 	private boolean isDiagram<%=genDiagram.getUniqueIdentifier()%>(<%=importManager.getImportedName(genDiagram.getDomainDiagramElement().getQualifiedInterfaceName())%> element) {
 		return true;
 	}
+<%}%>
 
 	/**
 	 * User can change implementation of this method to handle some specific
