@@ -26,4 +26,11 @@
     </children>
     <children xsi:type="gmfgraph:Label" name="Label"/>
   </figures>
+  <figures xsi:type="gmfgraph:PolygonDecoration" name="SquareDecoration" fill="true">
+   <foregroundColor xsi:type="gmfgraph:ConstantColor" value="black"/>
+    <template y="1"/>
+    <template x="-1" y="-1"/>
+    <template x="-1"/>
+    <template/>
+  </figures>
 </gmfgraph:FigureGallery>

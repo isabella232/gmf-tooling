@@ -2,20 +2,13 @@
 <gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="EclipseCon">
   <figures name="default">
     <figures xsi:type="gmfgraph:Rectangle" name="ThickFigure" lineWidth="3"/>
-    <figures xsi:type="gmfgraph:PolylineConnection" name="SolidLineSquareDec"/>
-    <figures xsi:type="gmfgraph:PolylineConnection" name="DashLineNoDecorations" lineKind="LINE_DASH" sourceDecoration="SquareDecoration"/>
+    <figures xsi:type="gmfgraph:PolylineConnection" name="SolidLineSquareDec" sourceDecoration="figures-ec.gmfgraph#SquareDecoration"/>
+    <figures xsi:type="gmfgraph:PolylineConnection" name="DashLineNoDecorations" lineKind="LINE_DASH"/>
     <figures xsi:type="gmfgraph:PolylineConnection" name="DotLineNoDecorations" lineKind="LINE_DOT"/>
     <figures xsi:type="gmfgraph:RoundedRectangle" name="SlotFigure" fill="true" lineWidth="2" cornerWidth="20" cornerHeight="20">
       <foregroundColor xsi:type="gmfgraph:ConstantColor" value="cyan"/>
     </figures>
     <figures xsi:type="gmfgraph:Rectangle" name="BasicRect"/>
-    <figures xsi:type="gmfgraph:PolygonDecoration" name="SquareDecoration" fill="true">
-      <foregroundColor xsi:type="gmfgraph:ConstantColor" value="black"/>
-      <template x="1"/>
-      <template x="1" y="1"/>
-      <template y="1"/>
-      <template/>
-    </figures>
   </figures>
   <nodes name="ScheduleNode" figure="ThickFigure"/>
   <nodes name="PresenterNode">
