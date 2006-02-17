@@ -24,8 +24,6 @@ import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
-import org.eclipse.gmf.runtime.emf.core.internal.util.MSLAdapterFactoryManager;
-import org.eclipse.gmf.runtime.emf.core.internal.util.MSLMetaModelManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -36,6 +34,9 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 
 import org.eclipse.gmf.examples.taipan.provider.TaiPanEditPlugin;
 import org.eclipse.gmf.examples.taipan.provider.TaiPanItemProviderAdapterFactory;
+
+import org.eclipse.gmf.runtime.emf.core.internal.util.MSLAdapterFactoryManager;
+import org.eclipse.gmf.runtime.emf.core.internal.util.MetamodelManager;
 
 /**
  * @generated
@@ -75,9 +76,8 @@ public class TaiPanDiagramEditorPlugin extends AbstractUIPlugin {
 		super.start(context);
 		instance = this;
 		PreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT, getPreferenceStore());
-		//FIXME itemProviderAF, metaPackage and editPlugin are only for package of diagramMetaElement
 		MSLAdapterFactoryManager.register(new TaiPanItemProviderAdapterFactory());
-		MSLMetaModelManager.register(TaiPanPackage.eINSTANCE, TaiPanEditPlugin.INSTANCE);
+		MetamodelManager.register(TaiPanPackage.eINSTANCE, TaiPanEditPlugin.INSTANCE);
 		TaiPanElementTypes.register();
 		adapterFactory = createAdapterFactory();
 	}
