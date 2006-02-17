@@ -37,9 +37,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" xmi:id="_qvfFUJ5eEdqUXOXxYRVpzQ" name="Presenter"
       eSuperTypes="#_RQvaEJ5eEdqUXOXxYRVpzQ">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" xmi:id="_oicJgJ5fEdqUXOXxYRVpzQ"
-        name="bio" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="phone" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="profile" eType="#//Profile"
+        defaultValueLiteral="" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Handout">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//HandoutKind"/>
@@ -53,5 +53,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="Resource">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="location" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Profile">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bio" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="eclipsezilla" eType="#//Resource"/>
   </eClassifiers>
 </ecore:EPackage>
