@@ -129,7 +129,7 @@ public class FigureGalleryItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FigureGallery"));
+		return getResourceLocator().getImage("full/obj16/FigureGallery");
 	}
 
 	/**

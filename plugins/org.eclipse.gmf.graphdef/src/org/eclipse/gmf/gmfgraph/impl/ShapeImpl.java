@@ -229,7 +229,7 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean OUTLINE_EDEFAULT = false;
+	protected static final boolean OUTLINE_EDEFAULT = true;
 
 	/**
 	 * The cached value of the '{@link #isOutline() <em>Outline</em>}' attribute.
@@ -249,7 +249,7 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean FILL_EDEFAULT = false;
+	protected static final boolean FILL_EDEFAULT = true;
 
 	/**
 	 * The cached value of the '{@link #isFill() <em>Fill</em>}' attribute.

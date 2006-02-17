@@ -38,6 +38,7 @@ import org.eclipse.emf.common.util.EList;
 public interface Shape extends Figure {
 	/**
 	 * Returns the value of the '<em><b>Outline</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Outline</em>' attribute isn't clear,
@@ -47,7 +48,7 @@ public interface Shape extends Figure {
 	 * @return the value of the '<em>Outline</em>' attribute.
 	 * @see #setOutline(boolean)
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getShape_Outline()
-	 * @model
+	 * @model default="true"
 	 * @generated
 	 */
 	boolean isOutline();
@@ -64,6 +65,7 @@ public interface Shape extends Figure {
 
 	/**
 	 * Returns the value of the '<em><b>Fill</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Fill</em>' attribute isn't clear,
@@ -73,7 +75,7 @@ public interface Shape extends Figure {
 	 * @return the value of the '<em>Fill</em>' attribute.
 	 * @see #setFill(boolean)
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getShape_Fill()
-	 * @model
+	 * @model default="true"
 	 * @generated
 	 */
 	boolean isFill();

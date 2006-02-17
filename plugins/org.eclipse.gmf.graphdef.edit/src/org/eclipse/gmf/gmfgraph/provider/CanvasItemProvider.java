@@ -126,7 +126,7 @@ public class CanvasItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Canvas"));
+		return getResourceLocator().getImage("full/obj16/Canvas");
 	}
 
 	/**

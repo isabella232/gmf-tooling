@@ -111,7 +111,7 @@ public class RoundedRectangleItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/RoundedRectangle"));
+		return getResourceLocator().getImage("full/obj16/RoundedRectangle");
 	}
 
 	/**

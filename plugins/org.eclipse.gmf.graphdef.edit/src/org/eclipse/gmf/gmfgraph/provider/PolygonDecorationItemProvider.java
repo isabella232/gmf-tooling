@@ -66,7 +66,7 @@ public class PolygonDecorationItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/PolygonDecoration"));
+		return getResourceLocator().getImage("full/obj16/PolygonDecoration");
 	}
 
 	/**

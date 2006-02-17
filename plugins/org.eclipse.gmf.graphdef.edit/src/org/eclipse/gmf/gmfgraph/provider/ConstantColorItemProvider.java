@@ -92,7 +92,7 @@ public class ConstantColorItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ConstantColor"));
+		return getResourceLocator().getImage("full/obj16/ConstantColor");
 	}
 
 	/**

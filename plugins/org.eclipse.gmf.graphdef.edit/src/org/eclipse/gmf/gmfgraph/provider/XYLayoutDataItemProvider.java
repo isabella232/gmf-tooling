@@ -125,7 +125,7 @@ public class XYLayoutDataItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/XYLayoutData"));
+		return getResourceLocator().getImage("full/obj16/XYLayoutData");
 	}
 
 	/**

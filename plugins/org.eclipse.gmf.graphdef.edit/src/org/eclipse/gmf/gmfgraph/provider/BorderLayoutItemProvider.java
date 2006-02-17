@@ -85,7 +85,7 @@ public class BorderLayoutItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/BorderLayout"));
+		return getResourceLocator().getImage("full/obj16/BorderLayout");
 	}
 
 	/**

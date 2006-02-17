@@ -65,7 +65,7 @@ public class ChildItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/Child"));
+		return getResourceLocator().getImage("full/obj16/Child");
 	}
 
 	/**

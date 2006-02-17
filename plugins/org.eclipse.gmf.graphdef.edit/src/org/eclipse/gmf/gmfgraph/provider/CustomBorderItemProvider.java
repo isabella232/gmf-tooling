@@ -129,7 +129,7 @@ public class CustomBorderItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/CustomBorder"));
+		return getResourceLocator().getImage("full/obj16/CustomBorder");
 	}
 
 	/**

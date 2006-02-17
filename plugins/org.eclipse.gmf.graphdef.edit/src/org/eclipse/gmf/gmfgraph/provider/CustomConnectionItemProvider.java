@@ -66,7 +66,7 @@ public class CustomConnectionItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/CustomConnection"));
+		return getResourceLocator().getImage("full/obj16/CustomConnection");
 	}
 
 	/**
