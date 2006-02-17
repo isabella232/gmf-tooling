@@ -281,7 +281,7 @@ if (!genClass2Phantom.isEmpty()) {
 %>
 		Resource resource = diagramModel.eResource();
 		int nodeVID;
-		for (Iterator it = resource.getContents().iterator(); it.hasNext();) {
+		for (<%=importManager.getImportedName("java.util.Iterator")%> it = resource.getContents().iterator(); it.hasNext();) {
 			EObject nextResourceObject = (EObject) it.next();
 			if (nextResourceObject == diagramModel) {
 				continue;
