@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Custom Plug-in
-Bundle-SymbolicName: org.eclipse.gmf.examples.eclipsecon.diagram.custom;singleton:=true
+Bundle-SymbolicName: org.eclipse.gmf.examples.taipan.gmf.editor.custom;singleton:=true
 Bundle-Version: 1.0.0
 Bundle-Activator: org.eclipse.gmf.examples.eclipsecon.diagram.custom.Activator
 Bundle-Localization: plugin
