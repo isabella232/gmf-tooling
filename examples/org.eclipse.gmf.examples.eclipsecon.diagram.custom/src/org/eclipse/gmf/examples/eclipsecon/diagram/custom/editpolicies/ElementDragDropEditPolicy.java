@@ -2,6 +2,7 @@ package org.eclipse.gmf.examples.eclipsecon.diagram.custom.editpolicies;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gmf.runtime.common.core.command.ICommand;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
@@ -27,6 +28,10 @@ public class ElementDragDropEditPolicy
 
 		IElementType elementType = ElementTypeRegistry.getInstance()
 			.getElementType(moveRequest.getEditHelperContext());
-		return new EtoolsProxyCommand(elementType.getEditCommand(moveRequest));
+		ICommand cmd = elementType.getEditCommand(moveRequest);
+		if (cmd != null)
+			return new EtoolsProxyCommand(cmd);
+		
+		return null;
 	}
 }
