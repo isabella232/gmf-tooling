@@ -43,5 +43,6 @@
     <diagramCanvas href="taipan.gmfgraph#AquatoryDiagram"/>
     <domainModel href="taipan.ecore#/"/>
     <domainMetaElement href="taipan.ecore#//Aquatory"/>
+    <palette href="taipan.gmftool#//@palette"/>
   </diagram>
 </gmfmap:Mapping>
