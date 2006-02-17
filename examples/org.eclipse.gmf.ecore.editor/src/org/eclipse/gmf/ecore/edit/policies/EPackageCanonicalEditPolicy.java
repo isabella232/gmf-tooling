@@ -77,9 +77,9 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	 * @generated
 	 */
 	protected List getSemanticConnectionsList() {
+		List result = new LinkedList();
 		Diagram diagram = (Diagram) getHost().getModel();
 		EPackage modelElement = (EPackage) diagram.getElement();
-		List result = new LinkedList();
 		for (Iterator diagramElements = modelElement.eContents().iterator(); diagramElements.hasNext();) {
 			EObject nextDiagramElement = (EObject) diagramElements.next();
 			for (Iterator childElements = nextDiagramElement.eContents().iterator(); childElements.hasNext();) {
@@ -138,5 +138,4 @@ public class EPackageCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	private void refreshReferenceOnlyConnections() {
 		// TODO: implement this method
 	}
-
 }

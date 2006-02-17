@@ -170,7 +170,7 @@ public class EcoreViewProvider extends AbstractViewProvider {
 	 * @generated
 	 */
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-		IElementType elementType = (IElementType) semanticAdapter.getAdapter(IElementType.class);
+		IElementType elementType = getSemanticElementType(semanticAdapter);
 		if (EcoreElementTypes.EAnnotationReferences_3001.equals(elementType)) {
 			return ReferencesViewFactory.class;
 		}
@@ -190,6 +190,16 @@ public class EcoreViewProvider extends AbstractViewProvider {
 			return EReference2ViewFactory.class;
 		}
 		return getUnrecognizedConnectorViewClass(semanticAdapter, containerView, semanticHint);
+	}
+
+	/**
+	 * @generated
+	 */
+	private IElementType getSemanticElementType(IAdaptable semanticAdapter) {
+		if (semanticAdapter == null) {
+			return null;
+		}
+		return (IElementType) semanticAdapter.getAdapter(IElementType.class);
 	}
 
 	/**

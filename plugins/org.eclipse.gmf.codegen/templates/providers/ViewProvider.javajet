@@ -109,7 +109,7 @@ for (int i = 0; i < genLinks.size(); i++) {
 		if (!elementTypeInitialized) {
 			elementTypeInitialized = true;
 %>
-		<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%> elementType = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>) semanticAdapter.getAdapter(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>.class);
+		<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%> elementType = getSemanticElementType(semanticAdapter);
 <%
 		}
 %>
@@ -141,14 +141,26 @@ for (int i = 0; i < genLinks.size(); i++) {
 		}
 		return getUnrecognizedConnectorViewClass(semanticAdapter, containerView, semanticHint);
 	}
+<%if (elementTypeInitialized) {%>
+
+	/**
+	 * @generated
+	 */
+	private <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%> getSemanticElementType(IAdaptable semanticAdapter) {
+		if (semanticAdapter == null) {
+			return null;
+		}
+		return (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>) semanticAdapter.getAdapter(<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.type.core.IElementType")%>.class);
+	}
+<%}%>
 	
 	/**
 	 * @generated
 	 */
-	 private Class getUnrecognizedConnectorViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
+	private Class getUnrecognizedConnectorViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
 	 	// Handle unrecognized child node classes here
-	 	return null;
-	 }
+		return null;
+	}
 	
 }
 <%importManager.emitSortedImports();%>

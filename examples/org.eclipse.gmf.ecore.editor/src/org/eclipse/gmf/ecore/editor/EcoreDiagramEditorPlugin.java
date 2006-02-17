@@ -14,6 +14,8 @@ import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
 import org.eclipse.gmf.runtime.diagram.core.preferences.PreferencesHint;
 import org.eclipse.gmf.runtime.emf.core.internal.util.MSLAdapterFactoryManager;
+import org.eclipse.gmf.runtime.emf.core.internal.util.MetamodelManager;
+
 import org.eclipse.gmf.runtime.emf.core.internal.util.MSLMetaModelManager;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
@@ -64,9 +66,8 @@ public class EcoreDiagramEditorPlugin extends AbstractUIPlugin {
 		super.start(context);
 		instance = this;
 		PreferencesHint.registerPreferenceStore(DIAGRAM_PREFERENCES_HINT, getPreferenceStore());
-		//FIXME itemProviderAF, metaPackage and editPlugin are only for package of diagramMetaElement
 		MSLAdapterFactoryManager.register(new EcoreItemProviderAdapterFactory());
-		MSLMetaModelManager.register(EcorePackage.eINSTANCE, EcoreEditPlugin.INSTANCE);
+		MetamodelManager.register(EcorePackage.eINSTANCE, EcoreEditPlugin.INSTANCE);
 		EcoreElementTypes.register();
 		adapterFactory = createAdapterFactory();
 	}

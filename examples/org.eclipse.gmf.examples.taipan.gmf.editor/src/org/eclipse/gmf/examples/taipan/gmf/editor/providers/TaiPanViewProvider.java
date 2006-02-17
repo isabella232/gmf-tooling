@@ -95,7 +95,7 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 	 * @generated
 	 */
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
-		IElementType elementType = (IElementType) semanticAdapter.getAdapter(IElementType.class);
+		IElementType elementType = getSemanticElementType(semanticAdapter);
 		if (TaiPanElementTypes.ShipDestination_3001.equals(elementType)) {
 			return DestinationViewFactory.class;
 		}
@@ -110,6 +110,16 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 			return RouteViewFactory.class;
 		}
 		return getUnrecognizedConnectorViewClass(semanticAdapter, containerView, semanticHint);
+	}
+
+	/**
+	 * @generated
+	 */
+	private IElementType getSemanticElementType(IAdaptable semanticAdapter) {
+		if (semanticAdapter == null) {
+			return null;
+		}
+		return (IElementType) semanticAdapter.getAdapter(IElementType.class);
 	}
 
 	/**
