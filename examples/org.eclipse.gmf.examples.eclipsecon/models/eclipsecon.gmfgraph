@@ -2,9 +2,9 @@
 <gmfgraph:Canvas xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gmfgraph="http://www.eclipse.org/gmf/2005/GraphicalDefinition" name="EclipseCon">
   <figures name="default">
     <figures xsi:type="gmfgraph:Rectangle" name="ThickFigure" lineWidth="3"/>
-    <figures xsi:type="gmfgraph:PolylineConnection" name="SolidLineSquareDec" sourceDecoration="figures-ec.gmfgraph#SquareDecoration"/>
-    <figures xsi:type="gmfgraph:PolylineConnection" name="DashLineNoDecorations" lineKind="LINE_DASH"/>
-    <figures xsi:type="gmfgraph:PolylineConnection" name="DotLineNoDecorations" lineKind="LINE_DOT"/>
+    <figures xsi:type="gmfgraph:PolylineConnection" name="SolidLineSquareDec">
+      <sourceDecoration xsi:type="gmfgraph:PolygonDecoration" href="figures-ec.gmfgraph#SquareDecoration"/>
+    </figures>
     <figures xsi:type="gmfgraph:RoundedRectangle" name="SlotFigure" fill="true" lineWidth="2" cornerWidth="20" cornerHeight="20">
       <foregroundColor xsi:type="gmfgraph:ConstantColor" value="cyan"/>
     </figures>
@@ -17,10 +17,4 @@
   <nodes name="ResourceNode" figure="BasicRect"/>
   <nodes name="TutorialNode" figure="BasicRect"/>
   <connections name="HandoutLink" figure="SolidLineSquareDec"/>
-  <connections name="PresenterLink" figure="DotLineNoDecorations"/>
-  <connections name="ScheduleLink" figure="DashLineNoDecorations"/>
-  <children name="SlotNode" figure="SlotFigure"/>
-  <labels name="Label">
-    <figure xsi:type="gmfgraph:Label" href="figures-ec.gmfgraph#Label"/>
-  </labels>
 </gmfgraph:Canvas>

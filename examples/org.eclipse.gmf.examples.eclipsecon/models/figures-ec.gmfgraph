@@ -33,4 +33,6 @@
     <template x="-1"/>
     <template/>
   </figures>
+  <figures xsi:type="gmfgraph:PolylineConnection" name="DashLineNoDecorations" lineKind="LINE_DASH"/>
+  <figures xsi:type="gmfgraph:PolylineConnection" name="DotLineNoDecorations" lineKind="LINE_DOT"/>
 </gmfgraph:FigureGallery>
