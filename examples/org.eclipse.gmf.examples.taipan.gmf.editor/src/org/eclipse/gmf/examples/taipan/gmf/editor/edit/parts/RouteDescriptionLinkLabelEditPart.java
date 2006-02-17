@@ -20,16 +20,16 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
 /**
  * @generated
  */
-public class Route_descriptionEditPart extends LabelEditPart {
+public class RouteDescriptionLinkLabelEditPart extends LabelEditPart {
 
 	static {
-		registerSnapBackPosition(TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4004_LABEL, new Point(0, 0));
+		registerSnapBackPosition(TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005_LABEL, new Point(0, 0));
 	}
 
 	/**
 	 * @generated
 	 */
-	public Route_descriptionEditPart(View view) {
+	public RouteDescriptionLinkLabelEditPart(View view) {
 		super(view);
 	}
 

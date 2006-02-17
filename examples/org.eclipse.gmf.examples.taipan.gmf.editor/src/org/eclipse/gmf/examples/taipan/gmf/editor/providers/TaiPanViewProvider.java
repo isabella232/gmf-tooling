@@ -23,11 +23,13 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.DestinationView
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ItemViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.PortViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Port_locationViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.RouteDescriptionLinkLabelTextViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.RouteDescriptionLinkLabelViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.RouteReliabilityLinkLabelTextViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.RouteReliabilityLinkLabelViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.RouteViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route_descriptionTextViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route_descriptionViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipDestinationLabelLinkLabelTextViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipDestinationLabelLinkLabelViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Ship_CargoCompartmentViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Ship_nameViewFactory;
@@ -69,20 +71,26 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 			return Port_locationViewFactory.class;
 		case 1002:
 			return ShipViewFactory.class;
-		case 4002:
+		case 4003:
 			return Ship_nameViewFactory.class;
 		case 2001:
 			return ItemViewFactory.class;
 		case 5001:
 			return Ship_CargoCompartmentViewFactory.class;
 		case 4004:
-			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4004_LABEL.equals(semanticHint)) {
-				return Route_descriptionViewFactory.class;
+			if (TaiPanSemanticHints.ShipDestination_3001Labels.SHIPDESTINATIONLABEL7431047_4004_LABEL.equals(semanticHint)) {
+				return ShipDestinationLabelLinkLabelViewFactory.class;
 			} else {
-				return Route_descriptionTextViewFactory.class;
+				return ShipDestinationLabelLinkLabelTextViewFactory.class;
 			}
-		case 4009:
-			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4009_LABEL.equals(semanticHint)) {
+		case 4005:
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005_LABEL.equals(semanticHint)) {
+				return RouteDescriptionLinkLabelViewFactory.class;
+			} else {
+				return RouteDescriptionLinkLabelTextViewFactory.class;
+			}
+		case 4006:
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4006_LABEL.equals(semanticHint)) {
 				return RouteReliabilityLinkLabelViewFactory.class;
 			} else {
 				return RouteReliabilityLinkLabelTextViewFactory.class;

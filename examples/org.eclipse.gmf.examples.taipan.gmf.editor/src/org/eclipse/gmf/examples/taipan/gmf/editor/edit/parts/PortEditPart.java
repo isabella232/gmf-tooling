@@ -159,8 +159,10 @@ public class PortEditPart extends ShapeNodeEditPart {
 		 */
 		public box() {
 
-			setFigureboxName(createFigureboxName());
-			add(getFigureboxName());
+			org.eclipse.draw2d.IFigure childboxName = createFigureboxName();
+			setFigureboxName(childboxName);
+			add(childboxName);
+
 		}
 
 		private IFigure fboxName;

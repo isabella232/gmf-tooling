@@ -98,8 +98,8 @@ public class TaiPanVisualIDRegistry {
 			}
 			return getUnrecognizedPort_1001ChildNodeID(domainElement);
 		case 1002:
-			if (TaiPanSemanticHints.Ship_1002Labels.SHIPNAME_4002_TEXT.equals(semanticHint)) {
-				return 4002;
+			if (TaiPanSemanticHints.Ship_1002Labels.SHIPNAME_4003_TEXT.equals(semanticHint)) {
+				return 4003;
 			}
 			if (TaiPanSemanticHints.Ship_1002Compartments.CARGOCOMPARTMENT_5001.equals(semanticHint)) {
 				return 5001;
@@ -109,8 +109,8 @@ public class TaiPanVisualIDRegistry {
 			}
 			return getUnrecognizedShip_1002ChildNodeID(domainElement);
 		case 2001:
-			if (TaiPanSemanticHints.Item_2001Labels.ITEMARTICLEQUANTITY_4003_TEXT.equals(semanticHint)) {
-				return 4003;
+			if (TaiPanSemanticHints.Item_2001Labels.ITEMARTICLEQUANTITY_4002_TEXT.equals(semanticHint)) {
+				return 4002;
 			}
 			if (semanticHint != null && !"".equals(semanticHint)) {
 				return getUnrecognizedItem_2001ChildNodeID(semanticHint);
@@ -136,23 +136,31 @@ public class TaiPanVisualIDRegistry {
 			}
 			return getUnrecognizedAquatory_79ChildNodeID(domainElement);
 		case 3001:
-			return getUnrecognizedShipDestination_3001LinkLabelID(semanticHint);
-		case 3002:
-			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4004_LABEL.equals(semanticHint)) {
+			if (TaiPanSemanticHints.ShipDestination_3001Labels.SHIPDESTINATIONLABEL7431047_4004_LABEL.equals(semanticHint)) {
 				return 4004;
 			}
-			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4009_LABEL.equals(semanticHint)) {
-				return 4009;
+			return getUnrecognizedShipDestination_3001LinkLabelID(semanticHint);
+		case 4004:
+			if (TaiPanSemanticHints.ShipDestination_3001Labels.SHIPDESTINATIONLABEL7431047_4004_TEXT.equals(semanticHint)) {
+				return 4004;
+			}
+			return getUnrecognizedShipDestination_3001LinkLabelTextID(semanticHint);
+		case 3002:
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005_LABEL.equals(semanticHint)) {
+				return 4005;
+			}
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4006_LABEL.equals(semanticHint)) {
+				return 4006;
 			}
 			return getUnrecognizedRoute_3002LinkLabelID(semanticHint);
-		case 4004:
-			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4004_TEXT.equals(semanticHint)) {
-				return 4004;
+		case 4005:
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005_TEXT.equals(semanticHint)) {
+				return 4005;
 			}
 			return getUnrecognizedRoute_3002LinkLabelTextID(semanticHint);
-		case 4009:
-			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4009_TEXT.equals(semanticHint)) {
-				return 4009;
+		case 4006:
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4006_TEXT.equals(semanticHint)) {
+				return 4006;
 			}
 			return getUnrecognizedRoute_3002LinkLabelTextID(semanticHint);
 		}
@@ -335,6 +343,16 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	private int getUnrecognizedShipDestination_3001LinkLabelID(String semanticHint) {
+		return -1;
+	}
+
+	/**
+	 * User can change implementation of this method to handle some specific
+	 * situations not covered by default logic.
+	 *
+	 * @generated
+	 */
+	private int getUnrecognizedShipDestination_3001LinkLabelTextID(String semanticHint) {
 		return -1;
 	}
 

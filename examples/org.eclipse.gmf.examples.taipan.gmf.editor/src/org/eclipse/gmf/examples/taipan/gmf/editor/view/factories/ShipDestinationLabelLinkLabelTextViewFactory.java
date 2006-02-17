@@ -23,7 +23,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class Ship_nameViewFactory extends BasicNodeViewFactory {
+public class ShipDestinationLabelLinkLabelTextViewFactory extends BasicNodeViewFactory {
 
 	/**
 	 * @generated
@@ -34,6 +34,6 @@ public class Ship_nameViewFactory extends BasicNodeViewFactory {
 		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "TaiPan"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "4003"); //$NON-NLS-1$
+		annotation.getDetails().put("visualID", "4004"); //$NON-NLS-1$
 	}
 }

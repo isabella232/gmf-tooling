@@ -34,6 +34,6 @@ public class RouteReliabilityLinkLabelTextViewFactory extends BasicNodeViewFacto
 		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "TaiPan"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "4009"); //$NON-NLS-1$
+		annotation.getDetails().put("visualID", "4006"); //$NON-NLS-1$
 	}
 }

@@ -33,28 +33,28 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	/**
 	 * @generated
 	 */
-	private IParser itemITEMARTICLEQUANTITY_4003_TEXTParser;
+	private IParser itemITEMARTICLEQUANTITY_4002_TEXTParser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getItemITEMARTICLEQUANTITY_4003_TEXTParser() {
-		if (itemITEMARTICLEQUANTITY_4003_TEXTParser == null) {
-			itemITEMARTICLEQUANTITY_4003_TEXTParser = createItemITEMARTICLEQUANTITY_4003_TEXTParser();
+	private IParser getItemITEMARTICLEQUANTITY_4002_TEXTParser() {
+		if (itemITEMARTICLEQUANTITY_4002_TEXTParser == null) {
+			itemITEMARTICLEQUANTITY_4002_TEXTParser = createItemITEMARTICLEQUANTITY_4002_TEXTParser();
 		}
-		return itemITEMARTICLEQUANTITY_4003_TEXTParser;
+		return itemITEMARTICLEQUANTITY_4002_TEXTParser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createItemITEMARTICLEQUANTITY_4003_TEXTParser() {
+	protected IParser createItemITEMARTICLEQUANTITY_4002_TEXTParser() {
 		List features = new ArrayList(2);
 		features.add(TaiPanPackage.eINSTANCE.getItem().getEStructuralFeature("article"));
 		features.add(TaiPanPackage.eINSTANCE.getItem().getEStructuralFeature("quantity"));
 		TaiPanStructuralFeaturesParser parser = new TaiPanStructuralFeaturesParser(features);
 		parser.setViewPattern("- {0} [{1,number,integer}]");
-		parser.setEditPattern("{0}:{1,number,integer}");
+		parser.setEditPattern("- {0} [{1,number,integer}]");
 		return parser;
 	}
 
@@ -84,22 +84,22 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	/**
 	 * @generated
 	 */
-	private IParser shipSHIPNAME_4002_TEXTParser;
+	private IParser shipSHIPNAME_4003_TEXTParser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getShipSHIPNAME_4002_TEXTParser() {
-		if (shipSHIPNAME_4002_TEXTParser == null) {
-			shipSHIPNAME_4002_TEXTParser = createShipSHIPNAME_4002_TEXTParser();
+	private IParser getShipSHIPNAME_4003_TEXTParser() {
+		if (shipSHIPNAME_4003_TEXTParser == null) {
+			shipSHIPNAME_4003_TEXTParser = createShipSHIPNAME_4003_TEXTParser();
 		}
-		return shipSHIPNAME_4002_TEXTParser;
+		return shipSHIPNAME_4003_TEXTParser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createShipSHIPNAME_4002_TEXTParser() {
+	protected IParser createShipSHIPNAME_4003_TEXTParser() {
 		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getShip().getEStructuralFeature("name"));
 		return parser;
 	}
@@ -107,45 +107,47 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	/**
 	 * @generated
 	 */
-	private IParser routeROUTEDESCRIPTION_4004_TEXTParser;
+	private IParser routeROUTEDESCRIPTION_4005_TEXTParser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getRouteROUTEDESCRIPTION_4004_TEXTParser() {
-		if (routeROUTEDESCRIPTION_4004_TEXTParser == null) {
-			routeROUTEDESCRIPTION_4004_TEXTParser = createRouteROUTEDESCRIPTION_4004_TEXTParser();
+	private IParser getRouteROUTEDESCRIPTION_4005_TEXTParser() {
+		if (routeROUTEDESCRIPTION_4005_TEXTParser == null) {
+			routeROUTEDESCRIPTION_4005_TEXTParser = createRouteROUTEDESCRIPTION_4005_TEXTParser();
 		}
-		return routeROUTEDESCRIPTION_4004_TEXTParser;
+		return routeROUTEDESCRIPTION_4005_TEXTParser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createRouteROUTEDESCRIPTION_4004_TEXTParser() {
+	protected IParser createRouteROUTEDESCRIPTION_4005_TEXTParser() {
 		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getRoute().getEStructuralFeature("description"));
+		parser.setViewPattern("route: {0}");
+		parser.setEditPattern("{0}");
 		return parser;
 	}
 
 	/**
 	 * @generated
 	 */
-	private IParser routeROUTERELIABILITY_4009_TEXTParser;
+	private IParser routeROUTERELIABILITY_4006_TEXTParser;
 
 	/**
 	 * @generated
 	 */
-	private IParser getRouteROUTERELIABILITY_4009_TEXTParser() {
-		if (routeROUTERELIABILITY_4009_TEXTParser == null) {
-			routeROUTERELIABILITY_4009_TEXTParser = createRouteROUTERELIABILITY_4009_TEXTParser();
+	private IParser getRouteROUTERELIABILITY_4006_TEXTParser() {
+		if (routeROUTERELIABILITY_4006_TEXTParser == null) {
+			routeROUTERELIABILITY_4006_TEXTParser = createRouteROUTERELIABILITY_4006_TEXTParser();
 		}
-		return routeROUTERELIABILITY_4009_TEXTParser;
+		return routeROUTERELIABILITY_4006_TEXTParser;
 	}
 
 	/**
 	 * @generated
 	 */
-	protected IParser createRouteROUTERELIABILITY_4009_TEXTParser() {
+	protected IParser createRouteROUTERELIABILITY_4006_TEXTParser() {
 		TaiPanStructuralFeatureParser parser = new TaiPanStructuralFeatureParser(TaiPanPackage.eINSTANCE.getRoute().getEStructuralFeature("reliability"));
 		parser.setViewPattern("reliability: {0,number,percent}");
 		parser.setEditPattern("{0,number,percent}");
@@ -157,7 +159,7 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 	 */
 	protected IParser getParser(IElementType type, String viewType) {
 		if (TaiPanElementTypes.Item_2001 == type) {
-			return getItemITEMARTICLEQUANTITY_4003_TEXTParser();
+			return getItemITEMARTICLEQUANTITY_4002_TEXTParser();
 		}
 		if (TaiPanElementTypes.Port_1001 == type) {
 			if (TaiPanSemanticHints.Port_1001Labels.PORTLOCATION_4001_TEXT.equals(viewType)) {
@@ -165,16 +167,16 @@ public class TaiPanParserProvider extends AbstractProvider implements IParserPro
 			}
 		}
 		if (TaiPanElementTypes.Ship_1002 == type) {
-			if (TaiPanSemanticHints.Ship_1002Labels.SHIPNAME_4002_TEXT.equals(viewType)) {
-				return getShipSHIPNAME_4002_TEXTParser();
+			if (TaiPanSemanticHints.Ship_1002Labels.SHIPNAME_4003_TEXT.equals(viewType)) {
+				return getShipSHIPNAME_4003_TEXTParser();
 			}
 		}
 		if (TaiPanElementTypes.Route_3002 == type) {
-			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4004_TEXT.equals(viewType)) {
-				return getRouteROUTEDESCRIPTION_4004_TEXTParser();
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005_TEXT.equals(viewType)) {
+				return getRouteROUTEDESCRIPTION_4005_TEXTParser();
 			}
-			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4009_TEXT.equals(viewType)) {
-				return getRouteROUTERELIABILITY_4009_TEXTParser();
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4006_TEXT.equals(viewType)) {
+				return getRouteROUTERELIABILITY_4006_TEXTParser();
 			}
 		}
 		return null;

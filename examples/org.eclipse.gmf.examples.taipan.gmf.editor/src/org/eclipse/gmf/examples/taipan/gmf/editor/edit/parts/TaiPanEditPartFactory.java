@@ -79,7 +79,7 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 				return new Port_locationEditPart(view);
 			case 1002:
 				return new ShipEditPart(view);
-			case 4002:
+			case 4003:
 				return new Ship_nameEditPart(view);
 			case 2001:
 				return new ItemEditPart(view);
@@ -89,16 +89,22 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 				return new AquatoryEditPart(view);
 			case 3001:
 				return new DestinationEditPart(view);
+			case 4004:
+				if (TaiPanSemanticHints.ShipDestination_3001Labels.SHIPDESTINATIONLABEL7431047_4004_LABEL.equals(view.getType())) {
+					return new ShipDestinationLabelLinkLabelEditPart(view);
+				} else {
+					return new ShipDestinationLabelLinkLabelTextEditPart(view);
+				}
 			case 3002:
 				return new RouteEditPart(view);
-			case 4004:
-				if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4004_LABEL.equals(view.getType())) {
-					return new Route_descriptionEditPart(view);
+			case 4005:
+				if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005_LABEL.equals(view.getType())) {
+					return new RouteDescriptionLinkLabelEditPart(view);
 				} else {
-					return new Route_descriptionTextEditPart(view);
+					return new RouteDescriptionLinkLabelTextEditPart(view);
 				}
-			case 4009:
-				if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4009_LABEL.equals(view.getType())) {
+			case 4006:
+				if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4006_LABEL.equals(view.getType())) {
 					return new RouteReliabilityLinkLabelEditPart(view);
 				} else {
 					return new RouteReliabilityLinkLabelTextEditPart(view);

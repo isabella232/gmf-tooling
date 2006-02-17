@@ -175,7 +175,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(TaiPanSemanticHints.Ship_1002Labels.SHIPNAME_4002_TEXT);
+		return getChildBySemanticHint(TaiPanSemanticHints.Ship_1002Labels.SHIPNAME_4003_TEXT);
 	}
 
 	/**
@@ -188,8 +188,10 @@ public class ShipEditPart extends ShapeNodeEditPart {
 		 */
 		public box() {
 
-			setFigureboxName(createFigureboxName());
-			add(getFigureboxName());
+			org.eclipse.draw2d.IFigure childboxName = createFigureboxName();
+			setFigureboxName(childboxName);
+			add(childboxName);
+
 		}
 
 		private IFigure fboxName;

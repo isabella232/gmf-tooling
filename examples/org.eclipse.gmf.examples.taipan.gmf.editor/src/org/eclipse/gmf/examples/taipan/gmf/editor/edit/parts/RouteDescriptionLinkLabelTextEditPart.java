@@ -13,11 +13,7 @@ package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart;
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.emf.ecore.EObject;
-
-import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 
@@ -31,25 +27,13 @@ import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 /**
  * @generated
  */
-public class Ship_nameEditPart extends TextCompartmentEditPart {
+public class RouteDescriptionLinkLabelTextEditPart extends TextCompartmentEditPart {
 
 	/**
 	 * @generated
 	 */
-	public Ship_nameEditPart(View view) {
+	public RouteDescriptionLinkLabelTextEditPart(View view) {
 		super(view);
-		setNumIcons(1);
-	}
-
-	/**
-	 * @generated
-	 */
-	protected Image getLabelIcon(int index) {
-		ImageDescriptor descriptor = TaiPanDiagramEditorPlugin.getInstance().getItemImageDescriptor(resolveSemanticElement());
-		if (descriptor == null) {
-			descriptor = ImageDescriptor.getMissingImageDescriptor();
-		}
-		return descriptor.createImage();
 	}
 
 	/**
@@ -75,7 +59,7 @@ public class Ship_nameEditPart extends TextCompartmentEditPart {
 
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return TaiPanElementTypes.Ship_1002;
+							return TaiPanElementTypes.Route_3002;
 						}
 						return super.getAdapter(adapter);
 					}
