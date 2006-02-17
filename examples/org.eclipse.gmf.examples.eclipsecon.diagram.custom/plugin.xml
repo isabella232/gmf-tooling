@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         point="org.eclipse.gmf.runtime.common.ui.services.parserProviders">
+         <ParserProvider class="org.eclipse.gmf.examples.eclipsecon.diagram.custom.providers.ParserProvider">
+         <Priority name="Medium">
+         </Priority>
+      	</ParserProvider>
+   </extension>
+   
+   <extension
+         point="org.eclipse.gmf.runtime.diagram.core.viewProviders">
+         <viewProvider class="org.eclipse.gmf.examples.eclipsecon.diagram.custom.providers.ViewProvider">
+         	<Priority name="High"/>
+         	<context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints=""/>
+      	 </viewProvider>
+      	 
+   </extension>
+   
+   <extension
+         point="org.eclipse.gmf.runtime.diagram.ui.editpartProviders">
+         <editpartProvider class="org.eclipse.gmf.examples.eclipsecon.diagram.custom.providers.EditPartProvider">
+         	<Priority name="High"/>
+      	</editpartProvider>
+   </extension>
+   
+<extension id="EclipseConCustomContributionItemProvider" name="org.eclipse.gmf.examples.eclipsecon.diagram.custom.providers.ContributionItemProvider" point="org.eclipse.gmf.runtime.common.ui.services.action.contributionItemProviders">
+      <contributionItemProvider class="org.eclipse.gmf.examples.eclipsecon.diagram.custom.providers.ContributionItemProvider">
+         <Priority name="Medium">
+         </Priority>
+         <popupContribution class="org.eclipse.gmf.runtime.diagram.ui.providers.DiagramContextMenuProvider">
+            <popupStructuredContributionCriteria objectClass="org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts.PresenterEditPart">
+				  <method name="getChildBySemanticHint(ImageDisplayCompartment_5001)" notValue="null"/>
+            </popupStructuredContributionCriteria>
+            <popupAction path="/filtersMenu/compartmentMenu/individualCompartmentsGroup" id="presenterImageCompartmentAction">
+            </popupAction>
+         </popupContribution>
+      </contributionItemProvider>
+   </extension>
+   
+<extension
+      point="org.eclipse.gmf.runtime.diagram.ui.editpolicyProviders">
+      <editpolicyProvider class="org.eclipse.gmf.examples.eclipsecon.diagram.custom.providers.EditPolicyProvider">
+         	<Priority name="High"/>
+      	</editpolicyProvider>
+</extension>
+
+</plugin>
