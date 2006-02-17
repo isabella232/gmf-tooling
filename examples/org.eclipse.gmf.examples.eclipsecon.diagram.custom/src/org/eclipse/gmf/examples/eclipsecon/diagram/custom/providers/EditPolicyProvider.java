@@ -2,8 +2,8 @@ package org.eclipse.gmf.examples.eclipsecon.diagram.custom.providers;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.examples.eclipsecon.diagram.custom.editpolicies.ElementDragDropEditPolicy;
-import org.eclipse.gmf.examples.eclipsecon.diagram.custom.editpolicies.OpenPresenterURLEditPolicy;
-import org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts.PresenterEditPart;
+import org.eclipse.gmf.examples.eclipsecon.diagram.custom.editpolicies.OpenResourceURLEditPolicy;
+import org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts.ResourceEditPart;
 import org.eclipse.gmf.examples.eclipsecon.diagram.edit.parts.TutorialEditPart;
 import org.eclipse.gmf.runtime.common.core.service.AbstractProvider;
 import org.eclipse.gmf.runtime.common.core.service.IOperation;
@@ -18,9 +18,9 @@ public class EditPolicyProvider extends AbstractProvider implements IEditPolicyP
 	 * @see org.eclipse.gmf.runtime.diagram.ui.services.editpolicy.IEditPolicyProvider#createEditPolicies(org.eclipse.gef.EditPart)
 	 */
 	public void createEditPolicies(EditPart editPart) {
-		if (editPart instanceof PresenterEditPart)
+		if (editPart instanceof ResourceEditPart)
 			editPart.installEditPolicy(EditPolicyRoles.OPEN_ROLE,
-				new OpenPresenterURLEditPolicy());
+				new OpenResourceURLEditPolicy());
 		else if (editPart instanceof TutorialEditPart)
 			editPart.installEditPolicy(EditPolicyRoles.DRAG_DROP_ROLE,
 				new ElementDragDropEditPolicy());
@@ -33,7 +33,7 @@ public class EditPolicyProvider extends AbstractProvider implements IEditPolicyP
 	public boolean provides(IOperation operation) {
 		if (operation instanceof CreateEditPoliciesOperation) {
 			CreateEditPoliciesOperation cepOper = (CreateEditPoliciesOperation)operation;
-			if (cepOper.getEditPart() instanceof PresenterEditPart)
+			if (cepOper.getEditPart() instanceof ResourceEditPart)
 				return true;
 			else if (cepOper.getEditPart() instanceof TutorialEditPart)
 				return true;
