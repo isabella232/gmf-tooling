@@ -34,7 +34,6 @@ import org.eclipse.emf.ocl.expressions.ExpressionsFactory;
 import org.eclipse.emf.ocl.expressions.VariableDeclaration;
 
 import org.eclipse.emf.ocl.helper.HelperUtil;
-//import org.eclipse.emf.ocl.helper.IOclHelper;
 import org.eclipse.emf.ocl.helper.IOCLHelper;
 
 import org.eclipse.emf.ocl.parser.EcoreEnvironment;
@@ -310,7 +309,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 				oclHelper.setContext(constraint.context);
 				return QueryFactory.eINSTANCE.createQuery(oclHelper.createInvariant(constraint.body));
 			} catch (Exception e) {
-				EcoreDiagramEditorPlugin.getInstance().logError(null, e);
+				EcoreDiagramEditorPlugin.getInstance().logError("Link constraint expression error", e); //$NON-NLS-1$
 				return null;
 			}
 		}
@@ -325,7 +324,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 				Object val = query.evaluate(sourceEnd);
 				return (val instanceof Boolean) ? ((Boolean) val).booleanValue() : false;
 			} catch (Exception e) {
-				EcoreDiagramEditorPlugin.getInstance().logError(null, e);
+				EcoreDiagramEditorPlugin.getInstance().logError("Link constraint evaluation error", e); //$NON-NLS-1$
 				if (evalEnv != null)
 					evalEnv.clear();
 				return false;
