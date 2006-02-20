@@ -9,5 +9,8 @@ Export-Package: org.eclipse.gmf.common,
  org.eclipse.gmf.internal.codegen.dispatch;x-friends:="org.eclipse.gmf.codegen,org.eclipse.gmf.graphdef.codegen"
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.codegen,
- org.eclipse.emf.codegen.ecore
+ org.eclipse.emf.codegen.ecore,
+ org.eclipse.core.resources,
+ org.eclipse.jdt.core,
+ org.eclipse.jface.text
 Bundle-Vendor: %providerName

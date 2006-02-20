@@ -17,11 +17,4 @@ public class Messages extends NLS {
 
 	public static String initproject;
 
-	public static String merge;
-
-	public static String interrupted;
-
-	public static String unexpected;
-
-	public static String problems; 
 }

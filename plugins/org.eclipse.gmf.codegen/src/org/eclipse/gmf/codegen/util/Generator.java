@@ -13,31 +13,22 @@ package org.eclipse.gmf.codegen.util;
 
 import java.io.ByteArrayInputStream;
 import java.lang.ref.SoftReference;
+import java.net.URL;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.MultiStatus;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
-import org.eclipse.emf.codegen.jet.JETEmitter;
 import org.eclipse.emf.codegen.jet.JETException;
-import org.eclipse.emf.codegen.jmerge.JControlModel;
-import org.eclipse.emf.codegen.jmerge.JMerger;
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
@@ -54,42 +45,18 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.common.UnexpectedBehaviourException;
-import org.eclipse.gmf.common.codegen.ImportUtil;
-import org.eclipse.jdt.core.ICompilationUnit;
-import org.eclipse.jdt.core.IPackageFragment;
-import org.eclipse.jdt.core.IPackageFragmentRoot;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
-import org.eclipse.jdt.core.ToolFactory;
-import org.eclipse.jdt.core.formatter.CodeFormatter;
-import org.eclipse.jface.text.Document;
-import org.eclipse.jface.text.IDocument;
-import org.eclipse.text.edits.TextEdit;
+import org.eclipse.gmf.common.codegen.GeneratorBase;
 
 /**
  * Invokes JET templates to populate diagram editor project.
  * 
  * @author artem
  */
-public class Generator implements Runnable {
+public class Generator extends GeneratorBase implements Runnable {
 
 	private final GenEditorGenerator myEditorGen; 
 
 	private final GenDiagram myDiagram;
-
-	// myDestRoot.getJavaProject().getElementName() == myDestProject.getName()
-	private IPackageFragmentRoot myDestRoot;
-
-	private IProject myDestProject;
-
-	private JControlModel myJControlModel;
-
-	private CodeFormatter myCodeFormatter;
-
-	private IProgressMonitor myProgress;
-
-	private IStatus myRunStatus = Status.CANCEL_STATUS;
-	private List/*<IStatus>*/ myExceptions;
 
 	private CodegenEmitters myEmitters;
 
@@ -119,132 +86,94 @@ public class Generator implements Runnable {
 			myEmitters = old;
 		}
 	}
-
-	public void run(IProgressMonitor progress) throws InterruptedException {
-		setProgressMonitor(progress);
-		doRun();
+	
+	protected URL getJMergeControlFile() {
+		return myEmitters.getJMergeControlFile();
 	}
+	
+	protected void customRun() throws InterruptedException, JETException, UnexpectedBehaviourException {
+		initializeEditorProject(myDiagram.getEditorGen().getPlugin().getID(), createReferencedProjectsList());
+		// commands
+		generateReorientConnectionViewCommand();
 
-	public void run() {
-		try {
-			doRun();
-		} catch (InterruptedException ex) {
-			myRunStatus = new Status(IStatus.CANCEL, "org.eclipse.gmf.codegen", 0, Messages.interrupted, ex);
+		// edit parts, edit policies and providers
+		generateSemanticHints();
+		generateAbstractParser();
+		generateStructuralFeatureParser();
+		generateStructuralFeaturesParser();
+		generateBaseItemSemanticEditPolicy();
+		generateBaseGraphicalNodeEditPolicy();
+		generateReferenceConnectionEditPolicy();
+		generateDiagramCanonicalEditPolicy();
+		generateDiagramItemSemanticEditPolicy();
+		for (Iterator nodes = myDiagram.getTopLevelNodes().iterator(); nodes.hasNext();) {
+			GenTopLevelNode node = (GenTopLevelNode) nodes.next();
+			generateNode(node);
 		}
-	}
-
-	private void doRun() throws InterruptedException {
-		try {
-			setupProgressMonitor();
-			myExceptions = new LinkedList/*<IStatus>*/();
-			initializeEditorProject();
-
-			// commands
-			generateReorientConnectionViewCommand();
-
-			// edit parts, edit policies and providers
-			generateSemanticHints();
-			generateAbstractParser();
-			generateStructuralFeatureParser();
-			generateStructuralFeaturesParser();
-			generateBaseItemSemanticEditPolicy();
-			generateBaseGraphicalNodeEditPolicy();
-			generateReferenceConnectionEditPolicy();
-			generateDiagramCanonicalEditPolicy();
-			generateDiagramItemSemanticEditPolicy();
-			for (Iterator nodes = myDiagram.getTopLevelNodes().iterator(); nodes.hasNext();) {
-				GenTopLevelNode node = (GenTopLevelNode) nodes.next();
+		for (Iterator nodes = myDiagram.getChildNodes().iterator(); nodes.hasNext();) {
+			GenChildNode node = (GenChildNode) nodes.next();
+			if (node.isListContainerEntry()) {
+				generateListContainerNode(node);
+			} else {
 				generateNode(node);
 			}
-			for (Iterator nodes = myDiagram.getChildNodes().iterator(); nodes.hasNext();) {
-				GenChildNode node = (GenChildNode) nodes.next();
-				if (node.isListContainerEntry()) {
-					generateListContainerNode(node);
-				} else {
-					generateNode(node);
-				}
-			}
-			for (Iterator compartments = myDiagram.getCompartments().iterator(); compartments.hasNext();) {
-				GenCompartment compartment = (GenCompartment) compartments.next();
-				generateCompartment(compartment);
-			}
-			for (Iterator it = myDiagram.getLinks().iterator(); it.hasNext();) {
-				final GenLink next = (GenLink) it.next();
-				generateViewFactory(next);
-				generateLinkEditPart(next);
-				generateLinkItemSemanticEditPolicy(next);
-				for (Iterator labels = next.getLabels().iterator(); labels.hasNext();) {
-					GenLinkLabel label = (GenLinkLabel) labels.next();
-					generateLinkLabelEditPart(label);
-					generateLinkLabelTextEditPart(label);
-					generateLinkLabelViewFactory(label);
-					generateLinkLabelTextViewFactory(label);
-				}
-			}
-			generateViewFactory(myDiagram);
-			generateDiagramEditPart();
-			generateDiagramExternalNodeLabelEditPart();
-			generateEditPartFactory();
-			generateElementTypes();
-			generateViewProvider();
-			generateEditPartProvider();
-			generatePaletteProvider();
-			generateModelingAssistantProvider();
-			generatePropertyProvider();
-			generateIconProvider();
-			generateParserProvider();
-			if(myDiagram.isValidationEnabled()) {
-				generateValidationProvider();
-				generateMarkerNavigationProvider();				
-			}
-
-			// editor
-			generateInitDiagramFileAction();
-			generatePalette();
-			generateDiagramEditorUtil();
-			generateDiagramFileCreator();
-			generateVisualIDRegistry();
-			generateCreationWizard();
-			generateCreationWizardPage();
-			generateEditor();
-			generateCreateShortcutAction();
-			generateLoadResourceAction();
-			generateElementChooser();
-			generateDocumentProvider();
-			generateActionBarContributor();
-			generateMatchingStrategy();
-			generatePreferencesInitializer();
-			generatePluginClass();
-			generateBundleManifest();
-			generatePluginProperties();
-			generatePluginXml();
-			generateBuildProperties();
-			generateShortcutIcon();
-
-			if (myExceptions.isEmpty()) {
-				myRunStatus = Status.OK_STATUS;
-			} else {
-				IStatus[] s = (IStatus[]) myExceptions.toArray(new IStatus[myExceptions.size()]);
-				myRunStatus = new MultiStatus("org.eclipse.gmf.codegen", 0, s, Messages.problems, null);
-			}
-		} catch (NullPointerException ex) {
-			myRunStatus = new Status(IStatus.ERROR, "org.eclipse.gmf.codegen", 0, NullPointerException.class.getName(), ex);
-		} catch (JETException ex) {
-			myRunStatus = ex.getStatus();
-		} catch (UnexpectedBehaviourException ex) {
-			myRunStatus = new Status(Status.ERROR, "org.eclipse.gmf.codegen", 0, Messages.unexpected, ex);
-		} finally {
-			myProgress.done();
-			myExceptions = null;
 		}
-	}
+		for (Iterator compartments = myDiagram.getCompartments().iterator(); compartments.hasNext();) {
+			GenCompartment compartment = (GenCompartment) compartments.next();
+			generateCompartment(compartment);
+		}
+		for (Iterator it = myDiagram.getLinks().iterator(); it.hasNext();) {
+			final GenLink next = (GenLink) it.next();
+			generateViewFactory(next);
+			generateLinkEditPart(next);
+			generateLinkItemSemanticEditPolicy(next);
+			for (Iterator labels = next.getLabels().iterator(); labels.hasNext();) {
+				GenLinkLabel label = (GenLinkLabel) labels.next();
+				generateLinkLabelEditPart(label);
+				generateLinkLabelTextEditPart(label);
+				generateLinkLabelViewFactory(label);
+				generateLinkLabelTextViewFactory(label);
+			}
+		}
+		generateViewFactory(myDiagram);
+		generateDiagramEditPart();
+		generateDiagramExternalNodeLabelEditPart();
+		generateEditPartFactory();
+		generateElementTypes();
+		generateViewProvider();
+		generateEditPartProvider();
+		generatePaletteProvider();
+		generateModelingAssistantProvider();
+		generatePropertyProvider();
+		generateIconProvider();
+		generateParserProvider();
+		if(myDiagram.isValidationEnabled()) {
+			generateValidationProvider();
+			generateMarkerNavigationProvider();				
+		}
 
-	/**
-	 * Provides information about success/failures during {@link #run()}
-	 * @return state of the generator run, or CANCEL if generator was not yet run.
-	 */
-	public IStatus getRunStatus() {
-		return myRunStatus;
+		// editor
+		generateInitDiagramFileAction();
+		generatePalette();
+		generateDiagramEditorUtil();
+		generateDiagramFileCreator();
+		generateVisualIDRegistry();
+		generateCreationWizard();
+		generateCreationWizardPage();
+		generateEditor();
+		generateCreateShortcutAction();
+		generateLoadResourceAction();
+		generateElementChooser();
+		generateDocumentProvider();
+		generateActionBarContributor();
+		generateMatchingStrategy();
+		generatePreferencesInitializer();
+		generatePluginClass();
+		generateBundleManifest();
+		generatePluginProperties();
+		generatePluginXml();
+		generateBuildProperties();
+		generateShortcutIcon();
 	}
 
 	private void generateNode(GenNode node) throws JETException, InterruptedException {
@@ -855,9 +784,9 @@ public class Generator implements Runnable {
 		IProgressMonitor pm = getNextStepMonitor();
 		try {
 			pm.beginTask(iconPath.lastSegment(), 3);
-			IPath containerPath = myDestProject.getFullPath().append(iconPath.removeLastSegments(1));
+			IPath containerPath = getDestProject().getFullPath().append(iconPath.removeLastSegments(1));
 			CodeGenUtil.findOrCreateContainer(containerPath, false, (IPath) null, new SubProgressMonitor(pm, 1));
-			IFile f = myDestProject.getFile(iconPath);
+			IFile f = getDestProject().getFile(iconPath);
 			if (f.exists()) {
 				f.setContents(new ByteArrayInputStream(myEmitters.getShortcutImageEmitter().generateGif()), true, true, new SubProgressMonitor(pm, 1));
 			} else {
@@ -865,168 +794,24 @@ public class Generator implements Runnable {
 			}
 			f.getParent().refreshLocal(IResource.DEPTH_ONE, new SubProgressMonitor(pm, 1));
 		} catch (CoreException ex) {
-			myExceptions.add(ex.getStatus());
-		} finally {
-			pm.done();
-		}
-
-	}
-	
-	/**
-	 * Generate ordinary file. No merge is performed at the moment.
-	 * @param emitter template to use
-	 * @param filePath - project-relative path to file, e.g. META-INF/MANIFEST.MF
-	 * @param param TODO
-	 * @throws JETException
-	 * @throws InterruptedException
-	 */
-	private void doGenerateFile(JETEmitter emitter, IPath filePath, Object param) throws JETException, InterruptedException {
-		assert !myDestProject.getName().equals(filePath.segment(0));
-		IProgressMonitor pm = getNextStepMonitor();
-		try {
-			pm.beginTask(filePath.lastSegment(), 4);
-			IPath containerPath = myDestProject.getFullPath().append(filePath.removeLastSegments(1));
-			CodeGenUtil.findOrCreateContainer(containerPath, false, (IPath) null, new SubProgressMonitor(pm, 1));
-			String genText = emitter.generate(new SubProgressMonitor(pm, 1), new Object[] { param });
-			IFile f = myDestProject.getFile(filePath);
-			// FIXME merge!
-			if (f.exists()) {
-				f.setContents(new ByteArrayInputStream(genText.getBytes()), true, true, new SubProgressMonitor(pm, 1));
-			} else {
-				f.create(new ByteArrayInputStream(genText.getBytes()), true, new SubProgressMonitor(pm, 1));
-			}
-			f.getParent().refreshLocal(IResource.DEPTH_ONE, new SubProgressMonitor(pm, 1));
-		} catch (CoreException ex) {
-			myExceptions.add(ex.getStatus());
+			handleException(ex);
 		} finally {
 			pm.done();
 		}
 	}
 
-	/**
-	 * Optionally, specify progressMonitor to use. Should be called prior to {@link #run()}
-	 * @param progress
-	 */
-	public void setProgressMonitor(IProgressMonitor progress) {
-		myProgress = progress;
-	}
-
-	private void setupProgressMonitor() {
-		if (myProgress == null) {
-			myProgress = new NullProgressMonitor();
-			return;
-			// no need to set it up
-		}
+	protected void setupProgressMonitor() {
 		Counter c = new Counter(myDiagram);
 		c.setAdditionalOperations(8); // init, palette, editor, plugin.xml, etc
 		c.setOperationsPerNode(2);
 		c.setOperationsPerListContainerNode(1);
 		c.setOperationsPerLink(2);
-		myProgress.beginTask(Messages.start, c.getTotal());
+		setupProgressMonitor(Messages.start, c.getTotal());
 	}
-
-	private IProgressMonitor getNextStepMonitor() throws InterruptedException {
-		if (myProgress.isCanceled()) {
-			throw new InterruptedException();
-		}
-		return new SubProgressMonitor(myProgress, 1);
-	}
-
-	private void initializeEditorProject() throws UnexpectedBehaviourException, InterruptedException {
-		myDestProject = ResourcesPlugin.getWorkspace().getRoot().getProject(myDiagram.getEditorGen().getPlugin().getID());
-		final Path srcPath = new Path('/' + myDestProject.getName() + "/src"); //$NON-NLS-1$
-		final Path projectLocation = null; // use default
-		final List referencedProjects = createReferencedProjectsList();
-		final int style = org.eclipse.emf.codegen.ecore.Generator.EMF_PLUGIN_PROJECT_STYLE;
-		// pluginVariables is NOT used when style is EMF_PLUGIN_PROJECT_STYLE
-		final List pluginVariables = null;
-		final IProgressMonitor pm = getNextStepMonitor();
-
-		org.eclipse.emf.codegen.ecore.Generator.createEMFProject(srcPath, projectLocation, referencedProjects, pm, style, pluginVariables);
-
-		try {
-			myDestRoot = JavaCore.create(myDestProject).findPackageFragmentRoot(srcPath);
-		} catch (JavaModelException ex) {
-			throw new UnexpectedBehaviourException(ex.getMessage());
-		}
-		if (myDestRoot == null) {
-			throw new UnexpectedBehaviourException("no source root can be found");
-		}
-	}
-
-	private List createReferencedProjectsList() {
+	
+	
+	protected final List createReferencedProjectsList() {
 		return Collections.EMPTY_LIST;
-	}
-
-	/**
-	 * NOTE: potential problem - packageName and className should match those specified in 
-	 * the template. Besides, getQualifiedXXX helpers in diagram GenModel should also correctly
-	 * return qualified class names.  
-	 */
-	private void doGenerateJavaClass(JETEmitter emitter, String packageName, String className, Object input) throws InterruptedException {
-		IProgressMonitor pm = getNextStepMonitor();
-		try {
-			pm.beginTask(className, 4);
-			final Object emitterArg = new Object[] {input, new ImportUtil(packageName)};
-			String genText = emitter.generate(new SubProgressMonitor(pm, 1), new Object[] { emitterArg });
-			IPackageFragment pf = myDestRoot.createPackageFragment(packageName, true, new SubProgressMonitor(pm, 1));
-			ICompilationUnit cu = pf.getCompilationUnit(className + ".java"); //$NON-NLS-1$
-			if (cu.exists()) {
-				genText = merge(genText, cu.getSource(), new SubProgressMonitor(pm, 1));
-			} else {
-				pm.worked(1);
-			}
-			pf.createCompilationUnit(cu.getElementName(), formatCode(genText), true, new SubProgressMonitor(pm, 1));
-		} catch (NullPointerException ex) {
-			myExceptions.add(new Status(IStatus.ERROR, "org.eclipse.gmf.codegen", 0, ex.getMessage(), ex));
-		} catch (JETException ex) {
-			myExceptions.add(ex.getStatus());
-		} catch (CoreException ex) {
-			myExceptions.add(ex.getStatus());		
-		} finally {
-			pm.done();
-		}
-	}
-
-	private String merge(String generatedText, String oldContents, IProgressMonitor pm) {
-		pm.beginTask(Messages.merge, 1);
-		JMerger jMerge = new JMerger();
-		jMerge.setControlModel(getJControlModel());
-		jMerge.setSourceCompilationUnit(jMerge.createCompilationUnitForContents(generatedText));
-		jMerge.setTargetCompilationUnit(jMerge.createCompilationUnitForContents(oldContents));
-		jMerge.merge();
-		pm.done();
-		return jMerge.getTargetCompilationUnitContents();
-	}
-
-	private String formatCode(String text) {
-		IDocument doc = new Document(text);
-		TextEdit edit = getCodeFormatter().format(CodeFormatter.K_COMPILATION_UNIT, doc.get(), 0, doc.get().length(), 0, null);
-
-		try {
-			// check if text formatted successfully 
-			if(edit != null) {
-				edit.apply(doc);
-				text = doc.get();				
-			}		
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		return text;
-	}
-
-	private CodeFormatter getCodeFormatter() {
-		if (myCodeFormatter == null) {
-			myCodeFormatter = ToolFactory.createCodeFormatter(null);
-		}
-		return myCodeFormatter;
-	}
-
-	private JControlModel getJControlModel() {
-		if (myJControlModel == null) {
-			myJControlModel = new JControlModel(myEmitters.getJMergeControlFile().toString());
-		}
-		return myJControlModel;
 	}
 
 	private static final class Counter {
