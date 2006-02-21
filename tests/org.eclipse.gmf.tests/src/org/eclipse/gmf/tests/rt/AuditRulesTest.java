@@ -98,6 +98,14 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 			assertTrue("The target class must be accepted", descriptor.targetsTypeOf(validatedInstance)); //$NON-NLS-1$
 			
 
+			// augment to reveal reason for test failures
+			if (!descriptor.isEnabled()) {
+				System.err.println("descriptor is dispabled");
+				System.err.println("descriptor.isError:" + descriptor.isError());
+				if (descriptor.isError()) {
+					descriptor.getException().printStackTrace(System.err);
+				}
+			}
 			assertTrue("Descriptor shoud be valid and enabled", //$NON-NLS-1$ 
 					descriptor.isEnabled());
 			assertEquals("Constraint id must match", //$NON-NLS-1$
