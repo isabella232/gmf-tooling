@@ -38,6 +38,7 @@ import org.eclipse.gmf.codegen.gmfgen.ValueExpression;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPluginImpl#getID <em>ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPluginImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPluginImpl#getProvider <em>Provider</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPluginImpl#getVersion <em>Version</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPluginImpl#isPrintingEnabled <em>Printing Enabled</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenPluginImpl#getActivatorClassName <em>Activator Class Name</em>}</li>
  * </ul>
@@ -105,6 +106,26 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 	 * @ordered
 	 */
 	protected String provider = PROVIDER_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVersion()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String VERSION_EDEFAULT = "1.0.0.qualifier";
+
+	/**
+	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getVersion()
+	 * @generated
+	 * @ordered
+	 */
+	protected String version = VERSION_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #isPrintingEnabled() <em>Printing Enabled</em>}' attribute.
@@ -243,6 +264,27 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 		provider = newProvider;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_PLUGIN__PROVIDER, oldProvider, provider));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getVersion() {
+		return version;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setVersion(String newVersion) {
+		String oldVersion = version;
+		version = newVersion;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_PLUGIN__VERSION, oldVersion, version));
 	}
 
 	/**
@@ -400,6 +442,8 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 				return getName();
 			case GMFGenPackage.GEN_PLUGIN__PROVIDER:
 				return getProvider();
+			case GMFGenPackage.GEN_PLUGIN__VERSION:
+				return getVersion();
 			case GMFGenPackage.GEN_PLUGIN__PRINTING_ENABLED:
 				return isPrintingEnabled() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_PLUGIN__ACTIVATOR_CLASS_NAME:
@@ -423,6 +467,9 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 				return;
 			case GMFGenPackage.GEN_PLUGIN__PROVIDER:
 				setProvider((String)newValue);
+				return;
+			case GMFGenPackage.GEN_PLUGIN__VERSION:
+				setVersion((String)newValue);
 				return;
 			case GMFGenPackage.GEN_PLUGIN__PRINTING_ENABLED:
 				setPrintingEnabled(((Boolean)newValue).booleanValue());
@@ -450,6 +497,9 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 			case GMFGenPackage.GEN_PLUGIN__PROVIDER:
 				setProvider(PROVIDER_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_PLUGIN__VERSION:
+				setVersion(VERSION_EDEFAULT);
+				return;
 			case GMFGenPackage.GEN_PLUGIN__PRINTING_ENABLED:
 				setPrintingEnabled(PRINTING_ENABLED_EDEFAULT);
 				return;
@@ -475,6 +525,8 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GMFGenPackage.GEN_PLUGIN__PROVIDER:
 				return PROVIDER_EDEFAULT == null ? provider != null : !PROVIDER_EDEFAULT.equals(provider);
+			case GMFGenPackage.GEN_PLUGIN__VERSION:
+				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
 			case GMFGenPackage.GEN_PLUGIN__PRINTING_ENABLED:
 				return printingEnabled != PRINTING_ENABLED_EDEFAULT;
 			case GMFGenPackage.GEN_PLUGIN__ACTIVATOR_CLASS_NAME:
@@ -498,6 +550,8 @@ public class GenPluginImpl extends EObjectImpl implements GenPlugin {
 		result.append(name);
 		result.append(", provider: ");
 		result.append(provider);
+		result.append(", version: ");
+		result.append(version);
 		result.append(", printingEnabled: ");
 		result.append(printingEnabled);
 		result.append(", activatorClassName: ");

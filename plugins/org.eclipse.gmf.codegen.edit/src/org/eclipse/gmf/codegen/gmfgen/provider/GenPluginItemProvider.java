@@ -67,6 +67,7 @@ public class GenPluginItemProvider
 			addIDPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
 			addProviderPropertyDescriptor(object);
+			addVersionPropertyDescriptor(object);
 			addPrintingEnabledPropertyDescriptor(object);
 			addActivatorClassNamePropertyDescriptor(object);
 		}
@@ -127,6 +128,26 @@ public class GenPluginItemProvider
 				 getString("_UI_GenPlugin_provider_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenPlugin_provider_feature", "_UI_GenPlugin_type"),
 				 GMFGenPackage.eINSTANCE.getGenPlugin_Provider(),
+				 true,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Version feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addVersionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenPlugin_version_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenPlugin_version_feature", "_UI_GenPlugin_type"),
+				 GMFGenPackage.eINSTANCE.getGenPlugin_Version(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -210,6 +231,7 @@ public class GenPluginItemProvider
 			case GMFGenPackage.GEN_PLUGIN__ID:
 			case GMFGenPackage.GEN_PLUGIN__NAME:
 			case GMFGenPackage.GEN_PLUGIN__PROVIDER:
+			case GMFGenPackage.GEN_PLUGIN__VERSION:
 			case GMFGenPackage.GEN_PLUGIN__PRINTING_ENABLED:
 			case GMFGenPackage.GEN_PLUGIN__ACTIVATOR_CLASS_NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

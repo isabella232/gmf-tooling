@@ -1401,7 +1401,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenPlugin_PrintingEnabled() {
+	public EAttribute getGenPlugin_Version() {
 		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -1410,8 +1410,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenPlugin_ActivatorClassName() {
+	public EAttribute getGenPlugin_PrintingEnabled() {
 		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenPlugin_ActivatorClassName() {
+		return (EAttribute)genPluginEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -2938,6 +2947,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEAttribute(genPluginEClass, GEN_PLUGIN__ID);
 		createEAttribute(genPluginEClass, GEN_PLUGIN__NAME);
 		createEAttribute(genPluginEClass, GEN_PLUGIN__PROVIDER);
+		createEAttribute(genPluginEClass, GEN_PLUGIN__VERSION);
 		createEAttribute(genPluginEClass, GEN_PLUGIN__PRINTING_ENABLED);
 		createEAttribute(genPluginEClass, GEN_PLUGIN__ACTIVATOR_CLASS_NAME);
 
@@ -3418,6 +3428,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		initEAttribute(getGenPlugin_ID(), ecorePackage.getEString(), "iD", null, 0, 1, GenPlugin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenPlugin_Name(), ecorePackage.getEString(), "name", null, 0, 1, GenPlugin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenPlugin_Provider(), ecorePackage.getEString(), "provider", "Sample Plugin Provider, Inc", 0, 1, GenPlugin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenPlugin_Version(), ecorePackage.getEString(), "version", "1.0.0.qualifier", 0, 1, GenPlugin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenPlugin_PrintingEnabled(), ecorePackage.getEBoolean(), "printingEnabled", null, 0, 1, GenPlugin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenPlugin_ActivatorClassName(), ecorePackage.getEString(), "activatorClassName", null, 0, 1, GenPlugin.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

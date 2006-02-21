@@ -1660,13 +1660,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_PLUGIN__PROVIDER = 3;
 
 	/**
+	 * The feature id for the '<em><b>Version</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_PLUGIN__VERSION = 4;
+
+	/**
 	 * The feature id for the '<em><b>Printing Enabled</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_PLUGIN__PRINTING_ENABLED = 4;
+	int GEN_PLUGIN__PRINTING_ENABLED = 5;
 
 	/**
 	 * The feature id for the '<em><b>Activator Class Name</b></em>' attribute.
@@ -1675,7 +1684,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_PLUGIN__ACTIVATOR_CLASS_NAME = 5;
+	int GEN_PLUGIN__ACTIVATOR_CLASS_NAME = 6;
 
 	/**
 	 * The number of structural features of the '<em>Gen Plugin</em>' class.
@@ -1684,7 +1693,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_PLUGIN_FEATURE_COUNT = 6;
+	int GEN_PLUGIN_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNodeImpl <em>Gen Node</em>}' class.
@@ -5710,6 +5719,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenPlugin_Provider();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getVersion <em>Version</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Version</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenPlugin#getVersion()
+	 * @see #getGenPlugin()
+	 * @generated
+	 */
+	EAttribute getGenPlugin_Version();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#isPrintingEnabled <em>Printing Enabled</em>}'.

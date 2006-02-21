@@ -176,6 +176,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPlugin/iD"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPlugin/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPlugin/provider"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPlugin/version"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPlugin/printingEnabled"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenPlugin/activatorClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenPlugin/getRequiredPluginIDs"/>

@@ -21,7 +21,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: <%=genPlugin.getID()%>; singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: <%=genPlugin.getVersion()%>
 Bundle-ClassPath: .
 Bundle-Activator: <%=genPlugin.getActivatorQualifiedClassName()%>
 Bundle-Vendor: %providerName

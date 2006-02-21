@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getID <em>ID</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getProvider <em>Provider</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getVersion <em>Version</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#isPrintingEnabled <em>Printing Enabled</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getActivatorClassName <em>Activator Class Name</em>}</li>
  * </ul>
@@ -127,6 +128,33 @@ public interface GenPlugin extends EObject {
 	 * @generated
 	 */
 	void setProvider(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Version</b></em>' attribute.
+	 * The default value is <code>"1.0.0.qualifier"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Version</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Version</em>' attribute.
+	 * @see #setVersion(String)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenPlugin_Version()
+	 * @model default="1.0.0.qualifier"
+	 * @generated
+	 */
+	String getVersion();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenPlugin#getVersion <em>Version</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Version</em>' attribute.
+	 * @see #getVersion()
+	 * @generated
+	 */
+	void setVersion(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Printing Enabled</b></em>' attribute.
