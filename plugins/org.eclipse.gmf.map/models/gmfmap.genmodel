@@ -8,11 +8,6 @@
   <foreignModel>gmfmap.ecore</foreignModel>
   <genPackages prefix="GMFMap" basePackage="org.eclipse.gmf" disposableProviderFactory="true"
       literalsInterface="false" ecorePackage="gmfmap.ecore#/">
-    <genEnums ecoreEnum="gmfmap.ecore#//LinkLabelAlignment">
-      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//LinkLabelAlignment/MIDDLE"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//LinkLabelAlignment/TARGET"/>
-      <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//LinkLabelAlignment/SOURCE"/>
-    </genEnums>
     <genEnums ecoreEnum="gmfmap.ecore#//Severity">
       <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//Severity/INFO"/>
       <genEnumLiterals ecoreEnumLiteral="gmfmap.ecore#//Severity/WARNING"/>
@@ -35,12 +30,10 @@
           ecoreFeature="ecore:EReference gmfmap.ecore#//MappingEntry/domainInitializer"/>
       <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
           ecoreFeature="ecore:EReference gmfmap.ecore#//MappingEntry/containmentFeature"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//MappingEntry/labelMappings"/>
       <genOperations ecoreOperation="gmfmap.ecore#//MappingEntry/getDomainContext"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfmap.ecore#//AbstractNodeMapping">
-      <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
-          ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/editFeature"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/labelMappings"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/childMappings"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/compartmentMappings"/>
     </genClasses>
@@ -63,11 +56,6 @@
     <genClasses ecoreClass="gmfmap.ecore#//LinkMapping">
       <genFeatures notify="false" createChild="false" propertyCategory="Visual representation"
           ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/diagramLink"/>
-      <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
-          ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/labelEditFeature"/>
-      <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
-          ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/labelDisplayFeature"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/labelMappings"/>
       <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
           ecoreFeature="ecore:EReference gmfmap.ecore#//LinkMapping/sourceMetaFeature"/>
       <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
@@ -93,14 +81,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//LabelMapping/defaultText"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//LabelMapping/viewPattern"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//LabelMapping/editPattern"/>
-    </genClasses>
-    <genClasses ecoreClass="gmfmap.ecore#//NodeLabelMapping">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//NodeLabelMapping/external"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//NodeLabelMapping/nodeMapping"/>
-    </genClasses>
-    <genClasses ecoreClass="gmfmap.ecore#//LinkLabelMapping">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//LinkLabelMapping/alignment"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LinkLabelMapping/linkMapping"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LabelMapping/mapEntry"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//Constraint"/>
     <genClasses ecoreClass="gmfmap.ecore#//LinkConstraints">

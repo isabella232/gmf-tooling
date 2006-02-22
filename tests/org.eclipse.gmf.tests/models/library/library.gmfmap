@@ -3,17 +3,23 @@
   <nodes>
     <domainMetaElement href="library.ecore#//Writer"/>
     <containmentFeature href="library.ecore#//Library/writers"/>
-    <editFeature href="library.ecore#//Writer/name"/>
+    <labelMappings>
+      <features href="library.ecore#//Writer/name"/>
+    </labelMappings>
     <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Node"/>
   </nodes>
   <nodes>
     <domainMetaElement href="library.ecore#//Book"/>
     <containmentFeature href="library.ecore#//Writer/books"/>
-    <editFeature href="library.ecore#//Book/title"/>
+    <labelMappings>
+      <features href="library.ecore#//Book/title"/>
+    </labelMappings>
     <childMappings compartment="//@nodes.1/@compartmentMappings.0">
       <domainMetaElement href="library.ecore#//Review"/>
       <containmentFeature href="library.ecore#//Book/reviews"/>
-      <editFeature href="library.ecore#//Review/title"/>
+      <labelMappings>
+        <features href="library.ecore#//Review/title"/>
+      </labelMappings>
       <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Child"/>
     </childMappings>
     <compartmentMappings childNodes="//@nodes.1/@childMappings.0">
@@ -25,7 +31,9 @@
     <diagramLink href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Link"/>
     <domainMetaElement href="library.ecore#//Opinion"/>
     <containmentFeature href="library.ecore#//Writer/opinions"/>
-    <labelEditFeature href="library.ecore#//Opinion/text"/>
+    <labelMappings>
+      <features href="library.ecore#//Opinion/text"/>
+    </labelMappings>
     <linkMetaFeature xsi:type="ecore:EReference" href="library.ecore#//Opinion/book"/>
   </links>
   <links>

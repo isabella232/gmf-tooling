@@ -15,6 +15,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Node;
@@ -25,6 +26,7 @@ public class DiaDefSetup implements DiaDefSource {
 	private Connection myLinkDef;
 	private final Config myConfig;
 	private FigureGallery myFigureContainer;
+	private DiagramLabel myLabelDef;
 
 	/**
 	 * @param config could be <code>null</code>
@@ -40,14 +42,17 @@ public class DiaDefSetup implements DiaDefSource {
 		myCanvasDef = GMFGraphFactory.eINSTANCE.createCanvas();
 		myNodeDef = GMFGraphFactory.eINSTANCE.createNode();
 		myLinkDef = GMFGraphFactory.eINSTANCE.createConnection();
+		myLabelDef = GMFGraphFactory.eINSTANCE.createDiagramLabel();
 		myFigureContainer = GMFGraphFactory.eINSTANCE.createFigureGallery();
 		myFigureContainer.setName("fc1");
 		myCanvasDef.getFigures().add(myFigureContainer);
 		myCanvasDef.getNodes().add(myNodeDef);
 		myCanvasDef.getConnections().add(myLinkDef);
+		myCanvasDef.getLabels().add(myLabelDef);
 		setupCanvasDef(myCanvasDef);
 		setupNodeDef(myNodeDef);
 		setupLinkDef(myLinkDef);
+		setupLabelDef(myLabelDef);
 		confineInResource();
 		return this;
 	}
@@ -82,7 +87,13 @@ public class DiaDefSetup implements DiaDefSource {
 			myConfig.setupLinkDef(linkDef);
 		}
 	}
-	
+	protected void setupLabelDef(DiagramLabel labelDef) {
+		labelDef.setName("TestLabel");
+		labelDef.setFigure(GMFGraphFactory.eINSTANCE.createLabel());
+		labelDef.getFigure().setName("LabelFig");
+		myFigureContainer.getFigures().add(labelDef.getFigure());
+	}
+
 	public final Canvas getCanvasDef() {
 		return myCanvasDef;
 	}
@@ -93,6 +104,10 @@ public class DiaDefSetup implements DiaDefSource {
 
 	public final Node getNodeDef() {
 		return myNodeDef;
+	}
+
+	public final DiagramLabel getLabelDef() {
+		return myLabelDef;
 	}
 
 	public final FigureGallery getFigureContainer() {

@@ -104,8 +104,6 @@ public class EntriesPage extends WizardPage {
 		private Group groupConstaints = null;
 		private Label specLabel = null;
 		private Label initLabel = null;
-		private Label editFeatureLabel = null;
-		private Label displayFeatureLabel = null;
 		private Label diagramElementLabel = null;
 		private Label metaElementLabel;
 		private Label containmentLabel;
@@ -308,14 +306,6 @@ public class EntriesPage extends WizardPage {
 			groupEdit.setText("Edit");
 			groupEdit.setLayout(newDetailGroupLayout());
 			groupEdit.setLayoutData(newDetailGroupConstraint());
-			Label l = new Label(groupEdit, SWT.NONE);
-			l.setText("In-place edit:");
-			editFeatureLabel = new Label(groupEdit, SWT.NONE);
-			editFeatureLabel.setLayoutData(newDetailLabelConstraint());
-			l = new Label(groupEdit, SWT.NONE);
-			l.setText("Display feature:");
-			displayFeatureLabel = new Label(groupEdit, SWT.NONE);
-			displayFeatureLabel.setLayoutData(newDetailLabelConstraint());
 		}
 
 		private void createVisualGroup() {
@@ -363,7 +353,6 @@ public class EntriesPage extends WizardPage {
 					nm.setDomainInitializer(selectedEntry.getDomainInitializer());
 					nm.setDomainSpecialization(selectedEntry.getDomainSpecialization());
 					final LinkMapping linkMapping = (LinkMapping) selectedEntry;
-					nm.setEditFeature(linkMapping.getLabelEditFeature());
 					nm.setTool(linkMapping.getTool());
 					nm.setContextMenu(linkMapping.getContextMenu());
 					nm.setAppearanceStyle(linkMapping.getAppearanceStyle());
@@ -386,7 +375,6 @@ public class EntriesPage extends WizardPage {
 					lm.setDomainInitializer(selectedEntry.getDomainInitializer());
 					lm.setDomainSpecialization(selectedEntry.getDomainSpecialization());
 					final NodeMapping nodeMapping = (NodeMapping) selectedEntry;
-					lm.setLabelEditFeature(nodeMapping.getEditFeature());
 					lm.setTool(nodeMapping.getTool());
 					lm.setContextMenu(nodeMapping.getContextMenu());
 					lm.setAppearanceStyle(nodeMapping.getAppearanceStyle());
@@ -551,7 +539,6 @@ public class EntriesPage extends WizardPage {
 			} else {
 				diagramElementLabel.setText("");
 			}
-			affix(editFeatureLabel, m.getEditFeature());
 			linkMetaFeatureLabel.setText("");
 		}
 
@@ -563,8 +550,6 @@ public class EntriesPage extends WizardPage {
 			} else {
 				diagramElementLabel.setText("");
 			}
-			affix(editFeatureLabel, l.getLabelEditFeature());
-			affix(displayFeatureLabel, l.getLabelDisplayFeature());
 			affix(linkMetaFeatureLabel, l.getLinkMetaFeature());
 		}
 

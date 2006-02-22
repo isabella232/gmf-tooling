@@ -18,12 +18,14 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.GMFMapFactory;
+import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
@@ -54,11 +56,11 @@ public class MapSetup implements MapDefSource {
 		}
 		myMap.getDiagram().setPalette(toolDef.getPalette());
 		
-		myNodeA = createNodeMapping(ddSource.getNodeDef(), domainSource.getNodeA());
+		myNodeA = createNodeMapping(ddSource.getNodeDef(), ddSource.getLabelDef(), domainSource.getNodeA());
 		myNodeA.setContextMenu(toolDef.getNodeContextMenu());
 		myNodeA.setTool(toolDef.getNodeCreationTool());
 		if (domainSource.getNodeB() != null) {
-			myNodeB = createNodeMapping(ddSource.getNodeDef(), domainSource.getNodeB());
+			myNodeB = createNodeMapping(ddSource.getNodeDef(), ddSource.getLabelDef(), domainSource.getNodeB());
 		}
 		
 		myClassLink = createLinkMapping(ddSource.getLinkDef(), domainSource.getLinkAsClass());
@@ -140,15 +142,20 @@ public class MapSetup implements MapDefSource {
 		return lme;
 	}
 
-	private NodeMapping createNodeMapping(Node nodeDef, NodeData nodeData) {
-		return createNodeMapping(nodeDef, nodeData.getEClass(), nodeData.getNameAttr(), nodeData.getContainment());
+	private NodeMapping createNodeMapping(Node nodeDef, DiagramLabel labelDef, NodeData nodeData) {
+		return createNodeMapping(nodeDef, nodeData.getEClass(), labelDef, nodeData.getNameAttr(), nodeData.getContainment());
 	}
 
-	private NodeMapping createNodeMapping(Node nodeDef, EClass domainMetaElement, EAttribute editFeature, EReference containmentFeature) {
+	private NodeMapping createNodeMapping(Node nodeDef, EClass domainMetaElement, DiagramLabel labelDef, EAttribute editFeature, EReference containmentFeature) {
 		NodeMapping nme = GMFMapFactory.eINSTANCE.createNodeMapping();
 		nme.setDiagramNode(nodeDef);
 		nme.setDomainMetaElement(domainMetaElement);
-		nme.setEditFeature(editFeature);
+		if (editFeature != null) {
+			final LabelMapping lm = GMFMapFactory.eINSTANCE.createLabelMapping();
+			lm.getFeatures().add(editFeature);
+			lm.setDiagramLabel(labelDef);
+			nme.getLabelMappings().add(lm);
+		}
 		nme.setContainmentFeature(containmentFeature);
 		// FIXME nme.setTool(GMFMapFactory.eINSTANCE.createCreationTool());
 		setupNodeMapping(nme);

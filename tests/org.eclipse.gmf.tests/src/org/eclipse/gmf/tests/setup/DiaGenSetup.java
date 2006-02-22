@@ -88,6 +88,8 @@ public class DiaGenSetup implements DiaGenSource {
 			GenNodeLabel label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
 			label.setModelFacet(modelFacet);
 			label.setVisualID(401);
+			label.setViewmap(createLabelViewmap());
+			label.setDiagramRunTimeClass(myNodeA.getDiagramRunTimeClass());
 			myNodeA.getLabels().add(label);
 		}
 		myNodeA.setViewmap(createNodeViewmap());
@@ -105,21 +107,27 @@ public class DiaGenSetup implements DiaGenSource {
 		return this;
 	}
 
-	private Viewmap createLinkViewmap() {
+	private static Viewmap createLinkViewmap() {
 		FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
 		v.setFigureQualifiedClassName("org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx");
 		return v;
 	}
 
-	private Viewmap createNodeViewmap() {
+	private static Viewmap createNodeViewmap() {
 		FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
 		v.setFigureQualifiedClassName("org.eclipse.draw2d.RoundedRectangle");
 		return v;
 	}
 
-	private Viewmap createDiagramViewmap() {
+	private static Viewmap createDiagramViewmap() {
 		FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
 		v.setFigureQualifiedClassName("org.eclipse.draw2d.FreeformLayer");
+		return v;
+	}
+
+	private static Viewmap createLabelViewmap() {
+		FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
+		v.setFigureQualifiedClassName("org.eclipse.draw2d.Label");
 		return v;
 	}
 

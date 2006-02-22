@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.bridge.genmodel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -58,7 +59,8 @@ import org.eclipse.gmf.codegen.gmfgen.TextLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.Viewmap;
+import org.eclipse.gmf.gmfgraph.Alignment;
+import org.eclipse.gmf.gmfgraph.AlignmentFacet;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
@@ -75,10 +77,9 @@ import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkConstraints;
-import org.eclipse.gmf.mappings.LinkLabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
-import org.eclipse.gmf.mappings.NodeLabelMapping;
+import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.mappings.ToolOwner;
@@ -193,20 +194,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		genNode.setDiagramRunTimeClass(findRunTimeClass(nme));
 		genNode.setModelFacet(createModelFacet(nme));
 		genNode.setVisualID(myVisualIDs.get(genNode));
-		if (nme.getEditFeature() != null) {
-			FeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
-			modelFacet.setMetaFeature(findGenFeature(nme.getEditFeature()));
-			GenNodeLabel label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
-			label.setModelFacet(modelFacet);
-			label.setVisualID(myVisualIDs.get(label));
-			label.setDiagramRunTimeClass(getNodeLabelRunTimeClass());
-			label.setViewmap(createLabelViewmap());
-
-			// set class names
-			myNamingStrategy.feed(label, nme, null);
-
-			genNode.getLabels().add(label);
-		}
 		genNode.setViewmap(myViewmaps.create(nme.getDiagramNode()));
 		handleNodeTool(nme, genNode);
 
@@ -229,22 +216,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 		// set class names
 		myNamingStrategy.feed(childNode, childNodeMapping);
-
-		if (childNodeMapping.getEditFeature() != null) {
-			FeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
-			modelFacet.setMetaFeature(findGenFeature(childNodeMapping.getEditFeature()));
-			modelFacet.setDefaultText("<...>");
-			GenNodeLabel label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
-			label.setModelFacet(modelFacet);
-			label.setVisualID(myVisualIDs.get(label));
-			label.setDiagramRunTimeClass(getNodeLabelRunTimeClass());
-			label.setViewmap(createLabelViewmap());
-
-			// set class names
-			myNamingStrategy.feed(label, childNodeMapping, null);
-
-			childNode.getLabels().add(label);
-		}
 
 		container.getChildNodes().add(childNode);
 		getGenDiagram().getChildNodes().add(childNode);
@@ -279,11 +250,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			process(childNodeMapping, genChildContainer);
 		}
 		for (Iterator labels = mapping.getLabelMappings().iterator(); labels.hasNext();) {
-			NodeLabelMapping labelMapping = (NodeLabelMapping) labels.next();
+			LabelMapping labelMapping = (LabelMapping) labels.next();
 			GenNodeLabel label = createNodeLabel(genNode, labelMapping);
 
 			// set class names
-			myNamingStrategy.feed(label, mapping, labelMapping);
+			myNamingStrategy.feed(label, labelMapping);
 
 			genNode.getLabels().add(label);
 		}
@@ -308,8 +279,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	protected void process(LinkMapping lme) {
-		assert lme.getDiagramLink() != null;
-		assert lme.getLinkMetaFeature() != null;
+		assertLinkMapping(lme);
 		GenLink gl = GMFGenFactory.eINSTANCE.createGenLink();
 		getGenDiagram().getLinks().add(gl);
 		gl.setModelFacet(createModelFacet(lme));
@@ -320,27 +290,12 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			le.getGenLink().add(gl);
 			setupCommonToolEntry(le, lme.getTool());
 		}
-		EAttribute editFeature = lme.getLabelEditFeature();
-		if (editFeature != null) {
-			FeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
-			modelFacet.setMetaFeature(findGenFeature(lme.getLabelEditFeature()));
-			GenLinkLabel label = GMFGenFactory.eINSTANCE.createGenLinkLabel();
-			label.setModelFacet(modelFacet);
-			label.setVisualID(myVisualIDs.get(label));
-			label.setDiagramRunTimeClass(getLinkLabelRunTimeClass());
-			label.setViewmap(createLabelViewmap());
-
-			// set class names
-			myNamingStrategy.feed(label, lme, null);
-
-			gl.getLabels().add(label);
-		}
 		for (Iterator labels = lme.getLabelMappings().iterator(); labels.hasNext();) {
-			LinkLabelMapping labelMapping = (LinkLabelMapping) labels.next();
+			LabelMapping labelMapping = (LabelMapping) labels.next();
 			GenLinkLabel label = createLinkLabel(gl, labelMapping);
 
 			// set class names
-			myNamingStrategy.feed(label, lme, labelMapping);
+			myNamingStrategy.feed(label, labelMapping);
 
 			gl.getLabels().add(label);
 		}
@@ -357,36 +312,39 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 	}
 
-	private GenNodeLabel createNodeLabel(GenNode node, NodeLabelMapping mapping) {
+	private GenNodeLabel createNodeLabel(GenNode node, LabelMapping mapping) {
 		GenNodeLabel label;
-		if (mapping.isExternal()) {
+		if (mapping.getDiagramLabel().getFigure().getParent() == null) { // mapping.isExternal()
 			label = GMFGenFactory.eINSTANCE.createGenExternalNodeLabel();
 		} else {
 			label = GMFGenFactory.eINSTANCE.createGenNodeLabel();
 		}
 		label.setVisualID(myVisualIDs.get(label));
 		label.setDiagramRunTimeClass(findRunTimeClass(mapping));
-		label.setViewmap(createLabelViewmap());
+		label.setViewmap(myViewmaps.create(mapping.getDiagramLabel()));
 		label.setModelFacet(createLabelModelFacet(mapping));
 		return label;
 	}
 
-	private GenLinkLabel createLinkLabel(GenLink link, LinkLabelMapping mapping) {
+	private GenLinkLabel createLinkLabel(GenLink link, LabelMapping mapping) {
 		GenLinkLabel label = GMFGenFactory.eINSTANCE.createGenLinkLabel();
 		label.setVisualID(myVisualIDs.get(label));
 		label.setDiagramRunTimeClass(findRunTimeClass(mapping));
-		label.setViewmap(createLabelViewmap());
+		label.setViewmap(myViewmaps.create(mapping.getDiagramLabel()));
 		label.setModelFacet(createLabelModelFacet(mapping));
-		label.setAlignment(getLinkLabelAlignment(mapping.getAlignment()));
+		if (mapping.getDiagramLabel().find(AlignmentFacet.class) != null) {
+			AlignmentFacet af = (AlignmentFacet) mapping.getDiagramLabel().find(AlignmentFacet.class);
+			label.setAlignment(getLinkLabelAlignment(af.getAlignment()));
+		}
 		return label;
 	}
 
-	private LinkLabelAlignment getLinkLabelAlignment(org.eclipse.gmf.mappings.LinkLabelAlignment alignment) {
+	private LinkLabelAlignment getLinkLabelAlignment(Alignment alignment) {
 		switch (alignment.getValue()) {
-		case org.eclipse.gmf.mappings.LinkLabelAlignment.SOURCE: return LinkLabelAlignment.SOURCE_LITERAL;
-		case org.eclipse.gmf.mappings.LinkLabelAlignment.MIDDLE: return LinkLabelAlignment.MIDDLE_LITERAL;
-		case org.eclipse.gmf.mappings.LinkLabelAlignment.TARGET: return LinkLabelAlignment.TARGET_LITERAL;
-		default: throw new IllegalStateException();
+		case Alignment.BEGINNING: return LinkLabelAlignment.SOURCE_LITERAL;
+		case Alignment.CENTER: return LinkLabelAlignment.MIDDLE_LITERAL;
+		case Alignment.END: return LinkLabelAlignment.TARGET_LITERAL;
+		default: throw new IllegalArgumentException("Link doesn't support alignment:" + alignment.getName());
 		}
 	}
 
@@ -421,14 +379,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		throw new IllegalArgumentException("Model facet of a label is undefined " + mapping);
 	}
 
-	/**
-	 * FIXME Use child from gmfgraph with dedicated figure
-	 * @return
-	 */
-	private Viewmap createLabelViewmap() {
-		return DefaultViewmapProducer.createLabelViewmap();
-	}
-
 	private GenClass findRunTimeClass(NodeMapping nme) {
 		return myDRTHelper.get(nme);
 	}
@@ -449,19 +399,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return myDRTHelper.getChildContainerDefault();
 	}
 
-	private GenClass getNodeLabelRunTimeClass() {
-		return myDRTHelper.getNodeLabelDefault();
-	}
-
-	private GenClass getLinkLabelRunTimeClass() {
-		return myDRTHelper.getLinkLabelDefault();
-	}
-
-	private GenClass findRunTimeClass(NodeLabelMapping mapping) {
-		return myDRTHelper.get(mapping);
-	}
-
-	private GenClass findRunTimeClass(LinkLabelMapping mapping) {
+	private GenClass findRunTimeClass(LabelMapping mapping) {
 		return myDRTHelper.get(mapping);
 	}
 
@@ -514,15 +452,33 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	
 	private void assertAbstractNodeMapping(AbstractNodeMapping mapping) {
 		assert mapping.getDomainContext() != null;
-		assert checkDirectEditAttrValidity(mapping);
+		assert checkLabelMappings(mapping);
 	}
 
-	private boolean checkDirectEditAttrValidity(AbstractNodeMapping nme) {
-		if (nme.getEditFeature() == null) {
-			return true;
+	private void assertLinkMapping(LinkMapping linkMapping) {
+		assert linkMapping.getDiagramLink() != null;
+		assert linkMapping.getLinkMetaFeature() != null;
+		assert checkLabelMappings(linkMapping);
+	}
+
+	private static boolean checkLabelMappings(MappingEntry entry) {
+		boolean ok = true;
+		for (Iterator it = entry.getLabelMappings().iterator(); ok && it.hasNext();) {
+			ok = checkLabelFeatureValidity((LabelMapping) it.next());
 		}
-		EClassifier attrContainer = nme.getEditFeature().getEContainingClass();
-		return attrContainer == nme.getDomainContext() || nme.getDomainContext().getEAllSuperTypes().contains(attrContainer);
+		return ok;
+	}
+
+	private static boolean checkLabelFeatureValidity(LabelMapping labelMapping) {
+		final ArrayList context = new ArrayList();
+		context.add(labelMapping.getMapEntry().getDomainContext()); 
+		context.addAll(labelMapping.getMapEntry().getDomainContext().getEAllSuperTypes());
+		boolean isOk = true;
+		for (Iterator it = labelMapping.getFeatures().iterator(); isOk && it.hasNext(); ) {
+			EClassifier attrContainer = ((EAttribute) it.next()).getEContainingClass();
+			isOk = context.contains(attrContainer);
+		}
+		return isOk;
 	}
 
 	private GenPackage findGenPackage(EPackage ePackage) {

@@ -31,11 +31,12 @@ import org.eclipse.gmf.gmfgraph.DiagramLabel;
  *   <li>{@link org.eclipse.gmf.mappings.LabelMapping#getDefaultText <em>Default Text</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LabelMapping#getViewPattern <em>View Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LabelMapping#getEditPattern <em>Edit Pattern</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.LabelMapping#getMapEntry <em>Map Entry</em>}</li>
  * </ul>
  * </p>
  *
  * @see org.eclipse.gmf.mappings.GMFMapPackage#getLabelMapping()
- * @model abstract="true"
+ * @model
  * @generated
  */
 public interface LabelMapping extends EObject {
@@ -207,5 +208,22 @@ public interface LabelMapping extends EObject {
 	 * @generated
 	 */
 	void setEditPattern(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Map Entry</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.MappingEntry#getLabelMappings <em>Label Mappings</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Map Entry</em>' container reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Map Entry</em>' container reference.
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLabelMapping_MapEntry()
+	 * @see org.eclipse.gmf.mappings.MappingEntry#getLabelMappings
+	 * @model opposite="labelMappings" required="true" changeable="false"
+	 * @generated
+	 */
+	MappingEntry getMapEntry();
 
 } // LabelMapping

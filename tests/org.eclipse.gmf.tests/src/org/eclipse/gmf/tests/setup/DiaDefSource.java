@@ -13,6 +13,7 @@ package org.eclipse.gmf.tests.setup;
 
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Node;
 
 public interface DiaDefSource {
@@ -23,4 +24,5 @@ public interface DiaDefSource {
 
 	Node getNodeDef();
 
+	DiagramLabel getLabelDef();
 }

@@ -222,6 +222,13 @@ public class GMFGraphSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGraphPackage.ALIGNMENT_FACET: {
+				AlignmentFacet alignmentFacet = (AlignmentFacet)theEObject;
+				Object result = caseAlignmentFacet(alignmentFacet);
+				if (result == null) result = caseVisualFacet(alignmentFacet);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGraphPackage.GRADIENT_FACET: {
 				GradientFacet gradientFacet = (GradientFacet)theEObject;
 				Object result = caseGradientFacet(gradientFacet);
@@ -789,6 +796,21 @@ public class GMFGraphSwitch {
 	 * @generated
 	 */
 	public Object caseGeneralFacet(GeneralFacet object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Alignment Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Alignment Facet</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseAlignmentFacet(AlignmentFacet object) {
 		return null;
 	}
 

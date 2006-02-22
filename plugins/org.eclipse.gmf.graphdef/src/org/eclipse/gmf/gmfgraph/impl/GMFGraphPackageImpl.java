@@ -9,10 +9,12 @@ package org.eclipse.gmf.gmfgraph.impl;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.gmf.gmfgraph.Alignment;
+import org.eclipse.gmf.gmfgraph.AlignmentFacet;
 import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.Border;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
@@ -163,6 +165,13 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * @generated
 	 */
 	private EClass generalFacetEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass alignmentFacetEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -844,6 +853,24 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 */
 	public EAttribute getGeneralFacet_Data() {
 		return (EAttribute)generalFacetEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAlignmentFacet() {
+		return alignmentFacetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAlignmentFacet_Alignment() {
+		return (EAttribute)alignmentFacetEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2118,6 +2145,9 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		createEAttribute(generalFacetEClass, GENERAL_FACET__IDENTIFIER);
 		createEAttribute(generalFacetEClass, GENERAL_FACET__DATA);
 
+		alignmentFacetEClass = createEClass(ALIGNMENT_FACET);
+		createEAttribute(alignmentFacetEClass, ALIGNMENT_FACET__ALIGNMENT);
+
 		gradientFacetEClass = createEClass(GRADIENT_FACET);
 		createEAttribute(gradientFacetEClass, GRADIENT_FACET__DIRECTION);
 
@@ -2336,6 +2366,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		childEClass.getESuperTypes().add(this.getDiagramElement());
 		diagramLabelEClass.getESuperTypes().add(this.getDiagramElement());
 		generalFacetEClass.getESuperTypes().add(this.getVisualFacet());
+		alignmentFacetEClass.getESuperTypes().add(this.getVisualFacet());
 		gradientFacetEClass.getESuperTypes().add(this.getVisualFacet());
 		figureMarkerEClass.getESuperTypes().add(this.getLayoutable());
 		figureEClass.getESuperTypes().add(this.getFigureMarker());
@@ -2403,6 +2434,9 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEReference(getDiagramElement_Figure(), this.getFigure(), null, "figure", null, 1, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDiagramElement_Facets(), this.getVisualFacet(), null, "facets", null, 0, -1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		EOperation op = addEOperation(diagramElementEClass, this.getVisualFacet(), "find", 0, 1);
+		addEParameter(op, ecorePackage.getEJavaClass(), "facetClass", 0, 1);
+
 		initEClass(nodeEClass, Node.class, "Node", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNode_ResizeConstraint(), this.getDirection(), "resizeConstraint", null, 0, 1, Node.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -2421,6 +2455,9 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEClass(generalFacetEClass, GeneralFacet.class, "GeneralFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGeneralFacet_Identifier(), ecorePackage.getEString(), "identifier", null, 0, 1, GeneralFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGeneralFacet_Data(), ecorePackage.getEString(), "data", null, 0, 1, GeneralFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(alignmentFacetEClass, AlignmentFacet.class, "AlignmentFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAlignmentFacet_Alignment(), this.getAlignment(), "alignment", null, 0, 1, AlignmentFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(gradientFacetEClass, GradientFacet.class, "GradientFacet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGradientFacet_Direction(), this.getDirection(), "direction", null, 0, 1, GradientFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

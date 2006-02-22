@@ -174,6 +174,11 @@ public class DiagramElementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getDiagramElement_Facets(),
+				 GMFGraphFactory.eINSTANCE.createAlignmentFacet()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getDiagramElement_Facets(),
 				 GMFGraphFactory.eINSTANCE.createGradientFacet()));
 	}
 

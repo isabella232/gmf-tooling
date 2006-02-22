@@ -98,6 +98,15 @@ public interface GMFGraphFactory extends EFactory {
 	GeneralFacet createGeneralFacet();
 
 	/**
+	 * Returns a new object of class '<em>Alignment Facet</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Alignment Facet</em>'.
+	 * @generated
+	 */
+	AlignmentFacet createAlignmentFacet();
+
+	/**
 	 * Returns a new object of class '<em>Gradient Facet</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

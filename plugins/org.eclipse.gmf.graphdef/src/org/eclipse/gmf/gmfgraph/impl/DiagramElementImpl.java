@@ -7,6 +7,7 @@
 package org.eclipse.gmf.gmfgraph.impl;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -165,6 +166,27 @@ public abstract class DiagramElementImpl extends EObjectImpl implements DiagramE
 			facets = new EObjectContainmentEList(VisualFacet.class, this, GMFGraphPackage.DIAGRAM_ELEMENT__FACETS);
 		}
 		return facets;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public VisualFacet find(Class facetClass) {
+		if (facets == null) {
+			return null;
+		}
+		if (facetClass == null) {
+			throw new NullPointerException(); // do this explicitly
+		}
+		for (Iterator it = getFacets().iterator(); it.hasNext(); ) {
+			Object next = it.next();
+			if (facetClass.isAssignableFrom(next.getClass())) {
+				return (VisualFacet) next;
+			}
+		}
+		return null;
 	}
 
 	/**

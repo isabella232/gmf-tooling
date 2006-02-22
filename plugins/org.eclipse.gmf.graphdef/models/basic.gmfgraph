@@ -10,4 +10,5 @@
   <connections name="Link" figure="ConnectionLine"/>
   <compartments name="Compartment" figure="ContainerFigure" collapsible="true" needsTitle="true"/>
   <children name="Child" figure="LabelFigure"/>
+  <labels name="Label" figure="LabelFigure"/>
 </gmfgraph:Canvas>

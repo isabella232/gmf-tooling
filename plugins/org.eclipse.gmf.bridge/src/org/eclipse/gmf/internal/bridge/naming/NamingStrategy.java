@@ -11,13 +11,11 @@
  */
 package org.eclipse.gmf.internal.bridge.naming;
 
-import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
-import org.eclipse.gmf.mappings.LinkLabelMapping;
+import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
-import org.eclipse.gmf.mappings.NodeLabelMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 
 /**
@@ -38,9 +36,5 @@ public interface NamingStrategy {
 
 	String get(CompartmentMapping cm);
 
-	/*
-	 * Eventually will be superseded with FeatureMappings
-	 */
-	String getForEditFeature(LinkMapping lme, LinkLabelMapping labelMapping);
-	String getForEditFeature(AbstractNodeMapping nme, NodeLabelMapping labelMapping);
+	String get(LabelMapping labelMapping);
 }

@@ -6,6 +6,8 @@
  */
 package org.eclipse.gmf.mappings;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -22,6 +24,7 @@ import org.eclipse.emf.ecore.EReference;
  *   <li>{@link org.eclipse.gmf.mappings.MappingEntry#getDomainSpecialization <em>Domain Specialization</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.MappingEntry#getDomainInitializer <em>Domain Initializer</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.MappingEntry#getContainmentFeature <em>Containment Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.MappingEntry#getLabelMappings <em>Label Mappings</em>}</li>
  * </ul>
  * </p>
  *
@@ -136,6 +139,24 @@ public interface MappingEntry extends EObject {
 	 * @generated
 	 */
 	void setContainmentFeature(EReference value);
+
+	/**
+	 * Returns the value of the '<em><b>Label Mappings</b></em>' containment reference list.
+	 * The list contents are of type {@link org.eclipse.gmf.mappings.LabelMapping}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.LabelMapping#getMapEntry <em>Map Entry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Label Mappings</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Label Mappings</em>' containment reference list.
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMappingEntry_LabelMappings()
+	 * @see org.eclipse.gmf.mappings.LabelMapping#getMapEntry
+	 * @model type="org.eclipse.gmf.mappings.LabelMapping" opposite="mapEntry" containment="true"
+	 * @generated
+	 */
+	EList getLabelMappings();
 
 	/**
 	 * <!-- begin-user-doc -->

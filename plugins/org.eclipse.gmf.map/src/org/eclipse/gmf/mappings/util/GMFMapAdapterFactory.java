@@ -115,12 +115,6 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 			public Object caseLabelMapping(LabelMapping object) {
 				return createLabelMappingAdapter();
 			}
-			public Object caseNodeLabelMapping(NodeLabelMapping object) {
-				return createNodeLabelMappingAdapter();
-			}
-			public Object caseLinkLabelMapping(LinkLabelMapping object) {
-				return createLinkLabelMappingAdapter();
-			}
 			public Object caseConstraint(Constraint object) {
 				return createConstraintAdapter();
 			}
@@ -281,34 +275,6 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createLabelMappingAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.NodeLabelMapping <em>Node Label Mapping</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.mappings.NodeLabelMapping
-	 * @generated
-	 */
-	public Adapter createNodeLabelMappingAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.LinkLabelMapping <em>Link Label Mapping</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.mappings.LinkLabelMapping
-	 * @generated
-	 */
-	public Adapter createLinkLabelMappingAdapter() {
 		return null;
 	}
 

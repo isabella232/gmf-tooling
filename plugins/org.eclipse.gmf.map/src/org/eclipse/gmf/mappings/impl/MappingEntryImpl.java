@@ -6,16 +6,24 @@
  */
 package org.eclipse.gmf.mappings.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.MappingEntry;
 
 /**
@@ -29,6 +37,7 @@ import org.eclipse.gmf.mappings.MappingEntry;
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingEntryImpl#getDomainSpecialization <em>Domain Specialization</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingEntryImpl#getDomainInitializer <em>Domain Initializer</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingEntryImpl#getContainmentFeature <em>Containment Feature</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.MappingEntryImpl#getLabelMappings <em>Label Mappings</em>}</li>
  * </ul>
  * </p>
  *
@@ -74,6 +83,16 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	 * @ordered
 	 */
 	protected EReference containmentFeature = null;
+
+	/**
+	 * The cached value of the '{@link #getLabelMappings() <em>Label Mappings</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLabelMappings()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList labelMappings = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -258,6 +277,18 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getLabelMappings() {
+		if (labelMappings == null) {
+			labelMappings = new EObjectContainmentWithInverseEList(LabelMapping.class, this, GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS, GMFMapPackage.LABEL_MAPPING__MAP_ENTRY);
+		}
+		return labelMappings;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public abstract EClass getDomainContext();
@@ -273,6 +304,8 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 				if (domainInitializer != null)
 					msgs = ((InternalEObject)domainInitializer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.MAPPING_ENTRY__DOMAIN_INITIALIZER, null, msgs);
 				return basicSetDomainInitializer((ElementInitializer)otherEnd, msgs);
+			case GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS:
+				return ((InternalEList)getLabelMappings()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -288,6 +321,8 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 				return basicSetDomainSpecialization(null, msgs);
 			case GMFMapPackage.MAPPING_ENTRY__DOMAIN_INITIALIZER:
 				return basicSetDomainInitializer(null, msgs);
+			case GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS:
+				return ((InternalEList)getLabelMappings()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -309,6 +344,8 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 			case GMFMapPackage.MAPPING_ENTRY__CONTAINMENT_FEATURE:
 				if (resolve) return getContainmentFeature();
 				return basicGetContainmentFeature();
+			case GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS:
+				return getLabelMappings();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -331,6 +368,10 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 				return;
 			case GMFMapPackage.MAPPING_ENTRY__CONTAINMENT_FEATURE:
 				setContainmentFeature((EReference)newValue);
+				return;
+			case GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS:
+				getLabelMappings().clear();
+				getLabelMappings().addAll((Collection)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -355,6 +396,9 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 			case GMFMapPackage.MAPPING_ENTRY__CONTAINMENT_FEATURE:
 				setContainmentFeature((EReference)null);
 				return;
+			case GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS:
+				getLabelMappings().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -374,6 +418,8 @@ public abstract class MappingEntryImpl extends EObjectImpl implements MappingEnt
 				return domainInitializer != null;
 			case GMFMapPackage.MAPPING_ENTRY__CONTAINMENT_FEATURE:
 				return containmentFeature != null;
+			case GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS:
+				return labelMappings != null && !labelMappings.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

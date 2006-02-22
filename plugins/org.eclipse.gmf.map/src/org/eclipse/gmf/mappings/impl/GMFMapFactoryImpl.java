@@ -80,8 +80,7 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 			case GMFMapPackage.COMPARTMENT_MAPPING: return createCompartmentMapping();
 			case GMFMapPackage.LINK_MAPPING: return createLinkMapping();
 			case GMFMapPackage.CANVAS_MAPPING: return createCanvasMapping();
-			case GMFMapPackage.NODE_LABEL_MAPPING: return createNodeLabelMapping();
-			case GMFMapPackage.LINK_LABEL_MAPPING: return createLinkLabelMapping();
+			case GMFMapPackage.LABEL_MAPPING: return createLabelMapping();
 			case GMFMapPackage.CONSTRAINT: return createConstraint();
 			case GMFMapPackage.LINK_CONSTRAINTS: return createLinkConstraints();
 			case GMFMapPackage.VALUE_EXPRESSION: return createValueExpression();
@@ -101,8 +100,6 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	 */
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
-			case GMFMapPackage.LINK_LABEL_ALIGNMENT:
-				return createLinkLabelAlignmentFromString(eDataType, initialValue);
 			case GMFMapPackage.SEVERITY:
 				return createSeverityFromString(eDataType, initialValue);
 			default:
@@ -117,8 +114,6 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	 */
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
-			case GMFMapPackage.LINK_LABEL_ALIGNMENT:
-				return convertLinkLabelAlignmentToString(eDataType, instanceValue);
 			case GMFMapPackage.SEVERITY:
 				return convertSeverityToString(eDataType, instanceValue);
 			default:
@@ -181,19 +176,9 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NodeLabelMapping createNodeLabelMapping() {
-		NodeLabelMappingImpl nodeLabelMapping = new NodeLabelMappingImpl();
-		return nodeLabelMapping;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public LinkLabelMapping createLinkLabelMapping() {
-		LinkLabelMappingImpl linkLabelMapping = new LinkLabelMappingImpl();
-		return linkLabelMapping;
+	public LabelMapping createLabelMapping() {
+		LabelMappingImpl labelMapping = new LabelMappingImpl();
+		return labelMapping;
 	}
 
 	/**
@@ -274,26 +259,6 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	public AuditRule createAuditRule() {
 		AuditRuleImpl auditRule = new AuditRuleImpl();
 		return auditRule;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public LinkLabelAlignment createLinkLabelAlignmentFromString(EDataType eDataType, String initialValue) {
-		LinkLabelAlignment result = LinkLabelAlignment.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertLinkLabelAlignmentToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

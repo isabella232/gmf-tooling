@@ -61,6 +61,8 @@
         <details key="description" value="Containment EReference expected"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="labelMappings" upperBound="-1"
+        eType="#//LabelMapping" containment="true" eOpposite="#//LabelMapping/mapEntry"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractNodeMapping" abstract="true"
       eSuperTypes="#//MappingEntry #//MenuOwner #//ToolOwner #//AppearanceSteward">
@@ -72,14 +74,6 @@
       <details key="ocl" value="not domainMetaElement.oclIsUndefined() implies containmentFeature.oclIsUndefined() or containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement)"/>
       <details key="description" value="'Domain Element' must be the same or extend the type referenced by 'Containment Feature'"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="editFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EAttribute">
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="not editFeature.oclIsUndefined() implies getDomainContext().oclIsUndefined() or editFeature.eContainingClass.isSuperTypeOf(getDomainContext())"/>
-        <details key="description" value="The Edit Feature must be owned by the domain context EClass or its super type"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="labelMappings" upperBound="-1"
-        eType="#//NodeLabelMapping" containment="true" eOpposite="#//NodeLabelMapping/nodeMapping"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="childMappings" upperBound="-1"
         eType="#//ChildNodeMapping" containment="true" eOpposite="#//ChildNodeMapping/parentNode"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="compartmentMappings" upperBound="-1"
@@ -129,23 +123,6 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramLink" lowerBound="1"
         eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Connection"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="labelEditFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EAttribute">
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="not labelEditFeature.oclIsUndefined() implies getDomainContext().oclIsUndefined() or labelEditFeature.eContainingClass.isSuperTypeOf(getDomainContext())"/>
-        <details key="description" value="'Label Edit Feature' must be owned by the domain context EClass or its super type"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="labelDisplayFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EAttribute">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="By default, same as editFeature, once latter is set"/>
-      </eAnnotations>
-      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
-        <details key="ocl" value="not labelDisplayFeature.oclIsUndefined() implies getDomainContext().oclIsUndefined() or labelDisplayFeature.eContainingClass.isSuperTypeOf(getDomainContext())"/>
-        <details key="description" value="'Label Display Feature' must be owned by the domain context EClass or its super type"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="labelMappings" upperBound="-1"
-        eType="#//LinkLabelMapping" containment="true" eOpposite="#//LinkLabelMapping/linkMapping"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourceMetaFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStructuralFeature">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
         <details key="ocl" value="not domainMetaElement.oclIsUndefined() implies sourceMetaFeature.oclIsUndefined() or sourceMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)"/>
@@ -177,7 +154,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="toolbarContributions" upperBound="-1"
         eType="ecore:EClass ../../org.eclipse.gmf.tooldef/models/tooldef.ecore#//Toolbar"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LabelMapping" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="LabelMapping">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Label on diagram; either features or text should be specified"/>
     </eAnnotations>
@@ -202,25 +179,8 @@
         <details key="documentation" value="Pattern for java.text.MessageFormat to produce text for inplace editor; if not specified then viewPattern should be used"/>
       </eAnnotations>
     </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NodeLabelMapping" eSuperTypes="#//LabelMapping">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="external" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="nodeMapping" lowerBound="1"
-        eType="#//AbstractNodeMapping" eOpposite="#//AbstractNodeMapping/labelMappings"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LinkLabelMapping" eSuperTypes="#//LabelMapping">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alignment" eType="#//LinkLabelAlignment"
-        defaultValueLiteral="MIDDLE"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="linkMapping" lowerBound="1"
-        eType="#//LinkMapping" eOpposite="#//LinkMapping/labelMappings"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="LinkLabelAlignment">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="Constants from {@link org.eclipse.draw2d.ConnectionLocator}"/>
-    </eAnnotations>
-    <eLiterals name="MIDDLE" value="4"/>
-    <eLiterals name="TARGET" value="3"/>
-    <eLiterals name="SOURCE" value="2"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="mapEntry" lowerBound="1"
+        eType="#//MappingEntry" changeable="false" eOpposite="#//MappingEntry/labelMappings"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Constraint" eSuperTypes="#//ValueExpression">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

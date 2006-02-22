@@ -7,16 +7,12 @@
 package org.eclipse.gmf.mappings.provider;
 
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.ecore.EStructuralFeature;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -68,8 +64,6 @@ public class LinkMappingItemProvider
 			addToolPropertyDescriptor(object);
 			addAppearanceStylePropertyDescriptor(object);
 			addDiagramLinkPropertyDescriptor(object);
-			addLabelEditFeaturePropertyDescriptor(object);
-			addLabelDisplayFeaturePropertyDescriptor(object);
 			addSourceMetaFeaturePropertyDescriptor(object);
 			addLinkMetaFeaturePropertyDescriptor(object);
 		}
@@ -186,59 +180,6 @@ public class LinkMappingItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Label Edit Feature feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	protected void addLabelEditFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(new ItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_LinkMapping_labelEditFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LinkMapping_labelEditFeature_feature", "_UI_LinkMapping_type"),
-				 GMFMapPackage.eINSTANCE.getLinkMapping_LabelEditFeature(),
-				 true,
-				 null,
-				 getString("_UI_DomainmetainformationPropertyCategory"),
-				 null) {
-						protected Collection getComboBoxObjects(Object object) {
-							if (object instanceof LinkMapping) {
-								List result = new ArrayList();
-								LinkMapping nm = (LinkMapping) object;
-								if (nm.getDomainMetaElement() != null) {
-									result.addAll(nm.getDomainMetaElement().getEAllAttributes());
-								}
-								result.add(null);
-								return result;
-							}
-							return Collections.EMPTY_LIST;
-						}
-					});
-	}
-
-	/**
-	 * This adds a property descriptor for the Label Display Feature feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addLabelDisplayFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_LinkMapping_labelDisplayFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LinkMapping_labelDisplayFeature_feature", "_UI_LinkMapping_type"),
-				 GMFMapPackage.eINSTANCE.getLinkMapping_LabelDisplayFeature(),
-				 true,
-				 null,
-				 getString("_UI_DomainmetainformationPropertyCategory"),
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Source Meta Feature feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -289,22 +230,9 @@ public class LinkMappingItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getLinkMapping_LabelMappings());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getLinkMapping_CreationConstraints());
 		}
 		return childrenFeatures;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
 	}
 
 	/**
@@ -338,7 +266,6 @@ public class LinkMappingItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(LinkMapping.class)) {
-			case GMFMapPackage.LINK_MAPPING__LABEL_MAPPINGS:
 			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -355,11 +282,6 @@ public class LinkMappingItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getLinkMapping_LabelMappings(),
-				 GMFMapFactory.eINSTANCE.createLinkLabelMapping()));
 
 		newChildDescriptors.add
 			(createChildParameter

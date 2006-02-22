@@ -4,7 +4,7 @@
  *
  * $Id$
  */
-package org.eclipse.gmf.mappings.provider;
+package org.eclipse.gmf.gmfgraph.provider;
 
 
 import java.util.Collection;
@@ -22,19 +22,21 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
-import org.eclipse.gmf.mappings.GMFMapPackage;
-import org.eclipse.gmf.mappings.NodeLabelMapping;
+import org.eclipse.gmf.gmfgraph.Alignment;
+import org.eclipse.gmf.gmfgraph.AlignmentFacet;
+import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.NodeLabelMapping} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.gmfgraph.AlignmentFacet} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class NodeLabelMappingItemProvider
-	extends LabelMappingItemProvider
+public class AlignmentFacetItemProvider
+	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -47,7 +49,7 @@ public class NodeLabelMappingItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NodeLabelMappingItemProvider(AdapterFactory adapterFactory) {
+	public AlignmentFacetItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -61,39 +63,39 @@ public class NodeLabelMappingItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addExternalPropertyDescriptor(object);
+			addAlignmentPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the External feature.
+	 * This adds a property descriptor for the Alignment feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addExternalPropertyDescriptor(Object object) {
+	protected void addAlignmentPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_NodeLabelMapping_external_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_NodeLabelMapping_external_feature", "_UI_NodeLabelMapping_type"),
-				 GMFMapPackage.eINSTANCE.getNodeLabelMapping_External(),
+				 getString("_UI_AlignmentFacet_alignment_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AlignmentFacet_alignment_feature", "_UI_AlignmentFacet_type"),
+				 GMFGraphPackage.eINSTANCE.getAlignmentFacet_Alignment(),
 				 true,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This returns NodeLabelMapping.gif.
+	 * This returns AlignmentFacet.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/NodeLabelMapping");
+		return getResourceLocator().getImage("full/obj16/AlignmentFacet");
 	}
 
 	/**
@@ -103,10 +105,11 @@ public class NodeLabelMappingItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((NodeLabelMapping)object).getText();
+		Alignment labelValue = ((AlignmentFacet)object).getAlignment();
+		String label = labelValue == null ? null : labelValue.toString();
 		return label == null || label.length() == 0 ?
-			getString("_UI_NodeLabelMapping_type") :
-			getString("_UI_NodeLabelMapping_type") + " " + label;
+			getString("_UI_AlignmentFacet_type") :
+			getString("_UI_AlignmentFacet_type") + " " + label;
 	}
 
 	/**
@@ -119,8 +122,8 @@ public class NodeLabelMappingItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(NodeLabelMapping.class)) {
-			case GMFMapPackage.NODE_LABEL_MAPPING__EXTERNAL:
+		switch (notification.getFeatureID(AlignmentFacet.class)) {
+			case GMFGraphPackage.ALIGNMENT_FACET__ALIGNMENT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
@@ -145,7 +148,7 @@ public class NodeLabelMappingItemProvider
 	 * @generated
 	 */
 	public ResourceLocator getResourceLocator() {
-		return GMFMapEditPlugin.INSTANCE;
+		return GMFGraphEditPlugin.INSTANCE;
 	}
 
 }

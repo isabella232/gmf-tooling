@@ -45,8 +45,10 @@ import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.gmfgraph.provider.GMFGraphItemProviderAdapterFactory;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.GMFMapFactory;
+import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
+import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.provider.GMFMapItemProviderAdapterFactory;
 import org.eclipse.gmf.tooldef.AbstractTool;
@@ -216,7 +218,7 @@ public class WizardInput {
 			nm.setDomainMetaElement(eClass);
 			nm.setContainmentFeature(getHierarchy().backRef(eClass));
 			nm.setDiagramNode(findSuitableNode(nm));
-			nm.setEditFeature(findEditFeature(eClass));
+			addEditFeature(nm, eClass);
 			nm.setTool(findTool(nm));
 			rv.add(nm);
 		}
@@ -232,7 +234,7 @@ public class WizardInput {
 				EClass eClass = (EClass) next;
 				lm.setDomainMetaElement(eClass);
 				lm.setContainmentFeature(getHierarchy().backRef(eClass));
-				lm.setLabelEditFeature(findEditFeature(eClass));
+				addEditFeature(lm, eClass);
 				lm.setLinkMetaFeature(getHierarchy().getLinkFeature(eClass));
 			} else {
 				lm.setLinkMetaFeature((EReference) next);
@@ -290,14 +292,15 @@ public class WizardInput {
 		return null;
 	}
 
-	private EAttribute findEditFeature(EClass class1) {
+	private void addEditFeature(MappingEntry me, EClass class1) {
 		for (Iterator it = class1.getEAllAttributes().iterator(); it.hasNext();) {
 			EAttribute n = (EAttribute) it.next();
 			if (EcorePackage.eINSTANCE.getEString().equals(n.getEType())) {
-				return n;
+				LabelMapping lm = GMFMapFactory.eINSTANCE.createLabelMapping();
+				lm.getFeatures().add(n);
+				return;
 			}
 		}
-		return null;
 	}
 
 	private static class Hierarchy {

@@ -6,25 +6,16 @@
  */
 package org.eclipse.gmf.mappings.impl;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.EList;
-
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
-import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.mappings.AppearanceSteward;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LinkConstraints;
-import org.eclipse.gmf.mappings.LinkLabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.MenuOwner;
 import org.eclipse.gmf.mappings.ToolOwner;
@@ -43,9 +34,6 @@ import org.eclipse.gmf.tooldef.StyleSelector;
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getTool <em>Tool</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getAppearanceStyle <em>Appearance Style</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getDiagramLink <em>Diagram Link</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getLabelEditFeature <em>Label Edit Feature</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getLabelDisplayFeature <em>Label Display Feature</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getLabelMappings <em>Label Mappings</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getSourceMetaFeature <em>Source Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getLinkMetaFeature <em>Link Meta Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getCreationConstraints <em>Creation Constraints</em>}</li>
@@ -94,36 +82,6 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * @ordered
 	 */
 	protected Connection diagramLink = null;
-
-	/**
-	 * The cached value of the '{@link #getLabelEditFeature() <em>Label Edit Feature</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLabelEditFeature()
-	 * @generated
-	 * @ordered
-	 */
-	protected EAttribute labelEditFeature = null;
-
-	/**
-	 * The cached value of the '{@link #getLabelDisplayFeature() <em>Label Display Feature</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLabelDisplayFeature()
-	 * @generated
-	 * @ordered
-	 */
-	protected EAttribute labelDisplayFeature = null;
-
-	/**
-	 * The cached value of the '{@link #getLabelMappings() <em>Label Mappings</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLabelMappings()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList labelMappings = null;
 
 	/**
 	 * The cached value of the '{@link #getSourceMetaFeature() <em>Source Meta Feature</em>}' reference.
@@ -247,102 +205,6 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 		diagramLink = newDiagramLink;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__DIAGRAM_LINK, oldDiagramLink, diagramLink));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getLabelEditFeature() {
-		if (labelEditFeature != null && labelEditFeature.eIsProxy()) {
-			InternalEObject oldLabelEditFeature = (InternalEObject)labelEditFeature;
-			labelEditFeature = (EAttribute)eResolveProxy(oldLabelEditFeature);
-			if (labelEditFeature != oldLabelEditFeature) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.LINK_MAPPING__LABEL_EDIT_FEATURE, oldLabelEditFeature, labelEditFeature));
-			}
-		}
-		return labelEditFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute basicGetLabelEditFeature() {
-		return labelEditFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setLabelEditFeature(EAttribute newLabelEditFeature) {
-		EAttribute oldLabelEditFeature = labelEditFeature;
-		labelEditFeature = newLabelEditFeature;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__LABEL_EDIT_FEATURE, oldLabelEditFeature, labelEditFeature));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getLabelDisplayFeatureGen() {
-		if (labelDisplayFeature != null && labelDisplayFeature.eIsProxy()) {
-			InternalEObject oldLabelDisplayFeature = (InternalEObject)labelDisplayFeature;
-			labelDisplayFeature = (EAttribute)eResolveProxy(oldLabelDisplayFeature);
-			if (labelDisplayFeature != oldLabelDisplayFeature) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.LINK_MAPPING__LABEL_DISPLAY_FEATURE, oldLabelDisplayFeature, labelDisplayFeature));
-			}
-		}
-		return labelDisplayFeature;
-	}
-
-	public EAttribute getLabelDisplayFeature() {
-		EAttribute rv = getLabelDisplayFeatureGen();
-		if (rv != null) {
-			return rv;
-		}
-		return getLabelEditFeature();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute basicGetLabelDisplayFeature() {
-		return labelDisplayFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setLabelDisplayFeature(EAttribute newLabelDisplayFeature) {
-		EAttribute oldLabelDisplayFeature = labelDisplayFeature;
-		labelDisplayFeature = newLabelDisplayFeature;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__LABEL_DISPLAY_FEATURE, oldLabelDisplayFeature, labelDisplayFeature));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList getLabelMappings() {
-		if (labelMappings == null) {
-			labelMappings = new EObjectContainmentWithInverseEList(LinkLabelMapping.class, this, GMFMapPackage.LINK_MAPPING__LABEL_MAPPINGS, GMFMapPackage.LINK_LABEL_MAPPING__LINK_MAPPING);
-		}
-		return labelMappings;
 	}
 
 	/**
@@ -565,8 +427,6 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFMapPackage.LINK_MAPPING__LABEL_MAPPINGS:
-				return ((InternalEList)getLabelMappings()).basicAdd(otherEnd, msgs);
 			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
 				if (creationConstraints != null)
 					msgs = ((InternalEObject)creationConstraints).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS, null, msgs);
@@ -582,8 +442,6 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFMapPackage.LINK_MAPPING__LABEL_MAPPINGS:
-				return ((InternalEList)getLabelMappings()).basicRemove(otherEnd, msgs);
 			case GMFMapPackage.LINK_MAPPING__CREATION_CONSTRAINTS:
 				return basicSetCreationConstraints(null, msgs);
 		}
@@ -609,14 +467,6 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 			case GMFMapPackage.LINK_MAPPING__DIAGRAM_LINK:
 				if (resolve) return getDiagramLink();
 				return basicGetDiagramLink();
-			case GMFMapPackage.LINK_MAPPING__LABEL_EDIT_FEATURE:
-				if (resolve) return getLabelEditFeature();
-				return basicGetLabelEditFeature();
-			case GMFMapPackage.LINK_MAPPING__LABEL_DISPLAY_FEATURE:
-				if (resolve) return getLabelDisplayFeature();
-				return basicGetLabelDisplayFeature();
-			case GMFMapPackage.LINK_MAPPING__LABEL_MAPPINGS:
-				return getLabelMappings();
 			case GMFMapPackage.LINK_MAPPING__SOURCE_META_FEATURE:
 				if (resolve) return getSourceMetaFeature();
 				return basicGetSourceMetaFeature();
@@ -647,16 +497,6 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 				return;
 			case GMFMapPackage.LINK_MAPPING__DIAGRAM_LINK:
 				setDiagramLink((Connection)newValue);
-				return;
-			case GMFMapPackage.LINK_MAPPING__LABEL_EDIT_FEATURE:
-				setLabelEditFeature((EAttribute)newValue);
-				return;
-			case GMFMapPackage.LINK_MAPPING__LABEL_DISPLAY_FEATURE:
-				setLabelDisplayFeature((EAttribute)newValue);
-				return;
-			case GMFMapPackage.LINK_MAPPING__LABEL_MAPPINGS:
-				getLabelMappings().clear();
-				getLabelMappings().addAll((Collection)newValue);
 				return;
 			case GMFMapPackage.LINK_MAPPING__SOURCE_META_FEATURE:
 				setSourceMetaFeature((EStructuralFeature)newValue);
@@ -690,15 +530,6 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 			case GMFMapPackage.LINK_MAPPING__DIAGRAM_LINK:
 				setDiagramLink((Connection)null);
 				return;
-			case GMFMapPackage.LINK_MAPPING__LABEL_EDIT_FEATURE:
-				setLabelEditFeature((EAttribute)null);
-				return;
-			case GMFMapPackage.LINK_MAPPING__LABEL_DISPLAY_FEATURE:
-				setLabelDisplayFeature((EAttribute)null);
-				return;
-			case GMFMapPackage.LINK_MAPPING__LABEL_MAPPINGS:
-				getLabelMappings().clear();
-				return;
 			case GMFMapPackage.LINK_MAPPING__SOURCE_META_FEATURE:
 				setSourceMetaFeature((EStructuralFeature)null);
 				return;
@@ -727,12 +558,6 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 				return appearanceStyle != null;
 			case GMFMapPackage.LINK_MAPPING__DIAGRAM_LINK:
 				return diagramLink != null;
-			case GMFMapPackage.LINK_MAPPING__LABEL_EDIT_FEATURE:
-				return labelEditFeature != null;
-			case GMFMapPackage.LINK_MAPPING__LABEL_DISPLAY_FEATURE:
-				return labelDisplayFeature != null;
-			case GMFMapPackage.LINK_MAPPING__LABEL_MAPPINGS:
-				return labelMappings != null && !labelMappings.isEmpty();
 			case GMFMapPackage.LINK_MAPPING__SOURCE_META_FEATURE:
 				return sourceMetaFeature != null;
 			case GMFMapPackage.LINK_MAPPING__LINK_META_FEATURE:

@@ -67,4 +67,12 @@ public interface DiagramElement extends Identity {
 	 */
 	EList getFacets();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	VisualFacet find(Class facetClass);
+
 } // DiagramElement

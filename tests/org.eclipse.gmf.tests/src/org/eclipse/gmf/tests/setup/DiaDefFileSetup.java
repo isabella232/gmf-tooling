@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Node;
 
 public class DiaDefFileSetup implements DiaDefSource {
@@ -26,6 +27,7 @@ public class DiaDefFileSetup implements DiaDefSource {
 	private Canvas myCanvasDef;
 	private Node myNodeDef;
 	private Connection myLinkDef;
+	private DiagramLabel myLabelDef;
 
 	public DiaDefFileSetup init(URI sourceURI) throws IOException {
 		ResourceSet srcResSet = new ResourceSetImpl();
@@ -33,6 +35,7 @@ public class DiaDefFileSetup implements DiaDefSource {
 		myCanvasDef = (Canvas) srcRes.getContents().get(0);
 		myNodeDef = (Node) myCanvasDef.getNodes().get(0);
 		myLinkDef = (Connection) myCanvasDef.getConnections().get(0);
+		myLabelDef = (DiagramLabel) myCanvasDef.getLabels().get(0);
 		return this;
 	}
 
@@ -46,5 +49,9 @@ public class DiaDefFileSetup implements DiaDefSource {
 
 	public final Node getNodeDef() {
 		return myNodeDef;
+	}
+
+	public final DiagramLabel getLabelDef() {
+		return myLabelDef;
 	}
 }

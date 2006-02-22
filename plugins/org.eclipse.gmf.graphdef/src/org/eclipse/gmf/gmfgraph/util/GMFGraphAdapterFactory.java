@@ -156,6 +156,9 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 			public Object caseGeneralFacet(GeneralFacet object) {
 				return createGeneralFacetAdapter();
 			}
+			public Object caseAlignmentFacet(AlignmentFacet object) {
+				return createAlignmentFacetAdapter();
+			}
 			public Object caseGradientFacet(GradientFacet object) {
 				return createGradientFacetAdapter();
 			}
@@ -469,6 +472,20 @@ public class GMFGraphAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createGeneralFacetAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.gmfgraph.AlignmentFacet <em>Alignment Facet</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.gmfgraph.AlignmentFacet
+	 * @generated
+	 */
+	public Adapter createAlignmentFacetAdapter() {
 		return null;
 	}
 

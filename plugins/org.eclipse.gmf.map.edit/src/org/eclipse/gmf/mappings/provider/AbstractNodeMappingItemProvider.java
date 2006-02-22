@@ -7,9 +7,7 @@
 package org.eclipse.gmf.mappings.provider;
 
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -66,7 +64,6 @@ public class AbstractNodeMappingItemProvider
 			addContextMenuPropertyDescriptor(object);
 			addToolPropertyDescriptor(object);
 			addAppearanceStylePropertyDescriptor(object);
-			addEditFeaturePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -161,39 +158,6 @@ public class AbstractNodeMappingItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Edit Feature feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	protected void addEditFeaturePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(new ItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_AbstractNodeMapping_editFeature_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_AbstractNodeMapping_editFeature_feature", "_UI_AbstractNodeMapping_type"),
-				 GMFMapPackage.eINSTANCE.getAbstractNodeMapping_EditFeature(),
-				 true,
-				 null,
-				 getString("_UI_DomainmetainformationPropertyCategory"),
-				 null) {
-				protected Collection getComboBoxObjects(Object object) {
-					if (object instanceof AbstractNodeMapping) {
-						AbstractNodeMapping nm = (AbstractNodeMapping) object;
-						List result = new ArrayList();
-						if (nm.getDomainMetaElement() != null) {
-							result.addAll(nm.getDomainMetaElement().getEAllAttributes());
-						}
-						result.add(null);
-						return result;
-					}
-					return Collections.EMPTY_LIST;
-				}
-		});
-	}
-
-	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -204,7 +168,6 @@ public class AbstractNodeMappingItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_LabelMappings());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_ChildMappings());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_CompartmentMappings());
 		}
@@ -244,7 +207,6 @@ public class AbstractNodeMappingItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(AbstractNodeMapping.class)) {
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__LABEL_MAPPINGS:
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -262,11 +224,6 @@ public class AbstractNodeMappingItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getAbstractNodeMapping_LabelMappings(),
-				 GMFMapFactory.eINSTANCE.createNodeLabelMapping()));
 
 		newChildDescriptors.add
 			(createChildParameter

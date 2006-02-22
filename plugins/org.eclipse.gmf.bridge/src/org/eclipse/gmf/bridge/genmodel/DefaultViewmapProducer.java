@@ -18,6 +18,7 @@ import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Child;
 import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.gmfgraph.Connection;
+import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Node;
 
 /**
@@ -56,8 +57,12 @@ public class DefaultViewmapProducer extends ViewmapProducer {
 		return v;
 	}
 
+	public Viewmap create(DiagramLabel label) {
+		return createLabelViewmap();
+	}
+
 	// FIXME remove
-	static Viewmap createLabelViewmap() {
+	private static Viewmap createLabelViewmap() {
 		FigureViewmap v = GMFGenFactory.eINSTANCE.createFigureViewmap();
 		v.setFigureQualifiedClassName("org.eclipse.draw2d.Label");
 		return v;

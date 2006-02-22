@@ -20,9 +20,8 @@ import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.LabelMapping;
-import org.eclipse.gmf.mappings.LinkLabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
-import org.eclipse.gmf.mappings.NodeLabelMapping;
+import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.NodeMapping;
 
 /**
@@ -85,6 +84,7 @@ public class ClassNameStrategy extends AbstractNamingStrategy {
 		if (text != null && text.length() > 0) {
 			return text.length() > 8 ? text.substring(0, 8) : text;
 		}
+		// FIXME gmfmap model says features are 0..*, assert contradicts?  
 		assert mapping.getFeatures().size() > 0;
 		StringBuffer sb = new StringBuffer();
 		for (Iterator features = mapping.getFeatures().iterator(); features.hasNext();) {
@@ -97,35 +97,32 @@ public class ClassNameStrategy extends AbstractNamingStrategy {
 		return sb.toString();
 	}
 
-	public String getForEditFeature(AbstractNodeMapping nme, NodeLabelMapping labelMapping) {
+	public String get(LabelMapping labelMapping) {
+		MappingEntry mapEntry = labelMapping.getMapEntry();
+		if (mapEntry instanceof AbstractNodeMapping) {
+			return getForNode((AbstractNodeMapping) mapEntry, labelMapping);
+		} else if (mapEntry instanceof LinkMapping) {
+			return getForLink((LinkMapping) mapEntry, labelMapping);
+		}
+		throw new IllegalStateException("Don't know how to handle mapEntry:" + mapEntry);
+	}
+	
+	private String getForNode(AbstractNodeMapping nme, LabelMapping labelMapping) {
 		if (nme.getDomainContext() == null) {
-			return super.getForEditFeature(nme, labelMapping);
+			return super.get(labelMapping);
 		}
-		String qualifier;
-		if (labelMapping == null) {
-			qualifier = nme.getEditFeature().getName();
-		} else {
-			qualifier = getQualifier(labelMapping);
-		}
+		String qualifier = getQualifier(labelMapping);
 		return createClassName(nme.getDomainContext().getName() + '_' + qualifier);
 	}
 
-	public String getForEditFeature(LinkMapping lme, LinkLabelMapping labelMapping) {
-		if (lme.getLabelEditFeature() == null) {
-			return super.getForEditFeature(lme, labelMapping);
-		}
-		String qualifier;
-		if (labelMapping == null) {
-			qualifier = lme.getLabelEditFeature().getName();
-		} else {
-			qualifier = getQualifier(labelMapping);
-		}
+	private String getForLink(LinkMapping lme, LabelMapping labelMapping) {
+		String qualifier = getQualifier(labelMapping);
 		if (lme.getDomainMetaElement() != null) {
 			return createClassName(lme.getDomainMetaElement().getName() + '_' + qualifier);
 		} else if (lme.getLinkMetaFeature() != null) {
 			return createClassName(lme.getLinkMetaFeature().getName() + '_' + qualifier);
 		}
-		return super.getForEditFeature(lme, labelMapping);
+		return super.get(labelMapping);
 	}
 
 	protected String createClassName(String name) {

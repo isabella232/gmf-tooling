@@ -10,6 +10,8 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -27,6 +29,8 @@ import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LabelMapping;
 
+import org.eclipse.gmf.mappings.MappingEntry;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Label Mapping</b></em>'.
@@ -41,12 +45,13 @@ import org.eclipse.gmf.mappings.LabelMapping;
  *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#getDefaultText <em>Default Text</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#getViewPattern <em>View Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#getEditPattern <em>Edit Pattern</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#getMapEntry <em>Map Entry</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public abstract class LabelMappingImpl extends EObjectImpl implements LabelMapping {
+public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	/**
 	 * The cached value of the '{@link #getDiagramLabel() <em>Diagram Label</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -345,6 +350,57 @@ public abstract class LabelMappingImpl extends EObjectImpl implements LabelMappi
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public MappingEntry getMapEntry() {
+		if (eContainerFeatureID != GMFMapPackage.LABEL_MAPPING__MAP_ENTRY) return null;
+		return (MappingEntry)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFMapPackage.LABEL_MAPPING__MAP_ENTRY:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFMapPackage.LABEL_MAPPING__MAP_ENTRY, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case GMFMapPackage.LABEL_MAPPING__MAP_ENTRY:
+				return eBasicSetContainer(null, GMFMapPackage.LABEL_MAPPING__MAP_ENTRY, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFMapPackage.LABEL_MAPPING__MAP_ENTRY:
+				return eInternalContainer().eInverseRemove(this, GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS, MappingEntry.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case GMFMapPackage.LABEL_MAPPING__DIAGRAM_LABEL:
@@ -362,6 +418,8 @@ public abstract class LabelMappingImpl extends EObjectImpl implements LabelMappi
 				return getViewPattern();
 			case GMFMapPackage.LABEL_MAPPING__EDIT_PATTERN:
 				return getEditPattern();
+			case GMFMapPackage.LABEL_MAPPING__MAP_ENTRY:
+				return getMapEntry();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -452,6 +510,8 @@ public abstract class LabelMappingImpl extends EObjectImpl implements LabelMappi
 				return VIEW_PATTERN_EDEFAULT == null ? viewPattern != null : !VIEW_PATTERN_EDEFAULT.equals(viewPattern);
 			case GMFMapPackage.LABEL_MAPPING__EDIT_PATTERN:
 				return EDIT_PATTERN_EDEFAULT == null ? editPattern != null : !EDIT_PATTERN_EDEFAULT.equals(editPattern);
+			case GMFMapPackage.LABEL_MAPPING__MAP_ENTRY:
+				return getMapEntry() != null;
 		}
 		return super.eIsSet(featureID);
 	}

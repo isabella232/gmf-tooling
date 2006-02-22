@@ -15,6 +15,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
@@ -25,6 +26,7 @@ import org.eclipse.gmf.common.codegen.NullImportAssistant;
 import org.eclipse.gmf.gmfgraph.Child;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
+import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.Node;
@@ -50,7 +52,7 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 		try {
 			return createViewmap(node.getFigure());
 		} catch (JETException ex) {
-			ex.printStackTrace();
+			log(ex);
 			return super.create(node);
 		}
 	}
@@ -62,7 +64,7 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 		try {
 			return createViewmap(child.getFigure());
 		} catch (JETException ex) {
-			ex.printStackTrace();
+			log(ex);
 			return super.create(child);
 		}
 	}
@@ -74,8 +76,20 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 		try {
 			return createViewmap(link.getFigure());
 		} catch (JETException ex) {
-			ex.printStackTrace();
+			log(ex);
 			return super.create(link);
+		}
+	}
+
+	public Viewmap create(DiagramLabel label) {
+		if (label.getFigure() == null) {
+			return super.create(label);
+		}
+		try {
+			return createViewmap(label.getFigure());
+		} catch (JETException ex) {
+			log(ex);
+			return super.create(label);
 		}
 	}
 
@@ -109,5 +123,9 @@ public class InnerClassViewmapProducer extends DefaultViewmapProducer {
 			}
 		}
 		return true;
+	}
+
+	private static void log(JETException ex) {
+		Platform.getLog(Platform.getBundle("org.eclipse.gmf.bridge")).log(ex.getStatus());
 	}
 }

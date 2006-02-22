@@ -11,13 +11,11 @@
  */
 package org.eclipse.gmf.internal.bridge.naming;
 
-import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
-import org.eclipse.gmf.mappings.LinkLabelMapping;
+import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
-import org.eclipse.gmf.mappings.NodeLabelMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 
 /**
@@ -88,16 +86,9 @@ public abstract class AbstractNamingStrategy implements NamingStrategy {
 		return null;
 	}
 
-	public String getForEditFeature(AbstractNodeMapping nme, NodeLabelMapping labelMapping) {
+	public String get(LabelMapping labelMapping) {
 		if (myDelegate != null) {
-			return myDelegate.getForEditFeature(nme, labelMapping);
-		}
-		return null;
-	}
-
-	public String getForEditFeature(LinkMapping lme, LinkLabelMapping labelMapping) {
-		if (myDelegate != null) {
-			return myDelegate.getForEditFeature(lme, labelMapping);
+			return myDelegate.get(labelMapping);
 		}
 		return null;
 	}

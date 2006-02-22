@@ -184,47 +184,25 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.NodeLabelMapping} instances.
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.LabelMapping} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected NodeLabelMappingItemProvider nodeLabelMappingItemProvider;
+	protected LabelMappingItemProvider labelMappingItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.NodeLabelMapping}.
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.LabelMapping}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Adapter createNodeLabelMappingAdapter() {
-		if (nodeLabelMappingItemProvider == null) {
-			nodeLabelMappingItemProvider = new NodeLabelMappingItemProvider(this);
+	public Adapter createLabelMappingAdapter() {
+		if (labelMappingItemProvider == null) {
+			labelMappingItemProvider = new LabelMappingItemProvider(this);
 		}
 
-		return nodeLabelMappingItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.LinkLabelMapping} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected LinkLabelMappingItemProvider linkLabelMappingItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.LinkLabelMapping}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Adapter createLinkLabelMappingAdapter() {
-		if (linkLabelMappingItemProvider == null) {
-			linkLabelMappingItemProvider = new LinkLabelMappingItemProvider(this);
-		}
-
-		return linkLabelMappingItemProvider;
+		return labelMappingItemProvider;
 	}
 
 	/**
@@ -505,8 +483,7 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 		if (compartmentMappingItemProvider != null) compartmentMappingItemProvider.dispose();
 		if (linkMappingItemProvider != null) linkMappingItemProvider.dispose();
 		if (canvasMappingItemProvider != null) canvasMappingItemProvider.dispose();
-		if (nodeLabelMappingItemProvider != null) nodeLabelMappingItemProvider.dispose();
-		if (linkLabelMappingItemProvider != null) linkLabelMappingItemProvider.dispose();
+		if (labelMappingItemProvider != null) labelMappingItemProvider.dispose();
 		if (constraintItemProvider != null) constraintItemProvider.dispose();
 		if (linkConstraintsItemProvider != null) linkConstraintsItemProvider.dispose();
 		if (valueExpressionItemProvider != null) valueExpressionItemProvider.dispose();

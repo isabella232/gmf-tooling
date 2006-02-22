@@ -74,12 +74,12 @@ public class DomainModelSetup implements DomainModelSource {
 		EClass nodeLinkA2C = EcoreFactory.eINSTANCE.createEClass();
 		nodeLinkA2C.setName("LinkAtoC");
 
-		EAttribute a1 = EcoreFactory.eINSTANCE.createEAttribute();
+		final EAttribute a1 = EcoreFactory.eINSTANCE.createEAttribute();
 		a1.setName("label");
 		a1.setEType(EcorePackage.eINSTANCE.getEString());
 		nodeA.getEStructuralFeatures().add(a1);
 
-		EAttribute a2 = EcoreFactory.eINSTANCE.createEAttribute();
+		final EAttribute a2 = EcoreFactory.eINSTANCE.createEAttribute();
 		a2.setName("title");
 		a2.setEType(EcorePackage.eINSTANCE.getEString());
 		nodeB.getEStructuralFeatures().add(a2);
@@ -113,9 +113,9 @@ public class DomainModelSetup implements DomainModelSource {
 		confineInResource(p);
 
 		myModelPackage = p;
-		myNodeA = new NodeData(nodeA, null/*FIXME a1*/, r0);
+		myNodeA = new NodeData(nodeA, a1, r0);
 		myLinkA2C = new LinkData(nodeLinkA2C, refCfromLink, linkToC);
-		myNodeB = new NodeData(nodeC, null, r0);
+		myNodeB = new NodeData(nodeC, a2, r0);
 		myLinkAsRef = linkToB;
 		myDiagramElement = containmentNode;
 		return this;

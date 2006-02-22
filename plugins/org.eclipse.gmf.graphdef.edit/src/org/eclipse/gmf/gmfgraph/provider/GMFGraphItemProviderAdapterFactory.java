@@ -250,6 +250,28 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.AlignmentFacet} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AlignmentFacetItemProvider alignmentFacetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.gmfgraph.AlignmentFacet}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createAlignmentFacetAdapter() {
+		if (alignmentFacetItemProvider == null) {
+			alignmentFacetItemProvider = new AlignmentFacetItemProvider(this);
+		}
+
+		return alignmentFacetItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.gmfgraph.GradientFacet} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1145,6 +1167,7 @@ public class GMFGraphItemProviderAdapterFactory extends GMFGraphAdapterFactory i
 		if (childItemProvider != null) childItemProvider.dispose();
 		if (diagramLabelItemProvider != null) diagramLabelItemProvider.dispose();
 		if (generalFacetItemProvider != null) generalFacetItemProvider.dispose();
+		if (alignmentFacetItemProvider != null) alignmentFacetItemProvider.dispose();
 		if (gradientFacetItemProvider != null) gradientFacetItemProvider.dispose();
 		if (figureRefItemProvider != null) figureRefItemProvider.dispose();
 		if (labelItemProvider != null) labelItemProvider.dispose();

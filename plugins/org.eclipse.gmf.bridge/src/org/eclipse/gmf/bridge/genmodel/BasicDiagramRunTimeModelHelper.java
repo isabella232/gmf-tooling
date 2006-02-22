@@ -17,9 +17,8 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
-import org.eclipse.gmf.mappings.LinkLabelMapping;
+import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
-import org.eclipse.gmf.mappings.NodeLabelMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 
@@ -62,22 +61,7 @@ public class BasicDiagramRunTimeModelHelper implements DiagramRunTimeModelHelper
 		return myNode;
 	}
 
-	public GenClass getNodeLabelDefault() {
-		loadGenModel();
-		return myNode;
-	}
-
-	public GenClass getLinkLabelDefault() {
-		loadGenModel();
-		return myNode;
-	}
-
-	public GenClass get(LinkLabelMapping mapping) {
-		loadGenModel();
-		return myNode;
-	}
-
-	public GenClass get(NodeLabelMapping mapping) {
+	public GenClass get(LabelMapping labelMapping) {
 		loadGenModel();
 		return myNode;
 	}

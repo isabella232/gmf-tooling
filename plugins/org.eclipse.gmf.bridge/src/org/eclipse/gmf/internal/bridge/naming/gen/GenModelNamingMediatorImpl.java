@@ -22,16 +22,14 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.internal.bridge.naming.ClassNameStrategy;
-import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.CollectingDispenser;
+import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.UniqueValueDispenser;
-import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
-import org.eclipse.gmf.mappings.LinkLabelMapping;
+import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
-import org.eclipse.gmf.mappings.NodeLabelMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 
 /**
@@ -158,17 +156,17 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		genCompartment.setCanonicalEditPolicyClassName(getCanonicalPolicy().get(mapping));
 	}
 
-	public void feed(GenNodeLabel label, AbstractNodeMapping mapping, NodeLabelMapping labelMapping) {
-		label.setNotationViewFactoryClassName(getViewFactory().getForEditFeature(mapping, labelMapping));
-		label.setEditPartClassName(getEditPart().getForEditFeature(mapping, labelMapping));
-		label.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().getForEditFeature(mapping, labelMapping));
+	public void feed(GenNodeLabel label, LabelMapping labelMapping) {
+		label.setNotationViewFactoryClassName(getViewFactory().get(labelMapping));
+		label.setEditPartClassName(getEditPart().get(labelMapping));
+		label.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().get(labelMapping));
 	}
 
-	public void feed(GenLinkLabel label, LinkMapping mapping, LinkLabelMapping labelMapping) {
-		label.setNotationViewFactoryClassName(getViewFactory().getForEditFeature(mapping, labelMapping));
-		label.setTextNotationViewFactoryClassName(getTextViewFactory().getForEditFeature(mapping, labelMapping));
-		label.setEditPartClassName(getEditPart().getForEditFeature(mapping, labelMapping));
-		label.setTextEditPartClassName(getTextEditPart().getForEditFeature(mapping, labelMapping));
-		label.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().getForEditFeature(mapping, labelMapping));
+	public void feed(GenLinkLabel label, LabelMapping labelMapping) {
+		label.setNotationViewFactoryClassName(getViewFactory().get(labelMapping));
+		label.setTextNotationViewFactoryClassName(getTextViewFactory().get(labelMapping));
+		label.setEditPartClassName(getEditPart().get(labelMapping));
+		label.setTextEditPartClassName(getTextEditPart().get(labelMapping));
+		label.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().get(labelMapping));
 	}
 }

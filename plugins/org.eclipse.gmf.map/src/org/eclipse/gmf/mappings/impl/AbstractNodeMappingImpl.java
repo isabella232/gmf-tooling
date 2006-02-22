@@ -11,7 +11,6 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -23,7 +22,6 @@ import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.MenuOwner;
-import org.eclipse.gmf.mappings.NodeLabelMapping;
 import org.eclipse.gmf.mappings.ToolOwner;
 import org.eclipse.gmf.tooldef.AbstractTool;
 import org.eclipse.gmf.tooldef.ContextMenu;
@@ -39,8 +37,6 @@ import org.eclipse.gmf.tooldef.StyleSelector;
  *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getContextMenu <em>Context Menu</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getTool <em>Tool</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getAppearanceStyle <em>Appearance Style</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getEditFeature <em>Edit Feature</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getLabelMappings <em>Label Mappings</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getChildMappings <em>Child Mappings</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AbstractNodeMappingImpl#getCompartmentMappings <em>Compartment Mappings</em>}</li>
  * </ul>
@@ -78,26 +74,6 @@ public abstract class AbstractNodeMappingImpl extends MappingEntryImpl implement
 	 * @ordered
 	 */
 	protected StyleSelector appearanceStyle = null;
-
-	/**
-	 * The cached value of the '{@link #getEditFeature() <em>Edit Feature</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getEditFeature()
-	 * @generated
-	 * @ordered
-	 */
-	protected EAttribute editFeature = null;
-
-	/**
-	 * The cached value of the '{@link #getLabelMappings() <em>Label Mappings</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getLabelMappings()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList labelMappings = null;
 
 	/**
 	 * The cached value of the '{@link #getChildMappings() <em>Child Mappings</em>}' containment reference list.
@@ -256,56 +232,6 @@ public abstract class AbstractNodeMappingImpl extends MappingEntryImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEditFeature() {
-		if (editFeature != null && editFeature.eIsProxy()) {
-			InternalEObject oldEditFeature = (InternalEObject)editFeature;
-			editFeature = (EAttribute)eResolveProxy(oldEditFeature);
-			if (editFeature != oldEditFeature) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.ABSTRACT_NODE_MAPPING__EDIT_FEATURE, oldEditFeature, editFeature));
-			}
-		}
-		return editFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute basicGetEditFeature() {
-		return editFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setEditFeature(EAttribute newEditFeature) {
-		EAttribute oldEditFeature = editFeature;
-		editFeature = newEditFeature;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.ABSTRACT_NODE_MAPPING__EDIT_FEATURE, oldEditFeature, editFeature));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList getLabelMappings() {
-		if (labelMappings == null) {
-			labelMappings = new EObjectContainmentWithInverseEList(NodeLabelMapping.class, this, GMFMapPackage.ABSTRACT_NODE_MAPPING__LABEL_MAPPINGS, GMFMapPackage.NODE_LABEL_MAPPING__NODE_MAPPING);
-		}
-		return labelMappings;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList getChildMappings() {
 		if (childMappings == null) {
 			childMappings = new EObjectContainmentWithInverseEList(ChildNodeMapping.class, this, GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS, GMFMapPackage.CHILD_NODE_MAPPING__PARENT_NODE);
@@ -346,8 +272,6 @@ public abstract class AbstractNodeMappingImpl extends MappingEntryImpl implement
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__LABEL_MAPPINGS:
-				return ((InternalEList)getLabelMappings()).basicAdd(otherEnd, msgs);
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				return ((InternalEList)getChildMappings()).basicAdd(otherEnd, msgs);
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
@@ -363,8 +287,6 @@ public abstract class AbstractNodeMappingImpl extends MappingEntryImpl implement
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__LABEL_MAPPINGS:
-				return ((InternalEList)getLabelMappings()).basicRemove(otherEnd, msgs);
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				return ((InternalEList)getChildMappings()).basicRemove(otherEnd, msgs);
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
@@ -389,11 +311,6 @@ public abstract class AbstractNodeMappingImpl extends MappingEntryImpl implement
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__APPEARANCE_STYLE:
 				if (resolve) return getAppearanceStyle();
 				return basicGetAppearanceStyle();
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__EDIT_FEATURE:
-				if (resolve) return getEditFeature();
-				return basicGetEditFeature();
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__LABEL_MAPPINGS:
-				return getLabelMappings();
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				return getChildMappings();
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
@@ -417,13 +334,6 @@ public abstract class AbstractNodeMappingImpl extends MappingEntryImpl implement
 				return;
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__APPEARANCE_STYLE:
 				setAppearanceStyle((StyleSelector)newValue);
-				return;
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__EDIT_FEATURE:
-				setEditFeature((EAttribute)newValue);
-				return;
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__LABEL_MAPPINGS:
-				getLabelMappings().clear();
-				getLabelMappings().addAll((Collection)newValue);
 				return;
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				getChildMappings().clear();
@@ -453,12 +363,6 @@ public abstract class AbstractNodeMappingImpl extends MappingEntryImpl implement
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__APPEARANCE_STYLE:
 				setAppearanceStyle((StyleSelector)null);
 				return;
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__EDIT_FEATURE:
-				setEditFeature((EAttribute)null);
-				return;
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__LABEL_MAPPINGS:
-				getLabelMappings().clear();
-				return;
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				getChildMappings().clear();
 				return;
@@ -482,10 +386,6 @@ public abstract class AbstractNodeMappingImpl extends MappingEntryImpl implement
 				return tool != null;
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__APPEARANCE_STYLE:
 				return appearanceStyle != null;
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__EDIT_FEATURE:
-				return editFeature != null;
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING__LABEL_MAPPINGS:
-				return labelMappings != null && !labelMappings.isEmpty();
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__CHILD_MAPPINGS:
 				return childMappings != null && !childMappings.isEmpty();
 			case GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS:
