@@ -70,7 +70,6 @@ public class GenAuditContainerItemProvider
 			addIdPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
 			addDescriptionPropertyDescriptor(object);
-			addChildContainersPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -131,26 +130,6 @@ public class GenAuditContainerItemProvider
 				 GMFGenPackage.eINSTANCE.getGenAuditContainer_Description(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Child Containers feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addChildContainersPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenAuditContainer_childContainers_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditContainer_childContainers_feature", "_UI_GenAuditContainer_type"),
-				 GMFGenPackage.eINSTANCE.getGenAuditContainer_ChildContainers(),
-				 true,
-				 null,
 				 null,
 				 null));
 	}

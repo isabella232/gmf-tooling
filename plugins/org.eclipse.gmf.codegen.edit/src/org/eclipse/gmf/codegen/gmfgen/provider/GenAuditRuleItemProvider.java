@@ -66,7 +66,6 @@ public class GenAuditRuleItemProvider
 			super.getPropertyDescriptors(object);
 
 			addIdPropertyDescriptor(object);
-			addRulePropertyDescriptor(object);
 			addTargetPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
 			addMessagePropertyDescriptor(object);
@@ -93,26 +92,6 @@ public class GenAuditRuleItemProvider
 				 GMFGenPackage.eINSTANCE.getGenAuditRule_Id(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Rule feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addRulePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenAuditRule_rule_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditRule_rule_feature", "_UI_GenAuditRule_type"),
-				 GMFGenPackage.eINSTANCE.getGenAuditRule_Rule(),
-				 true,
-				 null,
 				 null,
 				 null));
 	}

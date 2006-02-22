@@ -159,6 +159,16 @@ public class GenLinkItemProvider
 	}
 
 	/**
+	 * This returns GenLink.gif.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Object getImage(Object object) {
+		return getResourceLocator().getImage("full/obj16/GenLink");
+	}
+
+	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

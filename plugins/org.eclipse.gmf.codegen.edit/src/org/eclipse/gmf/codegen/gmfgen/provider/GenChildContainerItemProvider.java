@@ -21,7 +21,6 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
@@ -61,6 +60,7 @@ public class GenChildContainerItemProvider
 			super.getPropertyDescriptors(object);
 
 			addContainedNodesPropertyDescriptor(object);
+			addChildNodesPropertyDescriptor(object);
 			addCanonicalEditPolicyClassNamePropertyDescriptor(object);
 			addListLayoutPropertyDescriptor(object);
 		}
@@ -81,6 +81,26 @@ public class GenChildContainerItemProvider
 				 getString("_UI_GenContainerBase_containedNodes_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenContainerBase_containedNodes_feature", "_UI_GenContainerBase_type"),
 				 GMFGenPackage.eINSTANCE.getGenContainerBase_ContainedNodes(),
+				 true,
+				 null,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Child Nodes feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addChildNodesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenChildContainer_childNodes_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenChildContainer_childNodes_feature", "_UI_GenChildContainer_type"),
+				 GMFGenPackage.eINSTANCE.getGenChildContainer_ChildNodes(),
 				 true,
 				 null,
 				 null,
@@ -128,32 +148,6 @@ public class GenChildContainerItemProvider
 	}
 
 	/**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Collection getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenChildContainer_ChildNodes());
-		}
-		return childrenFeatures;
-	}
-
-	/**
-	 * This returns GenChildContainer.gif.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/GenChildContainer");
-	}
-
-	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -181,9 +175,6 @@ public class GenChildContainerItemProvider
 			case GMFGenPackage.GEN_CHILD_CONTAINER__LIST_LAYOUT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case GMFGenPackage.GEN_CHILD_CONTAINER__CHILD_NODES:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
-				return;
 		}
 		super.notifyChanged(notification);
 	}
@@ -197,11 +188,6 @@ public class GenChildContainerItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenChildContainer_ChildNodes(),
-				 GMFGenFactory.eINSTANCE.createGenChildNode()));
 	}
 
 	/**

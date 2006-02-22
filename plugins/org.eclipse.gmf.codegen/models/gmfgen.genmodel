@@ -5,7 +5,7 @@
     editorDirectory="/org.eclipse.gmf.codegen.edit/src" modelPluginID="org.eclipse.gmf.codegen"
     modelName="GMFGen" editPluginClass="org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin"
     editorPluginClass="org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin" importerID="org.eclipse.emf.importer.ecore"
-    usedGenPackages="../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel#//genmodel ../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore">
+    usedGenPackages="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel#//genmodel">
   <foreignModel>gmfgen.ecore</foreignModel>
   <genPackages prefix="GMFGen" basePackage="org.eclipse.gmf.codegen" disposableProviderFactory="true"
       literalsInterface="false" ecorePackage="gmfgen.ecore#/">
@@ -200,16 +200,16 @@
     <genClasses ecoreClass="gmfgen.ecore#//GenContainerBase">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenContainerBase/containedNodes"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//GenChildContainer">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildContainer/childNodes"/>
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//GenChildContainer">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenChildContainer/childNodes"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/canonicalEditPolicyClassName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenChildContainer/listLayout"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenChildContainer/getCanonicalEditPolicyQualifiedClassName"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgen.ecore#//GenNode">
+    <genClasses image="false" ecoreClass="gmfgen.ecore#//GenNode">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/modelFacet"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/labels"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/compartments"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNode/compartments"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenNode/graphicalNodeEditPolicyClassName"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNode/getDomainMetaClass"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenNode/getGraphicalNodeEditPolicyQualifiedClassName"/>
@@ -231,7 +231,7 @@
       <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenCompartment/node"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenCompartment/getSemanticHintFieldName"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="gmfgen.ecore#//GenLink">
+    <genClasses ecoreClass="gmfgen.ecore#//GenLink">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/diagram"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/modelFacet"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenLink/labels"/>
@@ -300,7 +300,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//CompositeFeatureLabelModelFacet/viewPattern"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//CompositeFeatureLabelModelFacet/editPattern"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="gmfgen.ecore#//Attributes"/>
+    <genClasses ecoreClass="gmfgen.ecore#//Attributes"/>
     <genClasses ecoreClass="gmfgen.ecore#//ColorAttributes">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ColorAttributes/foregroundColor"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//ColorAttributes/backgroundColor"/>
@@ -394,14 +394,14 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditContainer/description"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditContainer/parentContainer"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditContainer/audits"/>
-      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditContainer/childContainers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditContainer/childContainers"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenAuditContainer/getAllAuditRules"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenAuditContainer/getAllAuditContainers"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenAuditContainer/getPath"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenAuditRule">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/id"/>
-      <genFeatures children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditRule/rule"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditRule/rule"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditRule/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/message"/>

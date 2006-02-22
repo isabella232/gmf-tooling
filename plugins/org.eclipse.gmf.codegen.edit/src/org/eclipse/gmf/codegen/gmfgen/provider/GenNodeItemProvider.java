@@ -61,9 +61,30 @@ public class GenNodeItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addCompartmentsPropertyDescriptor(object);
 			addGraphicalNodeEditPolicyClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Compartments feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addCompartmentsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_GenNode_compartments_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_GenNode_compartments_feature", "_UI_GenNode_type"),
+				 GMFGenPackage.eINSTANCE.getGenNode_Compartments(),
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -99,7 +120,6 @@ public class GenNodeItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenNode_ModelFacet());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenNode_Labels());
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenNode_Compartments());
 		}
 		return childrenFeatures;
 	}
@@ -114,16 +134,6 @@ public class GenNodeItemProvider
 		// adding (see {@link AddCommand}) it as a child.
 
 		return super.getChildFeature(object, child);
-	}
-
-	/**
-	 * This returns GenNode.gif.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/GenNode");
 	}
 
 	/**
@@ -155,7 +165,6 @@ public class GenNodeItemProvider
 				return;
 			case GMFGenPackage.GEN_NODE__MODEL_FACET:
 			case GMFGenPackage.GEN_NODE__LABELS:
-			case GMFGenPackage.GEN_NODE__COMPARTMENTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -191,11 +200,6 @@ public class GenNodeItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenNode_Labels(),
 				 GMFGenFactory.eINSTANCE.createGenExternalNodeLabel()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenNode_Compartments(),
-				 GMFGenFactory.eINSTANCE.createGenCompartment()));
 	}
 
 	/**

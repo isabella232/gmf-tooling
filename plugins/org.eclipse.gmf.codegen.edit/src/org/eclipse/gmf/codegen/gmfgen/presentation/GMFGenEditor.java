@@ -476,8 +476,8 @@ public class GMFGenEditor
 		List factories = new ArrayList();
 		factories.add(new ResourceItemProviderAdapterFactory());
 		factories.add(new GMFGenItemProviderAdapterFactory());
-		factories.add(new GenModelItemProviderAdapterFactory());
 		factories.add(new EcoreItemProviderAdapterFactory());
+		factories.add(new GenModelItemProviderAdapterFactory());
 		factories.add(new ReflectiveItemProviderAdapterFactory());
 
 		adapterFactory = new ComposedAdapterFactory(factories);

@@ -45,8 +45,8 @@ public final class EditorPlugin extends EMFPlugin {
 	public EditorPlugin() {
 		super
 		  (new ResourceLocator [] {
-		     GenModelEditPlugin.INSTANCE,
 		     EcoreEditPlugin.INSTANCE,
+		     GenModelEditPlugin.INSTANCE,
 		   });
 	}
 

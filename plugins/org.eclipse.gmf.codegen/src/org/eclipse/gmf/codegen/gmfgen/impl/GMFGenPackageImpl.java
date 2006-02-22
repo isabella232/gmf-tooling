@@ -562,8 +562,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		isInited = true;
 
 		// Initialize simple dependencies
-		GenModelPackage.eINSTANCE.eClass();
 		EcorePackage.eINSTANCE.eClass();
+		GenModelPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theGMFGenPackage.createPackageContents();
