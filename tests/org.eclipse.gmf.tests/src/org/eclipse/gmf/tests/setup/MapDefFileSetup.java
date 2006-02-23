@@ -22,6 +22,7 @@ import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.TopNodeReference;
 
 public class MapDefFileSetup implements MapDefSource {
 
@@ -54,11 +55,11 @@ public class MapDefFileSetup implements MapDefSource {
 	}
 
 	public NodeMapping getNodeA() {
-		return (NodeMapping) getMapping().getNodes().get(0);
+		return ((TopNodeReference) getMapping().getNodes().get(0)).getChild();
 	}
 
 	public NodeMapping getNodeB() {
-		return (NodeMapping) getMapping().getNodes().get(1);
+		return ((TopNodeReference) getMapping().getNodes().get(1)).getChild();
 	}
 
 	public LinkMapping getClassLink() {

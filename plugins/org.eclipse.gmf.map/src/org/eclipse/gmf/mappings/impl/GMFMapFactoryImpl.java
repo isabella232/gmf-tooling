@@ -12,23 +12,23 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.gmf.mappings.*;
-
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.CanvasMapping;
-import org.eclipse.gmf.mappings.ChildNodeMapping;
+import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.Severity;
+import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.mappings.ValueExpression;
 
 /**
@@ -75,8 +75,9 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case GMFMapPackage.MAPPING: return createMapping();
+			case GMFMapPackage.CHILD_REFERENCE: return createChildReference();
+			case GMFMapPackage.TOP_NODE_REFERENCE: return createTopNodeReference();
 			case GMFMapPackage.NODE_MAPPING: return createNodeMapping();
-			case GMFMapPackage.CHILD_NODE_MAPPING: return createChildNodeMapping();
 			case GMFMapPackage.COMPARTMENT_MAPPING: return createCompartmentMapping();
 			case GMFMapPackage.LINK_MAPPING: return createLinkMapping();
 			case GMFMapPackage.CANVAS_MAPPING: return createCanvasMapping();
@@ -136,16 +137,6 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ChildNodeMapping createChildNodeMapping() {
-		ChildNodeMappingImpl childNodeMapping = new ChildNodeMappingImpl();
-		return childNodeMapping;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public CompartmentMapping createCompartmentMapping() {
 		CompartmentMappingImpl compartmentMapping = new CompartmentMappingImpl();
 		return compartmentMapping;
@@ -189,6 +180,26 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	public Mapping createMapping() {
 		MappingImpl mapping = new MappingImpl();
 		return mapping;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ChildReference createChildReference() {
+		ChildReferenceImpl childReference = new ChildReferenceImpl();
+		return childReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TopNodeReference createTopNodeReference() {
+		TopNodeReferenceImpl topNodeReference = new TopNodeReferenceImpl();
+		return topNodeReference;
 	}
 
 	/**

@@ -12,8 +12,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
@@ -23,19 +23,18 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
+import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 
-import org.eclipse.gmf.mappings.NodeMapping;
-
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.NodeMapping} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.ChildReference} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class NodeMappingItemProvider
-	extends MappingEntryItemProvider
+public class ChildReferenceItemProvider
+	extends NodeReferenceItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -48,7 +47,7 @@ public class NodeMappingItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NodeMappingItemProvider(AdapterFactory adapterFactory) {
+	public ChildReferenceItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -62,91 +61,49 @@ public class NodeMappingItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addContextMenuPropertyDescriptor(object);
-			addToolPropertyDescriptor(object);
-			addAppearanceStylePropertyDescriptor(object);
-			addDiagramNodePropertyDescriptor(object);
+			addCompartmentPropertyDescriptor(object);
+			addReferencedChildPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Context Menu feature.
+	 * This adds a property descriptor for the Compartment feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addContextMenuPropertyDescriptor(Object object) {
+	protected void addCompartmentPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_MenuOwner_contextMenu_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_MenuOwner_contextMenu_feature", "_UI_MenuOwner_type"),
-				 GMFMapPackage.eINSTANCE.getMenuOwner_ContextMenu(),
+				 getString("_UI_ChildReference_compartment_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ChildReference_compartment_feature", "_UI_ChildReference_type"),
+				 GMFMapPackage.eINSTANCE.getChildReference_Compartment(),
 				 true,
 				 null,
-				 getString("_UI_VisualrepresentationPropertyCategory"),
+				 null,
 				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Tool feature.
+	 * This adds a property descriptor for the Referenced Child feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addToolPropertyDescriptor(Object object) {
+	protected void addReferencedChildPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ToolOwner_tool_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ToolOwner_tool_feature", "_UI_ToolOwner_type"),
-				 GMFMapPackage.eINSTANCE.getToolOwner_Tool(),
+				 getString("_UI_ChildReference_referencedChild_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ChildReference_referencedChild_feature", "_UI_ChildReference_type"),
+				 GMFMapPackage.eINSTANCE.getChildReference_ReferencedChild(),
 				 true,
 				 null,
-				 getString("_UI_VisualrepresentationPropertyCategory"),
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Appearance Style feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addAppearanceStylePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_AppearanceSteward_appearanceStyle_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_AppearanceSteward_appearanceStyle_feature", "_UI_AppearanceSteward_type"),
-				 GMFMapPackage.eINSTANCE.getAppearanceSteward_AppearanceStyle(),
-				 true,
 				 null,
-				 getString("_UI_VisualrepresentationPropertyCategory"),
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Diagram Node feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDiagramNodePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_NodeMapping_diagramNode_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_NodeMapping_diagramNode_feature", "_UI_NodeMapping_type"),
-				 GMFMapPackage.eINSTANCE.getNodeMapping_DiagramNode(),
-				 true,
-				 null,
-				 getString("_UI_VisualrepresentationPropertyCategory"),
 				 null));
 	}
 
@@ -161,32 +118,19 @@ public class NodeMappingItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getNodeMapping_Children());
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getNodeMapping_Compartments());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getChildReference_OwnedChild());
 		}
 		return childrenFeatures;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
-	}
-
-	/**
-	 * This returns NodeMapping.gif.
+	 * This returns ChildReference.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/NodeMapping");
+		return getResourceLocator().getImage("full/obj16/ChildReference");
 	}
 
 	/**
@@ -196,16 +140,7 @@ public class NodeMappingItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		if (object instanceof NodeMapping) {
-			NodeMapping mapping = (NodeMapping) object;
-			String result = " <";
-			if (mapping.getDiagramNode() != null) {
-				result += mapping.getDiagramNode().getName();
-			}
-			result += ">";
-			return getString("_UI_NodeMapping_type") + result;
-		}
-		return getString("_UI_NodeMapping_type");
+		return getString("_UI_ChildReference_type");
 	}
 
 	/**
@@ -218,9 +153,8 @@ public class NodeMappingItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(NodeMapping.class)) {
-			case GMFMapPackage.NODE_MAPPING__CHILDREN:
-			case GMFMapPackage.NODE_MAPPING__COMPARTMENTS:
+		switch (notification.getFeatureID(ChildReference.class)) {
+			case GMFMapPackage.CHILD_REFERENCE__OWNED_CHILD:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -239,13 +173,8 @@ public class NodeMappingItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getNodeMapping_Children(),
-				 GMFMapFactory.eINSTANCE.createChildReference()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getNodeMapping_Compartments(),
-				 GMFMapFactory.eINSTANCE.createCompartmentMapping()));
+				(GMFMapPackage.eINSTANCE.getChildReference_OwnedChild(),
+				 GMFMapFactory.eINSTANCE.createNodeMapping()));
 	}
 
 	/**

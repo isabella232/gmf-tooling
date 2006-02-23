@@ -31,6 +31,7 @@ import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.Severity;
+import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.setup.DomainModelSource.LinkData;
 import org.eclipse.gmf.tests.setup.DomainModelSource.NodeData;
@@ -156,10 +157,12 @@ public class MapSetup implements MapDefSource {
 			lm.setDiagramLabel(labelDef);
 			nme.getLabelMappings().add(lm);
 		}
-		nme.setContainmentFeature(containmentFeature);
 		// FIXME nme.setTool(GMFMapFactory.eINSTANCE.createCreationTool());
 		setupNodeMapping(nme);
-		myMap.getNodes().add(nme);
+		TopNodeReference tnr = GMFMapFactory.eINSTANCE.createTopNodeReference();
+		tnr.setOwnedChild(nme);
+		tnr.setContainmentFeature(containmentFeature);
+		myMap.getNodes().add(tnr);
 		return nme;	
 	}
 	

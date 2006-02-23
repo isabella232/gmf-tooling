@@ -26,7 +26,6 @@ import org.eclipse.gmf.internal.bridge.naming.CollectingDispenser;
 import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.UniqueValueDispenser;
 import org.eclipse.gmf.mappings.CanvasMapping;
-import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
@@ -135,7 +134,7 @@ public class GenModelNamingMediatorImpl implements GenModelNamingMediator {
 		genNode.setGraphicalNodeEditPolicyClassName(getNodeGraphicalPolicy().get(nme));
 	}
 
-	public void feed(GenChildNode childNode, ChildNodeMapping nme) {
+	public void feed(GenChildNode childNode, NodeMapping nme) {
 		childNode.setNotationViewFactoryClassName(getViewFactory().get(nme));
 		childNode.setEditPartClassName(getEditPart().get(nme));
 		childNode.setItemSemanticEditPolicyClassName(getItemSemanticPolicy().get(nme));

@@ -10,27 +10,28 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.mappings.*;
-
-import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.AppearanceSteward;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.CanvasMapping;
-import org.eclipse.gmf.mappings.ChildNodeMapping;
+import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.MenuOwner;
+import org.eclipse.gmf.mappings.NeedsContainment;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.mappings.ToolOwner;
+import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.mappings.ValueExpression;
 
 /**
@@ -119,35 +120,42 @@ public class GMFMapSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GMFMapPackage.ABSTRACT_NODE_MAPPING: {
-				AbstractNodeMapping abstractNodeMapping = (AbstractNodeMapping)theEObject;
-				Object result = caseAbstractNodeMapping(abstractNodeMapping);
-				if (result == null) result = caseMappingEntry(abstractNodeMapping);
-				if (result == null) result = caseMenuOwner(abstractNodeMapping);
-				if (result == null) result = caseToolOwner(abstractNodeMapping);
-				if (result == null) result = caseAppearanceSteward(abstractNodeMapping);
+			case GMFMapPackage.NEEDS_CONTAINMENT: {
+				NeedsContainment needsContainment = (NeedsContainment)theEObject;
+				Object result = caseNeedsContainment(needsContainment);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.NODE_REFERENCE: {
+				NodeReference nodeReference = (NodeReference)theEObject;
+				Object result = caseNodeReference(nodeReference);
+				if (result == null) result = caseNeedsContainment(nodeReference);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.CHILD_REFERENCE: {
+				ChildReference childReference = (ChildReference)theEObject;
+				Object result = caseChildReference(childReference);
+				if (result == null) result = caseNodeReference(childReference);
+				if (result == null) result = caseNeedsContainment(childReference);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.TOP_NODE_REFERENCE: {
+				TopNodeReference topNodeReference = (TopNodeReference)theEObject;
+				Object result = caseTopNodeReference(topNodeReference);
+				if (result == null) result = caseNodeReference(topNodeReference);
+				if (result == null) result = caseNeedsContainment(topNodeReference);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.NODE_MAPPING: {
 				NodeMapping nodeMapping = (NodeMapping)theEObject;
 				Object result = caseNodeMapping(nodeMapping);
-				if (result == null) result = caseAbstractNodeMapping(nodeMapping);
 				if (result == null) result = caseMappingEntry(nodeMapping);
 				if (result == null) result = caseMenuOwner(nodeMapping);
 				if (result == null) result = caseToolOwner(nodeMapping);
 				if (result == null) result = caseAppearanceSteward(nodeMapping);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GMFMapPackage.CHILD_NODE_MAPPING: {
-				ChildNodeMapping childNodeMapping = (ChildNodeMapping)theEObject;
-				Object result = caseChildNodeMapping(childNodeMapping);
-				if (result == null) result = caseAbstractNodeMapping(childNodeMapping);
-				if (result == null) result = caseMappingEntry(childNodeMapping);
-				if (result == null) result = caseMenuOwner(childNodeMapping);
-				if (result == null) result = caseToolOwner(childNodeMapping);
-				if (result == null) result = caseAppearanceSteward(childNodeMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -161,6 +169,7 @@ public class GMFMapSwitch {
 				LinkMapping linkMapping = (LinkMapping)theEObject;
 				Object result = caseLinkMapping(linkMapping);
 				if (result == null) result = caseMappingEntry(linkMapping);
+				if (result == null) result = caseNeedsContainment(linkMapping);
 				if (result == null) result = caseMenuOwner(linkMapping);
 				if (result == null) result = caseToolOwner(linkMapping);
 				if (result == null) result = caseAppearanceSteward(linkMapping);
@@ -253,21 +262,6 @@ public class GMFMapSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Abstract Node Mapping</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Abstract Node Mapping</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseAbstractNodeMapping(AbstractNodeMapping object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpretting the object as an instance of '<em>Mapping Entry</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -283,6 +277,66 @@ public class GMFMapSwitch {
 	}
 
 	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Needs Containment</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Needs Containment</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseNeedsContainment(NeedsContainment object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Node Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Node Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseNodeReference(NodeReference object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Child Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Child Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseChildReference(ChildReference object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Top Node Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Top Node Reference</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseTopNodeReference(TopNodeReference object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpretting the object as an instance of '<em>Node Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -294,21 +348,6 @@ public class GMFMapSwitch {
 	 * @generated
 	 */
 	public Object caseNodeMapping(NodeMapping object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Child Node Mapping</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Child Node Mapping</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseChildNodeMapping(ChildNodeMapping object) {
 		return null;
 	}
 

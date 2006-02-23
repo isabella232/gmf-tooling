@@ -28,30 +28,36 @@
           ecoreFeature="ecore:EReference gmfmap.ecore#//MappingEntry/domainSpecialization"/>
       <genFeatures property="None" children="true" createChild="true" propertyCategory="Domain meta information"
           ecoreFeature="ecore:EReference gmfmap.ecore#//MappingEntry/domainInitializer"/>
-      <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
-          ecoreFeature="ecore:EReference gmfmap.ecore#//MappingEntry/containmentFeature"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//MappingEntry/labelMappings"/>
       <genOperations ecoreOperation="gmfmap.ecore#//MappingEntry/getDomainContext"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="gmfmap.ecore#//AbstractNodeMapping">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/childMappings"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AbstractNodeMapping/compartmentMappings"/>
+    <genClasses ecoreClass="gmfmap.ecore#//NeedsContainment">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//NeedsContainment/containmentFeature"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="gmfmap.ecore#//NodeReference">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//NodeReference/childrenFeature"/>
+      <genOperations ecoreOperation="gmfmap.ecore#//NodeReference/getChild"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//ChildReference">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildReference/parentNode"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildReference/compartment"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildReference/ownedChild"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildReference/referencedChild"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//TopNodeReference">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//TopNodeReference/ownedChild"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//NodeMapping">
       <genFeatures notify="false" createChild="false" propertyCategory="Visual representation"
           ecoreFeature="ecore:EReference gmfmap.ecore#//NodeMapping/diagramNode"/>
-    </genClasses>
-    <genClasses ecoreClass="gmfmap.ecore#//ChildNodeMapping">
-      <genFeatures notify="false" createChild="false" propertyCategory="Visual representation"
-          ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/diagramNode"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/compartment"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//ChildNodeMapping/parentNode"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//NodeMapping/children"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//NodeMapping/compartments"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//CompartmentMapping">
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//CompartmentMapping/parentNodeMapping"/>
       <genFeatures notify="false" createChild="false" propertyCategory="Visual representation"
           ecoreFeature="ecore:EReference gmfmap.ecore#//CompartmentMapping/compartment"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//CompartmentMapping/childNodes"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//CompartmentMapping/parentNode"/>
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//CompartmentMapping/children"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//LinkMapping">
       <genFeatures notify="false" createChild="false" propertyCategory="Visual representation"

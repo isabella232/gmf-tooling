@@ -18,10 +18,10 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.gmfgraph.Compartment;
-import org.eclipse.gmf.mappings.AbstractNodeMapping;
-import org.eclipse.gmf.mappings.ChildNodeMapping;
+import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.NodeMapping;
 
 /**
  * <!-- begin-user-doc -->
@@ -30,9 +30,9 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.eclipse.gmf.mappings.impl.CompartmentMappingImpl#getParentNodeMapping <em>Parent Node Mapping</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.CompartmentMappingImpl#getCompartment <em>Compartment</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.CompartmentMappingImpl#getChildNodes <em>Child Nodes</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.CompartmentMappingImpl#getParentNode <em>Parent Node</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.CompartmentMappingImpl#getChildren <em>Children</em>}</li>
  * </ul>
  * </p>
  *
@@ -50,14 +50,14 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	protected Compartment compartment = null;
 
 	/**
-	 * The cached value of the '{@link #getChildNodes() <em>Child Nodes</em>}' reference list.
+	 * The cached value of the '{@link #getChildren() <em>Children</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getChildNodes()
+	 * @see #getChildren()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList childNodes = null;
+	protected EList children = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -75,16 +75,6 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 */
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getCompartmentMapping();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AbstractNodeMapping getParentNodeMapping() {
-		if (eContainerFeatureID != GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE_MAPPING) return null;
-		return (AbstractNodeMapping)eContainer();
 	}
 
 	/**
@@ -130,11 +120,21 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList getChildNodes() {
-		if (childNodes == null) {
-			childNodes = new EObjectWithInverseResolvingEList(ChildNodeMapping.class, this, GMFMapPackage.COMPARTMENT_MAPPING__CHILD_NODES, GMFMapPackage.CHILD_NODE_MAPPING__COMPARTMENT);
+	public NodeMapping getParentNode() {
+		if (eContainerFeatureID != GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE) return null;
+		return (NodeMapping)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList getChildren() {
+		if (children == null) {
+			children = new EObjectWithInverseResolvingEList(ChildReference.class, this, GMFMapPackage.COMPARTMENT_MAPPING__CHILDREN, GMFMapPackage.CHILD_REFERENCE__COMPARTMENT);
 		}
-		return childNodes;
+		return children;
 	}
 
 	/**
@@ -144,12 +144,12 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE_MAPPING:
+			case GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return eBasicSetContainer(otherEnd, GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE_MAPPING, msgs);
-			case GMFMapPackage.COMPARTMENT_MAPPING__CHILD_NODES:
-				return ((InternalEList)getChildNodes()).basicAdd(otherEnd, msgs);
+				return eBasicSetContainer(otherEnd, GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE, msgs);
+			case GMFMapPackage.COMPARTMENT_MAPPING__CHILDREN:
+				return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -161,10 +161,10 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE_MAPPING:
-				return eBasicSetContainer(null, GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE_MAPPING, msgs);
-			case GMFMapPackage.COMPARTMENT_MAPPING__CHILD_NODES:
-				return ((InternalEList)getChildNodes()).basicRemove(otherEnd, msgs);
+			case GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE:
+				return eBasicSetContainer(null, GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE, msgs);
+			case GMFMapPackage.COMPARTMENT_MAPPING__CHILDREN:
+				return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -176,8 +176,8 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 */
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID) {
-			case GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE_MAPPING:
-				return eInternalContainer().eInverseRemove(this, GMFMapPackage.ABSTRACT_NODE_MAPPING__COMPARTMENT_MAPPINGS, AbstractNodeMapping.class, msgs);
+			case GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE:
+				return eInternalContainer().eInverseRemove(this, GMFMapPackage.NODE_MAPPING__COMPARTMENTS, NodeMapping.class, msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
@@ -189,13 +189,13 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE_MAPPING:
-				return getParentNodeMapping();
 			case GMFMapPackage.COMPARTMENT_MAPPING__COMPARTMENT:
 				if (resolve) return getCompartment();
 				return basicGetCompartment();
-			case GMFMapPackage.COMPARTMENT_MAPPING__CHILD_NODES:
-				return getChildNodes();
+			case GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE:
+				return getParentNode();
+			case GMFMapPackage.COMPARTMENT_MAPPING__CHILDREN:
+				return getChildren();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -210,9 +210,9 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 			case GMFMapPackage.COMPARTMENT_MAPPING__COMPARTMENT:
 				setCompartment((Compartment)newValue);
 				return;
-			case GMFMapPackage.COMPARTMENT_MAPPING__CHILD_NODES:
-				getChildNodes().clear();
-				getChildNodes().addAll((Collection)newValue);
+			case GMFMapPackage.COMPARTMENT_MAPPING__CHILDREN:
+				getChildren().clear();
+				getChildren().addAll((Collection)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -228,8 +228,8 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 			case GMFMapPackage.COMPARTMENT_MAPPING__COMPARTMENT:
 				setCompartment((Compartment)null);
 				return;
-			case GMFMapPackage.COMPARTMENT_MAPPING__CHILD_NODES:
-				getChildNodes().clear();
+			case GMFMapPackage.COMPARTMENT_MAPPING__CHILDREN:
+				getChildren().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -242,12 +242,12 @@ public class CompartmentMappingImpl extends EObjectImpl implements CompartmentMa
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE_MAPPING:
-				return getParentNodeMapping() != null;
 			case GMFMapPackage.COMPARTMENT_MAPPING__COMPARTMENT:
 				return compartment != null;
-			case GMFMapPackage.COMPARTMENT_MAPPING__CHILD_NODES:
-				return childNodes != null && !childNodes.isEmpty();
+			case GMFMapPackage.COMPARTMENT_MAPPING__PARENT_NODE:
+				return getParentNode() != null;
+			case GMFMapPackage.COMPARTMENT_MAPPING__CHILDREN:
+				return children != null && !children.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -16,7 +16,6 @@ import java.util.Iterator;
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.gmf.mappings.CanvasMapping;
-import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
@@ -30,7 +29,6 @@ public class BasicDiagramRunTimeModelHelper implements DiagramRunTimeModelHelper
 	private GenClass myNode;
 	private GenClass myLink;
 	private GenClass myCanvas;
-	private GenClass myChildNode;
 	private boolean myIsLoaded = false;
 
 	public BasicDiagramRunTimeModelHelper() {
@@ -49,11 +47,6 @@ public class BasicDiagramRunTimeModelHelper implements DiagramRunTimeModelHelper
 	public GenClass get(CanvasMapping canvasMapping) {
 		loadGenModel();
 		return myCanvas;
-	}
-
-	public GenClass get(ChildNodeMapping childNodeMapping) {
-		loadGenModel();
-		return myChildNode;
 	}
 
 	public GenClass getChildContainerDefault() {
@@ -78,7 +71,6 @@ public class BasicDiagramRunTimeModelHelper implements DiagramRunTimeModelHelper
 			GenClass next = (GenClass) it.next();
 			if (NotationPackage.eINSTANCE.getNode().getName().equals(next.getName())) {
 				myNode = next;
-				myChildNode = next;
 			} else if (NotationPackage.eINSTANCE.getEdge().getName().equals(next.getName())) {
 				myLink = next;
 			} else if (NotationPackage.eINSTANCE.getDiagram().getName().equals(next.getName())) {
@@ -87,6 +79,6 @@ public class BasicDiagramRunTimeModelHelper implements DiagramRunTimeModelHelper
 		}
 		// my... become proxies on unload
 		//runtimeAccess.unload();
-		assert myNode != null && myLink != null && myCanvas != null && myChildNode != null;
+		assert myNode != null && myLink != null && myCanvas != null;
 	}
 }

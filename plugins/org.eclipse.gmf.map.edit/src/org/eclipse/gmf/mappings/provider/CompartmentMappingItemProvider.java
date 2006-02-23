@@ -8,8 +8,6 @@ package org.eclipse.gmf.mappings.provider;
 
 
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -21,10 +19,8 @@ import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 
@@ -63,7 +59,7 @@ public class CompartmentMappingItemProvider
 			super.getPropertyDescriptors(object);
 
 			addCompartmentPropertyDescriptor(object);
-			addChildNodesPropertyDescriptor(object);
+			addChildrenPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -89,31 +85,23 @@ public class CompartmentMappingItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Child Nodes feature.
+	 * This adds a property descriptor for the Children feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated NOT
+	 * @generated
 	 */
-	protected void addChildNodesPropertyDescriptor(Object object) {
+	protected void addChildrenPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
-			(new ItemPropertyDescriptor
+			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_CompartmentMapping_childNodes_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_CompartmentMapping_childNodes_feature", "_UI_CompartmentMapping_type"),
-				 GMFMapPackage.eINSTANCE.getCompartmentMapping_ChildNodes(),
+				 getString("_UI_CompartmentMapping_children_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CompartmentMapping_children_feature", "_UI_CompartmentMapping_type"),
+				 GMFMapPackage.eINSTANCE.getCompartmentMapping_Children(),
 				 true,
 				 null,
 				 null,
-				 null) {
-				protected Collection getComboBoxObjects(Object object) {
-					if (object instanceof CompartmentMapping) {
-						CompartmentMapping mapping = (CompartmentMapping) object;
-						return new HashSet(mapping.getParentNodeMapping().getChildMappings());
-					}
-					return Collections.EMPTY_LIST;
-				}
-			});
+				 null));
 	}
 
 	/**
@@ -158,7 +146,7 @@ public class CompartmentMappingItemProvider
 	}
 
 	public void notifyChanged(Notification notification) {
-		if (notification.getFeatureID(ChildNodeMapping.class) == GMFMapPackage.COMPARTMENT_MAPPING__COMPARTMENT) {
+		if (notification.getFeatureID(CompartmentMapping.class) == GMFMapPackage.COMPARTMENT_MAPPING__COMPARTMENT) {
 			fireNotifyChanged(new ViewerNotification(notification, null));
 		}
 		notifyChangedGen(notification);

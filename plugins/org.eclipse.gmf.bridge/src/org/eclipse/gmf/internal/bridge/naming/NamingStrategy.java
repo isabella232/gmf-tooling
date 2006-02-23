@@ -12,7 +12,6 @@
 package org.eclipse.gmf.internal.bridge.naming;
 
 import org.eclipse.gmf.mappings.CanvasMapping;
-import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
@@ -31,8 +30,6 @@ public interface NamingStrategy {
 	String get(NodeMapping nme);
 
 	String get(LinkMapping lme);
-
-	String get(ChildNodeMapping nme);
 
 	String get(CompartmentMapping cm);
 

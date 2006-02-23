@@ -17,7 +17,7 @@ import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.gmfgraph.Identity;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
-import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
 
 /**
@@ -44,8 +44,8 @@ public class DiagramRunTimeModelTransformer extends MappingTransformer {
 		addEClass(cme.getDiagramCanvas(), NotationPackage.eINSTANCE.getDiagram());
 	}
 
-	protected void process(NodeMapping nme) {
-		addEClass(nme.getDiagramNode(), NotationPackage.eINSTANCE.getNode());
+	protected void process(TopNodeReference topNode) {
+		addEClass(topNode.getChild().getDiagramNode(), NotationPackage.eINSTANCE.getNode());
 	}
 
 	protected void process(LinkMapping lme) {

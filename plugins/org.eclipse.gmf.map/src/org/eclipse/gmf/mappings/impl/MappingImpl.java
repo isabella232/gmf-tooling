@@ -22,7 +22,7 @@ import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
-import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.tooldef.StyleSelector;
 
 /**
@@ -118,7 +118,7 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 */
 	public EList getNodes() {
 		if (nodes == null) {
-			nodes = new EObjectContainmentEList(NodeMapping.class, this, GMFMapPackage.MAPPING__NODES);
+			nodes = new EObjectContainmentEList(TopNodeReference.class, this, GMFMapPackage.MAPPING__NODES);
 		}
 		return nodes;
 	}

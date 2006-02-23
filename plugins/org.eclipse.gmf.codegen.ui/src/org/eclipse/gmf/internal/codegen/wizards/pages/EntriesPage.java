@@ -145,13 +145,15 @@ public class EntriesPage extends WizardPage {
 					sb.append(" (");
 					if (next.getDiagramNode() != null) {
 						sb.append(next.getDiagramNode().getName());
-						if (next.getContainmentFeature() != null) {
-							sb.append(";  ");
-						}
+//						 FIXME [containment] !!!
+//						if (next.getContainmentFeature() != null) {
+//							sb.append(";  ");
+//						}
 					}
-					if (next.getContainmentFeature() != null) {
-						sb.append(next.getContainmentFeature().getName());
-					}
+//					 FIXME [containment] !!!
+//					if (next.getContainmentFeature() != null) {
+//						sb.append(next.getContainmentFeature().getName());
+//					}
 					sb.append(")");
 					return sb.toString();
 				}
@@ -349,7 +351,8 @@ public class EntriesPage extends WizardPage {
 				public void handleEvent(Event event) {
 					NodeMapping nm = GMFMapFactory.eINSTANCE.createNodeMapping();
 					nm.setDomainMetaElement(selectedEntry.getDomainMetaElement());
-					nm.setContainmentFeature(selectedEntry.getContainmentFeature());
+//					 FIXME [containment] !!!
+//					nm.setContainmentFeature(selectedEntry.getContainmentFeature());
 					nm.setDomainInitializer(selectedEntry.getDomainInitializer());
 					nm.setDomainSpecialization(selectedEntry.getDomainSpecialization());
 					final LinkMapping linkMapping = (LinkMapping) selectedEntry;
@@ -371,7 +374,8 @@ public class EntriesPage extends WizardPage {
 				public void handleEvent(Event event) {
 					LinkMapping lm = GMFMapFactory.eINSTANCE.createLinkMapping();
 					lm.setDomainMetaElement(selectedEntry.getDomainMetaElement());
-					lm.setContainmentFeature(selectedEntry.getContainmentFeature());
+//					 FIXME [containment] !!!
+//					lm.setContainmentFeature(selectedEntry.getContainmentFeature());
 					lm.setDomainInitializer(selectedEntry.getDomainInitializer());
 					lm.setDomainSpecialization(selectedEntry.getDomainSpecialization());
 					final NodeMapping nodeMapping = (NodeMapping) selectedEntry;
@@ -495,7 +499,8 @@ public class EntriesPage extends WizardPage {
 
 		private void refreshCommonDetails() {
 			affix(metaElementLabel, selectedEntry.getDomainMetaElement());
-			affix(containmentLabel, selectedEntry.getContainmentFeature());
+//			 FIXME [containment] !!!
+//			affix(containmentLabel, selectedEntry.getContainmentFeature());
 			refreshDomainSpecialization();
 			refreshDomainInitializer();
 		}

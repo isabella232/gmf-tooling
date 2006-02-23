@@ -12,7 +12,6 @@
 package org.eclipse.gmf.internal.bridge.naming;
 
 import org.eclipse.gmf.mappings.CanvasMapping;
-import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
@@ -68,13 +67,6 @@ public abstract class AbstractNamingStrategy implements NamingStrategy {
 	public String get(LinkMapping lme) {
 		if (myDelegate != null) {
 			return myDelegate.get(lme);
-		}
-		return null;
-	}
-
-	public String get(ChildNodeMapping nme) {
-		if (myDelegate != null) {
-			return myDelegate.get(nme);
 		}
 		return null;
 	}

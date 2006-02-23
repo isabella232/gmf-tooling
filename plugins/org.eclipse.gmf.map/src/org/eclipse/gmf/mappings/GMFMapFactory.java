@@ -35,15 +35,6 @@ public interface GMFMapFactory extends EFactory {
 	NodeMapping createNodeMapping();
 
 	/**
-	 * Returns a new object of class '<em>Child Node Mapping</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Child Node Mapping</em>'.
-	 * @generated
-	 */
-	ChildNodeMapping createChildNodeMapping();
-
-	/**
 	 * Returns a new object of class '<em>Compartment Mapping</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -87,6 +78,24 @@ public interface GMFMapFactory extends EFactory {
 	 * @generated
 	 */
 	Mapping createMapping();
+
+	/**
+	 * Returns a new object of class '<em>Child Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Child Reference</em>'.
+	 * @generated
+	 */
+	ChildReference createChildReference();
+
+	/**
+	 * Returns a new object of class '<em>Top Node Reference</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Top Node Reference</em>'.
+	 * @generated
+	 */
+	TopNodeReference createTopNodeReference();
 
 	/**
 	 * Returns a new object of class '<em>Constraint</em>'.

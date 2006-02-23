@@ -60,6 +60,7 @@ public class LinkMappingItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addContainmentFeaturePropertyDescriptor(object);
 			addContextMenuPropertyDescriptor(object);
 			addToolPropertyDescriptor(object);
 			addAppearanceStylePropertyDescriptor(object);
@@ -163,7 +164,7 @@ public class LinkMappingItemProvider
 				 getResourceLocator(),
 				 getString("_UI_MappingEntry_containmentFeature_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_MappingEntry_containmentFeature_feature", "_UI_MappingEntry_type"),
-				 GMFMapPackage.eINSTANCE.getMappingEntry_ContainmentFeature(),
+				 GMFMapPackage.eINSTANCE.getNeedsContainment_ContainmentFeature(),
 				 true,
 				 null,
 				 getString("_UI_DomainmetainformationPropertyCategory"),

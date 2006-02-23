@@ -9,6 +9,7 @@ package org.eclipse.gmf.mappings.impl;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -18,6 +19,7 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.MenuOwner;
+import org.eclipse.gmf.mappings.NeedsContainment;
 import org.eclipse.gmf.mappings.ToolOwner;
 import org.eclipse.gmf.tooldef.AbstractTool;
 import org.eclipse.gmf.tooldef.ContextMenu;
@@ -30,6 +32,7 @@ import org.eclipse.gmf.tooldef.StyleSelector;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getContainmentFeature <em>Containment Feature</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getContextMenu <em>Context Menu</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getTool <em>Tool</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LinkMappingImpl#getAppearanceStyle <em>Appearance Style</em>}</li>
@@ -43,6 +46,16 @@ import org.eclipse.gmf.tooldef.StyleSelector;
  * @generated
  */
 public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
+	/**
+	 * The cached value of the '{@link #getContainmentFeature() <em>Containment Feature</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContainmentFeature()
+	 * @generated
+	 * @ordered
+	 */
+	protected EReference containmentFeature = null;
+
 	/**
 	 * The cached value of the '{@link #getContextMenu() <em>Context Menu</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -129,6 +142,44 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	protected EClass eStaticClass() {
 		return GMFMapPackage.eINSTANCE.getLinkMapping();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getContainmentFeature() {
+		if (containmentFeature != null && containmentFeature.eIsProxy()) {
+			InternalEObject oldContainmentFeature = (InternalEObject)containmentFeature;
+			containmentFeature = (EReference)eResolveProxy(oldContainmentFeature);
+			if (containmentFeature != oldContainmentFeature) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE, oldContainmentFeature, containmentFeature));
+			}
+		}
+		return containmentFeature;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference basicGetContainmentFeature() {
+		return containmentFeature;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setContainmentFeature(EReference newContainmentFeature) {
+		EReference oldContainmentFeature = containmentFeature;
+		containmentFeature = newContainmentFeature;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE, oldContainmentFeature, containmentFeature));
 	}
 
 	/**
@@ -455,6 +506,9 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE:
+				if (resolve) return getContainmentFeature();
+				return basicGetContainmentFeature();
 			case GMFMapPackage.LINK_MAPPING__CONTEXT_MENU:
 				if (resolve) return getContextMenu();
 				return basicGetContextMenu();
@@ -486,6 +540,9 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE:
+				setContainmentFeature((EReference)newValue);
+				return;
 			case GMFMapPackage.LINK_MAPPING__CONTEXT_MENU:
 				setContextMenu((ContextMenu)newValue);
 				return;
@@ -518,6 +575,9 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE:
+				setContainmentFeature((EReference)null);
+				return;
 			case GMFMapPackage.LINK_MAPPING__CONTEXT_MENU:
 				setContextMenu((ContextMenu)null);
 				return;
@@ -550,6 +610,8 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE:
+				return containmentFeature != null;
 			case GMFMapPackage.LINK_MAPPING__CONTEXT_MENU:
 				return contextMenu != null;
 			case GMFMapPackage.LINK_MAPPING__TOOL:
@@ -574,6 +636,12 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * @generated
 	 */
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class baseClass) {
+		if (baseClass == NeedsContainment.class) {
+			switch (derivedFeatureID) {
+				case GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE: return GMFMapPackage.NEEDS_CONTAINMENT__CONTAINMENT_FEATURE;
+				default: return -1;
+			}
+		}
 		if (baseClass == MenuOwner.class) {
 			switch (derivedFeatureID) {
 				case GMFMapPackage.LINK_MAPPING__CONTEXT_MENU: return GMFMapPackage.MENU_OWNER__CONTEXT_MENU;
@@ -601,6 +669,12 @@ public class LinkMappingImpl extends MappingEntryImpl implements LinkMapping {
 	 * @generated
 	 */
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class baseClass) {
+		if (baseClass == NeedsContainment.class) {
+			switch (baseFeatureID) {
+				case GMFMapPackage.NEEDS_CONTAINMENT__CONTAINMENT_FEATURE: return GMFMapPackage.LINK_MAPPING__CONTAINMENT_FEATURE;
+				default: return -1;
+			}
+		}
 		if (baseClass == MenuOwner.class) {
 			switch (baseFeatureID) {
 				case GMFMapPackage.MENU_OWNER__CONTEXT_MENU: return GMFMapPackage.LINK_MAPPING__CONTEXT_MENU;

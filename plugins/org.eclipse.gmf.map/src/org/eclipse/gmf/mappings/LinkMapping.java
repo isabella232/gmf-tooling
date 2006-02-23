@@ -33,7 +33,7 @@ import org.eclipse.gmf.gmfgraph.Connection;
  *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not domainMetaElement.oclIsUndefined()  implies containmentFeature.eReferenceType.isSuperTypeOf(domainMetaElement)' description='\'Containment Feature\' must reference the same class or super type of \'Domain Element\' EClass'"
  * @generated
  */
-public interface LinkMapping extends MappingEntry, MenuOwner, ToolOwner, AppearanceSteward {
+public interface LinkMapping extends MappingEntry, NeedsContainment, MenuOwner, ToolOwner, AppearanceSteward {
 	/**
 	 * Returns the value of the '<em><b>Diagram Link</b></em>' reference.
 	 * <!-- begin-user-doc -->

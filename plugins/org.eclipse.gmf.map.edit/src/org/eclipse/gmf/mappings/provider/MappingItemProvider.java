@@ -151,7 +151,7 @@ public class MappingItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getMapping_Nodes(),
-				 GMFMapFactory.eINSTANCE.createNodeMapping()));
+				 GMFMapFactory.eINSTANCE.createTopNodeReference()));
 
 		newChildDescriptors.add
 			(createChildParameter

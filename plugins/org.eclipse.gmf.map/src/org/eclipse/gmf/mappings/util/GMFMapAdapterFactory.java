@@ -10,27 +10,28 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.mappings.*;
-
-import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.AppearanceSteward;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.CanvasMapping;
-import org.eclipse.gmf.mappings.ChildNodeMapping;
+import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.MenuOwner;
+import org.eclipse.gmf.mappings.NeedsContainment;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.mappings.ToolOwner;
+import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.mappings.ValueExpression;
 
 /**
@@ -94,14 +95,20 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 			public Object caseMappingEntry(MappingEntry object) {
 				return createMappingEntryAdapter();
 			}
-			public Object caseAbstractNodeMapping(AbstractNodeMapping object) {
-				return createAbstractNodeMappingAdapter();
+			public Object caseNeedsContainment(NeedsContainment object) {
+				return createNeedsContainmentAdapter();
+			}
+			public Object caseNodeReference(NodeReference object) {
+				return createNodeReferenceAdapter();
+			}
+			public Object caseChildReference(ChildReference object) {
+				return createChildReferenceAdapter();
+			}
+			public Object caseTopNodeReference(TopNodeReference object) {
+				return createTopNodeReferenceAdapter();
 			}
 			public Object caseNodeMapping(NodeMapping object) {
 				return createNodeMappingAdapter();
-			}
-			public Object caseChildNodeMapping(ChildNodeMapping object) {
-				return createChildNodeMappingAdapter();
 			}
 			public Object caseCompartmentMapping(CompartmentMapping object) {
 				return createCompartmentMappingAdapter();
@@ -167,20 +174,6 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.AbstractNodeMapping <em>Abstract Node Mapping</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.mappings.AbstractNodeMapping
-	 * @generated
-	 */
-	public Adapter createAbstractNodeMappingAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.MappingEntry <em>Mapping Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -195,6 +188,62 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.NeedsContainment <em>Needs Containment</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.NeedsContainment
+	 * @generated
+	 */
+	public Adapter createNeedsContainmentAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.NodeReference <em>Node Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.NodeReference
+	 * @generated
+	 */
+	public Adapter createNodeReferenceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.ChildReference <em>Child Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.ChildReference
+	 * @generated
+	 */
+	public Adapter createChildReferenceAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.TopNodeReference <em>Top Node Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.TopNodeReference
+	 * @generated
+	 */
+	public Adapter createTopNodeReferenceAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.NodeMapping <em>Node Mapping</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -205,20 +254,6 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createNodeMappingAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.ChildNodeMapping <em>Child Node Mapping</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.mappings.ChildNodeMapping
-	 * @generated
-	 */
-	public Adapter createChildNodeMappingAdapter() {
 		return null;
 	}
 

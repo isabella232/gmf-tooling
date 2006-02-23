@@ -30,6 +30,7 @@ import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.tests.Utils;
 
 public abstract class GenModelTransformerTest extends AbstractMappingTransformerTest {
@@ -75,7 +76,8 @@ public abstract class GenModelTransformerTest extends AbstractMappingTransformer
 	public void testCreatedPalette() {
 		Palette palette = transfromationResult.getDiagram().getPalette();
 		for (Iterator itN = getMapping().getNodes().iterator(); itN.hasNext();) {
-			NodeMapping nodeMapping = (NodeMapping) (itN.next());
+			final TopNodeReference topNode = (TopNodeReference) (itN.next());
+			final NodeMapping nodeMapping = topNode.getChild();
 			assertEquals(nodeMapping.getTool() != null ? 1 : 0, countUses(nodeMapping, palette));
 		}
 		for (Iterator itL = getMapping().getLinks().iterator(); itL.hasNext();) {

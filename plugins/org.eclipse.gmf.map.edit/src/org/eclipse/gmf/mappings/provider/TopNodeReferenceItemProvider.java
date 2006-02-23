@@ -12,28 +12,28 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.util.ResourceLocator;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
-import org.eclipse.gmf.mappings.MappingEntry;
+import org.eclipse.gmf.mappings.TopNodeReference;
 
 /**
- * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.MappingEntry} object.
+ * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.TopNodeReference} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class MappingEntryItemProvider
-	extends ItemProviderAdapter
+public class TopNodeReferenceItemProvider
+	extends NodeReferenceItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -46,7 +46,7 @@ public class MappingEntryItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public MappingEntryItemProvider(AdapterFactory adapterFactory) {
+	public TopNodeReferenceItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -60,39 +60,8 @@ public class MappingEntryItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addDomainMetaElementPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Domain Meta Element feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDomainMetaElementPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_MappingEntry_domainMetaElement_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_MappingEntry_domainMetaElement_feature", "_UI_MappingEntry_type"),
-				 GMFMapPackage.eINSTANCE.getMappingEntry_DomainMetaElement(),
-				 true,
-				 null,
-				 getString("_UI_DomainmetainformationPropertyCategory"),
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Containment Feature feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated NOT
-	 */
-	protected void addContainmentFeaturePropertyDescriptor(Object object) {
-		throw new UnsupportedOperationException("Subclasses should override");
 	}
 
 	/**
@@ -106,23 +75,19 @@ public class MappingEntryItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMappingEntry_DomainSpecialization());
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMappingEntry_DomainInitializer());
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMappingEntry_LabelMappings());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getTopNodeReference_OwnedChild());
 		}
 		return childrenFeatures;
 	}
 
 	/**
+	 * This returns TopNodeReference.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
+	public Object getImage(Object object) {
+		return getResourceLocator().getImage("full/obj16/TopNodeReference");
 	}
 
 	/**
@@ -132,7 +97,7 @@ public class MappingEntryItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		return getString("_UI_MappingEntry_type");
+		return getString("_UI_TopNodeReference_type");
 	}
 
 	/**
@@ -145,10 +110,8 @@ public class MappingEntryItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(MappingEntry.class)) {
-			case GMFMapPackage.MAPPING_ENTRY__DOMAIN_SPECIALIZATION:
-			case GMFMapPackage.MAPPING_ENTRY__DOMAIN_INITIALIZER:
-			case GMFMapPackage.MAPPING_ENTRY__LABEL_MAPPINGS:
+		switch (notification.getFeatureID(TopNodeReference.class)) {
+			case GMFMapPackage.TOP_NODE_REFERENCE__OWNED_CHILD:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -167,18 +130,8 @@ public class MappingEntryItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getMappingEntry_DomainSpecialization(),
-				 GMFMapFactory.eINSTANCE.createConstraint()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getMappingEntry_DomainInitializer(),
-				 GMFMapFactory.eINSTANCE.createFeatureSeqInitializer()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getMappingEntry_LabelMappings(),
-				 GMFMapFactory.eINSTANCE.createLabelMapping()));
+				(GMFMapPackage.eINSTANCE.getTopNodeReference_OwnedChild(),
+				 GMFMapFactory.eINSTANCE.createNodeMapping()));
 	}
 
 	/**

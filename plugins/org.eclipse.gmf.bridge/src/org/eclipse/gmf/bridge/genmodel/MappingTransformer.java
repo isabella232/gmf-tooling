@@ -16,7 +16,7 @@ import java.util.Iterator;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
-import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.TopNodeReference;
 
 /**
  * Encapsulates iteration over diagram definition.
@@ -27,7 +27,7 @@ public abstract class MappingTransformer {
 	public void transform(Mapping m) {
 		process(m.getDiagram());
 		for (Iterator it = m.getNodes().iterator(); it.hasNext();) {
-			process((NodeMapping) it.next());
+			process((TopNodeReference) it.next());
 		}
 		for (Iterator it = m.getLinks().iterator(); it.hasNext();) {
 			process((LinkMapping) it.next());
@@ -35,6 +35,6 @@ public abstract class MappingTransformer {
 	}
 
 	protected abstract void process(CanvasMapping cme);
-	protected abstract void process(NodeMapping nme);
+	protected abstract void process(TopNodeReference topNode);
 	protected abstract void process(LinkMapping lme);
 }

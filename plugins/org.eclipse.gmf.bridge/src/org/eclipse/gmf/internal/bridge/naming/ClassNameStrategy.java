@@ -15,9 +15,7 @@ import java.util.Iterator;
 
 import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.CanvasMapping;
-import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
@@ -65,18 +63,11 @@ public class ClassNameStrategy extends AbstractNamingStrategy {
 		return super.get(lme);
 	}
 
-	public String get(ChildNodeMapping nme) {
-		if (nme.getDomainContext() == null) {
-			return super.get(nme);
-		}
-		return createClassName(nme.getDomainContext().getName());
-	}
-
 	public String get(CompartmentMapping cm) {
-		if (cm.getParentNodeMapping().getDomainContext() == null || cm.getCompartment() == null) {
+		if (cm.getParentNode().getDomainContext() == null || cm.getCompartment() == null) {
 			return super.get(cm);
 		}
-		return createClassName(cm.getParentNodeMapping().getDomainContext().getName() + '_' + cm.getCompartment().getName());
+		return createClassName(cm.getParentNode().getDomainContext().getName() + '_' + cm.getCompartment().getName());
 	}
 
 	private String getQualifier(LabelMapping mapping) {
@@ -99,15 +90,15 @@ public class ClassNameStrategy extends AbstractNamingStrategy {
 
 	public String get(LabelMapping labelMapping) {
 		MappingEntry mapEntry = labelMapping.getMapEntry();
-		if (mapEntry instanceof AbstractNodeMapping) {
-			return getForNode((AbstractNodeMapping) mapEntry, labelMapping);
+		if (mapEntry instanceof NodeMapping) {
+			return getForNode((NodeMapping) mapEntry, labelMapping);
 		} else if (mapEntry instanceof LinkMapping) {
 			return getForLink((LinkMapping) mapEntry, labelMapping);
 		}
 		throw new IllegalStateException("Don't know how to handle mapEntry:" + mapEntry);
 	}
 	
-	private String getForNode(AbstractNodeMapping nme, LabelMapping labelMapping) {
+	private String getForNode(NodeMapping nme, LabelMapping labelMapping) {
 		if (nme.getDomainContext() == null) {
 			return super.get(labelMapping);
 		}

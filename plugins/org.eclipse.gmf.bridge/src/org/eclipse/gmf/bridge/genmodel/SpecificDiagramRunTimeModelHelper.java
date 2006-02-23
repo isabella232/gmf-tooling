@@ -19,7 +19,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.gmf.mappings.CanvasMapping;
-import org.eclipse.gmf.mappings.ChildNodeMapping;
 import org.eclipse.gmf.mappings.LabelMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
@@ -61,14 +60,6 @@ public class SpecificDiagramRunTimeModelHelper extends BasicDiagramRunTimeModelH
 			return gc;
 		}
 		return super.get(canvasMapping);
-	}
-
-	public GenClass get(ChildNodeMapping childNodeMapping) {
-		GenClass gc = getGenClass(childNodeMapping.getDiagramNode().getName());
-		if (gc != null) {
-			return gc;
-		}
-		return super.get(childNodeMapping);
 	}
 
 	public GenClass get(LabelMapping labelMapping) {

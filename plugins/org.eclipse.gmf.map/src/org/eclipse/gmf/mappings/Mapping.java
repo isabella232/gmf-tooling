@@ -32,7 +32,7 @@ import org.eclipse.emf.ecore.EObject;
 public interface Mapping extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Nodes</b></em>' containment reference list.
-	 * The list contents are of type {@link org.eclipse.gmf.mappings.NodeMapping}.
+	 * The list contents are of type {@link org.eclipse.gmf.mappings.TopNodeReference}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Nodes</em>' containment reference list isn't clear,
@@ -41,7 +41,7 @@ public interface Mapping extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Nodes</em>' containment reference list.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMapping_Nodes()
-	 * @model type="org.eclipse.gmf.mappings.NodeMapping" containment="true" resolveProxies="false" required="true"
+	 * @model type="org.eclipse.gmf.mappings.TopNodeReference" containment="true" resolveProxies="false" required="true"
 	 * @generated
 	 */
 	EList getNodes();

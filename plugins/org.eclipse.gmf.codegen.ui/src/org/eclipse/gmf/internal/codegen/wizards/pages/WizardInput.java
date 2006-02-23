@@ -189,6 +189,7 @@ public class WizardInput {
 		myLinkCandidates.addAll(hierarchy.getAccessibleReferences());
 		linkProposals.addAll(hierarchy.getAccessibleReferences(nodeProposals.iterator()));
 		getMapping().getNodes().clear();
+		// FIXME CCE - TopNodeReference!!!
 		getMapping().getNodes().addAll(nodesFrom(nodeProposals));
 		getMapping().getLinks().clear();
 		getMapping().getLinks().addAll(linksFrom(linkProposals));
@@ -216,7 +217,7 @@ public class WizardInput {
 			EClass eClass = (EClass) iter.next();
 			NodeMapping nm = GMFMapFactory.eINSTANCE.createNodeMapping();
 			nm.setDomainMetaElement(eClass);
-			nm.setContainmentFeature(getHierarchy().backRef(eClass));
+			// FIXME [containment] !!! nm.setContainmentFeature(getHierarchy().backRef(eClass));
 			nm.setDiagramNode(findSuitableNode(nm));
 			addEditFeature(nm, eClass);
 			nm.setTool(findTool(nm));

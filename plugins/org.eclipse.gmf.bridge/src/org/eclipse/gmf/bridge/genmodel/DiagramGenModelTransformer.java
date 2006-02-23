@@ -65,11 +65,10 @@ import org.eclipse.gmf.gmfgraph.Compartment;
 import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediator;
-import org.eclipse.gmf.mappings.AbstractNodeMapping;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.CanvasMapping;
-import org.eclipse.gmf.mappings.ChildNodeMapping;
+import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.ElementInitializer;
@@ -81,8 +80,10 @@ import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.mappings.ToolOwner;
+import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.tooldef.AbstractTool;
 import org.eclipse.gmf.tooldef.BundleImage;
 import org.eclipse.gmf.tooldef.CreationTool;
@@ -185,14 +186,15 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 	}
 
-	protected void process(NodeMapping nme) {
-		assertAbstractNodeMapping(nme);
-		assert nme.getDiagramNode() != null;
+	protected void process(TopNodeReference topNode) {
+		final NodeMapping nme = topNode.getChild();
+		assert nme != null;
+		assertNodeMapping(nme);
 		
 		GenTopLevelNode genNode = GMFGenFactory.eINSTANCE.createGenTopLevelNode();
 		getGenDiagram().getTopLevelNodes().add(genNode);
 		genNode.setDiagramRunTimeClass(findRunTimeClass(nme));
-		genNode.setModelFacet(createModelFacet(nme));
+		genNode.setModelFacet(createModelFacet(topNode));
 		genNode.setVisualID(myVisualIDs.get(genNode));
 		genNode.setViewmap(myViewmaps.create(nme.getDiagramNode()));
 		handleNodeTool(nme, genNode);
@@ -203,12 +205,15 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		processAbstractNode(nme, genNode);
 	}
 
-	private void process(ChildNodeMapping childNodeMapping, GenChildContainer container) {
-		assertAbstractNodeMapping(childNodeMapping);
+	// FIXME keep track of processed ChildReferences and don't create two identical for referenced
+	private void process(ChildReference childNodeRef, GenChildContainer container) {
+		final NodeMapping childNodeMapping = childNodeRef.getChild();
+		assert childNodeMapping != null;
+		assertNodeMapping(childNodeMapping);
 		assert childNodeMapping.getDiagramNode() != null;
 
 		GenChildNode childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
-		childNode.setModelFacet(createModelFacet(childNodeMapping));
+		childNode.setModelFacet(createModelFacet(childNodeRef));
 		
 		childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
 		childNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
@@ -222,32 +227,32 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		handleNodeTool(childNodeMapping, childNode);
 		processAbstractNode(childNodeMapping, childNode);
 		
-		if (childNodeMapping.getChildMappings().size() > 0) {
+		if (childNodeMapping.getChildren().size() > 0) {
 			// TODO just layout from childNodeMapping.getDiagramNode()
 			container.setListLayout(false);
 		}
 	}
 	
-	private void processAbstractNode(AbstractNodeMapping mapping, GenNode genNode) {
+	private void processAbstractNode(NodeMapping mapping, GenNode genNode) {
 		Map compartments2GenCompartmentsMap = new HashMap();
-		for (Iterator it = mapping.getCompartmentMappings().iterator(); it.hasNext();) {
+		for (Iterator it = mapping.getCompartments().iterator(); it.hasNext();) {
 			CompartmentMapping compartmentMapping = (CompartmentMapping) it.next();
 			GenCompartment compartmentGen = createGenCompartment(compartmentMapping);
 			genNode.getCompartments().add(compartmentGen);
 			compartments2GenCompartmentsMap.put(compartmentMapping, compartmentGen);
 		}
 
-		for (Iterator it = mapping.getChildMappings().iterator(); it.hasNext();) {
-			ChildNodeMapping childNodeMapping = (ChildNodeMapping) it.next();
+		for (Iterator it = mapping.getChildren().iterator(); it.hasNext();) {
+			ChildReference childNodeRef = (ChildReference) it.next();
 // Currently childNodeMapping should has compartment but we plan to make this reference optional
-			CompartmentMapping compartmentMapping = childNodeMapping.getCompartment();
+			CompartmentMapping compartmentMapping = childNodeRef.getCompartment();
 			GenChildContainer genChildContainer;
 			if (compartmentMapping != null && compartments2GenCompartmentsMap.containsKey(compartmentMapping)) {
 				genChildContainer = (GenChildContainer) compartments2GenCompartmentsMap.get(compartmentMapping);
 			} else {
 				genChildContainer = genNode;
 			}
-			process(childNodeMapping, genChildContainer);
+			process(childNodeRef, genChildContainer);
 		}
 		for (Iterator labels = mapping.getLabelMappings().iterator(); labels.hasNext();) {
 			LabelMapping labelMapping = (LabelMapping) labels.next();
@@ -383,10 +388,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return myDRTHelper.get(nme);
 	}
 
-	private GenClass findRunTimeClass(ChildNodeMapping childNodeMapping) {
-		return myDRTHelper.get(childNodeMapping);
-	}
-
 	private GenClass findRunTimeClass(LinkMapping lme) {
 		return myDRTHelper.get(lme);
 	}
@@ -450,8 +451,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return tg;
 	}
 	
-	private void assertAbstractNodeMapping(AbstractNodeMapping mapping) {
+	private void assertNodeMapping(NodeMapping mapping) {
 		assert mapping.getDomainContext() != null;
+		assert mapping.getDiagramNode() != null;
 		assert checkLabelMappings(mapping);
 	}
 
@@ -493,9 +495,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return myGenModelMatch.findGenFeature(feature);
 	}
 	
-	private TypeModelFacet createModelFacet(AbstractNodeMapping anm) {
-		TypeModelFacet typeModelFacet = setupModelFacet(anm.getDomainContext(), anm.getContainmentFeature(), null);
-		return setupAux(typeModelFacet, anm.getDomainSpecialization(), anm.getDomainInitializer());
+	private TypeModelFacet createModelFacet(NodeReference anm) {
+		final NodeMapping nodeMapping = anm.getChild();
+		TypeModelFacet typeModelFacet = setupModelFacet(nodeMapping.getDomainContext(), anm.getContainmentFeature(), anm.getChildrenFeature());
+		return setupAux(typeModelFacet, nodeMapping.getDomainSpecialization(), nodeMapping.getDomainInitializer());
 	}
 
 	private LinkModelFacet createModelFacet(LinkMapping lme) {

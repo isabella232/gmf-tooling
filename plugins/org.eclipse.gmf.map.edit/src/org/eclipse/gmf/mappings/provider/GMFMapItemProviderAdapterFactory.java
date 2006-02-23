@@ -96,28 +96,6 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.ChildNodeMapping} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ChildNodeMappingItemProvider childNodeMappingItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.ChildNodeMapping}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Adapter createChildNodeMappingAdapter() {
-		if (childNodeMappingItemProvider == null) {
-			childNodeMappingItemProvider = new ChildNodeMappingItemProvider(this);
-		}
-
-		return childNodeMappingItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.CompartmentMapping} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -225,6 +203,50 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 		}
 
 		return mappingItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.ChildReference} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ChildReferenceItemProvider childReferenceItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.ChildReference}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createChildReferenceAdapter() {
+		if (childReferenceItemProvider == null) {
+			childReferenceItemProvider = new ChildReferenceItemProvider(this);
+		}
+
+		return childReferenceItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.mappings.TopNodeReference} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected TopNodeReferenceItemProvider topNodeReferenceItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.mappings.TopNodeReference}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createTopNodeReferenceAdapter() {
+		if (topNodeReferenceItemProvider == null) {
+			topNodeReferenceItemProvider = new TopNodeReferenceItemProvider(this);
+		}
+
+		return topNodeReferenceItemProvider;
 	}
 
 	/**
@@ -478,8 +500,9 @@ public class GMFMapItemProviderAdapterFactory extends GMFMapAdapterFactory imple
 	 */
 	public void dispose() {
 		if (mappingItemProvider != null) mappingItemProvider.dispose();
+		if (childReferenceItemProvider != null) childReferenceItemProvider.dispose();
+		if (topNodeReferenceItemProvider != null) topNodeReferenceItemProvider.dispose();
 		if (nodeMappingItemProvider != null) nodeMappingItemProvider.dispose();
-		if (childNodeMappingItemProvider != null) childNodeMappingItemProvider.dispose();
 		if (compartmentMappingItemProvider != null) compartmentMappingItemProvider.dispose();
 		if (linkMappingItemProvider != null) linkMappingItemProvider.dispose();
 		if (canvasMappingItemProvider != null) canvasMappingItemProvider.dispose();
