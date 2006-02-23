@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gmfmap:Mapping xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:gmfmap="http://www.eclipse.org/gmf/2005/mappings">
   <nodes>
-    <domainMetaElement href="library.ecore#//Writer"/>
     <containmentFeature href="library.ecore#//Library/writers"/>
-    <labelMappings>
-      <features href="library.ecore#//Writer/name"/>
-    </labelMappings>
-    <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Node"/>
+    <ownedChild>
+      <domainMetaElement href="library.ecore#//Writer"/>
+      <labelMappings>
+        <features href="library.ecore#//Writer/name"/>
+      </labelMappings>
+      <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Node"/>
+    </ownedChild>
   </nodes>
   <nodes>
-    <domainMetaElement href="library.ecore#//Book"/>
     <containmentFeature href="library.ecore#//Writer/books"/>
-    <labelMappings>
-      <features href="library.ecore#//Book/title"/>
-    </labelMappings>
-    <childMappings compartment="//@nodes.1/@compartmentMappings.0">
-      <domainMetaElement href="library.ecore#//Review"/>
-      <containmentFeature href="library.ecore#//Book/reviews"/>
+    <ownedChild>
+      <domainMetaElement href="library.ecore#//Book"/>
       <labelMappings>
-        <features href="library.ecore#//Review/title"/>
+        <features href="library.ecore#//Book/title"/>
       </labelMappings>
-      <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Child"/>
-    </childMappings>
-    <compartmentMappings childNodes="//@nodes.1/@childMappings.0">
-      <compartment href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Compartment"/>
-    </compartmentMappings>
-    <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Node"/>
+      <children compartment="//@nodes.1/@ownedChild/@compartments.0">
+        <containmentFeature href="library.ecore#//Book/reviews"/>
+        <ownedChild>
+          <domainMetaElement href="library.ecore#//Review"/>
+          <labelMappings>
+            <features href="library.ecore#//Review/title"/>
+          </labelMappings>
+          <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Child"/>
+        </ownedChild>
+      </children>
+      <compartments children="//@nodes.1/@ownedChild/@children.0">
+        <compartment href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Compartment"/>
+      </compartments>
+      <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Node"/>
+    </ownedChild>
   </nodes>
   <links>
     <diagramLink href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Link"/>
