@@ -30,6 +30,8 @@ public class CodeGenUIPlugin extends AbstractUIPlugin {
 	public static final String TDM_ICON = "/icons/full/obj16/GMFToolModelFile.gif";
 	public static final String MM_ICON = "/icons/full/obj16/GMFMapModelFile.gif";
 	public static final String GM_ICON = "/icons/full/obj16/GMFGenModelFile.gif";
+	public static final String CHECKED_ICON = "/icons/full/obj16/checked.gif";
+	public static final String UNCHECKED_ICON = "/icons/full/obj16/unchecked.gif";
 
 	private static CodeGenUIPlugin plugin;
 
@@ -74,6 +76,14 @@ public class CodeGenUIPlugin extends AbstractUIPlugin {
 		id = imageDescriptorFromPlugin("org.eclipse.gmf.codegen.edit", GM_ICON);
 		if (id != null) {
 			reg.put(GM_ICON, id);
+		}
+		id = imageDescriptorFromPlugin(getBundle().getSymbolicName(), CHECKED_ICON);
+		if (id != null) {
+			reg.put(CHECKED_ICON, id);
+		}
+		id = imageDescriptorFromPlugin(getBundle().getSymbolicName(), UNCHECKED_ICON);
+		if (id != null) {
+			reg.put(UNCHECKED_ICON, id);
 		}
 	}
 

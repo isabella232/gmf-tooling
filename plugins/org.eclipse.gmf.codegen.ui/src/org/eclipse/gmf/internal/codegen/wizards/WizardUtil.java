@@ -7,12 +7,17 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    dstadnik - initial API and implementation
+ *    Dmitry Stadnik - initial API and implementation
  */
 package org.eclipse.gmf.internal.codegen.wizards;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EStructuralFeature;
 
+/**
+ * @author dstadnik
+ */
 public class WizardUtil {
 
 	private WizardUtil() {
@@ -28,5 +33,17 @@ public class WizardUtil {
 			modelFilename = fileNameBase + i + "." + extension;
 		}
 		return modelFilename;
+	}
+
+	public static String getCapName(EStructuralFeature feature) {
+		EClass type = feature.getEContainingClass();
+		String name = type.getName();
+		if (feature.getName().length() > 0) {
+			name += Character.toUpperCase(feature.getName().charAt(0));
+		}
+		if (feature.getName().length() > 1) {
+			name += feature.getName().substring(1);
+		}
+		return name;
 	}
 }
