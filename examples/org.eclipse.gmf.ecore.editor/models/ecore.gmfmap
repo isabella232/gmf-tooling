@@ -154,7 +154,7 @@
     </domainInitializer>
     <containmentFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EClass/eStructuralFeatures"/>
     <tool xsi:type="gmftool:CreationTool" href="ecore.gmftool#//@palette/@tools.2/@tools.1"/>
-    <diagramLink href="../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Link"/>
+    <diagramLink href="../../../plugin/org.eclipse.gmf.graphdef/models/classDiagram.gmfgraph#SolidConnectionWDstArrow"/>
     <labelEditFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ENamedElement/name"/>
     <linkMetaFeature xsi:type="ecore:EReference" href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//ETypedElement/eType"/>
   </links>

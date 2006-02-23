@@ -4,22 +4,29 @@
     <figures xsi:type="gmfgraph:PolylineConnection" name="SolidLineWSrcDiamond" sourceDecoration="FilledRhomb"/>
     <figures xsi:type="gmfgraph:PolylineConnection" name="DashedLineConnection" lineKind="LINE_DASH"/>
     <figures xsi:type="gmfgraph:PolylineConnection" name="SolidLineWDstClosedArrow" targetDecoration="ClosedArrow"/>
-    <figures xsi:type="gmfgraph:PolygonDecoration" name="FilledRhomb" fill="true">
+    <figures xsi:type="gmfgraph:PolylineConnection" name="SolidLineWDstArrow" targetDecoration="Arrow"/>
+    <figures xsi:type="gmfgraph:PolygonDecoration" name="FilledRhomb">
       <template x="-1" y="1"/>
       <template/>
       <template x="-1" y="-1"/>
       <template x="-2"/>
       <template x="-1" y="1"/>
     </figures>
-    <figures xsi:type="gmfgraph:PolygonDecoration" name="ClosedArrow" fill="true">
+    <figures xsi:type="gmfgraph:PolygonDecoration" name="ClosedArrow">
       <backgroundColor xsi:type="gmfgraph:ConstantColor"/>
       <template/>
       <template x="-2" y="2"/>
       <template x="-2" y="-2"/>
       <template/>
     </figures>
+    <figures xsi:type="gmfgraph:PolylineDecoration" name="Arrow">
+      <template x="-1" y="1"/>
+      <template/>
+      <template x="-1" y="-1"/>
+    </figures>
   </figures>
   <connections name="SolidConnectionWSrcDiamond" figure="SolidLineWSrcDiamond"/>
   <connections name="DashedConnection" figure="DashedLineConnection"/>
   <connections name="SolidConnectionWDstClosedArrow" figure="SolidLineWDstClosedArrow"/>
+  <connections name="SolidConnectionWDstArrow" figure="SolidLineWDstArrow"/>
 </gmfgraph:Canvas>

@@ -61,7 +61,7 @@ public class ESuperTypesEditPart extends ConnectionNodeEditPart {
 		private org.eclipse.draw2d.PolygonDecoration createTargetDecoration() {
 			org.eclipse.draw2d.PolygonDecoration df = new org.eclipse.draw2d.PolygonDecoration();
 			// dispatchNext?
-			df.setFill(true);
+
 			df.setBackgroundColor(org.eclipse.draw2d.ColorConstants.white);
 			org.eclipse.draw2d.geometry.PointList pl = new org.eclipse.draw2d.geometry.PointList();
 			pl.addPoint(0, 0);
