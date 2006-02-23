@@ -13,14 +13,9 @@ package org.eclipse.gmf.internal.codegen.wizards;
 
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.notify.AdapterFactory;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
 import org.eclipse.gmf.internal.codegen.resolver.Resolution;
@@ -50,29 +45,24 @@ import org.eclipse.swt.widgets.TreeItem;
 
 public class DefinitionPage extends WizardPage {
 
-	protected static final String ELEMENT_PROPERTY = "element";
-
 	private StructureBuilder structureBuilder;
 
-	private DomainModelSelectionPage domainModelSelectionPage;
-
-	private IFile file;
+	private DomainModelSource domainModelSource;
 
 	protected Label msg;
 
 	protected TreeViewer viewer;
 
-	public DefinitionPage(String pageId, StructureBuilder structureBuilder, DomainModelSelectionPage domainModelSelectionPage) {
+	public DefinitionPage(String pageId, StructureBuilder structureBuilder, DomainModelSource domainModelSource) {
 		super(pageId);
 		this.structureBuilder = structureBuilder;
-		this.domainModelSelectionPage = domainModelSelectionPage;
+		this.domainModelSource = domainModelSource;
 	}
 
 	public void createControl(Composite parent) {
 		Composite composite = new Composite(parent, SWT.NONE);
 		{
 			GridLayout layout = new GridLayout();
-			layout.numColumns = 1;
 			layout.verticalSpacing = 12;
 			composite.setLayout(layout);
 
@@ -125,7 +115,7 @@ public class DefinitionPage extends WizardPage {
 		AdapterFactory adapterFactory = new EcoreItemProviderAdapterFactory();
 		viewer.setLabelProvider(new ResolverLabelProvider(new AdapterFactoryLabelProvider(adapterFactory)));
 
-		viewer.setColumnProperties(new String[] { ELEMENT_PROPERTY, Resolution.NODE.getName(), Resolution.LINK.getName(), Resolution.LABEL.getName() });
+		viewer.setColumnProperties(new String[] { "no", Resolution.NODE.getName(), Resolution.LINK.getName(), Resolution.LABEL.getName() });
 		viewer.setCellEditors(new CellEditor[] { null, new CheckboxCellEditor(), new CheckboxCellEditor(), new CheckboxCellEditor() });
 		viewer.setCellModifier(new ICellModifier() {
 
@@ -169,38 +159,21 @@ public class DefinitionPage extends WizardPage {
 
 	public void setVisible(boolean visible) {
 		super.setVisible(visible);
-		IFile newFile = domainModelSelectionPage.getFile();
-		if (visible && (newFile == null || newFile != file)) {
-			file = newFile;
-			msg.setText(reloadDomainModel());
-		}
-	}
-
-	protected String reloadDomainModel() {
-		if (file == null) {
-			viewer.setInput(null);
-			setPageComplete(true);
-			return "Domain model file is not specified; empty model will be created.";
-		}
-		EPackage contents;
-		try {
-			URI uri = URI.createPlatformResourceURI(file.getFullPath().toString());
-			ResourceSet rs = new ResourceSetImpl();
-			Resource r = rs.getResource(uri, true);
-			contents = (EPackage) r.getContents().get(0);
-			viewer.setInput(structureBuilder.process(contents));
+		if (visible && domainModelSource.update()) {
+			EPackage contents = domainModelSource.getContents();
+			viewer.setInput(contents == null ? null : structureBuilder.process(contents));
 			viewer.expandAll();
-			setPageComplete(validatePage());
-			return "Domain model elements to process:";
-		} catch (Exception e) {
-			viewer.setInput(null);
-			setPageComplete(false);
-			return "Error loading domain model file.";
+			msg.setText(domainModelSource.getStatus());
+			if (contents != null) {
+				setPageComplete(validatePage());
+			} else {
+				setPageComplete(domainModelSource.getError() == null);
+			}
 		}
 	}
 
-	public final TreeViewer getViewer() {
-		return viewer;
+	public ResolvedItem getModel() {
+		return (ResolvedItem) viewer.getInput();
 	}
 
 	protected static class ResolverContentProvider implements ITreeContentProvider {

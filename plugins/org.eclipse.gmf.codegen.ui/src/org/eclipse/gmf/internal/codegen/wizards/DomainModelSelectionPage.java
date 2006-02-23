@@ -32,14 +32,16 @@ import org.eclipse.swt.widgets.Text;
 
 public class DomainModelSelectionPage extends WizardPage {
 
-	protected IFile file;
+	protected FileDomainModelSource domainModelSource;
 
-	public DomainModelSelectionPage(String pageId, IStructuredSelection selection) {
+	public DomainModelSelectionPage(String pageId, IStructuredSelection selection, FileDomainModelSource domainModelSource) {
 		super(pageId);
+		assert domainModelSource != null;
+		this.domainModelSource = domainModelSource;
 		if (selection != null && !selection.isEmpty()) {
 			Object selected = selection.getFirstElement();
 			if (selected instanceof IFile) {
-				file = (IFile) selected;
+				domainModelSource.setFile((IFile) selected);
 			}
 		}
 	}
@@ -71,17 +73,17 @@ public class DomainModelSelectionPage extends WizardPage {
 			data.grabExcessHorizontalSpace = true;
 			text.setLayoutData(data);
 		}
-		if (file != null) {
-			text.setText(file.getFullPath().toString());
+		if (domainModelSource.getFile() != null) {
+			text.setText(domainModelSource.getFile().getFullPath().toString());
 		}
 		text.addModifyListener(new ModifyListener() {
 
 			public void modifyText(ModifyEvent me) {
-				file = null;
+				domainModelSource.setFile(null);
 				try {
 					Path filePath = new Path(text.getText());
 					if (!filePath.isEmpty()) {
-						file = createFileHandle(filePath);
+						domainModelSource.setFile(createFileHandle(filePath));
 					}
 				} catch (Exception e) {
 				}
@@ -92,9 +94,9 @@ public class DomainModelSelectionPage extends WizardPage {
 		button.addSelectionListener(new SelectionListener() {
 
 			public void widgetSelected(SelectionEvent e) {
-				file = FileSelector.selectFile(getShell(), "Domain Model File", null, file, "ecore");
-				if (file != null) {
-					text.setText(file.getFullPath().toString());
+				domainModelSource.setFile(FileSelector.selectFile(getShell(), "Domain Model File", null, domainModelSource.getFile(), "ecore"));
+				if (domainModelSource.getFile() != null) {
+					text.setText(domainModelSource.getFile().getFullPath().toString());
 				} else {
 					text.setText("");
 				}
@@ -118,10 +120,6 @@ public class DomainModelSelectionPage extends WizardPage {
 	}
 
 	protected boolean validatePage() {
-		return file != null;
-	}
-
-	public IFile getFile() {
-		return file;
+		return domainModelSource.getFile() != null;
 	}
 }

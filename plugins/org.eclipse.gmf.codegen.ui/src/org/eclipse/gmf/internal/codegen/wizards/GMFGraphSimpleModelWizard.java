@@ -14,24 +14,21 @@ package org.eclipse.gmf.internal.codegen.wizards;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.gmfgraph.presentation.GMFGraphModelWizard;
-import org.eclipse.gmf.internal.codegen.resolver.ResolvedItem;
 import org.eclipse.gmf.internal.codegen.resolver.StructureBuilder;
 import org.eclipse.gmf.internal.codegen.resolver.StructureResolver;
-import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
 public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 
-	protected DomainModelSelectionPage domainModelSelectionPage;
-
 	protected DefinitionPage graphicalDefinitionPage;
+
+	protected FileDomainModelSource domainModelSource = new FileDomainModelSource();
 
 	protected EObject createInitialModel() {
 		GraphDefBuilder builder = new GraphDefBuilder();
-		TreeViewer viewer = graphicalDefinitionPage.getViewer();
-		return builder.process((ResolvedItem) viewer.getInput());
+		return builder.process(graphicalDefinitionPage.getModel());
 	}
 
 	public void addPages() {
@@ -47,12 +44,12 @@ public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 		initialObjectCreationPage.dispose();
 		initialObjectCreationPage = new PredefinedInitialObjectCreationPage("Whatever2");
 
-		domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", selection);
+		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", selection, domainModelSource);
 		domainModelSelectionPage.setTitle("Domain Model");
 		domainModelSelectionPage.setDescription("Select file with ecore domain model");
 		addPage(domainModelSelectionPage);
 
-		graphicalDefinitionPage = new DefinitionPage("GraphicalDefinitionPage", new StructureBuilder(new StructureResolver()), domainModelSelectionPage);
+		graphicalDefinitionPage = new DefinitionPage("GraphicalDefinitionPage", new StructureBuilder(new StructureResolver()), domainModelSource);
 		graphicalDefinitionPage.setTitle("Graphical Definition");
 		graphicalDefinitionPage.setDescription("Specify basic graphical definition of the domain model");
 		addPage(graphicalDefinitionPage);

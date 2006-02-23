@@ -13,27 +13,22 @@ package org.eclipse.gmf.internal.codegen.wizards;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.gmf.internal.codegen.resolver.ResolvedItem;
 import org.eclipse.gmf.internal.codegen.resolver.StructureBuilder;
 import org.eclipse.gmf.internal.codegen.resolver.StructureResolver;
 import org.eclipse.gmf.tooldef.presentation.GMFToolModelWizard;
-import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
 public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 
-	protected DomainModelSelectionPage domainModelSelectionPage;
-
 	protected DefinitionPage toolDefinitionPage;
 
-	protected StructureResolver resolver;
+	protected FileDomainModelSource domainModelSource = new FileDomainModelSource();
 
 	protected EObject createInitialModel() {
 		ToolDefBuilder builder = new ToolDefBuilder();
-		TreeViewer viewer = toolDefinitionPage.getViewer();
-		return builder.process((ResolvedItem) viewer.getInput());
+		return builder.process(toolDefinitionPage.getModel());
 	}
 
 	public void addPages() {
@@ -49,12 +44,12 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 		initialObjectCreationPage.dispose();
 		initialObjectCreationPage = new PredefinedInitialObjectCreationPage("Whatever2");
 
-		domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", selection);
+		DomainModelSelectionPage domainModelSelectionPage = new DomainModelSelectionPage("DomainModelSelectionPage", selection, domainModelSource);
 		domainModelSelectionPage.setTitle("Domain Model");
 		domainModelSelectionPage.setDescription("Select file with ecore domain model");
 		addPage(domainModelSelectionPage);
 
-		toolDefinitionPage = new DefinitionPage("ToolDefinitionPage", new StructureBuilder(resolver = new StructureResolver()), domainModelSelectionPage);
+		toolDefinitionPage = new DefinitionPage("ToolDefinitionPage", new StructureBuilder(new StructureResolver()), domainModelSource);
 		toolDefinitionPage.setTitle("Tooling Definition");
 		toolDefinitionPage.setDescription("Specify basic tooling definition of the domain model");
 		addPage(toolDefinitionPage);
