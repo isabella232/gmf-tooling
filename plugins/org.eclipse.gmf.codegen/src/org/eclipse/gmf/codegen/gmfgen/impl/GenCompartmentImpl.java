@@ -281,6 +281,25 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNode(GenNode newNode) {
+		if (newNode != node) {
+			NotificationChain msgs = null;
+			if (node != null)
+				msgs = ((InternalEObject)node).eInverseRemove(this, GMFGenPackage.GEN_NODE__COMPARTMENTS, GenNode.class, msgs);
+			if (newNode != null)
+				msgs = ((InternalEObject)newNode).eInverseAdd(this, GMFGenPackage.GEN_NODE__COMPARTMENTS, GenNode.class, msgs);
+			msgs = basicSetNode(newNode, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_COMPARTMENT__NODE, newNode, newNode));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public String getSemanticHintFieldName() {
@@ -377,6 +396,9 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 			case GMFGenPackage.GEN_COMPARTMENT__NEEDS_TITLE:
 				setNeedsTitle(((Boolean)newValue).booleanValue());
 				return;
+			case GMFGenPackage.GEN_COMPARTMENT__NODE:
+				setNode((GenNode)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -399,6 +421,9 @@ public class GenCompartmentImpl extends GenChildContainerImpl implements GenComp
 				return;
 			case GMFGenPackage.GEN_COMPARTMENT__NEEDS_TITLE:
 				setNeedsTitle(NEEDS_TITLE_EDEFAULT);
+				return;
+			case GMFGenPackage.GEN_COMPARTMENT__NODE:
+				setNode((GenNode)null);
 				return;
 		}
 		super.eUnset(featureID);

@@ -168,12 +168,23 @@ public interface GenCompartment extends GenChildContainer {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Node</em>' reference.
+	 * @see #setNode(GenNode)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenCompartment_Node()
 	 * @see org.eclipse.gmf.codegen.gmfgen.GenNode#getCompartments
-	 * @model opposite="compartments" required="true" changeable="false"
+	 * @model opposite="compartments" required="true"
 	 * @generated
 	 */
 	GenNode getNode();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenCompartment#getNode <em>Node</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Node</em>' reference.
+	 * @see #getNode()
+	 * @generated
+	 */
+	void setNode(GenNode value);
 
 	/**
 	 * <!-- begin-user-doc -->
