@@ -128,6 +128,7 @@ public class ExecuteTemplatesAction implements IObjectActionDelegate, IRunnableW
 	private void loadGenModel() {
 		URI selected = URI.createPlatformResourceURI(mySelection.getFullPath().toString());
 		ResourceSet srcResSet = new ResourceSetImpl();
+// [vano]: see https://bugs.eclipse.org/bugs/show_bug.cgi?id=128998 for a details		
 		srcResSet.getLoadOptions().put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.TRUE);
 		Resource srcRes = srcResSet.getResource(selected, true);
 		Object root = srcRes.getContents().get(0);

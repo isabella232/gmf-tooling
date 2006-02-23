@@ -515,6 +515,7 @@ public class GMFGenEditor
 		//
 		editingDomain = new AdapterFactoryEditingDomain(adapterFactory, commandStack, new HashMap());
 // [vano]: This option is necessary for correctly loading cross-references in the model
+// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=128998 for a details
 		editingDomain.getResourceSet().getLoadOptions().put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.TRUE);
 	}
 
