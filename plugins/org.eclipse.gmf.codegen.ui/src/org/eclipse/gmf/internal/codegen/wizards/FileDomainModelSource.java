@@ -12,11 +12,14 @@
 package org.eclipse.gmf.internal.codegen.wizards;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
 
 /**
  * @author dstadnik
@@ -31,7 +34,7 @@ public class FileDomainModelSource implements DomainModelSource {
 
 	private String status;
 
-	private Exception error;
+	private IStatus errorStatus;
 
 	public IFile getFile() {
 		return newFile;
@@ -49,8 +52,8 @@ public class FileDomainModelSource implements DomainModelSource {
 		return status;
 	}
 
-	public Exception getError() {
-		return error;
+	public IStatus getErrorStatus() {
+		return errorStatus;
 	}
 
 	public boolean update() {
@@ -66,7 +69,7 @@ public class FileDomainModelSource implements DomainModelSource {
 		if (file == null) {
 			contents = null;
 			status = "Domain model file is not specified; empty model will be created.";
-			error = null;
+			errorStatus = null;
 		}
 		try {
 			URI uri = URI.createPlatformResourceURI(file.getFullPath().toString());
@@ -74,11 +77,12 @@ public class FileDomainModelSource implements DomainModelSource {
 			Resource r = rs.getResource(uri, true);
 			contents = (EPackage) r.getContents().get(0);
 			status = "Domain model elements to process:";
-			error = null;
+			errorStatus = null;
 		} catch (Exception e) {
 			contents = null;
-			status = "Error loading domain model file.";
-			error = e;
+			status = "Error loading domain model file:";
+			String namespace = CodeGenUIPlugin.getDefault().getBundle().getSymbolicName();
+			errorStatus = new Status(IStatus.ERROR, namespace, 0, e.getMessage(), e);
 		}
 	}
 }

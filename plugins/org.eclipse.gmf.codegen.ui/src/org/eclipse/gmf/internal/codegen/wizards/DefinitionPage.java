@@ -11,6 +11,9 @@
  */
 package org.eclipse.gmf.internal.codegen.wizards;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -35,11 +38,13 @@ import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StackLayout;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
@@ -54,6 +59,12 @@ public class DefinitionPage extends WizardPage {
 
 	protected TreeViewer viewer;
 
+	private Composite innerPlate;
+
+	private StackLayout innerPlateLayout;
+
+	private Text errorDetails;
+
 	public DefinitionPage(String pageId, StructureBuilder structureBuilder, DomainModelSource domainModelSource) {
 		super(pageId);
 		this.structureBuilder = structureBuilder;
@@ -61,42 +72,46 @@ public class DefinitionPage extends WizardPage {
 	}
 
 	public void createControl(Composite parent) {
-		Composite composite = new Composite(parent, SWT.NONE);
+		Composite plate = new Composite(parent, SWT.NONE);
 		{
 			GridLayout layout = new GridLayout();
 			layout.verticalSpacing = 12;
-			composite.setLayout(layout);
+			plate.setLayout(layout);
 
 			GridData data = new GridData();
 			data.verticalAlignment = GridData.FILL;
 			data.grabExcessVerticalSpace = true;
 			data.horizontalAlignment = GridData.FILL;
 			data.grabExcessHorizontalSpace = true;
-			composite.setLayoutData(data);
+			plate.setLayoutData(data);
 		}
-		msg = new Label(composite, SWT.NONE);
+		msg = new Label(plate, SWT.NONE);
 		{
 			GridData data = new GridData();
 			data.horizontalAlignment = GridData.FILL;
 			data.grabExcessHorizontalSpace = true;
 			msg.setLayoutData(data);
 		}
-		viewer = createViewer(composite);
+		innerPlate = new Composite(plate, SWT.NONE);
 		{
 			GridData data = new GridData();
 			data.verticalAlignment = GridData.FILL;
 			data.grabExcessVerticalSpace = true;
 			data.horizontalAlignment = GridData.FILL;
 			data.grabExcessHorizontalSpace = true;
-			viewer.getControl().setLayoutData(data);
+			innerPlate.setLayoutData(data);
 		}
-		createAdditionalControls(composite);
+		innerPlate.setLayout(innerPlateLayout = new StackLayout());
+		viewer = createViewer(innerPlate);
+		innerPlateLayout.topControl = viewer.getControl();
+		errorDetails = new Text(innerPlate, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		createAdditionalControls(plate);
 		setPageComplete(validatePage());
-		setControl(composite);
+		setControl(plate);
 	}
 
 	protected TreeViewer createViewer(Composite parent) {
-		Tree tree = new Tree(parent, SWT.SINGLE | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
+		Tree tree = new Tree(parent, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
 		TableLayout layout = new TableLayout();
 		tree.setLayout(layout);
 		tree.setHeaderVisible(true);
@@ -105,7 +120,7 @@ public class DefinitionPage extends WizardPage {
 		TreeColumn elementColumn = new TreeColumn(tree, SWT.LEFT);
 		elementColumn.setText("Element");
 		elementColumn.setResizable(true);
-		layout.addColumnData(new ColumnWeightData(5, 32, true));
+		layout.addColumnData(new ColumnWeightData(1, 32, true));
 
 		addResolutionColumn(tree, Resolution.NODE, CodeGenUIPlugin.NODE_ICON);
 		addResolutionColumn(tree, Resolution.LINK, CodeGenUIPlugin.LINK_ICON);
@@ -165,12 +180,31 @@ public class DefinitionPage extends WizardPage {
 			EPackage contents = domainModelSource.getContents();
 			viewer.setInput(contents == null ? null : structureBuilder.process(contents));
 			viewer.expandAll();
+			viewer.getControl().pack();
 			msg.setText(domainModelSource.getStatus());
 			if (contents != null) {
 				setPageComplete(validatePage());
+				innerPlateLayout.topControl = viewer.getControl();
 			} else {
-				setPageComplete(domainModelSource.getError() == null);
+				if (domainModelSource.getErrorStatus() == null) {
+					setPageComplete(true);
+					innerPlateLayout.topControl = viewer.getControl();
+				} else {
+					setPageComplete(false);
+					try {
+						ByteArrayOutputStream baos = new ByteArrayOutputStream();
+						PrintStream ps = new PrintStream(baos);
+						domainModelSource.getErrorStatus().getException().printStackTrace(ps);
+						ps.flush();
+						baos.flush();
+						errorDetails.setText(baos.toString());
+					} catch (IOException e) {
+						// never happens
+					}
+					innerPlateLayout.topControl = errorDetails;
+				}
 			}
+			innerPlate.layout(true);
 		}
 	}
 

@@ -11,6 +11,7 @@
  */
 package org.eclipse.gmf.internal.codegen.wizards;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EPackage;
 
 /**
@@ -29,5 +30,5 @@ public interface DomainModelSource {
 
 	public String getStatus();
 
-	public Exception getError();
+	public IStatus getErrorStatus();
 }
