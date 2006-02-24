@@ -35,9 +35,9 @@ public class FigureAttrGenerator
   protected final String TEXT_17 = ".";
   protected final String TEXT_18 = ");";
   protected final String TEXT_19 = NL + "\t\t";
-  protected final String TEXT_20 = ".setPreferredSize(getMapMode().DPtoLP(";
-  protected final String TEXT_21 = "), getMapMode().DPtoLP(";
-  protected final String TEXT_22 = "));";
+  protected final String TEXT_20 = ".setPreferredSize(";
+  protected final String TEXT_21 = ", ";
+  protected final String TEXT_22 = ");";
 
   public String generate(Object argument)
   {
@@ -46,7 +46,8 @@ public class FigureAttrGenerator
 GraphDefDispatcher.Args args = (GraphDefDispatcher.Args) argument;
 final Figure figureInstance = args.getFigure();
 final String figureVarName = args.getVariableName();
-final ImportAssistant importManager = args.getDispatcher().getImportManager();
+final GraphDefDispatcher dispatcher = args.getDispatcher();
+final ImportAssistant importManager = dispatcher.getImportManager();
 
     Color colorVal;
 if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor())) {
@@ -96,9 +97,9 @@ if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor())
     stringBuffer.append(TEXT_19);
     stringBuffer.append(figureVarName);
     stringBuffer.append(TEXT_20);
-    stringBuffer.append(d.getDx());
+    stringBuffer.append(dispatcher.DPtoLP(d.getDx()));
     stringBuffer.append(TEXT_21);
-    stringBuffer.append(d.getDy());
+    stringBuffer.append(dispatcher.DPtoLP(d.getDy()));
     stringBuffer.append(TEXT_22);
     }
     return stringBuffer.toString();

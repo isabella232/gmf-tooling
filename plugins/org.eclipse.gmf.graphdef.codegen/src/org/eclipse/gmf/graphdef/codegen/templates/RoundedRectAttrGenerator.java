@@ -19,9 +19,10 @@ public class RoundedRectAttrGenerator
   protected final String TEXT_1 = "";
   protected final String TEXT_2 = NL;
   protected final String TEXT_3 = ".setCornerDimensions(new ";
-  protected final String TEXT_4 = "(getMapMode().DPtoLP(";
-  protected final String TEXT_5 = "), getMapMode().DPtoLP(";
-  protected final String TEXT_6 = ")));";
+  protected final String TEXT_4 = "(";
+  protected final String TEXT_5 = ", ";
+  protected final String TEXT_6 = "));";
+  protected final String TEXT_7 = NL;
 
   public String generate(Object argument)
   {
@@ -40,10 +41,11 @@ final ImportAssistant importManager = dispatcher.getImportManager();
     stringBuffer.append(TEXT_3);
     stringBuffer.append(importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension"));
     stringBuffer.append(TEXT_4);
-    stringBuffer.append(figureInstance.getCornerWidth());
+    stringBuffer.append(dispatcher.DPtoLP(figureInstance.getCornerWidth()));
     stringBuffer.append(TEXT_5);
-    stringBuffer.append(figureInstance.getCornerHeight());
+    stringBuffer.append(dispatcher.DPtoLP(figureInstance.getCornerHeight()));
     stringBuffer.append(TEXT_6);
+    stringBuffer.append(TEXT_7);
     return stringBuffer.toString();
   }
 }

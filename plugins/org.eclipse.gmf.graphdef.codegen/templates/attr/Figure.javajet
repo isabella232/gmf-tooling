@@ -4,7 +4,8 @@
 GraphDefDispatcher.Args args = (GraphDefDispatcher.Args) argument;
 final Figure figureInstance = args.getFigure();
 final String figureVarName = args.getVariableName();
-final ImportAssistant importManager = args.getDispatcher().getImportManager();
+final GraphDefDispatcher dispatcher = args.getDispatcher();
+final ImportAssistant importManager = dispatcher.getImportManager();
 %>
 <%Color colorVal;
 if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor())) {
@@ -15,5 +16,5 @@ if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor())
 		<%=figureVarName%>.setBackgroundColor(<%@ include file="../Color.jetinc"%>);
 <%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_PreferredSize())) {
 		Dimension d = figureInstance.getPreferredSize();%>
-		<%=figureVarName%>.setPreferredSize(getMapMode().DPtoLP(<%=d.getDx()%>), getMapMode().DPtoLP(<%=d.getDy()%>));
+		<%=figureVarName%>.setPreferredSize(<%=dispatcher.DPtoLP(d.getDx())%>, <%=dispatcher.DPtoLP(d.getDy())%>);
 <%}%>

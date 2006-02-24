@@ -8,4 +8,4 @@ final GraphDefDispatcher dispatcher = args.getDispatcher();
 final ImportAssistant importManager = dispatcher.getImportManager();
 %>
 <%=dispatcher.dispatch("Shape", args)%>
-<%=figureVarName%>.setCornerDimensions(new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%>(getMapMode().DPtoLP(<%=figureInstance.getCornerWidth()%>), getMapMode().DPtoLP(<%=figureInstance.getCornerHeight()%>)));
+<%=figureVarName%>.setCornerDimensions(new <%=importManager.getImportedName("org.eclipse.draw2d.geometry.Dimension")%>(<%=dispatcher.DPtoLP(figureInstance.getCornerWidth())%>, <%=dispatcher.DPtoLP(figureInstance.getCornerHeight())%>));

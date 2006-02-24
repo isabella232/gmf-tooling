@@ -26,11 +26,22 @@ import org.eclipse.gmf.internal.codegen.dispatch.KeyMap;
 public class GraphDefDispatcher extends DispatcherImpl {
 	private final ImportAssistant myImportManager;
 	private final GMFGraphSwitch myFqnSwitch;
-
-	public GraphDefDispatcher(EmitterFactory factory, KeyMap keyMap, ImportAssistant importManager, GMFGraphSwitch fqnSwitch) {
+	private final MapModeCodeGenStrategy myMapModeStrategy;
+	
+	public GraphDefDispatcher(EmitterFactory factory, KeyMap keyMap, ImportAssistant importManager, GMFGraphSwitch fqnSwitch, MapModeCodeGenStrategy mapModeStrategy) {
 		super(factory, keyMap);
+		assert mapModeStrategy != null;
 		myImportManager = importManager;
 		myFqnSwitch = fqnSwitch;
+		myMapModeStrategy = mapModeStrategy;  
+	}
+	
+	public String DPtoLP(int deviceUnit){
+		return myMapModeStrategy.DPtoLP(deviceUnit);
+	}
+	
+	public String LPtoDP(int logicalUnit){
+		return myMapModeStrategy.LPtoDP(logicalUnit);
 	}
 	
 	public ImportAssistant getImportManager() {

@@ -27,8 +27,10 @@ public class PolylineDecorationAttrGenerator
   protected final String TEXT_8 = ");";
   protected final String TEXT_9 = NL + "\t\t";
   protected final String TEXT_10 = ".setTemplate(pl);" + NL + "\t\t";
-  protected final String TEXT_11 = ".setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));";
-  protected final String TEXT_12 = NL;
+  protected final String TEXT_11 = ".setScale(";
+  protected final String TEXT_12 = ", ";
+  protected final String TEXT_13 = ");";
+  protected final String TEXT_14 = NL;
 
   public String generate(Object argument)
   {
@@ -63,8 +65,12 @@ final ImportAssistant importManager = dispatcher.getImportManager();
     stringBuffer.append(TEXT_10);
     stringBuffer.append(figureVarName);
     stringBuffer.append(TEXT_11);
-    	} /*!if getTemplate().isEmpty()*/ 
+    stringBuffer.append(dispatcher.DPtoLP(7));
     stringBuffer.append(TEXT_12);
+    stringBuffer.append(dispatcher.DPtoLP(3));
+    stringBuffer.append(TEXT_13);
+    	} /*!if getTemplate().isEmpty()*/ 
+    stringBuffer.append(TEXT_14);
     return stringBuffer.toString();
   }
 }

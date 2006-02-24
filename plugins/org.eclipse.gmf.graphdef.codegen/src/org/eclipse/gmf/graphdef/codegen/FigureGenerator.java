@@ -76,8 +76,12 @@ public class FigureGenerator {
 	public FigureGenerator() {
 		this(null, new NullImportAssistant(), new FigureQualifiedNameSwitch());
 	}
-
+	
 	public FigureGenerator(String aPackageName, ImportAssistant importManager, GMFGraphSwitch figureNameSwitch) {
+		this(aPackageName, importManager, figureNameSwitch, new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode(importManager));
+	}
+
+	public FigureGenerator(String aPackageName, ImportAssistant importManager, GMFGraphSwitch figureNameSwitch, MapModeCodeGenStrategy mapModeStrategy) {
 		packageName = aPackageName;
 		final Bundle thisBundle = Platform.getBundle("org.eclipse.gmf.graphdef.codegen");
 		final String[] variables = new String[] {
@@ -102,9 +106,9 @@ public class FigureGenerator {
 		};
 		String[] templatePath = new String[] {thisBundle.getEntry("/templates/").toString()};
 		EmitterFactory topFactory = new EmitterFactory(templatePath, fillTopLevel(), true, variables, true);
-		myTopDispatcher = new GraphDefDispatcher(topFactory, keyMap, importManager, figureNameSwitch);
+		myTopDispatcher = new GraphDefDispatcher(topFactory, keyMap, importManager, figureNameSwitch, mapModeStrategy);
 		EmitterFactory innerFactory = new EmitterFactory(templatePath, fillAttrs(), true, variables, true);
-		myInnerDispatcher = new GraphDefDispatcher(innerFactory, keyMap, importManager, figureNameSwitch);
+		myInnerDispatcher = new GraphDefDispatcher(innerFactory, keyMap, importManager, figureNameSwitch, mapModeStrategy);
 	}
 
 	/**

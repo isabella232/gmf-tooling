@@ -26,6 +26,7 @@ import org.eclipse.gmf.tests.gen.FigureCodegenTest;
 import org.eclipse.gmf.tests.gen.FigureLayoutTest;
 import org.eclipse.gmf.tests.gen.HandcodedGraphDefTest;
 import org.eclipse.gmf.tests.gen.HandcodedImplTest;
+import org.eclipse.gmf.tests.gen.MapModeStrategyTest;
 import org.eclipse.gmf.tests.gen.ToolDefHandocodedImplTest;
 import org.eclipse.gmf.tests.gen.ViewmapProducersTest;
 import org.eclipse.gmf.tests.rt.AuditRulesTest;
@@ -34,8 +35,8 @@ import org.eclipse.gmf.tests.rt.LinkCreationConstraintsTest;
 import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.TestSetupTest;
-import org.eclipse.gmf.tests.tr.NamingStrategyTest;
 import org.eclipse.gmf.tests.tr.GenModelTransformerBasicRTTest;
+import org.eclipse.gmf.tests.tr.NamingStrategyTest;
 
 public class AllTests {
 
@@ -54,6 +55,8 @@ public class AllTests {
 
 		suite.addTestSuite(FigureCodegenTest.class);
 		suite.addTestSuite(FigureLayoutTest.class);
+//		suite.addTestSuite(RTFigureTest.class);
+		suite.addTestSuite(MapModeStrategyTest.class);
 		suite.addTestSuite(ViewmapProducersTest.class);
 		suite.addTestSuite(ToolDefHandocodedImplTest.class);
 		suite.addTestSuite(AuditHandcodedTest.class);		

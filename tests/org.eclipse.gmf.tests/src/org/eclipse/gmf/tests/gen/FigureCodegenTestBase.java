@@ -11,13 +11,8 @@
  */
 package org.eclipse.gmf.tests.gen;
 
-import java.net.MalformedURLException;
-
 import junit.framework.TestCase;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.gmf.common.codegen.ImportUtil;
 import org.eclipse.gmf.gmfgraph.ConnectionFigure;
@@ -35,15 +30,11 @@ import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
-import org.eclipse.gmf.tests.CompileUtil;
-import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleException;
 
 /**
  * TODO generate project, compile and instaniate figures to make sure values are set (like figure's bg/fg color)
@@ -92,35 +83,6 @@ public class FigureCodegenTestBase extends TestCase {
 		}
 	}
 	
-	private GMFGraphGenerator.Config getGMFGraphGeneratorConfig(){
-		return new GMFGraphGenerator.ConfigImpl(getTestPluginName(), getFigurePackageName()); 
-	}
-	
-	protected final Class generateAndCompile(GMFGraphGenerator.Config config, Figure figure) {
-		try {
-			GMFGraphGenerator.GMFGraphTree tree = new GMFGraphGenerator.GMFGraphTree.EObjectAdapter(figure);
-			GMFGraphGenerator generator = new GMFGraphGenerator(tree, config);
-			generator.run();
-			assertTrue(generator.getRunStatus().getSeverity() < IStatus.ERROR);
-			
-			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(config.getPluginName());
-			IStatus compileStatus = new CompileUtil().build(project);
-			assertTrue(compileStatus.getMessage(), compileStatus.getSeverity() < IStatus.ERROR);
-			
-			String url = project.getLocation().toFile().toURL().toExternalForm();
-			Bundle bundle = Plugin.getBundleContext().installBundle(url);
-			
-			return bundle.loadClass(config.getMainPackageName() + "." + figure.getName());
-		} catch (MalformedURLException e) {
-			fail(e.getMessage());
-		} catch (BundleException e) {
-			fail(e.getMessage());
-		} catch (ClassNotFoundException e) {
-			fail(e.getMessage());
-		}
-		throw new InternalError("Impossible");
-	}
-
 	// custom top-level, hierarchical children. 
 	protected final Figure figure1() {
 		CustomFigure cf = GMFGraphFactory.eINSTANCE.createCustomFigure();
@@ -210,6 +172,18 @@ public class FigureCodegenTestBase extends TestCase {
 		return df;
 	}
 
+	protected final String getFigurePackageName(){
+		return "org.eclipse.gmf.tests.sample.figures";
+	}
+	
+	protected final String getTestPluginName(){
+		return "org.eclipse.gmf.tests.sample.figures." + getName() + ".t" + System.currentTimeMillis();
+	}
+	
+	protected final String getPluginActivatorClassFQN(){
+		return getFigurePackageName() + ".PluginActivator"; 
+	}
+
 	private FigureGenerator getGenerator() {
 		if (figureGenerator == null) {
 			String packageName = getFigurePackageName();
@@ -218,11 +192,4 @@ public class FigureCodegenTestBase extends TestCase {
 		return figureGenerator;
 	}
 	
-	private String getFigurePackageName(){
-		return "org.eclipse.gmf.tests.sample.figures";
-	}
-	
-	private String getTestPluginName(){
-		return "org.eclipse.gmf.tests.sample.figures." + getName() + ".t" + System.currentTimeMillis();
-	}
 }

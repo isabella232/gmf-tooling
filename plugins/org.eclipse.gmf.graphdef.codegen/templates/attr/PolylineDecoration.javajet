@@ -17,5 +17,5 @@ final ImportAssistant importManager = dispatcher.getImportManager();
 		pl.addPoint(<%=p.getX()%>, <%=p.getY()%>);
 <%		} /*for*/ %>
 		<%=figureVarName%>.setTemplate(pl);
-		<%=figureVarName%>.setScale(getMapMode().DPtoLP(7), getMapMode().DPtoLP(3));
+		<%=figureVarName%>.setScale(<%=dispatcher.DPtoLP(7)%>, <%=dispatcher.DPtoLP(3)%>);
 <%	} /*!if getTemplate().isEmpty()*/ %>
