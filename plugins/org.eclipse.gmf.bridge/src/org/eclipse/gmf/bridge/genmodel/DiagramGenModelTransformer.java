@@ -62,6 +62,7 @@ import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
 import org.eclipse.gmf.gmfgraph.Alignment;
 import org.eclipse.gmf.gmfgraph.AlignmentFacet;
 import org.eclipse.gmf.gmfgraph.Compartment;
+import org.eclipse.gmf.internal.bridge.History;
 import org.eclipse.gmf.internal.bridge.NaiveIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediator;
@@ -96,10 +97,11 @@ import org.eclipse.gmf.tooldef.ToolContainer;
 public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private GenEditorGenerator myGenModel;
-	private GenModelMatcher myGenModelMatch;
+	protected GenModelMatcher myGenModelMatch;
 	private final DiagramRunTimeModelHelper myDRTHelper;
 	private final ViewmapProducer myViewmaps = new InnerClassViewmapProducer();
 	private final VisualIdentifierDispenser myVisualIDs;
+	private final History myHistory;
 
 	private final GenModelNamingMediator myNamingStrategy;
 
@@ -107,6 +109,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		myDRTHelper = drtHelper;
 		myNamingStrategy = namingStrategy;
 		myVisualIDs = new NaiveIdentifierDispenser();
+		myHistory = new History();
 	}
 
 	/**
@@ -163,6 +166,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if (myGenModelMatch == null) {
 			myGenModelMatch = new GenModelMatcher(mapping.getDomainModel());
 		}
+		myHistory.purge();
 		GenPackage primaryPackage = findGenPackage(mapping.getDomainModel());
 		getGenEssence().setDomainGenModel(primaryPackage == null ? null : primaryPackage.getGenModel());
 		if (getGenEssence().getDomainGenModel() != null) {
@@ -205,32 +209,39 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		processAbstractNode(nme, genNode);
 	}
 
-	// FIXME keep track of processed ChildReferences and don't create two identical for referenced
 	private void process(ChildReference childNodeRef, GenChildContainer container) {
 		final NodeMapping childNodeMapping = childNodeRef.getChild();
 		assert childNodeMapping != null;
 		assertNodeMapping(childNodeMapping);
 		assert childNodeMapping.getDiagramNode() != null;
 
-		GenChildNode childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
-		childNode.setModelFacet(createModelFacet(childNodeRef));
-		
-		childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
-		childNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
-		childNode.setVisualID(myVisualIDs.get(childNode));
+		GenChildNode childNode;
+		if (myHistory.isKnown(childNodeMapping)) {
+			// we can't reuse top-level GenNodes
+			childNode = myHistory.find(childNodeMapping);
+		} else {
+			childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
+			myHistory.log(childNodeMapping, childNode);
+			getGenDiagram().getChildNodes().add(childNode);
 
-		// set class names
-		myNamingStrategy.feed(childNode, childNodeMapping);
+			childNode.setModelFacet(createModelFacet(childNodeRef));
+			
+			childNode.setDiagramRunTimeClass(findRunTimeClass(childNodeMapping));
+			childNode.setViewmap(myViewmaps.create(childNodeMapping.getDiagramNode()));
+			childNode.setVisualID(myVisualIDs.get(childNode));
 
-		container.getChildNodes().add(childNode);
-		getGenDiagram().getChildNodes().add(childNode);
-		handleNodeTool(childNodeMapping, childNode);
-		processAbstractNode(childNodeMapping, childNode);
-		
-		if (childNodeMapping.getChildren().size() > 0) {
-			// TODO just layout from childNodeMapping.getDiagramNode()
-			container.setListLayout(false);
+			// set class names
+			myNamingStrategy.feed(childNode, childNodeMapping);
+
+			handleNodeTool(childNodeMapping, childNode);
+			processAbstractNode(childNodeMapping, childNode);
+			
+			if (childNodeMapping.getChildren().size() > 0) {
+				// TODO just layout from childNodeMapping.getDiagramNode()
+				container.setListLayout(false);
+			}
 		}
+		container.getChildNodes().add(childNode);
 	}
 	
 	private void processAbstractNode(NodeMapping mapping, GenNode genNode) {

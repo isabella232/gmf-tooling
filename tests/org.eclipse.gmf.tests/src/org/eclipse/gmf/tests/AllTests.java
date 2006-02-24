@@ -36,6 +36,7 @@ import org.eclipse.gmf.tests.setup.LinksSessionSetup;
 import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.TestSetupTest;
 import org.eclipse.gmf.tests.tr.GenModelTransformerBasicRTTest;
+import org.eclipse.gmf.tests.tr.GenModelTransformerSimpleTest;
 import org.eclipse.gmf.tests.tr.NamingStrategyTest;
 
 public class AllTests {
@@ -52,6 +53,8 @@ public class AllTests {
 		suite.addTestSuite(TestSetupTest.class); // first, check sources/setups we use for rest of the tests
 		suite.addTest(feed(HandcodedImplTest.class, sessionSetup)); // then, check handcoded implementations are in place
 		suite.addTestSuite(HandcodedGraphDefTest.class);
+
+		suite.addTest(feed(GenModelTransformerSimpleTest.class, sessionSetup));
 
 		suite.addTestSuite(FigureCodegenTest.class);
 		suite.addTestSuite(FigureLayoutTest.class);
