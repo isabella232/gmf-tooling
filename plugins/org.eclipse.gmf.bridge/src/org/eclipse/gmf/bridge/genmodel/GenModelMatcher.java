@@ -70,6 +70,9 @@ public class GenModelMatcher {
 			return null;
 		}
 		GenPackage gp = findGenPackage(domainMetaClass.getEPackage());
+		if (gp == null) {
+			throw new IllegalStateException("Can't find genPackage for " + domainMetaClass.getEPackage());
+		}
 		for (Iterator it = gp.getGenClasses().iterator(); it.hasNext();) {
 			GenClass genClass = (GenClass) it.next();
 			if (genClass.getEcoreClass().equals(domainMetaClass)) {
