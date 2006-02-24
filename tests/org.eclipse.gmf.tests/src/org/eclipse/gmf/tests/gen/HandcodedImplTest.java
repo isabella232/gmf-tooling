@@ -23,6 +23,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
@@ -194,6 +196,21 @@ public class HandcodedImplTest extends ConfiguredTestCase {
 				}
 			}
 		}
+
+		GenAuditContainer audits = genDiagram.getEditorGen().getAudits();
+		if(audits != null && !audits.getAllAuditRules().isEmpty()) {
+			Set checkedContexts = new HashSet();			
+			for (Iterator it = audits.getAllAuditRules().iterator(); it.hasNext();) {
+				GenAuditRule nextAudit = (GenAuditRule) it.next();
+				if(!checkedContexts.contains(nextAudit.getContextSelectorQualifiedClassName())) {
+					checkClassName(state, "GenAuditRule:ContextSelector", nextAudit.getContextSelectorClassName(), nextAudit.getContextSelectorQualifiedClassName());
+					checkedContexts.add(nextAudit.getContextSelectorQualifiedClassName());					
+				}				
+			}
+		} else {
+			state.add("GenAuditRule:ContextSelector");
+		}
+		
 		// test model may not contain them
 		state.add("GenCommonBase:EditPart");
 		state.add("GenCommonBase:ItemSemanticEditPolicy");

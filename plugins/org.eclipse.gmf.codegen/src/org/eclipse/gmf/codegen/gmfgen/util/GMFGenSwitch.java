@@ -34,6 +34,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenContainerBase;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
@@ -46,7 +48,11 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.codegen.gmfgen.GenRuleBase;
+import org.eclipse.gmf.codegen.gmfgen.GenRuleContainerBase;
+import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.InnerClassViewmap;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
@@ -544,15 +550,56 @@ public class GMFGenSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFGenPackage.GEN_RULE_CONTAINER_BASE: {
+				GenRuleContainerBase genRuleContainerBase = (GenRuleContainerBase)theEObject;
+				Object result = caseGenRuleContainerBase(genRuleContainerBase);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFGenPackage.GEN_AUDIT_CONTAINER: {
 				GenAuditContainer genAuditContainer = (GenAuditContainer)theEObject;
 				Object result = caseGenAuditContainer(genAuditContainer);
+				if (result == null) result = caseGenRuleContainerBase(genAuditContainer);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_RULE_BASE: {
+				GenRuleBase genRuleBase = (GenRuleBase)theEObject;
+				Object result = caseGenRuleBase(genRuleBase);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFGenPackage.GEN_AUDIT_RULE: {
 				GenAuditRule genAuditRule = (GenAuditRule)theEObject;
 				Object result = caseGenAuditRule(genAuditRule);
+				if (result == null) result = caseGenRuleBase(genAuditRule);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_RULE_TARGET: {
+				GenRuleTarget genRuleTarget = (GenRuleTarget)theEObject;
+				Object result = caseGenRuleTarget(genRuleTarget);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_DOMAIN_ELEMENT_TARGET: {
+				GenDomainElementTarget genDomainElementTarget = (GenDomainElementTarget)theEObject;
+				Object result = caseGenDomainElementTarget(genDomainElementTarget);
+				if (result == null) result = caseGenRuleTarget(genDomainElementTarget);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_DIAGRAM_ELEMENT_TARGET: {
+				GenDiagramElementTarget genDiagramElementTarget = (GenDiagramElementTarget)theEObject;
+				Object result = caseGenDiagramElementTarget(genDiagramElementTarget);
+				if (result == null) result = caseGenRuleTarget(genDiagramElementTarget);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_NOTATION_ELEMENT_TARGET: {
+				GenNotationElementTarget genNotationElementTarget = (GenNotationElementTarget)theEObject;
+				Object result = caseGenNotationElementTarget(genNotationElementTarget);
+				if (result == null) result = caseGenRuleTarget(genNotationElementTarget);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1356,6 +1403,21 @@ public class GMFGenSwitch {
 	}
 
 	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Rule Container Base</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Rule Container Base</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenRuleContainerBase(GenRuleContainerBase object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpretting the object as an instance of '<em>Gen Audit Container</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1382,6 +1444,81 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseGenAuditRule(GenAuditRule object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Rule Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Rule Target</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenRuleTarget(GenRuleTarget object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Domain Element Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Domain Element Target</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenDomainElementTarget(GenDomainElementTarget object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Diagram Element Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Diagram Element Target</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenDiagramElementTarget(GenDiagramElementTarget object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Notation Element Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Notation Element Target</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenNotationElementTarget(GenNotationElementTarget object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Rule Base</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Rule Base</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenRuleBase(GenRuleBase object) {
 		return null;
 	}
 

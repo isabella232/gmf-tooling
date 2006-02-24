@@ -40,7 +40,7 @@ import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
  * @generated
  */
 public class GenAuditContainerItemProvider
-	extends ItemProviderAdapter
+	extends GenRuleContainerBaseItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	

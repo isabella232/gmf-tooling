@@ -6,9 +6,9 @@
  */
 package org.eclipse.gmf.codegen.gmfgen;
 
-import org.eclipse.emf.common.util.EList;
+import java.util.Map;
 
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface GenAuditContainer extends EObject {
+public interface GenAuditContainer extends GenRuleContainerBase {
 	/**
 	 * Returns the value of the '<em><b>Audits</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule}.
@@ -218,5 +218,38 @@ public interface GenAuditContainer extends EObject {
 	 * @generated
 	 */
 	EList getPath();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Maps all rules in the container hierarchy to client context IDs of their target contexts. key: (context ID of rule target) value: (EList<GenAuditRule>)
+	 * <!-- end-model-doc -->
+	 * @model kind="operation" required="true"
+	 * @generated
+	 */
+	Map getAllRulesToTargetContextMap();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Gets all model packages to which rules in this container hierarchy are targeted. Checks rules recursively.
+	 * <!-- end-model-doc -->
+	 * @model kind="operation" type="org.eclipse.emf.codegen.ecore.genmodel.GenPackage"
+	 * @generated
+	 */
+	EList getAllTargetedModelPackages();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * Indicates whether this container hierarchy contains at least 1 rule targeted on notation elements. Checks recursively.
+	 * <!-- end-model-doc -->
+	 * @model
+	 * @generated
+	 */
+	boolean hasDiagramElementRule();
 
 } // GenAuditContainer

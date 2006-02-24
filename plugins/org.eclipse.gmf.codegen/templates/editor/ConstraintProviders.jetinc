@@ -2,8 +2,6 @@
 GenAuditContainer rootContainer = genDiagram.getEditorGen().getAudits();
 if (rootContainer != null && genDiagram.getDomainDiagramElement() != null) {
 	java.util.List containers = rootContainer != null ? rootContainer.getAllAuditContainers() : java.util.Collections.EMPTY_LIST;
-	// XXX just treat the first genPackage as primary - genModel.getGenPackages().get(0)?
-	GenPackage domainMetaModel = genDiagram.getDomainDiagramElement().getGenPackage();
 %>
 <extension point="org.eclipse.emf.validation.constraintProviders">
 <%
@@ -34,14 +32,20 @@ if (rootContainer != null && genDiagram.getDomainDiagramElement() != null) {
 	String rootCategoryId = (String)pathMap.get(rootContainer);
 %>
 	<constraintProvider cache="true">
-		<package namespaceUri="<%=domainMetaModel.getNSURI()%>"/>
 <%
+	for(java.util.Iterator packageIt = rootContainer.getAllTargetedModelPackages().iterator(); packageIt.hasNext();) {
+		GenPackage genPackage = (GenPackage)packageIt.next();
+%>
+		<package namespaceUri="<%=genPackage.getNSURI()%>"/>
+<%
+	} // end of used model packages iteration
 	int rulePos = 0;
 	for(java.util.Iterator catIt = containers.iterator(); catIt.hasNext(); rulePos++) {
 		GenAuditContainer category = (GenAuditContainer)catIt.next();
 		for(java.util.Iterator it = category.getAudits().iterator(); it.hasNext();) {
 			GenAuditRule audit = (GenAuditRule)it.next();
-			GenClass targetClass = audit.getTarget();
+			if(audit.getTarget() == null) continue;
+			GenClass targetClass = audit.getTarget().getContext();
 			String targetClassName = (targetClass != null) ? targetClass.getGenPackage().getNSName() + "." + targetClass.getInterfaceName() : "null";
 			String modeAttr = audit.isUseInLiveMode() ? "" : "mode=\"Batch\"";
 			String name = audit.getName() != null ? audit.getName() : audit.getId();
@@ -55,7 +59,7 @@ if (rootContainer != null && genDiagram.getDomainDiagramElement() != null) {
 				<![CDATA[<%=audit.getRule() != null ? audit.getRule().getBody() : ""%>]]>
 	            <description><![CDATA[<%=audit.getDescription() != null ? audit.getDescription():""%>]]></description>
 	            <message><![CDATA[<%=message%>]]></message>
-				<target class="<%=targetClassName%>"/>				
+				<target class="<%=targetClassName%>"/>
 			</constraint>
 		</constraints>
 <%
@@ -66,11 +70,31 @@ if (rootContainer != null && genDiagram.getDomainDiagramElement() != null) {
 </extension>
 
 <extension point="org.eclipse.emf.validation.constraintBindings">
-	<clientContext default="true" id="<%=rootCategoryId%>.clientContext">
-		<enablement/>
+<%
+	String pluginID = genDiagram.getEditorGen().getPlugin().getID();
+	for(java.util.Iterator it = rootContainer.getAllRulesToTargetContextMap().entrySet().iterator(); it.hasNext();) {
+		java.util.Map.Entry ctx2Rules = (java.util.Map.Entry)it.next();
+		java.util.List rules = (java.util.List)ctx2Rules.getValue();
+		if(rules.isEmpty()) continue;
+		String ctxID = (String)ctx2Rules.getKey();
+		GenAuditRule ruleTarget = (GenAuditRule)rules.get(0);
+%>
+	<clientContext default="false" id="<%=ctxID%>">
+		<selector class="<%=ruleTarget.getContextSelectorQualifiedClassName()%>"/>
 	</clientContext>
-	<binding category="<%=rootCategoryId%>"
-		context="<%=rootCategoryId%>.clientContext"/>
+	<binding context="<%=ctxID%>">
+<%
+		for(java.util.Iterator ruleIt = rules.iterator(); ruleIt.hasNext();) {
+			GenAuditRule nextRule = (GenAuditRule)ruleIt.next();
+%>	
+		<constraint ref="<%=pluginID%>.<%=nextRule.getId()%>"/>
+<%
+		} // end of rules in context
+%>
+	</binding>
+<%
+	} // end of contexts iteration
+%>		
 </extension>
 <%
 }

@@ -7,7 +7,12 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -16,13 +21,15 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
 
 /**
  * <!-- begin-user-doc -->
@@ -42,7 +49,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
  *
  * @generated
  */
-public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContainer {
+public class GenAuditContainerImpl extends GenRuleContainerBaseImpl implements GenAuditContainer {
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -292,6 +299,67 @@ public class GenAuditContainerImpl extends EObjectImpl implements GenAuditContai
 			parent = parent.getParentContainer();
 		}
 		return elements;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public Map getAllRulesToTargetContextMap() {
+		HashMap ctx2ruleMap = new HashMap();
+		EList allRules = getAllAuditRules();
+		for (Iterator it = allRules.iterator(); it.hasNext();) {
+			GenAuditRule nextRule = (GenAuditRule) it.next();
+			String key = (nextRule.getTarget() != null) ? nextRule.getTarget().getClientContextID() : null;
+			if(key != null) {
+				List rulesInCtx = null;
+				if(ctx2ruleMap.containsKey(key)) {
+					rulesInCtx = (List)ctx2ruleMap.get(key);
+				} else {
+					rulesInCtx = new BasicEList();
+					ctx2ruleMap.put(key, rulesInCtx);
+				}
+				rulesInCtx.add(nextRule);
+			}
+		}
+		return ctx2ruleMap;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public EList getAllTargetedModelPackages() {
+		Set packages = new HashSet();
+		EList allRules = getAllAuditRules();
+		for (Iterator it = allRules.iterator(); it.hasNext();) {
+			GenAuditRule nextRule = (GenAuditRule) it.next();
+			GenRuleTarget target = nextRule.getTarget();
+			if(target != null) {
+				packages.add(target.getContext().getGenPackage());
+			}
+		}
+		return new BasicEList(packages);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean hasDiagramElementRule() {
+		EList rules = getAllAuditRules();
+		for (Iterator it = rules.iterator(); it.hasNext();) {
+			GenAuditRule nextRule = (GenAuditRule) it.next();
+			GenRuleTarget target = nextRule.getTarget(); 
+			if(target instanceof GenDiagramElementTarget ||
+				target instanceof GenNotationElementTarget) {
+				return true; 
+			}
+		}
+		return false;
 	}
 
 	/**

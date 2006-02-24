@@ -16,6 +16,7 @@ import java.util.Iterator;
 import junit.framework.Assert;
 
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
@@ -30,11 +31,16 @@ import org.eclipse.gmf.bridge.genmodel.RuntimeGenModelAccess;
 import org.eclipse.gmf.codegen.gmfgen.FeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
+import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
@@ -43,6 +49,7 @@ import org.eclipse.gmf.internal.bridge.naming.CollectingDispenser;
 import org.eclipse.gmf.internal.bridge.naming.NamingStrategy;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediatorImpl;
 import org.eclipse.gmf.runtime.notation.NotationPackage;
+import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.gmf.tests.Utils;
 
 /**
@@ -103,6 +110,8 @@ public class DiaGenSetup implements DiaGenSource {
 		// TODO add linkRefOnly
 		myGenDiagram.getTopLevelNodes().add(myNodeA);
 		myGenDiagram.getLinks().add(myLinkC);
+		
+		myGenDiagram.getEditorGen().setAudits(createAudits());
 		confineInResource();
 		return this;
 	}
@@ -224,6 +233,45 @@ public class DiaGenSetup implements DiaGenSource {
 		return myLinkD;
 	}
 
+	private GenAuditContainer createAudits() {
+		GenClass classA = getNodeA().getDomainMetaClass();
+		assert getLinkC().getModelFacet() instanceof TypeLinkModelFacet : "Expecting link with class"; //$NON-NLS-1$
+		GenClass classC = ((TypeLinkModelFacet)getLinkC().getModelFacet()).getMetaClass();
+		GenAuditContainer root = createAuditContainer(Plugin.getPluginID() + ".category1" + System.currentTimeMillis()); //$NON-NLS-1$
+		// create set of allways satisfied constraints
+		root.getAudits().add(createAudit("constraint.id1", "true", classA, GenSeverity.ERROR_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
+		root.getAudits().add(createAudit("constraint.id2", "10 > 0", classC, GenSeverity.WARNING_LITERAL, false));	//$NON-NLS-1$ //$NON-NLS-2$
+		
+		GenAuditContainer subCat = createAuditContainer("category2"); //$NON-NLS-1$
+		root.getChildContainers().add(subCat);
+		subCat.getAudits().add(createAudit("constraint.id3", "''<>'Foo'", classA, GenSeverity.INFO_LITERAL, false)); //$NON-NLS-1$ //$NON-NLS-2$
+		
+		return root;
+	}
+	
+	private GenAuditRule createAudit(String id, String ruleBody, GenClass target, GenSeverity severity, boolean isLiveMode) {
+		GenAuditRule audit = GMFGenFactory.eINSTANCE.createGenAuditRule();
+		audit.setId(id);
+		audit.setName("Name of" + id); //$NON-NLS-1$
+		GenDomainElementTarget ruleTarget = GMFGenFactory.eINSTANCE.createGenDomainElementTarget();
+		ruleTarget.setElement(target);
+		audit.setTarget(ruleTarget);
+		GenConstraint rule = GMFGenFactory.eINSTANCE.createGenConstraint();
+		rule.setBody(ruleBody);
+		audit.setRule(rule);
+		
+		audit.setSeverity(severity);
+		audit.setUseInLiveMode(isLiveMode);
+		return audit;
+	}
+	private GenAuditContainer createAuditContainer(String id) {
+		GenAuditContainer container = GMFGenFactory.eINSTANCE.createGenAuditContainer();		
+		container.setId(id);
+		container.setName("Name of " + id); //$NON-NLS-1$
+		container.setDescription("Description of " + id); //$NON-NLS-1$
+		return container;
+	}	
+	
 	// Empty palette, unless we'd like to test it
 	private Palette createPalette() {
 		return null;

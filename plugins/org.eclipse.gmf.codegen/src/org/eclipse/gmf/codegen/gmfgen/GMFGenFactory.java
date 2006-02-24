@@ -332,6 +332,33 @@ public interface GMFGenFactory extends EFactory {
 	GenAuditRule createGenAuditRule();
 
 	/**
+	 * Returns a new object of class '<em>Gen Domain Element Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Domain Element Target</em>'.
+	 * @generated
+	 */
+	GenDomainElementTarget createGenDomainElementTarget();
+
+	/**
+	 * Returns a new object of class '<em>Gen Diagram Element Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Diagram Element Target</em>'.
+	 * @generated
+	 */
+	GenDiagramElementTarget createGenDiagramElementTarget();
+
+	/**
+	 * Returns a new object of class '<em>Gen Notation Element Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Notation Element Target</em>'.
+	 * @generated
+	 */
+	GenNotationElementTarget createGenNotationElementTarget();
+
+	/**
 	 * Returns a new object of class '<em>Value Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

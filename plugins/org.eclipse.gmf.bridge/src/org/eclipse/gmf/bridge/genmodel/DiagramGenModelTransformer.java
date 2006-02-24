@@ -37,6 +37,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
 import org.eclipse.gmf.codegen.gmfgen.GenFeatureSeqInitializer;
@@ -623,7 +624,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		genAudit.setUseInLiveMode(audit.isUseInLiveMode());
 		
 		if(audit.getTarget() != null) {
-			genAudit.setTarget(findGenClass(audit.getTarget()));
+			GenDomainElementTarget target = GMFGenFactory.eINSTANCE.createGenDomainElementTarget();
+			target.setElement(findGenClass(audit.getTarget()));
+			genAudit.setTarget(target);
 		}
 		Constraint rule = audit.getRule();
 		if(rule != null) {

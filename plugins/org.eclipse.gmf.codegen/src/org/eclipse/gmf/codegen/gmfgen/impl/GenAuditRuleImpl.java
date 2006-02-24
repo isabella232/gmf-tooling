@@ -6,7 +6,6 @@
  */
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
-import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -18,6 +17,8 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 
 /**
@@ -27,9 +28,9 @@ import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getRule <em>Rule</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl#getDescription <em>Description</em>}</li>
@@ -42,6 +43,16 @@ import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
  * @generated
  */
 public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
+	/**
+	 * The cached value of the '{@link #getTarget() <em>Target</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTarget()
+	 * @generated
+	 * @ordered
+	 */
+	protected GenRuleTarget target = null;
+
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -71,16 +82,6 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 	 * @ordered
 	 */
 	protected GenConstraint rule = null;
-
-	/**
-	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTarget()
-	 * @generated
-	 * @ordered
-	 */
-	protected GenClass target = null;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -198,6 +199,49 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 	 */
 	protected EClass eStaticClass() {
 		return GMFGenPackage.eINSTANCE.getGenAuditRule();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenRuleTarget getTarget() {
+		return target;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetTarget(GenRuleTarget newTarget, NotificationChain msgs) {
+		GenRuleTarget oldTarget = target;
+		target = newTarget;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_AUDIT_RULE__TARGET, oldTarget, newTarget);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTarget(GenRuleTarget newTarget) {
+		if (newTarget != target) {
+			NotificationChain msgs = null;
+			if (target != null)
+				msgs = ((InternalEObject)target).eInverseRemove(this, GMFGenPackage.GEN_RULE_TARGET__RULE, GenRuleTarget.class, msgs);
+			if (newTarget != null)
+				msgs = ((InternalEObject)newTarget).eInverseAdd(this, GMFGenPackage.GEN_RULE_TARGET__RULE, GenRuleTarget.class, msgs);
+			msgs = basicSetTarget(newTarget, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_AUDIT_RULE__TARGET, newTarget, newTarget));
 	}
 
 	/**
@@ -332,44 +376,6 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public GenClass getTarget() {
-		if (target != null && target.eIsProxy()) {
-			InternalEObject oldTarget = (InternalEObject)target;
-			target = (GenClass)eResolveProxy(oldTarget);
-			if (target != oldTarget) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFGenPackage.GEN_AUDIT_RULE__TARGET, oldTarget, target));
-			}
-		}
-		return target;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public GenClass basicGetTarget() {
-		return target;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTarget(GenClass newTarget) {
-		GenClass oldTarget = target;
-		target = newTarget;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_AUDIT_RULE__TARGET, oldTarget, target));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public GenSeverity getSeverity() {
 		return severity;
 	}
@@ -441,10 +447,55 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getContextSelectorClassName() {
+		if(getTarget() == null) {
+			return null;
+		}
+		GenEditorGenerator editorGen = getContainer().getEditor();
+		if(editorGen.getDiagram() == null) {
+			return null;
+		}
+		return editorGen.getDiagram().getValidationProviderClassName() + "$" + getContextSelectorLocalClassName(); //$NON-NLS-1$  
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getContextSelectorQualifiedClassName() {
+		GenEditorGenerator editorGen = getContainer().getEditor();
+		if(editorGen.getDiagram() == null) {
+			return null;
+		}
+		return editorGen.getDiagram().getValidationProviderQualifiedClassName() + "$" + getContextSelectorLocalClassName(); //$NON-NLS-1$ 
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getContextSelectorLocalClassName() {
+		if(getTarget() == null) {
+			return null;
+		}
+		return getTarget().getClientContextID(); 
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_AUDIT_RULE__TARGET:
+				if (target != null)
+					msgs = ((InternalEObject)target).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_AUDIT_RULE__TARGET, null, msgs);
+				return basicSetTarget((GenRuleTarget)otherEnd, msgs);
 			case GMFGenPackage.GEN_AUDIT_RULE__CONTAINER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
@@ -460,6 +511,8 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_AUDIT_RULE__TARGET:
+				return basicSetTarget(null, msgs);
 			case GMFGenPackage.GEN_AUDIT_RULE__RULE:
 				return basicSetRule(null, msgs);
 			case GMFGenPackage.GEN_AUDIT_RULE__CONTAINER:
@@ -488,13 +541,12 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_AUDIT_RULE__TARGET:
+				return getTarget();
 			case GMFGenPackage.GEN_AUDIT_RULE__ID:
 				return getId();
 			case GMFGenPackage.GEN_AUDIT_RULE__RULE:
 				return getRule();
-			case GMFGenPackage.GEN_AUDIT_RULE__TARGET:
-				if (resolve) return getTarget();
-				return basicGetTarget();
 			case GMFGenPackage.GEN_AUDIT_RULE__NAME:
 				return getName();
 			case GMFGenPackage.GEN_AUDIT_RULE__MESSAGE:
@@ -518,14 +570,14 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_AUDIT_RULE__TARGET:
+				setTarget((GenRuleTarget)newValue);
+				return;
 			case GMFGenPackage.GEN_AUDIT_RULE__ID:
 				setId((String)newValue);
 				return;
 			case GMFGenPackage.GEN_AUDIT_RULE__RULE:
 				setRule((GenConstraint)newValue);
-				return;
-			case GMFGenPackage.GEN_AUDIT_RULE__TARGET:
-				setTarget((GenClass)newValue);
 				return;
 			case GMFGenPackage.GEN_AUDIT_RULE__NAME:
 				setName((String)newValue);
@@ -556,14 +608,14 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_AUDIT_RULE__TARGET:
+				setTarget((GenRuleTarget)null);
+				return;
 			case GMFGenPackage.GEN_AUDIT_RULE__ID:
 				setId(ID_EDEFAULT);
 				return;
 			case GMFGenPackage.GEN_AUDIT_RULE__RULE:
 				setRule((GenConstraint)null);
-				return;
-			case GMFGenPackage.GEN_AUDIT_RULE__TARGET:
-				setTarget((GenClass)null);
 				return;
 			case GMFGenPackage.GEN_AUDIT_RULE__NAME:
 				setName(NAME_EDEFAULT);
@@ -594,12 +646,12 @@ public class GenAuditRuleImpl extends EObjectImpl implements GenAuditRule {
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFGenPackage.GEN_AUDIT_RULE__TARGET:
+				return target != null;
 			case GMFGenPackage.GEN_AUDIT_RULE__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case GMFGenPackage.GEN_AUDIT_RULE__RULE:
 				return rule != null;
-			case GMFGenPackage.GEN_AUDIT_RULE__TARGET:
-				return target != null;
 			case GMFGenPackage.GEN_AUDIT_RULE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GMFGenPackage.GEN_AUDIT_RULE__MESSAGE:

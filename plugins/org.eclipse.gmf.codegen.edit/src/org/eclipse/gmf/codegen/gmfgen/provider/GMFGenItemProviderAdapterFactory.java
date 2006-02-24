@@ -822,6 +822,72 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenDomainElementTargetItemProvider genDomainElementTargetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenDomainElementTargetAdapter() {
+		if (genDomainElementTargetItemProvider == null) {
+			genDomainElementTargetItemProvider = new GenDomainElementTargetItemProvider(this);
+		}
+
+		return genDomainElementTargetItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenDiagramElementTargetItemProvider genDiagramElementTargetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenDiagramElementTargetAdapter() {
+		if (genDiagramElementTargetItemProvider == null) {
+			genDiagramElementTargetItemProvider = new GenDiagramElementTargetItemProvider(this);
+		}
+
+		return genDiagramElementTargetItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenNotationElementTargetItemProvider genNotationElementTargetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenNotationElementTargetAdapter() {
+		if (genNotationElementTargetItemProvider == null) {
+			genNotationElementTargetItemProvider = new GenNotationElementTargetItemProvider(this);
+		}
+
+		return genNotationElementTargetItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ValueExpression} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -997,6 +1063,9 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genLinkConstraintsItemProvider != null) genLinkConstraintsItemProvider.dispose();
 		if (genAuditContainerItemProvider != null) genAuditContainerItemProvider.dispose();
 		if (genAuditRuleItemProvider != null) genAuditRuleItemProvider.dispose();
+		if (genDomainElementTargetItemProvider != null) genDomainElementTargetItemProvider.dispose();
+		if (genDiagramElementTargetItemProvider != null) genDiagramElementTargetItemProvider.dispose();
+		if (genNotationElementTargetItemProvider != null) genNotationElementTargetItemProvider.dispose();
 	}
 
 }

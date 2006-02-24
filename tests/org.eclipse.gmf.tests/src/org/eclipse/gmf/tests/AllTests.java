@@ -62,7 +62,7 @@ public class AllTests {
 		suite.addTestSuite(MapModeStrategyTest.class);
 		suite.addTestSuite(ViewmapProducersTest.class);
 		suite.addTestSuite(ToolDefHandocodedImplTest.class);
-		suite.addTestSuite(AuditHandcodedTest.class);		
+		suite.addTest(feed(AuditHandcodedTest.class, sessionSetup));		
 		suite.addTest(feed(AuditRulesTest.class, sessionSetup2));		
 		suite.addTest(feed(ElementInitializerTest.class, sessionSetup2));		
 		// fires new runtime workbench initialization

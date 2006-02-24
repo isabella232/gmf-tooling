@@ -1,7 +1,7 @@
 	/**
 	 * @generated
 	 */
-	private int getVisualID(View containerView) {
+	private static int getVisualID(View containerView) {
 		<%=importManager.getImportedName("org.eclipse.emf.ecore.EAnnotation")%> annotation = containerView.getEAnnotation("ViewIdentifier"); //$NON-NLS-1$
 		if (annotation == null) {
 			return -1;

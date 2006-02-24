@@ -15,6 +15,8 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
+
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -66,7 +68,6 @@ public class GenAuditRuleItemProvider
 			super.getPropertyDescriptors(object);
 
 			addIdPropertyDescriptor(object);
-			addTargetPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
 			addMessagePropertyDescriptor(object);
 			addDescriptionPropertyDescriptor(object);
@@ -92,26 +93,6 @@ public class GenAuditRuleItemProvider
 				 GMFGenPackage.eINSTANCE.getGenAuditRule_Id(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Target feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTargetPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenAuditRule_target_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditRule_target_feature", "_UI_GenAuditRule_type"),
-				 GMFGenPackage.eINSTANCE.getGenAuditRule_Target(),
-				 true,
-				 null,
 				 null,
 				 null));
 	}
@@ -227,9 +208,22 @@ public class GenAuditRuleItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenRuleBase_Target());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenAuditRule_Rule());
 		}
 		return childrenFeatures;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EStructuralFeature getChildFeature(Object object, Object child) {
+		// Check the type of the specified child object and return the proper feature to use for
+		// adding (see {@link AddCommand}) it as a child.
+
+		return super.getChildFeature(object, child);
 	}
 
 	/**
@@ -274,6 +268,7 @@ public class GenAuditRuleItemProvider
 			case GMFGenPackage.GEN_AUDIT_RULE__USE_IN_LIVE_MODE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
+			case GMFGenPackage.GEN_AUDIT_RULE__TARGET:
 			case GMFGenPackage.GEN_AUDIT_RULE__RULE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -290,6 +285,21 @@ public class GenAuditRuleItemProvider
 	 */
 	protected void collectNewChildDescriptors(Collection newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenRuleBase_Target(),
+				 GMFGenFactory.eINSTANCE.createGenDomainElementTarget()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenRuleBase_Target(),
+				 GMFGenFactory.eINSTANCE.createGenDiagramElementTarget()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenRuleBase_Target(),
+				 GMFGenFactory.eINSTANCE.createGenNotationElementTarget()));
 
 		newChildDescriptors.add
 			(createChildParameter

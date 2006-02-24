@@ -11,18 +11,30 @@
 package org.eclipse.gmf.tests.gen;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import junit.framework.TestCase;
-
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
+import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
+import org.eclipse.gmf.tests.ConfiguredTestCase;
+import org.eclipse.jdt.core.JavaConventions;
 
 /**
  * Tests hancoded method in model for audit rule definitions 
  */
-public class AuditHandcodedTest extends TestCase {
+public class AuditHandcodedTest extends ConfiguredTestCase {
 	private List allAudits;
 	private List containers;	
 	private GenAuditContainer root;
@@ -67,10 +79,97 @@ public class AuditHandcodedTest extends TestCase {
 	}
 	
 	public void testGetAllAudits() throws Exception {
-		assertEquals(allAudits, root.getAllAuditRules());		
+		assertEquals(allAudits, root.getAllAuditRules());	
 	}
 	
 	public void testGetAllContainers() throws Exception {
 		assertEquals(containers, root.getAllAuditContainers());						
-	}	
+	}
+	
+	public void testEditorReference() throws Exception {
+		GenEditorGenerator editorGenerator = GMFGenFactory.eINSTANCE.createGenEditorGenerator();
+		editorGenerator.setAudits(root);
+		List audits = root.getAllAuditContainers();
+		assertTrue("at least 2 level container nesting required", audits.size() > 1); //$NON-NLS-1$
+		for (Iterator it = audits.iterator(); it.hasNext();) {
+			GenAuditContainer auditContainer = (GenAuditContainer) it.next();
+			assertSame(editorGenerator, auditContainer.getEditor());			
+		}
+	}
+	
+	public void testRulesToContextMap() {
+		// setup different kinds of targets and assign to audits
+		GenDiagramElementTarget diagramElementTarget1 = GMFGenFactory.eINSTANCE.createGenDiagramElementTarget();
+		diagramElementTarget1.setElement(getSetup().getGenModel().getNodeA());
+		GenDiagramElementTarget diagramElementTarget2 = GMFGenFactory.eINSTANCE.createGenDiagramElementTarget();
+		diagramElementTarget2.setElement(getSetup().getGenModel().getLinkC());
+		
+		
+		GenDomainElementTarget domainElementTarget = GMFGenFactory.eINSTANCE.createGenDomainElementTarget();
+		domainElementTarget.setElement(getSetup().getGenModel().getNodeA().getDomainMetaClass());
+		
+		GenNotationElementTarget notationElementTarget = GMFGenFactory.eINSTANCE.createGenNotationElementTarget();
+		notationElementTarget.setElement(getSetup().getGenModel().getLinkC().getDiagramRunTimeClass());
+		
+		GenRuleTarget targets[] = new GenRuleTarget[] { 
+			diagramElementTarget1, diagramElementTarget2, domainElementTarget, notationElementTarget
+		}; 
+		
+ 		final int expectedCtxCount = targets.length - 1; // domain and notation share default context		
+		// ensure sufficient number of audits to be distributed accross contexts
+		final int minOfAuditsInCtx = 2; 
+		final int numberOfAuditsToAdd = expectedCtxCount * minOfAuditsInCtx - root.getAllAuditRules().size();
+		for(int i = 0; i < numberOfAuditsToAdd; i++) {
+			root.getAudits().add(GMFGenFactory.eINSTANCE.createGenAuditRule());
+		}
+
+		Set IDs = new HashSet();
+		int i = 0;		
+		for (Iterator it = root.getAllAuditRules().iterator(); it.hasNext(); i++) {
+			GenAuditRule audit = (GenAuditRule) it.next();
+			audit.setTarget((GenRuleTarget)EcoreUtil.copy(targets[i%targets.length]));
+			
+			IStatus s = JavaConventions.validateIdentifier(audit.getContextSelectorLocalClassName());
+			assertTrue("Context selectorClassLocalName must valid java name", s.getSeverity() != IStatus.ERROR); //$NON-NLS-1$			
+			String ctxID = audit.getTarget().getClientContextID();
+			s = JavaConventions.validateIdentifier(ctxID);			
+			assertTrue("Context ID must be a valid java identifier", s.getSeverity() != IStatus.ERROR); //$NON-NLS-1$
+			
+			IDs.add(ctxID);
+		}
+		
+		Map ctxMap = root.getAllRulesToTargetContextMap();
+		assertNotNull(ctxMap);		
+		assertEquals("All target types should be in context map", IDs, ctxMap.keySet()); //$NON-NLS-1$
+		assertEquals("Expected context count differs from resulting context map", expectedCtxCount, ctxMap.size()); //$NON-NLS-1$		
+		// check values are not empty EList<GenAuditRule>
+		int assignedAuditCount = 0;
+		for (Iterator it = ctxMap.values().iterator(); it.hasNext();) {
+			Object element = it.next();
+			assertTrue(element instanceof EList);
+			EList values = (EList)element;
+			assertFalse(values.isEmpty());
+			assertTrue(values.get(0) instanceof GenAuditRule);
+			assignedAuditCount += values.size();			
+		}		
+		assertEquals(root.getAllAuditRules().size(), assignedAuditCount);
+		
+		// test Diagram or notation element targeted audit checker method
+		assertTrue("Diagram rule should be found", root.hasDiagramElementRule()); //$NON-NLS-1$
+		
+		assertTargetedModels(targets);		
+	}
+	
+	private void assertTargetedModels(GenRuleTarget[] targets) {
+		EList packageList = root.getAllTargetedModelPackages();
+		assertFalse(packageList.isEmpty());
+		Set collectedPackages = new HashSet();
+		for (Iterator it = packageList.iterator(); it.hasNext();) {
+			collectedPackages.add(it.next());			
+		}
+		for (int i = 0; i < targets.length; i++) {
+			assertTrue("Package must be found targeted packages", //$NON-NLS-1$
+					collectedPackages.contains(targets[i].getContext().getGenPackage()));					
+		}
+	}
 }

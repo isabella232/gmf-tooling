@@ -12,8 +12,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.eclipse.gmf.codegen.gmfgen.*;
-
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
@@ -30,6 +28,8 @@ import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
+import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
 import org.eclipse.gmf.codegen.gmfgen.GenExternalNodeLabel;
@@ -39,6 +39,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
@@ -47,6 +48,7 @@ import org.eclipse.gmf.codegen.gmfgen.LinkEntry;
 import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
 import org.eclipse.gmf.codegen.gmfgen.ShapeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
 import org.eclipse.gmf.codegen.gmfgen.TextLabelModelFacet;
@@ -134,6 +136,9 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_LINK_CONSTRAINTS: return createGenLinkConstraints();
 			case GMFGenPackage.GEN_AUDIT_CONTAINER: return createGenAuditContainer();
 			case GMFGenPackage.GEN_AUDIT_RULE: return createGenAuditRule();
+			case GMFGenPackage.GEN_DOMAIN_ELEMENT_TARGET: return createGenDomainElementTarget();
+			case GMFGenPackage.GEN_DIAGRAM_ELEMENT_TARGET: return createGenDiagramElementTarget();
+			case GMFGenPackage.GEN_NOTATION_ELEMENT_TARGET: return createGenNotationElementTarget();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -533,6 +538,36 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenAuditRule createGenAuditRule() {
 		GenAuditRuleImpl genAuditRule = new GenAuditRuleImpl();
 		return genAuditRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenDomainElementTarget createGenDomainElementTarget() {
+		GenDomainElementTargetImpl genDomainElementTarget = new GenDomainElementTargetImpl();
+		return genDomainElementTarget;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenDiagramElementTarget createGenDiagramElementTarget() {
+		GenDiagramElementTargetImpl genDiagramElementTarget = new GenDiagramElementTargetImpl();
+		return genDiagramElementTarget;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenNotationElementTarget createGenNotationElementTarget() {
+		GenNotationElementTargetImpl genNotationElementTarget = new GenNotationElementTargetImpl();
+		return genNotationElementTarget;
 	}
 
 	/**
