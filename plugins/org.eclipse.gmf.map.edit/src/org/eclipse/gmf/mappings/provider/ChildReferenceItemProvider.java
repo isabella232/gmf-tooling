@@ -12,9 +12,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.common.util.ResourceLocator;
-
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -22,10 +20,11 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ViewerNotification;
-
 import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.GMFMapFactory;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.NodeReference;
 
 /**
  * This is the item provider adapter for a {@link org.eclipse.gmf.mappings.ChildReference} object.
@@ -137,9 +136,35 @@ public class ChildReferenceItemProvider
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public String getText(Object object) {
+        if (object instanceof NodeReference) { 
+        	NodeReference reference = (NodeReference) object;
+            String result = " <"; 
+            if (reference.getContainmentFeature() != null) { 
+                 result += reference.getContainmentFeature().getName(); 
+            } 
+            if (reference.getChildrenFeature() != null) {
+            	result += "|";
+            	result += reference.getChildrenFeature().getName();
+            }
+            if (reference.getChild() != null) {
+            	NodeMapping mapping = reference.getChild();
+                if (mapping.getDomainMetaElement() != null) {
+                	result += "(";
+                	result += mapping.getDomainMetaElement().getName();
+                	result += ")";
+                }
+                result += "/";
+                if (mapping.getDiagramNode() != null) { 
+                    result += reference.getChild().getDiagramNode().getName(); 
+                } 
+            }
+            result += ">"; 
+            return getString("_UI_ChildReference_type") + result; 
+
+        }
 		return getString("_UI_ChildReference_type");
 	}
 
@@ -150,7 +175,7 @@ public class ChildReferenceItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void notifyChanged(Notification notification) {
+	public void notifyChangedGen(Notification notification) {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ChildReference.class)) {
@@ -159,6 +184,16 @@ public class ChildReferenceItemProvider
 				return;
 		}
 		super.notifyChanged(notification);
+	}
+	
+	public void notifyChanged(Notification notification) {
+		switch (notification.getFeatureID(NodeMapping.class)) {
+		case GMFMapPackage.NODE_REFERENCE__CONTAINMENT_FEATURE:
+		case GMFMapPackage.NODE_REFERENCE__CHILDREN_FEATURE:
+			fireNotifyChanged(new ViewerNotification(notification, null));
+			break;
+		}
+		notifyChangedGen(notification);
 	}
 
 	/**

@@ -199,6 +199,10 @@ public class NodeMappingItemProvider
 		if (object instanceof NodeMapping) {
 			NodeMapping mapping = (NodeMapping) object;
 			String result = " <";
+			if (mapping.getDomainMetaElement() != null) {
+				result += mapping.getDomainMetaElement().getName();
+			}
+			result += "/";
 			if (mapping.getDiagramNode() != null) {
 				result += mapping.getDiagramNode().getName();
 			}
@@ -215,7 +219,7 @@ public class NodeMappingItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void notifyChanged(Notification notification) {
+	public void notifyChangedGen(Notification notification) {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(NodeMapping.class)) {
@@ -225,6 +229,16 @@ public class NodeMappingItemProvider
 				return;
 		}
 		super.notifyChanged(notification);
+	}
+	
+	public void notifyChanged(Notification notification) {
+		switch (notification.getFeatureID(NodeMapping.class)) {
+		case GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE:
+		case GMFMapPackage.NODE_MAPPING__DOMAIN_META_ELEMENT:
+			fireNotifyChanged(new ViewerNotification(notification, null));
+			break;
+		}
+		notifyChangedGen(notification);
 	}
 
 	/**
