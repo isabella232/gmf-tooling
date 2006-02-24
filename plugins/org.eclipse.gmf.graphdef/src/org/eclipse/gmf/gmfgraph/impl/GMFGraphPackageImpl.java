@@ -905,6 +905,15 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getFigureMarker_Parent() {
+		return (EReference)figureMarkerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFigure() {
 		return figureEClass;
 	}
@@ -923,7 +932,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFigure_Parent() {
+	public EReference getFigure_ForegroundColor() {
 		return (EReference)figureEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -932,7 +941,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFigure_ForegroundColor() {
+	public EReference getFigure_BackgroundColor() {
 		return (EReference)figureEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -941,7 +950,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFigure_BackgroundColor() {
+	public EReference getFigure_MaximumSize() {
 		return (EReference)figureEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -950,7 +959,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFigure_MaximumSize() {
+	public EReference getFigure_MinimumSize() {
 		return (EReference)figureEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -959,7 +968,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFigure_MinimumSize() {
+	public EReference getFigure_PreferredSize() {
 		return (EReference)figureEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -968,7 +977,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFigure_PreferredSize() {
+	public EReference getFigure_Font() {
 		return (EReference)figureEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -977,7 +986,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFigure_Font() {
+	public EReference getFigure_Insets() {
 		return (EReference)figureEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -986,7 +995,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFigure_Insets() {
+	public EReference getFigure_Border() {
 		return (EReference)figureEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -995,7 +1004,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFigure_Border() {
+	public EReference getFigure_Location() {
 		return (EReference)figureEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -1004,17 +1013,8 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getFigure_Location() {
-		return (EReference)figureEClass.getEStructuralFeatures().get(10);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getFigure_Size() {
-		return (EReference)figureEClass.getEStructuralFeatures().get(11);
+		return (EReference)figureEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -2152,10 +2152,10 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		createEAttribute(gradientFacetEClass, GRADIENT_FACET__DIRECTION);
 
 		figureMarkerEClass = createEClass(FIGURE_MARKER);
+		createEReference(figureMarkerEClass, FIGURE_MARKER__PARENT);
 
 		figureEClass = createEClass(FIGURE);
 		createEReference(figureEClass, FIGURE__CHILDREN);
-		createEReference(figureEClass, FIGURE__PARENT);
 		createEReference(figureEClass, FIGURE__FOREGROUND_COLOR);
 		createEReference(figureEClass, FIGURE__BACKGROUND_COLOR);
 		createEReference(figureEClass, FIGURE__MAXIMUM_SIZE);
@@ -2463,10 +2463,10 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		initEAttribute(getGradientFacet_Direction(), this.getDirection(), "direction", null, 0, 1, GradientFacet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(figureMarkerEClass, FigureMarker.class, "FigureMarker", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getFigureMarker_Parent(), this.getFigure(), this.getFigure_Children(), "parent", null, 0, 1, FigureMarker.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(figureEClass, Figure.class, "Figure", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getFigure_Children(), this.getFigureMarker(), null, "children", null, 0, -1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFigure_Parent(), this.getFigure(), this.getFigure_Children(), "parent", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFigure_Children(), this.getFigureMarker(), this.getFigureMarker_Parent(), "children", null, 0, -1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFigure_ForegroundColor(), this.getColor(), null, "foregroundColor", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFigure_BackgroundColor(), this.getColor(), null, "backgroundColor", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getFigure_MaximumSize(), this.getDimension(), null, "maximumSize", null, 0, 1, Figure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

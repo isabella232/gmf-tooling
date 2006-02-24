@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.gmfgraph.Border;
 import org.eclipse.gmf.gmfgraph.Color;
@@ -45,9 +45,9 @@ import org.eclipse.gmf.gmfgraph.Shape;
  * <ul>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getLayoutData <em>Layout Data</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getLayout <em>Layout</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getChildren <em>Children</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getForegroundColor <em>Foreground Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getBackgroundColor <em>Background Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.ShapeImpl#getMaximumSize <em>Maximum Size</em>}</li>
@@ -473,7 +473,7 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 	 */
 	public EList getChildren() {
 		if (children == null) {
-			children = new EObjectContainmentEList(FigureMarker.class, this, GMFGraphPackage.SHAPE__CHILDREN);
+			children = new EObjectContainmentWithInverseEList(FigureMarker.class, this, GMFGraphPackage.SHAPE__CHILDREN, GMFGraphPackage.FIGURE_MARKER__PARENT);
 		}
 		return children;
 	}
@@ -952,6 +952,8 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGraphPackage.SHAPE__PARENT, msgs);
+			case GMFGraphPackage.SHAPE__CHILDREN:
+				return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -967,10 +969,10 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return basicSetLayoutData(null, msgs);
 			case GMFGraphPackage.SHAPE__LAYOUT:
 				return basicSetLayout(null, msgs);
-			case GMFGraphPackage.SHAPE__CHILDREN:
-				return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.SHAPE__PARENT:
 				return eBasicSetContainer(null, GMFGraphPackage.SHAPE__PARENT, msgs);
+			case GMFGraphPackage.SHAPE__CHILDREN:
+				return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.SHAPE__FOREGROUND_COLOR:
 				return basicSetForegroundColor(null, msgs);
 			case GMFGraphPackage.SHAPE__BACKGROUND_COLOR:
@@ -1019,12 +1021,12 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return getLayoutData();
 			case GMFGraphPackage.SHAPE__LAYOUT:
 				return getLayout();
+			case GMFGraphPackage.SHAPE__PARENT:
+				return getParent();
 			case GMFGraphPackage.SHAPE__NAME:
 				return getName();
 			case GMFGraphPackage.SHAPE__CHILDREN:
 				return getChildren();
-			case GMFGraphPackage.SHAPE__PARENT:
-				return getParent();
 			case GMFGraphPackage.SHAPE__FOREGROUND_COLOR:
 				return getForegroundColor();
 			case GMFGraphPackage.SHAPE__BACKGROUND_COLOR:
@@ -1217,12 +1219,12 @@ public abstract class ShapeImpl extends EObjectImpl implements Shape {
 				return layoutData != null;
 			case GMFGraphPackage.SHAPE__LAYOUT:
 				return layout != null;
+			case GMFGraphPackage.SHAPE__PARENT:
+				return getParent() != null;
 			case GMFGraphPackage.SHAPE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GMFGraphPackage.SHAPE__CHILDREN:
 				return children != null && !children.isEmpty();
-			case GMFGraphPackage.SHAPE__PARENT:
-				return getParent() != null;
 			case GMFGraphPackage.SHAPE__FOREGROUND_COLOR:
 				return foregroundColor != null;
 			case GMFGraphPackage.SHAPE__BACKGROUND_COLOR:

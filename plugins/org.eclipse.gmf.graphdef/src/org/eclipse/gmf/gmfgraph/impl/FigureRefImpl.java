@@ -27,6 +27,7 @@ import org.eclipse.gmf.gmfgraph.LayoutData;
  * <ul>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.FigureRefImpl#getLayoutData <em>Layout Data</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.FigureRefImpl#getLayout <em>Layout</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.FigureRefImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.FigureRefImpl#getFigure <em>Figure</em>}</li>
  * </ul>
  * </p>
@@ -173,6 +174,16 @@ public class FigureRefImpl extends EObjectImpl implements FigureRef {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Figure getParent() {
+		if (eContainerFeatureID != GMFGraphPackage.FIGURE_REF__PARENT) return null;
+		return (Figure)eContainer();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public Figure getFigure() {
 		if (figure != null && figure.eIsProxy()) {
 			InternalEObject oldFigure = (InternalEObject)figure;
@@ -217,6 +228,10 @@ public class FigureRefImpl extends EObjectImpl implements FigureRef {
 				if (layoutData != null)
 					msgs = ((InternalEObject)layoutData).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGraphPackage.FIGURE_REF__LAYOUT_DATA, null, msgs);
 				return basicSetLayoutData((LayoutData)otherEnd, msgs);
+			case GMFGraphPackage.FIGURE_REF__PARENT:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return eBasicSetContainer(otherEnd, GMFGraphPackage.FIGURE_REF__PARENT, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -232,8 +247,23 @@ public class FigureRefImpl extends EObjectImpl implements FigureRef {
 				return basicSetLayoutData(null, msgs);
 			case GMFGraphPackage.FIGURE_REF__LAYOUT:
 				return basicSetLayout(null, msgs);
+			case GMFGraphPackage.FIGURE_REF__PARENT:
+				return eBasicSetContainer(null, GMFGraphPackage.FIGURE_REF__PARENT, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID) {
+			case GMFGraphPackage.FIGURE_REF__PARENT:
+				return eInternalContainer().eInverseRemove(this, GMFGraphPackage.FIGURE__CHILDREN, Figure.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -247,6 +277,8 @@ public class FigureRefImpl extends EObjectImpl implements FigureRef {
 				return getLayoutData();
 			case GMFGraphPackage.FIGURE_REF__LAYOUT:
 				return getLayout();
+			case GMFGraphPackage.FIGURE_REF__PARENT:
+				return getParent();
 			case GMFGraphPackage.FIGURE_REF__FIGURE:
 				if (resolve) return getFigure();
 				return basicGetFigure();
@@ -305,6 +337,8 @@ public class FigureRefImpl extends EObjectImpl implements FigureRef {
 				return layoutData != null;
 			case GMFGraphPackage.FIGURE_REF__LAYOUT:
 				return layout != null;
+			case GMFGraphPackage.FIGURE_REF__PARENT:
+				return getParent() != null;
 			case GMFGraphPackage.FIGURE_REF__FIGURE:
 				return figure != null;
 		}

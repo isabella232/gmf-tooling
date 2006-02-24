@@ -99,10 +99,11 @@
     <genClasses ecoreClass="gmfgraph.ecore#//GradientFacet">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//GradientFacet/direction"/>
     </genClasses>
-    <genClasses ecoreClass="gmfgraph.ecore#//FigureMarker"/>
+    <genClasses ecoreClass="gmfgraph.ecore#//FigureMarker">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//FigureMarker/parent"/>
+    </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//Figure">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/children"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/parent"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/foregroundColor"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/backgroundColor"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgraph.ecore#//Figure/maximumSize"/>

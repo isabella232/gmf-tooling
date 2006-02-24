@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.gmfgraph.Border;
 import org.eclipse.gmf.gmfgraph.Color;
@@ -40,9 +40,9 @@ import org.eclipse.gmf.gmfgraph.Point;
  * <ul>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getLayoutData <em>Layout Data</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getLayout <em>Layout</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getChildren <em>Children</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getForegroundColor <em>Foreground Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getBackgroundColor <em>Background Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabeledContainerImpl#getMaximumSize <em>Maximum Size</em>}</li>
@@ -341,7 +341,7 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 	 */
 	public EList getChildren() {
 		if (children == null) {
-			children = new EObjectContainmentEList(FigureMarker.class, this, GMFGraphPackage.LABELED_CONTAINER__CHILDREN);
+			children = new EObjectContainmentWithInverseEList(FigureMarker.class, this, GMFGraphPackage.LABELED_CONTAINER__CHILDREN, GMFGraphPackage.FIGURE_MARKER__PARENT);
 		}
 		return children;
 	}
@@ -801,6 +801,8 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGraphPackage.LABELED_CONTAINER__PARENT, msgs);
+			case GMFGraphPackage.LABELED_CONTAINER__CHILDREN:
+				return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -816,10 +818,10 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 				return basicSetLayoutData(null, msgs);
 			case GMFGraphPackage.LABELED_CONTAINER__LAYOUT:
 				return basicSetLayout(null, msgs);
-			case GMFGraphPackage.LABELED_CONTAINER__CHILDREN:
-				return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.LABELED_CONTAINER__PARENT:
 				return eBasicSetContainer(null, GMFGraphPackage.LABELED_CONTAINER__PARENT, msgs);
+			case GMFGraphPackage.LABELED_CONTAINER__CHILDREN:
+				return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.LABELED_CONTAINER__FOREGROUND_COLOR:
 				return basicSetForegroundColor(null, msgs);
 			case GMFGraphPackage.LABELED_CONTAINER__BACKGROUND_COLOR:
@@ -868,12 +870,12 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 				return getLayoutData();
 			case GMFGraphPackage.LABELED_CONTAINER__LAYOUT:
 				return getLayout();
+			case GMFGraphPackage.LABELED_CONTAINER__PARENT:
+				return getParent();
 			case GMFGraphPackage.LABELED_CONTAINER__NAME:
 				return getName();
 			case GMFGraphPackage.LABELED_CONTAINER__CHILDREN:
 				return getChildren();
-			case GMFGraphPackage.LABELED_CONTAINER__PARENT:
-				return getParent();
 			case GMFGraphPackage.LABELED_CONTAINER__FOREGROUND_COLOR:
 				return getForegroundColor();
 			case GMFGraphPackage.LABELED_CONTAINER__BACKGROUND_COLOR:
@@ -1016,12 +1018,12 @@ public class LabeledContainerImpl extends EObjectImpl implements LabeledContaine
 				return layoutData != null;
 			case GMFGraphPackage.LABELED_CONTAINER__LAYOUT:
 				return layout != null;
+			case GMFGraphPackage.LABELED_CONTAINER__PARENT:
+				return getParent() != null;
 			case GMFGraphPackage.LABELED_CONTAINER__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GMFGraphPackage.LABELED_CONTAINER__CHILDREN:
 				return children != null && !children.isEmpty();
-			case GMFGraphPackage.LABELED_CONTAINER__PARENT:
-				return getParent() != null;
 			case GMFGraphPackage.LABELED_CONTAINER__FOREGROUND_COLOR:
 				return foregroundColor != null;
 			case GMFGraphPackage.LABELED_CONTAINER__BACKGROUND_COLOR:

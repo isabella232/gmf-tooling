@@ -70,6 +70,9 @@ public interface DiagramElement extends Identity {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * utility operation to get first visual facet assignable (in Java terms, {@link Class#isAssignableFrom(Class)}) to variables of designated class. Argument can't be null
+	 * <!-- end-model-doc -->
 	 * @model
 	 * @generated
 	 */

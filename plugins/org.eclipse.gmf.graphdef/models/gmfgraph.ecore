@@ -38,6 +38,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DiagramElement" abstract="true" eSuperTypes="#//Identity">
     <eOperations name="find" eType="#//VisualFacet">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="utility operation to get first visual facet assignable (in Java terms, {@link Class#isAssignableFrom(Class)}) to variables of designated class. Argument can't be null"/>
+      </eAnnotations>
       <eParameters name="facetClass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaClass"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="figure" lowerBound="1"
@@ -81,15 +84,15 @@
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Anything you could combine visual representation from. Ordinary GEF figures, custom-defined or references to defined elsewhere."/>
     </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//Figure"
+        changeable="false" resolveProxies="false" eOpposite="#//Figure/children"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Figure" interface="true" eSuperTypes="#//FigureMarker #//Identity">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="org.eclipse.draw2d.Figure"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="children" upperBound="-1"
-        eType="#//FigureMarker" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//Figure"
-        changeable="false" resolveProxies="false" eOpposite="#//Figure/children"/>
+        eType="#//FigureMarker" containment="true" eOpposite="#//FigureMarker/parent"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="foregroundColor" eType="#//Color"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="backgroundColor" eType="#//Color"

@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.gmf.gmfgraph.Border;
 import org.eclipse.gmf.gmfgraph.Color;
@@ -40,9 +40,9 @@ import org.eclipse.gmf.gmfgraph.Point;
  * <ul>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getLayoutData <em>Layout Data</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getLayout <em>Layout</em>}</li>
+ *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getChildren <em>Children</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getParent <em>Parent</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getForegroundColor <em>Foreground Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getBackgroundColor <em>Background Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.impl.LabelImpl#getMaximumSize <em>Maximum Size</em>}</li>
@@ -362,7 +362,7 @@ public class LabelImpl extends EObjectImpl implements Label {
 	 */
 	public EList getChildren() {
 		if (children == null) {
-			children = new EObjectContainmentEList(FigureMarker.class, this, GMFGraphPackage.LABEL__CHILDREN);
+			children = new EObjectContainmentWithInverseEList(FigureMarker.class, this, GMFGraphPackage.LABEL__CHILDREN, GMFGraphPackage.FIGURE_MARKER__PARENT);
 		}
 		return children;
 	}
@@ -843,6 +843,8 @@ public class LabelImpl extends EObjectImpl implements Label {
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
 				return eBasicSetContainer(otherEnd, GMFGraphPackage.LABEL__PARENT, msgs);
+			case GMFGraphPackage.LABEL__CHILDREN:
+				return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -858,10 +860,10 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return basicSetLayoutData(null, msgs);
 			case GMFGraphPackage.LABEL__LAYOUT:
 				return basicSetLayout(null, msgs);
-			case GMFGraphPackage.LABEL__CHILDREN:
-				return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.LABEL__PARENT:
 				return eBasicSetContainer(null, GMFGraphPackage.LABEL__PARENT, msgs);
+			case GMFGraphPackage.LABEL__CHILDREN:
+				return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
 			case GMFGraphPackage.LABEL__FOREGROUND_COLOR:
 				return basicSetForegroundColor(null, msgs);
 			case GMFGraphPackage.LABEL__BACKGROUND_COLOR:
@@ -910,12 +912,12 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return getLayoutData();
 			case GMFGraphPackage.LABEL__LAYOUT:
 				return getLayout();
+			case GMFGraphPackage.LABEL__PARENT:
+				return getParent();
 			case GMFGraphPackage.LABEL__NAME:
 				return getName();
 			case GMFGraphPackage.LABEL__CHILDREN:
 				return getChildren();
-			case GMFGraphPackage.LABEL__PARENT:
-				return getParent();
 			case GMFGraphPackage.LABEL__FOREGROUND_COLOR:
 				return getForegroundColor();
 			case GMFGraphPackage.LABEL__BACKGROUND_COLOR:
@@ -1066,12 +1068,12 @@ public class LabelImpl extends EObjectImpl implements Label {
 				return layoutData != null;
 			case GMFGraphPackage.LABEL__LAYOUT:
 				return layout != null;
+			case GMFGraphPackage.LABEL__PARENT:
+				return getParent() != null;
 			case GMFGraphPackage.LABEL__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GMFGraphPackage.LABEL__CHILDREN:
 				return children != null && !children.isEmpty();
-			case GMFGraphPackage.LABEL__PARENT:
-				return getParent() != null;
 			case GMFGraphPackage.LABEL__FOREGROUND_COLOR:
 				return foregroundColor != null;
 			case GMFGraphPackage.LABEL__BACKGROUND_COLOR:

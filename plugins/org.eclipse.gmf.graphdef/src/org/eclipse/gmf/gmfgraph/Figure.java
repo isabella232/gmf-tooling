@@ -21,7 +21,6 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getChildren <em>Children</em>}</li>
- *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getParent <em>Parent</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getForegroundColor <em>Foreground Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getBackgroundColor <em>Background Color</em>}</li>
  *   <li>{@link org.eclipse.gmf.gmfgraph.Figure#getMaximumSize <em>Maximum Size</em>}</li>
@@ -43,6 +42,7 @@ public interface Figure extends FigureMarker, Identity {
 	/**
 	 * Returns the value of the '<em><b>Children</b></em>' containment reference list.
 	 * The list contents are of type {@link org.eclipse.gmf.gmfgraph.FigureMarker}.
+	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.gmfgraph.FigureMarker#getParent <em>Parent</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Children</em>' containment reference list isn't clear,
@@ -51,27 +51,11 @@ public interface Figure extends FigureMarker, Identity {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Children</em>' containment reference list.
 	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getFigure_Children()
-	 * @model type="org.eclipse.gmf.gmfgraph.FigureMarker" containment="true"
+	 * @see org.eclipse.gmf.gmfgraph.FigureMarker#getParent
+	 * @model type="org.eclipse.gmf.gmfgraph.FigureMarker" opposite="parent" containment="true"
 	 * @generated
 	 */
 	EList getChildren();
-
-	/**
-	 * Returns the value of the '<em><b>Parent</b></em>' container reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.gmfgraph.Figure#getChildren <em>Children</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Parent</em>' container reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parent</em>' container reference.
-	 * @see org.eclipse.gmf.gmfgraph.GMFGraphPackage#getFigure_Parent()
-	 * @see org.eclipse.gmf.gmfgraph.Figure#getChildren
-	 * @model opposite="children" resolveProxies="false" changeable="false"
-	 * @generated
-	 */
-	Figure getParent();
 
 	/**
 	 * Returns the value of the '<em><b>Foreground Color</b></em>' containment reference.

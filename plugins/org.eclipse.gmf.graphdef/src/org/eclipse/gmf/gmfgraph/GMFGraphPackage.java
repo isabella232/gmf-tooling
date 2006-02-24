@@ -697,13 +697,22 @@ public interface GMFGraphPackage extends EPackage {
 	int FIGURE_MARKER__LAYOUT = LAYOUTABLE__LAYOUT;
 
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE_MARKER__PARENT = LAYOUTABLE_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Figure Marker</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE_MARKER_FEATURE_COUNT = LAYOUTABLE_FEATURE_COUNT + 0;
+	int FIGURE_MARKER_FEATURE_COUNT = LAYOUTABLE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.Figure <em>Figure</em>}' class.
@@ -734,6 +743,15 @@ public interface GMFGraphPackage extends EPackage {
 	int FIGURE__LAYOUT = FIGURE_MARKER__LAYOUT;
 
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE__PARENT = FIGURE_MARKER__PARENT;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -752,22 +770,13 @@ public interface GMFGraphPackage extends EPackage {
 	int FIGURE__CHILDREN = FIGURE_MARKER_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIGURE__PARENT = FIGURE_MARKER_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__FOREGROUND_COLOR = FIGURE_MARKER_FEATURE_COUNT + 3;
+	int FIGURE__FOREGROUND_COLOR = FIGURE_MARKER_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Background Color</b></em>' containment reference.
@@ -776,7 +785,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__BACKGROUND_COLOR = FIGURE_MARKER_FEATURE_COUNT + 4;
+	int FIGURE__BACKGROUND_COLOR = FIGURE_MARKER_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Maximum Size</b></em>' containment reference.
@@ -785,7 +794,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__MAXIMUM_SIZE = FIGURE_MARKER_FEATURE_COUNT + 5;
+	int FIGURE__MAXIMUM_SIZE = FIGURE_MARKER_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Minimum Size</b></em>' containment reference.
@@ -794,7 +803,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__MINIMUM_SIZE = FIGURE_MARKER_FEATURE_COUNT + 6;
+	int FIGURE__MINIMUM_SIZE = FIGURE_MARKER_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Preferred Size</b></em>' containment reference.
@@ -803,7 +812,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__PREFERRED_SIZE = FIGURE_MARKER_FEATURE_COUNT + 7;
+	int FIGURE__PREFERRED_SIZE = FIGURE_MARKER_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Font</b></em>' containment reference.
@@ -812,7 +821,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__FONT = FIGURE_MARKER_FEATURE_COUNT + 8;
+	int FIGURE__FONT = FIGURE_MARKER_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Insets</b></em>' containment reference.
@@ -821,7 +830,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__INSETS = FIGURE_MARKER_FEATURE_COUNT + 9;
+	int FIGURE__INSETS = FIGURE_MARKER_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Border</b></em>' containment reference.
@@ -830,7 +839,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__BORDER = FIGURE_MARKER_FEATURE_COUNT + 10;
+	int FIGURE__BORDER = FIGURE_MARKER_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Location</b></em>' containment reference.
@@ -839,7 +848,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__LOCATION = FIGURE_MARKER_FEATURE_COUNT + 11;
+	int FIGURE__LOCATION = FIGURE_MARKER_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>Size</b></em>' containment reference.
@@ -848,7 +857,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE__SIZE = FIGURE_MARKER_FEATURE_COUNT + 12;
+	int FIGURE__SIZE = FIGURE_MARKER_FEATURE_COUNT + 11;
 
 	/**
 	 * The number of structural features of the '<em>Figure</em>' class.
@@ -857,7 +866,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FIGURE_FEATURE_COUNT = FIGURE_MARKER_FEATURE_COUNT + 13;
+	int FIGURE_FEATURE_COUNT = FIGURE_MARKER_FEATURE_COUNT + 12;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.impl.FigureRefImpl <em>Figure Ref</em>}' class.
@@ -886,6 +895,15 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int FIGURE_REF__LAYOUT = FIGURE_MARKER__LAYOUT;
+
+	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FIGURE_REF__PARENT = FIGURE_MARKER__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Figure</b></em>' reference.
@@ -934,6 +952,15 @@ public interface GMFGraphPackage extends EPackage {
 	int CONNECTION_FIGURE__LAYOUT = FIGURE__LAYOUT;
 
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_FIGURE__PARENT = FIGURE__PARENT;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -950,15 +977,6 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int CONNECTION_FIGURE__CHILDREN = FIGURE__CHILDREN;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONNECTION_FIGURE__PARENT = FIGURE__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
@@ -1088,6 +1106,15 @@ public interface GMFGraphPackage extends EPackage {
 	int DECORATION_FIGURE__LAYOUT = FIGURE__LAYOUT;
 
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DECORATION_FIGURE__PARENT = FIGURE__PARENT;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1104,15 +1131,6 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int DECORATION_FIGURE__CHILDREN = FIGURE__CHILDREN;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DECORATION_FIGURE__PARENT = FIGURE__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
@@ -1242,6 +1260,15 @@ public interface GMFGraphPackage extends EPackage {
 	int SHAPE__LAYOUT = FIGURE__LAYOUT;
 
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SHAPE__PARENT = FIGURE__PARENT;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1258,15 +1285,6 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int SHAPE__CHILDREN = FIGURE__CHILDREN;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SHAPE__PARENT = FIGURE__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
@@ -1459,6 +1477,15 @@ public interface GMFGraphPackage extends EPackage {
 	int LABEL__LAYOUT = FIGURE__LAYOUT;
 
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL__PARENT = FIGURE__PARENT;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1475,15 +1502,6 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int LABEL__CHILDREN = FIGURE__CHILDREN;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LABEL__PARENT = FIGURE__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
@@ -1622,6 +1640,15 @@ public interface GMFGraphPackage extends EPackage {
 	int LABELED_CONTAINER__LAYOUT = FIGURE__LAYOUT;
 
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABELED_CONTAINER__PARENT = FIGURE__PARENT;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1638,15 +1665,6 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int LABELED_CONTAINER__CHILDREN = FIGURE__CHILDREN;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LABELED_CONTAINER__PARENT = FIGURE__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
@@ -1776,6 +1794,15 @@ public interface GMFGraphPackage extends EPackage {
 	int RECTANGLE__LAYOUT = SHAPE__LAYOUT;
 
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RECTANGLE__PARENT = SHAPE__PARENT;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1792,15 +1819,6 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int RECTANGLE__CHILDREN = SHAPE__CHILDREN;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RECTANGLE__PARENT = SHAPE__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
@@ -1993,6 +2011,15 @@ public interface GMFGraphPackage extends EPackage {
 	int ROUNDED_RECTANGLE__LAYOUT = SHAPE__LAYOUT;
 
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ROUNDED_RECTANGLE__PARENT = SHAPE__PARENT;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2009,15 +2036,6 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int ROUNDED_RECTANGLE__CHILDREN = SHAPE__CHILDREN;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ROUNDED_RECTANGLE__PARENT = SHAPE__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
@@ -2228,6 +2246,15 @@ public interface GMFGraphPackage extends EPackage {
 	int ELLIPSE__LAYOUT = SHAPE__LAYOUT;
 
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELLIPSE__PARENT = SHAPE__PARENT;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2244,15 +2271,6 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int ELLIPSE__CHILDREN = SHAPE__CHILDREN;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ELLIPSE__PARENT = SHAPE__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
@@ -2445,6 +2463,15 @@ public interface GMFGraphPackage extends EPackage {
 	int POLYLINE__LAYOUT = SHAPE__LAYOUT;
 
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE__PARENT = SHAPE__PARENT;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2461,15 +2488,6 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int POLYLINE__CHILDREN = SHAPE__CHILDREN;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int POLYLINE__PARENT = SHAPE__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
@@ -2671,6 +2689,15 @@ public interface GMFGraphPackage extends EPackage {
 	int POLYGON__LAYOUT = POLYLINE__LAYOUT;
 
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON__PARENT = POLYLINE__PARENT;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2687,15 +2714,6 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int POLYGON__CHILDREN = POLYLINE__CHILDREN;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int POLYGON__PARENT = POLYLINE__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
@@ -2897,6 +2915,15 @@ public interface GMFGraphPackage extends EPackage {
 	int POLYLINE_CONNECTION__LAYOUT = POLYLINE__LAYOUT;
 
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_CONNECTION__PARENT = POLYLINE__PARENT;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2913,15 +2940,6 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int POLYLINE_CONNECTION__CHILDREN = POLYLINE__CHILDREN;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int POLYLINE_CONNECTION__PARENT = POLYLINE__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
@@ -3141,6 +3159,15 @@ public interface GMFGraphPackage extends EPackage {
 	int POLYLINE_DECORATION__LAYOUT = POLYLINE__LAYOUT;
 
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYLINE_DECORATION__PARENT = POLYLINE__PARENT;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3157,15 +3184,6 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int POLYLINE_DECORATION__CHILDREN = POLYLINE__CHILDREN;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int POLYLINE_DECORATION__PARENT = POLYLINE__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
@@ -3367,6 +3385,15 @@ public interface GMFGraphPackage extends EPackage {
 	int POLYGON_DECORATION__LAYOUT = POLYGON__LAYOUT;
 
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int POLYGON_DECORATION__PARENT = POLYGON__PARENT;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3383,15 +3410,6 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int POLYGON_DECORATION__CHILDREN = POLYGON__CHILDREN;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int POLYGON_DECORATION__PARENT = POLYGON__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
@@ -3639,6 +3657,15 @@ public interface GMFGraphPackage extends EPackage {
 	int CUSTOM_FIGURE__LAYOUT = FIGURE__LAYOUT;
 
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_FIGURE__PARENT = FIGURE__PARENT;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3655,15 +3682,6 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int CUSTOM_FIGURE__CHILDREN = FIGURE__CHILDREN;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CUSTOM_FIGURE__PARENT = FIGURE__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
@@ -3820,6 +3838,15 @@ public interface GMFGraphPackage extends EPackage {
 	int CUSTOM_DECORATION__LAYOUT = CUSTOM_FIGURE__LAYOUT;
 
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_DECORATION__PARENT = CUSTOM_FIGURE__PARENT;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3836,15 +3863,6 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int CUSTOM_DECORATION__CHILDREN = CUSTOM_FIGURE__CHILDREN;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CUSTOM_DECORATION__PARENT = CUSTOM_FIGURE__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
@@ -4001,6 +4019,15 @@ public interface GMFGraphPackage extends EPackage {
 	int CUSTOM_CONNECTION__LAYOUT = CUSTOM_FIGURE__LAYOUT;
 
 	/**
+	 * The feature id for the '<em><b>Parent</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CUSTOM_CONNECTION__PARENT = CUSTOM_FIGURE__PARENT;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4017,15 +4044,6 @@ public interface GMFGraphPackage extends EPackage {
 	 * @ordered
 	 */
 	int CUSTOM_CONNECTION__CHILDREN = CUSTOM_FIGURE__CHILDREN;
-
-	/**
-	 * The feature id for the '<em><b>Parent</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CUSTOM_CONNECTION__PARENT = CUSTOM_FIGURE__PARENT;
 
 	/**
 	 * The feature id for the '<em><b>Foreground Color</b></em>' containment reference.
@@ -5596,6 +5614,17 @@ public interface GMFGraphPackage extends EPackage {
 	EClass getFigureMarker();
 
 	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.gmfgraph.FigureMarker#getParent <em>Parent</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Parent</em>'.
+	 * @see org.eclipse.gmf.gmfgraph.FigureMarker#getParent()
+	 * @see #getFigureMarker()
+	 * @generated
+	 */
+	EReference getFigureMarker_Parent();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.gmfgraph.Figure <em>Figure</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5615,17 +5644,6 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getFigure_Children();
-
-	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.gmfgraph.Figure#getParent <em>Parent</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Parent</em>'.
-	 * @see org.eclipse.gmf.gmfgraph.Figure#getParent()
-	 * @see #getFigure()
-	 * @generated
-	 */
-	EReference getFigure_Parent();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.gmfgraph.Figure#getForegroundColor <em>Foreground Color</em>}'.
