@@ -23,6 +23,7 @@ import org.eclipse.gmf.internal.codegen.resolver.ResolvedItem;
 import org.eclipse.gmf.internal.codegen.resolver.StructureBuilder;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CheckboxCellEditor;
+import org.eclipse.jface.viewers.ColumnPixelData;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -99,16 +100,16 @@ public class DefinitionPage extends WizardPage {
 		TableLayout layout = new TableLayout();
 		tree.setLayout(layout);
 		tree.setHeaderVisible(true);
-		tree.setLinesVisible(true);
+		// tree.setLinesVisible(true);
 
 		TreeColumn elementColumn = new TreeColumn(tree, SWT.LEFT);
 		elementColumn.setText("Element");
 		elementColumn.setResizable(true);
 		layout.addColumnData(new ColumnWeightData(5, 32, true));
 
-		addResolutionColumn(tree, Resolution.NODE);
-		addResolutionColumn(tree, Resolution.LINK);
-		addResolutionColumn(tree, Resolution.LABEL);
+		addResolutionColumn(tree, Resolution.NODE, CodeGenUIPlugin.NODE_ICON);
+		addResolutionColumn(tree, Resolution.LINK, CodeGenUIPlugin.LINK_ICON);
+		addResolutionColumn(tree, Resolution.LABEL, CodeGenUIPlugin.LABEL_ICON);
 
 		final TreeViewer viewer = new TreeViewer(tree);
 		viewer.setContentProvider(new ResolverContentProvider());
@@ -142,11 +143,12 @@ public class DefinitionPage extends WizardPage {
 		return viewer;
 	}
 
-	protected TreeColumn addResolutionColumn(Tree tree, Resolution resolution) {
-		TreeColumn column = new TreeColumn(tree, SWT.LEFT);
-		column.setText(resolution.getName());
-		column.setResizable(true);
-		((TableLayout) tree.getLayout()).addColumnData(new ColumnWeightData(1, 16, true));
+	protected TreeColumn addResolutionColumn(Tree tree, Resolution resolution, String iconId) {
+		TreeColumn column = new TreeColumn(tree, SWT.CENTER);
+		// column.setText(resolution.getName());
+		column.setImage(CodeGenUIPlugin.getDefault().getImageRegistry().get(iconId));
+		column.setResizable(false);
+		((TableLayout) tree.getLayout()).addColumnData(new ColumnPixelData(18, false, true));
 		return column;
 	}
 

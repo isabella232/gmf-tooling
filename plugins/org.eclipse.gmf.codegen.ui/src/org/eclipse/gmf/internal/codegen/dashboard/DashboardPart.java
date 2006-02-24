@@ -77,7 +77,7 @@ public class DashboardPart extends ViewPart {
 		IAction syncSelectionAction = new Action("Synchronize", IAction.AS_CHECK_BOX) {
 		};
 		syncSelectionAction.setToolTipText("Synchronize with workbench selection");
-		ImageDescriptor synchImage = CodeGenUIPlugin.getDefault().getImageRegistry().getDescriptor(CodeGenUIPlugin.SYNC_IMAGE);
+		ImageDescriptor synchImage = CodeGenUIPlugin.getDefault().getImageRegistry().getDescriptor(CodeGenUIPlugin.SYNC_ICON);
 		if (synchImage != null) {
 			syncSelectionAction.setImageDescriptor(synchImage);
 		}

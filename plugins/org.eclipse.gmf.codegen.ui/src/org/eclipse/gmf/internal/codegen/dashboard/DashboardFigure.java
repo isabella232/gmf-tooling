@@ -89,7 +89,7 @@ public class DashboardFigure extends RectangleFigure {
 
 	public DashboardFigure() {
 		add(logoFigure = new ImageFigure());
-		Image logoImage = CodeGenUIPlugin.getDefault().getImageRegistry().get(CodeGenUIPlugin.GMF_LOGO);
+		Image logoImage = CodeGenUIPlugin.getDefault().getImageRegistry().get(CodeGenUIPlugin.GMF_LOGO_IMAGE);
 		if (logoImage != null) {
 			logoFigure.setImage(logoImage);
 		}
