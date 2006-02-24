@@ -134,13 +134,11 @@
 			<property name="version" value="${emfWorkspaceUpdateVersion}" />
 			<property name="updateSite" value="${emfWorkspaceUpdateSite}" />
 		</ant>
-<!-- Alternative, download zip method
+<!-- Alternative, download zip method... would need to replicate for all EMFT as well
 		<available file="${baseLocationRoot}/${emfZipName}" property="emfZipExists" />
 		<antcall target="getEMF"/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfZipName}" />
 -->		
-		<!-- temporary workaround due to missing validation jars on update site -->
-		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/emft-validation-runtime-I200602161109.zip" />
 	</target>
 	
 	<target name="getEMF" unless="emfZipExists">
