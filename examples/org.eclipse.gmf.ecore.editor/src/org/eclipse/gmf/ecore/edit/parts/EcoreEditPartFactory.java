@@ -64,23 +64,23 @@ public class EcoreEditPartFactory implements EditPartFactory {
 			switch (viewVisualID) {
 			case 1001:
 				return new EClassEditPart(view);
-			case 4001:
+			case 4004:
 				return new EClass_nameEditPart(view);
 			case 1002:
 				return new EPackage2EditPart(view);
-			case 4005:
-				return new EPackage_nameEditPart(view);
+			case 4010:
+				return new EPackage_name2EditPart(view);
 			case 1003:
 				return new EAnnotation3EditPart(view);
-			case 4011:
+			case 4012:
 				return new EAnnotation_source3EditPart(view);
 			case 1004:
 				return new EDataType2EditPart(view);
-			case 4013:
+			case 4014:
 				return new EDataType_name2EditPart(view);
 			case 1005:
 				return new EEnum2EditPart(view);
-			case 4015:
+			case 4017:
 				return new EEnum_name2EditPart(view);
 			case 2001:
 				return new EAttributeEditPart(view);

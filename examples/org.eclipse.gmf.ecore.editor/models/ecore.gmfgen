@@ -14,9 +14,9 @@
         <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eStructuralFeatures"/>
         <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eAttributes"/>
       </modelFacet>
-      <labels visualID="4002" editPartClassName="EAttribute_nameEditPart" itemSemanticEditPolicyClassName="EAttribute_nameItemSemanticEditPolicy" notationViewFactoryClassName="EAttribute_nameViewFactory">
+      <labels xsi:type="gmfgen:GenExternalNodeLabel" visualID="4001" editPartClassName="EAttribute_nameEditPart" itemSemanticEditPolicyClassName="EAttribute_nameItemSemanticEditPolicy" notationViewFactoryClassName="EAttribute_nameViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="LabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class LabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public LabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;"/>
         <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
@@ -30,9 +30,9 @@
         <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eOperations"/>
         <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass/eOperations"/>
       </modelFacet>
-      <labels visualID="4003" editPartClassName="EOperation_nameEditPart" itemSemanticEditPolicyClassName="EOperation_nameItemSemanticEditPolicy" notationViewFactoryClassName="EOperation_nameViewFactory">
+      <labels xsi:type="gmfgen:GenExternalNodeLabel" visualID="4002" editPartClassName="EOperation_nameEditPart" itemSemanticEditPolicyClassName="EOperation_nameItemSemanticEditPolicy" notationViewFactoryClassName="EOperation_nameViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="LabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class LabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public LabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;"/>
         <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
@@ -46,9 +46,9 @@
         <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
         <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
       </modelFacet>
-      <labels visualID="4004" editPartClassName="EAnnotation_sourceEditPart" itemSemanticEditPolicyClassName="EAnnotation_sourceItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_sourceViewFactory">
+      <labels xsi:type="gmfgen:GenExternalNodeLabel" visualID="4003" editPartClassName="EAnnotation_sourceEditPart" itemSemanticEditPolicyClassName="EAnnotation_sourceItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_sourceViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="LabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class LabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public LabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;"/>
         <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
         </modelFacet>
@@ -62,10 +62,10 @@
         <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
         <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
       </modelFacet>
-      <labels visualID="4006" editPartClassName="EClass_name2EditPart" itemSemanticEditPolicyClassName="EClass_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EClass_name2ViewFactory">
+      <labels xsi:type="gmfgen:GenExternalNodeLabel" visualID="4005" editPartClassName="EClass_name2EditPart" itemSemanticEditPolicyClassName="EClass_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EClass_name2ViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="LabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class LabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public LabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>" viewPattern="">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -78,10 +78,10 @@
         <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eSubpackages"/>
         <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eSubpackages"/>
       </modelFacet>
-      <labels visualID="4007" editPartClassName="EPackage_name2EditPart" itemSemanticEditPolicyClassName="EPackage_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_name2ViewFactory">
+      <labels xsi:type="gmfgen:GenExternalNodeLabel" visualID="4006" editPartClassName="EPackage_nameEditPart" itemSemanticEditPolicyClassName="EPackage_nameItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_nameViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="LabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class LabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public LabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>" viewPattern="">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -94,10 +94,10 @@
         <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
         <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
       </modelFacet>
-      <labels visualID="4008" editPartClassName="EDataType_nameEditPart" itemSemanticEditPolicyClassName="EDataType_nameItemSemanticEditPolicy" notationViewFactoryClassName="EDataType_nameViewFactory">
+      <labels xsi:type="gmfgen:GenExternalNodeLabel" visualID="4007" editPartClassName="EDataType_nameEditPart" itemSemanticEditPolicyClassName="EDataType_nameItemSemanticEditPolicy" notationViewFactoryClassName="EDataType_nameViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="LabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class LabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public LabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>" viewPattern="">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -110,10 +110,10 @@
         <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
         <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
       </modelFacet>
-      <labels visualID="4009" editPartClassName="EEnum_nameEditPart" itemSemanticEditPolicyClassName="EEnum_nameItemSemanticEditPolicy" notationViewFactoryClassName="EEnum_nameViewFactory">
+      <labels xsi:type="gmfgen:GenExternalNodeLabel" visualID="4008" editPartClassName="EEnum_nameEditPart" itemSemanticEditPolicyClassName="EEnum_nameItemSemanticEditPolicy" notationViewFactoryClassName="EEnum_nameViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="LabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class LabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public LabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>" viewPattern="">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -126,9 +126,9 @@
         <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
         <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
       </modelFacet>
-      <labels visualID="4010" editPartClassName="EAnnotation_source2EditPart" itemSemanticEditPolicyClassName="EAnnotation_source2ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_source2ViewFactory">
+      <labels xsi:type="gmfgen:GenExternalNodeLabel" visualID="4009" editPartClassName="EAnnotation_source2EditPart" itemSemanticEditPolicyClassName="EAnnotation_source2ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_source2ViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="LabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class LabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public LabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;"/>
         <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
         </modelFacet>
@@ -142,9 +142,9 @@
         <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/details"/>
         <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/details"/>
       </modelFacet>
-      <labels visualID="4012" editPartClassName="EStringToStringMapEntry_keyEditPart" itemSemanticEditPolicyClassName="EStringToStringMapEntry_keyItemSemanticEditPolicy" notationViewFactoryClassName="EStringToStringMapEntry_keyViewFactory">
+      <labels xsi:type="gmfgen:GenExternalNodeLabel" visualID="4011" editPartClassName="EStringToStringMapEntry_keyEditPart" itemSemanticEditPolicyClassName="EStringToStringMapEntry_keyItemSemanticEditPolicy" notationViewFactoryClassName="EStringToStringMapEntry_keyViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="LabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class LabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public LabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;"/>
         <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EStringToStringMapEntry/key"/>
         </modelFacet>
@@ -158,9 +158,9 @@
         <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
         <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
       </modelFacet>
-      <labels visualID="4014" editPartClassName="EAnnotation_source4EditPart" itemSemanticEditPolicyClassName="EAnnotation_source4ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_source4ViewFactory">
+      <labels xsi:type="gmfgen:GenExternalNodeLabel" visualID="4013" editPartClassName="EAnnotation_source4EditPart" itemSemanticEditPolicyClassName="EAnnotation_source4ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_source4ViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="LabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class LabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public LabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;"/>
         <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
         </modelFacet>
@@ -174,10 +174,10 @@
         <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EEnum/eLiterals"/>
         <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EEnum/eLiterals"/>
       </modelFacet>
-      <labels visualID="4016" editPartClassName="EEnumLiteral_nameEditPart" itemSemanticEditPolicyClassName="EEnumLiteral_nameItemSemanticEditPolicy" notationViewFactoryClassName="EEnumLiteral_nameViewFactory">
+      <labels xsi:type="gmfgen:GenExternalNodeLabel" visualID="4015" editPartClassName="EEnumLiteral_nameEditPart" itemSemanticEditPolicyClassName="EEnumLiteral_nameItemSemanticEditPolicy" notationViewFactoryClassName="EEnumLiteral_nameViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="LabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class LabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public LabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>" viewPattern="">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -190,9 +190,9 @@
         <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
         <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
       </modelFacet>
-      <labels visualID="4017" editPartClassName="EAnnotation_source5EditPart" itemSemanticEditPolicyClassName="EAnnotation_source5ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_source5ViewFactory">
+      <labels xsi:type="gmfgen:GenExternalNodeLabel" visualID="4016" editPartClassName="EAnnotation_source5EditPart" itemSemanticEditPolicyClassName="EAnnotation_source5ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_source5ViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="LabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class LabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public LabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;"/>
         <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
         </modelFacet>
@@ -200,80 +200,80 @@
     </childNodes>
     <topLevelNodes visualID="1001" editPartClassName="EClassEditPart" itemSemanticEditPolicyClassName="EClassItemSemanticEditPolicy" notationViewFactoryClassName="EClassViewFactory" canonicalEditPolicyClassName="EClassCanonicalEditPolicy" compartments="//@diagram/@compartments.0 //@diagram/@compartments.1 //@diagram/@compartments.2" graphicalNodeEditPolicyClassName="EClassGraphicalNodeEditPolicy">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NodeRectangle" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NodeRectangle() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NamedNodeRectangle" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.IFigure childNamedNode_NameLabelFigure = createFigureNamedNode_NameLabelFigure();&#xD;&#xA;&#x9;&#x9;setFigureNamedNode_NameLabelFigure(childNamedNode_NameLabelFigure);&#xD;&#xA;&#x9;&#x9;add(childNamedNode_NameLabelFigure);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;private org.eclipse.draw2d.IFigure fNamedNode_NameLabelFigure; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.draw2d.IFigure getFigureNamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;return fNamedNode_NameLabelFigure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setFigureNamedNode_NameLabelFigure(org.eclipse.draw2d.IFigure figure) {&#xD;&#xA;&#x9;&#x9;fNamedNode_NameLabelFigure = figure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.IFigure createFigureNamedNode_NameLabelFigure() {&#xD;&#xA;org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return rv;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
       <modelFacet>
         <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EClass"/>
         <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
         <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
       </modelFacet>
-      <labels visualID="4001" editPartClassName="EClass_nameEditPart" itemSemanticEditPolicyClassName="EClass_nameItemSemanticEditPolicy" notationViewFactoryClassName="EClass_nameViewFactory">
+      <labels visualID="4004" editPartClassName="EClass_nameEditPart" itemSemanticEditPolicyClassName="EClass_nameItemSemanticEditPolicy" notationViewFactoryClassName="EClass_nameViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NamedNode_NameLabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNode_NameLabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>" viewPattern="">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
     </topLevelNodes>
     <topLevelNodes visualID="1002" editPartClassName="EPackage2EditPart" itemSemanticEditPolicyClassName="EPackage2ItemSemanticEditPolicy" notationViewFactoryClassName="EPackage2ViewFactory" canonicalEditPolicyClassName="EPackage2CanonicalEditPolicy" compartments="//@diagram/@compartments.3 //@diagram/@compartments.4 //@diagram/@compartments.5 //@diagram/@compartments.6 //@diagram/@compartments.7" graphicalNodeEditPolicyClassName="EPackageGraphicalNodeEditPolicy">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NodeRectangle" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NodeRectangle() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NamedNodeRectangle" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.IFigure childNamedNode_NameLabelFigure = createFigureNamedNode_NameLabelFigure();&#xD;&#xA;&#x9;&#x9;setFigureNamedNode_NameLabelFigure(childNamedNode_NameLabelFigure);&#xD;&#xA;&#x9;&#x9;add(childNamedNode_NameLabelFigure);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;private org.eclipse.draw2d.IFigure fNamedNode_NameLabelFigure; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.draw2d.IFigure getFigureNamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;return fNamedNode_NameLabelFigure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setFigureNamedNode_NameLabelFigure(org.eclipse.draw2d.IFigure figure) {&#xD;&#xA;&#x9;&#x9;fNamedNode_NameLabelFigure = figure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.IFigure createFigureNamedNode_NameLabelFigure() {&#xD;&#xA;org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return rv;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
       <modelFacet>
         <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage"/>
         <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eSubpackages"/>
         <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eSubpackages"/>
       </modelFacet>
-      <labels visualID="4005" editPartClassName="EPackage_nameEditPart" itemSemanticEditPolicyClassName="EPackage_nameItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_nameViewFactory">
+      <labels visualID="4010" editPartClassName="EPackage_name2EditPart" itemSemanticEditPolicyClassName="EPackage_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EPackage_name2ViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NamedNode_NameLabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNode_NameLabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>" viewPattern="" editPattern="">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
     </topLevelNodes>
     <topLevelNodes visualID="1003" editPartClassName="EAnnotation3EditPart" itemSemanticEditPolicyClassName="EAnnotation3ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation3ViewFactory" canonicalEditPolicyClassName="EAnnotation3CanonicalEditPolicy" compartments="//@diagram/@compartments.8" graphicalNodeEditPolicyClassName="EAnnotation3GraphicalNodeEditPolicy">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NodeRectangle" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NodeRectangle() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NamedNodeRectangle" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.IFigure childNamedNode_NameLabelFigure = createFigureNamedNode_NameLabelFigure();&#xD;&#xA;&#x9;&#x9;setFigureNamedNode_NameLabelFigure(childNamedNode_NameLabelFigure);&#xD;&#xA;&#x9;&#x9;add(childNamedNode_NameLabelFigure);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;private org.eclipse.draw2d.IFigure fNamedNode_NameLabelFigure; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.draw2d.IFigure getFigureNamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;return fNamedNode_NameLabelFigure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setFigureNamedNode_NameLabelFigure(org.eclipse.draw2d.IFigure figure) {&#xD;&#xA;&#x9;&#x9;fNamedNode_NameLabelFigure = figure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.IFigure createFigureNamedNode_NameLabelFigure() {&#xD;&#xA;org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return rv;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
       <modelFacet>
         <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation"/>
         <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
         <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EModelElement/eAnnotations"/>
       </modelFacet>
-      <labels visualID="4011" editPartClassName="EAnnotation_source3EditPart" itemSemanticEditPolicyClassName="EAnnotation_source3ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_source3ViewFactory">
+      <labels visualID="4012" editPartClassName="EAnnotation_source3EditPart" itemSemanticEditPolicyClassName="EAnnotation_source3ItemSemanticEditPolicy" notationViewFactoryClassName="EAnnotation_source3ViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NamedNode_NameLabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNode_NameLabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EAnnotation/source"/>
         </modelFacet>
       </labels>
     </topLevelNodes>
     <topLevelNodes visualID="1004" editPartClassName="EDataType2EditPart" itemSemanticEditPolicyClassName="EDataType2ItemSemanticEditPolicy" notationViewFactoryClassName="EDataType2ViewFactory" canonicalEditPolicyClassName="EDataType2CanonicalEditPolicy" compartments="//@diagram/@compartments.9" graphicalNodeEditPolicyClassName="EDataType2GraphicalNodeEditPolicy">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NodeRectangle" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NodeRectangle() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NamedNodeRectangle" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.IFigure childNamedNode_NameLabelFigure = createFigureNamedNode_NameLabelFigure();&#xD;&#xA;&#x9;&#x9;setFigureNamedNode_NameLabelFigure(childNamedNode_NameLabelFigure);&#xD;&#xA;&#x9;&#x9;add(childNamedNode_NameLabelFigure);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;private org.eclipse.draw2d.IFigure fNamedNode_NameLabelFigure; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.draw2d.IFigure getFigureNamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;return fNamedNode_NameLabelFigure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setFigureNamedNode_NameLabelFigure(org.eclipse.draw2d.IFigure figure) {&#xD;&#xA;&#x9;&#x9;fNamedNode_NameLabelFigure = figure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.IFigure createFigureNamedNode_NameLabelFigure() {&#xD;&#xA;org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return rv;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
       <modelFacet>
         <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EDataType"/>
         <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
         <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
       </modelFacet>
-      <labels visualID="4013" editPartClassName="EDataType_name2EditPart" itemSemanticEditPolicyClassName="EDataType_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EDataType_name2ViewFactory">
+      <labels visualID="4014" editPartClassName="EDataType_name2EditPart" itemSemanticEditPolicyClassName="EDataType_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EDataType_name2ViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NamedNode_NameLabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNode_NameLabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>" viewPattern="">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
     </topLevelNodes>
     <topLevelNodes visualID="1005" editPartClassName="EEnum2EditPart" itemSemanticEditPolicyClassName="EEnum2ItemSemanticEditPolicy" notationViewFactoryClassName="EEnum2ViewFactory" canonicalEditPolicyClassName="EEnum2CanonicalEditPolicy" compartments="//@diagram/@compartments.10 //@diagram/@compartments.11" graphicalNodeEditPolicyClassName="EEnum2GraphicalNodeEditPolicy">
       <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NodeRectangle" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NodeRectangle() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
+      <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NamedNodeRectangle" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNodeRectangle() {&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;org.eclipse.draw2d.IFigure childNamedNode_NameLabelFigure = createFigureNamedNode_NameLabelFigure();&#xD;&#xA;&#x9;&#x9;setFigureNamedNode_NameLabelFigure(childNamedNode_NameLabelFigure);&#xD;&#xA;&#x9;&#x9;add(childNamedNode_NameLabelFigure);&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;private org.eclipse.draw2d.IFigure fNamedNode_NameLabelFigure; &#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public org.eclipse.draw2d.IFigure getFigureNamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;return fNamedNode_NameLabelFigure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;protected void setFigureNamedNode_NameLabelFigure(org.eclipse.draw2d.IFigure figure) {&#xD;&#xA;&#x9;&#x9;fNamedNode_NameLabelFigure = figure;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;private org.eclipse.draw2d.IFigure createFigureNamedNode_NameLabelFigure() {&#xD;&#xA;org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;&#x9;&#x9;return rv;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;"/>
       <modelFacet>
         <metaClass href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EEnum"/>
         <containmentMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
         <childMetaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/EPackage/eClassifiers"/>
       </modelFacet>
-      <labels visualID="4015" editPartClassName="EEnum_name2EditPart" itemSemanticEditPolicyClassName="EEnum_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EEnum_name2ViewFactory">
+      <labels visualID="4017" editPartClassName="EEnum_name2EditPart" itemSemanticEditPolicyClassName="EEnum_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EEnum_name2ViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="NamedNode_NameLabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class NamedNode_NameLabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public NamedNode_NameLabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>" viewPattern="">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -302,8 +302,8 @@
       </modelFacet>
       <labels visualID="4018" editPartClassName="EReference_nameEditPart" itemSemanticEditPolicyClassName="EReference_nameItemSemanticEditPolicy" notationViewFactoryClassName="EReference_nameViewFactory" textEditPartClassName="EReference_nameTextEditPart" textNotationViewFactoryClassName="EReference_nameTextViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="LabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class LabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public LabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>" viewPattern="">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>
@@ -325,8 +325,8 @@
       </modelFacet>
       <labels visualID="4019" editPartClassName="EReference_name2EditPart" itemSemanticEditPolicyClassName="EReference_name2ItemSemanticEditPolicy" notationViewFactoryClassName="EReference_name2ViewFactory" textEditPartClassName="EReference_name2TextEditPart" textNotationViewFactoryClassName="EReference_name2TextViewFactory">
         <diagramRunTimeClass href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Node"/>
-        <viewmap xsi:type="gmfgen:FigureViewmap" figureQualifiedClassName="org.eclipse.draw2d.Label"/>
-        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet">
+        <viewmap xsi:type="gmfgen:InnerClassViewmap" className="LabelFigure" classBody="&#xD;&#xA;&#xD;&#xA;/**&#xD;&#xA; * @generated&#xD;&#xA; */&#xD;&#xA;public class LabelFigure extends org.eclipse.draw2d.Label {&#xD;&#xA;&#x9;/**&#xD;&#xA;&#x9; * @generated&#xD;&#xA;&#x9; */&#xD;&#xA;&#x9;public LabelFigure() {&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#xD;&#xA;&#x9;}&#xD;&#xA;}&#xD;&#xA;"/>
+        <modelFacet xsi:type="gmfgen:FeatureLabelModelFacet" defaultText="&lt;...>" viewPattern="">
           <metaFeature href="../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore/ENamedElement/name"/>
         </modelFacet>
       </labels>

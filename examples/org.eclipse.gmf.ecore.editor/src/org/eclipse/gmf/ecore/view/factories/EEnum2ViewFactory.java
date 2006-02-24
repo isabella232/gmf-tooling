@@ -25,7 +25,7 @@ public class EEnum2ViewFactory extends AbstractShapeViewFactory {
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "Ecore"); //$NON-NLS-1$
 		annotation.getDetails().put("visualID", "1005"); //$NON-NLS-1$
-		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EEnum_1005Labels.EENUMNAME_4015_TEXT, ViewUtil.APPEND, persisted, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EEnum_1005Labels.EENUMNAME_4017_TEXT, ViewUtil.APPEND, persisted, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EEnum_1005Compartments.LITERALS_5011, ViewUtil.APPEND, persisted, getPreferencesHint());
 		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EEnum_1005Compartments.ENUM_ANNOTATIONS_5012, ViewUtil.APPEND, persisted, getPreferencesHint());
 	}

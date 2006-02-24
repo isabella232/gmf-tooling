@@ -58,9 +58,6 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void createDefaultEditPolicies() {
-		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EEnum2ItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new EEnum2GraphicalNodeEditPolicy());
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy() {
 
 			public Command getCommand(Request request) {
@@ -82,6 +79,9 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 				return null;
 			}
 		});
+		super.createDefaultEditPolicies();
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EEnum2ItemSemanticEditPolicy());
+		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new EEnum2GraphicalNodeEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new EEnum2CanonicalEditPolicy());
 	}
 
@@ -89,7 +89,7 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		return new NodeRectangle();
+		return new NamedNodeRectangle();
 	}
 
 	/**
@@ -168,19 +168,48 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(EcoreSemanticHints.EEnum_1005Labels.EENUMNAME_4015_TEXT);
+		return getChildBySemanticHint(EcoreSemanticHints.EEnum_1005Labels.EENUMNAME_4017_TEXT);
 	}
 
 	/**
 	 * @generated
 	 */
-	public class NodeRectangle extends org.eclipse.draw2d.RectangleFigure {
+	public class NamedNodeRectangle extends org.eclipse.draw2d.RectangleFigure {
 
 		/**
 		 * @generated
 		 */
-		public NodeRectangle() {
+		public NamedNodeRectangle() {
 
+			org.eclipse.draw2d.IFigure childNamedNode_NameLabelFigure = createFigureNamedNode_NameLabelFigure();
+			setFigureNamedNode_NameLabelFigure(childNamedNode_NameLabelFigure);
+			add(childNamedNode_NameLabelFigure);
+
+		}
+
+		private org.eclipse.draw2d.IFigure fNamedNode_NameLabelFigure;
+
+		/**
+		 * @generated
+		 */
+		public org.eclipse.draw2d.IFigure getFigureNamedNode_NameLabelFigure() {
+			return fNamedNode_NameLabelFigure;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setFigureNamedNode_NameLabelFigure(org.eclipse.draw2d.IFigure figure) {
+			fNamedNode_NameLabelFigure = figure;
+		}
+
+		/**
+		 * @generated
+		 */
+		private org.eclipse.draw2d.IFigure createFigureNamedNode_NameLabelFigure() {
+			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
+
+			return rv;
 		}
 
 	}

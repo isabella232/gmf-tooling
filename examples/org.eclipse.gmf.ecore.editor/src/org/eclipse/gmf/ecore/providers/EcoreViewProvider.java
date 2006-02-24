@@ -38,7 +38,7 @@ import org.eclipse.gmf.ecore.view.factories.EPackageViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EPackage_classesViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EPackage_datatypesViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EPackage_enumsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EPackage_nameViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EPackage_name2ViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EPackage_packageannotationsViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EPackage_packagesViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EReference2ViewFactory;
@@ -84,23 +84,23 @@ public class EcoreViewProvider extends AbstractViewProvider {
 		switch (nodeVID) {
 		case 1001:
 			return EClassViewFactory.class;
-		case 4001:
+		case 4004:
 			return EClass_nameViewFactory.class;
 		case 1002:
 			return EPackage2ViewFactory.class;
-		case 4005:
-			return EPackage_nameViewFactory.class;
+		case 4010:
+			return EPackage_name2ViewFactory.class;
 		case 1003:
 			return EAnnotation3ViewFactory.class;
-		case 4011:
+		case 4012:
 			return EAnnotation_source3ViewFactory.class;
 		case 1004:
 			return EDataType2ViewFactory.class;
-		case 4013:
+		case 4014:
 			return EDataType_name2ViewFactory.class;
 		case 1005:
 			return EEnum2ViewFactory.class;
-		case 4015:
+		case 4017:
 			return EEnum_name2ViewFactory.class;
 		case 2001:
 			return EAttributeViewFactory.class;

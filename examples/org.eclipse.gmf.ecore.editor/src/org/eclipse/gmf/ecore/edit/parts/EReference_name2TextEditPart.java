@@ -28,6 +28,17 @@ public class EReference_name2TextEditPart extends TextCompartmentEditPart {
 	/**
 	 * @generated
 	 */
+	protected String getLabelText() {
+		String text = super.getLabelText();
+		if (text == null || text.length() == 0) {
+			return "<...>";
+		}
+		return text;
+	}
+
+	/**
+	 * @generated
+	 */
 	public IParser getParser() {
 		if (parser == null) {
 			String parserHint = ((View) getModel()).getType();

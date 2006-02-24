@@ -20,12 +20,12 @@ import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 /**
  * @generated
  */
-public class EPackage_nameEditPart extends TextCompartmentEditPart {
+public class EPackage_name2EditPart extends TextCompartmentEditPart {
 
 	/**
 	 * @generated
 	 */
-	public EPackage_nameEditPart(View view) {
+	public EPackage_name2EditPart(View view) {
 		super(view);
 		setNumIcons(1);
 	}
@@ -39,6 +39,17 @@ public class EPackage_nameEditPart extends TextCompartmentEditPart {
 			descriptor = ImageDescriptor.getMissingImageDescriptor();
 		}
 		return descriptor.createImage();
+	}
+
+	/**
+	 * @generated
+	 */
+	protected String getLabelText() {
+		String text = super.getLabelText();
+		if (text == null || text.length() == 0) {
+			return "<...>";
+		}
+		return text;
 	}
 
 	/**

@@ -12,7 +12,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class EPackage_nameViewFactory extends BasicNodeViewFactory {
+public class EPackage_name2ViewFactory extends BasicNodeViewFactory {
 
 	/**
 	 * @generated
@@ -23,6 +23,6 @@ public class EPackage_nameViewFactory extends BasicNodeViewFactory {
 		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "Ecore"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "4005"); //$NON-NLS-1$
+		annotation.getDetails().put("visualID", "4010"); //$NON-NLS-1$
 	}
 }

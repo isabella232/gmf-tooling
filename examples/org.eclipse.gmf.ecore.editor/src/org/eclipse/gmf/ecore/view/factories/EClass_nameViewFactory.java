@@ -23,6 +23,6 @@ public class EClass_nameViewFactory extends BasicNodeViewFactory {
 		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "Ecore"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "4001"); //$NON-NLS-1$
+		annotation.getDetails().put("visualID", "4004"); //$NON-NLS-1$
 	}
 }
