@@ -13,7 +13,7 @@ final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
 /**
  * @generated
  */
-public class <%=figure.getName()%> extends <%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx")%> {
+public class <%=figure.getName()%> extends <%=importManager.getImportedName((String) fqnSwitch.doSwitch(figure))%> {
 
 	/**
 	 * @generated

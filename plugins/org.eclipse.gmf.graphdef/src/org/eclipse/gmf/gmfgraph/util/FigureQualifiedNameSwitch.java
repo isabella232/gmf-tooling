@@ -105,6 +105,6 @@ public class FigureQualifiedNameSwitch extends GMFGraphSwitch {
 	}
 
 	public Object casePolylineConnection(PolylineConnection object) {
-		return "org.eclipse.draw2d.PolylineConnection"; //$NON-NLS-1$
+		return "org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx"; //$NON-NLS-1$
 	}
 }

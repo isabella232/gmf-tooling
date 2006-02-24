@@ -52,7 +52,7 @@ final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
     stringBuffer.append(TEXT_2);
     stringBuffer.append(figure.getName());
     stringBuffer.append(TEXT_3);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx"));
+    stringBuffer.append(importManager.getImportedName((String) fqnSwitch.doSwitch(figure)));
     stringBuffer.append(TEXT_4);
     stringBuffer.append(figure.getName());
     stringBuffer.append(TEXT_5);
