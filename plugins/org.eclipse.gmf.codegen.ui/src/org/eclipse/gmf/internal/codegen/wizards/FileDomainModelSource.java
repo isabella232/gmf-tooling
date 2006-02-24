@@ -32,8 +32,6 @@ public class FileDomainModelSource implements DomainModelSource {
 
 	private EPackage contents;
 
-	private String status;
-
 	private IStatus errorStatus;
 
 	public IFile getFile() {
@@ -46,10 +44,6 @@ public class FileDomainModelSource implements DomainModelSource {
 
 	public EPackage getContents() {
 		return contents;
-	}
-
-	public String getStatus() {
-		return status;
 	}
 
 	public IStatus getErrorStatus() {
@@ -68,7 +62,6 @@ public class FileDomainModelSource implements DomainModelSource {
 	protected void reload() {
 		if (file == null) {
 			contents = null;
-			status = "Domain model file is not specified; empty model will be created.";
 			errorStatus = null;
 		}
 		try {
@@ -76,11 +69,9 @@ public class FileDomainModelSource implements DomainModelSource {
 			ResourceSet rs = new ResourceSetImpl();
 			Resource r = rs.getResource(uri, true);
 			contents = (EPackage) r.getContents().get(0);
-			status = "Domain model elements to process:";
 			errorStatus = null;
 		} catch (Exception e) {
 			contents = null;
-			status = "Error loading domain model file:";
 			String namespace = CodeGenUIPlugin.getDefault().getBundle().getSymbolicName();
 			errorStatus = new Status(IStatus.ERROR, namespace, 0, e.getMessage(), e);
 		}

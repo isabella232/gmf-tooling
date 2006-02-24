@@ -49,7 +49,7 @@ public class GMFToolSimpleModelWizard extends GMFToolModelWizard {
 		domainModelSelectionPage.setDescription("Select file with ecore domain model");
 		addPage(domainModelSelectionPage);
 
-		toolDefinitionPage = new DefinitionPage("ToolDefinitionPage", new StructureBuilder(new StructureResolver()), domainModelSource);
+		toolDefinitionPage = new DefinitionPage("ToolDefinitionPage", new StructureBuilder(new StructureResolver()), domainModelSource, false);
 		toolDefinitionPage.setTitle("Tooling Definition");
 		toolDefinitionPage.setDescription("Specify basic tooling definition of the domain model");
 		addPage(toolDefinitionPage);

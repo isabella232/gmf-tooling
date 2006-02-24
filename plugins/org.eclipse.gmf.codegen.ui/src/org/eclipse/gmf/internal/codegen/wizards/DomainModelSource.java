@@ -28,7 +28,5 @@ public interface DomainModelSource {
 
 	public EPackage getContents();
 
-	public String getStatus();
-
 	public IStatus getErrorStatus();
 }

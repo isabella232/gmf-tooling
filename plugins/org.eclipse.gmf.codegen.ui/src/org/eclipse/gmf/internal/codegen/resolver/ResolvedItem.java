@@ -33,15 +33,18 @@ public class ResolvedItem {
 
 	private Object domainRef;
 
+	private TypePattern pattern;
+
 	private Resolution[] possibleResolutions;
 
 	private ResolvedItem parent;
 
 	private List children = new ArrayList();
 
-	public ResolvedItem(Resolution resolution, Object domainRef, Resolution[] possibleResolutions) {
+	public ResolvedItem(Resolution resolution, Object domainRef, TypePattern pattern, Resolution[] possibleResolutions) {
 		this.resolution = resolution;
 		this.domainRef = domainRef;
+		this.pattern = pattern;
 		this.possibleResolutions = possibleResolutions;
 	}
 
@@ -68,6 +71,10 @@ public class ResolvedItem {
 
 	public Object getDomainRef() {
 		return domainRef;
+	}
+
+	public TypePattern getPattern() {
+		return pattern;
 	}
 
 	public ResolvedItem getParent() {
