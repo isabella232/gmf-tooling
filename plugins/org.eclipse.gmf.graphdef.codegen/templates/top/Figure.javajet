@@ -14,6 +14,12 @@ final GraphDefDispatcher dispatcher = (GraphDefDispatcher) args[3];
  * @generated
  */
 public class <%=figure.getName()%> extends <%=importManager.getImportedName((String) fqnSwitch.doSwitch(figure))%> {
+
+	/**
+	 * @generated
+	 */
+	private boolean myUseLocalCoordinates;
+
 	/**
 	 * @generated
 	 */
@@ -21,4 +27,19 @@ public class <%=figure.getName()%> extends <%=importManager.getImportedName((Str
 		<%=dispatcher.dispatch(figure, dispatcher.create(figure, "this"))%>
 		<%=dispatcher.dispatch("Children", new Object[] {figure.getChildren(), dispatcher, "this"})%>
 	}
+	
+	/**
+	 * @generated
+	 */
+	protected boolean useLocalCoordinates() {
+		return myUseLocalCoordinates;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+		myUseLocalCoordinates = useLocalCoordinates;
+	}
+
 }<%importManager.emitSortedImports();%>

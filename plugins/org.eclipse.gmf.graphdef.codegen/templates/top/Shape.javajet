@@ -18,6 +18,12 @@ final String draw2d_IFigure = importManager.getImportedName("org.eclipse.draw2d.
  * @generated
  */
 public class <%=figure.getName()%> extends <%=importManager.getImportedName((String) fqnSwitch.doSwitch(figure))%> {
+
+	/**
+	 * @generated
+	 */
+	private boolean myUseLocalCoordinates;
+
 	/**
 	 * @generated
 	 */
@@ -70,4 +76,17 @@ for (Iterator it = figure.getResolvedChildren().iterator(); it.hasNext(); fc++) 
 	}
 
 <%}%>
+	/**
+	 * @generated
+	 */
+	protected boolean useLocalCoordinates() {
+		return myUseLocalCoordinates;
+	}
+
+	/**
+	 * @generated
+	 */
+	protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+		myUseLocalCoordinates = useLocalCoordinates;
+	}
 }<%importManager.emitSortedImports();%>
