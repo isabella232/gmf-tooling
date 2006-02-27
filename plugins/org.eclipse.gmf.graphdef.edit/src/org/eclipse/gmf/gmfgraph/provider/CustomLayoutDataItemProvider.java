@@ -60,31 +60,10 @@ public class CustomLayoutDataItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addOwnerPropertyDescriptor(object);
 			addQualifiedClassNamePropertyDescriptor(object);
 			addBundleNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Owner feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addOwnerPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_LayoutData_owner_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LayoutData_owner_feature", "_UI_LayoutData_type"),
-				 GMFGraphPackage.eINSTANCE.getLayoutData_Owner(),
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**

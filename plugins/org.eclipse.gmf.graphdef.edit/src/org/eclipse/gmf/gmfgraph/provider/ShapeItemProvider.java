@@ -61,7 +61,6 @@ public class ShapeItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addLayoutPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
 			addOutlinePropertyDescriptor(object);
 			addFillPropertyDescriptor(object);
@@ -72,26 +71,6 @@ public class ShapeItemProvider
 			addResolvedChildrenPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Layout feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addLayoutPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Layoutable_layout_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Layoutable_layout_feature", "_UI_Layoutable_type"),
-				 GMFGraphPackage.eINSTANCE.getLayoutable_Layout(),
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**
@@ -328,6 +307,7 @@ public class ShapeItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGraphPackage.SHAPE__LAYOUT_DATA:
+			case GMFGraphPackage.SHAPE__LAYOUT:
 			case GMFGraphPackage.SHAPE__CHILDREN:
 			case GMFGraphPackage.SHAPE__FOREGROUND_COLOR:
 			case GMFGraphPackage.SHAPE__BACKGROUND_COLOR:
