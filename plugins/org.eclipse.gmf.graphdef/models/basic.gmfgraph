@@ -5,10 +5,19 @@
     <figures xsi:type="gmfgraph:PolylineConnection" name="ConnectionLine"/>
     <figures xsi:type="gmfgraph:LabeledContainer" name="ContainerFigure"/>
     <figures xsi:type="gmfgraph:Label" name="LabelFigure"/>
+    <figures xsi:type="gmfgraph:Rectangle" name="NamedNodeRectangle">
+      <children xsi:type="gmfgraph:Label" name="NamedNode_NameLabelFigure"/>
+    </figures>
+    <figures xsi:type="gmfgraph:Rectangle" name="ChildNodeRectangle" outline="false">
+      <children xsi:type="gmfgraph:Label" name="ChildNode_NameLabelFigure"/>
+    </figures>
   </figures>
   <nodes name="Node" figure="NodeRectangle" resizeConstraint="HORIZONTAL"/>
+  <nodes name="NamedNode" figure="NamedNodeRectangle" resizeConstraint="HORIZONTAL"/>
+  <nodes name="Child" figure="ChildNodeRectangle"/>
   <connections name="Link" figure="ConnectionLine"/>
   <compartments name="Compartment" figure="ContainerFigure" collapsible="true" needsTitle="true"/>
-  <children name="Child" figure="LabelFigure"/>
+  <labels name="NamedNode_Name" figure="NamedNode_NameLabelFigure"/>
+  <labels name="ChildNode_Name" figure="ChildNode_NameLabelFigure"/>
   <labels name="Label" figure="LabelFigure"/>
 </gmfgraph:Canvas>
