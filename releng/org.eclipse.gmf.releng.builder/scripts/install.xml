@@ -94,6 +94,8 @@
 
 	<!-- This installs EMFT as well. TODO: do check installed for EMFT components as well. -->
 	<target name="installEMF" unless="emfExists" depends="checkEMFInstalled">
+		
+<!-- Until the EMF/EMFT update sites are squared away, revert to using zips below... 		
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfFeatureId}" />
 			<property name="version" value="${emfUpdateVersion}" />
@@ -133,16 +135,48 @@
 			<property name="featureId" value="${emfWorkspaceFeatureId}" />
 			<property name="version" value="${emfWorkspaceUpdateVersion}" />
 			<property name="updateSite" value="${emfWorkspaceUpdateSite}" />
-		</ant>
-<!-- Alternative, download zip method... would need to replicate for all EMFT as well
+		</ant> -->
+<!-- Alternative, download zip method... -->
 		<available file="${baseLocationRoot}/${emfZipName}" property="emfZipExists" />
 		<antcall target="getEMF"/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfZipName}" />
--->		
+		
+		<available file="${baseLocationRoot}/${emfOCLZipName}" property="emfOCLZipExists" />
+		<antcall target="getEMFOCL"/>
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfOCLZipName}" />
+		
+		<available file="${baseLocationRoot}/${emfQueryZipName}" property="emfQueryZipExists" />
+		<antcall target="getEMFQuery"/>
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfQueryZipName}" />
+		
+		<available file="${baseLocationRoot}/${emfValidationZipName}" property="emfValidationZipExists" />
+		<antcall target="getEMFValidation"/>
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfValidationZipName}" />
+		
+		<available file="${baseLocationRoot}/${emfTransactionZipName}" property="emfTransactionZipExists" />
+		<antcall target="getEMFTransaction"/>
+		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfTransactionZipName}" />
+
 	</target>
 	
 	<target name="getEMF" unless="emfZipExists">
 		<get src="${emfZipURL}" dest="${baseLocationRoot}/${emfZipName}" verbose="true" usetimestamp="true" />
+	</target>
+	
+	<target name="getEMFOCL" unless="emfOCLZipExists">
+		<get src="${emfOCLZipURL}" dest="${baseLocationRoot}/${emfOCLZipName}" verbose="true" usetimestamp="true" />
+	</target>
+	
+	<target name="getEMFQuery" unless="emfQueryZipExists">
+		<get src="${emfQueryZipURL}" dest="${baseLocationRoot}/${emfQueryZipName}" verbose="true" usetimestamp="true" />
+	</target>
+	
+	<target name="getEMFValidation" unless="emfValidationZipExists">
+		<get src="${emfValidationZipURL}" dest="${baseLocationRoot}/${emfValidationZipName}" verbose="true" usetimestamp="true" />
+	</target>
+	
+	<target name="getEMFTransaction" unless="emfTransactionZipExists">
+		<get src="${emfTransactionZipURL}" dest="${baseLocationRoot}/${emfTransactionZipName}" verbose="true" usetimestamp="true" />
 	</target>
 	
 	<target name="checkEMFExamplesInstalled">
@@ -150,16 +184,16 @@
 	</target>
 	
 	<target name="installEMFExamples" unless="emfExampleExists" depends="checkEMFExamplesInstalled">
+	<!-- Until the EMF/EMFT update sites are squared away, revert to using zips
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${emfExamplesFeatureId}" />
 			<property name="version" value="${emfUpdateVersion}" />
-			<property name="updateSite" value="${emfUpdateSite}" />
-		</ant>
-<!-- Alternative, download zip method
+			<property name="updateSite" value="${emfUpdateSite}" /> 
+		</ant> -->
+<!-- Alternative, download zip method... -->
 		<available file="${baseLocationRoot}/${emfExamplesZipName}" property="emfExamplesZipExists" />
 		<antcall target="getEMFExamples"/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${emfExamplesZipName}" />
--->
 	</target>
 	
 	<target name="getEMFExamples" unless="emfExamplesZipExists">
@@ -192,16 +226,17 @@
 	</target>
 
 	<target name="installUML2" unless="uml2Exists" depends="checkUML2Installed">
+		<!-- Need to resolve issues with new update sites containing qualifiers... revert to zips 
 		<ant antfile="${scripts}/update.xml" target="installFeature">
 			<property name="featureId" value="${uml2FeatureId}" />
 			<property name="version" value="${uml2UpdateVersion}" />
 			<property name="updateSite" value="${uml2UpdateSite}" />
-		</ant>
-<!-- Alternative, download zip method
+		</ant> -->
+<!-- Alternative, download zip method -->
 		<available file="${baseLocationRoot}/${uml2ZipName}" property="uml2ZipExists" />
 		<antcall target="getUML2"/>
 		<unzip dest="${baseLocationRoot}/" overwrite="true" src="${baseLocationRoot}/${uml2ZipName}" />	
--->
+
 	</target>
 			
 	<target name="getUML2" unless="uml2ZipExists">
