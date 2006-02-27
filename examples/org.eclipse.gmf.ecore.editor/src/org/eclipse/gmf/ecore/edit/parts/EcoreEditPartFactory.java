@@ -33,7 +33,7 @@ public class EcoreEditPartFactory implements EditPartFactory {
 	/**
 	 * @generated
 	 */
-	private int getVisualID(View containerView) {
+	private static int getVisualID(View containerView) {
 		EAnnotation annotation = containerView.getEAnnotation("ViewIdentifier"); //$NON-NLS-1$
 		if (annotation == null) {
 			return -1;
@@ -68,19 +68,19 @@ public class EcoreEditPartFactory implements EditPartFactory {
 				return new EClass_nameEditPart(view);
 			case 1002:
 				return new EPackage2EditPart(view);
-			case 4010:
+			case 4009:
 				return new EPackage_name2EditPart(view);
 			case 1003:
-				return new EAnnotation3EditPart(view);
-			case 4012:
-				return new EAnnotation_source3EditPart(view);
+				return new EAnnotation2EditPart(view);
+			case 4011:
+				return new EAnnotation_source2EditPart(view);
 			case 1004:
 				return new EDataType2EditPart(view);
-			case 4014:
+			case 4012:
 				return new EDataType_name2EditPart(view);
 			case 1005:
 				return new EEnum2EditPart(view);
-			case 4017:
+			case 4014:
 				return new EEnum_name2EditPart(view);
 			case 2001:
 				return new EAttributeEditPart(view);
@@ -97,15 +97,9 @@ public class EcoreEditPartFactory implements EditPartFactory {
 			case 2007:
 				return new EEnumEditPart(view);
 			case 2008:
-				return new EAnnotation2EditPart(view);
-			case 2009:
 				return new EStringToStringMapEntryEditPart(view);
-			case 2010:
-				return new EAnnotation4EditPart(view);
-			case 2011:
+			case 2009:
 				return new EEnumLiteralEditPart(view);
-			case 2012:
-				return new EAnnotation5EditPart(view);
 			case 5001:
 				return new EClass_attributesEditPart(view);
 			case 5002:
@@ -136,16 +130,16 @@ public class EcoreEditPartFactory implements EditPartFactory {
 				return new ReferencesEditPart(view);
 			case 3002:
 				return new EReferenceEditPart(view);
-			case 4018:
-				if (EcoreSemanticHints.EReference_3002Labels.EREFERENCENAME_4018_LABEL.equals(view.getType())) {
+			case 4015:
+				if (EcoreSemanticHints.EReference_3002Labels.EREFERENCENAME_4015_LABEL.equals(view.getType())) {
 					return new EReference_nameEditPart(view);
 				} else {
 					return new EReference_nameTextEditPart(view);
 				}
 			case 3003:
 				return new EReference2EditPart(view);
-			case 4019:
-				if (EcoreSemanticHints.EReference_3003Labels.EREFERENCENAME_4019_LABEL.equals(view.getType())) {
+			case 4016:
+				if (EcoreSemanticHints.EReference_3003Labels.EREFERENCENAME_4016_LABEL.equals(view.getType())) {
 					return new EReference_name2EditPart(view);
 				} else {
 					return new EReference_name2TextEditPart(view);

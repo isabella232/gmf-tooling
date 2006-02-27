@@ -133,86 +133,35 @@ public class EcoreSemanticHints {
 	/**
 	 * @generated
 	 */
-	public static class EAnnotation_2008Labels {
+	public static class EStringToStringMapEntry_2008Labels {
 
 		/**
 		 * @generated
 		 */
-		private EAnnotation_2008Labels() {
+		private EStringToStringMapEntry_2008Labels() {
 		}
 
 		/**
 		 * @generated
 		 */
-		public static final String EANNOTATIONSOURCE_4009_TEXT = "EAnnotationSource_4009Text";
+		public static final String ESTRINGTOSTRINGMAPENTRYKEY_4010_TEXT = "EStringToStringMapEntryKey_4010Text";
 	}
 
 	/**
 	 * @generated
 	 */
-	public static class EStringToStringMapEntry_2009Labels {
+	public static class EEnumLiteral_2009Labels {
 
 		/**
 		 * @generated
 		 */
-		private EStringToStringMapEntry_2009Labels() {
+		private EEnumLiteral_2009Labels() {
 		}
 
 		/**
 		 * @generated
 		 */
-		public static final String ESTRINGTOSTRINGMAPENTRYKEY_4011_TEXT = "EStringToStringMapEntryKey_4011Text";
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class EAnnotation_2010Labels {
-
-		/**
-		 * @generated
-		 */
-		private EAnnotation_2010Labels() {
-		}
-
-		/**
-		 * @generated
-		 */
-		public static final String EANNOTATIONSOURCE_4013_TEXT = "EAnnotationSource_4013Text";
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class EEnumLiteral_2011Labels {
-
-		/**
-		 * @generated
-		 */
-		private EEnumLiteral_2011Labels() {
-		}
-
-		/**
-		 * @generated
-		 */
-		public static final String EENUMLITERALNAME_4015_TEXT = "EEnumLiteralName_4015Text";
-	}
-
-	/**
-	 * @generated
-	 */
-	public static class EAnnotation_2012Labels {
-
-		/**
-		 * @generated
-		 */
-		private EAnnotation_2012Labels() {
-		}
-
-		/**
-		 * @generated
-		 */
-		public static final String EANNOTATIONSOURCE_4016_TEXT = "EAnnotationSource_4016Text";
+		public static final String EENUMLITERALNAME_4013_TEXT = "EEnumLiteralName_4013Text";
 	}
 
 	/**
@@ -273,7 +222,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String EPACKAGENAME_4010_TEXT = "EPackageName_4010Text";
+		public static final String EPACKAGENAME_4009_TEXT = "EPackageName_4009Text";
 	}
 
 	/**
@@ -327,7 +276,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String EANNOTATIONSOURCE_4012_TEXT = "EAnnotationSource_4012Text";
+		public static final String EANNOTATIONSOURCE_4011_TEXT = "EAnnotationSource_4011Text";
 	}
 
 	/**
@@ -361,7 +310,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String EDATATYPENAME_4014_TEXT = "EDataTypeName_4014Text";
+		public static final String EDATATYPENAME_4012_TEXT = "EDataTypeName_4012Text";
 	}
 
 	/**
@@ -395,7 +344,7 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String EENUMNAME_4017_TEXT = "EEnumName_4017Text";
+		public static final String EENUMNAME_4014_TEXT = "EEnumName_4014Text";
 	}
 
 	/**
@@ -439,12 +388,12 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String EREFERENCENAME_4018_LABEL = "EReferenceName_4018Label";
+		public static final String EREFERENCENAME_4015_LABEL = "EReferenceName_4015Label";
 
 		/**
 		 * @generated
 		 */
-		public static final String EREFERENCENAME_4018_TEXT = "EReferenceName_4018Text";
+		public static final String EREFERENCENAME_4015_TEXT = "EReferenceName_4015Text";
 	}
 
 	/**
@@ -461,12 +410,12 @@ public class EcoreSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String EREFERENCENAME_4019_LABEL = "EReferenceName_4019Label";
+		public static final String EREFERENCENAME_4016_LABEL = "EReferenceName_4016Label";
 
 		/**
 		 * @generated
 		 */
-		public static final String EREFERENCENAME_4019_TEXT = "EReferenceName_4019Text";
+		public static final String EREFERENCENAME_4016_TEXT = "EReferenceName_4016Text";
 	}
 
 	/**

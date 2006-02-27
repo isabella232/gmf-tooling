@@ -8,12 +8,9 @@ import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.gmf.ecore.editor.EcoreVisualIDRegistry;
 
 import org.eclipse.gmf.ecore.view.factories.EAnnotation2ViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EAnnotation3ViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EAnnotation4ViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EAnnotation5ViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EAnnotationViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EAnnotation_detailsViewFactory;
-import org.eclipse.gmf.ecore.view.factories.EAnnotation_source3ViewFactory;
+import org.eclipse.gmf.ecore.view.factories.EAnnotation_source2ViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EAttributeViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EClass2ViewFactory;
 import org.eclipse.gmf.ecore.view.factories.EClassViewFactory;
@@ -88,19 +85,19 @@ public class EcoreViewProvider extends AbstractViewProvider {
 			return EClass_nameViewFactory.class;
 		case 1002:
 			return EPackage2ViewFactory.class;
-		case 4010:
+		case 4009:
 			return EPackage_name2ViewFactory.class;
 		case 1003:
-			return EAnnotation3ViewFactory.class;
-		case 4012:
-			return EAnnotation_source3ViewFactory.class;
+			return EAnnotation2ViewFactory.class;
+		case 4011:
+			return EAnnotation_source2ViewFactory.class;
 		case 1004:
 			return EDataType2ViewFactory.class;
-		case 4014:
+		case 4012:
 			return EDataType_name2ViewFactory.class;
 		case 1005:
 			return EEnum2ViewFactory.class;
-		case 4017:
+		case 4014:
 			return EEnum_name2ViewFactory.class;
 		case 2001:
 			return EAttributeViewFactory.class;
@@ -117,15 +114,9 @@ public class EcoreViewProvider extends AbstractViewProvider {
 		case 2007:
 			return EEnumViewFactory.class;
 		case 2008:
-			return EAnnotation2ViewFactory.class;
-		case 2009:
 			return EStringToStringMapEntryViewFactory.class;
-		case 2010:
-			return EAnnotation4ViewFactory.class;
-		case 2011:
+		case 2009:
 			return EEnumLiteralViewFactory.class;
-		case 2012:
-			return EAnnotation5ViewFactory.class;
 		case 5001:
 			return EClass_attributesViewFactory.class;
 		case 5002:
@@ -150,14 +141,14 @@ public class EcoreViewProvider extends AbstractViewProvider {
 			return EEnum_literalsViewFactory.class;
 		case 5012:
 			return EEnum_enumannotationsViewFactory.class;
-		case 4018:
-			if (EcoreSemanticHints.EReference_3002Labels.EREFERENCENAME_4018_LABEL.equals(semanticHint)) {
+		case 4015:
+			if (EcoreSemanticHints.EReference_3002Labels.EREFERENCENAME_4015_LABEL.equals(semanticHint)) {
 				return EReference_nameViewFactory.class;
 			} else {
 				return EReference_nameTextViewFactory.class;
 			}
-		case 4019:
-			if (EcoreSemanticHints.EReference_3003Labels.EREFERENCENAME_4019_LABEL.equals(semanticHint)) {
+		case 4016:
+			if (EcoreSemanticHints.EReference_3003Labels.EREFERENCENAME_4016_LABEL.equals(semanticHint)) {
 				return EReference_name2ViewFactory.class;
 			} else {
 				return EReference_name2TextViewFactory.class;

@@ -59,7 +59,7 @@ public class EEnumLiteralEditPart extends ListItemEditPart {
 
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return EcoreElementTypes.EEnumLiteral_2011;
+							return EcoreElementTypes.EEnumLiteral_2009;
 						}
 						return super.getAdapter(adapter);
 					}

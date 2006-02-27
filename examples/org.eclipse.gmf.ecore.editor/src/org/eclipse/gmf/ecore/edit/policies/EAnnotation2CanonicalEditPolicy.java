@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * @generated
  */
-public class EAnnotation3CanonicalEditPolicy extends CanonicalEditPolicy {
+public class EAnnotation2CanonicalEditPolicy extends CanonicalEditPolicy {
 
 	/**
 	 * @generated

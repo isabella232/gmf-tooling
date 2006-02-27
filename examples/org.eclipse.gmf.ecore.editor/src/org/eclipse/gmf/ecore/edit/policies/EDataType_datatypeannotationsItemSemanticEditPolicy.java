@@ -23,11 +23,11 @@ public class EDataType_datatypeannotationsItemSemanticEditPolicy extends EcoreBa
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (EcoreElementTypes.EAnnotation_2010 == req.getElementType()) {
+		if (EcoreElementTypes.EAnnotation_2003 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEModelElement_EAnnotations());
 			}
-			return getMSLWrapper(new CreateEAnnotation_2010Command(req));
+			return getMSLWrapper(new CreateEAnnotation_2003Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -35,12 +35,12 @@ public class EDataType_datatypeannotationsItemSemanticEditPolicy extends EcoreBa
 	/**
 	 * @generated
 	 */
-	private static class CreateEAnnotation_2010Command extends CreateElementCommand {
+	private static class CreateEAnnotation_2003Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateEAnnotation_2010Command(CreateElementRequest req) {
+		public CreateEAnnotation_2003Command(CreateElementRequest req) {
 			super(req);
 		}
 

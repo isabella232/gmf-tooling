@@ -130,9 +130,6 @@ public class EcorePaletteFactory {
 		final List elementTypes = new ArrayList();
 		elementTypes.add(EcoreElementTypes.EAnnotation_1003);
 		elementTypes.add(EcoreElementTypes.EAnnotation_2003);
-		elementTypes.add(EcoreElementTypes.EAnnotation_2008);
-		elementTypes.add(EcoreElementTypes.EAnnotation_2010);
-		elementTypes.add(EcoreElementTypes.EAnnotation_2012);
 		return new ToolEntry("EAnnotation", "Create Annotation", smallImage, largeImage) {
 
 			public Tool createTool() {
@@ -244,12 +241,12 @@ public class EcorePaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EStringToStringMapEntry_2009);
+		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EStringToStringMapEntry_2008);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(EcoreElementTypes.EStringToStringMapEntry_2009);
+		elementTypes.add(EcoreElementTypes.EStringToStringMapEntry_2008);
 		return new ToolEntry("Annotation details", "Create Annotation details", smallImage, largeImage) {
 
 			public Tool createTool() {
@@ -267,12 +264,12 @@ public class EcorePaletteFactory {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EEnumLiteral_2011);
+		smallImage = EcoreElementTypes.getImageDescriptor(EcoreElementTypes.EEnumLiteral_2009);
 
 		largeImage = smallImage;
 
 		final List elementTypes = new ArrayList();
-		elementTypes.add(EcoreElementTypes.EEnumLiteral_2011);
+		elementTypes.add(EcoreElementTypes.EEnumLiteral_2009);
 		return new ToolEntry("EEnumLiteral", "Create Enumeration literal", smallImage, largeImage) {
 
 			public Tool createTool() {

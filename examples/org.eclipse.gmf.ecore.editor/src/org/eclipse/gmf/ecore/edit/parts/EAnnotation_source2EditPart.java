@@ -1,11 +1,12 @@
 package org.eclipse.gmf.ecore.edit.parts;
 
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ListItemEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.emf.ecore.EObject;
 
-import org.eclipse.gmf.ecore.edit.policies.EAnnotation4ItemSemanticEditPolicy;
+import org.eclipse.gmf.ecore.editor.EcoreDiagramEditorPlugin;
 
 import org.eclipse.gmf.ecore.providers.EcoreElementTypes;
 
@@ -19,21 +20,25 @@ import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 /**
  * @generated
  */
-public class EAnnotation4EditPart extends ListItemEditPart {
+public class EAnnotation_source2EditPart extends TextCompartmentEditPart {
 
 	/**
 	 * @generated
 	 */
-	public EAnnotation4EditPart(View view) {
+	public EAnnotation_source2EditPart(View view) {
 		super(view);
+		setNumIcons(1);
 	}
 
 	/**
 	 * @generated
 	 */
-	protected void createDefaultEditPolicies() {
-		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new EAnnotation4ItemSemanticEditPolicy());
+	protected Image getLabelIcon(int index) {
+		ImageDescriptor descriptor = EcoreDiagramEditorPlugin.getInstance().getItemImageDescriptor(resolveSemanticElement());
+		if (descriptor == null) {
+			descriptor = ImageDescriptor.getMissingImageDescriptor();
+		}
+		return descriptor.createImage();
 	}
 
 	/**
@@ -59,7 +64,7 @@ public class EAnnotation4EditPart extends ListItemEditPart {
 
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return EcoreElementTypes.EAnnotation_2010;
+							return EcoreElementTypes.EAnnotation_1003;
 						}
 						return super.getAdapter(adapter);
 					}

@@ -23,11 +23,11 @@ public class EPackage_packageannotationsItemSemanticEditPolicy extends EcoreBase
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (EcoreElementTypes.EAnnotation_2008 == req.getElementType()) {
+		if (EcoreElementTypes.EAnnotation_2003 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEModelElement_EAnnotations());
 			}
-			return getMSLWrapper(new CreateEAnnotation_2008Command(req));
+			return getMSLWrapper(new CreateEAnnotation_2003Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -35,12 +35,12 @@ public class EPackage_packageannotationsItemSemanticEditPolicy extends EcoreBase
 	/**
 	 * @generated
 	 */
-	private static class CreateEAnnotation_2008Command extends CreateElementCommand {
+	private static class CreateEAnnotation_2003Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateEAnnotation_2008Command(CreateElementRequest req) {
+		public CreateEAnnotation_2003Command(CreateElementRequest req) {
 			super(req);
 		}
 

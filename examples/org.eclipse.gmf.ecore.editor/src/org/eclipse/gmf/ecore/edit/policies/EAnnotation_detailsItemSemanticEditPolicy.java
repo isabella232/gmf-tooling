@@ -23,11 +23,11 @@ public class EAnnotation_detailsItemSemanticEditPolicy extends EcoreBaseItemSema
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (EcoreElementTypes.EStringToStringMapEntry_2009 == req.getElementType()) {
+		if (EcoreElementTypes.EStringToStringMapEntry_2008 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEAnnotation_Details());
 			}
-			return getMSLWrapper(new CreateEStringToStringMapEntry_2009Command(req));
+			return getMSLWrapper(new CreateEStringToStringMapEntry_2008Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -35,12 +35,12 @@ public class EAnnotation_detailsItemSemanticEditPolicy extends EcoreBaseItemSema
 	/**
 	 * @generated
 	 */
-	private static class CreateEStringToStringMapEntry_2009Command extends CreateElementCommand {
+	private static class CreateEStringToStringMapEntry_2008Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateEStringToStringMapEntry_2009Command(CreateElementRequest req) {
+		public CreateEStringToStringMapEntry_2008Command(CreateElementRequest req) {
 			super(req);
 		}
 

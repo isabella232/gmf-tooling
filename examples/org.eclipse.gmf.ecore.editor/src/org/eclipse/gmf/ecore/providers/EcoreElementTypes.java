@@ -160,11 +160,8 @@ public class EcoreElementTypes {
 			elements.put(EPackage_2005, EcorePackage.eINSTANCE.getEPackage());
 			elements.put(EDataType_2006, EcorePackage.eINSTANCE.getEDataType());
 			elements.put(EEnum_2007, EcorePackage.eINSTANCE.getEEnum());
-			elements.put(EAnnotation_2008, EcorePackage.eINSTANCE.getEAnnotation());
-			elements.put(EStringToStringMapEntry_2009, EcorePackage.eINSTANCE.getEStringToStringMapEntry());
-			elements.put(EAnnotation_2010, EcorePackage.eINSTANCE.getEAnnotation());
-			elements.put(EEnumLiteral_2011, EcorePackage.eINSTANCE.getEEnumLiteral());
-			elements.put(EAnnotation_2012, EcorePackage.eINSTANCE.getEAnnotation());
+			elements.put(EStringToStringMapEntry_2008, EcorePackage.eINSTANCE.getEStringToStringMapEntry());
+			elements.put(EEnumLiteral_2009, EcorePackage.eINSTANCE.getEEnumLiteral());
 			elements.put(EClass_1001, EcorePackage.eINSTANCE.getEClass());
 			elements.put(EPackage_1002, EcorePackage.eINSTANCE.getEPackage());
 			elements.put(EAnnotation_1003, EcorePackage.eINSTANCE.getEAnnotation());
@@ -221,28 +218,13 @@ public class EcoreElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EAnnotation_2008 = new MetamodelType("EAnnotation_2008", null, "EAnnotation", EcorePackage.eINSTANCE.getEAnnotation(), new NullEditHelper());
-
-	/**
-	 * @generated
-	 */
-	public static final IMetamodelType EStringToStringMapEntry_2009 = new MetamodelType("EStringToStringMapEntry_2009", null, "EStringToStringMapEntry", EcorePackage.eINSTANCE
+	public static final IMetamodelType EStringToStringMapEntry_2008 = new MetamodelType("EStringToStringMapEntry_2008", null, "EStringToStringMapEntry", EcorePackage.eINSTANCE
 			.getEStringToStringMapEntry(), new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType EAnnotation_2010 = new MetamodelType("EAnnotation_2010", null, "EAnnotation", EcorePackage.eINSTANCE.getEAnnotation(), new NullEditHelper());
-
-	/**
-	 * @generated
-	 */
-	public static final IMetamodelType EEnumLiteral_2011 = new MetamodelType("EEnumLiteral_2011", null, "EEnumLiteral", EcorePackage.eINSTANCE.getEEnumLiteral(), new NullEditHelper());
-
-	/**
-	 * @generated
-	 */
-	public static final IMetamodelType EAnnotation_2012 = new MetamodelType("EAnnotation_2012", null, "EAnnotation", EcorePackage.eINSTANCE.getEAnnotation(), new NullEditHelper());
+	public static final IMetamodelType EEnumLiteral_2009 = new MetamodelType("EEnumLiteral_2009", null, "EEnumLiteral", EcorePackage.eINSTANCE.getEEnumLiteral(), new NullEditHelper());
 
 	/**
 	 * @generated
@@ -301,11 +283,8 @@ public class EcoreElementTypes {
 		ElementTypeRegistry.getInstance().register(EPackage_2005);
 		ElementTypeRegistry.getInstance().register(EDataType_2006);
 		ElementTypeRegistry.getInstance().register(EEnum_2007);
-		ElementTypeRegistry.getInstance().register(EAnnotation_2008);
-		ElementTypeRegistry.getInstance().register(EStringToStringMapEntry_2009);
-		ElementTypeRegistry.getInstance().register(EAnnotation_2010);
-		ElementTypeRegistry.getInstance().register(EEnumLiteral_2011);
-		ElementTypeRegistry.getInstance().register(EAnnotation_2012);
+		ElementTypeRegistry.getInstance().register(EStringToStringMapEntry_2008);
+		ElementTypeRegistry.getInstance().register(EEnumLiteral_2009);
 		ElementTypeRegistry.getInstance().register(EClass_1001);
 		ElementTypeRegistry.getInstance().register(EPackage_1002);
 		ElementTypeRegistry.getInstance().register(EAnnotation_1003);

@@ -59,7 +59,7 @@ public class EStringToStringMapEntryEditPart extends ListItemEditPart {
 
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return EcoreElementTypes.EStringToStringMapEntry_2009;
+							return EcoreElementTypes.EStringToStringMapEntry_2008;
 						}
 						return super.getAdapter(adapter);
 					}

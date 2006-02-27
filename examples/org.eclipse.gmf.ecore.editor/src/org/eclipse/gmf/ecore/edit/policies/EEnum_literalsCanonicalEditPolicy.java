@@ -28,7 +28,7 @@ public class EEnum_literalsCanonicalEditPolicy extends CanonicalEditPolicy {
 		for (Iterator it = modelElement.getELiterals().iterator(); it.hasNext();) {
 			nextValue = (EObject) it.next();
 			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, "");
-			if (2011 == nodeVID) {
+			if (2009 == nodeVID) {
 				result.add(nextValue);
 			}
 		}

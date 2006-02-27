@@ -65,11 +65,11 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 					if (request instanceof CreateViewAndElementRequest) {
 						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
 						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
-						if (type == EcoreElementTypes.EEnumLiteral_2011) {
+						if (type == EcoreElementTypes.EEnumLiteral_2009) {
 							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EEnum_1005Compartments.LITERALS_5011);
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
-						if (type == EcoreElementTypes.EAnnotation_2012) {
+						if (type == EcoreElementTypes.EAnnotation_2003) {
 							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EEnum_1005Compartments.ENUM_ANNOTATIONS_5012);
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
@@ -168,7 +168,7 @@ public class EEnum2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(EcoreSemanticHints.EEnum_1005Labels.EENUMNAME_4017_TEXT);
+		return getChildBySemanticHint(EcoreSemanticHints.EEnum_1005Labels.EENUMNAME_4014_TEXT);
 	}
 
 	/**

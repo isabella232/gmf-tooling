@@ -22,7 +22,7 @@ public class EReference_name2ViewFactory extends AbstractLabelViewFactory {
 		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "Ecore"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "4019"); //$NON-NLS-1$
-		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EReference_3003Labels.EREFERENCENAME_4019_TEXT, ViewUtil.APPEND, persisted, getPreferencesHint());
+		annotation.getDetails().put("visualID", "4016"); //$NON-NLS-1$
+		getViewService().createNode(semanticAdapter, view, EcoreSemanticHints.EReference_3003Labels.EREFERENCENAME_4016_TEXT, ViewUtil.APPEND, persisted, getPreferencesHint());
 	}
 }

@@ -23,11 +23,11 @@ public class EEnum_literalsItemSemanticEditPolicy extends EcoreBaseItemSemanticE
 	 * @generated
 	 */
 	protected Command getCreateCommand(CreateElementRequest req) {
-		if (EcoreElementTypes.EEnumLiteral_2011 == req.getElementType()) {
+		if (EcoreElementTypes.EEnumLiteral_2009 == req.getElementType()) {
 			if (req.getContainmentFeature() == null) {
 				req.setContainmentFeature(EcorePackage.eINSTANCE.getEEnum_ELiterals());
 			}
-			return getMSLWrapper(new CreateEEnumLiteral_2011Command(req));
+			return getMSLWrapper(new CreateEEnumLiteral_2009Command(req));
 		}
 		return super.getCreateCommand(req);
 	}
@@ -35,12 +35,12 @@ public class EEnum_literalsItemSemanticEditPolicy extends EcoreBaseItemSemanticE
 	/**
 	 * @generated
 	 */
-	private static class CreateEEnumLiteral_2011Command extends CreateElementCommand {
+	private static class CreateEEnumLiteral_2009Command extends CreateElementCommand {
 
 		/**
 		 * @generated
 		 */
-		public CreateEEnumLiteral_2011Command(CreateElementRequest req) {
+		public CreateEEnumLiteral_2009Command(CreateElementRequest req) {
 			super(req);
 		}
 

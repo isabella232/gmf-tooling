@@ -12,7 +12,7 @@ import org.eclipse.gmf.ecore.providers.EcoreSemanticHints;
 public class EReference_name2EditPart extends LabelEditPart {
 
 	static {
-		registerSnapBackPosition(EcoreSemanticHints.EReference_3003Labels.EREFERENCENAME_4019_LABEL, new Point(0, 0));
+		registerSnapBackPosition(EcoreSemanticHints.EReference_3003Labels.EREFERENCENAME_4016_LABEL, new Point(0, 0));
 	}
 
 	/**

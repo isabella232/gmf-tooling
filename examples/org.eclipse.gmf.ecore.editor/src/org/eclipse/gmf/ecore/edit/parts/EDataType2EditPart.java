@@ -65,7 +65,7 @@ public class EDataType2EditPart extends ShapeNodeEditPart {
 					if (request instanceof CreateViewAndElementRequest) {
 						CreateElementRequestAdapter adapter = ((CreateViewAndElementRequest) request).getViewAndElementDescriptor().getCreateElementRequestAdapter();
 						IElementType type = (IElementType) adapter.getAdapter(IElementType.class);
-						if (type == EcoreElementTypes.EAnnotation_2010) {
+						if (type == EcoreElementTypes.EAnnotation_2003) {
 							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EDataType_1004Compartments.DATA_TYPE_ANNOTATIONS_5010);
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
@@ -164,7 +164,7 @@ public class EDataType2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(EcoreSemanticHints.EDataType_1004Labels.EDATATYPENAME_4014_TEXT);
+		return getChildBySemanticHint(EcoreSemanticHints.EDataType_1004Labels.EDATATYPENAME_4012_TEXT);
 	}
 
 	/**

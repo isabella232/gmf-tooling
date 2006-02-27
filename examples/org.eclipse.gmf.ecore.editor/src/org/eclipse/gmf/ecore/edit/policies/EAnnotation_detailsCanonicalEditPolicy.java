@@ -28,7 +28,7 @@ public class EAnnotation_detailsCanonicalEditPolicy extends CanonicalEditPolicy 
 		for (Iterator it = modelElement.getDetails().iterator(); it.hasNext();) {
 			nextValue = (EObject) it.next();
 			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID((View) getHost().getModel(), nextValue, "");
-			if (2009 == nodeVID) {
+			if (2008 == nodeVID) {
 				result.add(nextValue);
 			}
 		}

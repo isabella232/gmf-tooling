@@ -81,7 +81,7 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EPackage_1002Compartments.ENUMS_5007);
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
-						if (type == EcoreElementTypes.EAnnotation_2008) {
+						if (type == EcoreElementTypes.EAnnotation_2003) {
 							EditPart compartmentEditPart = getChildBySemanticHint(EcoreSemanticHints.EPackage_1002Compartments.PACKAGE_ANNOTATIONS_5008);
 							return compartmentEditPart == null ? null : compartmentEditPart.getCommand(request);
 						}
@@ -180,7 +180,7 @@ public class EPackage2EditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	public EditPart getPrimaryChildEditPart() {
-		return getChildBySemanticHint(EcoreSemanticHints.EPackage_1002Labels.EPACKAGENAME_4010_TEXT);
+		return getChildBySemanticHint(EcoreSemanticHints.EPackage_1002Labels.EPACKAGENAME_4009_TEXT);
 	}
 
 	/**

@@ -411,35 +411,14 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	/**
 	 * @generated
 	 */
-	private void createEAnnotation_2008Children(View viewObject, EObject modelObject) {
+	private void createEStringToStringMapEntry_2008Children(View viewObject, EObject modelObject) {
 		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
 	/**
 	 * @generated
 	 */
-	private void createEStringToStringMapEntry_2009Children(View viewObject, EObject modelObject) {
-		storeLinks(modelObject, viewObject.getDiagram());
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createEAnnotation_2010Children(View viewObject, EObject modelObject) {
-		storeLinks(modelObject, viewObject.getDiagram());
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createEEnumLiteral_2011Children(View viewObject, EObject modelObject) {
-		storeLinks(modelObject, viewObject.getDiagram());
-	}
-
-	/**
-	 * @generated
-	 */
-	private void createEAnnotation_2012Children(View viewObject, EObject modelObject) {
+	private void createEEnumLiteral_2009Children(View viewObject, EObject modelObject) {
 		storeLinks(modelObject, viewObject.getDiagram());
 	}
 
@@ -594,10 +573,10 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 			nextValue = (EObject) values.next();
 
 			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
-			if (2008 == nodeVID) {
+			if (2003 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
-				createEAnnotation_2008Children(nextNode, nextValue);
+				createEAnnotation_2003Children(nextNode, nextValue);
 			}
 		}
 		storeLinks(modelObject, viewObject.getDiagram());
@@ -614,10 +593,10 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 			nextValue = (EObject) values.next();
 
 			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
-			if (2009 == nodeVID) {
+			if (2008 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
-				createEStringToStringMapEntry_2009Children(nextNode, nextValue);
+				createEStringToStringMapEntry_2008Children(nextNode, nextValue);
 			}
 		}
 		storeLinks(modelObject, viewObject.getDiagram());
@@ -634,10 +613,10 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 			nextValue = (EObject) values.next();
 
 			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
-			if (2010 == nodeVID) {
+			if (2003 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
-				createEAnnotation_2010Children(nextNode, nextValue);
+				createEAnnotation_2003Children(nextNode, nextValue);
 			}
 		}
 		storeLinks(modelObject, viewObject.getDiagram());
@@ -654,10 +633,10 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 			nextValue = (EObject) values.next();
 
 			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
-			if (2011 == nodeVID) {
+			if (2009 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
-				createEEnumLiteral_2011Children(nextNode, nextValue);
+				createEEnumLiteral_2009Children(nextNode, nextValue);
 			}
 		}
 		storeLinks(modelObject, viewObject.getDiagram());
@@ -674,10 +653,10 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 			nextValue = (EObject) values.next();
 
 			nodeVID = EcoreVisualIDRegistry.INSTANCE.getNodeVisualID(viewObject, nextValue, "");
-			if (2012 == nodeVID) {
+			if (2003 == nodeVID) {
 				nextNode = ViewService.createNode(viewObject, nextValue, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 				myEObject2NodeMap.put(nextValue, nextNode);
-				createEAnnotation_2012Children(nextNode, nextValue);
+				createEAnnotation_2003Children(nextNode, nextValue);
 			}
 		}
 		storeLinks(modelObject, viewObject.getDiagram());
