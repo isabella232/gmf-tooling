@@ -236,11 +236,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 			handleNodeTool(childNodeMapping, childNode);
 			processAbstractNode(childNodeMapping, childNode);
-			
-			if (childNodeMapping.getChildren().size() > 0) {
-				// TODO just layout from childNodeMapping.getDiagramNode()
-				container.setListLayout(false);
-			}
+		}
+		if (childNodeMapping.getChildren().size() > 0) {
+			// TODO just layout from childNodeMapping.getDiagramNode()
+			container.setListLayout(false);
 		}
 		container.getChildNodes().add(childNode);
 	}
