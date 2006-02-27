@@ -5,9 +5,10 @@
     <ownedChild>
       <domainMetaElement href="library.ecore#//Writer"/>
       <labelMappings>
+        <diagramLabel href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode_Name"/>
         <features href="library.ecore#//Writer/name"/>
       </labelMappings>
-      <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Node"/>
+      <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
     </ownedChild>
   </nodes>
   <nodes>
@@ -15,13 +16,16 @@
     <ownedChild>
       <domainMetaElement href="library.ecore#//Book"/>
       <labelMappings>
+        <diagramLabel href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode_Name"/>
         <features href="library.ecore#//Book/title"/>
       </labelMappings>
+      <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#NamedNode"/>
       <children compartment="//@nodes.1/@ownedChild/@compartments.0">
         <containmentFeature href="library.ecore#//Book/reviews"/>
         <ownedChild>
           <domainMetaElement href="library.ecore#//Review"/>
           <labelMappings>
+            <diagramLabel href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#ChildNode_Name"/>
             <features href="library.ecore#//Review/title"/>
           </labelMappings>
           <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Child"/>
@@ -30,21 +34,20 @@
       <compartments children="//@nodes.1/@ownedChild/@children.0">
         <compartment href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Compartment"/>
       </compartments>
-      <diagramNode href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Node"/>
     </ownedChild>
   </nodes>
   <links>
-    <diagramLink href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Link"/>
     <domainMetaElement href="library.ecore#//Opinion"/>
-    <containmentFeature href="library.ecore#//Writer/opinions"/>
-    <labelMappings>
+    <labelMappings editPattern="">
+      <diagramLabel href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Label"/>
       <features href="library.ecore#//Opinion/text"/>
     </labelMappings>
+    <containmentFeature href="library.ecore#//Writer/opinions"/>
+    <diagramLink href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Link"/>
     <linkMetaFeature xsi:type="ecore:EReference" href="library.ecore#//Opinion/book"/>
   </links>
   <links>
     <diagramLink href="../../../../plugin/org.eclipse.gmf.graphdef/models/basic.gmfgraph#Link"/>
-    <containmentFeature href="library.ecore#//Book/author"/>
     <linkMetaFeature xsi:type="ecore:EReference" href="library.ecore#//Book/author"/>
   </links>
   <diagram>
