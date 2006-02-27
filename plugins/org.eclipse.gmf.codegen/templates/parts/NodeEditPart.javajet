@@ -8,19 +8,20 @@ boolean useFlowLayout = !genNode.isListLayout();
 %>
 package <%=genDiagram.getEditPartsPackageName()%>;
 
-<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
-import org.eclipse.draw2d.BorderLayout;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.StackLayout;
-import org.eclipse.gef.EditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
-import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
-<%importManager.markImportLocation(stringBuffer);%>
+<%
+ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());
+importManager.addImport("org.eclipse.draw2d.BorderLayout");
+importManager.addImport("org.eclipse.draw2d.IFigure");
+importManager.addImport("org.eclipse.draw2d.StackLayout");
+importManager.addImport("org.eclipse.gef.EditPolicy");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles");
+importManager.addImport("org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure");
+importManager.addImport("org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure");
+importManager.addImport("org.eclipse.gmf.runtime.notation.View");
+importManager.addImport("org.eclipse.emf.ecore.EAnnotation");
+importManager.addImport("org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx");
+importManager.markImportLocation(stringBuffer);%>
 
 /**
  * @generated
