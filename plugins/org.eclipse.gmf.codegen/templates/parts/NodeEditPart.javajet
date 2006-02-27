@@ -133,7 +133,9 @@ if (viewmap instanceof FigureViewmap) {
 		return <%=((SnippetViewmap) viewmap).getBody()%>;
 <%} // instanceof SnippetViewmap 
  else if (viewmap instanceof InnerClassViewmap) {%>
- 		return new <%=((InnerClassViewmap) viewmap).getClassName()%>();
+		<%=((InnerClassViewmap) viewmap).getClassName()%> figure = new <%=((InnerClassViewmap) viewmap).getClassName()%>();
+ 		figure.setUseLocalCoordinates(<%=useFlowLayout ? "true" : "false"%>);
+ 		return figure;
 <%}%>
 	}
 
