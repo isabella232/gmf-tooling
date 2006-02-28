@@ -13,6 +13,7 @@ package org.eclipse.gmf.internal.codegen.wizards;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.internal.bridge.wizards.WizardUtil;
 import org.eclipse.gmf.internal.codegen.resolver.StructureBuilder;
 import org.eclipse.gmf.internal.codegen.resolver.StructureResolver;
 import org.eclipse.gmf.tooldef.presentation.GMFToolModelWizard;

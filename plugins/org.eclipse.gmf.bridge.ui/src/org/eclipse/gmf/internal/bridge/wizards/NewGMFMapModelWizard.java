@@ -9,7 +9,7 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.internal.codegen.wizards;
+package org.eclipse.gmf.internal.bridge.wizards;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -17,19 +17,20 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.ecore.xmi.XMLResource;
-import org.eclipse.gmf.internal.codegen.wizards.pages.EntriesPage;
-import org.eclipse.gmf.internal.codegen.wizards.pages.InputPage;
-import org.eclipse.gmf.internal.codegen.wizards.pages.NewMappingFileCreationPage;
-import org.eclipse.gmf.internal.codegen.wizards.pages.RootElementPage;
-import org.eclipse.gmf.internal.codegen.wizards.pages.WizardInput;
+import org.eclipse.gmf.internal.bridge.ui.Plugin;
+import org.eclipse.gmf.internal.bridge.wizards.pages.EntriesPage;
+import org.eclipse.gmf.internal.bridge.wizards.pages.InputPage;
+import org.eclipse.gmf.internal.bridge.wizards.pages.Messages;
+import org.eclipse.gmf.internal.bridge.wizards.pages.NewMapFileCreationPage;
+import org.eclipse.gmf.internal.bridge.wizards.pages.RootElementPage;
+import org.eclipse.gmf.internal.bridge.wizards.pages.WizardInput;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 /**
@@ -37,37 +38,44 @@ import org.eclipse.ui.actions.WorkspaceModifyOperation;
  */
 public class NewGMFMapModelWizard extends Wizard implements INewWizard {
 
-	private IStructuredSelection selection;
+	protected IStructuredSelection mySelection;
 
-	private WizardInput myHolder;
+	protected final WizardInput myHolder;
+
+	private IWorkbench myWorkbench;
 
 	public NewGMFMapModelWizard() {
 		setNeedsProgressMonitor(true);
-		setWindowTitle("Ecore to GMFGraph model");
+		setWindowTitle(Messages.wizardTitle);
+		myHolder = new WizardInput();
 	}
 
 	public void addPages() {
-		final NewMappingFileCreationPage p = new NewMappingFileCreationPage(selection);
-		p.setTitle("GMFMap Model");
-		p.setDescription("Create a new GMFMap model");
-		addPage(p);
-		myHolder = new WizardInput(p.getResultContainer());
-		InputPage p1 = new InputPage(myHolder);
-		p1.setTitle("Source Models");
-		p1.setDescription("Select domain, graphical and tooling definition models");
-		addPage(p1);
-		RootElementPage p2 = new RootElementPage(myHolder);
-		p2.setTitle("Diagram Element");
-		p2.setDescription("Choose element of domain model to act as top-level container, associated with diagram");
-		addPage(p2);
-		EntriesPage p3 = new EntriesPage(myHolder);
-		p3.setTitle("Mapping");
-		p3.setDescription("Map domain model elements");
-		addPage(p3);
+		addNewFilePage();
+		addSelectInputPage();
+		addSelectRootPage();
+		addDoMapPage();
+	}
+
+	protected void addNewFilePage() {
+		addPage(new NewMapFileCreationPage(mySelection, myHolder));
+	}
+
+	protected void addSelectInputPage() {
+		addPage(new InputPage(myHolder));
+	}
+
+	protected void addSelectRootPage() {
+		addPage(new RootElementPage(myHolder));
+	}
+
+	protected void addDoMapPage() {
+		addPage(new EntriesPage(myHolder));
 	}
 
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
-		this.selection = selection;
+		myWorkbench = workbench;
+		mySelection = selection;
 	}
 
 	public boolean performFinish() {
@@ -78,8 +86,7 @@ public class NewGMFMapModelWizard extends Wizard implements INewWizard {
 					options.put(XMLResource.OPTION_ENCODING, "UTF-8");
 					myHolder.getMapping().eResource().save(options);
 				} catch (Exception ex) {
-					IStatus s = new Status(IStatus.ERROR, "org.eclipse.gmf.codegen.ui", 0, ex.getMessage(), ex);
-					Platform.getLog(Platform.getBundle("org.eclipse.gmf.codegen.ui")).log(s);
+					Plugin.log(ex);
 				} finally {
 					progressMonitor.done();
 				}
@@ -88,10 +95,14 @@ public class NewGMFMapModelWizard extends Wizard implements INewWizard {
 
 		try {
 			getContainer().run(false, false, operation);
+			WizardUtil.selectReveal(myWorkbench, new StructuredSelection(getModelFile()));
+			WizardUtil.openInEditor(myWorkbench, getModelFile());
 		} catch (InvocationTargetException ex) {
 			return false;
 		} catch (InterruptedException ex) {
 			return false;
+		} catch (PartInitException ex) {
+			Plugin.log(ex);
 		}
 		return true;
 	}

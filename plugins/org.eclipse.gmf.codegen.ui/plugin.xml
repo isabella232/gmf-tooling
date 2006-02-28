@@ -38,15 +38,11 @@
    </extension>
   <extension
     point = "org.eclipse.ui.newWizards">
-    <category
-      id = "org.eclipse.gmf.Wizard.category.ID"
-      name="%_UI_Wizard_category">
-    </category>
     <wizard
       id = "org.eclipse.gmf.internal.codegen.wizards.GMFGraphSimpleModelWizardID"
       name = "%_UI_GMFGraphSimpleModelWizard_label"
       class = "org.eclipse.gmf.internal.codegen.wizards.GMFGraphSimpleModelWizard"
-      category = "org.eclipse.gmf.Wizard.category.ID"
+      category = "org.eclipse.gmf.tooling.wizardCategory"
       icon = "icons/full/obj16/GMFGraphModelFile.gif">
       <description>%_UI_GMFGraphSimpleModelWizard_description</description>
       <selection class = "org.eclipse.core.resources.IResource" />
@@ -55,18 +51,9 @@
       id = "org.eclipse.gmf.internal.codegen.wizards.GMFToolSimpleModelWizardID"
       name = "%_UI_GMFToolSimpleModelWizard_label"
       class = "org.eclipse.gmf.internal.codegen.wizards.GMFToolSimpleModelWizard"
-      category = "org.eclipse.gmf.Wizard.category.ID"
+      category = "org.eclipse.gmf.tooling.wizardCategory"
       icon = "icons/full/obj16/GMFToolModelFile.gif">
       <description>%_UI_GMFToolSimpleModelWizard_description</description>
-      <selection class = "org.eclipse.core.resources.IResource" />
-    </wizard>
-    <wizard
-      id = "org.eclipse.gmf.internal.codegen.wizards.NewGMFMapModelWizardID"
-      name = "Guide GMFMap Creation"
-      class = "org.eclipse.gmf.internal.codegen.wizards.NewGMFMapModelWizard"
-      category = "org.eclipse.gmf.Wizard.category.ID"
-      icon = "icons/full/obj16/GMFMapModelFile.gif">
-      <description>Create new GMFMap model with some pre-recognized nodes and links</description>
       <selection class = "org.eclipse.core.resources.IResource" />
     </wizard>
   </extension>

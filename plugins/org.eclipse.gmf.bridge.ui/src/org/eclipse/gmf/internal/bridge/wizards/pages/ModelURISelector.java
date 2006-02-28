@@ -9,7 +9,7 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.internal.codegen.wizards.pages;
+package org.eclipse.gmf.internal.bridge.wizards.pages;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -90,7 +90,7 @@ public class ModelURISelector implements Listener {
 		new ToolItem(toolBar, SWT.SEPARATOR);
 		new ToolItem(toolBar, SWT.SEPARATOR);
 		final ToolItem toolItem = new ToolItem(toolBar, SWT.DROP_DOWN);
-		toolItem.setText("Browse...");
+		toolItem.setText(Messages.uriSelectorBrowse);
 		toolItem.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
 				if (event.detail == SWT.ARROW) {
@@ -106,21 +106,21 @@ public class ModelURISelector implements Listener {
 		new ToolItem(toolBar, SWT.SEPARATOR);
 		new ToolItem(toolBar, SWT.SEPARATOR);
 		ToolItem toolItem1 = new ToolItem(toolBar, SWT.PUSH);
-		toolItem1.setText("Load");
+		toolItem1.setText(Messages.uriSelectorLoad);
 		toolItem1.addListener(SWT.Selection, this);
 	}
 
 	protected Menu createBrowseMenu(Control parent) {
 		Menu menu = new Menu(parent);
 		MenuItem item = new MenuItem(menu, SWT.PUSH);
-		item.setText("Workspace...");
+		item.setText(Messages.uriSelectorWorkspace);
 		item.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
 				handleBrowseWorkspace();
 			}
 		});
 		item = new MenuItem(menu, SWT.PUSH);
-		item.setText("Filesystem...");
+		item.setText(Messages.uriSelectorFilesystem);
 		item.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
 				handleBrowseFilesystem();
@@ -145,7 +145,7 @@ public class ModelURISelector implements Listener {
 
 	protected void handleBrowseFilesystem() {
 		FileDialog fileDialog = new FileDialog(getShell(), SWT.OPEN | SWT.SINGLE);
-		fileDialog.setFilterExtensions(new String[] { "*." + myFileExt });
+		fileDialog.setFilterExtensions(new String[] { "*." + myFileExt }); //$NON-NLS-1$
 
 		if (fileDialog.open() != null && fileDialog.getFileNames().length > 0) {
 			String filePath = fileDialog.getFileNames()[0];

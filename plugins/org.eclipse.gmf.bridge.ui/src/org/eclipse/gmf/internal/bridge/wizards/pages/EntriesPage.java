@@ -9,7 +9,7 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.internal.codegen.wizards.pages;
+package org.eclipse.gmf.internal.bridge.wizards.pages;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -23,6 +23,8 @@ import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.NodeReference;
+import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -61,8 +63,10 @@ public class EntriesPage extends WizardPage {
 	private final WizardInput myHolder;
 
 	public EntriesPage(WizardInput input) {
-		super("entriesPage");
+		super("entriesPage"); //$NON-NLS-1$
 		this.myHolder = input;
+		setTitle(Messages.mapPageTitle);
+		setDescription(Messages.mapPageDesc);
 	}
 
 	protected Mapping getMapInstance() {
@@ -109,7 +113,10 @@ public class EntriesPage extends WizardPage {
 		private Label containmentLabel;
 		private Label linkMetaFeatureLabel;
 
-		private MappingEntry selectedEntry;
+		private boolean isNodeInSelection;
+		private NodeReference selectedNode;
+		private LinkMapping selectedLink;
+
 		private final ILabelProvider myLabelProvider = new LabelProvider() {
 			public String getText(Object element) {
 				if (element instanceof LinkMapping) {
@@ -139,21 +146,19 @@ public class EntriesPage extends WizardPage {
 					sb.append(")");
 					return sb.toString();
 				} else {
-					NodeMapping next = (NodeMapping) element;
+					NodeReference next = (NodeReference) element;
 					StringBuffer sb = new StringBuffer();
-					sb.append(next.getDomainMetaElement() == null ? "Node" : next.getDomainMetaElement().getName());
+					sb.append(next.getChild().getDomainMetaElement() == null ? "Node" : next.getChild().getDomainMetaElement().getName());
 					sb.append(" (");
-					if (next.getDiagramNode() != null) {
-						sb.append(next.getDiagramNode().getName());
-//						 FIXME [containment] !!!
-//						if (next.getContainmentFeature() != null) {
-//							sb.append(";  ");
-//						}
+					if (next.getChild().getDiagramNode() != null) {
+						sb.append(next.getChild().getDiagramNode().getName());
+						if (next.getContainmentFeature() != null) {
+							sb.append(";  ");
+						}
 					}
-//					 FIXME [containment] !!!
-//					if (next.getContainmentFeature() != null) {
-//						sb.append(next.getContainmentFeature().getName());
-//					}
+					if (next.getContainmentFeature() != null) {
+						sb.append(next.getContainmentFeature().getName());
+					}
 					sb.append(")");
 					return sb.toString();
 				}
@@ -266,7 +271,8 @@ public class EntriesPage extends WizardPage {
 			changeDetailsButton.setText("Change...");
 			changeDetailsButton.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent e) {
-					ChangePropertiesDialog changePropertiesDialog = new ChangePropertiesDialog(getShell(), new Object[] {selectedEntry});
+					final Object input =  isNodeInSelection ? (Object) selectedNode : (Object) selectedLink;
+					ChangePropertiesDialog changePropertiesDialog = new ChangePropertiesDialog(getShell(), new Object[] {input});
 					int result = changePropertiesDialog.open();
 					if (result == Window.OK) {
 // TODO: save values to the model here
@@ -349,18 +355,18 @@ public class EntriesPage extends WizardPage {
 			asNodeButton.setEnabled(false);
 			asNodeButton.addListener(SWT.Selection, new Listener() {
 				public void handleEvent(Event event) {
+					TopNodeReference tnr = GMFMapFactory.eINSTANCE.createTopNodeReference();
 					NodeMapping nm = GMFMapFactory.eINSTANCE.createNodeMapping();
-					nm.setDomainMetaElement(selectedEntry.getDomainMetaElement());
-//					 FIXME [containment] !!!
-//					nm.setContainmentFeature(selectedEntry.getContainmentFeature());
-					nm.setDomainInitializer(selectedEntry.getDomainInitializer());
-					nm.setDomainSpecialization(selectedEntry.getDomainSpecialization());
-					final LinkMapping linkMapping = (LinkMapping) selectedEntry;
-					nm.setTool(linkMapping.getTool());
-					nm.setContextMenu(linkMapping.getContextMenu());
-					nm.setAppearanceStyle(linkMapping.getAppearanceStyle());
-					getMapInstance().getNodes().add(nm);
-					getMapInstance().getLinks().remove(selectedEntry);
+					nm.setDomainMetaElement(selectedLink.getDomainMetaElement());
+					nm.setDomainInitializer(selectedLink.getDomainInitializer());
+					nm.setDomainSpecialization(selectedLink.getDomainSpecialization());
+					nm.setTool(selectedLink.getTool());
+					nm.setContextMenu(selectedLink.getContextMenu());
+					nm.setAppearanceStyle(selectedLink.getAppearanceStyle());
+					tnr.setContainmentFeature(selectedLink.getContainmentFeature());
+					tnr.setOwnedChild(nm);
+					getMapInstance().getNodes().add(tnr);
+					getMapInstance().getLinks().remove(selectedLink);
 					linksList.remove(linksList.getSelectionIndex());
 					nodesList.add(myLabelProvider.getText(nm));
 					nodesList.setSelection(nodesList.getItemCount() - 1);
@@ -373,17 +379,16 @@ public class EntriesPage extends WizardPage {
 			asLinkButton.addListener(SWT.Selection, new Listener() {
 				public void handleEvent(Event event) {
 					LinkMapping lm = GMFMapFactory.eINSTANCE.createLinkMapping();
-					lm.setDomainMetaElement(selectedEntry.getDomainMetaElement());
-//					 FIXME [containment] !!!
-//					lm.setContainmentFeature(selectedEntry.getContainmentFeature());
-					lm.setDomainInitializer(selectedEntry.getDomainInitializer());
-					lm.setDomainSpecialization(selectedEntry.getDomainSpecialization());
-					final NodeMapping nodeMapping = (NodeMapping) selectedEntry;
+					NodeMapping nodeMapping =  selectedNode.getChild();
+					lm.setDomainMetaElement(nodeMapping.getDomainMetaElement());
+					lm.setContainmentFeature(selectedNode.getContainmentFeature());
+					lm.setDomainInitializer(nodeMapping.getDomainInitializer());
+					lm.setDomainSpecialization(nodeMapping.getDomainSpecialization());
 					lm.setTool(nodeMapping.getTool());
 					lm.setContextMenu(nodeMapping.getContextMenu());
 					lm.setAppearanceStyle(nodeMapping.getAppearanceStyle());
 					getMapInstance().getLinks().add(lm);
-					getMapInstance().getNodes().remove(selectedEntry);
+					getMapInstance().getNodes().remove(selectedNode);
 					nodesList.remove(nodesList.getSelectionIndex());
 					linksList.add(myLabelProvider.getText(lm));
 					linksList.setSelection(linksList.getItemCount() - 1);
@@ -433,14 +438,13 @@ public class EntriesPage extends WizardPage {
 						}
 					});
 					d.setLabelProvider(PageControl.this.myLabelProvider);
-					final boolean isNodeMap = selectedEntry instanceof NodeMapping;
-					if (isNodeMap) {
+					if (isNodeInSelection) {
 						d.setInput(getHolder().nodeCandidates());
 					} else {
 						d.setInput(getHolder().linkCandidates());
 					}
 					if (d.open() == ListDialog.OK) {
-						if (isNodeMap) {
+						if (isNodeInSelection) {
 							getMapInstance().getNodes().addAll(Arrays.asList(d.getResult()));
 							nodesList.removeAll();
 							populateNodesList();
@@ -497,15 +501,13 @@ public class EntriesPage extends WizardPage {
 			return labelGridData;
 		}
 
-		private void refreshCommonDetails() {
+		private void refreshCommonDetails(MappingEntry selectedEntry) {
 			affix(metaElementLabel, selectedEntry.getDomainMetaElement());
-//			 FIXME [containment] !!!
-//			affix(containmentLabel, selectedEntry.getContainmentFeature());
-			refreshDomainSpecialization();
-			refreshDomainInitializer();
+			refreshDomainSpecialization(selectedEntry);
+			refreshDomainInitializer(selectedEntry);
 		}
 
-		private void refreshDomainSpecialization() {
+		private void refreshDomainSpecialization(MappingEntry selectedEntry) {
 			if (selectedEntry.getDomainSpecialization() == null) {
 				specLabel.setText("");
 				return;
@@ -513,7 +515,7 @@ public class EntriesPage extends WizardPage {
 			specLabel.setText(selectedEntry.getDomainSpecialization().getBody());
 		}
 
-		private void refreshDomainInitializer() {
+		private void refreshDomainInitializer(MappingEntry selectedEntry) {
 			if (selectedEntry.getDomainInitializer() == null || false == selectedEntry.getDomainInitializer() instanceof FeatureSeqInitializer) {
 				initLabel.setText("");
 				return;
@@ -537,8 +539,9 @@ public class EntriesPage extends WizardPage {
 		}
 
 		private void refreshNodeDetails() {
-			refreshCommonDetails();
-			NodeMapping m = (NodeMapping) selectedEntry;
+			refreshCommonDetails(selectedNode.getChild());
+			NodeMapping m = selectedNode.getChild();
+			affix(containmentLabel, selectedNode.getContainmentFeature());
 			if (m.getDiagramNode() != null) {
 				diagramElementLabel.setText(m.getDiagramNode().getName());
 			} else {
@@ -548,8 +551,8 @@ public class EntriesPage extends WizardPage {
 		}
 
 		private void refreshLinkDetails() {
-			refreshCommonDetails();
-			LinkMapping l = (LinkMapping) selectedEntry;
+			refreshCommonDetails(selectedLink);
+			LinkMapping l = selectedLink;
 			if (l.getDiagramLink() != null) {
 				diagramElementLabel.setText(l.getDiagramLink().getName());
 			} else {
@@ -562,15 +565,17 @@ public class EntriesPage extends WizardPage {
 			asNodeButton.setEnabled(false);
 			asLinkButton.setEnabled(true);
 			assert nodesList.getSelectionIndex() != -1;
-			selectedEntry = (NodeMapping) getMapInstance().getNodes().get(nodesList.getSelectionIndex());
+			selectedNode = (NodeReference) getMapInstance().getNodes().get(nodesList.getSelectionIndex());
+			isNodeInSelection = true;
 			refreshNodeDetails();
 		}
 
 		void handleLinksListSelectionChange() {
 			assert linksList.getSelectionIndex() != -1;
 			asLinkButton.setEnabled(false);
-			selectedEntry =(LinkMapping) getMapInstance().getLinks().get(linksList.getSelectionIndex());
-			asNodeButton.setEnabled(selectedEntry.getDomainMetaElement() != null);
+			selectedLink =(LinkMapping) getMapInstance().getLinks().get(linksList.getSelectionIndex());
+			asNodeButton.setEnabled(selectedLink.getDomainMetaElement() != null);
+			isNodeInSelection = false;
 			refreshLinkDetails();
 		}
 	}

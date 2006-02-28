@@ -16,6 +16,7 @@ import java.util.Iterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.gmf.internal.bridge.wizards.WizardUtil;
 import org.eclipse.gmf.internal.codegen.resolver.Resolution;
 import org.eclipse.gmf.internal.codegen.resolver.ResolvedItem;
 import org.eclipse.gmf.tooldef.CreationTool;

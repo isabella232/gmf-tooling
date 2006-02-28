@@ -9,14 +9,14 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.internal.codegen.wizards.pages;
+package org.eclipse.gmf.internal.bridge.wizards.pages;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.util.Assistant;
-import org.eclipse.gmf.internal.codegen.wizards.pages.ModelURISelector.Loader;
+import org.eclipse.gmf.internal.bridge.wizards.pages.ModelURISelector.Loader;
 import org.eclipse.gmf.tooldef.ToolRegistry;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -38,15 +38,17 @@ public class InputPage extends WizardPage implements Loader {
 
 	private final WizardInput holder; 
 	public InputPage(WizardInput input) {
-		super("inputPage");
+		super("inputPage"); //$NON-NLS-1$
 		holder = input;
+		setTitle(Messages.inputPageTitle);
+		setDescription(Messages.inputPageDesc);
 		setPageComplete(false);
 	}
 
 	public void createControl(Composite parent) {
-		ecoreSelector = new ModelURISelector("Domain Model", "ecore", this);
-		gmfgraphSelector = new ModelURISelector("Graphical Definition", "gmfgraph", this);
-		tooldefSelector = new ModelURISelector("Tooling Definition", "gmftool", this);
+		ecoreSelector = new ModelURISelector(Messages.ecoreSelector, "ecore", this); //$NON-NLS-1$
+		gmfgraphSelector = new ModelURISelector(Messages.graphdefSelector, "gmfgraph", this); //$NON-NLS-1$
+		tooldefSelector = new ModelURISelector(Messages.tooldefSelector, "gmftool", this); //$NON-NLS-1$
 		Composite p = new Composite(parent, SWT.NONE);
 		GridLayout l = new GridLayout(1, false);
 		l.verticalSpacing = 30;
@@ -57,10 +59,11 @@ public class InputPage extends WizardPage implements Loader {
 				ecoreSelector.setURIText((String) event.widget.getData());
 			}
 		};
+		// TODO define additional get from extpoint
 		new MenuItem(ecoreSelector.getBrowseMenu(), SWT.SEPARATOR);
 		MenuItem ii = new MenuItem(ecoreSelector.getBrowseMenu(), SWT.PUSH);
-		ii.setText("Use ECore");
-		ii.setData("platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore");
+		ii.setText(Messages.useECore);
+		ii.setData("platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"); //$NON-NLS-1$
 		ii.addListener(SWT.Selection, lll);
 
 		c.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
@@ -69,7 +72,7 @@ public class InputPage extends WizardPage implements Loader {
 		gmfgraphSelector.setURIText(Assistant.getBasicGraphDef());
 		new MenuItem(gmfgraphSelector.getBrowseMenu(), SWT.SEPARATOR);
 		MenuItem mi = new MenuItem(gmfgraphSelector.getBrowseMenu(), SWT.PUSH);
-		mi.setText("Use Basic");
+		mi.setText(Messages.useBasic);
 		mi.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event event) {
 				gmfgraphSelector.setURIText(Assistant.getBasicGraphDef());
@@ -77,7 +80,6 @@ public class InputPage extends WizardPage implements Loader {
 		});
 		c = tooldefSelector.createControl(p);
 		c.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-		c.setEnabled(false);
 		setControl(p);
 	}
 

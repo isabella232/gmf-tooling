@@ -9,7 +9,7 @@
  * Contributors:
  *    Artem Tikhomirov (Borland) - initial API and implementation
  */
-package org.eclipse.gmf.internal.codegen.wizards.pages;
+package org.eclipse.gmf.internal.bridge.wizards.pages;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -35,8 +35,10 @@ public class RootElementPage extends WizardPage implements Listener {
 	private List elementsList;
 
 	public RootElementPage(WizardInput input) {
-		super("rootElementPage");
+		super("rootElementPage"); //$NON-NLS-1$
 		holder = input;
+		setTitle(Messages.rootPageTitle);
+		setDescription(Messages.rootPageDesc);
 		setPageComplete(false);
 	}
 
@@ -71,7 +73,7 @@ public class RootElementPage extends WizardPage implements Listener {
 		Group group1 = new Group(p, SWT.NONE);
 		group1.setLayout(new FillLayout());
 		group1.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		group1.setText("Diagram Root Element");
+		group1.setText(Messages.rootPageGroupTitle);
 		elementsList = new List(group1, SWT.SINGLE | SWT.BORDER | SWT.V_SCROLL);
 		elementsList.addListener(SWT.Selection, this);
 		return group1;
