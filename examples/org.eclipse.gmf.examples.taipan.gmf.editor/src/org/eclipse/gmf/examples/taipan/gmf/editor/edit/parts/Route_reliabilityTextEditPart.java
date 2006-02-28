@@ -27,12 +27,12 @@ import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 /**
  * @generated
  */
-public class RouteDescriptionLinkLabelTextEditPart extends TextCompartmentEditPart {
+public class Route_reliabilityTextEditPart extends TextCompartmentEditPart {
 
 	/**
 	 * @generated
 	 */
-	public RouteDescriptionLinkLabelTextEditPart(View view) {
+	public Route_reliabilityTextEditPart(View view) {
 		super(view);
 	}
 
@@ -59,7 +59,7 @@ public class RouteDescriptionLinkLabelTextEditPart extends TextCompartmentEditPa
 
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return TaiPanElementTypes.Route_3002;
+							return TaiPanElementTypes.Route_3001;
 						}
 						return super.getAdapter(adapter);
 					}

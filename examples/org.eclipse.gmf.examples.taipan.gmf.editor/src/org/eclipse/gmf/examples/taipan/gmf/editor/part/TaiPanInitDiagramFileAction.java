@@ -386,8 +386,8 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 			for (Iterator values = ((Collection) featureValue).iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());
 				int linkVID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(nextValue);
-				if (3002 == linkVID) {
-					((Collection) myLinkVID2EObjectMap.get(new Integer(3002))).add(nextValue);
+				if (3001 == linkVID) {
+					((Collection) myLinkVID2EObjectMap.get(new Integer(3001))).add(nextValue);
 				}
 			}
 		}
@@ -398,7 +398,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	 */
 	private void storeFeatureModelFacetLinks(EObject container, EClass containerMetaclass, Diagram diagram) {
 		if (-1 != containerMetaclass.getFeatureID(TaiPanPackage.eINSTANCE.getShip_Destination())) {
-			((Collection) myLinkVID2EObjectMap.get(new Integer(3001))).add(container);
+			((Collection) myLinkVID2EObjectMap.get(new Integer(3002))).add(container);
 		}
 	}
 
@@ -408,36 +408,6 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	private void createLinks() {
 		Collection linkElements;
 		linkElements = (Collection) myLinkVID2EObjectMap.get(new Integer(3001));
-		for (Iterator it = linkElements.iterator(); it.hasNext();) {
-			EObject linkElement = (EObject) it.next();
-			EObject src = linkElement;
-			Node srcNode = (Node) myEObject2NodeMap.get(src);
-			if (srcNode == null) {
-				continue;
-			}
-			Object structuralFeatureResult = ((Ship) linkElement).getDestination();
-			if (structuralFeatureResult instanceof EObject == false) {
-				continue;
-			}
-			EObject dst = (EObject) structuralFeatureResult;
-			Node dstNode = (Node) myEObject2NodeMap.get(dst);
-			if (dstNode != null) {
-				Edge edge = (Edge) ViewService.getInstance().createEdge(new IAdaptable() {
-
-					public Object getAdapter(Class adapter) {
-						if (IElementType.class.equals(adapter)) {
-							return TaiPanElementTypes.ShipDestination_3001;
-						}
-						return null;
-					}
-				}, srcNode.getDiagram(), "", ViewUtil.APPEND, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-				if (edge != null) {
-					edge.setSource(srcNode);
-					edge.setTarget(dstNode);
-				}
-			}
-		}
-		linkElements = (Collection) myLinkVID2EObjectMap.get(new Integer(3002));
 		for (Iterator it = linkElements.iterator(); it.hasNext();) {
 			EObject linkElement = (EObject) it.next();
 			Object srcResult = ((Route) linkElement).getSource();
@@ -457,6 +427,36 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 			Node dstNode = (Node) myEObject2NodeMap.get(dst);
 			if (dstNode != null) {
 				ViewService.createEdge(srcNode, dstNode, linkElement, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+			}
+		}
+		linkElements = (Collection) myLinkVID2EObjectMap.get(new Integer(3002));
+		for (Iterator it = linkElements.iterator(); it.hasNext();) {
+			EObject linkElement = (EObject) it.next();
+			EObject src = linkElement;
+			Node srcNode = (Node) myEObject2NodeMap.get(src);
+			if (srcNode == null) {
+				continue;
+			}
+			Object structuralFeatureResult = ((Ship) linkElement).getDestination();
+			if (structuralFeatureResult instanceof EObject == false) {
+				continue;
+			}
+			EObject dst = (EObject) structuralFeatureResult;
+			Node dstNode = (Node) myEObject2NodeMap.get(dst);
+			if (dstNode != null) {
+				Edge edge = (Edge) ViewService.getInstance().createEdge(new IAdaptable() {
+
+					public Object getAdapter(Class adapter) {
+						if (IElementType.class.equals(adapter)) {
+							return TaiPanElementTypes.ShipDestination_3002;
+						}
+						return null;
+					}
+				}, srcNode.getDiagram(), "", ViewUtil.APPEND, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+				if (edge != null) {
+					edge.setSource(srcNode);
+					edge.setTarget(dstNode);
+				}
 			}
 		}
 	}

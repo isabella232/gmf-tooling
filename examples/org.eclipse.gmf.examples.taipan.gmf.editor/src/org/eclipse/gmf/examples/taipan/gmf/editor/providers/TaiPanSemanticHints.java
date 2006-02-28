@@ -93,59 +93,59 @@ public class TaiPanSemanticHints {
 	/**
 	 * @generated
 	 */
-	public static final String ShipDestination_3001 = "ShipDestination_3001Link";
-
-	/**
-	 * @generated
-	 */
-	public static class ShipDestination_3001Labels {
+	public static class Route_3001Labels {
 
 		/**
 		 * @generated
 		 */
-		private ShipDestination_3001Labels() {
+		private Route_3001Labels() {
 		}
 
 		/**
 		 * @generated
 		 */
-		public static final String SHIPDESTINATIONLABEL7431047_4004_LABEL = "ShipDestinationLabel7431047_4004Label";
+		public static final String ROUTEDESCRIPTION_4004_LABEL = "RouteDescription_4004Label";
 
 		/**
 		 * @generated
 		 */
-		public static final String SHIPDESTINATIONLABEL7431047_4004_TEXT = "ShipDestinationLabel7431047_4004Text";
+		public static final String ROUTEDESCRIPTION_4004_TEXT = "RouteDescription_4004Text";
+
+		/**
+		 * @generated
+		 */
+		public static final String ROUTERELIABILITY_4005_LABEL = "RouteReliability_4005Label";
+
+		/**
+		 * @generated
+		 */
+		public static final String ROUTERELIABILITY_4005_TEXT = "RouteReliability_4005Text";
 	}
 
 	/**
 	 * @generated
 	 */
-	public static class Route_3002Labels {
+	public static final String ShipDestination_3002 = "ShipDestination_3002Link";
+
+	/**
+	 * @generated
+	 */
+	public static class ShipDestination_3002Labels {
 
 		/**
 		 * @generated
 		 */
-		private Route_3002Labels() {
+		private ShipDestination_3002Labels() {
 		}
 
 		/**
 		 * @generated
 		 */
-		public static final String ROUTEDESCRIPTION_4005_LABEL = "RouteDescription_4005Label";
+		public static final String SHIPDESTINATIONLABEL27145453_4006_LABEL = "ShipDestinationLabel27145453_4006Label";
 
 		/**
 		 * @generated
 		 */
-		public static final String ROUTEDESCRIPTION_4005_TEXT = "RouteDescription_4005Text";
-
-		/**
-		 * @generated
-		 */
-		public static final String ROUTERELIABILITY_4006_LABEL = "RouteReliability_4006Label";
-
-		/**
-		 * @generated
-		 */
-		public static final String ROUTERELIABILITY_4006_TEXT = "RouteReliability_4006Text";
+		public static final String SHIPDESTINATIONLABEL27145453_4006_TEXT = "ShipDestinationLabel27145453_4006Text";
 	}
 }

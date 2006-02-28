@@ -35,8 +35,8 @@ public class RouteViewFactory extends ConnectionViewFactory {
 		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "TaiPan"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "3002"); //$NON-NLS-1$
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005_LABEL, ViewUtil.APPEND, persisted, getPreferencesHint());
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4006_LABEL, ViewUtil.APPEND, persisted, getPreferencesHint());
+		annotation.getDetails().put("visualID", "3001"); //$NON-NLS-1$
+		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Route_3001Labels.ROUTEDESCRIPTION_4004_LABEL, ViewUtil.APPEND, persisted, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Route_3001Labels.ROUTERELIABILITY_4005_LABEL, ViewUtil.APPEND, persisted, getPreferencesHint());
 	}
 }

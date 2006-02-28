@@ -22,7 +22,7 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
 /**
  * @generated
  */
-public class ShipDestinationLabelLinkLabelViewFactory extends AbstractLabelViewFactory {
+public class Route_reliabilityViewFactory extends AbstractLabelViewFactory {
 
 	/**
 	 * @generated
@@ -33,7 +33,7 @@ public class ShipDestinationLabelLinkLabelViewFactory extends AbstractLabelViewF
 		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "TaiPan"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "4004"); //$NON-NLS-1$
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.ShipDestination_3001Labels.SHIPDESTINATIONLABEL7431047_4004_TEXT, ViewUtil.APPEND, persisted, getPreferencesHint());
+		annotation.getDetails().put("visualID", "4005"); //$NON-NLS-1$
+		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Route_3001Labels.ROUTERELIABILITY_4005_TEXT, ViewUtil.APPEND, persisted, getPreferencesHint());
 	}
 }

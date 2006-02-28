@@ -12,17 +12,18 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.view.factories;
 
 import org.eclipse.core.runtime.IAdaptable;
+
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
-import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory;
+
+import org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory;
+
 import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
 
 /**
  * @generated
  */
-public class RouteDescriptionLinkLabelViewFactory extends AbstractLabelViewFactory {
+public class Destination_destinatTextViewFactory extends BasicNodeViewFactory {
 
 	/**
 	 * @generated
@@ -33,7 +34,6 @@ public class RouteDescriptionLinkLabelViewFactory extends AbstractLabelViewFacto
 		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "TaiPan"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "4005"); //$NON-NLS-1$
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005_TEXT, ViewUtil.APPEND, persisted, getPreferencesHint());
+		annotation.getDetails().put("visualID", "4006"); //$NON-NLS-1$
 	}
 }

@@ -12,19 +12,14 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.draw2d.BorderLayout;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.StackLayout;
-import org.eclipse.gef.EditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
-import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-import org.eclipse.gmf.runtime.notation.View;
+
 import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
-import org.eclipse.draw2d.Figure;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortCanonicalEditPolicy;
 import org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies.PortGraphicalNodeEditPolicy;
@@ -34,7 +29,18 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
 
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
+
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
+
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
+
+import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
+
+import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
+import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
+
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -67,7 +73,9 @@ public class PortEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		return new box();
+		box figure = new box();
+		figure.setUseLocalCoordinates(false);
+		return figure;
 	}
 
 	/**
@@ -157,6 +165,11 @@ public class PortEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
+		private boolean myUseLocalCoordinates;
+
+		/**
+		 * @generated
+		 */
 		public box() {
 
 			org.eclipse.draw2d.IFigure childboxName = createFigureboxName();
@@ -165,32 +178,45 @@ public class PortEditPart extends ShapeNodeEditPart {
 
 		}
 
-		private IFigure fboxName;
+		private org.eclipse.draw2d.IFigure fboxName;
 
 		/**
 		 * @generated
 		 */
-		public IFigure getFigureboxName() {
+		public org.eclipse.draw2d.IFigure getFigureboxName() {
 			return fboxName;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureboxName(IFigure figure) {
+		protected void setFigureboxName(org.eclipse.draw2d.IFigure figure) {
 			fboxName = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private IFigure createFigureboxName() {
+		private org.eclipse.draw2d.IFigure createFigureboxName() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
 			rv.setText("");
 
 			return rv;
 		}
 
+		/**
+		 * @generated
+		 */
+		protected boolean useLocalCoordinates() {
+			return myUseLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+			myUseLocalCoordinates = useLocalCoordinates;
+		}
 	}
 
 }

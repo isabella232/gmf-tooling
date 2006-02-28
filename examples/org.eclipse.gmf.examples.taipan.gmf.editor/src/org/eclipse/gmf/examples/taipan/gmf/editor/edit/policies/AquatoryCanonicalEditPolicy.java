@@ -95,7 +95,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	protected EObject getTargetElement(EObject relationship) {
 		int vID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(relationship);
 		switch (vID) {
-		case 3002:
+		case 3001:
 			return ((Route) relationship).getDestination();
 		}
 		return null;

@@ -20,16 +20,16 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
 /**
  * @generated
  */
-public class RouteReliabilityLinkLabelEditPart extends LabelEditPart {
+public class Route_reliabilityEditPart extends LabelEditPart {
 
 	static {
-		registerSnapBackPosition(TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4006_LABEL, new Point(0, 0));
+		registerSnapBackPosition(TaiPanSemanticHints.Route_3001Labels.ROUTERELIABILITY_4005_LABEL, new Point(0, 0));
 	}
 
 	/**
 	 * @generated
 	 */
-	public RouteReliabilityLinkLabelEditPart(View view) {
+	public Route_reliabilityEditPart(View view) {
 		super(view);
 	}
 

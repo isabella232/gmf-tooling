@@ -44,7 +44,7 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 	/**
 	 * @generated
 	 */
-	private int getVisualID(View containerView) {
+	private static int getVisualID(View containerView) {
 		EAnnotation annotation = containerView.getEAnnotation("ViewIdentifier"); //$NON-NLS-1$
 		if (annotation == null) {
 			return -1;
@@ -88,26 +88,26 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 			case 79:
 				return new AquatoryEditPart(view);
 			case 3001:
-				return new DestinationEditPart(view);
+				return new RouteEditPart(view);
 			case 4004:
-				if (TaiPanSemanticHints.ShipDestination_3001Labels.SHIPDESTINATIONLABEL7431047_4004_LABEL.equals(view.getType())) {
-					return new ShipDestinationLabelLinkLabelEditPart(view);
+				if (TaiPanSemanticHints.Route_3001Labels.ROUTEDESCRIPTION_4004_LABEL.equals(view.getType())) {
+					return new Route_descriptionEditPart(view);
 				} else {
-					return new ShipDestinationLabelLinkLabelTextEditPart(view);
+					return new Route_descriptionTextEditPart(view);
+				}
+			case 4005:
+				if (TaiPanSemanticHints.Route_3001Labels.ROUTERELIABILITY_4005_LABEL.equals(view.getType())) {
+					return new Route_reliabilityEditPart(view);
+				} else {
+					return new Route_reliabilityTextEditPart(view);
 				}
 			case 3002:
-				return new RouteEditPart(view);
-			case 4005:
-				if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005_LABEL.equals(view.getType())) {
-					return new RouteDescriptionLinkLabelEditPart(view);
-				} else {
-					return new RouteDescriptionLinkLabelTextEditPart(view);
-				}
+				return new DestinationEditPart(view);
 			case 4006:
-				if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4006_LABEL.equals(view.getType())) {
-					return new RouteReliabilityLinkLabelEditPart(view);
+				if (TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONLABEL27145453_4006_LABEL.equals(view.getType())) {
+					return new Destination_destinatEditPart(view);
 				} else {
-					return new RouteReliabilityLinkLabelTextEditPart(view);
+					return new Destination_destinatTextEditPart(view);
 				}
 			}
 		}

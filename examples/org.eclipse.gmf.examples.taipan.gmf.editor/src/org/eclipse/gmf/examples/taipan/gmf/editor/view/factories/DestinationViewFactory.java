@@ -35,8 +35,8 @@ public class DestinationViewFactory extends ConnectionViewFactory {
 		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "TaiPan"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "3001"); //$NON-NLS-1$
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.ShipDestination_3001Labels.SHIPDESTINATIONLABEL7431047_4004_LABEL, ViewUtil.APPEND, persisted, getPreferencesHint());
-		view.setType(TaiPanSemanticHints.ShipDestination_3001);
+		annotation.getDetails().put("visualID", "3002"); //$NON-NLS-1$
+		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONLABEL27145453_4006_LABEL, ViewUtil.APPEND, persisted, getPreferencesHint());
+		view.setType(TaiPanSemanticHints.ShipDestination_3002);
 	}
 }

@@ -27,24 +27,27 @@ import org.eclipse.gmf.runtime.emf.ui.services.parser.ParserHintAdapter;
 /**
  * @generated
  */
-public class RouteReliabilityLinkLabelTextEditPart extends TextCompartmentEditPart {
+public class Destination_destinatTextEditPart extends TextCompartmentEditPart {
 
 	/**
 	 * @generated
 	 */
-	public RouteReliabilityLinkLabelTextEditPart(View view) {
+	public Destination_destinatTextEditPart(View view) {
 		super(view);
 	}
 
 	/**
 	 * @generated
 	 */
+	protected boolean isEditable() {
+		return false;
+	}
+
+	/**
+	 * @generated
+	 */
 	protected String getLabelText() {
-		String text = super.getLabelText();
-		if (text == null || text.length() == 0) {
-			return "<...>";
-		}
-		return text;
+		return "destination";
 	}
 
 	/**
@@ -59,7 +62,7 @@ public class RouteReliabilityLinkLabelTextEditPart extends TextCompartmentEditPa
 
 					public Object getAdapter(Class adapter) {
 						if (IElementType.class.equals(adapter)) {
-							return TaiPanElementTypes.Route_3002;
+							return TaiPanElementTypes.ShipDestination_3002;
 						}
 						return super.getAdapter(adapter);
 					}

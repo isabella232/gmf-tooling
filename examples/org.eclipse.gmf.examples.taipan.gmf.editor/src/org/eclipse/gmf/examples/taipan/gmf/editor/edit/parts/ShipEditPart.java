@@ -12,19 +12,14 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
 import org.eclipse.draw2d.BorderLayout;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.StackLayout;
-import org.eclipse.gef.EditPolicy;
-import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
-import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
-import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
-import org.eclipse.gmf.runtime.notation.View;
+
 import org.eclipse.emf.ecore.EAnnotation;
-import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
-import org.eclipse.draw2d.Figure;
 
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 
 import org.eclipse.gef.commands.Command;
@@ -40,13 +35,23 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
 
 import org.eclipse.gmf.runtime.diagram.core.edithelpers.CreateElementRequestAdapter;
 
+import org.eclipse.gmf.runtime.diagram.ui.editparts.ShapeNodeEditPart;
+
 import org.eclipse.gmf.runtime.diagram.ui.editpolicies.CreationEditPolicy;
+import org.eclipse.gmf.runtime.diagram.ui.editpolicies.EditPolicyRoles;
 
 import org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewAndElementRequest;
 
 import org.eclipse.gmf.runtime.draw2d.ui.figures.ConstrainedToolbarLayout;
 
+import org.eclipse.gmf.runtime.draw2d.ui.internal.figures.ImageFigureEx;
+
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+
+import org.eclipse.gmf.runtime.gef.ui.figures.DefaultSizeNodeFigure;
+import org.eclipse.gmf.runtime.gef.ui.figures.NodeFigure;
+
+import org.eclipse.gmf.runtime.notation.View;
 
 /**
  * @generated
@@ -69,9 +74,6 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected void createDefaultEditPolicies() {
-		super.createDefaultEditPolicies();
-		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ShipItemSemanticEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new ShipGraphicalNodeEditPolicy());
 		installEditPolicy(EditPolicyRoles.CREATION_ROLE, new CreationEditPolicy() {
 
 			public Command getCommand(Request request) {
@@ -89,6 +91,9 @@ public class ShipEditPart extends ShapeNodeEditPart {
 				return null;
 			}
 		});
+		super.createDefaultEditPolicies();
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ShipItemSemanticEditPolicy());
+		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new ShipGraphicalNodeEditPolicy());
 		installEditPolicy(EditPolicyRoles.CANONICAL_ROLE, new ShipCanonicalEditPolicy());
 	}
 
@@ -96,7 +101,9 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		return new box();
+		box figure = new box();
+		figure.setUseLocalCoordinates(false);
+		return figure;
 	}
 
 	/**
@@ -186,6 +193,11 @@ public class ShipEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
+		private boolean myUseLocalCoordinates;
+
+		/**
+		 * @generated
+		 */
 		public box() {
 
 			org.eclipse.draw2d.IFigure childboxName = createFigureboxName();
@@ -194,32 +206,45 @@ public class ShipEditPart extends ShapeNodeEditPart {
 
 		}
 
-		private IFigure fboxName;
+		private org.eclipse.draw2d.IFigure fboxName;
 
 		/**
 		 * @generated
 		 */
-		public IFigure getFigureboxName() {
+		public org.eclipse.draw2d.IFigure getFigureboxName() {
 			return fboxName;
 		}
 
 		/**
 		 * @generated
 		 */
-		protected void setFigureboxName(IFigure figure) {
+		protected void setFigureboxName(org.eclipse.draw2d.IFigure figure) {
 			fboxName = figure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private IFigure createFigureboxName() {
+		private org.eclipse.draw2d.IFigure createFigureboxName() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
 			rv.setText("");
 
 			return rv;
 		}
 
+		/**
+		 * @generated
+		 */
+		protected boolean useLocalCoordinates() {
+			return myUseLocalCoordinates;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected void setUseLocalCoordinates(boolean useLocalCoordinates) {
+			myUseLocalCoordinates = useLocalCoordinates;
+		}
 	}
 
 }

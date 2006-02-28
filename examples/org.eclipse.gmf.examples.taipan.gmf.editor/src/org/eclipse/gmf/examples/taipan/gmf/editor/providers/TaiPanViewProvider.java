@@ -20,16 +20,16 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.AquatoryViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.DestinationViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Destination_destinatTextViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Destination_destinatViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ItemViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.PortViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Port_locationViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.RouteDescriptionLinkLabelTextViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.RouteDescriptionLinkLabelViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.RouteReliabilityLinkLabelTextViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.RouteReliabilityLinkLabelViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.RouteViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipDestinationLabelLinkLabelTextViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipDestinationLabelLinkLabelViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route_descriptionTextViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route_descriptionViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route_reliabilityTextViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Route_reliabilityViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ShipViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Ship_CargoCompartmentViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Ship_nameViewFactory;
@@ -78,22 +78,22 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 		case 5001:
 			return Ship_CargoCompartmentViewFactory.class;
 		case 4004:
-			if (TaiPanSemanticHints.ShipDestination_3001Labels.SHIPDESTINATIONLABEL7431047_4004_LABEL.equals(semanticHint)) {
-				return ShipDestinationLabelLinkLabelViewFactory.class;
+			if (TaiPanSemanticHints.Route_3001Labels.ROUTEDESCRIPTION_4004_LABEL.equals(semanticHint)) {
+				return Route_descriptionViewFactory.class;
 			} else {
-				return ShipDestinationLabelLinkLabelTextViewFactory.class;
+				return Route_descriptionTextViewFactory.class;
 			}
 		case 4005:
-			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005_LABEL.equals(semanticHint)) {
-				return RouteDescriptionLinkLabelViewFactory.class;
+			if (TaiPanSemanticHints.Route_3001Labels.ROUTERELIABILITY_4005_LABEL.equals(semanticHint)) {
+				return Route_reliabilityViewFactory.class;
 			} else {
-				return RouteDescriptionLinkLabelTextViewFactory.class;
+				return Route_reliabilityTextViewFactory.class;
 			}
 		case 4006:
-			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4006_LABEL.equals(semanticHint)) {
-				return RouteReliabilityLinkLabelViewFactory.class;
+			if (TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONLABEL27145453_4006_LABEL.equals(semanticHint)) {
+				return Destination_destinatViewFactory.class;
 			} else {
-				return RouteReliabilityLinkLabelTextViewFactory.class;
+				return Destination_destinatTextViewFactory.class;
 			}
 		}
 		return null;
@@ -104,7 +104,7 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 	 */
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (TaiPanElementTypes.ShipDestination_3001.equals(elementType)) {
+		if (TaiPanElementTypes.ShipDestination_3002.equals(elementType)) {
 			return DestinationViewFactory.class;
 		}
 
@@ -114,7 +114,7 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 		int linkVID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(semanticElement, semanticType);
 
 		switch (linkVID) {
-		case 3002:
+		case 3001:
 			return RouteViewFactory.class;
 		}
 		return getUnrecognizedConnectorViewClass(semanticAdapter, containerView, semanticHint);
