@@ -21,10 +21,11 @@ public class CreateShortcutActionGenerator
   protected final String TEXT_4 = " mySelectedElement;" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate Shell myShell;" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void setActivePart(IAction action, IWorkbenchPart targetPart) {" + NL + "\t\tmyShell = targetPart.getSite().getShell();" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void run(IAction action) {" + NL + "\t\tfinal View view = (View) mySelectedElement.getModel();" + NL + "\t\t";
   protected final String TEXT_5 = " elementChooser = new ";
   protected final String TEXT_6 = "(myShell, view);" + NL + "\t\tint result = elementChooser.open();" + NL + "\t\tif (result != Window.OK) {" + NL + "\t\t\treturn;" + NL + "\t\t}" + NL + "\t\tfinal EObject selectedElement = elementChooser.getSelectedModelElement();" + NL + "\t\tif (selectedElement == null) {" + NL + "\t\t\treturn;" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\tCreateViewRequest.ViewDescriptor viewDescriptor = new CreateViewRequest.ViewDescriptor(new EObjectAdapter(selectedElement), ";
-  protected final String TEXT_7 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\tCreateCommand command = new CreateCommand(mySelectedElement.getEditingDomain(), viewDescriptor, view) {" + NL + "" + NL + "\t\t\tprotected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {" + NL + "\t\t\t\tCommandResult result = super.doExecuteWithResult(monitor, info);" + NL + "\t\t\t\tView view = (View) ((IAdaptable) result.getReturnValue()).getAdapter(View.class);" + NL + "\t\t\t\tif (view != null) {" + NL + "\t\t\t\t\tEAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();" + NL + "\t\t\t\t\tannotation.setSource(\"Shortcutted\"); //$NON-NLS-1$" + NL + "\t\t\t\t\tview.getEAnnotations().add(annotation);" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn result;" + NL + "\t\t\t}" + NL + "\t\t\t" + NL + "\t\t};" + NL + "\t\ttry {" + NL + "\t\t\tOperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);" + NL + "\t\t} catch (ExecutionException e) {" + NL + "\t\t\tEcoreDiagramEditorPlugin.getInstance().logError(\"Unable to create shortcut\", e); //$NON-NLS-1$" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void selectionChanged(IAction action, ISelection selection) {" + NL + "\t\tmySelectedElement = null;" + NL + "\t\tif (selection instanceof IStructuredSelection) {" + NL + "\t\t\tIStructuredSelection structuredSelection = (IStructuredSelection) selection;" + NL + "\t\t\tif (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof ";
-  protected final String TEXT_8 = ") {" + NL + "\t\t\t\tmySelectedElement = (";
-  protected final String TEXT_9 = ") structuredSelection.getFirstElement();" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\taction.setEnabled(isEnabled());" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isEnabled() {" + NL + "\t\treturn mySelectedElement != null;" + NL + "\t}" + NL + "" + NL + "}";
-  protected final String TEXT_10 = NL;
+  protected final String TEXT_7 = ".DIAGRAM_PREFERENCES_HINT);" + NL + "\t\tCreateCommand command = new CreateCommand(mySelectedElement.getEditingDomain(), viewDescriptor, view) {" + NL + "" + NL + "\t\t\tprotected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {" + NL + "\t\t\t\tCommandResult result = super.doExecuteWithResult(monitor, info);" + NL + "\t\t\t\tView view = (View) ((IAdaptable) result.getReturnValue()).getAdapter(View.class);" + NL + "\t\t\t\tif (view != null) {" + NL + "\t\t\t\t\tEAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();" + NL + "\t\t\t\t\tannotation.setSource(\"Shortcutted\"); //$NON-NLS-1$" + NL + "\t\t\t\t\tview.getEAnnotations().add(annotation);" + NL + "\t\t\t\t}" + NL + "\t\t\t\treturn result;" + NL + "\t\t\t}" + NL + "\t\t\t" + NL + "\t\t};" + NL + "\t\ttry {" + NL + "\t\t\tOperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);" + NL + "\t\t} catch (ExecutionException e) {" + NL + "\t\t\t";
+  protected final String TEXT_8 = ".getInstance().logError(\"Unable to create shortcut\", e); //$NON-NLS-1$" + NL + "\t\t}" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic void selectionChanged(IAction action, ISelection selection) {" + NL + "\t\tmySelectedElement = null;" + NL + "\t\tif (selection instanceof IStructuredSelection) {" + NL + "\t\t\tIStructuredSelection structuredSelection = (IStructuredSelection) selection;" + NL + "\t\t\tif (structuredSelection.size() == 1 && structuredSelection.getFirstElement() instanceof ";
+  protected final String TEXT_9 = ") {" + NL + "\t\t\t\tmySelectedElement = (";
+  protected final String TEXT_10 = ") structuredSelection.getFirstElement();" + NL + "\t\t\t}" + NL + "\t\t}" + NL + "\t\taction.setEnabled(isEnabled());" + NL + "\t}" + NL + "\t" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tprivate boolean isEnabled() {" + NL + "\t\treturn mySelectedElement != null;" + NL + "\t}" + NL + "" + NL + "}";
+  protected final String TEXT_11 = NL;
 
   public String generate(Object argument)
   {
@@ -47,12 +48,14 @@ importManager.emitPackageStatement(stringBuffer);
     stringBuffer.append(TEXT_6);
     stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_7);
-    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName()));
     stringBuffer.append(TEXT_8);
     stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_9);
-    importManager.emitSortedImports();
+    stringBuffer.append(importManager.getImportedName(genDiagram.getEditPartQualifiedClassName()));
     stringBuffer.append(TEXT_10);
+    importManager.emitSortedImports();
+    stringBuffer.append(TEXT_11);
     return stringBuffer.toString();
   }
 }
