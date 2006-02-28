@@ -11,7 +11,6 @@
  */
 package org.eclipse.gmf.bridge.genmodel;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -22,7 +21,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
@@ -483,13 +481,11 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	private static boolean checkLabelFeatureValidity(LabelMapping labelMapping) {
-		final ArrayList context = new ArrayList();
-		context.add(labelMapping.getMapEntry().getDomainContext()); 
-		context.addAll(labelMapping.getMapEntry().getDomainContext().getEAllSuperTypes());
+		final EClass domainElement = labelMapping.getMapEntry().getDomainContext(); 
 		boolean isOk = true;
 		for (Iterator it = labelMapping.getFeatures().iterator(); isOk && it.hasNext(); ) {
-			EClassifier attrContainer = ((EAttribute) it.next()).getEContainingClass();
-			isOk = context.contains(attrContainer);
+			EClass attrContainer = ((EAttribute) it.next()).getEContainingClass();
+			isOk = domainElement.isSuperTypeOf(attrContainer);
 		}
 		return isOk;
 	}
