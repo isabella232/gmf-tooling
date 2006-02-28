@@ -9,9 +9,12 @@
   </figures>
   <nodes name="PortNode" figure="box"/>
   <nodes name="ShipNode" figure="box"/>
+  <nodes name="ItemNode" figure="boxName"/>
   <connections name="DestinationLink" figure="line"/>
   <connections name="RouteLink" figure="line"/>
   <compartments name="CargoCompartment" figure="box" collapsible="true" needsTitle="true"/>
-  <children name="ItemChild" figure="innerLabel"/>
+  <labels name="PortLocationLabel" figure="boxName"/>
+  <labels name="ShipNameLabel" figure="boxName"/>
   <labels name="GenericLabel" figure="innerLabel"/>
+  <labels name="ItemLabel" figure="boxName"/>
 </gmfgraph:Canvas>
