@@ -78,7 +78,7 @@ public class MultiplePackagesDomainModelSetup implements DomainModelSource {
 		myNodeSecondPackage = new NodeData(node2, null, cr);
 		myLinkFromFirstToSecond = lnkNode2;
 		myLinkThirdPackage = new LinkData(link, target, linkCont);
-		myDiagramElement = iDiagramContainer;
+		myDiagramElement = diagramContainerImpl;
 
 		confineInResource("r1", Collections.singletonList(myPrimaryPackage));
 		confineInResource("r2", Arrays.asList(new Object[] {p2, p3, p4}));
