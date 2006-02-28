@@ -25,6 +25,8 @@ import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.ui.parts.GraphicalViewerImpl;
+import org.eclipse.gmf.runtime.diagram.core.listener.DiagramEventBroker;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.GraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramCommandStack;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditDomain;
 import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditDomain;
@@ -129,6 +131,12 @@ public abstract class GeneratedCanvasTest extends ConfiguredTestCase {
 			 */
 		}
 
+		public void setContents(Object contents) {
+			GraphicalEditPart epart = (GraphicalEditPart)getEditPartFactory().createEditPart(null, contents);
+			DiagramEventBroker.startListening(epart.getEditingDomain());
+			super.setContents(epart);
+		}
+		
 		protected LightweightSystem createLightweightSystem() {
 			final UpdateManager NO_MANAGER = new UpdateManager() {
 				public void addDirtyRegion(IFigure figure, int x, int y, int w, int h) {}
