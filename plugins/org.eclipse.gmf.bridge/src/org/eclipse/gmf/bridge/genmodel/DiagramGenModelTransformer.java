@@ -485,7 +485,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		boolean isOk = true;
 		for (Iterator it = labelMapping.getFeatures().iterator(); isOk && it.hasNext(); ) {
 			EClass attrContainer = ((EAttribute) it.next()).getEContainingClass();
-			isOk = domainElement.isSuperTypeOf(attrContainer);
+			isOk = attrContainer.isSuperTypeOf(domainElement);
 		}
 		return isOk;
 	}
