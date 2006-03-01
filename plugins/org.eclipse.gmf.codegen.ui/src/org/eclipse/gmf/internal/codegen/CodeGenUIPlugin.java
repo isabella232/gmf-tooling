@@ -16,26 +16,10 @@ import java.text.MessageFormat;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 public class CodeGenUIPlugin extends AbstractUIPlugin {
-
-	public static final String GMF_LOGO_IMAGE = "/icons/full/logo_banner.png";
-
-	public static final String SYNC_ICON = "/icons/full/synced.gif";
-
-	public static final String GDM_ICON = "/icons/full/obj16/GMFGraphModelFile.gif";
-
-	public static final String DM_ICON = "/icons/full/obj16/EcoreModelFile.gif";
-
-	public static final String TDM_ICON = "/icons/full/obj16/GMFToolModelFile.gif";
-
-	public static final String MM_ICON = "/icons/full/obj16/GMFMapModelFile.gif";
-
-	public static final String GM_ICON = "/icons/full/obj16/GMFGenModelFile.gif";
 
 	private static CodeGenUIPlugin plugin;
 
@@ -50,27 +34,6 @@ public class CodeGenUIPlugin extends AbstractUIPlugin {
 
 	public static CodeGenUIPlugin getDefault() {
 		return plugin;
-	}
-
-	protected void initializeImageRegistry(ImageRegistry reg) {
-		loadImage(reg, GMF_LOGO_IMAGE);
-		loadImage(reg, SYNC_ICON);
-		loadImage(reg, GDM_ICON, "org.eclipse.gmf.graphdef.edit");
-		loadImage(reg, DM_ICON, "org.eclipse.emf.ecore.editor");
-		loadImage(reg, TDM_ICON, "org.eclipse.gmf.tooldef.edit");
-		loadImage(reg, MM_ICON, "org.eclipse.gmf.map.edit");
-		loadImage(reg, GM_ICON, "org.eclipse.gmf.codegen.edit");
-	}
-
-	protected void loadImage(ImageRegistry registry, String id) {
-		loadImage(registry, id, getBundle().getSymbolicName());
-	}
-
-	protected void loadImage(ImageRegistry registry, String id, String bundleId) {
-		ImageDescriptor descriptor = imageDescriptorFromPlugin(bundleId, id);
-		if (descriptor != null) {
-			registry.put(id, descriptor);
-		}
 	}
 
 	public static String getBundleString(String key) {

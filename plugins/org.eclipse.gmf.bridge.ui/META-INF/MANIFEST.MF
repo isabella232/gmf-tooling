@@ -18,4 +18,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.tooldef.edit,
  org.eclipse.gmf.map.edit
 Eclipse-LazyStart: true
-Export-Package: org.eclipse.gmf.internal.bridge.wizards;x-friends:="org.eclipse.gmf.codegen.ui"
+Export-Package: org.eclipse.gmf.internal.bridge.ui;x-friends:="org.eclipse.gmf.bridge.ui.dashboard",
+ org.eclipse.gmf.internal.bridge.wizards;x-friends:="org.eclipse.gmf.bridge.ui.dashboard"
