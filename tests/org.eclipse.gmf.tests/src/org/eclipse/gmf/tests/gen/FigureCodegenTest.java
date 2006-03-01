@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.tests.gen;
 
+import org.eclipse.gmf.common.codegen.NullImportAssistant;
+import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
 
 /**
@@ -39,7 +41,7 @@ public class FigureCodegenTest extends FigureCodegenTestBase {
 	}
 
 	public void testGenFigureWithoutPackageStmt() {
-		setCustomFigureGenerator(new FigureGenerator());
+		setCustomFigureGenerator(new FigureGenerator(null, new NullImportAssistant(), new RuntimeFQNSwitch()));
 		testGenComplexShape();
 	}
 

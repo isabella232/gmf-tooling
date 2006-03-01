@@ -14,7 +14,6 @@ package org.eclipse.gmf.graphdef.codegen;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.gmf.common.codegen.ImportAssistant;
-import org.eclipse.gmf.common.codegen.NullImportAssistant;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.BorderLayoutData;
 import org.eclipse.gmf.gmfgraph.CustomLayout;
@@ -32,7 +31,6 @@ import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
-import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.templates.CustomClassAttributesGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.FigureAttrGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.FigureChildrenGenerator;
@@ -73,10 +71,6 @@ public class FigureGenerator {
 	private GraphDefDispatcher myTopDispatcher;
 	private GraphDefDispatcher myInnerDispatcher;
 
-	public FigureGenerator() {
-		this(null, new NullImportAssistant(), new RuntimeFQNSwitch());
-	}
-	
 	public FigureGenerator(String aPackageName, ImportAssistant importManager, FigureQualifiedNameSwitch figureNameSwitch) {
 		this(aPackageName, importManager, figureNameSwitch, new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode(importManager));
 	}
