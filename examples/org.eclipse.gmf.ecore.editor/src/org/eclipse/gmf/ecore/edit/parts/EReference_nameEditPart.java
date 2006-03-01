@@ -11,6 +11,9 @@ import org.eclipse.gmf.ecore.providers.EcoreSemanticHints;
  */
 public class EReference_nameEditPart extends LabelEditPart {
 
+	/**
+	 * @generated
+	 */
 	static {
 		registerSnapBackPosition(EcoreSemanticHints.EReference_3002Labels.EREFERENCENAME_4015_LABEL, new Point(0, 0));
 	}

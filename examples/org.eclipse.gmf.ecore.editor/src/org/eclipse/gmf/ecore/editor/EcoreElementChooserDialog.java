@@ -1,17 +1,24 @@
 package org.eclipse.gmf.ecore.editor;
 
+import java.util.Collections;
+
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-import org.eclipse.gmf.runtime.emf.core.util.ResourceUtil;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.dialogs.Dialog;
@@ -53,6 +60,11 @@ public class EcoreElementChooserDialog extends Dialog {
 	 * @generated
 	 */
 	private View myView;
+
+	/**
+	 * @generated
+	 */
+	private EditingDomain myEditingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 
 	/**
 	 * @generated
@@ -115,8 +127,9 @@ public class EcoreElementChooserDialog extends Dialog {
 	/**
 	 * @generated
 	 */
-	public EObject getSelectedModelElement() {
-		return mySelectedModelElement;
+	public URI getSelectedModelElementURI() {
+		Resource resource = mySelectedModelElement.eResource();
+		return resource.getURI().appendFragment(resource.getURIFragment(mySelectedModelElement));
 	}
 
 	/**
@@ -124,8 +137,14 @@ public class EcoreElementChooserDialog extends Dialog {
 	 */
 	private class ModelElementsTreeContentProvider implements ITreeContentProvider {
 
+		/**
+		 * @generated
+		 */
 		private ITreeContentProvider myWorkbenchContentProvider = new WorkbenchContentProvider();
 
+		/**
+		 * @generated
+		 */
 		private AdapterFactoryContentProvider myAdapterFctoryContentProvier = new AdapterFactoryContentProvider(EcoreDiagramEditorPlugin.getInstance().getItemProvidersAdapterFactory());
 
 		/**
@@ -138,20 +157,15 @@ public class EcoreElementChooserDialog extends Dialog {
 			}
 			if (parentElement instanceof IFile) {
 				IFile modelFile = (IFile) parentElement;
-				String resourcePath = modelFile.getLocation().toOSString();
-				Resource modelResource = ResourceUtil.findResource(resourcePath);
-				if (modelResource == null) {
-					modelResource = ResourceUtil.create(resourcePath);
+				IPath resourcePath = modelFile.getFullPath();
+				ResourceSet resourceSet = myEditingDomain.getResourceSet();
+				try {
+					Resource modelResource = resourceSet.getResource(URI.createPlatformResourceURI(resourcePath.toString()), true);
+					return myAdapterFctoryContentProvier.getChildren(modelResource);
+				} catch (WrappedException e) {
+					EcoreDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + resourcePath.toString(), e); //$NON-NLS-1$
 				}
-				if (!modelResource.isLoaded()) {
-					try {
-						ResourceUtil.load(modelResource);
-					} catch (Exception e) {
-						EcoreDiagramEditorPlugin.getInstance().logError("Error while loading resource: " + resourcePath, e);
-						return null;
-					}
-				}
-				return myAdapterFctoryContentProvier.getChildren(modelResource);
+				return Collections.EMPTY_LIST.toArray();
 			}
 			return myAdapterFctoryContentProvier.getChildren(parentElement);
 		}

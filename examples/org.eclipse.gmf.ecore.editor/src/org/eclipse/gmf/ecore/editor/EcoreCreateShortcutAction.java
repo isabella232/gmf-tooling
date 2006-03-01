@@ -5,6 +5,8 @@ import org.eclipse.core.commands.operations.OperationHistoryFactory;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcoreFactory;
@@ -54,11 +56,18 @@ public class EcoreCreateShortcutAction implements IObjectActionDelegate {
 		if (result != Window.OK) {
 			return;
 		}
-		final EObject selectedElement = elementChooser.getSelectedModelElement();
-		if (selectedElement == null) {
+		URI selectedModelElementURI = elementChooser.getSelectedModelElementURI();
+		final EObject selectedElement;
+		try {
+			selectedElement = mySelectedElement.getEditingDomain().getResourceSet().getEObject(selectedModelElementURI, true);
+		} catch (WrappedException e) {
+			EcoreDiagramEditorPlugin.getInstance().logError("Exception while loading object: " + selectedModelElementURI.toString(), e); //$NON-NLS-1$
 			return;
 		}
 
+		if (selectedElement == null) {
+			return;
+		}
 		CreateViewRequest.ViewDescriptor viewDescriptor = new CreateViewRequest.ViewDescriptor(new EObjectAdapter(selectedElement), EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 		CreateCommand command = new CreateCommand(mySelectedElement.getEditingDomain(), viewDescriptor, view) {
 
@@ -67,7 +76,7 @@ public class EcoreCreateShortcutAction implements IObjectActionDelegate {
 				View view = (View) ((IAdaptable) result.getReturnValue()).getAdapter(View.class);
 				if (view != null) {
 					EAnnotation annotation = EcoreFactory.eINSTANCE.createEAnnotation();
-					annotation.setSource("Shortcutted"); //$NON-NLS-1$
+					annotation.setSource("Shortcut"); //$NON-NLS-1$
 					view.getEAnnotations().add(annotation);
 				}
 				return result;

@@ -6,18 +6,25 @@ final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1]
 
 importManager.emitPackageStatement(stringBuffer);%>
 
+import java.util.Collections;
+
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
-import org.eclipse.gmf.runtime.emf.core.util.ResourceUtil;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.dialogs.Dialog;
@@ -60,6 +67,11 @@ public class <%=genDiagram.getElementChooserClassName()%> extends Dialog {
 	 * @generated
 	 */
 	private View myView;
+	
+	/**
+	 * @generated
+	 */
+	private EditingDomain myEditingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 
 	/**
 	 * @generated
@@ -130,8 +142,9 @@ for (Iterator it = genDiagram.getContainsShortcutsTo().iterator(); it.hasNext();
 	/**
 	 * @generated
 	 */
-	public EObject getSelectedModelElement() {
-		return mySelectedModelElement;
+	public URI getSelectedModelElementURI() {
+		Resource resource = mySelectedModelElement.eResource();
+		return resource.getURI().appendFragment(resource.getURIFragment(mySelectedModelElement));
 	}
 	
 	/**
@@ -139,7 +152,14 @@ for (Iterator it = genDiagram.getContainsShortcutsTo().iterator(); it.hasNext();
 	 */
 	private class ModelElementsTreeContentProvider implements ITreeContentProvider {
 		
+		/**
+		 * @generated
+		 */
 		private ITreeContentProvider myWorkbenchContentProvider = new WorkbenchContentProvider();
+
+		/**
+		 * @generated
+		 */
 		private AdapterFactoryContentProvider myAdapterFctoryContentProvier = new AdapterFactoryContentProvider(<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().getItemProvidersAdapterFactory());
 		
 		/**
@@ -152,20 +172,15 @@ for (Iterator it = genDiagram.getContainsShortcutsTo().iterator(); it.hasNext();
 			}
 			if (parentElement instanceof IFile) {
 				IFile modelFile = (IFile) parentElement;
-				String resourcePath = modelFile.getLocation().toOSString();
-				Resource modelResource = ResourceUtil.findResource(resourcePath);
-				if (modelResource == null) {
-					modelResource = ResourceUtil.create(resourcePath);
+				IPath resourcePath = modelFile.getFullPath();
+				ResourceSet resourceSet = myEditingDomain.getResourceSet();
+				try {
+					Resource modelResource = resourceSet.getResource(URI.createPlatformResourceURI(resourcePath.toString()), true);
+					return myAdapterFctoryContentProvier.getChildren(modelResource);
+				} catch (WrappedException e) {
+					<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Unable to load resource: " + resourcePath.toString(), e); //$NON-NLS-1$
 				}
-				if (!modelResource.isLoaded()) {
-					try {
-						ResourceUtil.load(modelResource);
-					} catch (Exception e) {
-						<%=importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName())%>.getInstance().logError("Error while loading resource: " + resourcePath, e);
-						return null;
-					}
-				}
-				return myAdapterFctoryContentProvier.getChildren(modelResource);
+				return Collections.EMPTY_LIST.toArray();
 			}
 			return myAdapterFctoryContentProvier.getChildren(parentElement);
 		}

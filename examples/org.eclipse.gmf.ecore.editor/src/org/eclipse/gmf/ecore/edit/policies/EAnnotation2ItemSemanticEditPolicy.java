@@ -30,7 +30,7 @@ public class EAnnotation2ItemSemanticEditPolicy extends EcoreBaseItemSemanticEdi
 
 			protected EObject getElementToDestroy() {
 				View view = (View) getHost().getModel();
-				EAnnotation annotation = view.getEAnnotation("Shortcutted"); //$NON-NLS-1$
+				EAnnotation annotation = view.getEAnnotation("Shortcut"); //$NON-NLS-1$
 				if (annotation != null) {
 					return view;
 				}

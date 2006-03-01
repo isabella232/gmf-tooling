@@ -26,7 +26,7 @@ public class Destination_destinatEditPart extends LabelEditPart {
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONLABEL2847292_4006_LABEL, new Point(0, 0));
+		registerSnapBackPosition(TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONLABEL15275681_4006_LABEL, new Point(0, 0));
 	}
 
 	/**

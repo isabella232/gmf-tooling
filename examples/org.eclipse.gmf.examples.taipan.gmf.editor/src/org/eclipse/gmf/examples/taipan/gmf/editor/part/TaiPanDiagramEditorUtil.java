@@ -29,6 +29,7 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.util.IDEEditorUtil;
@@ -71,6 +72,7 @@ public class TaiPanDiagramEditorUtil extends IDEEditorUtil {
 	public static final IFile createNewDiagramFile(DiagramFileCreator diagramFileCreator, IPath containerFullPath, String fileName, InputStream initialContents, String kind, Shell shell,
 			IProgressMonitor progressMonitor) {
 		TransactionalEditingDomain editingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+		ResourceSet resourceSet = editingDomain.getResourceSet();
 		progressMonitor.beginTask("Creating diagram and model files", 2); //$NON-NLS-1$
 		final IProgressMonitor subProgressMonitor = new SubProgressMonitor(progressMonitor, 1);
 		final IFile diagramFile = diagramFileCreator.createNewFile(containerFullPath, fileName, initialContents, shell, new IRunnableContext() {
@@ -79,13 +81,13 @@ public class TaiPanDiagramEditorUtil extends IDEEditorUtil {
 				runnable.run(subProgressMonitor);
 			}
 		});
-		final Resource diagramResource = editingDomain.createResource(URI.createFileURI(diagramFile.getLocation().toOSString()).toString());
+		final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));
 		List affectedFiles = new ArrayList();
 		affectedFiles.add(diagramFile);
 
 		IPath modelFileRelativePath = diagramFile.getFullPath().removeFileExtension().addFileExtension("taipan"); //$NON-NLS-1$
 		IFile modelFile = diagramFile.getParent().getFile(new Path(modelFileRelativePath.lastSegment()));
-		final Resource modelResource = editingDomain.createResource(URI.createFileURI(modelFile.getLocation().toOSString()).toString());
+		final Resource modelResource = resourceSet.createResource(URI.createPlatformResourceURI(modelFile.getFullPath().toString()));
 		affectedFiles.add(modelFile);
 
 		final String kindParam = kind;

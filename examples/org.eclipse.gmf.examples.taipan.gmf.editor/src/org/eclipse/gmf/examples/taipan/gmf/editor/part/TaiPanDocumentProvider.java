@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.DemultiplexingListener;
 import org.eclipse.emf.transaction.NotificationFilter;
@@ -146,7 +147,13 @@ public class TaiPanDocumentProvider extends FileDiagramDocumentProvider {
 			myListener = new DemultiplexingListener(diagramResourceModifiedFilter) {
 
 				protected void handleNotification(TransactionalEditingDomain domain, Notification notification) {
-					document.setContent(document.getContent());
+					if (notification.getNotifier() instanceof EObject) {
+						Resource modifiedResource = ((EObject) notification.getNotifier()).eResource();
+						if (modifiedResource != document.getDiagram().eResource()) {
+							document.setContent(document.getContent());
+						}
+					}
+
 				}
 			};
 		}
