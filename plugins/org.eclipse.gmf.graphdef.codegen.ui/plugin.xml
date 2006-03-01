@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+	<extension point="org.eclipse.pde.ui.pluginContent">
+   		<wizard
+   			id="org.eclipse.gmf.graphdef.codegen.ui.FigureConverter.NoUI"
+   			name="%wizard.name"
+   			icon="/icons/obj16/GMFGraphModelFile.gif"
+   			ui-content="false"
+   			requiresActivator="true"
+   			class="org.eclipse.gmf.internal.graphdef.codegen.ui.GMFGraph2PluginConverterWizard">
+   			<description>%wizard.description</description>
+   		</wizard>	
+	</extension>
+</plugin>
