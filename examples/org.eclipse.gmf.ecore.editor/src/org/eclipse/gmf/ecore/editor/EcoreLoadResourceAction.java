@@ -1,7 +1,6 @@
 package org.eclipse.gmf.ecore.editor;
 
 import org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog;
-import org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -36,7 +35,7 @@ public class EcoreLoadResourceAction implements IObjectActionDelegate {
 	 * @generated
 	 */
 	public void run(IAction action) {
-		LoadResourceDialog loadResourceDialog = new LoadResourceDialog(myShell, MEditingDomain.INSTANCE);
+		LoadResourceDialog loadResourceDialog = new LoadResourceDialog(myShell, mySelectedElement.getEditingDomain());
 		loadResourceDialog.open();
 	}
 

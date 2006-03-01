@@ -37,9 +37,6 @@ importManager.addImport("org.eclipse.core.runtime.Path");
 importManager.addImport("org.eclipse.emf.ecore.EClass");
 importManager.addImport("org.eclipse.emf.ecore.EObject");
 importManager.addImport("org.eclipse.emf.ecore.resource.Resource");
-importManager.addImport("org.eclipse.gmf.runtime.emf.core.edit.MRunnable");
-importManager.addImport("org.eclipse.gmf.runtime.emf.core.util.OperationUtil");
-importManager.addImport("org.eclipse.gmf.runtime.emf.core.util.ResourceUtil");
 importManager.addImport("org.eclipse.gmf.runtime.notation.Diagram");
 importManager.addImport("org.eclipse.jface.action.IAction");
 importManager.addImport("org.eclipse.jface.dialogs.IInputValidator");
@@ -47,7 +44,6 @@ importManager.addImport("org.eclipse.jface.dialogs.MessageDialog");
 importManager.addImport("org.eclipse.jface.viewers.ISelection");
 importManager.addImport("org.eclipse.jface.viewers.IStructuredSelection");
 importManager.addImport("org.eclipse.jface.viewers.StructuredSelection");
-importManager.addImport("org.eclipse.swt.widgets.Shell");
 importManager.addImport("org.eclipse.ui.IObjectActionDelegate");
 importManager.addImport("org.eclipse.ui.IWorkbenchPart");
 importManager.addImport("org.eclipse.ui.PartInitException");
@@ -57,6 +53,20 @@ importManager.addImport("org.eclipse.jface.dialogs.IDialogSettings");
 importManager.addImport("org.eclipse.jface.wizard.WizardDialog");
 importManager.addImport("org.eclipse.jface.wizard.Wizard");
 importManager.addImport("org.eclipse.ui.dialogs.WizardNewFileCreationPage");
+importManager.addImport("org.eclipse.emf.transaction.TransactionalEditingDomain");
+importManager.addImport("org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory");
+importManager.addImport("org.eclipse.emf.common.util.WrappedException");
+importManager.addImport("org.eclipse.emf.ecore.resource.ResourceSet");
+importManager.addImport("org.eclipse.emf.common.util.URI");
+importManager.addImport("java.util.List");
+importManager.addImport("java.util.LinkedList");
+importManager.addImport("org.eclipse.core.runtime.IProgressMonitor");
+importManager.addImport("org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand");
+importManager.addImport("org.eclipse.core.runtime.IAdaptable");
+importManager.addImport("org.eclipse.core.commands.ExecutionException");
+importManager.addImport("org.eclipse.gmf.runtime.common.core.command.CommandResult");
+importManager.addImport("org.eclipse.core.commands.operations.OperationHistoryFactory");
+importManager.addImport("org.eclipse.core.runtime.NullProgressMonitor");
 
 importManager.markImportLocation(stringBuffer);
 %>
@@ -96,13 +106,6 @@ public class <%=genDiagram.getInitDiagramFileActionClassName()%> implements IObj
      */
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
 		myPart = targetPart;
-	}
-	
-    /**
-     * @generated
-     */
-	private Shell getShell() {
-		return myPart.getSite().getShell();
 	}
 	
     /**
@@ -158,6 +161,11 @@ public class <%=genDiagram.getInitDiagramFileActionClassName()%> implements IObj
      * @generated
      */
 	private class NewDiagramFileWizard extends Wizard {
+	
+	    /**
+    	 * @generated
+		 */
+		private TransactionalEditingDomain myEditingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
 		
 	    /**
     	 * @generated
@@ -185,129 +193,101 @@ public class <%=genDiagram.getInitDiagramFileActionClassName()%> implements IObj
 				return false;
 			}
 			
-			myFileCreationPage.getFileName();
+			IFile diagramFile = myFileCreationPage.createNewFile();
+			ResourceSet resourceSet = myEditingDomain.getResourceSet();
+			final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));
+
+			List affectedFiles = new LinkedList();
+			affectedFiles.add(mySelectedModelFile);
+			affectedFiles.add(diagramFile);
 			
-			OperationUtil.runAsUnchecked(new MRunnable() {
-
-				public Object run() {
-					EObject diagram = create(diagramModelObject);
-					if (diagram == null) {
-						MessageDialog.openError(getShell(), "Error", "Failed to create diagram object");
-						return null;
+			AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, "Initializing diagram contents", affectedFiles) { //$NON-NLS-1$
+				protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+					int diagramVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getDiagramVisualID(diagramModelObject);
+					if (diagramVID != <%=genDiagram.getVisualID()%>) {
+						return CommandResult.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
 					}
-					IFile destFile = myFileCreationPage.createNewFile();
-					save(destFile.getLocation().toOSString(), diagram);
-					try {
-						IDE.openEditor(myPart.getSite().getPage(), destFile);
-					} catch (PartInitException ex) {
-						<%=pluginActivatorClass%>.getInstance().logError("Unable to open editor", ex);
-					}
-					return null;
-				}
-			});
-			return true;
-		}
-		
-	}
-
-    /**
-     * @generated
-     */
-	private EObject load() {
-<%if (editorGen.isSameFileForDiagramAndModel()) {%>
-		<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.ResourceSet")%> resourceSet = new <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.impl.ResourceSetImpl")%>();
-		Resource resource = resourceSet.getResource(<%=importManager.getImportedName("org.eclipse.emf.common.util.URI")%>.createPlatformResourceURI(mySelectedModelFile.getFullPath().toString()), true);
-		try {
-			resource.load(Collections.EMPTY_MAP);
-			return (EObject) resource.getContents().get(0);
-		} catch (IOException ex) {
-			<%=pluginActivatorClass%>.getInstance().logError("Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex);
-		}
-		return null;
-<%} else {%>
-		String resourcePath = mySelectedModelFile.getLocation().toOSString();
-		Resource modelResource = ResourceUtil.findResource(resourcePath);
-		if (modelResource == null) {
-			modelResource = ResourceUtil.create(resourcePath);
-		}
-		if (!modelResource.isLoaded()) {
-			try {
-				ResourceUtil.load(modelResource);
-			} catch (Exception e) {
-				<%=pluginActivatorClass%>.getInstance().logError("Unable to load resource: " + resourcePath, e);
-				return null;
-			}
-		}
-		return (EObject) modelResource.getContents().get(0);
-<%}%>
-	}
-	
-    /**
-     * @generated
-     */
-	private void save(String filePath, EObject canvas) {
-		Resource resource = ResourceUtil.create(filePath, null);
-<%if (editorGen.isSameFileForDiagramAndModel()) {%>
-		resource.getContents().add(((Diagram) canvas).getElement());
-<%}%>
-		resource.getContents().add(canvas);
-		try {
-			resource.save(Collections.EMPTY_MAP);
-		} catch (IOException ex) {
-			<%=pluginActivatorClass%>.getInstance().logError("Save operation failed for: " + filePath, ex);
-		}
-	}
-	
-    /**
-     * @generated
-     */
-	private EObject create(EObject diagramModel) {
-		int diagramVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getDiagramVisualID(diagramModel);
-		if (diagramVID != <%=genDiagram.getVisualID()%>) {
-			return null;
-		}
 <%
 for (Iterator it = genLinks.iterator(); it.hasNext();) {
 	GenLink nextLink = (GenLink) it.next();
 %>
-		myLinkVID2EObjectMap.put(new Integer(<%=nextLink.getVisualID()%>), new <%=importManager.getImportedName("java.util.LinkedList")%>());
+					myLinkVID2EObjectMap.put(new Integer(<%=nextLink.getVisualID()%>), new LinkedList());
 <%
 }
 %>
-		Diagram diagram = ViewService.createDiagram(diagramModel, "<%=modelID%>", <%=pluginActivatorClass%>.DIAGRAM_PREFERENCES_HINT);
-		create<%=genDiagram.getUniqueIdentifier()%>Children(diagram, diagramModel);
+					Diagram diagram = ViewService.createDiagram(diagramModelObject, "<%=modelID%>", <%=pluginActivatorClass%>.DIAGRAM_PREFERENCES_HINT);
+					diagramResource.getContents().add(diagram);
+<%if (editorGen.isSameFileForDiagramAndModel()) {%>
+					diagramResource.getContents().add(diagram.getElement());
+<%}%>
+					create<%=genDiagram.getUniqueIdentifier()%>Children(diagram, diagramModelObject);
 <%
 if (!genClass2Phantom.isEmpty()) {
 %>
-		Resource resource = diagramModel.eResource();
-		int nodeVID;
-		for (<%=importManager.getImportedName("java.util.Iterator")%> it = resource.getContents().iterator(); it.hasNext();) {
-			EObject nextResourceObject = (EObject) it.next();
-			if (nextResourceObject == diagramModel) {
-				continue;
-			}
+					Resource resource = diagramModelObject.eResource();
+					int nodeVID;
+					for (<%=importManager.getImportedName("java.util.Iterator")%> it = resource.getContents().iterator(); it.hasNext();) {
+						EObject nextResourceObject = (EObject) it.next();
+						if (nextResourceObject == diagramModelObject) {
+							continue;
+						}
 <%
 	for (Iterator phantoms = genClass2Phantom.values().iterator(); phantoms.hasNext();) {
 		GenTopLevelNode phantomNode = (GenTopLevelNode) phantoms.next();
 %>
-			nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(diagram, nextResourceObject, "");
-			if (<%=phantomNode.getVisualID()%> == nodeVID) {
-				<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> nextNode = ViewService.createNode(diagram, nextResourceObject, null, <%=pluginActivatorClass%>.DIAGRAM_PREFERENCES_HINT);
-				myEObject2NodeMap.put(nextResourceObject, nextNode);
-				create<%=phantomNode.getUniqueIdentifier()%>Children(nextNode, nextResourceObject);
-				continue;
-			}
+						nodeVID = <%=importManager.getImportedName(genDiagram.getVisualIDRegistryQualifiedClassName())%>.INSTANCE.getNodeVisualID(diagram, nextResourceObject, "");
+						if (<%=phantomNode.getVisualID()%> == nodeVID) {
+							<%=importManager.getImportedName("org.eclipse.gmf.runtime.notation.Node")%> nextNode = ViewService.createNode(diagram, nextResourceObject, null, <%=pluginActivatorClass%>.DIAGRAM_PREFERENCES_HINT);
+							myEObject2NodeMap.put(nextResourceObject, nextNode);
+							create<%=phantomNode.getUniqueIdentifier()%>Children(nextNode, nextResourceObject);
+							continue;
+						}
 <%
 	}
 %>
-		}
+					}
 <%
 }
 %>		
-		createLinks();
-		myLinkVID2EObjectMap.clear();
-		myEObject2NodeMap.clear();		
-	    return diagram;
+					createLinks();
+					myLinkVID2EObjectMap.clear();
+					myEObject2NodeMap.clear();		
+					return CommandResult.newOKCommandResult();
+				}
+			};
+			
+			try {
+				OperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);
+				diagramResource.save(Collections.EMPTY_MAP);
+				IDE.openEditor(myPart.getSite().getPage(), diagramFile);
+			} catch (ExecutionException e) {
+				<%=pluginActivatorClass%>.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
+			} catch (IOException ex) {
+				<%=pluginActivatorClass%>.getInstance().logError("Save operation failed for: " + diagramFile.getFullPath().toString(), ex); //$NON-NLS-1$
+			} catch (PartInitException ex) {
+				<%=pluginActivatorClass%>.getInstance().logError("Unable to open editor", ex); //$NON-NLS-1$
+			}			
+			return true;
+		}
+		
+	    /**
+    	 * @generated
+	     */
+		private EObject load() {
+<%if (editorGen.isSameFileForDiagramAndModel()) {%>
+			ResourceSet resourceSet = new <%=importManager.getImportedName("org.eclipse.emf.ecore.resource.impl.ResourceSetImpl")%>();
+<%} else {%>
+			ResourceSet resourceSet = myEditingDomain.getResourceSet();
+<%}%>
+			try {
+				Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(mySelectedModelFile.getFullPath().toString()), true);
+				return (EObject) resource.getContents().get(0);
+			} catch (WrappedException ex) {
+				<%=pluginActivatorClass%>.getInstance().logError("Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex); //$NON-NLS-1$
+			}
+			return null;
+		}
+		
 	}
 	
 <%

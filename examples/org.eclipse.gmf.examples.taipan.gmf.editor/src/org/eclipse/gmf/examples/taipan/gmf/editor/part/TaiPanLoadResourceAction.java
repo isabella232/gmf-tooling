@@ -12,14 +12,13 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import org.eclipse.emf.edit.ui.action.LoadResourceAction.LoadResourceDialog;
-import org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain;
+import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts.AquatoryEditPart;
 
 /**
  * @generated
@@ -47,7 +46,7 @@ public class TaiPanLoadResourceAction implements IObjectActionDelegate {
 	 * @generated
 	 */
 	public void run(IAction action) {
-		LoadResourceDialog loadResourceDialog = new LoadResourceDialog(myShell, MEditingDomain.INSTANCE);
+		LoadResourceDialog loadResourceDialog = new LoadResourceDialog(myShell, mySelectedElement.getEditingDomain());
 		loadResourceDialog.open();
 	}
 

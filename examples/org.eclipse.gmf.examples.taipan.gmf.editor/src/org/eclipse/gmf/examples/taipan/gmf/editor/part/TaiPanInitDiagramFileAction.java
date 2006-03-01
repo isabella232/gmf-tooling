@@ -12,71 +12,59 @@
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import java.io.IOException;
-
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.commands.operations.OperationHistoryFactory;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
-
 import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.WrappedException;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.ecore.resource.Resource;
-
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
-
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
-
+import org.eclipse.gmf.runtime.common.core.command.CommandResult;
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
-
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
-
-import org.eclipse.gmf.runtime.emf.core.edit.MRunnable;
-
-import org.eclipse.gmf.runtime.emf.core.util.OperationUtil;
-import org.eclipse.gmf.runtime.emf.core.util.ResourceUtil;
-
+import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
+import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
-
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
-
 import org.eclipse.jface.action.IAction;
-
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.MessageDialog;
-
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
-
-import org.eclipse.swt.widgets.Shell;
-
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
-
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
-
 import org.eclipse.ui.ide.IDE;
 
 /**
@@ -114,13 +102,6 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	 */
 	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
 		myPart = targetPart;
-	}
-
-	/**
-	 * @generated
-	 */
-	private Shell getShell() {
-		return myPart.getSite().getShell();
 	}
 
 	/**
@@ -180,6 +161,11 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 		/**
 		 * @generated
 		 */
+		private TransactionalEditingDomain myEditingDomain = GMFEditingDomainFactory.INSTANCE.createEditingDomain();
+
+		/**
+		 * @generated
+		 */
 		private WizardNewFileCreationPage myFileCreationPage;
 
 		/**
@@ -203,80 +189,61 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 				return false;
 			}
 
-			myFileCreationPage.getFileName();
+			IFile diagramFile = myFileCreationPage.createNewFile();
+			ResourceSet resourceSet = myEditingDomain.getResourceSet();
+			final Resource diagramResource = resourceSet.createResource(URI.createPlatformResourceURI(diagramFile.getFullPath().toString()));
 
-			OperationUtil.runAsUnchecked(new MRunnable() {
+			List affectedFiles = new LinkedList();
+			affectedFiles.add(mySelectedModelFile);
+			affectedFiles.add(diagramFile);
 
-				public Object run() {
-					EObject diagram = create(diagramModelObject);
-					if (diagram == null) {
-						MessageDialog.openError(getShell(), "Error", "Failed to create diagram object");
-						return null;
+			AbstractTransactionalCommand command = new AbstractTransactionalCommand(myEditingDomain, "Initializing diagram contents", affectedFiles) { //$NON-NLS-1$
+
+				protected CommandResult doExecuteWithResult(IProgressMonitor monitor, IAdaptable info) throws ExecutionException {
+					int diagramVID = TaiPanVisualIDRegistry.INSTANCE.getDiagramVisualID(diagramModelObject);
+					if (diagramVID != 79) {
+						return CommandResult.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
 					}
-					IFile destFile = myFileCreationPage.createNewFile();
-					save(destFile.getLocation().toOSString(), diagram);
-					try {
-						IDE.openEditor(myPart.getSite().getPage(), destFile);
-					} catch (PartInitException ex) {
-						TaiPanDiagramEditorPlugin.getInstance().logError("Unable to open editor", ex);
-					}
-					return null;
+					myLinkVID2EObjectMap.put(new Integer(3001), new LinkedList());
+					myLinkVID2EObjectMap.put(new Integer(3002), new LinkedList());
+					Diagram diagram = ViewService.createDiagram(diagramModelObject, "TaiPan", TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+					diagramResource.getContents().add(diagram);
+					createAquatory_79Children(diagram, diagramModelObject);
+					createLinks();
+					myLinkVID2EObjectMap.clear();
+					myEObject2NodeMap.clear();
+					return CommandResult.newOKCommandResult();
 				}
-			});
+			};
+
+			try {
+				OperationHistoryFactory.getOperationHistory().execute(command, new NullProgressMonitor(), null);
+				diagramResource.save(Collections.EMPTY_MAP);
+				IDE.openEditor(myPart.getSite().getPage(), diagramFile);
+			} catch (ExecutionException e) {
+				TaiPanDiagramEditorPlugin.getInstance().logError("Unable to create model and diagram", e); //$NON-NLS-1$
+			} catch (IOException ex) {
+				TaiPanDiagramEditorPlugin.getInstance().logError("Save operation failed for: " + diagramFile.getFullPath().toString(), ex); //$NON-NLS-1$
+			} catch (PartInitException ex) {
+				TaiPanDiagramEditorPlugin.getInstance().logError("Unable to open editor", ex); //$NON-NLS-1$
+			}
 			return true;
 		}
 
-	}
-
-	/**
-	 * @generated
-	 */
-	private EObject load() {
-		String resourcePath = mySelectedModelFile.getLocation().toOSString();
-		Resource modelResource = ResourceUtil.findResource(resourcePath);
-		if (modelResource == null) {
-			modelResource = ResourceUtil.create(resourcePath);
-		}
-		if (!modelResource.isLoaded()) {
+		/**
+		 * @generated
+		 */
+		private EObject load() {
+			ResourceSet resourceSet = myEditingDomain.getResourceSet();
 			try {
-				ResourceUtil.load(modelResource);
-			} catch (Exception e) {
-				TaiPanDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + resourcePath, e);
-				return null;
+				Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(mySelectedModelFile.getFullPath().toString()), true);
+				return (EObject) resource.getContents().get(0);
+			} catch (WrappedException ex) {
+				TaiPanDiagramEditorPlugin.getInstance().logError("Unable to load resource: " + mySelectedModelFile.getFullPath().toString(), ex); //$NON-NLS-1$
 			}
-		}
-		return (EObject) modelResource.getContents().get(0);
-	}
-
-	/**
-	 * @generated
-	 */
-	private void save(String filePath, EObject canvas) {
-		Resource resource = ResourceUtil.create(filePath, null);
-		resource.getContents().add(canvas);
-		try {
-			resource.save(Collections.EMPTY_MAP);
-		} catch (IOException ex) {
-			TaiPanDiagramEditorPlugin.getInstance().logError("Save operation failed for: " + filePath, ex);
-		}
-	}
-
-	/**
-	 * @generated
-	 */
-	private EObject create(EObject diagramModel) {
-		int diagramVID = TaiPanVisualIDRegistry.INSTANCE.getDiagramVisualID(diagramModel);
-		if (diagramVID != 79) {
 			return null;
 		}
-		myLinkVID2EObjectMap.put(new Integer(3001), new LinkedList());
-		myLinkVID2EObjectMap.put(new Integer(3002), new LinkedList());
-		Diagram diagram = ViewService.createDiagram(diagramModel, "TaiPan", TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-		createAquatory_79Children(diagram, diagramModel);
-		createLinks();
-		myLinkVID2EObjectMap.clear();
-		myEObject2NodeMap.clear();
-		return diagram;
+
 	}
 
 	/**
