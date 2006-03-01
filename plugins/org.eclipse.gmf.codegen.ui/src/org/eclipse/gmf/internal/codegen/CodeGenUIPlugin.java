@@ -24,16 +24,17 @@ import org.osgi.framework.BundleContext;
 public class CodeGenUIPlugin extends AbstractUIPlugin {
 
 	public static final String GMF_LOGO_IMAGE = "/icons/full/logo_banner.png";
+
 	public static final String SYNC_ICON = "/icons/full/synced.gif";
-	public static final String CHECKED_ICON = "/icons/full/checked.gif";
-	public static final String UNCHECKED_ICON = "/icons/full/unchecked.gif";
-	public static final String NODE_ICON = "/icons/full/node.gif";
-	public static final String LINK_ICON = "/icons/full/link.gif";
-	public static final String LABEL_ICON = "/icons/full/label.gif";
+
 	public static final String GDM_ICON = "/icons/full/obj16/GMFGraphModelFile.gif";
+
 	public static final String DM_ICON = "/icons/full/obj16/EcoreModelFile.gif";
+
 	public static final String TDM_ICON = "/icons/full/obj16/GMFToolModelFile.gif";
+
 	public static final String MM_ICON = "/icons/full/obj16/GMFMapModelFile.gif";
+
 	public static final String GM_ICON = "/icons/full/obj16/GMFGenModelFile.gif";
 
 	private static CodeGenUIPlugin plugin;
@@ -54,12 +55,7 @@ public class CodeGenUIPlugin extends AbstractUIPlugin {
 	protected void initializeImageRegistry(ImageRegistry reg) {
 		loadImage(reg, GMF_LOGO_IMAGE);
 		loadImage(reg, SYNC_ICON);
-		loadImage(reg, CHECKED_ICON);
-		loadImage(reg, UNCHECKED_ICON);
-		loadImage(reg, NODE_ICON);
-		loadImage(reg, LINK_ICON);
-		loadImage(reg, LABEL_ICON);
-		loadImage(reg, GDM_ICON,"org.eclipse.gmf.graphdef.edit");
+		loadImage(reg, GDM_ICON, "org.eclipse.gmf.graphdef.edit");
 		loadImage(reg, DM_ICON, "org.eclipse.emf.ecore.editor");
 		loadImage(reg, TDM_ICON, "org.eclipse.gmf.tooldef.edit");
 		loadImage(reg, MM_ICON, "org.eclipse.gmf.map.edit");
@@ -92,12 +88,15 @@ public class CodeGenUIPlugin extends AbstractUIPlugin {
 	public static IStatus createStatus(int statusCode, String message, Exception ex) {
 		return new Status(statusCode, getPluginID(), 0, message, ex);
 	}
+
 	public static IStatus createError(String message, Exception ex) {
 		return createStatus(IStatus.ERROR, message, ex);
 	}
+
 	public static IStatus createWarning(String message) {
 		return createStatus(IStatus.WARNING, message, null);
 	}
+
 	public static IStatus createInfo(String message) {
 		return createStatus(IStatus.INFO, message, null);
 	}

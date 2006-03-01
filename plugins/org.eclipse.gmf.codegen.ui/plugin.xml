@@ -36,27 +36,6 @@
          </action>
       </objectContribution>
    </extension>
-  <extension
-    point = "org.eclipse.ui.newWizards">
-    <wizard
-      id = "org.eclipse.gmf.internal.codegen.wizards.GMFGraphSimpleModelWizardID"
-      name = "%_UI_GMFGraphSimpleModelWizard_label"
-      class = "org.eclipse.gmf.internal.codegen.wizards.GMFGraphSimpleModelWizard"
-      category = "org.eclipse.gmf.tooling.wizardCategory"
-      icon = "icons/full/obj16/GMFGraphModelFile.gif">
-      <description>%_UI_GMFGraphSimpleModelWizard_description</description>
-      <selection class = "org.eclipse.core.resources.IResource" />
-    </wizard>
-    <wizard
-      id = "org.eclipse.gmf.internal.codegen.wizards.GMFToolSimpleModelWizardID"
-      name = "%_UI_GMFToolSimpleModelWizard_label"
-      class = "org.eclipse.gmf.internal.codegen.wizards.GMFToolSimpleModelWizard"
-      category = "org.eclipse.gmf.tooling.wizardCategory"
-      icon = "icons/full/obj16/GMFToolModelFile.gif">
-      <description>%_UI_GMFToolSimpleModelWizard_description</description>
-      <selection class = "org.eclipse.core.resources.IResource" />
-    </wizard>
-  </extension>
   <extension point = "org.eclipse.ui.views">
       <view
          id = "org.eclipse.gmf.internal.codegen.dashboard.DashboardPart"

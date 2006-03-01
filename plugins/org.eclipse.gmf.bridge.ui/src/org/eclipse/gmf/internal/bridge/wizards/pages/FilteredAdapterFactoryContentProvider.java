@@ -9,7 +9,7 @@
  * Contributors:
  *    dstadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.codegen.wizards;
+package org.eclipse.gmf.internal.bridge.wizards.pages;
 
 import java.util.ArrayList;
 

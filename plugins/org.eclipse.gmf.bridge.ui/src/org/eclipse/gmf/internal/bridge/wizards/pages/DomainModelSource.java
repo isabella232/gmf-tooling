@@ -9,7 +9,7 @@
  * Contributors:
  *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.codegen.wizards;
+package org.eclipse.gmf.internal.bridge.wizards.pages;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.ecore.EPackage;

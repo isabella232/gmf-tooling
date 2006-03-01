@@ -9,7 +9,7 @@
  * Contributors:
  *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.codegen.wizards;
+package org.eclipse.gmf.internal.bridge.wizards.pages;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -26,12 +26,12 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider;
-import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
-import org.eclipse.gmf.internal.codegen.resolver.NodePattern;
-import org.eclipse.gmf.internal.codegen.resolver.Resolution;
-import org.eclipse.gmf.internal.codegen.resolver.ResolvedItem;
-import org.eclipse.gmf.internal.codegen.resolver.StructureBuilder;
-import org.eclipse.gmf.internal.codegen.resolver.TypeLinkPattern;
+import org.eclipse.gmf.internal.bridge.resolver.NodePattern;
+import org.eclipse.gmf.internal.bridge.resolver.Resolution;
+import org.eclipse.gmf.internal.bridge.resolver.ResolvedItem;
+import org.eclipse.gmf.internal.bridge.resolver.StructureBuilder;
+import org.eclipse.gmf.internal.bridge.resolver.TypeLinkPattern;
+import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CheckboxCellEditor;
 import org.eclipse.jface.viewers.ColumnPixelData;
@@ -61,6 +61,9 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.TreeItem;
 
+/**
+ * @author dstadnik
+ */
 public class DefinitionPage extends WizardPage {
 
 	private StructureBuilder structureBuilder;
@@ -192,9 +195,9 @@ public class DefinitionPage extends WizardPage {
 		elementColumn.setResizable(true);
 		layout.addColumnData(new ColumnWeightData(1, 32, true));
 
-		addResolutionColumn(tree, Resolution.NODE, CodeGenUIPlugin.NODE_ICON);
-		addResolutionColumn(tree, Resolution.LINK, CodeGenUIPlugin.LINK_ICON);
-		addResolutionColumn(tree, Resolution.LABEL, CodeGenUIPlugin.LABEL_ICON);
+		addResolutionColumn(tree, Resolution.NODE, Plugin.NODE_ICON);
+		addResolutionColumn(tree, Resolution.LINK, Plugin.LINK_ICON);
+		addResolutionColumn(tree, Resolution.LABEL, Plugin.LABEL_ICON);
 
 		final TreeViewer viewer = new TreeViewer(tree);
 		viewer.setContentProvider(new ResolverContentProvider());
@@ -231,7 +234,7 @@ public class DefinitionPage extends WizardPage {
 	protected TreeColumn addResolutionColumn(Tree tree, Resolution resolution, String iconId) {
 		TreeColumn column = new TreeColumn(tree, SWT.CENTER);
 		// column.setText(resolution.getName());
-		column.setImage(CodeGenUIPlugin.getDefault().getImageRegistry().get(iconId));
+		column.setImage(Plugin.getDefault().getImageRegistry().get(iconId));
 		column.setResizable(false);
 		((TableLayout) tree.getLayout()).addColumnData(new ColumnPixelData(18, false, true));
 		return column;
@@ -408,8 +411,8 @@ public class DefinitionPage extends WizardPage {
 				return domainLabelProvider.getImage(domainRef);
 			}
 			ResolvedItem item = (ResolvedItem) element;
-			Image checkedIcon = CodeGenUIPlugin.getDefault().getImageRegistry().get(CodeGenUIPlugin.CHECKED_ICON);
-			Image uncheckedIcon = CodeGenUIPlugin.getDefault().getImageRegistry().get(CodeGenUIPlugin.UNCHECKED_ICON);
+			Image checkedIcon = Plugin.getDefault().getImageRegistry().get(Plugin.CHECKED_ICON);
+			Image uncheckedIcon = Plugin.getDefault().getImageRegistry().get(Plugin.UNCHECKED_ICON);
 			if (columnIndex == 1) {
 				if (!item.isPossibleResolution(Resolution.NODE)) {
 					return null;

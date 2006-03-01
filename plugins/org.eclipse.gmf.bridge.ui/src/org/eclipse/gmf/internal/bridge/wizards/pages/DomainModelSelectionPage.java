@@ -7,15 +7,15 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    dstadnik - initial API and implementation
+ *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.codegen.wizards;
+package org.eclipse.gmf.internal.bridge.wizards.pages;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.gmf.internal.codegen.FileSelector;
+import org.eclipse.gmf.internal.bridge.ui.FileSelector;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -30,6 +30,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+/**
+ * @author dstadnik
+ */
 public class DomainModelSelectionPage extends WizardPage {
 
 	protected FileDomainModelSource domainModelSource;

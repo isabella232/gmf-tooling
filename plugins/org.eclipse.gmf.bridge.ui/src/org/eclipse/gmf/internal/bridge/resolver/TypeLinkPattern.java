@@ -7,14 +7,17 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    dstadnik - initial API and implementation
+ *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.codegen.resolver;
+package org.eclipse.gmf.internal.bridge.resolver;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EReference;
 
+/**
+ * @author dstadnik
+ */
 public class TypeLinkPattern extends TypePattern {
 
 	private EReference source;

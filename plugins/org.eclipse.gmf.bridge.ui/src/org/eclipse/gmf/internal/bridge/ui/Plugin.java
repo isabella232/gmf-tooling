@@ -1,16 +1,38 @@
+/*
+ * Copyright (c) 2005 Borland Software Corporation
+ * 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Artem Tikhomirov (Borland) - initial API and implementation
+ */
 package org.eclipse.gmf.internal.bridge.ui;
 
-import org.eclipse.ui.plugin.*;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 public class Plugin extends AbstractUIPlugin {
 
+	public static final String CHECKED_ICON = "/icons/cview16/checked.gif";
+
+	public static final String UNCHECKED_ICON = "/icons/cview16/unchecked.gif";
+
+	public static final String NODE_ICON = "/icons/cview16/node.gif";
+
+	public static final String LINK_ICON = "/icons/cview16/link.gif";
+
+	public static final String LABEL_ICON = "/icons/cview16/label.gif";
+
 	private static Plugin plugin;
-	
+
 	public Plugin() {
 		plugin = this;
 	}
@@ -24,7 +46,26 @@ public class Plugin extends AbstractUIPlugin {
 		return plugin;
 	}
 
-	public static void log (CoreException ex) {
+	protected void initializeImageRegistry(ImageRegistry reg) {
+		loadImage(reg, CHECKED_ICON);
+		loadImage(reg, UNCHECKED_ICON);
+		loadImage(reg, NODE_ICON);
+		loadImage(reg, LINK_ICON);
+		loadImage(reg, LABEL_ICON);
+	}
+
+	protected void loadImage(ImageRegistry registry, String id) {
+		loadImage(registry, id, getBundle().getSymbolicName());
+	}
+
+	protected void loadImage(ImageRegistry registry, String id, String bundleId) {
+		ImageDescriptor descriptor = imageDescriptorFromPlugin(bundleId, id);
+		if (descriptor != null) {
+			registry.put(id, descriptor);
+		}
+	}
+
+	public static void log(CoreException ex) {
 		log(ex.getStatus());
 	}
 
@@ -45,10 +86,10 @@ public class Plugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns an image descriptor for the image file at the given
-	 * plug-in relative path.
-	 *
-	 * @param path the path
+	 * Returns an image descriptor for the image file at the given plug-in relative path.
+	 * 
+	 * @param path
+	 *            the path
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {

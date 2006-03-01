@@ -7,20 +7,26 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    dstadnik - initial API and implementation
+ *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.codegen.wizards;
+package org.eclipse.gmf.internal.bridge.wizards;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gmf.gmfgraph.presentation.GMFGraphModelWizard;
-import org.eclipse.gmf.internal.bridge.wizards.WizardUtil;
-import org.eclipse.gmf.internal.codegen.resolver.StructureBuilder;
-import org.eclipse.gmf.internal.codegen.resolver.StructureResolver;
+import org.eclipse.gmf.internal.bridge.resolver.StructureBuilder;
+import org.eclipse.gmf.internal.bridge.resolver.StructureResolver;
+import org.eclipse.gmf.internal.bridge.wizards.pages.DefinitionPage;
+import org.eclipse.gmf.internal.bridge.wizards.pages.DomainModelSelectionPage;
+import org.eclipse.gmf.internal.bridge.wizards.pages.FileDomainModelSource;
+import org.eclipse.gmf.internal.bridge.wizards.pages.GraphDefBuilder;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
+/**
+ * @author dstadnik
+ */
 public class GMFGraphSimpleModelWizard extends GMFGraphModelWizard {
 
 	protected DefinitionPage graphicalDefinitionPage;

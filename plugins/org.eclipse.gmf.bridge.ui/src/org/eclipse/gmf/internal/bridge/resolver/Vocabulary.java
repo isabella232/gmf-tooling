@@ -7,14 +7,17 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    dstadnik - initial API and implementation
+ *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.codegen.resolver;
+package org.eclipse.gmf.internal.bridge.resolver;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+/**
+ * @author dstadnik
+ */
 public class Vocabulary {
 
 	private Set words = new HashSet();

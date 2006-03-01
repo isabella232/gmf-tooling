@@ -9,7 +9,7 @@
  * Contributors:
  *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.codegen.wizards;
+package org.eclipse.gmf.internal.bridge.wizards.pages;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IStatus;
@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.gmf.internal.codegen.CodeGenUIPlugin;
+import org.eclipse.gmf.internal.bridge.ui.Plugin;
 
 /**
  * @author dstadnik
@@ -72,7 +72,7 @@ public class FileDomainModelSource implements DomainModelSource {
 			errorStatus = null;
 		} catch (Exception e) {
 			contents = null;
-			String namespace = CodeGenUIPlugin.getDefault().getBundle().getSymbolicName();
+			String namespace = Plugin.getDefault().getBundle().getSymbolicName();
 			errorStatus = new Status(IStatus.ERROR, namespace, 0, e.getMessage(), e);
 		}
 	}

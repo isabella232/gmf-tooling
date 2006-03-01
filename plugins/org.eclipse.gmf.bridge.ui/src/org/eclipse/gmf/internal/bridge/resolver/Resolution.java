@@ -9,7 +9,7 @@
  * Contributors:
  *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.codegen.resolver;
+package org.eclipse.gmf.internal.bridge.resolver;
 
 /**
  * @author dstadnik

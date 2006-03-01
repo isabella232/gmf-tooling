@@ -9,16 +9,16 @@
  * Contributors:
  *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.codegen.wizards;
+package org.eclipse.gmf.internal.bridge.wizards.pages;
 
 import java.util.Iterator;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.gmf.internal.bridge.resolver.Resolution;
+import org.eclipse.gmf.internal.bridge.resolver.ResolvedItem;
 import org.eclipse.gmf.internal.bridge.wizards.WizardUtil;
-import org.eclipse.gmf.internal.codegen.resolver.Resolution;
-import org.eclipse.gmf.internal.codegen.resolver.ResolvedItem;
 import org.eclipse.gmf.tooldef.CreationTool;
 import org.eclipse.gmf.tooldef.GMFToolFactory;
 import org.eclipse.gmf.tooldef.GMFToolPackage;
@@ -35,7 +35,7 @@ public class ToolDefBuilder {
 
 	protected GMFToolFactory gmfToolFactory = gmfToolPackage.getGMFToolFactory();
 
-	protected ToolRegistry process(ResolvedItem item) {
+	public ToolRegistry process(ResolvedItem item) {
 		ToolRegistry toolRegistry = gmfToolFactory.createToolRegistry();
 		if (item != null) {
 			EPackage ePackage = (EPackage) item.getDomainRef();

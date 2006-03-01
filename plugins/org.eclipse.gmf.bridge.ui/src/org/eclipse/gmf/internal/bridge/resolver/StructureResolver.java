@@ -7,9 +7,9 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    dstadnik - initial API and implementation
+ *    Dmitry Stadnik - initial API and implementation
  */
-package org.eclipse.gmf.internal.codegen.resolver;
+package org.eclipse.gmf.internal.bridge.resolver;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,6 +20,9 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
+/**
+ * @author dstadnik
+ */
 public class StructureResolver {
 
 	private Vocabulary nodeVocabulary;
@@ -115,9 +118,8 @@ public class StructureResolver {
 	}
 
 	/**
-	 * Finds all potential references. Such references are not containers,
-	 * containments, derived and have type from the same package as the host
-	 * type; thus they may connect types as links on diagram surface.
+	 * Finds all potential references. Such references are not containers, containments, derived and have type from the same package as the host type; thus they may connect types as links on diagram
+	 * surface.
 	 */
 	protected EReference[] getEAllPotentialRefs(EClass type, boolean forLink) {
 		List refs = new ArrayList();
