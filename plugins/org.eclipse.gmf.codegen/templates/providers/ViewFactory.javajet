@@ -82,7 +82,7 @@ if (isNode) {
 			}
 %>
 		getViewService().createNode(semanticAdapter, view, <%=labelViewId%>,
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, persisted, getPreferencesHint());
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, true, getPreferencesHint());
 <%
 		}
 	}
@@ -93,7 +93,7 @@ if (isNode) {
 		String compartmentId = semanticHintsClassName + '.' + genNode.getUniqueIdentifier() + "Compartments." + genChildContainer.getSemanticHintFieldName();
 %>
 		getViewService().createNode(semanticAdapter, view, <%=compartmentId%>,
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, persisted, getPreferencesHint());
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, true, getPreferencesHint());
 <%
 	}
 } else if (isLink) {
@@ -105,7 +105,7 @@ if (isNode) {
 		String labelViewId = semanticHintsClassName + '.' + genLink.getUniqueIdentifier() + "Labels." + label.getSemanticHintLabelFieldName();
 %>
 		getViewService().createNode(semanticAdapter, view, <%=labelViewId%>,
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, persisted, getPreferencesHint());
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil")%>.APPEND, true, getPreferencesHint());
 <%	}
 	if (genLink.getModelFacet() instanceof FeatureModelFacet) {
 %>

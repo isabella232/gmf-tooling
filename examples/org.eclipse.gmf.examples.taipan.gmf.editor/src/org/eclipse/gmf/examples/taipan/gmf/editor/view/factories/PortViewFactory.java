@@ -36,6 +36,6 @@ public class PortViewFactory extends AbstractShapeViewFactory {
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "TaiPan"); //$NON-NLS-1$
 		annotation.getDetails().put("visualID", "1001"); //$NON-NLS-1$
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Port_1001Labels.PORTLOCATION_4001_TEXT, ViewUtil.APPEND, persisted, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Port_1001Labels.PORTLOCATION_4001_TEXT, ViewUtil.APPEND, true, getPreferencesHint());
 	}
 }

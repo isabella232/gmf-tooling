@@ -90,7 +90,7 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 				return Route_reliabilityTextViewFactory.class;
 			}
 		case 4006:
-			if (TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONLABEL10525192_4006_LABEL.equals(semanticHint)) {
+			if (TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONLABEL30928072_4006_LABEL.equals(semanticHint)) {
 				return Destination_destinatViewFactory.class;
 			} else {
 				return Destination_destinatTextViewFactory.class;

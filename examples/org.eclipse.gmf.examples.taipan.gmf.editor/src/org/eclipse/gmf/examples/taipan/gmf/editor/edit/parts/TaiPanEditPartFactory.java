@@ -104,7 +104,7 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 			case 3002:
 				return new DestinationEditPart(view);
 			case 4006:
-				if (TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONLABEL10525192_4006_LABEL.equals(view.getType())) {
+				if (TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONLABEL30928072_4006_LABEL.equals(view.getType())) {
 					return new Destination_destinatEditPart(view);
 				} else {
 					return new Destination_destinatTextEditPart(view);

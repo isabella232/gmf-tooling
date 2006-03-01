@@ -47,13 +47,13 @@ public class ViewFactoryGenerator
   protected final String TEXT_29 = "));";
   protected final String TEXT_30 = NL + "\t\tgetViewService().createNode(semanticAdapter, view, ";
   protected final String TEXT_31 = "," + NL + "\t\t\t";
-  protected final String TEXT_32 = ".APPEND, persisted, getPreferencesHint());";
+  protected final String TEXT_32 = ".APPEND, true, getPreferencesHint());";
   protected final String TEXT_33 = NL + "\t\tgetViewService().createNode(semanticAdapter, view, ";
   protected final String TEXT_34 = "," + NL + "\t\t\t";
-  protected final String TEXT_35 = ".APPEND, persisted, getPreferencesHint());";
+  protected final String TEXT_35 = ".APPEND, true, getPreferencesHint());";
   protected final String TEXT_36 = NL + "\t\tgetViewService().createNode(semanticAdapter, view, ";
   protected final String TEXT_37 = "," + NL + "\t\t\t";
-  protected final String TEXT_38 = ".APPEND, persisted, getPreferencesHint());";
+  protected final String TEXT_38 = ".APPEND, true, getPreferencesHint());";
   protected final String TEXT_39 = NL + "\t\tview.setType(";
   protected final String TEXT_40 = ".";
   protected final String TEXT_41 = ");";
