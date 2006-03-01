@@ -34,6 +34,6 @@ public class Destination_destinatViewFactory extends AbstractLabelViewFactory {
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "TaiPan"); //$NON-NLS-1$
 		annotation.getDetails().put("visualID", "4006"); //$NON-NLS-1$
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONLABEL27145453_4006_TEXT, ViewUtil.APPEND, persisted, getPreferencesHint());
+		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONLABEL2847292_4006_TEXT, ViewUtil.APPEND, persisted, getPreferencesHint());
 	}
 }

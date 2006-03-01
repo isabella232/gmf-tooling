@@ -9,19 +9,11 @@
   <extension point="org.eclipse.team.core.fileTypes">
       <fileTypes
          type="text"
-         extension="taipan">
-      </fileTypes>
-      <fileTypes
-         type="text"
          extension="taipan_diagram">
       </fileTypes>
   </extension>
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
-      <parser
-         type="taipan"
-         class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">
-      </parser>
       <parser
          type="taipan_diagram"
          class="org.eclipse.gmf.runtime.emf.core.resources.GMFResourceFactory">

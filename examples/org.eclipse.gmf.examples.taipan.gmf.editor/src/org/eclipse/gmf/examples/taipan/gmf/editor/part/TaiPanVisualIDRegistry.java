@@ -154,12 +154,12 @@ public class TaiPanVisualIDRegistry {
 			}
 			return getUnrecognizedRoute_3001LinkLabelTextID(semanticHint);
 		case 3002:
-			if (TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONLABEL27145453_4006_LABEL.equals(semanticHint)) {
+			if (TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONLABEL2847292_4006_LABEL.equals(semanticHint)) {
 				return 4006;
 			}
 			return getUnrecognizedShipDestination_3002LinkLabelID(semanticHint);
 		case 4006:
-			if (TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONLABEL27145453_4006_TEXT.equals(semanticHint)) {
+			if (TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONLABEL2847292_4006_TEXT.equals(semanticHint)) {
 				return 4006;
 			}
 			return getUnrecognizedShipDestination_3002LinkLabelTextID(semanticHint);

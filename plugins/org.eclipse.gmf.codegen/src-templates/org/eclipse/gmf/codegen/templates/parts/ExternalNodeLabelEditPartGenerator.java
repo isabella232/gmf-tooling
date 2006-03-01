@@ -20,7 +20,7 @@ public class ExternalNodeLabelEditPartGenerator
   protected final String TEXT_3 = NL + "import org.eclipse.draw2d.geometry.Point;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
   protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
   protected final String TEXT_5 = " extends ";
-  protected final String TEXT_6 = " {" + NL + "" + NL + "\tstatic {" + NL + "\t\tregisterSnapBackPosition(";
+  protected final String TEXT_6 = " {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tstatic {" + NL + "\t\tregisterSnapBackPosition(";
   protected final String TEXT_7 = ".";
   protected final String TEXT_8 = "Labels.";
   protected final String TEXT_9 = ", new Point(0, 0));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";

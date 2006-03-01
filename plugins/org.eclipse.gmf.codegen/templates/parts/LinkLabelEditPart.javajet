@@ -18,6 +18,9 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class <%=genLabel.getEditPartClassName()%> extends LabelEditPart {
 
+	/**
+	 * @generated
+	 */
 	static {
 		registerSnapBackPosition(<%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%>.<%=genLabel.getLink().getUniqueIdentifier()%>Labels.<%=genLabel.getSemanticHintLabelFieldName()%>, new Point(0, 0));
 	}

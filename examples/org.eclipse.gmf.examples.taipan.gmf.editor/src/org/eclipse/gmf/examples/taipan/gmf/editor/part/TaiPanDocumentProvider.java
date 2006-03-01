@@ -11,13 +11,12 @@
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -27,18 +26,17 @@ import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.transaction.DemultiplexingListener;
+import org.eclipse.emf.transaction.NotificationFilter;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.emf.workspace.util.WorkspaceSynchronizer;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.DiagramModificationListener;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDiagramDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.document.IDocument;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileDiagramDocumentProvider;
 import org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide.document.FileDiagramModificationListener;
-import org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain;
-import org.eclipse.gmf.runtime.emf.core.edit.MFilter;
-import org.eclipse.gmf.runtime.emf.core.edit.MListener;
-import org.eclipse.gmf.runtime.emf.core.util.ResourceUtil;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.ui.IFileEditorInput;
 
@@ -51,23 +49,27 @@ public class TaiPanDocumentProvider extends FileDiagramDocumentProvider {
 	 * @generated
 	 */
 	protected void saveDocumentToFile(IDocument document, IFile file, boolean overwrite, IProgressMonitor monitor) throws CoreException {
-		monitor.beginTask("", 100); //$NON-NLS-1$
-		super.saveDocumentToFile(document, file, overwrite, new SubProgressMonitor(monitor, 20));
-
-		IProgressMonitor subMonitor = new SubProgressMonitor(monitor, 20);
 		Diagram diagram = (Diagram) document.getContent();
-		Set externalResources = getReferencedResources(diagram);
-		subMonitor.done();
+		Resource diagramResource = diagram.eResource();
+		IDiagramDocument diagramDocument = (IDiagramDocument) document;
+		TransactionalEditingDomain domain = diagramDocument.getEditingDomain();
+		List resources = domain.getResourceSet().getResources();
 
-		subMonitor = new SubProgressMonitor(monitor, 60);
-		subMonitor.beginTask("Saving external resources", externalResources.size());
-		for (Iterator it = externalResources.iterator(); it.hasNext();) {
+		monitor.beginTask("Saving diagram", resources.size() + 1); //$NON-NLS-1$
+		super.saveDocumentToFile(document, file, overwrite, new SubProgressMonitor(monitor, 1));
+		for (Iterator it = resources.iterator(); it.hasNext();) {
 			Resource nextResource = (Resource) it.next();
-			subMonitor.setTaskName("Saving " + nextResource.getURI());
-			ResourceUtil.save(nextResource);
-			subMonitor.worked(1);
+			monitor.setTaskName("Saving " + nextResource.getURI()); //$NON-NLS-1$
+			if (nextResource != diagramResource) {
+				try {
+					nextResource.save(Collections.EMPTY_MAP);
+				} catch (IOException e) {
+					TaiPanDiagramEditorPlugin.getInstance().logError("Unable to save resource: " + nextResource.getURI(), e); //$NON-NLS-1$
+				}
+			}
+			monitor.worked(1);
 		}
-		subMonitor.done();
+		monitor.done();
 	}
 
 	/**
@@ -79,18 +81,12 @@ public class TaiPanDocumentProvider extends FileDiagramDocumentProvider {
 			Diagram diagram = diagramDocument.getDiagram();
 			if (diagram != null) {
 				Collection rules = new ArrayList();
-
-				Resource resource = ((EObject) diagram).eResource();
-				IFile resourceFile = ResourceUtil.getFile(resource);
-				rules.add(computeSaveSchedulingRule(resourceFile));
-
-				Set externalResources = getReferencedResources(diagram);
-				for (Iterator it = externalResources.iterator(); it.hasNext();) {
-					Resource nextResource = (Resource) it.next();
-					IFile nextResourceFile = ResourceUtil.getFile(nextResource);
-					rules.add(computeSaveSchedulingRule(nextResourceFile));
+				for (Iterator it = diagramDocument.getEditingDomain().getResourceSet().getResources().iterator(); it.hasNext();) {
+					IFile nextFile = WorkspaceSynchronizer.getFile((Resource) it.next());
+					if (nextFile != null) {
+						rules.add(computeSaveSchedulingRule(nextFile));
+					}
 				}
-
 				return new MultiRule((ISchedulingRule[]) rules.toArray(new ISchedulingRule[rules.size()]));
 			}
 		}
@@ -108,18 +104,6 @@ public class TaiPanDocumentProvider extends FileDiagramDocumentProvider {
 
 		diagramListener.startListening();
 		return info;
-	}
-
-	/**
-	 * @generated
-	 */
-	private static Set getReferencedResources(Diagram diagram) {
-		Resource diagramResource = ((EObject) diagram).eResource();
-		if (diagramResource == null) {
-			return Collections.EMPTY_SET;
-		}
-
-		return new HashSet(MEditingDomain.INSTANCE.getImports(diagramResource));
 	}
 
 	/**
@@ -150,7 +134,7 @@ public class TaiPanDocumentProvider extends FileDiagramDocumentProvider {
 		/**
 		 * @generated
 		 */
-		private MListener myListener = null;
+		private DemultiplexingListener myListener = null;
 
 		/**
 		 * @generated
@@ -158,47 +142,13 @@ public class TaiPanDocumentProvider extends FileDiagramDocumentProvider {
 		public CustomModificationListener(TaiPanDocumentProvider documentProviderParameter, DiagramDocument documentParameter, IFileEditorInput inputParameter) {
 			super(documentProviderParameter, documentParameter, inputParameter);
 			final DiagramDocument document = documentParameter;
-			MFilter diagramResourceSavedFilter = new MFilter() {
+			NotificationFilter diagramResourceModifiedFilter = NotificationFilter.createEventTypeFilter(Notification.SET);
+			myListener = new DemultiplexingListener(diagramResourceModifiedFilter) {
 
-				public boolean matches(Notification notification) {
-					Diagram diagram = document.getDiagram();
-					Object notifier = notification.getNotifier();
-					Resource resource = null;
-					if (notifier instanceof EObject) {
-						resource = ((EObject) notifier).eResource();
-					} else if (notifier instanceof Resource) {
-						resource = (Resource) notifier;
-					}
-					if (diagram != null && resource != null) {
-						Set externalResources = getReferencedResources(diagram);
-						for (Iterator it = externalResources.iterator(); it.hasNext();) {
-							Resource nextResource = (Resource) it.next();
-							if (resource == nextResource) {
-								if (notifier == resource) {
-									return notification.getEventType() == Notification.SET && notification.getFeatureID(Resource.class) == Resource.RESOURCE__IS_MODIFIED
-											&& notification.getNewBooleanValue() == true;
-								} else {
-									/*
-									 * Handling notification from the objects stored in this resource it is necessary 
-									 * if setTrackingModification(true) was not called. I.e. now for all the objects 
-									 * stored in external resources. 
-									 */
-									return true;
-								}
-							}
-						}
-					}
-					return false;
-				};
+				protected void handleNotification(TransactionalEditingDomain domain, Notification notification) {
+					document.setContent(document.getContent());
+				}
 			};
-			if (myListener == null) {
-				myListener = new MListener(diagramResourceSavedFilter) {
-
-					public void onEvent(List events) {
-						document.setContent(document.getContent());
-					}
-				};
-			}
 		}
 
 		/**
@@ -206,14 +156,14 @@ public class TaiPanDocumentProvider extends FileDiagramDocumentProvider {
 		 */
 		public void startListening() {
 			super.startListening();
-			myListener.startListening();
+			getEditingDomain().addResourceSetListener(myListener);
 		}
 
 		/**
 		 * @generated
 		 */
 		public void stopListening() {
-			myListener.stopListening();
+			getEditingDomain().removeResourceSetListener(myListener);
 			super.stopListening();
 		}
 

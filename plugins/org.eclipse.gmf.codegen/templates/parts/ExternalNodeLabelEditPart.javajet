@@ -16,6 +16,9 @@ import org.eclipse.gmf.runtime.notation.View;
  */
 public class <%=genLabel.getEditPartClassName()%> extends <%=genDiagram.getBaseExternalNodeLabelEditPartClassName()%> {
 
+	/**
+	 * @generated
+	 */
 	static {
 		registerSnapBackPosition(<%=importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName())%>.<%=genLabel.getNode().getUniqueIdentifier()%>Labels.<%=genLabel.getSemanticHintLabelFieldName()%>, new Point(0, 0));
 	}

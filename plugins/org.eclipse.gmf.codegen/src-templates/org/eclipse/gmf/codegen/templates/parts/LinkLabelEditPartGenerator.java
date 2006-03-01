@@ -19,7 +19,7 @@ public class LinkLabelEditPartGenerator
   protected final String TEXT_2 = ";" + NL;
   protected final String TEXT_3 = NL + "import org.eclipse.draw2d.ConnectionLocator;" + NL + "import org.eclipse.draw2d.geometry.Point;" + NL + "import org.eclipse.gmf.runtime.diagram.ui.editparts.LabelEditPart;" + NL + "import org.eclipse.gmf.runtime.notation.View;";
   protected final String TEXT_4 = NL + NL + "/**" + NL + " * @generated" + NL + " */" + NL + "public class ";
-  protected final String TEXT_5 = " extends LabelEditPart {" + NL + "" + NL + "\tstatic {" + NL + "\t\tregisterSnapBackPosition(";
+  protected final String TEXT_5 = " extends LabelEditPart {" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tstatic {" + NL + "\t\tregisterSnapBackPosition(";
   protected final String TEXT_6 = ".";
   protected final String TEXT_7 = "Labels.";
   protected final String TEXT_8 = ", new Point(0, 0));" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic ";
