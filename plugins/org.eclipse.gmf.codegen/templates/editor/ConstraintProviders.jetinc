@@ -29,7 +29,6 @@ if (rootContainer != null && genDiagram.getDomainDiagramElement() != null) {
 	</category>		
 <%
 	} // end of categories loop
-	String rootCategoryId = (String)pathMap.get(rootContainer);
 %>
 	<constraintProvider cache="true">
 <%

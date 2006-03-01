@@ -294,7 +294,6 @@ if (rootContainer != null && genDiagram.getDomainDiagramElement() != null) {
     stringBuffer.append(TEXT_74);
     
 	} // end of categories loop
-	String rootCategoryId = (String)pathMap.get(rootContainer);
 
     stringBuffer.append(TEXT_75);
     
