@@ -9,47 +9,46 @@ final boolean hasNotationModelAudit = audits != null && audits.hasDiagramElement
 %>
 package <%=genDiagram.getProvidersPackageName()%>;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Set;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.emf.common.util.Diagnostic;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.util.Diagnostician;
-import org.eclipse.emf.validation.model.EvaluationMode;
-import org.eclipse.emf.validation.model.IConstraintStatus;
-import org.eclipse.emf.validation.service.IBatchValidator;
-import org.eclipse.emf.validation.service.ModelValidationService;
-import org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor;
-import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart;
-import org.eclipse.gmf.runtime.diagram.ui.providers.internal.DiagramContributionItemProvider;
-import org.eclipse.gmf.runtime.emf.core.edit.MRunnable;
-import org.eclipse.gmf.runtime.emf.core.util.EObjectUtil;
-import org.eclipse.gmf.runtime.emf.core.util.OperationUtil;
-import org.eclipse.gmf.runtime.emf.core.util.ResourceUtil;
-import org.eclipse.gmf.runtime.notation.Diagram;
-import org.eclipse.gmf.runtime.notation.View;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.ui.IWorkbenchPart;
-
-<%importManager.markImportLocation(stringBuffer);%>
+<%
+importManager.markImportLocation(stringBuffer);
+importManager.addImport("java.util.HashMap");
+importManager.addImport("java.util.HashSet");
+importManager.addImport("java.util.Iterator");
+importManager.addImport("java.util.List");
+importManager.addImport("java.util.ArrayList");
+importManager.addImport("java.util.Arrays");
+importManager.addImport("java.util.Map");
+importManager.addImport("java.util.Set");
+importManager.addImport("org.eclipse.core.resources.IFile");
+importManager.addImport("org.eclipse.core.resources.IMarker");
+importManager.addImport("org.eclipse.core.resources.IResource");
+importManager.addImport("org.eclipse.core.runtime.CoreException");
+importManager.addImport("org.eclipse.core.runtime.IStatus");
+importManager.addImport("org.eclipse.emf.common.util.Diagnostic");
+importManager.addImport("org.eclipse.emf.ecore.EObject");
+importManager.addImport("org.eclipse.emf.ecore.EPackage");
+importManager.addImport("org.eclipse.emf.ecore.util.Diagnostician");
+importManager.addImport("org.eclipse.emf.validation.model.EvaluationMode");
+importManager.addImport("org.eclipse.emf.validation.model.IConstraintStatus");
+importManager.addImport("org.eclipse.emf.validation.service.IBatchValidator");
+importManager.addImport("org.eclipse.emf.validation.service.ModelValidationService");
+importManager.addImport("org.eclipse.emf.workspace.util.WorkspaceSynchronizer");
+importManager.addImport("org.eclipse.gmf.runtime.common.ui.util.IWorkbenchPartDescriptor");
+importManager.addImport("org.eclipse.gmf.runtime.common.ui.services.action.contributionitem.AbstractContributionItemProvider");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramWorkbenchPart");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil");
+importManager.addImport("org.eclipse.gmf.runtime.emf.core.util.EMFCoreUtil");
+importManager.addImport("org.eclipse.gmf.runtime.notation.Diagram");
+importManager.addImport("org.eclipse.gmf.runtime.notation.View");
+importManager.addImport("org.eclipse.jface.action.Action");
+importManager.addImport("org.eclipse.jface.action.IAction");
+importManager.addImport("org.eclipse.ui.IWorkbenchPart");
+%>
 
 /**
  * @generated
  */
-public class <%=genDiagram.getValidationProviderClassName()%> extends DiagramContributionItemProvider {
+public class <%=genDiagram.getValidationProviderClassName()%> extends AbstractContributionItemProvider {
 	/**
 	 * @generated
 	 */
@@ -92,14 +91,14 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends DiagramCon
 			if(workbenchPart instanceof IDiagramWorkbenchPart) {
 				final IDiagramWorkbenchPart part = (IDiagramWorkbenchPart)workbenchPart;
 				try {
-					OperationUtil.runAsRead(new MRunnable() {
-						public Object run() {
-							validate(part.getDiagram());
-							return null;
-						}
-					});
+					part.getDiagramEditPart().getEditingDomain().runExclusive(
+						new Runnable() {
+							public void run() {
+								validate(part.getDiagram());
+							}
+						});
 				}catch (Exception e) {
-					<%=pluginActivatorClass%>.getInstance().logError(null, e);
+					<%=pluginActivatorClass%>.getInstance().logError("Validation action failed", e); //$NON-NLS-1$
 				}
 			}
 		}
@@ -107,7 +106,7 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends DiagramCon
 		 * @generated
 		 */
 		private void validate(Diagram diagram) {
-			IFile diagramFile = ResourceUtil.getFile(diagram.eResource());
+			IFile diagramFile = WorkspaceSynchronizer.getFile(diagram.eResource());
 			try {
 				diagramFile.deleteMarkers(MARKER_TYPE, true, IResource.DEPTH_ZERO);
 			} catch (CoreException e) {
@@ -115,7 +114,7 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends DiagramCon
 			}
 			Diagnostic diagnostic = new Diagnostician() {
 				public String getObjectLabel(EObject eObject) {
-					return EObjectUtil.getQName(eObject, true);
+					return EMFCoreUtil.getQualifiedName(eObject, true);
 				}
 			}.validate(diagram.getElement());
 			
@@ -217,8 +216,8 @@ public class <%=genDiagram.getValidationProviderClassName()%> extends DiagramCon
 			try {
 				IMarker marker = file.createMarker(MARKER_TYPE);
 				marker.setAttribute(IMarker.MESSAGE, message);
-				marker.setAttribute(IMarker.LOCATION, EObjectUtil.getQName(element, true));
-				marker.setAttribute(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID, EObjectUtil.getID(view));
+				marker.setAttribute(IMarker.LOCATION, EMFCoreUtil.getQualifiedName(element, true));
+				marker.setAttribute(org.eclipse.gmf.runtime.common.ui.resources.IMarker.ELEMENT_ID, ViewUtil.getIdStr(view));
 				int markerSeverity = IMarker.SEVERITY_INFO;
 				if(statusSeverity == IStatus.WARNING) {
 					markerSeverity = IMarker.SEVERITY_WARNING;    						
@@ -294,7 +293,7 @@ for(java.util.Iterator it = allAudits.iterator(); it.hasNext();) {
 	/**
 	* @generated
 	*/
-	public static class <%=selectorClassName%> implements org.eclipse.emf.validation.model.IClientSelector {
+	public static class <%=selectorClassName%> implements <%=importManager.getImportedName("org.eclipse.emf.validation.model.IClientSelector")%> {
 <%
 	if(audit.getTarget() instanceof GenDiagramElementTarget) {
 		usesNotationContextSwitch = true;

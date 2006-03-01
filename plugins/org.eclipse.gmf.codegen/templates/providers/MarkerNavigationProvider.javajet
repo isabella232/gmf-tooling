@@ -1,22 +1,22 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.providers" class="MarkerNavigationProviderGenerator"
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
-GenDiagram genDiagram = (GenDiagram)((Object[]) argument)[0];
-ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());
+final GenDiagram genDiagram = (GenDiagram)((Object[]) argument)[0];
+final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 %>
 package <%=genDiagram.getProvidersPackageName()%>;
 
-import java.util.Iterator;
-import java.util.Map;
-
-import org.eclipse.core.resources.IMarker;
-import org.eclipse.gef.EditPart;
-import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
-import org.eclipse.gmf.runtime.emf.core.util.EObjectUtil;
-import org.eclipse.gmf.runtime.emf.ui.providers.marker.AbstractModelMarkerNavigationProvider;
-import org.eclipse.gmf.runtime.notation.View;
-
-<%importManager.markImportLocation(stringBuffer);%>
+<%
+importManager.markImportLocation(stringBuffer);
+importManager.addImport("java.util.Iterator");
+importManager.addImport("java.util.Map");
+importManager.addImport("org.eclipse.core.resources.IMarker");
+importManager.addImport("org.eclipse.gef.EditPart");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil");
+importManager.addImport("org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor");
+importManager.addImport("org.eclipse.gmf.runtime.emf.ui.providers.marker.AbstractModelMarkerNavigationProvider");
+importManager.addImport("org.eclipse.gmf.runtime.notation.View");
+%>
 
 /**
  * @generated
@@ -37,7 +37,7 @@ public class <%=genDiagram.getMarkerNavigationProviderClassName()%> extends Abst
 			Map.Entry entry = (Map.Entry) it.next();
 			if(entry.getKey() instanceof View) {
 				View view = (View)entry.getKey();
-				String viewId = EObjectUtil.getID(view);
+				String viewId = ViewUtil.getIdStr(view);
 				if(viewId.equals(elementId)) {
 					targetEditPart = (EditPart)entry.getValue();
 					break;
