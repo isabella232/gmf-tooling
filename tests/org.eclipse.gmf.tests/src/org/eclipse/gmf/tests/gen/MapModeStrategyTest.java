@@ -17,7 +17,7 @@ import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
-import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
+import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
 import org.eclipse.gmf.graphdef.codegen.MapModeCodeGenStrategy;
 
@@ -84,6 +84,6 @@ public class MapModeStrategyTest extends FigureCodegenTestBase {
 	}
 	
 	private FigureGenerator createGenerator(MapModeCodeGenStrategy strategy) {
-		return new FigureGenerator(strategy.getImportAssistant().getPackageName(), strategy.getImportAssistant(), new FigureQualifiedNameSwitch(), strategy);
+		return new FigureGenerator(strategy.getImportAssistant().getPackageName(), strategy.getImportAssistant(), new RuntimeFQNSwitch(), strategy);
 	}
 }

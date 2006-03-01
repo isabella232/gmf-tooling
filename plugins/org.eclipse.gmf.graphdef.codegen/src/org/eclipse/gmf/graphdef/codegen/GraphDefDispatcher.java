@@ -15,7 +15,7 @@ import org.eclipse.gmf.common.codegen.ImportAssistant;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.Layout;
 import org.eclipse.gmf.gmfgraph.LayoutData;
-import org.eclipse.gmf.gmfgraph.util.GMFGraphSwitch;
+import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 import org.eclipse.gmf.internal.codegen.dispatch.DispatcherImpl;
 import org.eclipse.gmf.internal.codegen.dispatch.EmitterFactory;
 import org.eclipse.gmf.internal.codegen.dispatch.KeyMap;
@@ -25,10 +25,10 @@ import org.eclipse.gmf.internal.codegen.dispatch.KeyMap;
  */
 public class GraphDefDispatcher extends DispatcherImpl {
 	private final ImportAssistant myImportManager;
-	private final GMFGraphSwitch myFqnSwitch;
+	private final FigureQualifiedNameSwitch myFqnSwitch;
 	private final MapModeCodeGenStrategy myMapModeStrategy;
 	
-	public GraphDefDispatcher(EmitterFactory factory, KeyMap keyMap, ImportAssistant importManager, GMFGraphSwitch fqnSwitch, MapModeCodeGenStrategy mapModeStrategy) {
+	public GraphDefDispatcher(EmitterFactory factory, KeyMap keyMap, ImportAssistant importManager, FigureQualifiedNameSwitch fqnSwitch, MapModeCodeGenStrategy mapModeStrategy) {
 		super(factory, keyMap);
 		assert mapModeStrategy != null;
 		myImportManager = importManager;
@@ -48,7 +48,7 @@ public class GraphDefDispatcher extends DispatcherImpl {
 		return myImportManager;
 	}
 
-	public GMFGraphSwitch getFQNSwitch() {
+	public FigureQualifiedNameSwitch getFQNSwitch() {
 		return myFqnSwitch;
 	}
 	

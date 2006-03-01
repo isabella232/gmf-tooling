@@ -11,6 +11,8 @@
  */
 package org.eclipse.gmf.tests.gen;
 
+import junit.framework.TestCase;
+
 import org.eclipse.gmf.bridge.genmodel.InnerClassViewmapProducer;
 import org.eclipse.gmf.bridge.genmodel.ViewmapProducer;
 import org.eclipse.gmf.codegen.gmfgen.FigureViewmap;
@@ -21,14 +23,12 @@ import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Node;
-import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
+import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
-
-import junit.framework.TestCase;
 
 /**
  * @author artem
@@ -53,7 +53,7 @@ public class ViewmapProducersTest extends TestCase {
 		Viewmap v = getProducer().create(n);
 		assertNotNull(v);
 		assertTrue(v instanceof FigureViewmap);
-		assertEquals(new FigureQualifiedNameSwitch().doSwitch(n.getFigure()), ((FigureViewmap) v).getFigureQualifiedClassName());
+		assertEquals(new RuntimeFQNSwitch().doSwitch(n.getFigure()), ((FigureViewmap) v).getFigureQualifiedClassName());
 	}
 
 	public void testInnerViewmapProducerForNode() {

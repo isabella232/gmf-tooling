@@ -32,7 +32,7 @@ import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.Shape;
 import org.eclipse.gmf.gmfgraph.XYLayoutData;
 import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
-import org.eclipse.gmf.gmfgraph.util.GMFGraphSwitch;
+import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.templates.CustomClassAttributesGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.FigureAttrGenerator;
 import org.eclipse.gmf.graphdef.codegen.templates.FigureChildrenGenerator;
@@ -74,14 +74,14 @@ public class FigureGenerator {
 	private GraphDefDispatcher myInnerDispatcher;
 
 	public FigureGenerator() {
-		this(null, new NullImportAssistant(), new FigureQualifiedNameSwitch());
+		this(null, new NullImportAssistant(), new RuntimeFQNSwitch());
 	}
 	
-	public FigureGenerator(String aPackageName, ImportAssistant importManager, GMFGraphSwitch figureNameSwitch) {
+	public FigureGenerator(String aPackageName, ImportAssistant importManager, FigureQualifiedNameSwitch figureNameSwitch) {
 		this(aPackageName, importManager, figureNameSwitch, new MapModeCodeGenStrategy.RuntimeUnspecifiedMapMode(importManager));
 	}
 
-	public FigureGenerator(String aPackageName, ImportAssistant importManager, GMFGraphSwitch figureNameSwitch, MapModeCodeGenStrategy mapModeStrategy) {
+	public FigureGenerator(String aPackageName, ImportAssistant importManager, FigureQualifiedNameSwitch figureNameSwitch, MapModeCodeGenStrategy mapModeStrategy) {
 		packageName = aPackageName;
 		final Bundle thisBundle = Platform.getBundle("org.eclipse.gmf.graphdef.codegen");
 		final String[] variables = new String[] {
@@ -120,7 +120,7 @@ public class FigureGenerator {
 
 	private static TemplateRegistry fillTopLevel() {
 		StaticTemplateRegistry tr = new StaticTemplateRegistry(FigureGenerator.class.getClassLoader());
-		tr.put(PolylineConnection.class, "/PolylineConnection.javajet", TopConnectionGenerator.class);
+		tr.put(PolylineConnection.class, "/top/PolylineConnection.javajet", TopConnectionGenerator.class);
 		tr.put(Shape.class, "/top/Shape.javajet", TopShapeGenerator.class);
 		tr.put(Figure.class, "/top/Figure.javajet", TopFigureGenerator.class);
 		return tr;
