@@ -47,6 +47,8 @@ import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
+
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
@@ -71,6 +73,16 @@ import org.eclipse.ui.ide.IDE;
  * @generated
  */
 public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInputValidator {
+
+	/**
+	 * @generated
+	 */
+	private static final Integer LINK_KEY_3001 = new Integer(3001);
+
+	/**
+	 * @generated
+	 */
+	private static final Integer LINK_KEY_3002 = new Integer(3002);
 
 	/**
 	 * @generated
@@ -204,8 +216,8 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 					if (diagramVID != 79) {
 						return CommandResult.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
 					}
-					myLinkVID2EObjectMap.put(new Integer(3001), new LinkedList());
-					myLinkVID2EObjectMap.put(new Integer(3002), new LinkedList());
+					myLinkVID2EObjectMap.put(LINK_KEY_3001, new LinkedList());
+					myLinkVID2EObjectMap.put(LINK_KEY_3002, new LinkedList());
 					Diagram diagram = ViewService.createDiagram(diagramModelObject, "TaiPan", TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 					diagramResource.getContents().add(diagram);
 					createAquatory_79Children(diagram, diagramModelObject);
@@ -341,20 +353,24 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	private void storeLinks(EObject container, Diagram diagram) {
 		EClass containerMetaclass = container.eClass();
 		storeFeatureModelFacetLinks(container, containerMetaclass, diagram);
-		storeTypeModelFacetLinks(container, containerMetaclass);
+		storeTypeModelFacetLinks(container, containerMetaclass, diagram);
 	}
 
 	/**
 	 * @generated
 	 */
-	private void storeTypeModelFacetLinks(EObject container, EClass containerMetaclass) {
+	private void storeTypeModelFacetLinks(EObject container, EClass containerMetaclass, Diagram diagram) {
 		if (-1 != containerMetaclass.getFeatureID(TaiPanPackage.eINSTANCE.getAquatory_Routes())) {
 			Object featureValue = ((Aquatory) container).getRoutes();
 			for (Iterator values = ((Collection) featureValue).iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());
 				int linkVID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(nextValue);
 				if (3001 == linkVID) {
-					((Collection) myLinkVID2EObjectMap.get(new Integer(3001))).add(nextValue);
+					Object structuralFeatureResult = ((Route) nextValue).getDestination();
+					if (structuralFeatureResult instanceof EObject) {
+						EObject dst = (EObject) structuralFeatureResult;
+						((Collection) myLinkVID2EObjectMap.get(LINK_KEY_3001)).add(new LinkDescriptor(container, dst, nextValue, diagram));
+					}
 				}
 			}
 		}
@@ -365,7 +381,11 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	 */
 	private void storeFeatureModelFacetLinks(EObject container, EClass containerMetaclass, Diagram diagram) {
 		if (-1 != containerMetaclass.getFeatureID(TaiPanPackage.eINSTANCE.getShip_Destination())) {
-			((Collection) myLinkVID2EObjectMap.get(new Integer(3002))).add(container);
+			Object structuralFeatureResult = ((Ship) container).getDestination();
+			if (structuralFeatureResult instanceof EObject) {
+				EObject nextDestination = (EObject) structuralFeatureResult;
+				((Collection) myLinkVID2EObjectMap.get(LINK_KEY_3002)).add(new LinkDescriptor(container, nextDestination, TaiPanElementTypes.ShipDestination_3002, diagram));
+			}
 		}
 	}
 
@@ -374,58 +394,113 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 	 */
 	private void createLinks() {
 		Collection linkElements;
-		linkElements = (Collection) myLinkVID2EObjectMap.get(new Integer(3001));
+		linkElements = (Collection) myLinkVID2EObjectMap.get(LINK_KEY_3001);
 		for (Iterator it = linkElements.iterator(); it.hasNext();) {
-			EObject linkElement = (EObject) it.next();
-			Object srcResult = ((Route) linkElement).getSource();
-			if (srcResult instanceof EObject == false) {
-				continue;
-			}
-			EObject src = (EObject) srcResult;
-			Node srcNode = (Node) myEObject2NodeMap.get(src);
-			if (srcNode == null) {
-				continue;
-			}
-			Object structuralFeatureResult = ((Route) linkElement).getDestination();
-			if (structuralFeatureResult instanceof EObject == false) {
-				continue;
-			}
-			EObject dst = (EObject) structuralFeatureResult;
-			Node dstNode = (Node) myEObject2NodeMap.get(dst);
-			if (dstNode != null) {
-				ViewService.createEdge(srcNode, dstNode, linkElement, null, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+			LinkDescriptor nextLinkDescriptor = (LinkDescriptor) it.next();
+			Edge edge = (Edge) ViewService.getInstance().createEdge(nextLinkDescriptor.getSemanticAdapter(), nextLinkDescriptor.getDiagram(), "", ViewUtil.APPEND,
+					TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+			if (edge != null) {
+				edge.setSource((Node) myEObject2NodeMap.get(nextLinkDescriptor.getSource()));
+				edge.setTarget((Node) myEObject2NodeMap.get(nextLinkDescriptor.getDestination()));
 			}
 		}
-		linkElements = (Collection) myLinkVID2EObjectMap.get(new Integer(3002));
+		linkElements = (Collection) myLinkVID2EObjectMap.get(LINK_KEY_3002);
 		for (Iterator it = linkElements.iterator(); it.hasNext();) {
-			EObject linkElement = (EObject) it.next();
-			EObject src = linkElement;
-			Node srcNode = (Node) myEObject2NodeMap.get(src);
-			if (srcNode == null) {
-				continue;
-			}
-			Object structuralFeatureResult = ((Ship) linkElement).getDestination();
-			if (structuralFeatureResult instanceof EObject == false) {
-				continue;
-			}
-			EObject dst = (EObject) structuralFeatureResult;
-			Node dstNode = (Node) myEObject2NodeMap.get(dst);
-			if (dstNode != null) {
-				Edge edge = (Edge) ViewService.getInstance().createEdge(new IAdaptable() {
-
-					public Object getAdapter(Class adapter) {
-						if (IElementType.class.equals(adapter)) {
-							return TaiPanElementTypes.ShipDestination_3002;
-						}
-						return null;
-					}
-				}, srcNode.getDiagram(), "", ViewUtil.APPEND, TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-				if (edge != null) {
-					edge.setSource(srcNode);
-					edge.setTarget(dstNode);
-				}
+			LinkDescriptor nextLinkDescriptor = (LinkDescriptor) it.next();
+			Edge edge = (Edge) ViewService.getInstance().createEdge(nextLinkDescriptor.getSemanticAdapter(), nextLinkDescriptor.getDiagram(), "", ViewUtil.APPEND,
+					TaiPanDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+			if (edge != null) {
+				edge.setSource((Node) myEObject2NodeMap.get(nextLinkDescriptor.getSource()));
+				edge.setTarget((Node) myEObject2NodeMap.get(nextLinkDescriptor.getDestination()));
 			}
 		}
 	}
 
+	/**
+	 * @generated
+	 */
+	private class LinkDescriptor {
+
+		/**
+		 * @generated
+		 */
+		private EObject mySource;
+
+		/**
+		 * @generated
+		 */
+		private EObject myDestination;
+
+		/**
+		 * @generated
+		 */
+		private IAdaptable mySemanticAdapter;
+
+		/**
+		 * @generated
+		 */
+		private Diagram myDiagram;
+
+		/**
+		 * @generated
+		 */
+		protected LinkDescriptor(EObject source, EObject destination, EObject linkElement, Diagram diagram) {
+			this(source, destination, diagram);
+			mySemanticAdapter = new EObjectAdapter(linkElement);
+		}
+
+		/**
+		 * @generated
+		 */
+		protected LinkDescriptor(EObject source, EObject destination, IElementType elementType, Diagram diagram) {
+			this(source, destination, diagram);
+			final IElementType elementTypeCopy = elementType;
+			mySemanticAdapter = new IAdaptable() {
+
+				public Object getAdapter(Class adapter) {
+					if (IElementType.class.equals(adapter)) {
+						return elementTypeCopy;
+					}
+					return null;
+				}
+			};
+		}
+
+		/**
+		 * @generated
+		 */
+		private LinkDescriptor(EObject source, EObject destination, Diagram diagram) {
+			mySource = source;
+			myDestination = destination;
+			myDiagram = diagram;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected EObject getSource() {
+			return mySource;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected EObject getDestination() {
+			return myDestination;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected Diagram getDiagram() {
+			return myDiagram;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected IAdaptable getSemanticAdapter() {
+			return mySemanticAdapter;
+		}
+	}
 }

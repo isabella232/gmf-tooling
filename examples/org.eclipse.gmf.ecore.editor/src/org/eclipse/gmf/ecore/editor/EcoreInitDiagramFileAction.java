@@ -53,6 +53,8 @@ import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCo
 
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
 
+import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
+
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
 import org.eclipse.gmf.runtime.notation.Diagram;
@@ -85,6 +87,26 @@ import org.eclipse.ui.ide.IDE;
  * @generated
  */
 public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInputValidator {
+
+	/**
+	 * @generated
+	 */
+	private static final Integer LINK_KEY_3001 = new Integer(3001);
+
+	/**
+	 * @generated
+	 */
+	private static final Integer LINK_KEY_3002 = new Integer(3002);
+
+	/**
+	 * @generated
+	 */
+	private static final Integer LINK_KEY_3003 = new Integer(3003);
+
+	/**
+	 * @generated
+	 */
+	private static final Integer LINK_KEY_3004 = new Integer(3004);
 
 	/**
 	 * @generated
@@ -218,10 +240,10 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 					if (diagramVID != 79) {
 						return CommandResult.newErrorCommandResult("Incorrect model object stored as a root resource object"); //$NON-NLS-1$
 					}
-					myLinkVID2EObjectMap.put(new Integer(3001), new LinkedList());
-					myLinkVID2EObjectMap.put(new Integer(3002), new LinkedList());
-					myLinkVID2EObjectMap.put(new Integer(3003), new LinkedList());
-					myLinkVID2EObjectMap.put(new Integer(3004), new LinkedList());
+					myLinkVID2EObjectMap.put(LINK_KEY_3001, new LinkedList());
+					myLinkVID2EObjectMap.put(LINK_KEY_3002, new LinkedList());
+					myLinkVID2EObjectMap.put(LINK_KEY_3003, new LinkedList());
+					myLinkVID2EObjectMap.put(LINK_KEY_3004, new LinkedList());
 					Diagram diagram = ViewService.createDiagram(diagramModelObject, "Ecore", EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
 					diagramResource.getContents().add(diagram);
 					createEPackage_79Children(diagram, diagramModelObject);
@@ -732,20 +754,24 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	private void storeLinks(EObject container, Diagram diagram) {
 		EClass containerMetaclass = container.eClass();
 		storeFeatureModelFacetLinks(container, containerMetaclass, diagram);
-		storeTypeModelFacetLinks(container, containerMetaclass);
+		storeTypeModelFacetLinks(container, containerMetaclass, diagram);
 	}
 
 	/**
 	 * @generated
 	 */
-	private void storeTypeModelFacetLinks(EObject container, EClass containerMetaclass) {
+	private void storeTypeModelFacetLinks(EObject container, EClass containerMetaclass, Diagram diagram) {
 		if (-1 != containerMetaclass.getFeatureID(EcorePackage.eINSTANCE.getEClass_EStructuralFeatures())) {
 			Object featureValue = ((EClass) container).getEStructuralFeatures();
 			for (Iterator values = ((Collection) featureValue).iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());
 				int linkVID = EcoreVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(nextValue);
 				if (3002 == linkVID) {
-					((Collection) myLinkVID2EObjectMap.get(new Integer(3002))).add(nextValue);
+					Object structuralFeatureResult = ((ETypedElement) nextValue).getEType();
+					if (structuralFeatureResult instanceof EObject) {
+						EObject dst = (EObject) structuralFeatureResult;
+						((Collection) myLinkVID2EObjectMap.get(LINK_KEY_3002)).add(new LinkDescriptor(container, dst, nextValue, diagram));
+					}
 				}
 			}
 		}
@@ -755,7 +781,11 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 				EObject nextValue = ((EObject) values.next());
 				int linkVID = EcoreVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(nextValue);
 				if (3003 == linkVID) {
-					((Collection) myLinkVID2EObjectMap.get(new Integer(3003))).add(nextValue);
+					Object structuralFeatureResult = ((ETypedElement) nextValue).getEType();
+					if (structuralFeatureResult instanceof EObject) {
+						EObject dst = (EObject) structuralFeatureResult;
+						((Collection) myLinkVID2EObjectMap.get(LINK_KEY_3003)).add(new LinkDescriptor(container, dst, nextValue, diagram));
+					}
 				}
 			}
 		}
@@ -766,10 +796,18 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	 */
 	private void storeFeatureModelFacetLinks(EObject container, EClass containerMetaclass, Diagram diagram) {
 		if (-1 != containerMetaclass.getFeatureID(EcorePackage.eINSTANCE.getEAnnotation_References())) {
-			((Collection) myLinkVID2EObjectMap.get(new Integer(3001))).add(container);
+			Object structuralFeatureResult = ((EAnnotation) container).getReferences();
+			for (Iterator destinations = ((Collection) structuralFeatureResult).iterator(); destinations.hasNext();) {
+				EObject nextDestination = (EObject) destinations.next();
+				((Collection) myLinkVID2EObjectMap.get(LINK_KEY_3001)).add(new LinkDescriptor(container, nextDestination, EcoreElementTypes.EAnnotationReferences_3001, diagram));
+			}
 		}
 		if (-1 != containerMetaclass.getFeatureID(EcorePackage.eINSTANCE.getEClass_ESuperTypes())) {
-			((Collection) myLinkVID2EObjectMap.get(new Integer(3004))).add(container);
+			Object structuralFeatureResult = ((EClass) container).getESuperTypes();
+			for (Iterator destinations = ((Collection) structuralFeatureResult).iterator(); destinations.hasNext();) {
+				EObject nextDestination = (EObject) destinations.next();
+				((Collection) myLinkVID2EObjectMap.get(LINK_KEY_3004)).add(new LinkDescriptor(container, nextDestination, EcoreElementTypes.EClassESuperTypes_3004, diagram));
+			}
 		}
 	}
 
@@ -778,106 +816,133 @@ public class EcoreInitDiagramFileAction implements IObjectActionDelegate, IInput
 	 */
 	private void createLinks() {
 		Collection linkElements;
-		linkElements = (Collection) myLinkVID2EObjectMap.get(new Integer(3001));
+		linkElements = (Collection) myLinkVID2EObjectMap.get(LINK_KEY_3001);
 		for (Iterator it = linkElements.iterator(); it.hasNext();) {
-			EObject linkElement = (EObject) it.next();
-			EObject src = linkElement;
-			Node srcNode = (Node) myEObject2NodeMap.get(src);
-			if (srcNode == null) {
-				continue;
-			}
-			Object structuralFeatureResult = ((EAnnotation) linkElement).getReferences();
-			if (structuralFeatureResult instanceof Collection == false) {
-				continue;
-			}
-			for (Iterator destinations = ((Collection) structuralFeatureResult).iterator(); destinations.hasNext();) {
-				EObject dst = (EObject) destinations.next();
-				Node dstNode = (Node) myEObject2NodeMap.get(dst);
-				if (dstNode != null) {
-					Edge edge = (Edge) ViewService.getInstance().createEdge(new IAdaptable() {
-
-						public Object getAdapter(Class adapter) {
-							if (IElementType.class.equals(adapter)) {
-								return EcoreElementTypes.EAnnotationReferences_3001;
-							}
-							return null;
-						}
-					}, srcNode.getDiagram(), "", ViewUtil.APPEND, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-					if (edge != null) {
-						edge.setSource(srcNode);
-						edge.setTarget(dstNode);
-					}
-				}
+			LinkDescriptor nextLinkDescriptor = (LinkDescriptor) it.next();
+			Edge edge = (Edge) ViewService.getInstance().createEdge(nextLinkDescriptor.getSemanticAdapter(), nextLinkDescriptor.getDiagram(), "", ViewUtil.APPEND,
+					EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+			if (edge != null) {
+				edge.setSource((Node) myEObject2NodeMap.get(nextLinkDescriptor.getSource()));
+				edge.setTarget((Node) myEObject2NodeMap.get(nextLinkDescriptor.getDestination()));
 			}
 		}
-		linkElements = (Collection) myLinkVID2EObjectMap.get(new Integer(3002));
+		linkElements = (Collection) myLinkVID2EObjectMap.get(LINK_KEY_3002);
 		for (Iterator it = linkElements.iterator(); it.hasNext();) {
-			EObject linkElement = (EObject) it.next();
-			EObject src = linkElement.eContainer();
-			Node srcNode = (Node) myEObject2NodeMap.get(src);
-			if (srcNode == null) {
-				continue;
-			}
-			Object structuralFeatureResult = ((ETypedElement) linkElement).getEType();
-			if (structuralFeatureResult instanceof EObject == false) {
-				continue;
-			}
-			EObject dst = (EObject) structuralFeatureResult;
-			Node dstNode = (Node) myEObject2NodeMap.get(dst);
-			if (dstNode != null) {
-				ViewService.createEdge(srcNode, dstNode, linkElement, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+			LinkDescriptor nextLinkDescriptor = (LinkDescriptor) it.next();
+			Edge edge = (Edge) ViewService.getInstance().createEdge(nextLinkDescriptor.getSemanticAdapter(), nextLinkDescriptor.getDiagram(), "", ViewUtil.APPEND,
+					EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+			if (edge != null) {
+				edge.setSource((Node) myEObject2NodeMap.get(nextLinkDescriptor.getSource()));
+				edge.setTarget((Node) myEObject2NodeMap.get(nextLinkDescriptor.getDestination()));
 			}
 		}
-		linkElements = (Collection) myLinkVID2EObjectMap.get(new Integer(3003));
+		linkElements = (Collection) myLinkVID2EObjectMap.get(LINK_KEY_3003);
 		for (Iterator it = linkElements.iterator(); it.hasNext();) {
-			EObject linkElement = (EObject) it.next();
-			EObject src = linkElement.eContainer();
-			Node srcNode = (Node) myEObject2NodeMap.get(src);
-			if (srcNode == null) {
-				continue;
-			}
-			Object structuralFeatureResult = ((ETypedElement) linkElement).getEType();
-			if (structuralFeatureResult instanceof EObject == false) {
-				continue;
-			}
-			EObject dst = (EObject) structuralFeatureResult;
-			Node dstNode = (Node) myEObject2NodeMap.get(dst);
-			if (dstNode != null) {
-				ViewService.createEdge(srcNode, dstNode, linkElement, null, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+			LinkDescriptor nextLinkDescriptor = (LinkDescriptor) it.next();
+			Edge edge = (Edge) ViewService.getInstance().createEdge(nextLinkDescriptor.getSemanticAdapter(), nextLinkDescriptor.getDiagram(), "", ViewUtil.APPEND,
+					EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+			if (edge != null) {
+				edge.setSource((Node) myEObject2NodeMap.get(nextLinkDescriptor.getSource()));
+				edge.setTarget((Node) myEObject2NodeMap.get(nextLinkDescriptor.getDestination()));
 			}
 		}
-		linkElements = (Collection) myLinkVID2EObjectMap.get(new Integer(3004));
+		linkElements = (Collection) myLinkVID2EObjectMap.get(LINK_KEY_3004);
 		for (Iterator it = linkElements.iterator(); it.hasNext();) {
-			EObject linkElement = (EObject) it.next();
-			EObject src = linkElement;
-			Node srcNode = (Node) myEObject2NodeMap.get(src);
-			if (srcNode == null) {
-				continue;
-			}
-			Object structuralFeatureResult = ((EClass) linkElement).getESuperTypes();
-			if (structuralFeatureResult instanceof Collection == false) {
-				continue;
-			}
-			for (Iterator destinations = ((Collection) structuralFeatureResult).iterator(); destinations.hasNext();) {
-				EObject dst = (EObject) destinations.next();
-				Node dstNode = (Node) myEObject2NodeMap.get(dst);
-				if (dstNode != null) {
-					Edge edge = (Edge) ViewService.getInstance().createEdge(new IAdaptable() {
-
-						public Object getAdapter(Class adapter) {
-							if (IElementType.class.equals(adapter)) {
-								return EcoreElementTypes.EClassESuperTypes_3004;
-							}
-							return null;
-						}
-					}, srcNode.getDiagram(), "", ViewUtil.APPEND, EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
-					if (edge != null) {
-						edge.setSource(srcNode);
-						edge.setTarget(dstNode);
-					}
-				}
+			LinkDescriptor nextLinkDescriptor = (LinkDescriptor) it.next();
+			Edge edge = (Edge) ViewService.getInstance().createEdge(nextLinkDescriptor.getSemanticAdapter(), nextLinkDescriptor.getDiagram(), "", ViewUtil.APPEND,
+					EcoreDiagramEditorPlugin.DIAGRAM_PREFERENCES_HINT);
+			if (edge != null) {
+				edge.setSource((Node) myEObject2NodeMap.get(nextLinkDescriptor.getSource()));
+				edge.setTarget((Node) myEObject2NodeMap.get(nextLinkDescriptor.getDestination()));
 			}
 		}
 	}
 
+	/**
+	 * @generated
+	 */
+	private class LinkDescriptor {
+
+		/**
+		 * @generated
+		 */
+		private EObject mySource;
+
+		/**
+		 * @generated
+		 */
+		private EObject myDestination;
+
+		/**
+		 * @generated
+		 */
+		private IAdaptable mySemanticAdapter;
+
+		/**
+		 * @generated
+		 */
+		private Diagram myDiagram;
+
+		/**
+		 * @generated
+		 */
+		protected LinkDescriptor(EObject source, EObject destination, EObject linkElement, Diagram diagram) {
+			this(source, destination, diagram);
+			mySemanticAdapter = new EObjectAdapter(linkElement);
+		}
+
+		/**
+		 * @generated
+		 */
+		protected LinkDescriptor(EObject source, EObject destination, IElementType elementType, Diagram diagram) {
+			this(source, destination, diagram);
+			final IElementType elementTypeCopy = elementType;
+			mySemanticAdapter = new IAdaptable() {
+
+				public Object getAdapter(Class adapter) {
+					if (IElementType.class.equals(adapter)) {
+						return elementTypeCopy;
+					}
+					return null;
+				}
+			};
+		}
+
+		/**
+		 * @generated
+		 */
+		private LinkDescriptor(EObject source, EObject destination, Diagram diagram) {
+			mySource = source;
+			myDestination = destination;
+			myDiagram = diagram;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected EObject getSource() {
+			return mySource;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected EObject getDestination() {
+			return myDestination;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected Diagram getDiagram() {
+			return myDiagram;
+		}
+
+		/**
+		 * @generated
+		 */
+		protected IAdaptable getSemanticAdapter() {
+			return mySemanticAdapter;
+		}
+	}
 }
