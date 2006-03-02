@@ -149,7 +149,7 @@
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.iconProviders">
       <IconProvider class="org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanIconProvider">
-         <Priority name="Lowest"/>
+         <Priority name="Low"/>
       </IconProvider>
    </extension>
 
