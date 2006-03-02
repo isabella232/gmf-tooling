@@ -46,7 +46,7 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 	 */
 	protected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		if ("TaiPan".equals(diagramKind) && TaiPanVisualIDRegistry.INSTANCE.getDiagramVisualID(semanticElement) != -1) { //$NON-NLS-1$
+		if ("TaiPan".equals(diagramKind) && TaiPanVisualIDRegistry.INSTANCE.getDiagramVisualID(semanticElement) != -1) {
 			return AquatoryViewFactory.class;
 		}
 		return null;
@@ -90,7 +90,7 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 				return Route_reliabilityTextViewFactory.class;
 			}
 		case 4006:
-			if (TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONLABEL32403336_4006_LABEL.equals(semanticHint)) {
+			if (TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONDESTINATION_4006_LABEL.equals(semanticHint)) {
 				return Destination_destinatViewFactory.class;
 			} else {
 				return Destination_destinatTextViewFactory.class;

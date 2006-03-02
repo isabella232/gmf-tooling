@@ -141,11 +141,11 @@ public class TaiPanSemanticHints {
 		/**
 		 * @generated
 		 */
-		public static final String SHIPDESTINATIONLABEL32403336_4006_LABEL = "ShipDestinationLabel32403336_4006Label";
+		public static final String SHIPDESTINATIONDESTINATION_4006_LABEL = "ShipDestinationDestination_4006Label";
 
 		/**
 		 * @generated
 		 */
-		public static final String SHIPDESTINATIONLABEL32403336_4006_TEXT = "ShipDestinationLabel32403336_4006Text";
+		public static final String SHIPDESTINATIONDESTINATION_4006_TEXT = "ShipDestinationDestination_4006Text";
 	}
 }
