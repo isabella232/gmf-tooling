@@ -54,6 +54,7 @@ import org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment;
 import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
+import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
 import org.eclipse.gmf.codegen.gmfgen.TextLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
@@ -176,6 +177,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		getGenDiagram().setVisualID(myVisualIDs.get(getGenDiagram()));
 		getGenPlugin().setName(mapping.getDomainModel().getName() + " Plugin");
 		getGenDiagram().setViewmap(myViewmaps.create(mapping.getDiagramCanvas()));
+		getGenDiagram().setIconProviderPriority(ProviderPriority.LOW_LITERAL); // override ElementTypeIconProvider
 
 		// set class names
 		myNamingStrategy.feed(getGenDiagram(), mapping);
