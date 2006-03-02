@@ -11,28 +11,15 @@
  */
 package org.eclipse.gmf.internal.bridge.wizards;
 
-import org.eclipse.jdt.ui.wizards.JavaCapabilityConfigurationPage;
-import org.eclipse.jface.wizard.IWizardPage;
-import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.emf.codegen.ecore.ui.EmptyProjectWizard;
 
 /**
+ * Quick way to introduce GMF Project wizard. 
+ * XXX Get rid of EmptyProjectWizard and ecore.ui dependency once you know what could be added here
  * @author artem
  */
-public class NewGMFProjectWizard extends Wizard {
-	private JavaCapabilityConfigurationPage myFirstPage;
+public class NewGMFProjectWizard extends EmptyProjectWizard {
+	//private JavaCapabilityConfigurationPage myFirstPage;
 
-	public NewGMFProjectWizard() {
-	}
-
-	public void addPage(IWizardPage page) {
-		super.addPage(page);
-		myFirstPage = new JavaCapabilityConfigurationPage();
-		addPage(myFirstPage);
-	}
-
-	public boolean performFinish() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 }

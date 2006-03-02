@@ -16,7 +16,8 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.bridge,
  org.eclipse.gmf.graphdef.edit,
  org.eclipse.gmf.tooldef.edit,
- org.eclipse.gmf.map.edit
+ org.eclipse.gmf.map.edit,
+ org.eclipse.emf.codegen.ecore.ui
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.gmf.internal.bridge.resolver;x-internal:=true,
  org.eclipse.gmf.internal.bridge.ui;x-friends:="org.eclipse.gmf.bridge.ui.dashboard",

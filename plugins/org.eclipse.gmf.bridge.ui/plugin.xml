@@ -8,6 +8,15 @@
       name="%wizardCategoryName">
     </category>
     <wizard
+          category="org.eclipse.gmf.tooling.wizardCategory"
+          class="org.eclipse.gmf.internal.bridge.wizards.NewGMFProjectWizard"
+          icon="icons/obj16/NewGMFProject.gif"
+          id="org.eclipse.gmf.tooling.newProjectWizard"
+          name="%newProjectWizard.name"
+          project="true">
+       <description>%newProjectWizard.desc</description>
+    </wizard>
+    <wizard
       id = "org.eclipse.gmf.internal.codegen.wizards.NewGMFMapModelWizardID"
       name = "%mapWizard.name"
       class = "org.eclipse.gmf.internal.bridge.wizards.NewGMFMapModelWizard"
