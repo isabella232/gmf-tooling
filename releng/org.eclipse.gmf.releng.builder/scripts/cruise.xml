@@ -6,9 +6,10 @@
 	<property name="reportdir" value="${cc.home}/reporting" />
 	<property name="checkout" value="${buildRoot}/checkout" />
 	<property name="logs" value="${buildRoot}/logs" />
+	<property name="remotelogs" value="logs" />
 	<property name="artifacts" value="${buildRoot}/artifacts" />
 	<property name="cc.publish" value="${buildRoot}/ccpublish" />
-	
+
 	<target name="init">	
 		<delete file="${basedir}/cc.properties" failonerror="false"/>
 		<!-- Store the build properties in a file for CruiseControl to pick up. -->
@@ -37,6 +38,9 @@ reportdir=${reportdir}
 checkout=${checkout}
 		</echo>
 		<echo file="${basedir}/cc.properties" append="true">
+remotelogs=${remotelogs}
+		</echo>
+		<echo file="${basedir}/cc.properties" append="true">
 logs=${logs}
 		</echo>
 		<echo file="${basedir}/cc.properties" append="true">
@@ -51,6 +55,18 @@ cc.publish=${cc.publish}
 		<echo file="${basedir}/cc.properties" append="true">
 scripts=${scripts}
 		</echo>
+
+		<echo file="${basedir}/cc.properties" append="true">
+ccweb.ftp.host=${ccweb.ftp.host}
+		</echo>
+		<echo file="${basedir}/cc.properties" append="true">
+ccweb.ftp.user=${ccweb.ftp.user}
+		</echo>
+		<echo file="${basedir}/cc.properties" append="true">
+ccweb.ftp.passwd=${ccweb.ftp.passwd}
+		</echo>
+
+
 		<mkdir dir="${logs}/continuous"/>
 		<mkdir dir="${logs}/integration"/>
 		<mkdir dir="${logs}/nightly"/>
@@ -63,14 +79,23 @@ scripts=${scripts}
 	
 	<target name="cruise" depends="init">
 		<java classname="CruiseControl" maxmemory="1024m" fork="true" failonerror="true">
-			<arg value="-Djavax.management.builder.initial=mx4j.server.MX4JMBeanServerBuilder" />
+			<jvmarg value="-Djavax.management.builder.initial=mx4j.server.MX4JMBeanServerBuilder" />
+			<arg line="-jmxport 8000"/>
 			<classpath>
-				<fileset dir="${cc.home}/main/lib">
+			    <fileset dir="${cc.home}/lib">
+				<include name="**/*.jar"/>
+			    </fileset>
+			    <!--
+			    <fileset dir="${cc.home}/main/lib">
 		        	<include name="**/*.jar"/>
-		      	</fileset>
-				<fileset dir="${cc.home}/main/dist">
+		      	    </fileset>
+			    <fileset dir="${cc.home}/main/dist">
 		        	<include name="**/*.jar"/>
-		      	</fileset>
+		      	    </fileset>
+			    -->
+			    <fileset dir="${java.home}/lib">
+				<include name="tools.jar"/>
+			    </fileset>
 			</classpath>
 		</java>
 	</target>
