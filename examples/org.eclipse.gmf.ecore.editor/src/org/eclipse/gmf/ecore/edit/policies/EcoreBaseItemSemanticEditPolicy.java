@@ -296,7 +296,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		private Query createQuery(LinkEndConstraint constraint, VariableDeclaration oppositeEndDecl) {
 			final VariableDeclaration oppositeEndDeclLocal = oppositeEndDecl;
 			try {
-				IOCLHelper oclHelper = HelperUtil.createOclHelper(new EcoreEnvironmentFactory() {
+				IOCLHelper oclHelper = HelperUtil.createOCLHelper(new EcoreEnvironmentFactory() {
 
 					public Environment createClassifierContext(Object context) {
 						Environment env = super.createClassifierContext(context);
@@ -340,7 +340,7 @@ public class EcoreBaseItemSemanticEditPolicy extends SemanticEditPolicy {
 		private static VariableDeclaration createVar(String name, EClassifier type) {
 			VariableDeclaration var = ExpressionsFactory.eINSTANCE.createVariableDeclaration();
 			var.setName(name);
-			var.setType(EcoreEnvironment.getOclType(type));
+			var.setType(EcoreEnvironment.getOCLType(type));
 			return var;
 		}
 	}
