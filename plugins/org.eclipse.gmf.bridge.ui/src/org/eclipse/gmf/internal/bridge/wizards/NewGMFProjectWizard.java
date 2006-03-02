@@ -26,9 +26,15 @@ import org.eclipse.ui.PlatformUI;
  */
 public class NewGMFProjectWizard extends EmptyProjectWizard {
 
+	private static final String SD_PROPERTY = "show_dashboard"; //$NON-NLS-1$
+
 	private boolean showDashboard;
 
 	private ShowDashboardPage sdp;
+
+	public NewGMFProjectWizard() {
+		showDashboard = Plugin.getDefault().getPreferenceStore().getBoolean(SD_PROPERTY);
+	}
 
 	public void addPages() {
 		super.addPages();
@@ -43,8 +49,10 @@ public class NewGMFProjectWizard extends EmptyProjectWizard {
 	}
 
 	public boolean performFinish() {
+		showDashboard = sdp.isShowDashboard();
+		Plugin.getDefault().getPreferenceStore().setValue(SD_PROPERTY, showDashboard);
 		boolean created = super.performFinish();
-		if (created && sdp.isShowDashboard()) {
+		if (created && showDashboard) {
 			getShell().getDisplay().asyncExec(new Runnable() {
 
 				public void run() {
