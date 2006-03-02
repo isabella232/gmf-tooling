@@ -28,7 +28,7 @@ import org.eclipse.gmf.gmfgraph.PolygonDecoration;
 import org.eclipse.gmf.gmfgraph.PolylineConnection;
 import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
-import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
+import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
 import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.core.dom.AST;
@@ -187,7 +187,7 @@ public class FigureCodegenTestBase extends TestCase {
 	private FigureGenerator getGenerator() {
 		if (figureGenerator == null) {
 			String packageName = getFigurePackageName();
-			figureGenerator = new FigureGenerator(packageName, new ImportUtil(packageName), new FigureQualifiedNameSwitch());
+			figureGenerator = new FigureGenerator(packageName, new ImportUtil(packageName), new RuntimeFQNSwitch());
 		}
 		return figureGenerator;
 	}

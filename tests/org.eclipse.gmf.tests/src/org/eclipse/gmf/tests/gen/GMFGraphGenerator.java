@@ -13,7 +13,7 @@ import org.eclipse.gmf.common.UnexpectedBehaviourException;
 import org.eclipse.gmf.common.codegen.GeneratorBase;
 import org.eclipse.gmf.common.codegen.ImportUtil;
 import org.eclipse.gmf.gmfgraph.Figure;
-import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
+import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
 
 public class GMFGraphGenerator extends GeneratorBase {
@@ -132,7 +132,7 @@ public class GMFGraphGenerator extends GeneratorBase {
 		myInputTree = inputTree;
 		myConfig = config;
 		myFigureGenerator = new FigureGeneratorAdapter( //
-				new FigureGenerator(getPackageName(), new ImportUtil(getPackageName()), new FigureQualifiedNameSwitch())
+				new FigureGenerator(getPackageName(), new ImportUtil(getPackageName()), new RuntimeFQNSwitch())
 		);
 	}
 	
