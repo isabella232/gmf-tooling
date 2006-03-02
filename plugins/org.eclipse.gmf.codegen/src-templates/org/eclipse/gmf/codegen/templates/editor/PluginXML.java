@@ -105,16 +105,18 @@ public class PluginXML
   protected final String TEXT_88 = "\"/>" + NL + "\t\t\t</constraint>" + NL + "\t\t</constraints>";
   protected final String TEXT_89 = NL + "\t</constraintProvider>" + NL + "</extension>" + NL + "" + NL + "<extension point=\"org.eclipse.emf.validation.constraintBindings\">";
   protected final String TEXT_90 = NL + "\t<clientContext default=\"false\" id=\"";
-  protected final String TEXT_91 = "\">" + NL + "\t\t<selector class=\"";
-  protected final String TEXT_92 = "\"/>" + NL + "\t</clientContext>" + NL + "\t<binding context=\"";
-  protected final String TEXT_93 = "\">";
-  protected final String TEXT_94 = "\t" + NL + "\t\t<constraint ref=\"";
-  protected final String TEXT_95 = ".";
-  protected final String TEXT_96 = "\"/>";
-  protected final String TEXT_97 = NL + "\t</binding>";
-  protected final String TEXT_98 = "\t\t" + NL + "</extension>";
-  protected final String TEXT_99 = NL + "</plugin>";
-  protected final String TEXT_100 = NL;
+  protected final String TEXT_91 = ".";
+  protected final String TEXT_92 = "\">" + NL + "\t\t<selector class=\"";
+  protected final String TEXT_93 = "\"/>" + NL + "\t</clientContext>" + NL + "\t<binding context=\"";
+  protected final String TEXT_94 = ".";
+  protected final String TEXT_95 = "\">";
+  protected final String TEXT_96 = "\t" + NL + "\t\t<constraint ref=\"";
+  protected final String TEXT_97 = ".";
+  protected final String TEXT_98 = "\"/>";
+  protected final String TEXT_99 = NL + "\t</binding>";
+  protected final String TEXT_100 = "\t\t" + NL + "</extension>";
+  protected final String TEXT_101 = NL + "</plugin>";
+  protected final String TEXT_102 = NL;
 
   public String generate(Object argument)
   {
@@ -353,34 +355,38 @@ if (rootContainer != null && genDiagram.getDomainDiagramElement() != null) {
 		GenAuditRule ruleTarget = (GenAuditRule)rules.get(0);
 
     stringBuffer.append(TEXT_90);
-    stringBuffer.append(ctxID);
+    stringBuffer.append(pluginID);
     stringBuffer.append(TEXT_91);
-    stringBuffer.append(ruleTarget.getContextSelectorQualifiedClassName());
-    stringBuffer.append(TEXT_92);
     stringBuffer.append(ctxID);
+    stringBuffer.append(TEXT_92);
+    stringBuffer.append(ruleTarget.getContextSelectorQualifiedClassName());
     stringBuffer.append(TEXT_93);
+    stringBuffer.append(pluginID);
+    stringBuffer.append(TEXT_94);
+    stringBuffer.append(ctxID);
+    stringBuffer.append(TEXT_95);
     
 		for(java.util.Iterator ruleIt = rules.iterator(); ruleIt.hasNext();) {
 			GenAuditRule nextRule = (GenAuditRule)ruleIt.next();
 
-    stringBuffer.append(TEXT_94);
-    stringBuffer.append(pluginID);
-    stringBuffer.append(TEXT_95);
-    stringBuffer.append(nextRule.getId());
     stringBuffer.append(TEXT_96);
+    stringBuffer.append(pluginID);
+    stringBuffer.append(TEXT_97);
+    stringBuffer.append(nextRule.getId());
+    stringBuffer.append(TEXT_98);
     
 		} // end of rules in context
 
-    stringBuffer.append(TEXT_97);
+    stringBuffer.append(TEXT_99);
     
 	} // end of contexts iteration
 
-    stringBuffer.append(TEXT_98);
+    stringBuffer.append(TEXT_100);
     
 }
 
-    stringBuffer.append(TEXT_99);
-    stringBuffer.append(TEXT_100);
+    stringBuffer.append(TEXT_101);
+    stringBuffer.append(TEXT_102);
     return stringBuffer.toString();
   }
 }

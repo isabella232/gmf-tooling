@@ -78,10 +78,10 @@ if (rootContainer != null && genDiagram.getDomainDiagramElement() != null) {
 		String ctxID = (String)ctx2Rules.getKey();
 		GenAuditRule ruleTarget = (GenAuditRule)rules.get(0);
 %>
-	<clientContext default="false" id="<%=ctxID%>">
+	<clientContext default="false" id="<%=pluginID%>.<%=ctxID%>">
 		<selector class="<%=ruleTarget.getContextSelectorQualifiedClassName()%>"/>
 	</clientContext>
-	<binding context="<%=ctxID%>">
+	<binding context="<%=pluginID%>.<%=ctxID%>">
 <%
 		for(java.util.Iterator ruleIt = rules.iterator(); ruleIt.hasNext();) {
 			GenAuditRule nextRule = (GenAuditRule)ruleIt.next();
