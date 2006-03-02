@@ -44,14 +44,25 @@ public class NewGMFProjectWizard extends EmptyProjectWizard {
 
 	public boolean performFinish() {
 		boolean created = super.performFinish();
+		if (created && sdp.isShowDashboard()) {
+			getShell().getDisplay().asyncExec(new Runnable() {
+
+				public void run() {
+					openDashboardView();
+				}
+			});
+		}
+		return created;
+	}
+
+	protected void openDashboardView() {
 		IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-		if (created && sdp.isShowDashboard() && window != null && window.getActivePage() != null) {
+		if (window != null && window.getActivePage() != null) {
 			try {
 				window.getActivePage().showView("org.eclipse.gmf.bridge.ui.dashboard.DashboardPart");
 			} catch (PartInitException e) {
 				Plugin.log(e);
 			}
 		}
-		return created;
 	}
 }
