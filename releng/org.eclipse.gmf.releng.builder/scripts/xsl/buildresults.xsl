@@ -59,6 +59,7 @@
     <p><xsl:apply-templates select="$cruisecontrol.list" mode="checkstyle"/></p>
     <p><xsl:apply-templates select="$cruisecontrol.list" mode="pmd"/></p>
     <p><xsl:apply-templates select="$cruisecontrol.list" mode="macker"/></p>
+    <p><xsl:apply-templates select="$cruisecontrol.list" mode="modifications"/></p>
     <p><xsl:apply-templates select="$cruisecontrol.list" mode="unittests"/></p>
     <p><xsl:apply-templates select="$cruisecontrol.list" mode="errors"/></p>
     <!--
@@ -67,7 +68,6 @@
     <p><xsl:apply-templates select="$cruisecontrol.list" mode="compile"/></p>
     -->
     <p><xsl:apply-templates select="$cruisecontrol.list" mode="javadoc"/></p>
-    <p><xsl:apply-templates select="$cruisecontrol.list" mode="modifications"/></p>
     <p><xsl:apply-templates select="$cruisecontrol.list" mode="distributables"/></p>
   </xsl:template>
 </xsl:stylesheet>
