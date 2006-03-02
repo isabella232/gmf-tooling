@@ -1279,7 +1279,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(mappingEClass, Mapping.class, "Mapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getMapping_Nodes(), this.getTopNodeReference(), null, "nodes", null, 1, -1, Mapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMapping_Nodes(), this.getTopNodeReference(), null, "nodes", null, 0, -1, Mapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMapping_Links(), this.getLinkMapping(), null, "links", null, 0, -1, Mapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMapping_Diagram(), this.getCanvasMapping(), null, "diagram", null, 1, 1, Mapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMapping_AppearanceStyles(), theGMFToolPackage.getStyleSelector(), null, "appearanceStyles", null, 0, -1, Mapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1409,6 +1409,8 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		createConstraintsAnnotations();
 		// http://www.eclipse.org/gmf/2005/constraints/meta
 		createMetaAnnotations();
+		// constraint
+		createConstraintAnnotations();
 	}
 
 	/**
@@ -1425,7 +1427,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																																														
+		   });																																																																
 	}
 
 	/**
@@ -1435,7 +1437,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";						
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";							
 		addAnnotation
 		  (getMappingEntry_DomainSpecialization(), 
 		   source, 
@@ -1449,7 +1451,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "self.getDomainContext()"
-		   });																		
+		   });																			
 		addAnnotation
 		  (constraintEClass, 
 		   source, 
@@ -1526,6 +1528,23 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	}
 
 	/**
+	 * Initializes the annotations for <b>constraint</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createConstraintAnnotations() {
+		String source = "constraint";																					
+		addAnnotation
+		  (getCanvasMapping_DomainMetaElement(), 
+		   source, 
+		   new String[] {
+			 "ocl", "not domainMetaElement.oclIsUndefined implies not(domainMetaElement.isAbstract or domainMetaElement.isInterface)",
+			 "description", "Top-level diagram container must be concrete"
+		   });																																													
+	}
+
+	/**
 	 * Initializes the annotations for <b>http://www.eclipse.org/gmf/2005/constraints</b>.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1539,7 +1558,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "nodes->forAll(n|n.containmentFeature.oclIsUndefined() and not n.domainMetaElement.oclIsUndefined() implies links->exists(let r:ecore::EReference= linkMetaFeature.oclAsType(ecore::EReference) in r.containment and r.eReferenceType.isSuperTypeOf(n.domainMetaElement)))",
 			 "description", "Phantom nodes that are not targeted by a link mapping exist"
-		   });							
+		   });								
 		addAnnotation
 		  (getMappingEntry_DomainInitializer(), 
 		   source, 
@@ -1595,7 +1614,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "not(domainMetaElement.oclIsUndefined() or linkMetaFeature.oclIsUndefined()) implies linkMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)",
 			 "description", "\'Target Feature\' must be owned by the link \'Domain Element\' or its super type"
-		   });										
+		   });											
 		addAnnotation
 		  (linkConstraintsEClass, 
 		   source, 

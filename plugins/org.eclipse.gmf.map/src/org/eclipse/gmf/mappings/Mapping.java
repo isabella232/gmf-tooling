@@ -41,7 +41,7 @@ public interface Mapping extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Nodes</em>' containment reference list.
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMapping_Nodes()
-	 * @model type="org.eclipse.gmf.mappings.TopNodeReference" containment="true" resolveProxies="false" required="true"
+	 * @model type="org.eclipse.gmf.mappings.TopNodeReference" containment="true" resolveProxies="false"
 	 * @generated
 	 */
 	EList getNodes();

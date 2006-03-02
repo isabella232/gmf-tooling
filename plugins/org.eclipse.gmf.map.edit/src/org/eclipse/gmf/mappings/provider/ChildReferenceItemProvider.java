@@ -129,7 +129,7 @@ public class ChildReferenceItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/ChildReference");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ChildReference"));
 	}
 
 	/**
@@ -185,7 +185,7 @@ public class ChildReferenceItemProvider
 		}
 		super.notifyChanged(notification);
 	}
-	
+
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(NodeMapping.class)) {
 		case GMFMapPackage.NODE_REFERENCE__CONTAINMENT_FEATURE:

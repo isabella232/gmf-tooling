@@ -132,6 +132,9 @@ public interface MappingEntry extends EObject {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * This method simplifies OCL expressions (makes it easy to write for both Node and Link).
+	 * <!-- end-model-doc -->
 	 * @model kind="operation"
 	 * @generated
 	 */

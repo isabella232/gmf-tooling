@@ -65,7 +65,7 @@ public class ConstraintItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/Constraint");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Constraint"));
 	}
 
 	/**

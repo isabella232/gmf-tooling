@@ -164,7 +164,7 @@ public class AuditContainerItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/AuditContainer");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/AuditContainer"));
 	}
 
 	/**

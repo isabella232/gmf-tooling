@@ -193,7 +193,7 @@ public class CanvasMappingItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/CanvasMapping");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/CanvasMapping"));
 	}
 
 	/**

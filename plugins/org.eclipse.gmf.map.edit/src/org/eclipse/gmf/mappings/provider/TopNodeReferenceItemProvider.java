@@ -86,7 +86,7 @@ public class TopNodeReferenceItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/TopNodeReference");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/TopNodeReference"));
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class TopNodeReferenceItemProvider
 		}
 		super.notifyChanged(notification);
 	}
-	
+
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(NodeMapping.class)) {
 		case GMFMapPackage.NODE_REFERENCE__CONTAINMENT_FEATURE:

@@ -12,7 +12,7 @@
       <details key="ocl" value="nodes->forAll(n|n.containmentFeature.oclIsUndefined() and not n.domainMetaElement.oclIsUndefined() implies links->exists(let r:ecore::EReference= linkMetaFeature.oclAsType(ecore::EReference) in r.containment and r.eReferenceType.isSuperTypeOf(n.domainMetaElement)))"/>
       <details key="description" value="Phantom nodes that are not targeted by a link mapping exist"/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" lowerBound="1" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
         eType="#//TopNodeReference" containment="true" resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
         eType="#//LinkMapping" containment="true" resolveProxies="false"/>
@@ -29,7 +29,11 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MappingEntry" abstract="true">
-    <eOperations name="getDomainContext" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
+    <eOperations name="getDomainContext" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="This method simplifies OCL expressions (makes it easy to write for both Node and Link)."/>
+      </eAnnotations>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainMetaElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainSpecialization" eType="#//Constraint"
         containment="true">
@@ -148,7 +152,12 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagramCanvas" lowerBound="1"
         eType="ecore:EClass ../../org.eclipse.gmf.graphdef/models/gmfgraph.ecore#//Canvas"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="domainModel" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EPackage"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="domainMetaElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="domainMetaElement" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EClass">
+      <eAnnotations source="constraint">
+        <details key="ocl" value="not domainMetaElement.oclIsUndefined implies not(domainMetaElement.isAbstract or domainMetaElement.isInterface)"/>
+        <details key="description" value="Top-level diagram container must be concrete"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="palette" eType="ecore:EClass ../../org.eclipse.gmf.tooldef/models/tooldef.ecore#//Palette"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="menuContributions" upperBound="-1"
         eType="ecore:EClass ../../org.eclipse.gmf.tooldef/models/tooldef.ecore#//MainMenu"/>

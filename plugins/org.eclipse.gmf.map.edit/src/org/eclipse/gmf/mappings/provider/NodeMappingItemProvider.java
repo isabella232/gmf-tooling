@@ -186,14 +186,14 @@ public class NodeMappingItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/NodeMapping");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/NodeMapping"));
 	}
 
 	/**
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public String getText(Object object) {
 		if (object instanceof NodeMapping) {
@@ -230,7 +230,7 @@ public class NodeMappingItemProvider
 		}
 		super.notifyChanged(notification);
 	}
-	
+
 	public void notifyChanged(Notification notification) {
 		switch (notification.getFeatureID(NodeMapping.class)) {
 		case GMFMapPackage.NODE_MAPPING__DIAGRAM_NODE:

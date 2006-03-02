@@ -243,7 +243,7 @@ public class LinkMappingItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/LinkMapping");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/LinkMapping"));
 	}
 
 	/**
