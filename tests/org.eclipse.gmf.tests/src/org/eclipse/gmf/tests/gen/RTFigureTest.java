@@ -13,78 +13,83 @@ package org.eclipse.gmf.tests.gen;
 
 import junit.framework.TestCase;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.gmf.gmfgraph.Alignment;
+import org.eclipse.gmf.gmfgraph.BorderLayout;
+import org.eclipse.gmf.gmfgraph.BorderLayoutData;
+import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
-import org.eclipse.gmf.gmfgraph.GridLayout;
-import org.eclipse.gmf.gmfgraph.GridLayoutData;
+import org.eclipse.gmf.gmfgraph.Layout;
+import org.eclipse.gmf.gmfgraph.LayoutData;
 import org.eclipse.gmf.gmfgraph.RGBColor;
+import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
+import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
 
 public class RTFigureTest extends TestCase {
 
 	public void testRTGeneration() {
-		GMFGraphGenerator.Config config = new GMFGraphGenerator.ConfigImpl(
+		StandaloneGenerator.Config config = new StandaloneGenerator.ConfigImpl(
 				"com.test.plugin." + getName() + ".t" + System.currentTimeMillis(), 
 				"com.test.figures");
-		GMFGraphGenerator.GMFGraphTree tree = new GMFGraphGenerator.GMFGraphTree.EObjectAdapter(createSampleFigure());
-		GMFGraphGenerator generator = new GMFGraphGenerator(tree, config);
+		FigureGallery fg = GMFGraphFactory.eINSTANCE.createFigureGallery();
+		fg.setName("fg");
+		fg.getFigures().add(createSampleFigure());
+		StandaloneGenerator generator = new StandaloneGenerator(fg, config, new RuntimeFQNSwitch());
 		generator.run();
-		assertTrue(generator.getRunStatus().isOK());
+		IStatus status = generator.getRunStatus();
+		assertTrue(status.getMessage(), status.isOK());
 	}
 	
 	private Figure createSampleFigure() {
 		Figure parent = GMFGraphFactory.eINSTANCE.createRectangle();
 		parent.setName("Parent");
-		parent.setLayout(createGridLayout());
+		parent.setLayout(createLayout());
 
 		Figure leftGreenFilled = GMFGraphFactory.eINSTANCE.createRectangle();
 		leftGreenFilled.setName("LeftGreen");
 		RGBColor green = GMFGraphFactory.eINSTANCE.createRGBColor();
 		green.setGreen(255);
 		leftGreenFilled.setBackgroundColor(green);
-		leftGreenFilled.setLayoutData(createGridLayoutData(true));
+		leftGreenFilled.setLayoutData(createLayoutData(Alignment.BEGINNING_LITERAL, false));
 
 		Figure rightRedOutline = GMFGraphFactory.eINSTANCE.createRectangle();
-		rightRedOutline.setName("RightRed");
+		rightRedOutline.setName("CenterRed");
 		RGBColor red = GMFGraphFactory.eINSTANCE.createRGBColor();
 		red.setRed(255);
 		rightRedOutline.setForegroundColor(green);
-		rightRedOutline.setLayoutData(createGridLayoutData(false));
+		rightRedOutline.setLayoutData(createLayoutData(Alignment.FILL_LITERAL, true));
+		
+		CustomFigure bottomCustom = GMFGraphFactory.eINSTANCE.createCustomFigure();
+		bottomCustom.setName("BottomCustom");
+		bottomCustom.setBundleName("org.eclipse.gmf.runtime.diagram.ui.geoshapes");
+		bottomCustom.setQualifiedClassName("org.eclipse.gmf.runtime.diagram.ui.geoshapes.internal.draw2d.figures.GeoShapeCylinderFigure");
+		RGBColor blue = GMFGraphFactory.eINSTANCE.createRGBColor();
+		red.setBlue(255);
+		bottomCustom.setForegroundColor(blue);
 		
 		parent.getChildren().add(leftGreenFilled);
 		parent.getChildren().add(rightRedOutline);
+		parent.getChildren().add(bottomCustom);
 		
 		return parent;
 	}
 
-	private GridLayout createGridLayout() {
-		GridLayout layout = GMFGraphFactory.eINSTANCE.createGridLayout();
-		layout.setEqualWidth(true);
-		layout.setNumColumns(2);
-
-		Dimension margins = GMFGraphFactory.eINSTANCE.createDimension();
-		margins.setDx(5);
-		margins.setDy(10);
-		layout.setMargins(margins);
-
+	private Layout createLayout() {
+		BorderLayout layout = GMFGraphFactory.eINSTANCE.createBorderLayout();
 		Dimension spacing = GMFGraphFactory.eINSTANCE.createDimension();
 		spacing.setDx(7);
 		spacing.setDy(8);
 		layout.setSpacing(spacing);
-
 		return layout;
 	}
 
-	private GridLayoutData createGridLayoutData(boolean horizontalBeginningNotEnd) {
-		GridLayoutData data = GMFGraphFactory.eINSTANCE.createGridLayoutData();
-		data.setGrabExcessHorizontalSpace(true);
-		data.setGrabExcessVerticalSpace(false);
-		data.setHorizontalAlignment(horizontalBeginningNotEnd ? Alignment.BEGINNING_LITERAL : Alignment.END_LITERAL);
-		data.setVerticalAlignment(Alignment.CENTER_LITERAL);
-		data.setHorizontalIndent(5);
-		data.setHorizontalSpan(1);
-		data.setVerticalSpan(1);
+	private LayoutData createLayoutData(Alignment alignment, boolean isVerticalAlignment) {
+		BorderLayoutData data = GMFGraphFactory.eINSTANCE.createBorderLayoutData();
+		data.setAlignment(alignment);
+		data.setVertical(isVerticalAlignment);
 		return data;
 	}
 

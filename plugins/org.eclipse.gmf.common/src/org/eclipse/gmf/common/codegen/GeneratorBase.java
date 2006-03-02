@@ -207,7 +207,7 @@ public abstract class GeneratorBase implements Runnable {
 			String genText = emitter.generate(new SubProgressMonitor(pm, 1), input);
 			IPackageFragment pf = myDestRoot.createPackageFragment(packageName, true, new SubProgressMonitor(pm, 1));
 			ICompilationUnit cu = pf.getCompilationUnit(className + ".java"); //$NON-NLS-1$
-			if (cu.exists()) {
+			if (cu.exists() && canMerge()) {
 				genText = merge(genText, cu.getSource(), new SubProgressMonitor(pm, 1));
 			} else {
 				pm.worked(1);
@@ -223,8 +223,15 @@ public abstract class GeneratorBase implements Runnable {
 			pm.done();
 		}
 	}
+	
+	protected final boolean canMerge(){
+		return getJControlModel() != null;
+	}
 
 	protected final String merge(String generatedText, String oldContents, IProgressMonitor pm) {
+		if (!canMerge()){
+			throw new IllegalStateException("Can not initialize JMerge model");
+		}
 		pm.beginTask(GeneratorBaseMessages.merge, 1);
 		JMerger jMerge = new JMerger();
 		jMerge.setControlModel(getJControlModel());
@@ -271,7 +278,9 @@ public abstract class GeneratorBase implements Runnable {
 	private JControlModel getJControlModel() {
 		if (myJControlModel == null) {
 			URL controlFile = getJMergeControlFile();
-			myJControlModel = controlFile == null ? createEmptyJControlModel() : new JControlModel(controlFile.toString());
+			if (controlFile != null){
+				myJControlModel = new JControlModel(controlFile.toString());
+			}
 		}
 		return myJControlModel;
 	}

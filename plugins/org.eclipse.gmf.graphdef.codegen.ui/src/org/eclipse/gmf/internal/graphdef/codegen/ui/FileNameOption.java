@@ -38,8 +38,6 @@ public class FileNameOption extends TemplateOption {
 	private boolean myIgnoreListener;
 	
 	/**
-	 * The constructor.
-	 * 
 	 * @param section
 	 *            the parent section
 	 * @param name

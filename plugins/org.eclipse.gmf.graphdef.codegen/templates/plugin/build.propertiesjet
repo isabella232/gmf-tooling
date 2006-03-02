@@ -1,0 +1,4 @@
+<%@ jet package="org.eclipse.gmf.graphdef.codegen.standalone.templates" class="BuildPropertiesGenerator"%>
+source.. = src/
+output.. = bin/
+bin.includes = META-INF/,\

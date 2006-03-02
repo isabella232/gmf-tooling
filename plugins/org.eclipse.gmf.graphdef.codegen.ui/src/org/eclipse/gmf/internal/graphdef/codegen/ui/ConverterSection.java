@@ -13,16 +13,20 @@ package org.eclipse.gmf.internal.graphdef.codegen.ui;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.jar.Manifest;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
@@ -32,18 +36,22 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.gmfgraph.Figure;
-import org.eclipse.gmf.graphdef.codegen.standalone.GMFGraphTree;
-import org.eclipse.gmf.graphdef.codegen.standalone.RequiredPluginsCollector;
-import org.eclipse.gmf.graphdef.codegen.standalone.StandaloneGenerator;
-import org.eclipse.gmf.graphdef.codegen.standalone.StandaloneGeneratorConfig;
+import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
+import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
+import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.osgi.util.ManifestElement;
 import org.eclipse.pde.core.plugin.IPluginImport;
 import org.eclipse.pde.core.plugin.IPluginModel;
-import org.eclipse.pde.core.plugin.IPluginModelBase;
+import org.eclipse.pde.core.plugin.IPluginReference;
+import org.eclipse.pde.ui.IFieldData;
 import org.eclipse.pde.ui.templates.OptionTemplateSection;
 import org.eclipse.pde.ui.templates.TemplateOption;
 import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleException;
+import org.osgi.framework.Constants;
 
 public class ConverterSection extends OptionTemplateSection {
 	private static final String MY_PLUGIN_ID = "org.eclipse.gmf.graphdef.codegen.ui";
@@ -57,11 +65,11 @@ public class ConverterSection extends OptionTemplateSection {
 	private TemplateOption myPackageNameOption;
 	private FileNameOption myInputPathOption;
 	private final CachedInputValidationState myCachedInputValidationState;
-	private RequiredPluginsCollector myRequiredPluginsCollector;
+	private ManifestElement[] myRequiredBundles;
 	
 	public ConverterSection(){
 		setPageCount(THE_ONLY_PAGE_INDEX + 1);
-		myPackageNameOption = addOption(OPTION_MAIN_PACKAGE_NAME, "Generate figures package", "", THE_ONLY_PAGE_INDEX);
+		myPackageNameOption = addOption(OPTION_MAIN_PACKAGE_NAME, "Generate figures package", null, THE_ONLY_PAGE_INDEX);
 		myInputPathOption = addFileNameOption(OPTION_INPUT_RESOURCE_FULL_PATH, "Input GMFGraph instance", "", THE_ONLY_PAGE_INDEX);
 		addOption(OPTION_NEEDS_MAP_MODE, "Use IMapMode", false, THE_ONLY_PAGE_INDEX);
 		myCachedInputValidationState = new CachedInputValidationState();
@@ -77,23 +85,33 @@ public class ConverterSection extends OptionTemplateSection {
 		validateOptions(myPackageNameOption);
 		validateOptions(myInputPathOption);
 	}
-	
+
+	public IPluginReference[] getDependencies(String schemaVersion) {
+		// no explicit dependencies
+		return new IPluginReference[0];
+	}
+
 	protected void generateFiles(IProgressMonitor monitor) throws CoreException {
 		Resource resource = loadResource(myInputPathOption.getText());
-		GMFGraphTree tree = new GMFGraphTree.ResourceAdapter(resource);
-		StandaloneGeneratorConfig config = new StandaloneGeneratorConfigAdapter(this);
-		StandaloneGenerator generator = new StandaloneGenerator(tree, config);
-		generator.setSkipPluginStructure(true);
-		myRequiredPluginsCollector = new RequiredPluginsCollector(config);
-		myRequiredPluginsCollector.visitAll(tree);
+		FigureGallery[] figures = findFigures(resource);
+		assert figures.length == 1 : "FIXME update generator to support multiple galleries"; 
+		StandaloneGenerator.Config config = new StandaloneGeneratorConfigAdapter(this);
+		StandaloneGenerator generator = new StandaloneGenerator(figures[0], config, new RuntimeFQNSwitch());
+		generator.setSkipPluginStructure(false);
 		try {
 			generator.run(new SubProgressMonitor(monitor, 1));
+			readRequiredBundles();
+			// XXX readBuildProperties() and use getNewFiles to propagate
+			// XXX readPluginProperties(), use ??? 
 		} catch (InterruptedException e) {
 			String message = e.getMessage();
 			if (message == null){
 				message = "Interrupted";
 			}
 			throw new CoreException(new Status(IStatus.ERROR, MY_PLUGIN_ID, 0, message, e)); 
+		} catch (IOException ex) {
+			// perhaps, don't need to treat this as error? 
+			throw new CoreException(new Status(IStatus.ERROR, MY_PLUGIN_ID, 0, "Failed to read generated manifest.mf", ex));
 		} finally {
 			resource.unload();
 		}
@@ -102,6 +120,41 @@ public class ConverterSection extends OptionTemplateSection {
 		}
 	}
 	
+	private void readRequiredBundles() throws CoreException, IOException {
+		try {
+			IFile f = findGeneratedManifest();
+			if (f == null || !f.exists()) {
+				// fail - we do expect manifest to be there?
+				return;
+			}
+			InputStream is = f.getContents(); 
+			String requiredBundles = new Manifest(is).getMainAttributes().getValue(Constants.REQUIRE_BUNDLE);
+			is.close();
+			myRequiredBundles = ManifestElement.parseHeader(Constants.REQUIRE_BUNDLE, requiredBundles);
+		} catch (BundleException ex) {
+			throw new IOException(ex.getMessage());
+		}
+	}
+
+	private IFile findGeneratedManifest() {
+		return (IFile) project.findMember(new Path("META-INF/MANIFEST.MF"));
+	}
+
+	private FigureGallery[] findFigures(Resource resource) {
+		ArrayList rv = new ArrayList();
+		for(TreeIterator it = resource.getAllContents(); it.hasNext();) {
+			EObject next = (EObject) it.next();
+			// FigureGallery could be either top element or as a child of canvas
+			if (next.eClass().getClassifierID() == GMFGraphPackage.FIGURE_GALLERY) {
+				rv.add(next);
+				it.prune();
+			} else if (next.eClass().getClassifierID() != GMFGraphPackage.CANVAS) {
+				it.prune();
+			}
+		}
+		return (FigureGallery[]) rv.toArray(new FigureGallery[rv.size()]);
+	}
+
 	public String getPluginActivatorClassFQN(){
 		return model instanceof IPluginModel ? ((IPluginModel)model).getPlugin().getClassName() : null;
 	}
@@ -139,23 +192,28 @@ public class ConverterSection extends OptionTemplateSection {
 		}
 		resetPageState();
 	}
-	
-	public void initializeFields(IPluginModelBase model) {
-		super.initializeFields(model);
-		String packageName = getFormattedPackageName(model.getPluginBase().getId());
+
+	public boolean isDependentOnParentWizard() {
+		return true;
+	}
+
+	protected void initializeFields(IFieldData data) {
+		super.initializeFields(data);
+		String packageName = getFormattedPackageName(data.getId());
 		initializeOption(OPTION_MAIN_PACKAGE_NAME, packageName);
 	}
-	
+
 	protected ResourceBundle getPluginResourceBundle() {
 		return Platform.getResourceBundle(getContributingBundle());
 	}
 
 	protected void updateModel(IProgressMonitor monitor) throws CoreException {
-		if (myRequiredPluginsCollector != null){
-			for (Iterator bundles = myRequiredPluginsCollector.getCollectedBundles().iterator(); bundles.hasNext();){
-				String next = (String)bundles.next();
-				addImport(next);
-			}
+		if (myRequiredBundles == null) {
+			return;
+		}
+		for (int i = 0; i < myRequiredBundles.length; i++) {
+			// take first component, ignore any attributes or directives 
+			addImport(myRequiredBundles[i].getValueComponents()[0]);
 		}
 	}
 	

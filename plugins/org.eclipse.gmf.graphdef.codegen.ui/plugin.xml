@@ -9,7 +9,7 @@
    			icon="/icons/obj16/GMFGraphModelFile.gif"
    			ui-content="false"
    			requiresActivator="true"
-   			class="org.eclipse.gmf.internal.graphdef.codegen.ui.GMFGraph2PluginConverterWizard">
+   			class="org.eclipse.gmf.internal.graphdef.codegen.ui.FigureGeneratorWizard">
    			<description>%wizard.description</description>
    		</wizard>	
 	</extension>

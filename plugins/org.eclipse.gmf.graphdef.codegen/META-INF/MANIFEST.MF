@@ -11,5 +11,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.gmf.graphdef;visibility:=reexport,
  org.eclipse.emf.codegen,
  org.eclipse.draw2d
- 
 Export-Package: org.eclipse.gmf.graphdef.codegen

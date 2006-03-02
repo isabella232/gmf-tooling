@@ -9,12 +9,11 @@
  * Contributors:
  *    Michael Golubev (Borland) - initial API and implementation
  */
-
 package org.eclipse.gmf.internal.graphdef.codegen.ui;
 
-import org.eclipse.gmf.graphdef.codegen.standalone.StandaloneGeneratorConfig;
+import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
 
-public class StandaloneGeneratorConfigAdapter implements StandaloneGeneratorConfig {
+public class StandaloneGeneratorConfigAdapter implements StandaloneGenerator.Config {
 	private final ConverterSection mySection;
 
 	public StandaloneGeneratorConfigAdapter(ConverterSection section){

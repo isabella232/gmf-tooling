@@ -11,14 +11,20 @@
  */
 package org.eclipse.gmf.tests.gen;
 
+import java.net.MalformedURLException;
+
 import junit.framework.TestCase;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.emf.codegen.jet.JETException;
 import org.eclipse.gmf.common.codegen.ImportUtil;
 import org.eclipse.gmf.gmfgraph.ConnectionFigure;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.Ellipse;
 import org.eclipse.gmf.gmfgraph.Figure;
+import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
 import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.LineKind;
@@ -30,11 +36,16 @@ import org.eclipse.gmf.gmfgraph.Rectangle;
 import org.eclipse.gmf.gmfgraph.RoundedRectangle;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.FigureGenerator;
+import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
+import org.eclipse.gmf.tests.CompileUtil;
+import org.eclipse.gmf.tests.Plugin;
 import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleException;
 
 /**
  * TODO generate project, compile and instaniate figures to make sure values are set (like figure's bg/fg color)
@@ -83,12 +94,43 @@ public class FigureCodegenTestBase extends TestCase {
 		}
 	}
 	
+	private StandaloneGenerator.Config getGMFGraphGeneratorConfig(){
+		return new StandaloneGenerator.ConfigImpl(getTestPluginName(), getFigurePackageName()); 
+	}
+	
+	protected final Class generateAndCompile(StandaloneGenerator.Config config, Figure figure) {
+		try {
+			FigureGallery fg = GMFGraphFactory.eINSTANCE.createFigureGallery();
+			fg.setName("bb");
+			fg.getFigures().add(figure);
+			StandaloneGenerator generator = new StandaloneGenerator(fg, config, new RuntimeFQNSwitch());
+			generator.run();
+			assertTrue(generator.getRunStatus().getSeverity() < IStatus.ERROR);
+			
+			IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(config.getPluginID());
+			IStatus compileStatus = new CompileUtil().build(project);
+			assertTrue(compileStatus.getMessage(), compileStatus.getSeverity() < IStatus.ERROR);
+			
+			String url = project.getLocation().toFile().toURL().toExternalForm();
+			Bundle bundle = Plugin.getBundleContext().installBundle(url);
+			
+			return bundle.loadClass(config.getMainPackageName() + "." + figure.getName());
+		} catch (MalformedURLException e) {
+			fail(e.getMessage());
+		} catch (BundleException e) {
+			fail(e.getMessage());
+		} catch (ClassNotFoundException e) {
+			fail(e.getMessage());
+		}
+		throw new InternalError("Impossible");
+	}
+
 	// custom top-level, hierarchical children. 
 	protected final Figure figure1() {
 		CustomFigure cf = GMFGraphFactory.eINSTANCE.createCustomFigure();
 		cf.setName("MyCylinder");
-		cf.setBundleName("org.eclipse.gmf.runtime.geoshapes");
-		cf.setQualifiedClassName("org.eclipse.gmf.runtime.geoshapes.internal.GeoShapeCylinder");
+		cf.setBundleName("org.eclipse.gmf.runtime.diagram.ui.geoshapes");
+		cf.setQualifiedClassName("org.eclipse.gmf.runtime.diagram.ui.geoshapes.internal.draw2d.figures.GeoShapeCylinderFigure");
 		Point p = GMFGraphFactory.eINSTANCE.createPoint();
 		p.setX(1023);
 		p.setY(33);

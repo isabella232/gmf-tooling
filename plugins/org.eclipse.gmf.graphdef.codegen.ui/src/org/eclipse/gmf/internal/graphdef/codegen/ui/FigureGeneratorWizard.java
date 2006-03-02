@@ -14,7 +14,7 @@ package org.eclipse.gmf.internal.graphdef.codegen.ui;
 import org.eclipse.pde.ui.templates.ITemplateSection;
 import org.eclipse.pde.ui.templates.NewPluginTemplateWizard;
 
-public class GMFGraph2PluginConverterWizard extends NewPluginTemplateWizard {
+public class FigureGeneratorWizard extends NewPluginTemplateWizard {
 	
 	public ITemplateSection[] createTemplateSections() {
 		return new ITemplateSection[] {new ConverterSection()};

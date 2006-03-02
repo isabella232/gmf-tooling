@@ -27,6 +27,7 @@ import org.eclipse.gmf.tests.gen.FigureLayoutTest;
 import org.eclipse.gmf.tests.gen.HandcodedGraphDefTest;
 import org.eclipse.gmf.tests.gen.HandcodedImplTest;
 import org.eclipse.gmf.tests.gen.MapModeStrategyTest;
+import org.eclipse.gmf.tests.gen.RTFigureTest;
 import org.eclipse.gmf.tests.gen.ToolDefHandocodedImplTest;
 import org.eclipse.gmf.tests.gen.ViewmapProducersTest;
 import org.eclipse.gmf.tests.rt.AuditRulesTest;
@@ -58,7 +59,7 @@ public class AllTests {
 
 		suite.addTestSuite(FigureCodegenTest.class);
 		suite.addTestSuite(FigureLayoutTest.class);
-//		suite.addTestSuite(RTFigureTest.class);
+		suite.addTestSuite(RTFigureTest.class);
 		suite.addTestSuite(MapModeStrategyTest.class);
 		suite.addTestSuite(ViewmapProducersTest.class);
 		suite.addTestSuite(ToolDefHandocodedImplTest.class);
