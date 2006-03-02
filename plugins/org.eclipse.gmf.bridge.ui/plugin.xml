@@ -7,6 +7,10 @@
       id = "org.eclipse.gmf.tooling.wizardCategory"
       name="%wizardCategoryName">
     </category>
+    <category
+          id="org.eclipse.gmf.tooling.wizardsDefault"
+          name="%defaultWizardsCategoryName"
+          parentCategory="org.eclipse.gmf.tooling.wizardCategory"/>
     <wizard
           category="org.eclipse.gmf.tooling.wizardCategory"
           class="org.eclipse.gmf.internal.bridge.wizards.NewGMFProjectWizard"

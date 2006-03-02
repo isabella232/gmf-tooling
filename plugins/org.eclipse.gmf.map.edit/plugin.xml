@@ -17,15 +17,11 @@
 
   <extension
     point = "org.eclipse.ui.newWizards">
-    <category
-      id = "org.eclipse.emf.ecore.Wizard.category.ID"
-      name="%_UI_Wizard_category">
-    </category>
     <wizard
       id = "org.eclipse.gmf.mappings.presentation.GMFMapModelWizardID"
       name = "%_UI_GMFMapModelWizard_label"
       class = "org.eclipse.gmf.mappings.presentation.GMFMapModelWizard"
-      category = "org.eclipse.emf.ecore.Wizard.category.ID"
+      category = "org.eclipse.gmf.tooling.wizardCategory/org.eclipse.gmf.tooling.wizardsDefault"
       icon = "icons/full/obj16/GMFMapModelFile.gif">
       <description>%_UI_GMFMapModelWizard_description</description>
       <selection class = "org.eclipse.core.resources.IResource" />
