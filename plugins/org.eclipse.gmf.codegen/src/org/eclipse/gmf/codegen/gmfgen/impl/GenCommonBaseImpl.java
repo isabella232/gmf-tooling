@@ -7,6 +7,7 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.util.CodeGenUtil;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -553,21 +554,7 @@ public abstract class GenCommonBaseImpl extends EObjectImpl implements GenCommon
 
 	protected static String asJavaConstantName(String name) {
 		name = name.toUpperCase();
-		StringBuffer b = new StringBuffer();
-		for (int i = 0; i < name.length(); i++) {
-			char c = name.charAt(i);
-			if (i == 0) {
-				if (!Character.isJavaIdentifierStart(c)) {
-					c = '_';
-				}
-			} else {
-				if (!Character.isJavaIdentifierPart(c)) {
-					c = '_';
-				}
-			}
-			b.append(c);
-		}
-		return b.toString();
+		return CodeGenUtil.capName(CodeGenUtil.validJavaIdentifier(name));
 	}
 	
 } //GenCommonBaseImpl
