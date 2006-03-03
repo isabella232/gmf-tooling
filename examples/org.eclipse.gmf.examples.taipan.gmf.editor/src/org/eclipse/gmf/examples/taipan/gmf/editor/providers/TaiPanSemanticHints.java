@@ -125,7 +125,7 @@ public class TaiPanSemanticHints {
 	/**
 	 * @generated
 	 */
-	public static final String ShipDestination_3002 = "ShipDestination_3002Link";
+	public static final String ShipDestination_3002 = "ShipDestination_3002SemanticHint";
 
 	/**
 	 * @generated
