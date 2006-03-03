@@ -20,6 +20,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.bridge.wizards.strategy.AccessibleClassNodeStrategy;
@@ -74,6 +75,7 @@ public class MapDefFeeder {
 		getMapping().getNodes().addAll(nodesFrom(myNodeCandidates));
 		getMapping().getLinks().clear();
 		getMapping().getLinks().addAll(linksFrom(myLinkCandidates));
+		getMapping().getDiagram().setPalette(myInputHolder.getToolDef().getPalette());
 	}
 
 	private Hierarchy getHierarchy() {
@@ -154,9 +156,12 @@ public class MapDefFeeder {
 	private void addEditFeature(MappingEntry me, EClass class1) {
 		for (Iterator it = class1.getEAllAttributes().iterator(); it.hasNext();) {
 			EAttribute n = (EAttribute) it.next();
+			// EDataType at = n.getEAttributeType();
+			// at != null && at.getEPackage() != null && at.getEPackage().getNsURI().equals(EcorePackage.eNS_URI) && at.getName().equals(EcorePackage.eINSTANCE.getEString().getName())
 			if (EcorePackage.eINSTANCE.getEString().equals(n.getEType())) {
 				LabelMapping lm = GMFMapFactory.eINSTANCE.createLabelMapping();
 				lm.getFeatures().add(n);
+				me.getLabelMappings().add(lm);
 				return;
 			}
 		}
