@@ -41,7 +41,7 @@ public class ItemSemanticEditPolicyGenerator {
   protected final String TEXT_22 = " oppositeEndDecl) {" + NL + "\t\t\tfinal ";
   protected final String TEXT_23 = " oppositeEndDeclLocal = oppositeEndDecl;" + NL + "\t\t\ttry {\t\t\t" + NL + "\t\t\t\t";
   protected final String TEXT_24 = " oclHelper = " + NL + "\t\t\t\t\t";
-  protected final String TEXT_25 = ".createOclHelper(new ";
+  protected final String TEXT_25 = ".createOCLHelper(new ";
   protected final String TEXT_26 = "() {" + NL + "\t\t\t\t\tpublic ";
   protected final String TEXT_27 = " createClassifierContext(Object context) {" + NL + "\t\t\t\t\t\t";
   protected final String TEXT_28 = " env = super.createClassifierContext(context);" + NL + "\t\t\t\t\t\tif(oppositeEndDeclLocal != null) {" + NL + "\t\t\t\t\t\t\tenv.addElement(oppositeEndDeclLocal.getName(), oppositeEndDeclLocal, true);" + NL + "\t\t\t\t\t\t}" + NL + "\t\t\t\t\t\treturn env;" + NL + "\t\t\t\t\t}" + NL + "\t\t\t\t});" + NL + "\t\t\t\toclHelper.setContext(constraint.context);" + NL + "\t\t\t\treturn ";
@@ -54,7 +54,7 @@ public class ItemSemanticEditPolicyGenerator {
   protected final String TEXT_35 = " type) {" + NL + "\t\t\t";
   protected final String TEXT_36 = " var = ";
   protected final String TEXT_37 = ".eINSTANCE.createVariableDeclaration();" + NL + "\t\t\tvar.setName(name);" + NL + "\t\t\tvar.setType(";
-  protected final String TEXT_38 = ".getOclType(type));\t\t" + NL + "\t\t\treturn var;" + NL + "\t\t}\t" + NL + "\t}" + NL + "\t/**" + NL + "\t * @generated " + NL + "\t */\t" + NL + "\tstatic class LinkEndConstraint {" + NL + "\t\tfinal ";
+  protected final String TEXT_38 = ".getOCLType(type));\t\t" + NL + "\t\t\treturn var;" + NL + "\t\t}\t" + NL + "\t}" + NL + "\t/**" + NL + "\t * @generated " + NL + "\t */\t" + NL + "\tstatic class LinkEndConstraint {" + NL + "\t\tfinal ";
   protected final String TEXT_39 = " context;" + NL + "\t\tfinal String body;" + NL + "\t\tLinkEndConstraint(String body, ";
   protected final String TEXT_40 = " context) {" + NL + "\t\t\tthis.context = context;" + NL + "\t\t\tthis.body = body;" + NL + "\t\t}" + NL + "\t}";
   protected final String TEXT_41 = "\t" + NL + "}";

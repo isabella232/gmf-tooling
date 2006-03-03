@@ -302,7 +302,7 @@ if(diagram.hasLinkCreationConstraints()) {
 			final <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> oppositeEndDeclLocal = oppositeEndDecl;
 			try {			
 				<%=importManager.getImportedName("org.eclipse.emf.ocl.helper.IOCLHelper")%> oclHelper = 
-					<%=importManager.getImportedName("org.eclipse.emf.ocl.helper.HelperUtil")%>.createOclHelper(new <%=importManager.getImportedName("org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory")%>() {
+					<%=importManager.getImportedName("org.eclipse.emf.ocl.helper.HelperUtil")%>.createOCLHelper(new <%=importManager.getImportedName("org.eclipse.emf.ocl.parser.EcoreEnvironmentFactory")%>() {
 					public <%=importManager.getImportedName("org.eclipse.emf.ocl.parser.Environment")%> createClassifierContext(Object context) {
 						<%=importManager.getImportedName("org.eclipse.emf.ocl.parser.Environment")%> env = super.createClassifierContext(context);
 						if(oppositeEndDeclLocal != null) {
@@ -343,7 +343,7 @@ if(diagram.hasLinkCreationConstraints()) {
 		private static <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> createVar(String name, <%=importManager.getImportedName("org.eclipse.emf.ecore.EClassifier")%> type) {
 			<%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.VariableDeclaration")%> var = <%=importManager.getImportedName("org.eclipse.emf.ocl.expressions.ExpressionsFactory")%>.eINSTANCE.createVariableDeclaration();
 			var.setName(name);
-			var.setType(<%=importManager.getImportedName("org.eclipse.emf.ocl.parser.EcoreEnvironment")%>.getOclType(type));		
+			var.setType(<%=importManager.getImportedName("org.eclipse.emf.ocl.parser.EcoreEnvironment")%>.getOCLType(type));		
 			return var;
 		}	
 	}
