@@ -251,6 +251,7 @@ public class GenEditorGeneratorItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenEditorGenerator_Audits());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenEditorGenerator_Metrics());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenEditorGenerator_Diagram());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenEditorGenerator_Plugin());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenEditorGenerator_Editor());
@@ -277,7 +278,7 @@ public class GenEditorGeneratorItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/GenEditorGenerator");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenEditorGenerator"));
 	}
 
 	/**
@@ -314,6 +315,7 @@ public class GenEditorGeneratorItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS:
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__METRICS:
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM:
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN:
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__EDITOR:
@@ -337,6 +339,11 @@ public class GenEditorGeneratorItemProvider
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenEditorGenerator_Audits(),
 				 GMFGenFactory.eINSTANCE.createGenAuditContainer()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenEditorGenerator_Metrics(),
+				 GMFGenFactory.eINSTANCE.createGenMetricContainer()));
 
 		newChildDescriptors.add
 			(createChildParameter

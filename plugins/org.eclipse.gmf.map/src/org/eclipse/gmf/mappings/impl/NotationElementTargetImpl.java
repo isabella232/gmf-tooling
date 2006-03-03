@@ -13,6 +13,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.NotationElementTarget;
 
@@ -29,7 +31,7 @@ import org.eclipse.gmf.mappings.NotationElementTarget;
  *
  * @generated
  */
-public class NotationElementTargetImpl extends RuleTargetImpl implements NotationElementTarget {
+public class NotationElementTargetImpl extends EObjectImpl implements NotationElementTarget {
 	/**
 	 * The cached value of the '{@link #getElement() <em>Element</em>}' reference.
 	 * <!-- begin-user-doc -->

@@ -66,7 +66,7 @@ public class GenNodeLabelItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/GenNodeLabel");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenNodeLabel"));
 	}
 
 	/**

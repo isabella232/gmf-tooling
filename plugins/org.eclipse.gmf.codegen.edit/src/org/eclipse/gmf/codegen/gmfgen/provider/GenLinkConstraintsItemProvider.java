@@ -100,7 +100,7 @@ public class GenLinkConstraintsItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/GenLinkConstraints");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenLinkConstraints"));
 	}
 
 	/**

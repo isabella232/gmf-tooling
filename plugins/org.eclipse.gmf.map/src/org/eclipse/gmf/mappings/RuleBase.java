@@ -20,7 +20,8 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.eclipse.gmf.mappings.RuleBase#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.RuleBase#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.RuleBase#getDescription <em>Description</em>}</li>
  * </ul>
  * </p>
  *
@@ -30,30 +31,53 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface RuleBase extends EObject {
 	/**
-	 * Returns the value of the '<em><b>Target</b></em>' containment reference.
-	 * It is bidirectional and its opposite is '{@link org.eclipse.gmf.mappings.RuleTarget#getRule <em>Rule</em>}'.
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * The target representing the context this rule is evaluated in
+	 * A human readable name of this rule
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Target</em>' containment reference.
-	 * @see #setTarget(RuleTarget)
-	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getRuleBase_Target()
-	 * @see org.eclipse.gmf.mappings.RuleTarget#getRule
-	 * @model opposite="rule" containment="true" required="true"
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getRuleBase_Name()
+	 * @model
 	 * @generated
 	 */
-	RuleTarget getTarget();
+	String getName();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.mappings.RuleBase#getTarget <em>Target</em>}' containment reference.
+	 * Sets the value of the '{@link org.eclipse.gmf.mappings.RuleBase#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Target</em>' containment reference.
-	 * @see #getTarget()
+	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @see #getName()
 	 * @generated
 	 */
-	void setTarget(RuleTarget value);
+	void setName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The detailed description of this rule semantics
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Description</em>' attribute.
+	 * @see #setDescription(String)
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getRuleBase_Description()
+	 * @model
+	 * @generated
+	 */
+	String getDescription();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.mappings.RuleBase#getDescription <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Description</em>' attribute.
+	 * @see #getDescription()
+	 * @generated
+	 */
+	void setDescription(String value);
 
 } // RuleBase

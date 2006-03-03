@@ -96,7 +96,7 @@ public class TextLabelModelFacetItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/TextLabelModelFacet");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/TextLabelModelFacet"));
 	}
 
 	/**

@@ -201,7 +201,7 @@ public class GenPluginItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/GenPlugin");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenPlugin"));
 	}
 
 	/**

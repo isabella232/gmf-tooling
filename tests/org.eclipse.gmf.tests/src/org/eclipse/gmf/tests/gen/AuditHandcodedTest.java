@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditable;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
@@ -127,7 +128,7 @@ public class AuditHandcodedTest extends ConfiguredTestCase {
 		int i = 0;		
 		for (Iterator it = root.getAllAuditRules().iterator(); it.hasNext(); i++) {
 			GenAuditRule audit = (GenAuditRule) it.next();
-			audit.setTarget((GenRuleTarget)EcoreUtil.copy(targets[i%targets.length]));
+			audit.setTarget((GenAuditable)EcoreUtil.copy(targets[i%targets.length]));
 			
 			IStatus s = JavaConventions.validateIdentifier(audit.getContextSelectorLocalClassName());
 			assertTrue("Context selectorClassLocalName must valid java name", s.getSeverity() != IStatus.ERROR); //$NON-NLS-1$			

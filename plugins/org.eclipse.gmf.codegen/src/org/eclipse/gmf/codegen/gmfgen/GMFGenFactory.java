@@ -359,6 +359,33 @@ public interface GMFGenFactory extends EFactory {
 	GenNotationElementTarget createGenNotationElementTarget();
 
 	/**
+	 * Returns a new object of class '<em>Gen Metric Container</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Metric Container</em>'.
+	 * @generated
+	 */
+	GenMetricContainer createGenMetricContainer();
+
+	/**
+	 * Returns a new object of class '<em>Gen Metric Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Metric Rule</em>'.
+	 * @generated
+	 */
+	GenMetricRule createGenMetricRule();
+
+	/**
+	 * Returns a new object of class '<em>Gen Audited Metric Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Gen Audited Metric Target</em>'.
+	 * @generated
+	 */
+	GenAuditedMetricTarget createGenAuditedMetricTarget();
+
+	/**
 	 * Returns a new object of class '<em>Value Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

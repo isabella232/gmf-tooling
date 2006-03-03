@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.codegen.gmfgen.*;
+
 import org.eclipse.gmf.codegen.gmfgen.Attributes;
 import org.eclipse.gmf.codegen.gmfgen.BatchValidation;
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
@@ -585,6 +587,8 @@ public class GMFGenSwitch {
 			case GMFGenPackage.GEN_DOMAIN_ELEMENT_TARGET: {
 				GenDomainElementTarget genDomainElementTarget = (GenDomainElementTarget)theEObject;
 				Object result = caseGenDomainElementTarget(genDomainElementTarget);
+				if (result == null) result = caseGenAuditable(genDomainElementTarget);
+				if (result == null) result = caseGenMeasurable(genDomainElementTarget);
 				if (result == null) result = caseGenRuleTarget(genDomainElementTarget);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -592,6 +596,8 @@ public class GMFGenSwitch {
 			case GMFGenPackage.GEN_DIAGRAM_ELEMENT_TARGET: {
 				GenDiagramElementTarget genDiagramElementTarget = (GenDiagramElementTarget)theEObject;
 				Object result = caseGenDiagramElementTarget(genDiagramElementTarget);
+				if (result == null) result = caseGenAuditable(genDiagramElementTarget);
+				if (result == null) result = caseGenMeasurable(genDiagramElementTarget);
 				if (result == null) result = caseGenRuleTarget(genDiagramElementTarget);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -599,7 +605,45 @@ public class GMFGenSwitch {
 			case GMFGenPackage.GEN_NOTATION_ELEMENT_TARGET: {
 				GenNotationElementTarget genNotationElementTarget = (GenNotationElementTarget)theEObject;
 				Object result = caseGenNotationElementTarget(genNotationElementTarget);
+				if (result == null) result = caseGenAuditable(genNotationElementTarget);
+				if (result == null) result = caseGenMeasurable(genNotationElementTarget);
 				if (result == null) result = caseGenRuleTarget(genNotationElementTarget);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_METRIC_CONTAINER: {
+				GenMetricContainer genMetricContainer = (GenMetricContainer)theEObject;
+				Object result = caseGenMetricContainer(genMetricContainer);
+				if (result == null) result = caseGenRuleContainerBase(genMetricContainer);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_METRIC_RULE: {
+				GenMetricRule genMetricRule = (GenMetricRule)theEObject;
+				Object result = caseGenMetricRule(genMetricRule);
+				if (result == null) result = caseGenRuleBase(genMetricRule);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_AUDITED_METRIC_TARGET: {
+				GenAuditedMetricTarget genAuditedMetricTarget = (GenAuditedMetricTarget)theEObject;
+				Object result = caseGenAuditedMetricTarget(genAuditedMetricTarget);
+				if (result == null) result = caseGenAuditable(genAuditedMetricTarget);
+				if (result == null) result = caseGenRuleTarget(genAuditedMetricTarget);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_AUDITABLE: {
+				GenAuditable genAuditable = (GenAuditable)theEObject;
+				Object result = caseGenAuditable(genAuditable);
+				if (result == null) result = caseGenRuleTarget(genAuditable);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFGenPackage.GEN_MEASURABLE: {
+				GenMeasurable genMeasurable = (GenMeasurable)theEObject;
+				Object result = caseGenMeasurable(genMeasurable);
+				if (result == null) result = caseGenRuleTarget(genMeasurable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1504,6 +1548,81 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseGenNotationElementTarget(GenNotationElementTarget object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Metric Container</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Metric Container</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenMetricContainer(GenMetricContainer object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Metric Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Metric Rule</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenMetricRule(GenMetricRule object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Audited Metric Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Audited Metric Target</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenAuditedMetricTarget(GenAuditedMetricTarget object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Auditable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Auditable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenAuditable(GenAuditable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Gen Measurable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Gen Measurable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseGenMeasurable(GenMeasurable object) {
 		return null;
 	}
 

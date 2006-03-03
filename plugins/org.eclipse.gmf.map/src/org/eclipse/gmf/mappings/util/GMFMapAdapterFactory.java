@@ -160,9 +160,6 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 			public Object caseAuditRule(AuditRule object) {
 				return createAuditRuleAdapter();
 			}
-			public Object caseRuleTarget(RuleTarget object) {
-				return createRuleTargetAdapter();
-			}
 			public Object caseDomainElementTarget(DomainElementTarget object) {
 				return createDomainElementTargetAdapter();
 			}
@@ -171,6 +168,21 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseNotationElementTarget(NotationElementTarget object) {
 				return createNotationElementTargetAdapter();
+			}
+			public Object caseMetricContainer(MetricContainer object) {
+				return createMetricContainerAdapter();
+			}
+			public Object caseMetricRule(MetricRule object) {
+				return createMetricRuleAdapter();
+			}
+			public Object caseAuditedMetricTarget(AuditedMetricTarget object) {
+				return createAuditedMetricTargetAdapter();
+			}
+			public Object caseAuditable(Auditable object) {
+				return createAuditableAdapter();
+			}
+			public Object caseMeasurable(Measurable object) {
+				return createMeasurableAdapter();
 			}
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
@@ -513,20 +525,6 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.RuleTarget <em>Rule Target</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.mappings.RuleTarget
-	 * @generated
-	 */
-	public Adapter createRuleTargetAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.DomainElementTarget <em>Domain Element Target</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -565,6 +563,76 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createNotationElementTargetAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.MetricContainer <em>Metric Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.MetricContainer
+	 * @generated
+	 */
+	public Adapter createMetricContainerAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.MetricRule <em>Metric Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.MetricRule
+	 * @generated
+	 */
+	public Adapter createMetricRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.AuditedMetricTarget <em>Audited Metric Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.AuditedMetricTarget
+	 * @generated
+	 */
+	public Adapter createAuditedMetricTargetAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.Auditable <em>Auditable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.Auditable
+	 * @generated
+	 */
+	public Adapter createAuditableAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.Measurable <em>Measurable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.Measurable
+	 * @generated
+	 */
+	public Adapter createMeasurableAdapter() {
 		return null;
 	}
 

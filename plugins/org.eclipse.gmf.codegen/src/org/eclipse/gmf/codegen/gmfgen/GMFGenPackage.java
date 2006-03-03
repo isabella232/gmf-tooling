@@ -82,13 +82,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_EDITOR_GENERATOR__AUDITS = 0;
 
 	/**
+	 * The feature id for the '<em><b>Metrics</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_EDITOR_GENERATOR__METRICS = 1;
+
+	/**
 	 * The feature id for the '<em><b>Diagram</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__DIAGRAM = 1;
+	int GEN_EDITOR_GENERATOR__DIAGRAM = 2;
 
 	/**
 	 * The feature id for the '<em><b>Plugin</b></em>' containment reference.
@@ -97,7 +106,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__PLUGIN = 2;
+	int GEN_EDITOR_GENERATOR__PLUGIN = 3;
 
 	/**
 	 * The feature id for the '<em><b>Editor</b></em>' containment reference.
@@ -106,7 +115,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__EDITOR = 3;
+	int GEN_EDITOR_GENERATOR__EDITOR = 4;
 
 	/**
 	 * The feature id for the '<em><b>Domain Gen Model</b></em>' reference.
@@ -115,7 +124,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL = 4;
+	int GEN_EDITOR_GENERATOR__DOMAIN_GEN_MODEL = 5;
 
 	/**
 	 * The feature id for the '<em><b>Package Name Prefix</b></em>' attribute.
@@ -124,7 +133,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__PACKAGE_NAME_PREFIX = 5;
+	int GEN_EDITOR_GENERATOR__PACKAGE_NAME_PREFIX = 6;
 
 	/**
 	 * The feature id for the '<em><b>Model ID</b></em>' attribute.
@@ -133,7 +142,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__MODEL_ID = 6;
+	int GEN_EDITOR_GENERATOR__MODEL_ID = 7;
 
 	/**
 	 * The feature id for the '<em><b>Same File For Diagram And Model</b></em>' attribute.
@@ -142,7 +151,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__SAME_FILE_FOR_DIAGRAM_AND_MODEL = 7;
+	int GEN_EDITOR_GENERATOR__SAME_FILE_FOR_DIAGRAM_AND_MODEL = 8;
 
 	/**
 	 * The feature id for the '<em><b>Diagram File Extension</b></em>' attribute.
@@ -151,7 +160,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__DIAGRAM_FILE_EXTENSION = 8;
+	int GEN_EDITOR_GENERATOR__DIAGRAM_FILE_EXTENSION = 9;
 
 	/**
 	 * The feature id for the '<em><b>Domain File Extension</b></em>' attribute.
@@ -160,7 +169,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION = 9;
+	int GEN_EDITOR_GENERATOR__DOMAIN_FILE_EXTENSION = 10;
 
 	/**
 	 * The feature id for the '<em><b>Dynamic Templates</b></em>' attribute.
@@ -169,7 +178,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__DYNAMIC_TEMPLATES = 10;
+	int GEN_EDITOR_GENERATOR__DYNAMIC_TEMPLATES = 11;
 
 	/**
 	 * The feature id for the '<em><b>Template Directory</b></em>' attribute.
@@ -178,7 +187,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY = 11;
+	int GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY = 12;
 
 	/**
 	 * The number of structural features of the '<em>Gen Editor Generator</em>' class.
@@ -187,7 +196,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR_FEATURE_COUNT = 12;
+	int GEN_EDITOR_GENERATOR_FEATURE_COUNT = 13;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl <em>Gen Common Base</em>}' class.
@@ -4638,23 +4647,32 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_AUDIT_CONTAINER_FEATURE_COUNT = GEN_RULE_CONTAINER_BASE_FEATURE_COUNT + 6;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenRuleBase <em>Gen Rule Base</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenRuleBaseImpl <em>Gen Rule Base</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenRuleBase
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenRuleBaseImpl
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenRuleBase()
 	 * @generated
 	 */
 	int GEN_RULE_BASE = 57;
 
 	/**
-	 * The feature id for the '<em><b>Target</b></em>' containment reference.
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_RULE_BASE__TARGET = 0;
+	int GEN_RULE_BASE__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_RULE_BASE__DESCRIPTION = 1;
 
 	/**
 	 * The number of structural features of the '<em>Gen Rule Base</em>' class.
@@ -4663,7 +4681,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_RULE_BASE_FEATURE_COUNT = 1;
+	int GEN_RULE_BASE_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditRuleImpl <em>Gen Audit Rule</em>}' class.
@@ -4676,13 +4694,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_AUDIT_RULE = 58;
 
 	/**
-	 * The feature id for the '<em><b>Target</b></em>' containment reference.
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_AUDIT_RULE__TARGET = GEN_RULE_BASE__TARGET;
+	int GEN_AUDIT_RULE__NAME = GEN_RULE_BASE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_AUDIT_RULE__DESCRIPTION = GEN_RULE_BASE__DESCRIPTION;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -4703,13 +4730,13 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_AUDIT_RULE__RULE = GEN_RULE_BASE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Target</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_AUDIT_RULE__NAME = GEN_RULE_BASE_FEATURE_COUNT + 2;
+	int GEN_AUDIT_RULE__TARGET = GEN_RULE_BASE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Message</b></em>' attribute.
@@ -4721,22 +4748,13 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_AUDIT_RULE__MESSAGE = GEN_RULE_BASE_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Description</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_AUDIT_RULE__DESCRIPTION = GEN_RULE_BASE_FEATURE_COUNT + 4;
-
-	/**
 	 * The feature id for the '<em><b>Severity</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_AUDIT_RULE__SEVERITY = GEN_RULE_BASE_FEATURE_COUNT + 5;
+	int GEN_AUDIT_RULE__SEVERITY = GEN_RULE_BASE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Use In Live Mode</b></em>' attribute.
@@ -4745,7 +4763,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_AUDIT_RULE__USE_IN_LIVE_MODE = GEN_RULE_BASE_FEATURE_COUNT + 6;
+	int GEN_AUDIT_RULE__USE_IN_LIVE_MODE = GEN_RULE_BASE_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' container reference.
@@ -4754,7 +4772,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_AUDIT_RULE__CONTAINER = GEN_RULE_BASE_FEATURE_COUNT + 7;
+	int GEN_AUDIT_RULE__CONTAINER = GEN_RULE_BASE_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of structural features of the '<em>Gen Audit Rule</em>' class.
@@ -4763,26 +4781,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_AUDIT_RULE_FEATURE_COUNT = GEN_RULE_BASE_FEATURE_COUNT + 8;
+	int GEN_AUDIT_RULE_FEATURE_COUNT = GEN_RULE_BASE_FEATURE_COUNT + 7;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenRuleTargetImpl <em>Gen Rule Target</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenRuleTarget <em>Gen Rule Target</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenRuleTargetImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenRuleTarget
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenRuleTarget()
 	 * @generated
 	 */
 	int GEN_RULE_TARGET = 59;
-
-	/**
-	 * The feature id for the '<em><b>Rule</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_RULE_TARGET__RULE = 0;
 
 	/**
 	 * The number of structural features of the '<em>Gen Rule Target</em>' class.
@@ -4791,7 +4800,26 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_RULE_TARGET_FEATURE_COUNT = 1;
+	int GEN_RULE_TARGET_FEATURE_COUNT = 0;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditableImpl <em>Gen Auditable</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenAuditableImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenAuditable()
+	 * @generated
+	 */
+	int GEN_AUDITABLE = 66;
+
+	/**
+	 * The number of structural features of the '<em>Gen Auditable</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_AUDITABLE_FEATURE_COUNT = GEN_RULE_TARGET_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDomainElementTargetImpl <em>Gen Domain Element Target</em>}' class.
@@ -4804,22 +4832,13 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_DOMAIN_ELEMENT_TARGET = 60;
 
 	/**
-	 * The feature id for the '<em><b>Rule</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_DOMAIN_ELEMENT_TARGET__RULE = GEN_RULE_TARGET__RULE;
-
-	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DOMAIN_ELEMENT_TARGET__ELEMENT = GEN_RULE_TARGET_FEATURE_COUNT + 0;
+	int GEN_DOMAIN_ELEMENT_TARGET__ELEMENT = GEN_AUDITABLE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Gen Domain Element Target</em>' class.
@@ -4828,7 +4847,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DOMAIN_ELEMENT_TARGET_FEATURE_COUNT = GEN_RULE_TARGET_FEATURE_COUNT + 1;
+	int GEN_DOMAIN_ELEMENT_TARGET_FEATURE_COUNT = GEN_AUDITABLE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenDiagramElementTargetImpl <em>Gen Diagram Element Target</em>}' class.
@@ -4841,22 +4860,13 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_DIAGRAM_ELEMENT_TARGET = 61;
 
 	/**
-	 * The feature id for the '<em><b>Rule</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_DIAGRAM_ELEMENT_TARGET__RULE = GEN_RULE_TARGET__RULE;
-
-	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM_ELEMENT_TARGET__ELEMENT = GEN_RULE_TARGET_FEATURE_COUNT + 0;
+	int GEN_DIAGRAM_ELEMENT_TARGET__ELEMENT = GEN_AUDITABLE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Gen Diagram Element Target</em>' class.
@@ -4865,7 +4875,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_DIAGRAM_ELEMENT_TARGET_FEATURE_COUNT = GEN_RULE_TARGET_FEATURE_COUNT + 1;
+	int GEN_DIAGRAM_ELEMENT_TARGET_FEATURE_COUNT = GEN_AUDITABLE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenNotationElementTargetImpl <em>Gen Notation Element Target</em>}' class.
@@ -4878,22 +4888,13 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_NOTATION_ELEMENT_TARGET = 62;
 
 	/**
-	 * The feature id for the '<em><b>Rule</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GEN_NOTATION_ELEMENT_TARGET__RULE = GEN_RULE_TARGET__RULE;
-
-	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NOTATION_ELEMENT_TARGET__ELEMENT = GEN_RULE_TARGET_FEATURE_COUNT + 0;
+	int GEN_NOTATION_ELEMENT_TARGET__ELEMENT = GEN_AUDITABLE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Gen Notation Element Target</em>' class.
@@ -4902,7 +4903,164 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_NOTATION_ELEMENT_TARGET_FEATURE_COUNT = GEN_RULE_TARGET_FEATURE_COUNT + 1;
+	int GEN_NOTATION_ELEMENT_TARGET_FEATURE_COUNT = GEN_AUDITABLE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenMetricContainerImpl <em>Gen Metric Container</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenMetricContainerImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenMetricContainer()
+	 * @generated
+	 */
+	int GEN_METRIC_CONTAINER = 63;
+
+	/**
+	 * The feature id for the '<em><b>Editor</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_METRIC_CONTAINER__EDITOR = GEN_RULE_CONTAINER_BASE__EDITOR;
+
+	/**
+	 * The feature id for the '<em><b>Metrics</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_METRIC_CONTAINER__METRICS = GEN_RULE_CONTAINER_BASE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Gen Metric Container</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_METRIC_CONTAINER_FEATURE_COUNT = GEN_RULE_CONTAINER_BASE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenMetricRuleImpl <em>Gen Metric Rule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenMetricRuleImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenMetricRule()
+	 * @generated
+	 */
+	int GEN_METRIC_RULE = 64;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_METRIC_RULE__NAME = GEN_RULE_BASE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_METRIC_RULE__DESCRIPTION = GEN_RULE_BASE__DESCRIPTION;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_METRIC_RULE__KEY = GEN_RULE_BASE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Rule</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_METRIC_RULE__RULE = GEN_RULE_BASE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_METRIC_RULE__TARGET = GEN_RULE_BASE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Container</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_METRIC_RULE__CONTAINER = GEN_RULE_BASE_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Gen Metric Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_METRIC_RULE_FEATURE_COUNT = GEN_RULE_BASE_FEATURE_COUNT + 4;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenAuditedMetricTargetImpl <em>Gen Audited Metric Target</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GenAuditedMetricTargetImpl
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenAuditedMetricTarget()
+	 * @generated
+	 */
+	int GEN_AUDITED_METRIC_TARGET = 65;
+
+	/**
+	 * The feature id for the '<em><b>Metric</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_AUDITED_METRIC_TARGET__METRIC = GEN_AUDITABLE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Gen Audited Metric Target</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_AUDITED_METRIC_TARGET_FEATURE_COUNT = GEN_AUDITABLE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenMeasurable <em>Gen Measurable</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenMeasurable
+	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenMeasurable()
+	 * @generated
+	 */
+	int GEN_MEASURABLE = 67;
+
+	/**
+	 * The number of structural features of the '<em>Gen Measurable</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_MEASURABLE_FEATURE_COUNT = GEN_RULE_TARGET_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority <em>Provider Priority</em>}' enum.
@@ -4912,7 +5070,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getProviderPriority()
 	 * @generated
 	 */
-	int PROVIDER_PRIORITY = 63;
+	int PROVIDER_PRIORITY = 68;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.LinkLabelAlignment <em>Link Label Alignment</em>}' enum.
@@ -4922,7 +5080,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getLinkLabelAlignment()
 	 * @generated
 	 */
-	int LINK_LABEL_ALIGNMENT = 64;
+	int LINK_LABEL_ALIGNMENT = 69;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.GenSeverity <em>Gen Severity</em>}' enum.
@@ -4932,7 +5090,7 @@ public interface GMFGenPackage extends EPackage {
 	 * @see org.eclipse.gmf.codegen.gmfgen.impl.GMFGenPackageImpl#getGenSeverity()
 	 * @generated
 	 */
-	int GEN_SEVERITY = 65;
+	int GEN_SEVERITY = 70;
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator <em>Gen Editor Generator</em>}'.
@@ -4954,6 +5112,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenEditorGenerator_Audits();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getMetrics <em>Metrics</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Metrics</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getMetrics()
+	 * @see #getGenEditorGenerator()
+	 * @generated
+	 */
+	EReference getGenEditorGenerator_Metrics();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDiagram <em>Diagram</em>}'.
@@ -7462,15 +7631,26 @@ public interface GMFGenPackage extends EPackage {
 	EClass getGenRuleBase();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenRuleBase#getTarget <em>Target</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenRuleBase#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Target</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenRuleBase#getTarget()
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenRuleBase#getName()
 	 * @see #getGenRuleBase()
 	 * @generated
 	 */
-	EReference getGenRuleBase_Target();
+	EAttribute getGenRuleBase_Name();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenRuleBase#getDescription <em>Description</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Description</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenRuleBase#getDescription()
+	 * @see #getGenRuleBase()
+	 * @generated
+	 */
+	EAttribute getGenRuleBase_Description();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditContainer#getId <em>Id</em>}'.
@@ -7549,15 +7729,15 @@ public interface GMFGenPackage extends EPackage {
 	EReference getGenAuditRule_Rule();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getName <em>Name</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getTarget <em>Target</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getName()
+	 * @return the meta object for the containment reference '<em>Target</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getTarget()
 	 * @see #getGenAuditRule()
 	 * @generated
 	 */
-	EAttribute getGenAuditRule_Name();
+	EReference getGenAuditRule_Target();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getMessage <em>Message</em>}'.
@@ -7569,17 +7749,6 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenAuditRule_Message();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getDescription <em>Description</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Description</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getDescription()
-	 * @see #getGenAuditRule()
-	 * @generated
-	 */
-	EAttribute getGenAuditRule_Description();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getSeverity <em>Severity</em>}'.
@@ -7623,17 +7792,6 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getGenRuleTarget();
-
-	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenRuleTarget#getRule <em>Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Rule</em>'.
-	 * @see org.eclipse.gmf.codegen.gmfgen.GenRuleTarget#getRule()
-	 * @see #getGenRuleTarget()
-	 * @generated
-	 */
-	EReference getGenRuleTarget_Rule();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget <em>Gen Domain Element Target</em>}'.
@@ -7697,6 +7855,122 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getGenNotationElementTarget_Element();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenMetricContainer <em>Gen Metric Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Metric Container</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenMetricContainer
+	 * @generated
+	 */
+	EClass getGenMetricContainer();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.codegen.gmfgen.GenMetricContainer#getMetrics <em>Metrics</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Metrics</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenMetricContainer#getMetrics()
+	 * @see #getGenMetricContainer()
+	 * @generated
+	 */
+	EReference getGenMetricContainer_Metrics();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenMetricRule <em>Gen Metric Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Metric Rule</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenMetricRule
+	 * @generated
+	 */
+	EClass getGenMetricRule();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getKey <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Key</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getKey()
+	 * @see #getGenMetricRule()
+	 * @generated
+	 */
+	EAttribute getGenMetricRule_Key();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getRule <em>Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Rule</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getRule()
+	 * @see #getGenMetricRule()
+	 * @generated
+	 */
+	EReference getGenMetricRule_Rule();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getTarget <em>Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Target</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getTarget()
+	 * @see #getGenMetricRule()
+	 * @generated
+	 */
+	EReference getGenMetricRule_Target();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getContainer <em>Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Container</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenMetricRule#getContainer()
+	 * @see #getGenMetricRule()
+	 * @generated
+	 */
+	EReference getGenMetricRule_Container();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget <em>Gen Audited Metric Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Audited Metric Target</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget
+	 * @generated
+	 */
+	EClass getGenAuditedMetricTarget();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget#getMetric <em>Metric</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Metric</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget#getMetric()
+	 * @see #getGenAuditedMetricTarget()
+	 * @generated
+	 */
+	EReference getGenAuditedMetricTarget_Metric();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditable <em>Gen Auditable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Auditable</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenAuditable
+	 * @generated
+	 */
+	EClass getGenAuditable();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenMeasurable <em>Gen Measurable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Gen Measurable</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenMeasurable
+	 * @generated
+	 */
+	EClass getGenMeasurable();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.codegen.gmfgen.ProviderPriority <em>Provider Priority</em>}'.

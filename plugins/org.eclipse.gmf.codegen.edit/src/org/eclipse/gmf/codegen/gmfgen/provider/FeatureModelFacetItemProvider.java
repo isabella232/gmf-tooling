@@ -89,7 +89,7 @@ public class FeatureModelFacetItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/FeatureModelFacet");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureModelFacet"));
 	}
 
 	/**

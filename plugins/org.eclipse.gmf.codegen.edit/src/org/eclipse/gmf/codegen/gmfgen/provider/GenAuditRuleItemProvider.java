@@ -40,7 +40,7 @@ import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
  * @generated
  */
 public class GenAuditRuleItemProvider
-	extends ItemProviderAdapter
+	extends GenRuleBaseItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -68,9 +68,7 @@ public class GenAuditRuleItemProvider
 			super.getPropertyDescriptors(object);
 
 			addIdPropertyDescriptor(object);
-			addNamePropertyDescriptor(object);
 			addMessagePropertyDescriptor(object);
-			addDescriptionPropertyDescriptor(object);
 			addSeverityPropertyDescriptor(object);
 			addUseInLiveModePropertyDescriptor(object);
 		}
@@ -98,26 +96,6 @@ public class GenAuditRuleItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenAuditRule_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditRule_name_feature", "_UI_GenAuditRule_type"),
-				 GMFGenPackage.eINSTANCE.getGenAuditRule_Name(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Message feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -131,26 +109,6 @@ public class GenAuditRuleItemProvider
 				 getString("_UI_GenAuditRule_message_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditRule_message_feature", "_UI_GenAuditRule_type"),
 				 GMFGenPackage.eINSTANCE.getGenAuditRule_Message(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Description feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDescriptionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_GenAuditRule_description_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_GenAuditRule_description_feature", "_UI_GenAuditRule_type"),
-				 GMFGenPackage.eINSTANCE.getGenAuditRule_Description(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -208,8 +166,8 @@ public class GenAuditRuleItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenRuleBase_Target());
 			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenAuditRule_Rule());
+			childrenFeatures.add(GMFGenPackage.eINSTANCE.getGenAuditRule_Target());
 		}
 		return childrenFeatures;
 	}
@@ -233,7 +191,7 @@ public class GenAuditRuleItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/GenAuditRule");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenAuditRule"));
 	}
 
 	/**
@@ -261,15 +219,13 @@ public class GenAuditRuleItemProvider
 
 		switch (notification.getFeatureID(GenAuditRule.class)) {
 			case GMFGenPackage.GEN_AUDIT_RULE__ID:
-			case GMFGenPackage.GEN_AUDIT_RULE__NAME:
 			case GMFGenPackage.GEN_AUDIT_RULE__MESSAGE:
-			case GMFGenPackage.GEN_AUDIT_RULE__DESCRIPTION:
 			case GMFGenPackage.GEN_AUDIT_RULE__SEVERITY:
 			case GMFGenPackage.GEN_AUDIT_RULE__USE_IN_LIVE_MODE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case GMFGenPackage.GEN_AUDIT_RULE__TARGET:
 			case GMFGenPackage.GEN_AUDIT_RULE__RULE:
+			case GMFGenPackage.GEN_AUDIT_RULE__TARGET:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -288,23 +244,28 @@ public class GenAuditRuleItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenRuleBase_Target(),
+				(GMFGenPackage.eINSTANCE.getGenAuditRule_Rule(),
+				 GMFGenFactory.eINSTANCE.createGenConstraint()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFGenPackage.eINSTANCE.getGenAuditRule_Target(),
 				 GMFGenFactory.eINSTANCE.createGenDomainElementTarget()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenRuleBase_Target(),
+				(GMFGenPackage.eINSTANCE.getGenAuditRule_Target(),
 				 GMFGenFactory.eINSTANCE.createGenDiagramElementTarget()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenRuleBase_Target(),
+				(GMFGenPackage.eINSTANCE.getGenAuditRule_Target(),
 				 GMFGenFactory.eINSTANCE.createGenNotationElementTarget()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenAuditRule_Rule(),
-				 GMFGenFactory.eINSTANCE.createGenConstraint()));
+				(GMFGenPackage.eINSTANCE.getGenAuditRule_Target(),
+				 GMFGenFactory.eINSTANCE.createGenAuditedMetricTarget()));
 	}
 
 	/**

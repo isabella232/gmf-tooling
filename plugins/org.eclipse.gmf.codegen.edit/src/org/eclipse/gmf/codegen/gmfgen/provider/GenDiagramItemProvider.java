@@ -1217,7 +1217,7 @@ public class GenDiagramItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/GenDiagram");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenDiagram"));
 	}
 
 	/**

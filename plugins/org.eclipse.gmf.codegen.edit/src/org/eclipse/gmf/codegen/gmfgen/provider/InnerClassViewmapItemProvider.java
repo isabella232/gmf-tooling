@@ -116,7 +116,7 @@ public class InnerClassViewmapItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/InnerClassViewmap");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/InnerClassViewmap"));
 	}
 
 	/**

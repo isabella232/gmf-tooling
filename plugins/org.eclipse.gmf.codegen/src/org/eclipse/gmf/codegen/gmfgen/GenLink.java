@@ -59,7 +59,7 @@ public interface GenLink extends GenCommonBase {
 	 * @return the value of the '<em>Model Facet</em>' containment reference.
 	 * @see #setModelFacet(LinkModelFacet)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenLink_ModelFacet()
-	 * @model containment="true"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	LinkModelFacet getModelFacet();

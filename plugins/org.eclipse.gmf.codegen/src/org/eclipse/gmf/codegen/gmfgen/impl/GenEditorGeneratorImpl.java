@@ -24,6 +24,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorView;
+import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
 
 /**
@@ -34,6 +35,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getAudits <em>Audits</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getMetrics <em>Metrics</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getPlugin <em>Plugin</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getEditor <em>Editor</em>}</li>
@@ -60,6 +62,16 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @ordered
 	 */
 	protected GenAuditContainer audits = null;
+
+	/**
+	 * The cached value of the '{@link #getMetrics() <em>Metrics</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetrics()
+	 * @generated
+	 * @ordered
+	 */
+	protected GenMetricContainer metrics = null;
 
 	/**
 	 * The cached value of the '{@link #getDiagram() <em>Diagram</em>}' containment reference.
@@ -300,6 +312,49 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS, newAudits, newAudits));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenMetricContainer getMetrics() {
+		return metrics;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetMetrics(GenMetricContainer newMetrics, NotificationChain msgs) {
+		GenMetricContainer oldMetrics = metrics;
+		metrics = newMetrics;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__METRICS, oldMetrics, newMetrics);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMetrics(GenMetricContainer newMetrics) {
+		if (newMetrics != metrics) {
+			NotificationChain msgs = null;
+			if (metrics != null)
+				msgs = ((InternalEObject)metrics).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__METRICS, null, msgs);
+			if (newMetrics != null)
+				msgs = ((InternalEObject)newMetrics).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFGenPackage.GEN_EDITOR_GENERATOR__METRICS, null, msgs);
+			msgs = basicSetMetrics(newMetrics, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__METRICS, newMetrics, newMetrics));
 	}
 
 	/**
@@ -726,6 +781,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS:
 				return basicSetAudits(null, msgs);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__METRICS:
+				return basicSetMetrics(null, msgs);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM:
 				return basicSetDiagram(null, msgs);
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN:
@@ -745,6 +802,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS:
 				return getAudits();
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__METRICS:
+				return getMetrics();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM:
 				return getDiagram();
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN:
@@ -781,6 +840,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS:
 				setAudits((GenAuditContainer)newValue);
+				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__METRICS:
+				setMetrics((GenMetricContainer)newValue);
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM:
 				setDiagram((GenDiagram)newValue);
@@ -829,6 +891,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS:
 				setAudits((GenAuditContainer)null);
 				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__METRICS:
+				setMetrics((GenMetricContainer)null);
+				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM:
 				setDiagram((GenDiagram)null);
 				return;
@@ -875,6 +940,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 		switch (featureID) {
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__AUDITS:
 				return audits != null;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__METRICS:
+				return metrics != null;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__DIAGRAM:
 				return diagram != null;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__PLUGIN:

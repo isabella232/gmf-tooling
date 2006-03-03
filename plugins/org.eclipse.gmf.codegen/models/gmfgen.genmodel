@@ -28,6 +28,7 @@
     </genEnums>
     <genClasses ecoreClass="gmfgen.ecore#//GenEditorGenerator">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/audits"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/metrics"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/diagram"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/plugin"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenEditorGenerator/editor"/>
@@ -406,14 +407,14 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenAuditContainer/hasDiagramElementRule"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenRuleBase">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenRuleBase/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenRuleBase/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenRuleBase/description"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenAuditRule">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/id"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditRule/rule"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditRule/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/message"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/severity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenAuditRule/useInLiveMode"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditRule/container"/>
@@ -422,8 +423,6 @@
       <genOperations ecoreOperation="gmfgen.ecore#//GenAuditRule/getContextSelectorLocalClassName"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenRuleTarget">
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenRuleTarget/rule"/>
-      <genOperations ecoreOperation="gmfgen.ecore#//GenRuleTarget/getClientContextID"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenRuleTarget/getContext"/>
     </genClasses>
     <genClasses ecoreClass="gmfgen.ecore#//GenDomainElementTarget">
@@ -435,5 +434,21 @@
     <genClasses ecoreClass="gmfgen.ecore#//GenNotationElementTarget">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenNotationElementTarget/element"/>
     </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenMetricContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMetricContainer/metrics"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenMetricRule">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenMetricRule/key"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMetricRule/rule"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMetricRule/target"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenMetricRule/container"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenAuditedMetricTarget">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgen.ecore#//GenAuditedMetricTarget/metric"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenAuditable">
+      <genOperations ecoreOperation="gmfgen.ecore#//GenAuditable/getClientContextID"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfgen.ecore#//GenMeasurable"/>
   </genPackages>
 </genmodel:GenModel>

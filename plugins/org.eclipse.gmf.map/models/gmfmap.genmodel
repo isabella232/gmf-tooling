@@ -20,6 +20,7 @@
       <genFeatures property="None" children="true" createChild="true" propertyCategory=""
           ecoreFeature="ecore:EReference gmfmap.ecore#//Mapping/appearanceStyles"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//Mapping/audits"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//Mapping/metrics"/>
     </genClasses>
     <genClasses image="false" ecoreClass="gmfmap.ecore#//MappingEntry">
       <genFeatures notify="false" createChild="false" propertyCategory="Domain meta information"
@@ -130,20 +131,17 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AuditContainer/childContainers"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//RuleBase">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//RuleBase/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//RuleBase/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//RuleBase/description"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//AuditRule">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditRule/id"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AuditRule/rule"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditRule/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AuditRule/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditRule/severity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditRule/useInLiveMode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditRule/message"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditRule/description"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//AuditRule/container"/>
-    </genClasses>
-    <genClasses image="false" ecoreClass="gmfmap.ecore#//RuleTarget">
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//RuleTarget/rule"/>
     </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//DomainElementTarget">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//DomainElementTarget/element"/>
@@ -154,5 +152,19 @@
     <genClasses ecoreClass="gmfmap.ecore#//NotationElementTarget">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//NotationElementTarget/element"/>
     </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//MetricContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//MetricContainer/metrics"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//MetricRule">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//MetricRule/key"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//MetricRule/rule"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//MetricRule/target"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//MetricRule/container"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//AuditedMetricTarget">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//AuditedMetricTarget/metric"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//Auditable"/>
+    <genClasses ecoreClass="gmfmap.ecore#//Measurable"/>
   </genPackages>
 </genmodel:GenModel>

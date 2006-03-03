@@ -80,6 +80,7 @@ public class MappingItemProvider
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMapping_Diagram());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMapping_AppearanceStyles());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMapping_Audits());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getMapping_Metrics());
 		}
 		return childrenFeatures;
 	}
@@ -132,6 +133,7 @@ public class MappingItemProvider
 			case GMFMapPackage.MAPPING__DIAGRAM:
 			case GMFMapPackage.MAPPING__APPEARANCE_STYLES:
 			case GMFMapPackage.MAPPING__AUDITS:
+			case GMFMapPackage.MAPPING__METRICS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -172,6 +174,11 @@ public class MappingItemProvider
 			(createChildParameter
 				(GMFMapPackage.eINSTANCE.getMapping_Audits(),
 				 GMFMapFactory.eINSTANCE.createAuditContainer()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFMapPackage.eINSTANCE.getMapping_Metrics(),
+				 GMFMapFactory.eINSTANCE.createMetricContainer()));
 	}
 
 	/**

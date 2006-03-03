@@ -113,7 +113,7 @@ public class ShapeAttributesItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/ShapeAttributes");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ShapeAttributes"));
 	}
 
 	/**

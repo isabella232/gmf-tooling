@@ -266,30 +266,59 @@ public class GMFMapSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case GMFMapPackage.RULE_TARGET: {
-				RuleTarget ruleTarget = (RuleTarget)theEObject;
-				Object result = caseRuleTarget(ruleTarget);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case GMFMapPackage.DOMAIN_ELEMENT_TARGET: {
 				DomainElementTarget domainElementTarget = (DomainElementTarget)theEObject;
 				Object result = caseDomainElementTarget(domainElementTarget);
-				if (result == null) result = caseRuleTarget(domainElementTarget);
+				if (result == null) result = caseAuditable(domainElementTarget);
+				if (result == null) result = caseMeasurable(domainElementTarget);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.DIAGRAM_ELEMENT_TARGET: {
 				DiagramElementTarget diagramElementTarget = (DiagramElementTarget)theEObject;
 				Object result = caseDiagramElementTarget(diagramElementTarget);
-				if (result == null) result = caseRuleTarget(diagramElementTarget);
+				if (result == null) result = caseAuditable(diagramElementTarget);
+				if (result == null) result = caseMeasurable(diagramElementTarget);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case GMFMapPackage.NOTATION_ELEMENT_TARGET: {
 				NotationElementTarget notationElementTarget = (NotationElementTarget)theEObject;
 				Object result = caseNotationElementTarget(notationElementTarget);
-				if (result == null) result = caseRuleTarget(notationElementTarget);
+				if (result == null) result = caseAuditable(notationElementTarget);
+				if (result == null) result = caseMeasurable(notationElementTarget);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.METRIC_CONTAINER: {
+				MetricContainer metricContainer = (MetricContainer)theEObject;
+				Object result = caseMetricContainer(metricContainer);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.METRIC_RULE: {
+				MetricRule metricRule = (MetricRule)theEObject;
+				Object result = caseMetricRule(metricRule);
+				if (result == null) result = caseRuleBase(metricRule);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.AUDITED_METRIC_TARGET: {
+				AuditedMetricTarget auditedMetricTarget = (AuditedMetricTarget)theEObject;
+				Object result = caseAuditedMetricTarget(auditedMetricTarget);
+				if (result == null) result = caseAuditable(auditedMetricTarget);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.AUDITABLE: {
+				Auditable auditable = (Auditable)theEObject;
+				Object result = caseAuditable(auditable);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.MEASURABLE: {
+				Measurable measurable = (Measurable)theEObject;
+				Object result = caseMeasurable(measurable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -643,21 +672,6 @@ public class GMFMapSwitch {
 	}
 
 	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Rule Target</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Rule Target</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseRuleTarget(RuleTarget object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpretting the object as an instance of '<em>Domain Element Target</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -699,6 +713,81 @@ public class GMFMapSwitch {
 	 * @generated
 	 */
 	public Object caseNotationElementTarget(NotationElementTarget object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Metric Container</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Metric Container</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseMetricContainer(MetricContainer object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Metric Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Metric Rule</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseMetricRule(MetricRule object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Audited Metric Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Audited Metric Target</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseAuditedMetricTarget(AuditedMetricTarget object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Auditable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Auditable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseAuditable(Auditable object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Measurable</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Measurable</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseMeasurable(Measurable object) {
 		return null;
 	}
 

@@ -22,6 +22,7 @@ import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.Node;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
+import org.eclipse.gmf.mappings.Auditable;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.DiagramElementTarget;
@@ -32,7 +33,6 @@ import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeMapping;
-import org.eclipse.gmf.mappings.RuleTarget;
 import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.tests.Plugin;
@@ -107,7 +107,7 @@ public class MapSetup implements MapDefSource {
 		myMap.setAudits(root);
 	}
 	
-	private AuditRule createAudit(String id, String ruleBody, RuleTarget target, Severity severity, boolean isLiveMode) {
+	private AuditRule createAudit(String id, String ruleBody, Auditable target, Severity severity, boolean isLiveMode) {
 		AuditRule audit = GMFMapFactory.eINSTANCE.createAuditRule();
 		audit.setId(id);
 		audit.setName("Name of" + id); //$NON-NLS-1$

@@ -30,6 +30,8 @@ import org.eclipse.gmf.codegen.gmfgen.FeatureLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditable;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
@@ -49,7 +51,6 @@ import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
-import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
@@ -72,6 +73,8 @@ import org.eclipse.gmf.internal.bridge.VisualIdentifierDispenser;
 import org.eclipse.gmf.internal.bridge.naming.gen.GenModelNamingMediator;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
+import org.eclipse.gmf.mappings.Auditable;
+import org.eclipse.gmf.mappings.AuditedMetricTarget;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.CompartmentMapping;
@@ -89,7 +92,6 @@ import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.mappings.NotationElementTarget;
-import org.eclipse.gmf.mappings.RuleTarget;
 import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.mappings.ToolOwner;
 import org.eclipse.gmf.mappings.TopNodeReference;
@@ -649,7 +651,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		return genAudit;
 	} 
 	
-	private GenRuleTarget createRuleTarget(RuleTarget ruleTarget) {		
+	private GenAuditable createRuleTarget(Auditable ruleTarget) {		
 		if (ruleTarget instanceof DomainElementTarget) {
 			DomainElementTarget domainTarget = (DomainElementTarget)ruleTarget;
 			GenDomainElementTarget genDomainTarget = GMFGenFactory.eINSTANCE.createGenDomainElementTarget();
@@ -678,6 +680,10 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 				diagramTarget.setElement(genBase);
 			}
 			return diagramTarget;
+		} else if(ruleTarget instanceof AuditedMetricTarget) {			
+			GenAuditedMetricTarget genMetricTarget = GMFGenFactory.eINSTANCE.createGenAuditedMetricTarget();
+			// TODO - no metrics logged in History return not initialized entity
+			return genMetricTarget;
 		} else {
 			assert false : "Uknown rule target type"; //$NON-NLS-1$
 		}

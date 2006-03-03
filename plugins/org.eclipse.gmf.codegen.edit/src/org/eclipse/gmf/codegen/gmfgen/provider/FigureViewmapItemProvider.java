@@ -95,7 +95,7 @@ public class FigureViewmapItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/FigureViewmap");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/FigureViewmap"));
 	}
 
 	/**

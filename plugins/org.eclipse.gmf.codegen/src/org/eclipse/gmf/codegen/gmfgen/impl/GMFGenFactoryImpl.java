@@ -12,6 +12,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.gmf.codegen.gmfgen.*;
+
 import org.eclipse.gmf.codegen.gmfgen.ColorAttributes;
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.CompositeFeatureModelFacet;
@@ -139,6 +141,9 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_DOMAIN_ELEMENT_TARGET: return createGenDomainElementTarget();
 			case GMFGenPackage.GEN_DIAGRAM_ELEMENT_TARGET: return createGenDiagramElementTarget();
 			case GMFGenPackage.GEN_NOTATION_ELEMENT_TARGET: return createGenNotationElementTarget();
+			case GMFGenPackage.GEN_METRIC_CONTAINER: return createGenMetricContainer();
+			case GMFGenPackage.GEN_METRIC_RULE: return createGenMetricRule();
+			case GMFGenPackage.GEN_AUDITED_METRIC_TARGET: return createGenAuditedMetricTarget();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -568,6 +573,36 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenNotationElementTarget createGenNotationElementTarget() {
 		GenNotationElementTargetImpl genNotationElementTarget = new GenNotationElementTargetImpl();
 		return genNotationElementTarget;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenMetricContainer createGenMetricContainer() {
+		GenMetricContainerImpl genMetricContainer = new GenMetricContainerImpl();
+		return genMetricContainer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenMetricRule createGenMetricRule() {
+		GenMetricRuleImpl genMetricRule = new GenMetricRuleImpl();
+		return genMetricRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public GenAuditedMetricTarget createGenAuditedMetricTarget() {
+		GenAuditedMetricTargetImpl genAuditedMetricTarget = new GenAuditedMetricTargetImpl();
+		return genAuditedMetricTarget;
 	}
 
 	/**

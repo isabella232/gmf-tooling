@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.EClass;
  * @model
  * @generated
  */
-public interface DomainElementTarget extends RuleTarget {
+public interface DomainElementTarget extends Auditable, Measurable {
 	/**
 	 * Returns the value of the '<em><b>Element</b></em>' reference.
 	 * <!-- begin-user-doc -->

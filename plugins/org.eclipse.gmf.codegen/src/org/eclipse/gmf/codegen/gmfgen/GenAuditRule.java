@@ -21,9 +21,8 @@ package org.eclipse.gmf.codegen.gmfgen;
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getRule <em>Rule</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getTarget <em>Target</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getMessage <em>Message</em>}</li>
- *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getDescription <em>Description</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getSeverity <em>Severity</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#isUseInLiveMode <em>Use In Live Mode</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getContainer <em>Container</em>}</li>
@@ -65,35 +64,6 @@ public interface GenAuditRule extends GenRuleBase {
 	void setId(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * A human readable name
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditRule_Name()
-	 * @model
-	 * @generated
-	 */
-	String getName();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getName <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Name</em>' attribute.
-	 * @see #getName()
-	 * @generated
-	 */
-	void setName(String value);
-
-	/**
 	 * Returns the value of the '<em><b>Message</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -117,31 +87,6 @@ public interface GenAuditRule extends GenRuleBase {
 	 * @generated
 	 */
 	void setMessage(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Description</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The detailed description of this audit semantics
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Description</em>' attribute.
-	 * @see #setDescription(String)
-	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditRule_Description()
-	 * @model
-	 * @generated
-	 */
-	String getDescription();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getDescription <em>Description</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Description</em>' attribute.
-	 * @see #getDescription()
-	 * @generated
-	 */
-	void setDescription(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Rule</b></em>' containment reference.
@@ -172,6 +117,31 @@ public interface GenAuditRule extends GenRuleBase {
 	 * @generated
 	 */
 	void setRule(GenConstraint value);
+
+	/**
+	 * Returns the value of the '<em><b>Target</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * The target representing the context this audit is evaluated in
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Target</em>' containment reference.
+	 * @see #setTarget(GenAuditable)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenAuditRule_Target()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
+	GenAuditable getTarget();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenAuditRule#getTarget <em>Target</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Target</em>' containment reference.
+	 * @see #getTarget()
+	 * @generated
+	 */
+	void setTarget(GenAuditable value);
 
 	/**
 	 * Returns the value of the '<em><b>Severity</b></em>' attribute.

@@ -167,13 +167,22 @@ public interface GMFMapPackage extends EPackage {
 	int MAPPING__AUDITS = 4;
 
 	/**
+	 * The feature id for the '<em><b>Metrics</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAPPING__METRICS = 5;
+
+	/**
 	 * The number of structural features of the '<em>Mapping</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MAPPING_FEATURE_COUNT = 5;
+	int MAPPING_FEATURE_COUNT = 6;
 
 
 	/**
@@ -1221,13 +1230,22 @@ public interface GMFMapPackage extends EPackage {
 	int RULE_BASE = 21;
 
 	/**
-	 * The feature id for the '<em><b>Target</b></em>' containment reference.
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RULE_BASE__TARGET = 0;
+	int RULE_BASE__NAME = 0;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RULE_BASE__DESCRIPTION = 1;
 
 	/**
 	 * The number of structural features of the '<em>Rule Base</em>' class.
@@ -1236,7 +1254,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RULE_BASE_FEATURE_COUNT = 1;
+	int RULE_BASE_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.AuditRuleImpl <em>Audit Rule</em>}' class.
@@ -1249,13 +1267,22 @@ public interface GMFMapPackage extends EPackage {
 	int AUDIT_RULE = 22;
 
 	/**
-	 * The feature id for the '<em><b>Target</b></em>' containment reference.
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int AUDIT_RULE__TARGET = RULE_BASE__TARGET;
+	int AUDIT_RULE__NAME = RULE_BASE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIT_RULE__DESCRIPTION = RULE_BASE__DESCRIPTION;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1276,13 +1303,13 @@ public interface GMFMapPackage extends EPackage {
 	int AUDIT_RULE__RULE = RULE_BASE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * The feature id for the '<em><b>Target</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int AUDIT_RULE__NAME = RULE_BASE_FEATURE_COUNT + 2;
+	int AUDIT_RULE__TARGET = RULE_BASE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Severity</b></em>' attribute.
@@ -1312,22 +1339,13 @@ public interface GMFMapPackage extends EPackage {
 	int AUDIT_RULE__MESSAGE = RULE_BASE_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Description</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AUDIT_RULE__DESCRIPTION = RULE_BASE_FEATURE_COUNT + 6;
-
-	/**
 	 * The feature id for the '<em><b>Container</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int AUDIT_RULE__CONTAINER = RULE_BASE_FEATURE_COUNT + 7;
+	int AUDIT_RULE__CONTAINER = RULE_BASE_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of structural features of the '<em>Audit Rule</em>' class.
@@ -1336,35 +1354,26 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AUDIT_RULE_FEATURE_COUNT = RULE_BASE_FEATURE_COUNT + 8;
+	int AUDIT_RULE_FEATURE_COUNT = RULE_BASE_FEATURE_COUNT + 7;
 
 	/**
-	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.RuleTargetImpl <em>Rule Target</em>}' class.
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.Auditable <em>Auditable</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.eclipse.gmf.mappings.impl.RuleTargetImpl
-	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getRuleTarget()
+	 * @see org.eclipse.gmf.mappings.Auditable
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAuditable()
 	 * @generated
 	 */
-	int RULE_TARGET = 23;
+	int AUDITABLE = 29;
 
 	/**
-	 * The feature id for the '<em><b>Rule</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RULE_TARGET__RULE = 0;
-
-	/**
-	 * The number of structural features of the '<em>Rule Target</em>' class.
+	 * The number of structural features of the '<em>Auditable</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RULE_TARGET_FEATURE_COUNT = 1;
+	int AUDITABLE_FEATURE_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.DomainElementTargetImpl <em>Domain Element Target</em>}' class.
@@ -1374,16 +1383,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getDomainElementTarget()
 	 * @generated
 	 */
-	int DOMAIN_ELEMENT_TARGET = 24;
-
-	/**
-	 * The feature id for the '<em><b>Rule</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOMAIN_ELEMENT_TARGET__RULE = RULE_TARGET__RULE;
+	int DOMAIN_ELEMENT_TARGET = 23;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
@@ -1392,7 +1392,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DOMAIN_ELEMENT_TARGET__ELEMENT = RULE_TARGET_FEATURE_COUNT + 0;
+	int DOMAIN_ELEMENT_TARGET__ELEMENT = AUDITABLE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Domain Element Target</em>' class.
@@ -1401,7 +1401,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DOMAIN_ELEMENT_TARGET_FEATURE_COUNT = RULE_TARGET_FEATURE_COUNT + 1;
+	int DOMAIN_ELEMENT_TARGET_FEATURE_COUNT = AUDITABLE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.DiagramElementTargetImpl <em>Diagram Element Target</em>}' class.
@@ -1411,16 +1411,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getDiagramElementTarget()
 	 * @generated
 	 */
-	int DIAGRAM_ELEMENT_TARGET = 25;
-
-	/**
-	 * The feature id for the '<em><b>Rule</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIAGRAM_ELEMENT_TARGET__RULE = RULE_TARGET__RULE;
+	int DIAGRAM_ELEMENT_TARGET = 24;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
@@ -1429,7 +1420,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DIAGRAM_ELEMENT_TARGET__ELEMENT = RULE_TARGET_FEATURE_COUNT + 0;
+	int DIAGRAM_ELEMENT_TARGET__ELEMENT = AUDITABLE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Diagram Element Target</em>' class.
@@ -1438,7 +1429,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int DIAGRAM_ELEMENT_TARGET_FEATURE_COUNT = RULE_TARGET_FEATURE_COUNT + 1;
+	int DIAGRAM_ELEMENT_TARGET_FEATURE_COUNT = AUDITABLE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.NotationElementTargetImpl <em>Notation Element Target</em>}' class.
@@ -1448,16 +1439,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getNotationElementTarget()
 	 * @generated
 	 */
-	int NOTATION_ELEMENT_TARGET = 26;
-
-	/**
-	 * The feature id for the '<em><b>Rule</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOTATION_ELEMENT_TARGET__RULE = RULE_TARGET__RULE;
+	int NOTATION_ELEMENT_TARGET = 25;
 
 	/**
 	 * The feature id for the '<em><b>Element</b></em>' reference.
@@ -1466,7 +1448,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NOTATION_ELEMENT_TARGET__ELEMENT = RULE_TARGET_FEATURE_COUNT + 0;
+	int NOTATION_ELEMENT_TARGET__ELEMENT = AUDITABLE_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Notation Element Target</em>' class.
@@ -1475,7 +1457,155 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NOTATION_ELEMENT_TARGET_FEATURE_COUNT = RULE_TARGET_FEATURE_COUNT + 1;
+	int NOTATION_ELEMENT_TARGET_FEATURE_COUNT = AUDITABLE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.MetricContainerImpl <em>Metric Container</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.MetricContainerImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMetricContainer()
+	 * @generated
+	 */
+	int METRIC_CONTAINER = 26;
+
+	/**
+	 * The feature id for the '<em><b>Metrics</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METRIC_CONTAINER__METRICS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Metric Container</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METRIC_CONTAINER_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.MetricRuleImpl <em>Metric Rule</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.MetricRuleImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMetricRule()
+	 * @generated
+	 */
+	int METRIC_RULE = 27;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METRIC_RULE__NAME = RULE_BASE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METRIC_RULE__DESCRIPTION = RULE_BASE__DESCRIPTION;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METRIC_RULE__KEY = RULE_BASE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Rule</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METRIC_RULE__RULE = RULE_BASE_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METRIC_RULE__TARGET = RULE_BASE_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Container</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METRIC_RULE__CONTAINER = RULE_BASE_FEATURE_COUNT + 3;
+
+	/**
+	 * The number of structural features of the '<em>Metric Rule</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int METRIC_RULE_FEATURE_COUNT = RULE_BASE_FEATURE_COUNT + 4;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.AuditedMetricTargetImpl <em>Audited Metric Target</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.AuditedMetricTargetImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAuditedMetricTarget()
+	 * @generated
+	 */
+	int AUDITED_METRIC_TARGET = 28;
+
+	/**
+	 * The feature id for the '<em><b>Metric</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDITED_METRIC_TARGET__METRIC = AUDITABLE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Audited Metric Target</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDITED_METRIC_TARGET_FEATURE_COUNT = AUDITABLE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.Measurable <em>Measurable</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.Measurable
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getMeasurable()
+	 * @generated
+	 */
+	int MEASURABLE = 30;
+
+	/**
+	 * The number of structural features of the '<em>Measurable</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MEASURABLE_FEATURE_COUNT = 0;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.Severity <em>Severity</em>}' enum.
@@ -1485,7 +1615,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getSeverity()
 	 * @generated
 	 */
-	int SEVERITY = 27;
+	int SEVERITY = 31;
 
 
 	/**
@@ -2039,6 +2169,17 @@ public interface GMFMapPackage extends EPackage {
 	EReference getMapping_Audits();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.Mapping#getMetrics <em>Metrics</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Metrics</em>'.
+	 * @see org.eclipse.gmf.mappings.Mapping#getMetrics()
+	 * @see #getMapping()
+	 * @generated
+	 */
+	EReference getMapping_Metrics();
+
+	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.Constraint <em>Constraint</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2369,15 +2510,15 @@ public interface GMFMapPackage extends EPackage {
 	EReference getAuditRule_Rule();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.AuditRule#getName <em>Name</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.AuditRule#getTarget <em>Target</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.eclipse.gmf.mappings.AuditRule#getName()
+	 * @return the meta object for the containment reference '<em>Target</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditRule#getTarget()
 	 * @see #getAuditRule()
 	 * @generated
 	 */
-	EAttribute getAuditRule_Name();
+	EReference getAuditRule_Target();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.AuditRule#getSeverity <em>Severity</em>}'.
@@ -2413,17 +2554,6 @@ public interface GMFMapPackage extends EPackage {
 	EAttribute getAuditRule_Message();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.AuditRule#getDescription <em>Description</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Description</em>'.
-	 * @see org.eclipse.gmf.mappings.AuditRule#getDescription()
-	 * @see #getAuditRule()
-	 * @generated
-	 */
-	EAttribute getAuditRule_Description();
-
-	/**
 	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.AuditRule#getContainer <em>Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2445,36 +2575,26 @@ public interface GMFMapPackage extends EPackage {
 	EClass getRuleBase();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.RuleBase#getTarget <em>Target</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.RuleBase#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Target</em>'.
-	 * @see org.eclipse.gmf.mappings.RuleBase#getTarget()
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see org.eclipse.gmf.mappings.RuleBase#getName()
 	 * @see #getRuleBase()
 	 * @generated
 	 */
-	EReference getRuleBase_Target();
+	EAttribute getRuleBase_Name();
 
 	/**
-	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.RuleTarget <em>Rule Target</em>}'.
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.RuleBase#getDescription <em>Description</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Rule Target</em>'.
-	 * @see org.eclipse.gmf.mappings.RuleTarget
+	 * @return the meta object for the attribute '<em>Description</em>'.
+	 * @see org.eclipse.gmf.mappings.RuleBase#getDescription()
+	 * @see #getRuleBase()
 	 * @generated
 	 */
-	EClass getRuleTarget();
-
-	/**
-	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.RuleTarget#getRule <em>Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Rule</em>'.
-	 * @see org.eclipse.gmf.mappings.RuleTarget#getRule()
-	 * @see #getRuleTarget()
-	 * @generated
-	 */
-	EReference getRuleTarget_Rule();
+	EAttribute getRuleBase_Description();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.DomainElementTarget <em>Domain Element Target</em>}'.
@@ -2538,6 +2658,122 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getNotationElementTarget_Element();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.MetricContainer <em>Metric Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Metric Container</em>'.
+	 * @see org.eclipse.gmf.mappings.MetricContainer
+	 * @generated
+	 */
+	EClass getMetricContainer();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.eclipse.gmf.mappings.MetricContainer#getMetrics <em>Metrics</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Metrics</em>'.
+	 * @see org.eclipse.gmf.mappings.MetricContainer#getMetrics()
+	 * @see #getMetricContainer()
+	 * @generated
+	 */
+	EReference getMetricContainer_Metrics();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.MetricRule <em>Metric Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Metric Rule</em>'.
+	 * @see org.eclipse.gmf.mappings.MetricRule
+	 * @generated
+	 */
+	EClass getMetricRule();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.MetricRule#getKey <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Key</em>'.
+	 * @see org.eclipse.gmf.mappings.MetricRule#getKey()
+	 * @see #getMetricRule()
+	 * @generated
+	 */
+	EAttribute getMetricRule_Key();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.MetricRule#getRule <em>Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Rule</em>'.
+	 * @see org.eclipse.gmf.mappings.MetricRule#getRule()
+	 * @see #getMetricRule()
+	 * @generated
+	 */
+	EReference getMetricRule_Rule();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.MetricRule#getTarget <em>Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Target</em>'.
+	 * @see org.eclipse.gmf.mappings.MetricRule#getTarget()
+	 * @see #getMetricRule()
+	 * @generated
+	 */
+	EReference getMetricRule_Target();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.MetricRule#getContainer <em>Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Container</em>'.
+	 * @see org.eclipse.gmf.mappings.MetricRule#getContainer()
+	 * @see #getMetricRule()
+	 * @generated
+	 */
+	EReference getMetricRule_Container();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.AuditedMetricTarget <em>Audited Metric Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Audited Metric Target</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditedMetricTarget
+	 * @generated
+	 */
+	EClass getAuditedMetricTarget();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.AuditedMetricTarget#getMetric <em>Metric</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Metric</em>'.
+	 * @see org.eclipse.gmf.mappings.AuditedMetricTarget#getMetric()
+	 * @see #getAuditedMetricTarget()
+	 * @generated
+	 */
+	EReference getAuditedMetricTarget_Metric();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.Auditable <em>Auditable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Auditable</em>'.
+	 * @see org.eclipse.gmf.mappings.Auditable
+	 * @generated
+	 */
+	EClass getAuditable();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.Measurable <em>Measurable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Measurable</em>'.
+	 * @see org.eclipse.gmf.mappings.Measurable
+	 * @generated
+	 */
+	EClass getMeasurable();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.mappings.Severity <em>Severity</em>}'.

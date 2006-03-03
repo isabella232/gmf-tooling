@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.eclipse.gmf.mappings.Mapping#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.Mapping#getAppearanceStyles <em>Appearance Styles</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.Mapping#getAudits <em>Audits</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.Mapping#getMetrics <em>Metrics</em>}</li>
  * </ul>
  * </p>
  *
@@ -108,9 +109,6 @@ public interface Mapping extends EObject {
 	 * Returns the value of the '<em><b>Audits</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Domain meta-model audit rules definitions
-	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Audits</em>' containment reference.
 	 * @see #setAudits(AuditContainer)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMapping_Audits()
@@ -128,5 +126,31 @@ public interface Mapping extends EObject {
 	 * @generated
 	 */
 	void setAudits(AuditContainer value);
+
+	/**
+	 * Returns the value of the '<em><b>Metrics</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Metrics</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Metrics</em>' containment reference.
+	 * @see #setMetrics(MetricContainer)
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getMapping_Metrics()
+	 * @model containment="true"
+	 * @generated
+	 */
+	MetricContainer getMetrics();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.mappings.Mapping#getMetrics <em>Metrics</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Metrics</em>' containment reference.
+	 * @see #getMetrics()
+	 * @generated
+	 */
+	void setMetrics(MetricContainer value);
 
 } // Mapping

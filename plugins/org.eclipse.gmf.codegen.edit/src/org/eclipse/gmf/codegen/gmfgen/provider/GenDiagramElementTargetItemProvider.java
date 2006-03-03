@@ -33,7 +33,7 @@ import org.eclipse.gmf.codegen.gmfgen.presentation.EditorPlugin;
  * @generated
  */
 public class GenDiagramElementTargetItemProvider
-	extends GenRuleTargetItemProvider
+	extends GenAuditableItemProvider
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	
@@ -92,7 +92,7 @@ public class GenDiagramElementTargetItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/GenDiagramElementTarget");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenDiagramElementTarget"));
 	}
 
 	/**

@@ -27,7 +27,7 @@ package org.eclipse.gmf.codegen.gmfgen;
  * @model
  * @generated
  */
-public interface GenDiagramElementTarget extends GenRuleTarget {
+public interface GenDiagramElementTarget extends GenAuditable, GenMeasurable {
 	/**
 	 * Returns the value of the '<em><b>Element</b></em>' reference.
 	 * <!-- begin-user-doc -->

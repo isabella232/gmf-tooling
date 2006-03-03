@@ -13,6 +13,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.eclipse.gmf.mappings.DiagramElementTarget;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.MappingEntry;
@@ -30,7 +32,7 @@ import org.eclipse.gmf.mappings.MappingEntry;
  *
  * @generated
  */
-public class DiagramElementTargetImpl extends RuleTargetImpl implements DiagramElementTarget {
+public class DiagramElementTargetImpl extends EObjectImpl implements DiagramElementTarget {
 	/**
 	 * The cached value of the '{@link #getElement() <em>Element</em>}' reference.
 	 * <!-- begin-user-doc -->

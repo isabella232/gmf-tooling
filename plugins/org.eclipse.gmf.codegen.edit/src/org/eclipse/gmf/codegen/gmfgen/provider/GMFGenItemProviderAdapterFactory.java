@@ -888,6 +888,72 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenMetricContainer} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenMetricContainerItemProvider genMetricContainerItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenMetricContainer}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenMetricContainerAdapter() {
+		if (genMetricContainerItemProvider == null) {
+			genMetricContainerItemProvider = new GenMetricContainerItemProvider(this);
+		}
+
+		return genMetricContainerItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenMetricRule} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenMetricRuleItemProvider genMetricRuleItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenMetricRule}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenMetricRuleAdapter() {
+		if (genMetricRuleItemProvider == null) {
+			genMetricRuleItemProvider = new GenMetricRuleItemProvider(this);
+		}
+
+		return genMetricRuleItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected GenAuditedMetricTargetItemProvider genAuditedMetricTargetItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Adapter createGenAuditedMetricTargetAdapter() {
+		if (genAuditedMetricTargetItemProvider == null) {
+			genAuditedMetricTargetItemProvider = new GenAuditedMetricTargetItemProvider(this);
+		}
+
+		return genAuditedMetricTargetItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.ValueExpression} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1066,6 +1132,9 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genDomainElementTargetItemProvider != null) genDomainElementTargetItemProvider.dispose();
 		if (genDiagramElementTargetItemProvider != null) genDiagramElementTargetItemProvider.dispose();
 		if (genNotationElementTargetItemProvider != null) genNotationElementTargetItemProvider.dispose();
+		if (genMetricContainerItemProvider != null) genMetricContainerItemProvider.dispose();
+		if (genMetricRuleItemProvider != null) genMetricRuleItemProvider.dispose();
+		if (genAuditedMetricTargetItemProvider != null) genAuditedMetricTargetItemProvider.dispose();
 	}
 
 }

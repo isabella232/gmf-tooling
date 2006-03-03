@@ -16,6 +16,8 @@ import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.mappings.AppearanceSteward;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
+import org.eclipse.gmf.mappings.Auditable;
+import org.eclipse.gmf.mappings.AuditedMetricTarget;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.CompartmentMapping;
@@ -32,13 +34,15 @@ import org.eclipse.gmf.mappings.LinkConstraints;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
+import org.eclipse.gmf.mappings.Measurable;
 import org.eclipse.gmf.mappings.MenuOwner;
+import org.eclipse.gmf.mappings.MetricContainer;
+import org.eclipse.gmf.mappings.MetricRule;
 import org.eclipse.gmf.mappings.NeedsContainment;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.mappings.NotationElementTarget;
 import org.eclipse.gmf.mappings.RuleBase;
-import org.eclipse.gmf.mappings.RuleTarget;
 import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.mappings.ToolOwner;
 import org.eclipse.gmf.mappings.TopNodeReference;
@@ -218,13 +222,6 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass ruleTargetEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass domainElementTargetEClass = null;
 
 	/**
@@ -240,6 +237,41 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * @generated
 	 */
 	private EClass notationElementTargetEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass metricContainerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass metricRuleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass auditedMetricTargetEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass auditableEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass measurableEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -784,6 +816,15 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getMapping_Metrics() {
+		return (EReference)mappingEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getConstraint() {
 		return constraintEClass;
 	}
@@ -1063,8 +1104,8 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAuditRule_Name() {
-		return (EAttribute)auditRuleEClass.getEStructuralFeatures().get(2);
+	public EReference getAuditRule_Target() {
+		return (EReference)auditRuleEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -1099,17 +1140,8 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getAuditRule_Description() {
-		return (EAttribute)auditRuleEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getAuditRule_Container() {
-		return (EReference)auditRuleEClass.getEStructuralFeatures().get(7);
+		return (EReference)auditRuleEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -1126,8 +1158,8 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRuleBase_Target() {
-		return (EReference)ruleBaseEClass.getEStructuralFeatures().get(0);
+	public EAttribute getRuleBase_Name() {
+		return (EAttribute)ruleBaseEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1135,17 +1167,8 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getRuleTarget() {
-		return ruleTargetEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getRuleTarget_Rule() {
-		return (EReference)ruleTargetEClass.getEStructuralFeatures().get(0);
+	public EAttribute getRuleBase_Description() {
+		return (EAttribute)ruleBaseEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -1207,6 +1230,105 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getMetricContainer() {
+		return metricContainerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMetricContainer_Metrics() {
+		return (EReference)metricContainerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMetricRule() {
+		return metricRuleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getMetricRule_Key() {
+		return (EAttribute)metricRuleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMetricRule_Rule() {
+		return (EReference)metricRuleEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMetricRule_Target() {
+		return (EReference)metricRuleEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getMetricRule_Container() {
+		return (EReference)metricRuleEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAuditedMetricTarget() {
+		return auditedMetricTargetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAuditedMetricTarget_Metric() {
+		return (EReference)auditedMetricTargetEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAuditable() {
+		return auditableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMeasurable() {
+		return measurableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getSeverity() {
 		return severityEEnum;
 	}
@@ -1245,6 +1367,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		createEReference(mappingEClass, MAPPING__DIAGRAM);
 		createEReference(mappingEClass, MAPPING__APPEARANCE_STYLES);
 		createEReference(mappingEClass, MAPPING__AUDITS);
+		createEReference(mappingEClass, MAPPING__METRICS);
 
 		mappingEntryEClass = createEClass(MAPPING_ENTRY);
 		createEReference(mappingEntryEClass, MAPPING_ENTRY__DOMAIN_META_ELEMENT);
@@ -1340,20 +1463,17 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		createEReference(auditContainerEClass, AUDIT_CONTAINER__CHILD_CONTAINERS);
 
 		ruleBaseEClass = createEClass(RULE_BASE);
-		createEReference(ruleBaseEClass, RULE_BASE__TARGET);
+		createEAttribute(ruleBaseEClass, RULE_BASE__NAME);
+		createEAttribute(ruleBaseEClass, RULE_BASE__DESCRIPTION);
 
 		auditRuleEClass = createEClass(AUDIT_RULE);
 		createEAttribute(auditRuleEClass, AUDIT_RULE__ID);
 		createEReference(auditRuleEClass, AUDIT_RULE__RULE);
-		createEAttribute(auditRuleEClass, AUDIT_RULE__NAME);
+		createEReference(auditRuleEClass, AUDIT_RULE__TARGET);
 		createEAttribute(auditRuleEClass, AUDIT_RULE__SEVERITY);
 		createEAttribute(auditRuleEClass, AUDIT_RULE__USE_IN_LIVE_MODE);
 		createEAttribute(auditRuleEClass, AUDIT_RULE__MESSAGE);
-		createEAttribute(auditRuleEClass, AUDIT_RULE__DESCRIPTION);
 		createEReference(auditRuleEClass, AUDIT_RULE__CONTAINER);
-
-		ruleTargetEClass = createEClass(RULE_TARGET);
-		createEReference(ruleTargetEClass, RULE_TARGET__RULE);
 
 		domainElementTargetEClass = createEClass(DOMAIN_ELEMENT_TARGET);
 		createEReference(domainElementTargetEClass, DOMAIN_ELEMENT_TARGET__ELEMENT);
@@ -1363,6 +1483,22 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 
 		notationElementTargetEClass = createEClass(NOTATION_ELEMENT_TARGET);
 		createEReference(notationElementTargetEClass, NOTATION_ELEMENT_TARGET__ELEMENT);
+
+		metricContainerEClass = createEClass(METRIC_CONTAINER);
+		createEReference(metricContainerEClass, METRIC_CONTAINER__METRICS);
+
+		metricRuleEClass = createEClass(METRIC_RULE);
+		createEAttribute(metricRuleEClass, METRIC_RULE__KEY);
+		createEReference(metricRuleEClass, METRIC_RULE__RULE);
+		createEReference(metricRuleEClass, METRIC_RULE__TARGET);
+		createEReference(metricRuleEClass, METRIC_RULE__CONTAINER);
+
+		auditedMetricTargetEClass = createEClass(AUDITED_METRIC_TARGET);
+		createEReference(auditedMetricTargetEClass, AUDITED_METRIC_TARGET__METRIC);
+
+		auditableEClass = createEClass(AUDITABLE);
+
+		measurableEClass = createEClass(MEASURABLE);
 
 		// Create enums
 		severityEEnum = createEEnum(SEVERITY);
@@ -1412,9 +1548,14 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		featureSeqInitializerEClass.getESuperTypes().add(this.getElementInitializer());
 		featureValueSpecEClass.getESuperTypes().add(this.getValueExpression());
 		auditRuleEClass.getESuperTypes().add(this.getRuleBase());
-		domainElementTargetEClass.getESuperTypes().add(this.getRuleTarget());
-		diagramElementTargetEClass.getESuperTypes().add(this.getRuleTarget());
-		notationElementTargetEClass.getESuperTypes().add(this.getRuleTarget());
+		domainElementTargetEClass.getESuperTypes().add(this.getAuditable());
+		domainElementTargetEClass.getESuperTypes().add(this.getMeasurable());
+		diagramElementTargetEClass.getESuperTypes().add(this.getAuditable());
+		diagramElementTargetEClass.getESuperTypes().add(this.getMeasurable());
+		notationElementTargetEClass.getESuperTypes().add(this.getAuditable());
+		notationElementTargetEClass.getESuperTypes().add(this.getMeasurable());
+		metricRuleEClass.getESuperTypes().add(this.getRuleBase());
+		auditedMetricTargetEClass.getESuperTypes().add(this.getAuditable());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(mappingEClass, Mapping.class, "Mapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1423,6 +1564,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEReference(getMapping_Diagram(), this.getCanvasMapping(), null, "diagram", null, 1, 1, Mapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMapping_AppearanceStyles(), theGMFToolPackage.getStyleSelector(), null, "appearanceStyles", null, 0, -1, Mapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getMapping_Audits(), this.getAuditContainer(), null, "audits", null, 0, 1, Mapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMapping_Metrics(), this.getMetricContainer(), null, "metrics", null, 0, 1, Mapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(mappingEntryEClass, MappingEntry.class, "MappingEntry", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMappingEntry_DomainMetaElement(), ecorePackage.getEClass(), null, "domainMetaElement", null, 0, 1, MappingEntry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1522,20 +1664,17 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEReference(getAuditContainer_ChildContainers(), this.getAuditContainer(), this.getAuditContainer_ParentContainer(), "childContainers", null, 0, -1, AuditContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(ruleBaseEClass, RuleBase.class, "RuleBase", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getRuleBase_Target(), this.getRuleTarget(), this.getRuleTarget_Rule(), "target", null, 1, 1, RuleBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRuleBase_Name(), ecorePackage.getEString(), "name", null, 0, 1, RuleBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRuleBase_Description(), ecorePackage.getEString(), "description", null, 0, 1, RuleBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(auditRuleEClass, AuditRule.class, "AuditRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAuditRule_Id(), ecorePackage.getEString(), "id", null, 1, 1, AuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAuditRule_Rule(), this.getConstraint(), null, "rule", null, 1, 1, AuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAuditRule_Name(), ecorePackage.getEString(), "name", null, 0, 1, AuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getAuditRule_Target(), this.getAuditable(), null, "target", null, 1, 1, AuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAuditRule_Severity(), this.getSeverity(), "severity", "ERROR", 0, 1, AuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAuditRule_UseInLiveMode(), ecorePackage.getEBoolean(), "useInLiveMode", "false", 0, 1, AuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getAuditRule_Message(), ecorePackage.getEString(), "message", null, 0, 1, AuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getAuditRule_Description(), ecorePackage.getEString(), "description", null, 0, 1, AuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAuditRule_Container(), this.getAuditContainer(), this.getAuditContainer_Audits(), "container", null, 1, 1, AuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(ruleTargetEClass, RuleTarget.class, "RuleTarget", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getRuleTarget_Rule(), this.getRuleBase(), this.getRuleBase_Target(), "rule", null, 1, 1, RuleTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(domainElementTargetEClass, DomainElementTarget.class, "DomainElementTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDomainElementTarget_Element(), ecorePackage.getEClass(), null, "element", null, 1, 1, DomainElementTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1545,6 +1684,22 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 
 		initEClass(notationElementTargetEClass, NotationElementTarget.class, "NotationElementTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getNotationElementTarget_Element(), ecorePackage.getEClass(), null, "element", null, 1, 1, NotationElementTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(metricContainerEClass, MetricContainer.class, "MetricContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getMetricContainer_Metrics(), this.getMetricRule(), this.getMetricRule_Container(), "metrics", null, 1, -1, MetricContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(metricRuleEClass, MetricRule.class, "MetricRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getMetricRule_Key(), ecorePackage.getEString(), "key", null, 1, 1, MetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMetricRule_Rule(), this.getValueExpression(), null, "rule", null, 1, 1, MetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMetricRule_Target(), this.getMeasurable(), null, "target", null, 1, 1, MetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getMetricRule_Container(), this.getMetricContainer(), this.getMetricContainer_Metrics(), "container", null, 1, 1, MetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(auditedMetricTargetEClass, AuditedMetricTarget.class, "AuditedMetricTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAuditedMetricTarget_Metric(), this.getMetricRule(), null, "metric", null, 1, 1, AuditedMetricTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(auditableEClass, Auditable.class, "Auditable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(measurableEClass, Measurable.class, "Measurable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(severityEEnum, Severity.class, "Severity");
@@ -1580,7 +1735,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																																																									
+		   });																																																																															
 	}
 
 	/**
@@ -1590,7 +1745,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";							
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";						
 		addAnnotation
 		  (getMappingEntry_DomainSpecialization(), 
 		   source, 
@@ -1670,14 +1825,21 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   source, 
 		   new String[] {
 			 "def", "type"
-		   });													
+		   });														
 		addAnnotation
 		  (getAuditRule_Rule(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
 			 "ocl", "target"
-		   });														
+		   });															
+		addAnnotation
+		  (getMetricRule_Rule(), 
+		   source, 
+		   new String[] {
+			 "def", "context",
+			 "ocl", "target.getContext()"
+		   });						
 	}
 
 	/**
@@ -1687,14 +1849,14 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * @generated
 	 */
 	protected void createConstraintAnnotations() {
-		String source = "constraint";																					
+		String source = "constraint";																				
 		addAnnotation
 		  (getCanvasMapping_DomainMetaElement(), 
 		   source, 
 		   new String[] {
 			 "ocl", "not domainMetaElement.oclIsUndefined implies not(domainMetaElement.isAbstract or domainMetaElement.isInterface)",
 			 "description", "Top-level diagram container must be concrete"
-		   });																																																						
+		   });																																																													
 	}
 
 	/**
@@ -1711,7 +1873,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "nodes->forAll(n|n.containmentFeature.oclIsUndefined() and not n.domainMetaElement.oclIsUndefined() implies links->exists(let r:ecore::EReference= linkMetaFeature.oclAsType(ecore::EReference) in r.containment and r.eReferenceType.isSuperTypeOf(n.domainMetaElement)))",
 			 "description", "Phantom nodes that are not targeted by a link mapping exist"
-		   });								
+		   });							
 		addAnnotation
 		  (getMappingEntry_DomainInitializer(), 
 		   source, 
@@ -1781,7 +1943,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "feature.eContainingClass.isSuperTypeOf(featureSeqInitializer.mappingEntry.getDomainContext())",
 			 "description", "Initialized \'Feature\' must be owned by \'Domain Element\' or its super type"
-		   });																									
+		   });																																
 	}
 
 } //GMFMapPackageImpl

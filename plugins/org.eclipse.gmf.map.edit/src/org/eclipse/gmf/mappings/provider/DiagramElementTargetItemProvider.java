@@ -22,6 +22,8 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+
 import org.eclipse.gmf.mappings.GMFMapPackage;
 
 /**
@@ -31,7 +33,7 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
  * @generated
  */
 public class DiagramElementTargetItemProvider
-	extends RuleTargetItemProvider
+	extends ItemProviderAdapter
 	implements	
 		IEditingDomainItemProvider,	
 		IStructuredItemContentProvider,	

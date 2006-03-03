@@ -7,10 +7,14 @@
 package org.eclipse.gmf.codegen.gmfgen.impl;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
+import org.eclipse.emf.codegen.ecore.genmodel.GenClassifier;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
 
@@ -27,7 +31,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
  *
  * @generated
  */
-public class GenDomainElementTargetImpl extends GenRuleTargetImpl implements GenDomainElementTarget {
+public class GenDomainElementTargetImpl extends GenAuditableImpl implements GenDomainElementTarget {
 	/**
 	 * The cached value of the '{@link #getElement() <em>Element</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -78,7 +82,7 @@ public class GenDomainElementTargetImpl extends GenRuleTargetImpl implements Gen
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public GenClass getContext() {
+	public GenClassifier getContext() {
 		return getElement();
 	}	
 	

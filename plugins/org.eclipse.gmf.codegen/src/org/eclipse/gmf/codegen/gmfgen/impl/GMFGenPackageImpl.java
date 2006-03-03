@@ -33,6 +33,8 @@ import org.eclipse.gmf.codegen.gmfgen.GMFGenFactory;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditable;
+import org.eclipse.gmf.codegen.gmfgen.GenAuditedMetricTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
 import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
@@ -52,6 +54,9 @@ import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenLink;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenMeasurable;
+import org.eclipse.gmf.codegen.gmfgen.GenMetricContainer;
+import org.eclipse.gmf.codegen.gmfgen.GenMetricRule;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
@@ -537,6 +542,41 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass genMetricContainerEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genMetricRuleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genAuditedMetricTargetEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genAuditableEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass genMeasurableEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum providerPriorityEEnum = null;
 
 	/**
@@ -648,7 +688,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenEditorGenerator_Diagram() {
+	public EReference getGenEditorGenerator_Metrics() {
 		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -657,7 +697,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenEditorGenerator_Plugin() {
+	public EReference getGenEditorGenerator_Diagram() {
 		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -666,7 +706,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenEditorGenerator_Editor() {
+	public EReference getGenEditorGenerator_Plugin() {
 		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -675,7 +715,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenEditorGenerator_DomainGenModel() {
+	public EReference getGenEditorGenerator_Editor() {
 		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -684,8 +724,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_PackageNamePrefix() {
-		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(5);
+	public EReference getGenEditorGenerator_DomainGenModel() {
+		return (EReference)genEditorGeneratorEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -693,7 +733,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_ModelID() {
+	public EAttribute getGenEditorGenerator_PackageNamePrefix() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -702,7 +742,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_SameFileForDiagramAndModel() {
+	public EAttribute getGenEditorGenerator_ModelID() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -711,7 +751,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_DiagramFileExtension() {
+	public EAttribute getGenEditorGenerator_SameFileForDiagramAndModel() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -720,7 +760,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_DomainFileExtension() {
+	public EAttribute getGenEditorGenerator_DiagramFileExtension() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(9);
 	}
 
@@ -729,7 +769,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_DynamicTemplates() {
+	public EAttribute getGenEditorGenerator_DomainFileExtension() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(10);
 	}
 
@@ -738,8 +778,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenEditorGenerator_TemplateDirectory() {
+	public EAttribute getGenEditorGenerator_DynamicTemplates() {
 		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(11);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenEditorGenerator_TemplateDirectory() {
+		return (EAttribute)genEditorGeneratorEClass.getEStructuralFeatures().get(12);
 	}
 
 	/**
@@ -2745,8 +2794,17 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getGenRuleBase_Target() {
-		return (EReference)genRuleBaseEClass.getEStructuralFeatures().get(0);
+	public EAttribute getGenRuleBase_Name() {
+		return (EAttribute)genRuleBaseEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenRuleBase_Description() {
+		return (EAttribute)genRuleBaseEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2817,8 +2875,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenAuditRule_Name() {
-		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(2);
+	public EReference getGenAuditRule_Target() {
+		return (EReference)genAuditRuleEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2835,7 +2893,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenAuditRule_Description() {
+	public EAttribute getGenAuditRule_Severity() {
 		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -2844,7 +2902,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenAuditRule_Severity() {
+	public EAttribute getGenAuditRule_UseInLiveMode() {
 		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -2853,17 +2911,8 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getGenAuditRule_UseInLiveMode() {
-		return (EAttribute)genAuditRuleEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getGenAuditRule_Container() {
-		return (EReference)genAuditRuleEClass.getEStructuralFeatures().get(7);
+		return (EReference)genAuditRuleEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -2873,15 +2922,6 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 */
 	public EClass getGenRuleTarget() {
 		return genRuleTargetEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getGenRuleTarget_Rule() {
-		return (EReference)genRuleTargetEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2943,6 +2983,105 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getGenMetricContainer() {
+		return genMetricContainerEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenMetricContainer_Metrics() {
+		return (EReference)genMetricContainerEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenMetricRule() {
+		return genMetricRuleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getGenMetricRule_Key() {
+		return (EAttribute)genMetricRuleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenMetricRule_Rule() {
+		return (EReference)genMetricRuleEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenMetricRule_Target() {
+		return (EReference)genMetricRuleEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenMetricRule_Container() {
+		return (EReference)genMetricRuleEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenAuditedMetricTarget() {
+		return genAuditedMetricTargetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getGenAuditedMetricTarget_Metric() {
+		return (EReference)genAuditedMetricTargetEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenAuditable() {
+		return genAuditableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGenMeasurable() {
+		return genMeasurableEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getProviderPriority() {
 		return providerPriorityEEnum;
 	}
@@ -2995,6 +3134,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		// Create classes and their features
 		genEditorGeneratorEClass = createEClass(GEN_EDITOR_GENERATOR);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__AUDITS);
+		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__METRICS);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__DIAGRAM);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__PLUGIN);
 		createEReference(genEditorGeneratorEClass, GEN_EDITOR_GENERATOR__EDITOR);
@@ -3289,20 +3429,19 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		createEReference(genAuditContainerEClass, GEN_AUDIT_CONTAINER__CHILD_CONTAINERS);
 
 		genRuleBaseEClass = createEClass(GEN_RULE_BASE);
-		createEReference(genRuleBaseEClass, GEN_RULE_BASE__TARGET);
+		createEAttribute(genRuleBaseEClass, GEN_RULE_BASE__NAME);
+		createEAttribute(genRuleBaseEClass, GEN_RULE_BASE__DESCRIPTION);
 
 		genAuditRuleEClass = createEClass(GEN_AUDIT_RULE);
 		createEAttribute(genAuditRuleEClass, GEN_AUDIT_RULE__ID);
 		createEReference(genAuditRuleEClass, GEN_AUDIT_RULE__RULE);
-		createEAttribute(genAuditRuleEClass, GEN_AUDIT_RULE__NAME);
+		createEReference(genAuditRuleEClass, GEN_AUDIT_RULE__TARGET);
 		createEAttribute(genAuditRuleEClass, GEN_AUDIT_RULE__MESSAGE);
-		createEAttribute(genAuditRuleEClass, GEN_AUDIT_RULE__DESCRIPTION);
 		createEAttribute(genAuditRuleEClass, GEN_AUDIT_RULE__SEVERITY);
 		createEAttribute(genAuditRuleEClass, GEN_AUDIT_RULE__USE_IN_LIVE_MODE);
 		createEReference(genAuditRuleEClass, GEN_AUDIT_RULE__CONTAINER);
 
 		genRuleTargetEClass = createEClass(GEN_RULE_TARGET);
-		createEReference(genRuleTargetEClass, GEN_RULE_TARGET__RULE);
 
 		genDomainElementTargetEClass = createEClass(GEN_DOMAIN_ELEMENT_TARGET);
 		createEReference(genDomainElementTargetEClass, GEN_DOMAIN_ELEMENT_TARGET__ELEMENT);
@@ -3312,6 +3451,22 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		genNotationElementTargetEClass = createEClass(GEN_NOTATION_ELEMENT_TARGET);
 		createEReference(genNotationElementTargetEClass, GEN_NOTATION_ELEMENT_TARGET__ELEMENT);
+
+		genMetricContainerEClass = createEClass(GEN_METRIC_CONTAINER);
+		createEReference(genMetricContainerEClass, GEN_METRIC_CONTAINER__METRICS);
+
+		genMetricRuleEClass = createEClass(GEN_METRIC_RULE);
+		createEAttribute(genMetricRuleEClass, GEN_METRIC_RULE__KEY);
+		createEReference(genMetricRuleEClass, GEN_METRIC_RULE__RULE);
+		createEReference(genMetricRuleEClass, GEN_METRIC_RULE__TARGET);
+		createEReference(genMetricRuleEClass, GEN_METRIC_RULE__CONTAINER);
+
+		genAuditedMetricTargetEClass = createEClass(GEN_AUDITED_METRIC_TARGET);
+		createEReference(genAuditedMetricTargetEClass, GEN_AUDITED_METRIC_TARGET__METRIC);
+
+		genAuditableEClass = createEClass(GEN_AUDITABLE);
+
+		genMeasurableEClass = createEClass(GEN_MEASURABLE);
 
 		// Create enums
 		providerPriorityEEnum = createEEnum(PROVIDER_PRIORITY);
@@ -3396,13 +3551,22 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		genFeatureValueSpecEClass.getESuperTypes().add(this.getValueExpression());
 		genAuditContainerEClass.getESuperTypes().add(this.getGenRuleContainerBase());
 		genAuditRuleEClass.getESuperTypes().add(this.getGenRuleBase());
-		genDomainElementTargetEClass.getESuperTypes().add(this.getGenRuleTarget());
-		genDiagramElementTargetEClass.getESuperTypes().add(this.getGenRuleTarget());
-		genNotationElementTargetEClass.getESuperTypes().add(this.getGenRuleTarget());
+		genDomainElementTargetEClass.getESuperTypes().add(this.getGenAuditable());
+		genDomainElementTargetEClass.getESuperTypes().add(this.getGenMeasurable());
+		genDiagramElementTargetEClass.getESuperTypes().add(this.getGenAuditable());
+		genDiagramElementTargetEClass.getESuperTypes().add(this.getGenMeasurable());
+		genNotationElementTargetEClass.getESuperTypes().add(this.getGenAuditable());
+		genNotationElementTargetEClass.getESuperTypes().add(this.getGenMeasurable());
+		genMetricContainerEClass.getESuperTypes().add(this.getGenRuleContainerBase());
+		genMetricRuleEClass.getESuperTypes().add(this.getGenRuleBase());
+		genAuditedMetricTargetEClass.getESuperTypes().add(this.getGenAuditable());
+		genAuditableEClass.getESuperTypes().add(this.getGenRuleTarget());
+		genMeasurableEClass.getESuperTypes().add(this.getGenRuleTarget());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(genEditorGeneratorEClass, GenEditorGenerator.class, "GenEditorGenerator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenEditorGenerator_Audits(), this.getGenAuditContainer(), null, "audits", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenEditorGenerator_Metrics(), this.getGenMetricContainer(), null, "metrics", null, 0, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_Diagram(), this.getGenDiagram(), this.getGenDiagram_EditorGen(), "diagram", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_Plugin(), this.getGenPlugin(), this.getGenPlugin_EditorGen(), "plugin", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenEditorGenerator_Editor(), this.getGenEditorView(), this.getGenEditorView_EditorGen(), "editor", null, 1, 1, GenEditorGenerator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3668,7 +3832,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(genLinkEClass, GenLink.class, "GenLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenLink_Diagram(), this.getGenDiagram(), this.getGenDiagram_Links(), "diagram", null, 1, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getGenLink_ModelFacet(), this.getLinkModelFacet(), null, "modelFacet", null, 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenLink_ModelFacet(), this.getLinkModelFacet(), null, "modelFacet", null, 1, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenLink_Labels(), this.getGenLinkLabel(), this.getGenLinkLabel_Link(), "labels", null, 0, -1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenLink_OutgoingCreationAllowed(), ecorePackage.getEBoolean(), "outgoingCreationAllowed", "true", 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenLink_IncomingCreationAllowed(), ecorePackage.getEBoolean(), "incomingCreationAllowed", "false", 0, 1, GenLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3870,15 +4034,15 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genAuditContainerEClass, ecorePackage.getEBoolean(), "hasDiagramElementRule", 0, 1);
 
-		initEClass(genRuleBaseEClass, GenRuleBase.class, "GenRuleBase", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenRuleBase_Target(), this.getGenRuleTarget(), this.getGenRuleTarget_Rule(), "target", null, 1, 1, GenRuleBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(genRuleBaseEClass, GenRuleBase.class, "GenRuleBase", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenRuleBase_Name(), ecorePackage.getEString(), "name", null, 0, 1, GenRuleBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getGenRuleBase_Description(), ecorePackage.getEString(), "description", null, 0, 1, GenRuleBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(genAuditRuleEClass, GenAuditRule.class, "GenAuditRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getGenAuditRule_Id(), ecorePackage.getEString(), "id", null, 1, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenAuditRule_Rule(), this.getGenConstraint(), null, "rule", null, 1, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenAuditRule_Name(), ecorePackage.getEString(), "name", null, 0, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenAuditRule_Target(), this.getGenAuditable(), null, "target", null, 1, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenAuditRule_Message(), ecorePackage.getEString(), "message", null, 0, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getGenAuditRule_Description(), ecorePackage.getEString(), "description", null, 0, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenAuditRule_Severity(), this.getGenSeverity(), "severity", "ERROR", 0, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getGenAuditRule_UseInLiveMode(), ecorePackage.getEBoolean(), "useInLiveMode", "false", 0, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getGenAuditRule_Container(), this.getGenAuditContainer(), this.getGenAuditContainer_Audits(), "container", null, 1, 1, GenAuditRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3889,12 +4053,9 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		addEOperation(genAuditRuleEClass, ecorePackage.getEString(), "getContextSelectorLocalClassName", 1, 1);
 
-		initEClass(genRuleTargetEClass, GenRuleTarget.class, "GenRuleTarget", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getGenRuleTarget_Rule(), this.getGenRuleBase(), this.getGenRuleBase_Target(), "rule", null, 1, 1, GenRuleTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(genRuleTargetEClass, GenRuleTarget.class, "GenRuleTarget", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		addEOperation(genRuleTargetEClass, ecorePackage.getEString(), "getClientContextID", 1, 1);
-
-		addEOperation(genRuleTargetEClass, theGenModelPackage.getGenClass(), "getContext", 1, 1);
+		addEOperation(genRuleTargetEClass, theGenModelPackage.getGenClassifier(), "getContext", 1, 1);
 
 		initEClass(genDomainElementTargetEClass, GenDomainElementTarget.class, "GenDomainElementTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenDomainElementTarget_Element(), theGenModelPackage.getGenClass(), null, "element", null, 1, 1, GenDomainElementTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -3904,6 +4065,24 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 
 		initEClass(genNotationElementTargetEClass, GenNotationElementTarget.class, "GenNotationElementTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getGenNotationElementTarget_Element(), theGenModelPackage.getGenClass(), null, "element", null, 1, 1, GenNotationElementTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genMetricContainerEClass, GenMetricContainer.class, "GenMetricContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenMetricContainer_Metrics(), this.getGenMetricRule(), this.getGenMetricRule_Container(), "metrics", null, 1, -1, GenMetricContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genMetricRuleEClass, GenMetricRule.class, "GenMetricRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getGenMetricRule_Key(), ecorePackage.getEString(), "key", null, 1, 1, GenMetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenMetricRule_Rule(), this.getValueExpression(), null, "rule", null, 1, 1, GenMetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenMetricRule_Target(), this.getGenMeasurable(), null, "target", null, 1, 1, GenMetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getGenMetricRule_Container(), this.getGenMetricContainer(), this.getGenMetricContainer_Metrics(), "container", null, 1, 1, GenMetricRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genAuditedMetricTargetEClass, GenAuditedMetricTarget.class, "GenAuditedMetricTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getGenAuditedMetricTarget_Metric(), this.getGenMetricRule(), null, "metric", null, 1, 1, GenAuditedMetricTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(genAuditableEClass, GenAuditable.class, "GenAuditable", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		addEOperation(genAuditableEClass, ecorePackage.getEString(), "getClientContextID", 1, 1);
+
+		initEClass(genMeasurableEClass, GenMeasurable.class, "GenMeasurable", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Initialize enums and add enum literals
 		initEEnum(providerPriorityEEnum, ProviderPriority.class, "ProviderPriority");
@@ -3950,7 +4129,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "meta", "http://www.eclipse.org/gmf/2005/constraints/meta",
 			 "deprecated", "http://www.eclipse.org/gmf/2006/deprecated"
-		   });																																																																																																																																																		
+		   });																																																																																																																																																									
 	}
 
 	/**
@@ -3966,7 +4145,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "import", "platform:/resource/org.eclipse.gmf.runtime.notation/model/notation.ecore"
-		   });									
+		   });								
 		addAnnotation
 		  (genDiagramEClass, 
 		   source, 
@@ -4038,7 +4217,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 		   source, 
 		   new String[] {
 			 "ocl", "not sourceEnd.oclIsUndefined() or not targetEnd.oclIsUndefined()"
-		   });																																														
+		   });																																																						
 	}
 
 	/**
@@ -4048,7 +4227,7 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 	 * @generated
 	 */
 	protected void createMetaAnnotations() {
-		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																											
+		String source = "http://www.eclipse.org/gmf/2005/constraints/meta";																																																										
 		addAnnotation
 		  (getTypeModelFacet_ModelElementSelector(), 
 		   source, 
@@ -4129,14 +4308,21 @@ public class GMFGenPackageImpl extends EPackageImpl implements GMFGenPackage {
 			 "def", "variable",
 			 "name", "oppositeEnd",
 			 "type.ocl", "getSourceEndContextClass().ecoreClass"
-		   });																				
+		   });																					
 		addAnnotation
 		  (getGenAuditRule_Rule(), 
 		   source, 
 		   new String[] {
 			 "def", "context",
 			 "ocl", "target.ecoreClass"
-		   });																
+		   });																	
+		addAnnotation
+		  (getGenMetricRule_Rule(), 
+		   source, 
+		   new String[] {
+			 "def", "context",
+			 "ocl", "target.getContext()"
+		   });							
 	}
 
 } //GMFGenPackageImpl

@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getAudits <em>Audits</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getMetrics <em>Metrics</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getPlugin <em>Plugin</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getEditor <em>Editor</em>}</li>
@@ -43,9 +44,6 @@ public interface GenEditorGenerator extends EObject {
 	 * Returns the value of the '<em><b>Audits</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Domain meta-model  audit rules definitions
-	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Audits</em>' containment reference.
 	 * @see #setAudits(GenAuditContainer)
 	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorGenerator_Audits()
@@ -63,6 +61,32 @@ public interface GenEditorGenerator extends EObject {
 	 * @generated
 	 */
 	void setAudits(GenAuditContainer value);
+
+	/**
+	 * Returns the value of the '<em><b>Metrics</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Metrics</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Metrics</em>' containment reference.
+	 * @see #setMetrics(GenMetricContainer)
+	 * @see org.eclipse.gmf.codegen.gmfgen.GMFGenPackage#getGenEditorGenerator_Metrics()
+	 * @model containment="true"
+	 * @generated
+	 */
+	GenMetricContainer getMetrics();
+
+	/**
+	 * Sets the value of the '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getMetrics <em>Metrics</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Metrics</em>' containment reference.
+	 * @see #getMetrics()
+	 * @generated
+	 */
+	void setMetrics(GenMetricContainer value);
 
 	/**
 	 * Returns the value of the '<em><b>Diagram</b></em>' containment reference.

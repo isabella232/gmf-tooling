@@ -22,6 +22,7 @@ import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
+import org.eclipse.gmf.mappings.MetricContainer;
 import org.eclipse.gmf.mappings.TopNodeReference;
 import org.eclipse.gmf.tooldef.StyleSelector;
 
@@ -37,6 +38,7 @@ import org.eclipse.gmf.tooldef.StyleSelector;
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingImpl#getDiagram <em>Diagram</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingImpl#getAppearanceStyles <em>Appearance Styles</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.MappingImpl#getAudits <em>Audits</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.MappingImpl#getMetrics <em>Metrics</em>}</li>
  * </ul>
  * </p>
  *
@@ -92,6 +94,16 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * @ordered
 	 */
 	protected AuditContainer audits = null;
+
+	/**
+	 * The cached value of the '{@link #getMetrics() <em>Metrics</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetrics()
+	 * @generated
+	 * @ordered
+	 */
+	protected MetricContainer metrics = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -238,6 +250,49 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public MetricContainer getMetrics() {
+		return metrics;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetMetrics(MetricContainer newMetrics, NotificationChain msgs) {
+		MetricContainer oldMetrics = metrics;
+		metrics = newMetrics;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFMapPackage.MAPPING__METRICS, oldMetrics, newMetrics);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMetrics(MetricContainer newMetrics) {
+		if (newMetrics != metrics) {
+			NotificationChain msgs = null;
+			if (metrics != null)
+				msgs = ((InternalEObject)metrics).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.MAPPING__METRICS, null, msgs);
+			if (newMetrics != null)
+				msgs = ((InternalEObject)newMetrics).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.MAPPING__METRICS, null, msgs);
+			msgs = basicSetMetrics(newMetrics, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.MAPPING__METRICS, newMetrics, newMetrics));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case GMFMapPackage.MAPPING__NODES:
@@ -250,6 +305,8 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 				return ((InternalEList)getAppearanceStyles()).basicRemove(otherEnd, msgs);
 			case GMFMapPackage.MAPPING__AUDITS:
 				return basicSetAudits(null, msgs);
+			case GMFMapPackage.MAPPING__METRICS:
+				return basicSetMetrics(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -271,6 +328,8 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 				return getAppearanceStyles();
 			case GMFMapPackage.MAPPING__AUDITS:
 				return getAudits();
+			case GMFMapPackage.MAPPING__METRICS:
+				return getMetrics();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -300,6 +359,9 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 			case GMFMapPackage.MAPPING__AUDITS:
 				setAudits((AuditContainer)newValue);
 				return;
+			case GMFMapPackage.MAPPING__METRICS:
+				setMetrics((MetricContainer)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -326,6 +388,9 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 			case GMFMapPackage.MAPPING__AUDITS:
 				setAudits((AuditContainer)null);
 				return;
+			case GMFMapPackage.MAPPING__METRICS:
+				setMetrics((MetricContainer)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -347,6 +412,8 @@ public class MappingImpl extends EObjectImpl implements Mapping {
 				return appearanceStyles != null && !appearanceStyles.isEmpty();
 			case GMFMapPackage.MAPPING__AUDITS:
 				return audits != null;
+			case GMFMapPackage.MAPPING__METRICS:
+				return metrics != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -13,6 +13,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.eclipse.gmf.mappings.DomainElementTarget;
 import org.eclipse.gmf.mappings.GMFMapPackage;
 
@@ -29,7 +31,7 @@ import org.eclipse.gmf.mappings.GMFMapPackage;
  *
  * @generated
  */
-public class DomainElementTargetImpl extends RuleTargetImpl implements DomainElementTarget {
+public class DomainElementTargetImpl extends EObjectImpl implements DomainElementTarget {
 	/**
 	 * The cached value of the '{@link #getElement() <em>Element</em>}' reference.
 	 * <!-- begin-user-doc -->

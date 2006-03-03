@@ -29,7 +29,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenClass;
  * @model
  * @generated
  */
-public interface GenNotationElementTarget extends GenRuleTarget {
+public interface GenNotationElementTarget extends GenAuditable, GenMeasurable {
 	/**
 	 * Returns the value of the '<em><b>Element</b></em>' reference.
 	 * <!-- begin-user-doc -->

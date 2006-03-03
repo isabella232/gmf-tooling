@@ -62,12 +62,12 @@ public class AuditRuleItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addIdPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
+			addDescriptionPropertyDescriptor(object);
+			addIdPropertyDescriptor(object);
 			addSeverityPropertyDescriptor(object);
 			addUseInLiveModePropertyDescriptor(object);
 			addMessagePropertyDescriptor(object);
-			addDescriptionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -103,9 +103,9 @@ public class AuditRuleItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_AuditRule_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_AuditRule_name_feature", "_UI_AuditRule_type"),
-				 GMFMapPackage.eINSTANCE.getAuditRule_Name(),
+				 getString("_UI_RuleBase_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_RuleBase_name_feature", "_UI_RuleBase_type"),
+				 GMFMapPackage.eINSTANCE.getRuleBase_Name(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -183,9 +183,9 @@ public class AuditRuleItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_AuditRule_description_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_AuditRule_description_feature", "_UI_AuditRule_type"),
-				 GMFMapPackage.eINSTANCE.getAuditRule_Description(),
+				 getString("_UI_RuleBase_description_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_RuleBase_description_feature", "_UI_RuleBase_type"),
+				 GMFMapPackage.eINSTANCE.getRuleBase_Description(),
 				 true,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
@@ -203,8 +203,8 @@ public class AuditRuleItemProvider
 	public Collection getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(GMFMapPackage.eINSTANCE.getRuleBase_Target());
 			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAuditRule_Rule());
+			childrenFeatures.add(GMFMapPackage.eINSTANCE.getAuditRule_Target());
 		}
 		return childrenFeatures;
 	}
@@ -255,16 +255,16 @@ public class AuditRuleItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(AuditRule.class)) {
-			case GMFMapPackage.AUDIT_RULE__ID:
 			case GMFMapPackage.AUDIT_RULE__NAME:
+			case GMFMapPackage.AUDIT_RULE__DESCRIPTION:
+			case GMFMapPackage.AUDIT_RULE__ID:
 			case GMFMapPackage.AUDIT_RULE__SEVERITY:
 			case GMFMapPackage.AUDIT_RULE__USE_IN_LIVE_MODE:
 			case GMFMapPackage.AUDIT_RULE__MESSAGE:
-			case GMFMapPackage.AUDIT_RULE__DESCRIPTION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case GMFMapPackage.AUDIT_RULE__TARGET:
 			case GMFMapPackage.AUDIT_RULE__RULE:
+			case GMFMapPackage.AUDIT_RULE__TARGET:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -283,23 +283,28 @@ public class AuditRuleItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getRuleBase_Target(),
+				(GMFMapPackage.eINSTANCE.getAuditRule_Rule(),
+				 GMFMapFactory.eINSTANCE.createConstraint()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(GMFMapPackage.eINSTANCE.getAuditRule_Target(),
 				 GMFMapFactory.eINSTANCE.createDomainElementTarget()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getRuleBase_Target(),
+				(GMFMapPackage.eINSTANCE.getAuditRule_Target(),
 				 GMFMapFactory.eINSTANCE.createDiagramElementTarget()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getRuleBase_Target(),
+				(GMFMapPackage.eINSTANCE.getAuditRule_Target(),
 				 GMFMapFactory.eINSTANCE.createNotationElementTarget()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(GMFMapPackage.eINSTANCE.getAuditRule_Rule(),
-				 GMFMapFactory.eINSTANCE.createConstraint()));
+				(GMFMapPackage.eINSTANCE.getAuditRule_Target(),
+				 GMFMapFactory.eINSTANCE.createAuditedMetricTarget()));
 	}
 
 	/**

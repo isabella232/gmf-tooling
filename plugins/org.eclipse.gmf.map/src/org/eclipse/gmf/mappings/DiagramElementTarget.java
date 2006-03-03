@@ -27,7 +27,7 @@ package org.eclipse.gmf.mappings;
  * @model
  * @generated
  */
-public interface DiagramElementTarget extends RuleTarget {
+public interface DiagramElementTarget extends Auditable, Measurable {
 	/**
 	 * Returns the value of the '<em><b>Element</b></em>' reference.
 	 * <!-- begin-user-doc -->

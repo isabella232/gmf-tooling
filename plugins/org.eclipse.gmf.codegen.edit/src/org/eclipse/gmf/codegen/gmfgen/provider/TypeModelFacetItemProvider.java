@@ -164,7 +164,7 @@ public class TypeModelFacetItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/TypeModelFacet");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/TypeModelFacet"));
 	}
 
 	/**

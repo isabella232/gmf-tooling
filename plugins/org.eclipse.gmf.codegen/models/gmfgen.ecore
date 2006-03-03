@@ -19,11 +19,9 @@
       <eParameters name="withUsed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="audits" eType="#//GenAuditContainer"
-        containment="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Domain meta-model  audit rules definitions"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metrics" eType="#//GenMetricContainer"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
         eType="#//GenDiagram" containment="true" eOpposite="#//GenDiagram/editorGen"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="plugin" lowerBound="1"
@@ -992,14 +990,18 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="childContainers" upperBound="-1"
         eType="#//GenAuditContainer" containment="true" eOpposite="#//GenAuditContainer/parentContainer"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenRuleBase" interface="true">
+  <eClassifiers xsi:type="ecore:EClass" name="GenRuleBase" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Base class for rule like audit, metric rules..."/>
     </eAnnotations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
-        eType="#//GenRuleTarget" containment="true" eOpposite="#//GenRuleTarget/rule">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The target representing the context this rule is evaluated in"/>
+        <details key="documentation" value="A human readable name of this rule"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The detailed description of this rule semantics"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -1025,19 +1027,15 @@
         <details key="ocl" value="target.ecoreClass"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
+        eType="#//GenAuditable" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="A human readable name"/>
+        <details key="documentation" value="The target representing the context this audit is evaluated in"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="message" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="The text message to be reported in case of this audit violation"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The detailed description of this audit semantics"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="severity" eType="#//GenSeverity"
@@ -1064,28 +1062,17 @@
     <eLiterals name="WARNING" value="1"/>
     <eLiterals name="ERROR" value="2"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenRuleTarget" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="GenRuleTarget" interface="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The target against which a rule can be evaluated"/>
     </eAnnotations>
-    <eOperations name="getClientContextID" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eOperations name="getContext" lowerBound="1" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClassifier">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Gets identifier of the validation client context for this target. It's guaranteed as a valid java identifier."/>
+        <details key="documentation" value="Gets the classifier to be used as this rule target evaluation context"/>
       </eAnnotations>
     </eOperations>
-    <eOperations name="getContext" lowerBound="1" eType="ecore:EClass ../../../plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore#//GenClass">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Gets the class to be used as this rule target evaluation context"/>
-      </eAnnotations>
-    </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//GenRuleBase"
-        eOpposite="#//GenRuleBase/target">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="The rule bound this rule target"/>
-      </eAnnotations>
-    </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenDomainElementTarget" eSuperTypes="#//GenRuleTarget">
+  <eClassifiers xsi:type="ecore:EClass" name="GenDomainElementTarget" eSuperTypes="#//GenAuditable #//GenMeasurable">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Target for rules applied on domain model elements"/>
     </eAnnotations>
@@ -1096,7 +1083,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenDiagramElementTarget" eSuperTypes="#//GenRuleTarget">
+  <eClassifiers xsi:type="ecore:EClass" name="GenDiagramElementTarget" eSuperTypes="#//GenAuditable #//GenMeasurable">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Target for rules applied on diagram notation model selectively, for specific visualized element"/>
     </eAnnotations>
@@ -1107,7 +1094,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenNotationElementTarget" eSuperTypes="#//GenRuleTarget">
+  <eClassifiers xsi:type="ecore:EClass" name="GenNotationElementTarget" eSuperTypes="#//GenAuditable #//GenMeasurable">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Target for rules applied on diagram notation model elements"/>
     </eAnnotations>
@@ -1117,5 +1104,64 @@
         <details key="documentation" value="Targeted diagram notation model element"/>
       </eAnnotations>
     </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenMetricContainer" eSuperTypes="#//GenRuleContainerBase">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metrics" lowerBound="1"
+        upperBound="-1" eType="#//GenMetricRule" containment="true" eOpposite="#//GenMetricRule/container"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenMetricRule" eSuperTypes="#//GenRuleBase">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Unique key identifying this metric an abbreviation for this metric"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//ValueExpression"
+        containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Expression that calculates the value of this metric which is of EDataType that encapsulates java.lang.Number subclasses or their primitives"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints/meta">
+        <details key="def" value="context"/>
+        <details key="ocl" value="target.getContext()"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
+        eType="#//GenMeasurable" containment="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The target representing the context this metric is evaluated in"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="container" lowerBound="1"
+        eType="#//GenMetricContainer" eOpposite="#//GenMetricContainer/metrics">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The containing metric container of this metric rule"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenAuditedMetricTarget" eSuperTypes="#//GenAuditable">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Target metric which can be evaluated by audit rule. The target context here is the metric rule resulting type classifier"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="metric" lowerBound="1"
+        eType="#//GenMetricRule">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Metric wich can be involved in audit"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenAuditable" abstract="true" eSuperTypes="#//GenRuleTarget">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Target suitable for auditing"/>
+    </eAnnotations>
+    <eOperations name="getClientContextID" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Gets identifier of the validation client context for this target. It's guaranteed as a valid java identifier."/>
+      </eAnnotations>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenMeasurable" interface="true" eSuperTypes="#//GenRuleTarget">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Marker interface for anything that can be subject to metrics"/>
+    </eAnnotations>
   </eClassifiers>
 </ecore:EPackage>

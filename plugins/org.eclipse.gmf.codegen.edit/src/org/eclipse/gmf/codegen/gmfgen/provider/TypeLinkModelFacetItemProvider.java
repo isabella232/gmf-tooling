@@ -109,7 +109,7 @@ public class TypeLinkModelFacetItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/TypeLinkModelFacet");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/TypeLinkModelFacet"));
 	}
 
 	/**

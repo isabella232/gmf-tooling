@@ -17,11 +17,10 @@ package org.eclipse.gmf.mappings;
  * <ul>
  *   <li>{@link org.eclipse.gmf.mappings.AuditRule#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AuditRule#getRule <em>Rule</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.AuditRule#getName <em>Name</em>}</li>
+ *   <li>{@link org.eclipse.gmf.mappings.AuditRule#getTarget <em>Target</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AuditRule#getSeverity <em>Severity</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AuditRule#isUseInLiveMode <em>Use In Live Mode</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AuditRule#getMessage <em>Message</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.AuditRule#getDescription <em>Description</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AuditRule#getContainer <em>Container</em>}</li>
  * </ul>
  * </p>
@@ -83,29 +82,29 @@ public interface AuditRule extends RuleBase {
 	void setRule(Constraint value);
 
 	/**
-	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * Returns the value of the '<em><b>Target</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * A human readable name
+	 * The target representing the context this audit is evaluated in
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
-	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getAuditRule_Name()
-	 * @model
+	 * @return the value of the '<em>Target</em>' containment reference.
+	 * @see #setTarget(Auditable)
+	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getAuditRule_Target()
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	String getName();
+	Auditable getTarget();
 
 	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.mappings.AuditRule#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link org.eclipse.gmf.mappings.AuditRule#getTarget <em>Target</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Name</em>' attribute.
-	 * @see #getName()
+	 * @param value the new value of the '<em>Target</em>' containment reference.
+	 * @see #getTarget()
 	 * @generated
 	 */
-	void setName(String value);
+	void setTarget(Auditable value);
 
 	/**
 	 * Returns the value of the '<em><b>Severity</b></em>' attribute.
@@ -186,31 +185,6 @@ public interface AuditRule extends RuleBase {
 	 * @generated
 	 */
 	void setMessage(String value);
-
-	/**
-	 * Returns the value of the '<em><b>Description</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * The detailed description of this audit semantics
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Description</em>' attribute.
-	 * @see #setDescription(String)
-	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getAuditRule_Description()
-	 * @model
-	 * @generated
-	 */
-	String getDescription();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.mappings.AuditRule#getDescription <em>Description</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Description</em>' attribute.
-	 * @see #getDescription()
-	 * @generated
-	 */
-	void setDescription(String value);
 
 	/**
 	 * Returns the value of the '<em><b>Container</b></em>' container reference.

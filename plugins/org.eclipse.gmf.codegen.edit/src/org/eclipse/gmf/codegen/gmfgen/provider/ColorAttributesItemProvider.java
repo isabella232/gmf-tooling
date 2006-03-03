@@ -113,7 +113,7 @@ public class ColorAttributesItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/ColorAttributes");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ColorAttributes"));
 	}
 
 	/**

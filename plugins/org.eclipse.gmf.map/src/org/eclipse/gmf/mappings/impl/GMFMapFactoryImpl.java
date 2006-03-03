@@ -94,6 +94,9 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 			case GMFMapPackage.DOMAIN_ELEMENT_TARGET: return createDomainElementTarget();
 			case GMFMapPackage.DIAGRAM_ELEMENT_TARGET: return createDiagramElementTarget();
 			case GMFMapPackage.NOTATION_ELEMENT_TARGET: return createNotationElementTarget();
+			case GMFMapPackage.METRIC_CONTAINER: return createMetricContainer();
+			case GMFMapPackage.METRIC_RULE: return createMetricRule();
+			case GMFMapPackage.AUDITED_METRIC_TARGET: return createAuditedMetricTarget();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -305,6 +308,36 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	public NotationElementTarget createNotationElementTarget() {
 		NotationElementTargetImpl notationElementTarget = new NotationElementTargetImpl();
 		return notationElementTarget;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MetricContainer createMetricContainer() {
+		MetricContainerImpl metricContainer = new MetricContainerImpl();
+		return metricContainer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MetricRule createMetricRule() {
+		MetricRuleImpl metricRule = new MetricRuleImpl();
+		return metricRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AuditedMetricTarget createAuditedMetricTarget() {
+		AuditedMetricTargetImpl auditedMetricTarget = new AuditedMetricTargetImpl();
+		return auditedMetricTarget;
 	}
 
 	/**

@@ -188,6 +188,33 @@ public interface GMFMapFactory extends EFactory {
 	NotationElementTarget createNotationElementTarget();
 
 	/**
+	 * Returns a new object of class '<em>Metric Container</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Metric Container</em>'.
+	 * @generated
+	 */
+	MetricContainer createMetricContainer();
+
+	/**
+	 * Returns a new object of class '<em>Metric Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Metric Rule</em>'.
+	 * @generated
+	 */
+	MetricRule createMetricRule();
+
+	/**
+	 * Returns a new object of class '<em>Audited Metric Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Audited Metric Target</em>'.
+	 * @generated
+	 */
+	AuditedMetricTarget createAuditedMetricTarget();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

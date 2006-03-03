@@ -175,7 +175,7 @@ public class GenCompartmentItemProvider
 	 * @generated
 	 */
 	public Object getImage(Object object) {
-		return getResourceLocator().getImage("full/obj16/GenCompartment");
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/GenCompartment"));
 	}
 
 	/**
