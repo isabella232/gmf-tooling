@@ -35,7 +35,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 * @generated
 	 */
 	protected IParser createEAttributeEATTRIBUTENAME_4001_TEXTParser() {
-		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getEAttribute().getEStructuralFeature("name"));
+		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement().getEStructuralFeature("name"));
 		return parser;
 	}
 
@@ -58,7 +58,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 * @generated
 	 */
 	protected IParser createEOperationEOPERATIONNAME_4002_TEXTParser() {
-		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getEOperation().getEStructuralFeature("name"));
+		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement().getEStructuralFeature("name"));
 		return parser;
 	}
 
@@ -104,7 +104,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 * @generated
 	 */
 	protected IParser createEClassECLASSNAME_4005_TEXTParser() {
-		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getEClass().getEStructuralFeature("name"));
+		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement().getEStructuralFeature("name"));
 		return parser;
 	}
 
@@ -127,7 +127,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 * @generated
 	 */
 	protected IParser createEPackageEPACKAGENAME_4006_TEXTParser() {
-		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getEPackage().getEStructuralFeature("name"));
+		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement().getEStructuralFeature("name"));
 		return parser;
 	}
 
@@ -150,7 +150,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 * @generated
 	 */
 	protected IParser createEDataTypeEDATATYPENAME_4007_TEXTParser() {
-		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getEDataType().getEStructuralFeature("name"));
+		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement().getEStructuralFeature("name"));
 		return parser;
 	}
 
@@ -173,7 +173,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 * @generated
 	 */
 	protected IParser createEEnumEENUMNAME_4008_TEXTParser() {
-		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getEEnum().getEStructuralFeature("name"));
+		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement().getEStructuralFeature("name"));
 		return parser;
 	}
 
@@ -219,7 +219,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 * @generated
 	 */
 	protected IParser createEEnumLiteralEENUMLITERALNAME_4013_TEXTParser() {
-		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getEEnumLiteral().getEStructuralFeature("name"));
+		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement().getEStructuralFeature("name"));
 		return parser;
 	}
 
@@ -242,7 +242,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 * @generated
 	 */
 	protected IParser createEClassECLASSNAME_4004_TEXTParser() {
-		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getEClass().getEStructuralFeature("name"));
+		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement().getEStructuralFeature("name"));
 		return parser;
 	}
 
@@ -265,7 +265,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 * @generated
 	 */
 	protected IParser createEPackageEPACKAGENAME_4009_TEXTParser() {
-		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getEPackage().getEStructuralFeature("name"));
+		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement().getEStructuralFeature("name"));
 		return parser;
 	}
 
@@ -311,7 +311,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 * @generated
 	 */
 	protected IParser createEDataTypeEDATATYPENAME_4012_TEXTParser() {
-		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getEDataType().getEStructuralFeature("name"));
+		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement().getEStructuralFeature("name"));
 		return parser;
 	}
 
@@ -334,7 +334,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 * @generated
 	 */
 	protected IParser createEEnumEENUMNAME_4014_TEXTParser() {
-		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getEEnum().getEStructuralFeature("name"));
+		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement().getEStructuralFeature("name"));
 		return parser;
 	}
 
@@ -357,7 +357,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 * @generated
 	 */
 	protected IParser createEReferenceEREFERENCENAME_4015_TEXTParser() {
-		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getEReference().getEStructuralFeature("name"));
+		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement().getEStructuralFeature("name"));
 		return parser;
 	}
 
@@ -380,7 +380,7 @@ public class EcoreParserProvider extends AbstractProvider implements IParserProv
 	 * @generated
 	 */
 	protected IParser createEReferenceEREFERENCENAME_4016_TEXTParser() {
-		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getEReference().getEStructuralFeature("name"));
+		EcoreStructuralFeatureParser parser = new EcoreStructuralFeatureParser(EcorePackage.eINSTANCE.getENamedElement().getEStructuralFeature("name"));
 		return parser;
 	}
 

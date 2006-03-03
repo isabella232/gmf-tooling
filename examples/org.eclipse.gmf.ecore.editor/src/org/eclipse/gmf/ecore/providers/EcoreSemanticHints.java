@@ -372,7 +372,7 @@ public class EcoreSemanticHints {
 	/**
 	 * @generated
 	 */
-	public static final String EAnnotationReferences_3001 = "EAnnotationReferences_3001Link";
+	public static final String EAnnotationReferences_3001 = "EAnnotationReferences_3001SemanticHint";
 
 	/**
 	 * @generated
@@ -421,5 +421,5 @@ public class EcoreSemanticHints {
 	/**
 	 * @generated
 	 */
-	public static final String EClassESuperTypes_3004 = "EClassESuperTypes_3004Link";
+	public static final String EClassESuperTypes_3004 = "EClassESuperTypes_3004SemanticHint";
 }

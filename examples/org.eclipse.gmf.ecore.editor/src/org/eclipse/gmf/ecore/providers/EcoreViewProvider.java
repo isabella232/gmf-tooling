@@ -60,7 +60,7 @@ public class EcoreViewProvider extends AbstractViewProvider {
 	 */
 	protected Class getDiagramViewClass(IAdaptable semanticAdapter, String diagramKind) {
 		EObject semanticElement = getSemanticElement(semanticAdapter);
-		if ("Ecore".equals(diagramKind) && EcoreVisualIDRegistry.INSTANCE.getDiagramVisualID(semanticElement) != -1) { //$NON-NLS-1$
+		if ("Ecore".equals(diagramKind) && EcoreVisualIDRegistry.INSTANCE.getDiagramVisualID(semanticElement) != -1) {
 			return EPackageViewFactory.class;
 		}
 		return null;
