@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cheatsheet title="GMF Tutorial">
   <intro href="http://wiki.eclipse.org/index.php/GMF_Tutorial">
-    <description>This tutorial guides you through the definition, mapping, and generation of a graphical editor for mindmaps using GMF.<br/><br/>To start working on this cheatsheet, click the &quot;Click to Begin&quot; button below.<br/><br/>For each step, press the Help button (?) to access full instructions and viewlets for each step.</description>
+    <description>This tutorial guides you through the definition, mapping, and generation of a graphical editor for mindmaps using GMF.<br/><br/>To start working on this cheatsheet, click the &quot;Click to Begin&quot; button below.<br/><br/>For each step, press the Help button (?) to access full instructions and viewlets for each step. These are links to the full GMF Tutorial online.</description>
   </intro>
   
   <item href="http://wiki.eclipse.org/index.php/GMF_Tutorial#A_New_Project"
@@ -28,7 +28,7 @@
   <item
 		href="http://wiki.eclipse.org/index.php/GMF_Tutorial#Graphical_Definition" 
 		dialog="true" skip="true"
-		title="Creating a Graphical Definition">
+		title="Create a Graphical Definition">
 		<action
 			pluginId="org.eclipse.gmf.doc.ui"
 			class="org.eclipse.gmf.internal.doc.ui.actions.OpenGraphWizardAction"
@@ -37,7 +37,7 @@
 		<br/><br/>The following steps are required:
   		<br/><br/>1. In the wizard, select the 'org.eclipse.gmf.examples.mindmap/model' as the parent folder for your mindmap.gmfgraph model.
   		<br/><br/>2. The second page of the wizard has a <b>Browse</b> button that should easily find our mindmap.ecore model.
-  		<br/><br/>3. The last page of the wizard gives us options for those features found in our domain model (node, link, or label).  For now, uncheck all but the Topic element as a node and its name attribute as a label.
+  		<br/><br/>3. The last page of the wizard gives us options for those features found in our domain model (node, link, or label).  For now, uncheck all but the 'Topic' element as a node, its 'name' attribute as a label, and the 'subtopics' relationship as a link.
 		</description>
 	</item>
   
@@ -52,7 +52,7 @@
   		<br/><br/>The following steps are required:
   		<br/><br/>1. Again, select the 'model' folder to hold the mindmap.gmftool model.
   		<br/><br/>2. And, on the second page we will locate our mindmap.ecore file as before.
-  		<br/><br/>3. On the last page, we will uncheck all but our Topic node for now.
+  		<br/><br/>3. On the last page, we will uncheck all but those we did in the graphical definition; that is, our 'Topic' element, its 'name' attribute, and the 'subtopics' relationship.
   	</description>
   </item>
   
@@ -71,7 +71,8 @@
   		<br/><br/>1. Again, select the 'model' folder to hold the mindmap.gmfmap model.
   		<br/><br/>2. On the second page, each of our domain, graphical definition, and tooling definition files are preset, so we will just need to press <b>Load</b> for each and press <b>Next</b>.
   		<br/><br/>3. Select <b>Map</b> for our 'Diagram Root Element'.
-  		<br/><br/>4. On the last page of the wizard, examine the mappings determined appropriate by the wizard. For now, remove all but our Topic node and press <b>Finish</b>.
+  		<br/><br/>4. On the last page of the wizard, examine the mappings determined appropriate by the wizard. For now, remove all but 'Topic' in the Nodes list, and 'subtopics' in the Links list. Press <b>Finish</b> when you're done.
+  		<br/><br/>5. Just for fun, we'll manually set the Diagram Label property. Select the 'Node Mapping' below the only 'Top Node Reference' in the mapping model and select <b>TopicNameLabel</b> for 'Diagram Label' in the properties view.
      </description>
   </item>
   
