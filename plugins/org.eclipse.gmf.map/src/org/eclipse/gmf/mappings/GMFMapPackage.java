@@ -1211,6 +1211,34 @@ public interface GMFMapPackage extends EPackage {
 	int AUDIT_CONTAINER_FEATURE_COUNT = 6;
 
 	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.RuleBase <em>Rule Base</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.RuleBase
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getRuleBase()
+	 * @generated
+	 */
+	int RULE_BASE = 21;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RULE_BASE__TARGET = 0;
+
+	/**
+	 * The number of structural features of the '<em>Rule Base</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RULE_BASE_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.AuditRuleImpl <em>Audit Rule</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1218,7 +1246,16 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getAuditRule()
 	 * @generated
 	 */
-	int AUDIT_RULE = 21;
+	int AUDIT_RULE = 22;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AUDIT_RULE__TARGET = RULE_BASE__TARGET;
 
 	/**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1227,7 +1264,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AUDIT_RULE__ID = 0;
+	int AUDIT_RULE__ID = RULE_BASE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Rule</b></em>' containment reference.
@@ -1236,16 +1273,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AUDIT_RULE__RULE = 1;
-
-	/**
-	 * The feature id for the '<em><b>Target</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AUDIT_RULE__TARGET = 2;
+	int AUDIT_RULE__RULE = RULE_BASE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1254,7 +1282,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AUDIT_RULE__NAME = 3;
+	int AUDIT_RULE__NAME = RULE_BASE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Severity</b></em>' attribute.
@@ -1263,7 +1291,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AUDIT_RULE__SEVERITY = 4;
+	int AUDIT_RULE__SEVERITY = RULE_BASE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Use In Live Mode</b></em>' attribute.
@@ -1272,7 +1300,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AUDIT_RULE__USE_IN_LIVE_MODE = 5;
+	int AUDIT_RULE__USE_IN_LIVE_MODE = RULE_BASE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Message</b></em>' attribute.
@@ -1281,7 +1309,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AUDIT_RULE__MESSAGE = 6;
+	int AUDIT_RULE__MESSAGE = RULE_BASE_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -1290,7 +1318,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AUDIT_RULE__DESCRIPTION = 7;
+	int AUDIT_RULE__DESCRIPTION = RULE_BASE_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Container</b></em>' container reference.
@@ -1299,7 +1327,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AUDIT_RULE__CONTAINER = 8;
+	int AUDIT_RULE__CONTAINER = RULE_BASE_FEATURE_COUNT + 7;
 
 	/**
 	 * The number of structural features of the '<em>Audit Rule</em>' class.
@@ -1308,7 +1336,146 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int AUDIT_RULE_FEATURE_COUNT = 9;
+	int AUDIT_RULE_FEATURE_COUNT = RULE_BASE_FEATURE_COUNT + 8;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.RuleTargetImpl <em>Rule Target</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.RuleTargetImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getRuleTarget()
+	 * @generated
+	 */
+	int RULE_TARGET = 23;
+
+	/**
+	 * The feature id for the '<em><b>Rule</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RULE_TARGET__RULE = 0;
+
+	/**
+	 * The number of structural features of the '<em>Rule Target</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RULE_TARGET_FEATURE_COUNT = 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.DomainElementTargetImpl <em>Domain Element Target</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.DomainElementTargetImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getDomainElementTarget()
+	 * @generated
+	 */
+	int DOMAIN_ELEMENT_TARGET = 24;
+
+	/**
+	 * The feature id for the '<em><b>Rule</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOMAIN_ELEMENT_TARGET__RULE = RULE_TARGET__RULE;
+
+	/**
+	 * The feature id for the '<em><b>Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOMAIN_ELEMENT_TARGET__ELEMENT = RULE_TARGET_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Domain Element Target</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOMAIN_ELEMENT_TARGET_FEATURE_COUNT = RULE_TARGET_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.DiagramElementTargetImpl <em>Diagram Element Target</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.DiagramElementTargetImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getDiagramElementTarget()
+	 * @generated
+	 */
+	int DIAGRAM_ELEMENT_TARGET = 25;
+
+	/**
+	 * The feature id for the '<em><b>Rule</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIAGRAM_ELEMENT_TARGET__RULE = RULE_TARGET__RULE;
+
+	/**
+	 * The feature id for the '<em><b>Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIAGRAM_ELEMENT_TARGET__ELEMENT = RULE_TARGET_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Diagram Element Target</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIAGRAM_ELEMENT_TARGET_FEATURE_COUNT = RULE_TARGET_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.NotationElementTargetImpl <em>Notation Element Target</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.gmf.mappings.impl.NotationElementTargetImpl
+	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getNotationElementTarget()
+	 * @generated
+	 */
+	int NOTATION_ELEMENT_TARGET = 26;
+
+	/**
+	 * The feature id for the '<em><b>Rule</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOTATION_ELEMENT_TARGET__RULE = RULE_TARGET__RULE;
+
+	/**
+	 * The feature id for the '<em><b>Element</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOTATION_ELEMENT_TARGET__ELEMENT = RULE_TARGET_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Notation Element Target</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOTATION_ELEMENT_TARGET_FEATURE_COUNT = RULE_TARGET_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.Severity <em>Severity</em>}' enum.
@@ -1318,7 +1485,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @see org.eclipse.gmf.mappings.impl.GMFMapPackageImpl#getSeverity()
 	 * @generated
 	 */
-	int SEVERITY = 22;
+	int SEVERITY = 27;
 
 
 	/**
@@ -2202,17 +2369,6 @@ public interface GMFMapPackage extends EPackage {
 	EReference getAuditRule_Rule();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.AuditRule#getTarget <em>Target</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Target</em>'.
-	 * @see org.eclipse.gmf.mappings.AuditRule#getTarget()
-	 * @see #getAuditRule()
-	 * @generated
-	 */
-	EReference getAuditRule_Target();
-
-	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.AuditRule#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2277,6 +2433,111 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getAuditRule_Container();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.RuleBase <em>Rule Base</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Rule Base</em>'.
+	 * @see org.eclipse.gmf.mappings.RuleBase
+	 * @generated
+	 */
+	EClass getRuleBase();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.eclipse.gmf.mappings.RuleBase#getTarget <em>Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Target</em>'.
+	 * @see org.eclipse.gmf.mappings.RuleBase#getTarget()
+	 * @see #getRuleBase()
+	 * @generated
+	 */
+	EReference getRuleBase_Target();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.RuleTarget <em>Rule Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Rule Target</em>'.
+	 * @see org.eclipse.gmf.mappings.RuleTarget
+	 * @generated
+	 */
+	EClass getRuleTarget();
+
+	/**
+	 * Returns the meta object for the container reference '{@link org.eclipse.gmf.mappings.RuleTarget#getRule <em>Rule</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>Rule</em>'.
+	 * @see org.eclipse.gmf.mappings.RuleTarget#getRule()
+	 * @see #getRuleTarget()
+	 * @generated
+	 */
+	EReference getRuleTarget_Rule();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.DomainElementTarget <em>Domain Element Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Domain Element Target</em>'.
+	 * @see org.eclipse.gmf.mappings.DomainElementTarget
+	 * @generated
+	 */
+	EClass getDomainElementTarget();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.DomainElementTarget#getElement <em>Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Element</em>'.
+	 * @see org.eclipse.gmf.mappings.DomainElementTarget#getElement()
+	 * @see #getDomainElementTarget()
+	 * @generated
+	 */
+	EReference getDomainElementTarget_Element();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.DiagramElementTarget <em>Diagram Element Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Diagram Element Target</em>'.
+	 * @see org.eclipse.gmf.mappings.DiagramElementTarget
+	 * @generated
+	 */
+	EClass getDiagramElementTarget();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.DiagramElementTarget#getElement <em>Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Element</em>'.
+	 * @see org.eclipse.gmf.mappings.DiagramElementTarget#getElement()
+	 * @see #getDiagramElementTarget()
+	 * @generated
+	 */
+	EReference getDiagramElementTarget_Element();
+
+	/**
+	 * Returns the meta object for class '{@link org.eclipse.gmf.mappings.NotationElementTarget <em>Notation Element Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Notation Element Target</em>'.
+	 * @see org.eclipse.gmf.mappings.NotationElementTarget
+	 * @generated
+	 */
+	EClass getNotationElementTarget();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.eclipse.gmf.mappings.NotationElementTarget#getElement <em>Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Element</em>'.
+	 * @see org.eclipse.gmf.mappings.NotationElementTarget#getElement()
+	 * @see #getNotationElementTarget()
+	 * @generated
+	 */
+	EReference getNotationElementTarget_Element();
 
 	/**
 	 * Returns the meta object for enum '{@link org.eclipse.gmf.mappings.Severity <em>Severity</em>}'.

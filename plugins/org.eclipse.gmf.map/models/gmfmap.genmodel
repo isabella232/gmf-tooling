@@ -129,16 +129,30 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AuditContainer/audits"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AuditContainer/childContainers"/>
     </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//RuleBase">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//RuleBase/target"/>
+    </genClasses>
     <genClasses ecoreClass="gmfmap.ecore#//AuditRule">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditRule/id"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference gmfmap.ecore#//AuditRule/rule"/>
-      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//AuditRule/target"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditRule/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditRule/severity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditRule/useInLiveMode"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditRule/message"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//AuditRule/description"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//AuditRule/container"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="gmfmap.ecore#//RuleTarget">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//RuleTarget/rule"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//DomainElementTarget">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//DomainElementTarget/element"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//DiagramElementTarget">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//DiagramElementTarget/element"/>
+    </genClasses>
+    <genClasses ecoreClass="gmfmap.ecore#//NotationElementTarget">
+      <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//NotationElementTarget/element"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

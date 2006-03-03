@@ -161,6 +161,33 @@ public interface GMFMapFactory extends EFactory {
 	AuditRule createAuditRule();
 
 	/**
+	 * Returns a new object of class '<em>Domain Element Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Domain Element Target</em>'.
+	 * @generated
+	 */
+	DomainElementTarget createDomainElementTarget();
+
+	/**
+	 * Returns a new object of class '<em>Diagram Element Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Diagram Element Target</em>'.
+	 * @generated
+	 */
+	DiagramElementTarget createDiagramElementTarget();
+
+	/**
+	 * Returns a new object of class '<em>Notation Element Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Notation Element Target</em>'.
+	 * @generated
+	 */
+	NotationElementTarget createNotationElementTarget();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -12,6 +12,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.gmf.mappings.*;
+
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.CanvasMapping;
@@ -89,6 +91,9 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 			case GMFMapPackage.FEATURE_VALUE_SPEC: return createFeatureValueSpec();
 			case GMFMapPackage.AUDIT_CONTAINER: return createAuditContainer();
 			case GMFMapPackage.AUDIT_RULE: return createAuditRule();
+			case GMFMapPackage.DOMAIN_ELEMENT_TARGET: return createDomainElementTarget();
+			case GMFMapPackage.DIAGRAM_ELEMENT_TARGET: return createDiagramElementTarget();
+			case GMFMapPackage.NOTATION_ELEMENT_TARGET: return createNotationElementTarget();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -270,6 +275,36 @@ public class GMFMapFactoryImpl extends EFactoryImpl implements GMFMapFactory {
 	public AuditRule createAuditRule() {
 		AuditRuleImpl auditRule = new AuditRuleImpl();
 		return auditRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DomainElementTarget createDomainElementTarget() {
+		DomainElementTargetImpl domainElementTarget = new DomainElementTargetImpl();
+		return domainElementTarget;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DiagramElementTarget createDiagramElementTarget() {
+		DiagramElementTargetImpl diagramElementTarget = new DiagramElementTargetImpl();
+		return diagramElementTarget;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotationElementTarget createNotationElementTarget() {
+		NotationElementTargetImpl notationElementTarget = new NotationElementTargetImpl();
+		return notationElementTarget;
 	}
 
 	/**

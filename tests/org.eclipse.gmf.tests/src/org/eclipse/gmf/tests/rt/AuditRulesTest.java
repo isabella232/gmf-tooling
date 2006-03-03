@@ -10,6 +10,7 @@
  */
 package org.eclipse.gmf.tests.rt;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -18,8 +19,11 @@ import java.util.Set;
 import junit.framework.Assert;
 
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.validation.model.CategoryManager;
 import org.eclipse.emf.validation.model.EvaluationMode;
 import org.eclipse.emf.validation.model.IConstraintStatus;
@@ -32,7 +36,14 @@ import org.eclipse.emf.validation.service.ValidationEvent;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
+import org.eclipse.gmf.mappings.DiagramElementTarget;
+import org.eclipse.gmf.mappings.DomainElementTarget;
+import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
+import org.eclipse.gmf.mappings.MappingEntry;
+import org.eclipse.gmf.mappings.NodeMapping;
+import org.eclipse.gmf.mappings.NotationElementTarget;
+import org.eclipse.gmf.runtime.notation.NotationPackage;
 import org.eclipse.gmf.tests.setup.MapDefSource;
 
 /**
@@ -51,7 +62,8 @@ import org.eclipse.gmf.tests.setup.MapDefSource;
  */
 public class AuditRulesTest extends RuntimeDiagramTestBase {
 	private AuditContainer audits;
-	private AuditAssert auditAssert;	
+	private AuditAssert auditAssert;
+	private EList targetedPackages;
 
 	public AuditRulesTest(String name) {
 		super(name);
@@ -65,29 +77,34 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 		this.audits = mapping.getAudits();
 		assertNotNull("Requires mapping with audit rules", audits); //$NON-NLS-1$
 		final GenDiagram genDiagram = getSetup().getGenModel().getGenDiagram();
-		auditAssert = new AuditAssert(genDiagram.getEditorGen().getPlugin().getID(), genDiagram.getDomainDiagramElement().getGenPackage());
+		
+		this.targetedPackages = genDiagram.getEditorGen().getAudits().getAllTargetedModelPackages();
+		auditAssert = new AuditAssert(genDiagram.getEditorGen().getPlugin().getID());
 	}
 
 	public void testAuditConstraints() throws Exception {		
 		auditAssert.assertAuditContainer(audits);
 	}
 
-	private static class AuditAssert {
+	private class AuditAssert {
 		private String pluginId;
-		private GenPackage domainModel;
-
-		AuditAssert(String pluginIdentifier, GenPackage domainModel) {
+		
+		AuditAssert(String pluginIdentifier) {
 			this.pluginId = pluginIdentifier;
-			this.domainModel = domainModel;
 		}
 
 		String constraintGlobalId(AuditRule audit) {
 			return pluginId + "." + audit.getId(); //$NON-NLS-1$			
 		}
 
-		void assertAudit(AuditRule audit) {
-			EClass target = ModelValidationService.findClass(domainModel.getNSURI(), audit.getTarget().getName());
-			EObject validatedInstance = target.getEPackage().getEFactoryInstance().create(target);
+		void assertAudit(AuditRule audit) { 			
+			EClass target = findCanonicalEClass(getTargetEClass(audit));
+			EObject validatedInstance = null;
+			if(NotationPackage.eINSTANCE.getView().isSuperTypeOf(target)) {
+				validatedInstance = createNode(getElementType(getSetup().getGenModel().getNodeA()), getDiagram());
+			} else {
+				validatedInstance = target.getEPackage().getEFactoryInstance().create(target);
+			}
 			
 			assertEvaluation(audit, validatedInstance);			
 			// Note: Only when the constraint is used in evaluation, its descriptor gets 
@@ -100,8 +117,8 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 
 			// augment to reveal reason for test failures
 			if (!descriptor.isEnabled()) {
-				System.err.println("descriptor is dispabled");
-				System.err.println("descriptor.isError:" + descriptor.isError());
+				System.err.println("descriptor is dispabled"); //$NON-NLS-1$
+				System.err.println("descriptor.isError:" + descriptor.isError()); //$NON-NLS-1$
 				if (descriptor.isError()) {
 					descriptor.getException().printStackTrace(System.err);
 				}
@@ -132,7 +149,7 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 			assertEquals("Single category expected", 1, categories.size()); //$NON-NLS-1$
 
 			assertEquals("Constraint category must be registered", //$NON-NLS-1$
-					categories.iterator().next(), CategoryManager.getInstance().getCategory(AuditAssert.getCategoryPath(audit.getContainer())));
+					categories.iterator().next(), CategoryManager.getInstance().getCategory(getCategoryPath(audit.getContainer())));
 			assertEvaluation(audit, validatedInstance);
 		}
 
@@ -191,7 +208,7 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 			}
 		}
 
-		static String getCategoryPath(AuditContainer container) {
+		String getCategoryPath(AuditContainer container) {
 			List pathElements = new ArrayList();
 			for (AuditContainer current = container; current != null; current = current.getParentContainer()) {
 				pathElements.add(0, current);
@@ -206,5 +223,50 @@ public class AuditRulesTest extends RuntimeDiagramTestBase {
 			}
 			return buf.toString();
 		}
+	}
+	
+	EClass findCanonicalEClass(EClass eClass) {
+		String nsURI = eClass.getEPackage().getNsURI();
+		GenPackage genPackage = null;
+		for (Iterator it = targetedPackages.iterator(); it.hasNext();) {
+			GenPackage nextPackage = (GenPackage) it.next();
+			if(nsURI.equals(nextPackage.getNSURI())) {
+				genPackage = nextPackage;
+				break;
+			}
+		}
+		assertNotNull("GenPackage for EClass target not found", genPackage); //$NON-NLS-1$		
+		try {
+			Class packageInterfaceClass = getSetup().getGenProject().getBundle().loadClass(genPackage.getQualifiedPackageInterfaceName());
+			Field instanceField = packageInterfaceClass.getField("eINSTANCE"); //$NON-NLS-1$
+			Object packageInstance = instanceField.get(packageInterfaceClass);
+			assertTrue("Expected EPackage instance", packageInstance instanceof EPackage); //$NON-NLS-1$
+			EPackage ePackage = (EPackage)packageInstance;
+			EClassifier eClassifier = ePackage.getEClassifier(eClass.getName());
+			assertTrue("EClassifier must be eclass", eClassifier instanceof EClass); //$NON-NLS-1$
+			return (EClass)eClassifier;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		fail("Failed to access EPackage from the generated model"); //$NON-NLS-1$		
+		return null; // make compiler happy
+	}
+	
+	static EClass getTargetEClass(AuditRule rule) {
+		if(rule.getTarget() instanceof DomainElementTarget) {
+			return ((DomainElementTarget)rule.getTarget()).getElement();
+		} else if(rule.getTarget() instanceof NotationElementTarget) {
+			return ((NotationElementTarget)rule.getTarget()).getElement();
+		} else if(rule.getTarget() instanceof DiagramElementTarget) {
+			DiagramElementTarget diagramElementTarget = (DiagramElementTarget)rule.getTarget();
+			MappingEntry entry = diagramElementTarget.getElement();
+			if(entry instanceof NodeMapping) {
+				return NotationPackage.eINSTANCE.getNode();
+			} else if(entry instanceof LinkMapping) {
+				return NotationPackage.eINSTANCE.getEdge();
+			}
+		}
+		fail("No target class"); //$NON-NLS-1$
+		return null;
 	}
 }

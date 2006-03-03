@@ -13,6 +13,7 @@ package org.eclipse.gmf.bridge.genmodel;
 
 import java.util.Iterator;
 
+import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
@@ -32,9 +33,11 @@ public abstract class MappingTransformer {
 		for (Iterator it = m.getLinks().iterator(); it.hasNext();) {
 			process((LinkMapping) it.next());
 		}
+		process(m.getAudits());
 	}
 
 	protected abstract void process(CanvasMapping cme);
 	protected abstract void process(TopNodeReference topNode);
 	protected abstract void process(LinkMapping lme);
+	protected abstract void process(AuditContainer audits);
 }

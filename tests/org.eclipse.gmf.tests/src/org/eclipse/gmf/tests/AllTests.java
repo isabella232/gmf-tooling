@@ -38,6 +38,7 @@ import org.eclipse.gmf.tests.setup.SessionSetup;
 import org.eclipse.gmf.tests.setup.TestSetupTest;
 import org.eclipse.gmf.tests.tr.GenModelTransformerBasicRTTest;
 import org.eclipse.gmf.tests.tr.GenModelTransformerSimpleTest;
+import org.eclipse.gmf.tests.tr.HistoryTest;
 import org.eclipse.gmf.tests.tr.NamingStrategyTest;
 
 public class AllTests {
@@ -56,7 +57,8 @@ public class AllTests {
 		suite.addTestSuite(HandcodedGraphDefTest.class);
 
 		suite.addTest(feed(GenModelTransformerSimpleTest.class, sessionSetup));
-
+		suite.addTestSuite(HistoryTest.class);
+		
 		suite.addTestSuite(FigureCodegenTest.class);
 		suite.addTestSuite(FigureLayoutTest.class);
 		suite.addTestSuite(RTFigureTest.class);

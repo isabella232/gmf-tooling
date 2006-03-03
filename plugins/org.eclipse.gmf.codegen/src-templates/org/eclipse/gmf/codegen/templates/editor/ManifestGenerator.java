@@ -42,6 +42,7 @@ requiredPluginIDs.add(genModel.getEditPluginID());
 for (Iterator it = genModel.getAllUsedGenPackagesWithClassifiers().iterator(); it.hasNext();) {
 	GenModel nextGenModel = ((GenPackage) it.next()).getGenModel();
 	if (nextGenModel.hasEditSupport()) {
+		requiredPluginIDs.add(nextGenModel.getModelPluginID());
 		requiredPluginIDs.add(nextGenModel.getEditPluginID());
 	}
 }

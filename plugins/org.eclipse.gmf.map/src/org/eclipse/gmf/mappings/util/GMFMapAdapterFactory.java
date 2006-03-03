@@ -10,6 +10,8 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.mappings.*;
+
 import org.eclipse.gmf.mappings.AppearanceSteward;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
@@ -152,8 +154,23 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 			public Object caseAuditContainer(AuditContainer object) {
 				return createAuditContainerAdapter();
 			}
+			public Object caseRuleBase(RuleBase object) {
+				return createRuleBaseAdapter();
+			}
 			public Object caseAuditRule(AuditRule object) {
 				return createAuditRuleAdapter();
+			}
+			public Object caseRuleTarget(RuleTarget object) {
+				return createRuleTargetAdapter();
+			}
+			public Object caseDomainElementTarget(DomainElementTarget object) {
+				return createDomainElementTargetAdapter();
+			}
+			public Object caseDiagramElementTarget(DiagramElementTarget object) {
+				return createDiagramElementTargetAdapter();
+			}
+			public Object caseNotationElementTarget(NotationElementTarget object) {
+				return createNotationElementTargetAdapter();
 			}
 			public Object defaultCase(EObject object) {
 				return createEObjectAdapter();
@@ -478,6 +495,76 @@ public class GMFMapAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAuditRuleAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.RuleBase <em>Rule Base</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.RuleBase
+	 * @generated
+	 */
+	public Adapter createRuleBaseAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.RuleTarget <em>Rule Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.RuleTarget
+	 * @generated
+	 */
+	public Adapter createRuleTargetAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.DomainElementTarget <em>Domain Element Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.DomainElementTarget
+	 * @generated
+	 */
+	public Adapter createDomainElementTargetAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.DiagramElementTarget <em>Diagram Element Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.DiagramElementTarget
+	 * @generated
+	 */
+	public Adapter createDiagramElementTargetAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.mappings.NotationElementTarget <em>Notation Element Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.eclipse.gmf.mappings.NotationElementTarget
+	 * @generated
+	 */
+	public Adapter createNotationElementTargetAdapter() {
 		return null;
 	}
 

@@ -6,8 +6,6 @@
  */
 package org.eclipse.gmf.mappings;
 
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -19,7 +17,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.eclipse.gmf.mappings.AuditRule#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AuditRule#getRule <em>Rule</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.AuditRule#getTarget <em>Target</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AuditRule#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AuditRule#getSeverity <em>Severity</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.AuditRule#isUseInLiveMode <em>Use In Live Mode</em>}</li>
@@ -33,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface AuditRule extends EObject {
+public interface AuditRule extends RuleBase {
 	/**
 	 * Returns the value of the '<em><b>Id</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -84,31 +81,6 @@ public interface AuditRule extends EObject {
 	 * @generated
 	 */
 	void setRule(Constraint value);
-
-	/**
-	 * Returns the value of the '<em><b>Target</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Model class to which this rules is targeted and is the context for rule expression evaluation
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Target</em>' reference.
-	 * @see #setTarget(EClass)
-	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getAuditRule_Target()
-	 * @model required="true"
-	 * @generated
-	 */
-	EClass getTarget();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.mappings.AuditRule#getTarget <em>Target</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Target</em>' reference.
-	 * @see #getTarget()
-	 * @generated
-	 */
-	void setTarget(EClass value);
 
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.

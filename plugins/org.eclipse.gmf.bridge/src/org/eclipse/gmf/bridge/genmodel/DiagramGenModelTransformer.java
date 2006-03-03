@@ -32,9 +32,11 @@ import org.eclipse.gmf.codegen.gmfgen.GenAuditContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenAuditRule;
 import org.eclipse.gmf.codegen.gmfgen.GenChildContainer;
 import org.eclipse.gmf.codegen.gmfgen.GenChildNode;
+import org.eclipse.gmf.codegen.gmfgen.GenCommonBase;
 import org.eclipse.gmf.codegen.gmfgen.GenCompartment;
 import org.eclipse.gmf.codegen.gmfgen.GenConstraint;
 import org.eclipse.gmf.codegen.gmfgen.GenDiagram;
+import org.eclipse.gmf.codegen.gmfgen.GenDiagramElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenDomainElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator;
 import org.eclipse.gmf.codegen.gmfgen.GenElementInitializer;
@@ -45,7 +47,9 @@ import org.eclipse.gmf.codegen.gmfgen.GenLinkConstraints;
 import org.eclipse.gmf.codegen.gmfgen.GenLinkLabel;
 import org.eclipse.gmf.codegen.gmfgen.GenNode;
 import org.eclipse.gmf.codegen.gmfgen.GenNodeLabel;
+import org.eclipse.gmf.codegen.gmfgen.GenNotationElementTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
+import org.eclipse.gmf.codegen.gmfgen.GenRuleTarget;
 import org.eclipse.gmf.codegen.gmfgen.GenSeverity;
 import org.eclipse.gmf.codegen.gmfgen.GenTopLevelNode;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
@@ -72,6 +76,8 @@ import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.ChildReference;
 import org.eclipse.gmf.mappings.CompartmentMapping;
 import org.eclipse.gmf.mappings.Constraint;
+import org.eclipse.gmf.mappings.DiagramElementTarget;
+import org.eclipse.gmf.mappings.DomainElementTarget;
 import org.eclipse.gmf.mappings.ElementInitializer;
 import org.eclipse.gmf.mappings.FeatureSeqInitializer;
 import org.eclipse.gmf.mappings.FeatureValueSpec;
@@ -82,6 +88,8 @@ import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.MappingEntry;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.mappings.NodeReference;
+import org.eclipse.gmf.mappings.NotationElementTarget;
+import org.eclipse.gmf.mappings.RuleTarget;
 import org.eclipse.gmf.mappings.Severity;
 import org.eclipse.gmf.mappings.ToolOwner;
 import org.eclipse.gmf.mappings.TopNodeReference;
@@ -181,14 +189,6 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 		// set class names
 		myNamingStrategy.feed(getGenDiagram(), mapping);
-		
-		// process audit rules
-		if(mapping.eContainer() != null) {
-			AuditContainer audits = ((Mapping)mapping.eContainer()).getAudits();
-			if(audits != null) {
-				getGenEssence().setAudits(createGenAuditContainer(audits));
-			}
-		}
 	}
 
 	protected void process(TopNodeReference topNode) {
@@ -208,6 +208,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		myNamingStrategy.feed(genNode, nme);
 		
 		processAbstractNode(nme, genNode);
+		myHistory.log(nme, genNode);
 	}
 
 	private void process(ChildReference childNodeRef, GenChildContainer container) {
@@ -217,9 +218,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		assert childNodeMapping.getDiagramNode() != null;
 
 		GenChildNode childNode;
-		if (myHistory.isKnown(childNodeMapping)) {
+		if (myHistory.isKnownChildNode(childNodeMapping)) {
 			// we can't reuse top-level GenNodes
-			childNode = myHistory.find(childNodeMapping);
+			childNode = myHistory.findChildNode(childNodeMapping);
 		} else {
 			childNode = GMFGenFactory.eINSTANCE.createGenChildNode();
 			myHistory.log(childNodeMapping, childNode);
@@ -326,6 +327,8 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		if(lme.getCreationConstraints() != null) {
 			gl.setCreationConstraints(createLinkCreationConstraints(lme.getCreationConstraints()));
 		}
+		
+		myHistory.log(lme, gl);
 	}
 
 	private GenNodeLabel createNodeLabel(GenNode node, LabelMapping mapping) {
@@ -621,9 +624,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		genAudit.setUseInLiveMode(audit.isUseInLiveMode());
 		
 		if(audit.getTarget() != null) {
-			GenDomainElementTarget target = GMFGenFactory.eINSTANCE.createGenDomainElementTarget();
-			target.setElement(findGenClass(audit.getTarget()));
-			genAudit.setTarget(target);
+			genAudit.setTarget(createRuleTarget(audit.getTarget()));
 		}
 		Constraint rule = audit.getRule();
 		if(rule != null) {
@@ -644,4 +645,45 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 		}
 		return genAudit;
 	} 
+	
+	private GenRuleTarget createRuleTarget(RuleTarget ruleTarget) {		
+		if (ruleTarget instanceof DomainElementTarget) {
+			DomainElementTarget domainTarget = (DomainElementTarget)ruleTarget;
+			GenDomainElementTarget genDomainTarget = GMFGenFactory.eINSTANCE.createGenDomainElementTarget();
+			genDomainTarget.setElement(domainTarget.getElement() != null ? findGenClass(domainTarget.getElement()) : null);
+			return genDomainTarget;
+		} else if (ruleTarget instanceof NotationElementTarget) {
+			NotationElementTarget notationTarget = (NotationElementTarget) ruleTarget;
+			GenNotationElementTarget genNotationTarget = GMFGenFactory.eINSTANCE.createGenNotationElementTarget();
+			genNotationTarget.setElement(notationTarget.getElement() != null ? findGenClass(notationTarget.getElement()) : null);
+			return genNotationTarget;
+
+		} else if (ruleTarget instanceof DiagramElementTarget) {
+			GenDiagramElementTarget diagramTarget = GMFGenFactory.eINSTANCE.createGenDiagramElementTarget();
+			MappingEntry mappingEntry = ((DiagramElementTarget) ruleTarget).getElement();
+			if (mappingEntry != null) {
+				GenCommonBase genBase = null;
+				LinkMapping lm = mappingEntry instanceof LinkMapping ? (LinkMapping) mappingEntry : null;
+				if (lm != null) {
+					genBase = myHistory.find(lm);
+				} else {
+					NodeMapping nm = mappingEntry instanceof NodeMapping ? (NodeMapping) mappingEntry : null;
+					genBase = myHistory.find(nm);
+				}
+				
+				assert genBase != null;				
+				diagramTarget.setElement(genBase);
+			}
+			return diagramTarget;
+		} else {
+			assert false : "Uknown rule target type"; //$NON-NLS-1$
+		}
+		return null;
+	}
+
+	protected void process(AuditContainer audits) {
+		if(audits != null) {
+			getGenEssence().setAudits(createGenAuditContainer(audits));	
+		}
+	}
 }

@@ -17,6 +17,7 @@ import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
 import org.eclipse.gmf.mappings.Constraint;
 import org.eclipse.gmf.mappings.GMFMapPackage;
+import org.eclipse.gmf.mappings.RuleTarget;
 import org.eclipse.gmf.mappings.Severity;
 
 /**
@@ -26,9 +27,9 @@ import org.eclipse.gmf.mappings.Severity;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.eclipse.gmf.mappings.impl.AuditRuleImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AuditRuleImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AuditRuleImpl#getRule <em>Rule</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.AuditRuleImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AuditRuleImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AuditRuleImpl#getSeverity <em>Severity</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.AuditRuleImpl#isUseInLiveMode <em>Use In Live Mode</em>}</li>
@@ -41,6 +42,16 @@ import org.eclipse.gmf.mappings.Severity;
  * @generated
  */
 public class AuditRuleImpl extends EObjectImpl implements AuditRule {
+	/**
+	 * The cached value of the '{@link #getTarget() <em>Target</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTarget()
+	 * @generated
+	 * @ordered
+	 */
+	protected RuleTarget target = null;
+
 	/**
 	 * The default value of the '{@link #getId() <em>Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -70,16 +81,6 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 	 * @ordered
 	 */
 	protected Constraint rule = null;
-
-	/**
-	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getTarget()
-	 * @generated
-	 * @ordered
-	 */
-	protected EClass target = null;
 
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -268,15 +269,7 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getTarget() {
-		if (target != null && target.eIsProxy()) {
-			InternalEObject oldTarget = (InternalEObject)target;
-			target = (EClass)eResolveProxy(oldTarget);
-			if (target != oldTarget) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, GMFMapPackage.AUDIT_RULE__TARGET, oldTarget, target));
-			}
-		}
+	public RuleTarget getTarget() {
 		return target;
 	}
 
@@ -285,20 +278,33 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass basicGetTarget() {
-		return target;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setTarget(EClass newTarget) {
-		EClass oldTarget = target;
+	public NotificationChain basicSetTarget(RuleTarget newTarget, NotificationChain msgs) {
+		RuleTarget oldTarget = target;
 		target = newTarget;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.AUDIT_RULE__TARGET, oldTarget, target));
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, GMFMapPackage.AUDIT_RULE__TARGET, oldTarget, newTarget);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setTarget(RuleTarget newTarget) {
+		if (newTarget != target) {
+			NotificationChain msgs = null;
+			if (target != null)
+				msgs = ((InternalEObject)target).eInverseRemove(this, GMFMapPackage.RULE_TARGET__RULE, RuleTarget.class, msgs);
+			if (newTarget != null)
+				msgs = ((InternalEObject)newTarget).eInverseAdd(this, GMFMapPackage.RULE_TARGET__RULE, RuleTarget.class, msgs);
+			msgs = basicSetTarget(newTarget, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.AUDIT_RULE__TARGET, newTarget, newTarget));
 	}
 
 	/**
@@ -444,6 +450,10 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 	 */
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFMapPackage.AUDIT_RULE__TARGET:
+				if (target != null)
+					msgs = ((InternalEObject)target).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - GMFMapPackage.AUDIT_RULE__TARGET, null, msgs);
+				return basicSetTarget((RuleTarget)otherEnd, msgs);
 			case GMFMapPackage.AUDIT_RULE__CONTAINER:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
@@ -459,6 +469,8 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 	 */
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case GMFMapPackage.AUDIT_RULE__TARGET:
+				return basicSetTarget(null, msgs);
 			case GMFMapPackage.AUDIT_RULE__RULE:
 				return basicSetRule(null, msgs);
 			case GMFMapPackage.AUDIT_RULE__CONTAINER:
@@ -487,13 +499,12 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 	 */
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case GMFMapPackage.AUDIT_RULE__TARGET:
+				return getTarget();
 			case GMFMapPackage.AUDIT_RULE__ID:
 				return getId();
 			case GMFMapPackage.AUDIT_RULE__RULE:
 				return getRule();
-			case GMFMapPackage.AUDIT_RULE__TARGET:
-				if (resolve) return getTarget();
-				return basicGetTarget();
 			case GMFMapPackage.AUDIT_RULE__NAME:
 				return getName();
 			case GMFMapPackage.AUDIT_RULE__SEVERITY:
@@ -517,14 +528,14 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 	 */
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case GMFMapPackage.AUDIT_RULE__TARGET:
+				setTarget((RuleTarget)newValue);
+				return;
 			case GMFMapPackage.AUDIT_RULE__ID:
 				setId((String)newValue);
 				return;
 			case GMFMapPackage.AUDIT_RULE__RULE:
 				setRule((Constraint)newValue);
-				return;
-			case GMFMapPackage.AUDIT_RULE__TARGET:
-				setTarget((EClass)newValue);
 				return;
 			case GMFMapPackage.AUDIT_RULE__NAME:
 				setName((String)newValue);
@@ -555,14 +566,14 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 	 */
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case GMFMapPackage.AUDIT_RULE__TARGET:
+				setTarget((RuleTarget)null);
+				return;
 			case GMFMapPackage.AUDIT_RULE__ID:
 				setId(ID_EDEFAULT);
 				return;
 			case GMFMapPackage.AUDIT_RULE__RULE:
 				setRule((Constraint)null);
-				return;
-			case GMFMapPackage.AUDIT_RULE__TARGET:
-				setTarget((EClass)null);
 				return;
 			case GMFMapPackage.AUDIT_RULE__NAME:
 				setName(NAME_EDEFAULT);
@@ -593,12 +604,12 @@ public class AuditRuleImpl extends EObjectImpl implements AuditRule {
 	 */
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case GMFMapPackage.AUDIT_RULE__TARGET:
+				return target != null;
 			case GMFMapPackage.AUDIT_RULE__ID:
 				return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
 			case GMFMapPackage.AUDIT_RULE__RULE:
 				return rule != null;
-			case GMFMapPackage.AUDIT_RULE__TARGET:
-				return target != null;
 			case GMFMapPackage.AUDIT_RULE__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case GMFMapPackage.AUDIT_RULE__SEVERITY:

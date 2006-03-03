@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.gmf.gmfgraph.Identity;
+import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.CanvasMapping;
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.TopNodeReference;
@@ -70,4 +71,8 @@ public class DiagramRunTimeModelTransformer extends MappingTransformer {
 		c.getESuperTypes().add(superClass);
 		return c;
 	}
+
+	protected void process(AuditContainer audits) {
+	}
+
 }

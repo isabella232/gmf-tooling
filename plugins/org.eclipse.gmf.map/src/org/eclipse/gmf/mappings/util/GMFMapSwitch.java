@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.gmf.mappings.*;
+
 import org.eclipse.gmf.mappings.AppearanceSteward;
 import org.eclipse.gmf.mappings.AuditContainer;
 import org.eclipse.gmf.mappings.AuditRule;
@@ -251,9 +253,43 @@ public class GMFMapSwitch {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case GMFMapPackage.RULE_BASE: {
+				RuleBase ruleBase = (RuleBase)theEObject;
+				Object result = caseRuleBase(ruleBase);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case GMFMapPackage.AUDIT_RULE: {
 				AuditRule auditRule = (AuditRule)theEObject;
 				Object result = caseAuditRule(auditRule);
+				if (result == null) result = caseRuleBase(auditRule);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.RULE_TARGET: {
+				RuleTarget ruleTarget = (RuleTarget)theEObject;
+				Object result = caseRuleTarget(ruleTarget);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.DOMAIN_ELEMENT_TARGET: {
+				DomainElementTarget domainElementTarget = (DomainElementTarget)theEObject;
+				Object result = caseDomainElementTarget(domainElementTarget);
+				if (result == null) result = caseRuleTarget(domainElementTarget);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.DIAGRAM_ELEMENT_TARGET: {
+				DiagramElementTarget diagramElementTarget = (DiagramElementTarget)theEObject;
+				Object result = caseDiagramElementTarget(diagramElementTarget);
+				if (result == null) result = caseRuleTarget(diagramElementTarget);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case GMFMapPackage.NOTATION_ELEMENT_TARGET: {
+				NotationElementTarget notationElementTarget = (NotationElementTarget)theEObject;
+				Object result = caseNotationElementTarget(notationElementTarget);
+				if (result == null) result = caseRuleTarget(notationElementTarget);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -588,6 +624,81 @@ public class GMFMapSwitch {
 	 * @generated
 	 */
 	public Object caseAuditRule(AuditRule object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Rule Base</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Rule Base</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseRuleBase(RuleBase object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Rule Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Rule Target</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseRuleTarget(RuleTarget object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Domain Element Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Domain Element Target</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseDomainElementTarget(DomainElementTarget object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Diagram Element Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Diagram Element Target</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseDiagramElementTarget(DiagramElementTarget object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpretting the object as an instance of '<em>Notation Element Target</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpretting the object as an instance of '<em>Notation Element Target</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public Object caseNotationElementTarget(NotationElementTarget object) {
 		return null;
 	}
 
