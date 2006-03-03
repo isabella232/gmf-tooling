@@ -51,6 +51,10 @@ public class ModelURISelector implements Listener {
 
 	private Group myControl;
 
+	private Listener mySetTextActionListener;
+
+	private ToolItem myLoadBtn;
+
 	public ModelURISelector(String groupTitle, String fileExt, Loader modelLoader) {
 		myGroupTitle = groupTitle;
 		myFileExt = fileExt;
@@ -81,6 +85,51 @@ public class ModelURISelector implements Listener {
 		return browseMenu;
 	}
 
+	public void addBrowseMenuSeparator() {
+		new MenuItem(getBrowseMenu(), SWT.SEPARATOR);
+	}
+
+	public void addBrowseMenuAction(String text, String uriValue) {
+		assert text != null && uriValue != null; 
+		MenuItem item = new MenuItem(getBrowseMenu(), SWT.PUSH);
+		item.setText(text);
+		item.setData(uriValue);
+		item.addListener(SWT.Selection, getTextActionListener());
+	}
+
+	public void addBrowseMenuAction(String text, Listener l) {
+		assert text != null && l != null; 
+		MenuItem item = new MenuItem(getBrowseMenu(), SWT.PUSH);
+		item.setText(text);
+		item.addListener(SWT.Selection, l);
+	}
+
+	public void disableLoad() {
+		assert myLoadBtn != null;
+		myLoadBtn.setEnabled(false);
+	}
+
+	public void enableLoad() {
+		assert myLoadBtn != null;
+		myLoadBtn.setEnabled(true);
+	}
+
+	private Listener getTextActionListener() {
+		if (mySetTextActionListener == null) {
+			mySetTextActionListener = new Listener() {
+				public void handleEvent(Event event) {
+					if (event.widget.getData() instanceof URI) {
+						setURIText((URI) event.widget.getData());
+					} else {
+						setURIText(String.valueOf(event.widget.getData()));
+					}
+					enableLoad();
+				}
+			};
+		}
+		return mySetTextActionListener;
+	}
+
 	/**
 	 * @see http://www.eclipse.org/swt/snippets/
 	 * @param parent
@@ -108,9 +157,9 @@ public class ModelURISelector implements Listener {
 
 		new ToolItem(toolBar, SWT.SEPARATOR);
 		new ToolItem(toolBar, SWT.SEPARATOR);
-		ToolItem toolItem1 = new ToolItem(toolBar, SWT.PUSH);
-		toolItem1.setText(Messages.uriSelectorLoad);
-		toolItem1.addListener(SWT.Selection, this);
+		myLoadBtn = new ToolItem(toolBar, SWT.PUSH);
+		myLoadBtn.setText(Messages.uriSelectorLoad);
+		myLoadBtn.addListener(SWT.Selection, this);
 	}
 
 	protected Menu createBrowseMenu(Control parent) {
@@ -147,6 +196,7 @@ public class ModelURISelector implements Listener {
 			IResource resource = (IResource) result[0];
 			if (isValidWorkspaceResource(resource)) {
 				setURIText(URI.createURI(URI.createPlatformResourceURI(resource.getFullPath().toString()).toString(), true).toString());
+				enableLoad();
 			}
 		}
 	}
@@ -158,6 +208,7 @@ public class ModelURISelector implements Listener {
 		if (fileDialog.open() != null && fileDialog.getFileNames().length > 0) {
 			String filePath = fileDialog.getFileNames()[0];
 			setURIText(URI.createFileURI(filePath).toString());
+			enableLoad();
 		}
 	}
 

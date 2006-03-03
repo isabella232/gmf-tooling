@@ -85,6 +85,9 @@ public class NewGMFMapModelWizard extends Wizard implements INewWizard {
 					Map options = new HashMap();
 					options.put(XMLResource.OPTION_ENCODING, "UTF-8");
 					myHolder.getMapping().eResource().save(options);
+					if (myHolder.isNewBlankToolDef()) {
+						myHolder.getToolDef().eResource().save(options);
+					}
 				} catch (Exception ex) {
 					Plugin.log(ex);
 				} finally {

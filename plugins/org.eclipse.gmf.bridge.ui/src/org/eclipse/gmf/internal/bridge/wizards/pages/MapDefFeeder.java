@@ -42,18 +42,18 @@ import org.eclipse.gmf.mappings.TopNodeReference;
 public class MapDefFeeder {
 
 	private final GraphDefLookup myGraphDefLookup;
-	private final ToolDefLookup myToolDefLookup;
+	private final ToolDefSupplier myToolDefLookup;
 
 	private Hierarchy myHierarchy;
 	private final WizardInput myInputHolder;
 	private List/*EClass*/ myNodeCandidates;
 	private List/*EObject*/ myLinkCandidates;
 
-	public MapDefFeeder(WizardInput holder) {
+	public MapDefFeeder(WizardInput holder, ToolDefSupplier toolDefSupplier) {
 		assert holder != null;
 		myInputHolder = holder;
 		myGraphDefLookup = new GraphDefLookup(holder.getCanvasDef());
-		myToolDefLookup = new ToolDefLookup(holder.getToolDef());
+		myToolDefLookup = toolDefSupplier;
 	}
 
 	protected final Mapping getMapping() {

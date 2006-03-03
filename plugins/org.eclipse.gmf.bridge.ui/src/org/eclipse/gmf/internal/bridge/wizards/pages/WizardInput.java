@@ -16,6 +16,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.util.URI;
@@ -37,6 +39,7 @@ import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.Mapping;
 import org.eclipse.gmf.mappings.NodeReference;
 import org.eclipse.gmf.mappings.provider.GMFMapItemProviderAdapterFactory;
+import org.eclipse.gmf.tooldef.GMFToolFactory;
 import org.eclipse.gmf.tooldef.ToolRegistry;
 import org.eclipse.gmf.tooldef.provider.GMFToolItemProviderAdapterFactory;
 
@@ -55,6 +58,7 @@ public class WizardInput {
 	private String initialECoreFile = null;
 	private String initialGraphFile = null;
 	private String initialToolFile = null;
+	private boolean myIsBlankToolDef = false;
 
 	public WizardInput() {
 	}
@@ -98,9 +102,33 @@ public class WizardInput {
 		return myCanvas;
 	}
 
+	public boolean isNewBlankToolDef() {
+		return myIsBlankToolDef;
+	}
+
+	public URI createBlankToolDef() {
+		checkUnload(myRegistry);
+		myRegistry = null;
+		IPath toolDefFile = getMappingFile().getFullPath().removeFileExtension().addFileExtension("gmftool");
+		String baseName = getMappingFile().getFullPath().removeFileExtension().lastSegment();
+		int i = 1;
+		final IWorkspace wr = getMappingFile().getProject().getWorkspace(); 
+		while (wr.getRoot().findMember(toolDefFile) != null) {
+			toolDefFile = toolDefFile.removeLastSegments(1).append(baseName + i).addFileExtension("gmftool");
+			i++;
+		}
+		URI toolDefURI = URI.createPlatformResourceURI(toolDefFile.toString());
+		myRegistry = GMFToolFactory.eINSTANCE.createToolRegistry();
+		myRegistry.setPalette(GMFToolFactory.eINSTANCE.createPalette());
+		getResourceSet().createResource(toolDefURI).getContents().add(myRegistry);
+		myIsBlankToolDef  = true;
+		return toolDefURI;
+	}
+
 	public void setToolDef(ToolRegistry registry) {
 		checkUnload(myRegistry);
 		myRegistry = registry;
+		myIsBlankToolDef = false;
 	}
 
 	public ToolRegistry getToolDef() {
@@ -170,8 +198,16 @@ public class WizardInput {
 	}
 
 	public void feedDefaultMapping() {
-		myFeeder = new MapDefFeeder(this);
+		myFeeder = new MapDefFeeder(this, createToolDefSupplier());
 		myFeeder.feedDefaultMapping();
+	}
+
+	private ToolDefSupplier createToolDefSupplier() {
+		if (isNewBlankToolDef()) {
+			return new CreateToolDef(getToolDef());
+		} else {
+			return new ToolDefLookup(getToolDef());
+		}
 	}
 
 	public NodeReference[] nodeCandidates() {

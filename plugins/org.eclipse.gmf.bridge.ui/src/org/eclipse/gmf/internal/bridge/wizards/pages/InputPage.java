@@ -26,16 +26,17 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.MenuItem;
 
 /**
  * @author artem
  */
 public class InputPage extends WizardPage implements Loader {
+
 	private ModelURISelector ecoreSelector;
 	private ModelURISelector gmfgraphSelector;
 	private ModelURISelector tooldefSelector;
 	private final WizardInput holder; 
+
 	public InputPage(WizardInput input) {
 		super("inputPage"); //$NON-NLS-1$
 		holder = input;
@@ -53,35 +54,24 @@ public class InputPage extends WizardPage implements Loader {
 		l.verticalSpacing = 30;
 		p.setLayout(l);
 		Control c = ecoreSelector.createControl(p);
-		final Listener lll = new Listener() {
-			public void handleEvent(Event event) {
-				ecoreSelector.setURIText((String) event.widget.getData());
-			}
-		};
-		// TODO define additional get from extpoint
-		new MenuItem(ecoreSelector.getBrowseMenu(), SWT.SEPARATOR);
-		MenuItem ii = new MenuItem(ecoreSelector.getBrowseMenu(), SWT.PUSH);
-		initializeEcoreFileURI();
-		ii.setText(Messages.useECore);
-		ii.setData("platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"); //$NON-NLS-1$
-		ii.addListener(SWT.Selection, lll);
-
 		c.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		// TODO define additional get from extpoint
+		ecoreSelector.addBrowseMenuSeparator();
+		ecoreSelector.addBrowseMenuAction(Messages.useECore, "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"); //$NON-NLS-1$
+		initializeEcoreFileURI();
+
 		c = gmfgraphSelector.createControl(p);
 		c.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		gmfgraphSelector.setURIText(Assistant.getBasicGraphDef());
-		new MenuItem(gmfgraphSelector.getBrowseMenu(), SWT.SEPARATOR);
-		MenuItem mi = new MenuItem(gmfgraphSelector.getBrowseMenu(), SWT.PUSH);
-		mi.setText(Messages.useBasic);
-		mi.addListener(SWT.Selection, new Listener() {
-			public void handleEvent(Event event) {
-				gmfgraphSelector.setURIText(Assistant.getBasicGraphDef());
-			}
-		});
+		gmfgraphSelector.addBrowseMenuSeparator();
+		gmfgraphSelector.addBrowseMenuAction(Messages.useBasic, Assistant.getBasicGraphDef().toString());
 		initializeGraphFileURI();
+
 		c = tooldefSelector.createControl(p);
-		initializeToolFileURI();
 		c.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+		tooldefSelector.addBrowseMenuSeparator();
+		tooldefSelector.addBrowseMenuAction("Create blank", new NewBlankToolDef());
+		initializeToolFileURI();
 		setControl(p);
 	}
 
@@ -122,5 +112,11 @@ public class InputPage extends WizardPage implements Loader {
 		setPageComplete(holder.isReady2Go());
 	}
 
-
+	private class NewBlankToolDef implements Listener {
+		public void handleEvent(Event event) {
+			tooldefSelector.setURIText(holder.createBlankToolDef());
+			tooldefSelector.disableLoad();
+			setPageComplete(holder.isReady2Go());
+		}
+	}
 }

@@ -23,7 +23,7 @@ import org.eclipse.gmf.tooldef.ToolRegistry;
 /**
  * @author artem
  */
-public class ToolDefLookup {
+public class ToolDefLookup implements ToolDefSupplier {
 	private final ToolRegistry myRegistry;
 	private final ToolContainer myNodeTools;
 	private final ToolContainer myLinkTools;
