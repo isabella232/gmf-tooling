@@ -35,7 +35,6 @@ public class InputPage extends WizardPage implements Loader {
 	private ModelURISelector ecoreSelector;
 	private ModelURISelector gmfgraphSelector;
 	private ModelURISelector tooldefSelector;
-
 	private final WizardInput holder; 
 	public InputPage(WizardInput input) {
 		super("inputPage"); //$NON-NLS-1$
@@ -62,6 +61,7 @@ public class InputPage extends WizardPage implements Loader {
 		// TODO define additional get from extpoint
 		new MenuItem(ecoreSelector.getBrowseMenu(), SWT.SEPARATOR);
 		MenuItem ii = new MenuItem(ecoreSelector.getBrowseMenu(), SWT.PUSH);
+		initializeEcoreFileURI();
 		ii.setText(Messages.useECore);
 		ii.setData("platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"); //$NON-NLS-1$
 		ii.addListener(SWT.Selection, lll);
@@ -78,9 +78,29 @@ public class InputPage extends WizardPage implements Loader {
 				gmfgraphSelector.setURIText(Assistant.getBasicGraphDef());
 			}
 		});
+		initializeGraphFileURI();
 		c = tooldefSelector.createControl(p);
+		initializeToolFileURI();
 		c.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 		setControl(p);
+	}
+
+	private void initializeEcoreFileURI() {
+		if (holder.getInitialECoreFile() != null) {
+			ecoreSelector.setURIText(holder.getInitialECoreFile());
+		}
+	}
+	
+	private void initializeGraphFileURI() {
+		if (holder.getInitialGraphFile() != null) {
+			gmfgraphSelector.setURIText(holder.getInitialGraphFile());
+		}
+	}
+	
+	private void initializeToolFileURI() {
+		if (holder.getInitialToolFile() != null) {
+			tooldefSelector.setURIText(holder.getInitialToolFile());
+		}
 	}
 
 	public void run(ModelURISelector selector, String uriText) {
@@ -101,4 +121,6 @@ public class InputPage extends WizardPage implements Loader {
 		}
 		setPageComplete(holder.isReady2Go());
 	}
+
+
 }

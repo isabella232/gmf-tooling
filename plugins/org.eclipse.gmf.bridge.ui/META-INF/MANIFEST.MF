@@ -20,7 +20,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.codegen.ecore.ui
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.gmf.internal.bridge.resolver;x-internal:=true,
- org.eclipse.gmf.internal.bridge.ui;x-friends:="org.eclipse.gmf.bridge.ui.dashboard",
- org.eclipse.gmf.internal.bridge.wizards;x-friends:="org.eclipse.gmf.bridge.ui.dashboard",
- org.eclipse.gmf.internal.bridge.wizards.pages;x-internal:=true,
+ org.eclipse.gmf.internal.bridge.ui;x-friends:="org.eclipse.gmf.bridge.ui.dashboard,org.eclipse.gmf.doc.ui",
+ org.eclipse.gmf.internal.bridge.wizards;x-friends:="org.eclipse.gmf.bridge.ui.dashboard,org.eclipse.gmf.doc.ui",
+ org.eclipse.gmf.internal.bridge.wizards.pages;x-friends:="org.eclipse.gmf.doc.ui",
  org.eclipse.gmf.internal.bridge.wizards.strategy;x-internal:=true

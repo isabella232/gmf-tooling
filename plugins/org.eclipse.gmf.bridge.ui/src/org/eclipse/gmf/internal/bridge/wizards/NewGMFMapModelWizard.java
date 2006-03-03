@@ -110,4 +110,9 @@ public class NewGMFMapModelWizard extends Wizard implements INewWizard {
 	public IFile getModelFile() {
 		return myHolder.getMappingFile();
 	}
+
+	public WizardInput getWizardInput() {
+		return myHolder;
+	}
+
 }

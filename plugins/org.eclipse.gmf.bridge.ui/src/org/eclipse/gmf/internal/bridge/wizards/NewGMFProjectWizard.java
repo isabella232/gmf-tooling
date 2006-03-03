@@ -14,17 +14,25 @@ package org.eclipse.gmf.internal.bridge.wizards;
 import org.eclipse.emf.codegen.ecore.ui.EmptyProjectWizard;
 import org.eclipse.gmf.internal.bridge.ui.Plugin;
 import org.eclipse.gmf.internal.bridge.wizards.pages.ShowDashboardPage;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 
 /**
- * Quick way to introduce GMF Project wizard.
- * XXX Get rid of EmptyProjectWizard and ecore.ui dependency once you know what could be added here.
+ * Quick way to introduce GMF Project wizard. XXX Get rid of EmptyProjectWizard
+ * and ecore.ui dependency once you know what could be added here.
  * 
  * @author artem
  */
 public class NewGMFProjectWizard extends EmptyProjectWizard {
+
+	public void init(IWorkbench workbench, IStructuredSelection selection) {
+		super.init(workbench, selection);
+		setWindowTitle(Plugin.getBundleString("newProjectWizard.name"));
+	}
 
 	private static final String SD_PROPERTY = "show_dashboard"; //$NON-NLS-1$
 
@@ -32,12 +40,21 @@ public class NewGMFProjectWizard extends EmptyProjectWizard {
 
 	private ShowDashboardPage sdp;
 
+	private String initialProjectName;
+
 	public NewGMFProjectWizard() {
+		super();
 		showDashboard = Plugin.getDefault().getPreferenceStore().getBoolean(SD_PROPERTY);
 	}
 
 	public void addPages() {
 		super.addPages();
+		WizardNewProjectCreationPage page = (WizardNewProjectCreationPage) getPage("NewProjectCreationPage");  //$NON-NLS-1$
+		if (page != null) {
+			page.setInitialProjectName(initialProjectName);
+			page.setDescription(Plugin.getBundleString("newProjectWizard.desc"));
+			page.setTitle(Plugin.getBundleString("newProjectWizard.name"));
+		}
 		sdp = new ShowDashboardPage("Show Dashboard", showDashboard); //$NON-NLS-1$
 		sdp.setTitle("Show Dashboard");
 		sdp.setDescription("Show dashboard view for the created project");
@@ -72,5 +89,9 @@ public class NewGMFProjectWizard extends EmptyProjectWizard {
 				Plugin.log(e);
 			}
 		}
+	}
+
+	public void setInitialProjectName(String initialProjectName) {
+		this.initialProjectName = initialProjectName;
 	}
 }

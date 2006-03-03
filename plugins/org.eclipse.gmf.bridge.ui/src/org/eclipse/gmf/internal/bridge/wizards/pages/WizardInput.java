@@ -52,6 +52,9 @@ public class WizardInput {
 	private AdapterFactory myAdapterFactory;
 	private IFile myResultFile = null;
 	private MapDefFeeder myFeeder;
+	private String initialECoreFile = null;
+	private String initialGraphFile = null;
+	private String initialToolFile = null;
 
 	public WizardInput() {
 	}
@@ -177,5 +180,29 @@ public class WizardInput {
 
 	public LinkMapping[] linkCandidates() {
 		return myFeeder.getInitialLinks();
+	}
+	
+	public String getInitialECoreFile() {
+		return initialECoreFile;
+	}
+
+	public void setInitialECoreFile(String initialECoreFile) {
+		this.initialECoreFile = initialECoreFile;
+	}
+
+	public String getInitialGraphFile() {
+		return initialGraphFile;
+	}
+
+	public void setInitialGraphFile(String initialGraphFile) {
+		this.initialGraphFile = initialGraphFile;
+	}
+
+	public String getInitialToolFile() {
+		return initialToolFile;
+	}
+
+	public void setInitialToolFile(String initialToolFile) {
+		this.initialToolFile = initialToolFile;
 	}
 }

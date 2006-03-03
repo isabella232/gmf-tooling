@@ -11,8 +11,11 @@
  */
 package org.eclipse.gmf.internal.bridge.ui;
 
+import java.text.MessageFormat;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.resource.ImageRegistry;
@@ -44,6 +47,18 @@ public class Plugin extends AbstractUIPlugin {
 
 	public static Plugin getDefault() {
 		return plugin;
+	}
+	
+	public static String getBundleString(String key) {
+		return Platform.getResourceBundle(getDefault().getBundle()).getString(key);
+	}
+
+	public static String getBundleString(String key, Object[] args) {
+		String val = getBundleString(key);
+		if (val == null) {
+			return key;
+		}
+		return MessageFormat.format(val, args);
 	}
 
 	protected void initializeImageRegistry(ImageRegistry reg) {
