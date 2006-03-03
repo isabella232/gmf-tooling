@@ -45,6 +45,7 @@ public class ShowDashboardPage extends WizardPage {
 		showDashboardCheckbox = new Button(composite, SWT.CHECK);
 		showDashboardCheckbox.setText("Show dashboard view for the created project");
 		showDashboardCheckbox.setLayoutData(createHrzData());
+		showDashboardCheckbox.setSelection(showDashboard);
 		showDashboardCheckbox.addSelectionListener(new SelectionListener() {
 
 			public void widgetSelected(SelectionEvent e) {
