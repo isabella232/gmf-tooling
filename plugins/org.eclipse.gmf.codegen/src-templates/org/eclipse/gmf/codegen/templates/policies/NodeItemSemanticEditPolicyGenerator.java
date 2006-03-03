@@ -768,11 +768,9 @@ final String INCOMING_TOKEN = "Incoming";
     
 for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	GenLink genLink = (GenLink) links.next();
-	
-	if (!genLink.isOutgoingCreationAllowed() && !genLink.isIncomingCreationAllowed()) {
+	if (!genLink.isOutgoingCreationAllowed() && !genLink.isIncomingCreationAllowed() || genLink.getModelFacet() == null) {
 		continue;
 	}
-	
 	String namePartSuffix = null;
 	GenClass outgoingClass;
 	GenClass incomingClass;
@@ -789,17 +787,14 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		incomingClass = metaFeature.getTypeGenClass();
 		namePartSuffix = metaFeature.getFeatureAccessorName();
 	} else {
-// Should not be here!
 		continue;
 	}
 	boolean canBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
 	boolean canBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
-	
 	if (!canBeSource && !canBeTarget) {
 		continue;
 	}
 	boolean selfLink = canBeSource & canBeTarget;
-	
 	namePartSuffix += genLink.getVisualID();
 	String startCommandGetter = "null";
 	if (canBeSource && genLink.isOutgoingCreationAllowed()) {
@@ -807,7 +802,6 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	} else if (canBeTarget && genLink.isIncomingCreationAllowed() && !selfLink) {
 		startCommandGetter = "getCreateStart" + INCOMING_TOKEN + namePartSuffix + "Command(req)";
 	}
-
 	String endCommandGetter = "null";
 	if (canBeSource && genLink.isIncomingCreationAllowed() && !selfLink) {
 		endCommandGetter = "getCreateComplete" + OUTGOING_TOKEN + namePartSuffix + "Command(req)";
@@ -824,12 +818,9 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
     stringBuffer.append(TEXT_108);
     stringBuffer.append(endCommandGetter);
     stringBuffer.append(TEXT_109);
-    
-}
-
+    }
     stringBuffer.append(TEXT_110);
     
-
 for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	GenLink genLink = (GenLink) links.next();
 	GenLinkConstraints linkConstraints = genLink.getCreationConstraints();

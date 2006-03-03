@@ -210,8 +210,9 @@ if (isNode) {
     stringBuffer.append(TEXT_37);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.core.util.ViewUtil"));
     stringBuffer.append(TEXT_38);
-    	}
-	if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+    
+	}
+	if (genLink.getModelFacet() instanceof FeatureModelFacet || genLink.getModelFacet() == null) {
 
     stringBuffer.append(TEXT_39);
     stringBuffer.append(importManager.getImportedName(genDiagram.getSemanticHintsQualifiedClassName()));
@@ -223,9 +224,7 @@ if (isNode) {
 }
 
     stringBuffer.append(TEXT_42);
-    	
-if (isFlowLayout) {
-
+    if (isFlowLayout) {
     stringBuffer.append(TEXT_43);
     stringBuffer.append(importManager.getImportedName("java.util.List"));
     stringBuffer.append(TEXT_44);
@@ -253,9 +252,7 @@ if (isFlowLayout) {
     stringBuffer.append(TEXT_55);
     stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.FigureUtilities"));
     stringBuffer.append(TEXT_56);
-    
-}
-
+    }
     stringBuffer.append(TEXT_57);
     importManager.emitSortedImports();
     stringBuffer.append(TEXT_58);

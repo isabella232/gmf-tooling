@@ -32,8 +32,15 @@ public class <%=genLink.getEditPartClassName()%> extends ConnectionNodeEditPart 
 		super.createDefaultEditPolicies();
 <%if (genLink.getModelFacet() instanceof FeatureModelFacet) {%>
 		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.CONNECTION_ROLE, new <%=importManager.getImportedName(genDiagram.getReferenceConnectionEditPolicyQualifiedClassName())%>());
-<%}%>
+<%
+}
+if (genLink.getModelFacet() == null) {
+%>
+		installEditPolicy(<%=importManager.getImportedName("org.eclipse.gef.EditPolicy")%>.COMPONENT_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ViewComponentEditPolicy")%>());
+		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.internal.editpolicies.NonSemanticEditPolicy")%>());
+<%} else {%>
 		installEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new <%=importManager.getImportedName(genLink.getItemSemanticEditPolicyQualifiedClassName())%>());
+<%}%>
 	}
 
 	/**

@@ -126,7 +126,9 @@ public class Generator extends GeneratorBase implements Runnable {
 			final GenLink next = (GenLink) it.next();
 			generateViewFactory(next);
 			generateLinkEditPart(next);
-			generateLinkItemSemanticEditPolicy(next);
+			if (next.getModelFacet() != null) {
+				generateLinkItemSemanticEditPolicy(next);
+			}
 			for (Iterator labels = next.getLabels().iterator(); labels.hasNext();) {
 				GenLinkLabel label = (GenLinkLabel) labels.next();
 				generateLinkLabelEditPart(label);

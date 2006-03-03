@@ -194,7 +194,8 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 <%}%>
 		new NullEditHelper());
 <%
-List types = new ArrayList();
+List types = new ArrayList(); // element types that should be registered in code
+List registeredTypes = new ArrayList(); // element types registered via plugin.xml
 // TODO : create diagram specialization type otherwise and register it
 if (genDiagram.getDomainDiagramElement() != null) {
 	types.add(genDiagram.getUniqueIdentifier());
@@ -208,45 +209,74 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	String semanticPackageInterfaceName = null;
 	if (next instanceof GenNode) {
 		id = ((GenNode) next).getUniqueIdentifier();
+		types.add(id);
 		typeModelFacet = ((GenNode) next).getModelFacet();
 		semanticEntityInterfaceName = typeModelFacet.getMetaClass().getClassifierAccessorName();
 		semanticPackageInterfaceName = importManager.getImportedName(typeModelFacet.getMetaClass().getGenPackage().getQualifiedPackageInterfaceName());
 	} else if (next instanceof GenLink) {
 		id = ((GenLink) next).getUniqueIdentifier();
-		if (((GenLink) next).getModelFacet() instanceof TypeLinkModelFacet) {
-			typeModelFacet = (TypeLinkModelFacet) ((GenLink) next).getModelFacet();
-			semanticEntityInterfaceName = typeModelFacet.getMetaClass().getClassifierAccessorName();
-			semanticPackageInterfaceName = importManager.getImportedName(typeModelFacet.getMetaClass().getGenPackage().getQualifiedPackageInterfaceName());
+		ModelFacet modelFacet = ((GenLink) next).getModelFacet();
+		if (modelFacet == null) {
+			registeredTypes.add(id);
+		} else {
+			types.add(id);
+			if (modelFacet instanceof TypeLinkModelFacet) {
+				typeModelFacet = (TypeLinkModelFacet) ((GenLink) next).getModelFacet();
+				semanticEntityInterfaceName = typeModelFacet.getMetaClass().getClassifierAccessorName();
+				semanticPackageInterfaceName = importManager.getImportedName(typeModelFacet.getMetaClass().getGenPackage().getQualifiedPackageInterfaceName());
+			}
 		}
 	} else {
 		continue;
 	}
-	types.add(id);
 	if (typeModelFacet != null && typeModelFacet.getModelElementInitializer() != null) {
 		elementInitializerCount++;
 	}
+	if (registeredTypes.contains(id)) {
 %>
 
 	/**
 	 * @generated
 	 */
+	public static final IElementType <%=id%> = getElementType("<%=id%>");
+<%	} else {%>
+
+	/**
+	 * @generated
+	 */
 	public static final IMetamodelType <%=id%> = new MetamodelType("<%=id%>", null, "<%=((GenCommonBase) next).getClassNamePrefix()%>",
-<%	if (semanticEntityInterfaceName != null) {%>
+<%		if (semanticEntityInterfaceName != null) {%>
 		<%=semanticPackageInterfaceName%>.eINSTANCE.get<%=semanticEntityInterfaceName%>(),
-<%	} else { %>
+<%		} else { %>
 		null,
-<%	}%>
+<%		}%>
 		new NullEditHelper());
-<%}%>
+<%
+	}
+}
+if (!registeredTypes.isEmpty()) {
+%>
+
+	/**
+	 * @generated
+	 */
+	private static IElementType getElementType(String id) {
+		return ElementTypeRegistry.getInstance().getType(id);
+	}
+<%
+}
+if (!types.isEmpty()) {
+%>
 
 	/**
 	 * @generated
 	 */
 	public static void register() {
-<%for (int i = 0; i < types.size(); i++) {%>
+<%	for (int i = 0; i < types.size(); i++) {%>
 		ElementTypeRegistry.getInstance().register(<%=types.get(i)%>);
-<%}%>
+<%	}%>
 	}
+<%}%>
 
 	/**
 	 * @generated

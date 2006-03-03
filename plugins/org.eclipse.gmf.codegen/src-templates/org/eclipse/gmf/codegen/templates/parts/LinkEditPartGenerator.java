@@ -24,18 +24,23 @@ public class LinkEditPartGenerator
   protected final String TEXT_7 = NL + "\t\tinstallEditPolicy(";
   protected final String TEXT_8 = ".CONNECTION_ROLE, new ";
   protected final String TEXT_9 = "());";
-  protected final String TEXT_10 = NL + "\t\tinstallEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ";
-  protected final String TEXT_11 = "());" + NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * Creates figure for this edit part." + NL + "\t * " + NL + "\t * Body of this method does not depend on settings in generation model" + NL + "\t * so you may safely remove <i>generated</i> tag and modify it." + NL + "\t * " + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Connection createConnectionFigure() {";
-  protected final String TEXT_12 = NL + "\t\treturn new ";
-  protected final String TEXT_13 = "();";
-  protected final String TEXT_14 = NL + "\t\treturn ";
-  protected final String TEXT_15 = ";";
-  protected final String TEXT_16 = NL + " \t\treturn new ";
-  protected final String TEXT_17 = "();";
-  protected final String TEXT_18 = NL + "\t}" + NL;
-  protected final String TEXT_19 = NL;
-  protected final String TEXT_20 = NL + "}";
-  protected final String TEXT_21 = NL;
+  protected final String TEXT_10 = NL + "\t\tinstallEditPolicy(";
+  protected final String TEXT_11 = ".COMPONENT_ROLE, new ";
+  protected final String TEXT_12 = "());" + NL + "\t\tinstallEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ";
+  protected final String TEXT_13 = "());";
+  protected final String TEXT_14 = NL + "\t\tinstallEditPolicy(EditPolicyRoles.SEMANTIC_ROLE, new ";
+  protected final String TEXT_15 = "());";
+  protected final String TEXT_16 = NL + "\t}" + NL + "" + NL + "\t/**" + NL + "\t * Creates figure for this edit part." + NL + "\t * " + NL + "\t * Body of this method does not depend on settings in generation model" + NL + "\t * so you may safely remove <i>generated</i> tag and modify it." + NL + "\t * " + NL + "\t * @generated" + NL + "\t */" + NL + "\tprotected Connection createConnectionFigure() {";
+  protected final String TEXT_17 = NL + "\t\treturn new ";
+  protected final String TEXT_18 = "();";
+  protected final String TEXT_19 = NL + "\t\treturn ";
+  protected final String TEXT_20 = ";";
+  protected final String TEXT_21 = NL + " \t\treturn new ";
+  protected final String TEXT_22 = "();";
+  protected final String TEXT_23 = NL + "\t}" + NL;
+  protected final String TEXT_24 = NL;
+  protected final String TEXT_25 = NL + "}";
+  protected final String TEXT_26 = NL;
 
   public String generate(Object argument)
   {
@@ -61,10 +66,23 @@ GenDiagram genDiagram = genLink.getDiagram();
     stringBuffer.append(TEXT_8);
     stringBuffer.append(importManager.getImportedName(genDiagram.getReferenceConnectionEditPolicyQualifiedClassName()));
     stringBuffer.append(TEXT_9);
-    }
+    
+}
+if (genLink.getModelFacet() == null) {
+
     stringBuffer.append(TEXT_10);
-    stringBuffer.append(importManager.getImportedName(genLink.getItemSemanticEditPolicyQualifiedClassName()));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gef.EditPolicy"));
     stringBuffer.append(TEXT_11);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editpolicies.ViewComponentEditPolicy"));
+    stringBuffer.append(TEXT_12);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.internal.editpolicies.NonSemanticEditPolicy"));
+    stringBuffer.append(TEXT_13);
+    } else {
+    stringBuffer.append(TEXT_14);
+    stringBuffer.append(importManager.getImportedName(genLink.getItemSemanticEditPolicyQualifiedClassName()));
+    stringBuffer.append(TEXT_15);
+    }
+    stringBuffer.append(TEXT_16);
     
 Viewmap viewmap = genLink.getViewmap();
 if (viewmap instanceof FigureViewmap) {
@@ -74,28 +92,28 @@ if (viewmap instanceof FigureViewmap) {
 		figureQualifiedClassName = "org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx";
 	}
 
-    stringBuffer.append(TEXT_12);
+    stringBuffer.append(TEXT_17);
     stringBuffer.append(importManager.getImportedName(figureQualifiedClassName));
-    stringBuffer.append(TEXT_13);
+    stringBuffer.append(TEXT_18);
     } // instanceof FigureViewmap
 	else if (viewmap instanceof SnippetViewmap) {
-    stringBuffer.append(TEXT_14);
+    stringBuffer.append(TEXT_19);
     stringBuffer.append(((SnippetViewmap) viewmap).getBody());
-    stringBuffer.append(TEXT_15);
+    stringBuffer.append(TEXT_20);
     } // instanceof SnippetViewmap 
 	else if (viewmap instanceof InnerClassViewmap) {
-    stringBuffer.append(TEXT_16);
+    stringBuffer.append(TEXT_21);
     stringBuffer.append(((InnerClassViewmap) viewmap).getClassName());
-    stringBuffer.append(TEXT_17);
+    stringBuffer.append(TEXT_22);
     }
-    stringBuffer.append(TEXT_18);
+    stringBuffer.append(TEXT_23);
     if (genLink.getViewmap() instanceof InnerClassViewmap) {
-    stringBuffer.append(TEXT_19);
+    stringBuffer.append(TEXT_24);
     stringBuffer.append(((InnerClassViewmap) genLink.getViewmap()).getClassBody());
     }
-    stringBuffer.append(TEXT_20);
+    stringBuffer.append(TEXT_25);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_21);
+    stringBuffer.append(TEXT_26);
     return stringBuffer.toString();
   }
 }

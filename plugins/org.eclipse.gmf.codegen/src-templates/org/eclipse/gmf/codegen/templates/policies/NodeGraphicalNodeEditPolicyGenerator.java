@@ -55,11 +55,7 @@ GenClass nodeMetaClass = genNode.getModelFacet().getMetaClass();
 Set ids = new HashSet();
 for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 	GenLink genLink = (GenLink) links.next();
-/**
- * Do not perform any rotation of links in notation model if this property was not specified in 
- * .gmfgen model
- **/	
-	if (!genLink.isViewDirectionAlignedWithModel()) {
+	if (!genLink.isViewDirectionAlignedWithModel() || genLink.getModelFacet() == null) {
 		continue;
 	}
 	GenClass incomingClass;
@@ -75,14 +71,13 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
 		outgoingClass = metaFeature.getGenClass();
 		incomingClass = metaFeature.getTypeGenClass();
 	} else {
-// Should not be here!
 		continue;
 	}
 	boolean canBeSource = outgoingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
 	boolean canBeTarget = incomingClass.getEcoreClass().isSuperTypeOf(nodeMetaClass.getEcoreClass());
-/**
+/*
  * This logic is currently alligned with the logic in NodeItemSemanticEditPolicy.javajet i.e.:
- * 
+ *
  * - we do not perform link rotation if this link could be drawn from instance of this EP 
  *   to the instance of this EP.
  *
@@ -90,11 +85,10 @@ for (Iterator links = genDiagram.getLinks().iterator(); links.hasNext(); ) {
  *   and this EP could be only a source of the link then we should reverse link at the end of link 
  *   creation
  *
- **/	
+ */
 	if (canBeSource && canBeTarget) {
 		continue;
 	}
-	
 	if (genLink.isIncomingCreationAllowed() && canBeSource) {
 		ids.add(genLink.getUniqueIdentifier());
 	}

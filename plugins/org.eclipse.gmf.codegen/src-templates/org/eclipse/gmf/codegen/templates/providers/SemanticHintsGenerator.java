@@ -23,7 +23,7 @@ public class SemanticHintsGenerator
   protected final String TEXT_5 = "() {}";
   protected final String TEXT_6 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static final String ";
   protected final String TEXT_7 = " = \"";
-  protected final String TEXT_8 = "Link\";";
+  protected final String TEXT_8 = "SemanticHint\";";
   protected final String TEXT_9 = NL + NL + "\t/**" + NL + "\t * @generated" + NL + "\t */" + NL + "\tpublic static class ";
   protected final String TEXT_10 = "Labels {" + NL + "" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprivate ";
   protected final String TEXT_11 = "Labels() {}";
@@ -72,8 +72,9 @@ public class SemanticHintsGenerator
     
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();
-	if (next instanceof GenLink && ((GenLink) next).getModelFacet() instanceof FeatureModelFacet) {
+	if (next instanceof GenLink) {
 		GenLink nextLink = (GenLink) next;
+		if (nextLink.getModelFacet() instanceof FeatureModelFacet || nextLink.getModelFacet() == null) {
 
     stringBuffer.append(TEXT_6);
     stringBuffer.append(nextLink.getUniqueIdentifier());
@@ -81,6 +82,7 @@ for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
     stringBuffer.append(nextLink.getUniqueIdentifier());
     stringBuffer.append(TEXT_8);
     
+		}
 	}
 	if (next instanceof GenNode) {
 		GenNode genNode = (GenNode) next;

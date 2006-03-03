@@ -18,15 +18,17 @@ public class <%=genDiagram.getSemanticHintsClassName()%> {
 <%
 for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
 	Object next = contents.next();
-	if (next instanceof GenLink && ((GenLink) next).getModelFacet() instanceof FeatureModelFacet) {
+	if (next instanceof GenLink) {
 		GenLink nextLink = (GenLink) next;
+		if (nextLink.getModelFacet() instanceof FeatureModelFacet || nextLink.getModelFacet() == null) {
 %>
 
 	/**
 	 * @generated
 	 */
-	public static final String <%=nextLink.getUniqueIdentifier()%> = "<%=nextLink.getUniqueIdentifier()%>Link";
+	public static final String <%=nextLink.getUniqueIdentifier()%> = "<%=nextLink.getUniqueIdentifier()%>SemanticHint";
 <%
+		}
 	}
 	if (next instanceof GenNode) {
 		GenNode genNode = (GenNode) next;

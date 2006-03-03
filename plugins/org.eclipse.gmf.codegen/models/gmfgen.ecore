@@ -434,8 +434,8 @@
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="diagram" lowerBound="1"
         eType="#//GenDiagram" changeable="false" eOpposite="#//GenDiagram/links"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="modelFacet" lowerBound="1"
-        eType="#//LinkModelFacet" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelFacet" eType="#//LinkModelFacet"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="labels" upperBound="-1"
         eType="#//GenLinkLabel" containment="true" eOpposite="#//GenLinkLabel/link"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="outgoingCreationAllowed"

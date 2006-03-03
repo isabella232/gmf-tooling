@@ -1,5 +1,5 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.editor" class="PluginXML"
-    imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.*"%>
+    imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.emf.codegen.ecore.genmodel.*"%>
 <%
 final GenPlugin genPlugin = (GenPlugin) argument;
 final GenEditorGenerator editorGen = genPlugin.getEditorGen();
@@ -192,7 +192,45 @@ final GenModel genModel = editorGen.getDomainGenModel();
          <Priority name="<%=genDiagram.getParserProviderPriority()%>"/>
       </ParserProvider>
    </extension>
-<%if(genDiagram.isValidationEnabled()) {%>
+<%
+List notationTypes = new ArrayList(); // element type ids of diagram elements without model facet (notation elements)
+Map typeNames = new HashMap(); // type id : String -> display name : String
+for (Iterator contents = genDiagram.eAllContents(); contents.hasNext(); ) {
+	Object next = contents.next();
+	String id;
+	if (next instanceof GenNode) {
+		id = ((GenNode) next).getUniqueIdentifier();
+		// TODO : add notation nodes support
+	} else if (next instanceof GenLink) {
+		id = ((GenLink) next).getUniqueIdentifier();
+		ModelFacet modelFacet = ((GenLink) next).getModelFacet();
+		if (modelFacet == null) {
+			notationTypes.add(id);
+		}
+	} else {
+		continue;
+	}
+}
+if (!notationTypes.isEmpty()) {%>
+
+   <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypes">
+<%
+	for (Iterator it = notationTypes.iterator(); it.hasNext(); ) {
+		String id = (String) it.next();
+%>
+      <specializationType
+            id="<%=id%>"
+            name="<%=typeNames.get(id)%>"
+            kind="org.eclipse.gmf.runtime.diagram.ui.util.INotationType">
+         <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+         <param name="semanticHint" value="<%=id%>SemanticHint"/>
+      </specializationType>
+<%	}%>
+   </extension>
+<%
+}
+if(genDiagram.isValidationEnabled()) {
+%>
 
    <extension point="org.eclipse.gmf.runtime.common.ui.services.markerNavigationProviders">
       <MarkerNavigationProvider class="<%=genDiagram.getMarkerNavigationProviderQualifiedClassName()%>">
@@ -214,9 +252,9 @@ final GenModel genModel = editorGen.getDomainGenModel();
    </extension>
 
    <extension id="<%=genDiagram.getValidationDiagnosticMarkerType()%>" name="<%=genPlugin.getName()%> problems" point="org.eclipse.core.resources.markers">
-      <super type="org.eclipse.core.resources.problemmarker"/>   
+      <super type="org.eclipse.core.resources.problemmarker"/>
       <super type="org.eclipse.gmf.runtime.common.ui.services.marker"/>
-      <persistent value="true"/>      
+      <persistent value="true"/>
    </extension>
 <%}%>
    <%@ include file="ConstraintProviders.jetinc"%>

@@ -110,7 +110,7 @@ for (Iterator links = genLinks.iterator(); links.hasNext();) {
 boolean elementTypeInitialized = false;
 for (int i = 0; i < genLinks.size(); i++) {
 	GenLink genLink = (GenLink) genLinks.get(i);
-	if (genLink.getModelFacet() instanceof FeatureModelFacet) {
+	if (genLink.getModelFacet() instanceof FeatureModelFacet || genLink.getModelFacet() == null) {
 		if (!elementTypeInitialized) {
 			elementTypeInitialized = true;
 %>
