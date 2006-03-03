@@ -99,6 +99,9 @@ public class ModelURISelector implements Listener {
 					pt = toolBar.toDisplay(pt);
 					getBrowseMenu().setLocation(pt.x, pt.y);
 					getBrowseMenu().setVisible(true);
+				} else {
+					// ordinary click on the toolItem
+					handleDefaultToolBarAction();
 				}
 			}
 		});
@@ -127,6 +130,11 @@ public class ModelURISelector implements Listener {
 			}
 		});
 		return menu;
+	}
+
+	protected void handleDefaultToolBarAction() {
+		// browse workspace by default
+		handleBrowseWorkspace();
 	}
 
 	protected void handleBrowseWorkspace() {
