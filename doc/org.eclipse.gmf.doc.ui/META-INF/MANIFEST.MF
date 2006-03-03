@@ -14,3 +14,5 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.codegen.ecore.ui,
  org.eclipse.gmf.tooldef.edit
 Eclipse-LazyStart: true
+Export-Package: org.eclipse.gmf.internal.doc.ui;x-internal:=true,
+ org.eclipse.gmf.internal.doc.ui.actions;x-internal:=true
