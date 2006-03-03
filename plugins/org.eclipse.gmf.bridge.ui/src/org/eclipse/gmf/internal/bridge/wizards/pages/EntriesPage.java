@@ -408,7 +408,13 @@ public class EntriesPage extends WizardPage {
 							i--;
 						}
 						nodesList.setSelection(i);
-						handleNodesListSelectionChange();
+						if (nodesList.getItemCount() == 0) {
+							asLinkButton.setEnabled(false);
+							removeButton.setEnabled(false);
+							changeDetailsButton.setEnabled(false);
+						} else {
+							handleNodesListSelectionChange();
+						}
 					}
 					if (linksList.getSelectionIndex() != -1) {
 						int i = linksList.getSelectionIndex();
@@ -418,7 +424,13 @@ public class EntriesPage extends WizardPage {
 							i--;
 						}
 						linksList.setSelection(i);
-						handleLinksListSelectionChange();
+						if (linksList.getItemCount() == 0) {
+							asNodeButton.setEnabled(false);
+							removeButton.setEnabled(false);
+							changeDetailsButton.setEnabled(false);
+						} else {
+							handleLinksListSelectionChange();
+						}
 					}
 				}
 			});
