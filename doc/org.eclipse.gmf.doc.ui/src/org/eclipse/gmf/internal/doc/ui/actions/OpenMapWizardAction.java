@@ -34,7 +34,7 @@ public class OpenMapWizardAction extends Action implements ICheatSheetAction {
 	 * @param text
 	 */
 	public OpenMapWizardAction() {
-		super("OpenProject"); //$NON-NLS-1$
+		super("OpenMapWizard"); //$NON-NLS-1$
 	}
 
 	/**

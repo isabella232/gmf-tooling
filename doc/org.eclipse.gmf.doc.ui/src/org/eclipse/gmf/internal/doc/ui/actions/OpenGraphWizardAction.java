@@ -34,7 +34,7 @@ public class OpenGraphWizardAction extends Action implements ICheatSheetAction {
 	 * @param text
 	 */
 	public OpenGraphWizardAction() {
-		super("OpenProject"); //$NON-NLS-1$
+		super("OpenGraphWizard"); //$NON-NLS-1$
 	}
 
 	/**

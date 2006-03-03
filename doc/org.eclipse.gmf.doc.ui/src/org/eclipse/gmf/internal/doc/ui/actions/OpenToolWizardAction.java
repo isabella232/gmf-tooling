@@ -34,7 +34,7 @@ public class OpenToolWizardAction extends Action implements ICheatSheetAction {
 	 * @param text
 	 */
 	public OpenToolWizardAction() {
-		super("OpenProject"); //$NON-NLS-1$
+		super("OpenToolWizard"); //$NON-NLS-1$
 	}
 
 	/**
