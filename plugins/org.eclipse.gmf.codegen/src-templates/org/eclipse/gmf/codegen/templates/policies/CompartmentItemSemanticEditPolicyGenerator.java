@@ -81,22 +81,18 @@ public class CompartmentItemSemanticEditPolicyGenerator {
   protected final String TEXT_62 = ".Initializers.";
   protected final String TEXT_63 = ".init(newElement);";
   protected final String TEXT_64 = NL + "\t\t\t}" + NL + "\t\t\treturn newElement;" + NL + "\t\t}";
-  protected final String TEXT_65 = NL + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic boolean isExecutable() {" + NL + "\t\t\tif (getEClass() != null) {" + NL + "\t\t\t\treturn getEClass().isSuperTypeOf(getEClassToEdit());" + NL + "\t\t\t}" + NL + "\t\t\treturn true;" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
+  protected final String TEXT_65 = NL + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tpublic boolean canExecute() {" + NL + "\t\t\tif (getEClass() != null) {" + NL + "\t\t\t\treturn getEClass().isSuperTypeOf(getEClassToEdit());" + NL + "\t\t\t}" + NL + "\t\t\treturn true;" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
   protected final String TEXT_66 = " getContainmentFeature() {" + NL + "\t\t\treturn null;" + NL + "\t\t}" + NL + "\t\t" + NL + "\t\t/**" + NL + "\t\t * @generated" + NL + "\t\t */" + NL + "\t\tprotected ";
   protected final String TEXT_67 = " doDefaultElementCreation() {" + NL + "\t\t\t// Uncomment to put \"phantom\" objects into the diagram file.\t\t" + NL + "\t\t\t//";
   protected final String TEXT_68 = " resource = ((CreateElementRequest) getRequest()).getContainer().eResource();" + NL + "\t\t\t//if (resource == null) {" + NL + "\t\t\t//\treturn null;" + NL + "\t\t\t//}" + NL + "\t\t\t";
   protected final String TEXT_69 = " resource = getElementToEdit().eResource();" + NL + "\t\t\t";
   protected final String TEXT_70 = " eClass = getElementType().getEClass();" + NL + "\t\t\t";
-  protected final String TEXT_71 = " domain = (";
-  protected final String TEXT_72 = ") ";
-  protected final String TEXT_73 = ".getEditingDomain(resource);" + NL + "\t\t\tif (domain == null) {" + NL + "\t\t\t\tdomain = (";
-  protected final String TEXT_74 = ") ";
-  protected final String TEXT_75 = ".INSTANCE;" + NL + "\t\t\t}" + NL + "\t\t\t";
-  protected final String TEXT_76 = " eObject = ";
-  protected final String TEXT_77 = ".create(domain, eClass, true);" + NL + "\t\t\tresource.getContents().add(eObject);" + NL + "\t\t\treturn eObject;" + NL + "\t\t}";
-  protected final String TEXT_78 = NL + "\t}";
-  protected final String TEXT_79 = NL + NL + "}";
-  protected final String TEXT_80 = NL;
+  protected final String TEXT_71 = " helper = ";
+  protected final String TEXT_72 = ".getHelper(resource);" + NL + "\t\t\t";
+  protected final String TEXT_73 = " eObject;" + NL + "\t\t\tif (helper != null) {" + NL + "\t\t\t\teObject = helper.create(eClass);" + NL + "\t\t\t} else {" + NL + "\t\t\t\teObject = eClass.getEPackage().getEFactoryInstance().create(eClass);" + NL + "\t\t\t}" + NL + "\t\t\tresource.getContents().add(eObject);" + NL + "\t\t\treturn eObject;" + NL + "\t\t}";
+  protected final String TEXT_74 = NL + "\t}";
+  protected final String TEXT_75 = NL + NL + "}";
+  protected final String TEXT_76 = NL;
 
 	protected final String getFeatureValueGetter(String containerName, GenFeature feature, boolean isContainerEObject, ImportAssistant importManager) {
 		StringBuffer result = new StringBuffer();
@@ -406,28 +402,20 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
     stringBuffer.append(TEXT_69);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EClass"));
     stringBuffer.append(TEXT_70);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.resources.IResourceHelper"));
     stringBuffer.append(TEXT_71);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain"));
+    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.util.Util"));
     stringBuffer.append(TEXT_72);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain"));
-    stringBuffer.append(TEXT_73);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain"));
-    stringBuffer.append(TEXT_74);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain"));
-    stringBuffer.append(TEXT_75);
     stringBuffer.append(importManager.getImportedName("org.eclipse.emf.ecore.EObject"));
-    stringBuffer.append(TEXT_76);
-    stringBuffer.append(importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.util.MSLUtil"));
-    stringBuffer.append(TEXT_77);
+    stringBuffer.append(TEXT_73);
     
 	}
 
-    stringBuffer.append(TEXT_78);
+    stringBuffer.append(TEXT_74);
     }
-    stringBuffer.append(TEXT_79);
+    stringBuffer.append(TEXT_75);
     importManager.emitSortedImports();
-    stringBuffer.append(TEXT_80);
+    stringBuffer.append(TEXT_76);
     return stringBuffer.toString();
   }
 }

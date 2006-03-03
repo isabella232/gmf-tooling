@@ -205,10 +205,10 @@ private void createPhantomNodes(<%=importManager.getImportedName("java.util.Coll
 		<%=importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CompositeCommand")%> cc = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CompositeCommand")%>(<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.l10n.DiagramUIMessages")%>.AddCommand_Label);
 		for (Iterator descriptorsIterator = descriptors.iterator(); descriptorsIterator.hasNext();) {
 			<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest")%>.ViewDescriptor descriptor = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.requests.CreateViewRequest")%>.ViewDescriptor) descriptorsIterator.next();
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.ICommand")%> createCommand = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.CreateCommand")%>(descriptor, getDiagram());
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.ICommand")%> createCommand = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.CreateCommand")%>(((<%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart")%>) getHost()).getEditingDomain(), descriptor, getDiagram());
 			cc.compose(createCommand);
 		}
-		cmd = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand")%>(cc.unwrap());
+		cmd = new <%=importManager.getImportedName("org.eclipse.gmf.runtime.diagram.ui.commands.EtoolsProxyCommand")%>(cc);
 	}	
 	
 	if ( cmd != null && cmd.canExecute() ) {

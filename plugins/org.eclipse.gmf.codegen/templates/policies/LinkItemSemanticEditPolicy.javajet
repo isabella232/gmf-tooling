@@ -26,10 +26,10 @@ public class <%=genLink.getItemSemanticEditPolicyClassName()%> extends <%=import
 // Processing "phantom" objects
 %> {
 		
-			protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CommandResult")%> doExecute(<%=importManager.getImportedName("org.eclipse.core.runtime.IProgressMonitor")%> progressMonitor) {
+			protected <%=importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CommandResult")%> doExecuteWithResult(<%=importManager.getImportedName("org.eclipse.core.runtime.IProgressMonitor")%> progressMonitor, <%=importManager.getImportedName("org.eclipse.core.runtime.IAdaptable")%> info) throws <%=importManager.getImportedName("org.eclipse.core.commands.ExecutionException")%> {
 				<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> referencedObject = getReferencedObject();
 				<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> resource = referencedObject.eResource();
-				<%=importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CommandResult")%> result = super.doExecute(progressMonitor);
+				<%=importManager.getImportedName("org.eclipse.gmf.runtime.common.core.command.CommandResult")%> result = super.doExecuteWithResult(progressMonitor, info);
 				resource.getContents().add(referencedObject);
 				return result;
 			}

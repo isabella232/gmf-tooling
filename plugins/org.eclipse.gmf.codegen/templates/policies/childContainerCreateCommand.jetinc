@@ -152,7 +152,7 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 		/**
 		 * @generated
 		 */
-		public boolean isExecutable() {
+		public boolean canExecute() {
 			if (getEClass() != null) {
 				return getEClass().isSuperTypeOf(getEClassToEdit());
 			}
@@ -177,11 +177,13 @@ for (Iterator nodes = childNodes.iterator(); nodes.hasNext(); ) {
 			//}
 			<%=importManager.getImportedName("org.eclipse.emf.ecore.resource.Resource")%> resource = getElementToEdit().eResource();
 			<%=importManager.getImportedName("org.eclipse.emf.ecore.EClass")%> eClass = getElementType().getEClass();
-			<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain")%> domain = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain")%>) <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain")%>.getEditingDomain(resource);
-			if (domain == null) {
-				domain = (<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.domain.MSLEditingDomain")%>) <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.edit.MEditingDomain")%>.INSTANCE;
+			<%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.resources.IResourceHelper")%> helper = <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.util.Util")%>.getHelper(resource);
+			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> eObject;
+			if (helper != null) {
+				eObject = helper.create(eClass);
+			} else {
+				eObject = eClass.getEPackage().getEFactoryInstance().create(eClass);
 			}
-			<%=importManager.getImportedName("org.eclipse.emf.ecore.EObject")%> eObject = <%=importManager.getImportedName("org.eclipse.gmf.runtime.emf.core.internal.util.MSLUtil")%>.create(domain, eClass, true);
 			resource.getContents().add(eObject);
 			return eObject;
 		}
