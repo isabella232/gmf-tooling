@@ -20,7 +20,6 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.gmf.internal.bridge.wizards.strategy.AccessibleClassNodeStrategy;
