@@ -35,9 +35,9 @@
 			param1="mindmap.gmfgraph"/>
 		<description>In a graphical definition, you will define figures, nodes, compartments, connections, etc.<br/><br/>Using the wizard, we can get started on our graphical definition by examining our domain model.  Use the "Click to Perform" button to get started.
 		<br/><br/>The following steps are required:
-  		<br/><br/>1. In the wizard, select the 'model' folder to hold the mindmap.gmfgraph model.
+  		<br/><br/>1. In the wizard, select the 'org.eclipse.gmf.examples.mindmap/model' as the parent folder for your mindmap.gmfgraph model.
   		<br/><br/>2. The second page of the wizard has a <b>Browse</b> button that should easily find our mindmap.ecore model.
-  		<br/><br/>3. The last page of the wizard gives us options for those features found in our domain model (node, link, or label).  Using the full tutorial text linked from the Help (?) button above, select the appropriate options, or just leave the defaults if you'd prefer.
+  		<br/><br/>3. The last page of the wizard gives us options for those features found in our domain model (node, link, or label).  For now, uncheck all but the Topic element as a node and its name attribute as a label.
 		</description>
 	</item>
   
@@ -52,7 +52,7 @@
   		<br/><br/>The following steps are required:
   		<br/><br/>1. Again, select the 'model' folder to hold the mindmap.gmftool model.
   		<br/><br/>2. And, on the second page we will locate our mindmap.ecore file as before.
-  		<br/><br/>3. On the last page, we can again use the full tutorial text linked from the Help (?) button above to select the appropriate tool options, or just leave the defaults if you'd prefer.
+  		<br/><br/>3. On the last page, we will uncheck all but our Topic node for now.
   	</description>
   </item>
   
@@ -71,7 +71,7 @@
   		<br/><br/>1. Again, select the 'model' folder to hold the mindmap.gmfmap model.
   		<br/><br/>2. On the second page, each of our domain, graphical definition, and tooling definition files are preset, so we will just need to press <b>Load</b> for each and press <b>Next</b>.
   		<br/><br/>3. Select <b>Map</b> for our 'Diagram Root Element'.
-  		<br/><br/>4. On the last page of the wizard, examine the mappings determined appropriate by the wizard. Follow the full instructions in the Help (?) for details on this step, or just press <b>Finish</b>.
+  		<br/><br/>4. On the last page of the wizard, examine the mappings determined appropriate by the wizard. For now, remove all but our Topic node and press <b>Finish</b>.
      </description>
   </item>
   
