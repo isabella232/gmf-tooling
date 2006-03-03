@@ -97,8 +97,7 @@ public interface LinkMapping extends MappingEntry, NeedsContainment, MenuOwner, 
 	 * @return the value of the '<em>Link Meta Feature</em>' reference.
 	 * @see #setLinkMetaFeature(EStructuralFeature)
 	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLinkMapping_LinkMetaFeature()
-	 * @model required="true"
-	 *        annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not(domainMetaElement.oclIsUndefined() or linkMetaFeature.oclIsUndefined()) implies linkMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)' description='\'Target Feature\' must be owned by the link \'Domain Element\' or its super type'"
+	 * @model annotation="http://www.eclipse.org/gmf/2005/constraints ocl='not(domainMetaElement.oclIsUndefined() or linkMetaFeature.oclIsUndefined()) implies linkMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)' description='\'Target Feature\' must be owned by the link \'Domain Element\' or its super type'"
 	 * @generated
 	 */
 	EStructuralFeature getLinkMetaFeature();

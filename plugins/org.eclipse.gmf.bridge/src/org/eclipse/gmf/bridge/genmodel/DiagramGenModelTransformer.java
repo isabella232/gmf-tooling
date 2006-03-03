@@ -473,7 +473,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 
 	private void assertLinkMapping(LinkMapping linkMapping) {
 		assert linkMapping.getDiagramLink() != null;
-		assert linkMapping.getLinkMetaFeature() != null;
+		if (linkMapping.getDomainMetaElement() != null) {
+			assert linkMapping.getLinkMetaFeature() != null;
+		}
 		assert checkLabelMappings(linkMapping);
 	}
 
@@ -523,11 +525,12 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			mf.setTargetMetaFeature(findGenFeature(lme.getLinkMetaFeature()));
 			setupAux(mf, lme.getDomainSpecialization(), lme.getDomainInitializer());
 			return mf;
-		} else {
+		} else if (lme.getLinkMetaFeature() != null) {
 			FeatureLinkModelFacet mf = GMFGenFactory.eINSTANCE.createFeatureLinkModelFacet();
 			mf.setMetaFeature(findGenFeature(lme.getLinkMetaFeature()));
 			return mf;
 		}
+		return null; // notation link
 	}
 
 	private GenLinkConstraints createLinkCreationConstraints(LinkConstraints constraints) {

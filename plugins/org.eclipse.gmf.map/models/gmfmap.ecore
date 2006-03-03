@@ -134,8 +134,7 @@
         <details key="description" value="'Source Feature' must be owned by the link 'Domain Element' or its super type"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="linkMetaFeature" lowerBound="1"
-        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStructuralFeature">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="linkMetaFeature" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EStructuralFeature">
       <eAnnotations source="http://www.eclipse.org/gmf/2005/constraints">
         <details key="ocl" value="not(domainMetaElement.oclIsUndefined() or linkMetaFeature.oclIsUndefined()) implies linkMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)"/>
         <details key="description" value="'Target Feature' must be owned by the link 'Domain Element' or its super type"/>
