@@ -12,7 +12,6 @@
 package org.eclipse.gmf.internal.bridge.wizards.pages;
 
 import java.util.List;
-
 import org.eclipse.gmf.mappings.LinkMapping;
 import org.eclipse.gmf.mappings.NodeMapping;
 import org.eclipse.gmf.tooldef.AbstractTool;
@@ -50,7 +49,6 @@ public class ToolDefLookup implements ToolDefSupplier {
 			sameToolContainer = true;
 			return;
 		}
-		sameToolContainer = false;
 		myLinkTools = (ToolContainer) tools.get(i); 
 		found = false;
 		while (i > 0 && !found) {
@@ -61,8 +59,10 @@ public class ToolDefLookup implements ToolDefSupplier {
 			}
 		}
 		if (!found) {
-			myNodeTools = myRegistry.getPalette();
+			myNodeTools = myLinkTools;
+			sameToolContainer = true;
 		} else {
+			sameToolContainer = false;
 			myNodeTools = (ToolContainer) tools.get(i);
 		}
 	}
