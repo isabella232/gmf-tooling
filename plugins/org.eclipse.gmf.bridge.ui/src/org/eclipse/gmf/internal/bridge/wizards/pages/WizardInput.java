@@ -91,9 +91,17 @@ public class WizardInput {
 		myCanvas = canvas;
 	}
 
+	public Canvas getCanvasDef() {
+		return myCanvas;
+	}
+
 	public void setToolDef(ToolRegistry registry) {
 		checkUnload(myRegistry);
 		myRegistry = registry;
+	}
+
+	public ToolRegistry getToolDef() {
+		return myRegistry;
 	}
 
 	public void setMappingFile(IFile resultFile) {
@@ -118,7 +126,7 @@ public class WizardInput {
 	}
 
 	public boolean isReady2Go() {
-		return myDomainModel != null && myCanvas != null /*&& myRegistry != null*/;
+		return myDomainModel != null && myCanvas != null && myRegistry != null;
 	}
 
 	private void checkUnload(EObject eobj) {
