@@ -35,6 +35,7 @@ http://www.eclipse.org/legal/epl-v10.html
       <import plugin="org.eclipse.gmf.bridge.ui"/>
       <import plugin="org.eclipse.emf.codegen.ecore.ui"/>
       <import plugin="org.eclipse.gmf.tooldef.edit"/>
+      <import feature="org.eclipse.gmf.sdk" version="1.0.0.qualifier"/>
    </requires>
 
    <plugin
