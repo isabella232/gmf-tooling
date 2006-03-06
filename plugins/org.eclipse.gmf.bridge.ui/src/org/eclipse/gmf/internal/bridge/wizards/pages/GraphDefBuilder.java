@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.gmf.gmfgraph.Canvas;
 import org.eclipse.gmf.gmfgraph.Connection;
 import org.eclipse.gmf.gmfgraph.DecorationFigure;
+import org.eclipse.gmf.gmfgraph.DiagramElement;
 import org.eclipse.gmf.gmfgraph.DiagramLabel;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
@@ -50,14 +51,15 @@ public class GraphDefBuilder {
 			fGallery.setName("default");
 			canvas.getFigures().add(fGallery);
 			for (Iterator it = item.getChildren().iterator(); it.hasNext();) {
-				process((ResolvedItem) it.next(), canvas, fGallery);
+				process((ResolvedItem) it.next(), canvas, fGallery, null);
 			}
 		}
 		return canvas;
 	}
 
-	protected void process(ResolvedItem item, Canvas canvas, FigureGallery fGallery) {
+	protected void process(ResolvedItem item, Canvas canvas, FigureGallery fGallery, DiagramElement parent) {
 		boolean descend = false;
+		DiagramElement newParent = null;
 		if (item.getDomainRef() instanceof EClass) {
 			EClass type = (EClass) item.getDomainRef();
 			String baseName = type.getName();
@@ -70,6 +72,7 @@ public class GraphDefBuilder {
 				dElement.setName(baseName + "Node");
 				canvas.getNodes().add(dElement);
 				descend = true;
+				newParent = dElement;
 			} else if (item.getResolution() == Resolution.LINK) {
 				PolylineConnection figure = gmfGraphFactory.createPolylineConnection();
 				figure.setName(baseName + "Figure");
@@ -79,6 +82,7 @@ public class GraphDefBuilder {
 				dElement.setName(baseName + "Link");
 				canvas.getConnections().add(dElement);
 				descend = true;
+				newParent = dElement;
 			}
 		} else if (item.getDomainRef() instanceof EReference) {
 			EReference ref = (EReference) item.getDomainRef();
@@ -95,6 +99,7 @@ public class GraphDefBuilder {
 				dElement.setName(baseName + "Link");
 				canvas.getConnections().add(dElement);
 				descend = true;
+				newParent = dElement;
 			}
 		} else if (item.getDomainRef() instanceof EAttribute) {
 			EAttribute attr = (EAttribute) item.getDomainRef();
@@ -102,17 +107,18 @@ public class GraphDefBuilder {
 			if (item.getResolution() == Resolution.LABEL) {
 				Label figure = gmfGraphFactory.createLabel();
 				figure.setName(baseName + "Figure");
-				fGallery.getFigures().add(figure);
+				parent.getFigure().getChildren().add(figure);
 				DiagramLabel dElement = gmfGraphFactory.createDiagramLabel();
 				dElement.setFigure(figure);
 				dElement.setName(baseName + "Label");
 				canvas.getLabels().add(dElement);
 				descend = true;
+				newParent = dElement;
 			}
 		}
 		if (descend) {
 			for (Iterator it = item.getChildren().iterator(); it.hasNext();) {
-				process((ResolvedItem) it.next(), canvas, fGallery);
+				process((ResolvedItem) it.next(), canvas, fGallery, newParent);
 			}
 		}
 	}
