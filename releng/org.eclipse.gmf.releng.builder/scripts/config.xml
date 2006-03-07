@@ -165,11 +165,16 @@
 				targetPasswd="${ccweb.ftp.passwd}" />
 		</publishers>
 	</project>
-<!--	
 	<project name="integration" buildafterfailed="true">
 		<listeners>
 			<currentbuildstatuslistener
 				file="${logs}/integration/buildstatus.txt" />
+			<currentbuildstatusftplistener
+				targetHost="${ccweb.ftp.host}"
+				targetUser="${ccweb.ftp.user}"
+				targetPasswd="${ccweb.ftp.passwd}"
+				destdir="/"
+				file="${remotelogs}/integration/buildstatus.txt" />
 		</listeners>
 
 		<bootstrappers></bootstrappers>
@@ -183,6 +188,7 @@
 				target="integration" uselogger="true" usedebug="false" usequiet="true">				
 				<property name="fetchTag" value="HEAD" />
 				<property name="buildType" value="I" />
+				<property name="skipUpload" value="true" />
 			</ant>
 		</schedule>
 
@@ -197,7 +203,10 @@
 			</htmlemail>
 			<artifactspublisher dir="${artifacts}/cc"
 				dest="${cc.publish}/integration/" />
+			<ftppublisher destDir="${remotelogs}/integration" srcDir="${logs}/integration"
+				targetHost="${ccweb.ftp.host}"
+				targetUser="${ccweb.ftp.user}"
+				targetPasswd="${ccweb.ftp.passwd}" />
 		</publishers>
 	</project>
--->
 </cruisecontrol>
