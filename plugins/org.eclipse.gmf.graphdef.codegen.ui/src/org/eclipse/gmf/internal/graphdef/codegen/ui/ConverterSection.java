@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -37,7 +36,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
-import org.eclipse.gmf.gmfgraph.GMFGraphPackage;
 import org.eclipse.gmf.gmfgraph.util.RuntimeFQNSwitch;
 import org.eclipse.gmf.graphdef.codegen.StandaloneGenerator;
 import org.eclipse.jface.wizard.Wizard;
@@ -141,18 +139,7 @@ public class ConverterSection extends OptionTemplateSection {
 	}
 
 	private FigureGallery[] findFigures(Resource resource) {
-		ArrayList rv = new ArrayList();
-		for(TreeIterator it = resource.getAllContents(); it.hasNext();) {
-			EObject next = (EObject) it.next();
-			// FigureGallery could be either top element or as a child of canvas
-			if (next.eClass().getClassifierID() == GMFGraphPackage.FIGURE_GALLERY) {
-				rv.add(next);
-				it.prune();
-			} else if (next.eClass().getClassifierID() != GMFGraphPackage.CANVAS) {
-				it.prune();
-			}
-		}
-		return (FigureGallery[]) rv.toArray(new FigureGallery[rv.size()]);
+		return new FigureFinder().findFigures(resource);
 	}
 
 	public String getPluginActivatorClassFQN(){
