@@ -38,6 +38,18 @@ public class FigureAttrGenerator
   protected final String TEXT_20 = ".setPreferredSize(";
   protected final String TEXT_21 = ", ";
   protected final String TEXT_22 = ");";
+  protected final String TEXT_23 = NL + "\t\t";
+  protected final String TEXT_24 = ".setSize(";
+  protected final String TEXT_25 = ", ";
+  protected final String TEXT_26 = ");";
+  protected final String TEXT_27 = NL + "\t\t";
+  protected final String TEXT_28 = ".setFont(new ";
+  protected final String TEXT_29 = "(";
+  protected final String TEXT_30 = ".getCurrent(), \"";
+  protected final String TEXT_31 = "\", ";
+  protected final String TEXT_32 = ", ";
+  protected final String TEXT_33 = ".";
+  protected final String TEXT_34 = "));";
 
   public String generate(Object argument)
   {
@@ -101,6 +113,33 @@ if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor())
     stringBuffer.append(TEXT_21);
     stringBuffer.append(dispatcher.DPtoLP(d.getDy()));
     stringBuffer.append(TEXT_22);
+    } if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Size())) {
+		Point p = figureInstance.getSize();
+    stringBuffer.append(TEXT_23);
+    stringBuffer.append(figureVarName);
+    stringBuffer.append(TEXT_24);
+    stringBuffer.append(dispatcher.DPtoLP(p.getX()));
+    stringBuffer.append(TEXT_25);
+    stringBuffer.append(dispatcher.DPtoLP(p.getY()));
+    stringBuffer.append(TEXT_26);
+    } if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Font())) {
+		// XXX possible CCE when fonts other than Basic added to model 
+		BasicFont font = (BasicFont) figureInstance.getFont();
+    stringBuffer.append(TEXT_27);
+    stringBuffer.append(figureVarName);
+    stringBuffer.append(TEXT_28);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.graphics.Font"));
+    stringBuffer.append(TEXT_29);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.widgets.Display"));
+    stringBuffer.append(TEXT_30);
+    stringBuffer.append(font.getFaceName());
+    stringBuffer.append(TEXT_31);
+    stringBuffer.append(font.getHeight());
+    stringBuffer.append(TEXT_32);
+    stringBuffer.append(importManager.getImportedName("org.eclipse.swt.SWT"));
+    stringBuffer.append(TEXT_33);
+    stringBuffer.append(font.getStyle().getLiteral());
+    stringBuffer.append(TEXT_34);
     }
     return stringBuffer.toString();
   }

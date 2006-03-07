@@ -15,13 +15,18 @@ import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.gmf.gmfgraph.Alignment;
+import org.eclipse.gmf.gmfgraph.BasicFont;
 import org.eclipse.gmf.gmfgraph.BorderLayout;
 import org.eclipse.gmf.gmfgraph.BorderLayoutData;
+import org.eclipse.gmf.gmfgraph.ColorConstants;
+import org.eclipse.gmf.gmfgraph.ConstantColor;
 import org.eclipse.gmf.gmfgraph.CustomFigure;
 import org.eclipse.gmf.gmfgraph.Dimension;
 import org.eclipse.gmf.gmfgraph.Figure;
 import org.eclipse.gmf.gmfgraph.FigureGallery;
+import org.eclipse.gmf.gmfgraph.FontStyle;
 import org.eclipse.gmf.gmfgraph.GMFGraphFactory;
+import org.eclipse.gmf.gmfgraph.Label;
 import org.eclipse.gmf.gmfgraph.Layout;
 import org.eclipse.gmf.gmfgraph.LayoutData;
 import org.eclipse.gmf.gmfgraph.RGBColor;
@@ -69,7 +74,21 @@ public class RTFigureTest extends TestCase {
 		RGBColor blue = GMFGraphFactory.eINSTANCE.createRGBColor();
 		red.setBlue(255);
 		bottomCustom.setForegroundColor(blue);
-		
+
+		Label topLabel = GMFGraphFactory.eINSTANCE.createLabel();
+		topLabel.setText("aaaaa");
+		topLabel.setName("L1");
+		BasicFont f1 = GMFGraphFactory.eINSTANCE.createBasicFont();
+		f1.setFaceName("Arial");
+		f1.setHeight(9);
+		f1.setStyle(FontStyle.ITALIC_LITERAL);
+		topLabel.setFont(f1);
+		ConstantColor c = GMFGraphFactory.eINSTANCE.createConstantColor();
+		c.setValue(ColorConstants.CYAN_LITERAL);
+		topLabel.setForegroundColor(c);
+		topLabel.setLayoutData(createLayoutData(Alignment.CENTER_LITERAL, false));
+
+		parent.getChildren().add(topLabel);
 		parent.getChildren().add(leftGreenFilled);
 		parent.getChildren().add(rightRedOutline);
 		parent.getChildren().add(bottomCustom);

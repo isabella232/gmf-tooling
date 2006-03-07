@@ -17,4 +17,11 @@ if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_ForegroundColor())
 <%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_PreferredSize())) {
 		Dimension d = figureInstance.getPreferredSize();%>
 		<%=figureVarName%>.setPreferredSize(<%=dispatcher.DPtoLP(d.getDx())%>, <%=dispatcher.DPtoLP(d.getDy())%>);
+<%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Size())) {
+		Point p = figureInstance.getSize();%>
+		<%=figureVarName%>.setSize(<%=dispatcher.DPtoLP(p.getX())%>, <%=dispatcher.DPtoLP(p.getY())%>);
+<%} if (figureInstance.eIsSet(GMFGraphPackage.eINSTANCE.getFigure_Font())) {
+		// XXX possible CCE when fonts other than Basic added to model 
+		BasicFont font = (BasicFont) figureInstance.getFont();%>
+		<%=figureVarName%>.setFont(new <%=importManager.getImportedName("org.eclipse.swt.graphics.Font")%>(<%=importManager.getImportedName("org.eclipse.swt.widgets.Display")%>.getCurrent(), "<%=font.getFaceName()%>", <%=font.getHeight()%>, <%=importManager.getImportedName("org.eclipse.swt.SWT")%>.<%=font.getStyle().getLiteral()%>));
 <%}%>
