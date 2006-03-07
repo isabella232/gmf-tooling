@@ -127,7 +127,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Shape/lineKind"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Shape/xorFill"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Shape/xorOutline"/>
-      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//Shape/resolvedChildren"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfgraph.ecore#//Shape/resolvedChildren"/>
     </genClasses>
     <genClasses ecoreClass="gmfgraph.ecore#//Label">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgraph.ecore#//Label/text"/>
