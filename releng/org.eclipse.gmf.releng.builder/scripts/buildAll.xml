@@ -99,6 +99,9 @@
 				<available file="${buildRoot}/artifacts/${buildLabel}/testResults.php"/>
 				<isset property="ftpUser"/>
 				<isset property="ftpPassword"/>
+				<not>
+					<isset property="skipUpload"/>
+				</not>
 			</and>
 		</condition>
 		<antcall target="push" />		
