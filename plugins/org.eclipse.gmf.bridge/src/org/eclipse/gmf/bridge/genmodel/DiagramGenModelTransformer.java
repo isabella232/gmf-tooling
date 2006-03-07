@@ -60,7 +60,6 @@ import org.eclipse.gmf.codegen.gmfgen.LinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.NodeEntry;
 import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
-import org.eclipse.gmf.codegen.gmfgen.TextLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
@@ -370,20 +369,9 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 	}
 
 	private LabelModelFacet createLabelModelFacet(LabelMapping mapping) {
-		String text = mapping.getText();
-		if (text != null && text.length() > 0) {
-			TextLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createTextLabelModelFacet();
-			modelFacet.setText(text);
-			return modelFacet;
-		}
 		if (mapping.getFeatures().size() == 1) {
 			FeatureLabelModelFacet modelFacet = GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet();
 			modelFacet.setMetaFeature(findGenFeature((EAttribute) mapping.getFeatures().get(0)));
-			String defaultText = mapping.getDefaultText();
-			if (defaultText == null || defaultText.length() == 0) {
-				defaultText = "<...>";
-			}
-			modelFacet.setDefaultText(defaultText);
 			modelFacet.setViewPattern(mapping.getViewPattern());
 			modelFacet.setEditPattern(mapping.getEditPattern());
 			return modelFacet;
@@ -397,7 +385,7 @@ public class DiagramGenModelTransformer extends MappingTransformer {
 			modelFacet.setEditPattern(mapping.getEditPattern());
 			return modelFacet;
 		}
-		throw new IllegalArgumentException("Model facet of a label is undefined " + mapping);
+		return null;
 	}
 
 	private GenClass findRunTimeClass(NodeMapping nme) {

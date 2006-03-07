@@ -316,28 +316,6 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.TextLabelModelFacet} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected TextLabelModelFacetItemProvider textLabelModelFacetItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link org.eclipse.gmf.codegen.gmfgen.TextLabelModelFacet}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Adapter createTextLabelModelFacetAdapter() {
-		if (textLabelModelFacetItemProvider == null) {
-			textLabelModelFacetItemProvider = new TextLabelModelFacetItemProvider(this);
-		}
-
-		return textLabelModelFacetItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link org.eclipse.gmf.codegen.gmfgen.TypeModelFacet} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1104,7 +1082,6 @@ public class GMFGenItemProviderAdapterFactory extends GMFGenAdapterFactory imple
 		if (genNodeLabelItemProvider != null) genNodeLabelItemProvider.dispose();
 		if (genExternalNodeLabelItemProvider != null) genExternalNodeLabelItemProvider.dispose();
 		if (genLinkLabelItemProvider != null) genLinkLabelItemProvider.dispose();
-		if (textLabelModelFacetItemProvider != null) textLabelModelFacetItemProvider.dispose();
 		if (typeModelFacetItemProvider != null) typeModelFacetItemProvider.dispose();
 		if (featureModelFacetItemProvider != null) featureModelFacetItemProvider.dispose();
 		if (compositeFeatureModelFacetItemProvider != null) compositeFeatureModelFacetItemProvider.dispose();

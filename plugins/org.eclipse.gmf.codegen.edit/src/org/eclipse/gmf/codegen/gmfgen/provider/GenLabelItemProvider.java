@@ -148,11 +148,6 @@ public class GenLabelItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(GMFGenPackage.eINSTANCE.getGenLabel_ModelFacet(),
-				 GMFGenFactory.eINSTANCE.createTextLabelModelFacet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(GMFGenPackage.eINSTANCE.getGenLabel_ModelFacet(),
 				 GMFGenFactory.eINSTANCE.createFeatureLabelModelFacet()));
 
 		newChildDescriptors.add

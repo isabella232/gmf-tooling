@@ -758,31 +758,13 @@ public interface GMFMapPackage extends EPackage {
 	int LABEL_MAPPING__FEATURES = 1;
 
 	/**
-	 * The feature id for the '<em><b>Text</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LABEL_MAPPING__TEXT = 2;
-
-	/**
 	 * The feature id for the '<em><b>Read Only</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MAPPING__READ_ONLY = 3;
-
-	/**
-	 * The feature id for the '<em><b>Default Text</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LABEL_MAPPING__DEFAULT_TEXT = 4;
+	int LABEL_MAPPING__READ_ONLY = 2;
 
 	/**
 	 * The feature id for the '<em><b>View Pattern</b></em>' attribute.
@@ -791,7 +773,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MAPPING__VIEW_PATTERN = 5;
+	int LABEL_MAPPING__VIEW_PATTERN = 3;
 
 	/**
 	 * The feature id for the '<em><b>Edit Pattern</b></em>' attribute.
@@ -800,7 +782,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MAPPING__EDIT_PATTERN = 6;
+	int LABEL_MAPPING__EDIT_PATTERN = 4;
 
 	/**
 	 * The feature id for the '<em><b>Map Entry</b></em>' container reference.
@@ -809,7 +791,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MAPPING__MAP_ENTRY = 7;
+	int LABEL_MAPPING__MAP_ENTRY = 5;
 
 	/**
 	 * The number of structural features of the '<em>Label Mapping</em>' class.
@@ -818,7 +800,7 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_MAPPING_FEATURE_COUNT = 8;
+	int LABEL_MAPPING_FEATURE_COUNT = 6;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.mappings.impl.ValueExpressionImpl <em>Value Expression</em>}' class.
@@ -2038,17 +2020,6 @@ public interface GMFMapPackage extends EPackage {
 	EReference getLabelMapping_Features();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.LabelMapping#getText <em>Text</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Text</em>'.
-	 * @see org.eclipse.gmf.mappings.LabelMapping#getText()
-	 * @see #getLabelMapping()
-	 * @generated
-	 */
-	EAttribute getLabelMapping_Text();
-
-	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.LabelMapping#isReadOnly <em>Read Only</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2058,17 +2029,6 @@ public interface GMFMapPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getLabelMapping_ReadOnly();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.LabelMapping#getDefaultText <em>Default Text</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Default Text</em>'.
-	 * @see org.eclipse.gmf.mappings.LabelMapping#getDefaultText()
-	 * @see #getLabelMapping()
-	 * @generated
-	 */
-	EAttribute getLabelMapping_DefaultText();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.mappings.LabelMapping#getViewPattern <em>View Pattern</em>}'.

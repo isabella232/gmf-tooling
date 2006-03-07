@@ -71,9 +71,8 @@ public class ClassNameStrategy extends AbstractNamingStrategy {
 	}
 
 	private String getQualifier(LabelMapping mapping) {
-		String text = mapping.getText();
-		if (text != null && text.length() > 0) {
-			return text.length() > 8 ? text.substring(0, 8) : text;
+		if (mapping.getFeatures().isEmpty()) {
+			return "Unknown";
 		}
 		// FIXME gmfmap model says features are 0..*, assert contradicts?  
 		assert mapping.getFeatures().size() > 0;

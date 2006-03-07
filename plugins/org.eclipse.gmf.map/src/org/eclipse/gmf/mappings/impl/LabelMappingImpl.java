@@ -40,9 +40,7 @@ import org.eclipse.gmf.mappings.MappingEntry;
  * <ul>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#getDiagramLabel <em>Diagram Label</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#getFeatures <em>Features</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#getText <em>Text</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#isReadOnly <em>Read Only</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#getDefaultText <em>Default Text</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#getViewPattern <em>View Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#getEditPattern <em>Edit Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.impl.LabelMappingImpl#getMapEntry <em>Map Entry</em>}</li>
@@ -73,26 +71,6 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	protected EList features = null;
 
 	/**
-	 * The default value of the '{@link #getText() <em>Text</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getText()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String TEXT_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getText() <em>Text</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getText()
-	 * @generated
-	 * @ordered
-	 */
-	protected String text = TEXT_EDEFAULT;
-
-	/**
 	 * The default value of the '{@link #isReadOnly() <em>Read Only</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -111,26 +89,6 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	 * @ordered
 	 */
 	protected boolean readOnly = READ_ONLY_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getDefaultText() <em>Default Text</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDefaultText()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String DEFAULT_TEXT_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getDefaultText() <em>Default Text</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getDefaultText()
-	 * @generated
-	 * @ordered
-	 */
-	protected String defaultText = DEFAULT_TEXT_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getViewPattern() <em>View Pattern</em>}' attribute.
@@ -245,27 +203,6 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getText() {
-		return text;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setText(String newText) {
-		String oldText = text;
-		text = newText;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LABEL_MAPPING__TEXT, oldText, text));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean isReadOnly() {
 		return readOnly;
 	}
@@ -280,27 +217,6 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 		readOnly = newReadOnly;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LABEL_MAPPING__READ_ONLY, oldReadOnly, readOnly));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getDefaultText() {
-		return defaultText;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setDefaultText(String newDefaultText) {
-		String oldDefaultText = defaultText;
-		defaultText = newDefaultText;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, GMFMapPackage.LABEL_MAPPING__DEFAULT_TEXT, oldDefaultText, defaultText));
 	}
 
 	/**
@@ -408,12 +324,8 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 				return basicGetDiagramLabel();
 			case GMFMapPackage.LABEL_MAPPING__FEATURES:
 				return getFeatures();
-			case GMFMapPackage.LABEL_MAPPING__TEXT:
-				return getText();
 			case GMFMapPackage.LABEL_MAPPING__READ_ONLY:
 				return isReadOnly() ? Boolean.TRUE : Boolean.FALSE;
-			case GMFMapPackage.LABEL_MAPPING__DEFAULT_TEXT:
-				return getDefaultText();
 			case GMFMapPackage.LABEL_MAPPING__VIEW_PATTERN:
 				return getViewPattern();
 			case GMFMapPackage.LABEL_MAPPING__EDIT_PATTERN:
@@ -438,14 +350,8 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 				getFeatures().clear();
 				getFeatures().addAll((Collection)newValue);
 				return;
-			case GMFMapPackage.LABEL_MAPPING__TEXT:
-				setText((String)newValue);
-				return;
 			case GMFMapPackage.LABEL_MAPPING__READ_ONLY:
 				setReadOnly(((Boolean)newValue).booleanValue());
-				return;
-			case GMFMapPackage.LABEL_MAPPING__DEFAULT_TEXT:
-				setDefaultText((String)newValue);
 				return;
 			case GMFMapPackage.LABEL_MAPPING__VIEW_PATTERN:
 				setViewPattern((String)newValue);
@@ -470,14 +376,8 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 			case GMFMapPackage.LABEL_MAPPING__FEATURES:
 				getFeatures().clear();
 				return;
-			case GMFMapPackage.LABEL_MAPPING__TEXT:
-				setText(TEXT_EDEFAULT);
-				return;
 			case GMFMapPackage.LABEL_MAPPING__READ_ONLY:
 				setReadOnly(READ_ONLY_EDEFAULT);
-				return;
-			case GMFMapPackage.LABEL_MAPPING__DEFAULT_TEXT:
-				setDefaultText(DEFAULT_TEXT_EDEFAULT);
 				return;
 			case GMFMapPackage.LABEL_MAPPING__VIEW_PATTERN:
 				setViewPattern(VIEW_PATTERN_EDEFAULT);
@@ -500,12 +400,8 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 				return diagramLabel != null;
 			case GMFMapPackage.LABEL_MAPPING__FEATURES:
 				return features != null && !features.isEmpty();
-			case GMFMapPackage.LABEL_MAPPING__TEXT:
-				return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
 			case GMFMapPackage.LABEL_MAPPING__READ_ONLY:
 				return readOnly != READ_ONLY_EDEFAULT;
-			case GMFMapPackage.LABEL_MAPPING__DEFAULT_TEXT:
-				return DEFAULT_TEXT_EDEFAULT == null ? defaultText != null : !DEFAULT_TEXT_EDEFAULT.equals(defaultText);
 			case GMFMapPackage.LABEL_MAPPING__VIEW_PATTERN:
 				return VIEW_PATTERN_EDEFAULT == null ? viewPattern != null : !VIEW_PATTERN_EDEFAULT.equals(viewPattern);
 			case GMFMapPackage.LABEL_MAPPING__EDIT_PATTERN:
@@ -525,12 +421,8 @@ public class LabelMappingImpl extends EObjectImpl implements LabelMapping {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (text: ");
-		result.append(text);
-		result.append(", readOnly: ");
+		result.append(" (readOnly: ");
 		result.append(readOnly);
-		result.append(", defaultText: ");
-		result.append(defaultText);
 		result.append(", viewPattern: ");
 		result.append(viewPattern);
 		result.append(", editPattern: ");

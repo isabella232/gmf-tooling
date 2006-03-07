@@ -22,7 +22,6 @@ import org.eclipse.gmf.codegen.gmfgen.FeatureModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.GMFGenPackage;
 import org.eclipse.gmf.codegen.gmfgen.GenLabel;
 import org.eclipse.gmf.codegen.gmfgen.LabelModelFacet;
-import org.eclipse.gmf.codegen.gmfgen.TextLabelModelFacet;
 
 /**
  * <!-- begin-user-doc -->
@@ -280,10 +279,6 @@ public abstract class GenLabelImpl extends GenCommonBaseImpl implements GenLabel
 		}
 		if (sb.length() > 0) {
 			return sb.toString();
-		}
-		if (getModelFacet() instanceof TextLabelModelFacet) {
-			String s = ((TextLabelModelFacet) getModelFacet()).getText();
-			return CodeGenUtil.capName(CodeGenUtil.validJavaIdentifier(s));
 		}
 		return "Unknown";
 	}

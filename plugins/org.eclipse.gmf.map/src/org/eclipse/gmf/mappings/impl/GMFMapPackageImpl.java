@@ -708,7 +708,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLabelMapping_Text() {
+	public EAttribute getLabelMapping_ReadOnly() {
 		return (EAttribute)labelMappingEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -717,7 +717,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLabelMapping_ReadOnly() {
+	public EAttribute getLabelMapping_ViewPattern() {
 		return (EAttribute)labelMappingEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -726,7 +726,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLabelMapping_DefaultText() {
+	public EAttribute getLabelMapping_EditPattern() {
 		return (EAttribute)labelMappingEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -735,26 +735,8 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getLabelMapping_ViewPattern() {
-		return (EAttribute)labelMappingEClass.getEStructuralFeatures().get(5);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getLabelMapping_EditPattern() {
-		return (EAttribute)labelMappingEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getLabelMapping_MapEntry() {
-		return (EReference)labelMappingEClass.getEStructuralFeatures().get(7);
+		return (EReference)labelMappingEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -1417,9 +1399,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		labelMappingEClass = createEClass(LABEL_MAPPING);
 		createEReference(labelMappingEClass, LABEL_MAPPING__DIAGRAM_LABEL);
 		createEReference(labelMappingEClass, LABEL_MAPPING__FEATURES);
-		createEAttribute(labelMappingEClass, LABEL_MAPPING__TEXT);
 		createEAttribute(labelMappingEClass, LABEL_MAPPING__READ_ONLY);
-		createEAttribute(labelMappingEClass, LABEL_MAPPING__DEFAULT_TEXT);
 		createEAttribute(labelMappingEClass, LABEL_MAPPING__VIEW_PATTERN);
 		createEAttribute(labelMappingEClass, LABEL_MAPPING__EDIT_PATTERN);
 		createEReference(labelMappingEClass, LABEL_MAPPING__MAP_ENTRY);
@@ -1618,9 +1598,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		initEClass(labelMappingEClass, LabelMapping.class, "LabelMapping", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLabelMapping_DiagramLabel(), theGMFGraphPackage.getDiagramLabel(), null, "diagramLabel", null, 1, 1, LabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLabelMapping_Features(), ecorePackage.getEAttribute(), null, "features", null, 0, -1, LabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getLabelMapping_Text(), ecorePackage.getEString(), "text", null, 0, 1, LabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLabelMapping_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", null, 0, 1, LabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getLabelMapping_DefaultText(), ecorePackage.getEString(), "defaultText", null, 0, 1, LabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLabelMapping_ViewPattern(), ecorePackage.getEString(), "viewPattern", null, 0, 1, LabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getLabelMapping_EditPattern(), ecorePackage.getEString(), "editPattern", null, 0, 1, LabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getLabelMapping_MapEntry(), this.getMappingEntry(), this.getMappingEntry_LabelMappings(), "mapEntry", null, 1, 1, LabelMapping.class, !IS_TRANSIENT, !IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1735,7 +1713,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "constraints", "http://www.eclipse.org/gmf/2005/constraints",
 			 "constraintsMeta", "http://www.eclipse.org/gmf/2005/constraints/meta"
-		   });																																																																															
+		   });																																																																														
 	}
 
 	/**
@@ -1759,7 +1737,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "def", "context",
 			 "ocl", "self.getDomainContext()"
-		   });																			
+		   });																		
 		addAnnotation
 		  (constraintEClass, 
 		   source, 
@@ -1856,7 +1834,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "not domainMetaElement.oclIsUndefined implies not(domainMetaElement.isAbstract or domainMetaElement.isInterface)",
 			 "description", "Top-level diagram container must be concrete"
-		   });																																																													
+		   });																																																												
 	}
 
 	/**
@@ -1929,7 +1907,7 @@ public class GMFMapPackageImpl extends EPackageImpl implements GMFMapPackage {
 		   new String[] {
 			 "ocl", "not(domainMetaElement.oclIsUndefined() or linkMetaFeature.oclIsUndefined()) implies linkMetaFeature.eContainingClass.isSuperTypeOf(domainMetaElement)",
 			 "description", "\'Target Feature\' must be owned by the link \'Domain Element\' or its super type"
-		   });											
+		   });										
 		addAnnotation
 		  (linkConstraintsEClass, 
 		   source, 

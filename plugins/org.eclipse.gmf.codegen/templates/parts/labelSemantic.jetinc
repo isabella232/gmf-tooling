@@ -1,28 +1,21 @@
-<%if (genLabel.isReadOnly() || genLabel.getModelFacet() instanceof TextLabelModelFacet) {%>
 
 	/**
 	 * @generated
 	 */
-	protected boolean isEditable() {
-		return false;
-	}
-<%
-}
-if (genLabel.getModelFacet() instanceof TextLabelModelFacet) {
-	TextLabelModelFacet modelFacet = (TextLabelModelFacet) genLabel.getModelFacet();
-%>
+	private String defaultText;
 
 	/**
 	 * @generated
 	 */
-	protected String getLabelText() {
-		return "<%=modelFacet.getText()%>";
+	protected <%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> createFigure() {
+		<%=importManager.getImportedName("org.eclipse.draw2d.IFigure")%> figure = super.createFigure();
+		if (figure instanceof <%=importManager.getImportedName("org.eclipse.draw2d.Label")%>) {
+			defaultText = ((<%=importManager.getImportedName("org.eclipse.draw2d.Label")%>) figure).getText();
+		} else if (figure instanceof <%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) {
+			defaultText = ((<%=importManager.getImportedName("org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel")%>) figure).getText();
+		}
+		return figure;
 	}
-<%
-} else if (genLabel.getModelFacet() instanceof FeatureLabelModelFacet) {
-	String defaultText = ((FeatureLabelModelFacet) genLabel.getModelFacet()).getDefaultText();
-	if (defaultText != null) {
-%>
 
 	/**
 	 * @generated
@@ -30,14 +23,20 @@ if (genLabel.getModelFacet() instanceof TextLabelModelFacet) {
 	protected String getLabelText() {
 		String text = super.getLabelText();
 		if (text == null || text.length() == 0) {
-			return "<%=defaultText%>";
+			return defaultText;
 		}
 		return text;
 	}
-<%
+
+<%if (genLabel.isReadOnly()) {%>
+
+	/**
+	 * @generated
+	 */
+	protected boolean isEditable() {
+		return false;
 	}
-}
-%>
+<%}%>
 
 	/**
 	 * @generated

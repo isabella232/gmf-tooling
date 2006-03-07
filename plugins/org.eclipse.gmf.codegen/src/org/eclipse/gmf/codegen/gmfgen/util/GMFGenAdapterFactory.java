@@ -69,7 +69,6 @@ import org.eclipse.gmf.codegen.gmfgen.ProviderClassNames;
 import org.eclipse.gmf.codegen.gmfgen.ShapeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
 import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
-import org.eclipse.gmf.codegen.gmfgen.TextLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
@@ -212,9 +211,6 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 			}
 			public Object caseLabelModelFacet(LabelModelFacet object) {
 				return createLabelModelFacetAdapter();
-			}
-			public Object caseTextLabelModelFacet(TextLabelModelFacet object) {
-				return createTextLabelModelFacetAdapter();
 			}
 			public Object caseTypeModelFacet(TypeModelFacet object) {
 				return createTypeModelFacetAdapter();
@@ -729,20 +725,6 @@ public class GMFGenAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createLabelModelFacetAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link org.eclipse.gmf.codegen.gmfgen.TextLabelModelFacet <em>Text Label Model Facet</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see org.eclipse.gmf.codegen.gmfgen.TextLabelModelFacet
-	 * @generated
-	 */
-	public Adapter createTextLabelModelFacetAdapter() {
 		return null;
 	}
 

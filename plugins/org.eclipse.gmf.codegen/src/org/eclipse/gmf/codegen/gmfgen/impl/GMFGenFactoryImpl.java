@@ -53,7 +53,6 @@ import org.eclipse.gmf.codegen.gmfgen.Palette;
 import org.eclipse.gmf.codegen.gmfgen.ProviderPriority;
 import org.eclipse.gmf.codegen.gmfgen.ShapeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
-import org.eclipse.gmf.codegen.gmfgen.TextLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.TypeModelFacet;
@@ -113,7 +112,6 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 			case GMFGenPackage.GEN_NODE_LABEL: return createGenNodeLabel();
 			case GMFGenPackage.GEN_EXTERNAL_NODE_LABEL: return createGenExternalNodeLabel();
 			case GMFGenPackage.GEN_LINK_LABEL: return createGenLinkLabel();
-			case GMFGenPackage.TEXT_LABEL_MODEL_FACET: return createTextLabelModelFacet();
 			case GMFGenPackage.TYPE_MODEL_FACET: return createTypeModelFacet();
 			case GMFGenPackage.FEATURE_MODEL_FACET: return createFeatureModelFacet();
 			case GMFGenPackage.COMPOSITE_FEATURE_MODEL_FACET: return createCompositeFeatureModelFacet();
@@ -293,16 +291,6 @@ public class GMFGenFactoryImpl extends EFactoryImpl implements GMFGenFactory {
 	public GenLinkLabel createGenLinkLabel() {
 		GenLinkLabelImpl genLinkLabel = new GenLinkLabelImpl();
 		return genLinkLabel;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TextLabelModelFacet createTextLabelModelFacet() {
-		TextLabelModelFacetImpl textLabelModelFacet = new TextLabelModelFacetImpl();
-		return textLabelModelFacet;
 	}
 
 	/**

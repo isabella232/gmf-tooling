@@ -69,7 +69,6 @@ import org.eclipse.gmf.codegen.gmfgen.ProviderClassNames;
 import org.eclipse.gmf.codegen.gmfgen.ShapeAttributes;
 import org.eclipse.gmf.codegen.gmfgen.Shortcuts;
 import org.eclipse.gmf.codegen.gmfgen.SnippetViewmap;
-import org.eclipse.gmf.codegen.gmfgen.TextLabelModelFacet;
 import org.eclipse.gmf.codegen.gmfgen.ToolEntry;
 import org.eclipse.gmf.codegen.gmfgen.ToolGroup;
 import org.eclipse.gmf.codegen.gmfgen.TypeLinkModelFacet;
@@ -349,14 +348,6 @@ public class GMFGenSwitch {
 				LabelModelFacet labelModelFacet = (LabelModelFacet)theEObject;
 				Object result = caseLabelModelFacet(labelModelFacet);
 				if (result == null) result = caseModelFacet(labelModelFacet);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case GMFGenPackage.TEXT_LABEL_MODEL_FACET: {
-				TextLabelModelFacet textLabelModelFacet = (TextLabelModelFacet)theEObject;
-				Object result = caseTextLabelModelFacet(textLabelModelFacet);
-				if (result == null) result = caseLabelModelFacet(textLabelModelFacet);
-				if (result == null) result = caseModelFacet(textLabelModelFacet);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1053,21 +1044,6 @@ public class GMFGenSwitch {
 	 * @generated
 	 */
 	public Object caseLabelModelFacet(LabelModelFacet object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpretting the object as an instance of '<em>Text Label Model Facet</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpretting the object as an instance of '<em>Text Label Model Facet</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public Object caseTextLabelModelFacet(TextLabelModelFacet object) {
 		return null;
 	}
 

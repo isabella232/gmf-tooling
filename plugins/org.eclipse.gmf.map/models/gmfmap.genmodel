@@ -83,9 +83,7 @@
     <genClasses image="false" ecoreClass="gmfmap.ecore#//LabelMapping">
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LabelMapping/diagramLabel"/>
       <genFeatures notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LabelMapping/features"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//LabelMapping/text"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//LabelMapping/readOnly"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//LabelMapping/defaultText"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//LabelMapping/viewPattern"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfmap.ecore#//LabelMapping/editPattern"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference gmfmap.ecore#//LabelMapping/mapEntry"/>

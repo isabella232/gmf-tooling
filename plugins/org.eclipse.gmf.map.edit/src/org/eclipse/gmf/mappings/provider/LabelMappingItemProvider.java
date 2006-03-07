@@ -64,9 +64,7 @@ public class LabelMappingItemProvider
 
 			addDiagramLabelPropertyDescriptor(object);
 			addFeaturesPropertyDescriptor(object);
-			addTextPropertyDescriptor(object);
 			addReadOnlyPropertyDescriptor(object);
-			addDefaultTextPropertyDescriptor(object);
 			addViewPatternPropertyDescriptor(object);
 			addEditPatternPropertyDescriptor(object);
 		}
@@ -114,26 +112,6 @@ public class LabelMappingItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Text feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTextPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_LabelMapping_text_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LabelMapping_text_feature", "_UI_LabelMapping_type"),
-				 GMFMapPackage.eINSTANCE.getLabelMapping_Text(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Read Only feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -149,26 +127,6 @@ public class LabelMappingItemProvider
 				 GMFMapPackage.eINSTANCE.getLabelMapping_ReadOnly(),
 				 true,
 				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Default Text feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDefaultTextPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_LabelMapping_defaultText_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_LabelMapping_defaultText_feature", "_UI_LabelMapping_type"),
-				 GMFMapPackage.eINSTANCE.getLabelMapping_DefaultText(),
-				 true,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -220,10 +178,8 @@ public class LabelMappingItemProvider
 	 * @generated
 	 */
 	public String getText(Object object) {
-		String label = ((LabelMapping)object).getText();
-		return label == null || label.length() == 0 ?
-			getString("_UI_LabelMapping_type") :
-			getString("_UI_LabelMapping_type") + " " + label;
+		LabelMapping labelMapping = (LabelMapping)object;
+		return getString("_UI_LabelMapping_type") + " " + labelMapping.isReadOnly();
 	}
 
 	/**
@@ -237,9 +193,7 @@ public class LabelMappingItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(LabelMapping.class)) {
-			case GMFMapPackage.LABEL_MAPPING__TEXT:
 			case GMFMapPackage.LABEL_MAPPING__READ_ONLY:
-			case GMFMapPackage.LABEL_MAPPING__DEFAULT_TEXT:
 			case GMFMapPackage.LABEL_MAPPING__VIEW_PATTERN:
 			case GMFMapPackage.LABEL_MAPPING__EDIT_PATTERN:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

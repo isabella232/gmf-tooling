@@ -26,9 +26,7 @@ import org.eclipse.gmf.gmfgraph.DiagramLabel;
  * <ul>
  *   <li>{@link org.eclipse.gmf.mappings.LabelMapping#getDiagramLabel <em>Diagram Label</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LabelMapping#getFeatures <em>Features</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.LabelMapping#getText <em>Text</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LabelMapping#isReadOnly <em>Read Only</em>}</li>
- *   <li>{@link org.eclipse.gmf.mappings.LabelMapping#getDefaultText <em>Default Text</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LabelMapping#getViewPattern <em>View Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LabelMapping#getEditPattern <em>Edit Pattern</em>}</li>
  *   <li>{@link org.eclipse.gmf.mappings.LabelMapping#getMapEntry <em>Map Entry</em>}</li>
@@ -83,32 +81,6 @@ public interface LabelMapping extends EObject {
 	EList getFeatures();
 
 	/**
-	 * Returns the value of the '<em><b>Text</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Text</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Text</em>' attribute.
-	 * @see #setText(String)
-	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLabelMapping_Text()
-	 * @model
-	 * @generated
-	 */
-	String getText();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.mappings.LabelMapping#getText <em>Text</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Text</em>' attribute.
-	 * @see #getText()
-	 * @generated
-	 */
-	void setText(String value);
-
-	/**
 	 * Returns the value of the '<em><b>Read Only</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -133,31 +105,6 @@ public interface LabelMapping extends EObject {
 	 * @generated
 	 */
 	void setReadOnly(boolean value);
-
-	/**
-	 * Returns the value of the '<em><b>Default Text</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * <!-- begin-model-doc -->
-	 * Default text that should be displayed when produced text is an empty string
-	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Default Text</em>' attribute.
-	 * @see #setDefaultText(String)
-	 * @see org.eclipse.gmf.mappings.GMFMapPackage#getLabelMapping_DefaultText()
-	 * @model
-	 * @generated
-	 */
-	String getDefaultText();
-
-	/**
-	 * Sets the value of the '{@link org.eclipse.gmf.mappings.LabelMapping#getDefaultText <em>Default Text</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Default Text</em>' attribute.
-	 * @see #getDefaultText()
-	 * @generated
-	 */
-	void setDefaultText(String value);
 
 	/**
 	 * Returns the value of the '<em><b>View Pattern</b></em>' attribute.

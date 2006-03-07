@@ -107,6 +107,7 @@ public class GraphDefBuilder {
 			if (item.getResolution() == Resolution.LABEL) {
 				Label figure = gmfGraphFactory.createLabel();
 				figure.setName(baseName + "Figure");
+				figure.setText("<...>");
 				parent.getFigure().getChildren().add(figure);
 				DiagramLabel dElement = gmfGraphFactory.createDiagramLabel();
 				dElement.setFigure(figure);
