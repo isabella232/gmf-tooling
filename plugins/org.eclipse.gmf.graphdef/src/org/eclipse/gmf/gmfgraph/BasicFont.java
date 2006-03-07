@@ -6,7 +6,6 @@
  */
 package org.eclipse.gmf.gmfgraph;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -26,7 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface BasicFont extends EObject {
+public interface BasicFont extends Font {
 	/**
 	 * Returns the value of the '<em><b>Face Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

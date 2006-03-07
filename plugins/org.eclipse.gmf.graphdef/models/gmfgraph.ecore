@@ -253,7 +253,7 @@
     <eLiterals name="darkBlue" value="14"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Font" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="BasicFont">
+  <eClassifiers xsi:type="ecore:EClass" name="BasicFont" eSuperTypes="#//Font">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="faceName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="style" eType="#//FontStyle"/>

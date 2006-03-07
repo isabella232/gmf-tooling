@@ -478,6 +478,7 @@ public class GMFGraphSwitch {
 			case GMFGraphPackage.BASIC_FONT: {
 				BasicFont basicFont = (BasicFont)theEObject;
 				Object result = caseBasicFont(basicFont);
+				if (result == null) result = caseFont(basicFont);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

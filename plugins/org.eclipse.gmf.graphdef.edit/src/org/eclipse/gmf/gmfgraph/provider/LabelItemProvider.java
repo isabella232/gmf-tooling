@@ -371,6 +371,11 @@ public class LabelItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(GMFGraphPackage.eINSTANCE.getFigure_Font(),
+				 GMFGraphFactory.eINSTANCE.createBasicFont()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(GMFGraphPackage.eINSTANCE.getFigure_Insets(),
 				 GMFGraphFactory.eINSTANCE.createInsets()));
 

@@ -2396,6 +2396,7 @@ public class GMFGraphPackageImpl extends EPackageImpl implements GMFGraphPackage
 		customConnectionEClass.getESuperTypes().add(this.getConnectionFigure());
 		rgbColorEClass.getESuperTypes().add(this.getColor());
 		constantColorEClass.getESuperTypes().add(this.getColor());
+		basicFontEClass.getESuperTypes().add(this.getFont());
 		lineBorderEClass.getESuperTypes().add(this.getBorder());
 		marginBorderEClass.getESuperTypes().add(this.getBorder());
 		compoundBorderEClass.getESuperTypes().add(this.getBorder());

@@ -4300,7 +4300,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BASIC_FONT__FACE_NAME = 0;
+	int BASIC_FONT__FACE_NAME = FONT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Height</b></em>' attribute.
@@ -4309,7 +4309,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BASIC_FONT__HEIGHT = 1;
+	int BASIC_FONT__HEIGHT = FONT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Style</b></em>' attribute.
@@ -4318,7 +4318,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BASIC_FONT__STYLE = 2;
+	int BASIC_FONT__STYLE = FONT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Basic Font</em>' class.
@@ -4327,7 +4327,7 @@ public interface GMFGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int BASIC_FONT_FEATURE_COUNT = 3;
+	int BASIC_FONT_FEATURE_COUNT = FONT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.gmfgraph.FontStyle <em>Font Style</em>}' enum.
