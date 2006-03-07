@@ -31,7 +31,7 @@ import org.eclipse.gmf.gmfgraph.util.FigureQualifiedNameSwitch;
 
 public class StandaloneGenerator extends GeneratorBase {
 	private final Config myArgs;
-	private final FigureGallery myInput;
+	private final FigureGallery[] myInput;
 	private final Emitter myFigureGenerator;
 	private final StandaloneEmitters myAuxiliaryGenerators;
 	private boolean mySkipPluginStructire;
@@ -61,7 +61,11 @@ public class StandaloneGenerator extends GeneratorBase {
 		private final boolean myNeedsMapMode;
 		
 		public ConfigImpl(String pluginId, String mainPackageName){
-			this(pluginId, mainPackageName, pluginId, "", "PluginActivator", mainPackageName + ".activator", true);
+			this(pluginId, mainPackageName, true);
+		}
+
+		public ConfigImpl(String pluginId, String mainPackageName, boolean useMapMode) {
+			this(pluginId, mainPackageName, pluginId, "", "PluginActivator", mainPackageName + ".activator", useMapMode);
 		}
 
 		public ConfigImpl(String pluginId, String mainPackageName, String pluginFriendlyName, String pluginProviderName, String pluginActivatorClassName, String pluginActivatorPackageName, boolean needsMapMode){
@@ -102,16 +106,24 @@ public class StandaloneGenerator extends GeneratorBase {
 			return myNeedsMapMode;
 		}
 	}
-	
-	public StandaloneGenerator(FigureGallery input, Config config, FigureQualifiedNameSwitch fqnSwitch){
-		assert input != null && config != null && fqnSwitch != null;
+
+	public StandaloneGenerator(FigureGallery input, Config config, FigureQualifiedNameSwitch fqnSwitch) {
+		this(new FigureGallery[] {input}, config, fqnSwitch);
+	}
+
+	public StandaloneGenerator(FigureGallery[] input, Config config, FigureQualifiedNameSwitch fqnSwitch) {
+		assert input != null && config != null && fqnSwitch != null && !Arrays.asList(input).contains(null);
 		myArgs = config;
 		myInput = input;
 		myFigureNameSwitch = fqnSwitch;
 		ImportAssistant importAssistant = new ImportUtil(getPackageName());
 		String pluginActivatorFQN = composePluginActivatorClassFQN(config);
-		MapModeCodeGenStrategy strategy = new MapModeCodeGenStrategy.RuntimeMapModeFromPluginClass( //
-				importAssistant, pluginActivatorFQN);
+		MapModeCodeGenStrategy strategy;
+		if (config.needsMapMode()) {
+			strategy = new MapModeCodeGenStrategy.RuntimeMapModeFromPluginClass(importAssistant, pluginActivatorFQN);
+		} else {
+			strategy = new MapModeCodeGenStrategy.StaticIdentityMapMode(importAssistant);
+		}
 		
 		myFigureGenerator = new FigureGeneratorAdapter( //
 				new FigureGenerator(getPackageName(), importAssistant, fqnSwitch, strategy)
@@ -171,18 +183,22 @@ public class StandaloneGenerator extends GeneratorBase {
 
 	private String[] getRequiredBundles() {
 		HashSet rv = new HashSet();
-		if (myInput.getImplementationBundle() != null && myInput.getImplementationBundle().trim().length() > 0) {
-			rv.add(myInput.getImplementationBundle());
+		for (int i = 0; i < myInput.length; i++) {
+			if (myInput[i].getImplementationBundle() != null && myInput[i].getImplementationBundle().trim().length() > 0) {
+				rv.add(myInput[i].getImplementationBundle());
+				}
+			String[] additional = (String[]) myFigureNameSwitch.doSwitch(myInput[i]);
+			rv.addAll(Arrays.asList(additional));
 		}
-		String[] additional = (String[]) myFigureNameSwitch.doSwitch(myInput);
-		rv.addAll(Arrays.asList(additional));
 		return (String[]) rv.toArray(new String[rv.size()]);
 	}
 
 	private void generateTopLevelFigures() throws InterruptedException {
-		for (Iterator it = myInput.getFigures().iterator(); it.hasNext();){
-			Figure next = (Figure) it.next();
-			visitFigure(next);
+		for (int i = 0; i < myInput.length; i++) {
+			for (Iterator it = myInput[i].getFigures().iterator(); it.hasNext();){
+				Figure next = (Figure) it.next();
+				visitFigure(next);
+			}
 		}
 	}
 	
