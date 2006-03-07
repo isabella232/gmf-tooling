@@ -43,19 +43,22 @@ public class CompilationTest extends TestCase {
 		SessionSetup.getRuntimeWorkspaceSetup();
 	}
 
-	public void testCodeCompilation() {
-		try {
-			URI selected = Plugin.createURI("/models/library/library.gmfgen");
-			DiaGenSource gmfGenSource =  new DiaGenFileSetup().init(selected);
-			new GenProjectBaseSetup().generateAndCompile(SessionSetup.getRuntimeWorkspaceSetup(), gmfGenSource);
-		} catch (IOException ex) {
-			fail(ex.getMessage());
-		} catch (RuntimeException ex) {
-			throw ex;
-		} catch (Exception ex) {
-			Plugin.logError("Unexpected exception:", ex);
-			fail("Hm, looks like unexpected..." + ex.getMessage());
-		}
+	public void testCompileDistinctModelAndDiagramFiles() throws Exception {
+		DiaGenSource gmfGenSource = loadSource();
+		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(false);
+		new GenProjectBaseSetup().generateAndCompile(SessionSetup.getRuntimeWorkspaceSetup(), gmfGenSource);
+	}
+
+	public void testCompileSingleDiagramFile() throws Exception {
+		DiaGenSource gmfGenSource = loadSource();
+		gmfGenSource.getGenDiagram().getEditorGen().setSameFileForDiagramAndModel(true);
+		new GenProjectBaseSetup().generateAndCompile(SessionSetup.getRuntimeWorkspaceSetup(), gmfGenSource);
+	}
+
+	private DiaGenSource loadSource() throws IOException {
+		URI selected = Plugin.createURI("/models/library/library.gmfgen");
+		DiaGenSource gmfGenSource =  new DiaGenFileSetup().init(selected);
+		return gmfGenSource;
 	}
 
 	public void testCompileMultiPackageDomain() throws Exception {

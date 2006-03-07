@@ -96,7 +96,7 @@ if (standaloneDomainModel) {
 <%	if (standaloneDomainModel) {%>
 				modelResource.getContents().add(model);
 <%	} else {%>
-				diagramResource.getContents.add(model);
+				diagramResource.getContents().add(model);
 <%
 	}
 }

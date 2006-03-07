@@ -30,7 +30,7 @@ public class DiagramEditorUtilGenerator
   protected final String TEXT_13 = ".eINSTANCE.get";
   protected final String TEXT_14 = "());";
   protected final String TEXT_15 = NL + "\t\t\t\tmodelResource.getContents().add(model);";
-  protected final String TEXT_16 = NL + "\t\t\t\tdiagramResource.getContents.add(model);";
+  protected final String TEXT_16 = NL + "\t\t\t\tdiagramResource.getContents().add(model);";
   protected final String TEXT_17 = NL + "\t\t\t\tDiagram diagram = ViewService.createDiagram(";
   protected final String TEXT_18 = NL + "\t\t\t\tmodel, ";
   protected final String TEXT_19 = NL + "\t\t\t\tkindParam, ";
