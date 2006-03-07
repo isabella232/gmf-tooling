@@ -4,6 +4,7 @@
 final GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 final String modelID = genDiagram.getEditorGen().getModelID();
 %>
+<%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>

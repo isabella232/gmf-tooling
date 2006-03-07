@@ -6,8 +6,9 @@ final String modelID = genDiagram.getEditorGen().getModelID();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
 final List genLinks = genDiagram.getLinks();
 final Collection allContainers = genDiagram.getAllContainers();
-
-importManager.emitPackageStatement(stringBuffer);%>
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
 
 <%
 importManager.addImport("org.eclipse.emf.ecore.EClass");

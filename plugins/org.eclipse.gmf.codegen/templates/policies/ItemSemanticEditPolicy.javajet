@@ -2,10 +2,11 @@
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.* org.eclipse.emf.codegen.ecore.genmodel.* java.util.*"
 	skeleton="../common.skeleton" %>
 <%
-GenDiagram diagram = (GenDiagram) ((Object[]) argument)[0];
-ImportUtil importManager = new ImportUtil(diagram.getEditPoliciesPackageName());
+GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
+ImportUtil importManager = new ImportUtil(genDiagram.getEditPoliciesPackageName());
 %>
-package <%=diagram.getEditPoliciesPackageName()%>;
+<%@ include file="../copyright4java.jetinc"%>
+package <%=genDiagram.getEditPoliciesPackageName()%>;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -39,7 +40,7 @@ import org.eclipse.gmf.runtime.notation.View;
 /**
  * @generated
  */
-public class <%=diagram.getBaseItemSemanticEditPolicyClassName()%> extends SemanticEditPolicy {
+public class <%=genDiagram.getBaseItemSemanticEditPolicyClassName()%> extends SemanticEditPolicy {
 
 	/**
 	 * @generated
@@ -206,15 +207,15 @@ public class <%=diagram.getBaseItemSemanticEditPolicyClassName()%> extends Seman
 	}
 
 <%
-if(diagram.hasLinkCreationConstraints()) {
-	String pluginActivatorClass = importManager.getImportedName(diagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
+if (genDiagram.hasLinkCreationConstraints()) {
+	String pluginActivatorClass = importManager.getImportedName(genDiagram.getEditorGen().getPlugin().getActivatorQualifiedClassName());
 %>
 	/**
 	 * @generated 
 	 */
-	protected static class <%=diagram.getLinkCreationConstraintsClassName()%> {
+	protected static class <%=genDiagram.getLinkCreationConstraintsClassName()%> {
 <%
-	for (Iterator it = diagram.getLinks().iterator(); it.hasNext();) {
+	for (Iterator it = genDiagram.getLinks().iterator(); it.hasNext();) {
 		GenLink nextLink = (GenLink) it.next();
 		GenLinkConstraints linkConstraints = nextLink.getCreationConstraints();
 		if(linkConstraints != null) {						
@@ -226,7 +227,7 @@ if(diagram.hasLinkCreationConstraints()) {
 		/**
 		 * @generated 
 		 */
-		public static final <%=diagram.getLinkCreationConstraintsClassName()%> <%=linkConstraints.getConstraintsInstanceFieldName()%> = new <%=diagram.getLinkCreationConstraintsClassName()%>(
+		public static final <%=genDiagram.getLinkCreationConstraintsClassName()%> <%=linkConstraints.getConstraintsInstanceFieldName()%> = new <%=genDiagram.getLinkCreationConstraintsClassName()%>(
 			new LinkEndConstraint(
 				<%=srcConstraint != null ? "\"" + srcConstraint + "\"" : null%>, //$NON-NLS-1$
 				<%=(srcContext!=null) ? getMetaClassAccessor(srcContext, importManager) : null%>),
@@ -260,7 +261,7 @@ if(diagram.hasLinkCreationConstraints()) {
 		/**
 		 * @generated 
 		 */		
-		public <%=diagram.getLinkCreationConstraintsClassName()%>(LinkEndConstraint sourceEnd, LinkEndConstraint targetEnd) {			
+		public <%=genDiagram.getLinkCreationConstraintsClassName()%>(LinkEndConstraint sourceEnd, LinkEndConstraint targetEnd) {			
 			if(sourceEnd != null && sourceEnd.context != null && sourceEnd.body != null) {				
 				if(targetEnd != null && targetEnd.context != null) {
 					this.varOppositeEndToTarget = createVar(OPPOSITE_END_VAR, targetEnd.context);			

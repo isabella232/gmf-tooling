@@ -4,8 +4,9 @@
 final GenEditorView genEditor = (GenEditorView) ((Object[]) argument)[0];
 final GenDiagram genDiagram = genEditor.getEditorGen().getDiagram();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
-
-importManager.emitPackageStatement(stringBuffer);%>
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
 
 import org.eclipse.draw2d.DelegatingLayout;
 import org.eclipse.draw2d.FreeformLayer;

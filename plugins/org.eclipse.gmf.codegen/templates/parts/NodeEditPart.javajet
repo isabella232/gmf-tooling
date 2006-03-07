@@ -6,6 +6,7 @@ GenNode genNode = (GenNode) ((Object[]) argument)[0];
 GenDiagram genDiagram = genNode.getDiagram();
 boolean useFlowLayout = !genNode.isListLayout();
 %>
+<%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%

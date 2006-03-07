@@ -5,6 +5,7 @@
 GenCompartment genCompartment = (GenCompartment) ((Object[]) argument)[0];
 GenDiagram genDiagram = genCompartment.getDiagram();
 %>
+<%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getEditPoliciesPackageName()%>;
 
 <%

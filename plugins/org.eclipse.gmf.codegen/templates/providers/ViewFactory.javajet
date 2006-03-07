@@ -2,6 +2,7 @@
 	imports="java.util.* org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%GenCommonBase genElement = (GenCommonBase) ((Object[]) argument)[0];%>
 <%GenDiagram genDiagram = genElement.getDiagram();%>
+<%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getNotationViewFactoriesPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getNotationViewFactoriesPackageName());%>

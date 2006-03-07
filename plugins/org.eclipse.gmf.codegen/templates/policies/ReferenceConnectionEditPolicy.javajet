@@ -1,9 +1,10 @@
 <%@ jet package="org.eclipse.gmf.codegen.templates.policies" class="ReferenceConnectionEditPolicyGenerator"
 	imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
-<%GenDiagram diagram = (GenDiagram) ((Object[]) argument)[0];%>
-package <%=diagram.getEditPoliciesPackageName()%>;
+<%GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];%>
+<%@ include file="../copyright4java.jetinc"%>
+package <%=genDiagram.getEditPoliciesPackageName()%>;
 
-<%ImportUtil importManager = new ImportUtil(diagram.getEditPoliciesPackageName());%>
+<%ImportUtil importManager = new ImportUtil(genDiagram.getEditPoliciesPackageName());%>
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.requests.GroupRequest;
@@ -13,7 +14,7 @@ import org.eclipse.gmf.runtime.diagram.ui.internal.editpolicies.ConnectionEditPo
 /**
  * @generated
  */
-public class <%=diagram.getReferenceConnectionEditPolicyClassName()%> extends ConnectionEditPolicy {
+public class <%=genDiagram.getReferenceConnectionEditPolicyClassName()%> extends ConnectionEditPolicy {
 
 	/**
 	 * @generated

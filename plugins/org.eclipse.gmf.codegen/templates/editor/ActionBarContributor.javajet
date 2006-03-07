@@ -3,8 +3,10 @@
 <%
 final GenEditorView editorView = (GenEditorView) ((Object[]) argument)[0];
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
-
-importManager.emitPackageStatement(stringBuffer);%>
+GenDiagram genDiagram = editorView.getEditorGen().getDiagram();
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
 
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramActionBarContributor;
 

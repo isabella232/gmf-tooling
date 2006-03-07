@@ -41,7 +41,7 @@ public class ImportUtil implements ImportAssistant {
 		if (myPackageName == null || myPackageName.trim().length() == 0) {
 			return;
 		}
-		stringBuffer.append("package ");
+		stringBuffer.append("\npackage ");
 		stringBuffer.append(myPackageName);
 		stringBuffer.append(';');
 	}

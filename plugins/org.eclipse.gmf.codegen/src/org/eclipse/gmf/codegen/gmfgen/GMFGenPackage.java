@@ -190,13 +190,22 @@ public interface GMFGenPackage extends EPackage {
 	int GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY = 12;
 
 	/**
+	 * The feature id for the '<em><b>Copyright Text</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GEN_EDITOR_GENERATOR__COPYRIGHT_TEXT = 13;
+
+	/**
 	 * The number of structural features of the '<em>Gen Editor Generator</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int GEN_EDITOR_GENERATOR_FEATURE_COUNT = 13;
+	int GEN_EDITOR_GENERATOR_FEATURE_COUNT = 14;
 
 	/**
 	 * The meta object id for the '{@link org.eclipse.gmf.codegen.gmfgen.impl.GenCommonBaseImpl <em>Gen Common Base</em>}' class.
@@ -5207,6 +5216,17 @@ public interface GMFGenPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getGenEditorGenerator_TemplateDirectory();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getCopyrightText <em>Copyright Text</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Copyright Text</em>'.
+	 * @see org.eclipse.gmf.codegen.gmfgen.GenEditorGenerator#getCopyrightText()
+	 * @see #getGenEditorGenerator()
+	 * @generated
+	 */
+	EAttribute getGenEditorGenerator_CopyrightText();
 
 	/**
 	 * Returns the meta object for class '{@link org.eclipse.gmf.codegen.gmfgen.GenDiagram <em>Gen Diagram</em>}'.

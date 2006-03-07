@@ -5,6 +5,7 @@
 GenChildContainer genContainer = (GenChildContainer) ((Object[]) argument)[0];
 GenDiagram genDiagram = genContainer.getDiagram();
 %>
+<%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getEditPoliciesPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPoliciesPackageName());%>

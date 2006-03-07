@@ -2,9 +2,11 @@
     imports="org.eclipse.gmf.codegen.gmfgen.* org.eclipse.gmf.common.codegen.*"%>
 <%
 GenEditorGenerator editorGen = (GenEditorGenerator) ((Object[]) argument)[0];
+GenDiagram genDiagram = editorGen.getDiagram();
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
-
-importManager.emitPackageStatement(stringBuffer);%>
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
 
 import org.eclipse.gmf.runtime.diagram.ui.preferences.DiagramPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;

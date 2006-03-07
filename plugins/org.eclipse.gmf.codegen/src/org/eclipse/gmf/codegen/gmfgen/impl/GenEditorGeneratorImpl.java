@@ -47,6 +47,7 @@ import org.eclipse.gmf.codegen.gmfgen.GenPlugin;
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getDomainFileExtension <em>Domain File Extension</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#isDynamicTemplates <em>Dynamic Templates</em>}</li>
  *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getTemplateDirectory <em>Template Directory</em>}</li>
+ *   <li>{@link org.eclipse.gmf.codegen.gmfgen.impl.GenEditorGeneratorImpl#getCopyrightText <em>Copyright Text</em>}</li>
  * </ul>
  * </p>
  *
@@ -252,6 +253,26 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	 * @ordered
 	 */
 	protected String templateDirectory = TEMPLATE_DIRECTORY_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getCopyrightText() <em>Copyright Text</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCopyrightText()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String COPYRIGHT_TEXT_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getCopyrightText() <em>Copyright Text</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCopyrightText()
+	 * @generated
+	 * @ordered
+	 */
+	protected String copyrightText = COPYRIGHT_TEXT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -723,6 +744,27 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getCopyrightText() {
+		return copyrightText;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCopyrightText(String newCopyrightText) {
+		String oldCopyrightText = copyrightText;
+		copyrightText = newCopyrightText;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, GMFGenPackage.GEN_EDITOR_GENERATOR__COPYRIGHT_TEXT, oldCopyrightText, copyrightText));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public EList getAllDomainGenPackages(boolean withUsed) {
@@ -827,6 +869,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return isDynamicTemplates() ? Boolean.TRUE : Boolean.FALSE;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY:
 				return getTemplateDirectory();
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__COPYRIGHT_TEXT:
+				return getCopyrightText();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -876,6 +920,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY:
 				setTemplateDirectory((String)newValue);
+				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__COPYRIGHT_TEXT:
+				setCopyrightText((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -927,6 +974,9 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY:
 				setTemplateDirectory(TEMPLATE_DIRECTORY_EDEFAULT);
 				return;
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__COPYRIGHT_TEXT:
+				setCopyrightText(COPYRIGHT_TEXT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -964,6 +1014,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 				return dynamicTemplates != DYNAMIC_TEMPLATES_EDEFAULT;
 			case GMFGenPackage.GEN_EDITOR_GENERATOR__TEMPLATE_DIRECTORY:
 				return TEMPLATE_DIRECTORY_EDEFAULT == null ? templateDirectory != null : !TEMPLATE_DIRECTORY_EDEFAULT.equals(templateDirectory);
+			case GMFGenPackage.GEN_EDITOR_GENERATOR__COPYRIGHT_TEXT:
+				return COPYRIGHT_TEXT_EDEFAULT == null ? copyrightText != null : !COPYRIGHT_TEXT_EDEFAULT.equals(copyrightText);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -991,6 +1043,8 @@ public class GenEditorGeneratorImpl extends EObjectImpl implements GenEditorGene
 		result.append(dynamicTemplates);
 		result.append(", templateDirectory: ");
 		result.append(templateDirectory);
+		result.append(", copyrightText: ");
+		result.append(copyrightText);
 		result.append(')');
 		return result.toString();
 	}

@@ -40,6 +40,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/domainFileExtension"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/dynamicTemplates"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/templateDirectory"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute gmfgen.ecore#//GenEditorGenerator/copyrightText"/>
       <genOperations ecoreOperation="gmfgen.ecore#//GenEditorGenerator/getAllDomainGenPackages">
         <genParameters ecoreParameter="gmfgen.ecore#//GenEditorGenerator/getAllDomainGenPackages/withUsed"/>
       </genOperations>

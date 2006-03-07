@@ -5,8 +5,9 @@ final GenPlugin genPlugin = (GenPlugin) ((Object[]) argument)[0];
 final GenDiagram genDiagram = genPlugin.getEditorGen().getDiagram();
 final EList genPackages = genPlugin.getEditorGen().getAllDomainGenPackages(true);
 final ImportAssistant importManager = (ImportAssistant) ((Object[]) argument)[1];
-
-importManager.emitPackageStatement(stringBuffer);%>
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
 
 import java.util.ArrayList;
 import java.util.List;

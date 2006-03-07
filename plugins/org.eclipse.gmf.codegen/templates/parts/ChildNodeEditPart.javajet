@@ -4,6 +4,7 @@
 GenNode genChildNode = (GenNode) ((Object[]) argument)[0];
 GenDiagram genDiagram = genChildNode.getDiagram();
 %>
+<%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>

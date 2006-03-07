@@ -5,6 +5,7 @@ GenLabel label = (GenLabel) ((Object[]) argument)[0];
 GenDiagram genDiagram = label.getDiagram();
 ImportUtil importManager = new ImportUtil(genDiagram.getNotationViewFactoriesPackageName());
 %>
+<%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getNotationViewFactoriesPackageName()%>;
 
 <%

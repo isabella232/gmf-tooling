@@ -3,6 +3,7 @@
 <%
 GenDiagram genDiagram = (GenDiagram) ((Object[]) argument)[0];
 %>
+<%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getProvidersPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getProvidersPackageName());%>

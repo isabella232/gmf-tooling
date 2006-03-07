@@ -5,6 +5,7 @@ GenNodeLabel genLabel = (GenNodeLabel) ((Object[]) argument)[0];
 GenDiagram genDiagram = genLabel.getDiagram();
 boolean isParentFlowLayout = !genLabel.getNode().isListLayout();
 %>
+<%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>

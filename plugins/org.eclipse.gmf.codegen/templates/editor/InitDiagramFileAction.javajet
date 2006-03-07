@@ -21,8 +21,9 @@ for (Iterator topLevelNodes = genDiagram.getTopLevelNodes().iterator(); topLevel
 }
 
 boolean generateGetCompartment = false;
-
-importManager.emitPackageStatement(stringBuffer);%>
+%>
+<%@ include file="../copyright4java.jetinc"%>
+<%importManager.emitPackageStatement(stringBuffer);%>
 
 <%
 importManager.addImport("java.io.IOException");

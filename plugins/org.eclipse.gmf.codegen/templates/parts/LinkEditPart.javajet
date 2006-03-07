@@ -4,6 +4,7 @@
 GenLink genLink = (GenLink) ((Object[]) argument)[0];
 GenDiagram genDiagram = genLink.getDiagram();
 %>
+<%@ include file="../copyright4java.jetinc"%>
 package <%=genDiagram.getEditPartsPackageName()%>;
 
 <%ImportUtil importManager = new ImportUtil(genDiagram.getEditPartsPackageName());%>
