@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.gmf.callisto"
+      label="%featureName"
+      version="1.0.0.qualifier"
+      provider-name="%providerName"
+      image="eclipse_update_120.jpg">
+
+   <description url="http://www.eclipse.org/gmf">
+      %description
+   </description>
+
+   <copyright url="http://www.eclipse.org/legal/epl-v10.html">
+      Copyright (c) 2005 Borland Software Corporation and others.
+All rights reserved.   This program and the accompanying materials
+are made available under the terms of the Eclipse Public License
+v1.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v10.html
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="%updateSiteName" url="http://download.eclipse.org/technology/gmf/update-site/site.xml"/>
+      <discovery label="%updateSiteName" url="http://download.eclipse.org/technology/gmf/update-site/site.xml"/>
+   </url>
+
+   <includes
+         id="org.eclipse.gmf"
+         version="0.0.0"
+         name="GMF Runtime"/>
+
+   <includes
+         id="org.eclipse.emf.ocl"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.emf.query"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.emf.query.ocl"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.emf.transaction"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.emf.validation"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.emf.validation.ocl"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.emf.workspace"
+         version="0.0.0"/>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.emf.codegen.ecore"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.emf.edit"/>
+      <import feature="org.eclipse.gef" version="3.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.emf.edit.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.emf.codegen.ecore.ui"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.gmf.runtime.notation"/>
+      <import feature="org.eclipse.gef" version="3.1.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.emf" version="2.1.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.jdt" version="3.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.codegen"/>
+      <import plugin="org.eclipse.jdt.ui"/>
+      <import plugin="org.eclipse.emf.common"/>
+      <import plugin="org.eclipse.emf.ecore.edit"/>
+      <import plugin="org.eclipse.draw2d"/>
+      <import plugin="org.eclipse.emf.ecore.editor"/>
+      <import plugin="org.eclipse.pde.ui"/>
+      <import plugin="org.eclipse.jface"/>
+      <import plugin="org.eclipse.pde.core"/>
+      <import plugin="org.eclipse.ui.cheatsheets"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.gmf.common"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.codegen"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.codegen.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.codegen.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.graphdef"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.graphdef.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.map"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.map.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.bridge"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.bridge.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.bridge.ui.dashboard"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.sdk"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.graphdef.codegen"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.graphdef.codegen.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.tooldef"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.tooldef.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.doc.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.gmf.ecore.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
