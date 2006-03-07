@@ -7,11 +7,12 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
 import java.io.IOException;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -21,52 +22,75 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.commands.ExecutionException;
+
 import org.eclipse.core.commands.operations.OperationHistoryFactory;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.WrappedException;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+
 import org.eclipse.gmf.examples.taipan.Aquatory;
 import org.eclipse.gmf.examples.taipan.Route;
 import org.eclipse.gmf.examples.taipan.Ship;
 import org.eclipse.gmf.examples.taipan.TaiPanPackage;
+
 import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
+
 import org.eclipse.gmf.runtime.common.core.command.CommandResult;
+
 import org.eclipse.gmf.runtime.diagram.core.services.ViewService;
+
 import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+
 import org.eclipse.gmf.runtime.emf.commands.core.command.AbstractTransactionalCommand;
+
 import org.eclipse.gmf.runtime.emf.core.GMFEditingDomainFactory;
+
 import org.eclipse.gmf.runtime.emf.core.util.EObjectAdapter;
 
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
+
 import org.eclipse.gmf.runtime.notation.Diagram;
 import org.eclipse.gmf.runtime.notation.Edge;
 import org.eclipse.gmf.runtime.notation.Node;
 import org.eclipse.gmf.runtime.notation.View;
+
 import org.eclipse.jface.action.IAction;
+
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.MessageDialog;
+
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
+
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardDialog;
+
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
+
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
+
 import org.eclipse.ui.ide.IDE;
 
 /**
@@ -365,11 +389,11 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 			for (Iterator values = ((Collection) featureValue).iterator(); values.hasNext();) {
 				EObject nextValue = ((EObject) values.next());
 				int linkVID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(nextValue);
-				if (3001 == linkVID) {
+				if (3002 == linkVID) {
 					Object structuralFeatureResult = ((Route) nextValue).getDestination();
 					if (structuralFeatureResult instanceof EObject) {
 						EObject dst = (EObject) structuralFeatureResult;
-						((Collection) myLinkVID2EObjectMap.get(LINK_KEY_3001)).add(new LinkDescriptor(container, dst, nextValue, diagram));
+						((Collection) myLinkVID2EObjectMap.get(LINK_KEY_3002)).add(new LinkDescriptor(container, dst, nextValue, diagram));
 					}
 				}
 			}
@@ -384,7 +408,7 @@ public class TaiPanInitDiagramFileAction implements IObjectActionDelegate, IInpu
 			Object structuralFeatureResult = ((Ship) container).getDestination();
 			if (structuralFeatureResult instanceof EObject) {
 				EObject nextDestination = (EObject) structuralFeatureResult;
-				((Collection) myLinkVID2EObjectMap.get(LINK_KEY_3002)).add(new LinkDescriptor(container, nextDestination, TaiPanElementTypes.ShipDestination_3002, diagram));
+				((Collection) myLinkVID2EObjectMap.get(LINK_KEY_3001)).add(new LinkDescriptor(container, nextDestination, TaiPanElementTypes.ShipDestination_3001, diagram));
 			}
 		}
 	}

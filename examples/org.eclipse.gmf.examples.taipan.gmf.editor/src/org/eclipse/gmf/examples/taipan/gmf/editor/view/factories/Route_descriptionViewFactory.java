@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.view.factories;
 
@@ -33,7 +33,7 @@ public class Route_descriptionViewFactory extends AbstractLabelViewFactory {
 		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "TaiPan"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "4004"); //$NON-NLS-1$
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Route_3001Labels.ROUTEDESCRIPTION_4004_TEXT, ViewUtil.APPEND, persisted, getPreferencesHint());
+		annotation.getDetails().put("visualID", "4005"); //$NON-NLS-1$
+		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005_TEXT, ViewUtil.APPEND, persisted, getPreferencesHint());
 	}
 }

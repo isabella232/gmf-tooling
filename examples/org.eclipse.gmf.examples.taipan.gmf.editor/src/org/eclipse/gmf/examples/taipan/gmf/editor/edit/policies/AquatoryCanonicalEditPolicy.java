@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
@@ -95,7 +95,7 @@ public class AquatoryCanonicalEditPolicy extends CanonicalConnectionEditPolicy {
 	protected EObject getTargetElement(EObject relationship) {
 		int vID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(relationship);
 		switch (vID) {
-		case 3001:
+		case 3002:
 			return ((Route) relationship).getDestination();
 		}
 		return null;

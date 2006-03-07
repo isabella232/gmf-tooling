@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
@@ -101,7 +101,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		box figure = new box();
+		ShipFigure figure = new ShipFigure();
 		figure.setUseLocalCoordinates(false);
 		return figure;
 	}
@@ -188,7 +188,7 @@ public class ShipEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public class box extends org.eclipse.draw2d.RectangleFigure {
+	public class ShipFigure extends org.eclipse.draw2d.RectangleFigure {
 
 		/**
 		 * @generated
@@ -198,36 +198,36 @@ public class ShipEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		public box() {
+		public ShipFigure() {
 
-			org.eclipse.draw2d.IFigure childboxName = createFigureboxName();
-			setFigureboxName(childboxName);
-			add(childboxName);
+			org.eclipse.draw2d.IFigure childShipNameFigure = createFigureShipNameFigure();
+			setFigureShipNameFigure(childShipNameFigure);
+			add(childShipNameFigure);
 
 		}
 
-		private org.eclipse.draw2d.IFigure fboxName;
+		private org.eclipse.draw2d.IFigure fShipNameFigure;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFigureboxName() {
-			return fboxName;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setFigureboxName(org.eclipse.draw2d.IFigure figure) {
-			fboxName = figure;
+		public org.eclipse.draw2d.IFigure getFigureShipNameFigure() {
+			return fShipNameFigure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFigureboxName() {
+		protected void setFigureShipNameFigure(org.eclipse.draw2d.IFigure figure) {
+			fShipNameFigure = figure;
+		}
+
+		/**
+		 * @generated
+		 */
+		private org.eclipse.draw2d.IFigure createFigureShipNameFigure() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
-			rv.setText("");
+			rv.setText("<...>");
 
 			return rv;
 		}

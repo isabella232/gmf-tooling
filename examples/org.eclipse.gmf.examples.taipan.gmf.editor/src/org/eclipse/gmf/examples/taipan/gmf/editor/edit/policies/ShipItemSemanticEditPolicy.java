@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.policies;
 
@@ -51,8 +51,8 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	 * @generated
 	 */
 	protected Command getCreateRelationshipCommand(CreateRelationshipRequest req) {
-		if (TaiPanElementTypes.ShipDestination_3002 == req.getElementType()) {
-			return req.getTarget() == null ? getCreateStartOutgoingShip_Destination3002Command(req) : null;
+		if (TaiPanElementTypes.ShipDestination_3001 == req.getElementType()) {
+			return req.getTarget() == null ? getCreateStartOutgoingShip_Destination3001Command(req) : null;
 		}
 		return super.getCreateRelationshipCommand(req);
 	}
@@ -60,7 +60,7 @@ public class ShipItemSemanticEditPolicy extends TaiPanBaseItemSemanticEditPolicy
 	/**
 	 * @generated
 	 */
-	protected Command getCreateStartOutgoingShip_Destination3002Command(CreateRelationshipRequest req) {
+	protected Command getCreateStartOutgoingShip_Destination3001Command(CreateRelationshipRequest req) {
 		Ship element = (Ship) getSemanticElement();
 		if (element.getDestination() != null) {
 			return UnexecutableCommand.INSTANCE;

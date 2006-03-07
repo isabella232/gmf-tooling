@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
@@ -136,33 +136,33 @@ public class TaiPanVisualIDRegistry {
 			}
 			return getUnrecognizedAquatory_79ChildNodeID(domainElement);
 		case 3001:
-			if (TaiPanSemanticHints.Route_3001Labels.ROUTEDESCRIPTION_4004_LABEL.equals(semanticHint)) {
+			if (TaiPanSemanticHints.ShipDestination_3001Labels.SHIPDESTINATIONUNKNOWN_4004_LABEL.equals(semanticHint)) {
 				return 4004;
 			}
-			if (TaiPanSemanticHints.Route_3001Labels.ROUTERELIABILITY_4005_LABEL.equals(semanticHint)) {
-				return 4005;
-			}
-			return getUnrecognizedRoute_3001LinkLabelID(semanticHint);
+			return getUnrecognizedShipDestination_3001LinkLabelID(semanticHint);
 		case 4004:
-			if (TaiPanSemanticHints.Route_3001Labels.ROUTEDESCRIPTION_4004_TEXT.equals(semanticHint)) {
+			if (TaiPanSemanticHints.ShipDestination_3001Labels.SHIPDESTINATIONUNKNOWN_4004_TEXT.equals(semanticHint)) {
 				return 4004;
 			}
-			return getUnrecognizedRoute_3001LinkLabelTextID(semanticHint);
-		case 4005:
-			if (TaiPanSemanticHints.Route_3001Labels.ROUTERELIABILITY_4005_TEXT.equals(semanticHint)) {
+			return getUnrecognizedShipDestination_3001LinkLabelTextID(semanticHint);
+		case 3002:
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005_LABEL.equals(semanticHint)) {
 				return 4005;
 			}
-			return getUnrecognizedRoute_3001LinkLabelTextID(semanticHint);
-		case 3002:
-			if (TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONDESTINATION_4006_LABEL.equals(semanticHint)) {
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4006_LABEL.equals(semanticHint)) {
 				return 4006;
 			}
-			return getUnrecognizedShipDestination_3002LinkLabelID(semanticHint);
+			return getUnrecognizedRoute_3002LinkLabelID(semanticHint);
+		case 4005:
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005_TEXT.equals(semanticHint)) {
+				return 4005;
+			}
+			return getUnrecognizedRoute_3002LinkLabelTextID(semanticHint);
 		case 4006:
-			if (TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONDESTINATION_4006_TEXT.equals(semanticHint)) {
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4006_TEXT.equals(semanticHint)) {
 				return 4006;
 			}
-			return getUnrecognizedShipDestination_3002LinkLabelTextID(semanticHint);
+			return getUnrecognizedRoute_3002LinkLabelTextID(semanticHint);
 		}
 		return -1;
 	}
@@ -179,8 +179,8 @@ public class TaiPanVisualIDRegistry {
 	 * @generated
 	 */
 	public int getLinkWithClassVisualID(EObject domainElement, EClass domainElementMetaclass) {
-		if (TaiPanPackage.eINSTANCE.getRoute().equals(domainElementMetaclass) && (domainElement != null ? isLinkWithClassRoute_3001((Route) domainElement) : true)) {
-			return 3001;
+		if (TaiPanPackage.eINSTANCE.getRoute().equals(domainElementMetaclass) && (domainElement != null ? isLinkWithClassRoute_3002((Route) domainElement) : true)) {
+			return 3002;
 		} else {
 			return getUnrecognizedLinkWithClassID(domainElement);
 		}
@@ -342,7 +342,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedRoute_3001LinkLabelID(String semanticHint) {
+	private int getUnrecognizedShipDestination_3001LinkLabelID(String semanticHint) {
 		return -1;
 	}
 
@@ -352,7 +352,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedRoute_3001LinkLabelTextID(String semanticHint) {
+	private int getUnrecognizedShipDestination_3001LinkLabelTextID(String semanticHint) {
 		return -1;
 	}
 
@@ -362,7 +362,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedShipDestination_3002LinkLabelID(String semanticHint) {
+	private int getUnrecognizedRoute_3002LinkLabelID(String semanticHint) {
 		return -1;
 	}
 
@@ -372,7 +372,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private int getUnrecognizedShipDestination_3002LinkLabelTextID(String semanticHint) {
+	private int getUnrecognizedRoute_3002LinkLabelTextID(String semanticHint) {
 		return -1;
 	}
 
@@ -392,7 +392,7 @@ public class TaiPanVisualIDRegistry {
 	 *
 	 * @generated
 	 */
-	private boolean isLinkWithClassRoute_3001(Route element) {
+	private boolean isLinkWithClassRoute_3002(Route element) {
 		return ElementSelectors.acceptAllMatcher().matches(element);
 	}
 

@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
@@ -50,20 +50,30 @@ public class DestinationEditPart extends ConnectionNodeEditPart {
 	 * @generated
 	 */
 	protected Connection createConnectionFigure() {
-		return new line();
+		return new ShipDestinationFigure();
 	}
 
 	/**
 	 * @generated
 	 */
-	public class line extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
+	public class ShipDestinationFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {
 
 		/**
 		 * @generated
 		 */
-		public line() {
+		public ShipDestinationFigure() {
 
+			setTargetDecoration(createTargetDecoration());
 		}
 
+		/**
+		 * @generated
+		 */
+		private org.eclipse.draw2d.PolylineDecoration createTargetDecoration() {
+			org.eclipse.draw2d.PolylineDecoration df = new org.eclipse.draw2d.PolylineDecoration();
+			// dispatchNext?
+
+			return df;
+		}
 	}
 }

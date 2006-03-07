@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
@@ -22,8 +22,11 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
  */
 public class Route_reliabilityEditPart extends LabelEditPart {
 
+	/**
+	 * @generated
+	 */
 	static {
-		registerSnapBackPosition(TaiPanSemanticHints.Route_3001Labels.ROUTERELIABILITY_4005_LABEL, new Point(0, 0));
+		registerSnapBackPosition(TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4006_LABEL, new Point(0, 0));
 	}
 
 	/**

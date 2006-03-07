@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
@@ -93,59 +93,59 @@ public class TaiPanSemanticHints {
 	/**
 	 * @generated
 	 */
-	public static class Route_3001Labels {
+	public static final String ShipDestination_3001 = "ShipDestination_3001SemanticHint";
+
+	/**
+	 * @generated
+	 */
+	public static class ShipDestination_3001Labels {
 
 		/**
 		 * @generated
 		 */
-		private Route_3001Labels() {
+		private ShipDestination_3001Labels() {
 		}
 
 		/**
 		 * @generated
 		 */
-		public static final String ROUTEDESCRIPTION_4004_LABEL = "RouteDescription_4004Label";
+		public static final String SHIPDESTINATIONUNKNOWN_4004_LABEL = "ShipDestinationUnknown_4004Label";
 
 		/**
 		 * @generated
 		 */
-		public static final String ROUTEDESCRIPTION_4004_TEXT = "RouteDescription_4004Text";
-
-		/**
-		 * @generated
-		 */
-		public static final String ROUTERELIABILITY_4005_LABEL = "RouteReliability_4005Label";
-
-		/**
-		 * @generated
-		 */
-		public static final String ROUTERELIABILITY_4005_TEXT = "RouteReliability_4005Text";
+		public static final String SHIPDESTINATIONUNKNOWN_4004_TEXT = "ShipDestinationUnknown_4004Text";
 	}
 
 	/**
 	 * @generated
 	 */
-	public static final String ShipDestination_3002 = "ShipDestination_3002SemanticHint";
-
-	/**
-	 * @generated
-	 */
-	public static class ShipDestination_3002Labels {
+	public static class Route_3002Labels {
 
 		/**
 		 * @generated
 		 */
-		private ShipDestination_3002Labels() {
+		private Route_3002Labels() {
 		}
 
 		/**
 		 * @generated
 		 */
-		public static final String SHIPDESTINATIONDESTINATION_4006_LABEL = "ShipDestinationDestination_4006Label";
+		public static final String ROUTEDESCRIPTION_4005_LABEL = "RouteDescription_4005Label";
 
 		/**
 		 * @generated
 		 */
-		public static final String SHIPDESTINATIONDESTINATION_4006_TEXT = "ShipDestinationDestination_4006Text";
+		public static final String ROUTEDESCRIPTION_4005_TEXT = "RouteDescription_4005Text";
+
+		/**
+		 * @generated
+		 */
+		public static final String ROUTERELIABILITY_4006_LABEL = "RouteReliability_4006Label";
+
+		/**
+		 * @generated
+		 */
+		public static final String ROUTERELIABILITY_4006_TEXT = "RouteReliability_4006Text";
 	}
 }

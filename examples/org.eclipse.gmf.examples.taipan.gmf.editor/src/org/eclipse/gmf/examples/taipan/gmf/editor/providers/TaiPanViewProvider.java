@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
@@ -20,8 +20,8 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanVisualIDRegistry;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.AquatoryViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.DestinationViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Destination_destinatTextViewFactory;
-import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Destination_destinatViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Destination_UnknownTextViewFactory;
+import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Destination_UnknownViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.ItemViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.PortViewFactory;
 import org.eclipse.gmf.examples.taipan.gmf.editor.view.factories.Port_locationViewFactory;
@@ -78,22 +78,22 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 		case 5001:
 			return Ship_CargoCompartmentViewFactory.class;
 		case 4004:
-			if (TaiPanSemanticHints.Route_3001Labels.ROUTEDESCRIPTION_4004_LABEL.equals(semanticHint)) {
+			if (TaiPanSemanticHints.ShipDestination_3001Labels.SHIPDESTINATIONUNKNOWN_4004_LABEL.equals(semanticHint)) {
+				return Destination_UnknownViewFactory.class;
+			} else {
+				return Destination_UnknownTextViewFactory.class;
+			}
+		case 4005:
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005_LABEL.equals(semanticHint)) {
 				return Route_descriptionViewFactory.class;
 			} else {
 				return Route_descriptionTextViewFactory.class;
 			}
-		case 4005:
-			if (TaiPanSemanticHints.Route_3001Labels.ROUTERELIABILITY_4005_LABEL.equals(semanticHint)) {
+		case 4006:
+			if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4006_LABEL.equals(semanticHint)) {
 				return Route_reliabilityViewFactory.class;
 			} else {
 				return Route_reliabilityTextViewFactory.class;
-			}
-		case 4006:
-			if (TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONDESTINATION_4006_LABEL.equals(semanticHint)) {
-				return Destination_destinatViewFactory.class;
-			} else {
-				return Destination_destinatTextViewFactory.class;
 			}
 		}
 		return null;
@@ -104,7 +104,7 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 	 */
 	protected Class getEdgeViewClass(IAdaptable semanticAdapter, View containerView, String semanticHint) {
 		IElementType elementType = getSemanticElementType(semanticAdapter);
-		if (TaiPanElementTypes.ShipDestination_3002.equals(elementType)) {
+		if (TaiPanElementTypes.ShipDestination_3001.equals(elementType)) {
 			return DestinationViewFactory.class;
 		}
 
@@ -114,7 +114,7 @@ public class TaiPanViewProvider extends AbstractViewProvider {
 		int linkVID = TaiPanVisualIDRegistry.INSTANCE.getLinkWithClassVisualID(semanticElement, semanticType);
 
 		switch (linkVID) {
-		case 3001:
+		case 3002:
 			return RouteViewFactory.class;
 		}
 		return getUnrecognizedConnectorViewClass(semanticAdapter, containerView, semanticHint);

@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
@@ -20,19 +20,19 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
 /**
  * @generated
  */
-public class Destination_destinatEditPart extends LabelEditPart {
+public class Destination_UnknownEditPart extends LabelEditPart {
 
 	/**
 	 * @generated
 	 */
 	static {
-		registerSnapBackPosition(TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONDESTINATION_4006_LABEL, new Point(0, 0));
+		registerSnapBackPosition(TaiPanSemanticHints.ShipDestination_3001Labels.SHIPDESTINATIONUNKNOWN_4004_LABEL, new Point(0, 0));
 	}
 
 	/**
 	 * @generated
 	 */
-	public Destination_destinatEditPart(View view) {
+	public Destination_UnknownEditPart(View view) {
 		super(view);
 	}
 

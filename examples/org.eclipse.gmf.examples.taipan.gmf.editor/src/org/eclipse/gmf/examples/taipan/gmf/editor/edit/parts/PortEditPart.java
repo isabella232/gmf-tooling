@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
@@ -73,7 +73,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 	 * @generated
 	 */
 	protected IFigure createNodeShape() {
-		box figure = new box();
+		PortFigure figure = new PortFigure();
 		figure.setUseLocalCoordinates(false);
 		return figure;
 	}
@@ -160,7 +160,7 @@ public class PortEditPart extends ShapeNodeEditPart {
 	/**
 	 * @generated
 	 */
-	public class box extends org.eclipse.draw2d.RectangleFigure {
+	public class PortFigure extends org.eclipse.draw2d.RectangleFigure {
 
 		/**
 		 * @generated
@@ -170,36 +170,36 @@ public class PortEditPart extends ShapeNodeEditPart {
 		/**
 		 * @generated
 		 */
-		public box() {
+		public PortFigure() {
 
-			org.eclipse.draw2d.IFigure childboxName = createFigureboxName();
-			setFigureboxName(childboxName);
-			add(childboxName);
+			org.eclipse.draw2d.IFigure childPortLocationFigure = createFigurePortLocationFigure();
+			setFigurePortLocationFigure(childPortLocationFigure);
+			add(childPortLocationFigure);
 
 		}
 
-		private org.eclipse.draw2d.IFigure fboxName;
+		private org.eclipse.draw2d.IFigure fPortLocationFigure;
 
 		/**
 		 * @generated
 		 */
-		public org.eclipse.draw2d.IFigure getFigureboxName() {
-			return fboxName;
-		}
-
-		/**
-		 * @generated
-		 */
-		protected void setFigureboxName(org.eclipse.draw2d.IFigure figure) {
-			fboxName = figure;
+		public org.eclipse.draw2d.IFigure getFigurePortLocationFigure() {
+			return fPortLocationFigure;
 		}
 
 		/**
 		 * @generated
 		 */
-		private org.eclipse.draw2d.IFigure createFigureboxName() {
+		protected void setFigurePortLocationFigure(org.eclipse.draw2d.IFigure figure) {
+			fPortLocationFigure = figure;
+		}
+
+		/**
+		 * @generated
+		 */
+		private org.eclipse.draw2d.IFigure createFigurePortLocationFigure() {
 			org.eclipse.draw2d.Label rv = new org.eclipse.draw2d.Label();
-			rv.setText("");
+			rv.setText("<...>");
 
 			return rv;
 		}

@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
@@ -66,14 +66,14 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 	 */
 	public List getRelTypesOnSource(IAdaptable source) {
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
-		if (sourceEditPart instanceof PortEditPart) {
-			List types = new ArrayList();
-			types.add(TaiPanElementTypes.Route_3001);
-			return types;
-		}
 		if (sourceEditPart instanceof ShipEditPart) {
 			List types = new ArrayList();
-			types.add(TaiPanElementTypes.ShipDestination_3002);
+			types.add(TaiPanElementTypes.ShipDestination_3001);
+			return types;
+		}
+		if (sourceEditPart instanceof PortEditPart) {
+			List types = new ArrayList();
+			types.add(TaiPanElementTypes.Route_3002);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -86,8 +86,8 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
 		if (targetEditPart instanceof PortEditPart) {
 			List types = new ArrayList();
-			types.add(TaiPanElementTypes.Route_3001);
-			types.add(TaiPanElementTypes.ShipDestination_3002);
+			types.add(TaiPanElementTypes.ShipDestination_3001);
+			types.add(TaiPanElementTypes.Route_3002);
 			return types;
 		}
 		return Collections.EMPTY_LIST;
@@ -99,17 +99,17 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 	public List getRelTypesOnSourceAndTarget(IAdaptable source, IAdaptable target) {
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
 		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
-		if (sourceEditPart instanceof PortEditPart) {
-			List types = new ArrayList();
-			if (targetEditPart instanceof PortEditPart) {
-				types.add(TaiPanElementTypes.Route_3001);
-			}
-			return types;
-		}
 		if (sourceEditPart instanceof ShipEditPart) {
 			List types = new ArrayList();
 			if (targetEditPart instanceof PortEditPart) {
-				types.add(TaiPanElementTypes.ShipDestination_3002);
+				types.add(TaiPanElementTypes.ShipDestination_3001);
+			}
+			return types;
+		}
+		if (sourceEditPart instanceof PortEditPart) {
+			List types = new ArrayList();
+			if (targetEditPart instanceof PortEditPart) {
+				types.add(TaiPanElementTypes.Route_3002);
 			}
 			return types;
 		}
@@ -123,11 +123,11 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 		IGraphicalEditPart targetEditPart = (IGraphicalEditPart) target.getAdapter(IGraphicalEditPart.class);
 		if (targetEditPart instanceof PortEditPart) {
 			List types = new ArrayList();
-			if (relationshipType == TaiPanElementTypes.Route_3001) {
-				types.add(TaiPanElementTypes.Port_1001);
-			}
-			if (relationshipType == TaiPanElementTypes.ShipDestination_3002) {
+			if (relationshipType == TaiPanElementTypes.ShipDestination_3001) {
 				types.add(TaiPanElementTypes.Ship_1002);
+			}
+			if (relationshipType == TaiPanElementTypes.Route_3002) {
+				types.add(TaiPanElementTypes.Port_1001);
 			}
 			return types;
 		}
@@ -139,16 +139,16 @@ public class TaiPanModelingAssistantProvider extends ModelingAssistantProvider {
 	 */
 	public List getTypesForTarget(IAdaptable source, IElementType relationshipType) {
 		IGraphicalEditPart sourceEditPart = (IGraphicalEditPart) source.getAdapter(IGraphicalEditPart.class);
-		if (sourceEditPart instanceof PortEditPart) {
+		if (sourceEditPart instanceof ShipEditPart) {
 			List types = new ArrayList();
-			if (relationshipType == TaiPanElementTypes.Route_3001) {
+			if (relationshipType == TaiPanElementTypes.ShipDestination_3001) {
 				types.add(TaiPanElementTypes.Port_1001);
 			}
 			return types;
 		}
-		if (sourceEditPart instanceof ShipEditPart) {
+		if (sourceEditPart instanceof PortEditPart) {
 			List types = new ArrayList();
-			if (relationshipType == TaiPanElementTypes.ShipDestination_3002) {
+			if (relationshipType == TaiPanElementTypes.Route_3002) {
 				types.add(TaiPanElementTypes.Port_1001);
 			}
 			return types;

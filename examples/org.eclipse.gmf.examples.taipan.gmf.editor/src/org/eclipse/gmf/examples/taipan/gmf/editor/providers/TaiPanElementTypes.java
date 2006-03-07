@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.providers;
 
@@ -157,8 +157,8 @@ public class TaiPanElementTypes {
 			elements.put(Item_2001, TaiPanPackage.eINSTANCE.getItem());
 			elements.put(Port_1001, TaiPanPackage.eINSTANCE.getPort());
 			elements.put(Ship_1002, TaiPanPackage.eINSTANCE.getShip());
-			elements.put(Route_3001, TaiPanPackage.eINSTANCE.getRoute());
-			elements.put(ShipDestination_3002, TaiPanPackage.eINSTANCE.getShip_Destination());
+			elements.put(ShipDestination_3001, TaiPanPackage.eINSTANCE.getShip_Destination());
+			elements.put(Route_3002, TaiPanPackage.eINSTANCE.getRoute());
 		}
 		return (ENamedElement) elements.get(type);
 	}
@@ -186,12 +186,12 @@ public class TaiPanElementTypes {
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType Route_3001 = new MetamodelType("Route_3001", null, "Route", TaiPanPackage.eINSTANCE.getRoute(), new NullEditHelper());
+	public static final IMetamodelType ShipDestination_3001 = new MetamodelType("ShipDestination_3001", null, "ShipDestination", null, new NullEditHelper());
 
 	/**
 	 * @generated
 	 */
-	public static final IMetamodelType ShipDestination_3002 = new MetamodelType("ShipDestination_3002", null, "ShipDestination", null, new NullEditHelper());
+	public static final IMetamodelType Route_3002 = new MetamodelType("Route_3002", null, "Route", TaiPanPackage.eINSTANCE.getRoute(), new NullEditHelper());
 
 	/**
 	 * @generated
@@ -201,8 +201,8 @@ public class TaiPanElementTypes {
 		ElementTypeRegistry.getInstance().register(Item_2001);
 		ElementTypeRegistry.getInstance().register(Port_1001);
 		ElementTypeRegistry.getInstance().register(Ship_1002);
-		ElementTypeRegistry.getInstance().register(Route_3001);
-		ElementTypeRegistry.getInstance().register(ShipDestination_3002);
+		ElementTypeRegistry.getInstance().register(ShipDestination_3001);
+		ElementTypeRegistry.getInstance().register(Route_3002);
 	}
 
 	/**

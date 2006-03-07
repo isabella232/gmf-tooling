@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
@@ -88,26 +88,26 @@ public class TaiPanEditPartFactory implements EditPartFactory {
 			case 79:
 				return new AquatoryEditPart(view);
 			case 3001:
-				return new RouteEditPart(view);
+				return new DestinationEditPart(view);
 			case 4004:
-				if (TaiPanSemanticHints.Route_3001Labels.ROUTEDESCRIPTION_4004_LABEL.equals(view.getType())) {
+				if (TaiPanSemanticHints.ShipDestination_3001Labels.SHIPDESTINATIONUNKNOWN_4004_LABEL.equals(view.getType())) {
+					return new Destination_UnknownEditPart(view);
+				} else {
+					return new Destination_UnknownTextEditPart(view);
+				}
+			case 3002:
+				return new RouteEditPart(view);
+			case 4005:
+				if (TaiPanSemanticHints.Route_3002Labels.ROUTEDESCRIPTION_4005_LABEL.equals(view.getType())) {
 					return new Route_descriptionEditPart(view);
 				} else {
 					return new Route_descriptionTextEditPart(view);
 				}
-			case 4005:
-				if (TaiPanSemanticHints.Route_3001Labels.ROUTERELIABILITY_4005_LABEL.equals(view.getType())) {
+			case 4006:
+				if (TaiPanSemanticHints.Route_3002Labels.ROUTERELIABILITY_4006_LABEL.equals(view.getType())) {
 					return new Route_reliabilityEditPart(view);
 				} else {
 					return new Route_reliabilityTextEditPart(view);
-				}
-			case 3002:
-				return new DestinationEditPart(view);
-			case 4006:
-				if (TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONDESTINATION_4006_LABEL.equals(view.getType())) {
-					return new Destination_destinatEditPart(view);
-				} else {
-					return new Destination_destinatTextEditPart(view);
 				}
 			}
 		}

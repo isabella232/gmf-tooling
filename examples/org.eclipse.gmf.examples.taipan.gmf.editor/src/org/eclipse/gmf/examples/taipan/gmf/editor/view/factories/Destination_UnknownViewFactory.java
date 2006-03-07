@@ -7,23 +7,22 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.view.factories;
 
 import org.eclipse.core.runtime.IAdaptable;
-
 import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EcoreFactory;
-
-import org.eclipse.gmf.runtime.diagram.ui.view.factories.BasicNodeViewFactory;
-
+import org.eclipse.gmf.runtime.diagram.core.util.ViewUtil;
+import org.eclipse.gmf.runtime.diagram.ui.view.factories.AbstractLabelViewFactory;
 import org.eclipse.gmf.runtime.notation.View;
+import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanSemanticHints;
 
 /**
  * @generated
  */
-public class Destination_destinatTextViewFactory extends BasicNodeViewFactory {
+public class Destination_UnknownViewFactory extends AbstractLabelViewFactory {
 
 	/**
 	 * @generated
@@ -34,6 +33,7 @@ public class Destination_destinatTextViewFactory extends BasicNodeViewFactory {
 		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "TaiPan"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "4006"); //$NON-NLS-1$
+		annotation.getDetails().put("visualID", "4004"); //$NON-NLS-1$
+		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.ShipDestination_3001Labels.SHIPDESTINATIONUNKNOWN_4004_TEXT, ViewUtil.APPEND, persisted, getPreferencesHint());
 	}
 }

@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.part;
 
@@ -36,20 +36,20 @@ public class TaiPanPaletteFactory {
 	 * @generated
 	 */
 	public void fillPalette(PaletteRoot paletteRoot) {
-		paletteRoot.add(createTaiPan1Group());
+		paletteRoot.add(createtaipan1Group());
 	}
 
 	/**
 	 * @generated
 	 */
-	private PaletteContainer createTaiPan1Group() {
-		PaletteContainer paletteContainer = createContainer("TaiPan");
+	private PaletteContainer createtaipan1Group() {
+		PaletteContainer paletteContainer = createContainer("taipan");
 		paletteContainer.add(createPort1001CreationTool());
 		paletteContainer.add(createShip1002CreationTool());
 		paletteContainer.add(createItem1003CreationTool());
 		paletteContainer.add(new PaletteSeparator());
-		paletteContainer.add(createRoute2001CreationTool());
-		paletteContainer.add(createDestination2002CreationTool());
+		paletteContainer.add(createShipDestination2001CreationTool());
+		paletteContainer.add(createRoute2002CreationTool());
 		return paletteContainer;
 	}
 
@@ -66,7 +66,7 @@ public class TaiPanPaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(TaiPanElementTypes.Port_1001);
-		return new ToolEntry("Port", "Create Port node", smallImage, largeImage) {
+		return new ToolEntry("Port", "Create new Port", smallImage, largeImage) {
 
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
@@ -89,7 +89,7 @@ public class TaiPanPaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(TaiPanElementTypes.Ship_1002);
-		return new ToolEntry("Ship", "Create Ship node", smallImage, largeImage) {
+		return new ToolEntry("Ship", "Create new Ship", smallImage, largeImage) {
 
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
@@ -112,7 +112,7 @@ public class TaiPanPaletteFactory {
 
 		final List elementTypes = new ArrayList();
 		elementTypes.add(TaiPanElementTypes.Item_2001);
-		return new ToolEntry("Item", "Create Item node", smallImage, largeImage) {
+		return new ToolEntry("Item", "Create new Item", smallImage, largeImage) {
 
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeCreationTool(elementTypes);
@@ -125,17 +125,17 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createRoute2001CreationTool() {
+	private ToolEntry createShipDestination2001CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Route_3001);
+		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.ShipDestination_3001);
 
 		largeImage = smallImage;
 
 		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(TaiPanElementTypes.Route_3001);
-		return new ToolEntry("Route", "Create Route link", smallImage, largeImage) {
+		relationshipTypes.add(TaiPanElementTypes.ShipDestination_3001);
+		return new ToolEntry("ShipDestination", "Create new ShipDestination", smallImage, largeImage) {
 
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeConnectionTool(relationshipTypes);
@@ -148,17 +148,17 @@ public class TaiPanPaletteFactory {
 	/**
 	 * @generated
 	 */
-	private ToolEntry createDestination2002CreationTool() {
+	private ToolEntry createRoute2002CreationTool() {
 		ImageDescriptor smallImage;
 		ImageDescriptor largeImage;
 
-		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.ShipDestination_3002);
+		smallImage = TaiPanElementTypes.getImageDescriptor(TaiPanElementTypes.Route_3002);
 
 		largeImage = smallImage;
 
 		final List relationshipTypes = new ArrayList();
-		relationshipTypes.add(TaiPanElementTypes.ShipDestination_3002);
-		return new ToolEntry("Destination", "Create Destination link", smallImage, largeImage) {
+		relationshipTypes.add(TaiPanElementTypes.Route_3002);
+		return new ToolEntry("Route", "Create new Route", smallImage, largeImage) {
 
 			public Tool createTool() {
 				Tool tool = new UnspecifiedTypeConnectionTool(relationshipTypes);

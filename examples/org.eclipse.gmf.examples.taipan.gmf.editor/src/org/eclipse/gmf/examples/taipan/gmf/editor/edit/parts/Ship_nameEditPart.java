@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.edit.parts;
 
@@ -15,6 +15,9 @@ import org.eclipse.gmf.runtime.diagram.ui.editparts.TextCompartmentEditPart;
 import org.eclipse.gmf.runtime.notation.View;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
+
 import org.eclipse.emf.ecore.EObject;
 
 import org.eclipse.gmf.examples.taipan.gmf.editor.part.TaiPanDiagramEditorPlugin;
@@ -23,6 +26,8 @@ import org.eclipse.gmf.examples.taipan.gmf.editor.providers.TaiPanElementTypes;
 
 import org.eclipse.gmf.runtime.common.ui.services.parser.IParser;
 import org.eclipse.gmf.runtime.common.ui.services.parser.ParserService;
+
+import org.eclipse.gmf.runtime.draw2d.ui.figures.WrapLabel;
 
 import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 
@@ -55,10 +60,28 @@ public class Ship_nameEditPart extends TextCompartmentEditPart {
 	/**
 	 * @generated
 	 */
+	private String defaultText;
+
+	/**
+	 * @generated
+	 */
+	protected IFigure createFigure() {
+		IFigure figure = super.createFigure();
+		if (figure instanceof Label) {
+			defaultText = ((Label) figure).getText();
+		} else if (figure instanceof WrapLabel) {
+			defaultText = ((WrapLabel) figure).getText();
+		}
+		return figure;
+	}
+
+	/**
+	 * @generated
+	 */
 	protected String getLabelText() {
 		String text = super.getLabelText();
 		if (text == null || text.length() == 0) {
-			return "<...>";
+			return defaultText;
 		}
 		return text;
 	}

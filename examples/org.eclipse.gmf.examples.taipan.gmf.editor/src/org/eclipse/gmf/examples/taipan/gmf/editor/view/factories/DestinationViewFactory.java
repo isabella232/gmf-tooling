@@ -7,7 +7,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Dmitri Stadnik (Borland) - initial API and implementation
+ *    Dmitry Stadnik (Borland) - initial API and implementation
  */
 package org.eclipse.gmf.examples.taipan.gmf.editor.view.factories;
 
@@ -35,8 +35,8 @@ public class DestinationViewFactory extends ConnectionViewFactory {
 		annotation.setSource("ViewIdentifier"); //$NON-NLS-1$
 		view.getEAnnotations().add(annotation);
 		annotation.getDetails().put("modelID", "TaiPan"); //$NON-NLS-1$
-		annotation.getDetails().put("visualID", "3002"); //$NON-NLS-1$
-		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.ShipDestination_3002Labels.SHIPDESTINATIONDESTINATION_4006_LABEL, ViewUtil.APPEND, true, getPreferencesHint());
-		view.setType(TaiPanSemanticHints.ShipDestination_3002);
+		annotation.getDetails().put("visualID", "3001"); //$NON-NLS-1$
+		getViewService().createNode(semanticAdapter, view, TaiPanSemanticHints.ShipDestination_3001Labels.SHIPDESTINATIONUNKNOWN_4004_LABEL, ViewUtil.APPEND, true, getPreferencesHint());
+		view.setType(TaiPanSemanticHints.ShipDestination_3001);
 	}
 }
