@@ -8,6 +8,7 @@ final GenModel genModel = editorGen.getDomainGenModel();
 %>
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
+<%@ include file="../copyright4xml.jetinc"%>
 <plugin>
 
    <extension point="org.eclipse.core.runtime.preferences">
