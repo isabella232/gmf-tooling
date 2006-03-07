@@ -167,7 +167,7 @@ public class MapDefFeeder {
 	}
 
 	public NodeReference[] getInitialNodes() {
-		return (NodeReference[]) nodesFrom(myNodeCandidates).toArray(new NodeMapping[0]);
+		return (NodeReference[]) nodesFrom(myNodeCandidates).toArray(new NodeReference[0]);
 	}
 
 	public LinkMapping[] getInitialLinks() {
