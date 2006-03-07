@@ -368,7 +368,7 @@ public class EntriesPage extends WizardPage {
 					getMapInstance().getNodes().add(tnr);
 					getMapInstance().getLinks().remove(selectedLink);
 					linksList.remove(linksList.getSelectionIndex());
-					nodesList.add(myLabelProvider.getText(nm));
+					nodesList.add(myLabelProvider.getText(tnr));
 					nodesList.setSelection(nodesList.getItemCount() - 1);
 					handleNodesListSelectionChange();
 				}
@@ -440,6 +440,8 @@ public class EntriesPage extends WizardPage {
 			restoreButton.addListener(SWT.Selection, new Listener() {
 				public void handleEvent(Event event) {
 					ListDialog d = new ListDialog(getShell());
+					d.setTitle(isNodeInSelection ? "Restore nodes" : "Restore links");
+					d.setMessage("Choose elements to revive");
 					d.setContentProvider(new IStructuredContentProvider() {
 						public Object[] getElements(Object inputElement) {
 							return (Object[]) inputElement;
