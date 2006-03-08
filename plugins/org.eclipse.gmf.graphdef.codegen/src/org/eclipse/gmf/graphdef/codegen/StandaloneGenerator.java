@@ -14,9 +14,12 @@ package org.eclipse.gmf.graphdef.codegen;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -36,6 +39,13 @@ public class StandaloneGenerator extends GeneratorBase {
 	private final StandaloneEmitters myAuxiliaryGenerators;
 	private boolean mySkipPluginStructire;
 	private final FigureQualifiedNameSwitch myFigureNameSwitch;
+	private final GenerationInfoImpl myGenerationInfo;
+	
+	public interface GenerationInfo {
+		public Config getConfig(); 
+		public Enumeration/*<Figure>*/ getProcessedFigures();
+		public String getGeneratedClassFQN(Figure figure);
+	}
 	
 	public interface Config {
 		public String getPluginID();
@@ -129,6 +139,11 @@ public class StandaloneGenerator extends GeneratorBase {
 				new FigureGenerator(getPackageName(), importAssistant, fqnSwitch, strategy)
 		);
 		myAuxiliaryGenerators = new StandaloneEmitters();
+		myGenerationInfo = new GenerationInfoImpl(myArgs);
+	}
+	
+	public GenerationInfo getGenerationInfo() {
+		return myGenerationInfo;
 	}
 	
 	/**
@@ -139,12 +154,6 @@ public class StandaloneGenerator extends GeneratorBase {
 		mySkipPluginStructire = skipManifest;
 	}
 	
-	private static String composePluginActivatorClassFQN(Config config) {
-		String packageName = config.getPluginActivatorPackageName();
-		String className = config.getPluginActivatorClassName();
-		return packageName == null || "".equals(packageName) ? className : packageName + "." + className; 
-	}
-
 	protected void setupProgressMonitor() {
 		//setupProgressMonitor("Generating GMFGraph plugin", 100);
 	}
@@ -203,13 +212,26 @@ public class StandaloneGenerator extends GeneratorBase {
 	}
 	
 	private void visitFigure(Figure figure) throws InterruptedException {
-		doGenerateJavaClass(myFigureGenerator, getPackageName(), figure.getName(), figure);
+		String packageName = getPackageName();
+		String className = figure.getName();
+		doGenerateJavaClass(myFigureGenerator, packageName, className, figure);
+		myGenerationInfo.registerFQN(figure, composeFQN(packageName, className));
 	}
 
 	private String getPackageName(){
 		return myArgs.getMainPackageName();
 	}
+	
+	private static String composePluginActivatorClassFQN(Config config) {
+		String packageName = config.getPluginActivatorPackageName();
+		String className = config.getPluginActivatorClassName();
+		return composeFQN(packageName, className);
+	}
 
+	private static String composeFQN(String packageName, String className){
+		return packageName == null || "".equals(packageName) ? className : packageName + "." + className; 
+	}
+	
 	private static class FigureGeneratorAdapter implements GeneratorBase.Emitter {
 		private final FigureGenerator myDelegate;
 
@@ -223,6 +245,32 @@ public class StandaloneGenerator extends GeneratorBase {
 			}
 			return myDelegate.go((Figure)param);
 		}
+	}
+	
+	private static class GenerationInfoImpl implements GenerationInfo {
+		private final Map myFigure2FQN = new IdentityHashMap();
+		private final Config myConfig;
+		
+		public GenerationInfoImpl(Config config){
+			myConfig = config;
+		}
+		
+		public Config getConfig() {
+			return myConfig;
+		}
+		
+		public void registerFQN(Figure figure, String fqn){
+			myFigure2FQN.put(figure, fqn);
+		}
+		
+		public String getGeneratedClassFQN(Figure figure) {
+			return (String)myFigure2FQN.get(figure);
+		}
+		
+		public Enumeration getProcessedFigures() {
+			return Collections.enumeration(myFigure2FQN.keySet());
+		}
+		
 	}
 	
 }

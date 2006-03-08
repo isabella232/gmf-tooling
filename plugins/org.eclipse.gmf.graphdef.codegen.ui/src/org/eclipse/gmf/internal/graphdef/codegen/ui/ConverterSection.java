@@ -59,16 +59,20 @@ public class ConverterSection extends OptionTemplateSection {
 	public static final String OPTION_MAIN_PACKAGE_NAME = SECTION_ID + ".mainPackageName";
 	public static final String OPTION_NEEDS_MAP_MODE = SECTION_ID + ".needsMapMode";
 	public static final String OPTION_INPUT_RESOURCE_FULL_PATH = SECTION_ID + ".inputResource";
+	public static final String OPTION_OUTPUT_RESOURCE_FULL_PATH = SECTION_ID + ".outputResource";
 	
 	private TemplateOption myPackageNameOption;
 	private FileNameOption myInputPathOption;
+	private FileNameOption myOutputGalleryPathOption;
 	private final CachedInputValidationState myCachedInputValidationState;
 	private ManifestElement[] myRequiredBundles;
 	
 	public ConverterSection(){
 		setPageCount(THE_ONLY_PAGE_INDEX + 1);
 		myPackageNameOption = addOption(OPTION_MAIN_PACKAGE_NAME, "Generate figures package", null, THE_ONLY_PAGE_INDEX);
-		myInputPathOption = addFileNameOption(OPTION_INPUT_RESOURCE_FULL_PATH, "Input GMFGraph instance", "", THE_ONLY_PAGE_INDEX);
+		myInputPathOption = addFileNameOption(false, OPTION_INPUT_RESOURCE_FULL_PATH, "Input GMFGraph instance", "", THE_ONLY_PAGE_INDEX);
+		myOutputGalleryPathOption = addFileNameOption(true, OPTION_OUTPUT_RESOURCE_FULL_PATH, "Create Figure Gallery", "", THE_ONLY_PAGE_INDEX);
+		myOutputGalleryPathOption.setRequired(false);
 		addOption(OPTION_NEEDS_MAP_MODE, "Use IMapMode", false, THE_ONLY_PAGE_INDEX);
 		myCachedInputValidationState = new CachedInputValidationState();
 	}
@@ -82,6 +86,7 @@ public class ConverterSection extends OptionTemplateSection {
 		markPagesAdded();
 		validateOptions(myPackageNameOption);
 		validateOptions(myInputPathOption);
+		validateOptions(myOutputGalleryPathOption);
 	}
 
 	public IPluginReference[] getDependencies(String schemaVersion) {
@@ -115,6 +120,22 @@ public class ConverterSection extends OptionTemplateSection {
 		}
 		if (!generator.getRunStatus().isOK()){
 			throw new CoreException(generator.getRunStatus());
+		}
+		createFigureGallery(generator.getGenerationInfo());
+	}
+	
+	private void createFigureGallery(StandaloneGenerator.GenerationInfo info) throws CoreException {
+		if (!myOutputGalleryPathOption.isEmpty()){
+			String path = myOutputGalleryPathOption.getText();
+			Resource galleryResource = new ResourceSetImpl().createResource(URI.createFileURI(path));
+			galleryResource.getContents().add(new StandaloneGalleryConverter().convertFigureGallery(info));
+			try {
+				galleryResource.save(null);
+			} catch (IOException e) {
+				throw new CoreException(new Status(//
+						IStatus.ERROR, MY_PLUGIN_ID, 0, e.getMessage(), e
+				));
+			}
 		}
 	}
 	
@@ -175,6 +196,9 @@ public class ConverterSection extends OptionTemplateSection {
 			return;
 		}
 		if (!validateInputPath()){
+			return;
+		}
+		if (!validateOutputGalleryPath()){
 			return;
 		}
 		resetPageState();
@@ -240,8 +264,9 @@ public class ConverterSection extends OptionTemplateSection {
 		return buffer.toString().toLowerCase(Locale.ENGLISH);
 	}
 
-	private FileNameOption addFileNameOption(String name, String label, String value, int pageIndex) {
+	private FileNameOption addFileNameOption(boolean saveNotLoad, String name, String label, String value, int pageIndex) {
 		FileNameOption result = new FileNameOption(this, name, label, new String[] {"*.gmfgraph"});
+		result.setSaveNotLoad(saveNotLoad);
 		registerOption(result, value, pageIndex);
 		return result;
 	}
@@ -264,6 +289,23 @@ public class ConverterSection extends OptionTemplateSection {
 		if (!myCachedInputValidationState.isValid()){
 			getTheOnlyPage().setPageComplete(false);
 			getTheOnlyPage().setErrorMessage(myCachedInputValidationState.getErrorMessage());
+			return false;
+		}
+		return true;
+	}
+	
+	private boolean validateOutputGalleryPath() {
+		if (myOutputGalleryPathOption.isEmpty()){
+			//optional -- ok
+			return true;
+		}
+		String path = myOutputGalleryPathOption.getText();
+		try {
+			URI.createFileURI(path);
+		} catch (IllegalArgumentException e){
+			String message = MessageFormat.format("Path {0} is invalid", new Object[] {path});
+			getTheOnlyPage().setPageComplete(false);
+			getTheOnlyPage().setErrorMessage(message);
 			return false;
 		}
 		return true;

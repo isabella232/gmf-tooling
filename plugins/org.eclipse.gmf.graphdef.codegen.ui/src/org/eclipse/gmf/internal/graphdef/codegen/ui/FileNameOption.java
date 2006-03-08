@@ -36,6 +36,7 @@ public class FileNameOption extends TemplateOption {
 	private Label myLabelControl;
 	private Button myBrowseButton;
 	private boolean myIgnoreListener;
+	private boolean mySaveNotLoad;
 	
 	/**
 	 * @param section
@@ -49,6 +50,10 @@ public class FileNameOption extends TemplateOption {
 		super(section, name, label);
 		setRequired(true);
 		myExtensions = extensions;
+	}
+	
+	public void setSaveNotLoad(boolean saveNotLoad){
+		mySaveNotLoad = saveNotLoad;
 	}
 	
 	/**
@@ -109,7 +114,7 @@ public class FileNameOption extends TemplateOption {
 		groupLayout.marginWidth = 0;
 		groupLayout.marginHeight = 0;
 		groupLayout.verticalSpacing = 0;
-		groupLayout.horizontalSpacing = 0;
+		groupLayout.horizontalSpacing = 5;
 		textAndButtonGroup.setLayout(groupLayout);
 
 		GridData groupLayoutData = new GridData(GridData.FILL_HORIZONTAL);
@@ -145,10 +150,14 @@ public class FileNameOption extends TemplateOption {
 			}
 		
 			public void widgetSelected(SelectionEvent e) {
-				FileDialog fileDialog = new FileDialog(e.display.getActiveShell(), SWT.PRIMARY_MODAL | SWT.OPEN);
+				FileDialog fileDialog = new FileDialog(e.display.getActiveShell(), getSaveNotLoadDialogStyle() | SWT.PRIMARY_MODAL);
 				fileDialog.setFilterExtensions(myExtensions);
 				setText(fileDialog.open());
 				getSection().validateOptions(FileNameOption.this);
+			}
+			
+			private int getSaveNotLoadDialogStyle(){
+				return FileNameOption.this.isSaveNotLoad() ? SWT.SAVE : SWT.OPEN;
 			}
 		});
 	}
@@ -175,5 +184,9 @@ public class FileNameOption extends TemplateOption {
 			myText.setEnabled(enabled);
 			myBrowseButton.setEnabled(enabled);
 		}
+	}
+	
+	private boolean isSaveNotLoad(){
+		return mySaveNotLoad;
 	}
 }
