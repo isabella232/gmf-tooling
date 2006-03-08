@@ -38,6 +38,7 @@ import org.eclipse.emf.common.ui.viewer.IViewerProvider;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EValidator;
+import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
@@ -476,6 +477,7 @@ public class GMFMapEditor
 		factories.add(new GMFMapItemProviderAdapterFactory());
 		factories.add(new GMFGraphItemProviderAdapterFactory());
 		factories.add(new GMFToolItemProviderAdapterFactory());
+		factories.add(new EcoreItemProviderAdapterFactory());
 		factories.add(new ReflectiveItemProviderAdapterFactory());
 
 		adapterFactory = new ComposedAdapterFactory(factories);
